@@ -1,5 +1,6 @@
+import React from "react"
 import { Layout as ThemeLayout } from "theme-ui"
-import UIContextProvider from "../context/UIContext"
+import { UIContextProvider } from "../context/UIContext"
 
 const Layout = props => (
   <ThemeLayout>

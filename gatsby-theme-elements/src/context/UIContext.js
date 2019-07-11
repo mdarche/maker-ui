@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import themeOptions from "../options"
+import themeOptions from "../../options"
 
 const UIContext = React.createContext()
 

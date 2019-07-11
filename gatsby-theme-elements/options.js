@@ -1,5 +1,3 @@
-// Layout Options
-
 export default {
   // Top Bar
   topBar: false,
@@ -15,5 +13,5 @@ export default {
   sideBarPosition: "left", // left or right
   sideBarCollapse: 960,
   // Footer
-  footerColumns: 3,
+  widgetColumns: 3,
 }

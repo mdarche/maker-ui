@@ -941,6 +941,11 @@
   dependencies:
     "@hapi/hoek" "8.x.x"
 
+"@mdx-js/react@^1.0.23":
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/@mdx-js/react/-/react-1.0.23.tgz#4120079ee4dda6a484b15a4ba8f17909b59bb829"
+  integrity sha512-cyBgTbeeqiocAh49gU6E+6bQAhNaW36QZjlkGcOKD5APWYlT9sBcI730lB4zjlaVvetl2Luk9QyWh/SPBoc+EA==
+
 "@mikaelkristiansson/domready@^1.0.9":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@mikaelkristiansson/domready/-/domready-1.0.9.tgz#b2b85d8ac7bb2797e577050b61aeaf1b26fbd906"
@@ -4343,6 +4348,13 @@ gatsby-plugin-page-creator@^2.1.2:
     glob "^7.1.1"
     lodash "^4.17.10"
     micromatch "^3.1.10"
+
+gatsby-plugin-react-helmet@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.1.1.tgz#3f3b8a8786919e17ab1b514a51c40d9f870f0e12"
+  integrity sha512-gsajFbqxaFaAT940081w2LVQzYtNNPmP9vlw4Pt6ozNc5928UU8p7PAyilGbC9+3vrdw3H75GpGzFjRg3fOy8A==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
 
 gatsby-plugin-svgr@^2.0.2:
   version "2.0.2"
