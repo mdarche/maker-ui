@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import { Layout as ThemeLayout } from "theme-ui"
 import { UIContextProvider } from "../context/UIContext"
 

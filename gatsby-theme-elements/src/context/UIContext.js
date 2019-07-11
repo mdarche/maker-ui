@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import themeOptions from "../../options"
 
 const UIContext = React.createContext()
