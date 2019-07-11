@@ -22,6 +22,7 @@
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
     "gatsby-plugin-emotion": "^4.1.0",
+    "gatsby-plugin-svgr": "^2.0.2",
     "gatsby-plugin-theme-ui": "^0.2.6",
     "prop-types": "^15.7.2",
     "react-helmet": "^5.2.1",
