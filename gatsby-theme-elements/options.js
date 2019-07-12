@@ -6,7 +6,7 @@
 
 export default {
   topBar: {
-    show: false,
+    sticky: false,
     hideOnMobile: true,
   },
   header: {

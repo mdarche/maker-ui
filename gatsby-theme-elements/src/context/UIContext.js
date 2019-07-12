@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react"
 import themeOptions from "../../options"
 
 const UIContext = React.createContext()
-// const UIUpdateContext = React.createContext()
 
 // Create provider
 
@@ -13,18 +12,12 @@ const UIContextProvider = ({ children }) => {
     return { options, setOptions }
   }, [options])
 
-  return (
-    <UIContext.Provider value={value}>
-      {/* <UIUpdateContext.Provider value={setOptions}> */}
-      {children}
-      {/* </UIUpdateContext.Provider> */}
-    </UIContext.Provider>
-  )
+  return <UIContext.Provider value={value}>{children}</UIContext.Provider>
 }
 
-// Expose theme options
+// Expose options to layout components & child themes
 
-const getOptions = newOptions => {
+const getOptions = () => {
   const { options } = useContext(UIContext)
   if (options === undefined) {
     throw new Error("getOptions must be used within a UIContextProvider")
@@ -32,15 +25,17 @@ const getOptions = newOptions => {
   return options
 }
 
-const setOptions = newOptions => {
-  // const { setOptions } = useContext(UIUpdateContext)
-  // if (setOptions === undefined) {
-  //   throw new Error("setOptions must be used within a UIContextProvider")
-  // }
-  // return setOptions(options => ({
-  //   ...options,
-  //   ...newOptions,
-  // }))
+const measure = () => {
+  const { setOptions } = useContext(UIContext)
+
+  function getTopBarHeight(height) {
+    setOptions(options => ({
+      ...options,
+      topBar: { ...options.topBar, height },
+    }))
+  }
+
+  return { getTopBarHeight }
 }
 
-export { UIContextProvider, getOptions, setOptions }
+export { UIContextProvider, getOptions, measure }

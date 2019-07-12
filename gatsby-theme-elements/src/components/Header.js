@@ -8,7 +8,8 @@ const Header = props => {
   const stickyPartial = options.header.sticky
     ? {
         position: "sticky",
-        top: 0,
+        top: options.topBar.sticky ? options.topBar.height : 0,
+        zIndex: 99,
       }
     : null
 
@@ -31,8 +32,7 @@ const Header = props => {
           justifyContent: "space-between",
           m: `0 auto`,
           width: "100%",
-          // maxWidth: "headerContentWidth",
-          maxWidth: options.header.contentMaxWidth,
+          maxWidth: "headerContentWidth",
         }}
         {...props}
       />
