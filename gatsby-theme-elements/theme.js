@@ -1,5 +1,5 @@
 /**
- * Add your own custom Theme UI style object here
+ * Shadow this file to add your own Theme UI settings
  *
  * See: https://theme-ui.com/getting-started
  */

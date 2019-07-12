@@ -1,3 +1,9 @@
+/**
+ * Shadow this file to customize the theme layout
+ *
+ * See: https://github.com/mdarche/gatsby-theme-elements
+ */
+
 export default {
   topBar: {
     show: false,
@@ -19,6 +25,6 @@ export default {
     collapse: 960,
   },
   footer: {
-    columns: 3,
+    widgetColumns: 3,
   },
 }
