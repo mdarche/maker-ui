@@ -1,9 +1,12 @@
 import styles from "./styles"
+import options from "../../options"
 
 export default {
   initialColorMode: "light",
   colors: {
     text: "#000",
+    headerBG: "#635",
+    headerText: "#000",
     background: "#fff",
     primary: "#07c",
     secondary: "#05a",
@@ -33,6 +36,15 @@ export default {
   lineHeights: {
     body: 1.5,
     heading: 1.125,
+  },
+  shadows: {
+    headerShadow: "0 0 1px 3px rgba(0, 0, 0, .125)",
+  },
+  borders: {
+    headerBorder: "1px solid gainsboro",
+  },
+  sizes: {
+    headerContentWidth: options.header.contentMaxWidth,
   },
   breakpoints: ["40em", "56em", "64em"],
   styles,

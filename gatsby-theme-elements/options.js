@@ -10,21 +10,25 @@ export default {
     hideOnMobile: true,
   },
   header: {
-    sticky: false,
-    contentMaxWidth: "100%",
+    sticky: true,
+    contentMaxWidth: 1260,
     mobileNavStyle: "fade", // fade, fadeInUp, fadeInDown, slideRight, slideLeft
     mobileNavWidth: "100vw",
     mobileNavSpring: { tension: 170, friction: 26 }, // default react spring
   },
   content: {
+    paddingTop: 80,
     maxWidth: 1260,
+    columnGap: 30,
   },
   sideBar: {
     show: false,
+    width: 300,
     position: "left",
     collapse: 960,
   },
   footer: {
-    widgetColumns: 3,
+    columns: 3,
+    columnGap: 30,
   },
 }

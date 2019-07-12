@@ -1,6 +1,6 @@
 import { css } from "@emotion/core"
 
-export default css`
+export default `
   html,
   body,
   div,

@@ -7,6 +7,9 @@ const heading = {
 }
 
 export default {
+  header: {
+    justifyContent: "flex-start",
+  },
   h1: {
     ...heading,
     fontSize: [5, 6],
