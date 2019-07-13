@@ -3,7 +3,6 @@ import {
   Layout as ThemeLayout,
   Header,
   Main,
-  Sidebar,
   Topbar,
   Footer,
 } from "gatsby-theme-elements"
@@ -14,25 +13,15 @@ const Layout = props => (
     <Header>
       <div className="logo">Logo</div>
       <ul className="menu">
-        <li>
-          <a>Test</a>
-        </li>
-        <li>
-          <a>Test</a>
-        </li>
-        <li>
-          <a>Test</a>
-        </li>
-        <li>
-          <a>Test</a>
-        </li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
       </ul>
     </Header>
     <Main>
-      <div className="content">{props.children}</div>
-      <Sidebar>
-        <div>Sidebar area</div>
-      </Sidebar>
+      <div>Sidebar</div>
+      <div>{props.children}</div>
     </Main>
     <Footer />
   </ThemeLayout>

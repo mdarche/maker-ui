@@ -7,25 +7,22 @@
 export default {
   topBar: {
     sticky: false,
-    hideOnMobile: true,
+    hideOnMobile: false,
   },
   header: {
     sticky: true,
-    contentMaxWidth: 1260,
+    maxWidth: 1260,
     mobileNavStyle: "fade", // fade, fadeInUp, fadeInDown, slideRight, slideLeft
     mobileNavWidth: "100vw",
-    mobileNavSpring: { tension: 170, friction: 26 }, // default react spring
+    mobileNavSpring: { tension: 170, friction: 26 },
   },
   content: {
-    paddingTop: 80,
+    padding: "80px 20px 0",
     maxWidth: 1260,
     columnGap: 30,
-  },
-  sideBar: {
-    show: false,
-    width: 300,
-    position: "left",
-    collapse: 960,
+    sideBar: true,
+    sbWidth: ".3fr",
+    sbPosition: "left",
   },
   footer: {
     columns: 3,

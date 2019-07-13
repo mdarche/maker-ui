@@ -46,7 +46,8 @@ export default {
     headerBorder: "1px solid gainsboro",
   },
   sizes: {
-    headerContentWidth: options.header.contentMaxWidth,
+    headerWidth: options.header.maxWidth,
+    contentWidth: options.content.maxWidth,
   },
   breakpoints: ["40em", "56em", "64em"],
   styles,

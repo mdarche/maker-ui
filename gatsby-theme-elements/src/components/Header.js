@@ -4,20 +4,22 @@ import { getOptions } from "../context/UIContext"
 
 const Header = props => {
   const options = getOptions()
+  const { sticky, maxWidth, background, justify } = props
 
-  const stickyPartial = options.header.sticky
-    ? {
-        position: "sticky",
-        top: options.topBar.sticky ? options.topBar.height : 0,
-        zIndex: 99,
-      }
-    : null
+  const stickyPartial =
+    sticky || options.header.sticky
+      ? {
+          position: "sticky",
+          top: options.topBar.sticky ? options.topBar.height : 0,
+          zIndex: 99,
+        }
+      : null
 
   return (
     <header
       sx={{
         color: "headerText",
-        bg: "headerBG",
+        bg: background || "headerBG",
         p: 3,
         fontFamily: "body",
         boxShadow: "headerShadow",
@@ -29,10 +31,10 @@ const Header = props => {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: justify || "space-between",
           m: `0 auto`,
           width: "100%",
-          maxWidth: "headerContentWidth",
+          maxWidth: maxWidth || "headerWidth",
         }}
         {...props}
       />
