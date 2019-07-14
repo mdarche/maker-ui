@@ -1,16 +1,18 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { getOptions } from "../context/UIContext"
+import { getMeasurements } from "../context/MeasureContext"
 
 const Header = props => {
   const options = getOptions()
-  const { sticky, maxWidth, background, justify } = props
+  const topbarHeight = getMeasurements().topbarHeight
+  const { sticky, maxWidth, background } = props
 
   const stickyPartial =
     sticky || options.header.sticky
       ? {
           position: "sticky",
-          top: options.topBar.sticky ? options.topBar.height : 0,
+          top: options.topbar.sticky ? topbarHeight : 0,
           zIndex: 99,
         }
       : null
@@ -18,12 +20,11 @@ const Header = props => {
   return (
     <header
       sx={{
-        color: "headerText",
-        bg: background || "headerBG",
+        bg: background || "bg_header",
         p: 3,
-        fontFamily: "body",
-        boxShadow: "headerShadow",
-        borderBottom: "headerBorder",
+        fontFamily: "nav",
+        boxShadow: "header",
+        borderBottom: "header",
         ...stickyPartial,
       }}
     >
@@ -31,10 +32,10 @@ const Header = props => {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: justify || "space-between",
+          justifyContent: "space-between",
           m: `0 auto`,
           width: "100%",
-          maxWidth: maxWidth || "headerWidth",
+          maxWidth: maxWidth || "max_header",
         }}
         {...props}
       />

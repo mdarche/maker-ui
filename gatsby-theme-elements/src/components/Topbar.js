@@ -1,16 +1,17 @@
 /** @jsx jsx */
 import { useRef, useLayoutEffect } from "react"
 import { jsx } from "theme-ui"
-import { measure, getOptions } from "../context/UIContext"
+import { getOptions } from "../context/UIContext"
+import { measure } from "../context/MeasureContext"
 
 const Topbar = props => {
-  const { background, textColor, sticky } = props
-  const options = getOptions().topBar
-  const topBarRef = useRef(null)
-  const { getTopBarHeight } = measure()
+  const { background, color, sticky, maxWidth } = props
+  const options = getOptions().topbar
+  const topbarRef = useRef(null)
+  const { getTopbarHeight } = measure()
 
   useLayoutEffect(() => {
-    getTopBarHeight(topBarRef.current.clientHeight)
+    getTopbarHeight(topbarRef.current.clientHeight)
   }, [])
 
   const stickyPartial =
@@ -23,20 +24,27 @@ const Topbar = props => {
 
   return (
     <aside
-      ref={topBarRef}
+      ref={topbarRef}
       sx={{
         display:
           !options.sticky && options.hideOnMobile ? ["none", "block"] : "block",
         p: 2,
-        bg: background || "topbarBG",
-        fontFamily: "body",
-        color: textColor || "topbarText",
+        bg: background || "bg_topbar",
+        fontFamily: "topbar" || "body",
+        color: color || "topbar" || "body",
         zIndex: 100,
         overflowX: "scroll",
         ...stickyPartial,
       }}
-      {...props}
-    />
+    >
+      <div
+        sx={{
+          m: "0 auto",
+          maxWidth: maxWidth || "max_topbar",
+        }}
+        {...props}
+      />
+    </aside>
   )
 }
 

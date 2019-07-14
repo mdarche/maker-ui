@@ -5,8 +5,9 @@
  */
 
 export default {
-  topBar: {
+  topbar: {
     sticky: false,
+    maxWidth: 1260,
     hideOnMobile: false,
   },
   header: {
@@ -20,11 +21,12 @@ export default {
     padding: "80px 20px 0",
     maxWidth: 1260,
     columnGap: 30,
-    sideBar: true,
+    sidebar: true,
     sbWidth: ".3fr",
     sbPosition: "left",
   },
   footer: {
+    maxWidth: 1260,
     columns: 3,
     columnGap: 30,
   },
