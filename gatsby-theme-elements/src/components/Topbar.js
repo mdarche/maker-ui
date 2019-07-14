@@ -4,7 +4,7 @@ import { jsx } from "theme-ui"
 import { measure, getOptions } from "../context/UIContext"
 
 const Topbar = props => {
-  const { background, textColor, sticky } = props
+  const { background, color, sticky } = props
   const options = getOptions().topBar
   const topBarRef = useRef(null)
   const { getTopBarHeight } = measure()
@@ -28,9 +28,9 @@ const Topbar = props => {
         display:
           !options.sticky && options.hideOnMobile ? ["none", "block"] : "block",
         p: 2,
-        bg: background || "topbarBG",
-        fontFamily: "body",
-        color: textColor || "topbarText",
+        bg: background || "bg_topbar",
+        fontFamily: "topbar" || "body",
+        color: color || "topbar" || "body",
         zIndex: 100,
         overflowX: "scroll",
         ...stickyPartial,

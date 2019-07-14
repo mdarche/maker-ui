@@ -1,6 +1,25 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 
-const Footer = props => <footer {...props} />
+const Footer = props => {
+  const { background, maxWidth } = props
+  return (
+    <footer
+      sx={{
+        p: 3,
+        bg: background || "bg_footer",
+        borderTop: "footer",
+      }}
+    >
+      <div
+        sx={{
+          m: "auto 0",
+          maxWidth: maxWidth || "max_footer",
+        }}
+        {...props}
+      />
+    </footer>
+  )
+}
 
 export default Footer

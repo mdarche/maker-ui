@@ -4,16 +4,16 @@ import options from "../../options"
 export default {
   initialColorMode: "light",
   colors: {
-    topbarBG: "#609",
-    topbarText: "#fff",
-    headerBG: "#fff",
-    headerText: "#000",
     background: "#fff",
     primary: "#07c",
     secondary: "#05a",
     text: "#000",
     accent: "#609",
     muted: "#f6f6f6f",
+    bg_topbar: "#609",
+    bg_header: "#fff",
+    bg_widgets: "#fff",
+    bg_footer: "#fff",
     modes: {
       dark: {
         text: "#fff",
@@ -25,6 +25,8 @@ export default {
     },
   },
   fonts: {
+    topbar: "system-ui, sans-serif",
+    nav: "system-ui, sans-serif",
     body: "system-ui, sans-serif",
     heading: "system-ui, sans-serif",
     monospace: "Menlo, monospace",
@@ -40,14 +42,16 @@ export default {
     heading: 1.125,
   },
   shadows: {
-    headerShadow: null,
+    header: null,
   },
   borders: {
-    headerBorder: "1px solid gainsboro",
+    header: "1px solid gainsboro",
+    footer: "1px solid gainsboro",
   },
   sizes: {
-    headerWidth: options.header.maxWidth,
-    contentWidth: options.content.maxWidth,
+    max_header: options.header.maxWidth,
+    max_content: options.content.maxWidth,
+    max_footer: options.footer.maxWidth,
   },
   breakpoints: ["40em", "56em", "64em"],
   styles,

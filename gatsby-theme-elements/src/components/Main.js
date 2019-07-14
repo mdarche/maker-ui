@@ -39,7 +39,7 @@ const Main = props => {
         m: ["initial", "0 auto"],
         p: styleString(options.padding),
         width: ["auto", "100%"],
-        maxWidth: maxWidth || "contentWidth",
+        maxWidth: maxWidth || "max_content",
         display: "grid",
         gridColumnGap: columnGap || options.columnGap,
         ...sideBarPartial(),

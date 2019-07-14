@@ -18,12 +18,11 @@ const Header = props => {
   return (
     <header
       sx={{
-        color: "headerText",
-        bg: background || "headerBG",
+        bg: background || "bg_header",
         p: 3,
-        fontFamily: "body",
-        boxShadow: "headerShadow",
-        borderBottom: "headerBorder",
+        fontFamily: "nav",
+        boxShadow: "header",
+        borderBottom: "header",
         ...stickyPartial,
       }}
     >
@@ -34,7 +33,7 @@ const Header = props => {
           justifyContent: justify || "space-between",
           m: `0 auto`,
           width: "100%",
-          maxWidth: maxWidth || "headerWidth",
+          maxWidth: maxWidth || "max_header",
         }}
         {...props}
       />
