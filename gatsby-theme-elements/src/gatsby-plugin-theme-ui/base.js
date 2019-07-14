@@ -13,6 +13,7 @@ export default {
     bg_topbar: "#609",
     bg_header: "#fff",
     bg_widgets: "#fff",
+    bg_tabbar: "#fff",
     bg_footer: "#fff",
     modes: {
       dark: {
@@ -25,6 +26,7 @@ export default {
         bg_topbar: "#609",
         bg_header: "#fff",
         bg_widgets: "#fff",
+        bg_tabbar: "#fff",
         bg_footer: "#fff",
       },
     },
@@ -48,10 +50,12 @@ export default {
   },
   shadows: {
     header: null,
+    tabbar: null,
   },
   borders: {
     header: "1px solid gainsboro",
     footer: "1px solid gainsboro",
+    tabbar: "1px solid gainsboro",
   },
   sizes: {
     max_header: options.header.maxWidth,

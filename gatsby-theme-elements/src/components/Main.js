@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { getOptions } from "../context/UIContext"
-import { styleString } from "../utils/helper"
+import { styleUnit } from "../utils/helper"
 
 const Main = props => {
   const options = getOptions().content
@@ -18,7 +18,7 @@ const Main = props => {
 
   const sideBarPartial = () => {
     if (sidebarActive) {
-      const width = styleString(sbWidth) || styleString(options.sbWidth)
+      const width = styleUnit(sbWidth) || styleUnit(options.sbWidth)
       const position = sbPosition || options.sbPosition
 
       return position === "right"
@@ -39,7 +39,7 @@ const Main = props => {
     <main
       sx={{
         m: ["initial", "0 auto"],
-        p: styleString(options.padding),
+        p: styleUnit(options.padding),
         width: ["auto", "100%"],
         maxWidth: maxWidth || "max_content",
         display: sidebarActive && columns !== 1 ? "grid" : "block",
