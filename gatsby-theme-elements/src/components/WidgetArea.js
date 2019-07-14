@@ -5,7 +5,7 @@ import { getOptions } from "../context/UIContext"
 const WidgetArea = props => {
   const options = getOptions().footer
   const { maxWidth, background, columnGap } = props
-  const columns = props.children ? props.children.length : 1
+  const columns = props.children.length
 
   return (
     <div
@@ -21,7 +21,8 @@ const WidgetArea = props => {
           width: "100%",
           maxWidth: maxWidth || "max_footer",
           gridColumnGap: columnGap || options.columnGap,
-          display: "grid",
+          gridRowGap: 30,
+          display: columns > 1 ? "grid" : "block",
           gridTemplateColumns: ["1fr", `repeat(${columns}, 1fr)`],
         }}
         {...props}

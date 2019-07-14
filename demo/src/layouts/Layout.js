@@ -21,7 +21,7 @@ const Layout = props => (
         sx={{
           listStyle: "none",
           display: "flex",
-          li: {
+          a: {
             p: 3,
           },
         }}
@@ -34,6 +34,7 @@ const Layout = props => (
       </ul>
     </Header>
     <Main>
+      {/* Todo import sidebar component and measure it */}
       <div>Sidebar</div>
       <div>{props.children}</div>
     </Main>

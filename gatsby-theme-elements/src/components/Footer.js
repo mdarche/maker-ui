@@ -13,7 +13,7 @@ const Footer = props => {
     >
       <div
         sx={{
-          m: "auto 0",
+          m: "0 auto",
           maxWidth: maxWidth || "max_footer",
         }}
         {...props}

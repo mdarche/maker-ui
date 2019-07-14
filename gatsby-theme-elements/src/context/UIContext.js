@@ -7,7 +7,6 @@ const UIContext = React.createContext()
 
 const UIContextProvider = ({ children }) => {
   const [options, setOptions] = useState(themeOptions)
-
   const value = React.useMemo(() => {
     return { options, setOptions }
   }, [options])

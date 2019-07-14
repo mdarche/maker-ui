@@ -5,17 +5,19 @@ import { styleString } from "../utils/helper"
 
 const Main = props => {
   const options = getOptions().content
-  const { sbWidth, sbPosition, maxWidth, sideBar, columnGap } = props
+  const { sbWidth, sbPosition, maxWidth, sidebar, columnGap } = props
+  const columns = props.children.length
+  const sidebarActive = sidebar || options.sidebar ? true : false
 
   // Handle extra child components
-  if (props.children.length !== 2 && options.sideBar) {
+  if (columns !== 2 && sidebarActive) {
     throw new Error(
       "The <Main /> component accepts two (2) child components when the Sidebar is active."
     )
   }
 
   const sideBarPartial = () => {
-    if (sideBar || options.sideBar) {
+    if (sidebarActive) {
       const width = styleString(sbWidth) || styleString(options.sbWidth)
       const position = sbPosition || options.sbPosition
 
@@ -40,8 +42,9 @@ const Main = props => {
         p: styleString(options.padding),
         width: ["auto", "100%"],
         maxWidth: maxWidth || "max_content",
-        display: "grid",
+        display: sidebarActive && columns !== 1 ? "grid" : "block",
         gridColumnGap: columnGap || options.columnGap,
+        gridRowGap: 30,
         ...sideBarPartial(),
       }}
       {...props}

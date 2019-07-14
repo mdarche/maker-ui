@@ -4,10 +4,10 @@ import options from "../../options"
 export default {
   initialColorMode: "light",
   colors: {
+    text: "#000",
     background: "#fff",
     primary: "#07c",
     secondary: "#05a",
-    text: "#000",
     accent: "#609",
     muted: "#f6f6f6f",
     bg_topbar: "#609",
@@ -20,7 +20,12 @@ export default {
         background: "#000",
         primary: "#0cf",
         secondary: "#09c",
+        accent: "#609",
         muted: "#111",
+        bg_topbar: "#609",
+        bg_header: "#fff",
+        bg_widgets: "#fff",
+        bg_footer: "#fff",
       },
     },
   },
@@ -50,6 +55,7 @@ export default {
   },
   sizes: {
     max_header: options.header.maxWidth,
+    max_topbar: options.topbar.maxWidth,
     max_content: options.content.maxWidth,
     max_footer: options.footer.maxWidth,
   },
