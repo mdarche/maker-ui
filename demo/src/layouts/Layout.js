@@ -4,6 +4,7 @@ import { Link } from "gatsby"
 import {
   Layout as ThemeLayout,
   Header,
+  NavMenu,
   Main,
   Topbar,
   Footer,
@@ -19,10 +20,8 @@ const Layout = props => (
     <Topbar>Topbar content</Topbar>
     <Header>
       <div className="logo">Logo</div>
-      <ul
+      <NavMenu
         sx={{
-          listStyle: "none",
-          display: "flex",
           a: {
             p: 3,
           },
@@ -33,9 +32,9 @@ const Layout = props => (
             <Link to={`/${item.toLowerCase()}`}>{item}</Link>
           </li>
         ))}
-      </ul>
-      <MenuToggle />
-      <MobileNav />
+      </NavMenu>
+      <MenuToggle icon="menu" />
+      <MobileNav close={true} />
     </Header>
     <Main>
       {/* Todo import sidebar component and measure it */}

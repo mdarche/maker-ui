@@ -10,7 +10,7 @@ const UIContext = React.createContext()
 const UIContextProvider = ({ children }) => {
   const [state, setState] = useState({
     options: themeOptions,
-    mobileActive: false,
+    globals: { mobileActive: false },
   })
   const value = React.useMemo(() => {
     return { state, setState }
@@ -29,22 +29,32 @@ const getOptions = () => {
   return state.options
 }
 
+const getGlobals = () => {
+  const { state } = useContext(UIContext)
+  if (state.globals === undefined) {
+    throw new Error("getOptions must be used within a UIContextProvider")
+  }
+  return state.globals
+}
+
 const updateUI = () => {
   const { setState } = useContext(UIContext)
 
   function toggleMenu() {
-    console.log("Toggling menu")
     setState(state => ({
       ...state,
-      mobileActive: !state.mobileActive,
+      globals: {
+        ...state.globals,
+        mobileActive: !state.globals.mobileActive,
+      },
     }))
   }
 
-  function colorMode() {
-    const [colorMode, setColorMode] = useColorMode()
-  }
+  // function colorMode() {
+  //   const [colorMode, setColorMode] = useColorMode()
+  // }
 
   return { toggleMenu }
 }
 
-export { UIContextProvider, UIContext, getOptions, updateUI }
+export { UIContextProvider, getOptions, getGlobals, updateUI }

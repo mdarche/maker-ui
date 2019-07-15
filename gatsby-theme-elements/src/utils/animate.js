@@ -19,9 +19,18 @@ const fadeInUp = {
   },
 }
 
-const styles = [fade, fadeInUp]
+const fadeInDown = {
+  key: "fadeInDown",
+  options: {
+    from: { opacity: 0, transform: `translateY(-10px)` },
+    enter: { opacity: 1, transform: `translateY(0)` },
+    leave: { opacity: 0, transform: `translateY(-10px)` },
+  },
+}
 
-// TODO handle config
+const styles = [fade, fadeInUp, fadeInDown]
+
+// TODO handle config and set default animation
 export const transitions = (toggle, type, config) => {
   return useTransition(toggle, null, styles.find(s => s.key === type).options)
 }
