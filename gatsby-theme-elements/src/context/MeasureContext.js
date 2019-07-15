@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react"
 
 const MeasureContext = React.createContext()
 
+// TODO - get measurements of full header and viewport width on resize
 // Create provider
 
 const MeasureContextProvider = ({ children }) => {

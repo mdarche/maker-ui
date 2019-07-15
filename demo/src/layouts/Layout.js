@@ -8,6 +8,8 @@ import {
   Topbar,
   Footer,
   WidgetArea,
+  MenuToggle,
+  MobileNav,
 } from "gatsby-theme-elements"
 
 const menuItems = ["Home", "About", "Source", "Contact"]
@@ -27,11 +29,13 @@ const Layout = props => (
         }}
       >
         {menuItems.map(item => (
-          <li>
+          <li key={item}>
             <Link to={`/${item.toLowerCase()}`}>{item}</Link>
           </li>
         ))}
       </ul>
+      <MenuToggle />
+      <MobileNav />
     </Header>
     <Main>
       {/* Todo import sidebar component and measure it */}

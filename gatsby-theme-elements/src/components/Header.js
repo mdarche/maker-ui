@@ -13,7 +13,7 @@ const Header = props => {
       ? {
           position: "sticky",
           top: options.topbar.sticky ? topbarHeight : 0,
-          zIndex: 99,
+          zIndex: 100,
         }
       : null
 
@@ -33,7 +33,7 @@ const Header = props => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          m: `0 auto`,
+          m: "0 auto",
           width: "100%",
           maxWidth: maxWidth || "max_header",
         }}

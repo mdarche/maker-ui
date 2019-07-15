@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react"
+import { useColorMode } from "theme-ui"
+
 import themeOptions from "../../options"
 
 const UIContext = React.createContext()
@@ -6,10 +8,13 @@ const UIContext = React.createContext()
 // Create provider
 
 const UIContextProvider = ({ children }) => {
-  const [options, setOptions] = useState(themeOptions)
+  const [state, setState] = useState({
+    options: themeOptions,
+    mobileActive: false,
+  })
   const value = React.useMemo(() => {
-    return { options, setOptions }
-  }, [options])
+    return { state, setState }
+  }, [state])
 
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>
 }
@@ -17,24 +22,29 @@ const UIContextProvider = ({ children }) => {
 // Expose options to layout components & child themes
 
 const getOptions = () => {
-  const { options } = useContext(UIContext)
-  if (options === undefined) {
+  const { state } = useContext(UIContext)
+  if (state.options === undefined) {
     throw new Error("getOptions must be used within a UIContextProvider")
   }
-  return options
+  return state.options
 }
 
-const measure = () => {
-  const { setOptions } = useContext(UIContext)
+const updateUI = () => {
+  const { setState } = useContext(UIContext)
 
-  function getTopBarHeight(height) {
-    setOptions(options => ({
-      ...options,
-      topBar: { ...options.topBar, height },
+  function toggleMenu() {
+    console.log("Toggling menu")
+    setState(state => ({
+      ...state,
+      mobileActive: !state.mobileActive,
     }))
   }
 
-  return { getTopBarHeight }
+  function colorMode() {
+    const [colorMode, setColorMode] = useColorMode()
+  }
+
+  return { toggleMenu }
 }
 
-export { UIContextProvider, getOptions, measure }
+export { UIContextProvider, UIContext, getOptions, updateUI }

@@ -12,6 +12,7 @@ export default {
     muted: "#f6f6f6f",
     bg_topbar: "#609",
     bg_header: "#fff",
+    bg_mobilenav: "rgba(0, 0, 0, 0.9)",
     bg_widgets: "#fff",
     bg_tabbar: "#fff",
     bg_footer: "#fff",
@@ -25,6 +26,7 @@ export default {
         muted: "#111",
         bg_topbar: "#609",
         bg_header: "#fff",
+        bg_mobilenav: "#fff",
         bg_widgets: "#fff",
         bg_tabbar: "#fff",
         bg_footer: "#fff",
@@ -58,6 +60,7 @@ export default {
     tabbar: "1px solid gainsboro",
   },
   sizes: {
+    width_mobileNav: options.header.mobileNavWidth,
     max_header: options.header.maxWidth,
     max_topbar: options.topbar.maxWidth,
     max_content: options.content.maxWidth,
