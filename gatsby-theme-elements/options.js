@@ -13,8 +13,8 @@ export default {
   header: {
     sticky: true,
     maxWidth: 1260,
-    mobileNavStyle: "fadeInDown", // fade, fadeInUp, fadeInDown, slideRight, slideLeft
-    mobileNavWidth: "100vw", // Can be array
+    mobileNavStyle: "slideLeft", // fade, fadeInUp, fadeInDown, slideRight, slideLeft
+    mobileNavWidth: 300,
     mobileNavSpring: { tension: 170, friction: 26 },
   },
   content: {

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { getOptions } from "../context/UIContext"
+import { useOptions } from "../context/UIContext"
 
 const WidgetArea = props => {
-  const options = getOptions().footer
+  const options = useOptions().footer
   const { maxWidth, background, columnGap } = props
   const columns = props.children.length
 

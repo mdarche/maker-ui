@@ -1,17 +1,17 @@
 /** @jsx jsx */
 import { useRef, useLayoutEffect } from "react"
 import { jsx } from "theme-ui"
-import { getOptions } from "../context/UIContext"
+import { useOptions } from "../context/UIContext"
 import { measure } from "../context/MeasureContext"
 
 const Topbar = props => {
   const { background, color, sticky, maxWidth } = props
-  const options = getOptions().topbar
+  const options = useOptions().topbar
   const topbarRef = useRef(null)
-  const { getTopbarHeight } = measure()
+  const { setTopbarHeight } = measure()
 
   useLayoutEffect(() => {
-    getTopbarHeight(topbarRef.current.clientHeight)
+    setTopbarHeight(topbarRef.current.clientHeight)
   }, [])
 
   const stickyPartial =

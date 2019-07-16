@@ -3,44 +3,53 @@ import React, { useState, useContext } from "react"
 const MeasureContext = React.createContext()
 
 // TODO - get measurements of full header and viewport width on resize
-// Create provider
 
 const MeasureContextProvider = ({ children }) => {
-  const [data, measure] = useState({
+  const [metrics, measure] = useState({
     topbarHeight: 0,
+    viewportX: 0,
+    viewportY: 0,
   })
   const value = React.useMemo(() => {
-    return { data, measure }
-  }, [data])
+    return { metrics, measure }
+  }, [metrics])
 
   return (
     <MeasureContext.Provider value={value}>{children}</MeasureContext.Provider>
   )
 }
 
-// Expose measurements to layout components & child themes
+// Usage Hooks
 
-const getMeasurements = () => {
-  const { data } = useContext(MeasureContext)
-  if (data === undefined) {
+function useMeasurements() {
+  const { metrics } = useContext(MeasureContext)
+  if (metrics === undefined) {
     throw new Error(
-      "getMeasurements must be used within a MeasureContextProvider"
+      "useMeasurements must be used within a MeasureContextProvider"
     )
   }
-  return data
+  return metrics
 }
 
-const measure = () => {
+function measure() {
   const { measure } = useContext(MeasureContext)
 
-  function getTopbarHeight(height) {
-    measure(measurements => ({
-      ...measurements,
+  function setTopbarHeight(height) {
+    measure(metrics => ({
+      ...metrics,
       topbarHeight: height,
     }))
   }
 
-  return { getTopbarHeight }
+  function setViewportXY([x, y]) {
+    measure(metrics => ({
+      ...metrics,
+      viewportX: x,
+      viewportY: y,
+    }))
+  }
+
+  return { setTopbarHeight, setViewportXY }
 }
 
-export { MeasureContextProvider, getMeasurements, measure }
+export { MeasureContextProvider, useMeasurements, measure }

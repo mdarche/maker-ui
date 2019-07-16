@@ -1,28 +1,27 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { getGlobals, getOptions } from "../context/UIContext"
+import { useMenu, useOptions } from "../context/UIContext"
+import { styleUnit } from "../utils/helper"
 import { animated as a } from "react-spring"
 import { transitions } from "../utils/animate"
 import MenuToggle from "./MenuToggle"
 
 const MobileNav = props => {
-  const { background, width, children, animation, close = false } = props
-  const { mobileActive } = getGlobals()
-  const options = getOptions().header
-  const animationStyle = options.mobileNavStyle || animation
+  const { background, children, defaultClose = false } = props
+  const [menuActive, toggleMenu] = useMenu()
+  const options = useOptions().header
 
-  // TODO - Determine slide position
-  const positionPartial = animationStyle.startsWith("fade")
-    ? {
-        top: 0,
-        left: 0,
-      }
-    : {
-        top: 0,
-        right: 0,
-      }
+  const width = styleUnit(props.width) || styleUnit(options.mobileNavWidth)
+  const animation = props.animation || options.mobileNavStyle
 
-  return transitions(mobileActive, animationStyle, options.mobileNavSpring).map(
+  const positionPartial = () => {
+    if (animation.startsWith("fade")) {
+      return { left: 0, width: "100%" }
+    }
+    return animation === "slideRight" ? { left: 0, width } : { right: 0, width }
+  }
+
+  return transitions(menuActive, animation, width, options.mobileNavSpring).map(
     ({ item, key, props }) =>
       item && (
         <a.div
@@ -31,16 +30,17 @@ const MobileNav = props => {
           sx={{
             zIndex: 1000,
             position: "fixed",
+            top: 0,
             height: "100%",
-            width: width || "width_mobileNav",
             display: ["flex", "none"],
             border: "none",
-            background: background || "rgba(0, 0, 0, 0.9)",
-            ...positionPartial,
+            maxWidth: "100%",
+            bg: background || "bg_navmobile",
+            ...positionPartial(),
           }}
           {...props}
         >
-          {close ? (
+          {defaultClose ? (
             <MenuToggle
               icon="close"
               sx={{

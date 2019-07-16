@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { getOptions } from "../context/UIContext"
-import { getMeasurements } from "../context/MeasureContext"
+import { useOptions } from "../context/UIContext"
+import { useMeasurements } from "../context/MeasureContext"
 
 const Header = props => {
-  const options = getOptions()
-  const topbarHeight = getMeasurements().topbarHeight
+  const options = useOptions()
+  const { topbarHeight } = useMeasurements()
   const { sticky, maxWidth, background } = props
 
   const stickyPartial =

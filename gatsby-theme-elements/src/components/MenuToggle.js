@@ -2,12 +2,11 @@
 import { jsx } from "theme-ui"
 import { ReactComponent as MenuIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
-import { updateUI, getGlobals } from "../context/UIContext"
+import { useMenu } from "../context/UIContext"
 
 const MenuToggle = props => {
   const { fill, height, children, icon = undefined } = props
-  const { toggleMenu } = updateUI()
-  const { mobileActive } = getGlobals()
+  const [menuActive, toggleMenu] = useMenu()
 
   const renderIcon = () => {
     return icon === "menu" ? <MenuIcon /> : <CloseIcon />
@@ -17,8 +16,8 @@ const MenuToggle = props => {
     <button
       role="button"
       aria-label="Menu Toggle"
-      aria-expanded={mobileActive ? "true" : "false"}
-      aria-pressed={mobileActive ? "true" : "false"}
+      aria-expanded={menuActive ? "true" : "false"}
+      aria-pressed={menuActive ? "true" : "false"}
       aria-haspopup="true"
       onClick={() => toggleMenu()}
       sx={{

@@ -1,36 +1,37 @@
 import { useTransition } from "react-spring"
 
-// Transitions
-const fade = {
-  key: "fade",
-  options: {
+const transitionTypes = width => ({
+  fade: {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
   },
-}
-
-const fadeInUp = {
-  key: "fadeInUp",
-  options: {
+  fadeInUp: {
     from: { opacity: 0, transform: `translateY(10px)` },
     enter: { opacity: 1, transform: `translateY(0)` },
     leave: { opacity: 0, transform: `translateY(10px)` },
   },
-}
-
-const fadeInDown = {
-  key: "fadeInDown",
-  options: {
+  fadeInDown: {
     from: { opacity: 0, transform: `translateY(-10px)` },
     enter: { opacity: 1, transform: `translateY(0)` },
     leave: { opacity: 0, transform: `translateY(-10px)` },
   },
-}
+  slideRight: {
+    from: { transform: `translateX(-${width})` },
+    enter: { transform: `translateX(0)` },
+    leave: { transform: `translateX(-${width})` },
+  },
+  slideLeft: {
+    from: { transform: `translateX(${width})` },
+    enter: { transform: `translateX(0)` },
+    leave: { transform: `translateX(${width})` },
+  },
+})
 
-const styles = [fade, fadeInUp, fadeInDown]
-
-// TODO handle config and set default animation
-export const transitions = (toggle, type, config) => {
-  return useTransition(toggle, null, styles.find(s => s.key === type).options)
+export const transitions = (toggle, type, width, config) => {
+  console.log(width)
+  return useTransition(toggle, null, {
+    ...transitionTypes(width)[`${type}`],
+    config,
+  })
 }

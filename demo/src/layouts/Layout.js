@@ -34,7 +34,7 @@ const Layout = props => (
         ))}
       </NavMenu>
       <MenuToggle icon="menu" />
-      <MobileNav close={true} />
+      <MobileNav defaultClose={true} />
     </Header>
     <Main>
       {/* Todo import sidebar component and measure it */}

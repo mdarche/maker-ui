@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { getOptions } from "../context/UIContext"
+import { useOptions } from "../context/UIContext"
 import { styleUnit } from "../utils/helper"
 
 const Main = props => {
-  const options = getOptions().content
+  const options = useOptions().content
   const { sbWidth, sbPosition, maxWidth, sidebar, columnGap } = props
   const columns = props.children.length
   const sidebarActive = sidebar || options.sidebar ? true : false

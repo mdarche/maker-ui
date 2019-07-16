@@ -1,16 +1,12 @@
 import React, { useState, useContext } from "react"
-import { useColorMode } from "theme-ui"
-
 import themeOptions from "../../options"
 
 const UIContext = React.createContext()
 
-// Create provider
-
 const UIContextProvider = ({ children }) => {
   const [state, setState] = useState({
     options: themeOptions,
-    globals: { mobileActive: false },
+    menuActive: false,
   })
   const value = React.useMemo(() => {
     return { state, setState }
@@ -19,42 +15,28 @@ const UIContextProvider = ({ children }) => {
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>
 }
 
-// Expose options to layout components & child themes
+// Usage Hooks
 
-const getOptions = () => {
+function useOptions() {
   const { state } = useContext(UIContext)
   if (state.options === undefined) {
-    throw new Error("getOptions must be used within a UIContextProvider")
+    throw new Error("useOptions must be used within a UIContextProvider")
   }
   return state.options
 }
 
-const getGlobals = () => {
-  const { state } = useContext(UIContext)
-  if (state.globals === undefined) {
-    throw new Error("getOptions must be used within a UIContextProvider")
-  }
-  return state.globals
-}
-
-const updateUI = () => {
-  const { setState } = useContext(UIContext)
+function useMenu() {
+  const { state, setState } = useContext(UIContext)
+  const menuActive = state.menuActive
 
   function toggleMenu() {
     setState(state => ({
       ...state,
-      globals: {
-        ...state.globals,
-        mobileActive: !state.globals.mobileActive,
-      },
+      menuActive: !state.menuActive,
     }))
   }
 
-  // function colorMode() {
-  //   const [colorMode, setColorMode] = useColorMode()
-  // }
-
-  return { toggleMenu }
+  return [menuActive, toggleMenu]
 }
 
-export { UIContextProvider, getOptions, getGlobals, updateUI }
+export { UIContextProvider, useOptions, useMenu }
