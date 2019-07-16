@@ -1,5 +1,6 @@
 import { useTransition } from "react-spring"
 
+// TODO refactor / simplify
 const transitionTypes = width => ({
   fade: {
     from: { opacity: 0 },

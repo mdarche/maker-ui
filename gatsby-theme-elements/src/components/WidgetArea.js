@@ -1,9 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { useOptions } from "../context/UIContext"
 
 const WidgetArea = props => {
-  const options = useOptions().footer
   const { maxWidth, background, columnGap } = props
   const columns = props.children.length
 
@@ -16,16 +14,15 @@ const WidgetArea = props => {
       }}
     >
       <div
+        {...props}
         sx={{
           m: "0 auto",
           width: "100%",
           maxWidth: maxWidth || "max_footer",
-          gridColumnGap: columnGap || options.columnGap,
-          gridRowGap: 30,
+          gridGap: columnGap || "widgetGap",
           display: columns > 1 ? "grid" : "block",
           gridTemplateColumns: ["1fr", `repeat(${columns}, 1fr)`],
         }}
-        {...props}
       />
     </div>
   )

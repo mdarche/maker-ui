@@ -66,6 +66,10 @@ export default {
     max_content: options.content.maxWidth,
     max_footer: options.footer.maxWidth,
   },
+  // space: {
+  //   widgetGap: options.footer.columnGap,
+  //   contentGap: options.content.columnGap,
+  // },
   breakpoints: ["40em", "56em", "64em"],
   styles,
 }

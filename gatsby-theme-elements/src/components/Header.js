@@ -21,14 +21,15 @@ const Header = props => {
     <header
       sx={{
         bg: background || "bg_header",
-        p: 3,
         fontFamily: "nav",
+        p: 3,
         boxShadow: "header",
         borderBottom: "header",
         ...stickyPartial,
       }}
     >
       <div
+        {...props}
         sx={{
           display: "flex",
           alignItems: "center",
@@ -37,7 +38,6 @@ const Header = props => {
           width: "100%",
           maxWidth: maxWidth || "max_header",
         }}
-        {...props}
       />
     </header>
   )

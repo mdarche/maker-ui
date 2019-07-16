@@ -27,7 +27,6 @@ export default {
   },
   footer: {
     maxWidth: 1260,
-    columns: 3,
     columnGap: 30,
   },
 }

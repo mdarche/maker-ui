@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import { useEffect, useRef } from "react"
 import { useMenu, useOptions } from "../context/UIContext"
 import { styleUnit } from "../utils/helper"
 import { animated as a } from "react-spring"
@@ -8,11 +9,25 @@ import MenuToggle from "./MenuToggle"
 
 const MobileNav = props => {
   const { background, children, defaultClose = false } = props
-  const [menuActive] = useMenu()
+  const [menuActive, toggleMenu] = useMenu()
   const options = useOptions().header
-
+  const menuRef = useRef(null)
   const width = styleUnit(props.width) || styleUnit(options.mobileNavWidth)
   const animation = props.animation || options.mobileNavStyle
+
+  useEffect(() => {
+    if (menuActive && !animation.startsWith("fade")) {
+      document.addEventListener(`mousedown`, handleClick)
+    }
+    return () => document.removeEventListener(`mousedown`, handleClick)
+  }, [menuActive])
+
+  const handleClick = e => {
+    if (menuRef.current.contains(e.target)) {
+      return
+    }
+    return toggleMenu(false)
+  }
 
   const positionPartial = () => {
     if (animation.startsWith("fade")) {
@@ -25,6 +40,8 @@ const MobileNav = props => {
     ({ item, key, props }) =>
       item && (
         <a.div
+          {...props}
+          ref={menuRef}
           style={props}
           key={key}
           sx={{
@@ -35,10 +52,9 @@ const MobileNav = props => {
             display: ["flex", "none"],
             border: "none",
             maxWidth: "100%",
-            background: background || "bg_navmobile",
+            bg: background || "bg_navmobile",
             ...positionPartial(),
           }}
-          {...props}
         >
           {defaultClose ? (
             <MenuToggle
