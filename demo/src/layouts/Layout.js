@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
 import {
-  Layout as ThemeLayout,
+  Root as ThemeLayout,
   Header,
   NavMenu,
   Main,

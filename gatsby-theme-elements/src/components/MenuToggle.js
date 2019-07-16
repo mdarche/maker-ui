@@ -15,7 +15,6 @@ const MenuToggle = props => {
   return (
     <button
       {...props}
-      role="button"
       aria-label="Menu Toggle"
       aria-expanded={menuActive ? "true" : "false"}
       aria-pressed={menuActive ? "true" : "false"}

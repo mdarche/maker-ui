@@ -1,7 +1,7 @@
 export { useColorMode } from "theme-ui"
 export { useOptions, useMenu } from "../context/UIContext"
 export { useMeasurements } from "../context/MeasureContext"
-export { default as Layout } from "./Layout"
+export { default as Root } from "./Root"
 export { default as Topbar } from "./Topbar"
 export { default as Header } from "./Header"
 export { default as Footer } from "./Footer"
