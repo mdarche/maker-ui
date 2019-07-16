@@ -8,7 +8,7 @@ import MenuToggle from "./MenuToggle"
 
 const MobileNav = props => {
   const { background, children, defaultClose = false } = props
-  const [menuActive, toggleMenu] = useMenu()
+  const [menuActive] = useMenu()
   const options = useOptions().header
 
   const width = styleUnit(props.width) || styleUnit(options.mobileNavWidth)
@@ -35,7 +35,7 @@ const MobileNav = props => {
             display: ["flex", "none"],
             border: "none",
             maxWidth: "100%",
-            bg: background || "bg_navmobile",
+            background: background || "bg_navmobile",
             ...positionPartial(),
           }}
           {...props}

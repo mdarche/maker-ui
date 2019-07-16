@@ -37,7 +37,6 @@ const Layout = props => (
       <MobileNav defaultClose={true} />
     </Header>
     <Main>
-      {/* Todo import sidebar component and measure it */}
       <div>Sidebar</div>
       <div>{props.children}</div>
     </Main>

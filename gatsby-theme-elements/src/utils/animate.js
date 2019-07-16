@@ -29,7 +29,6 @@ const transitionTypes = width => ({
 })
 
 export const transitions = (toggle, type, width, config) => {
-  console.log(width)
   return useTransition(toggle, null, {
     ...transitionTypes(width)[`${type}`],
     config,

@@ -14,6 +14,7 @@ const MenuToggle = props => {
 
   return (
     <button
+      {...props}
       role="button"
       aria-label="Menu Toggle"
       aria-expanded={menuActive ? "true" : "false"}
@@ -29,7 +30,6 @@ const MenuToggle = props => {
           height: height || 32,
         },
       }}
-      {...props}
     >
       {children}
       {icon !== undefined ? renderIcon() : null}

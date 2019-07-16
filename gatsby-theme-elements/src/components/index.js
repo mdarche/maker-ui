@@ -1,5 +1,6 @@
 export { useColorMode } from "theme-ui"
-export { useOptions, updateUI } from "../context/UIContext"
+export { useOptions, useMenu } from "../context/UIContext"
+export { useMeasurements } from "../context/MeasureContext"
 export { default as Layout } from "./Layout"
 export { default as Topbar } from "./Topbar"
 export { default as Header } from "./Header"

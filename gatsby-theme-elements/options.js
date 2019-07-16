@@ -1,5 +1,5 @@
 /**
- * Shadow this file to customize the theme layout
+ * Shadow this file to customize your theme layout
  *
  * See: https://github.com/mdarche/gatsby-theme-elements
  */
@@ -13,7 +13,7 @@ export default {
   header: {
     sticky: true,
     maxWidth: 1260,
-    mobileNavStyle: "slideLeft", // fade, fadeInUp, fadeInDown, slideRight, slideLeft
+    mobileNavStyle: "slideLeft",
     mobileNavWidth: 300,
     mobileNavSpring: { tension: 170, friction: 26 },
   },

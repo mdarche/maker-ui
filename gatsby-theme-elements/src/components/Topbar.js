@@ -6,9 +6,9 @@ import { measure } from "../context/MeasureContext"
 
 const Topbar = props => {
   const { background, color, sticky, maxWidth } = props
+  const { setTopbarHeight } = measure()
   const options = useOptions().topbar
   const topbarRef = useRef(null)
-  const { setTopbarHeight } = measure()
 
   useLayoutEffect(() => {
     setTopbarHeight(topbarRef.current.clientHeight)
@@ -38,11 +38,11 @@ const Topbar = props => {
       }}
     >
       <div
+        {...props}
         sx={{
           m: "0 auto",
           maxWidth: maxWidth || "max_topbar",
         }}
-        {...props}
       />
     </aside>
   )

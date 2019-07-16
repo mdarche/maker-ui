@@ -2,11 +2,10 @@ import React, { useState, useContext } from "react"
 
 const MeasureContext = React.createContext()
 
-// TODO - get measurements of full header and viewport width on resize
-
 const MeasureContextProvider = ({ children }) => {
   const [metrics, measure] = useState({
     topbarHeight: 0,
+    headerHeight: 0,
     viewportX: 0,
     viewportY: 0,
   })

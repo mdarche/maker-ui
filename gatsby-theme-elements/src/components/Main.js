@@ -3,10 +3,11 @@ import { jsx } from "theme-ui"
 import { useOptions } from "../context/UIContext"
 import { styleUnit } from "../utils/helper"
 
+// TODO move column gaps to theme
 const Main = props => {
   const options = useOptions().content
-  const { sbWidth, sbPosition, maxWidth, sidebar, columnGap } = props
-  const columns = props.children.length
+  const { sbWidth, sbPosition, maxWidth, sidebar, columnGap, children } = props
+  const columns = children.length
   const sidebarActive = sidebar || options.sidebar ? true : false
 
   // Handle extra child components

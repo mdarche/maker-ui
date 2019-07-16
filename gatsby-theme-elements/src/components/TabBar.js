@@ -5,6 +5,7 @@ const TabBar = props => {
   const { background, borderTop, boxShadow } = props
   return (
     <div
+      {...props}
       sx={{
         display: ["flex", "none"],
         position: "fixed",
@@ -19,7 +20,6 @@ const TabBar = props => {
         borderTop: borderTop || "tabbar",
         boxShadow: boxShadow || "tabbar",
       }}
-      {...props}
     />
   )
 }
