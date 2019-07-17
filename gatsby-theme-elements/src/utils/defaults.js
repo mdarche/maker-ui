@@ -1,8 +1,4 @@
-/**
- * Shadow this file to customize your theme layout
- *
- * See: https://github.com/mdarche/gatsby-theme-elements
- */
+import options from "../options"
 
 export default {
   topbar: {
@@ -13,12 +9,12 @@ export default {
   header: {
     sticky: true,
     maxWidth: 1260,
-    mobileNavStyle: "slideLeft",
+    mobileNavStyle: "fade",
     mobileNavWidth: 300,
     mobileNavSpring: { tension: 170, friction: 26 },
   },
   content: {
-    padding: "80px 20px 0",
+    paddingTop: 80,
     maxWidth: 1260,
     columnGap: 30,
     sidebar: true,
@@ -29,4 +25,5 @@ export default {
     maxWidth: 1260,
     columnGap: 30,
   },
+  ...options,
 }

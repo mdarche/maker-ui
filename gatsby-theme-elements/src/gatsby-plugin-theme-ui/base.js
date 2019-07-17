@@ -1,5 +1,5 @@
 import styles from "./styles"
-import options from "../../options"
+import options from "../utils/defaults"
 
 export default {
   initialColorMode: "light",

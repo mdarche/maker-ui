@@ -1,9 +1,3 @@
-/**
- * Shadow this file to customize your theme layout
- *
- * See: https://github.com/mdarche/gatsby-theme-elements
- */
-
 export default {
   topbar: {
     sticky: false,
@@ -18,7 +12,7 @@ export default {
     mobileNavSpring: { tension: 170, friction: 26 },
   },
   content: {
-    padding: "80px 20px 0",
+    paddingTop: 80,
     maxWidth: 1260,
     columnGap: 30,
     sidebar: true,

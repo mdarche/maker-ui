@@ -5,7 +5,15 @@ import { styleUnit } from "../utils/helper"
 
 const Main = props => {
   const options = useOptions().content
-  const { sbWidth, sbPosition, maxWidth, sidebar, columnGap, children } = props
+  const {
+    sbWidth,
+    sbPosition,
+    maxWidth,
+    sidebar,
+    columnGap,
+    paddingTop,
+    children,
+  } = props
   const columns = children.length
   const sidebarActive = sidebar || options.sidebar ? true : false
 
@@ -40,7 +48,8 @@ const Main = props => {
       {...props}
       sx={{
         m: ["initial", "0 auto"],
-        p: styleUnit(options.padding),
+        px: 20,
+        pt: paddingTop || options.paddingTop,
         width: ["auto", "100%"],
         maxWidth: maxWidth || "max_content",
         display: sidebarActive && columns !== 1 ? "grid" : "block",
