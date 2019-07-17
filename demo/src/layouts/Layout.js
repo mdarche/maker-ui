@@ -40,12 +40,14 @@ const Layout = props => (
       <div>Sidebar</div>
       <div>{props.children}</div>
     </Main>
-    <WidgetArea>
-      <div>Test</div>
-      <div>Test</div>
-      <div>Test</div>
-    </WidgetArea>
-    <Footer>Copyright 2019</Footer>
+    <Footer>
+      <WidgetArea>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+      </WidgetArea>
+      Copyright 2019
+    </Footer>
   </ThemeLayout>
 )
 

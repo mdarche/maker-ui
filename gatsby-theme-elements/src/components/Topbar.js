@@ -31,7 +31,7 @@ const Topbar = props => {
         p: 2,
         bg: background || "bg_topbar",
         fontFamily: "topbar" || "body",
-        color: color || "topbar" || "body",
+        color: color || "text_topbar",
         zIndex: 100,
         overflowX: "scroll",
         ...stickyPartial,

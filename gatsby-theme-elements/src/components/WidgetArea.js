@@ -7,24 +7,17 @@ const WidgetArea = props => {
 
   return (
     <div
+      {...props}
       sx={{
-        p: 3,
-        borderTop: "footer",
-        background: background || "bg_widgets",
+        m: "0 auto 20px",
+        width: "100%",
+        bg: background || "bg_widgets",
+        maxWidth: maxWidth || "max_footer",
+        gridGap: columnGap || "widgetGap",
+        display: columns > 1 ? "grid" : "block",
+        gridTemplateColumns: ["1fr", `repeat(${columns}, 1fr)`],
       }}
-    >
-      <div
-        {...props}
-        sx={{
-          m: "0 auto",
-          width: "100%",
-          maxWidth: maxWidth || "max_footer",
-          gridGap: columnGap || "widgetGap",
-          display: columns > 1 ? "grid" : "block",
-          gridTemplateColumns: ["1fr", `repeat(${columns}, 1fr)`],
-        }}
-      />
-    </div>
+    />
   )
 }
 
