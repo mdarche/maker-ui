@@ -45,18 +45,26 @@ const Main = props => {
 
   return (
     <main
-      {...props}
       sx={{
         m: ["initial", "0 auto"],
-        px: 20,
         pt: paddingTop || options.paddingTop,
         width: ["auto", "100%"],
         maxWidth: maxWidth || "max_content",
-        display: sidebarActive && columns !== 1 ? "grid" : "block",
-        gridGap: columnGap || "contentGap",
-        ...sideBarPartial(),
+        // display: sidebarActive && columns !== 1 ? "grid" : "block",
+        // gridGap: columnGap || "contentGap",
+        // ...sideBarPartial(),
       }}
-    />
+    >
+      <div
+        {...props}
+        sx={{
+          px: 20,
+          display: sidebarActive && columns !== 1 ? "grid" : "block",
+          gridGap: columnGap || "contentGap",
+          ...sideBarPartial(),
+        }}
+      />
+    </main>
   )
 }
 
