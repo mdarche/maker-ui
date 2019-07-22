@@ -1,5 +1,5 @@
 import React from "react"
-import Layout from "../layouts/Layout"
+import Layout from "../layouts/SideNav"
 import { BlogPost } from "react-understudy"
 
 const IndexPage = () => (

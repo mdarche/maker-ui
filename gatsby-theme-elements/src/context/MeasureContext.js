@@ -6,6 +6,7 @@ const MeasureContextProvider = ({ children }) => {
   const [metrics, measure] = useState({
     topbarHeight: 0,
     headerHeight: 0,
+    sideNavWidth: 0,
     viewportX: 0,
     viewportY: 0,
   })
@@ -44,6 +45,20 @@ function measure() {
     }))
   }
 
+  function setHeaderHeight(height) {
+    measure(metrics => ({
+      ...metrics,
+      headerHeight: height,
+    }))
+  }
+
+  function setSideNavWidth(width) {
+    measure(metrics => ({
+      ...metrics,
+      sideNavWidth: width,
+    }))
+  }
+
   function setViewportXY([x, y]) {
     measure(metrics => ({
       ...metrics,
@@ -52,7 +67,7 @@ function measure() {
     }))
   }
 
-  return { setTopbarHeight, setViewportXY }
+  return { setTopbarHeight, setViewportXY, setHeaderHeight, setSideNavWidth }
 }
 
 export { MeasureContextProvider, useMeasurements, measure }

@@ -5,26 +5,32 @@ import { styleUnit } from "../utils/helper"
 
 const Main = props => {
   const options = useOptions().content
+  const sideNavOptions = useOptions().sideNav
   const {
     sbWidth,
     sbPosition,
     maxWidth,
     sidebar,
+    sideNav,
     columnGap,
     paddingTop,
     children,
+    style,
   } = props
-  const columns = children.length
-  const sidebarActive = sidebar || options.sidebar ? true : false
+  const columns = Array.isArray(children) ? children.length : 1
+  const sidebarActive = sidebar || options.sidebar
+  const sideNavActive = sideNav || sideNavOptions.active
 
   // Handle extra child components
-  if (sidebarActive && columns !== 2) {
+  if (columns > 2) {
     throw new Error(
-      "The <Main /> component accepts two (2) child components when the Sidebar is active."
+      "The Main component accepts a maximum of 2 child components (Sidebar and content). Be sure to specify whether the sidebar is on the left or right."
     )
   }
 
-  const sideBarPartial = () => {
+  // TODO - Refactor this partial
+
+  const sidebarPartial = () => {
     if (sidebarActive) {
       const width = styleUnit(sbWidth) || styleUnit(options.sbWidth)
       const position = sbPosition || options.sbPosition
@@ -32,15 +38,21 @@ const Main = props => {
       return position === "right"
         ? {
             gridTemplateColumns: [`1fr`, `1fr ${width}`],
+            gridGap: columnGap || "contentGap",
           }
         : {
             gridTemplateColumns: [`1fr`, `${width} 1fr`],
+            gridGap: columnGap || "contentGap",
+
             "> :first-of-type": {
               gridRow: [2, 1],
             },
           }
     }
-    return { gridTemplateColumns: "1fr" }
+  }
+
+  const sidenavPartial = () => {
+    return sideNavActive ? { pl: [0, sideNavOptions.width] } : null
   }
 
   return (
@@ -50,20 +62,20 @@ const Main = props => {
         pt: paddingTop || options.paddingTop,
         width: ["auto", "100%"],
         maxWidth: maxWidth || "max_content",
-        // display: sidebarActive && columns !== 1 ? "grid" : "block",
-        // gridGap: columnGap || "contentGap",
-        // ...sideBarPartial(),
+        flex: 1,
+        ...sidenavPartial(),
       }}
     >
       <div
-        {...props}
         sx={{
           px: 20,
           display: sidebarActive && columns !== 1 ? "grid" : "block",
-          gridGap: columnGap || "contentGap",
-          ...sideBarPartial(),
+          ...sidebarPartial(),
+          ...style,
         }}
-      />
+      >
+        {children}
+      </div>
     </main>
   )
 }

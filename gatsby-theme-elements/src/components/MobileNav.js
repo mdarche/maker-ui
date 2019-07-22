@@ -15,11 +15,12 @@ const MobileNav = props => {
   const width = styleUnit(props.width) || styleUnit(options.mobileNavWidth)
   const animation = props.animation || options.mobileNavStyle
 
+  // Close Menu when user clicks off div
   useEffect(() => {
     if (menuActive && !animation.startsWith("fade")) {
-      document.addEventListener(`mousedown`, handleClick)
+      document.addEventListener("mousedown", handleClick)
     }
-    return () => document.removeEventListener(`mousedown`, handleClick)
+    return () => document.removeEventListener("mousedown", handleClick)
   }, [menuActive])
 
   const handleClick = e => {

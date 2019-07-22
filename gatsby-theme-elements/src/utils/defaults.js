@@ -13,6 +13,11 @@ export default {
     mobileNavWidth: 300,
     mobileNavSpring: { tension: 170, friction: 26 },
   },
+  sideNav: {
+    active: false,
+    width: "18em",
+    sideNavSpring: { tension: 170, friction: 26 },
+  },
   content: {
     paddingTop: 80,
     maxWidth: 1260,

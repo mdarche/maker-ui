@@ -27,6 +27,11 @@ const transitionTypes = width => ({
     enter: { transform: `translateX(0)` },
     leave: { transform: `translateX(${width})` },
   },
+  sideNav: {
+    from: { opacity: 0, transform: `translateX(-${width})` },
+    enter: { opacity: 1, transform: `translateX(0)` },
+    leave: { opacity: 0, transform: `translateX(-${width})` },
+  },
 })
 
 export const transitions = (toggle, type, width, config) => {

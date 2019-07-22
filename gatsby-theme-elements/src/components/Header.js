@@ -1,12 +1,19 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import { useRef, useLayoutEffect } from "react"
 import { useOptions } from "../context/UIContext"
-import { useMeasurements } from "../context/MeasureContext"
+import { useMeasurements, measure } from "../context/MeasureContext"
 
 const Header = props => {
   const options = useOptions()
+  const { setHeaderHeight } = measure()
   const { topbarHeight } = useMeasurements()
   const { sticky, maxWidth, background } = props
+  const headerRef = useRef(null)
+
+  useLayoutEffect(() => {
+    setHeaderHeight(headerRef.current.clientHeight)
+  }, [])
 
   const stickyPartial =
     sticky || options.header.sticky
@@ -19,6 +26,7 @@ const Header = props => {
 
   return (
     <header
+      ref={headerRef}
       sx={{
         bg: background || "bg_header",
         fontFamily: "nav",

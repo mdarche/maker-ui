@@ -7,6 +7,7 @@ const UIContextProvider = ({ children }) => {
   const [state, setState] = useState({
     options: themeOptions,
     menuActive: false,
+    sideNavActive: true,
   })
   const value = React.useMemo(() => {
     return { state, setState }
@@ -39,4 +40,18 @@ function useMenu() {
   return [menuActive, toggleMenu]
 }
 
-export { UIContextProvider, useOptions, useMenu }
+function useSideNav() {
+  const { state, setState } = useContext(UIContext)
+  const sideNavActive = state.sideNavActive
+
+  function toggleSideNav() {
+    setState(state => ({
+      ...state,
+      sideNavActive: !state.sideNavActive,
+    }))
+  }
+
+  return [sideNavActive, toggleSideNav]
+}
+
+export { UIContextProvider, useOptions, useMenu, useSideNav }
