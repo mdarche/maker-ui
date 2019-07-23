@@ -1,6 +1,7 @@
 import { useTransition, useSpring } from "react-spring"
 
-// TODO refactor / simplify
+// TODO - refactor with minus (-) sign logic
+
 const transitionTypes = width => ({
   fade: {
     from: { opacity: 0 },
@@ -36,11 +37,20 @@ export const transitions = (toggle, type, width, config) => {
   })
 }
 
-export const spring = (toggle, width, config) => {
+export const spring = (toggle, viewportX, breakpoint, width, config) => {
   const unit = width.replace(/[0-9.]/g, "")
   return useSpring({
-    opacity: toggle ? 1 : 0,
-    transform: toggle ? `translateX(0${unit})` : `translateX(-${width})`,
+    to: {
+      opacity: toggle ? 1 : 0,
+      transform: toggle ? `translateX(0${unit})` : `translateX(-${width})`,
+    },
+    from: {
+      opacity: viewportX > breakpoint ? 0 : 1,
+      transform:
+        viewportX > breakpoint
+          ? `translateX(0${unit})`
+          : `translateX(-${width})`,
+    },
     config,
   })
 }

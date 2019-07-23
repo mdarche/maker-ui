@@ -44,7 +44,7 @@ const Layout = props => (
       <Main sideNav={true} paddingTop="0">
         <div>{props.children}</div>
       </Main>
-      <SideNavToggle defaultIcon />
+      <SideNavToggle sx={{ bg: "#000", borderRadius: "50%" }} icon />
     </div>
   </ThemeLayout>
 )

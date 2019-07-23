@@ -8,7 +8,7 @@ import { transitions } from "../utils/animate"
 import MenuToggle from "./MenuToggle"
 
 const MobileNav = props => {
-  const { backgroundColor, children, defaultClose = false } = props
+  const { backgroundColor, children, defaultClose = false, ...rest } = props
   const [menuActive, toggleMenu] = useMenu()
   const options = useOptions().header
   const menuRef = useRef(null)
@@ -39,11 +39,11 @@ const MobileNav = props => {
     return animation === "slideRight" ? { left: 0, width } : { right: 0, width }
   }
 
-  return transitions(menuActive, animation, width, options.mobileNavSpring).map(
+  return transitions(menuActive, animation, width, options.spring).map(
     ({ item, key, props }) =>
       item && (
         <a.div
-          {...props}
+          {...rest}
           ref={menuRef}
           style={props}
           key={key}

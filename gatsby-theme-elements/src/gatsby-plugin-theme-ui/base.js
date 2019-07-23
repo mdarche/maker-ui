@@ -54,6 +54,7 @@ export default {
     header: null,
     tabbar: null,
   },
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   borders: {
     header: "1px solid gainsboro",
     footer: "1px solid gainsboro",
@@ -63,13 +64,21 @@ export default {
     width_mobileNav: options.header.mobileNavWidth,
     max_header: options.header.maxWidth,
     max_topbar: options.topbar.maxWidth,
-    max_content: options.content.maxWidth,
+    max_content: options.main.maxWidth,
     max_footer: options.footer.maxWidth,
   },
-  // space: {
-  //   widgetGap: options.footer.columnGap,
-  //   contentGap: options.content.columnGap,
-  // },
-  breakpoints: ["40em", "56em", "64em"],
+  gaps: {
+    widgetGap: {
+      gridGap: options.footer.gridGap,
+    },
+    mainGap: {
+      gridGap: options.main.gridGap,
+    },
+  },
+  breakpoints: [
+    `${options.breakpoints.sm}px`,
+    `${options.breakpoints.md}px`,
+    `${options.breakpoints.lg}px`,
+  ],
   styles,
 }

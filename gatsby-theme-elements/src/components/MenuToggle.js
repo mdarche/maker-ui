@@ -5,7 +5,7 @@ import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import { useMenu } from "../context/UIContext"
 
 const MenuToggle = props => {
-  const { fill, height, children, icon = undefined } = props
+  const { fill, height, children, icon = undefined, ...rest } = props
   const [menuActive, toggleMenu] = useMenu()
 
   // Partials
@@ -16,7 +16,7 @@ const MenuToggle = props => {
 
   return (
     <button
-      {...props}
+      {...rest}
       aria-label="Menu Toggle"
       aria-expanded={menuActive ? "true" : "false"}
       aria-pressed={menuActive ? "true" : "false"}

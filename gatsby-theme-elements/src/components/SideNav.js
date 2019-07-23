@@ -6,20 +6,21 @@ import { useOptions, useSideNav } from "../context/UIContext"
 import { animated as a } from "react-spring"
 import { spring } from "../utils/animate"
 
+function getInnerWidth() {
+  if (typeof window !== `undefined`) {
+    return window.innerWidth
+  }
+}
+
 const SideNav = props => {
-  const {
-    style,
-    children,
-    boxShadow,
-    backgroundColor,
-    breakpoint = 750,
-  } = props
+  const { boxShadow, backgroundColor, ...rest } = props
   const [sideNavActive, toggleSideNav] = useSideNav()
-  const options = useOptions().sideNav
+  const options = useOptions()
   const { viewportX } = useMeasurements()
   const { setSideNavWidth } = measure()
   const sideNavRef = useRef(null)
-  const width = props.width || options.width
+  const width = props.width || options.sideNav.width
+  const breakpoint = options.breakpoints.sm
 
   // Component Lifecyle
 
@@ -38,7 +39,13 @@ const SideNav = props => {
 
   return (
     <a.section
-      style={spring(sideNavActive, width, options.sideNavSpring)}
+      style={spring(
+        sideNavActive,
+        getInnerWidth(),
+        breakpoint,
+        width,
+        options.sideNav.spring
+      )}
       ref={sideNavRef}
       aria-label="Secondary Navigation"
       sx={{
@@ -46,6 +53,7 @@ const SideNav = props => {
         position: "fixed",
         bg: backgroundColor || "bg_sidenav",
         boxShadow: boxShadow || ["1px 1px 8px 1px rgba(0, 0, 0, 0.1)", "none"],
+        maxWidth: "75vw",
         top: 0,
         left: 0,
         bottom: 0,
@@ -53,7 +61,7 @@ const SideNav = props => {
         overflowY: "scroll",
       }}
     >
-      <div sx={{ ...style }}>{children}</div>
+      <div {...rest} />
     </a.section>
   )
 }

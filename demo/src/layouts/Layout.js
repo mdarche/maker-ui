@@ -35,7 +35,7 @@ const Layout = props => (
         ))}
       </NavMenu>
       <MenuToggle icon="menu" />
-      <MobileNav defaultClose={true} />
+      <MobileNav defaultClose />
     </Header>
     <Main>
       <div>
