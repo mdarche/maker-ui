@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import PropTypes from "prop-types"
 
 const WidgetArea = props => {
-  const { maxWidth, background, gridGap, children } = props
+  const { maxWidth, backgroundColor, gridGap, children } = props
   const columns = Array.isArray(children) ? children.length : 1
   const gap = gridGap ? { gridGap } : { variant: "gaps.widgetGap" }
-
-  console.log("gap is", gap)
 
   return (
     <div
@@ -14,7 +13,7 @@ const WidgetArea = props => {
       sx={{
         m: "0 auto 20px",
         width: "100%",
-        bg: background || "bg_footer",
+        bg: backgroundColor || "bg_footer",
         maxWidth: maxWidth || "max_footer",
         display: columns > 1 ? "grid" : "block",
         gridTemplateColumns: ["1fr", `repeat(${columns}, 1fr)`],
@@ -22,6 +21,13 @@ const WidgetArea = props => {
       }}
     />
   )
+}
+
+WidgetArea.propTypes = {
+  backgroundColor: PropTypes.string,
+  gridGap: PropTypes.number,
+  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node.isRequired,
 }
 
 export default WidgetArea

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import PropTypes from "prop-types"
 import { useEffect, useRef } from "react"
 import { useMenu, useOptions } from "../context/UIContext"
 import { formatUnit } from "../utils/helper"
@@ -12,8 +13,10 @@ const MobileNav = props => {
   const [menuActive, toggleMenu] = useMenu()
   const options = useOptions().header
   const menuRef = useRef(null)
+
   const width = formatUnit(props.width) || formatUnit(options.mobileNavWidth)
   const animation = props.animation || options.mobileNavStyle
+  const config = props.spring || options.spring
 
   // Component Lifecyle
 
@@ -39,7 +42,7 @@ const MobileNav = props => {
     return animation === "slideRight" ? { left: 0, width } : { right: 0, width }
   }
 
-  return transitions(menuActive, animation, width, options.spring).map(
+  return transitions(menuActive, animation, width, config).map(
     ({ item, key, props }) =>
       item && (
         <a.div
@@ -75,6 +78,15 @@ const MobileNav = props => {
         </a.div>
       )
   )
+}
+
+MobileNav.propTypes = {
+  backgroundColor: PropTypes.string,
+  defaultClose: PropTypes.bool,
+  animation: PropTypes.string,
+  spring: PropTypes.object,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node,
 }
 
 export default MobileNav

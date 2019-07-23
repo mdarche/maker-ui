@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import PropTypes from "prop-types"
 
 const NavMenu = props => {
   return (
@@ -13,6 +14,10 @@ const NavMenu = props => {
       }}
     />
   )
+}
+
+NavMenu.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export default NavMenu

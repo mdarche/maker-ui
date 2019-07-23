@@ -2,7 +2,7 @@ import options from "../options"
 
 export default {
   topbar: {
-    sticky: false,
+    sticky: true,
     maxWidth: 1260,
     hideOnMobile: false,
   },

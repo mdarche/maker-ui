@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import PropTypes from "prop-types"
 import { ReactComponent as MenuIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import { useMenu } from "../context/UIContext"
@@ -36,6 +37,13 @@ const MenuToggle = props => {
       {icon !== undefined ? renderIcon() : null}
     </button>
   )
+}
+
+MenuToggle.propTypes = {
+  fill: PropTypes.string,
+  icon: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node,
 }
 
 export default MenuToggle

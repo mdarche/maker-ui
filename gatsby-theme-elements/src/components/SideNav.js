@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import PropTypes from "prop-types"
 import { useRef, useLayoutEffect, useEffect } from "react"
 import { measure, useMeasurements } from "../context/MeasureContext"
 import { useOptions, useSideNav } from "../context/UIContext"
 import { animated as a } from "react-spring"
-import { spring } from "../utils/animate"
+import { reveal } from "../utils/animate"
 
 function getInnerWidth() {
   if (typeof window !== `undefined`) {
@@ -13,12 +14,14 @@ function getInnerWidth() {
 }
 
 const SideNav = props => {
-  const { boxShadow, backgroundColor, ...rest } = props
+  const { boxShadow, backgroundColor, spring, ...rest } = props
   const [sideNavActive, toggleSideNav] = useSideNav()
   const options = useOptions()
   const { viewportX } = useMeasurements()
   const { setSideNavWidth } = measure()
   const sideNavRef = useRef(null)
+
+  const config = spring || options.sideNav.spring
   const width = props.width || options.sideNav.width
   const breakpoint = options.breakpoints.sm
 
@@ -39,13 +42,7 @@ const SideNav = props => {
 
   return (
     <a.section
-      style={spring(
-        sideNavActive,
-        getInnerWidth(),
-        breakpoint,
-        width,
-        options.sideNav.spring
-      )}
+      style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, config)}
       ref={sideNavRef}
       aria-label="Secondary Navigation"
       sx={{
@@ -64,6 +61,14 @@ const SideNav = props => {
       <div {...rest} />
     </a.section>
   )
+}
+
+SideNav.propTypes = {
+  backgroundColor: PropTypes.string,
+  spring: PropTypes.object,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  boxShadow: PropTypes.string,
+  children: PropTypes.node.isRequired,
 }
 
 export default SideNav

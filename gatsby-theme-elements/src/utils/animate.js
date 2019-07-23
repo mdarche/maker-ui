@@ -1,6 +1,6 @@
 import { useTransition, useSpring } from "react-spring"
 
-// TODO - refactor with minus (-) sign logic
+// TODO - refactor with minus (-) sign logic & switch statement
 
 const transitionTypes = width => ({
   fade: {
@@ -37,7 +37,7 @@ export const transitions = (toggle, type, width, config) => {
   })
 }
 
-export const spring = (toggle, viewportX, breakpoint, width, config) => {
+export const reveal = (toggle, viewportX, breakpoint, width, config) => {
   const unit = width.replace(/[0-9.]/g, "")
   return useSpring({
     to: {

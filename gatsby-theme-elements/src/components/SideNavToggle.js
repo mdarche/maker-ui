@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import PropTypes from "prop-types"
 import { ReactComponent as ExpandIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import { useSideNav } from "../context/UIContext"
 
-const MenuToggle = props => {
+const SideNavToggle = props => {
   const { height, icon, ...rest } = props
   const [sideNavActive, toggleSideNav] = useSideNav()
 
@@ -42,4 +43,9 @@ const MenuToggle = props => {
   )
 }
 
-export default MenuToggle
+SideNavToggle.propTypes = {
+  icon: PropTypes.bool,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+}
+
+export default SideNavToggle

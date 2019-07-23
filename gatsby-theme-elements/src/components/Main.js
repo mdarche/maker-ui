@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import PropTypes from "prop-types"
 import { useOptions } from "../context/UIContext"
 import { formatUnit } from "../utils/helper"
-
-// TODO - Add prop types to all exportable components
 
 const Main = props => {
   const {
@@ -81,6 +80,17 @@ const Main = props => {
       </div>
     </main>
   )
+}
+
+Main.propTypes = {
+  gridGap: PropTypes.number,
+  sideNav: PropTypes.bool,
+  sidebar: PropTypes.bool,
+  sidebarPosition: PropTypes.string,
+  sidebarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  paddingTop: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node.isRequired,
 }
 
 export default Main
