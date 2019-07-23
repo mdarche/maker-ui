@@ -12,11 +12,15 @@ function inspectWindow() {
 const Elements = ({ children }) => {
   const { setViewportXY } = measure()
 
+  // Component Lifecycle
+
   useLayoutEffect(() => {
     setViewportXY(inspectWindow())
     window.addEventListener(`resize`, handleResize)
     return () => window.removeEventListener(`resize`, handleResize)
   }, [])
+
+  // Event Handlers
 
   const handleResize = () => {
     setViewportXY(inspectWindow())

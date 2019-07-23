@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react"
 
 const MeasureContext = React.createContext()
 
+// Context Provider
+
 const MeasureContextProvider = ({ children }) => {
   const [metrics, measure] = useState({
     topbarHeight: 0,

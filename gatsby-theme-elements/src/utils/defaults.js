@@ -16,6 +16,7 @@ export default {
   sideNav: {
     active: false,
     width: "18em",
+    breakpoint: 750,
     sideNavSpring: { tension: 170, friction: 26 },
   },
   content: {

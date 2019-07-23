@@ -10,9 +10,13 @@ const Topbar = props => {
   const options = useOptions().topbar
   const topbarRef = useRef(null)
 
+  // Component Lifecycle
+
   useLayoutEffect(() => {
     setTopbarHeight(topbarRef.current.clientHeight)
   }, [])
+
+  // Partials
 
   const stickyPartial =
     sticky || options.sticky

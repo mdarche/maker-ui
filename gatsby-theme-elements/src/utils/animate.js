@@ -1,4 +1,4 @@
-import { useTransition } from "react-spring"
+import { useTransition, useSpring } from "react-spring"
 
 // TODO refactor / simplify
 const transitionTypes = width => ({
@@ -27,16 +27,20 @@ const transitionTypes = width => ({
     enter: { transform: `translateX(0)` },
     leave: { transform: `translateX(${width})` },
   },
-  sideNav: {
-    from: { opacity: 0, transform: `translateX(-${width})` },
-    enter: { opacity: 1, transform: `translateX(0)` },
-    leave: { opacity: 0, transform: `translateX(-${width})` },
-  },
 })
 
 export const transitions = (toggle, type, width, config) => {
   return useTransition(toggle, null, {
     ...transitionTypes(width)[`${type}`],
+    config,
+  })
+}
+
+export const spring = (toggle, width, config) => {
+  const unit = width.replace(/[0-9.]/g, "")
+  return useSpring({
+    opacity: toggle ? 1 : 0,
+    transform: toggle ? `translateX(0${unit})` : `translateX(-${width})`,
     config,
   })
 }

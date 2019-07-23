@@ -3,6 +3,7 @@ import { jsx } from "theme-ui"
 
 const TabBar = props => {
   const { background, borderTop, boxShadow } = props
+
   return (
     <div
       {...props}

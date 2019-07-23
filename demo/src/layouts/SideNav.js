@@ -8,6 +8,7 @@ import {
   Main,
   Topbar,
   SideNav,
+  SideNavToggle,
 } from "gatsby-theme-elements"
 import { SideAds } from "react-understudy"
 
@@ -43,6 +44,7 @@ const Layout = props => (
       <Main sideNav={true} paddingTop="0">
         <div>{props.children}</div>
       </Main>
+      <SideNavToggle defaultIcon />
     </div>
   </ThemeLayout>
 )

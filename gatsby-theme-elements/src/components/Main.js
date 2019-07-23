@@ -1,39 +1,41 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { useOptions } from "../context/UIContext"
-import { styleUnit } from "../utils/helper"
+import { formatUnit } from "../utils/helper"
 
 const Main = props => {
-  const options = useOptions().content
-  const sideNavOptions = useOptions().sideNav
   const {
-    sbWidth,
-    sbPosition,
-    maxWidth,
     sidebar,
+    sidebarWidth,
+    sidebarPosition,
+    maxWidth,
     sideNav,
     columnGap,
     paddingTop,
     children,
     style,
   } = props
+  const options = useOptions().content
+  const sideNavOptions = useOptions().sideNav
   const columns = Array.isArray(children) ? children.length : 1
   const sidebarActive = sidebar || options.sidebar
   const sideNavActive = sideNav || sideNavOptions.active
 
-  // Handle extra child components
+  // Handle Errors
+
   if (columns > 2) {
     throw new Error(
-      "The Main component accepts a maximum of 2 child components (Sidebar and content). Be sure to specify whether the sidebar is on the left or right."
+      "The Main component accepts a maximum of 2 child components (sidebar and content areas). Be sure to specify whether the sidebar is on the left or right."
     )
   }
 
+  // Partials
   // TODO - Refactor this partial
 
   const sidebarPartial = () => {
     if (sidebarActive) {
-      const width = styleUnit(sbWidth) || styleUnit(options.sbWidth)
-      const position = sbPosition || options.sbPosition
+      const width = formatUnit(sidebarWidth) || formatUnit(options.sidebarWidth)
+      const position = sidebarPosition || options.sidebarPosition
 
       return position === "right"
         ? {
@@ -51,7 +53,8 @@ const Main = props => {
     }
   }
 
-  const sidenavPartial = () => {
+  // TODO update this MQ to reflect sidenav breakpoint setting
+  const sideNavPartial = () => {
     return sideNavActive ? { pl: [0, sideNavOptions.width] } : null
   }
 
@@ -63,7 +66,7 @@ const Main = props => {
         width: ["auto", "100%"],
         maxWidth: maxWidth || "max_content",
         flex: 1,
-        ...sidenavPartial(),
+        ...sideNavPartial(),
       }}
     >
       <div

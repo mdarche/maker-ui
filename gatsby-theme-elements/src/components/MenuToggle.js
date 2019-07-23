@@ -8,6 +8,8 @@ const MenuToggle = props => {
   const { fill, height, children, icon = undefined } = props
   const [menuActive, toggleMenu] = useMenu()
 
+  // Partials
+
   const renderIcon = () => {
     return icon === "menu" ? <MenuIcon /> : <CloseIcon />
   }

@@ -16,8 +16,8 @@ export default {
     maxWidth: 1260,
     columnGap: 30,
     sidebar: true,
-    sbWidth: ".3fr",
-    sbPosition: "left",
+    sidebarWidth: ".3fr",
+    sidebarPosition: "left",
   },
   footer: {
     maxWidth: 1260,

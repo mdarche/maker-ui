@@ -11,9 +11,13 @@ const Header = props => {
   const { sticky, maxWidth, background } = props
   const headerRef = useRef(null)
 
+  // Component Lifecycle
+
   useLayoutEffect(() => {
     setHeaderHeight(headerRef.current.clientHeight)
   }, [])
+
+  // Partials
 
   const stickyPartial =
     sticky || options.header.sticky

@@ -3,6 +3,7 @@ import { jsx } from "theme-ui"
 
 const Footer = props => {
   const { background, maxWidth } = props
+
   return (
     <footer
       sx={{

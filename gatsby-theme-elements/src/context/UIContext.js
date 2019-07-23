@@ -3,6 +3,8 @@ import themeOptions from "../utils/defaults"
 
 const UIContext = React.createContext()
 
+// Context Provider
+
 const UIContextProvider = ({ children }) => {
   const [state, setState] = useState({
     options: themeOptions,
@@ -44,10 +46,10 @@ function useSideNav() {
   const { state, setState } = useContext(UIContext)
   const sideNavActive = state.sideNavActive
 
-  function toggleSideNav() {
+  function toggleSideNav(value) {
     setState(state => ({
       ...state,
-      sideNavActive: !state.sideNavActive,
+      sideNavActive: value ? value : !state.sideNavActive,
     }))
   }
 

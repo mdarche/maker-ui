@@ -9,7 +9,7 @@ export default {
     bg_topbar: "#c73",
     bg_header: "#fff",
     bg_navmobile: "rgba(0, 0, 0, 0.9)",
-    bg_widgets: "#fff",
+    bg_sidenav: "#fff",
     bg_tabbar: "#fff",
     bg_footer: "#fff",
   },
