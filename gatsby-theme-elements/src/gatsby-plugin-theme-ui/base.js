@@ -1,5 +1,5 @@
 import styles from "./styles"
-import options from "../../options"
+import options from "../utils/defaults"
 
 export default {
   initialColorMode: "light",
@@ -12,7 +12,8 @@ export default {
     muted: "#f6f6f6f",
     bg_topbar: "#609",
     bg_header: "#fff",
-    bg_widgets: "#fff",
+    bg_navmobile: "rgba(0, 0, 0, 0.9)",
+    bg_sidenav: "#fff",
     bg_tabbar: "#fff",
     bg_footer: "#fff",
     modes: {
@@ -25,7 +26,8 @@ export default {
         muted: "#111",
         bg_topbar: "#609",
         bg_header: "#fff",
-        bg_widgets: "#fff",
+        bg_navmobile: "#fff",
+        bg_sidenav: "#fff",
         bg_tabbar: "#fff",
         bg_footer: "#fff",
       },
@@ -52,17 +54,31 @@ export default {
     header: null,
     tabbar: null,
   },
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   borders: {
     header: "1px solid gainsboro",
     footer: "1px solid gainsboro",
     tabbar: "1px solid gainsboro",
   },
   sizes: {
+    width_mobileNav: options.header.mobileNavWidth,
     max_header: options.header.maxWidth,
     max_topbar: options.topbar.maxWidth,
-    max_content: options.content.maxWidth,
+    max_content: options.main.maxWidth,
     max_footer: options.footer.maxWidth,
   },
-  breakpoints: ["40em", "56em", "64em"],
+  gaps: {
+    widgetGap: {
+      gridGap: options.footer.gridGap,
+    },
+    mainGap: {
+      gridGap: options.main.gridGap,
+    },
+  },
+  breakpoints: [
+    `${options.breakpoints.sm}px`,
+    `${options.breakpoints.md}px`,
+    `${options.breakpoints.lg}px`,
+  ],
   styles,
 }

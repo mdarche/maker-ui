@@ -3,3 +3,4 @@
  *
  * See: https://theme-ui.com/getting-started
  */
+export default {}

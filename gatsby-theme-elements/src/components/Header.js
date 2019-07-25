@@ -1,30 +1,44 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { getOptions } from "../context/UIContext"
-import { getMeasurements } from "../context/MeasureContext"
+import PropTypes from "prop-types"
+import { useRef, useLayoutEffect } from "react"
+import { useOptions } from "../context/UIContext"
+import { useMeasurements, measure } from "../context/MeasureContext"
 
 const Header = props => {
-  const options = getOptions()
-  const topbarHeight = getMeasurements().topbarHeight
-  const { sticky, maxWidth, background } = props
+  const headerRef = useRef(null)
+  const options = useOptions()
+  const { setHeaderHeight } = measure()
+  const { topbarHeight } = useMeasurements()
+  const { sticky, maxWidth, backgroundColor, ...rest } = props
 
-  const stickyPartial =
-    sticky || options.header.sticky
-      ? {
-          position: "sticky",
-          top: options.topbar.sticky ? topbarHeight : 0,
-          zIndex: 99,
-        }
-      : null
+  // Component Lifecycle
+
+  useLayoutEffect(() => {
+    setHeaderHeight(headerRef.current.clientHeight)
+  }, [])
+
+  // Partials
+
+  const stickyPartial = (sticky !== undefined
+  ? sticky
+  : options.header.sticky)
+    ? {
+        position: "sticky",
+        top: options.topbar.sticky ? topbarHeight : 0,
+      }
+    : null
 
   return (
     <header
+      ref={headerRef}
       sx={{
-        bg: background || "bg_header",
-        p: 3,
+        bg: backgroundColor || "bg_header",
         fontFamily: "nav",
+        p: 3,
         boxShadow: "header",
         borderBottom: "header",
+        zIndex: 100,
         ...stickyPartial,
       }}
     >
@@ -33,14 +47,21 @@ const Header = props => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          m: `0 auto`,
+          m: "0 auto",
           width: "100%",
           maxWidth: maxWidth || "max_header",
         }}
-        {...props}
+        {...rest}
       />
     </header>
   )
+}
+
+Header.propTypes = {
+  backgroundColor: PropTypes.string,
+  sticky: PropTypes.bool,
+  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node.isRequired,
 }
 
 export default Header

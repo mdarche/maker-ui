@@ -1,40 +1,79 @@
-import React, { useState, useContext } from "react"
-import themeOptions from "../../options"
+import React, { useState, useContext, useMemo } from "react"
+import themeOptions from "../utils/defaults"
+const merge = require("deepmerge")
+
+const errorCheck = (name, value) => {
+  if (value === undefined) {
+    throw new Error(`${name} must be used within a UIContextProvider`)
+  }
+}
+
+// UI Context Provider
 
 const UIContext = React.createContext()
 
-// Create provider
-
 const UIContextProvider = ({ children }) => {
-  const [options, setOptions] = useState(themeOptions)
-  const value = React.useMemo(() => {
-    return { options, setOptions }
-  }, [options])
+  const [state, setState] = useState({
+    options: themeOptions,
+    menuActive: false,
+    sideNavActive: true,
+  })
+
+  const value = useMemo(() => {
+    return { state, setState }
+  }, [state])
 
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>
 }
 
-// Expose options to layout components & child themes
+// Usage Hooks
 
-const getOptions = () => {
-  const { options } = useContext(UIContext)
-  if (options === undefined) {
-    throw new Error("getOptions must be used within a UIContextProvider")
-  }
-  return options
+function useOptions() {
+  const { state } = useContext(UIContext)
+  errorCheck("useOptions", state)
+
+  return state.options
 }
 
-const measure = () => {
-  const { setOptions } = useContext(UIContext)
+function useMenu() {
+  const { state, setState } = useContext(UIContext)
+  const menuActive = state.menuActive
+  errorCheck("useMenu", state)
 
-  function getTopBarHeight(height) {
-    setOptions(options => ({
-      ...options,
-      topBar: { ...options.topBar, height },
+  function toggleMenu() {
+    setState(state => ({
+      ...state,
+      menuActive: !state.menuActive,
     }))
   }
 
-  return { getTopBarHeight }
+  return [menuActive, toggleMenu]
 }
 
-export { UIContextProvider, getOptions, measure }
+function useSideNav() {
+  const { state, setState } = useContext(UIContext)
+  const sideNavActive = state.sideNavActive
+  errorCheck("useSideNav", state)
+
+  function toggleSideNav(value) {
+    setState(state => ({
+      ...state,
+      sideNavActive: value ? value : !state.sideNavActive,
+    }))
+  }
+
+  return [sideNavActive, toggleSideNav]
+}
+
+function useTopbar() {
+  const { setState } = useContext(UIContext)
+  errorCheck("useTopbar", setState)
+
+  function setTopbar(value) {
+    setState(state => merge(state, { options: { topbar: { sticky: value } } }))
+  }
+
+  return setTopbar
+}
+
+export { UIContextProvider, useOptions, useMenu, useSideNav, useTopbar }

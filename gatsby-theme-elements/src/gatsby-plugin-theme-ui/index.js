@@ -1,4 +1,4 @@
-import extend from "../../theme"
+import extend from "../theme"
 import baseTheme from "./base"
 
 const theme = {

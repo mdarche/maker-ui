@@ -1,55 +1,94 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { getOptions } from "../context/UIContext"
-import { styleUnit } from "../utils/helper"
+import PropTypes from "prop-types"
+import { useOptions } from "../context/UIContext"
+import { formatUnit } from "../utils/helper"
 
 const Main = props => {
-  const options = getOptions().content
-  const { sbWidth, sbPosition, maxWidth, sidebar, columnGap } = props
-  const columns = props.children.length
-  const sidebarActive = sidebar || options.sidebar ? true : false
+  const options = useOptions()
+  const columns = Array.isArray(props.children) ? props.children.length : 1
+  const {
+    sidebar = undefined,
+    sidebarWidth,
+    sidebarPosition,
+    maxWidth,
+    sideNav = undefined,
+    gridGap,
+    paddingTop,
+    ...rest
+  } = props
 
-  // Handle extra child components
-  if (columns !== 2 && sidebarActive) {
+  const sidebarActive = sidebar !== undefined ? sidebar : options.main.sidebar
+  const sideNavActive = sideNav !== undefined ? sideNav : options.sideNav.active
+  const width =
+    formatUnit(sidebarWidth) || formatUnit(options.main.sidebarWidth)
+  const position = sidebarPosition || options.main.sidebarPosition
+
+  // Handle Errors
+
+  if (columns > 2) {
     throw new Error(
-      "The <Main /> component accepts two (2) child components when the Sidebar is active."
+      "The Main component accepts a maximum of 2 child components (sidebar and content area). Be sure to specify whether the sidebar is on the left or right so Main can properly format the grid."
     )
   }
 
-  const sideBarPartial = () => {
-    if (sidebarActive) {
-      const width = styleUnit(sbWidth) || styleUnit(options.sbWidth)
-      const position = sbPosition || options.sbPosition
+  // Partials
 
-      return position === "right"
-        ? {
-            gridTemplateColumns: [`1fr`, `1fr ${width}`],
-          }
-        : {
-            gridTemplateColumns: [`1fr`, `${width} 1fr`],
-            "> :first-of-type": {
-              gridRow: [2, 1],
-            },
-          }
+  const sidebarPartial = () => {
+    if (sidebarActive) {
+      const gap = gridGap ? { gridGap } : { variant: "gaps.mainGap" }
+      const gridLayout =
+        position === "right"
+          ? {
+              gridTemplateColumns: [`1fr`, `1fr ${width}`],
+            }
+          : {
+              gridTemplateColumns: [`1fr`, `${width} 1fr`],
+              "> :first-of-type": {
+                gridRow: [2, 1],
+              },
+            }
+
+      return { ...gap, ...gridLayout }
     }
-    return { gridTemplateColumns: "1fr" }
   }
+
+  const sideNavPartial = sideNavActive
+    ? { pl: [0, options.sideNav.width] }
+    : null
 
   return (
     <main
       sx={{
         m: ["initial", "0 auto"],
-        p: styleUnit(options.padding),
         width: ["auto", "100%"],
         maxWidth: maxWidth || "max_content",
-        display: sidebarActive && columns !== 1 ? "grid" : "block",
-        gridColumnGap: columnGap || options.columnGap,
-        gridRowGap: 30,
-        ...sideBarPartial(),
+        flex: 1,
+        ...sideNavPartial,
       }}
-      {...props}
-    />
+    >
+      <div
+        sx={{
+          pt: paddingTop || options.main.paddingTop,
+          px: 20,
+          display: sidebarActive && columns !== 1 ? "grid" : "block",
+          ...sidebarPartial(),
+        }}
+        {...rest}
+      />
+    </main>
   )
+}
+
+Main.propTypes = {
+  gridGap: PropTypes.number,
+  sideNav: PropTypes.bool,
+  sidebar: PropTypes.bool,
+  sidebarPosition: PropTypes.string,
+  sidebarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  paddingTop: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node.isRequired,
 }
 
 export default Main

@@ -1,51 +1,72 @@
 /** @jsx jsx */
-import { useRef, useLayoutEffect } from "react"
 import { jsx } from "theme-ui"
-import { getOptions } from "../context/UIContext"
+import PropTypes from "prop-types"
+import { useRef, useLayoutEffect, useEffect } from "react"
+import { useOptions, useTopbar } from "../context/UIContext"
 import { measure } from "../context/MeasureContext"
 
 const Topbar = props => {
-  const { background, color, sticky, maxWidth } = props
-  const options = getOptions().topbar
+  const { backgroundColor, color, sticky, maxWidth, ...rest } = props
+  const { setTopbarHeight } = measure()
+  const options = useOptions()
+  const setTopbar = useTopbar()
   const topbarRef = useRef(null)
-  const { getTopbarHeight } = measure()
+
+  // Component Lifecycle
 
   useLayoutEffect(() => {
-    getTopbarHeight(topbarRef.current.clientHeight)
+    setTopbarHeight(topbarRef.current.clientHeight)
   }, [])
 
-  const stickyPartial =
-    sticky || options.sticky
-      ? {
-          position: "sticky",
-          top: 0,
-        }
-      : null
+  useEffect(() => {
+    if (sticky !== options.topbar.sticky) {
+      setTopbar(sticky)
+    }
+  }, [])
+
+  // Partials
+
+  const stickyPartial = options.topbar.sticky
+    ? {
+        position: "sticky",
+        top: 0,
+      }
+    : null
 
   return (
     <aside
       ref={topbarRef}
       sx={{
         display:
-          !options.sticky && options.hideOnMobile ? ["none", "block"] : "block",
+          !options.topbar.sticky && options.topbar.hideOnMobile
+            ? ["none", "block"]
+            : "block",
         p: 2,
-        bg: background || "bg_topbar",
+        bg: backgroundColor || "bg_topbar",
         fontFamily: "topbar" || "body",
-        color: color || "topbar" || "body",
+        color: color || "text_topbar",
         zIndex: 100,
         overflowX: "scroll",
         ...stickyPartial,
       }}
     >
       <div
+        {...rest}
         sx={{
           m: "0 auto",
           maxWidth: maxWidth || "max_topbar",
         }}
-        {...props}
       />
     </aside>
   )
+}
+
+Topbar.propTypes = {
+  backgroundColor: PropTypes.string,
+  color: PropTypes.string,
+  sticky: PropTypes.bool,
+  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node.isRequired,
 }
 
 export default Topbar

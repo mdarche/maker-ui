@@ -7,10 +7,8 @@ import {
   NavMenu,
   Main,
   Topbar,
-  Footer,
-  WidgetArea,
-  MenuToggle,
-  MobileNav,
+  SideNav,
+  SideNavToggle,
 } from "gatsby-theme-elements"
 import { SideAds } from "react-understudy"
 
@@ -34,23 +32,22 @@ const Layout = props => (
           </li>
         ))}
       </NavMenu>
-      <MenuToggle icon="menu" />
-      <MobileNav defaultClose />
     </Header>
-    <Main>
-      <div>
-        <SideAds />
-      </div>
-      <div>{props.children}</div>
-    </Main>
-    <Footer>
-      <WidgetArea>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-      </WidgetArea>
-      Copyright 2019
-    </Footer>
+    <div
+      sx={{
+        display: "flex",
+      }}
+    >
+      <SideNav>
+        <SideAds adHeights={[600, 250]} />
+      </SideNav>
+      <Main sideNav={true} paddingTop="0">
+        <div>{props.children}</div>
+      </Main>
+      <SideNavToggle sx={{ bg: "#000", borderRadius: "50%" }}>
+        Test
+      </SideNavToggle>
+    </div>
   </ThemeLayout>
 )
 
