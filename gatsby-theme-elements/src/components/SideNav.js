@@ -13,13 +13,15 @@ function getInnerWidth() {
   }
 }
 
+// TODO - mention known top issue in docs
+
 const SideNav = props => {
-  const { boxShadow, backgroundColor, spring, ...rest } = props
-  const [sideNavActive, toggleSideNav] = useSideNav()
-  const options = useOptions()
-  const { viewportX } = useMeasurements()
-  const { setSideNavWidth } = measure()
   const sideNavRef = useRef(null)
+  const options = useOptions()
+  const { setSideNavWidth } = measure()
+  const { viewportX, topbarHeight, headerHeight } = useMeasurements()
+  const [sideNavActive, toggleSideNav] = useSideNav()
+  const { boxShadow, backgroundColor, spring, top, ...rest } = props
 
   const config = spring || options.sideNav.spring
   const width = props.width || options.sideNav.width
@@ -40,6 +42,25 @@ const SideNav = props => {
     }
   }, [viewportX])
 
+  // Partials
+
+  const topPartial = () => {
+    const totalHeight = topbarHeight + headerHeight
+
+    if (top !== undefined) {
+      return { top }
+    }
+
+    if (
+      (options.topbar.sticky && options.header.sticky) ||
+      (!options.topbar.sticky && !options.header.sticky)
+    ) {
+      return { top: [0, totalHeight] }
+    }
+
+    return { top: 0 }
+  }
+
   return (
     <a.section
       style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, config)}
@@ -51,11 +72,11 @@ const SideNav = props => {
         bg: backgroundColor || "bg_sidenav",
         boxShadow: boxShadow || ["1px 1px 8px 1px rgba(0, 0, 0, 0.1)", "none"],
         maxWidth: "75vw",
-        top: 0,
         left: 0,
         bottom: 0,
-        zIndex: 10,
+        zIndex: [200, 10],
         overflowY: "scroll",
+        ...topPartial(),
       }}
     >
       <div {...rest} />

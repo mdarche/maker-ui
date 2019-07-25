@@ -9,10 +9,10 @@ import { transitions } from "../utils/animate"
 import MenuToggle from "./MenuToggle"
 
 const MobileNav = props => {
-  const { backgroundColor, children, defaultClose = false, ...rest } = props
-  const [menuActive, toggleMenu] = useMenu()
-  const options = useOptions()
   const menuRef = useRef(null)
+  const options = useOptions()
+  const [menuActive, toggleMenu] = useMenu()
+  const { backgroundColor, children, defaultClose = false, ...rest } = props
 
   const width =
     formatUnit(props.width) || formatUnit(options.header.mobileNavWidth)
@@ -40,6 +40,7 @@ const MobileNav = props => {
     if (animation.startsWith("fade")) {
       return { left: 0, width: "100%" }
     }
+
     return animation === "slideRight" ? { left: 0, width } : { right: 0, width }
   }
 
@@ -52,13 +53,13 @@ const MobileNav = props => {
           style={props}
           key={key}
           sx={{
-            zIndex: 1000,
             position: "fixed",
             top: 0,
             height: "100%",
             display: ["flex", "none"],
             border: "none",
             maxWidth: "100%",
+            zIndex: 1000,
             bg: backgroundColor || "bg_navmobile",
             ...positionPartial(),
           }}

@@ -17,6 +17,3 @@ export { default as Main } from "./Main"
 export { default as WidgetArea } from "./WidgetArea"
 export { default as Footer } from "./Footer"
 export { default as TabBar } from "./TabBar"
-export { default as Seo } from "./Seo"
-
-// Templates

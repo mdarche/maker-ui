@@ -6,11 +6,11 @@ import { useOptions } from "../context/UIContext"
 import { useMeasurements, measure } from "../context/MeasureContext"
 
 const Header = props => {
+  const headerRef = useRef(null)
   const options = useOptions()
   const { setHeaderHeight } = measure()
   const { topbarHeight } = useMeasurements()
-  const { sticky, maxWidth, backgroundColor } = props
-  const headerRef = useRef(null)
+  const { sticky, maxWidth, backgroundColor, ...rest } = props
 
   // Component Lifecycle
 
@@ -20,14 +20,14 @@ const Header = props => {
 
   // Partials
 
-  const stickyPartial =
-    sticky || options.header.sticky
-      ? {
-          position: "sticky",
-          top: options.topbar.sticky ? topbarHeight : 0,
-          zIndex: 100,
-        }
-      : null
+  const stickyPartial = (sticky !== undefined
+  ? sticky
+  : options.header.sticky)
+    ? {
+        position: "sticky",
+        top: options.topbar.sticky ? topbarHeight : 0,
+      }
+    : null
 
   return (
     <header
@@ -38,11 +38,11 @@ const Header = props => {
         p: 3,
         boxShadow: "header",
         borderBottom: "header",
+        zIndex: 100,
         ...stickyPartial,
       }}
     >
       <div
-        {...props}
         sx={{
           display: "flex",
           alignItems: "center",
@@ -51,6 +51,7 @@ const Header = props => {
           width: "100%",
           maxWidth: maxWidth || "max_header",
         }}
+        {...rest}
       />
     </header>
   )

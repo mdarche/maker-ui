@@ -4,7 +4,6 @@ export default {
   topbar: {
     sticky: true,
     maxWidth: 1260,
-    hideOnMobile: false,
   },
   header: {
     sticky: true,

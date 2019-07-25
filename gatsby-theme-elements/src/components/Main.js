@@ -5,21 +5,21 @@ import { useOptions } from "../context/UIContext"
 import { formatUnit } from "../utils/helper"
 
 const Main = props => {
+  const options = useOptions()
+  const columns = Array.isArray(props.children) ? props.children.length : 1
   const {
-    sidebar,
+    sidebar = undefined,
     sidebarWidth,
     sidebarPosition,
     maxWidth,
-    sideNav,
+    sideNav = undefined,
     gridGap,
     paddingTop,
-    children,
     ...rest
   } = props
-  const options = useOptions()
-  const columns = Array.isArray(children) ? children.length : 1
-  const sidebarActive = sidebar || options.main.sidebar
-  const sideNavActive = sideNav || options.sideNav.active
+
+  const sidebarActive = sidebar !== undefined ? sidebar : options.main.sidebar
+  const sideNavActive = sideNav !== undefined ? sideNav : options.sideNav.active
   const width =
     formatUnit(sidebarWidth) || formatUnit(options.main.sidebarWidth)
   const position = sidebarPosition || options.main.sidebarPosition
@@ -53,9 +53,9 @@ const Main = props => {
     }
   }
 
-  const sideNavPartial = () => {
-    return sideNavActive ? { pl: [0, options.sideNav.width] } : null
-  }
+  const sideNavPartial = sideNavActive
+    ? { pl: [0, options.sideNav.width] }
+    : null
 
   return (
     <main
@@ -64,20 +64,18 @@ const Main = props => {
         width: ["auto", "100%"],
         maxWidth: maxWidth || "max_content",
         flex: 1,
-        ...sideNavPartial(),
+        ...sideNavPartial,
       }}
     >
       <div
-        {...rest}
         sx={{
           pt: paddingTop || options.main.paddingTop,
           px: 20,
           display: sidebarActive && columns !== 1 ? "grid" : "block",
           ...sidebarPartial(),
         }}
-      >
-        {children}
-      </div>
+        {...rest}
+      />
     </main>
   )
 }

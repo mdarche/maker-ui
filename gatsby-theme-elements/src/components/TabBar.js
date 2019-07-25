@@ -28,7 +28,7 @@ const TabBar = props => {
 
 TabBar.propTypes = {
   backgroundColor: PropTypes.string,
-  boxShadow: PropTypes.bool,
+  boxShadow: PropTypes.string,
   borderTop: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   children: PropTypes.node.isRequired,
 }

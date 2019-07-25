@@ -6,15 +6,14 @@ import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import { useSideNav } from "../context/UIContext"
 
 const SideNavToggle = props => {
-  const { height, icon, backgroundColor, ...rest } = props
   const [sideNavActive, toggleSideNav] = useSideNav()
+  const { height, icon = false, backgroundColor, children, ...rest } = props
 
   const renderIcon = () => (sideNavActive ? <CloseIcon /> : <ExpandIcon />)
 
   return (
     <button
-      {...rest}
-      aria-label="Side Nav Toggle"
+      aria-label="Side Navigation Toggle"
       aria-expanded={sideNavActive ? "true" : "false"}
       aria-pressed={sideNavActive ? "true" : "false"}
       aria-haspopup="true"
@@ -36,8 +35,9 @@ const SideNavToggle = props => {
           height: 36,
         },
       }}
+      {...rest}
     >
-      {icon ? renderIcon() : null}
+      {icon ? renderIcon() : children}
     </button>
   )
 }

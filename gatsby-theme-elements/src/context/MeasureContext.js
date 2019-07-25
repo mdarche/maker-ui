@@ -1,8 +1,14 @@
 import React, { useState, useContext, useMemo } from "react"
 
-const MeasureContext = React.createContext()
+const errorCheck = (name, value) => {
+  if (value === undefined) {
+    throw new Error(`${name} must be used within a MeasureContextProvider`)
+  }
+}
 
-// Context Provider
+// Measure Context Provider
+
+const MeasureContext = React.createContext()
 
 const MeasureContextProvider = ({ children }) => {
   const [metrics, measure] = useState({
@@ -12,6 +18,7 @@ const MeasureContextProvider = ({ children }) => {
     viewportX: 0,
     viewportY: 0,
   })
+
   const value = useMemo(() => {
     return { metrics, measure }
   }, [metrics])
@@ -25,16 +32,14 @@ const MeasureContextProvider = ({ children }) => {
 
 function useMeasurements() {
   const { metrics } = useContext(MeasureContext)
-  if (metrics === undefined) {
-    throw new Error(
-      "useMeasurements must be used within a MeasureContextProvider"
-    )
-  }
+  errorCheck("useMeasurements", metrics)
+
   return metrics
 }
 
 function measure() {
   const { measure } = useContext(MeasureContext)
+  errorCheck("measure", measure)
 
   if (measure === undefined) {
     throw new Error("measure must be used within a MeasureContextProvider")

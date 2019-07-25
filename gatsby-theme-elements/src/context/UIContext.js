@@ -2,9 +2,15 @@ import React, { useState, useContext, useMemo } from "react"
 import themeOptions from "../utils/defaults"
 const merge = require("deepmerge")
 
-const UIContext = React.createContext()
+const errorCheck = (name, value) => {
+  if (value === undefined) {
+    throw new Error(`${name} must be used within a UIContextProvider`)
+  }
+}
 
-// Context Provider
+// UI Context Provider
+
+const UIContext = React.createContext()
 
 const UIContextProvider = ({ children }) => {
   const [state, setState] = useState({
@@ -12,6 +18,7 @@ const UIContextProvider = ({ children }) => {
     menuActive: false,
     sideNavActive: true,
   })
+
   const value = useMemo(() => {
     return { state, setState }
   }, [state])
@@ -23,10 +30,7 @@ const UIContextProvider = ({ children }) => {
 
 function useOptions() {
   const { state } = useContext(UIContext)
-
-  if (state.options === undefined) {
-    throw new Error("useOptions must be used within a UIContextProvider")
-  }
+  errorCheck("useOptions", state)
 
   return state.options
 }
@@ -34,6 +38,7 @@ function useOptions() {
 function useMenu() {
   const { state, setState } = useContext(UIContext)
   const menuActive = state.menuActive
+  errorCheck("useMenu", state)
 
   function toggleMenu() {
     setState(state => ({
@@ -45,19 +50,10 @@ function useMenu() {
   return [menuActive, toggleMenu]
 }
 
-function useTopbar() {
-  const { setState } = useContext(UIContext)
-
-  function setTopbar(value) {
-    setState(state => merge(state, { options: { topbar: { sticky: value } } }))
-  }
-
-  return setTopbar
-}
-
 function useSideNav() {
   const { state, setState } = useContext(UIContext)
   const sideNavActive = state.sideNavActive
+  errorCheck("useSideNav", state)
 
   function toggleSideNav(value) {
     setState(state => ({
@@ -67,6 +63,17 @@ function useSideNav() {
   }
 
   return [sideNavActive, toggleSideNav]
+}
+
+function useTopbar() {
+  const { setState } = useContext(UIContext)
+  errorCheck("useTopbar", setState)
+
+  function setTopbar(value) {
+    setState(state => merge(state, { options: { topbar: { sticky: value } } }))
+  }
+
+  return setTopbar
 }
 
 export { UIContextProvider, useOptions, useMenu, useSideNav, useTopbar }

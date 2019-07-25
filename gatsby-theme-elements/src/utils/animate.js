@@ -30,12 +30,16 @@ const transitionTypes = width => ({
   },
 })
 
+// Transitions
+
 export const transitions = (toggle, type, width, config) => {
   return useTransition(toggle, null, {
     ...transitionTypes(width)[`${type}`],
     config,
   })
 }
+
+// Springs
 
 export const reveal = (toggle, viewportX, breakpoint, width, config) => {
   const unit = width.replace(/[0-9.]/g, "")

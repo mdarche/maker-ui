@@ -3,8 +3,8 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
 const WidgetArea = props => {
-  const { maxWidth, backgroundColor, gridGap, children } = props
-  const columns = Array.isArray(children) ? children.length : 1
+  const { maxWidth, backgroundColor, gridGap } = props
+  const columns = Array.isArray(props.children) ? props.children.length : 1
 
   // Partials
 

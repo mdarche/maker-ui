@@ -1,10 +1,7 @@
-module.exports = () => {
-  return {
-    plugins: [
-      `gatsby-plugin-react-helmet`,
-      `gatsby-plugin-emotion`,
-      `gatsby-plugin-theme-ui`,
-      `gatsby-plugin-svgr`,
-    ],
-  }
+module.exports = {
+  plugins: [
+    `gatsby-plugin-emotion`,
+    `gatsby-plugin-theme-ui`,
+    `gatsby-plugin-svgr`,
+  ],
 }
