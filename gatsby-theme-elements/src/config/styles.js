@@ -1,3 +1,5 @@
+// Default styles for Styled components & MDX
+
 const heading = {
   fontFamily: "heading",
   fontWeight: "heading",
@@ -7,9 +9,6 @@ const heading = {
 }
 
 export default {
-  header: {
-    justifyContent: "flex-start",
-  },
   h1: {
     ...heading,
     fontSize: [5, 6],

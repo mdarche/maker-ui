@@ -1,5 +1,5 @@
+import baseTheme from "../config/base"
 import extend from "../theme"
-import baseTheme from "./base"
 
 const theme = {
   ...baseTheme,

@@ -10,7 +10,7 @@ const Topbar = props => {
   const options = useOptions()
   const setTopbar = useTopbar()
   const { setTopbarHeight } = measure()
-  const { backgroundColor, color, sticky, maxWidth, ...rest } = props
+  const { backgroundColor, sticky, maxWidth, ...rest } = props
 
   // Component Lifecycle
 
@@ -45,7 +45,6 @@ const Topbar = props => {
         p: 2,
         bg: backgroundColor || "bg_topbar",
         fontFamily: "topbar" || "body",
-        color: color || "text_topbar",
         zIndex: 100,
         overflowX: "scroll",
         ...stickyPartial,
@@ -64,7 +63,6 @@ const Topbar = props => {
 
 Topbar.propTypes = {
   backgroundColor: PropTypes.string,
-  color: PropTypes.string,
   sticky: PropTypes.bool,
   maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   children: PropTypes.node.isRequired,

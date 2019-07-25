@@ -62,7 +62,7 @@ const Main = props => {
       sx={{
         m: ["initial", "0 auto"],
         width: ["auto", "100%"],
-        maxWidth: maxWidth || "max_content",
+        maxWidth: maxWidth || "max_main",
         flex: 1,
         ...sideNavPartial,
       }}

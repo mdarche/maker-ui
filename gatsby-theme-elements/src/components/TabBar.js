@@ -9,10 +9,8 @@ const TabBar = props => {
     <div
       {...props}
       sx={{
-        display: ["flex", "none"],
+        display: ["block", "none"],
         position: "fixed",
-        alignItems: "center",
-        justifyContet: "space-evenly",
         bottom: 0,
         left: 0,
         right: 0,

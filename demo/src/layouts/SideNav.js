@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, Styled } from "theme-ui"
 import { Link } from "gatsby"
 import {
   Root as ThemeLayout,
@@ -7,6 +7,7 @@ import {
   NavMenu,
   Main,
   Topbar,
+  TabBar,
   SideNav,
   SideNavToggle,
 } from "gatsby-theme-elements"
@@ -16,7 +17,9 @@ const menuItems = ["Home", "About", "Source", "Contact"]
 
 const Layout = props => (
   <ThemeLayout>
-    <Topbar>Topbar content</Topbar>
+    <Topbar>
+      <div sx={{ width: 2000 }}>Test</div>
+    </Topbar>
     <Header borderBottom="none">
       <div className="logo">Logo</div>
       <NavMenu
@@ -42,12 +45,18 @@ const Layout = props => (
         <SideAds adHeights={[600, 250]} />
       </SideNav>
       <Main sideNav={true} paddingTop="5em" maxWidth={1000}>
-        <div>{props.children}</div>
+        <div>
+          <Styled.h1>Test H1</Styled.h1>
+          {props.children}
+        </div>
       </Main>
-      <SideNavToggle sx={{ bg: "#000", borderRadius: "50%" }}>
+      <SideNavToggle sx={{ bg: "#000", borderRadius: "50%", bottom: 80 }}>
         Test
       </SideNavToggle>
     </div>
+    <TabBar>
+      <div>Test</div>
+    </TabBar>
   </ThemeLayout>
 )
 

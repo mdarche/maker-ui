@@ -1,5 +1,10 @@
 import styles from "./styles"
-import options from "../utils/defaults"
+import options from "./defaults"
+
+/**
+ * Default theme for Theme UI
+ * -- Overwrite by shadowing src/theme.js
+ */
 
 export default {
   initialColorMode: "light",
@@ -64,7 +69,7 @@ export default {
     width_mobileNav: options.header.mobileNavWidth,
     max_header: options.header.maxWidth,
     max_topbar: options.topbar.maxWidth,
-    max_content: options.main.maxWidth,
+    max_main: options.main.maxWidth,
     max_footer: options.footer.maxWidth,
   },
   gaps: {

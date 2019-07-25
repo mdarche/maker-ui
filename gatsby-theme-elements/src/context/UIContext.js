@@ -1,5 +1,5 @@
 import React, { useState, useContext, useMemo } from "react"
-import themeOptions from "../utils/defaults"
+import options from "../config/defaults"
 const merge = require("deepmerge")
 
 const errorCheck = (name, value) => {
@@ -14,7 +14,7 @@ const UIContext = React.createContext()
 
 const UIContextProvider = ({ children }) => {
   const [state, setState] = useState({
-    options: themeOptions,
+    options,
     menuActive: false,
     sideNavActive: true,
   })

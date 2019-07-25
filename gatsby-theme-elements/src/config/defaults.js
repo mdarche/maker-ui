@@ -1,5 +1,10 @@
 import options from "../options"
 
+/**
+ * Default layout options
+ * -- Overwrite by shadowing src/options.js
+ */
+
 export default {
   topbar: {
     sticky: true,
