@@ -2,21 +2,22 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useEffect, useRef } from "react"
+import { animated as a } from "react-spring"
 import { useMenu, useOptions } from "../context/UIContext"
 import { formatUnit } from "../utils/helper"
-import { animated as a } from "react-spring"
 import { transitions } from "../utils/animate"
 import MenuToggle from "./MenuToggle"
 
 const MobileNav = props => {
   const { backgroundColor, children, defaultClose = false, ...rest } = props
   const [menuActive, toggleMenu] = useMenu()
-  const options = useOptions().header
+  const options = useOptions()
   const menuRef = useRef(null)
 
-  const width = formatUnit(props.width) || formatUnit(options.mobileNavWidth)
-  const animation = props.animation || options.mobileNavStyle
-  const config = props.spring || options.spring
+  const width =
+    formatUnit(props.width) || formatUnit(options.header.mobileNavWidth)
+  const animation = props.animation || options.header.mobileNavStyle
+  const config = props.spring || options.header.spring
 
   // Component Lifecyle
 

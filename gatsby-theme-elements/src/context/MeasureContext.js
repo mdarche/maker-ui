@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useMemo } from "react"
 
 const MeasureContext = React.createContext()
 
@@ -12,7 +12,7 @@ const MeasureContextProvider = ({ children }) => {
     viewportX: 0,
     viewportY: 0,
   })
-  const value = React.useMemo(() => {
+  const value = useMemo(() => {
     return { metrics, measure }
   }, [metrics])
 

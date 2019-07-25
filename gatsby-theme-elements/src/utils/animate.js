@@ -45,7 +45,7 @@ export const reveal = (toggle, viewportX, breakpoint, width, config) => {
       transform: toggle ? `translateX(0${unit})` : `translateX(-${width})`,
     },
     from: {
-      opacity: viewportX > breakpoint ? 0 : 1,
+      opacity: 1,
       transform:
         viewportX > breakpoint
           ? `translateX(0${unit})`

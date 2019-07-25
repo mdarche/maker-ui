@@ -6,7 +6,7 @@ import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import { useSideNav } from "../context/UIContext"
 
 const SideNavToggle = props => {
-  const { height, icon, ...rest } = props
+  const { height, icon, backgroundColor, ...rest } = props
   const [sideNavActive, toggleSideNav] = useSideNav()
 
   const renderIcon = () => (sideNavActive ? <CloseIcon /> : <ExpandIcon />)
@@ -23,7 +23,7 @@ const SideNavToggle = props => {
         display: ["flex", "none"],
         alignItems: "center",
         justifyContent: "center",
-        bg: "accent",
+        bg: backgroundColor || "accent",
         border: "none",
         boxShadow: "1px 1px 4px 1px rgba(0, 0, 0, 0.33)",
         height: height || 60,
@@ -35,7 +35,6 @@ const SideNavToggle = props => {
           fill: "#fff",
           height: 36,
         },
-        ...props.style,
       }}
     >
       {icon ? renderIcon() : null}
@@ -44,6 +43,7 @@ const SideNavToggle = props => {
 }
 
 SideNavToggle.propTypes = {
+  backgroundColor: PropTypes.string,
   icon: PropTypes.bool,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }

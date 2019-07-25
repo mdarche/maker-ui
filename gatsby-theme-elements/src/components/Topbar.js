@@ -2,13 +2,14 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useRef, useLayoutEffect, useEffect } from "react"
-import { useOptions } from "../context/UIContext"
+import { useOptions, useTopbar } from "../context/UIContext"
 import { measure } from "../context/MeasureContext"
 
 const Topbar = props => {
   const { backgroundColor, color, sticky, maxWidth, ...rest } = props
   const { setTopbarHeight } = measure()
-  const options = useOptions().topbar
+  const options = useOptions()
+  const setTopbar = useTopbar()
   const topbarRef = useRef(null)
 
   // Component Lifecycle
@@ -17,30 +18,29 @@ const Topbar = props => {
     setTopbarHeight(topbarRef.current.clientHeight)
   }, [])
 
-  // TODO finish this update UI context and test. Check Header.js too
-
-  // useEffect(() => {
-  //   return sticky && sticky !== options.sticky
-  //     ? console.log("Update context")
-  //     : null
-  // }, [])
+  useEffect(() => {
+    if (sticky !== options.topbar.sticky) {
+      setTopbar(sticky)
+    }
+  }, [])
 
   // Partials
 
-  const stickyPartial =
-    sticky || options.sticky
-      ? {
-          position: "sticky",
-          top: 0,
-        }
-      : null
+  const stickyPartial = options.topbar.sticky
+    ? {
+        position: "sticky",
+        top: 0,
+      }
+    : null
 
   return (
     <aside
       ref={topbarRef}
       sx={{
         display:
-          !options.sticky && options.hideOnMobile ? ["none", "block"] : "block",
+          !options.topbar.sticky && options.topbar.hideOnMobile
+            ? ["none", "block"]
+            : "block",
         p: 2,
         bg: backgroundColor || "bg_topbar",
         fontFamily: "topbar" || "body",

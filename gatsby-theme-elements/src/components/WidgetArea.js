@@ -5,6 +5,9 @@ import PropTypes from "prop-types"
 const WidgetArea = props => {
   const { maxWidth, backgroundColor, gridGap, children } = props
   const columns = Array.isArray(children) ? children.length : 1
+
+  // Partials
+
   const gap = gridGap ? { gridGap } : { variant: "gaps.widgetGap" }
 
   return (

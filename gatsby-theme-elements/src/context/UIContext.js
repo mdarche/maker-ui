@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useMemo } from "react"
 import themeOptions from "../utils/defaults"
+const merge = require("deepmerge")
 
 const UIContext = React.createContext()
 
@@ -11,7 +12,7 @@ const UIContextProvider = ({ children }) => {
     menuActive: false,
     sideNavActive: true,
   })
-  const value = React.useMemo(() => {
+  const value = useMemo(() => {
     return { state, setState }
   }, [state])
 
@@ -22,9 +23,11 @@ const UIContextProvider = ({ children }) => {
 
 function useOptions() {
   const { state } = useContext(UIContext)
+
   if (state.options === undefined) {
     throw new Error("useOptions must be used within a UIContextProvider")
   }
+
   return state.options
 }
 
@@ -42,6 +45,16 @@ function useMenu() {
   return [menuActive, toggleMenu]
 }
 
+function useTopbar() {
+  const { setState } = useContext(UIContext)
+
+  function setTopbar(value) {
+    setState(state => merge(state, { options: { topbar: { sticky: value } } }))
+  }
+
+  return setTopbar
+}
+
 function useSideNav() {
   const { state, setState } = useContext(UIContext)
   const sideNavActive = state.sideNavActive
@@ -56,4 +69,4 @@ function useSideNav() {
   return [sideNavActive, toggleSideNav]
 }
 
-export { UIContextProvider, useOptions, useMenu, useSideNav }
+export { UIContextProvider, useOptions, useMenu, useSideNav, useTopbar }
