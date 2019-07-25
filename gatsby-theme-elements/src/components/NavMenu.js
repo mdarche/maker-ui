@@ -3,15 +3,16 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
 const NavMenu = props => (
-  <ul
-    {...props}
-    aria-label="Main Navigation"
-    role="menu"
-    sx={{
-      display: ["none", "flex"],
-      listStyle: "none",
-    }}
-  />
+  <nav aria-label="Main Navigation">
+    <ul
+      {...props}
+      role="menu"
+      sx={{
+        display: ["none", "flex"],
+        listStyle: "none",
+      }}
+    />
+  </nav>
 )
 
 NavMenu.propTypes = {

@@ -10,7 +10,14 @@ const Header = props => {
   const options = useOptions()
   const { setHeaderHeight } = measure()
   const { topbarHeight } = useMeasurements()
-  const { sticky, maxWidth, backgroundColor, ...rest } = props
+  const {
+    sticky,
+    maxWidth,
+    backgroundColor,
+    boxShadow,
+    borderBottom,
+    ...rest
+  } = props
 
   // Component Lifecycle
 
@@ -36,8 +43,8 @@ const Header = props => {
         bg: backgroundColor || "bg_header",
         fontFamily: "nav",
         p: 3,
-        boxShadow: "header",
-        borderBottom: "header",
+        boxShadow: boxShadow || "header",
+        borderBottom: borderBottom || "header",
         zIndex: 100,
         ...stickyPartial,
       }}

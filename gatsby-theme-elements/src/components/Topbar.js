@@ -6,11 +6,11 @@ import { useOptions, useTopbar } from "../context/UIContext"
 import { measure } from "../context/MeasureContext"
 
 const Topbar = props => {
-  const { backgroundColor, color, sticky, maxWidth, ...rest } = props
-  const { setTopbarHeight } = measure()
+  const topbarRef = useRef(null)
   const options = useOptions()
   const setTopbar = useTopbar()
-  const topbarRef = useRef(null)
+  const { setTopbarHeight } = measure()
+  const { backgroundColor, color, sticky, maxWidth, ...rest } = props
 
   // Component Lifecycle
 
@@ -19,7 +19,7 @@ const Topbar = props => {
   }, [])
 
   useEffect(() => {
-    if (sticky !== options.topbar.sticky) {
+    if (sticky !== undefined && sticky !== options.topbar.sticky) {
       setTopbar(sticky)
     }
   }, [])
@@ -30,6 +30,7 @@ const Topbar = props => {
     ? {
         position: "sticky",
         top: 0,
+        zIndex: 101,
       }
     : null
 

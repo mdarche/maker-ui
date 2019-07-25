@@ -18,7 +18,7 @@ const MenuToggle = props => {
   return (
     <button
       {...rest}
-      aria-label="Menu Toggle"
+      aria-label="Mobile Menu Toggle"
       aria-expanded={menuActive ? "true" : "false"}
       aria-pressed={menuActive ? "true" : "false"}
       aria-haspopup="true"
@@ -33,8 +33,7 @@ const MenuToggle = props => {
         },
       }}
     >
-      {children}
-      {icon !== undefined ? renderIcon() : null}
+      {icon !== undefined ? renderIcon() : children}
     </button>
   )
 }

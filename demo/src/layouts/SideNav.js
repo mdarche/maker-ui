@@ -17,7 +17,7 @@ const menuItems = ["Home", "About", "Source", "Contact"]
 const Layout = props => (
   <ThemeLayout>
     <Topbar>Topbar content</Topbar>
-    <Header>
+    <Header borderBottom="none">
       <div className="logo">Logo</div>
       <NavMenu
         sx={{
@@ -41,7 +41,7 @@ const Layout = props => (
       <SideNav>
         <SideAds adHeights={[600, 250]} />
       </SideNav>
-      <Main sideNav={true} paddingTop="0">
+      <Main sideNav={true} paddingTop="5em" maxWidth={1000}>
         <div>{props.children}</div>
       </Main>
       <SideNavToggle sx={{ bg: "#000", borderRadius: "50%" }}>

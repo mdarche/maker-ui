@@ -8,11 +8,11 @@ const Main = props => {
   const options = useOptions()
   const columns = Array.isArray(props.children) ? props.children.length : 1
   const {
-    sidebar = undefined,
+    sidebar,
     sidebarWidth,
     sidebarPosition,
     maxWidth,
-    sideNav = undefined,
+    sideNav,
     gridGap,
     paddingTop,
     ...rest

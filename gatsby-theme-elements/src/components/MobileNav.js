@@ -47,11 +47,12 @@ const MobileNav = props => {
   return transitions(menuActive, animation, width, config).map(
     ({ item, key, props }) =>
       item && (
-        <a.div
+        <a.nav
           {...rest}
           ref={menuRef}
           style={props}
           key={key}
+          aria-label="Mobile Navigation"
           sx={{
             position: "fixed",
             top: 0,
@@ -77,7 +78,7 @@ const MobileNav = props => {
             />
           ) : null}
           {children}
-        </a.div>
+        </a.nav>
       )
   )
 }

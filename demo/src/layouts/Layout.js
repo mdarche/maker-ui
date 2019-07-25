@@ -19,7 +19,7 @@ const menuItems = ["Home", "About", "Source", "Contact"]
 const Layout = props => (
   <ThemeLayout>
     <Topbar>Topbar content</Topbar>
-    <Header>
+    <Header sticky={false}>
       <div className="logo">Logo</div>
       <NavMenu
         sx={{
@@ -35,8 +35,8 @@ const Layout = props => (
         ))}
       </NavMenu>
       <MenuToggle icon="menu" />
-      <MobileNav defaultClose />
     </Header>
+    <MobileNav animation="slideLeft" defaultClose />
     <Main>
       <div>
         <SideAds />
