@@ -1,8 +1,8 @@
 import options from "../options"
 
-/**
- * Default layout options
- * -- Overwrite by shadowing src/options.js
+/*
+ *  Default layout options
+ *  Overwrite or extend by shadowing src/options.js
  */
 
 export default {
@@ -23,7 +23,7 @@ export default {
     spring: { tension: 170, friction: 26 },
   },
   main: {
-    paddingTop: 80,
+    paddingTop: 0,
     maxWidth: 1260,
     gridGap: 30,
     sidebar: true,

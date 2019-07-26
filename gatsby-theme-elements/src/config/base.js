@@ -1,9 +1,8 @@
-import styles from "./styles"
 import options from "./defaults"
 
-/**
- * Default theme for Theme UI
- * -- Overwrite by shadowing src/theme.js
+/*
+ *  Default theme object for Theme UI
+ *  Overwrite or extend by shadowing src/theme.js
  */
 
 export default {
@@ -85,5 +84,4 @@ export default {
     `${options.breakpoints.md}px`,
     `${options.breakpoints.lg}px`,
   ],
-  styles,
 }

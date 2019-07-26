@@ -20,8 +20,7 @@ const Main = props => {
 
   const sidebarActive = sidebar !== undefined ? sidebar : options.main.sidebar
   const sideNavActive = sideNav !== undefined ? sideNav : options.sideNav.active
-  const width =
-    formatUnit(sidebarWidth) || formatUnit(options.main.sidebarWidth)
+  const width = sidebarWidth || options.main.sidebarWidth
   const position = sidebarPosition || options.main.sidebarPosition
 
   // Handle Errors
@@ -40,10 +39,10 @@ const Main = props => {
       const gridLayout =
         position === "right"
           ? {
-              gridTemplateColumns: [`1fr`, `1fr ${width}`],
+              gridTemplateColumns: [`1fr`, `1fr ${formatUnit(width)}`],
             }
           : {
-              gridTemplateColumns: [`1fr`, `${width} 1fr`],
+              gridTemplateColumns: [`1fr`, `${formatUnit(width)} 1fr`],
               "> :first-of-type": {
                 gridRow: [2, 1],
               },
@@ -65,8 +64,7 @@ const Main = props => {
         maxWidth: maxWidth || "max_main",
         flex: 1,
         ...sideNavPartial,
-      }}
-    >
+      }}>
       <div
         sx={{
           pt: paddingTop || options.main.paddingTop,

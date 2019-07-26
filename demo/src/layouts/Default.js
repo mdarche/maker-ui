@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
+import { SideAds } from "react-understudy"
 import {
-  Root as ThemeLayout,
+  Layout,
   Header,
   NavMenu,
   Main,
@@ -12,12 +13,11 @@ import {
   MenuToggle,
   MobileNav,
 } from "gatsby-theme-elements"
-import { SideAds } from "react-understudy"
 
 const menuItems = ["Home", "About", "Source", "Contact"]
 
-const Layout = props => (
-  <ThemeLayout>
+export default props => (
+  <Layout>
     <Topbar>Topbar content</Topbar>
     <Header sticky={false}>
       <div className="logo">Logo</div>
@@ -26,8 +26,7 @@ const Layout = props => (
           a: {
             p: 3,
           },
-        }}
-      >
+        }}>
         {menuItems.map(item => (
           <li key={item}>
             <Link to={`/${item.toLowerCase()}`}>{item}</Link>
@@ -51,7 +50,5 @@ const Layout = props => (
       </WidgetArea>
       Copyright 2019
     </Footer>
-  </ThemeLayout>
+  </Layout>
 )
-
-export default Layout

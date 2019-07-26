@@ -1,4 +1,4 @@
-// Default styles for Styled components & MDX
+// Default styles for Styled Components & MDX
 
 const heading = {
   fontFamily: "heading",

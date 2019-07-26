@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 import { Link } from "gatsby"
 import {
-  Root as ThemeLayout,
+  Layout,
   Header,
   NavMenu,
   Main,
@@ -15,8 +15,8 @@ import { SideAds } from "react-understudy"
 
 const menuItems = ["Home", "About", "Source", "Contact"]
 
-const Layout = props => (
-  <ThemeLayout>
+export default props => (
+  <Layout>
     <Topbar>
       <div sx={{ width: 2000 }}>Test</div>
     </Topbar>
@@ -27,8 +27,7 @@ const Layout = props => (
           a: {
             p: 3,
           },
-        }}
-      >
+        }}>
         {menuItems.map(item => (
           <li key={item}>
             <Link to={`/${item.toLowerCase()}`}>{item}</Link>
@@ -39,14 +38,13 @@ const Layout = props => (
     <div
       sx={{
         display: "flex",
-      }}
-    >
+      }}>
       <SideNav>
         <SideAds adHeights={[600, 250]} />
       </SideNav>
       <Main sideNav={true} paddingTop="5em" maxWidth={1000}>
         <div>
-          <Styled.h1>Test H1</Styled.h1>
+          <h1>Test H1</h1>
           {props.children}
         </div>
       </Main>
@@ -57,7 +55,5 @@ const Layout = props => (
     <TabBar>
       <div>Test</div>
     </TabBar>
-  </ThemeLayout>
+  </Layout>
 )
-
-export default Layout

@@ -46,14 +46,15 @@ const SideNav = props => {
 
   const topPartial = () => {
     const totalHeight = topbarHeight + headerHeight
+    const { topbar, header } = options
 
     if (top !== undefined) {
       return { top }
     }
 
     if (
-      (options.topbar.sticky && options.header.sticky) ||
-      (!options.topbar.sticky && !options.header.sticky)
+      (topbar.sticky && header.sticky) ||
+      (!topbar.sticky && !header.sticky)
     ) {
       return { top: [0, totalHeight] }
     }
@@ -65,7 +66,7 @@ const SideNav = props => {
     <a.section
       style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, config)}
       ref={sideNavRef}
-      aria-label="Secondary Navigation"
+      aria-label="Secondary Navigation Menu"
       sx={{
         width,
         position: "fixed",
@@ -77,8 +78,7 @@ const SideNav = props => {
         zIndex: [200, 10],
         overflowY: "scroll",
         ...topPartial(),
-      }}
-    >
+      }}>
       <div {...rest} />
     </a.section>
   )

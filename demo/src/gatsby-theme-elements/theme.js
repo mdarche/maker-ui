@@ -5,7 +5,7 @@ export default {
     primary: "#07c",
     secondary: "#05a",
     accent: "#609",
-    muted: "#f6f6f6f",
+    muted: "#f6f6f6",
     bg_topbar: "#c73",
     bg_header: "#fff",
     bg_navmobile: "rgba(0, 0, 0, 0.9)",

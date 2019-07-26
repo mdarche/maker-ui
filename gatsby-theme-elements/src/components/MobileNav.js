@@ -52,7 +52,7 @@ const MobileNav = props => {
           ref={menuRef}
           style={props}
           key={key}
-          aria-label="Mobile Navigation"
+          aria-label="Mobile Navigation Menu"
           sx={{
             position: "fixed",
             top: 0,
@@ -63,8 +63,7 @@ const MobileNav = props => {
             zIndex: 1000,
             bg: backgroundColor || "bg_navmobile",
             ...positionPartial(),
-          }}
-        >
+          }}>
           {defaultClose ? (
             <MenuToggle
               icon="close"

@@ -5,7 +5,7 @@ export { useMeasurements } from "../context/MeasureContext"
 
 // Components
 
-export { default as Root } from "./Root"
+export { default as Layout } from "./Elements"
 export { default as Topbar } from "./Topbar"
 export { default as Header } from "./Header"
 export { default as NavMenu } from "./NavMenu"
