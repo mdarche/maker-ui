@@ -1,8 +1,9 @@
 import options from "../options"
 
 /*
- *  Default layout options
- *  Overwrite or extend by shadowing src/options.js
+ *  Default GATSBY THEME ELEMENTS Layout Settings
+ *
+ *  Overwrite or extend this file by shadowing src/options.js
  */
 
 export default {

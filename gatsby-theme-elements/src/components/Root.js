@@ -3,7 +3,7 @@ import { jsx } from "theme-ui"
 import React, { useLayoutEffect } from "react"
 import { measure } from "../context/MeasureContext"
 import { Global } from "@emotion/core"
-import styles from "../config/styles"
+// import styles from "../config/styles"
 import reset from "../utils/reset"
 
 function inspectWindow() {
@@ -34,7 +34,7 @@ const Root = props => {
       <Global styles={reset} />
       <div
         id="__elements"
-        sx={{ bg: "background", color: "text", ...styles }}
+        sx={{ bg: "background", color: "text", fontFamily: "body" }}
         {...props}
       />
     </>

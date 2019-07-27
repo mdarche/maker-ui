@@ -37,14 +37,13 @@ const SideNavToggle = props => {
         width: height || 60,
         position: "fixed",
         bottom: 25,
-        right: 25,
+        right: 20,
         svg: {
           fill: "#fff",
           height: 36,
         },
       }}
-      {...rest}
-    >
+      {...rest}>
       {icon ? renderIcon() : children}
     </button>
   )

@@ -21,11 +21,16 @@ const SideNav = props => {
   const { setSideNavWidth } = measure()
   const { viewportX, topbarHeight, headerHeight } = useMeasurements()
   const [sideNavActive, toggleSideNav] = useSideNav()
-  const { boxShadow, backgroundColor, spring, top, ...rest } = props
-
-  const config = spring || options.sideNav.spring
-  const width = props.width || options.sideNav.width
   const breakpoint = options.breakpoints.sm
+  const {
+    boxShadow,
+    backgroundColor,
+    border,
+    top = 0,
+    width = options.sideNav.width,
+    spring = options.sideNav.spring,
+    ...rest
+  } = props
 
   // Component Lifecyle
 
@@ -45,12 +50,8 @@ const SideNav = props => {
   // Partials
 
   const topPartial = () => {
-    const totalHeight = topbarHeight + headerHeight
     const { topbar, header } = options
-
-    if (top !== undefined) {
-      return { top }
-    }
+    const totalHeight = topbarHeight + headerHeight
 
     if (
       (topbar.sticky && header.sticky) ||
@@ -59,12 +60,12 @@ const SideNav = props => {
       return { top: [0, totalHeight] }
     }
 
-    return { top: 0 }
+    return { top }
   }
 
   return (
     <a.section
-      style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, config)}
+      style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, spring)}
       ref={sideNavRef}
       aria-label="Secondary Navigation Menu"
       sx={{
@@ -73,6 +74,7 @@ const SideNav = props => {
         bg: backgroundColor || "bg_sidenav",
         boxShadow: boxShadow || ["1px 1px 8px 1px rgba(0, 0, 0, 0.1)", "none"],
         maxWidth: "75vw",
+        borderRight: border || "sidenav",
         left: 0,
         bottom: 0,
         zIndex: [200, 10],

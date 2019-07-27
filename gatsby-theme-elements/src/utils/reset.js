@@ -109,6 +109,10 @@ export default css`
   ul {
     list-style: none;
   }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
   blockquote,
   q {
     quotes: none;
@@ -123,5 +127,8 @@ export default css`
   table {
     border-collapse: collapse;
     border-spacing: 0;
+  }
+  a {
+    text-decoration: none;
   }
 `

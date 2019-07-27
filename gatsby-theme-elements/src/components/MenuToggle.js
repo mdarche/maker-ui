@@ -31,8 +31,7 @@ const MenuToggle = props => {
           fill: fill,
           height: height || 32,
         },
-      }}
-    >
+      }}>
       {icon !== undefined ? renderIcon() : children}
     </button>
   )

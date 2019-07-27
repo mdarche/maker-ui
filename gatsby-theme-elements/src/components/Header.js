@@ -11,11 +11,12 @@ const Header = props => {
   const { setHeaderHeight } = measure()
   const { topbarHeight } = useMeasurements()
   const {
-    sticky,
+    sticky = options.header.sticky,
+    stickyMobile = options.header.stickyMobile,
     maxWidth,
     backgroundColor,
     boxShadow,
-    borderBottom,
+    border,
     ...rest
   } = props
 
@@ -27,11 +28,9 @@ const Header = props => {
 
   // Partials
 
-  const stickyPartial = (sticky !== undefined
-  ? sticky
-  : options.header.sticky)
+  const stickyPartial = sticky
     ? {
-        position: "sticky",
+        position: stickyMobile ? "sticky" : ["initial", "sticky"],
         top: options.topbar.sticky ? topbarHeight : 0,
       }
     : null
@@ -44,18 +43,16 @@ const Header = props => {
         fontFamily: "nav",
         p: 3,
         boxShadow: boxShadow || "header",
-        borderBottom: borderBottom || "header",
+        borderBottom: border || "header",
         zIndex: 100,
         ...stickyPartial,
-      }}
-    >
+      }}>
       <div
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           m: "0 auto",
-          width: "100%",
           maxWidth: maxWidth || "max_header",
         }}
         {...rest}

@@ -1,54 +1,43 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, Styled } from "theme-ui"
 import { Link } from "gatsby"
-import { SideAds } from "react-understudy"
 import {
   Layout,
   Header,
   NavMenu,
   Main,
-  Topbar,
   Footer,
-  WidgetArea,
   MenuToggle,
   MobileNav,
 } from "gatsby-theme-elements"
 
-const menuItems = ["Home", "About", "Source", "Contact"]
+const menuItems = [
+  { label: "Default", path: "/" },
+  { label: "Side Nav", path: "/sidenav" },
+  { label: "Sidebar Left", path: "/left-sidebar" },
+  { label: "Sidebar Right", path: "/right-sidebar" },
+  { label: "Full Width", path: "/full-width" },
+]
 
 export default props => (
   <Layout>
-    <Topbar>Topbar content</Topbar>
-    <Header sticky={false}>
+    <Header>
       <div className="logo">Logo</div>
-      <NavMenu
-        sx={{
-          a: {
-            p: 3,
-          },
-        }}>
-        {menuItems.map(item => (
-          <li key={item}>
-            <Link to={`/${item.toLowerCase()}`}>{item}</Link>
+      <NavMenu>
+        {menuItems.map(({ label, path }) => (
+          <li key={label}>
+            <Link sx={{ p: 3 }} to={path}>
+              {label}
+            </Link>
           </li>
         ))}
       </NavMenu>
       <MenuToggle icon="menu" />
     </Header>
-    <MobileNav animation="slideLeft" defaultClose />
+    <MobileNav defaultClose />
     <Main>
-      <div>
-        <SideAds />
-      </div>
       <div>{props.children}</div>
     </Main>
-    <Footer>
-      <WidgetArea>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-      </WidgetArea>
-      Copyright 2019
-    </Footer>
+    <Footer sx={{ textAlign: "center" }}>© 2019 mkdarshay</Footer>
   </Layout>
 )

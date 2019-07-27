@@ -1,10 +1,10 @@
 import React from "react"
-import Layout from "../layouts/SideNav"
 import { BlogPost } from "react-understudy"
+import Layout from "../layouts/SideNav"
 
 const SideNavPage = () => (
   <Layout>
-    <BlogPost />
+    <BlogPost paragraph={6} image={false} />
   </Layout>
 )
 

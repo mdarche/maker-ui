@@ -1,4 +1,8 @@
-// Default styles for Styled Components & MDX
+/*
+ *  Global CSS Rules for Styled Components & MDX
+ *
+ *  This Theme UI style object is appended to the Root component
+ */
 
 const heading = {
   fontFamily: "heading",
@@ -43,10 +47,6 @@ export default {
     "&:hover": {
       color: "secondary",
     },
-  },
-  img: {
-    maxWidth: "100%",
-    height: "auto",
   },
   hr: {
     mt: 5,

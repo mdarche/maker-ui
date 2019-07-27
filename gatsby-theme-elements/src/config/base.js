@@ -1,7 +1,9 @@
 import options from "./defaults"
+import styles from "./styles"
 
 /*
- *  Default theme object for Theme UI
+ *  Default THEME UI Object
+ *
  *  Overwrite or extend by shadowing src/theme.js
  */
 
@@ -63,6 +65,7 @@ export default {
     header: "1px solid gainsboro",
     footer: "1px solid gainsboro",
     tabbar: "1px solid gainsboro",
+    sidenav: "1px solid gainsboro",
   },
   sizes: {
     width_mobileNav: options.header.mobileNavWidth,
@@ -84,4 +87,5 @@ export default {
     `${options.breakpoints.md}px`,
     `${options.breakpoints.lg}px`,
   ],
+  ...styles,
 }

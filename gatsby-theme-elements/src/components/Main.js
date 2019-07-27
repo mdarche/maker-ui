@@ -8,20 +8,15 @@ const Main = props => {
   const options = useOptions()
   const columns = Array.isArray(props.children) ? props.children.length : 1
   const {
-    sidebar,
-    sidebarWidth,
-    sidebarPosition,
+    sidebar = options.main.sidebar,
+    sidebarWidth = formatUnit(options.main.sidebarWidth),
+    sidebarPosition = options.main.sidebarPosition,
+    sideNav = options.sideNav.active,
     maxWidth,
-    sideNav,
     gridGap,
     paddingTop,
     ...rest
   } = props
-
-  const sidebarActive = sidebar !== undefined ? sidebar : options.main.sidebar
-  const sideNavActive = sideNav !== undefined ? sideNav : options.sideNav.active
-  const width = sidebarWidth || options.main.sidebarWidth
-  const position = sidebarPosition || options.main.sidebarPosition
 
   // Handle Errors
 
@@ -34,15 +29,15 @@ const Main = props => {
   // Partials
 
   const sidebarPartial = () => {
-    if (sidebarActive) {
+    if (sidebar) {
       const gap = gridGap ? { gridGap } : { variant: "gaps.mainGap" }
       const gridLayout =
-        position === "right"
+        sidebarPosition === "right"
           ? {
-              gridTemplateColumns: [`1fr`, `1fr ${formatUnit(width)}`],
+              gridTemplateColumns: [`1fr`, `1fr ${sidebarWidth}`],
             }
           : {
-              gridTemplateColumns: [`1fr`, `${formatUnit(width)} 1fr`],
+              gridTemplateColumns: [`1fr`, `${sidebarWidth} 1fr`],
               "> :first-of-type": {
                 gridRow: [2, 1],
               },
@@ -52,24 +47,25 @@ const Main = props => {
     }
   }
 
-  const sideNavPartial = sideNavActive
+  const sideNavPartial = sideNav
     ? { pl: [0, options.sideNav.width] }
-    : null
+    : { maxWidth: maxWidth || "max_main" }
 
   return (
     <main
       sx={{
         m: ["initial", "0 auto"],
         width: ["auto", "100%"],
-        maxWidth: maxWidth || "max_main",
         flex: 1,
         ...sideNavPartial,
       }}>
       <div
         sx={{
+          maxWidth: sideNav ? maxWidth || "max_main" : "inherit",
+          m: sideNav ? "0 auto" : "auto",
           pt: paddingTop || options.main.paddingTop,
           px: 20,
-          display: sidebarActive && columns !== 1 ? "grid" : "block",
+          display: sidebar && columns !== 1 ? "grid" : "block",
           ...sidebarPartial(),
         }}
         {...rest}

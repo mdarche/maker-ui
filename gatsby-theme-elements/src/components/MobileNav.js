@@ -61,6 +61,7 @@ const MobileNav = props => {
             border: "none",
             maxWidth: "100%",
             zIndex: 1000,
+            fontFamily: "header",
             bg: backgroundColor || "bg_navmobile",
             ...positionPartial(),
           }}>
