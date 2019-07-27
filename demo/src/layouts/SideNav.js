@@ -26,14 +26,12 @@ const menuItems = [
 // -- This layout looks much cleaner without override props
 // -- The goal is to have simple GTE components like Default.js
 
-// TODO Make it the override props only, nothing else
-
 export default props => (
   <Layout>
     <Topbar backgroundColor="#663399" maxWidth="100%" color="#fff">
-      <p sx={{ px: "20px", py: 1, mb: 0, fontSize: 15 }}>
-        Sticky Topbar Announcement
-      </p>
+      <div sx={{ px: "20px", py: 1, mb: 0, width: "100%", fontSize: 15 }}>
+        Sticky Topbar Announcement - Try on mobile or resize your browser
+      </div>
     </Topbar>
 
     <Header stickyMobile={false} border="1px solid #f0f0f2" sx={{ px: 15 }}>
@@ -63,7 +61,7 @@ export default props => (
       <SideNav border="1px solid #f0f0f2" sx={{ pt: 3 }}>
         <List count={20} borderColor="#f0f0f2" padding="15px 20px 0" />
       </SideNav>
-      <Main sideNav={true} paddingTop="5rem" maxWidth="52rem">
+      <Main sideNav paddingTop="5rem" maxWidth="52rem">
         {props.children}
       </Main>
       <SideNavToggle

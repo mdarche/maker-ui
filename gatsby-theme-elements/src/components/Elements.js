@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+import React from "react"
 import { UIContextProvider } from "../context/UIContext"
 import { MeasureContextProvider } from "../context/MeasureContext"
 import Root from "./Root"
