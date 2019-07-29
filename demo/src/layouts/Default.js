@@ -33,7 +33,7 @@ export default props => (
             </li>
           ))}
         </NavMenu>
-        <ColorToggle modes={["light", "dark"]} />
+        <ColorToggle />
       </div>
       <MenuToggle icon="menu" />
     </Header>

@@ -17,6 +17,7 @@ import menuItems from "../../utils/menu"
 
 // NOTE
 // Your layouts will look cleaner without override props
+// You can set all of these defaults in your shadowed config files
 
 export default props => (
   <Layout>

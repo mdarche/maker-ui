@@ -51,7 +51,7 @@ export default props => (
     </Main>
     <Footer>
       <WidgetArea sx={{ py: "30px" }}>
-        <Box log="test" height="200px" />
+        <Box height="200px" />
         <Box height="200px" />
         <Box height="200px" />
       </WidgetArea>

@@ -2,12 +2,12 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
-const Footer = ({ backgroundColor, maxWidth, ...props }) => (
+const Footer = ({ backgroundColor, border, maxWidth, ...props }) => (
   <footer
     sx={{
       p: 3,
       bg: backgroundColor || "bg_footer",
-      borderTop: "footer",
+      borderTop: border || "footer",
     }}>
     <div
       {...props}
@@ -21,6 +21,7 @@ const Footer = ({ backgroundColor, maxWidth, ...props }) => (
 
 Footer.propTypes = {
   backgroundColor: PropTypes.string,
+  border: PropTypes.string,
   maxWidth: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

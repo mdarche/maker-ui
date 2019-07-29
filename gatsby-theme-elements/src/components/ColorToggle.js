@@ -1,8 +1,11 @@
 /** @jsx jsx */
 import { jsx, useColorMode } from "theme-ui"
 import PropTypes from "prop-types"
+import theme from "../gatsby-plugin-theme-ui"
 
-const ColorToggle = ({ modes, children, ...props }) => {
+const modes = [theme.initialColorMode].concat(Object.keys(theme.colors.modes))
+
+const ColorToggle = ({ children, ...props }) => {
   const [color, setColor] = useColorMode()
 
   const cycleMode = () => {
@@ -12,14 +15,13 @@ const ColorToggle = ({ modes, children, ...props }) => {
   }
 
   return (
-    <button onClick={cycleMode} {...props}>
+    <button id="color-toggle" onClick={cycleMode} {...props}>
       {children ? children : color}
     </button>
   )
 }
 
 ColorToggle.propTypes = {
-  modes: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.node,
 }
 
