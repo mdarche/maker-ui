@@ -1,6 +1,6 @@
 import React, { useState, useContext, useMemo } from "react"
+import merge from "deepmerge"
 import options from "../config/defaults"
-const merge = require("deepmerge")
 
 const errorCheck = (name, value) => {
   if (value === undefined) {

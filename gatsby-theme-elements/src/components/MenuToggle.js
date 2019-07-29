@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
+import { useMenu } from "../context/UIContext"
 import { ReactComponent as MenuIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
-import { useMenu } from "../context/UIContext"
 
 const MenuToggle = props => {
   const [menuActive, toggleMenu] = useMenu()

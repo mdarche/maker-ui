@@ -1,8 +1,4 @@
-/*
- *  Global CSS Rules for Styled Components & MDX
- *
- *  This Theme UI style object is appended to the Root component
- */
+// Global CSS Rules for Styled Components & MDX
 
 const heading = {
   fontFamily: "heading",
@@ -13,6 +9,11 @@ const heading = {
 }
 
 export default {
+  root: {
+    fontFamily: "body",
+    fontWeight: "body",
+    lineHeight: "body",
+  },
   h1: {
     ...heading,
     fontSize: [5, 6],

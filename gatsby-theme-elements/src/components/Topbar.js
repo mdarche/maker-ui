@@ -46,13 +46,14 @@ const Topbar = props => {
         color: color || "#fff",
         fontFamily: "topbar" || "body",
         zIndex: 100,
-        overflowX: "scroll",
         ...stickyPartial,
       }}>
       <div
         {...rest}
         sx={{
           m: "0 auto",
+          overflowX: "scroll",
+          whiteSpace: "nowrap",
           maxWidth: maxWidth || "max_topbar",
           p: padding || 2,
         }}

@@ -1,7 +1,7 @@
 export default {
   topbar: {
     sticky: true,
-    maxWidth: 1260,
+    maxWidth: 960,
   },
   header: {
     sticky: true,
@@ -18,14 +18,14 @@ export default {
   },
   main: {
     paddingTop: 80,
-    maxWidth: 650,
+    maxWidth: 960,
     gridGap: 30,
     sidebar: true,
     sidebarWidth: ".3fr",
     sidebarPosition: "left",
   },
   footer: {
-    maxWidth: 1260,
+    maxWidth: 960,
     gridGap: 30,
   },
   breakpoints: {

@@ -42,8 +42,8 @@ export default {
     tabbar: null,
   },
   borders: {
-    header: "1px solid #c700eb",
-    footer: "none",
+    header: "1px solid gainsboro",
+    footer: "1px solid gainsboro",
     tabbar: "1px solid gainsboro",
     sidenav: "1px solid gainsboro",
   },

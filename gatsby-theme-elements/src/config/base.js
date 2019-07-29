@@ -87,5 +87,5 @@ export default {
     `${options.breakpoints.md}px`,
     `${options.breakpoints.lg}px`,
   ],
-  ...styles,
+  styles,
 }

@@ -2,7 +2,6 @@
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
 import { List, IconBar, Box } from "react-understudy"
-import gatsbyLogoUrl from "../assets/gatsby-logo.svg"
 import {
   Layout,
   Header,
@@ -13,18 +12,12 @@ import {
   SideNav,
   SideNavToggle,
 } from "gatsby-theme-elements"
-
-const menuItems = [
-  { label: "Default", path: "/" },
-  { label: "Side Nav", path: "/sidenav" },
-  { label: "Sidebar Left", alt: "SB Left", path: "/left-sidebar" },
-  { label: "Sidebar Right", alt: "SB Right", path: "/right-sidebar" },
-  { label: "Full Width", alt: "Full", path: "/full-width" },
-]
+import gatsbyLogoUrl from "../../assets/gatsby-logo.svg"
+import menuItems from "../../utils/menu"
 
 // NOTE
-// -- This layout looks much cleaner without override props
-// -- The goal is to have simple GTE components like Default.js
+// -- Your layouts will look cleaner without override props
+// -- You can set all of these defaults in your shadowed config files
 
 export default props => (
   <Layout>
@@ -83,7 +76,6 @@ export default props => (
             to={path}
             sx={{
               color: "#36313d",
-              fontFamily: "body",
               fontSize: "13px",
               textAlign: "center",
             }}>

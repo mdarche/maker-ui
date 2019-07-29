@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 import { Link } from "gatsby"
+import { Box } from "react-understudy"
 import {
   Layout,
   Header,
@@ -8,36 +9,43 @@ import {
   Main,
   Footer,
   MenuToggle,
+  // ColorToggle,
   MobileNav,
+  WidgetArea,
 } from "gatsby-theme-elements"
-
-const menuItems = [
-  { label: "Default", path: "/" },
-  { label: "Side Nav", path: "/sidenav" },
-  { label: "Sidebar Left", path: "/left-sidebar" },
-  { label: "Sidebar Right", path: "/right-sidebar" },
-  { label: "Full Width", path: "/full-width" },
-]
+import menuItems from "../utils/menu"
 
 export default props => (
   <Layout>
     <Header>
-      <div className="logo">Logo</div>
-      <NavMenu>
-        {menuItems.map(({ label, path }) => (
-          <li key={label}>
-            <Link sx={{ p: 3 }} to={path}>
-              {label}
-            </Link>
-          </li>
-        ))}
-      </NavMenu>
+      <div id="logo">
+        <Box />
+      </div>
+      <div id="nav-area">
+        <NavMenu>
+          {menuItems.map(({ label, path }) => (
+            <li key={label}>
+              <Link sx={{ p: 3 }} to={path}>
+                {label}
+              </Link>
+            </li>
+          ))}
+        </NavMenu>
+        {/* <ColorToggle modes={["light", "dark"]} /> */}
+      </div>
       <MenuToggle icon="menu" />
     </Header>
+
     <MobileNav defaultClose />
     <Main>
       <div>{props.children}</div>
     </Main>
-    <Footer sx={{ textAlign: "center" }}>© 2019 mkdarshay</Footer>
+    <Footer>
+      <WidgetArea>
+        <Box height="200px" />
+        <Box height="200px" />
+        <Box height="200px" />
+      </WidgetArea>
+    </Footer>
   </Layout>
 )

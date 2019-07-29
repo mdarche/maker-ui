@@ -9,8 +9,8 @@ import { ReactComponent as LayoutIcon } from "../assets/blocks.svg"
 const demos = [
   { label: "Gatsby Docs", path: "/gatsby-docs" },
   { label: "Github", path: "/github" },
-  { label: "Blog", path: "/personal-blog" },
-  { label: "Search Engine", path: "/search-engine" },
+  { label: "Blog", path: "/blog" },
+  { label: "Search Engine", path: "/search" },
   { label: "Online Course", path: "/online-course" },
 ]
 
@@ -38,9 +38,8 @@ export default () => {
   // Animation Part 3
   const buttonRef = useRef()
   const buttonSpring = useSpring({
-    width: show ? "60px" : "55px",
-    height: show ? "45px" : "55px",
-    borderRadius: show ? "0px 0px 0px 15px" : "5px 5px 5px 5px",
+    height: show ? "45px" : "60px",
+    borderRadius: show ? "0px 0px 0px 15px" : "35px 35px 35px 35px",
     ref: buttonRef,
   })
 
@@ -51,7 +50,7 @@ export default () => {
       id="elements-control-panel"
       sx={{
         position: "fixed",
-        right: [0, "2em"],
+        right: ["20px", "2em"],
         top: ["33%", "40%"],
         display: "flex",
         flexDirection: "column",
@@ -120,6 +119,7 @@ export default () => {
           width: 60,
           height: 45,
           mt: "5px",
+          outline: "none",
         }}>
         <a.div sx={{ svg: { fill: "#fff", height: 32 } }}>
           {show ? <CloseIcon /> : <LayoutIcon />}

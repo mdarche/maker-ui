@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, Styled } from "theme-ui"
 import React, { useLayoutEffect } from "react"
 import { measure } from "../context/MeasureContext"
 import { Global } from "@emotion/core"
-// import styles from "../config/styles"
 import reset from "../utils/reset"
 
 function inspectWindow() {
@@ -12,7 +11,7 @@ function inspectWindow() {
   }
 }
 
-const Root = props => {
+const Root = ({ backgroundColor, color, ...props }) => {
   const { setViewportXY } = measure()
 
   // Component Lifecycle
@@ -32,9 +31,9 @@ const Root = props => {
   return (
     <>
       <Global styles={reset} />
-      <div
+      <Styled.root
         id="__elements"
-        sx={{ bg: "background", color: "text", fontFamily: "body" }}
+        sx={{ bg: backgroundColor || "background", color: color || "text" }}
         {...props}
       />
     </>
