@@ -7,10 +7,10 @@ export default {
     secondary: "#05a",
     accent: "#609",
     muted: "#f6f6f6f",
-    bg_topbar: "#609",
+    bg_topbar: "#636363",
     bg_header: "#fff",
     bg_navmobile: "rgba(0, 0, 0, 0.9)",
-    bg_sidenav: "#fff",
+    bg_sidenav: "#fdfdfd",
     bg_tabbar: "#fff",
     bg_footer: "#fff",
     modes: {
@@ -42,9 +42,9 @@ export default {
     tabbar: null,
   },
   borders: {
-    header: "1px solid gainsboro",
-    footer: "1px solid gainsboro",
+    header: "1px solid #e6e6e6",
+    footer: "1px solid #e6e6e6",
     tabbar: "1px solid gainsboro",
-    sidenav: "1px solid gainsboro",
+    sidenav: "1px solid #e6e6e6",
   },
 }

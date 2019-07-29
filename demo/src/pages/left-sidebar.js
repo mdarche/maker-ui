@@ -1,10 +1,10 @@
 import React from "react"
 import Layout from "../layouts/SidebarLeft"
-// import { BlogPost } from "react-understudy"
+import { BlogPost } from "react-understudy"
 
 const LeftSidebarPage = () => (
   <Layout>
-    <div>Page!</div>
+    <BlogPost paragraphs={6} image={false} />
   </Layout>
 )
 

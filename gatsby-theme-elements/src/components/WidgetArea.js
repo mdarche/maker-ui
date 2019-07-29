@@ -2,12 +2,8 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
-const WidgetArea = props => {
-  const { maxWidth, backgroundColor, gridGap } = props
+const WidgetArea = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
   const columns = Array.isArray(props.children) ? props.children.length : 1
-
-  // Partials
-
   const gap = gridGap ? { gridGap } : { variant: "gaps.widgetGap" }
 
   return (
@@ -29,7 +25,11 @@ const WidgetArea = props => {
 WidgetArea.propTypes = {
   backgroundColor: PropTypes.string,
   gridGap: PropTypes.number,
-  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  maxWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node.isRequired,
 }
 

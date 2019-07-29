@@ -2,31 +2,30 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
-const Footer = props => {
-  const { backgroundColor, maxWidth } = props
-
-  return (
-    <footer
+const Footer = ({ backgroundColor, maxWidth, ...props }) => (
+  <footer
+    sx={{
+      p: 3,
+      bg: backgroundColor || "bg_footer",
+      borderTop: "footer",
+    }}>
+    <div
+      {...props}
       sx={{
-        p: 3,
-        bg: backgroundColor || "bg_footer",
-        borderTop: "footer",
+        m: "0 auto",
+        maxWidth: maxWidth || "max_footer",
       }}
-    >
-      <div
-        {...props}
-        sx={{
-          m: "0 auto",
-          maxWidth: maxWidth || "max_footer",
-        }}
-      />
-    </footer>
-  )
-}
+    />
+  </footer>
+)
 
 Footer.propTypes = {
   backgroundColor: PropTypes.string,
-  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  maxWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node.isRequired,
 }
 

@@ -1,10 +1,11 @@
 import React from "react"
 import Layout from "../layouts/FullWidth"
-// import { BlogPost } from "react-understudy"
 
 const FullWidthPage = () => (
   <Layout>
-    <div>Page!</div>
+    <div style={{ height: "75vh", background: "#efefef" }} />
+    <div style={{ height: "75vh", background: "#e0e0e0" }} />
+    <div style={{ height: "75vh", background: "#d4d2d2" }} />
   </Layout>
 )
 

@@ -13,8 +13,6 @@ function getInnerWidth() {
   }
 }
 
-// TODO - mention known top issue in docs
-
 const SideNav = props => {
   const sideNavRef = useRef(null)
   const options = useOptions()
@@ -89,8 +87,12 @@ const SideNav = props => {
 SideNav.propTypes = {
   backgroundColor: PropTypes.string,
   spring: PropTypes.object,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  boxShadow: PropTypes.string,
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  boxShadow: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   children: PropTypes.node.isRequired,
 }
 

@@ -65,8 +65,16 @@ const Topbar = props => {
 Topbar.propTypes = {
   backgroundColor: PropTypes.string,
   sticky: PropTypes.bool,
-  padding: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  padding: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  maxWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node.isRequired,
 }
 

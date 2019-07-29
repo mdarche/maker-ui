@@ -88,7 +88,11 @@ MobileNav.propTypes = {
   defaultClose: PropTypes.bool,
   animation: PropTypes.string,
   spring: PropTypes.object,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node,
 }
 

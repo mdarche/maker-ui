@@ -1,12 +1,7 @@
 import React, { useState, useContext, useMemo } from "react"
 import merge from "deepmerge"
+import { errorCheck } from "../utils/helper"
 import options from "../config/defaults"
-
-const errorCheck = (name, value) => {
-  if (value === undefined) {
-    throw new Error(`${name} must be used within a UIContextProvider`)
-  }
-}
 
 // UI Context Provider
 
@@ -30,7 +25,7 @@ const UIContextProvider = ({ children }) => {
 
 function useOptions() {
   const { state } = useContext(UIContext)
-  errorCheck("useOptions", state)
+  errorCheck("useOptions", state, "UIContextProvider")
 
   return state.options
 }
@@ -38,7 +33,7 @@ function useOptions() {
 function useMenu() {
   const { state, setState } = useContext(UIContext)
   const menuActive = state.menuActive
-  errorCheck("useMenu", state)
+  errorCheck("useMenu", state, "UIContextProvider")
 
   function toggleMenu() {
     setState(state => ({
@@ -53,7 +48,7 @@ function useMenu() {
 function useSideNav() {
   const { state, setState } = useContext(UIContext)
   const sideNavActive = state.sideNavActive
-  errorCheck("useSideNav", state)
+  errorCheck("useSideNav", state, "UIContextProvider")
 
   function toggleSideNav(value) {
     setState(state => ({
@@ -67,7 +62,7 @@ function useSideNav() {
 
 function useTopbar() {
   const { setState } = useContext(UIContext)
-  errorCheck("useTopbar", setState)
+  errorCheck("useTopbar", setState, "UIContextProvider")
 
   function setTopbar(value) {
     setState(state => merge(state, { options: { topbar: { sticky: value } } }))

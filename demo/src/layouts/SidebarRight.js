@@ -1,54 +1,50 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
-import { SideAds } from "react-understudy"
+import { Box, SideAds } from "react-understudy"
 import {
   Layout,
   Header,
   NavMenu,
   Main,
-  Topbar,
   Footer,
-  WidgetArea,
   MenuToggle,
+  ColorToggle,
   MobileNav,
+  Topbar,
 } from "gatsby-theme-elements"
-
-const menuItems = ["Home", "About", "Source", "Contact"]
+import menuItems from "../utils/menu"
 
 export default props => (
   <Layout>
-    <Topbar>Topbar content</Topbar>
-    <Header sticky={false}>
-      <div className="logo">Logo</div>
-      <NavMenu
-        sx={{
-          a: {
-            p: 3,
-          },
-        }}>
-        {menuItems.map(item => (
-          <li key={item}>
-            <Link to={`/${item.toLowerCase()}`}>{item}</Link>
-          </li>
-        ))}
-      </NavMenu>
+    <Topbar>Optional topbar</Topbar>
+    <Header>
+      <div id="logo">
+        <Box height="45px" width="230px" mb="0" />
+      </div>
+      <div
+        id="nav-area"
+        sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+        <NavMenu>
+          {menuItems.map(({ label, path }) => (
+            <li key={label}>
+              <Link sx={{ p: 3 }} to={path}>
+                {label}
+              </Link>
+            </li>
+          ))}
+        </NavMenu>
+        <ColorToggle modes={["light", "dark"]} />
+      </div>
       <MenuToggle icon="menu" />
     </Header>
-    <MobileNav animation="slideLeft" defaultClose />
-    <Main>
-      <div>
-        <SideAds />
-      </div>
-      <div>{props.children}</div>
+    <MobileNav defaultClose />
+    <Main sidebarPosition="right">
+      <div id="content">{props.children}</div>
+      <aside id="sidebar">
+        <SideAds adHeights={[250, 600]} />
+      </aside>
     </Main>
-    <Footer>
-      <WidgetArea>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-      </WidgetArea>
-      Copyright 2019
-    </Footer>
+    <Footer>Footer Text</Footer>
   </Layout>
 )

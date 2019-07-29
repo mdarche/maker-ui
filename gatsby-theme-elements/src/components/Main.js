@@ -79,9 +79,21 @@ Main.propTypes = {
   sideNav: PropTypes.bool,
   sidebar: PropTypes.bool,
   sidebarPosition: PropTypes.string,
-  sidebarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  paddingTop: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  sidebarWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  paddingTop: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  maxWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node.isRequired,
 }
 

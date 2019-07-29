@@ -9,7 +9,7 @@ const SideNavToggle = props => {
   const [sideNavActive, toggleSideNav] = useSideNav()
   const {
     height,
-    icon = false,
+    defaultIcon = false,
     backgroundColor,
     color,
     children,
@@ -44,7 +44,7 @@ const SideNavToggle = props => {
         },
       }}
       {...rest}>
-      {icon ? renderIcon() : children}
+      {defaultIcon ? renderIcon() : children}
     </button>
   )
 }
@@ -52,8 +52,12 @@ const SideNavToggle = props => {
 SideNavToggle.propTypes = {
   backgroundColor: PropTypes.string,
   color: PropTypes.string,
-  icon: PropTypes.bool,
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  defaultIcon: PropTypes.bool,
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node,
 }
 

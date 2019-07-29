@@ -16,6 +16,7 @@ const Header = props => {
     maxWidth,
     backgroundColor,
     boxShadow,
+    justify,
     border,
     ...rest
   } = props
@@ -51,7 +52,7 @@ const Header = props => {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: justify || "space-between",
           m: "0 auto",
           maxWidth: maxWidth || "max_header",
         }}
@@ -64,7 +65,12 @@ const Header = props => {
 Header.propTypes = {
   backgroundColor: PropTypes.string,
   sticky: PropTypes.bool,
-  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  justify: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  maxWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node.isRequired,
 }
 

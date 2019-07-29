@@ -1,44 +1,25 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
-import { List, IconBar, Box } from "react-understudy"
-import gatsbyLogoUrl from "../assets/gatsby-logo.svg"
+import { List, Box } from "react-understudy"
 import {
   Layout,
   Header,
   NavMenu,
   Main,
-  Topbar,
   TabBar,
   SideNav,
   SideNavToggle,
 } from "gatsby-theme-elements"
-
-const menuItems = [
-  { label: "Default", path: "/" },
-  { label: "Side Nav", path: "/sidenav" },
-  { label: "Sidebar Left", alt: "SB Left", path: "/left-sidebar" },
-  { label: "Sidebar Right", alt: "SB Right", path: "/right-sidebar" },
-  { label: "Full Width", alt: "Full", path: "/full-width" },
-]
-
-// NOTE
-// -- This layout looks much cleaner without override props
-// -- The goal is to have simple GTE components like Default.js
+import menuItems from "../utils/menu"
 
 export default props => (
   <Layout>
-    <Topbar backgroundColor="#663399" maxWidth="100%" color="#fff">
-      <div sx={{ p: "4px 20px", fontSize: 15 }}>
-        Sticky Topbar Announcement - Try on mobile or resize your browser
+    <Header stickyMobile={false}>
+      <div id="logo">
+        <Box height="45px" width="230px" mb="0" />
       </div>
-    </Topbar>
-
-    <Header stickyMobile={false} border="1px solid #f0f0f2" sx={{ px: 15 }}>
-      <Link id="logo" to="/sidenav">
-        <img sx={{ height: 24, mr: 4 }} src={gatsbyLogoUrl} alt="Gatsby Logo" />
-      </Link>
-      <NavMenu flex>
+      <NavMenu>
         {menuItems.map(({ label, path }) => (
           <li key={label}>
             <Link to={path} sx={{ p: 3, color: "#36313d" }}>
@@ -47,27 +28,20 @@ export default props => (
           </li>
         ))}
       </NavMenu>
-      <IconBar
-        fill="#8a4baf"
-        height={22}
-        icons={["Search", "Github", "Twitter"]}
-      />
     </Header>
 
     <div
+      id="content-wrapper"
       sx={{
         display: "flex",
       }}>
-      <SideNav border="1px solid #f0f0f2" sx={{ pt: 3 }}>
-        <List count={20} borderColor="#f0f0f2" padding="15px 20px 0" />
+      <SideNav>
+        <List count={20} border={false} padding="15px 20px 0" />
       </SideNav>
-      <Main sideNav paddingTop="5rem" maxWidth="52rem">
+      <Main sideNav paddingTop="5rem">
         {props.children}
       </Main>
-      <SideNavToggle
-        icon
-        sx={{ bg: "#663399", borderRadius: "50%", bottom: 80 }}
-      />
+      <SideNavToggle defaultIcon sx={{ bottom: 85 }} />
     </div>
 
     <TabBar>
@@ -83,7 +57,6 @@ export default props => (
             to={path}
             sx={{
               color: "#36313d",
-              fontFamily: "body",
               fontSize: "13px",
               textAlign: "center",
             }}>

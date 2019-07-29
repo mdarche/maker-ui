@@ -9,7 +9,7 @@ import {
   Main,
   Footer,
   MenuToggle,
-  // ColorToggle,
+  ColorToggle,
   MobileNav,
   WidgetArea,
 } from "gatsby-theme-elements"
@@ -19,9 +19,11 @@ export default props => (
   <Layout>
     <Header>
       <div id="logo">
-        <Box />
+        <Box height="45px" width="230px" mb="0" />
       </div>
-      <div id="nav-area">
+      <div
+        id="nav-area"
+        sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
         <NavMenu>
           {menuItems.map(({ label, path }) => (
             <li key={label}>
@@ -31,17 +33,16 @@ export default props => (
             </li>
           ))}
         </NavMenu>
-        {/* <ColorToggle modes={["light", "dark"]} /> */}
+        <ColorToggle modes={["light", "dark"]} />
       </div>
       <MenuToggle icon="menu" />
     </Header>
-
     <MobileNav defaultClose />
     <Main>
-      <div>{props.children}</div>
+      <div id="content">{props.children}</div>
     </Main>
     <Footer>
-      <WidgetArea>
+      <WidgetArea sx={{ pt: "30px" }}>
         <Box height="200px" />
         <Box height="200px" />
         <Box height="200px" />

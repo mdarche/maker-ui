@@ -4,7 +4,7 @@ import Layout from "../layouts/SideNav"
 
 const SideNavPage = () => (
   <Layout>
-    <BlogPost paragraph={6} image={false} />
+    <BlogPost paragraph={6} />
   </Layout>
 )
 

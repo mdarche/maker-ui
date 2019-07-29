@@ -16,14 +16,13 @@ import gatsbyLogoUrl from "../../assets/gatsby-logo.svg"
 import menuItems from "../../utils/menu"
 
 // NOTE
-// -- Your layouts will look cleaner without override props
-// -- You can set all of these defaults in your shadowed config files
+// Your layouts will look cleaner without override props
 
 export default props => (
   <Layout>
     <Topbar backgroundColor="#663399" maxWidth="100%" color="#fff">
       <div sx={{ p: "4px 20px", fontSize: 15 }}>
-        Sticky Topbar Announcement - Try on mobile or resize your browser
+        Try this page on mobile or resize your browser
       </div>
     </Topbar>
 
@@ -58,8 +57,8 @@ export default props => (
         {props.children}
       </Main>
       <SideNavToggle
-        icon
-        sx={{ bg: "#663399", borderRadius: "50%", bottom: 80 }}
+        defaultIcon
+        sx={{ bg: "#663399", borderRadius: "50%", bottom: 85 }}
       />
     </div>
 

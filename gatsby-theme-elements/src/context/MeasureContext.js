@@ -1,10 +1,5 @@
 import React, { useState, useContext, useMemo } from "react"
-
-const errorCheck = (name, value) => {
-  if (value === undefined) {
-    throw new Error(`${name} must be used within a MeasureContextProvider`)
-  }
-}
+import { errorCheck } from "../utils/helper"
 
 // Measure Context Provider
 
@@ -32,7 +27,7 @@ const MeasureContextProvider = ({ children }) => {
 
 function useMeasurements() {
   const { metrics } = useContext(MeasureContext)
-  errorCheck("useMeasurements", metrics)
+  errorCheck("useMeasurements", metrics, "MeasureContextProvider")
 
   return metrics
 }
@@ -40,10 +35,6 @@ function useMeasurements() {
 function measure() {
   const { measure } = useContext(MeasureContext)
   errorCheck("measure", measure)
-
-  if (measure === undefined) {
-    throw new Error("measure must be used within a MeasureContextProvider")
-  }
 
   function setTopbarHeight(height) {
     measure(metrics => ({

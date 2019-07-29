@@ -1,54 +1,61 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
-import { SideAds } from "react-understudy"
+import { Box } from "react-understudy"
 import {
   Layout,
+  Topbar,
   Header,
   NavMenu,
   Main,
-  Topbar,
   Footer,
-  WidgetArea,
   MenuToggle,
   MobileNav,
+  WidgetArea,
 } from "gatsby-theme-elements"
-
-const menuItems = ["Home", "About", "Source", "Contact"]
+import menuItems from "../utils/menu"
 
 export default props => (
   <Layout>
-    <Topbar>Topbar content</Topbar>
-    <Header sticky={false}>
-      <div className="logo">Logo</div>
-      <NavMenu
-        sx={{
-          a: {
-            p: 3,
-          },
-        }}>
-        {menuItems.map(item => (
-          <li key={item}>
-            <Link to={`/${item.toLowerCase()}`}>{item}</Link>
+    <Topbar>Let's try a split nav menu</Topbar>
+    <Header sticky={false} justify="center">
+      <NavMenu width="350px" justify="flex-end">
+        {menuItems.slice(0, 3).map(({ label, path }) => (
+          <li key={label}>
+            <Link sx={{ p: 3 }} to={path}>
+              {label}
+            </Link>
           </li>
         ))}
       </NavMenu>
-      <MenuToggle icon="menu" />
-    </Header>
-    <MobileNav animation="slideLeft" defaultClose />
-    <Main>
-      <div>
-        <SideAds />
+      <div id="logo" sx={{ px: [0, "30px"] }}>
+        <Box height="60px" width="230px" mb="0" />
       </div>
-      <div>{props.children}</div>
+      <NavMenu width="350px">
+        {menuItems.slice(3, 5).map(({ label, path }) => (
+          <li key={label}>
+            <Link sx={{ p: 3 }} to={path}>
+              {label}
+            </Link>
+          </li>
+        ))}
+      </NavMenu>
+      <div
+        sx={{ flex: 1, display: ["flex", "none"], justifyContent: "flex-end" }}>
+        <MenuToggle icon="menu" />
+      </div>
+    </Header>
+    <MobileNav defaultClose />
+    <Main maxWidth="100%" sx={{ p: 0 }}>
+      <div id="content">{props.children}</div>
     </Main>
     <Footer>
-      <WidgetArea>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
+      <WidgetArea sx={{ py: "30px" }}>
+        <Box log="test" height="200px" />
+        <Box height="200px" />
+        <Box height="200px" />
       </WidgetArea>
-      Copyright 2019
+      Footer text
     </Footer>
   </Layout>
 )

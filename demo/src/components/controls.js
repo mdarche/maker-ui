@@ -11,7 +11,7 @@ const demos = [
   { label: "Github", path: "/github" },
   { label: "Blog", path: "/blog" },
   { label: "Search Engine", path: "/search" },
-  { label: "Online Course", path: "/online-course" },
+  { label: "Online Course", path: "/course" },
 ]
 
 export default () => {

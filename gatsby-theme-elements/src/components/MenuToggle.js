@@ -5,9 +5,8 @@ import { useMenu } from "../context/UIContext"
 import { ReactComponent as MenuIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 
-const MenuToggle = props => {
+const MenuToggle = ({ fill, height, children, icon = undefined, ...props }) => {
   const [menuActive, toggleMenu] = useMenu()
-  const { fill, height, children, icon = undefined, ...rest } = props
 
   // Partials
 
@@ -17,7 +16,7 @@ const MenuToggle = props => {
 
   return (
     <button
-      {...rest}
+      {...props}
       aria-label="Mobile Menu Toggle"
       aria-expanded={menuActive ? "true" : "false"}
       aria-pressed={menuActive ? "true" : "false"}
@@ -40,7 +39,11 @@ const MenuToggle = props => {
 MenuToggle.propTypes = {
   fill: PropTypes.string,
   icon: PropTypes.string,
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node,
 }
 
