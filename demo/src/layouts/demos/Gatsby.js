@@ -15,9 +15,10 @@ import {
 import gatsbyLogoUrl from "../../assets/gatsby-logo.svg"
 import menuItems from "../../utils/menu"
 
-// NOTE
-// Your layouts will look cleaner without override props
-// You can set all of these defaults in your shadowed config files
+//
+// -- Your layouts will look cleaner without override props and placeholders
+// -- See the layout tree at the bottom of this file
+//
 
 export default props => (
   <Layout>
@@ -87,3 +88,29 @@ export default props => (
     </TabBar>
   </Layout>
 )
+
+{
+  /* Layout Tree:
+  
+  <Layout>
+
+    <Topbar />
+
+    <Header>
+      <Logo />
+      <NavMenu />
+      <MenuToggle />
+      <MobileNav/>
+    </Header>
+
+    <SideNav>
+      <Main>{children}</Main>
+    </SideNav>
+    <SideNavToggle />
+
+    <TabBar />
+
+  </Layout> 
+
+*/
+}

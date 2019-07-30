@@ -47,19 +47,6 @@ const Header = props => {
         zIndex: 100,
         ...stickyPartial,
       }}>
-      <a
-        href="#content"
-        id="skip-navigation"
-        className="screen-reader-text"
-        sx={{
-          clip: "rect(0px, 0px, 0px, 0px)",
-          position: "absolute",
-          height: "1px",
-          width: "1px",
-          overflow: "hidden",
-        }}>
-        Skip to Content
-      </a>
       <div
         id="header-content"
         sx={{

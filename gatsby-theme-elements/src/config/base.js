@@ -83,7 +83,8 @@ export default {
     },
   },
   textStyles: {
-    link: {
+    navlink: {
+      textDecoration: "none",
       color: "primary",
       "&:hover": {
         color: "secondary",

@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Link } from "gatsby"
-import { Box, SideAds } from "react-understudy"
+import { SideAds } from "react-understudy"
 import {
   Layout,
   Header,
+  Logo,
   NavMenu,
   Main,
   Footer,
@@ -18,25 +18,18 @@ import menuItems from "../utils/menu"
 export default props => (
   <Layout>
     <Topbar>Optional topbar</Topbar>
-    <Header>
-      <div id="logo">
-        <Box height="45px" width="230px" mb="0" />
-      </div>
-      <div
-        id="nav-area"
-        sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-        <NavMenu>
-          {menuItems.map(({ label, path }) => (
-            <li key={label}>
-              <Link sx={{ p: 3 }} to={path}>
-                {label}
-              </Link>
-            </li>
-          ))}
-        </NavMenu>
+    <Header justify="space-between">
+      <Logo />
+      <NavMenu
+        flex
+        justify="flex-end"
+        menuItems={menuItems}
+        sx={{ a: { p: 3 } }}
+      />
+      <div sx={{ display: "flex" }}>
         <ColorToggle />
+        <MenuToggle icon="menu" />
       </div>
-      <MenuToggle icon="menu" />
     </Header>
     <MobileNav defaultClose />
     <Main>

@@ -6,55 +6,44 @@ import {
   Layout,
   Topbar,
   Header,
+  Logo,
   NavMenu,
   Main,
   Footer,
   MenuToggle,
   MobileNav,
-  WidgetArea,
+  FooterWidgets,
 } from "gatsby-theme-elements"
 import menuItems from "../utils/menu"
 
 export default props => (
   <Layout>
-    <Topbar>Let's try a split nav menu</Topbar>
-    <Header sticky={false} justify="center">
-      <NavMenu width="350px" justify="flex-end">
-        {menuItems.slice(0, 3).map(({ label, path }) => (
-          <li key={label}>
-            <Link sx={{ p: 3 }} to={path}>
-              {label}
-            </Link>
-          </li>
-        ))}
-      </NavMenu>
-      <div id="logo" sx={{ px: [0, "30px"] }}>
-        <Box height="60px" width="230px" mb="0" />
-      </div>
-      <NavMenu width="350px">
-        {menuItems.slice(3, 5).map(({ label, path }) => (
-          <li key={label}>
-            <Link sx={{ p: 3 }} to={path}>
-              {label}
-            </Link>
-          </li>
-        ))}
-      </NavMenu>
-      <div
-        sx={{ flex: 1, display: ["flex", "none"], justifyContent: "flex-end" }}>
-        <MenuToggle icon="menu" />
-      </div>
+    <Topbar>Here's a split nav menu</Topbar>
+    <Header sticky={false} justify={["space-between", "center"]}>
+      <NavMenu
+        menuItems={menuItems.slice(0, 3)}
+        width="350px"
+        justify="flex-end"
+        sx={{ a: { p: 3 } }}
+      />
+      <Logo sx={{ px: [0, "30px"] }} />
+      <NavMenu
+        menuItems={menuItems.slice(3, 5)}
+        width="350px"
+        sx={{ a: { p: 3 } }}
+      />
+      <MenuToggle icon="menu" />
     </Header>
     <MobileNav defaultClose />
     <Main maxWidth="100%" sx={{ p: 0 }}>
       <div id="content">{props.children}</div>
     </Main>
     <Footer>
-      <WidgetArea sx={{ py: "30px" }}>
+      <FooterWidgets sx={{ py: "30px" }}>
         <Box height="200px" />
         <Box height="200px" />
         <Box height="200px" />
-      </WidgetArea>
+      </FooterWidgets>
       Footer text
     </Footer>
   </Layout>

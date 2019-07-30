@@ -5,6 +5,8 @@ import { List, Box } from "react-understudy"
 import {
   Layout,
   Header,
+  Logo,
+  ColorToggle,
   NavMenu,
   Main,
   TabBar,
@@ -16,20 +18,15 @@ import menuItems from "../utils/menu"
 export default props => (
   <Layout>
     <Header justify="space-between">
-      <div id="logo">
-        <Box height="45px" width="230px" mb="0" />
-      </div>
-      <NavMenu>
-        {menuItems.map(({ label, path }) => (
-          <li key={label}>
-            <Link to={path} sx={{ p: 3, color: "#36313d" }}>
-              {label}
-            </Link>
-          </li>
-        ))}
-      </NavMenu>
+      <Logo />
+      <NavMenu
+        flex
+        justify="flex-end"
+        menuItems={menuItems}
+        sx={{ a: { p: 3 } }}
+      />
+      <ColorToggle />
     </Header>
-
     <div
       id="content-wrapper"
       sx={{

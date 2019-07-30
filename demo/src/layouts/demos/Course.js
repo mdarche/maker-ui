@@ -12,9 +12,10 @@ import {
 } from "gatsby-theme-elements"
 import menuItems from "../../utils/menu"
 
-// NOTE
-// Your layouts will look cleaner without override props
-// You can set all of these defaults in your shadowed config files
+//
+// -- Your layouts will look cleaner without override props and placeholders
+// -- See the layout tree at the bottom of this file
+//
 
 export default props => (
   <Layout>

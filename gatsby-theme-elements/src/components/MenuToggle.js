@@ -8,8 +8,6 @@ import { ReactComponent as CloseIcon } from "../assets/close.svg"
 const MenuToggle = ({ fill, height, children, icon = undefined, ...props }) => {
   const [menuActive, toggleMenu] = useMenu()
 
-  // Partials
-
   const renderIcon = () => {
     return icon === "menu" ? <MenuIcon /> : <CloseIcon />
   }

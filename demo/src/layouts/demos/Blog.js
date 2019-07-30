@@ -14,9 +14,10 @@ import {
 import menuItems from "../../utils/menu"
 import blogLogoUrl from "../../assets/blog-logo.svg"
 
-// NOTE
-// Your layouts will look cleaner without override props and placeholders
-// You can set all of these defaults in your shadowed config files
+//
+// -- Your layouts will look cleaner without override props and placeholders
+// -- See the layout tree at the bottom of this file
+//
 
 export default props => (
   <Layout>
@@ -31,26 +32,23 @@ export default props => (
           alt="Lengstorf Blog Logo"
         />
       </div>
-      <NavMenu flex sx={{ pl: "80px" }}>
-        {menuItems.map(({ label, path }) => (
-          <li key={label}>
-            <Link
-              sx={{
-                p: "8px 20px",
-                fontWeight: "bold",
-                textTransform: "uppercase",
-                display: "flex",
-              }}
-              to={path}>
-              {label}
-            </Link>
-          </li>
-        ))}
-      </NavMenu>
+      <NavMenu
+        flex
+        menuItems={menuItems}
+        sx={{
+          pl: "80px",
+          a: {
+            p: "8px 20px",
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            display: "flex",
+          },
+        }}
+      />
       <IconBar icons={["Search"]} height="21px" />
       <MenuToggle icon="menu" />
+      <MobileNav defaultClose backgroundColor="#c800ec" animation="slideLeft" />
     </Header>
-    <MobileNav defaultClose backgroundColor="#c800ec" animation="slideLeft" />
     <Main maxWidth={650} sidebar={false}>
       <div id="content">{props.children}</div>
     </Main>
@@ -77,3 +75,22 @@ export default props => (
     </Footer>
   </Layout>
 )
+
+/* Layout Tree:
+  
+  <Layout>
+
+    <Header>
+      <Logo />
+      <NavMenu />
+      <MenuToggle />
+      <MobileNav/>
+    </Header>
+
+    <Main>{children}</Main>
+
+    <Footer />
+
+  </Layout> 
+
+*/

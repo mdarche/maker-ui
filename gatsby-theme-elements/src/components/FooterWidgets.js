@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
-const WidgetArea = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
+const FooterWidgets = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
   const columns = Array.isArray(props.children) ? props.children.length : 1
   const gap = gridGap ? { gridGap } : { variant: "gaps.widgetGap" }
 
@@ -22,7 +22,7 @@ const WidgetArea = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
   )
 }
 
-WidgetArea.propTypes = {
+FooterWidgets.propTypes = {
   backgroundColor: PropTypes.string,
   gridGap: PropTypes.number,
   maxWidth: PropTypes.oneOfType([
@@ -33,4 +33,4 @@ WidgetArea.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default WidgetArea
+export default FooterWidgets
