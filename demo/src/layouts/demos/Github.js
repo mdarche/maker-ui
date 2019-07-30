@@ -67,7 +67,6 @@ export default props => (
     </Header>
     <MobileNav defaultClose animation="slideLeft" />
     <Main sidebarWidth="25%" maxWidth="1280px" sx={{ pt: "24px" }}>
-      {/* Here we handle both the sidebar and content at the page level. See src/pages/github.js  */}
       {props.children}
     </Main>
     <Footer border="none" maxWidth="1012px">

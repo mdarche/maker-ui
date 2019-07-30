@@ -7,6 +7,8 @@ import {
   Logo,
   NavMenu,
   Main,
+  ContentWrapper,
+  Sidebar,
   Footer,
   MenuToggle,
   ColorToggle,
@@ -32,12 +34,12 @@ export default props => (
       </div>
     </Header>
     <MobileNav defaultClose />
-    <Main sidebarPosition="right">
-      <div id="content">{props.children}</div>
-      <aside id="sidebar">
+    <ContentWrapper sx={{ pt: 5 }}>
+      <Main>{props.children}</Main>
+      <Sidebar>
         <SideAds adHeights={[250, 600]} />
-      </aside>
-    </Main>
+      </Sidebar>
+    </ContentWrapper>
     <Footer>Footer Text</Footer>
   </Layout>
 )

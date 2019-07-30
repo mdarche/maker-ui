@@ -6,6 +6,7 @@ import {
   Header,
   Logo,
   NavMenu,
+  ContentWrapper,
   Main,
   Footer,
   MenuToggle,
@@ -31,9 +32,9 @@ export default props => (
       </div>
     </Header>
     <MobileNav defaultClose />
-    <Main>
-      <div id="content">{props.children}</div>
-    </Main>
+    <ContentWrapper sx={{ pt: 5 }}>
+      <Main>{props.children}</Main>
+    </ContentWrapper>
     <Footer>
       <FooterWidgets sx={{ pt: "30px" }}>
         <Box height="200px" />

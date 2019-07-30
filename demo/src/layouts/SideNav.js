@@ -8,6 +8,7 @@ import {
   Logo,
   ColorToggle,
   NavMenu,
+  ContentWrapper,
   Main,
   TabBar,
   SideNav,
@@ -27,19 +28,15 @@ export default props => (
       />
       <ColorToggle />
     </Header>
-    <div
-      id="content-wrapper"
-      sx={{
-        display: "flex",
-      }}>
+    <ContentWrapper>
       <SideNav>
         <List count={20} border={false} padding="15px 20px 0" />
       </SideNav>
-      <Main sideNav sidebar={false} paddingTop="5rem">
-        <div id="content">{props.children}</div>
+      <Main maxWidth="750px" sx={{ pt: 5 }}>
+        {props.children}
       </Main>
-      <SideNavToggle defaultIcon sx={{ bottom: 85 }} />
-    </div>
+    </ContentWrapper>
+    <SideNavToggle defaultIcon sx={{ bottom: 85 }} />
 
     <TabBar>
       <div

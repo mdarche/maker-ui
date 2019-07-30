@@ -1,4 +1,5 @@
 import React, { useState, useContext, useMemo } from "react"
+import options from "../config/defaults"
 import { errorCheck } from "../utils/helper"
 
 // Measure Context Provider
@@ -10,6 +11,7 @@ const MeasureContextProvider = ({ children }) => {
     topbarHeight: 0,
     headerHeight: 0,
     sideNavWidth: 0,
+    sidebarWidth: options.sidebar.width,
     viewportX: 0,
     viewportY: 0,
   })
@@ -57,6 +59,13 @@ function measure() {
     }))
   }
 
+  function setSidebarWidth(width) {
+    measure(metrics => ({
+      ...metrics,
+      sidebarWidth: width,
+    }))
+  }
+
   function setViewportXY([x, y]) {
     measure(metrics => ({
       ...metrics,
@@ -65,7 +74,13 @@ function measure() {
     }))
   }
 
-  return { setTopbarHeight, setViewportXY, setHeaderHeight, setSideNavWidth }
+  return {
+    setTopbarHeight,
+    setViewportXY,
+    setHeaderHeight,
+    setSideNavWidth,
+    setSidebarWidth,
+  }
 }
 
 export { MeasureContextProvider, useMeasurements, measure }

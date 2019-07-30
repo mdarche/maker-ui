@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Link } from "gatsby"
 import { Box } from "react-understudy"
 import {
   Layout,
@@ -8,6 +7,7 @@ import {
   Header,
   Logo,
   NavMenu,
+  ContentWrapper,
   Main,
   Footer,
   MenuToggle,
@@ -35,9 +35,9 @@ export default props => (
       <MenuToggle icon="menu" />
     </Header>
     <MobileNav defaultClose />
-    <Main maxWidth="100%" sx={{ p: 0 }}>
-      <div id="content">{props.children}</div>
-    </Main>
+    <ContentWrapper maxWidth="100%" sx={{ px: 0 }}>
+      <Main>{props.children}</Main>
+    </ContentWrapper>
     <Footer>
       <FooterWidgets sx={{ py: "30px" }}>
         <Box height="200px" />

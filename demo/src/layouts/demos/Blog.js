@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 import { Link } from "gatsby"
 import { IconBar } from "react-understudy"
 import {

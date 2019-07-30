@@ -44,7 +44,7 @@ const Root = ({ children, ...props }) => {
       <ul className="skip-links">
         {skiplinks.map(({ label, path }) => (
           <li key={path}>
-            <a to={`#${path}`} className="screen-reader-shortcut">
+            <a href={`#${path}`} className="screen-reader-shortcut">
               {label}
             </a>
           </li>

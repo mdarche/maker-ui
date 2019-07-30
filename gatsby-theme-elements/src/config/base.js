@@ -22,6 +22,7 @@ export default {
     bg_sidenav: "#fff",
     bg_tabbar: "#fff",
     bg_footer: "#fff",
+    logo_fill: "#000",
     modes: {
       dark: {
         text: "#fff",
@@ -36,6 +37,7 @@ export default {
         bg_sidenav: "#fff",
         bg_tabbar: "#fff",
         bg_footer: "#fff",
+        logo_fill: "#000",
       },
     },
   },
@@ -68,18 +70,20 @@ export default {
     sidenav: "1px solid gainsboro",
   },
   sizes: {
-    width_mobileNav: options.header.mobileNavWidth,
     max_header: options.header.maxWidth,
     max_topbar: options.topbar.maxWidth,
-    max_main: options.main.maxWidth,
+    max_content: options.content.maxWidth,
     max_footer: options.footer.maxWidth,
+    width_mobileNav: options.header.mobileNavWidth,
+    width_sidebar: options.sidebar.width,
+    width_sideNav: options.sideNav.width,
   },
   gaps: {
     widgetGap: {
       gridGap: options.footer.gridGap,
     },
-    mainGap: {
-      gridGap: options.main.gridGap,
+    contentGap: {
+      gridGap: options.content.gridGap,
     },
   },
   textStyles: {

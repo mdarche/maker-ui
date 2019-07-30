@@ -18,14 +18,12 @@ export default () => {
 
   // TODO - refactor the 'show' checks in this animation chain
 
-  // Animation Part 1
   const opacityRef = useRef()
   const opacity = useSpring({
     opacity: show ? 1 : 0,
     ref: opacityRef,
   })
 
-  // Animation Part 2
   const shiftRef = useRef()
   const shift = useSpring({
     width: show ? "180px" : "0",
@@ -34,7 +32,6 @@ export default () => {
     ref: shiftRef,
   })
 
-  // Animation Part 3
   const buttonRef = useRef()
   const buttonSpring = useSpring({
     height: show ? "45px" : "60px",
