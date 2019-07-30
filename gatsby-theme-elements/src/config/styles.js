@@ -1,3 +1,5 @@
+// Global CSS Rules for Styled Components & MDX
+
 const heading = {
   fontFamily: "heading",
   fontWeight: "heading",
@@ -7,8 +9,10 @@ const heading = {
 }
 
 export default {
-  header: {
-    justifyContent: "flex-start",
+  root: {
+    fontFamily: "body",
+    fontWeight: "body",
+    lineHeight: "body",
   },
   h1: {
     ...heading,
@@ -44,10 +48,6 @@ export default {
     "&:hover": {
       color: "secondary",
     },
-  },
-  img: {
-    maxWidth: "100%",
-    height: "auto",
   },
   hr: {
     mt: 5,

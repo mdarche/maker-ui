@@ -5,12 +5,11 @@ import { useRef, useLayoutEffect, useEffect } from "react"
 import { useOptions, useTopbar } from "../context/UIContext"
 import { measure } from "../context/MeasureContext"
 
-const Topbar = props => {
-  const { backgroundColor, color, sticky, maxWidth, ...rest } = props
-  const { setTopbarHeight } = measure()
+const Topbar = ({ backgroundColor, color, sticky, maxWidth, ...props }) => {
+  const topbarRef = useRef(null)
   const options = useOptions()
   const setTopbar = useTopbar()
-  const topbarRef = useRef(null)
+  const { setTopbarHeight } = measure()
 
   // Component Lifecycle
 
@@ -19,7 +18,7 @@ const Topbar = props => {
   }, [])
 
   useEffect(() => {
-    if (sticky !== options.topbar.sticky) {
+    if (sticky !== undefined && sticky !== options.topbar.sticky) {
       setTopbar(sticky)
     }
   }, [])
@@ -30,6 +29,7 @@ const Topbar = props => {
     ? {
         position: "sticky",
         top: 0,
+        zIndex: 101,
       }
     : null
 
@@ -41,20 +41,20 @@ const Topbar = props => {
           !options.topbar.sticky && options.topbar.hideOnMobile
             ? ["none", "block"]
             : "block",
-        p: 2,
         bg: backgroundColor || "bg_topbar",
+        color: color || "#fff",
         fontFamily: "topbar" || "body",
-        color: color || "text_topbar",
         zIndex: 100,
-        overflowX: "scroll",
         ...stickyPartial,
-      }}
-    >
+      }}>
       <div
-        {...rest}
+        {...props}
         sx={{
           m: "0 auto",
+          overflowX: "scroll",
+          whiteSpace: "nowrap",
           maxWidth: maxWidth || "max_topbar",
+          p: 2,
         }}
       />
     </aside>
@@ -63,9 +63,17 @@ const Topbar = props => {
 
 Topbar.propTypes = {
   backgroundColor: PropTypes.string,
-  color: PropTypes.string,
   sticky: PropTypes.bool,
-  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  padding: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  maxWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node.isRequired,
 }
 

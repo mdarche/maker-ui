@@ -8,11 +8,15 @@ import { formatUnit } from "../utils/helper"
 import { transitions } from "../utils/animate"
 import MenuToggle from "./MenuToggle"
 
-const MobileNav = props => {
+const MobileNav = ({
+  backgroundColor,
+  children,
+  defaultClose = false,
+  ...props
+}) => {
   const menuRef = useRef(null)
   const options = useOptions()
   const [menuActive, toggleMenu] = useMenu()
-  const { backgroundColor, children, defaultClose = false, ...rest } = props
 
   const width =
     formatUnit(props.width) || formatUnit(options.header.mobileNavWidth)
@@ -47,11 +51,12 @@ const MobileNav = props => {
   return transitions(menuActive, animation, width, config).map(
     ({ item, key, props }) =>
       item && (
-        <a.div
-          {...rest}
+        <a.nav
+          {...props}
           ref={menuRef}
           style={props}
           key={key}
+          aria-label="Mobile Navigation Menu"
           sx={{
             position: "fixed",
             top: 0,
@@ -60,10 +65,10 @@ const MobileNav = props => {
             border: "none",
             maxWidth: "100%",
             zIndex: 1000,
+            fontFamily: "header",
             bg: backgroundColor || "bg_navmobile",
             ...positionPartial(),
-          }}
-        >
+          }}>
           {defaultClose ? (
             <MenuToggle
               icon="close"
@@ -77,7 +82,7 @@ const MobileNav = props => {
             />
           ) : null}
           {children}
-        </a.div>
+        </a.nav>
       )
   )
 }
@@ -87,7 +92,11 @@ MobileNav.propTypes = {
   defaultClose: PropTypes.bool,
   animation: PropTypes.string,
   spring: PropTypes.object,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node,
 }
 

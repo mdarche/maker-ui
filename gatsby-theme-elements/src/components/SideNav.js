@@ -13,19 +13,22 @@ function getInnerWidth() {
   }
 }
 
-// TODO - mention known top issue in docs
-
 const SideNav = props => {
   const sideNavRef = useRef(null)
   const options = useOptions()
   const { setSideNavWidth } = measure()
   const { viewportX, topbarHeight, headerHeight } = useMeasurements()
   const [sideNavActive, toggleSideNav] = useSideNav()
-  const { boxShadow, backgroundColor, spring, top, ...rest } = props
-
-  const config = spring || options.sideNav.spring
-  const width = props.width || options.sideNav.width
   const breakpoint = options.breakpoints.sm
+  const {
+    boxShadow,
+    backgroundColor,
+    border,
+    top = 0,
+    width = options.sideNav.width,
+    spring = options.sideNav.spring,
+    ...rest
+  } = props
 
   // Component Lifecyle
 
@@ -45,40 +48,37 @@ const SideNav = props => {
   // Partials
 
   const topPartial = () => {
+    const { topbar, header } = options
     const totalHeight = topbarHeight + headerHeight
 
-    if (top !== undefined) {
-      return { top }
-    }
-
     if (
-      (options.topbar.sticky && options.header.sticky) ||
-      (!options.topbar.sticky && !options.header.sticky)
+      (topbar.sticky && header.sticky) ||
+      (!topbar.sticky && !header.sticky)
     ) {
       return { top: [0, totalHeight] }
     }
 
-    return { top: 0 }
+    return { top }
   }
 
   return (
     <a.section
-      style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, config)}
+      style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, spring)}
       ref={sideNavRef}
-      aria-label="Secondary Navigation"
+      aria-label="Secondary Navigation Menu"
       sx={{
         width,
         position: "fixed",
         bg: backgroundColor || "bg_sidenav",
         boxShadow: boxShadow || ["1px 1px 8px 1px rgba(0, 0, 0, 0.1)", "none"],
+        borderRight: border || "sidenav",
         maxWidth: "75vw",
         left: 0,
         bottom: 0,
         zIndex: [200, 10],
         overflowY: "scroll",
         ...topPartial(),
-      }}
-    >
+      }}>
       <div {...rest} />
     </a.section>
   )
@@ -87,8 +87,12 @@ const SideNav = props => {
 SideNav.propTypes = {
   backgroundColor: PropTypes.string,
   spring: PropTypes.object,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  boxShadow: PropTypes.string,
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  boxShadow: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   children: PropTypes.node.isRequired,
 }
 

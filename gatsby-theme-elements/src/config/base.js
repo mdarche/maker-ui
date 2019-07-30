@@ -1,5 +1,11 @@
+import options from "./defaults"
 import styles from "./styles"
-import options from "../utils/defaults"
+
+/*
+ *  Default THEME UI Object
+ *
+ *  Overwrite or extend by shadowing src/theme.js
+ */
 
 export default {
   initialColorMode: "light",
@@ -59,12 +65,13 @@ export default {
     header: "1px solid gainsboro",
     footer: "1px solid gainsboro",
     tabbar: "1px solid gainsboro",
+    sidenav: "1px solid gainsboro",
   },
   sizes: {
     width_mobileNav: options.header.mobileNavWidth,
     max_header: options.header.maxWidth,
     max_topbar: options.topbar.maxWidth,
-    max_content: options.main.maxWidth,
+    max_main: options.main.maxWidth,
     max_footer: options.footer.maxWidth,
   },
   gaps: {
@@ -73,6 +80,14 @@ export default {
     },
     mainGap: {
       gridGap: options.main.gridGap,
+    },
+  },
+  textStyles: {
+    link: {
+      color: "primary",
+      "&:hover": {
+        color: "secondary",
+      },
     },
   },
   breakpoints: [
