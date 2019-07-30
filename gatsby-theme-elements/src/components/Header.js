@@ -41,16 +41,16 @@ const Header = props => {
       ref={headerRef}
       sx={{
         bg: backgroundColor || "bg_header",
-        fontFamily: "nav",
         boxShadow: boxShadow || "header",
         borderBottom: border || "header",
+        fontFamily: "nav",
         zIndex: 100,
         ...stickyPartial,
       }}>
       <a
         href="#content"
         id="skip-navigation"
-        class="screen-reader-text"
+        className="screen-reader-text"
         sx={{
           clip: "rect(0px, 0px, 0px, 0px)",
           position: "absolute",
@@ -61,10 +61,11 @@ const Header = props => {
         Skip to Content
       </a>
       <div
+        id="header-content"
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: justify || "space-between",
+          justifyContent: justify || "flex-start",
           m: "0 auto",
           p: 3,
           maxWidth: maxWidth || "max_header",

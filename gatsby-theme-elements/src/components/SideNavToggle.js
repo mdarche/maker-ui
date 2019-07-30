@@ -26,6 +26,7 @@ const SideNavToggle = props => {
       aria-haspopup="true"
       onClick={() => toggleSideNav()}
       sx={{
+        position: "fixed",
         display: ["flex", "none"],
         alignItems: "center",
         justifyContent: "center",
@@ -35,7 +36,6 @@ const SideNavToggle = props => {
         color: color || "#fff",
         height: height || 60,
         width: height || 60,
-        position: "fixed",
         bottom: 25,
         right: 20,
         svg: {

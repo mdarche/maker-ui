@@ -3,8 +3,8 @@ export default {
   colors: {
     text: "#000",
     background: "#fff",
-    primary: "#07c",
-    secondary: "#05a",
+    primary: "#36313d",
+    secondary: "#663399",
     accent: "#609",
     muted: "#f6f6f6f",
     bg_topbar: "#636363",

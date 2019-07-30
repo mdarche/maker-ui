@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
-const NavMenu = ({ width, justify, flex, ...rest }) => {
+const NavMenu = ({ width, justify, flex, ...props }) => {
   const flexPartial = flex ? { flex: 1 } : null
 
   return (
@@ -15,7 +15,7 @@ const NavMenu = ({ width, justify, flex, ...rest }) => {
         ...flexPartial,
       }}>
       <ul
-        {...rest}
+        {...props}
         role="menu"
         sx={{
           display: "flex",

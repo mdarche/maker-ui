@@ -5,12 +5,11 @@ import { useRef, useLayoutEffect, useEffect } from "react"
 import { useOptions, useTopbar } from "../context/UIContext"
 import { measure } from "../context/MeasureContext"
 
-const Topbar = props => {
+const Topbar = ({ backgroundColor, color, sticky, maxWidth, ...props }) => {
   const topbarRef = useRef(null)
   const options = useOptions()
   const setTopbar = useTopbar()
   const { setTopbarHeight } = measure()
-  const { backgroundColor, color, sticky, maxWidth, padding, ...rest } = props
 
   // Component Lifecycle
 
@@ -49,13 +48,13 @@ const Topbar = props => {
         ...stickyPartial,
       }}>
       <div
-        {...rest}
+        {...props}
         sx={{
           m: "0 auto",
           overflowX: "scroll",
           whiteSpace: "nowrap",
           maxWidth: maxWidth || "max_topbar",
-          p: padding || 2,
+          p: 2,
         }}
       />
     </aside>

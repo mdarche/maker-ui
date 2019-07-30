@@ -82,6 +82,14 @@ export default {
       gridGap: options.main.gridGap,
     },
   },
+  textStyles: {
+    link: {
+      color: "primary",
+      "&:hover": {
+        color: "secondary",
+      },
+    },
+  },
   breakpoints: [
     `${options.breakpoints.sm}px`,
     `${options.breakpoints.md}px`,

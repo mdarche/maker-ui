@@ -8,11 +8,15 @@ import { formatUnit } from "../utils/helper"
 import { transitions } from "../utils/animate"
 import MenuToggle from "./MenuToggle"
 
-const MobileNav = props => {
+const MobileNav = ({
+  backgroundColor,
+  children,
+  defaultClose = false,
+  ...props
+}) => {
   const menuRef = useRef(null)
   const options = useOptions()
   const [menuActive, toggleMenu] = useMenu()
-  const { backgroundColor, children, defaultClose = false, ...rest } = props
 
   const width =
     formatUnit(props.width) || formatUnit(options.header.mobileNavWidth)
@@ -48,7 +52,7 @@ const MobileNav = props => {
     ({ item, key, props }) =>
       item && (
         <a.nav
-          {...rest}
+          {...props}
           ref={menuRef}
           style={props}
           key={key}

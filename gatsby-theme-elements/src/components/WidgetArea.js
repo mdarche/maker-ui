@@ -10,7 +10,7 @@ const WidgetArea = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
     <div
       {...props}
       sx={{
-        m: "0 auto 20px",
+        m: "0 auto",
         width: "100%",
         bg: backgroundColor || "bg_footer",
         maxWidth: maxWidth || "max_footer",

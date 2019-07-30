@@ -51,8 +51,8 @@ export default props => (
       <MenuToggle icon="menu" />
     </Header>
     <MobileNav defaultClose backgroundColor="#c800ec" animation="slideLeft" />
-    <Main maxWidth={650}>
-      <div>{props.children}</div>
+    <Main maxWidth={650} sidebar={false}>
+      <div id="content">{props.children}</div>
     </Main>
     <Footer
       maxWidth={650}

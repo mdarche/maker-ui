@@ -4,13 +4,12 @@ import { useState, useRef } from "react"
 import { Link } from "gatsby"
 import { useSpring, useChain, animated as a } from "react-spring"
 import { ReactComponent as CloseIcon } from "../assets/arrow.svg"
-import { ReactComponent as LayoutIcon } from "../assets/blocks.svg"
+import { ReactComponent as MoreIcon } from "../assets/more.svg"
 
 const demos = [
   { label: "Gatsby Docs", path: "/gatsby-docs" },
   { label: "Github", path: "/github" },
   { label: "Blog", path: "/blog" },
-  { label: "Search Engine", path: "/search" },
   { label: "Online Course", path: "/course" },
 ]
 
@@ -30,7 +29,7 @@ export default () => {
   const shiftRef = useRef()
   const shift = useSpring({
     width: show ? "180px" : "0",
-    height: show ? "190px" : "0",
+    height: show ? "170px" : "0",
     opacity: show ? 1 : 0,
     ref: shiftRef,
   })
@@ -63,7 +62,7 @@ export default () => {
           borderRadius: "5px",
           borderBottomRightRadius: 0,
           width: "180px",
-          height: "190px",
+          height: "170px",
           overflow: "hidden",
           fontFamily: "sans-serif",
         }}>
@@ -122,7 +121,7 @@ export default () => {
           outline: "none",
         }}>
         <a.div sx={{ svg: { fill: "#fff", height: 32 } }}>
-          {show ? <CloseIcon /> : <LayoutIcon />}
+          {show ? <CloseIcon /> : <MoreIcon />}
         </a.div>
       </a.button>
     </div>

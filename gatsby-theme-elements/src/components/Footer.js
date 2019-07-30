@@ -5,7 +5,6 @@ import PropTypes from "prop-types"
 const Footer = ({ backgroundColor, border, maxWidth, ...props }) => (
   <footer
     sx={{
-      p: 3,
       bg: backgroundColor || "bg_footer",
       borderTop: border || "footer",
     }}>
@@ -13,6 +12,7 @@ const Footer = ({ backgroundColor, border, maxWidth, ...props }) => (
       {...props}
       sx={{
         m: "0 auto",
+        p: 3,
         maxWidth: maxWidth || "max_footer",
       }}
     />

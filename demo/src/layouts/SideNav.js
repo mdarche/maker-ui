@@ -15,7 +15,7 @@ import menuItems from "../utils/menu"
 
 export default props => (
   <Layout>
-    <Header stickyMobile={false}>
+    <Header justify="space-between">
       <div id="logo">
         <Box height="45px" width="230px" mb="0" />
       </div>
@@ -38,8 +38,8 @@ export default props => (
       <SideNav>
         <List count={20} border={false} padding="15px 20px 0" />
       </SideNav>
-      <Main sideNav paddingTop="5rem">
-        {props.children}
+      <Main sideNav sidebar={false} paddingTop="5rem">
+        <div id="content">{props.children}</div>
       </Main>
       <SideNavToggle defaultIcon sx={{ bottom: 85 }} />
     </div>
