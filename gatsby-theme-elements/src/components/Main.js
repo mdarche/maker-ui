@@ -8,21 +8,15 @@ const Main = props => {
   const options = useOptions()
   const columns = Array.isArray(props.children) ? props.children.length : 1
   const {
-    sidebar = undefined,
-    sidebarWidth,
-    sidebarPosition,
+    sidebar = options.main.sidebar,
+    sidebarWidth = formatUnit(options.main.sidebarWidth),
+    sidebarPosition = options.main.sidebarPosition,
+    sideNav = options.sideNav.active,
     maxWidth,
-    sideNav = undefined,
     gridGap,
     paddingTop,
     ...rest
   } = props
-
-  const sidebarActive = sidebar !== undefined ? sidebar : options.main.sidebar
-  const sideNavActive = sideNav !== undefined ? sideNav : options.sideNav.active
-  const width =
-    formatUnit(sidebarWidth) || formatUnit(options.main.sidebarWidth)
-  const position = sidebarPosition || options.main.sidebarPosition
 
   // Handle Errors
 
@@ -35,15 +29,15 @@ const Main = props => {
   // Partials
 
   const sidebarPartial = () => {
-    if (sidebarActive) {
+    if (sidebar) {
       const gap = gridGap ? { gridGap } : { variant: "gaps.mainGap" }
       const gridLayout =
-        position === "right"
+        sidebarPosition === "right"
           ? {
-              gridTemplateColumns: [`1fr`, `1fr ${width}`],
+              gridTemplateColumns: [`1fr`, `1fr ${sidebarWidth}`],
             }
           : {
-              gridTemplateColumns: [`1fr`, `${width} 1fr`],
+              gridTemplateColumns: [`1fr`, `${sidebarWidth} 1fr`],
               "> :first-of-type": {
                 gridRow: [2, 1],
               },
@@ -53,25 +47,25 @@ const Main = props => {
     }
   }
 
-  const sideNavPartial = sideNavActive
+  const sideNavPartial = sideNav
     ? { pl: [0, options.sideNav.width] }
-    : null
+    : { maxWidth: maxWidth || "max_main" }
 
   return (
     <main
       sx={{
         m: ["initial", "0 auto"],
         width: ["auto", "100%"],
-        maxWidth: maxWidth || "max_content",
         flex: 1,
         ...sideNavPartial,
-      }}
-    >
+      }}>
       <div
         sx={{
+          maxWidth: sideNav ? maxWidth || "max_main" : "inherit",
+          m: sideNav ? "0 auto" : "auto",
           pt: paddingTop || options.main.paddingTop,
           px: 20,
-          display: sidebarActive && columns !== 1 ? "grid" : "block",
+          display: sidebar && columns !== 1 ? "grid" : "block",
           ...sidebarPartial(),
         }}
         {...rest}
@@ -85,9 +79,21 @@ Main.propTypes = {
   sideNav: PropTypes.bool,
   sidebar: PropTypes.bool,
   sidebarPosition: PropTypes.string,
-  sidebarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  paddingTop: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  sidebarWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  paddingTop: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  maxWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node.isRequired,
 }
 

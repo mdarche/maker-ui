@@ -10,7 +10,16 @@ const Header = props => {
   const options = useOptions()
   const { setHeaderHeight } = measure()
   const { topbarHeight } = useMeasurements()
-  const { sticky, maxWidth, backgroundColor, ...rest } = props
+  const {
+    sticky = options.header.sticky,
+    stickyMobile = options.header.stickyMobile,
+    maxWidth,
+    backgroundColor,
+    boxShadow,
+    justify,
+    border,
+    ...rest
+  } = props
 
   // Component Lifecycle
 
@@ -20,11 +29,9 @@ const Header = props => {
 
   // Partials
 
-  const stickyPartial = (sticky !== undefined
-  ? sticky
-  : options.header.sticky)
+  const stickyPartial = sticky
     ? {
-        position: "sticky",
+        position: stickyMobile ? "sticky" : ["initial", "sticky"],
         top: options.topbar.sticky ? topbarHeight : 0,
       }
     : null
@@ -34,21 +41,33 @@ const Header = props => {
       ref={headerRef}
       sx={{
         bg: backgroundColor || "bg_header",
+        boxShadow: boxShadow || "header",
+        borderBottom: border || "header",
         fontFamily: "nav",
-        p: 3,
-        boxShadow: "header",
-        borderBottom: "header",
         zIndex: 100,
         ...stickyPartial,
-      }}
-    >
+      }}>
+      <a
+        href="#content"
+        id="skip-navigation"
+        className="screen-reader-text"
+        sx={{
+          clip: "rect(0px, 0px, 0px, 0px)",
+          position: "absolute",
+          height: "1px",
+          width: "1px",
+          overflow: "hidden",
+        }}>
+        Skip to Content
+      </a>
       <div
+        id="header-content"
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: justify || "flex-start",
           m: "0 auto",
-          width: "100%",
+          p: 3,
           maxWidth: maxWidth || "max_header",
         }}
         {...rest}
@@ -60,7 +79,12 @@ const Header = props => {
 Header.propTypes = {
   backgroundColor: PropTypes.string,
   sticky: PropTypes.bool,
-  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  justify: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  maxWidth: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   children: PropTypes.node.isRequired,
 }
 

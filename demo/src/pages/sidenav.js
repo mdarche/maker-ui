@@ -1,11 +1,11 @@
 import React from "react"
-import Layout from "../layouts/SideNav"
 import { BlogPost } from "react-understudy"
+import Layout from "../layouts/SideNav"
 
-const IndexPage = () => (
+const SideNavPage = () => (
   <Layout>
-    <BlogPost />
+    <BlogPost paragraph={6} />
   </Layout>
 )
 
-export default IndexPage
+export default SideNavPage

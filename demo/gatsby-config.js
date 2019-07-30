@@ -4,5 +4,5 @@ module.exports = {
     description: "Demo site for @mdarche/gatsby-theme-elements",
     siteUrl: "https://jxnblk.com",
   },
-  plugins: ["gatsby-theme-elements"],
+  plugins: ["gatsby-theme-elements", "gatsby-plugin-svgr"],
 }

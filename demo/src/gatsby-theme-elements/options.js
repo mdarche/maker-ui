@@ -1,12 +1,12 @@
 export default {
   topbar: {
     sticky: true,
-    maxWidth: 1260,
-    hideOnMobile: false,
+    maxWidth: "100%",
   },
   header: {
     sticky: true,
-    maxWidth: 1260,
+    stickyMobile: true,
+    maxWidth: "100%",
     mobileNavStyle: "fade",
     mobileNavWidth: 300,
     spring: { tension: 170, friction: 26 },
@@ -18,14 +18,14 @@ export default {
   },
   main: {
     paddingTop: 80,
-    maxWidth: 1260,
-    gridGap: 30,
+    maxWidth: 1020,
+    gridGap: 50,
     sidebar: true,
-    sidebarWidth: ".3fr",
+    sidebarWidth: ".4fr",
     sidebarPosition: "left",
   },
   footer: {
-    maxWidth: 1260,
+    maxWidth: 1020,
     gridGap: 30,
   },
   breakpoints: {
