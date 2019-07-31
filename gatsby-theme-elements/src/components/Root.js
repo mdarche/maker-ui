@@ -41,6 +41,7 @@ const Root = ({ children, ...props }) => {
       sx={{ bg: "background", color: "text" }}
       {...props}>
       <Global styles={reset} />
+
       <ul className="skip-links">
         {skiplinks.map(({ label, path }) => (
           <li key={path}>
@@ -50,6 +51,7 @@ const Root = ({ children, ...props }) => {
           </li>
         ))}
       </ul>
+
       {children}
     </Styled.root>
   )

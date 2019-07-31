@@ -9,6 +9,7 @@ const FooterWidgets = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
   return (
     <div
       {...props}
+      id="footer-widgets"
       sx={{
         m: "0 auto",
         width: "100%",

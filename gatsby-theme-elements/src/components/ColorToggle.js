@@ -11,6 +11,7 @@ const ColorToggle = ({ children, ...props }) => {
   const cycleMode = () => {
     const i = modes.indexOf(color)
     const next = modes[(i + 1) % modes.length]
+
     setColor(next)
   }
 

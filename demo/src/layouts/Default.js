@@ -14,12 +14,12 @@ import {
   MobileNav,
   FooterWidgets,
 } from "gatsby-theme-elements"
-import menuItems from "../utils/menu"
+import { menuItems, logoColors } from "../utils/settings"
 
 export default props => (
   <Layout>
     <Header justify="space-between">
-      <Logo />
+      <Logo colorOptions={logoColors} />
       <NavMenu
         flex
         justify="flex-end"

@@ -14,6 +14,7 @@ const Main = ({ maxWidth, ...props }) => {
   return (
     <main
       id="#content"
+      key="Main"
       {...props}
       sx={{
         flex: 1,

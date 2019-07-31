@@ -3,6 +3,18 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useMeasurements } from "../context/MeasureContext"
 
+// TODO - Need a better way to determine child component if emotion has an undefined type
+function checkForComponent(child) {
+  if (child.type.name) {
+    return child.type.name
+  }
+  if (child._source.fileName.endsWith("SideNav.js")) {
+    return "SideNav"
+  }
+
+  return undefined
+}
+
 const ContentWrapper = ({
   maxWidth,
   gridGap,
@@ -11,10 +23,12 @@ const ContentWrapper = ({
   ...props
 }) => {
   const { sidebarWidth, sideNavWidth } = useMeasurements()
+
   const columns =
     children.length > 1
-      ? children.map(child => child.type.name)
-      : [children.type.name]
+      ? children.map(child => checkForComponent(child))
+      : [checkForComponent(children)]
+
   const sidebar = columns.includes("Sidebar") ? true : false
   const sideNav = columns.includes("SideNav") ? true : false
 
@@ -32,7 +46,7 @@ const ContentWrapper = ({
           : {
               gridTemplateColumns: [`1fr`, `${sidebarWidth} 1fr`],
               "#primary-sidebar": {
-                gridRow: mobileReverse ? [2, 1] : [1, 2],
+                gridRow: mobileReverse ? [2, 1] : [1, 1],
               },
             }
 

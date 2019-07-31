@@ -14,19 +14,22 @@ import {
   MobileNav,
   FooterWidgets,
 } from "gatsby-theme-elements"
-import menuItems from "../utils/menu"
+import { menuItems, logoColors } from "../utils/settings"
 
 export default props => (
   <Layout>
     <Topbar>Here's a split nav menu</Topbar>
-    <Header sticky={false} justify={["space-between", "center"]}>
+    <Header
+      sticky={false}
+      justify={["space-between", "center"]}
+      sx={{ p: [2, 4] }}>
       <NavMenu
         menuItems={menuItems.slice(0, 3)}
         width="350px"
         justify="flex-end"
         sx={{ a: { p: 3 } }}
       />
-      <Logo sx={{ px: [0, "30px"] }} />
+      <Logo colorOptions={logoColors} sx={{ px: [0, "30px"] }} />
       <NavMenu
         menuItems={menuItems.slice(3, 5)}
         width="350px"

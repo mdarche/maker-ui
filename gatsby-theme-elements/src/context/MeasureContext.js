@@ -36,7 +36,7 @@ function useMeasurements() {
 
 function measure() {
   const { measure } = useContext(MeasureContext)
-  errorCheck("measure", measure)
+  errorCheck("measure", measure, "MeasureContextProvider")
 
   function setTopbarHeight(height) {
     measure(metrics => ({

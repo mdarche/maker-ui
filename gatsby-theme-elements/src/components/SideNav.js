@@ -13,16 +13,20 @@ function getInnerWidth() {
   }
 }
 
+// TODO Measure SideNav and update context
+
 const SideNav = props => {
   const options = useOptions()
-  const { setSideNavWidth } = measure()
+  const [sideNavActive, toggleSideNav] = useSideNav()
+
   const {
     viewportX,
     topbarHeight,
     headerHeight,
     sideNavWidth,
   } = useMeasurements()
-  const [sideNavActive, toggleSideNav] = useSideNav()
+  const { setSideNavWidth } = measure()
+
   const breakpoint = options.breakpoints.sm
   const {
     boxShadow,
@@ -40,7 +44,6 @@ const SideNav = props => {
     if (width !== sideNavWidth) {
       setSideNavWidth(width)
     }
-
     if (sideNavActive && viewportX < breakpoint) {
       toggleSideNav(false)
     }
@@ -66,9 +69,10 @@ const SideNav = props => {
   }
 
   return (
-    <a.section
+    <a.div
       style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, spring)}
       aria-label="Secondary Navigation Menu"
+      key="SideNav"
       sx={{
         width: width || "width_sideNav",
         position: "fixed",
@@ -82,8 +86,8 @@ const SideNav = props => {
         overflowY: "scroll",
         ...topPartial(),
       }}>
-      <div {...rest} />
-    </a.section>
+      <nav {...rest} />
+    </a.div>
   )
 }
 

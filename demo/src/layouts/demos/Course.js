@@ -10,12 +10,10 @@ import {
   MenuToggle,
   MobileNav,
 } from "gatsby-theme-elements"
-import menuItems from "../../utils/menu"
+import { menuItems } from "../../utils/settings"
 
-//
-// -- Your layouts will look cleaner without override props and placeholders
-// -- See the layout tree at the bottom of this file
-//
+// - Your layouts will look cleaner without override props
+// - See comments below
 
 export default props => (
   <Layout>
