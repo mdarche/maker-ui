@@ -1,6 +1,6 @@
 import React from "theme-ui"
-import Layout from "../layouts/Default"
 import { BlogPost } from "react-understudy"
+import Layout from "../layouts/Default"
 
 const IndexPage = () => (
   <Layout>

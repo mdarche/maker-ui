@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Layout from "../layouts/demos/Netlify"
 import { Box, Grid } from "react-understudy"
+import Layout from "../layouts/demos/Netlify"
 
 const NetlifyPage = () => (
   <Layout>

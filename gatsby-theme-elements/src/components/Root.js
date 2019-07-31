@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { useLayoutEffect } from "react"
-import { measure } from "../context/MeasureContext"
 import { Global } from "@emotion/core"
+
+import { measure } from "../context/MeasureContext"
 import reset from "../utils/reset"
 
 const skiplinks = [

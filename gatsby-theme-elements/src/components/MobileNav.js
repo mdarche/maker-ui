@@ -3,6 +3,7 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useEffect, useRef } from "react"
 import { animated as a } from "react-spring"
+
 import { useMenu, useOptions } from "../context/UIContext"
 import { formatUnit } from "../utils/helper"
 import { transitions } from "../utils/animate"

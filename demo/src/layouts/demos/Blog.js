@@ -13,6 +13,7 @@ import {
   MenuToggle,
   MobileNav,
 } from "gatsby-theme-elements"
+
 import { menuItems } from "../../utils/settings"
 import { ReactComponent as BlogLogo } from "../../assets/blog-logo.svg"
 

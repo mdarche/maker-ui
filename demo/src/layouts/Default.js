@@ -14,6 +14,7 @@ import {
   MobileNav,
   FooterWidgets,
 } from "gatsby-theme-elements"
+
 import { menuItems, logoColors } from "../utils/settings"
 
 export default props => (

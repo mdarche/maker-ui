@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Layout from "../layouts/demos/Github"
 import { Sidebar, Main } from "gatsby-theme-elements"
 import { Box, Grid } from "react-understudy"
+import Layout from "../layouts/demos/Github"
 
 const GithubPage = () => (
   <Layout>

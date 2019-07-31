@@ -3,73 +3,65 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useMeasurements } from "../context/MeasureContext"
 
-// TODO - Find a better way to determine child component. New provider?
-
-function checkForComponent(child) {
-  return child.type.name ? child.type.name : undefined
-}
-
 const ContentWrapper = ({
   maxWidth,
   gridGap,
-  children,
+  layout = "content",
   mobileReverse = true,
   ...props
 }) => {
   const { sidebarWidth, sideNavWidth } = useMeasurements()
 
-  const columns =
-    children.length > 1
-      ? children.map(child => checkForComponent(child))
-      : [checkForComponent(children)]
-
-  const sidebar = columns.includes("Sidebar") ? true : false
-  const sideNav = columns.includes("SideNav") ? true : false
-
   // Partials
 
-  const sidebarPartial = () => {
-    if (sidebar) {
-      const gap = gridGap ? { gridGap } : { variant: "gaps.contentGap" }
+  const layoutPartial = () => {
+    const gap = gridGap ? { gridGap } : { variant: "gaps.contentGap" }
+    const display = { display: "block" }
+    const max = { maxWidth: maxWidth || "max_content" }
 
-      const gridLayout =
-        columns.indexOf("Sidebar") === 1
-          ? {
-              gridTemplateColumns: [`1fr`, `1fr ${sidebarWidth}`],
-            }
-          : {
-              gridTemplateColumns: [`1fr`, `${sidebarWidth} 1fr`],
-              "#primary-sidebar": {
-                gridRow: mobileReverse ? [2, 1] : [1, 1],
-              },
-            }
-
-      return { ...gap, ...gridLayout }
+    switch (layout) {
+      case "sidebar-content":
+        return {
+          display: "grid",
+          gridTemplateColumns: [`1fr`, `${sidebarWidth} 1fr`],
+          "#primary-sidebar": {
+            gridRow: mobileReverse ? [2, "auto"] : [1, "auto"],
+          },
+          ...gap,
+          ...max,
+        }
+      case "content-sidebar":
+        return {
+          display: "grid",
+          gridTemplateColumns: [`1fr`, `1fr ${sidebarWidth}`],
+          ...gap,
+          ...max,
+        }
+      case "sidenav-content":
+        return { pl: [0, sideNavWidth], ...display }
+      case "content-sidenav":
+        return { pr: [0, sideNavWidth], ...display }
+      default:
+        return { ...display, ...max }
     }
   }
-
-  const sideNavPartial = sideNav
-    ? { pl: [0, sideNavWidth] }
-    : { maxWidth: maxWidth || "max_content" }
 
   return (
     <div
       {...props}
       id="content-wrapper"
       sx={{
-        display: sidebar ? "grid" : "block",
         px: "20px",
         m: "auto",
-        ...sidebarPartial(),
-        ...sideNavPartial,
-      }}>
-      {children}
-    </div>
+        ...layoutPartial(),
+      }}
+    />
   )
 }
 
 ContentWrapper.propTypes = {
   mobileReverse: PropTypes.bool,
+  layout: PropTypes.string,
   maxWidth: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

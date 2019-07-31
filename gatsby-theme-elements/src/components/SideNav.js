@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
+import { animated as a } from "react-spring"
+
 import { measure, useMeasurements } from "../context/MeasureContext"
 import { useOptions, useSideNav } from "../context/UIContext"
-import { animated as a } from "react-spring"
 import { reveal } from "../utils/animate"
 
 function getInnerWidth() {
@@ -13,10 +14,7 @@ function getInnerWidth() {
   }
 }
 
-// TODO Measure SideNav and update context
-
 const SideNav = props => {
-  const sideNavRef = useRef(null)
   const options = useOptions()
   const [sideNavActive, toggleSideNav] = useSideNav()
 
@@ -71,7 +69,6 @@ const SideNav = props => {
 
   return (
     <a.section
-      ref={sideNavRef}
       style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, spring)}
       aria-label="Secondary Navigation Menu"
       key="SideNav"

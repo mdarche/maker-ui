@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Link } from "gatsby"
 import { IconBar, Box } from "react-understudy"
 import {
   Layout,
@@ -12,6 +11,7 @@ import {
   MenuToggle,
   MobileNav,
 } from "gatsby-theme-elements"
+
 import { menuItems } from "../../utils/settings"
 
 // - Your layouts will look cleaner without override props
@@ -59,7 +59,11 @@ export default props => (
       </div>
     </Header>
     <MobileNav defaultClose animation="slideLeft" />
-    <ContentWrapper mobileReverse={false} maxWidth="1280px" sx={{ pt: 5 }}>
+    <ContentWrapper
+      layout="sidebar-content"
+      mobileReverse={false}
+      maxWidth="1280px"
+      sx={{ pt: 5 }}>
       {props.children}
     </ContentWrapper>
     <Footer border="none" maxWidth="1012px">

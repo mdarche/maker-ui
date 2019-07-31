@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Layout from "../layouts/demos/News"
 import { BlogPost } from "react-understudy"
+import Layout from "../layouts/demos/News"
 
 const NewsPage = () => (
   <Layout>

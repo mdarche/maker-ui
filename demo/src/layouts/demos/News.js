@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
-import { IconBar, SideAds } from "react-understudy"
+import { IconBar } from "react-understudy"
 import {
   Layout,
   Header,
@@ -14,6 +14,7 @@ import {
   MobileNav,
   Topbar,
 } from "gatsby-theme-elements"
+
 import { menuItems } from "../../utils/settings"
 import { ReactComponent as NewsLogo } from "../../assets/news-logo.svg"
 
@@ -22,22 +23,15 @@ import { ReactComponent as NewsLogo } from "../../assets/news-logo.svg"
 
 export default props => (
   <Layout>
-    <Topbar backgroundColor="#f8f8f8" border="1px solid #efecec">
-      <div
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          color: "#333",
-          fontSize: 1,
-        }}>
-        <span>Recent Announcements</span>
-        <IconBar
-          icons={["Facebook", "Twitter", "Github", "LinkedIn", "Envelope"]}
-          fill="#333"
-          height="20px"
-        />
-      </div>
+    <Topbar
+      backgroundColor="#f8f8f8"
+      border="1px solid #efecec"
+      sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <IconBar
+        icons={["Facebook", "Twitter", "Github", "LinkedIn", "Envelope"]}
+        fill="#333"
+        height="20px"
+      />
     </Topbar>
     <Header justify="space-between">
       <Logo>

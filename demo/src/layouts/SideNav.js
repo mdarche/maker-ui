@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Link } from "gatsby"
-import { List, Box } from "react-understudy"
+import { List } from "react-understudy"
 import {
   Layout,
   Header,
@@ -14,6 +13,7 @@ import {
   SideNav,
   SideNavToggle,
 } from "gatsby-theme-elements"
+
 import { menuItems, logoColors } from "../utils/settings"
 
 export default props => (
@@ -28,7 +28,7 @@ export default props => (
       />
       <ColorToggle />
     </Header>
-    <ContentWrapper>
+    <ContentWrapper layout="sidenav-content">
       <SideNav>
         <List count={20} border={false} padding="15px 20px 0" />
       </SideNav>

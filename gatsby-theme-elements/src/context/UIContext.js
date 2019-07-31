@@ -1,5 +1,6 @@
 import React, { useState, useContext, useMemo } from "react"
 import merge from "deepmerge"
+
 import { errorCheck } from "../utils/helper"
 import options from "../config/defaults"
 

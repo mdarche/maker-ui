@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
+
+import { useSideNav } from "../context/UIContext"
 import { ReactComponent as ExpandIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
-import { useSideNav } from "../context/UIContext"
 
 const SideNavToggle = props => {
   const [sideNavActive, toggleSideNav] = useSideNav()

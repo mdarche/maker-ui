@@ -15,6 +15,7 @@ import {
   MobileNav,
   Topbar,
 } from "gatsby-theme-elements"
+
 import { menuItems, logoColors } from "../utils/settings"
 
 export default props => (
@@ -34,7 +35,7 @@ export default props => (
       </div>
     </Header>
     <MobileNav defaultClose />
-    <ContentWrapper sx={{ pt: 5 }}>
+    <ContentWrapper layout="content-sidebar" sx={{ pt: 5 }}>
       <Main>{props.children}</Main>
       <Sidebar>
         <SideAds adHeights={[250, 600]} />

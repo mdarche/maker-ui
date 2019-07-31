@@ -89,7 +89,7 @@ export default {
   textStyles: {
     navlink: {
       textDecoration: "none",
-      color: "primary",
+      color: "text_nav",
       "&:hover": {
         color: "secondary",
       },

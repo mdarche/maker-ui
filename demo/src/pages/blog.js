@@ -1,6 +1,6 @@
 import React from "react"
-import Layout from "../layouts/demos/Blog"
 import { BlogPost } from "react-understudy"
+import Layout from "../layouts/demos/Blog"
 
 const BlogPage = () => (
   <Layout>

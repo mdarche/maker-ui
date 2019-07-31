@@ -2,6 +2,7 @@
 import { jsx, useColorMode } from "theme-ui"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
+
 import { ReactComponent as LogoMark } from "../logo.svg"
 
 const Logo = ({
@@ -20,7 +21,7 @@ const Logo = ({
       return { svg: { fill } }
     }
     if (colorMode) {
-      return { svg: { fill: "logo" } }
+      return { svg: { fill: "fill_logo" } }
     }
     if (colorOptions) {
       return colorOptions.hasOwnProperty(color) ? colorOptions[color] : null

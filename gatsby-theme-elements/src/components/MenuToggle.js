@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
+
 import { useMenu } from "../context/UIContext"
 import { ReactComponent as MenuIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 
-const MenuToggle = ({ fill, height, children, icon = undefined, ...props }) => {
+const MenuToggle = ({ fill, height, children, icon, ...props }) => {
   const [menuActive, toggleMenu] = useMenu()
 
   const renderIcon = () => {
@@ -22,10 +23,8 @@ const MenuToggle = ({ fill, height, children, icon = undefined, ...props }) => {
       onClick={() => toggleMenu()}
       sx={{
         display: ["flex", "none"],
-        border: "none",
-        background: "none",
         svg: {
-          fill: fill,
+          fill: fill || "fill_menu",
           height: height || 32,
         },
       }}>
