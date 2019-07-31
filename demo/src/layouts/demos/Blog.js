@@ -70,7 +70,7 @@ export default props => (
           ))}
         </ul>
       </div>
-      <div sx={{ order: 1 }}>Copyright</div>
+      <div sx={{ order: 1 }}>Copyright 2019</div>
     </Footer>
   </Layout>
 )
@@ -86,7 +86,9 @@ export default props => (
       <MobileNav/>
     </Header>
 
-    <Main>{children}</Main>
+    <ContentWrapper>     
+      <Main>{children}</Main>
+    </ContentWrapper>
 
     <Footer />
 

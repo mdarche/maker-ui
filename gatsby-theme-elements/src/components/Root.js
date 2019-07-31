@@ -17,7 +17,7 @@ function inspectWindow() {
   }
 }
 
-const Root = ({ children, ...props }) => {
+const Root = ({ children, backgroundColor, color, ...props }) => {
   const { setViewportXY } = measure()
 
   // Component Lifecycle
@@ -38,7 +38,7 @@ const Root = ({ children, ...props }) => {
   return (
     <Styled.root
       id="__elements"
-      sx={{ bg: "background", color: "text" }}
+      sx={{ bg: backgroundColor || "background", color: color || "text" }}
       {...props}>
       <Global styles={reset} />
 

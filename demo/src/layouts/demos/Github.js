@@ -84,8 +84,7 @@ export default props => (
   </Layout>
 )
 
-{
-  /* Layout Tree:
+/* Layout Tree:
   
   <Layout>
 
@@ -103,4 +102,3 @@ export default props => (
   </Layout> 
 
 */
-}

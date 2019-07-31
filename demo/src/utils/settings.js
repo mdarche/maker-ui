@@ -4,7 +4,9 @@ import { jsx } from "theme-ui"
 const Box = () => (
   <div sx={{ height: 30, width: 30, m: "auto", mb: 10, bg: "#e2e2e2" }} />
 )
+
 // Main navigation menu
+
 export const menuItems = [
   {
     label: "Default",
@@ -36,8 +38,7 @@ export const menuItems = [
   },
 ]
 
-// Custom style object for changing svg logo colors in different color modes
-// Learn more in the Logo docs
+// Custom style object for changing Logo color modes
 
 export const logoColors = {
   dark: {

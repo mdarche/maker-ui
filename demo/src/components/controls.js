@@ -9,25 +9,18 @@ import { ReactComponent as MoreIcon } from "../assets/more.svg"
 const demos = [
   { label: "Gatsby Docs", path: "/gatsby-docs" },
   { label: "Github", path: "/github" },
+  { label: "Netlify", path: "/netlify" },
   { label: "Blog", path: "/blog" },
-  { label: "Online Course", path: "/course" },
+  { label: "News Site", path: "/news" },
 ]
 
 export default () => {
   const [show, set] = useState(true)
 
-  // TODO - refactor the 'show' checks in this animation chain
-
-  const opacityRef = useRef()
-  const opacity = useSpring({
-    opacity: show ? 1 : 0,
-    ref: opacityRef,
-  })
-
   const shiftRef = useRef()
   const shift = useSpring({
-    width: show ? "180px" : "0",
-    height: show ? "170px" : "0",
+    width: show ? "135px" : "0",
+    height: show ? "190px" : "0",
     opacity: show ? 1 : 0,
     ref: shiftRef,
   })
@@ -39,7 +32,7 @@ export default () => {
     ref: buttonRef,
   })
 
-  useChain([opacityRef, shiftRef, buttonRef], [0, 0.8, 1])
+  useChain([shiftRef, buttonRef], [0, 0.8, 1])
 
   return (
     <div
@@ -58,16 +51,13 @@ export default () => {
           background: "rgba(0,0,0,0.75)",
           borderRadius: "5px",
           borderBottomRightRadius: 0,
-          width: "180px",
-          height: "170px",
           overflow: "hidden",
           fontFamily: "sans-serif",
         }}>
-        <a.nav aria-label="Theme Example Menu" style={opacity}>
+        <a.nav aria-label="Theme Example Menu">
           <h4
             sx={{
               color: "#fff",
-              borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
               m: 0,
               fontWeight: "bold",
               fontSize: "14px",
@@ -94,6 +84,7 @@ export default () => {
                     p: "0 20px 10px",
                     transition: "color ease .3s",
                     textDecoration: "none",
+                    whiteSpace: "nowrap",
                     ":hover": {
                       color: "#fff",
                     },

@@ -1,10 +1,13 @@
-import React from "theme-ui"
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import Layout from "../layouts/demos/Gatsby"
 import { BlogPost } from "react-understudy"
 
 const GatsbyPage = () => (
   <Layout>
-    <BlogPost paragraphs={6} image={false} />
+    <div sx={{ pt: 5, px: 3 }}>
+      <BlogPost paragraphs={6} image={false} />
+    </div>
   </Layout>
 )
 

@@ -3,16 +3,10 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useMeasurements } from "../context/MeasureContext"
 
-// TODO - Need a better way to determine child component if emotion has an undefined type
-function checkForComponent(child) {
-  if (child.type.name) {
-    return child.type.name
-  }
-  // if (child._source.fileName !== undefined) {
-  //   return child._source.fileName.endsWith("SideNav.js") ? "SideNav" : undefined
-  // }
+// TODO - Find a better way to determine child component. New provider?
 
-  return undefined
+function checkForComponent(child) {
+  return child.type.name ? child.type.name : undefined
 }
 
 const ContentWrapper = ({

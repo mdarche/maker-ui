@@ -48,9 +48,7 @@ export default props => (
       <SideNav border="1px solid #f0f0f2">
         <List count={20} borderColor="#f0f0f2" padding="15px 20px 0" />
       </SideNav>
-      <Main maxWidth="52rem" sx={{ pt: 5, px: 3 }}>
-        {props.children}
-      </Main>
+      <Main maxWidth="52rem">{props.children}</Main>
     </ContentWrapper>
     <SideNavToggle
       defaultIcon
@@ -60,8 +58,7 @@ export default props => (
   </Layout>
 )
 
-{
-  /* Layout Tree:
+/* Layout Tree:
   
   <Layout>
 
@@ -85,4 +82,3 @@ export default props => (
   </Layout> 
 
 */
-}
