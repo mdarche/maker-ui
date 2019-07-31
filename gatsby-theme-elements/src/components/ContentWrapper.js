@@ -8,9 +8,9 @@ function checkForComponent(child) {
   if (child.type.name) {
     return child.type.name
   }
-  if (child._source.fileName.endsWith("SideNav.js")) {
-    return "SideNav"
-  }
+  // if (child._source.fileName !== undefined) {
+  //   return child._source.fileName.endsWith("SideNav.js") ? "SideNav" : undefined
+  // }
 
   return undefined
 }
