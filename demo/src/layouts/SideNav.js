@@ -32,33 +32,12 @@ export default props => (
       <SideNav>
         <List count={20} border={false} padding="15px 20px 0" />
       </SideNav>
-      <Main maxWidth="750px" sx={{ pt: 5 }}>
+      <Main maxWidth="750px" sx={{ pt: 5, px: 3 }}>
         {props.children}
       </Main>
     </ContentWrapper>
     <SideNavToggle defaultIcon sx={{ bottom: 85 }} />
 
-    <TabBar>
-      <div
-        sx={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${menuItems.length}, 1fr)`,
-          columnGap: 20,
-        }}>
-        {menuItems.map(({ label, alt, path }) => (
-          <Link
-            key={label}
-            to={path}
-            sx={{
-              color: "#36313d",
-              fontSize: "13px",
-              textAlign: "center",
-            }}>
-            <Box height="30px" width="30px" mb={10} sx={{ margin: "auto" }} />
-            {alt ? alt : label}
-          </Link>
-        ))}
-      </div>
-    </TabBar>
+    <TabBar menuItems={menuItems} />
   </Layout>
 )

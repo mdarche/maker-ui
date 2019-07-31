@@ -1,9 +1,18 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
+import { Link } from "gatsby"
 
-const TabBar = ({ backgroundColor, borderTop, boxShadow, ...props }) => (
+const TabBar = ({
+  backgroundColor,
+  menuItems,
+  borderTop,
+  boxShadow,
+  children,
+  ...props
+}) => (
   <div
+    aria-label="Mobile Navigation"
     {...props}
     sx={{
       display: ["block", "none"],
@@ -16,15 +25,40 @@ const TabBar = ({ backgroundColor, borderTop, boxShadow, ...props }) => (
       bg: backgroundColor || "bg_tabbar",
       borderTop: borderTop || "tabbar",
       boxShadow: boxShadow || "tabbar",
-    }}
-  />
+    }}>
+    {children ? (
+      children
+    ) : (
+      <div
+        sx={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${menuItems.length}, 1fr)`,
+          columnGap: 20,
+        }}>
+        {menuItems.map(({ label, alt, path, icon }) => (
+          <Link
+            key={label}
+            to={path}
+            sx={{
+              color: "accent",
+              fontSize: "12px",
+              textDecoration: "none",
+              textAlign: "center",
+            }}>
+            {icon}
+            {alt ? alt : label}
+          </Link>
+        ))}
+      </div>
+    )}
+  </div>
 )
 
 TabBar.propTypes = {
   backgroundColor: PropTypes.string,
   boxShadow: PropTypes.string,
   borderTop: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 }
 
 export default TabBar

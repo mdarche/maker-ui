@@ -9,11 +9,10 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@svgr/webpack": "^4.3.2",
     "gatsby": "^2.13.6",
-    "gatsby-plugin-svgr": "^2.0.2",
     "gatsby-theme-elements": "*",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-understudy": "^0.0.6"
   }
 }

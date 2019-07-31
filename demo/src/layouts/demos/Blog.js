@@ -14,7 +14,7 @@ import {
   MobileNav,
 } from "gatsby-theme-elements"
 import { menuItems } from "../../utils/settings"
-import blogLogoUrl from "../../assets/blog-logo.svg"
+import { ReactComponent as BlogLogo } from "../../assets/blog-logo.svg"
 
 // - Your layouts will look cleaner without override props
 // - See comments below
@@ -26,10 +26,8 @@ export default props => (
       justify={["flex-end", "flex-start"]}
       sx={{ p: 0 }}>
       <Logo>
-        <img
+        <BlogLogo
           sx={{ height: 65, position: "absolute", top: "-12px", left: "-7px" }}
-          src={blogLogoUrl}
-          alt="Lengstorf Blog Logo"
         />
       </Logo>
       <NavMenu

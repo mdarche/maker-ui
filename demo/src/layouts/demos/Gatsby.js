@@ -14,7 +14,7 @@ import {
   SideNav,
   SideNavToggle,
 } from "gatsby-theme-elements"
-import gatsbyLogoUrl from "../../assets/gatsby-logo.svg"
+import { ReactComponent as GatsbyLogo } from "../../assets/gatsby-logo.svg"
 import { menuItems } from "../../utils/settings"
 
 // - Your layouts will look cleaner without override props
@@ -28,9 +28,13 @@ export default props => (
       </div>
     </Topbar>
 
-    <Header stickyMobile={false} border="1px solid #f0f0f2" sx={{ px: 15 }}>
+    <Header
+      stickyMobile={false}
+      justify="space-between"
+      border="1px solid #f0f0f2"
+      sx={{ px: 15 }}>
       <Logo path="/sidenav">
-        <img sx={{ height: 24, mr: 4 }} src={gatsbyLogoUrl} alt="Gatsby Logo" />
+        <GatsbyLogo sx={{ height: 24, mr: 4 }} />
       </Logo>
       <NavMenu flex menuItems={menuItems} sx={{ a: { p: 3 } }} />
       <IconBar
@@ -44,7 +48,7 @@ export default props => (
       <SideNav border="1px solid #f0f0f2">
         <List count={20} borderColor="#f0f0f2" padding="15px 20px 0" />
       </SideNav>
-      <Main maxWidth="52rem" sx={{ pt: "5rem" }}>
+      <Main maxWidth="52rem" sx={{ pt: 5, px: 3 }}>
         {props.children}
       </Main>
     </ContentWrapper>
@@ -52,28 +56,7 @@ export default props => (
       defaultIcon
       sx={{ bg: "#663399", borderRadius: "50%", bottom: 85 }}
     />
-    <TabBar>
-      <div
-        sx={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${menuItems.length}, 1fr)`,
-          columnGap: 20,
-        }}>
-        {menuItems.map(({ label, alt, path }) => (
-          <Link
-            key={label}
-            to={path}
-            sx={{
-              color: "#36313d",
-              fontSize: "13px",
-              textAlign: "center",
-            }}>
-            <Box height="30px" width="30px" mb={10} sx={{ margin: "auto" }} />
-            {alt ? alt : label}
-          </Link>
-        ))}
-      </div>
-    </TabBar>
+    <TabBar menuItems={menuItems} />
   </Layout>
 )
 

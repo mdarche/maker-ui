@@ -1,10 +1,39 @@
+/** @jsx jsx */
+import { jsx } from "theme-ui"
+
+const Box = () => (
+  <div sx={{ height: 30, width: 30, m: "auto", mb: 10, bg: "#e2e2e2" }} />
+)
 // Main navigation menu
 export const menuItems = [
-  { label: "Default", path: "/", icon: "" },
-  { label: "Side Nav", path: "/sidenav" },
-  { label: "Sidebar Left", alt: "SB Left", path: "/left-sidebar", icon: "" },
-  { label: "Sidebar Right", alt: "SB Right", path: "/right-sidebar", icon: "" },
-  { label: "Full Width", alt: "Full", path: "/full-width", icon: "" },
+  {
+    label: "Default",
+    path: "/",
+    icon: <Box />,
+  },
+  {
+    label: "Side Nav",
+    path: "/sidenav",
+    icon: <Box />,
+  },
+  {
+    label: "Sidebar Left",
+    alt: "SB Left",
+    path: "/left-sidebar",
+    icon: <Box />,
+  },
+  {
+    label: "Sidebar Right",
+    alt: "SB Right",
+    path: "/right-sidebar",
+    icon: <Box />,
+  },
+  {
+    label: "Full Width",
+    alt: "Full",
+    path: "/full-width",
+    icon: <Box />,
+  },
 ]
 
 // Custom style object for changing svg logo colors in different color modes
