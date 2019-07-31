@@ -42,17 +42,17 @@ export const menuItems = [
 
 export const logoColors = {
   dark: {
-    ".logo-blue": { fill: "red" },
-    ".logo-red": { fill: "red" },
-    ".logo-green": { fill: "red" },
-    ".logo-yellow": { fill: "red" },
-    ".logo-text": { fill: "red" },
+    ".logo-blue": { fill: "#afa7fe" },
+    ".logo-red": { fill: "#3bcec5" },
+    ".logo-green": { fill: "#ffa6c8" },
+    ".logo-yellow": { fill: "#acd26b" },
+    ".logo-text": { fill: "#fff" },
   },
-  purple: {
-    ".logo-blue": { fill: "red" },
-    ".logo-red": { fill: "red" },
-    ".logo-green": { fill: "red" },
-    ".logo-yellow": { fill: "red" },
-    ".logo-text": { fill: "red" },
+  silly: {
+    ".logo-blue": { fill: "#43bd56" },
+    ".logo-red": { fill: "#4f86ff" },
+    ".logo-green": { fill: "#ffdc00" },
+    ".logo-yellow": { fill: "#d400ff" },
+    ".logo-text": { fill: "#3c76f3" },
   },
 }

@@ -24,7 +24,7 @@ const MenuToggle = ({ fill, height, children, icon, ...props }) => {
       sx={{
         display: ["flex", "none"],
         svg: {
-          fill: fill || "fill_menu",
+          fill: fill || "text_navlink",
           height: height || 32,
         },
       }}>

@@ -37,16 +37,20 @@ const Header = props => {
       }
     : null
 
+  const borderPartial = border
+    ? { borderBottom: border }
+    : { borderBottom: "1px solid", borderColor: "border" }
+
   return (
     <header
       ref={headerRef}
       sx={{
         bg: backgroundColor || "bg_header",
         boxShadow: boxShadow || "header",
-        borderBottom: border || "header",
-        fontFamily: "nav",
+        fontFamily: "heading",
         zIndex: 100,
         ...stickyPartial,
+        ...borderPartial,
       }}>
       <div
         id="header-content"

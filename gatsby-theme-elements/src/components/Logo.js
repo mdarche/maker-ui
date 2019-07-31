@@ -21,7 +21,7 @@ const Logo = ({
       return { svg: { fill } }
     }
     if (colorMode) {
-      return { svg: { fill: "fill_logo" } }
+      return { svg: { fill: "logo" } }
     }
     if (colorOptions) {
       return colorOptions.hasOwnProperty(color) ? colorOptions[color] : null

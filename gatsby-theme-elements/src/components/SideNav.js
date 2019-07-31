@@ -67,23 +67,27 @@ const SideNav = props => {
     return { top }
   }
 
+  const borderPartial = border
+    ? { borderRight: border }
+    : { borderRight: "1px solid", borderColor: "border" }
+
   return (
     <a.section
       style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, spring)}
       aria-label="Secondary Navigation Menu"
       key="SideNav"
       sx={{
+        ...topPartial(),
         width: width || "width_sideNav",
         position: "fixed",
         bg: backgroundColor || "bg_sidenav",
         boxShadow: boxShadow || ["1px 1px 8px 1px rgba(0, 0, 0, 0.1)", "none"],
-        borderRight: border || "sidenav",
         maxWidth: "75vw",
         left: 0,
         bottom: 0,
         zIndex: [200, 10],
         overflowY: "scroll",
-        ...topPartial(),
+        ...borderPartial,
       }}>
       <nav {...rest} />
     </a.section>

@@ -52,8 +52,6 @@ const Topbar = ({
             ? ["none", "block"]
             : "block",
         bg: backgroundColor || "bg_topbar",
-        color: color || "#fff",
-        fontFamily: "topbar" || "body",
         zIndex: 100,
         ...borderPartial,
         ...stickyPartial,
@@ -64,6 +62,7 @@ const Topbar = ({
           m: "0 auto",
           overflowX: "scroll",
           whiteSpace: "nowrap",
+          color: color || "text_topbar",
           maxWidth: maxWidth || "max_topbar",
           p: 2,
         }}
