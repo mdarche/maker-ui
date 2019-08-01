@@ -2,6 +2,7 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useRef, useLayoutEffect } from "react"
+
 import { useOptions } from "../context/UIContext"
 import { useMeasurements, measure } from "../context/MeasureContext"
 
@@ -36,30 +37,21 @@ const Header = props => {
       }
     : null
 
+  const borderPartial = border
+    ? { borderBottom: border }
+    : { borderBottom: "1px solid", borderColor: "border" }
+
   return (
     <header
       ref={headerRef}
       sx={{
         bg: backgroundColor || "bg_header",
         boxShadow: boxShadow || "header",
-        borderBottom: border || "header",
-        fontFamily: "nav",
+        fontFamily: "heading",
         zIndex: 100,
         ...stickyPartial,
+        ...borderPartial,
       }}>
-      <a
-        href="#content"
-        id="skip-navigation"
-        className="screen-reader-text"
-        sx={{
-          clip: "rect(0px, 0px, 0px, 0px)",
-          position: "absolute",
-          height: "1px",
-          width: "1px",
-          overflow: "hidden",
-        }}>
-        Skip to Content
-      </a>
       <div
         id="header-content"
         sx={{

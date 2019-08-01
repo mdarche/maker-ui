@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, useColorMode } from "theme-ui"
-import PropTypes from "prop-types"
 import theme from "../gatsby-plugin-theme-ui"
+import PropTypes from "prop-types"
 
 const modes = [theme.initialColorMode].concat(Object.keys(theme.colors.modes))
 
@@ -11,6 +11,7 @@ const ColorToggle = ({ children, ...props }) => {
   const cycleMode = () => {
     const i = modes.indexOf(color)
     const next = modes[(i + 1) % modes.length]
+
     setColor(next)
   }
 

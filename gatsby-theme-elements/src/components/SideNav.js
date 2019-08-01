@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
-import { useRef, useLayoutEffect, useEffect } from "react"
+import { useEffect } from "react"
+import { animated as a } from "react-spring"
+
 import { measure, useMeasurements } from "../context/MeasureContext"
 import { useOptions, useSideNav } from "../context/UIContext"
-import { animated as a } from "react-spring"
 import { reveal } from "../utils/animate"
 
 function getInnerWidth() {
@@ -14,11 +15,17 @@ function getInnerWidth() {
 }
 
 const SideNav = props => {
-  const sideNavRef = useRef(null)
   const options = useOptions()
-  const { setSideNavWidth } = measure()
-  const { viewportX, topbarHeight, headerHeight } = useMeasurements()
   const [sideNavActive, toggleSideNav] = useSideNav()
+
+  const {
+    viewportX,
+    topbarHeight,
+    headerHeight,
+    sideNavWidth,
+  } = useMeasurements()
+  const { setSideNavWidth } = measure()
+
   const breakpoint = options.breakpoints.sm
   const {
     boxShadow,
@@ -32,11 +39,10 @@ const SideNav = props => {
 
   // Component Lifecyle
 
-  useLayoutEffect(() => {
-    setSideNavWidth(sideNavRef.current.clientWidth)
-  }, [])
-
   useEffect(() => {
+    if (width !== sideNavWidth) {
+      setSideNavWidth(width)
+    }
     if (sideNavActive && viewportX < breakpoint) {
       toggleSideNav(false)
     }
@@ -61,25 +67,29 @@ const SideNav = props => {
     return { top }
   }
 
+  const borderPartial = border
+    ? { borderRight: border }
+    : { borderRight: "1px solid", borderColor: "border" }
+
   return (
     <a.section
       style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, spring)}
-      ref={sideNavRef}
       aria-label="Secondary Navigation Menu"
+      key="SideNav"
       sx={{
-        width,
+        ...topPartial(),
+        width: width || "width_sideNav",
         position: "fixed",
         bg: backgroundColor || "bg_sidenav",
         boxShadow: boxShadow || ["1px 1px 8px 1px rgba(0, 0, 0, 0.1)", "none"],
-        borderRight: border || "sidenav",
         maxWidth: "75vw",
         left: 0,
         bottom: 0,
         zIndex: [200, 10],
         overflowY: "scroll",
-        ...topPartial(),
+        ...borderPartial,
       }}>
-      <div {...rest} />
+      <nav {...rest} />
     </a.section>
   )
 }

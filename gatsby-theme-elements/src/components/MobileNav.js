@@ -3,25 +3,25 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useEffect, useRef } from "react"
 import { animated as a } from "react-spring"
+
 import { useMenu, useOptions } from "../context/UIContext"
 import { formatUnit } from "../utils/helper"
 import { transitions } from "../utils/animate"
 import MenuToggle from "./MenuToggle"
 
-const MobileNav = ({
-  backgroundColor,
-  children,
-  defaultClose = false,
-  ...props
-}) => {
+const MobileNav = props => {
   const menuRef = useRef(null)
   const options = useOptions()
   const [menuActive, toggleMenu] = useMenu()
 
-  const width =
-    formatUnit(props.width) || formatUnit(options.header.mobileNavWidth)
-  const animation = props.animation || options.header.mobileNavStyle
-  const config = props.spring || options.header.spring
+  const {
+    backgroundColor,
+    children,
+    defaultClose = false,
+    width = formatUnit(options.header.mobileNavWidth),
+    animation = options.header.mobileAnimation,
+    spring = options.header.spring,
+  } = props
 
   // Component Lifecyle
 
@@ -48,7 +48,7 @@ const MobileNav = ({
     return animation === "slideRight" ? { left: 0, width } : { right: 0, width }
   }
 
-  return transitions(menuActive, animation, width, config).map(
+  return transitions(menuActive, animation, width, spring).map(
     ({ item, key, props }) =>
       item && (
         <a.nav
@@ -66,7 +66,7 @@ const MobileNav = ({
             maxWidth: "100%",
             zIndex: 1000,
             fontFamily: "header",
-            bg: backgroundColor || "bg_navmobile",
+            bg: backgroundColor || "bg_mobilenav",
             ...positionPartial(),
           }}>
           {defaultClose ? (

@@ -1,6 +1,6 @@
 import React from "react"
-import Layout from "../layouts/SidebarRight"
 import { BlogPost } from "react-understudy"
+import Layout from "../layouts/SidebarRight"
 
 const RightSidebarPage = () => (
   <Layout>

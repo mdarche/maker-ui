@@ -7,7 +7,7 @@ export default {
     sticky: true,
     stickyMobile: true,
     maxWidth: "100%",
-    mobileNavStyle: "fade",
+    mobileAnimation: "fade",
     mobileNavWidth: 300,
     spring: { tension: 170, friction: 26 },
   },

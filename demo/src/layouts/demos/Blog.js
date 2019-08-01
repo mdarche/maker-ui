@@ -1,22 +1,24 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 import { Link } from "gatsby"
 import { IconBar } from "react-understudy"
 import {
   Layout,
   Header,
+  Logo,
   NavMenu,
   Main,
+  ContentWrapper,
   Footer,
   MenuToggle,
   MobileNav,
 } from "gatsby-theme-elements"
-import menuItems from "../../utils/menu"
-import blogLogoUrl from "../../assets/blog-logo.svg"
 
-// NOTE
-// Your layouts will look cleaner without override props and placeholders
-// You can set all of these defaults in your shadowed config files
+import { menuItems } from "../../utils/settings"
+import { ReactComponent as BlogLogo } from "../../assets/blog-logo.svg"
+
+// - Your layouts will look cleaner without override props
+// - See comments below
 
 export default props => (
   <Layout>
@@ -24,36 +26,32 @@ export default props => (
       border="1px solid #c800ec"
       justify={["flex-end", "flex-start"]}
       sx={{ p: 0 }}>
-      <div id="logo">
-        <img
+      <Logo>
+        <BlogLogo
           sx={{ height: 65, position: "absolute", top: "-12px", left: "-7px" }}
-          src={blogLogoUrl}
-          alt="Lengstorf Blog Logo"
         />
-      </div>
-      <NavMenu flex sx={{ pl: "80px" }}>
-        {menuItems.map(({ label, path }) => (
-          <li key={label}>
-            <Link
-              sx={{
-                p: "8px 20px",
-                fontWeight: "bold",
-                textTransform: "uppercase",
-                display: "flex",
-              }}
-              to={path}>
-              {label}
-            </Link>
-          </li>
-        ))}
-      </NavMenu>
+      </Logo>
+      <NavMenu
+        flex
+        menuItems={menuItems}
+        sx={{
+          pl: "80px",
+          a: {
+            p: "8px 20px",
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            display: "flex",
+          },
+        }}
+      />
       <IconBar icons={["Search"]} height="21px" />
       <MenuToggle icon="menu" />
+      <MobileNav defaultClose backgroundColor="#c800ec" animation="slideLeft" />
     </Header>
-    <MobileNav defaultClose backgroundColor="#c800ec" animation="slideLeft" />
-    <Main maxWidth={650} sidebar={false}>
-      <div id="content">{props.children}</div>
-    </Main>
+    <ContentWrapper maxWidth={650}>
+      <Main sx={{ pt: 6 }}>{props.children}</Main>
+    </ContentWrapper>
+
     <Footer
       maxWidth={650}
       border="none"
@@ -73,7 +71,28 @@ export default props => (
           ))}
         </ul>
       </div>
-      <div sx={{ order: 1 }}>Copyright</div>
+      <div sx={{ order: 1 }}>Copyright 2019</div>
     </Footer>
   </Layout>
 )
+
+/* Layout Tree:
+  
+  <Layout>
+
+    <Header>
+      <Logo />
+      <NavMenu />
+      <MenuToggle />
+      <MobileNav/>
+    </Header>
+
+    <ContentWrapper>     
+      <Main>{children}</Main>
+    </ContentWrapper>
+
+    <Footer />
+
+  </Layout> 
+
+*/

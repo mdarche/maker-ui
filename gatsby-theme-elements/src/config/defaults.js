@@ -17,25 +17,23 @@ export default merge(
       sticky: true,
       stickyMobile: true,
       maxWidth: 1260,
-      mobileNavStyle: "fade",
       mobileNavWidth: 300,
+      mobileAnimation: "fade",
       spring: { tension: 170, friction: 26 },
     },
     sideNav: {
-      active: false,
       width: "18em",
       spring: { tension: 170, friction: 26 },
     },
-    main: {
-      paddingTop: 0,
-      maxWidth: 1260,
+    content: {
+      maxWidth: 1020,
       gridGap: 30,
-      sidebar: true,
-      sidebarWidth: ".3fr",
-      sidebarPosition: "left",
+    },
+    sidebar: {
+      width: ".3fr",
     },
     footer: {
-      maxWidth: 1260,
+      maxWidth: 1020,
       gridGap: 30,
     },
     breakpoints: {

@@ -1,40 +1,39 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Link } from "gatsby"
-import { Box, IconBar } from "react-understudy"
+import { IconBar, Box } from "react-understudy"
 import {
   Layout,
   Header,
+  Logo,
+  ContentWrapper,
   NavMenu,
-  Main,
   Footer,
   MenuToggle,
   MobileNav,
 } from "gatsby-theme-elements"
-import menuItems from "../../utils/menu"
 
-// NOTE
-// Your layouts will look cleaner without override props and placeholders
-// You can set all of these defaults in your shadowed config files
+import { menuItems } from "../../utils/settings"
+
+// - Your layouts will look cleaner without override props
+// - See comments below
 
 export default props => (
   <Layout>
     <Header sticky={false} backgroundColor="#24292e" sx={{ p: "10px 0" }}>
-      <div id="logo">
+      <Logo>
         <IconBar icons={["Github"]} fill="#fff" height="42px" />
-      </div>
-      <Box
-        background="#3f4448"
-        height="25px"
-        mb="0"
+      </Logo>
+      <div
         sx={{
+          bg: "#3f4448",
+          height: "25px",
           color: "rgba(255, 255, 255, 0.45)",
           p: "5px 10px",
           fontSize: "15px",
-          width: ["50% !important", "280px !important"],
+          width: ["50%", "280px"],
         }}>
         Search or jump to...
-      </Box>
+      </div>
       <div
         sx={{
           flex: 1,
@@ -42,22 +41,17 @@ export default props => (
           p: "0 10px 0 25px",
           justifyContent: ["flex-end", "space-between"],
         }}>
-        <NavMenu>
-          {menuItems.map(({ label, path }) => (
-            <li key={label}>
-              <Link
-                sx={{
-                  p: 2,
-                  color: "#fff",
-                  fontWeight: "bold",
-                  fontSize: "14px",
-                }}
-                to={path}>
-                {label}
-              </Link>
-            </li>
-          ))}
-        </NavMenu>
+        <NavMenu
+          menuItems={menuItems}
+          sx={{
+            a: {
+              px: "15px",
+              fontWeight: 700,
+              fontSize: "14px",
+              color: "#fff",
+            },
+          }}
+        />
         <div sx={{ display: ["none", "flex"] }}>
           <IconBar icons={["Notification", "Add"]} fill="#fff" />
         </div>
@@ -65,10 +59,13 @@ export default props => (
       </div>
     </Header>
     <MobileNav defaultClose animation="slideLeft" />
-    <Main sidebarWidth="25%" maxWidth="1280px" sx={{ pt: "24px" }}>
-      {/* Here we handle both the sidebar and content at the page level. See src/pages/github.js  */}
+    <ContentWrapper
+      layout="sidebar-content"
+      mobileReverse={false}
+      maxWidth="1280px"
+      sx={{ pt: 5 }}>
       {props.children}
-    </Main>
+    </ContentWrapper>
     <Footer border="none" maxWidth="1012px">
       <div
         sx={{
@@ -90,3 +87,22 @@ export default props => (
     </Footer>
   </Layout>
 )
+
+/* Layout Tree:
+  
+  <Layout>
+
+    <Header>
+      <Logo />
+      <NavMenu />
+      <MenuToggle />
+      <MobileNav/>
+    </Header>
+
+    <ContentWrapper>{children}</ContentWrapper>
+
+    <Footer />
+
+  </Layout> 
+
+*/

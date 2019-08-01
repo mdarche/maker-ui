@@ -2,10 +2,18 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useRef, useLayoutEffect, useEffect } from "react"
+
 import { useOptions, useTopbar } from "../context/UIContext"
 import { measure } from "../context/MeasureContext"
 
-const Topbar = ({ backgroundColor, color, sticky, maxWidth, ...props }) => {
+const Topbar = ({
+  backgroundColor,
+  border,
+  color,
+  sticky,
+  maxWidth,
+  ...props
+}) => {
   const topbarRef = useRef(null)
   const options = useOptions()
   const setTopbar = useTopbar()
@@ -33,6 +41,8 @@ const Topbar = ({ backgroundColor, color, sticky, maxWidth, ...props }) => {
       }
     : null
 
+  const borderPartial = border ? { borderBottom: border } : null
+
   return (
     <aside
       ref={topbarRef}
@@ -42,9 +52,8 @@ const Topbar = ({ backgroundColor, color, sticky, maxWidth, ...props }) => {
             ? ["none", "block"]
             : "block",
         bg: backgroundColor || "bg_topbar",
-        color: color || "#fff",
-        fontFamily: "topbar" || "body",
         zIndex: 100,
+        ...borderPartial,
         ...stickyPartial,
       }}>
       <div
@@ -53,6 +62,7 @@ const Topbar = ({ backgroundColor, color, sticky, maxWidth, ...props }) => {
           m: "0 auto",
           overflowX: "scroll",
           whiteSpace: "nowrap",
+          color: color || "text_topbar",
           maxWidth: maxWidth || "max_topbar",
           p: 2,
         }}

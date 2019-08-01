@@ -1,11 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Link } from "gatsby"
-import { Box, SideAds } from "react-understudy"
+import { SideAds } from "react-understudy"
 import {
   Layout,
   Header,
+  Logo,
   NavMenu,
+  ContentWrapper,
+  Sidebar,
   Main,
   Footer,
   MenuToggle,
@@ -13,38 +15,32 @@ import {
   MobileNav,
   Topbar,
 } from "gatsby-theme-elements"
-import menuItems from "../utils/menu"
+
+import { menuItems, logoColors } from "../utils/settings"
 
 export default props => (
   <Layout>
     <Topbar>Optional topbar</Topbar>
-    <Header>
-      <div id="logo">
-        <Box height="45px" width="230px" mb="0" />
-      </div>
-      <div
-        id="nav-area"
-        sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-        <NavMenu>
-          {menuItems.map(({ label, path }) => (
-            <li key={label}>
-              <Link sx={{ p: 3 }} to={path}>
-                {label}
-              </Link>
-            </li>
-          ))}
-        </NavMenu>
+    <Header justify="space-between">
+      <Logo colorOptions={logoColors} />
+      <NavMenu
+        flex
+        justify="flex-end"
+        menuItems={menuItems}
+        sx={{ a: { p: 3 } }}
+      />
+      <div sx={{ display: "flex" }}>
         <ColorToggle />
+        <MenuToggle icon="menu" />
       </div>
-      <MenuToggle icon="menu" />
     </Header>
     <MobileNav defaultClose />
-    <Main>
-      <aside id="sidebar">
+    <ContentWrapper layout="sidebar-content" sx={{ pt: 5 }}>
+      <Sidebar>
         <SideAds adHeights={[250, 600]} />
-      </aside>
-      <div id="content">{props.children}</div>
-    </Main>
+      </Sidebar>
+      <Main>{props.children}</Main>
+    </ContentWrapper>
     <Footer>Footer Text</Footer>
   </Layout>
 )
