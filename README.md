@@ -5,7 +5,9 @@
 
 Build responsive Gatsby themes with layouts powered by [ThemeUI](https://theme-ui.com/).
 
-Gatsby Theme Elements takes care of accessibility, responsive navigation, and theming so you can focus on creating great content or adding new integrations.
+Gatsby Theme Elements takes care of accessibility, responsive navigation, and theming so you can focus on creating awesome content or adding new integrations to your Gatsby site.
+
+[![npm version](https://badge.fury.io/js/gatsby-theme-elements.svg)](https://badge.fury.io/js/gatsby-theme-elements)
 
 https://gatsby-theme-elements.netlify.com/
 
@@ -46,11 +48,11 @@ Use `theme.js` to export your theme object without having to shadow `gatsby-plug
 
 - Add fonts with [Typography.js](https://kyleamathews.github.io/typography.js/)
 - Declare variants
-- Set color modes
+- Set infinite color modes
 - Create [MDX](https://mdxjs.com/) styles
 - Create sizing scales
 
-Elements uses a few custom [ThemeUI](https://theme-ui.com/) properties to control default layout styles. Add the following colors and shadows to your theme settings:
+Elements uses a few custom [ThemeUI](https://theme-ui.com/) properties to control default layout styles. Add the following colors and shadows to your theme object:
 
 ```jsx
 
@@ -76,12 +78,12 @@ If you need to change these values for different layouts, you can always overrid
 
 ### `options.js`
 
-_Handles all positioning and measurements_
+_Handles all positioning and DOM measurements_
 
-This file lets you set things like widths, scroll behaviors, breakpoints, and animation springs. A complete `options.js` export looks like this:
+This file lets you set things like widths, scroll behaviors, breakpoints, and animation springs. A complete `options.js` file looks like this:
 
 ```jsx
-  {
+  export default {
     topbar: {
       sticky: true,
       maxWidth: 1260,
@@ -91,12 +93,12 @@ This file lets you set things like widths, scroll behaviors, breakpoints, and an
       stickyMobile: true,
       maxWidth: 1260,
       mobileNavWidth: 300,
-      mobileAnimation: "fade",
-      spring: { tension: 170, friction: 26 },
+      mobileAnimation: "fade",  // fade, fadeInUp, fadeInDown, slideRight, slideLeft
+      spring: { tension: 170, friction: 26 }, // React Spring config object for your MobileNav
     },
     sideNav: {
       width: "18em",
-      spring: { tension: 170, friction: 26 },
+      spring: { tension: 170, friction: 26 }, // spring config for your responsive SideNav
     },
     content: {
       maxWidth: 1020,
@@ -123,7 +125,7 @@ This file lets you set things like widths, scroll behaviors, breakpoints, and an
 
 The Elements component library gives you access to all of the hooks and semantic markup you need to quickly build a state of the art website.
 
-Although they can be used independently, the components work best together in a layout tree like so:
+Although they can be used independently, the components are aware of one another and work best together in a layout tree like so:
 
 ```jsx
 <Layout>
@@ -148,36 +150,38 @@ Although they can be used independently, the components work best together in a 
 </Layout>
 ```
 
-Layout components work seamlessly with [ThemeUI](https://theme-ui.com/)'s `sx` prop, so you can weave into and around them to build flexible containers or apply new styles.
+### Styling
 
-By default, the layout components use the settings you defined earlier. This makes building new page layouts and themes incredibly easy.
+Layout components work seamlessly with [ThemeUI](https://theme-ui.com/)'s **`sx`** prop, so you can weave into and around them to build flexible containers or apply new styles.
 
-See a list of all components below:
+By default, the layout components use the settings you defined in `options.js` and `theme.js`. This makes building new page layouts and child themes incredibly easy.
+
+### Component List
 
 | Component          | Description                                                                                                                              |
 | ------------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| **Layout**         | The root layout component (required)                                                                                                     |
-| **Topbar**         | A topbar or status bar that sits above the header                                                                                        |
-| **Header**         | A flexible **header** element that wraps primary navigation                                                                              |
-| **Logo**           | A semantic link that accepts a child or defaults to an optional shadowed logo called `logo.svg`                                          |
-| **NavMenu**        | The site's primary navigation **ul** wrapped in a **nav** element. Hidden on mobile                                                      |
-| **MenuToggle**     | Button that accesses the **useMenu** hook to toggle a mobile menu                                                                            |
-| **ColorToggle**    | Button that accesses [ThemeUI](https://theme-ui.com/)'s colorMode hook to cycle through colors                                           |
+| **Layout**         | The root layout component **(required)**                                                                                                     |
+| **Topbar**         | A topbar or status bar that sits above the site header                                                                                        |
+| **Header**         | A flexible **header** element that wraps your primary navigation                                                                              |
+| **Logo**           | A link that accepts a child or defaults to an optional shadowed logo file. To use <Logo /> without wrapping it around a child component, create a third file in your `gatsby-theme-elements` directory called `logo.svg`                                          |
+| **NavMenu**        | The site's primary navigation *ul* wrapped in a *nav* element. Hides on mobile.                                                      |
+| **MenuToggle**     | Button that accesses the **useMenu** hook to toggle a mobile menu. It comes with a default hamburger icon or you can wrap it around your own.                                                                            |
+| **ColorToggle**    | Button that accesses [ThemeUI](https://theme-ui.com/)'s colorMode hook to cycle through colors. Defaults to the name of the current color mode or you can wrap it around your own icon.                                           |
 | **MobileNav**      | A fixed mobile wrapper component that can be configured to animate on mount. Triggered by **MenuToggle** or the **useMenu** hook         |
 | **ContentWrapper** | A wrapper that uses a layout prop to determine the position of its children. This component wraps **Main**, **Sidebar**, and **SideNav** |
-| **Main**           | The layout's **main** content element                                                                                                    |
-| **Sidebar**        | The layout's sidebar compnent. Can be positioned left or right                                                                           |
+| **Main**           | The layout's *main* content element                                                                                                    |
+| **Sidebar**        | The layout's sidebar component. Can be positioned left or right of **Main**                                                                          |
 | **SideNav**        | An optional fixed side navigation component. Can be positioned left or right of **Main**                                                 |
-| **TabBar**         | A fixed wrapper component that moves mobile navigation to the bottom of the screen. This displays links with icons in a scrollable row   |
-| **Footer**         | The document **footer** element                                                                                                          |
-| **FooterWidgets**  | A grid wrapper for building footer columns                                                                                               |
+| **TabBar**         | A fixed wrapper component that moves mobile navigation to the bottom of the screen like a native mobile app. You can wrap it around your own components or feed it a menu object. The TabBar formats this menu into a horizontal scrollable row with links, labels, and icons.  |
+| **Footer**         | The document *footer* element                                                                                                          |
+| **FooterWidgets**  | A grid wrapper for building skiplink accessible footer columns                                                                                               |
 
 ### Usage
 
 To use any of these components, just import them from `gatsby-theme-elements`:
 
 ```jsx
-// basic
+// basic usage
 import { Layout, Header, ContentWrapper, Main, Footer } from 'gatsby-theme-elements`
 
 ```
@@ -186,7 +190,7 @@ Detailed information on each component and its props is coming to a documentatio
 
 ## Hooks
 
-If you prefer to build your own toggles or access theme options from child themes or custom components, you can use the following hooks:
+If you prefer to build your own layout components or access theme options from child themes, you can use the following hooks:
 
 - useOptions
 - useMenu
@@ -257,3 +261,9 @@ const Component = () => {
   return...
 }
 ```
+
+## License
+ 
+The MIT License (MIT)
+
+Created by [Mike Darche](https://twitter.com/Mkdarshay)
