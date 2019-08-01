@@ -3,7 +3,7 @@ import { jsx, useColorMode } from "theme-ui"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 
-import { ReactComponent as LogoMark } from "../logo.svg"
+import LogoMark from "../logo.js"
 
 const Logo = ({
   path = "/",
