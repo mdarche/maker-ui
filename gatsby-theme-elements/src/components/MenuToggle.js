@@ -23,6 +23,8 @@ const MenuToggle = ({ fill, height, children, icon, ...props }) => {
       onClick={() => toggleMenu()}
       sx={{
         display: ["flex", "none"],
+        border: "none",
+        background: "none",
         svg: {
           fill: fill || "text_navlink",
           height: height || 32,

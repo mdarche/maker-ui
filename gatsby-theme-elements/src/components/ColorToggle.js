@@ -16,7 +16,7 @@ const ColorToggle = ({ children, ...props }) => {
   }
 
   return (
-    <button id="color-toggle" onClick={cycleMode} {...props}>
+    <button {...props} id="color-toggle" onClick={cycleMode}>
       {children ? children : color}
     </button>
   )
