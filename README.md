@@ -1,4 +1,4 @@
-![Elements Logo](http://darchedesign.com/wp-content/uploads/2019/08/elements-sm.png)
+![Elements Logo](https://i.imgur.com/yNVVg0P.png)
 
 
 # Gatsby Theme Elements
@@ -66,7 +66,7 @@ colors: {
     bg_tabbar: "",         // TabBar background
     bg_footer: "",         // Footer background
     text_navlink: "",      // Header link color
-    text_topbar: "",       // Topbar link color
+    text_topbar: "",       // Topbar text color
 },
 shadows: {
     header: "",            // Header shadow
@@ -163,15 +163,15 @@ By default, the layout components use the settings you defined in `options.js` a
 | **Layout**         | The root layout component **(required)**                                                                                                     |
 | **Topbar**         | A topbar or status bar that sits above the site header                                                                                        |
 | **Header**         | A flexible **header** element that wraps your primary navigation                                                                              |
-| **Logo**           | A link that accepts a child or defaults to an optional shadowed logo file. To use <Logo /> without wrapping it around a child component, create a third file in your `gatsby-theme-elements` directory called `logo.svg`                                          |
+| **Logo**           | A link that accepts a child or defaults to an optional shadowed logo file. To use <Logo /> without wrapping it around a child component, create a third file in your `gatsby-theme-elements` directory called `logo.svg`.                                          |
 | **NavMenu**        | The site's primary navigation *ul* wrapped in a *nav* element. Hides on mobile.                                                      |
-| **MenuToggle**     | Button that accesses the **useMenu** hook to toggle a mobile menu. It comes with a default hamburger icon or you can wrap it around your own.                                                                            |
-| **ColorToggle**    | Button that accesses [ThemeUI](https://theme-ui.com/)'s colorMode hook to cycle through colors. Defaults to the name of the current color mode or you can wrap it around your own icon.                                           |
-| **MobileNav**      | A fixed mobile wrapper component that can be configured to animate on mount. Triggered by **MenuToggle** or the **useMenu** hook         |
-| **ContentWrapper** | A wrapper that uses a layout prop to determine the position of its children. This component wraps **Main**, **Sidebar**, and **SideNav** |
+| **MenuToggle**     | Button that accesses the **useMenu** hook to toggle a mobile menu. It comes with default hamburger and close icons or you can wrap it around your own.                                                                            |
+| **ColorToggle**    | Button that accesses [ThemeUI](https://theme-ui.com/)'s colorMode hook to cycle through colors. Defaults to the name of the current color or you can wrap it around your own icon.                                           |
+| **MobileNav**      | A fixed mobile wrapper component that can be configured to animate on mount. Triggered by **MenuToggle** or the **useMenu** hook.         |
+| **ContentWrapper** | A wrapper that uses a layout prop to determine the position of its children. This component wraps **Main**, **Sidebar**, and **SideNav**. |
 | **Main**           | The layout's *main* content element                                                                                                    |
-| **Sidebar**        | The layout's sidebar component. Can be positioned left or right of **Main**                                                                          |
-| **SideNav**        | An optional fixed side navigation component. Can be positioned left or right of **Main**                                                 |
+| **Sidebar**        | The layout's sidebar component. Can be positioned left or right of **Main**.                                                                          |
+| **SideNav**        | An optional fixed side navigation component. Can be positioned left or right of **Main**.                                                 |
 | **TabBar**         | A fixed wrapper component that moves mobile navigation to the bottom of the screen like a native mobile app. You can wrap it around your own components or feed it a menu object. The TabBar formats this menu into a horizontal scrollable row with links, labels, and icons.  |
 | **Footer**         | The document *footer* element                                                                                                          |
 | **FooterWidgets**  | A grid wrapper for building skiplink accessible footer columns                                                                                               |
@@ -186,7 +186,7 @@ import { Layout, Header, ContentWrapper, Main, Footer } from 'gatsby-theme-eleme
 
 ```
 
-Detailed information on each component and its props is coming to a documentation site soon.
+Unlike other Gatsby themes, you don't need to shadow components because you can edit their behavior from your config files. Detailed information on each component is coming to a documentation site soon.
 
 ## Hooks
 
