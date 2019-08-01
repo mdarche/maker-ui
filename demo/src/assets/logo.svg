@@ -1,9 +1,3 @@
-<!--
- * Shadow this SVG file to add a default logo to the Logo component
- *
- * See: https://github.com/mdarche/gatsby-theme-elements for a full list of options
- -->
-
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 624.65 90.89">
 <defs>
     <style>

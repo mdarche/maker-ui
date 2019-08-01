@@ -45,7 +45,7 @@ export default props => (
     </Header>
 
     <ContentWrapper layout="sidenav-content">
-      <SideNav border="1px solid #f0f0f2">
+      <SideNav backgroundColor="#fff" border="1px solid #f0f0f2">
         <List count={20} borderColor="#f0f0f2" padding="15px 20px 0" />
       </SideNav>
       <Main maxWidth="52rem">{props.children}</Main>
