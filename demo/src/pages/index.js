@@ -1,4 +1,5 @@
-import React from "theme-ui"
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import { BlogPost } from "react-understudy"
 import Layout from "../layouts/Default"
 
