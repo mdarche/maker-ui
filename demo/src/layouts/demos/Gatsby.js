@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { List, IconBar, Box } from "react-understudy"
+import { List, IconBar } from "react-understudy"
 import {
   Layout,
   Header,

@@ -12,7 +12,7 @@ export default {
     bg_topbar: "#355cac",
     bg_header: "#fff",
     bg_mobilenav: "rgba(0, 0, 0, 0.9)",
-    bg_sidenav: "#fdfdfd",
+    bg_sidenav: "#f9f9f9",
     bg_tabbar: "#fff",
     bg_footer: "#fff",
     text_navlink: "#36313d",

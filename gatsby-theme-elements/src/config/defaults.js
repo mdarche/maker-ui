@@ -17,8 +17,8 @@ export default merge(
       sticky: true,
       stickyMobile: true,
       maxWidth: 1260,
-      mobileNavStyle: "fade",
       mobileNavWidth: 300,
+      mobileAnimation: "fade",
       spring: { tension: 170, friction: 26 },
     },
     sideNav: {

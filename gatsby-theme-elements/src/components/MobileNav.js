@@ -19,7 +19,7 @@ const MobileNav = props => {
     children,
     defaultClose = false,
     width = formatUnit(options.header.mobileNavWidth),
-    animation = options.header.mobileNavStyle,
+    animation = options.header.mobileAnimation,
     spring = options.header.spring,
   } = props
 
