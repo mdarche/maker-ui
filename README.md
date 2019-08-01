@@ -1,3 +1,6 @@
+![Elements Logo](http://darchedesign.com/wp-content/uploads/2019/08/elements-sm.png)
+
+
 # Gatsby Theme Elements
 
 Build responsive Gatsby themes with layouts powered by [ThemeUI](https://theme-ui.com/).
@@ -6,11 +9,6 @@ Gatsby Theme Elements takes care of accessibility, responsive navigation, and th
 
 https://gatsby-theme-elements.netlify.com/
 
-[github]: https://github.com/system-ui/theme-ui
-[npm]: https://npmjs.com/package/theme-ui
-[license]: https://flat.badgen.net/badge/license/MIT/blue
-[system-ui-badge]: https://flat.badgen.net/badge/system-ui/theme/black
-[size]: https://flat.badgen.net/bundlephobia/minzip/theme-ui
 
 ## Getting Started
 
@@ -31,7 +29,7 @@ In your `gatsby-config.js` file, add:
 ```sh
 module.exports = {
   plugins: ['gatsby-theme-elements'],
-};
+}
 ```
 
 ## Installation
@@ -141,7 +139,7 @@ Although they can be used independently, the components work best together in a 
   <ContentWrapper>
     <SideNav />
     <Main>{children}</Main>
-  <ContentWrapper>
+  </ContentWrapper>
 
   <Footer>
     <FooterWidgets/>
@@ -163,7 +161,7 @@ See a list of all components below:
 | **Header**         | A flexible **header** element that wraps primary navigation                                                                              |
 | **Logo**           | A semantic link that accepts a child or defaults to an optional shadowed logo called `logo.svg`                                          |
 | **NavMenu**        | The site's primary navigation **ul** wrapped in a **nav** element. Hidden on mobile                                                      |
-| **MenuToggle**     | Button that accesses the useMenu hook to toggle a mobile menu                                                                            |
+| **MenuToggle**     | Button that accesses the **useMenu** hook to toggle a mobile menu                                                                            |
 | **ColorToggle**    | Button that accesses [ThemeUI](https://theme-ui.com/)'s colorMode hook to cycle through colors                                           |
 | **MobileNav**      | A fixed mobile wrapper component that can be configured to animate on mount. Triggered by **MenuToggle** or the **useMenu** hook         |
 | **ContentWrapper** | A wrapper that uses a layout prop to determine the position of its children. This component wraps **Main**, **Sidebar**, and **SideNav** |
