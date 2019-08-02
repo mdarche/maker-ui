@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "demo",
+  "name": "docs",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
@@ -9,10 +9,10 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "gatsby": "^2.13.6",
+    "gatsby": "^2.13.50",
     "gatsby-theme-elements": "^1.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-understudy": "^0.0.6"
+    "theme-ui": "^0.2.25"
   }
 }

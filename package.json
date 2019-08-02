@@ -2,6 +2,7 @@
   "private": true,
   "workspaces": [
     "gatsby-theme-elements",
-    "demo"
+    "demo",
+    "docs"
   ]
 }
