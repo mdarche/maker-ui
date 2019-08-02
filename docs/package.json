@@ -9,7 +9,9 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@mdx-js/mdx": "^1.1.4",
     "gatsby": "^2.13.50",
+    "gatsby-plugin-mdx": "^1.0.22",
     "gatsby-theme-elements": "^1.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

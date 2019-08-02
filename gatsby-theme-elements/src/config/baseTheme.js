@@ -13,9 +13,9 @@ export default merge(
   {
     initialColorMode: "light",
     colors: {
-      text: "#000",
+      text: "#333",
       background: "#fff",
-      primary: "#36313d",
+      primary: "#1858dc",
       secondary: "#355cac",
       accent: "#1858dc",
       muted: "#f6f6f6",
@@ -27,7 +27,7 @@ export default merge(
       bg_sidenav: "#fdfdfd",
       bg_tabbar: "#fff",
       bg_footer: "#fff",
-      text_navlink: "#36313d",
+      text_navlink: "#333",
       text_topbar: "#fff",
     },
     fonts: {
