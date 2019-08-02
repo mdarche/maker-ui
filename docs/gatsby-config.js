@@ -4,9 +4,5 @@ module.exports = {
     description: "The official doc site for Gatsby Theme Elements",
     siteUrl: "https://mikedarche.com",
   },
-  plugins: [
-    `gatsby-plugin-emotion`,
-    `gatsby-plugin-theme-ui`,
-    `gatsby-theme-elements`,
-  ],
+  plugins: [`gatsby-theme-elements`],
 }

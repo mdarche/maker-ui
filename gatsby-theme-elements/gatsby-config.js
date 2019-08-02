@@ -1,7 +1,6 @@
 module.exports = {
   plugins: [
     `gatsby-plugin-emotion`,
-    `gatsby-plugin-theme-ui`,
     {
       resolve: "gatsby-plugin-svgr",
       options: {
