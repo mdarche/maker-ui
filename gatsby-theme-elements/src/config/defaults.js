@@ -42,5 +42,5 @@ export default merge(
       lg: 1240,
     },
   },
-  options
+  options !== undefined ? options : {}
 )

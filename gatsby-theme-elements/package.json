@@ -1,7 +1,7 @@
 {
   "name": "gatsby-theme-elements",
   "author": "Mike Darche <mkdarche@gmail.com>",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdarche/gatsby-theme-elements"
@@ -30,7 +30,6 @@
     "deepmerge": "^4.0.0",
     "gatsby-plugin-emotion": "^4.1.0",
     "gatsby-plugin-svgr": "^2.0.2",
-    "gatsby-plugin-theme-ui": "^0.2.6",
     "prop-types": "^15.7.2",
     "react-spring": "^8.0.27",
     "theme-ui": "^0.2.6"
