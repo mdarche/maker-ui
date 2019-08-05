@@ -6,4 +6,4 @@ export { useMeasurements } from "./src/context/MeasureContext"
 export * from "./src/components"
 
 // Templates
-export * from "./src/templates"
+export { default as ElementsTemplate } from "./src/template"

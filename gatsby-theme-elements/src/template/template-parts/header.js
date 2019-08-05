@@ -17,7 +17,6 @@ export default ({
   logoColors,
   colorToggle,
   menuToggle,
-  mobileNav,
   headerWidgets,
   options,
 }) => {

@@ -1,60 +1,67 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
+import merge from "deepmerge"
 
+import { validate } from "../utils/helper"
 import HeaderTemplate from "./template-parts/header"
+import ContentTemplate from "./template-parts/content"
 import {
   Layout,
   Topbar,
-  ContentWrapper,
-  Main,
   MobileNav,
   FooterWidgets,
   Footer,
   TabBar,
 } from "../components"
 
-const ElementsTemplate = ({
+const Template = ({
   menuItems,
   logo,
   logoColors = {},
   colorToggle,
-  menuToggle = null,
+  menuToggle,
   mobileNav,
   headerWidgets,
   footerWidgets,
   topbar,
   footer,
   tabBar,
-  // options,
+  sidebar,
+  sideNav,
+  settings,
   children,
 }) => {
-  const options = {
-    header: {
-      navType: "split", // split, center
-      logoHeight: "60px", // accepts array for scale
-      logoPadding: 0,
-      headerPadding: 3,
-      navLinkPadding: 3,
-      navLinkFontSize: 3,
-      mobileNavActive: true,
-      defaultCloseIcon: true,
-      defaultMenuIcon: true,
-      colorToggle: true,
+  const options = merge(
+    {
+      header: {
+        navType: "right", // split, center
+        logoHeight: "60px", // can be array
+        logoPadding: 0,
+        headerPadding: 3,
+        navLinkPadding: 3,
+        navLinkFontSize: 3,
+        mobileNavActive: true,
+        defaultCloseIcon: true,
+        defaultMenuIcon: true,
+        colorToggle: true,
+      },
+      content: {
+        paddingTop: 5,
+        sideBarPosition: "right",
+        sideNavPosition: "left",
+      },
+      tabBar: {
+        active: false,
+      },
     },
-    content: {
-      paddingTop: 5,
-      sideBarPosition: "right",
-      sideNavPosition: "left",
-    },
-    tabBar: {
-      active: false,
-    },
-  }
+    validate(settings)
+  )
 
   return (
     <Layout>
       {topbar ? <Topbar>{topbar}</Topbar> : null}
+
       <HeaderTemplate
         menuItems={menuItems}
         logo={logo}
@@ -65,15 +72,20 @@ const ElementsTemplate = ({
         mobileNav={mobileNav}
         options={options.header}
       />
+
       {options.header.mobileNavActive ? (
         <MobileNav defaultClose={options.header.defaultCloseIcon}>
           {mobileNav}
         </MobileNav>
       ) : null}
 
-      <ContentWrapper sx={{ pt: 5 }}>
-        <Main>{children}</Main>
-      </ContentWrapper>
+      <ContentTemplate
+        sidebar={sidebar}
+        sideNav={sideNav}
+        options={options.content}>
+        {children}
+      </ContentTemplate>
+
       {footer ? (
         <Footer>
           {footerWidgets ? (
@@ -89,7 +101,7 @@ const ElementsTemplate = ({
   )
 }
 
-ElementsTemplate.propTypes = {
+Template.propTypes = {
   topbar: PropTypes.node,
   menuItems: PropTypes.array.isRequired,
   logo: PropTypes.node,
@@ -101,4 +113,4 @@ ElementsTemplate.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default ElementsTemplate
+export default Template
