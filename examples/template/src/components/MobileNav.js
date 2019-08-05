@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 
 const menuItems = [
-  { label: "Home", path: "/", icon: "", alt: "", split: "right" },
+  { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "News", path: "/new" },
   { label: "Contact", path: "/contact" },
@@ -11,8 +11,8 @@ const menuItems = [
 const MobileNav = () => (
   <div>
     <ul>
-      {menuItems.map((label, path) => (
-        <li>
+      {menuItems.map(({ label, path }) => (
+        <li key={label}>
           <Link to={path}>{label}</Link>
         </li>
       ))}

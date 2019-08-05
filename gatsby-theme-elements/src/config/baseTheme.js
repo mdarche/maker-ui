@@ -65,6 +65,24 @@ export default merge(
         gridGap: options.content.gridGap,
       },
     },
+    layout: {
+      header: {
+        right: { justifyContent: "space-between" },
+        center: {
+          justifyContent: ["space-between", "center"],
+          flexWrap: "wrap",
+        },
+        split: {
+          justifyContent: ["space-between", "center"],
+        },
+      },
+      fullFlex: {
+        width: ["auto", "100%"],
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      },
+    },
     textStyles: {
       navlink: {
         textDecoration: "none",

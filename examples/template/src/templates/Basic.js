@@ -7,10 +7,10 @@ import Topbar from "../components/Topbar"
 import Footer from "../components/Footer"
 
 const menuItems = [
-  { label: "Home", path: "/", icon: "", alt: "", split: "right" },
-  { label: "About", path: "/about" },
-  { label: "News", path: "/new" },
-  { label: "Contact", path: "/contact" },
+  { label: "Home", path: "/", icon: "", alt: "", split: "left" },
+  { label: "About", path: "/about", icon: "", alt: "", split: "left" },
+  { label: "News", path: "/news", icon: "", alt: "", split: "right" },
+  { label: "Contact", path: "/contact", icon: "", alt: "", split: "right" },
 ]
 
 // No need to add semantic HTML to your custom components. Divs and fragments!
@@ -21,19 +21,7 @@ export default ({ children }) => (
     topbar={<Topbar />}
     mobileNav={<MobileNav />}
     footerWidgets={<FooterWidgets />}
-    footer={<Footer />}
-    options={{
-      navPosition: "right",
-      logoHeight: "200px",
-      headerPadding: 3,
-      navLinkPadding: 3,
-      navLinkFontSize: 2,
-      mobileCloseIcon: true,
-      colorToggle: true,
-      sideBarPosition: "right",
-      sideNavPosition: "left",
-      tabBar: false,
-    }}>
+    footer={<Footer />}>
     {children}
   </ElementsTemplate>
 )

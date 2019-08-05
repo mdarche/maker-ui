@@ -2,19 +2,16 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
+import HeaderTemplate from "./template-parts/header"
 import {
   Layout,
   Topbar,
-  Header,
-  Logo,
-  NavMenu,
   ContentWrapper,
   Main,
-  MenuToggle,
-  ColorToggle,
   MobileNav,
   FooterWidgets,
   Footer,
+  TabBar,
 } from "../components"
 
 const ElementsTemplate = ({
@@ -22,49 +19,58 @@ const ElementsTemplate = ({
   logo,
   logoColors = {},
   colorToggle,
-  menuToggle,
+  menuToggle = null,
   mobileNav,
+  headerWidgets,
   footerWidgets,
   topbar,
   footer,
-  options,
+  tabBar,
+  // options,
   children,
 }) => {
-  const testOptions = {
-    navPosition: "right", // split, center
-    logoHeight: "200px", // accepts array for scale
-    headerPadding: 3,
-    navLinkPadding: 3,
-    navLinkFontSize: 2,
-    mobileCloseIcon: true,
-    colorToggle: true,
-    menuToggle: true,
-    sideBarPosition: "right",
-    sideNavPosition: "left",
-    tabBarActive: false,
+  const options = {
+    header: {
+      navType: "split", // split, center
+      logoHeight: "60px", // accepts array for scale
+      logoPadding: 0,
+      headerPadding: 3,
+      navLinkPadding: 3,
+      navLinkFontSize: 3,
+      mobileNavActive: true,
+      defaultCloseIcon: true,
+      defaultMenuIcon: true,
+      colorToggle: true,
+    },
+    content: {
+      paddingTop: 5,
+      sideBarPosition: "right",
+      sideNavPosition: "left",
+    },
+    tabBar: {
+      active: false,
+    },
   }
-
-  const renderHeader = () => {}
-
-  const renderContent = () => {}
 
   return (
     <Layout>
       {topbar ? <Topbar>{topbar}</Topbar> : null}
-      <Header justify="space-between">
-        <Logo colorOptions={logoColors}>{logo}</Logo>
-        <NavMenu
-          flex
-          justify="flex-end"
-          menuItems={menuItems}
-          sx={{ a: { p: 3 } }}
-        />
-        <div sx={{ display: "flex" }}>
-          <ColorToggle>{colorToggle}</ColorToggle>
-          <MenuToggle icon="menu">{menuToggle}</MenuToggle>
-        </div>
-      </Header>
-      <MobileNav defaultClose>{mobileNav}</MobileNav>
+      <HeaderTemplate
+        menuItems={menuItems}
+        logo={logo}
+        logoColors={logoColors}
+        colorToggle={colorToggle}
+        menuToggle={menuToggle}
+        headerWidgets={headerWidgets}
+        mobileNav={mobileNav}
+        options={options.header}
+      />
+      {options.header.mobileNavActive ? (
+        <MobileNav defaultClose={options.header.defaultCloseIcon}>
+          {mobileNav}
+        </MobileNav>
+      ) : null}
+
       <ContentWrapper sx={{ pt: 5 }}>
         <Main>{children}</Main>
       </ContentWrapper>
@@ -75,6 +81,9 @@ const ElementsTemplate = ({
           ) : null}
           {footer}
         </Footer>
+      ) : null}
+      {options.tabBar.active ? (
+        <TabBar menuItems={menuItems}>{tabBar}</TabBar>
       ) : null}
     </Layout>
   )

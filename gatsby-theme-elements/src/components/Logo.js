@@ -36,7 +36,7 @@ const Logo = ({
       id="logo"
       aria-label="Back to home page"
       sx={{ display: "flex", ...colorPartial() }}>
-      {children ? children : <LogoMark sx={{ height }} />}
+      {children ? children : <LogoMark sx={{ height, width: "auto" }} />}
     </Link>
   )
 }

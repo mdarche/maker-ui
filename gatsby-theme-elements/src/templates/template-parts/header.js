@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import React from "react"
 
 import {
   Header,
@@ -8,8 +9,7 @@ import {
   HeaderWidgets,
   MenuToggle,
   ColorToggle,
-  MobileNav,
-} from "../components"
+} from "../../components"
 
 export default ({
   menuItems,
@@ -18,26 +18,71 @@ export default ({
   colorToggle,
   menuToggle,
   mobileNav,
+  headerWidgets,
   options,
-}) => (
-  <Header justify={["space-between", "center"]} sx={{ flexWrap: "wrap" }}>
-    <div
-      sx={{
-        width: ["auto", "100%"],
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}>
-      <Logo colorOptions={logoColors}>{logo}</Logo>
-    </div>
-    <NavMenu
-      justify={"center"}
-      menuItems={menuItems}
-      sx={{ a: { fontSize: navLinkFontSize, p: navLinkPadding } }}
-    />
-    <HeaderWidgets>
-      <ColorToggle />
-      <MenuToggle />
-    </HeaderWidgets>
-  </Header>
-)
+}) => {
+  const navPartial = {
+    a: {
+      fontSize: options.navLinkFontSize,
+      p: options.navLinkPadding,
+    },
+  }
+
+  const widgetPartial =
+    options.navType !== "right"
+      ? { position: ["relative", "absolute"], right: 0 }
+      : null
+
+  const renderLogo = () => (
+    <Logo
+      height={options.logoHeight}
+      colorOptions={logoColors}
+      sx={{ p: [0, options.logoPadding] }}>
+      {logo}
+    </Logo>
+  )
+
+  return (
+    <Header sx={{ variant: `layout.header.${options.navType}` }}>
+      {options.navType === "split" ? (
+        <>
+          <NavMenu
+            menuItems={menuItems.filter(({ split }) => split === "left")}
+            width="33%"
+            justify="flex-end"
+            sx={{ ...navPartial }}
+          />
+          {renderLogo()}
+          <NavMenu
+            menuItems={menuItems.filter(({ split }) => split === "right")}
+            width="33%"
+            sx={{ ...navPartial }}
+          />
+        </>
+      ) : (
+        <>
+          {options.navType === "center" ? (
+            <div sx={{ variant: "layout.fullFlex" }}>{renderLogo()}</div>
+          ) : (
+            renderLogo()
+          )}
+          <NavMenu
+            flex={options.navType === "right" ? true : false}
+            justify={options.navType === "center" ? "center" : "flex-end"}
+            menuItems={menuItems}
+            sx={{ ...navPartial }}
+          />
+        </>
+      )}
+      <HeaderWidgets sx={{ ...widgetPartial }}>
+        {options.colorToggle ? <ColorToggle>{colorToggle}</ColorToggle> : null}
+        {options.mobileNavActive ? (
+          <MenuToggle icon={options.defaultMenuIcon ? "menu" : null}>
+            {menuToggle}
+          </MenuToggle>
+        ) : null}
+        {headerWidgets}
+      </HeaderWidgets>
+    </Header>
+  )
+}
