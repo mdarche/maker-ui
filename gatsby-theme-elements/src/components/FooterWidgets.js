@@ -3,7 +3,6 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
 const FooterWidgets = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
-  console.log("children are", props.children)
   const columns = Array.isArray(props.children) ? props.children.length : 1
   const gap = gridGap ? { gridGap } : { variant: "gaps.widgetGap" }
 

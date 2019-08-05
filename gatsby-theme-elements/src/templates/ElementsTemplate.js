@@ -30,6 +30,24 @@ const ElementsTemplate = ({
   options,
   children,
 }) => {
+  const testOptions = {
+    navPosition: "right", // split, center
+    logoHeight: "200px", // accepts array for scale
+    headerPadding: 3,
+    navLinkPadding: 3,
+    navLinkFontSize: 2,
+    mobileCloseIcon: true,
+    colorToggle: true,
+    menuToggle: true,
+    sideBarPosition: "right",
+    sideNavPosition: "left",
+    tabBarActive: false,
+  }
+
+  const renderHeader = () => {}
+
+  const renderContent = () => {}
+
   return (
     <Layout>
       {topbar ? <Topbar>{topbar}</Topbar> : null}

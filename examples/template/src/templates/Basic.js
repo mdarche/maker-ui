@@ -13,8 +13,6 @@ const menuItems = [
   { label: "Contact", path: "/contact" },
 ]
 
-// Todo test and map template options
-
 // No need to add semantic HTML to your custom components. Divs and fragments!
 
 export default ({ children }) => (
@@ -31,6 +29,7 @@ export default ({ children }) => (
       navLinkPadding: 3,
       navLinkFontSize: 2,
       mobileCloseIcon: true,
+      colorToggle: true,
       sideBarPosition: "right",
       sideNavPosition: "left",
       tabBar: false,
