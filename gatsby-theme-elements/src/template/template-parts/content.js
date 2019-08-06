@@ -15,7 +15,10 @@ export default ({ options, sideNav, sidebar, children }) => {
       <ContentWrapper
         layout={position === "left" ? "sidenav-content" : "content-sidenav"}>
         {placeComponents(
-          [<SideNav>{sideNav}</SideNav>, <Main>{children}</Main>],
+          [
+            <SideNav>{sideNav}</SideNav>,
+            <Main sx={{ pt: options.paddingTop }}>{children}</Main>,
+          ],
           position
         )}
       </ContentWrapper>

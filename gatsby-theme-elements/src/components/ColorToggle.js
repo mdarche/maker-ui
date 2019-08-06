@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, useColorMode } from "theme-ui"
-import theme from "../config/baseTheme"
+import theme from "../config/base-theme"
 import PropTypes from "prop-types"
 
 const modes = theme.colors.modes

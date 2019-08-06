@@ -6,6 +6,7 @@ import {
   Logo,
   ColorToggle,
   ContentWrapper,
+  HeaderWidgets,
   Main,
   SideNav,
   SideNavToggle,
@@ -16,7 +17,7 @@ export default ({ children }) => (
   <Layout>
     <Header justify="space-between" sx={{ p: 4 }}>
       <Logo height="35px" />
-      <div sx={{ display: "flex" }}>
+      <HeaderWidgets>
         <ColorToggle
           sx={{
             border: "2px solid",
@@ -27,7 +28,7 @@ export default ({ children }) => (
             p: "5px 10px",
           }}
         />
-      </div>
+      </HeaderWidgets>
     </Header>
     <ContentWrapper layout="sidenav-content" sx={{ pt: 5 }}>
       <SideNav>
