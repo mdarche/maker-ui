@@ -1,13 +1,11 @@
 import merge from "deepmerge"
+
 import options from "./defaults"
 import styles from "./styles"
 import childTheme from "../theme"
+import { validate } from "../utils/helper"
 
-/*
- *  Default THEME UI Object
- *
- *  Overwrite or extend by shadowing src/theme.js
- */
+// Default THEME UI Object
 
 export default merge(
   {
@@ -67,6 +65,24 @@ export default merge(
         gridGap: options.content.gridGap,
       },
     },
+    layout: {
+      header: {
+        right: { justifyContent: "space-between" },
+        center: {
+          justifyContent: ["space-between", "center"],
+          flexWrap: "wrap",
+        },
+        split: {
+          justifyContent: ["space-between", "center"],
+        },
+      },
+      fullFlex: {
+        width: ["auto", "100%"],
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      },
+    },
     textStyles: {
       navlink: {
         textDecoration: "none",
@@ -83,5 +99,5 @@ export default merge(
     ],
     styles,
   },
-  childTheme !== undefined ? childTheme : {}
+  validate(childTheme)
 )

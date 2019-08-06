@@ -3,6 +3,7 @@
   "workspaces": [
     "gatsby-theme-elements",
     "demo",
-    "docs"
+    "docs",
+    "examples/*"
   ]
 }

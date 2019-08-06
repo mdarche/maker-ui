@@ -55,6 +55,7 @@ const Header = props => {
       <div
         id="header-content"
         sx={{
+          position: "relative",
           display: "flex",
           alignItems: "center",
           justifyContent: justify || "flex-start",
