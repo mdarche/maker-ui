@@ -4,40 +4,38 @@ import {
   Layout,
   Header,
   Logo,
-  NavMenu,
   ColorToggle,
   ContentWrapper,
+  HeaderWidgets,
   Main,
   SideNav,
-  Footer,
-  MenuToggle,
-  MobileNav,
+  SideNavToggle,
 } from "gatsby-theme-elements"
+import SideMenu from "./side-menu.js"
 
-const menuItems = []
-
-export default props => (
+export default ({ children }) => (
   <Layout>
-    <Header justify="space-between">
-      <Logo />
-      <NavMenu
-        flex
-        justify="flex-end"
-        menuItems={menuItems}
-        sx={{ a: { p: 3 } }}
-      />
-      <div sx={{ display: "flex" }}>
-        <ColorToggle />
-        <MenuToggle icon="menu" />
-      </div>
+    <Header justify="space-between" sx={{ p: 4 }}>
+      <Logo height="35px" />
+      <HeaderWidgets>
+        <ColorToggle
+          sx={{
+            border: "2px solid",
+            background: "none",
+            borderColor: "primary",
+            fontFamily: "heading",
+            fontSize: 3,
+            p: "5px 10px",
+          }}
+        />
+      </HeaderWidgets>
     </Header>
-    <MobileNav defaultClose />
-    <ContentWrapper sx={{ pt: 5 }}>
+    <ContentWrapper layout="sidenav-content" sx={{ pt: 5 }}>
       <SideNav>
-        <div sx={{ height: 500 }} />
+        <SideMenu />
       </SideNav>
-      <Main>{props.children}</Main>
+      <Main>{children}</Main>
     </ContentWrapper>
-    <Footer />
+    <SideNavToggle />
   </Layout>
 )

@@ -1,11 +1,9 @@
 import merge from "deepmerge"
-import options from "../options"
 
-/*
- *  Default GATSBY THEME ELEMENTS Layout Settings
- *
- *  Overwrite or extend this file by shadowing src/options.js
- */
+import options from "../options"
+import { validate } from "../utils/helper"
+
+// Default GATSBY THEME ELEMENTS Layout Settings
 
 export default merge(
   {
@@ -42,5 +40,5 @@ export default merge(
       lg: 1240,
     },
   },
-  options !== undefined ? options : {}
+  validate(options)
 )
