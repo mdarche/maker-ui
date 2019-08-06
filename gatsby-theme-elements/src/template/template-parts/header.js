@@ -42,7 +42,11 @@ export default ({
   )
 
   return (
-    <Header sx={{ variant: `layout.header.${options.navType}` }}>
+    <Header
+      sx={{
+        padding: options.headerPadding,
+        variant: `layout.header.${options.navType}`,
+      }}>
       {options.navType === "split" ? (
         <>
           <NavMenu
