@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@mdx-js/mdx": "^1.1.4",
-    "@mdx-js/react": "^1.1.4",
     "gatsby": "^2.13.50",
+    "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-mdx": "^1.0.22",
     "gatsby-theme-elements": "*",
     "react": "^16.8.6",

@@ -10,18 +10,29 @@ import {
   SideNav,
   SideNavToggle,
 } from "gatsby-theme-elements"
-import SideMenu from "./SideMenu.js"
+import SideMenu from "./side-menu.js"
 
 export default ({ children }) => (
   <Layout>
-    <Header justify="space-between">
-      <Logo />
+    <Header justify="space-between" sx={{ p: 4 }}>
+      <Logo height="35px" />
       <div sx={{ display: "flex" }}>
-        <ColorToggle />
+        <ColorToggle
+          sx={{
+            border: "2px solid",
+            background: "none",
+            borderColor: "primary",
+            fontFamily: "heading",
+            fontSize: 3,
+            p: "5px 10px",
+          }}
+        />
       </div>
     </Header>
     <ContentWrapper layout="sidenav-content" sx={{ pt: 5 }}>
-      <SideNav>Side Nav</SideNav>
+      <SideNav>
+        <SideMenu />
+      </SideNav>
       <Main>{children}</Main>
     </ContentWrapper>
     <SideNavToggle />

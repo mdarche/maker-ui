@@ -1,5 +1,5 @@
 import React from "react"
-import { ThemeProvider } from "theme-ui"
+import { ThemeProvider, ColorMode } from "theme-ui"
 
 import { UIContextProvider } from "../context/UIContext"
 import { MeasureContextProvider } from "../context/MeasureContext"
@@ -8,6 +8,7 @@ import theme from "../config/baseTheme"
 
 export default props => (
   <ThemeProvider theme={theme}>
+    <ColorMode />
     <UIContextProvider>
       <MeasureContextProvider>
         <Root {...props} />

@@ -974,11 +974,6 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/react/-/react-1.0.27.tgz#7461e39f8880eceff8f48b0240e6cdc0f01cc8db"
   integrity sha512-sCv3ItE5L6rdpnZR0s69C8KFgz4pmhGsH4de0ZiO+fiCC/L6asuKLubf9QZk3oG3vjebym/V593CE15vRXvvwQ==
 
-"@mdx-js/react@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@mdx-js/react/-/react-1.1.4.tgz#447707fc18ae0bbbd7778b28f3bf4055f6aae2ae"
-  integrity sha512-qh6M6Uv1CxL8SszBbeTEbB2Ko27j6HLSqlDzPvbsxXZ9Nt87S/B65tvN1HjE8ZH8I0DO8V4L/ebalCy+pkEfIw==
-
 "@mikaelkristiansson/domready@^1.0.9":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@mikaelkristiansson/domready/-/domready-1.0.9.tgz#b2b85d8ac7bb2797e577050b61aeaf1b26fbd906"
@@ -4742,6 +4737,11 @@ gatsby-plugin-emotion@^4.1.0:
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@emotion/babel-preset-css-prop" "^10.0.5"
+
+gatsby-plugin-google-fonts@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-fonts/-/gatsby-plugin-google-fonts-1.0.1.tgz#d71054f7bf207b9a8da227380369e18e6f4e0201"
+  integrity sha512-p1NVkn27GUnDA5qHM+Z4cCcLCJIardzZXMon3640sT4xuL/AZJbsx3HEt2KY/5oZu0UXIkytkxzV2Da4rQeUIg==
 
 gatsby-plugin-mdx@^1.0.22:
   version "1.0.22"
