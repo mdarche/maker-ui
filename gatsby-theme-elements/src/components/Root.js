@@ -18,7 +18,7 @@ function inspectWindow() {
   }
 }
 
-const Root = ({ children, backgroundColor, color, ...props }) => {
+const Root = ({ children, color, ...props }) => {
   const { setViewportXY } = measure()
 
   // Component Lifecycle
@@ -37,10 +37,7 @@ const Root = ({ children, backgroundColor, color, ...props }) => {
   }
 
   return (
-    <Styled.root
-      id="__elements"
-      sx={{ bg: backgroundColor || "background", color: color || "text" }}
-      {...props}>
+    <Styled.root id="__elements" sx={{ color: color || "text" }} {...props}>
       <Global styles={reset} />
 
       <ul className="skip-links">

@@ -1,0 +1,55 @@
+# options.js
+
+_Handles all positioning and DOM measurements_
+
+This file lets you set things like widths, scroll behaviors, breakpoints, and animation springs. A complete `options.js` file looks like this:
+
+```jsx
+export default {
+  topbar: {
+    sticky: true,
+    maxWidth: 1260,
+  },
+  header: {
+    sticky: true,
+    stickyMobile: true,
+    maxWidth: 1260,
+    mobileNavWidth: 300,
+    mobileAnimation: "fade", // fade, fadeInUp, fadeInDown, slideRight, slideLeft
+    spring: { tension: 170, friction: 26 }, // React Spring config object for your MobileNav
+  },
+  sideNav: {
+    width: "18em",
+    spring: { tension: 170, friction: 26 }, // spring config for your responsive SideNav
+  },
+  content: {
+    maxWidth: 1020,
+    gridGap: 30,
+  },
+  sidebar: {
+    width: ".3fr",
+  },
+  footer: {
+    maxWidth: 1020,
+    gridGap: 30,
+  },
+  breakpoints: {
+    sm: 750,
+    md: 960,
+    lg: 1240,
+  },
+}
+```
+
+## Animation Settings
+
+Elements uses [React Spring](https://www.react-spring.io/) to add transitions and mount / unmount animated components.
+
+You can control various aspects of the animation spring (mass, tension, friction, clamp, etc.) with the **spring** settings shown above. See [React Spring docs](https://www.react-spring.io/docs/hooks/api) for details.
+
+## NOTE:
+
+- Set your breakpoints in `options.js`, not your [ThemeUI](https://theme-ui.com/) object. Elements currently uses these breakpoint values for layout calculations.
+- Breakpoints should also be numbers (Elements converts them to pixel values)
+
+These limitations will be removed in future releases.

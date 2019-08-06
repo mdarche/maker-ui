@@ -11,6 +11,7 @@ import {
   SideNav,
   SideNavToggle,
 } from "gatsby-theme-elements"
+
 import SideMenu from "./side-menu.js"
 
 export default ({ children }) => (
@@ -18,24 +19,36 @@ export default ({ children }) => (
     <Header justify="space-between" sx={{ p: 4 }}>
       <Logo height="35px" />
       <HeaderWidgets>
+        <a
+          href="https://github.com/mdarche/gatsby-theme-elements"
+          sx={{
+            display: "flex",
+            color: "primary",
+            fontSize: 3,
+            textDecoration: "none",
+            px: "25px",
+          }}>
+          Github
+        </a>
         <ColorToggle
           sx={{
             border: "2px solid",
             background: "none",
             borderColor: "primary",
+            color: "primary",
             fontFamily: "heading",
             fontSize: 3,
-            p: "5px 10px",
+            p: "5px 15px",
           }}
         />
       </HeaderWidgets>
     </Header>
-    <ContentWrapper layout="sidenav-content" sx={{ pt: 5 }}>
+    <ContentWrapper layout="sidenav-content" sx={{ py: [2, 5] }}>
       <SideNav>
         <SideMenu />
       </SideNav>
       <Main>{children}</Main>
     </ContentWrapper>
-    <SideNavToggle />
+    <SideNavToggle defaultIcon />
   </Layout>
 )

@@ -86,6 +86,7 @@ export default merge(
     textStyles: {
       navlink: {
         textDecoration: "none",
+        whiteSpace: "nowrap",
         color: "text_navlink",
         "&:hover": {
           color: "secondary",

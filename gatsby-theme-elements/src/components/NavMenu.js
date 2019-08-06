@@ -36,22 +36,14 @@ const NavMenu = ({
           : menuItems.map(({ label, path, target = "_self" }) => (
               <li key={label}>
                 {path.charAt(0) === "/" ? (
-                  <Link
-                    to={path}
-                    sx={{
-                      variant: "textStyles.navlink",
-                      whiteSpace: "nowrap",
-                    }}>
+                  <Link to={path} sx={{ variant: "textStyles.navlink" }}>
                     {label}
                   </Link>
                 ) : (
                   <a
                     href={path}
                     target={target}
-                    sx={{
-                      variant: "textStyles.navlink",
-                      whiteSpace: "nowrap",
-                    }}>
+                    sx={{ variant: "textStyles.navlink" }}>
                     {label}
                   </a>
                 )}
