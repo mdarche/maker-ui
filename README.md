@@ -68,7 +68,6 @@ Elements uses a few custom [ThemeUI](https://theme-ui.com/) properties to contro
 ```jsx
 
 colors: {
-    logo: "",              // SVG logo fill
     border: "",            // Theme border color
     bg_topbar: "",         // Topbar background
     bg_header: "",         // Header background
