@@ -12,6 +12,7 @@ const links = [
     label: "Layout Components",
     path: "layout-components",
     nested: [
+      { label: "Layout", path: "/components/layout" },
       { label: "Topbar", path: "/components/topbar" },
       { label: "Header", path: "/components/header" },
       { label: "Logo", path: "/components/logo" },

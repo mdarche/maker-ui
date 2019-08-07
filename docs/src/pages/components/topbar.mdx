@@ -1,1 +1,23 @@
+import PageLink from "../../components/page-link"
+
 # Topbar
+
+The Topbar is a status bar that sits above the header. You can use this to display things like announcements, social media accounts, promotions, or recent blog posts.
+
+In your `options.js` object you can set the Topbar's `max-width` and decide if the component is sticky by default.
+
+## Props
+
+- **children**
+- **color** - _string_ - overrides the default `text_topbar` value in your ThemeUI color object
+- **backgroundColor** - _string_ - overrides the default `bg_topbar` value in your ThemeUI color object
+- **border** - _string_ - lets you feed an optional shorthand border for the Topbar's border bottom.
+  - Example: `1px solid #000`
+- **sticky** - _boolean_ - overrides the default `sticky` value in `options.js`
+- **maxWidth** - _string_, _number_, _array_ - overrides the Topbar's default `maxWidth` value from your `options.js` config
+
+## Styling
+
+If you add extra styles with the `sx`, `css`, or `style` prop, they will be aplied to the Topbar's nested container. To access any of the root styles (`color`, `backgroundColor`, `border`, `maxWidth`), use the props mentioned above.
+
+<PageLink path="/components/header" label="Header" />

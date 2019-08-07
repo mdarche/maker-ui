@@ -94,5 +94,25 @@ export default {
     em: {
       fontStyle: "italic",
     },
+    table: {
+      border: "1px solid",
+      borderColor: "border",
+      fontFamily: "heading",
+      my: 5,
+    },
+    tr: {
+      borderColor: "border",
+    },
+    td: {
+      padding: "8px 15px",
+    },
+    th: {
+      padding: "8px 15px",
+      fontSize: 3,
+      fontWeight: 700,
+    },
+    "th:first-child": {
+      bg: "#000",
+    },
   },
 }

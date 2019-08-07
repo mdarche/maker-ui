@@ -9,7 +9,6 @@ const Logo = ({
   path = "/",
   height = "30px",
   fill,
-  colorMode = false,
   colorOptions,
   children,
   ...props
@@ -19,9 +18,6 @@ const Logo = ({
   const colorPartial = () => {
     if (fill) {
       return { svg: { fill } }
-    }
-    if (colorMode) {
-      return { svg: { fill: "logo" } }
     }
     if (colorOptions) {
       return colorOptions.hasOwnProperty(color) ? colorOptions[color] : null
@@ -44,7 +40,6 @@ const Logo = ({
 Logo.propTypes = {
   path: PropTypes.string,
   fill: PropTypes.string,
-  colorMode: PropTypes.bool,
   colorOptions: PropTypes.object,
   height: PropTypes.oneOfType([
     PropTypes.string,
