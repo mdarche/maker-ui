@@ -1,13 +1,25 @@
-const singleColor = "#c80c0c"
+// Palettes
+
+const light = ["#c03456", "#4e34c0", "#2357be", "#be2323"]
+const dark = ["#0cf", "#ffbbf6", "#95e4fd", "#f79a9a", "#bbffcb"]
+
+const themeLight = Array.from(
+  Array(2),
+  () => light[Math.floor(Math.random() * light.length)]
+)
+const themeDark = Array.from(
+  Array(2),
+  () => dark[Math.floor(Math.random() * dark.length)]
+)
 
 export default {
   initialColorMode: "light",
   colors: {
     text: "#000",
     background: "#fff",
-    primary: singleColor,
-    secondary: singleColor,
-    accent: singleColor,
+    primary: themeLight[0],
+    secondary: themeLight[0],
+    accent: themeLight[1],
     muted: "#f6f6f6",
     border: "#e6e6e6",
     bg_header: "#fff",
@@ -17,9 +29,9 @@ export default {
       dark: {
         text: "#fff",
         background: "#282c35",
-        primary: "#0cf",
-        secondary: "#fea7c4",
-        accent: "#60d8d1",
+        primary: themeDark[0],
+        secondary: themeDark[0],
+        accent: themeDark[1],
         muted: "#111",
         border: "#404040",
         bg_header: "#20232d",
@@ -43,8 +55,8 @@ export default {
     pagination: {
       fontFamily: "heading",
       border: "2px solid",
-      borderColor: "primary",
-      color: "primary",
+      borderColor: "accent",
+      color: "accent",
       display: "inline-flex",
       flexDirection: "column",
       padding: "10px 20px",
@@ -52,6 +64,7 @@ export default {
       textDecoration: "none",
     },
   },
+  fontSizes: [14, 16, 18, 20, 24, 32, 48, 64],
   styles: {
     h1: {
       mb: 4,
@@ -69,8 +82,11 @@ export default {
       ml: "20px",
     },
     li: {
-      fontSize: 3,
+      fontSize: "18px",
       mb: 2,
+    },
+    p: {
+      fontSize: "18px",
     },
     pre: {
       mb: 4,

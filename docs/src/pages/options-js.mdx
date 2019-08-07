@@ -1,3 +1,5 @@
+import PageLink from "../components/page-link"
+
 # options.js
 
 _Handles all positioning and DOM measurements_
@@ -45,11 +47,13 @@ export default {
 
 Elements uses [React Spring](https://www.react-spring.io/) to add transitions and mount / unmount animated components.
 
-You can control various aspects of the animation spring (mass, tension, friction, clamp, etc.) with the **spring** settings shown above. See [React Spring docs](https://www.react-spring.io/docs/hooks/api) for details.
+You can control various aspects of the animation spring (mass, tension, friction, clamp, etc.) with the **spring** settings shown above. See the [React Spring common API docs](https://www.react-spring.io/docs/hooks/api) for details.
 
 ## NOTE:
 
 - Set your breakpoints in `options.js`, not your [ThemeUI](https://theme-ui.com/) object. Elements currently uses these breakpoint values for layout calculations.
-- Breakpoints should also be numbers (Elements converts them to pixel values)
+- Breakpoints should also be numbers (Elements converts these to pixel values)
 
 These limitations will be removed in future releases.
+
+<PageLink path="/layout-components" label="Layout Components" />
