@@ -73,6 +73,7 @@ Header.propTypes = {
   backgroundColor: PropTypes.string,
   sticky: PropTypes.bool,
   justify: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  boxShadow: PropTypes.string,
   maxWidth: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

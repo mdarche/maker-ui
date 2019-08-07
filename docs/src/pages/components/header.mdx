@@ -1,1 +1,25 @@
-# Header
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="header" title="Header">
+  The header component is your website's primary header element that wraps a
+  logo, site navigation, and header widgets.
+</Title>
+
+## Props
+
+- **children** (required)
+- **backgroundColor** - _string_ - overrides the default `bg_header` value in `theme.js`
+- **border** - _string_ - lets you feed an optional shorthand border to the Header's border bottom.
+  - Ex: `1px solid #000`
+- **boxShadow** - _string_ - overrides the default `shadows.header` value in your ThemeUI color object
+- **sticky** - _boolean_ - overrides the default `header.sticky` value in `options.js`
+- **stickyMobile** - _boolean_ - overrides the default `header.stickyMobile` value in `options.js`
+- **maxWidth** - _string_, _number_, _array_ - overrides the default `header.maxWidth` value in `options.js`
+- **justify** - _string_, _array_ - a shortcut for the flex property `justifyContent`. This lets you control how the header aligns its content. This prop can take an array of values per ThemeUI's responsive scales.
+
+## Styling
+
+If you add extra styles with the `sx`, `css`, or `style` prop, they will be aplied to the Header's nested container. To access any of the root styles (`color`, `backgroundColor`, `border`, `maxWidth`), use the props mentioned above.
+
+<PageLink path="/components/logo" label="Logo" />

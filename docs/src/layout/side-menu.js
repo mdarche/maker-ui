@@ -10,7 +10,7 @@ const links = [
   { label: "Options.js", path: "/options-js" },
   {
     label: "Layout Components",
-    path: "layout-components",
+    path: "/layout-components",
     nested: [
       { label: "Layout", path: "/components/layout" },
       { label: "Topbar", path: "/components/topbar" },

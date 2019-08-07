@@ -32,8 +32,8 @@ export default {
         primary: themeDark[0],
         secondary: themeDark[0],
         accent: themeDark[1],
-        muted: "#111",
-        border: "#404040",
+        muted: "#1b1f25",
+        border: "#373f4a",
         bg_header: "#20232d",
         bg_sidenav: "#1c1e27",
         bg_tabbar: "#1c1e27",
@@ -67,6 +67,7 @@ export default {
   fontSizes: [14, 16, 18, 20, 24, 32, 48, 64],
   styles: {
     h1: {
+      mt: 0,
       mb: 4,
     },
     h2: {
@@ -90,6 +91,9 @@ export default {
     },
     pre: {
       mb: 4,
+      ".comment": {
+        color: "gainsboro",
+      },
     },
     em: {
       fontStyle: "italic",
@@ -102,17 +106,18 @@ export default {
     },
     tr: {
       borderColor: "border",
+      ":nth-child(odd)": {
+        bg: "muted",
+      },
     },
     td: {
-      padding: "8px 15px",
+      padding: "15px",
     },
     th: {
-      padding: "8px 15px",
+      padding: "25px 15px",
+      bg: "background",
       fontSize: 3,
       fontWeight: 700,
-    },
-    "th:first-child": {
-      bg: "#000",
     },
   },
 }
