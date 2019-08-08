@@ -23,44 +23,49 @@ const NavMenu = ({
         justifyContent: justify || "flex-start",
         ...flexPartial,
       }}>
-      <ul
-        {...props}
-        id="menu-primary"
-        role="menu"
-        sx={{
-          display: "flex",
-          listStyle: "none",
-        }}>
-        {children
-          ? children
-          : menuItems.map(({ label, path, target = "_self" }) => (
-              <li key={label}>
-                {path.charAt(0) === "/" ? (
-                  <Link to={path} sx={{ variant: "textStyles.navlink" }}>
-                    {label}
-                  </Link>
-                ) : (
-                  <a
-                    href={path}
-                    target={target}
-                    sx={{ variant: "textStyles.navlink" }}>
-                    {label}
-                  </a>
-                )}
-              </li>
-            ))}
-      </ul>
+      {children ? (
+        children
+      ) : (
+        <ul
+          {...props}
+          id="menu-primary"
+          role="menu"
+          sx={{
+            display: "flex",
+            listStyle: "none",
+          }}>
+          {menuItems.map(({ label, path }) => (
+            <li key={label}>
+              {path.charAt(0) === "/" ? (
+                <Link to={path} sx={{ variant: "navlink" }}>
+                  {label}
+                </Link>
+              ) : (
+                <a
+                  href={path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{ variant: "navlink" }}>
+                  {label}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
     </nav>
   )
 }
 
 NavMenu.propTypes = {
+  flex: PropTypes.bool,
   justify: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   width: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.array,
   ]),
+  menuItems: PropTypes.array,
   children: PropTypes.node,
 }
 

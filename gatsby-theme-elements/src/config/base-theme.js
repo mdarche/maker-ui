@@ -18,6 +18,7 @@ export default merge(
       accent: "#1858dc",
       muted: "#f6f6f6",
       logo: "#000",
+      navlink: "#333",
       border: "#e6e6e6",
       bg_topbar: "#355cac",
       bg_header: "#fff",
@@ -25,7 +26,6 @@ export default merge(
       bg_sidenav: "#fdfdfd",
       bg_tabbar: "#fff",
       bg_footer: "#fff",
-      text_navlink: "#333",
       text_topbar: "#fff",
     },
     fonts: {
@@ -83,14 +83,12 @@ export default merge(
         justifyContent: "center",
       },
     },
-    textStyles: {
-      navlink: {
-        textDecoration: "none",
-        whiteSpace: "nowrap",
-        color: "text_navlink",
-        "&:hover": {
-          color: "secondary",
-        },
+    navlink: {
+      textDecoration: "none",
+      whiteSpace: "nowrap",
+      color: "navlink",
+      "&:hover": {
+        color: "secondary",
       },
     },
     breakpoints: [

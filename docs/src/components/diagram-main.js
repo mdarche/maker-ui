@@ -1,7 +1,12 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, useColorMode } from "theme-ui"
+import theme from "../gatsby-theme-elements/theme"
 
 export default ({ type }) => {
+  const [color] = useColorMode()
+  const activeColor =
+    color === "light" ? theme.colors.primary : theme.colors.modes.dark.primary
+
   function set(base, name) {
     return type == name ? base.concat(" active") : base
   }
@@ -11,16 +16,16 @@ export default ({ type }) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 449 552"
       sx={{
-        ".dark": { fill: "#d3d3d3" },
+        ".dark": { fill: "#dadada" },
         ".darkest": { fill: "#c1c1c1" },
-        ".active": { fill: "#f94bf1" },
-        ".light": { fill: "#e6e6e6" },
+        ".active": { fill: activeColor },
+        ".light": { fill: "#efefef" },
       }}>
       <g>
         <path className={set("light", "content-wrapper")} d="M0 0h449v552H0z" />
         <path className={set("dark", "footer")} d="M0 425h449v126H0z" />
         <path
-          className={set("darkest", "footer-widgets")}
+          className={set("dark", "footer-widgets")}
           d="M38 452h376v69H38z"
         />
         <path className={set("dark", "sidebar")} d="M38 103h92.61v291H38z" />

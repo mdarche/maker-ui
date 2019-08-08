@@ -18,7 +18,11 @@ const ColorToggle = ({ children, ...props }) => {
   }
 
   return (
-    <button {...props} id="color-toggle" onClick={cycleMode}>
+    <button
+      {...props}
+      id="color-toggle"
+      aria-label="Toggle Color Mode"
+      onClick={cycleMode}>
       {children ? children : color}
     </button>
   )

@@ -14,7 +14,7 @@ export default {
     bg_sidenav: "#f9f9f9",
     bg_tabbar: "#fff",
     bg_footer: "#fff",
-    text_navlink: "#36313d",
+    navlink: "#36313d",
     text_topbar: "#fff",
     modes: {
       dark: {
@@ -31,7 +31,7 @@ export default {
         bg_sidenav: "#1c1e27",
         bg_tabbar: "#1c1e27",
         bg_footer: "#1c1e27",
-        text_navlink: "#fff",
+        navlink: "#fff",
         text_topbar: "#000",
       },
       silly: {
@@ -48,7 +48,7 @@ export default {
         bg_sidenav: "#61b1f9",
         bg_tabbar: "#fff",
         bg_footer: "#ff6161",
-        text_navlink: "#ff6161",
+        navlink: "#ff6161",
         text_topbar: "",
       },
     },

@@ -19,13 +19,17 @@ export default ({ title, children, type }) => (
   <div
     sx={{
       display: "grid",
-      gridGap: "40px",
-      gridTemplateColumns: ["1fr", ".25fr .75fr"],
+      gridGap: "60px",
+      gridTemplateColumns: ["1fr", ".25fr 1fr"],
       svg: {
         maxWidth: "250px",
       },
+      span: {
+        fontFamily: "monospace",
+        color: "primary",
+      },
     }}>
-    <div>{renderDiagram(type)}</div>
+    <div sx={{ textAlign: "center" }}>{renderDiagram(type)}</div>
     <div>
       <Styled.h1>{title}</Styled.h1>
       <Styled.pre>

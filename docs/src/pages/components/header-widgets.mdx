@@ -1,1 +1,21 @@
-# Header Widgets
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="header-widgets" title="HeaderWidgets">
+  <p>
+    The HeaderWidgets component is a simple flex container that wraps any header content that isn't part of your primary navigation. You might use this wrapper for the <span>ColorToggle</span>, <span>MenuToggle</span>, a search bar, or social media links.
+  </p>
+
+<p>By default this container will be visible on both desktop and mobile.</p>
+
+</Title>
+
+| Props        |  Type  | Description |
+| ------------ | :----: | ----------: |
+| **children** | _node_ |    required |
+
+## Styling
+
+You can add extra styles to HeaderWidgets with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+
+<PageLink path="/components/menu-toggle" label="MenuToggle" />

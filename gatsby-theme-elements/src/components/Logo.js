@@ -8,7 +8,6 @@ import LogoMark from "../logo.js"
 const Logo = ({
   path = "/",
   height = "30px",
-  fill,
   colorOptions,
   children,
   ...props
@@ -16,9 +15,6 @@ const Logo = ({
   const [color] = useColorMode()
 
   const colorPartial = () => {
-    if (fill) {
-      return { svg: { fill } }
-    }
     if (colorOptions) {
       return colorOptions.hasOwnProperty(color) ? colorOptions[color] : null
     }
@@ -39,7 +35,6 @@ const Logo = ({
 
 Logo.propTypes = {
   path: PropTypes.string,
-  fill: PropTypes.string,
   colorOptions: PropTypes.object,
   height: PropTypes.oneOfType([
     PropTypes.string,

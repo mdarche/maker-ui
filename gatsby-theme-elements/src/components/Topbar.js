@@ -72,6 +72,8 @@ const Topbar = ({
 }
 
 Topbar.propTypes = {
+  border: PropTypes.string,
+  color: PropTypes.string,
   backgroundColor: PropTypes.string,
   sticky: PropTypes.bool,
   maxWidth: PropTypes.oneOfType([

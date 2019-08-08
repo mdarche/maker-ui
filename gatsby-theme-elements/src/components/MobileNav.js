@@ -72,12 +72,12 @@ const MobileNav = props => {
           {defaultClose ? (
             <MenuToggle
               icon="close"
+              height={54}
               sx={{
                 position: "absolute",
                 top: 0,
                 right: 0,
                 m: 20,
-                svg: { fill: "#fff", height: 54 },
               }}
             />
           ) : null}

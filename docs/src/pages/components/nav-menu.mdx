@@ -1,1 +1,57 @@
-# NavMenu
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="nav-menu" title="NavMenu">
+  <p>
+    The NavMenu is a list of menu items that serves as your site's primary
+    navigation.
+  </p>
+
+  <p>
+    This component hides itself on mobile to make room for the MenuToggle component that controls mobile navigation. You can either use it as a <span>&#60;nav&#62;</span> element and nest your own components, or supply an array of menu items. NavMenu will format this array into a <span>&#60;ul&#62;</span> of links.
+  </p>
+</Title>
+
+## Semantic Element
+
+`<nav />`
+
+| Props         |       Type        |                                                                                                                                                           Description |
+| ------------- | :---------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **children**  |      _node_       |                                                                                                                                                              optional |
+| **flex**      |     _boolean_     |                           a shortcut for the `flex` CSS property that determines if the NavMenu flexes to take up all of the remaining space in its parent container. |
+| **justify**   | _string_, _array_ | a shortcut for the `alignItems` CSS property that lets you determine how your menu is justified in its container. Can take an array of values for responsive scaling. |
+| **menuItems** |      _array_      |                                                                  an array of navigation items that NavMenu uses to create a semantic nav menu. See below for details. |
+| **width**     |     _boolean_     |                                           an optional width property that can be used for controlling split menus or adding horizontal scrolling. Defaults to `auto`. |
+
+## menuItems
+
+To use NavMenu's built-in menu formatter, create an array of links with a `label` and a `path` property:
+
+```jsx
+const links = [
+  { label: "Home", path: "/" },
+  { label: "About", path: "/about" },
+  { label: "Contact", path: "/contact" },
+  { label: "Twitter", path: "https://twitter.com" },
+]
+
+const MyLayout = () => (
+  <Layout>
+    <Header>
+      <Logo />
+      <NavMenu flex menuItems={links} justify="flex-end" />
+
+      ...
+)
+```
+
+NavMenu uses the path property to determine if the link is local (beginning with `/` for a Gatsby Link) or if the destination URL is external. For external links, NavMenu will add `target="_blank"` and `rel="noopener noreferrer"` to the anchor tag.
+
+## Styling
+
+You can add extra or nested styles to the NavMenu with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+
+If you prefer, you can also create a variant in `theme.js` called `navlink` that will assign your custom styles to the nested links.
+
+<PageLink path="/components/header-widgets" label="Header Widgets" />

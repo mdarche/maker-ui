@@ -1,1 +1,58 @@
-# MenuToggle
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="menu-toggle" title="MenuToggle">
+  <p>
+    The Logo component is a simple Gatsby Link wrapper for your site title or
+    logo image. It accepts a path as well as a child component.
+  </p>
+  <p>
+    You can optionally shadow a third file in your{" "}
+    <span>gatsby-theme-elements</span> directory called <span>logo.js</span>. If
+    you don't pass Logo a child component, Elements will look for{" "}
+    <span>logo.js</span> and render its contents.
+  </p>
+</Title>
+
+| Props        |            Type             |                                                                                              Description |
+| ------------ | :-------------------------: | -------------------------------------------------------------------------------------------------------: |
+| **children** |           _node_            |                                                                                                 optional |
+| **fill**     |          _string_           |                                                                       defaults to `/` for the index page |
+| **height**   | _string_, _number_, _array_ | sets the height of the shadowed `logo.js` component. Can take an array of values for responsive scaling. |
+| **icon**     |          _object_           |                                                      defines SVG color options for different color modes |
+
+## colorOptions
+
+If you are using an inline SVG for your logo (recommended), you can pass the Logo component an additional color object. The `colorOptions` prop allows your logo to adapt to different color modes.
+
+Simply create an object and define styles for each of the modes you specified in `theme.js`. You can use an `id` or `class` selector to target paths or shapes of your SVG:
+
+```jsx
+const logoColors = {
+  dark: {
+    ".circle": { fill: "#afa7fe" },
+    ".square": { fill: "#3bcec5" },
+  },
+  cream: {
+    ".circle": { fill: "#43bd56" },
+    ".square": { fill: "#4f86ff" },,
+  },
+}
+
+const MyLayout = () => (
+  <Layout>
+    <Header>
+      <Logo colorOptions={logoColors} />
+
+      ...
+)
+
+```
+
+To see this concept in action, try switching the color mode on this page or refresh and watch the logo change.
+
+## Styling
+
+You can add extra styles to the logo with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+
+<PageLink path="/components/nav-menu" label="NavMenu" />

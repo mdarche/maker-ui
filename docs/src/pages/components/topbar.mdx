@@ -3,22 +3,27 @@ import Title from "../../components/title"
 
 <Title type="topbar" title="Topbar">
   The Topbar is a status bar that sits above the header. You can use this to
-  display things like announcements, social media accounts, promotions, or
-  recent blog posts.
+  display things like announcements, social media accounts, promotions, recent
+  blog posts, etc.
 </Title>
 
-## Props
+## Semantic Element
 
-- **children**
-- **color** - _string_ - overrides the default `text_topbar` value in your ThemeUI color object
-- **backgroundColor** - _string_ - overrides the default `bg_topbar` value in your ThemeUI color object
-- **border** - _string_ - lets you feed an optional shorthand border for the Topbar's border bottom.
-  - Example: `1px solid #000`
-- **sticky** - _boolean_ - overrides the default `sticky` value in `options.js`
-- **maxWidth** - _string_, _number_, _array_ - overrides the Topbar's default `maxWidth` value from your `options.js` config
+`<aside />`
+
+| Props               |            Type             |                                                                                                                                        Description |
+| ------------------- | :-------------------------: | -------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **children**        |           _node_            |                                                                                                                                           required |
+| **backgroundColor** |          _string_           |                                                                                        overrides the default `bg_topbar` color value in `theme.js` |
+| **border**          |          _string_           | shorthand border syntax that overrides the default `1px solid` border bottom and border color designated in `theme.js`. Example: `"1px solid red"` |
+| **color**           |          _string_           |                                                                                          overrides the `text_topbar` color value set in `theme.js` |
+| **maxWidth**        | _string_, _number_, _array_ |                                 overrides the default `topbar.maxWidth` value in `options.js`. Can take an array of values for responsive scaling. |
+| **sticky**          |          _boolean_          |                                                                                        overrides the default `topbar.sticky` value in `options.js` |
 
 ## Styling
 
-If you add extra styles with the `sx`, `css`, or `style` prop, they will be aplied to the Topbar's nested container. To access any of the root styles (`color`, `backgroundColor`, `border`, `maxWidth`), use the props mentioned above.
+You can add extra styles to the header with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+
+`NOTE:` these styles will be aplied to the Topbar's nested container. To access any of the root styles, use the props listed above.
 
 <PageLink path="/components/header" label="Header" />
