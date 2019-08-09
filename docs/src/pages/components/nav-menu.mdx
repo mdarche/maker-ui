@@ -16,13 +16,13 @@ import Title from "../../components/title"
 
 `<nav />`
 
-| Props         |       Type        |                                                                                                                                                           Description |
-| ------------- | :---------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **children**  |      _node_       |                                                                                                                                                              optional |
-| **flex**      |     _boolean_     |                           a shortcut for the `flex` CSS property that determines if the NavMenu flexes to take up all of the remaining space in its parent container. |
-| **justify**   | _string_, _array_ | a shortcut for the `alignItems` CSS property that lets you determine how your menu is justified in its container. Can take an array of values for responsive scaling. |
-| **menuItems** |      _array_      |                                                                  an array of navigation items that NavMenu uses to create a semantic nav menu. See below for details. |
-| **width**     |     _boolean_     |                                           an optional width property that can be used for controlling split menus or adding horizontal scrolling. Defaults to `auto`. |
+| Props         |       Type        |                                                                                                                                                               Description |
+| ------------- | :---------------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **children**  |      _node_       |                                                                                                                                                                  optional |
+| **flex**      |     _boolean_     |                               a shortcut for the `flex` CSS property that determines if the NavMenu flexes to take up all of the remaining space in its parent container. |
+| **justify**   | _string_, _array_ | a shortcut for the `justifyContent` CSS property that lets you determine how your menu is justified in its container. Can take an array of values for responsive scaling. |
+| **menuItems** |      _array_      |                                                                      an array of navigation items that NavMenu uses to create a semantic nav menu. See below for details. |
+| **width**     |     _boolean_     |                                               an optional width property that can be used for controlling split menus or adding horizontal scrolling. Defaults to `auto`. |
 
 ## menuItems
 
@@ -53,5 +53,9 @@ NavMenu uses the path property to determine if the link is local (beginning with
 You can add extra or nested styles to the NavMenu with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
 
 If you prefer, you can also create a variant in `theme.js` called `navlink` that will assign your custom styles to the nested links.
+
+## NOTE
+
+The Elements NavMenu does not yet support nested dropdown menus. This feature is coming soon.
 
 <PageLink path="/components/header-widgets" label="Header Widgets" />

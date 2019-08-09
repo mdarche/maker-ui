@@ -12,7 +12,7 @@ const MenuToggle = ({ fill, height, children, icon, ...props }) => {
   const [menuActive, toggleMenu] = useMenu()
 
   const fillColor =
-    color !== theme.initialColorMode
+    color !== theme.initialColorMode && theme.colors.modes[color].navlink
       ? theme.colors.modes[color].navlink
       : theme.colors.navlink
 
