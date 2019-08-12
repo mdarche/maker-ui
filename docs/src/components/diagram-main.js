@@ -8,7 +8,7 @@ export default ({ type }) => {
     color === "light" ? theme.colors.primary : theme.colors.modes.dark.primary
 
   function set(base, name) {
-    return type == name ? base.concat(" active") : base
+    return type === name ? base.concat(" active") : base
   }
 
   return (
@@ -18,8 +18,8 @@ export default ({ type }) => {
       sx={{
         ".dark": { fill: "#dadada" },
         ".darkest": { fill: "#c1c1c1" },
-        ".active": { fill: activeColor },
         ".light": { fill: "#efefef" },
+        ".active": { fill: activeColor },
       }}>
       <g>
         <path className={set("light", "content-wrapper")} d="M0 0h449v552H0z" />

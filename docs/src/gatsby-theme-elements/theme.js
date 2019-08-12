@@ -106,7 +106,7 @@ export default {
     },
     tr: {
       borderColor: "border",
-      ":nth-child(odd)": {
+      ":nth-of-type(odd)": {
         bg: "muted",
       },
     },

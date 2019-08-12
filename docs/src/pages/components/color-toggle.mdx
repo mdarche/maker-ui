@@ -1,1 +1,28 @@
-# Color Toggle
+import { Styled } from "theme-ui"
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="header-widgets" title="ColorToggle">
+  <Styled.p>
+    The ColorToggle is a button that cycles through the color modes you defined
+    in <span>theme.js</span>.
+  </Styled.p>
+  <Styled.p>
+    By default, it displays the name of the current color mode, or you can wrap
+    it around your own icon, text, or component.
+  </Styled.p>
+</Title>
+
+| Props        |  Type  | Description |
+| ------------ | :----: | ----------: |
+| **children** | _node_ |    optional |
+
+## useColorMode
+
+You can recreate the ColorToggle effect or build your own color switcher by accessing [ThemeUI's useColorMode](https://theme-ui.com/color-modes/) hook. Read the documentation for details.
+
+## Styling
+
+You can add extra styles with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+
+<PageLink path="/components/menu-toggle" label="MenuToggle" />

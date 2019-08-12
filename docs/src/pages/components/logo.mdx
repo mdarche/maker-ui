@@ -1,17 +1,18 @@
+import { Styled } from "theme-ui"
 import PageLink from "../../components/page-link"
 import Title from "../../components/title"
 
 <Title type="logo" title="Logo">
-  <p>
+  <Styled.p>
     The Logo component is a simple Gatsby Link wrapper for your site title or
     logo image. It accepts a path as well as a child component.
-  </p>
-  <p>
+  </Styled.p>
+  <Styled.p>
     You can optionally shadow a third file in your{" "}
     <span>gatsby-theme-elements</span> directory called <span>logo.js</span>. If
     you don't pass Logo a child component, Elements will look for{" "}
     <span>logo.js</span> and render its contents.
-  </p>
+  </Styled.p>
 </Title>
 
 | Props            |            Type             |                                                                                              Description |
@@ -25,7 +26,7 @@ import Title from "../../components/title"
 
 If you are using an inline SVG for your logo (recommended), you can pass the Logo component an additional color object. The `colorOptions` prop allows your logo to adapt to different color modes.
 
-Simply create an object and define styles for each of the modes you specified in `theme.js`. You can use an `id` or `class` selector to target paths or shapes of your SVG:
+Create an object and define styles for each of the modes you specified in `theme.js`. You can use an `id` or `class` selector to target paths or shapes of your SVG:
 
 ```jsx
 const logoColors = {

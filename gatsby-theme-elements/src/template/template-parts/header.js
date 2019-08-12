@@ -48,7 +48,7 @@ export default ({
         variant: `layout.header.${options.navType}`,
       }}>
       {options.navType === "split" ? (
-        <>
+        <React.Fragment>
           <NavMenu
             menuItems={menuItems.filter(({ split }) => split === "left")}
             width="33%"
@@ -61,9 +61,9 @@ export default ({
             width="33%"
             sx={{ ...navPartial }}
           />
-        </>
+        </React.Fragment>
       ) : (
-        <>
+        <React.Fragment>
           {options.navType === "center" ? (
             <div sx={{ variant: "layout.fullFlex" }}>{renderLogo()}</div>
           ) : (
@@ -75,7 +75,7 @@ export default ({
             menuItems={menuItems}
             sx={{ ...navPartial }}
           />
-        </>
+        </React.Fragment>
       )}
       <HeaderWidgets sx={{ ...widgetPartial }}>
         {options.colorToggle ? <ColorToggle>{colorToggle}</ColorToggle> : null}

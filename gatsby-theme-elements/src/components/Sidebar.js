@@ -21,11 +21,7 @@ const Sidebar = props => {
 }
 
 Sidebar.propTypes = {
-  gridGap: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-  ]),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   children: PropTypes.node,
 }
 

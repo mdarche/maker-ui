@@ -2,8 +2,8 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
-const FooterWidgets = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
-  const columns = Array.isArray(props.children) ? props.children.length : 1
+const FooterWidgets = ({ columns = true, gridGap, ...props }) => {
+  const columnCount = Array.isArray(props.children) ? props.children.length : 1
   const gap = gridGap ? { gridGap } : { variant: "gaps.widgetGap" }
 
   return (
@@ -13,10 +13,8 @@ const FooterWidgets = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
       sx={{
         m: "0 auto",
         width: "100%",
-        bg: backgroundColor || "bg_footer",
-        maxWidth: maxWidth || "max_footer",
-        display: columns > 1 ? "grid" : "block",
-        gridTemplateColumns: ["1fr", `repeat(${columns}, 1fr)`],
+        display: columnCount > 1 ? "grid" : "block",
+        gridTemplateColumns: ["1fr", `repeat(${columnCount}, 1fr)`],
         ...gap,
       }}
     />
@@ -24,13 +22,7 @@ const FooterWidgets = ({ maxWidth, backgroundColor, gridGap, ...props }) => {
 }
 
 FooterWidgets.propTypes = {
-  backgroundColor: PropTypes.string,
   gridGap: PropTypes.number,
-  maxWidth: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-  ]),
   children: PropTypes.node.isRequired,
 }
 

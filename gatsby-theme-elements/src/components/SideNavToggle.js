@@ -37,9 +37,9 @@ const SideNavToggle = ({
         height: height || 60,
         width: height || 60,
         bottom: 25,
-        right: 20,
+        right: 25,
         svg: {
-          fill: "#fff",
+          fill: color || "#fff",
           height: 36,
         },
       }}

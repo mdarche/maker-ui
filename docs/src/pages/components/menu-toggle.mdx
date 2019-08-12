@@ -1,15 +1,16 @@
+import { Styled } from "theme-ui"
 import PageLink from "../../components/page-link"
 import Title from "../../components/title"
 
 <Title type="menu-toggle" title="MenuToggle">
-  <p>
+  <Styled.p>
     The MenuToggle is a button that opens and closes the MobileNav component. By
     default, it is hidden on desktop.
-  </p>
-  <p>
+  </Styled.p>
+  <Styled.p>
     You can wrap it around your own icon, text, or component, or you can use one
     of Element's default icons.
-  </p>
+  </Styled.p>
 </Title>
 
 | Props        |            Type             |                                                                                                                       Description |
@@ -21,6 +22,6 @@ import Title from "../../components/title"
 
 ## Styling
 
-You can add extra styles to the logo with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+You can add extra styles with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
 
-<PageLink path="/components/nav-menu" label="NavMenu" />
+<PageLink path="/components/mobile-nav" label="MobileNav" />

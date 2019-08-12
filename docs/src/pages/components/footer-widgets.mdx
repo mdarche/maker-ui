@@ -1,1 +1,40 @@
-# Footer Widgets
+import { Styled } from "theme-ui"
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="footer-widgets" title="FooterWidgets">
+  <Styled.p>
+    The FooterWidgets component is a widget area for storing information like
+    menus, search, email signups, and other helpful tools in your footer.
+  </Styled.p>
+  <Styled.p>
+    It uses a unique ID to assist screen readers with skiplinks.
+  </Styled.p>
+</Title>
+
+| Props        |   Type   |                                                                                                              Description |
+| ------------ | :------: | -----------------------------------------------------------------------------------------------------------------------: |
+| **children** |  _node_  |                                                                                                                 required |
+| **columns**  |  _bool_  | defaults to `true`. Automatically creates a CSS grid layout with columns corresponding to the number of direct children. |
+| **gridGap**  | _string_ |         overrides the `footer.gridGap` from `options.js` and is used to control spacing for default columns (see below). |
+
+## Default Columns
+
+By default, the footer widgets container will count the number of its direct children to create a row of columns. This lets you easily add equal columns that use the `footer.gridGap` defined in `options.js`.
+
+You can disable this behavior by setting `columns` to `false`:
+
+```jsx
+<Footer>
+  <FooterWidgets columns={false}>
+    Custom footer widget content
+  <FooterWidgets>
+</Footer>
+
+```
+
+## Styling
+
+You can add extra styles with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+
+<PageLink path="/components/tab-bar" label="TabBar" />

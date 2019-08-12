@@ -1,15 +1,18 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import Diagram from "./diagram-main"
+import MobileDiagram from "./diagram-mobile"
+import SideNavDiagram from "./diagram-sidenav"
 
 const renderDiagram = type => {
   switch (type) {
     case "side-nav":
-      return <Diagram type={type} />
+      return <SideNavDiagram type={type} />
     case "tab-bar":
     case "side-nav-toggle":
     case "menu-toggle":
-      return <Diagram type={type} />
+    case "mobile-nav":
+      return <MobileDiagram type={type} />
     default:
       return <Diagram type={type} />
   }
@@ -20,7 +23,7 @@ export default ({ title, children, type }) => (
     sx={{
       display: "grid",
       gridGap: "60px",
-      gridTemplateColumns: ["1fr", ".25fr 1fr"],
+      gridTemplateColumns: ["1fr", ".25fr .75fr"],
       svg: {
         maxWidth: "250px",
       },
@@ -35,7 +38,7 @@ export default ({ title, children, type }) => (
       <Styled.pre>
         import &#123; {title} &#125; from 'gatsby-theme-elements'
       </Styled.pre>
-      <Styled.p>{children}</Styled.p>
+      {children}
     </div>
   </div>
 )

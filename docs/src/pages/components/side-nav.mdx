@@ -1,1 +1,34 @@
-# SideNav
+import { Styled } from "theme-ui"
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="side-nav" title="SideNav">
+  <Styled.p>
+    The SideNav is a fixed sidebar that can be positioned to the left or right
+    of <span>Main</span>. It is intended for secondary navigation, but you can
+    wrap the SideNav component around any type of content.
+  </Styled.p>
+  <Styled.p>
+    The SideNav hides itself on mobile and can be toggled with the{" "}
+    <span>SideNavToggle</span>.
+  </Styled.p>
+</Title>
+
+## Semantic Element
+
+`<section />`
+
+| Props               |            Type             |                                                                                                                                                                      Description |
+| ------------------- | :-------------------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **children**        |           _node_            |                                                                                                                                                                         required |
+| **backgroundColor** |          _string_           |                                                                                                                   overrides the default `bg_sidenav` color value from `theme.js` |
+| **border**          |          _string_           |                                                                        shorthand border syntax that overrides the default border left or right. Example value: `"1px solid red"` |
+| **boxShadow**       |      _string_, _array_      |                  overrides the default box shadow (null for desktop and `"1px 1px 8px 1px rgba(0, 0, 0, 0.1)"` for mobile ). Can take an array of values for responsive scaling. |
+| **spring**          |          _string_           | lets you add a spring _config_ object for the SideNav mobile entry/exit animation. See the [React Spring](https://www.react-spring.io/docs/hooks/api) documentation for details. |
+| **width**           | _string_, _number_, _array_ |                                                                 overrides the default `sideNav.width` value in `options.js`. Can take an array of values for responsive scaling. |
+
+## Styling
+
+You can add extra styles with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+
+<PageLink path="/components/side-nav-toggle" label="SideNavToggle" />
