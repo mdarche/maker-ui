@@ -72,13 +72,10 @@ const Topbar = ({
 }
 
 Topbar.propTypes = {
+  border: PropTypes.string,
+  color: PropTypes.string,
   backgroundColor: PropTypes.string,
   sticky: PropTypes.bool,
-  padding: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-  ]),
   maxWidth: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

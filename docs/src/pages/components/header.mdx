@@ -1,0 +1,42 @@
+import { Styled } from "theme-ui"
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="header" title="Header">
+  <Styled.p>
+    The Header component is your site's primary header container that wraps the
+    logo, site navigation, and header widgets.
+  </Styled.p>
+  <Styled.p>
+    This component is a flexbox container so you can use the{" "}
+    <span>justify</span> prop to declare how its contents are positioned.
+  </Styled.p>
+  <Styled.p>
+    For example, you may want to use{" "}
+    <span>justify=&#123;["center", "space-between"]&#125;</span> for centered
+    navigation on desktop and standard spacing on mobile.
+  </Styled.p>
+</Title>
+
+## Semantic Element
+
+`<header />`
+
+| Props               |            Type             |                                                                                                                                                                                           Description |
+| ------------------- | :-------------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **children**        |           _node_            |                                                                                                                                                                                              required |
+| **backgroundColor** |          _string_           |                                                                                                                                         overrides the default `bg_header` color value from `theme.js` |
+| **border**          |          _string_           |                                                                                                    shorthand border syntax that overrides the default border bottom. Example value: `"1px solid red"` |
+| **boxShadow**       |      _string_, _array_      | overrides the `shadows.header` value set in `theme.js`. Can take an array of values for responsive scaling. See [Theme UI's `sx` prop](https://theme-ui.com/sx-prop) for details on responsive styles |
+| **justify**         |      _string_, _array_      |                                       a shortcut for the flex property `justifyContent`. This lets you control how the header aligns its content. Can take an array of values for responsive scaling. |
+| **maxWidth**        | _string_, _number_, _array_ |                                                                                    overrides the default `header.maxWidth` value in `options.js`. Can take an array of values for responsive scaling. |
+| **sticky**          |          _boolean_          |                                                                                                                                           overrides the default `header.sticky` value in `options.js` |
+| **stickyMobile**    |          _boolean_          |                                             overrides the default `header.stickyMobile` value in `options.js`. Use this option if you want the header's sticky behavior to change due to screen size. |
+
+## Styling
+
+You can add extra styles to the header with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+
+`NOTE:` these styles will be aplied to the Header's nested container. To access any of the root styles, use the props listed above.
+
+<PageLink path="/components/logo" label="Logo" />

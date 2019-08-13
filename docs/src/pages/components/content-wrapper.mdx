@@ -1,0 +1,38 @@
+import { Styled } from "theme-ui"
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="content-wrapper" title="ContentWrapper">
+  <Styled.p>
+    The ContentWrapper component wraps around the <span>Main</span>,{" "}
+    <span>Sidebar</span>, and <span>SideNav</span> components to control your
+    website's layout. You use a special <span>layout</span> prop to determine
+    how Elements should display arrange the page content.
+  </Styled.p>
+</Title>
+
+| Props             |            Type             |                                                                                                                                                                   Description |
+| ----------------- | :-------------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **children**      |           _node_            |                                                                                                                                                                      optional |
+| **gridGap**       | _string_, _number_, _array_ |                               overrides the gridGap set in `options.js`. This prop is only necessary for Sidebar layouts. Can take an array of values for responsive scaling. |
+| **layout**        |          _string_           |                                                                                                string that determines the layout of your page content. See below for details. |
+| **maxWidth**      | _string_, _number_, _array_ |                                                         overrides the layout's content area maxWidth set in `options.js`. Can take an array of values for responsive scaling. |
+| **mobileReverse** |           _bool_            | the _sidebar-content_ layout automatically reverses the grid order on mobile so your main content displays first. You can set this prop to `false` to override this behavior. |
+
+## Layout
+
+In order for the content wrapper to properly place the `SideNav`, `Sidebar`, and `Menu` components, you have to feed it your desired layout. The layout prop currently supports the following strings:
+
+- `content` (default)
+- `content-sidebar`
+- `sidebar-content`
+- `content-sidenav`
+- `sidenav-content`
+
+This method of setting a layout's content will be replaced in future versions of Elements.
+
+## Styling
+
+You can add extra styles with the `sx`, `css`, or `style` prop (ThemeUI, Emotion, or React).
+
+<PageLink path="/components/main" label="Main" />

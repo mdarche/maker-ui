@@ -1,0 +1,36 @@
+import PageLink from "../components/page-link"
+
+# Getting Started
+
+To install Elements, first download the theme:
+
+```sh
+npm i --save gatsby-theme-elements
+```
+
+or
+
+```sh
+yarn add gatsby-theme-elements
+```
+
+In your `gatsby-config.js` file, add:
+
+```sh
+module.exports = {
+  plugins: ['gatsby-theme-elements'],
+}
+```
+
+## File Shadowing
+
+Elements creates your default layout settings by shadowing two configuration files. Create a new folder in your project's `/src` directory called `gatsby-theme-elements` and add these two files:
+
+- `theme.js`
+- `options.js`
+
+Unlike other Gatbsy themes, you will rarely need to shadow Elements theme components. Instead, you can use these configuration files to handle your layout's default behavior.
+
+<div style={{ textAlign: "right" }}>
+  <PageLink path="/theme-js" label="theme.js" />
+</div>

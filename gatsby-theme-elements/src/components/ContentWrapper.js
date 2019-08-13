@@ -38,9 +38,9 @@ const ContentWrapper = ({
           ...max,
         }
       case "sidenav-content":
-        return { pl: [0, sideNavWidth], ...display }
+        return { pl: ["20px", sideNavWidth], ...display }
       case "content-sidenav":
-        return { pr: [0, sideNavWidth], ...display }
+        return { pr: ["20px", sideNavWidth], ...display }
       default:
         return { ...display, ...max }
     }

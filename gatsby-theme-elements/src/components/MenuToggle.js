@@ -1,13 +1,20 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, useColorMode } from "theme-ui"
 import PropTypes from "prop-types"
 
 import { useMenu } from "../context/UIContext"
 import { ReactComponent as MenuIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
+import theme from "../config/base-theme"
 
 const MenuToggle = ({ fill, height, children, icon, ...props }) => {
+  const [color] = useColorMode()
   const [menuActive, toggleMenu] = useMenu()
+
+  const fillColor =
+    color !== theme.initialColorMode && theme.colors.modes[color].navlink
+      ? theme.colors.modes[color].navlink
+      : theme.colors.navlink
 
   const renderIcon = () => {
     return icon === "menu" ? <MenuIcon /> : <CloseIcon />
@@ -26,11 +33,11 @@ const MenuToggle = ({ fill, height, children, icon, ...props }) => {
         border: "none",
         background: "none",
         svg: {
-          fill: fill || "text_navlink",
+          fill: fill || fillColor,
           height: height || 32,
         },
       }}>
-      {icon !== undefined ? renderIcon() : children}
+      {children ? children : renderIcon()}
     </button>
   )
 }

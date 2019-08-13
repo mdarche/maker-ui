@@ -1,0 +1,35 @@
+import { Styled } from "theme-ui"
+import PageLink from "../../components/page-link"
+import Title from "../../components/title"
+
+<Title type="mobile-nav" title="MobileNav">
+  <Styled.p>
+    The MobileNav component is an overlay that wraps your website's primary
+    navigation on mobile devices.
+  </Styled.p>
+  <Styled.p>
+    MobileNav can be configured as a full width modal or a partial width drawer
+    menu. You can control this behavior in <span>options.js</span> by adjusting
+    the <span>header.mobileNavWidth</span> and{" "}
+    <span>header.mobileAnimation</span>.{" "}
+  </Styled.p>
+  <Styled.p>
+    The animation style fade, fadeInUp, and fadeInDown, use a width of 100% and
+    slideRight or slideLeft use the <span>mobileNavWidth</span> value.
+  </Styled.p>
+</Title>
+
+## Semantic Element
+
+`<nav />`
+
+| Props               |        Type        |                                                                                                                                                                                                    Description |
+| ------------------- | :----------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **children**        |       _node_       |                                                                                                                                                                                                       required |
+| **animation**       |      _string_      |                        overrides the default animation type specified in `options.js` as `header.mobileAnimation`. Elements currently supports _fade_, _fadeInUp_, _fadeInDown_, _slideRight_, and _slideLeft_ |
+| **backgroundColor** |      _string_      |                                                                                                                               overrides the default background color specified as `bg_mobilenav` in `theme.js` |
+| **defaultClose**    |       _bool_       | set this prop if you would like the default Close icon in the top right corner of your nav menu. For menus that slideRight or slideLeft, you can also close the menu by tapping an area outside of the drawer. |
+| **spring**          |      _object_      |                                    lets you add a spring _config_ object for the MobileNav entry/exit animation. See the [React Spring](https://www.react-spring.io/docs/hooks/api) documentation for details. |
+| **width**           | _string_, _number_ |                                                                                                                                                     overrides the nav menu's width for drawer-style navigation |
+
+<PageLink path="/components/content-wrapper" label="ContentWrapper" />

@@ -72,12 +72,12 @@ const MobileNav = props => {
           {defaultClose ? (
             <MenuToggle
               icon="close"
+              height={54}
               sx={{
                 position: "absolute",
                 top: 0,
                 right: 0,
                 m: 20,
-                svg: { fill: "#fff", height: 54 },
               }}
             />
           ) : null}
@@ -92,12 +92,8 @@ MobileNav.propTypes = {
   defaultClose: PropTypes.bool,
   animation: PropTypes.string,
   spring: PropTypes.object,
-  width: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-  ]),
-  children: PropTypes.node,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node.optional,
 }
 
 export default MobileNav

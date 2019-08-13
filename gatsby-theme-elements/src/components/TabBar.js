@@ -63,8 +63,9 @@ const TabBar = ({
 TabBar.propTypes = {
   backgroundColor: PropTypes.string,
   boxShadow: PropTypes.string,
-  borderTop: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  border: PropTypes.string,
   children: PropTypes.node,
+  menuItems: PropTypes.array,
 }
 
 export default TabBar

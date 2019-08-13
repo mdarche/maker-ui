@@ -1,0 +1,47 @@
+import PageLink from "../components/page-link"
+
+# Layout Components
+
+At its core, Gatsby Theme Elements is a layout engine that lets you build a responsive Gatsby site in minutes.
+
+You can use the Elements component library to create and customize your own responsive templates. All components are configured with default values that you set in `options.js` and `theme.js`.
+
+## Override Props
+
+In most cases, you won't need to use override props when you build page templates.
+
+If your site requires multiple layouts (perhaps a sidebar and a full width template), you can override the default settings at the component level.
+
+Check out each component to see a list of its available props:
+
+| Component                                         | Description                                                                                                                                                                                                                                                                    |
+| ------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [**Layout**](/components/layout)                  | The root layout component **(required)**.                                                                                                                                                                                                                                      |
+| [**Topbar**](/components/topbar)                  | A topbar or status bar that sits above the site header.                                                                                                                                                                                                                        |
+| [**Header**](/components/header)                  | A flexible **header** element that wraps your primary navigation.                                                                                                                                                                                                              |
+| [**Logo**](/components/logo)                      | A link that accepts a child or defaults to an optional shadowed logo file. To use <Logo /> without wrapping it around a child component, create a third file in your `gatsby-theme-elements` directory for a React component called `logo.js`.                                 |
+| [**NavMenu**](/components/nav-menu)               | The site's primary navigation _ul_ wrapped in a _nav_ element. Hides on mobile.                                                                                                                                                                                                |
+| [**HeaderWidgets**](/components/header-widgets)   | A flex container for the navigation bar that houses components like social media icons, a search bar, the **ColorToggle**, and the **MenuToggle**.                                                                                                                             |
+| [**MenuToggle**](/components/menu-toggle)         | Button that accesses the **useMenu** hook to toggle a mobile menu. It comes with default hamburger and close icons or you can wrap it around your own.                                                                                                                         |
+| [**ColorToggle** ](/components/color-toggle)      | Button that accesses [ThemeUI](https://theme-ui.com/)'s colorMode hook to cycle through colors. Defaults to an unstyled button with the name of the current color or you can wrap it around your own icon.                                                                     |
+| [**MobileNav**](/components/mobile-nav)           | A fixed mobile wrapper component that can be configured to animate on mount. Triggered by **MenuToggle** or the **useMenu** hook.                                                                                                                                              |
+| [**ContentWrapper**](/components/content-wrapper) | A wrapper that uses a layout prop to determine the position of its children. This component wraps **Main**, **Sidebar**, and **SideNav**.                                                                                                                                      |
+| [**Main**](/components/main)                      | The layout's _main_ content element.                                                                                                                                                                                                                                           |
+| [**Sidebar**](/components/sidebar)                | The layout's sidebar wrapper. Can be positioned left or right of **Main**.                                                                                                                                                                                                     |
+| [**SideNav**](/components/side-nav)               | An optional fixed side navigation component. Can be positioned left or right of **Main**.                                                                                                                                                                                      |
+| [**SideNavToggle**](/components/side-nav-toggle)  | A fixed button that triggers the **useSideNav** hook and opens the **SideNav** component on mobile.                                                                                                                                                                            |
+| [**Footer**](/components/footer)                  | The document _footer_ element                                                                                                                                                                                                                                                  |
+| [**FooterWidgets**](/components/footer-widgets)   | A grid wrapper for building skiplink accessible footer columns                                                                                                                                                                                                                 |
+| [**TabBar**](/components/tab-bar)                 | A fixed wrapper component that moves mobile navigation to the bottom of the screen like a native mobile app. You can wrap it around your own components or feed it a menu object. The TabBar formats this menu into a scrollable row with links that show a label and an icon. |
+
+## Usage
+
+To use any of these components, just import them from `gatsby-theme-elements`:
+
+```jsx
+// basic usage
+import { Layout, Header, ContentWrapper, Main, Footer } from 'gatsby-theme-elements`
+
+```
+
+<PageLink path="/components/layout" label="Layout" />

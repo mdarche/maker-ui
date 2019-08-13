@@ -96,6 +96,7 @@ const SideNav = props => {
 
 SideNav.propTypes = {
   backgroundColor: PropTypes.string,
+  border: PropTypes.string,
   spring: PropTypes.object,
   width: PropTypes.oneOfType([
     PropTypes.string,
