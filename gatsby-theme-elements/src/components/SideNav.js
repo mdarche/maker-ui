@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { animated as a } from "react-spring"
 
 import { measure, useMeasurements } from "../context/MeasureContext"
-import { useOptions, useSideNav } from "../context/UIContext"
+import { useOptions, useSideNav, useLayout } from "../context/UIContext"
 import { reveal } from "../utils/animate"
 
 function getInnerWidth() {
@@ -15,8 +15,11 @@ function getInnerWidth() {
 }
 
 const SideNav = props => {
+  const sideNavRef = useRef(null)
   const options = useOptions()
   const [sideNavActive, toggleSideNav] = useSideNav()
+  const [layout] = useLayout()
+  const side = layout === "sidenav-content" ? "left" : "right"
 
   const {
     viewportX,
@@ -67,27 +70,36 @@ const SideNav = props => {
     return { top }
   }
 
-  const borderPartial = border
-    ? { borderRight: border }
-    : { borderRight: "1px solid", borderColor: "border" }
+  const positionPartial =
+    side === "left"
+      ? { left: 0, borderRight: border || "1px solid" }
+      : { right: 0, borderLeft: border || "1px solid" }
 
   return (
     <a.section
-      style={reveal(sideNavActive, getInnerWidth(), breakpoint, width, spring)}
+      ref={sideNavRef}
+      style={reveal(
+        sideNavActive,
+        getInnerWidth(),
+        breakpoint,
+        width,
+        side,
+        spring
+      )}
       aria-label="Secondary Navigation Menu"
       key="SideNav"
       sx={{
-        ...topPartial(),
         width: width || "width_sideNav",
         position: "fixed",
         bg: backgroundColor || "bg_sidenav",
         boxShadow: boxShadow || ["1px 1px 8px 1px rgba(0, 0, 0, 0.1)", "none"],
         maxWidth: "75vw",
-        left: 0,
         bottom: 0,
         zIndex: [200, 10],
         overflowY: "scroll",
-        ...borderPartial,
+        ...topPartial(),
+        ...positionPartial,
+        borderColor: "border",
       }}>
       <nav {...rest} />
     </a.section>

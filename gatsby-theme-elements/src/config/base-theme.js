@@ -91,6 +91,12 @@ export default merge(
         color: "secondary",
       },
     },
+    tablink: {
+      color: "accent",
+      fontSize: "12px",
+      textDecoration: "none",
+      textAlign: "center",
+    },
     breakpoints: [
       `${options.breakpoints.sm}px`,
       `${options.breakpoints.md}px`,

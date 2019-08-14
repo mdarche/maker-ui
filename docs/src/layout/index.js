@@ -13,10 +13,10 @@ import {
 } from "gatsby-theme-elements"
 
 import SideMenu from "./side-menu.js"
-
+import Pagination from "../components/Pagination"
 import { colorOptions } from "./logo-colors"
 
-export default ({ children }) => (
+export default ({ children, location }) => (
   <Layout>
     <Header justify="space-between" sx={{ p: 4 }}>
       <Logo height="35px" colorOptions={colorOptions} />
@@ -51,7 +51,10 @@ export default ({ children }) => (
       <SideNav>
         <SideMenu />
       </SideNav>
-      <Main>{children}</Main>
+      <Main>
+        {children}
+        <Pagination location={location.pathname} />
+      </Main>
     </ContentWrapper>
     <SideNavToggle defaultIcon />
   </Layout>

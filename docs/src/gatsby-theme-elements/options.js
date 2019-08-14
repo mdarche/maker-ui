@@ -16,7 +16,7 @@ export default {
     spring: { tension: 170, friction: 26 },
   },
   content: {
-    maxWidth: 1020,
+    maxWidth: 900,
     gridGap: 30,
   },
   sidebar: {

@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
-import { useSideNav } from "../context/UIContext"
+import { useSideNav, useLayout } from "../context/UIContext"
 import { ReactComponent as ExpandIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 
@@ -15,8 +15,12 @@ const SideNavToggle = ({
   ...props
 }) => {
   const [sideNavActive, toggleSideNav] = useSideNav()
+  const [layout] = useLayout()
 
   const renderIcon = () => (sideNavActive ? <CloseIcon /> : <ExpandIcon />)
+
+  const positionPartial =
+    layout === "sidenav-content" ? { right: 25 } : { left: 25 }
 
   return (
     <button
@@ -37,7 +41,7 @@ const SideNavToggle = ({
         height: height || 60,
         width: height || 60,
         bottom: 25,
-        right: 25,
+        ...positionPartial,
         svg: {
           fill: color || "#fff",
           height: 36,

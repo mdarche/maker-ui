@@ -62,9 +62,27 @@ export default {
       padding: "10px 20px",
       fontSize: 3,
       textDecoration: "none",
+      ".label": {
+        fontWeight: 700,
+      },
     },
   },
   fontSizes: [14, 16, 18, 20, 24, 32, 48, 64],
+  sideLink: {
+    fontFamily: "heading",
+    lineHeight: 2.3,
+    fontSize: 2,
+    a: { textDecoration: "none", color: "primary" },
+    "ul li": {
+      pl: 3,
+    },
+    "> li": {
+      p: "10px 30px",
+      borderBottom: "1px solid",
+      borderColor: "border",
+      boxShadow: "inset -1px -2px 0px rgba(0, 0, 0, 0.01)",
+    },
+  },
   styles: {
     h1: {
       mt: 0,
