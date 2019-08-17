@@ -24,6 +24,7 @@
     "react-dom": "^16.8.6"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0",
     "@emotion/core": "^10.0.14",
     "@mdx-js/react": "^1.0.23",
     "@svgr/webpack": "^4.3.1",

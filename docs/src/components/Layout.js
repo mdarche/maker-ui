@@ -12,9 +12,9 @@ import {
   SideNavToggle,
 } from "gatsby-theme-elements"
 
-import SideMenu from "./side-menu.js"
-import Pagination from "../components/Pagination"
-import { colorOptions } from "./logo-colors"
+import SideMenu from "./SideMenu.js"
+import Pagination from "./Pagination"
+import { colorOptions } from "../utils/logo-colors"
 
 export default ({ children, location }) => (
   <Layout>

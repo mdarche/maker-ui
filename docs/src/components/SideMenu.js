@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
-import menu from "./menu"
+import menu from "../utils/menu"
 
 export default () => (
   <ul sx={{ variant: "sideLink" }}>
