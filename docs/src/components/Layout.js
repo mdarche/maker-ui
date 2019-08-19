@@ -15,6 +15,7 @@ import {
 import SideMenu from "./SideMenu.js"
 import Pagination from "./Pagination"
 import { colorOptions } from "../utils/logo-colors"
+import { ReactComponent as GithubLogo } from "../assets/github.svg"
 
 export default ({ children, location }) => (
   <Layout>
@@ -32,16 +33,17 @@ export default ({ children, location }) => (
             textDecoration: "none",
             px: "25px",
           }}>
-          Github
+          <GithubLogo sx={{ height: "24px", fill: "currentColor" }} />
         </a>
         <ColorToggle
           sx={{
             border: "2px solid",
+            borderRadius: "2px",
             background: "none",
-            borderColor: "accent",
-            color: "accent",
+            borderColor: "primary",
+            color: "primary",
             fontFamily: "heading",
-            fontSize: 3,
+            fontSize: ".95em",
             p: "5px 15px",
           }}
         />

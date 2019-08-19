@@ -55,12 +55,13 @@ export default {
     pagination: {
       fontFamily: "heading",
       border: "2px solid",
-      borderColor: "accent",
-      color: "accent",
+      borderColor: "primary",
+      color: "primary",
       display: "inline-flex",
       flexDirection: "column",
       padding: "10px 20px",
       fontSize: 3,
+      borderRadius: 2,
       textDecoration: "none",
       ".label": {
         fontWeight: 700,
@@ -72,12 +73,12 @@ export default {
     fontFamily: "heading",
     lineHeight: 2.3,
     fontSize: 2,
-    a: { textDecoration: "none", color: "primary" },
+    a: { textDecoration: "none", color: "primary", fontSize: 2 },
     "ul li": {
       pl: 3,
     },
     "> li": {
-      p: "10px 30px",
+      p: "7px 30px",
       borderBottom: "1px solid",
       borderColor: "border",
       boxShadow: "inset -1px -2px 0px rgba(0, 0, 0, 0.01)",

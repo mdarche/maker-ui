@@ -5,12 +5,12 @@ import menu from "../utils/menu"
 
 export default () => (
   <ul sx={{ variant: "sideLink" }}>
-    {menu.map(({ label, path, nested }) => (
+    {menu.map(({ label, path, children }) => (
       <li key={path}>
         <Link to={path}>{label}</Link>
-        {nested ? (
+        {children ? (
           <ul>
-            {nested.map(({ label, path }) => (
+            {children.map(({ label, path }) => (
               <li key={path}>
                 <Link to={path}>{label}</Link>
               </li>

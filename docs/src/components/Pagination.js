@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
-import menu from "../utils/menu"
+import links from "../utils/menu"
 import _ from "lodash"
 
 const flatMenu = _.flatten(
-  menu.map(item => (item.nested ? item.nested.map(i => i) : item))
+  links.map(item => (item.children ? item.children.map(i => i) : item))
 )
 
-flatMenu.splice(4, 0, menu[4])
+flatMenu.splice(4, 0, links[4])
 
 export default ({ location }) => {
   const current = flatMenu.findIndex(({ path }) => path === location)
@@ -27,7 +27,10 @@ export default ({ location }) => {
     <div
       id="pagination"
       sx={{
-        mt: 5,
+        mt: ["50px", "130px"],
+        pt: 50,
+        borderTop: "1px solid",
+        borderColor: "border",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

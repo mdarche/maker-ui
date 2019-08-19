@@ -12,7 +12,7 @@ export default {
     spring: { tension: 170, friction: 26 },
   },
   sideNav: {
-    width: "20em",
+    width: "17em",
     spring: { tension: 170, friction: 26 },
   },
   content: {
