@@ -32,6 +32,7 @@ const ContentWrapper = ({
       case "sidebar-content":
         return {
           display: "grid",
+          px: ["20px", 0],
           gridTemplateColumns: [`1fr`, `${sidebarWidth} 1fr`],
           "#primary-sidebar": {
             gridRow: mobileReverse ? [2, "auto"] : [1, "auto"],
@@ -42,14 +43,15 @@ const ContentWrapper = ({
       case "content-sidebar":
         return {
           display: "grid",
+          px: ["20px", 0],
           gridTemplateColumns: [`1fr`, `1fr ${sidebarWidth}`],
           ...gap,
           ...max,
         }
       case "sidenav-content":
-        return { pl: ["20px", `calc(${sideNavWidth} + 20px)`], ...display }
+        return { pl: [0, sideNavWidth], ...display }
       case "content-sidenav":
-        return { pr: ["20px", `calc(${sideNavWidth} + 20px)`], ...display }
+        return { pr: [0, sideNavWidth], ...display }
       default:
         return { ...display, ...max }
     }
@@ -60,7 +62,6 @@ const ContentWrapper = ({
       {...props}
       id="content-wrapper"
       sx={{
-        px: "20px",
         m: "auto",
         ...layoutPartial(),
       }}
