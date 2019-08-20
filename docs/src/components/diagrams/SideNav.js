@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, useColorMode } from "theme-ui"
-import theme from "../gatsby-theme-elements/theme"
+import theme from "../../gatsby-theme-elements/theme"
 
 export default () => {
   const [color] = useColorMode()

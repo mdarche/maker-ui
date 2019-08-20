@@ -13,6 +13,7 @@ const UIContextProvider = ({ children }) => {
     options,
     menuActive: false,
     sideNavActive: true,
+    layout: "content",
   })
 
   const value = useMemo(() => {
@@ -46,6 +47,20 @@ function useMenu() {
   return [menuActive, toggleMenu]
 }
 
+function useLayout() {
+  const { state, setState } = useContext(UIContext)
+  const layout = state.layout
+
+  function setLayout(value) {
+    setState(state => ({
+      ...state,
+      layout: value,
+    }))
+  }
+
+  return [layout, setLayout]
+}
+
 function useSideNav() {
   const { state, setState } = useContext(UIContext)
   const sideNavActive = state.sideNavActive
@@ -72,4 +87,11 @@ function useTopbar() {
   return setTopbar
 }
 
-export { UIContextProvider, useOptions, useMenu, useSideNav, useTopbar }
+export {
+  UIContextProvider,
+  useOptions,
+  useMenu,
+  useLayout,
+  useSideNav,
+  useTopbar,
+}

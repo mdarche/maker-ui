@@ -1,7 +1,7 @@
 {
   "name": "gatsby-theme-elements",
   "author": "Mike Darche <mkdarche@gmail.com>",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdarche/gatsby-theme-elements"
@@ -24,6 +24,7 @@
     "react-dom": "^16.8.6"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0",
     "@emotion/core": "^10.0.14",
     "@mdx-js/react": "^1.0.23",
     "@svgr/webpack": "^4.3.1",

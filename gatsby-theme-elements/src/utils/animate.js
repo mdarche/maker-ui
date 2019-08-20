@@ -42,19 +42,22 @@ export const transitions = (toggle, type, width, config) => {
 
 // Springs
 
-export const reveal = (toggle, viewportX, breakpoint, width, config) => {
+export const reveal = (toggle, viewportX, breakpoint, width, side, config) => {
   const unit = width.replace(/[0-9.]/g, "")
+  const direction = side === "left" ? "-" : ""
   return useSpring({
     to: {
       opacity: toggle ? 1 : 0,
-      transform: toggle ? `translateX(0${unit})` : `translateX(-${width})`,
+      transform: toggle
+        ? `translateX(0${unit})`
+        : `translateX(${direction + width})`,
     },
     from: {
       opacity: 1,
       transform:
         viewportX > breakpoint
-          ? `translateX(0${unit})`
-          : `translateX(-${width})`,
+          ? `translateX(0)`
+          : `translateX(${direction + width})`,
     },
     config,
   })

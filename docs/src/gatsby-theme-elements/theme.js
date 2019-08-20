@@ -1,7 +1,7 @@
 // Palettes
 
 const light = ["#c03456", "#4e34c0", "#2357be", "#be2323"]
-const dark = ["#0cf", "#ffbbf6", "#95e4fd", "#f79a9a", "#bbffcb"]
+const dark = ["#ffbbf6", "#95e4fd", "#f79a9a", "#bbffcb"]
 
 const themeLight = Array.from(
   Array(2),
@@ -55,16 +55,35 @@ export default {
     pagination: {
       fontFamily: "heading",
       border: "2px solid",
-      borderColor: "accent",
-      color: "accent",
+      borderColor: "primary",
+      color: "primary",
       display: "inline-flex",
       flexDirection: "column",
       padding: "10px 20px",
       fontSize: 3,
+      borderRadius: 2,
       textDecoration: "none",
+      ".label": {
+        fontWeight: 700,
+      },
     },
   },
   fontSizes: [14, 16, 18, 20, 24, 32, 48, 64],
+  sideLink: {
+    fontFamily: "heading",
+    lineHeight: 2.3,
+    fontSize: 2,
+    a: { textDecoration: "none", color: "primary", fontSize: 2 },
+    "ul li": {
+      pl: 3,
+    },
+    "> li": {
+      p: "7px 30px",
+      borderBottom: "1px solid",
+      borderColor: "border",
+      boxShadow: "inset -1px -2px 0px rgba(0, 0, 0, 0.01)",
+    },
+  },
   styles: {
     h1: {
       mt: 0,

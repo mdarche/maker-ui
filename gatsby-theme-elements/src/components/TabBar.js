@@ -40,20 +40,23 @@ const TabBar = ({
             gridTemplateColumns: `repeat(${menuItems.length}, 1fr)`,
             columnGap: 20,
           }}>
-          {menuItems.map(({ label, alt, path, icon }) => (
-            <Link
-              key={label}
-              to={path}
-              sx={{
-                color: "accent",
-                fontSize: "12px",
-                textDecoration: "none",
-                textAlign: "center",
-              }}>
-              {icon}
-              {alt ? alt : label}
-            </Link>
-          ))}
+          {menuItems.map(({ label, alt, path, icon }) => {
+            return path.charAt(0) === "/" ? (
+              <Link key={label} to={path} sx={{ variant: "tablink" }}>
+                {icon}
+                {alt ? alt : label}
+              </Link>
+            ) : (
+              <a
+                href={path}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{ variant: "tablink" }}>
+                {icon}
+                {alt ? alt : label}
+              </a>
+            )
+          })}
         </div>
       )}
     </div>

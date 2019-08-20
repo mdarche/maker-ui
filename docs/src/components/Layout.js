@@ -12,11 +12,12 @@ import {
   SideNavToggle,
 } from "gatsby-theme-elements"
 
-import SideMenu from "./side-menu.js"
+import SideMenu from "./SideMenu.js"
+import Pagination from "./Pagination"
+import { colorOptions } from "../utils/logo-colors"
+import { ReactComponent as GithubLogo } from "../assets/github.svg"
 
-import { colorOptions } from "./logo-colors"
-
-export default ({ children }) => (
+export default ({ children, location }) => (
   <Layout>
     <Header justify="space-between" sx={{ p: 4 }}>
       <Logo height="35px" colorOptions={colorOptions} />
@@ -32,16 +33,17 @@ export default ({ children }) => (
             textDecoration: "none",
             px: "25px",
           }}>
-          Github
+          <GithubLogo sx={{ height: "24px", fill: "currentColor" }} />
         </a>
         <ColorToggle
           sx={{
             border: "2px solid",
+            borderRadius: "2px",
             background: "none",
-            borderColor: "accent",
-            color: "accent",
+            borderColor: "primary",
+            color: "primary",
             fontFamily: "heading",
-            fontSize: 3,
+            fontSize: ".95em",
             p: "5px 15px",
           }}
         />
@@ -51,7 +53,10 @@ export default ({ children }) => (
       <SideNav>
         <SideMenu />
       </SideNav>
-      <Main>{children}</Main>
+      <Main>
+        {children}
+        <Pagination location={location.pathname} />
+      </Main>
     </ContentWrapper>
     <SideNavToggle defaultIcon />
   </Layout>

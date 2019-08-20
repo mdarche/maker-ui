@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import Diagram from "./diagram-main"
-import MobileDiagram from "./diagram-mobile"
-import SideNavDiagram from "./diagram-sidenav"
+import Diagram from "./diagrams/Default"
+import MobileDiagram from "./diagrams/Mobile"
+import SideNavDiagram from "./diagrams/SideNav"
 
 const renderDiagram = type => {
   switch (type) {

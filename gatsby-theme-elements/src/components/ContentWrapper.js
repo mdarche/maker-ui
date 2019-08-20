@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import { useEffect } from "react"
 import PropTypes from "prop-types"
 import { useMeasurements } from "../context/MeasureContext"
+import { useLayout } from "../context/UIContext"
 
 const ContentWrapper = ({
   maxWidth,
@@ -11,6 +13,13 @@ const ContentWrapper = ({
   ...props
 }) => {
   const { sidebarWidth, sideNavWidth } = useMeasurements()
+  const [siteLayout, setLayout] = useLayout()
+
+  useEffect(() => {
+    if (layout !== siteLayout) {
+      setLayout(layout)
+    }
+  }, [])
 
   // Partials
 
@@ -38,9 +47,9 @@ const ContentWrapper = ({
           ...max,
         }
       case "sidenav-content":
-        return { pl: ["20px", sideNavWidth], ...display }
+        return { pl: ["20px", `calc(${sideNavWidth} + 20px)`], ...display }
       case "content-sidenav":
-        return { pr: ["20px", sideNavWidth], ...display }
+        return { pr: ["20px", `calc(${sideNavWidth} + 20px)`], ...display }
       default:
         return { ...display, ...max }
     }
