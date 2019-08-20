@@ -1,7 +1,7 @@
 // Palettes
 
 const light = ["#c03456", "#4e34c0", "#2357be", "#be2323"]
-const dark = ["#0cf", "#ffbbf6", "#95e4fd", "#f79a9a", "#bbffcb"]
+const dark = ["#ffbbf6", "#95e4fd", "#f79a9a", "#bbffcb"]
 
 const themeLight = Array.from(
   Array(2),
