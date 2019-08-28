@@ -93,7 +93,7 @@ MobileNav.propTypes = {
   animation: PropTypes.string,
   spring: PropTypes.object,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  children: PropTypes.node.optional,
+  children: PropTypes.node,
 }
 
 export default MobileNav

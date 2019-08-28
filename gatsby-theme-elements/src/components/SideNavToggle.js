@@ -20,7 +20,7 @@ const SideNavToggle = ({
   const renderIcon = () => (sideNavActive ? <CloseIcon /> : <ExpandIcon />)
 
   const positionPartial =
-    layout === "sidenav-content" ? { right: 25 } : { left: 25 }
+    layout === "sidenav-content" ? { right: 20 } : { left: 20 }
 
   return (
     <button
@@ -36,7 +36,7 @@ const SideNavToggle = ({
         justifyContent: "center",
         bg: backgroundColor || "accent",
         border: "none",
-        boxShadow: "1px 1px 4px 1px rgba(0, 0, 0, 0.33)",
+        boxShadow: "1px 1px 4px 1px rgba(0, 0, 0, 0.2)",
         color: color || "#fff",
         height: height || 60,
         width: height || 60,

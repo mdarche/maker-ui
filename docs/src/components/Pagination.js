@@ -11,17 +11,21 @@ const flatMenu = _.flatten(
 flatMenu.splice(4, 0, links[4])
 
 export default ({ location }) => {
-  const current = flatMenu.findIndex(({ path }) => path === location)
+  const current = flatMenu.findIndex(
+    ({ path }) => path === location.replace(/\/$/, "")
+  )
 
-  const button = type =>
-    flatMenu[current + type] !== undefined ? (
+  const button = type => {
+    const index = current === -1 ? 0 : current
+    return flatMenu[index + type] !== undefined ? (
       <Link
-        to={flatMenu[current + type].path}
+        to={flatMenu[index + type].path}
         sx={{ variant: "buttons.pagination" }}>
         <div>{type === 1 ? "Next" : "Prev"}:</div>
-        <div className="label">{flatMenu[current + type].label}</div>
+        <div className="label">{flatMenu[index + type].label}</div>
       </Link>
     ) : null
+  }
 
   return (
     <div
@@ -33,7 +37,7 @@ export default ({ location }) => {
         borderColor: "border",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: ["flex-start", "space-between"],
       }}>
       {current !== 0 ? button(-1) : null}
       {current !== flatMenu.length - 1 ? button(1) : null}

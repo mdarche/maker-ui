@@ -59,9 +59,10 @@ export default {
       color: "primary",
       display: "inline-flex",
       flexDirection: "column",
-      padding: "10px 20px",
-      fontSize: 3,
+      padding: ["10px", "10px 20px"],
+      fontSize: [2, 3],
       borderRadius: 2,
+      mr: ["10px", 0],
       textDecoration: "none",
       ".label": {
         fontWeight: 700,
@@ -102,11 +103,11 @@ export default {
       ml: "20px",
     },
     li: {
-      fontSize: "18px",
+      fontSize: ["15px", "18px"],
       mb: 2,
     },
     p: {
-      fontSize: "18px",
+      fontSize: ["15px", "18px"],
     },
     pre: {
       mb: 4,
@@ -128,14 +129,18 @@ export default {
       ":nth-of-type(odd)": {
         bg: "muted",
       },
+      "td:nth-of-type(2), th:nth-of-type(2)": {
+        display: ["none", "table-cell"],
+      },
     },
     td: {
       padding: "15px",
+      fontSize: ["13px", "17px"],
     },
     th: {
       padding: "25px 15px",
       bg: "background",
-      fontSize: 3,
+      fontSize: ["16px", 3],
       fontWeight: 700,
     },
   },

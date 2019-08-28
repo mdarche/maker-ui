@@ -21,18 +21,20 @@ const renderDiagram = type => {
 export default ({ title, children, type }) => (
   <div
     sx={{
-      display: "grid",
+      display: ["block", "grid"],
       gridGap: "60px",
       gridTemplateColumns: ["1fr", ".25fr .75fr"],
       svg: {
-        maxWidth: "250px",
+        width: "200px",
+        maxHeight: ["auto", "300px"],
+        mb: "30px",
       },
       span: {
         fontFamily: "monospace",
         color: "primary",
       },
     }}>
-    <div sx={{ textAlign: "center" }}>{renderDiagram(type)}</div>
+    <div sx={{ display: ["flex", "block"] }}>{renderDiagram(type)}</div>
     <div>
       <Styled.h1>{title}</Styled.h1>
       <Styled.pre>

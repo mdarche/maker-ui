@@ -14,8 +14,6 @@ const Section = ({
 }) => {
   const options = useOptions().content
 
-  console.log(props)
-
   return (
     <section
       {...props}
