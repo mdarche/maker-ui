@@ -37,7 +37,10 @@ const Root = ({ children, ...props }) => {
   }
 
   return (
-    <Styled.root id="__elements" sx={{ color: "text" }} {...props}>
+    <Styled.root
+      id="__elements"
+      sx={{ color: "text", bg: "background" }}
+      {...props}>
       <Global styles={reset} />
 
       <ul className="skip-links">

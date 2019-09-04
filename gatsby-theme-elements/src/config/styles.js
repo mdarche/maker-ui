@@ -4,7 +4,6 @@ const heading = {
   fontFamily: "heading",
   fontWeight: "heading",
   lineHeight: "heading",
-  mt: 4,
   mb: 3,
 }
 
