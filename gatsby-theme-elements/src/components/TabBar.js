@@ -27,6 +27,7 @@ const TabBar = ({
         right: 0,
         overflowX: "scroll",
         p: 2,
+        zIndex: 1,
         bg: backgroundColor || "bg_tabbar",
         boxShadow: boxShadow || "tabbar",
         ...borderPartial,

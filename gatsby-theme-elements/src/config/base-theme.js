@@ -96,6 +96,10 @@ export default merge(
       fontSize: "12px",
       textDecoration: "none",
       textAlign: "center",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
     },
     breakpoints: [
       `${options.breakpoints.sm}px`,

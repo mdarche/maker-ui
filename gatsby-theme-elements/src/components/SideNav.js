@@ -95,6 +95,7 @@ const SideNav = props => {
         boxShadow: boxShadow || ["1px 1px 8px 1px rgba(0, 0, 0, 0.1)", "none"],
         maxWidth: "75vw",
         bottom: 0,
+        opacity: sideNavActive ? [1, 1] : [0, 1],
         zIndex: [200, 10],
         overflowY: "scroll",
         ...topPartial(),

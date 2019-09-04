@@ -17,7 +17,6 @@ const Footer = ({ backgroundColor, border, maxWidth, ...props }) => {
         {...props}
         sx={{
           m: "0 auto",
-          p: 3,
           maxWidth: maxWidth || "max_footer",
         }}
       />

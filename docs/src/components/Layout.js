@@ -19,8 +19,8 @@ import { ReactComponent as GithubLogo } from "../assets/github.svg"
 
 export default ({ children, location }) => (
   <Layout>
-    <Header justify="space-between" sx={{ p: 4 }}>
-      <Logo height="35px" colorOptions={colorOptions} />
+    <Header justify="space-between" sx={{ p: 3 }}>
+      <Logo height={["28px", "32px"]} colorOptions={colorOptions} />
       <HeaderWidgets>
         <a
           href="https://github.com/mdarche/gatsby-theme-elements"
@@ -43,8 +43,8 @@ export default ({ children, location }) => (
             borderColor: "primary",
             color: "primary",
             fontFamily: "heading",
-            fontSize: ".95em",
-            p: "5px 15px",
+            fontSize: "1em",
+            p: "5px 10px",
           }}
         />
       </HeaderWidgets>
@@ -53,11 +53,11 @@ export default ({ children, location }) => (
       <SideNav>
         <SideMenu />
       </SideNav>
-      <Main>
+      <Main sx={{ p: "20px" }}>
         {children}
         <Pagination location={location.pathname} />
       </Main>
     </ContentWrapper>
-    <SideNavToggle defaultIcon />
+    <SideNavToggle defaultIcon sx={{ borderRadius: "2px" }} />
   </Layout>
 )
