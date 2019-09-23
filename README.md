@@ -10,6 +10,12 @@ Gatsby Theme Elements takes care of accessibility, responsive navigation, and th
 
 https://gatsby-theme-elements.netlify.com/
 
+## NOTE
+
+Since building this in July 2019, I have been testing the theme on a number of real projects. 
+
+In October 2019 I will release a new version with simpler integration, improved layout components, and a variety of example sites. If you are considering Elements, I strongly recommend waiting until version `1.1.0` in late October.
+
 ## Contents
 - [Getting Started](#getting-started)
 - [Installation](#installation)
