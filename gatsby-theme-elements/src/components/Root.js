@@ -4,7 +4,7 @@ import { useLayoutEffect } from "react"
 import { Global } from "@emotion/core"
 
 import { measure } from "../context/MeasureContext"
-import reset from "../utils/reset"
+import defaultReset from "../utils/reset"
 
 const skiplinks = [
   { label: "Skip to primary navigation", path: "nav-primary" },
@@ -18,7 +18,7 @@ function inspectWindow() {
   }
 }
 
-const Root = ({ children, ...props }) => {
+const Root = ({ children, globalStyle, reset, ...props }) => {
   const { setViewportXY } = measure()
 
   // Component Lifecycle
@@ -37,11 +37,9 @@ const Root = ({ children, ...props }) => {
   }
 
   return (
-    <Styled.root
-      id="__elements"
-      sx={{ color: "text", bg: "background" }}
-      {...props}>
-      <Global styles={reset} />
+    <Styled.root id="__elements" sx={{ color: "text" }} {...props}>
+      <Global styles={reset !== undefined ? reset : defaultReset} />
+      {globalStyle !== undefined ? <Global styles={globalStyle} /> : null}
 
       <ul className="skip-links">
         {skiplinks.map(({ label, path }) => (
