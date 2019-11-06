@@ -12,7 +12,6 @@ const FooterWidgets = ({ columns = true, gridGap, ...props }) => {
       id="footer-widgets"
       sx={{
         m: "0 auto",
-        width: "100%",
         display: columnCount > 1 ? "grid" : "block",
         gridTemplateColumns: ["1fr", `repeat(${columnCount}, 1fr)`],
         ...gap,

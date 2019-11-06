@@ -16,11 +16,14 @@ const MobileNav = props => {
 
   const {
     backgroundColor,
+    fill,
     children,
     defaultClose = false,
+    hiddenDesktop = true,
     width = formatUnit(options.header.mobileNavWidth),
     animation = options.header.mobileAnimation,
     spring = options.header.spring,
+    ...rest
   } = props
 
   // Component Lifecyle
@@ -52,7 +55,7 @@ const MobileNav = props => {
     ({ item, key, props }) =>
       item && (
         <a.nav
-          {...props}
+          {...rest}
           ref={menuRef}
           style={props}
           key={key}
@@ -61,7 +64,7 @@ const MobileNav = props => {
             position: "fixed",
             top: 0,
             height: "100%",
-            display: ["flex", "none"],
+            display: hiddenDesktop ? ["flex", "none"] : "flex",
             border: "none",
             maxWidth: "100%",
             zIndex: 1000,
@@ -73,6 +76,8 @@ const MobileNav = props => {
             <MenuToggle
               icon="close"
               height={54}
+              fill={fill}
+              hiddenDesktop={hiddenDesktop}
               sx={{
                 position: "absolute",
                 top: 0,

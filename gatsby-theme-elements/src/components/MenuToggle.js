@@ -7,7 +7,14 @@ import { ReactComponent as MenuIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import theme from "../config/base-theme"
 
-const MenuToggle = ({ fill, height, children, icon, ...props }) => {
+const MenuToggle = ({
+  fill,
+  height,
+  children,
+  icon,
+  hiddenDesktop = true,
+  ...props
+}) => {
   const [color] = useColorMode()
   const [menuActive, toggleMenu] = useMenu()
 
@@ -29,7 +36,7 @@ const MenuToggle = ({ fill, height, children, icon, ...props }) => {
       aria-haspopup="true"
       onClick={() => toggleMenu()}
       sx={{
-        display: ["flex", "none"],
+        display: hiddenDesktop ? ["flex", "none"] : "flex",
         border: "none",
         background: "none",
         svg: {
