@@ -4,6 +4,8 @@ import { errorCheck } from "../utils/helper"
 
 // Measure Context Provider
 
+// TODO Change viewport x and y to height and width
+
 const MeasureContext = React.createContext()
 
 const MeasureContextProvider = ({ children }) => {

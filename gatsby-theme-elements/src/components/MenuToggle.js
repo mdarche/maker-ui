@@ -27,6 +27,8 @@ const MenuToggle = ({
     return icon === "menu" ? <MenuIcon /> : <CloseIcon />
   }
 
+  // TODO - Add prop for putting text next to icon
+
   return (
     <button
       {...props}

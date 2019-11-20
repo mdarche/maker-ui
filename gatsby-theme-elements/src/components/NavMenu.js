@@ -3,6 +3,10 @@ import { jsx } from "theme-ui"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 
+// TODO - Add dropdown menu support and provide props / options for it
+
+// TODO - Add component package from parallax and animations that appear on scroll
+
 const NavMenu = ({
   width,
   justify,
