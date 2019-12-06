@@ -3,7 +3,7 @@ import { jsx, useColorMode } from "theme-ui"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 
-import LogoMark from "../logo.js"
+import LogoMark from "../logo.js.js"
 
 const Logo = ({
   path = "/",
