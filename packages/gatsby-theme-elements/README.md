@@ -243,8 +243,8 @@ const Component = () => {
 - `headerHeight`
 - `sideNavWidth`
 - `sidebarWidth`
-- `viewportX` (updates on resize)
-- `viewportY` (updates on resize)
+- `viewportHeight` (updates on resize)
+- `viewportWidth` (updates on resize)
 
 This might come in handy if you need to access screen dimensions or layout positions.
 

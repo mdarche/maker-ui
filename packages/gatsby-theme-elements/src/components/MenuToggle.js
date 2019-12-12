@@ -3,8 +3,7 @@ import { jsx, useColorMode } from "theme-ui"
 import PropTypes from "prop-types"
 
 import { useMenu } from "../context/UIContext"
-import { ReactComponent as MenuIcon } from "../assets/menu.svg"
-import { ReactComponent as CloseIcon } from "../assets/close.svg"
+import { MenuIcon, CloseIcon } from "../assets"
 import theme from "../config/base-theme"
 
 const MenuToggle = ({
@@ -12,6 +11,7 @@ const MenuToggle = ({
   height,
   children,
   icon,
+  menuText,
   hiddenDesktop = true,
   ...props
 }) => {
@@ -23,11 +23,14 @@ const MenuToggle = ({
       ? theme.colors.modes[color].navlink
       : theme.colors.navlink
 
-  const renderIcon = () => {
-    return icon === "menu" ? <MenuIcon /> : <CloseIcon />
-  }
+  const renderIcon = () => (
+    <div sx={{ display: "flex" }}>
+      {icon === "menu" ? <MenuIcon /> : <CloseIcon />}
+      {menuText ? <span>{menuText}</span> : null}
+    </div>
+  )
 
-  // TODO - Add prop for putting text next to icon
+  // TODO - Test this new menuText prop
 
   return (
     <button

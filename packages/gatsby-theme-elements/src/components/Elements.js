@@ -6,6 +6,8 @@ import { MeasureContextProvider } from "../context/MeasureContext"
 import Root from "./Root"
 import theme from "../config/base-theme"
 
+// TODO - Change theme via prop
+
 export default props => (
   <ThemeProvider theme={theme}>
     <ColorMode />

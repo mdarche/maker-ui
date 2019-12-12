@@ -11,6 +11,7 @@ Gatsby Theme Elements takes care of accessibility, responsive navigation, and th
 https://gatsby-theme-elements.netlify.com/
 
 ## Contents
+
 - [Getting Started](#getting-started)
 - [Installation](#installation)
   - [theme.js](#themejs)
@@ -21,7 +22,6 @@ https://gatsby-theme-elements.netlify.com/
 - [Adding Content](#adding-content)
 - [Hooks](#hooks)
 - [License](#license)
-
 
 ## Getting Started
 
@@ -152,6 +152,7 @@ The Elements component library gives you access to all of the semantic markup yo
 | **TabBar**         | A fixed wrapper component that moves mobile navigation to the bottom of the screen like a native mobile app. You can wrap it around your own components or feed it a menu object. The TabBar formats this menu into a horizontal scrollable row with links, labels, and icons. |
 | **Footer**         | The document _footer_ element                                                                                                                                                                                                                                                  |
 | **FooterWidgets**  | A grid wrapper for building skiplink accessible footer columns                                                                                                                                                                                                                 |
+
 ### Usage
 
 To use any of these components, just import them from `gatsby-theme-elements`:
@@ -163,7 +164,6 @@ import { Layout, Header, ContentWrapper, Main, Footer } from 'gatsby-theme-eleme
 ```
 
 Unlike other Gatsby themes, you don't need to shadow components because you can edit their behavior from your config files. Detailed information on each component is coming to a documentation site soon.
-
 
 Components can be used independently, but they work best together in a layout tree like so:
 
@@ -196,7 +196,7 @@ By default, the layout components use the settings you defined in `options.js` a
 
 ## Adding Content
 
-Once you have designed a layout, all you have to do is wrap your page in the newly created layout component. If your app only requires one layout, you can do this with Gatsby's `wrapRootElement` function. 
+Once you have designed a layout, all you have to do is wrap your page in the newly created layout component. If your app only requires one layout, you can do this with Gatsby's `wrapRootElement` function.
 
 ## Hooks
 
@@ -257,8 +257,8 @@ const Component = () => {
 - `headerHeight`
 - `sideNavWidth`
 - `sidebarWidth`
-- `viewportX` (updates on resize)
-- `viewportY` (updates on resize)
+- `viewportWidth` (updates on resize)
+- `viewportWidth` (updates on resize)
 
 This might come in handy if you need to access screen dimensions or layout positions.
 

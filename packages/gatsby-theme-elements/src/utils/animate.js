@@ -42,7 +42,14 @@ export const transitions = (toggle, type, width, config) => {
 
 // Springs
 
-export const reveal = (toggle, viewportX, breakpoint, width, side, config) => {
+export const reveal = (
+  toggle,
+  viewportWidth,
+  breakpoint,
+  width,
+  side,
+  config
+) => {
   const unit = width.replace(/[0-9.]/g, "")
   const direction = side === "left" ? "-" : ""
   return useSpring({
@@ -53,7 +60,7 @@ export const reveal = (toggle, viewportX, breakpoint, width, side, config) => {
         : `translateX(${direction}${width})`,
     },
     from: {
-      opacity: viewportX > breakpoint ? 1 : 0,
+      opacity: viewportWidth > breakpoint ? 1 : 0,
     },
     config,
   })

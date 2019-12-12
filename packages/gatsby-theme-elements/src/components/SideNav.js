@@ -22,7 +22,7 @@ const SideNav = props => {
   const side = layout === "sidenav-content" ? "left" : "right"
 
   const {
-    viewportX,
+    viewportWidth,
     topbarHeight,
     headerHeight,
     sideNavWidth,
@@ -46,13 +46,13 @@ const SideNav = props => {
     if (width !== sideNavWidth) {
       setSideNavWidth(width)
     }
-    if (sideNavActive && viewportX < breakpoint) {
+    if (sideNavActive && viewportWidth < breakpoint) {
       toggleSideNav(false)
     }
-    if (!sideNavActive && viewportX > breakpoint) {
+    if (!sideNavActive && viewportWidth > breakpoint) {
       toggleSideNav(true)
     }
-  }, [viewportX])
+  }, [viewportWidth])
 
   // Partials
 

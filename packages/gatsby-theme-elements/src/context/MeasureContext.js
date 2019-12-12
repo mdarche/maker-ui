@@ -4,8 +4,6 @@ import { errorCheck } from "../utils/helper"
 
 // Measure Context Provider
 
-// TODO Change viewport x and y to height and width
-
 const MeasureContext = React.createContext()
 
 const MeasureContextProvider = ({ children }) => {
@@ -14,8 +12,8 @@ const MeasureContextProvider = ({ children }) => {
     headerHeight: 0,
     sideNavWidth: 0,
     sidebarWidth: options.sidebar.width,
-    viewportX: 0,
-    viewportY: 0,
+    viewportWidth: 0,
+    viewportHeight: 0,
   })
 
   const value = useMemo(() => {
@@ -68,17 +66,17 @@ function measure() {
     }))
   }
 
-  function setViewportXY([x, y]) {
+  function setViewportSize([x, y]) {
     measure(metrics => ({
       ...metrics,
-      viewportX: x,
-      viewportY: y,
+      viewportWidth: x,
+      viewportHeight: y,
     }))
   }
 
   return {
     setTopbarHeight,
-    setViewportXY,
+    setViewportSize,
     setHeaderHeight,
     setSideNavWidth,
     setSidebarWidth,

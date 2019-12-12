@@ -18,13 +18,15 @@ function inspectWindow() {
   }
 }
 
+// TODO - Set options via layout prop
+
 const Root = ({ children, globalStyle, reset, ...props }) => {
-  const { setViewportXY } = measure()
+  const { setViewportSize } = measure()
 
   // Component Lifecycle
 
   useLayoutEffect(() => {
-    setViewportXY(inspectWindow())
+    setViewportSize(inspectWindow())
     window.addEventListener(`resize`, handleResize)
 
     return () => window.removeEventListener(`resize`, handleResize)
@@ -33,7 +35,7 @@ const Root = ({ children, globalStyle, reset, ...props }) => {
   // Event Handlers
 
   const handleResize = () => {
-    setViewportXY(inspectWindow())
+    setViewportSize(inspectWindow())
   }
 
   return (
