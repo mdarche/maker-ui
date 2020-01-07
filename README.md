@@ -4,17 +4,21 @@
 
 Build responsive Gatsby themes with layouts powered by [ThemeUI](https://theme-ui.com/).
 
-Gatsby Theme Elements takes care of accessibility, responsive navigation, and theming so you can focus on creating awesome content or adding new integrations to your Gatsby site.
+Gatsby Theme Elements takes care of accessibile layouts, responsive navigation, and theming so you can focus on creating awesome content or adding new integrations to your Gatsby site.
 
 [![npm version](https://badge.fury.io/js/gatsby-theme-elements.svg)](https://badge.fury.io/js/gatsby-theme-elements)
 
-https://gatsby-theme-elements.netlify.com/
+Preview: https://gatsby-theme-elements.netlify.com/
+
+Documentation: https://elements-docs.netlify.com/
 
 ## NOTE
 
 Since building this in July 2019, I have been testing the theme on a number of real projects. 
 
-In October 2019 I will release a new version with simpler integration, improved layout components, and a variety of example sites. If you are considering Elements, I strongly recommend waiting until version `1.1.0` in late October.
+In January 2020 I will be moving all of GTE's layout components to a new component library built on top of ThemeUI. NPM is granting me the elements-ui namespace, so you will be able to use this library with any React project.
+
+I'll continue supporting the Gatsby parent theme, but this repository will soon become a monorepo with a few additional packages. Stay tuned for updates!
 
 ## Contents
 - [Getting Started](#getting-started)
