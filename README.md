@@ -4,7 +4,7 @@
 
 Build responsive Gatsby themes with layouts powered by [ThemeUI](https://theme-ui.com/).
 
-Gatsby Theme Elements takes care of accessibile layouts, responsive navigation, and theming so you can focus on creating awesome content or adding new integrations to your Gatsby site.
+Gatsby Theme Elements takes care of accessible layouts, responsive navigation, and theming so you can focus on creating awesome content or adding new integrations to your Gatsby site.
 
 [![npm version](https://badge.fury.io/js/gatsby-theme-elements.svg)](https://badge.fury.io/js/gatsby-theme-elements)
 
