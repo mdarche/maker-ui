@@ -1,9 +1,22 @@
 {
   "private": true,
+  "scripts": {
+    "test": "jest"
+  },
   "workspaces": [
-    "gatsby-theme-elements",
-    "demo",
-    "docs",
-    "examples/*"
-  ]
+    "examples/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "husky": "^4.0.10",
+    "jest": "^24.9.0",
+    "lerna": "^3.20.2",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "react-test-renderer": "^16.12.0"
+  }
 }
