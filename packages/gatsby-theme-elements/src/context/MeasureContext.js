@@ -1,86 +1,48 @@
-import React, { useState, useContext, useMemo } from "react"
+import React, { useState, useContext } from "react"
 import options from "../config/defaults"
-import { errorCheck } from "../utils/helper"
 
-// Measure Context Provider
+const MeasureStateContext = React.createContext()
+const MeasureUpdateContext = React.createContext()
 
-const MeasureContext = React.createContext()
-
-const MeasureContextProvider = ({ children }) => {
-  const [metrics, measure] = useState({
+const MeasureProvider = ({ children }) => {
+  const [measurements, setMeasurements] = useState({
     topbarHeight: 0,
     headerHeight: 0,
-    sideNavWidth: 0,
+    sideNavWidth: options.sideNav.width,
     sidebarWidth: options.sidebar.width,
     viewportWidth: 0,
     viewportHeight: 0,
   })
 
-  const value = useMemo(() => {
-    return { metrics, measure }
-  }, [metrics])
-
   return (
-    <MeasureContext.Provider value={value}>{children}</MeasureContext.Provider>
+    <MeasureStateContext.Provider value={measurements}>
+      <MeasureUpdateContext.Provider value={setMeasurements}>
+        {children}
+      </MeasureUpdateContext.Provider>
+    </MeasureStateContext.Provider>
   )
 }
 
 // Usage Hooks
 
-function useMeasurements() {
-  const { metrics } = useContext(MeasureContext)
-  errorCheck("useMeasurements", metrics, "MeasureContextProvider")
+function useMeasureState() {
+  const measurements = useContext(MeasureStateContext)
 
-  return metrics
+  if (typeof measurements === undefined) {
+    throw new Error("useMeasureState must be used within a MeasureProvider")
+  }
+
+  return measurements
 }
 
-function measure() {
-  const { measure } = useContext(MeasureContext)
-  errorCheck("measure", measure, "MeasureContextProvider")
+function useMeasureUpdater() {
+  const setMeasurements = useContext(MeasureUpdateContext)
 
-  function setTopbarHeight(height) {
-    measure(metrics => ({
-      ...metrics,
-      topbarHeight: height,
-    }))
+  if (typeof setMeasurements === undefined) {
+    throw new Error("useMeasureUpdater must be used within a MeasureProvider")
   }
 
-  function setHeaderHeight(height) {
-    measure(metrics => ({
-      ...metrics,
-      headerHeight: height,
-    }))
-  }
-
-  function setSideNavWidth(width) {
-    measure(metrics => ({
-      ...metrics,
-      sideNavWidth: width,
-    }))
-  }
-
-  function setSidebarWidth(width) {
-    measure(metrics => ({
-      ...metrics,
-      sidebarWidth: width,
-    }))
-  }
-
-  function setViewportSize([x, y]) {
-    measure(metrics => ({
-      ...metrics,
-      viewportWidth: x,
-      viewportHeight: y,
-    }))
-  }
-
-  return {
-    setTopbarHeight,
-    setViewportSize,
-    setHeaderHeight,
-    setSideNavWidth,
-    setSidebarWidth,
-  }
+  return setMeasurements
 }
 
-export { MeasureContextProvider, useMeasurements, measure }
+export { MeasureProvider, useMeasureState, useMeasureUpdater }

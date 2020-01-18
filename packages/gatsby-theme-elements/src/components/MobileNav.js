@@ -2,11 +2,11 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useEffect, useRef } from "react"
-import { animated as a } from "react-spring"
+import { animated as a, useTransition } from "react-spring"
 
 import { useMenu, useOptions } from "../context/UIContext"
 import { formatUnit } from "../utils/helper"
-import { transitions } from "../utils/animate"
+import { transitionTypes } from "../utils/animate"
 import MenuToggle from "./MenuToggle"
 
 const MobileNav = props => {
@@ -51,7 +51,12 @@ const MobileNav = props => {
     return animation === "slideRight" ? { left: 0, width } : { right: 0, width }
   }
 
-  return transitions(menuActive, animation, width, spring).map(
+  const transitions = useTransition(menuActive, null, {
+    ...transitionTypes(width, animation),
+    spring,
+  })
+
+  return transitions.map(
     ({ item, key, props }) =>
       item && (
         <a.nav

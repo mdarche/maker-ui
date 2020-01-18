@@ -20,7 +20,7 @@ export default merge(
       spring: { tension: 170, friction: 26 },
     },
     sideNav: {
-      width: "18em",
+      width: 300,
       spring: { tension: 170, friction: 26 },
     },
     content: {

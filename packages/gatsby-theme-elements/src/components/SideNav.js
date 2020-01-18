@@ -2,9 +2,9 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useEffect, useRef } from "react"
-import { animated as a } from "react-spring"
+import { animated as a, useSpring } from "react-spring"
 
-import { measure, useMeasurements } from "../context/MeasureContext"
+import { useMeasureUpdater, useMeasureState } from "../context/MeasureContext"
 import { useOptions, useSideNav, useLayout } from "../context/UIContext"
 import { reveal } from "../utils/animate"
 
@@ -26,8 +26,8 @@ const SideNav = props => {
     topbarHeight,
     headerHeight,
     sideNavWidth,
-  } = useMeasurements()
-  const { setSideNavWidth } = measure()
+  } = useMeasureState()
+  const setMeasurements = useMeasureUpdater()
 
   const breakpoint = options.breakpoints.sm
   const {
@@ -40,12 +40,22 @@ const SideNav = props => {
     ...rest
   } = props
 
+  const springProps = useSpring(
+    reveal(sideNavActive, getInnerWidth(), breakpoint, width, side, spring)
+  )
+
   // Component Lifecyle
 
   useEffect(() => {
     if (width !== sideNavWidth) {
-      setSideNavWidth(width)
+      setMeasurements(state => ({
+        ...state,
+        sideNavWidth: width,
+      }))
     }
+  }, [width])
+
+  useEffect(() => {
     if (sideNavActive && viewportWidth < breakpoint) {
       toggleSideNav(false)
     }
@@ -78,14 +88,7 @@ const SideNav = props => {
   return (
     <a.section
       ref={sideNavRef}
-      style={reveal(
-        sideNavActive,
-        getInnerWidth(),
-        breakpoint,
-        width,
-        side,
-        spring
-      )}
+      style={springProps}
       aria-label="Secondary Navigation Menu"
       key="SideNav"
       sx={{

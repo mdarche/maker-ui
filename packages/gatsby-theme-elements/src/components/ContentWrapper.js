@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui"
 import { useEffect } from "react"
 import PropTypes from "prop-types"
-import { useMeasurements } from "../context/MeasureContext"
+import { useMeasureState } from "../context/MeasureContext"
 import { useLayout } from "../context/UIContext"
 
 const ContentWrapper = ({
@@ -12,7 +12,7 @@ const ContentWrapper = ({
   mobileReverse = true,
   ...props
 }) => {
-  const { sidebarWidth, sideNavWidth } = useMeasurements()
+  const { sidebarWidth, sideNavWidth } = useMeasureState()
   const [siteLayout, setLayout] = useLayout()
 
   useEffect(() => {

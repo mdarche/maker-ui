@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
-import { useMeasurements } from "../context/MeasureContext"
+import { useMeasureState } from "../context/MeasureContext"
 
 const Main = ({ maxWidth, ...props }) => {
-  const { sideNavWidth } = useMeasurements()
+  const { sideNavWidth } = useMeasureState()
 
   const widthPartial =
     sideNavWidth !== 0

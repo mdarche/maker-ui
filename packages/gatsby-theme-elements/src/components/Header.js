@@ -4,13 +4,13 @@ import PropTypes from "prop-types"
 import { useRef, useLayoutEffect } from "react"
 
 import { useOptions } from "../context/UIContext"
-import { useMeasurements, measure } from "../context/MeasureContext"
+import { useMeasureState, useMeasureUpdater } from "../context/MeasureContext"
 
 const Header = props => {
   const headerRef = useRef(null)
   const options = useOptions()
-  const { setHeaderHeight } = measure()
-  const { topbarHeight } = useMeasurements()
+  const setMeasurements = useMeasureUpdater()
+  const { topbarHeight } = useMeasureState()
   const {
     sticky = options.header.sticky,
     stickyMobile = options.header.stickyMobile,
@@ -25,7 +25,10 @@ const Header = props => {
   // Component Lifecycle
 
   useLayoutEffect(() => {
-    setHeaderHeight(headerRef.current.clientHeight)
+    setMeasurements(state => ({
+      ...state,
+      headerHeight: headerRef.current.clientHeight,
+    }))
   }, [])
 
   // Partials

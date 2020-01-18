@@ -1,19 +1,21 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+import React from "react"
 import PropTypes from "prop-types"
 import { useEffect } from "react"
 
 import { useOptions } from "../context/UIContext"
-import { measure } from "../context/MeasureContext"
+import { useMeasureUpdater } from "../context/MeasureContext"
 
 const Sidebar = props => {
   const options = useOptions()
-  const { setSidebarWidth } = measure()
+  const setMeasurements = useMeasureUpdater()
   const { width = options.sidebar.width } = props
 
   useEffect(() => {
     if (width !== options.sidebar.width) {
-      setSidebarWidth(width)
+      setMeasurements(state => ({
+        ...state,
+        sidebarWidth: width,
+      }))
     }
   }, [])
 

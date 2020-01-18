@@ -1,8 +1,8 @@
-import { useTransition, useSpring } from "react-spring"
+// import { useTransition } from "react-spring"
 
 // Default Mobile Nav Animations
 
-const transitionTypes = (width, type) => {
+export const transitionTypes = (width, type) => {
   const down = type.slice(-1) === "n" ? "-" : ""
   const right = type.slice(-2) === "ht" ? "-" : ""
 
@@ -33,12 +33,12 @@ const transitionTypes = (width, type) => {
 
 // Transitions
 
-export const transitions = (toggle, type, width, config) => {
-  return useTransition(toggle, null, {
-    ...transitionTypes(width, type),
-    config,
-  })
-}
+// export const transitions = (toggle, type, width, config) => {
+//   return useTransition(toggle, null, {
+//     ...transitionTypes(width, type),
+//     config,
+//   })
+// }
 
 // Springs
 
@@ -52,7 +52,7 @@ export const reveal = (
 ) => {
   const unit = width.replace(/[0-9.]/g, "")
   const direction = side === "left" ? "-" : ""
-  return useSpring({
+  return {
     to: {
       opacity: toggle ? 1 : 0,
       transform: toggle
@@ -63,5 +63,5 @@ export const reveal = (
       opacity: viewportWidth > breakpoint ? 1 : 0,
     },
     config,
-  })
+  }
 }

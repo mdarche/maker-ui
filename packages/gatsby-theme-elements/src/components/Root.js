@@ -3,7 +3,7 @@ import { jsx, Styled } from "theme-ui"
 import { useLayoutEffect } from "react"
 import { Global } from "@emotion/core"
 
-import { measure } from "../context/MeasureContext"
+import { useMeasureUpdater } from "../context/MeasureContext"
 import defaultReset from "../utils/reset"
 
 const skiplinks = [
@@ -12,30 +12,36 @@ const skiplinks = [
   { label: "Skip to footer widgets", path: "footer-widgets" },
 ]
 
-function inspectWindow() {
-  if (typeof window !== `undefined`) {
-    return [window.innerWidth, window.innerHeight]
-  }
-}
+// function inspectWindow() {
+//   if (typeof window !== `undefined`) {
+//     return [window.innerWidth, window.innerHeight]
+//   }
+// }
 
 // TODO - Set options via layout prop
 
 const Root = ({ children, globalStyle, reset, ...props }) => {
-  const { setViewportSize } = measure()
+  const setMeasurements = useMeasureUpdater()
 
-  // Component Lifecycle
+  function measure() {
+    if (typeof window !== `undefined`) {
+      setMeasurements(state => ({
+        ...state,
+        viewportWidth: window.innerWidth,
+        viewportHeight: window.innerHeight,
+      }))
+    }
+  }
 
   useLayoutEffect(() => {
-    setViewportSize(inspectWindow())
+    measure()
     window.addEventListener(`resize`, handleResize)
 
     return () => window.removeEventListener(`resize`, handleResize)
   }, [])
 
-  // Event Handlers
-
   const handleResize = () => {
-    setViewportSize(inspectWindow())
+    measure()
   }
 
   return (

@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import { useRef, useLayoutEffect, useEffect } from "react"
 
 import { useOptions, useTopbar } from "../context/UIContext"
-import { measure } from "../context/MeasureContext"
+import { useMeasureUpdater } from "../context/MeasureContext"
 
 const Topbar = ({
   backgroundColor,
@@ -17,12 +17,15 @@ const Topbar = ({
   const topbarRef = useRef(null)
   const options = useOptions()
   const setTopbar = useTopbar()
-  const { setTopbarHeight } = measure()
+  const setMeasurements = useMeasureUpdater()
 
   // Component Lifecycle
 
   useLayoutEffect(() => {
-    setTopbarHeight(topbarRef.current.clientHeight)
+    setMeasurements(state => ({
+      ...state,
+      topbarHeight: topbarRef.current.clientHeight,
+    }))
   }, [])
 
   useEffect(() => {
