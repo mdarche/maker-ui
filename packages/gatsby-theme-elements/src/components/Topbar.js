@@ -3,7 +3,7 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useRef, useLayoutEffect, useEffect } from "react"
 
-import { useOptions, useTopbar } from "../context/UIContext"
+import { useOptions, useTopbar } from "../context/ElementsContext"
 import { useMeasureUpdater } from "../context/MeasureContext"
 
 const Topbar = ({
@@ -19,20 +19,18 @@ const Topbar = ({
   const setTopbar = useTopbar()
   const setMeasurements = useMeasureUpdater()
 
-  // Component Lifecycle
+  useEffect(() => {
+    if (sticky !== undefined && sticky !== options.topbar.sticky) {
+      setTopbar(sticky)
+    }
+  }, [sticky, options.topbar.sticky, setTopbar])
 
   useLayoutEffect(() => {
     setMeasurements(state => ({
       ...state,
       topbarHeight: topbarRef.current.clientHeight,
     }))
-  }, [])
-
-  useEffect(() => {
-    if (sticky !== undefined && sticky !== options.topbar.sticky) {
-      setTopbar(sticky)
-    }
-  }, [])
+  }, [setMeasurements])
 
   // Partials
 

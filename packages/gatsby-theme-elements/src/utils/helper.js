@@ -6,12 +6,6 @@ export const formatUnit = value => {
 
 // Error Checks
 
-export const errorCheck = (name, value, provider) => {
-  if (value === undefined) {
-    throw new Error(`${name} must be used within a ${provider}`)
-  }
-}
-
 export const validate = options => {
   return options !== undefined && typeof options === "object" ? options : {}
 }

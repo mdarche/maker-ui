@@ -1,5 +1,5 @@
 // Hooks
-export { useOptions, useMenu, useSideNav } from "./src/context/UIContext"
+export { useOptions, useMenu, useSideNav } from "./src/context/ElementsContext"
 export { useMeasureState } from "./src/context/MeasureContext"
 
 // Components

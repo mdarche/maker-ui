@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
-import { useOptions } from "../context/UIContext"
+import { useOptions } from "../context/ElementsContext"
 
 const Section = ({
   background,
@@ -12,7 +12,7 @@ const Section = ({
   id,
   ...props
 }) => {
-  const options = useOptions().content
+  const options = useOptions()
 
   return (
     <section
@@ -23,7 +23,7 @@ const Section = ({
       }}>
       <div
         sx={{
-          maxWidth: maxWidth || options.maxWidth,
+          maxWidth: maxWidth || options.content.maxWidth,
           m: margin || "0 auto",
           p: padding || "20px",
         }}>

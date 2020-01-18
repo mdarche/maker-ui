@@ -3,14 +3,15 @@ import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 import { useRef, useLayoutEffect } from "react"
 
-import { useOptions } from "../context/UIContext"
+import { useOptions } from "../context/ElementsContext"
 import { useMeasureState, useMeasureUpdater } from "../context/MeasureContext"
 
 const Header = props => {
-  const headerRef = useRef(null)
   const options = useOptions()
-  const setMeasurements = useMeasureUpdater()
   const { topbarHeight } = useMeasureState()
+  const setMeasurements = useMeasureUpdater()
+  const headerRef = useRef(null)
+
   const {
     sticky = options.header.sticky,
     stickyMobile = options.header.stickyMobile,
@@ -22,16 +23,12 @@ const Header = props => {
     ...rest
   } = props
 
-  // Component Lifecycle
-
   useLayoutEffect(() => {
     setMeasurements(state => ({
       ...state,
       headerHeight: headerRef.current.clientHeight,
     }))
-  }, [])
-
-  // Partials
+  }, [setMeasurements])
 
   const stickyPartial = sticky
     ? {

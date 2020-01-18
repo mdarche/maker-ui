@@ -3,7 +3,7 @@ import { jsx } from "theme-ui"
 import { useEffect } from "react"
 import PropTypes from "prop-types"
 import { useMeasureState } from "../context/MeasureContext"
-import { useLayout } from "../context/UIContext"
+import { useLayout } from "../context/ElementsContext"
 
 const ContentWrapper = ({
   maxWidth,
@@ -13,13 +13,13 @@ const ContentWrapper = ({
   ...props
 }) => {
   const { sidebarWidth, sideNavWidth } = useMeasureState()
-  const [siteLayout, setLayout] = useLayout()
+  const [contextLayout, setLayout] = useLayout()
 
   useEffect(() => {
-    if (layout !== siteLayout) {
+    if (layout !== contextLayout) {
       setLayout(layout)
     }
-  }, [])
+  }, [layout, contextLayout, setLayout])
 
   // Partials
 

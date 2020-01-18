@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react"
 import { animated as a, useSpring } from "react-spring"
 
 import { useMeasureUpdater, useMeasureState } from "../context/MeasureContext"
-import { useOptions, useSideNav, useLayout } from "../context/UIContext"
+import { useOptions, useSideNav, useLayout } from "../context/ElementsContext"
 import { reveal } from "../utils/animate"
 
 function getInnerWidth() {
@@ -53,7 +53,7 @@ const SideNav = props => {
         sideNavWidth: width,
       }))
     }
-  }, [width])
+  }, [width, setMeasurements, sideNavWidth])
 
   useEffect(() => {
     if (sideNavActive && viewportWidth < breakpoint) {
@@ -62,7 +62,7 @@ const SideNav = props => {
     if (!sideNavActive && viewportWidth > breakpoint) {
       toggleSideNav(true)
     }
-  }, [viewportWidth])
+  }, [viewportWidth, sideNavActive, breakpoint, toggleSideNav])
 
   // Partials
 

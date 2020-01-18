@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
 
-import { useSideNav, useLayout } from "../context/UIContext"
+import { useSideNav, useLayout } from "../context/ElementsContext"
 import { ReactComponent as ExpandIcon } from "../assets/menu.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 

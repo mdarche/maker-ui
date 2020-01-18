@@ -1,20 +1,17 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import PropTypes from "prop-types"
-import { useMeasureState } from "../context/MeasureContext"
+import { useLayout } from "../context/ElementsContext"
 
-const Main = ({ maxWidth, ...props }) => {
-  const { sideNavWidth } = useMeasureState()
+const Main = ({ maxWidth = "max_content", ...props }) => {
+  const [layout] = useLayout()
 
   const widthPartial =
-    sideNavWidth !== 0
-      ? { maxWidth: maxWidth || "max_content", m: "auto" }
-      : null
+    layout === "sidenav-content" ? { maxWidth, m: "0 auto" } : null
 
   return (
     <main
       id="#content"
-      key="Main"
       {...props}
       sx={{
         flex: 1,

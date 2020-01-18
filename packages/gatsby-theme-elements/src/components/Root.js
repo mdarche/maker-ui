@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { useLayoutEffect } from "react"
+import { useLayoutEffect, useCallback } from "react"
 import { Global } from "@emotion/core"
 
 import { useMeasureUpdater } from "../context/MeasureContext"
@@ -23,7 +23,7 @@ const skiplinks = [
 const Root = ({ children, globalStyle, reset, ...props }) => {
   const setMeasurements = useMeasureUpdater()
 
-  function measure() {
+  const measure = useCallback(() => {
     if (typeof window !== `undefined`) {
       setMeasurements(state => ({
         ...state,
@@ -31,18 +31,18 @@ const Root = ({ children, globalStyle, reset, ...props }) => {
         viewportHeight: window.innerHeight,
       }))
     }
-  }
+  }, [setMeasurements])
+
+  // const handleResize = () => {
+  //   measure()
+  // }
 
   useLayoutEffect(() => {
     measure()
-    window.addEventListener(`resize`, handleResize)
+    window.addEventListener(`resize`, measure)
 
-    return () => window.removeEventListener(`resize`, handleResize)
-  }, [])
-
-  const handleResize = () => {
-    measure()
-  }
+    return () => window.removeEventListener(`resize`, measure)
+  }, [measure])
 
   return (
     <Styled.root id="__elements" sx={{ color: "text" }} {...props}>

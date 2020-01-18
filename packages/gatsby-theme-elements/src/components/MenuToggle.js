@@ -2,7 +2,7 @@
 import { jsx, useColorMode } from "theme-ui"
 import PropTypes from "prop-types"
 
-import { useMenu } from "../context/UIContext"
+import { useMenu } from "../context/ElementsContext"
 import { MenuIcon, CloseIcon } from "../assets"
 import theme from "../config/base-theme"
 

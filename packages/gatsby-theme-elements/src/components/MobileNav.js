@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import { useEffect, useRef } from "react"
 import { animated as a, useTransition } from "react-spring"
 
-import { useMenu, useOptions } from "../context/UIContext"
+import { useOptions, useMenu } from "../context/ElementsContext"
 import { formatUnit } from "../utils/helper"
 import { transitionTypes } from "../utils/animate"
 import MenuToggle from "./MenuToggle"
@@ -26,22 +26,16 @@ const MobileNav = props => {
     ...rest
   } = props
 
-  // Component Lifecyle
-
   useEffect(() => {
+    const handleClick = e => {
+      return menuRef.current.contains(e.target) ? null : toggleMenu(false)
+    }
+
     if (menuActive && !animation.startsWith("fade")) {
       document.addEventListener("mousedown", handleClick)
     }
     return () => document.removeEventListener("mousedown", handleClick)
-  }, [menuActive])
-
-  // Event Handlers
-
-  const handleClick = e => {
-    return menuRef.current.contains(e.target) ? null : toggleMenu(false)
-  }
-
-  // Partials
+  }, [menuActive, toggleMenu, animation, menuRef])
 
   const positionPartial = () => {
     if (animation.startsWith("fade")) {

@@ -33,7 +33,6 @@ const NavMenu = ({
         <ul
           {...props}
           id="menu-primary"
-          role="menu"
           sx={{
             display: "flex",
             listStyle: "none",

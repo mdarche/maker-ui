@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useEffect } from "react"
 
-import { useOptions } from "../context/UIContext"
+import { useOptions } from "../context/ElementsContext"
 import { useMeasureUpdater } from "../context/MeasureContext"
 
 const Sidebar = props => {
@@ -17,7 +17,7 @@ const Sidebar = props => {
         sidebarWidth: width,
       }))
     }
-  }, [])
+  }, [width, options.sidebar.width, setMeasurements])
 
   return <aside {...props} id="primary-sidebar" />
 }

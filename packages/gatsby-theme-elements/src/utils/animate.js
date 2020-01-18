@@ -1,5 +1,3 @@
-// import { useTransition } from "react-spring"
-
 // Default Mobile Nav Animations
 
 export const transitionTypes = (width, type) => {
@@ -30,15 +28,6 @@ export const transitionTypes = (width, type) => {
       }
   }
 }
-
-// Transitions
-
-// export const transitions = (toggle, type, width, config) => {
-//   return useTransition(toggle, null, {
-//     ...transitionTypes(width, type),
-//     config,
-//   })
-// }
 
 // Springs
 
