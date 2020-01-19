@@ -11,7 +11,7 @@ import MenuToggle from "./MenuToggle"
 
 const MobileNav = props => {
   const menuRef = useRef(null)
-  const options = useOptions()
+  const options = useOptions().header
   const [menuActive, toggleMenu] = useMenu()
 
   const {
@@ -20,9 +20,9 @@ const MobileNav = props => {
     children,
     defaultClose = false,
     hiddenDesktop = true,
-    width = formatUnit(options.header.mobileNavWidth),
-    animation = options.header.mobileAnimation,
-    spring = options.header.spring,
+    width = formatUnit(options.mobileNavWidth),
+    animation = options.mobileAnimation,
+    spring = options.spring,
     ...rest
   } = props
 

@@ -1,28 +1,26 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+import React from "react"
 import PropTypes from "prop-types"
+import { Footer as ElementsFooter } from "elements-ui"
 
-const Footer = ({ backgroundColor, border, maxWidth, ...props }) => {
-  const borderPartial = border
-    ? { borderTop: border }
-    : { borderTop: "1px solid", borderColor: "border" }
-
-  return (
-    <footer
-      sx={{
-        bg: backgroundColor || "bg_footer",
-        ...borderPartial,
-      }}>
-      <div
-        {...props}
-        sx={{
-          m: "0 auto",
-          maxWidth: maxWidth || "max_footer",
-        }}
-      />
-    </footer>
-  )
-}
+const Footer = ({
+  backgroundColor = "bg_footer",
+  borderTop = "1px solid",
+  borderColor = "border",
+  maxWidth = "max_footer",
+  sx,
+  ...props
+}) => (
+  <ElementsFooter
+    bg={backgroundColor}
+    borderTop={borderTop}
+    borderColor={borderColor}
+    sx={{
+      maxWidth,
+      ...sx,
+    }}
+    {...props}
+  />
+)
 
 Footer.propTypes = {
   backgroundColor: PropTypes.string,

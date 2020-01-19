@@ -1,7 +1,7 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+import React from "react"
 import PropTypes from "prop-types"
 import { useRef, useLayoutEffect } from "react"
+import { Header as ElementsHeader } from "elements-ui"
 
 import { useOptions } from "../context/ElementsContext"
 import { useMeasureState, useMeasureUpdater } from "../context/MeasureContext"
@@ -15,12 +15,13 @@ const Header = props => {
   const {
     sticky = options.header.sticky,
     stickyMobile = options.header.stickyMobile,
-    maxWidth,
-    backgroundColor,
-    boxShadow,
-    justify,
-    border,
-    ...rest
+    maxWidth = "max-header",
+    backgroundColor = "bg_header",
+    boxShadow = "header",
+    justify = "flex-start",
+    border = "1px solid",
+    borderColor = "border",
+    sx,
   } = props
 
   useLayoutEffect(() => {
@@ -37,35 +38,22 @@ const Header = props => {
       }
     : null
 
-  const borderPartial = border
-    ? { borderBottom: border }
-    : { borderBottom: "1px solid", borderColor: "border" }
-
   return (
-    <header
+    <ElementsHeader
       ref={headerRef}
+      bg={backgroundColor}
+      boxShadow={boxShadow}
+      borderBottom={border}
+      borderColor={borderColor}
+      stickyHeader={{ stickyPartial }}
       sx={{
-        bg: backgroundColor || "bg_header",
-        boxShadow: boxShadow || "header",
-        fontFamily: "heading",
-        zIndex: 100,
-        ...stickyPartial,
-        ...borderPartial,
-      }}>
-      <div
-        id="header-content"
-        sx={{
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: justify || "flex-start",
-          m: "0 auto",
-          p: 3,
-          maxWidth: maxWidth || "max_header",
-        }}
-        {...rest}
-      />
-    </header>
+        justifyContent: justify,
+        maxWidth,
+        p: 3,
+        ...sx,
+      }}
+      {...props}
+    />
   )
 }
 
