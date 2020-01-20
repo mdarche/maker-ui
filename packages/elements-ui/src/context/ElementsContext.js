@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react"
 // import merge from "deepmerge"
 
-import options from "../config/defaults"
+import defaultOptions from "../utils/default-options"
 
 const ElementsStateContext = React.createContext()
 const ElementsUpdateContext = React.createContext()
 
 const ElementsProvider = ({ children }) => {
   const [elements, setElements] = useState({
-    options,
+    options: defaultOptions,
     menuActive: false,
     sideNav: true,
     layout: "content",
@@ -23,14 +23,24 @@ const ElementsProvider = ({ children }) => {
   )
 }
 
-// Usage Hooks - Manipulate individual pieces of state
+// Usage Hooks
+// TODO - refactor functions as a reducer
 
 function useOptions() {
   const { options } = useContext(ElementsStateContext)
-  const setElements = useContext(ElementsUpdateContext)
 
   if (typeof options === undefined) {
     throw new Error("useOptions must be used within an ElementsProvider")
+  }
+
+  return options
+}
+
+function useOptionsUpdater() {
+  const setElements = useContext(ElementsUpdateContext)
+
+  if (typeof options === undefined) {
+    throw new Error("useOptionsUpdater must be used within an ElementsProvider")
   }
 
   function setOptions(options) {
@@ -40,7 +50,7 @@ function useOptions() {
     }))
   }
 
-  return [options, setOptions]
+  return setOptions
 }
 
 function useMenu() {
@@ -116,6 +126,7 @@ function useSideNav() {
 export {
   ElementsProvider,
   useOptions,
+  useOptionsUpdater,
   useMenu,
   useLayout,
   useSideNav,

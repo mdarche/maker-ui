@@ -6,9 +6,10 @@ import { ElementsProvider } from "../context/ElementsContext"
 import { MeasureProvider } from "../context/MeasureContext"
 import ElementsRoot from "./ElementsRoot"
 import cssReset from "../utils/reset"
+import defaultTheme from "../utils/default-theme"
 
 export default ({
-  theme,
+  theme = defaultTheme,
   globalStyles,
   reset = cssReset,
   options,

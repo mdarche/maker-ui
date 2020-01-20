@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react"
-import options from "../config/defaults"
 
 const MeasureStateContext = React.createContext()
 const MeasureUpdateContext = React.createContext()
@@ -8,8 +7,6 @@ const MeasureProvider = ({ children }) => {
   const [measurements, setMeasurements] = useState({
     topbarHeight: 0,
     headerHeight: 0,
-    sideNavWidth: options.sideNav.width,
-    sidebarWidth: options.sidebar.width,
     viewportWidth: 0,
     viewportHeight: 0,
   })

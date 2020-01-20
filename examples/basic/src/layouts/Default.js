@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Box } from "react-understudy"
+import { Layout, Header } from "elements-ui"
 
 // import { menuItems, logoColors } from "../utils/settings"
 
 export default props => (
-  <div>
+  <Layout>
+    <Header>Header</Header>
     <h1>Test</h1>
     {props.children}
-  </div>
+  </Layout>
 )
