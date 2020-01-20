@@ -6,7 +6,7 @@ const Footer = ({
   backgroundColor = "bg_footer",
   borderTop = "1px solid",
   borderColor = "border",
-  maxWidth = "max_footer",
+  maxWidth = "maxWidth_footer",
   sx,
   ...props
 }) => (

@@ -1,22 +1,48 @@
-import React, { useState, useContext } from "react"
-// import merge from "deepmerge"
+import React, { useReducer, useContext } from "react"
+import merge from "deepmerge"
 
 import defaultOptions from "../utils/default-options"
 
 const ElementsStateContext = React.createContext()
 const ElementsUpdateContext = React.createContext()
 
+function elementsReducer(state, action) {
+  switch (action.type) {
+    case "options": {
+      return { ...state, options: merge(state.options, action.payload) }
+    }
+    case "menu": {
+      return { ...state, menuActive: !state.menuActive }
+    }
+    case "modal": {
+      return { ...state, modalActive: !state.modalActive }
+    }
+    case "sideNav": {
+      return { ...state, sideNavActive: !state.sideNavActive }
+    }
+    case "layout": {
+      return {
+        ...state,
+        options: merge(state.options, { layout: action.payload }),
+      }
+    }
+    default: {
+      throw new Error(`Unhandled action type: ${action.type}`)
+    }
+  }
+}
+
 const ElementsProvider = ({ children }) => {
-  const [elements, setElements] = useState({
+  const [state, dispatch] = useReducer(elementsReducer, {
     options: defaultOptions,
     menuActive: false,
-    sideNav: true,
-    layout: "content",
+    modalActive: false,
+    sideNavActive: true,
   })
 
   return (
-    <ElementsStateContext.Provider value={elements}>
-      <ElementsUpdateContext.Provider value={setElements}>
+    <ElementsStateContext.Provider value={state}>
+      <ElementsUpdateContext.Provider value={dispatch}>
         {children}
       </ElementsUpdateContext.Provider>
     </ElementsStateContext.Provider>
@@ -24,30 +50,24 @@ const ElementsProvider = ({ children }) => {
 }
 
 // Usage Hooks
-// TODO - refactor functions as a reducer
 
 function useOptions() {
   const { options } = useContext(ElementsStateContext)
-
   if (typeof options === undefined) {
     throw new Error("useOptions must be used within an ElementsProvider")
   }
-
   return options
 }
 
 function useOptionsUpdater() {
-  const setElements = useContext(ElementsUpdateContext)
+  const dispatch = useContext(ElementsUpdateContext)
 
   if (typeof options === undefined) {
     throw new Error("useOptionsUpdater must be used within an ElementsProvider")
   }
 
   function setOptions(options) {
-    setElements(state => ({
-      ...state,
-      options,
-    }))
+    dispatch({ type: "options", payload: options })
   }
 
   return setOptions
@@ -55,71 +75,47 @@ function useOptionsUpdater() {
 
 function useMenu() {
   const { menuActive } = useContext(ElementsStateContext)
-  const setElements = useContext(ElementsUpdateContext)
+  const dispatch = useContext(ElementsUpdateContext)
 
   if (typeof menuActive === undefined) {
     throw new Error("useMenu must be used within an ElementsProvider")
   }
 
   function toggleMenu() {
-    setElements(state => ({
-      ...state,
-      menuActive: !state.menuActive,
-    }))
+    dispatch({ type: "menu" })
   }
 
   return [menuActive, toggleMenu]
 }
 
 function useLayout() {
-  const { layout } = useContext(ElementsStateContext)
-  const setElements = useContext(ElementsUpdateContext)
+  const {
+    options: { layout },
+  } = useContext(ElementsStateContext)
+  const dispatch = useContext(ElementsUpdateContext)
 
   if (typeof layout === undefined) {
     throw new Error("useLayout must be used within an ElementsProvider")
   }
 
-  function setLayout(value) {
-    setElements(state => ({
-      ...state,
-      layout: value,
-    }))
+  function setLayout(newLayout) {
+    dispatch({ type: "layout", payload: newLayout })
   }
 
   return [layout, setLayout]
 }
 
-// function useTopbar() {
-//   const setElements = useContext(ElementsUpdateContext)
-
-//   if (typeof setElements === undefined) {
-//     throw new Error("useTopbar must be used within an ElementsProvider")
-//   }
-
-//   function setTopbar(value) {
-//     setElements(state =>
-//       merge(state, { options: { topbar: { sticky: value } } })
-//     )
-//   }
-
-//   return setTopbar
-// }
-
 function useSideNav() {
   const { sideNav } = useContext(ElementsStateContext)
-  const setElements = useContext(ElementsUpdateContext)
+  const dispatch = useContext(ElementsUpdateContext)
 
   if (typeof sideNavActive === undefined) {
     throw new Error("useSideNav must be used within an ElementsProvider")
   }
 
   function setSideNav() {
-    setElements(state => ({
-      ...state,
-      sideNavActive: !state.sideNavActive,
-    }))
+    dispatch({ type: "sideNav" })
   }
-
   return [sideNav, setSideNav]
 }
 
@@ -130,5 +126,4 @@ export {
   useMenu,
   useLayout,
   useSideNav,
-  // useTopbar,
 }

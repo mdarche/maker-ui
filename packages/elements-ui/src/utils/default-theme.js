@@ -1,0 +1,66 @@
+export default {
+  initialColorMode: "light",
+  colors: {
+    text: "#333",
+    background: "#fff",
+    primary: "#1858dc",
+    secondary: "#355cac",
+    accent: "#1858dc",
+    muted: "#f6f6f6",
+    navlink: "#333",
+    border: "#e6e6e6",
+    bg_topbar: "#355cac",
+    bg_header: "#fff",
+    bg_mobilenav: "rgba(0, 0, 0, 0.9)",
+    bg_sidenav: "#fdfdfd",
+    bg_tabbar: "#fff",
+    bg_footer: "#fff",
+    text_topbar: "#fff",
+  },
+  fonts: {
+    body: "system-ui, sans-serif",
+    heading: "system-ui, sans-serif",
+    monospace: "Menlo, monospace",
+  },
+  fontWeights: {
+    body: 400,
+    heading: 700,
+    bold: 700,
+  },
+  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
+  lineHeights: {
+    body: 1.5,
+    heading: 1.125,
+  },
+  shadows: {
+    header: null,
+    tabbar: null,
+  },
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+  layout: {
+    content: {
+      display: "block",
+      maxWidth: "maxWidth_content",
+      color: theme => theme.colors.primary,
+    },
+    "sidebar-content": {
+      display: "grid",
+      px: ["20px", 0],
+      gridTemplateColumns: theme => [`1fr`, `${theme.sizes.width_sidebar} 1fr`],
+      gridGap: 20,
+      maxWidth: "maxWidth_content",
+      "#primary-sidebar": {
+        gridRow: [2, "auto"],
+      },
+    },
+    "content-sidebar": {
+      display: "grid",
+      px: ["20px", 0],
+      gridTemplateColumns: theme => [`1fr`, `1fr ${theme.sizes.width_sidebar}`],
+      gridGap: 20,
+      maxWidth: "maxWidth_content",
+    },
+    "sidenav-content": {},
+    "content-sidenav": {},
+  },
+}

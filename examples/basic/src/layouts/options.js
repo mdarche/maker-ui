@@ -1,5 +1,5 @@
 export default {
-  layout: "content",
+  layout: "sidebar",
   topbar: {
     sticky: true,
     maxWidth: 1260,

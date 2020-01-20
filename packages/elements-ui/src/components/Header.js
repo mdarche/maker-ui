@@ -4,17 +4,17 @@ import { Flex, Box } from "@theme-ui/components"
 import { useOptions } from "../context/ElementsContext"
 
 const Header = React.forwardRef((props, ref) => {
-  const options = useOptions()
+  const { header } = useOptions()
 
   const {
     bg = "bg_header",
-    maxWidth = "mw_header",
     boxShadow = "header",
     borderBottom,
-    borderColor,
+    borderColor = "border",
     justifyContent = "flex-start",
-    sticky = options.header.sticky,
-    stickyMobile = options.header.stickyMobile,
+    maxWidth = "maxWidth_header",
+    sticky = header.sticky,
+    stickyMobile = header.stickyMobile,
     sx,
     ...rest
   } = props

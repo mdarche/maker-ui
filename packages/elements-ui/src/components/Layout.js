@@ -3,28 +3,26 @@ import { ThemeProvider, ColorMode, Styled } from "theme-ui"
 import { Global } from "@emotion/core"
 
 import { ElementsProvider } from "../context/ElementsContext"
-import { MeasureProvider } from "../context/MeasureContext"
 import ElementsRoot from "./ElementsRoot"
 import cssReset from "../utils/reset"
 import defaultTheme from "../utils/default-theme"
+import mapOptions from "../utils/map-to-theme"
 
 export default ({
-  theme = defaultTheme,
-  globalStyles,
   reset = cssReset,
+  theme = defaultTheme,
   options,
+  globalStyles,
   children,
 }) => (
   <ElementsProvider>
-    <MeasureProvider>
-      <ThemeProvider theme={theme}>
-        <ColorMode />
-        <Global styles={reset} />
-        {globalStyles !== null ? <Global styles={globalStyles} /> : null}
-        <Styled.root>
-          <ElementsRoot options={options}>{children}</ElementsRoot>
-        </Styled.root>
-      </ThemeProvider>
-    </MeasureProvider>
+    <ThemeProvider theme={mapOptions(theme, options)}>
+      <ColorMode />
+      <Global styles={reset} />
+      {globalStyles !== null ? <Global styles={globalStyles} /> : null}
+      <Styled.root>
+        <ElementsRoot options={options}>{children}</ElementsRoot>
+      </Styled.root>
+    </ThemeProvider>
   </ElementsProvider>
 )
