@@ -1,7 +1,9 @@
 export default {
+  navType: "basic",
   layout: "content",
   topbar: {
     sticky: true,
+    stickyMobile: false,
     maxWidth: 1260,
   },
   header: {
@@ -19,14 +21,14 @@ export default {
   content: {
     maxWidth: 1020,
     maxWidthSection: 1020,
-    gridGap: 40,
+    gridGap: 30,
   },
   sidebar: {
     width: ".3fr",
   },
   footer: {
     maxWidth: 1020,
-    gridGap: 0,
+    gridGap: 30,
   },
   breakpoints: {
     sm: 750,

@@ -20,7 +20,7 @@ const Skiplinks = () => {
           position: "absolute",
           fontFamily: "body",
           left: -9999,
-          p: ".5em",
+          p: "1em",
           "&:focus": {
             left: 0,
           },

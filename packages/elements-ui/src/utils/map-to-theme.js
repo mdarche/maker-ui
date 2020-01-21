@@ -16,9 +16,9 @@ export default (theme, options = defaultOptions) => {
       maxWidth_topbar: options.topbar.maxWidth,
       maxWidth_content: options.content.maxWidth,
       maxWidth_footer: options.footer.maxWidth,
-      width_mobileNav: options.header.mobileNavWidth,
+      width_mobilenav: options.header.mobileNavWidth,
       width_sidebar: options.sidebar.width,
-      width_sideNav: options.sideNav.width,
+      width_sidenav: options.sideNav.width,
     },
     breakpoints: [
       format(options.breakpoints.sm),

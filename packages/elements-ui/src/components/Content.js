@@ -14,7 +14,7 @@ export const Content = React.forwardRef(
     return (
       <Box
         ref={ref}
-        variant={`layout.eui_${layout || baseLayout}`}
+        variant={`eui_layout.${layout || baseLayout}`}
         {...props}
         sx={{
           mx: "auto",

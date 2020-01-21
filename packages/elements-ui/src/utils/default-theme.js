@@ -1,3 +1,5 @@
+import layouts from "./layouts"
+
 export default {
   initialColorMode: "light",
   colors: {
@@ -12,7 +14,7 @@ export default {
     bg_topbar: "#355cac",
     bg_header: "#fff",
     bg_mobilenav: "rgba(0, 0, 0, 0.9)",
-    bg_sidenav: "#fdfdfd",
+    bg_sidenav: "#333",
     bg_tabbar: "#fff",
     bg_footer: "#fff",
     text_topbar: "#fff",
@@ -37,30 +39,5 @@ export default {
     tabbar: null,
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
-  layout: {
-    eui_content: {
-      display: "block",
-      maxWidth: "maxWidth_content",
-      color: theme => theme.colors.primary,
-    },
-    "eui_sidebar-content": {
-      display: "grid",
-      px: ["20px", 0],
-      gridTemplateColumns: ({ sizes }) => [`1fr`, `${sizes.width_sidebar} 1fr`],
-      gridGap: "gap_content",
-      maxWidth: "maxWidth_content",
-      "#primary-sidebar": {
-        gridRow: [2, "auto"],
-      },
-    },
-    "eui_content-sidebar": {
-      display: "grid",
-      px: ["20px", 0],
-      gridTemplateColumns: ({ sizes }) => [`1fr`, `1fr ${sizes.width_sidebar}`],
-      gridGap: "gap_content",
-      maxWidth: "maxWidth_content",
-    },
-    "eui_sidenav-content": {},
-    "eui_content-sidenav": {},
-  },
+  ...layouts,
 }

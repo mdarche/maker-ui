@@ -37,7 +37,7 @@ const ElementsProvider = ({ children }) => {
     options: defaultOptions,
     menuActive: false,
     modalActive: false,
-    sideNavActive: true,
+    sideNavActive: false,
   })
 
   return (
@@ -106,7 +106,7 @@ function useLayout() {
 }
 
 function useSideNav() {
-  const { sideNav } = useContext(ElementsStateContext)
+  const { sideNavActive } = useContext(ElementsStateContext)
   const dispatch = useContext(ElementsUpdateContext)
 
   if (typeof sideNavActive === undefined) {
@@ -116,7 +116,7 @@ function useSideNav() {
   function setSideNav() {
     dispatch({ type: "sideNav" })
   }
-  return [sideNav, setSideNav]
+  return [sideNavActive, setSideNav]
 }
 
 export {
