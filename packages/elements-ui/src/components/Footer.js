@@ -17,8 +17,8 @@ const Footer = React.forwardRef(
       <Box
         as="footer"
         ref={ref}
+        bg={bg}
         sx={{
-          bg,
           borderTop,
           borderColor,
         }}>

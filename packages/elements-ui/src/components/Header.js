@@ -29,8 +29,8 @@ const Header = React.forwardRef((props, ref) => {
     <Box
       as="header"
       ref={ref}
+      bg={bg}
       sx={{
-        bg,
         boxShadow,
         borderBottom,
         borderColor,

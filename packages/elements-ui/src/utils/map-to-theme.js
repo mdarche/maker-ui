@@ -5,6 +5,10 @@ import defaultOptions from "./default-options"
 const validate = obj =>
   obj !== undefined && typeof obj === "object" ? obj : {}
 
+const format = value => {
+  return isNaN(value) ? value : `${value}px`
+}
+
 export default (theme, options = defaultOptions) => {
   const elementsTheme = {
     sizes: {
@@ -17,9 +21,9 @@ export default (theme, options = defaultOptions) => {
       width_sideNav: options.sideNav.width,
     },
     breakpoints: [
-      options.breakpoints.sm,
-      options.breakpoints.md,
-      options.breakpoints.lg,
+      format(options.breakpoints.sm),
+      format(options.breakpoints.md),
+      format(options.breakpoints.lg),
     ],
   }
 

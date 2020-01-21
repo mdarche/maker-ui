@@ -1,6 +1,12 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui"
-import { Layout, Header, ContentWrapper } from "elements-ui"
+import React from "react"
+import {
+  Layout,
+  Header,
+  ContentWrapper as Content,
+  Main,
+  Sidebar,
+  Footer,
+} from "elements-ui"
 
 import options from "./options"
 
@@ -8,10 +14,20 @@ import options from "./options"
 
 export default props => (
   <Layout>
-    <Header>Header</Header>
-    <ContentWrapper>
-      <h1>Test</h1>
-      {props.children}
-    </ContentWrapper>
+    <Header>
+      Basic Nav
+      {/* <BasicNav menuItems={} logo={} widgetArea={} /> */}
+    </Header>
+    <Content layout="sidebar-content">
+      <Sidebar>Sidebar</Sidebar>
+      <Main>
+        <h1>Test</h1>
+        {props.children}
+      </Main>
+    </Content>
+    <Footer>Footer</Footer>
   </Layout>
+
+  //TODO - add modal layer to Layout and let users access it with API
+  // - Basic Nav, Split Nav, Centered Nav
 )

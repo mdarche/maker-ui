@@ -46,7 +46,7 @@ export default {
     "sidebar-content": {
       display: "grid",
       px: ["20px", 0],
-      gridTemplateColumns: theme => [`1fr`, `${theme.sizes.width_sidebar} 1fr`],
+      gridTemplateColumns: ({ sizes }) => [`1fr`, `${sizes.width_sidebar} 1fr`],
       gridGap: 20,
       maxWidth: "maxWidth_content",
       "#primary-sidebar": {
@@ -56,11 +56,11 @@ export default {
     "content-sidebar": {
       display: "grid",
       px: ["20px", 0],
-      gridTemplateColumns: theme => [`1fr`, `1fr ${theme.sizes.width_sidebar}`],
+      gridTemplateColumns: ({ sizes }) => [`1fr`, `1fr ${sizes.width_sidebar}`],
       gridGap: 20,
       maxWidth: "maxWidth_content",
     },
-    "sidenav-content": {},
-    "content-sidenav": {},
+    // "sidenav-content": {},
+    // "content-sidenav": {},
   },
 }
