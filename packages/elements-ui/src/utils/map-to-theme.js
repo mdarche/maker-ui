@@ -16,7 +16,7 @@ export default (theme, options = defaultOptions) => {
       maxWidth_topbar: options.topbar.maxWidth,
       maxWidth_content: options.content.maxWidth,
       maxWidth_footer: options.footer.maxWidth,
-      width_mobilenav: options.header.mobileNavWidth,
+      width_mobilenav: options.mobileMenu.width,
       width_sidebar: options.sidebar.width,
       width_sidenav: options.sideNav.width,
     },
@@ -27,7 +27,6 @@ export default (theme, options = defaultOptions) => {
     ],
     space: {
       gap_content: options.content.gridGap,
-      gap_footer: options.footer.gridGap,
     },
   }
 

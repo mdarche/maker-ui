@@ -10,13 +10,16 @@ export default {
     sticky: true,
     stickyMobile: true,
     maxWidth: 1260,
-    mobileNavWidth: 300,
-    mobileAnimation: "fade",
-    spring: { tension: 170, friction: 26 },
+    hideWidgetsOnMobile: true,
+    colorToggle: true,
+  },
+  mobileMenu: {
+    width: 300,
+    animation: "fade",
+    desktopVisible: false,
   },
   sideNav: {
     width: 300,
-    spring: { tension: 170, friction: 26 },
   },
   content: {
     maxWidth: 1020,
@@ -28,7 +31,6 @@ export default {
   },
   footer: {
     maxWidth: 1020,
-    gridGap: 30,
   },
   breakpoints: {
     sm: 750,

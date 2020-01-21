@@ -1,4 +1,5 @@
-import layouts from "./layouts"
+import layouts from "./variants/layouts"
+import headers from "./variants/headers"
 
 export default {
   initialColorMode: "light",
@@ -37,7 +38,9 @@ export default {
   shadows: {
     header: null,
     tabbar: null,
+    sidenav: null,
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   ...layouts,
+  ...headers,
 }

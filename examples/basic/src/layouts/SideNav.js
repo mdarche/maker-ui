@@ -1,23 +1,31 @@
 import React from "react"
-import { Layout, Header, Content, Main, SideNav, Footer } from "elements-ui"
+import {
+  Layout,
+  Header,
+  Navbar,
+  Content,
+  Main,
+  SideNav,
+  Footer,
+} from "elements-ui"
 import { Box } from "react-understudy"
 
 import options from "./options"
 
-// import { menuItems, logoColors } from "../utils/settings"
+// TODO - test adding variant to header... Will it conflict with eui_header?
 
 export default props => (
   <Layout>
     <Header>
-      {/* <Navbar
-        type="basic"
-        logo={}
-        menuItems={}
-        variant=""
-        widgetArea={}
-        colorToggle
-      /> */}
-      Header
+      <Navbar
+      // logo={}
+      // menuItems={}
+      // menuButton={}
+      // widgetArea={}
+      // colorToggle={}
+
+      // Check theme options
+      />
     </Header>
     <Content layout="sidenav-content">
       <SideNav>Secondary nav links</SideNav>

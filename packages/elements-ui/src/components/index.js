@@ -1,6 +1,7 @@
 export { default as Layout } from "./Layout"
 export { Topbar } from "./Topbar"
 export { Header } from "./Header"
+export { Navbar } from "./Navbar"
 export { Content } from "./Content"
 export { Main } from "./Main"
 export { SideNav } from "./SideNav"

@@ -4,18 +4,16 @@ import { Flex, Box } from "@theme-ui/components"
 import { useOptions } from "../context/ElementsContext"
 
 export const Header = React.forwardRef((props, ref) => {
-  const { header } = useOptions()
+  const { header, navType } = useOptions()
 
   const {
     bg = "bg_header",
     boxShadow = "header",
-    borderBottom,
-    borderColor = "border",
-    justifyContent = "flex-start",
     maxWidth = "maxWidth_header",
     sticky = header.sticky,
     stickyMobile = header.stickyMobile,
     sx,
+    children,
     ...rest
   } = props
 
@@ -32,26 +30,18 @@ export const Header = React.forwardRef((props, ref) => {
       id="site-header"
       role="banner"
       tabIndex="-1"
+      {...rest}
       sx={{
         bg,
         boxShadow,
-        borderBottom,
-        borderColor,
         fontFamily: "heading",
         zIndex: 100,
         ...partial,
+        ...sx,
       }}>
-      <Flex
-        {...rest}
-        sx={{
-          position: "relative",
-          alignItems: "center",
-          justifyContent,
-          maxWidth,
-          mx: "auto",
-          ...sx,
-        }}
-      />
+      <Flex variant={`eui_header.${navType}`} sx={{ maxWidth, m: "0 auto" }}>
+        {children}
+      </Flex>
     </Box>
   )
 })
