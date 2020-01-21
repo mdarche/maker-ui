@@ -1,12 +1,6 @@
 import React from "react"
-import {
-  Layout,
-  Header,
-  ContentWrapper as Content,
-  Main,
-  Sidebar,
-  Footer,
-} from "elements-ui"
+import { Layout, Header, Content, Main, Sidebar, Footer } from "elements-ui"
+import { Box } from "react-understudy"
 
 import options from "./options"
 
@@ -19,11 +13,10 @@ export default props => (
       {/* <BasicNav menuItems={} logo={} widgetArea={} /> */}
     </Header>
     <Content layout="sidebar-content">
-      <Sidebar>Sidebar</Sidebar>
-      <Main>
-        <h1>Test</h1>
-        {props.children}
-      </Main>
+      <Sidebar>
+        <Box height="400px" />
+      </Sidebar>
+      <Main>{props.children}</Main>
     </Content>
     <Footer>Footer</Footer>
   </Layout>

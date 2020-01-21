@@ -3,7 +3,7 @@ import { Flex, Box } from "@theme-ui/components"
 
 import { useOptions } from "../context/ElementsContext"
 
-const Header = React.forwardRef((props, ref) => {
+export const Header = React.forwardRef((props, ref) => {
   const { header } = useOptions()
 
   const {
@@ -29,8 +29,11 @@ const Header = React.forwardRef((props, ref) => {
     <Box
       as="header"
       ref={ref}
-      bg={bg}
+      id="site-header"
+      role="banner"
+      tabIndex="-1"
       sx={{
+        bg,
         boxShadow,
         borderBottom,
         borderColor,
@@ -52,5 +55,3 @@ const Header = React.forwardRef((props, ref) => {
     </Box>
   )
 })
-
-export default Header

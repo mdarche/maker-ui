@@ -3,7 +3,7 @@ import { Flex, Box } from "@theme-ui/components"
 
 import { useOptions } from "../context/ElementsContext"
 
-const Topbar = React.forwardRef((props, ref) => {
+export const Topbar = React.forwardRef((props, ref) => {
   const { topbar } = useOptions()
 
   const {
@@ -27,6 +27,7 @@ const Topbar = React.forwardRef((props, ref) => {
     <Box
       as="aside"
       ref={ref}
+      role="complementary"
       sx={{
         bg,
         color,
@@ -47,5 +48,3 @@ const Topbar = React.forwardRef((props, ref) => {
     </Box>
   )
 })
-
-export default Topbar

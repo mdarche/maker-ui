@@ -14,20 +14,15 @@ export default ({
   options,
   globalStyles,
   children,
-}) => {
-  console.log("theme is", theme)
-  console.log("blended is", mapOptions(theme, options))
-  const mappedLayout = mapOptions(theme, options)
-  return (
-    <ElementsProvider>
-      <ThemeProvider theme={mappedLayout}>
-        <ColorMode />
-        <Global styles={reset} />
-        {globalStyles !== null ? <Global styles={globalStyles} /> : null}
-        <Styled.root>
-          <ElementsRoot options={options}>{children}</ElementsRoot>
-        </Styled.root>
-      </ThemeProvider>
-    </ElementsProvider>
-  )
-}
+}) => (
+  <ElementsProvider>
+    <ThemeProvider theme={mapOptions(theme, options)}>
+      <ColorMode />
+      <Global styles={reset} />
+      {globalStyles !== null ? <Global styles={globalStyles} /> : null}
+      <Styled.root>
+        <ElementsRoot options={options}>{children}</ElementsRoot>
+      </Styled.root>
+    </ThemeProvider>
+  </ElementsProvider>
+)

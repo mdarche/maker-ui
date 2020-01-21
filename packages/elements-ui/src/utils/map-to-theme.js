@@ -10,7 +10,7 @@ const format = value => {
 }
 
 export default (theme, options = defaultOptions) => {
-  const elementsTheme = {
+  const mappedOptions = {
     sizes: {
       maxWidth_header: options.header.maxWidth,
       maxWidth_topbar: options.topbar.maxWidth,
@@ -25,7 +25,11 @@ export default (theme, options = defaultOptions) => {
       format(options.breakpoints.md),
       format(options.breakpoints.lg),
     ],
+    space: {
+      gap_content: options.content.gridGap,
+      gap_footer: options.footer.gridGap,
+    },
   }
 
-  return merge(validate(theme), elementsTheme)
+  return merge(validate(theme), mappedOptions)
 }

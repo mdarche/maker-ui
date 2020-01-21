@@ -38,29 +38,29 @@ export default {
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   layout: {
-    content: {
+    eui_content: {
       display: "block",
       maxWidth: "maxWidth_content",
       color: theme => theme.colors.primary,
     },
-    "sidebar-content": {
+    "eui_sidebar-content": {
       display: "grid",
       px: ["20px", 0],
       gridTemplateColumns: ({ sizes }) => [`1fr`, `${sizes.width_sidebar} 1fr`],
-      gridGap: 20,
+      gridGap: "gap_content",
       maxWidth: "maxWidth_content",
       "#primary-sidebar": {
         gridRow: [2, "auto"],
       },
     },
-    "content-sidebar": {
+    "eui_content-sidebar": {
       display: "grid",
       px: ["20px", 0],
       gridTemplateColumns: ({ sizes }) => [`1fr`, `1fr ${sizes.width_sidebar}`],
-      gridGap: 20,
+      gridGap: "gap_content",
       maxWidth: "maxWidth_content",
     },
-    // "sidenav-content": {},
-    // "content-sidenav": {},
+    "eui_sidenav-content": {},
+    "eui_content-sidenav": {},
   },
 }

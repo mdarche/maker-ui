@@ -1,7 +1,7 @@
 import React from "react"
 import { Flex, Box } from "@theme-ui/components"
 
-const Footer = React.forwardRef(
+export const Footer = React.forwardRef(
   (
     {
       bg = "bg_footer",
@@ -17,8 +17,11 @@ const Footer = React.forwardRef(
       <Box
         as="footer"
         ref={ref}
-        bg={bg}
+        id="footer"
+        role="contentinfo"
+        tabIndex="-1"
         sx={{
+          bg,
           borderTop,
           borderColor,
         }}>
@@ -34,5 +37,3 @@ const Footer = React.forwardRef(
     )
   }
 )
-
-export default Footer

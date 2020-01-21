@@ -18,14 +18,15 @@ export default {
   },
   content: {
     maxWidth: 1020,
-    gridGap: 30,
+    maxWidthSection: 1020,
+    gridGap: 40,
   },
   sidebar: {
     width: ".3fr",
   },
   footer: {
     maxWidth: 1020,
-    gridGap: 30,
+    gridGap: 0,
   },
   breakpoints: {
     sm: 750,

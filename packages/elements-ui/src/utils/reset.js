@@ -128,17 +128,4 @@ export default css`
     border-collapse: collapse;
     border-spacing: 0;
   }
-  .skip-links li {
-    height: 0,
-    width: 0,
-  }
-  .screen-reader-shortcut {
-    border: 0;
-    clip: rect(0, 0, 0, 0);
-    height: 1px;
-    overflow: hidden;
-    position: absolute !important;
-    width: 1px;
-    word-wrap: normal !important;
-  }
 `
