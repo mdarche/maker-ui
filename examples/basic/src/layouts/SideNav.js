@@ -14,18 +14,13 @@ import options from "./options"
 
 // TODO - test adding variant to header... Will it conflict with eui_header?
 
+// TODO - Add gatsby-plugin-catch-links to config & test new pages
+
 export default props => (
   <Layout>
     <Header>
-      <Navbar
-      // logo={}
-      // menuItems={}
-      // menuButton={}
-      // widgetArea={}
-      // colorToggle={}
-
-      // Check theme options
-      />
+      <Navbar type="basic" menuButton="Menu" />
+      <MobileNav />
     </Header>
     <Content layout="sidenav-content">
       <SideNav>Secondary nav links</SideNav>

@@ -4,7 +4,7 @@ import { Flex, Box } from "@theme-ui/components"
 import { useOptions } from "../context/ElementsContext"
 
 export const Header = React.forwardRef((props, ref) => {
-  const { header, navType } = useOptions()
+  const { header, navigation } = useOptions()
 
   const {
     bg = "bg_header",
@@ -39,7 +39,7 @@ export const Header = React.forwardRef((props, ref) => {
         ...partial,
         ...sx,
       }}>
-      <Flex variant={`eui_header.${navType}`} sx={{ maxWidth, m: "0 auto" }}>
+      <Flex variant={`eui_header.${navigation}`} sx={{ maxWidth, m: "0 auto" }}>
         {children}
       </Flex>
     </Box>

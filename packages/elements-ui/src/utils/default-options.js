@@ -1,5 +1,5 @@
 export default {
-  navType: "basic",
+  navigation: "basic",
   layout: "content",
   topbar: {
     sticky: true,

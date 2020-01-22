@@ -4,8 +4,11 @@ const base = {
 }
 
 export default {
-  eui_headers: {
-    basic: {},
+  eui_header: {
+    basic: {
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
     split: {},
     centered: {},
   },

@@ -1,59 +1,22 @@
 import React from "react"
-import { Box } from "@theme-ui/components"
 
-import { useOptions, useOptionsUpdater } from "../context/ElementsContext"
+import { useOptions, useOptionsUpdater } from "../../context/ElementsContext"
+import BasicNav from "./BasicNav"
+import SplitNav from "./SplitNav"
+import CenterNav from "./CenterNav"
 
-const BasicNav = props => (
-  <>
-    <Box>Logo</Box>
-    <Box>
-      <Box>Navlinks</Box>
-      <Box>WidgetArea</Box>
-    </Box>
-  </>
-)
-
-const SplitNav = props => (
-  <>
-    <Box>
-      <Box>Navlinks</Box>
-    </Box>
-    <Box>Logo</Box>
-    <Box>
-      <Box>Navlinks</Box>
-    </Box>
-  </>
-)
-
-const CenterNav = props => (
-  <>
-    <Box>Logo</Box>
-    <Box>
-      <Box>Navlinks</Box>
-      <Box>WidgetArea</Box>
-    </Box>
-  </>
-)
-
-export const Navbar = ({
-  type,
-  ...props
-  // menuItems,
-  // menuButton,
-  // widgetArea,
-  // colorToggle,
-}) => {
-  const { navType } = useOptions()
+export const Navbar = ({ type, ...props }) => {
+  const { navigation } = useOptions()
   const setOptions = useOptionsUpdater()
 
-  if (type !== undefined && navType !== type) {
-    setOptions({ navType: type })
+  if (type !== undefined && type !== navigation) {
+    setOptions({ navigation: type })
   }
 
-  switch (navType) {
+  switch (navigation) {
     case "split":
       return <SplitNav {...props} />
-    case "centered":
+    case "center":
       return <CenterNav {...props} />
     default:
       return <BasicNav {...props} />
