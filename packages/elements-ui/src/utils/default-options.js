@@ -27,7 +27,11 @@ export default {
     gridGap: 30,
   },
   sidebar: {
-    width: ".3fr",
+    width: 300,
+  },
+  modal: {
+    animation: "fade",
+    blur: false,
   },
   footer: {
     maxWidth: 1020,

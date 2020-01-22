@@ -1,6 +1,3 @@
-import layouts from "./variants/layouts"
-import headers from "./variants/headers"
-
 export default {
   initialColorMode: "light",
   colors: {
@@ -10,8 +7,8 @@ export default {
     secondary: "#355cac",
     accent: "#1858dc",
     muted: "#f6f6f6",
-    navlink: "#333",
     border: "#e6e6e6",
+    navlink: "#333",
     bg_topbar: "#355cac",
     bg_header: "#fff",
     bg_mobilenav: "rgba(0, 0, 0, 0.9)",
@@ -34,11 +31,5 @@ export default {
     body: 1.5,
     heading: 1.125,
   },
-  shadows: {
-    header: null,
-    sidenav: null,
-  },
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
-  ...layouts,
-  ...headers,
 }

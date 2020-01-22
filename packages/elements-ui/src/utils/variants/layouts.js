@@ -1,7 +1,10 @@
+const format = value => {
+  return isNaN(value) ? value : `${value}px`
+}
+
 const sidebar = {
   display: "grid",
-  px: ["20px", 0],
-  gridGap: "gap_content",
+  gridGap: ({ gap }) => gap.gap_content,
   maxWidth: "maxWidth_content",
 }
 
@@ -21,14 +24,20 @@ export default {
     },
     "sidebar-content": {
       ...sidebar,
-      gridTemplateColumns: ({ sizes }) => [`1fr`, `${sizes.width_sidebar} 1fr`],
+      gridTemplateColumns: ({ sizes }) => [
+        `1fr`,
+        `${format(sizes.width_sidebar)} 1fr`,
+      ],
       "#primary-sidebar": {
         gridRow: [2, "auto"],
       },
     },
     "content-sidebar": {
       ...sidebar,
-      gridTemplateColumns: ({ sizes }) => [`1fr`, `1fr ${sizes.width_sidebar}`],
+      gridTemplateColumns: ({ sizes }) => [
+        `1fr`,
+        `1fr ${format(sizes.width_sidebar)}`,
+      ],
     },
     "sidenav-content": {
       ...sideNav,

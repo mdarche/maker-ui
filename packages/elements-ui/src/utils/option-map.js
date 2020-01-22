@@ -3,6 +3,10 @@ import merge from "deepmerge"
 import defaultOptions from "./default-options"
 import defaultTheme from "./default-theme"
 
+import layouts from "./variants/layouts"
+import headers from "./variants/headers"
+import defaults from "./variants/defaults"
+
 const validate = obj =>
   obj !== undefined && typeof obj === "object" ? obj : {}
 
@@ -12,7 +16,7 @@ const format = value => {
 
 // TODO - Test overwriting default-theme styles and console log the new theme
 
-export default (theme, options = defaultOptions) => {
+export default (theme, options = defaultOptions, useDefaults) => {
   const mappedOptions = {
     sizes: {
       maxWidth_header: options.header.maxWidth,
@@ -28,9 +32,12 @@ export default (theme, options = defaultOptions) => {
       format(options.breakpoints.md),
       format(options.breakpoints.lg),
     ],
-    space: {
+    gap: {
       gap_content: options.content.gridGap,
     },
+    ...layouts,
+    ...headers,
+    ...defaults,
   }
 
   return merge.all([validate(theme), defaultTheme, mappedOptions])

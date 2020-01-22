@@ -11,8 +11,6 @@ import {
 } from "elements-ui"
 import { Box } from "react-understudy"
 
-import options from "./options"
-
 // TODO - test adding variant to header... Will it conflict with eui_header?
 
 // TODO - Add gatsby-plugin-catch-links to config & test new pages

@@ -8,12 +8,12 @@ export const Header = React.forwardRef((props, ref) => {
 
   const {
     bg = "bg_header",
-    boxShadow = "header",
     maxWidth = "maxWidth_header",
     sticky = header.sticky,
     stickyMobile = header.stickyMobile,
     sx,
     children,
+    variant = "header",
     ...rest
   } = props
 
@@ -30,11 +30,10 @@ export const Header = React.forwardRef((props, ref) => {
       id="site-header"
       role="banner"
       tabIndex="-1"
+      variant={variant}
+      bg={bg}
       {...rest}
       sx={{
-        bg,
-        boxShadow,
-        fontFamily: "heading",
         zIndex: 100,
         ...partial,
         ...sx,

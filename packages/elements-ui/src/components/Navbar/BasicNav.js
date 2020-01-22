@@ -1,26 +1,24 @@
 import React from "react"
 import { Box, Flex } from "@theme-ui/components"
 
-import Menu from "./Menu"
-import MenuButton from "./MenuButton"
-import ColorButton from "./ColorButton"
+import { Menu, MenuButton, ColorButton, WidgetArea } from "./common"
 
 const BasicNav = ({
   logo = "Logo",
-  menuItems,
-  colorToggle,
+  menu,
   widgetArea,
   menuToggle,
+  colorToggle,
 }) => {
   return (
     <React.Fragment>
       <Box>
         <a href="/">{logo}</a>
       </Box>
-      <Flex>
-        <Menu menu={menuItems} />
+      <Flex sx={{ justifyContent: "flex-end", alignItems: "center" }}>
+        <Menu menuItems={menu} />
         <Box>
-          <Flex sx={{ display: ["none", "flex"] }}>{widgetArea}</Flex>
+          <WidgetArea custom={widgetArea} />
           <MenuButton custom={menuToggle} />
           <ColorButton custom={colorToggle} />
         </Box>

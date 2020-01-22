@@ -9,5 +9,5 @@ export const MobileNav = React.forwardRef((props, ref) => {
   const visibility = {}
   const transition = {}
 
-  return <Box ref={ref} {...props} sx={{ position: "fixed" }} />
+  return <Box ref={ref} id="mobile-nav" {...props} sx={{ position: "fixed" }} />
 })

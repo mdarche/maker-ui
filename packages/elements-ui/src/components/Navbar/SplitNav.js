@@ -2,7 +2,7 @@ import React from "react"
 import { Box } from "@theme-ui/components"
 
 const SplitNav = props => (
-  <>
+  <React.Fragment>
     <Box>
       <Box>Navlinks</Box>
     </Box>
@@ -10,7 +10,7 @@ const SplitNav = props => (
     <Box>
       <Box>Navlinks</Box>
     </Box>
-  </>
+  </React.Fragment>
 )
 
 export default SplitNav

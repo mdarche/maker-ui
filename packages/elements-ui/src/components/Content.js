@@ -3,6 +3,8 @@ import { Box } from "@theme-ui/components"
 
 import { useLayout } from "../context/ElementsContext"
 
+// TODO - Figure out padding top vs Main and mobile padding
+
 export const Content = React.forwardRef(
   ({ layout, maxWidth, gridGap, sx, ...props }, ref) => {
     const [baseLayout, setLayout] = useLayout()
@@ -18,7 +20,6 @@ export const Content = React.forwardRef(
         {...props}
         sx={{
           mx: "auto",
-          p: ["20px", 0],
           ...sx,
         }}
       />

@@ -33,3 +33,19 @@ export default {
     lg: 1240,
   },
 }
+
+export const menuItems = [
+  { label: "Link 1", path: "/test" },
+  { label: "Link 2", path: "/test" },
+  {
+    label: "Link 3",
+    path: "/test",
+    submenu: [
+      { label: "Link 1", path: "/test" },
+      { label: "Link 2", path: "/test" },
+      { label: "Link 3", path: "/test" },
+      { label: "Link 4", path: "/test" },
+    ],
+  },
+  { label: "Link 4", path: "/test" },
+]
