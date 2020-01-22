@@ -1,6 +1,7 @@
 import merge from "deepmerge"
 
 import defaultOptions from "./default-options"
+import defaultTheme from "./default-theme"
 
 const validate = obj =>
   obj !== undefined && typeof obj === "object" ? obj : {}
@@ -8,6 +9,8 @@ const validate = obj =>
 const format = value => {
   return isNaN(value) ? value : `${value}px`
 }
+
+// TODO - Test overwriting default-theme styles and console log the new theme
 
 export default (theme, options = defaultOptions) => {
   const mappedOptions = {
@@ -30,5 +33,5 @@ export default (theme, options = defaultOptions) => {
     },
   }
 
-  return merge(validate(theme), mappedOptions)
+  return merge.all([validate(theme), defaultTheme, mappedOptions])
 }

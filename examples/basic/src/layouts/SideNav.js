@@ -2,6 +2,7 @@ import React from "react"
 import {
   Layout,
   Header,
+  MobileNav,
   Navbar,
   Content,
   Main,
@@ -20,7 +21,7 @@ export default props => (
   <Layout>
     <Header>
       <Navbar type="basic" menuButton="Menu" />
-      <MobileNav />
+      {/* <MobileNav /> */}
     </Header>
     <Content layout="sidenav-content">
       <SideNav>Secondary nav links</SideNav>
@@ -29,6 +30,5 @@ export default props => (
     <Footer>Footer</Footer>
   </Layout>
 
-  //TODO - add modal layer to Layout and let users access it with API
-  // - Basic Nav, Split Nav, Centered Nav
+  // TODO - add modal layer to Layout and let users access it with API
 )

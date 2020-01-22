@@ -22,3 +22,5 @@ export const Navbar = ({ type, ...props }) => {
       return <BasicNav {...props} />
   }
 }
+
+// TODO - Add Proptypes

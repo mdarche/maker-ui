@@ -1,14 +1,17 @@
 import React from "react"
-import { Box, Flex, MenuButton } from "@theme-ui/components"
+import { Box, Flex } from "@theme-ui/components"
 
 import Menu from "./Menu"
-import { useMenu } from "../../context/ElementsContext"
+import MenuButton from "./MenuButton"
+import ColorButton from "./ColorButton"
 
-const BasicNav = ({ logo = "Logo", menuItems, colorToggle, menuButton }) => {
-  const [menu, toggleMenu] = useMenu()
-
-  console.log(menu)
-
+const BasicNav = ({
+  logo = "Logo",
+  menuItems,
+  colorToggle,
+  widgetArea,
+  menuToggle,
+}) => {
   return (
     <React.Fragment>
       <Box>
@@ -17,17 +20,9 @@ const BasicNav = ({ logo = "Logo", menuItems, colorToggle, menuButton }) => {
       <Flex>
         <Menu menu={menuItems} />
         <Box>
-          {menuButton ? (
-            <Box
-              as="button"
-              title="Menu"
-              aria-label="Toggle Menu"
-              onClick={toggleMenu}>
-              {menuButton}
-            </Box>
-          ) : (
-            <MenuButton onClick={toggleMenu} />
-          )}
+          <Flex sx={{ display: ["none", "flex"] }}>{widgetArea}</Flex>
+          <MenuButton custom={menuToggle} />
+          {/* <ColorButton custom={colorToggle} /> */}
         </Box>
       </Flex>
     </React.Fragment>

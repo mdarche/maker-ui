@@ -1,9 +1,9 @@
 import React from "react"
 import { Box } from "@theme-ui/components"
 
-const Dropdown = ({ menuItems }) => (
+const Dropdown = ({ submenu }) => (
   <Box as="ul" variant="submenu">
-    {menuItems.map(i => (
+    {submenu.map(i => (
       <li key={i.label}>
         <a href={i.path} target={i.newTab ? "_blank" : false}>
           {i.label}
@@ -25,7 +25,7 @@ const Menu = ({ menuItems = [] }) => {
           ) : (
             <React.Fragment>
               <button>{path}Caret</button>
-              <Dropdown menuItems={submenu} />
+              <Dropdown submenu={submenu} />
             </React.Fragment>
           )}
         </li>

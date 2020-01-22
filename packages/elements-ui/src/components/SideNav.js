@@ -13,7 +13,7 @@ export const SideNav = React.forwardRef(
       bg = "bg_sidenav",
       sx,
       buttonVariant,
-      buttonInterior = "Toggle",
+      buttonToggle = "Toggle",
       children,
       ...props
     },
@@ -62,7 +62,7 @@ export const SideNav = React.forwardRef(
             bottom: 30,
           }}
           variant={buttonVariant}>
-          {buttonInterior}
+          {buttonToggle}
         </Box>
       </React.Fragment>
     )
