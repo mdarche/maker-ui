@@ -22,7 +22,7 @@ const BasicNav = ({
         <Box>
           <Flex sx={{ display: ["none", "flex"] }}>{widgetArea}</Flex>
           <MenuButton custom={menuToggle} />
-          {/* <ColorButton custom={colorToggle} /> */}
+          <ColorButton custom={colorToggle} />
         </Box>
       </Flex>
     </React.Fragment>

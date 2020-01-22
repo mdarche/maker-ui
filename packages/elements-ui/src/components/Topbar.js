@@ -8,7 +8,6 @@ export const Topbar = React.forwardRef((props, ref) => {
 
   const {
     bg = "bg_topbar",
-    color = "text_topbar",
     maxWidth = "maxWidth_topbar",
     sticky = topbar.sticky,
     sx,
@@ -30,7 +29,6 @@ export const Topbar = React.forwardRef((props, ref) => {
       role="complementary"
       sx={{
         bg,
-        color,
         display: topbar.hideOnMobile ? ["none", "block"] : "block",
         ...partial,
       }}>

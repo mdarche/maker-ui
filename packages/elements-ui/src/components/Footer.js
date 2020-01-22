@@ -2,17 +2,7 @@ import React from "react"
 import { Flex, Box } from "@theme-ui/components"
 
 export const Footer = React.forwardRef(
-  (
-    {
-      bg = "bg_footer",
-      borderTop = "1px solid",
-      borderColor = "border",
-      maxWidth = "maxWidth_footer",
-      sx,
-      ...props
-    },
-    ref
-  ) => {
+  ({ bg = "bg_footer", maxWidth = "maxWidth_footer", sx, ...props }, ref) => {
     return (
       <Box
         as="footer"
@@ -22,8 +12,6 @@ export const Footer = React.forwardRef(
         tabIndex="-1"
         sx={{
           bg,
-          borderTop,
-          borderColor,
         }}>
         <Flex
           {...props}

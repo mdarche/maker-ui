@@ -25,7 +25,7 @@ export default ({ custom }) => {
     <MenuButton
       aria-expanded={menu ? "true" : "false"}
       onClick={toggleMenu}
-      sx={{ ...visibility, m: "0 auto" }}
+      sx={{ ...visibility, svg: { m: "0 auto" } }}
     />
   )
 }

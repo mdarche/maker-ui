@@ -16,7 +16,7 @@ export default {
   mobileMenu: {
     width: 300,
     animation: "fade",
-    desktopVisible: false,
+    desktopVisible: true,
   },
   sideNav: {
     width: 300,

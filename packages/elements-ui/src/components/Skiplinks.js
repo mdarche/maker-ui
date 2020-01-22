@@ -6,6 +6,19 @@ import { useOptions } from "../context/ElementsContext"
 const Skiplinks = () => {
   const { layout } = useOptions()
 
+  let links = [
+    { id: "#site-header", label: "Skip to primary navigation" },
+    { id: "#content", label: "Skip to content" },
+    { id: "#footer", label: "Skip to footer" },
+  ]
+
+  if (layout.includes("sidenav")) {
+    links.splice(1, 0, {
+      id: "#side-nav",
+      label: "Skip to secondary navigation",
+    })
+  }
+
   return (
     <Box
       as="ul"
@@ -26,20 +39,11 @@ const Skiplinks = () => {
           },
         },
       }}>
-      <li>
-        <a href="#site-header">Skip to primary navigation</a>
-      </li>
-      {layout.includes("sidenav") ? (
-        <li>
-          <a href="#side-nav">Skip to secondary navigation</a>
+      {links.map(({ id, label }) => (
+        <li key={id}>
+          <a href={id}>{label}</a>
         </li>
-      ) : null}
-      <li>
-        <a href="#content">Skip to content</a>
-      </li>
-      <li>
-        <a href="#footer">Skip to footer</a>
-      </li>
+      ))}
     </Box>
   )
 }

@@ -16,9 +16,8 @@ export default {
     bg_header: "#fff",
     bg_mobilenav: "rgba(0, 0, 0, 0.9)",
     bg_sidenav: "#333",
-    bg_tabbar: "#fff",
     bg_footer: "#fff",
-    text_topbar: "#fff",
+    bg_modal: "rgba(0, 0, 0, 0.71)",
   },
   fonts: {
     body: "system-ui, sans-serif",
@@ -37,7 +36,6 @@ export default {
   },
   shadows: {
     header: null,
-    tabbar: null,
     sidenav: null,
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
