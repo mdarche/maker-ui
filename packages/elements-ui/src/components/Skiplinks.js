@@ -1,5 +1,5 @@
 import React from "react"
-import { Box } from "@theme-ui/components"
+import { Box } from "theme-ui"
 
 import { useOptions } from "../context/ElementsContext"
 
@@ -7,7 +7,6 @@ const Skiplinks = () => {
   const { layout } = useOptions()
 
   let links = [
-    { id: "#site-header", label: "Skip to primary navigation" },
     { id: "#content", label: "Skip to content" },
     { id: "#footer", label: "Skip to footer" },
   ]
@@ -15,7 +14,7 @@ const Skiplinks = () => {
   if (layout.includes("sidenav")) {
     links.splice(1, 0, {
       id: "#side-nav",
-      label: "Skip to secondary navigation",
+      label: "Skip to side navigation",
     })
   }
 

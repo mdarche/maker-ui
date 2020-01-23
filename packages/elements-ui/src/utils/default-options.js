@@ -13,8 +13,8 @@ export default {
     hideWidgetsOnMobile: true,
     colorToggle: true,
     dropdownCaret: true,
-    dropdownStyle: "default",
-    dropdownAlign: "left",
+    dropdownStyle: "triangle",
+    dropdownAlign: "center",
     dropdownTransition: "fade",
   },
   mobileMenu: {

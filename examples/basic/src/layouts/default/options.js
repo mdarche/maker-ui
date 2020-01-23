@@ -35,17 +35,27 @@ export default {
 }
 
 export const menuItems = [
-  { label: "Link 1", path: "/test" },
-  { label: "Link 2", path: "/test" },
+  { label: "Sample", path: "/test" },
   {
-    label: "Link 3",
+    label: "Headers",
     path: "/test",
     submenu: [
-      { label: "Link 1", path: "/test" },
-      { label: "Link 2", path: "/test" },
-      { label: "Link 3", path: "/test" },
-      { label: "Link 4", path: "/test" },
+      { label: "Basic", path: "/test" },
+      { label: "Split", path: "/test" },
+      { label: "Center", path: "/test" },
     ],
   },
-  { label: "Link 4", path: "/test" },
+  {
+    label: "Layouts",
+    path: "/test",
+    submenu: [
+      { label: "Content", path: "/test" },
+      { label: "Full Width", path: "/test" },
+      { label: "Sidebar / Content", path: "/test" },
+      { label: "Content / Sidebar", path: "/test" },
+      { label: "SideNav / Content", path: "/test" },
+      { label: "Content / SideNav", path: "/test" },
+    ],
+  },
+  { label: "Topbar", path: "/test" },
 ]

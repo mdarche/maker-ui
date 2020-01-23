@@ -1,5 +1,5 @@
 import React from "react"
-import { ThemeProvider, ColorMode, Styled } from "theme-ui"
+import { ThemeProvider, Styled } from "theme-ui"
 import { Global } from "@emotion/core"
 
 import { ElementsProvider } from "../context/ElementsContext"
@@ -18,7 +18,6 @@ export default ({
 }) => (
   <ElementsProvider>
     <ThemeProvider theme={optionMap(theme, options, removeStyling)}>
-      <ColorMode />
       <Global styles={reset} />
       {globalStyles ? <Global styles={globalStyles} /> : null}
       <ModalProvider>

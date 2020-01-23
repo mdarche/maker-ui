@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Flex } from "@theme-ui/components"
+import { Box, Flex } from "theme-ui"
 
 import { Menu, MenuButton, ColorButton, WidgetArea } from "./common"
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { Flex, Box } from "@theme-ui/components"
+import { Flex, Box } from "theme-ui"
 
 import { useOptions } from "../context/ElementsContext"
 

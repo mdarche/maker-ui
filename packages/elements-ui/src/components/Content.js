@@ -1,5 +1,5 @@
 import React from "react"
-import { Box } from "@theme-ui/components"
+import { Box } from "theme-ui"
 
 import { useLayout } from "../context/ElementsContext"
 
@@ -16,7 +16,7 @@ export const Content = React.forwardRef(
     return (
       <Box
         ref={ref}
-        variant={`eui_layout.${layout || baseLayout}`}
+        variant={`eui_layout.${baseLayout}`}
         {...props}
         sx={{
           mx: "auto",

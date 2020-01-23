@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Box } from "@theme-ui/components"
+import { Box } from "theme-ui"
 
 // Dropdown Animations
 const fadeInUp = {}

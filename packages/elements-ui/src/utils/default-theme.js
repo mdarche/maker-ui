@@ -1,5 +1,5 @@
 export default {
-  initialColorMode: "light",
+  initialColorModeName: "light",
   colors: {
     text: "#333",
     background: "#fff",

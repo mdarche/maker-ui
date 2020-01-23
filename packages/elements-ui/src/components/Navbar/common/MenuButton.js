@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, MenuButton } from "@theme-ui/components"
+import { Box, MenuButton } from "theme-ui"
 
 import { useMenu, useOptions } from "../../../context/ElementsContext"
 

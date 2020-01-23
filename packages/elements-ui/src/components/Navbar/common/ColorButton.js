@@ -1,13 +1,12 @@
 import React from "react"
-import { useThemeUI } from "theme-ui"
-import { Box } from "@theme-ui/components"
+import { useThemeUI, Box } from "theme-ui"
 
 const ColorButton = ({ custom }) => {
   const { theme, colorMode, setColorMode } = useThemeUI()
 
   const modes = theme.colors.modes
-    ? [theme.initialColorMode].concat(Object.keys(theme.colors.modes))
-    : [theme.initialColorMode]
+    ? [theme.initialColorModeName].concat(Object.keys(theme.colors.modes))
+    : [theme.initialColorModeName]
 
   const cycleMode = () => {
     const i = modes.indexOf(colorMode)
