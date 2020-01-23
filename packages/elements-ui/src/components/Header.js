@@ -29,7 +29,6 @@ export const Header = React.forwardRef((props, ref) => {
       ref={ref}
       id="site-header"
       role="banner"
-      tabIndex="-1"
       variant={variant}
       bg={bg}
       {...rest}

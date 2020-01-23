@@ -16,7 +16,7 @@ const format = value => {
 
 // TODO - Test overwriting default-theme styles and console log the new theme
 
-export default (theme, options = defaultOptions, useDefaults) => {
+export default (theme, options = defaultOptions, removeStyling = false) => {
   const mappedOptions = {
     sizes: {
       maxWidth_header: options.header.maxWidth,
@@ -37,7 +37,7 @@ export default (theme, options = defaultOptions, useDefaults) => {
     },
     ...layouts,
     ...headers,
-    ...defaults,
+    ...(!removeStyling && defaults),
   }
 
   return merge.all([validate(theme), defaultTheme, mappedOptions])

@@ -12,12 +12,12 @@ export default ({
   reset = cssReset,
   theme,
   options,
-  clearDefaults,
+  removeStyling,
   globalStyles,
   children,
 }) => (
   <ElementsProvider>
-    <ThemeProvider theme={optionMap(theme, options, clearDefaults)}>
+    <ThemeProvider theme={optionMap(theme, options, removeStyling)}>
       <ColorMode />
       <Global styles={reset} />
       {globalStyles ? <Global styles={globalStyles} /> : null}

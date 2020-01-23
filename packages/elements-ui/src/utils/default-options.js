@@ -12,6 +12,10 @@ export default {
     maxWidth: 1260,
     hideWidgetsOnMobile: true,
     colorToggle: true,
+    dropdownCaret: true,
+    dropdownStyle: "default",
+    dropdownAlign: "left",
+    dropdownTransition: "fade",
   },
   mobileMenu: {
     width: 300,
