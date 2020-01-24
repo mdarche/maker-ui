@@ -1,7 +1,7 @@
 import React from "react"
 import { Box, MenuButton } from "theme-ui"
 
-import { useMenu, useOptions } from "../../../context/ElementsContext"
+import { useMenu, useOptions } from "../../context/ElementsContext"
 
 export default props => {
   const [menu, toggleMenu] = useMenu()

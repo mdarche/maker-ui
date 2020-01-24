@@ -6,26 +6,30 @@ export default {
       alignItems: "center",
       flexWrap: "wrap",
     },
-    basic: {
+    default: {
       variant: "eui_header.base",
       justifyContent: "space-between",
-    },
-    split: {
-      variant: "eui_header.base",
-      justifyContent: ["space-between", "center"],
     },
     center: {
       variant: "eui_header.base",
-      flexDirection: ["row", "column"],
       justifyContent: ["space-between", "center"],
     },
-    reverse: {
+    columns: {
       variant: "eui_header.base",
-      justifyContent: "space-between",
-    },
-    "basic-center": {
-      variant: "eui_header.base",
-      justifyContent: "space-between",
+      ".col-1": {
+        alignItems: "center",
+        width: ["25%", "33%"],
+      },
+      ".col-2": {
+        width: ["50%", "34%"],
+        justifyContent: "center",
+        alignItems: "center",
+      },
+      ".col-3": {
+        width: ["25%", "33%"],
+        alignItems: "center",
+        justifyContent: "flex-end",
+      },
     },
   },
 }

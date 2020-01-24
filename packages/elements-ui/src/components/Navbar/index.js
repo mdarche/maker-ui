@@ -5,8 +5,10 @@ import Basic from "./Basic"
 import BasicCenter from "./BasicCenter"
 import Split from "./Split"
 import Center from "./Center"
-import Minimal from "./Minimal"
 import Reverse from "./Reverse"
+import Minimal from "./Minimal"
+import MinimalCenter from "./MinimalCenter"
+import MinimalLeft from "./MinimalLeft"
 
 export const Navbar = ({ type, ...props }) => {
   const { navigation } = useOptions()
@@ -21,12 +23,16 @@ export const Navbar = ({ type, ...props }) => {
       return <Split {...props} />
     case "center":
       return <Center {...props} />
-    case "basic-center":
-      return <BasicCenter {...props} />
     case "reverse":
       return <Reverse {...props} />
     case "minimal":
       return <Minimal {...props} />
+    case "minimal-center":
+      return <MinimalCenter {...props} />
+    case "minimal-left":
+      return <MinimalLeft {...props} />
+    case "basic-center":
+      return <BasicCenter {...props} />
     default:
       return <Basic {...props} />
   }

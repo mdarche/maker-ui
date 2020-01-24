@@ -8,7 +8,7 @@ import ElementsRoot from "./ElementsRoot"
 import cssReset from "../utils/reset"
 import optionMap from "../utils/option-map"
 
-export default ({
+export const Layout = ({
   reset = cssReset,
   theme,
   options,

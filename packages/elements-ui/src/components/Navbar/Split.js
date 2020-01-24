@@ -18,7 +18,7 @@ const Split = ({
   return (
     <Flex
       variant={variant}
-      sx={{ variant: "eui_header.split", maxWidth, ...sx }}>
+      sx={{ variant: "eui_header.center", maxWidth, ...sx }}>
       <Menu menuItems={menu.slice(0, mid)} />
       <Box id="site-logo" variant="header.logo">
         <a href="/">{logo}</a>

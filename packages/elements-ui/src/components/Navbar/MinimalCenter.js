@@ -1,11 +1,10 @@
 import React from "react"
 import { Box, Flex } from "theme-ui"
 
-import { Menu, MenuButton, ColorButton, WidgetArea } from "../common"
+import { MenuButton, ColorButton, WidgetArea } from "../common"
 
-const Reverse = ({
+const MinimalCenter = ({
   logo = "Logo",
-  menu,
   widgetArea,
   menuToggle,
   colorToggle,
@@ -17,11 +16,12 @@ const Reverse = ({
     variant={variant}
     sx={{ variant: "eui_header.columns", maxWidth, ...sx }}>
     <Flex className="col-1">
-      <Menu menuItems={menu} />
-      <MenuButton custom={menuToggle} />
+      <MenuButton custom={menuToggle} desktopVisible />
     </Flex>
-    <Flex id="site-logo" className="col-2" variant="header.logo">
-      <a href="/">{logo}</a>
+    <Flex className="col-2">
+      <Box id="site-logo" variant="header.logo">
+        <a href="/">{logo}</a>
+      </Box>
     </Flex>
     <Flex className="col-3">
       <WidgetArea custom={widgetArea} />
@@ -30,4 +30,4 @@ const Reverse = ({
   </Flex>
 )
 
-export default Reverse
+export default MinimalCenter

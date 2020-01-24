@@ -3,6 +3,8 @@ import { Box } from "theme-ui"
 
 import Dropdown from "./Dropdown"
 
+// TODO smooth out this hover and dropdown focus with variants
+
 const MenuItem = ({ data: { label, path, newTab, submenu } }) => {
   const [active, set] = useState(false)
   return (

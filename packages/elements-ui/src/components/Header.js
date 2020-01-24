@@ -4,7 +4,7 @@ import { Flex, Box } from "theme-ui"
 import { useOptions } from "../context/ElementsContext"
 
 export const Header = React.forwardRef((props, ref) => {
-  const { header, navigation } = useOptions()
+  const { header } = useOptions()
 
   const {
     bg = "bg_header",

@@ -1,7 +1,7 @@
 import React from "react"
 import { Box } from "theme-ui"
 
-import { useOptions } from "../../../context/ElementsContext"
+import { useOptions } from "../../context/ElementsContext"
 
 const WidgetArea = props => {
   const { header } = useOptions()

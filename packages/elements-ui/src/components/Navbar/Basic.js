@@ -1,7 +1,7 @@
 import React from "react"
 import { Box, Flex } from "theme-ui"
 
-import { Menu, MenuButton, ColorButton, WidgetArea } from "./common"
+import { Menu, MenuButton, ColorButton, WidgetArea } from "../common"
 
 const Basic = ({
   logo = "Logo",
@@ -13,7 +13,13 @@ const Basic = ({
   variant = "navbar",
   sx,
 }) => (
-  <Flex variant={variant} sx={{ variant: "eui_header.basic", maxWidth, ...sx }}>
+  <Flex
+    variant={variant}
+    sx={{
+      variant: "eui_header.default",
+      maxWidth,
+      ...sx,
+    }}>
     <Box id="site-logo" variant="header.logo">
       <a href="/">{logo}</a>
     </Box>

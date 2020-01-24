@@ -1,4 +1,4 @@
-export { default as Layout } from "./Layout"
+export { Layout } from "./Layout"
 export { Topbar } from "./Topbar"
 export { Header } from "./Header"
 export { Navbar } from "./Navbar"
