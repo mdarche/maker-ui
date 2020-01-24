@@ -1,7 +1,7 @@
-import React from "react"
-import { Box } from "theme-ui"
+import React from 'react'
+import { Box } from 'theme-ui'
 
-import { useMenu } from "../context/ElementsContext"
+import { useMenu } from '../context/ElementsContext'
 
 export const MobileNav = React.forwardRef((props, ref) => {
   const [menu, toggleMenu] = useMenu()
@@ -9,5 +9,5 @@ export const MobileNav = React.forwardRef((props, ref) => {
   const visibility = {}
   const transition = {}
 
-  return <Box ref={ref} id="mobile-nav" {...props} sx={{ position: "fixed" }} />
+  return <Box ref={ref} id="mobile-nav" {...props} sx={{ position: 'fixed' }} />
 })

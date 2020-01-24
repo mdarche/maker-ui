@@ -1,5 +1,5 @@
-import React from "react"
-import { Box } from "theme-ui"
+import React from 'react'
+import { Box } from 'theme-ui'
 
 export const Main = React.forwardRef((props, ref) => (
   <Box

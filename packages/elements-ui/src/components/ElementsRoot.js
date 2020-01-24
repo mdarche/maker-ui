@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"
+import React, { useEffect } from 'react'
 
-import { useOptionsUpdater } from "../context/ElementsContext"
-import Skiplinks from "./Skiplinks"
+import { useOptionsUpdater } from '../context/ElementsContext'
+import Skiplinks from './Skiplinks'
 
 // TODO - Add Modal Layer and Modal Provider
 

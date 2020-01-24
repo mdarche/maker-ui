@@ -1,13 +1,13 @@
-import React from "react"
-import { Flex, Box } from "theme-ui"
+import React from 'react'
+import { Flex, Box } from 'theme-ui'
 
 export const Footer = React.forwardRef(
   (
     {
-      bg = "bg_footer",
-      maxWidth = "maxWidth_footer",
+      bg = 'bg_footer',
+      maxWidth = 'maxWidth_footer',
       sx,
-      variant = "footer",
+      variant = 'footer',
       ...props
     },
     ref
@@ -25,7 +25,7 @@ export const Footer = React.forwardRef(
           {...props}
           sx={{
             maxWidth,
-            mx: "auto",
+            mx: 'auto',
             ...sx,
           }}
         />

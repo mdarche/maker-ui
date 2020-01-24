@@ -1,14 +1,14 @@
-import React from "react"
-import { Flex, Box } from "theme-ui"
+import React from 'react'
+import { Flex, Box } from 'theme-ui'
 
-import { useOptions } from "../context/ElementsContext"
+import { useOptions } from '../context/ElementsContext'
 
 export const Topbar = React.forwardRef((props, ref) => {
   const { topbar } = useOptions()
 
   const {
-    bg = "bg_topbar",
-    maxWidth = "maxWidth_topbar",
+    bg = 'bg_topbar',
+    maxWidth = 'maxWidth_topbar',
     sticky = topbar.sticky,
     sx,
     ...rest
@@ -16,7 +16,7 @@ export const Topbar = React.forwardRef((props, ref) => {
 
   const partial = sticky
     ? {
-        position: "sticky",
+        position: 'sticky',
         top: 0,
         zIndex: 101,
       }
@@ -29,15 +29,15 @@ export const Topbar = React.forwardRef((props, ref) => {
       role="complementary"
       sx={{
         bg,
-        display: topbar.hideOnMobile ? ["none", "block"] : "block",
+        display: topbar.hideOnMobile ? ['none', 'block'] : 'block',
         ...partial,
       }}>
       <Flex
         {...rest}
         sx={{
-          mx: "auto",
-          overflowX: "scroll",
-          whiteSpace: "nowrap",
+          mx: 'auto',
+          overflowX: 'scroll',
+          whiteSpace: 'nowrap',
           maxWidth,
           p: 2,
           ...sx,

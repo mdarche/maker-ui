@@ -1,7 +1,7 @@
-import React from "react"
-import { Box } from "theme-ui"
+import React from 'react'
+import { Box } from 'theme-ui'
 
-import { useSideNav, useOptions } from "../context/ElementsContext"
+import { useSideNav, useOptions } from '../context/ElementsContext'
 
 const format = value => {
   return isNaN(value) ? value : `${value}px`
@@ -10,10 +10,10 @@ const format = value => {
 export const SideNav = React.forwardRef(
   (
     {
-      bg = "bg_sidenav",
+      bg = 'bg_sidenav',
       sx,
       buttonVariant,
-      buttonToggle = "Toggle",
+      buttonToggle = 'Toggle',
       children,
       ...props
     },
@@ -23,7 +23,7 @@ export const SideNav = React.forwardRef(
     const { layout } = useOptions()
 
     const getTransform = width => {
-      const direction = layout === "sidenav-content" ? -width : width
+      const direction = layout === 'sidenav-content' ? -width : width
       return active ? `translateX(0)` : `translateX(${format(direction)})`
     }
 
@@ -36,17 +36,17 @@ export const SideNav = React.forwardRef(
           role="navigation"
           sx={{
             bg,
-            width: "width_sidenav",
-            position: ["fixed", "relative"],
-            maxWidth: ["75vw", "initial"],
+            width: 'width_sidenav',
+            position: ['fixed', 'relative'],
+            maxWidth: ['75vw', 'initial'],
             top: 0,
             bottom: 0,
             zIndex: 100,
             transform: ({ sizes }) => [
               getTransform(sizes.width_sidenav),
-              "none",
+              'none',
             ],
-            transition: "transform ease .3s",
+            transition: 'transform ease .3s',
             ...sx,
           }}>
           {children}
@@ -57,8 +57,8 @@ export const SideNav = React.forwardRef(
           aria-label="Toggle side navigation"
           id="toggle-sidenav"
           sx={{
-            position: "fixed",
-            display: ["inline-block", "none"],
+            position: 'fixed',
+            display: ['inline-block', 'none'],
             bottom: 30,
           }}
           variant={buttonVariant}>
