@@ -1,9 +1,12 @@
 import React from "react"
 
 import { useOptions, useOptionsUpdater } from "../../context/ElementsContext"
-import BasicNav from "./BasicNav"
-import SplitNav from "./SplitNav"
-import CenterNav from "./CenterNav"
+import Basic from "./Basic"
+import BasicCenter from "./BasicCenter"
+import Split from "./Split"
+import Center from "./Center"
+import Minimal from "./Minimal"
+import Reverse from "./Reverse"
 
 export const Navbar = ({ type, ...props }) => {
   const { navigation } = useOptions()
@@ -15,10 +18,16 @@ export const Navbar = ({ type, ...props }) => {
 
   switch (navigation) {
     case "split":
-      return <SplitNav {...props} />
+      return <Split {...props} />
     case "center":
-      return <CenterNav {...props} />
+      return <Center {...props} />
+    case "basic-center":
+      return <BasicCenter {...props} />
+    case "reverse":
+      return <Reverse {...props} />
+    case "minimal":
+      return <Minimal {...props} />
     default:
-      return <BasicNav {...props} />
+      return <Basic {...props} />
   }
 }

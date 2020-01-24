@@ -3,19 +3,26 @@ import { Box, Flex } from "theme-ui"
 
 import { Menu, MenuButton, ColorButton, WidgetArea } from "./common"
 
-const BasicNav = ({
+const Center = ({
   logo = "Logo",
   menu,
   widgetArea,
   menuToggle,
   colorToggle,
+  maxWidth = "maxWidth_header",
+  variant = "navbar",
+  sx,
 }) => {
   return (
-    <React.Fragment>
-      <Box>
-        <a href="/">{logo}</a>
-      </Box>
-      <Flex sx={{ justifyContent: "flex-end", alignItems: "center" }}>
+    <Flex
+      variant={variant}
+      sx={{ variant: "eui_header.center", maxWidth, ...sx }}>
+      <Flex>
+        <Box id="site-logo" variant="header.logo">
+          <a href="/">{logo}</a>
+        </Box>
+      </Flex>
+      <Flex sx={{ alignItems: "center" }}>
         <Menu menuItems={menu} />
         <Box>
           <WidgetArea custom={widgetArea} />
@@ -23,8 +30,8 @@ const BasicNav = ({
           <ColorButton custom={colorToggle} />
         </Box>
       </Flex>
-    </React.Fragment>
+    </Flex>
   )
 }
 
-export default BasicNav
+export default Center

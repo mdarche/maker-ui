@@ -11,22 +11,24 @@ export const Header = React.forwardRef((props, ref) => {
     maxWidth = "maxWidth_header",
     sticky = header.sticky,
     stickyMobile = header.stickyMobile,
-    sx,
-    children,
     variant = "header",
+    sx,
     ...rest
   } = props
 
   const partial = sticky
     ? {
         position: stickyMobile ? "sticky" : ["initial", "sticky"],
+        top: 0,
       }
     : null
 
+  console.log(partial)
+
   return (
     <Box
-      as="header"
       ref={ref}
+      as="header"
       id="site-header"
       role="banner"
       variant={variant}
@@ -34,12 +36,9 @@ export const Header = React.forwardRef((props, ref) => {
       {...rest}
       sx={{
         zIndex: 100,
-        ...partial,
+        partial,
         ...sx,
-      }}>
-      <Flex variant={`eui_header.${navigation}`} sx={{ maxWidth, m: "0 auto" }}>
-        {children}
-      </Flex>
-    </Box>
+      }}
+    />
   )
 })

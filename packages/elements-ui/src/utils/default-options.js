@@ -1,17 +1,18 @@
 export default {
-  navigation: "basic",
+  navigation: "split",
   layout: "content",
   topbar: {
+    maxWidth: 1260,
     sticky: true,
     stickyMobile: false,
-    maxWidth: 1260,
   },
   header: {
+    maxWidth: 1460,
     sticky: true,
-    stickyMobile: true,
-    maxWidth: 1260,
-    hideWidgetsOnMobile: true,
+    stickyMobile: false,
     colorToggle: true,
+    hideColorToggleOnMobile: false,
+    hideWidgetsOnMobile: true,
     dropdownCaret: true,
     dropdownStyle: "triangle",
     dropdownAlign: "center",
@@ -20,7 +21,7 @@ export default {
   mobileMenu: {
     width: 300,
     animation: "fade",
-    desktopVisible: true,
+    desktopVisible: false,
   },
   sideNav: {
     width: 300,

@@ -3,13 +3,14 @@ import { Box } from "theme-ui"
 
 import { useOptions } from "../../../context/ElementsContext"
 
-const WidgetArea = ({ custom }) => {
+const WidgetArea = props => {
   const { header } = useOptions()
+  const { custom, hideOnMobile = header.hideWidgetsOnMobile } = props
 
   return custom ? (
     <Box
       variant="header.widgets"
-      sx={{ display: header.hideWidgetsOnMobile ? ["none", "flex"] : "flex" }}>
+      sx={{ display: hideOnMobile ? ["none", "flex"] : "flex" }}>
       {custom}
     </Box>
   ) : null

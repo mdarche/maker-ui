@@ -12,14 +12,15 @@ import {
 import { Box } from "react-understudy"
 
 import { menuItems } from "./options"
+import theme from "./theme"
 
 export default props => (
-  <Layout>
+  <Layout theme={theme}>
     <Header>
-      <Navbar menu={menuItems} />
+      <Navbar type="reverse" menu={menuItems} />
       <MobileNav />
     </Header>
-    <Content layout="sidebar-content">
+    <Content layout="sidebar-content" sx={{ pt: 4 }}>
       <Sidebar>
         <Box height="400px" />
       </Sidebar>

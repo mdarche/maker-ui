@@ -13,11 +13,12 @@ export default {
         px: 4,
       },
     },
+    navbar: {},
     submenu: {
       bg: "#fff",
     },
-    colorToggle: {},
-    menuToggle: {},
+    colorButton: {},
+    menuButton: {},
     widgets: {},
   },
   mobileNav: {

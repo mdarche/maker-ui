@@ -41,6 +41,8 @@ export const menuItems = [
     path: "/test",
     submenu: [
       { label: "Basic", path: "/test" },
+      { label: "Text Center", path: "/test" },
+      { label: "Text Left", path: "/test" },
       { label: "Split", path: "/test" },
       { label: "Center", path: "/test" },
     ],

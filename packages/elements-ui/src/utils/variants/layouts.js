@@ -6,6 +6,7 @@ const sidebar = {
   display: "grid",
   gridGap: ({ gap }) => gap.gap_content,
   maxWidth: "maxWidth_content",
+  mx: "auto",
 }
 
 const sideNav = {
@@ -21,6 +22,7 @@ export default {
     content: {
       display: "block",
       maxWidth: "maxWidth_content",
+      mx: "auto",
     },
     "sidebar-content": {
       ...sidebar,
