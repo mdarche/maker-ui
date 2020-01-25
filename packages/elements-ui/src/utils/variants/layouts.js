@@ -2,62 +2,64 @@ const format = value => {
   return isNaN(value) ? value : `${value}px`
 }
 
+const content = {
+  display: 'block',
+  maxWidth: 'maxWidth_content',
+  mx: 'auto',
+}
+
 const sidebar = {
-  display: "grid",
-  gridGap: ({ gap }) => gap.gap_content,
-  maxWidth: "maxWidth_content",
-  mx: "auto",
+  base_sidebar: {
+    display: 'grid',
+    gridGap: t => t.gap.gap_content,
+    maxWidth: 'maxWidth_content',
+    mx: 'auto',
+  },
+  'sidebar-content': {
+    variant: 'eui_layout.base_sidebar',
+    gridTemplateColumns: t => [`1fr`, `${format(t.sizes.width_sidebar)} 1fr`],
+    '#primary-sidebar': {
+      gridRow: [2, 'auto'],
+    },
+  },
+  'content-sidebar': {
+    variant: 'eui_layout.base_sidebar',
+    gridTemplateColumns: t => [`1fr`, `1fr ${format(t.sizes.width_sidebar)}`],
+  },
 }
 
 const sideNav = {
-  display: "flex",
-  "#content": {
-    maxWidth: "maxWidth_content",
-    mx: "auto",
+  base_sidenav: {
+    display: 'flex',
+    '#content': {
+      maxWidth: 'maxWidth_content',
+      mx: 'auto',
+    },
+  },
+  'sidenav-content': {
+    variant: 'eui_layout.base_sidenav',
+    '#side-nav': {
+      left: 0,
+    },
+    '#toggle-sidenav': {
+      right: 30,
+    },
+  },
+  'content-sidenav': {
+    variant: 'eui_layout.base_sidenav',
+    '#side-nav': {
+      right: 0,
+    },
+    '#toggle-sidenav': {
+      left: 30,
+    },
   },
 }
 
 export default {
   eui_layout: {
-    content: {
-      display: "block",
-      maxWidth: "maxWidth_content",
-      mx: "auto",
-    },
-    "sidebar-content": {
-      ...sidebar,
-      gridTemplateColumns: ({ sizes }) => [
-        `1fr`,
-        `${format(sizes.width_sidebar)} 1fr`,
-      ],
-      "#primary-sidebar": {
-        gridRow: [2, "auto"],
-      },
-    },
-    "content-sidebar": {
-      ...sidebar,
-      gridTemplateColumns: ({ sizes }) => [
-        `1fr`,
-        `1fr ${format(sizes.width_sidebar)}`,
-      ],
-    },
-    "sidenav-content": {
-      ...sideNav,
-      "#side-nav": {
-        left: 0,
-      },
-      "#toggle-sidenav": {
-        right: 30,
-      },
-    },
-    "content-sidenav": {
-      ...sideNav,
-      "#side-nav": {
-        right: 0,
-      },
-      "#toggle-sidenav": {
-        left: 30,
-      },
-    },
+    content,
+    ...sidebar,
+    ...sideNav,
   },
 }

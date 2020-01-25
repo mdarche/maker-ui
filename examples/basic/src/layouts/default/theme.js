@@ -1,5 +1,5 @@
 export default {
   testVariant: {
-    background: "black",
+    background: 'black',
   },
 }

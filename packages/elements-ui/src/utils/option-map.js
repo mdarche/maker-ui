@@ -1,14 +1,14 @@
-import merge from "deepmerge"
+import merge from 'deepmerge'
 
-import defaultOptions from "./default-options"
-import defaultTheme from "./default-theme"
+import defaultOptions from './default-options'
+import defaultTheme from './default-theme'
 
-import layouts from "./variants/layouts"
-import headers from "./variants/headers"
-import defaults from "./variants/defaults"
+import layouts from './variants/layouts'
+import headers from './variants/headers'
+import defaults from './variants/defaults'
 
 const validate = obj =>
-  obj !== undefined && typeof obj === "object" ? obj : {}
+  obj !== undefined && typeof obj === 'object' ? obj : {}
 
 const format = value => {
   return isNaN(value) ? value : `${value}px`

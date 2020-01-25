@@ -38,7 +38,6 @@ export const SideNav = React.forwardRef(
             bg,
             width: 'width_sidenav',
             position: ['fixed', 'relative'],
-            maxWidth: ['75vw', 'initial'],
             top: 0,
             bottom: 0,
             zIndex: 100,

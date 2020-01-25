@@ -1,5 +1,5 @@
 export default {
-  layout: "sidebar",
+  layout: 'sidebar',
   topbar: {
     sticky: true,
     maxWidth: 1260,
@@ -9,7 +9,7 @@ export default {
     stickyMobile: true,
     maxWidth: 1260,
     mobileNavWidth: 300,
-    mobileAnimation: "fade",
+    mobileAnimation: 'fade',
     spring: { tension: 170, friction: 26 },
   },
   sideNav: {
@@ -21,7 +21,7 @@ export default {
     gridGap: 30,
   },
   sidebar: {
-    width: ".3fr",
+    width: '.3fr',
   },
   footer: {
     maxWidth: 1020,
@@ -35,29 +35,29 @@ export default {
 }
 
 export const menuItems = [
-  { label: "Sample", path: "/test" },
+  { label: 'Sample', path: '/test' },
   {
-    label: "Headers",
-    path: "/test",
+    label: 'Headers',
+    path: '/test',
     submenu: [
-      { label: "Basic", path: "/test" },
-      { label: "Text Center", path: "/test" },
-      { label: "Text Left", path: "/test" },
-      { label: "Split", path: "/test" },
-      { label: "Center", path: "/test" },
+      { label: 'Basic', path: '/test' },
+      { label: 'Text Center', path: '/test' },
+      { label: 'Text Left', path: '/test' },
+      { label: 'Split', path: '/test' },
+      { label: 'Center', path: '/test' },
     ],
   },
   {
-    label: "Layouts",
-    path: "/test",
+    label: 'Layouts',
+    path: '/test',
     submenu: [
-      { label: "Content", path: "/test" },
-      { label: "Full Width", path: "/test" },
-      { label: "Sidebar / Content", path: "/test" },
-      { label: "Content / Sidebar", path: "/test" },
-      { label: "SideNav / Content", path: "/test" },
-      { label: "Content / SideNav", path: "/test" },
+      { label: 'Content', path: '/test' },
+      { label: 'Full Width', path: '/test' },
+      { label: 'Sidebar / Content', path: '/test' },
+      { label: 'Content / Sidebar', path: '/test' },
+      { label: 'SideNav / Content', path: '/test' },
+      { label: 'Content / SideNav', path: '/test' },
     ],
   },
-  { label: "Topbar", path: "/test" },
+  { label: 'Topbar', path: '/test' },
 ]

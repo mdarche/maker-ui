@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
-import { Menu, MenuButton, ColorButton, WidgetArea } from './common'
+import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Split = ({
   logo = 'Logo',

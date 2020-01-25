@@ -13,13 +13,13 @@ export const Layout = ({
   theme,
   options,
   removeStyling,
-  globalStyles,
+  globalStyle,
   children,
 }) => (
   <ElementsProvider>
     <ThemeProvider theme={optionMap(theme, options, removeStyling)}>
       <Global styles={reset} />
-      {globalStyles ? <Global styles={globalStyles} /> : null}
+      {globalStyle ? <Global styles={globalStyle} /> : null}
       <ModalProvider>
         <Styled.root>
           <ElementsRoot options={options}>{children}</ElementsRoot>

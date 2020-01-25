@@ -1,6 +1,6 @@
 export default {
-  navigation: "split",
-  layout: "content",
+  navigation: 'split',
+  layout: 'content',
   topbar: {
     maxWidth: 1260,
     sticky: true,
@@ -14,13 +14,13 @@ export default {
     hideColorToggleOnMobile: false,
     hideWidgetsOnMobile: true,
     dropdownCaret: true,
-    dropdownStyle: "triangle",
-    dropdownAlign: "center",
-    dropdownTransition: "fade",
+    dropdownStyle: 'triangle',
+    dropdownAlign: 'center',
+    dropdownTransition: 'fade',
   },
   mobileMenu: {
-    width: 300,
-    animation: "fade",
+    width: '30vw',
+    animation: 'slideRight',
     desktopVisible: false,
   },
   sideNav: {
@@ -35,7 +35,7 @@ export default {
     width: 300,
   },
   modal: {
-    animation: "fade",
+    animation: 'fade',
     blur: false,
   },
   footer: {

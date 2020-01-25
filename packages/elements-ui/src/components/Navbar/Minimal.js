@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
-import { MenuButton, ColorButton, WidgetArea } from './common'
+import { MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Minimal = ({
   logo = 'Logo',

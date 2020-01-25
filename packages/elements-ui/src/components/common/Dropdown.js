@@ -1,5 +1,5 @@
-import React from "react"
-import { Box } from "theme-ui"
+import React from 'react'
+import { Box } from 'theme-ui'
 
 // Configuration Partials
 
@@ -16,26 +16,26 @@ const Dropdown = ({ submenu, active, set }) => (
   <Box
     as="ul"
     variant="header.submenu"
-    className={`sub-menu ${active ? "active" : ""}`}
+    className={`sub-menu ${active ? 'active' : ''}`}
     sx={{
-      position: "absolute",
-      display: "inline-block",
-      width: "max-content",
-      top: "98%",
+      position: 'absolute',
+      display: 'inline-block',
+      width: 'max-content',
+      top: '98%',
       left: 0,
       opacity: 0,
-      visibility: "hidden",
-      "&.active": {
+      visibility: 'hidden',
+      '&.active': {
         opacity: 1,
-        visibility: "visible",
+        visibility: 'visible',
       },
     }}>
     {submenu.map(({ label, path, newTab }, index) => (
       <li key={index}>
         <a
           href={path}
-          target={newTab ? "_blank" : false}
-          onBlur={submenu.length === index + 1 ? () => set(false) : null}>
+          target={newTab && '_blank'}
+          onBlur={submenu.length === index + 1 ? () => set(false) : undefined}>
           {label}
         </a>
       </li>

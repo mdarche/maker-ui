@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import {
   Layout,
   Header,
@@ -8,8 +8,8 @@ import {
   Main,
   SideNav,
   Footer,
-} from "elements-ui"
-import { Box } from "react-understudy"
+} from 'elements-ui'
+import { Box } from 'react-understudy'
 
 // TODO - test adding variant to header... Will it conflict with eui_header?
 

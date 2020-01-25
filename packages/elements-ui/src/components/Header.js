@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box } from 'theme-ui'
+import { Box } from 'theme-ui'
 
 import { useOptions } from '../context/ElementsContext'
 
@@ -22,8 +22,6 @@ export const Header = React.forwardRef((props, ref) => {
         top: 0,
       }
     : null
-
-  console.log(partial)
 
   return (
     <Box

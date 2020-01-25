@@ -1,7 +1,7 @@
-import React, { useState } from "react"
-import { Box } from "theme-ui"
+import React, { useState } from 'react'
+import { Box } from 'theme-ui'
 
-import Dropdown from "./Dropdown"
+import Dropdown from './Dropdown'
 
 // TODO smooth out this hover and dropdown focus with variants
 
@@ -11,19 +11,19 @@ const MenuItem = ({ data: { label, path, newTab, submenu } }) => {
     <Box
       as="li"
       sx={{
-        position: "relative",
-        display: "inline-flex",
-        "&:hover": {
-          ".sub-menu": {
+        position: 'relative',
+        display: 'inline-flex',
+        '&:hover': {
+          '.sub-menu': {
             opacity: 1,
-            visibility: "visible",
+            visibility: 'visible',
           },
         },
       }}>
       <a
         href={path}
-        target={newTab ? "_blank" : false}
-        onFocus={submenu ? () => set(true) : null}>
+        target={newTab && '_blank'}
+        onFocus={submenu ? () => set(true) : undefined}>
         {label}
       </a>
       {submenu ? (
@@ -34,7 +34,7 @@ const MenuItem = ({ data: { label, path, newTab, submenu } }) => {
 }
 
 const Menu = ({ menuItems = [] }) => (
-  <Box as="nav" className="nav-primary" sx={{ display: ["none", "flex"] }}>
+  <Box as="nav" className="nav-primary" sx={{ display: ['none', 'flex'] }}>
     <Box as="ul" variant="header.menu" className="menu-primary">
       {menuItems.map((item, index) => (
         <MenuItem key={index} data={item} />
