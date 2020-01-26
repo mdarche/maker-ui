@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { Box } from 'theme-ui'
 
+import { useOptions } from '../../context/ElementsContext'
 import Dropdown from './Dropdown'
 
-// TODO smooth out this hover and dropdown focus with variants
-
-const MenuItem = ({ data: { label, path, newTab, submenu } }) => {
+const MenuItem = ({ data: { label, path, newTab, submenu }, caret }) => {
   const [active, set] = useState(false)
   return (
     <Box
@@ -15,8 +14,7 @@ const MenuItem = ({ data: { label, path, newTab, submenu } }) => {
         display: 'inline-flex',
         '&:hover': {
           '.sub-menu': {
-            opacity: 1,
-            visibility: 'visible',
+            variant: 'eui_header.submenu.active',
           },
         },
       }}>
@@ -24,7 +22,27 @@ const MenuItem = ({ data: { label, path, newTab, submenu } }) => {
         href={path}
         target={newTab && '_blank'}
         onFocus={submenu ? () => set(true) : undefined}>
-        {label}
+        <Box
+          as="span"
+          sx={
+            submenu && caret
+              ? {
+                  '&:after': {
+                    content: '""',
+                    display: 'inline-block',
+                    width: 0,
+                    height: 0,
+                    ml: '.35em',
+                    verticalAlign: '.2em',
+                    borderTop: '.3em solid',
+                    borderRight: '.3em solid transparent',
+                    borderLeft: '.3em solid transparent',
+                  },
+                }
+              : null
+          }>
+          {label}
+        </Box>
       </a>
       {submenu ? (
         <Dropdown submenu={submenu} active={active} set={set} />
@@ -33,14 +51,18 @@ const MenuItem = ({ data: { label, path, newTab, submenu } }) => {
   )
 }
 
-const Menu = ({ menuItems = [] }) => (
-  <Box as="nav" className="nav-primary" sx={{ display: ['none', 'flex'] }}>
-    <Box as="ul" variant="header.menu" className="menu-primary">
-      {menuItems.map((item, index) => (
-        <MenuItem key={index} data={item} />
-      ))}
+const Menu = ({ menuItems = [] }) => {
+  const { header } = useOptions()
+
+  return (
+    <Box as="nav" className="nav-primary" sx={{ display: ['none', 'flex'] }}>
+      <Box as="ul" variant="header.menu" className="menu-primary">
+        {menuItems.map((item, index) => (
+          <MenuItem key={index} data={item} caret={header.dropdown.caret} />
+        ))}
+      </Box>
     </Box>
-  </Box>
-)
+  )
+}
 
 export default Menu

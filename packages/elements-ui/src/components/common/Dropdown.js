@@ -1,17 +1,6 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-// Configuration Partials
-
-const fadeInUp = {}
-const fadeInDown = {}
-const expand = {}
-
-const leftAlign = {}
-const centerAlign = {}
-
-const triangle = {}
-
 const Dropdown = ({ submenu, active, set }) => (
   <Box
     as="ul"
@@ -21,13 +10,13 @@ const Dropdown = ({ submenu, active, set }) => (
       position: 'absolute',
       display: 'inline-block',
       width: 'max-content',
-      top: '98%',
+      top: '99%',
       left: 0,
       opacity: 0,
       visibility: 'hidden',
+      variant: 'eui_header.submenu',
       '&.active': {
-        opacity: 1,
-        visibility: 'visible',
+        variant: 'eui_header.submenu.active',
       },
     }}>
     {submenu.map(({ label, path, newTab }, index) => (
@@ -35,8 +24,10 @@ const Dropdown = ({ submenu, active, set }) => (
         <a
           href={path}
           target={newTab && '_blank'}
-          onBlur={submenu.length === index + 1 ? () => set(false) : undefined}>
-          {label}
+          onFocus={() => set(true)}
+          onBlur={() => set(false)}
+          onClick={() => set(false)}>
+          <span>{label}</span>
         </a>
       </li>
     ))}

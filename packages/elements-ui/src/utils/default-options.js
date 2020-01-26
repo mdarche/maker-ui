@@ -1,5 +1,5 @@
 export default {
-  navigation: 'split',
+  navigation: 'basic',
   layout: 'content',
   topbar: {
     maxWidth: 1260,
@@ -13,14 +13,14 @@ export default {
     colorToggle: true,
     hideColorToggleOnMobile: false,
     hideWidgetsOnMobile: true,
-    dropdownCaret: true,
-    dropdownStyle: 'triangle',
-    dropdownAlign: 'center',
-    dropdownTransition: 'fade',
+    dropdown: {
+      caret: true,
+      transition: 'fade',
+    },
   },
   mobileMenu: {
-    width: '30vw',
-    animation: 'slideRight',
+    width: [300, '30vw'],
+    animation: 'slideLeft',
     desktopVisible: false,
   },
   sideNav: {

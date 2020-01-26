@@ -5,6 +5,8 @@ import { useMenu, useOptions } from '../context/ElementsContext'
 
 const fullWidth = ['fade', 'fadeInUp', 'fadeInDown']
 
+// TODO - Clean up / make this function more readable
+
 const getTransition = (active, type, width) => {
   const opacity = type.includes('fade') ? (active ? 1 : 0) : null
   const visibility = active ? 'visible' : 'hidden'
@@ -15,7 +17,7 @@ const getTransition = (active, type, width) => {
 
   const directionY = () => {
     if (type !== 'fade') {
-      const sign = type == 'fadeInUp' ? '' : '-'
+      const sign = type === 'fadeInUp' ? '' : '-'
       return { transform: !active ? `translateY(${sign}20px)` : null }
     }
     return null

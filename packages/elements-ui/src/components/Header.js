@@ -8,7 +8,6 @@ export const Header = React.forwardRef((props, ref) => {
 
   const {
     bg = 'bg_header',
-    maxWidth = 'maxWidth_header',
     sticky = header.sticky,
     stickyMobile = header.stickyMobile,
     variant = 'header',
@@ -34,7 +33,7 @@ export const Header = React.forwardRef((props, ref) => {
       {...rest}
       sx={{
         zIndex: 100,
-        partial,
+        ...partial,
         ...sx,
       }}
     />

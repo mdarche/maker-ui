@@ -17,7 +17,7 @@ import theme from './theme'
 export default props => (
   <Layout theme={theme}>
     <Header>
-      <Navbar type="minimal-center" menu={menuItems} />
+      <Navbar menu={menuItems} />
       <MobileNav />
     </Header>
     <Content layout="sidebar-content" sx={{ pt: 4 }}>
