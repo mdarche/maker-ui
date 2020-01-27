@@ -8,10 +8,9 @@ export const Header = React.forwardRef((props, ref) => {
 
   const {
     bg = 'bg_header',
+    variant = 'header',
     sticky = header.sticky,
     stickyMobile = header.stickyMobile,
-    variant = 'header',
-    sx,
     ...rest
   } = props
 
@@ -31,10 +30,10 @@ export const Header = React.forwardRef((props, ref) => {
       variant={variant}
       bg={bg}
       {...rest}
-      sx={{
+      __themeKey="header"
+      __css={{
         zIndex: 100,
         ...partial,
-        ...sx,
       }}
     />
   )

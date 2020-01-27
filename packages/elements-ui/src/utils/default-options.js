@@ -9,7 +9,7 @@ export default {
   header: {
     maxWidth: 1460,
     sticky: true,
-    stickyMobile: false,
+    stickyMobile: true,
     colorToggle: true,
     hideColorToggleOnMobile: false,
     hideWidgetsOnMobile: true,

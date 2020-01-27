@@ -7,7 +7,7 @@ const fade = {
   transition: 'all ease .3s',
 }
 
-const getSub = type => {
+const dropdownStyles = type => {
   switch (type) {
     case 'fade':
       return { ...fade, active: base }
@@ -61,6 +61,6 @@ export default {
         justifyContent: 'flex-end',
       },
     },
-    submenu: getSub('fadeInDown'),
+    submenu: dropdownStyles('fadeInDown'),
   },
 }

@@ -7,7 +7,7 @@ export const Main = React.forwardRef((props, ref) => (
     as="main"
     id="content"
     role="main"
-    css={{ flex: 1 }}
     {...props}
+    __css={{ flex: 1 }}
   />
 ))

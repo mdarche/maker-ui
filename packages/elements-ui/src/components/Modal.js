@@ -10,7 +10,7 @@ const Modal = () => {
     <Flex
       as="dialog"
       variant="modal"
-      sx={{ justifyContent: 'center', alignItems: 'center' }}>
+      __css={{ justifyContent: 'center', alignItems: 'center' }}>
       {modal.component}
     </Flex>
   )

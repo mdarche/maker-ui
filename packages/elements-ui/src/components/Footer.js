@@ -6,29 +6,29 @@ export const Footer = React.forwardRef(
     {
       bg = 'bg_footer',
       maxWidth = 'maxWidth_footer',
-      sx,
       variant = 'footer',
+      children,
       ...props
     },
     ref
   ) => {
     return (
       <Box
-        as="footer"
         ref={ref}
+        as="footer"
         id="footer"
         role="contentinfo"
         tabIndex="-1"
         variant={variant}
-        bg={bg}>
+        bg={bg}
+        {...props}>
         <Flex
-          {...props}
-          sx={{
+          __css={{
             maxWidth,
             mx: 'auto',
-            ...sx,
-          }}
-        />
+          }}>
+          {children}
+        </Flex>
       </Box>
     )
   }

@@ -5,8 +5,6 @@ import { useMenu, useOptions } from '../context/ElementsContext'
 
 const fullWidth = ['fade', 'fadeInUp', 'fadeInDown']
 
-// TODO - Clean up / make this function more readable
-
 const getTransition = (active, type, width) => {
   const opacity = type.includes('fade') ? (active ? 1 : 0) : null
   const visibility = active ? 'visible' : 'hidden'
@@ -39,11 +37,10 @@ export const MobileNav = React.forwardRef((props, ref) => {
   const { mobileMenu } = useOptions()
 
   const {
-    width = mobileMenu.width,
-    animation = mobileMenu.animation,
     bg = 'bg_mobilenav',
     variant = 'mobile-nav',
-    sx,
+    width = mobileMenu.width,
+    animation = mobileMenu.animation,
   } = props
 
   return (
@@ -51,9 +48,9 @@ export const MobileNav = React.forwardRef((props, ref) => {
       ref={ref}
       id="mobile-nav"
       variant={variant}
-      onClick={toggleMenu}
+      // onClick={toggleMenu}
       {...props}
-      sx={{
+      __css={{
         position: 'fixed',
         bg,
         top: 0,
@@ -61,7 +58,6 @@ export const MobileNav = React.forwardRef((props, ref) => {
         overflowY: 'scroll',
         transition: 'all ease .3s',
         ...getTransition(menu, animation, width),
-        ...sx,
       }}
     />
   )

@@ -21,13 +21,13 @@ const Skiplinks = () => {
   return (
     <Box
       as="ul"
-      sx={{
+      __css={{
         listStyle: 'none',
         position: 'relative',
         zIndex: 1000,
         p: 0,
         a: {
-          bg: '#fff',
+          bg: 'bg_header',
           display: 'block',
           position: 'absolute',
           fontFamily: 'body',

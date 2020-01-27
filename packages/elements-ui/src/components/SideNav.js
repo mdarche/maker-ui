@@ -11,7 +11,6 @@ export const SideNav = React.forwardRef(
   (
     {
       bg = 'bg_sidenav',
-      sx,
       buttonVariant,
       buttonToggle = 'Toggle',
       children,
@@ -28,42 +27,39 @@ export const SideNav = React.forwardRef(
     }
 
     return (
-      <React.Fragment>
+      <>
         <Box
           ref={ref}
-          {...props}
           id="side-nav"
           role="navigation"
-          sx={{
+          {...props}
+          __css={{
             bg,
             width: 'width_sidenav',
             position: ['fixed', 'relative'],
             top: 0,
             bottom: 0,
             zIndex: 100,
-            transform: ({ sizes }) => [
-              getTransform(sizes.width_sidenav),
-              'none',
-            ],
+            transform: t => [getTransform(t.sizes.width_sidenav), 'none'],
             transition: 'transform ease .3s',
-            ...sx,
           }}>
           {children}
         </Box>
         <Box
           as="button"
-          onClick={setActive}
-          aria-label="Toggle side navigation"
           id="toggle-sidenav"
-          sx={{
+          title="Toggle SideNav"
+          aria-label="Toggle side navigation"
+          onClick={setActive}
+          variant={buttonVariant}
+          __css={{
             position: 'fixed',
             display: ['inline-block', 'none'],
             bottom: 30,
-          }}
-          variant={buttonVariant}>
+          }}>
           {buttonToggle}
         </Box>
-      </React.Fragment>
+      </>
     )
   }
 )

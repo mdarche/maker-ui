@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useOptionsUpdater } from '../context/ElementsContext'
 import Skiplinks from './Skiplinks'
-
-// TODO - Add Modal Layer and Modal Provider
+import Modal from './Modal'
 
 const ElementsRoot = ({ options, children }) => {
   const setOptions = useOptionsUpdater()
@@ -15,10 +14,11 @@ const ElementsRoot = ({ options, children }) => {
   }, [setOptions, options])
 
   return (
-    <React.Fragment>
+    <>
       <Skiplinks />
       {children}
-    </React.Fragment>
+      <Modal />
+    </>
   )
 }
 
