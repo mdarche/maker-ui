@@ -10,11 +10,10 @@ import defaults from './variants/defaults'
 const validate = obj =>
   obj !== undefined && typeof obj === 'object' ? obj : {}
 
-const format = value => {
-  return isNaN(value) ? value : `${value}px`
-}
+const format = value => (isNaN(value) ? value : `${value}px`)
 
 // TODO - Test overwriting default-theme styles and console log the new theme
+// TODO - move default styles to demo site
 
 export default (theme, options = defaultOptions, removeStyling = false) => {
   const mappedOptions = {

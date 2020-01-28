@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "basic",
+  "name": "gatsby",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
@@ -9,9 +9,8 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "elements-ui": "^*",
     "gatsby": "^2.13.6",
-    "gatsby-plugin-catch-links": "^2.1.24",
+    "gatsby-theme-elements": "^*",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-understudy": "^0.0.6"

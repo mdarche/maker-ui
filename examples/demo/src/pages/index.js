@@ -1,6 +1,6 @@
-import React from "react"
-import { BlogPost } from "react-understudy"
-import Layout from "../layouts/Default"
+import React from 'react'
+import { BlogPost } from 'react-understudy'
+import Layout from '../layouts/default'
 
 const IndexPage = () => (
   <Layout>

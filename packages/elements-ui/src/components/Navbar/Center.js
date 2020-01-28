@@ -3,24 +3,28 @@ import { Box, Flex } from 'theme-ui'
 
 import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
-const Center = ({
-  logo = 'Logo',
-  menu,
-  widgetArea,
-  menuToggle,
-  colorToggle,
-  maxWidth = 'maxWidth_header',
-  variant = 'navbar',
-  sx,
-}) => {
-  return (
+const Center = React.forwardRef(
+  (
+    {
+      logo = 'Logo',
+      menu,
+      widgetArea,
+      menuToggle,
+      colorToggle,
+      maxWidth = 'maxWidth_header',
+      variant = 'navbar',
+      ...props
+    },
+    ref
+  ) => (
     <Flex
+      ref={ref}
       variant={variant}
-      sx={{
+      {...props}
+      __css={{
         variant: 'eui_header.center',
         flexDirection: ['row', 'column'],
         maxWidth,
-        ...sx,
       }}>
       <Flex>
         <Box id="site-logo" variant="header.logo">
@@ -37,6 +41,6 @@ const Center = ({
       </Flex>
     </Flex>
   )
-}
+)
 
 export default Center

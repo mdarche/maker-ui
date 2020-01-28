@@ -1,28 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ThemeProvider, Styled } from 'theme-ui'
 import { Global } from '@emotion/core'
 
-import { ElementsProvider } from '../context/ElementsContext'
+import { ElementsProvider, useOptionsUpdater } from '../context/ElementsContext'
 import { ModalProvider } from '../context/ModalContext'
-import ElementsRoot from './ElementsRoot'
+import Skiplinks from './Skiplinks'
 import cssReset from '../utils/reset'
 import optionMap from '../utils/option-map'
+
+const Root = ({ options, children }) => {
+  const setOptions = useOptionsUpdater()
+
+  useEffect(() => {
+    if (options !== undefined) {
+      setOptions(options)
+    }
+  }, [setOptions, options])
+
+  return children
+}
 
 export const Layout = ({
   reset = cssReset,
   theme,
   options,
   removeStyling,
-  globalStyle,
+  globalStyles,
   children,
 }) => (
   <ElementsProvider>
     <ThemeProvider theme={optionMap(theme, options, removeStyling)}>
       <Global styles={reset} />
-      {globalStyle ? <Global styles={globalStyle} /> : null}
+      {globalStyles ? <Global styles={globalStyles} /> : null}
       <ModalProvider>
         <Styled.root>
-          <ElementsRoot options={options}>{children}</ElementsRoot>
+          <Root options={options}>
+            <Skiplinks />
+            {children}
+          </Root>
         </Styled.root>
       </ModalProvider>
     </ThemeProvider>
