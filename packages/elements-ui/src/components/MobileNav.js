@@ -1,7 +1,8 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-import { useMenu, useOptions } from '../context/ElementsContext'
+import { useOptions } from '../context/OptionContext'
+import { useMenu } from '../context/ActionContext'
 
 const fullWidth = ['fade', 'fadeInUp', 'fadeInDown']
 

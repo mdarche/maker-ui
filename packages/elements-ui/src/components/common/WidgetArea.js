@@ -1,7 +1,7 @@
-import React from "react"
-import { Box } from "theme-ui"
+import React from 'react'
+import { Box } from 'theme-ui'
 
-import { useOptions } from "../../context/ElementsContext"
+import { useOptions } from '../../context/OptionContext'
 
 const WidgetArea = props => {
   const { header } = useOptions()
@@ -10,7 +10,7 @@ const WidgetArea = props => {
   return custom ? (
     <Box
       variant="header.widgets"
-      sx={{ display: hideOnMobile ? ["none", "flex"] : "flex" }}>
+      sx={{ display: hideOnMobile ? ['none', 'flex'] : 'flex' }}>
       {custom}
     </Box>
   ) : null

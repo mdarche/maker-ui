@@ -3,8 +3,6 @@ export default {
   layout: 'content',
   topbar: {
     maxWidth: 1260,
-    sticky: true,
-    stickyMobile: false,
   },
   header: {
     maxWidth: 1460,
@@ -21,7 +19,7 @@ export default {
   mobileMenu: {
     width: [300, '30vw'],
     animation: 'slideLeft',
-    desktopVisible: false,
+    visibleOnDesktop: false,
   },
   sideNav: {
     width: 300,
@@ -29,21 +27,17 @@ export default {
   content: {
     maxWidth: 1020,
     maxWidthSection: 1020,
-    gridGap: 30,
+    sidebarGap: 30,
   },
   sidebar: {
     width: 300,
   },
-  modal: {
-    animation: 'fade',
-    blur: false,
-  },
   footer: {
     maxWidth: 1020,
   },
-  breakpoints: {
-    sm: 750,
-    md: 960,
-    lg: 1240,
-  },
+  // breakpoints: {
+  //   sm: 750,
+  //   md: 960,
+  //   lg: 1240,
+  // },
 }

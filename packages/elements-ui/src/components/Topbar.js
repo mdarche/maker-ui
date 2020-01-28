@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex, Box } from 'theme-ui'
 
-import { useOptions } from '../context/ElementsContext'
+import { useOptions } from '../context/OptionContext'
 
 export const Topbar = React.forwardRef((props, ref) => {
   const { topbar } = useOptions()

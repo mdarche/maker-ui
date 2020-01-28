@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useOptions, useOptionsUpdater } from '../../context/ElementsContext'
+import { useOptions, useOptionUpdater } from '../../context/OptionContext'
 import Basic from './Basic'
 import BasicCenter from './BasicCenter'
 import Split from './Split'
@@ -12,7 +12,7 @@ import MinimalLeft from './MinimalLeft'
 
 export const Navbar = ({ type, ...props }) => {
   const { navigation } = useOptions()
-  const setOptions = useOptionsUpdater()
+  const setOptions = useOptionUpdater()
 
   if (type !== undefined && type !== navigation) {
     setOptions({ navigation: type })

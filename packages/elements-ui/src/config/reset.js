@@ -1,4 +1,4 @@
-import { css } from "@emotion/core"
+import { css } from '@emotion/core'
 
 export default css`
   html,
@@ -121,7 +121,7 @@ export default css`
   blockquote:after,
   q:before,
   q:after {
-    content: "";
+    content: '';
     content: none;
   }
   table {

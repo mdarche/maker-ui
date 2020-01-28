@@ -1,35 +1,36 @@
-import React from "react"
-import { Box, MenuButton } from "theme-ui"
+import React from 'react'
+import { Box, MenuButton } from 'theme-ui'
 
-import { useMenu, useOptions } from "../../context/ElementsContext"
+import { useOptions } from '../../context/OptionContext'
+import { useMenu } from '../../context/ActionContext'
 
 export default props => {
   const [menu, toggleMenu] = useMenu()
   const { mobileMenu } = useOptions()
 
-  const { custom, desktopVisible = mobileMenu.desktopVisible } = props
+  const { custom, visibleOnDesktop = mobileMenu.visibleOnDesktop } = props
 
-  const visibility = desktopVisible
-    ? { display: "block" }
-    : { display: ["block", "none"] }
+  const visibility = visibleOnDesktop
+    ? { display: 'block' }
+    : { display: ['block', 'none'] }
 
   return custom ? (
     <Box
       as="button"
       title="Menu"
       aria-label="Toggle Menu"
-      aria-expanded={menu ? "true" : "false"}
+      aria-expanded={menu ? 'true' : 'false'}
       onClick={toggleMenu}
       variant="header.menuButton"
-      sx={{ ...visibility, m: "0 auto" }}>
+      sx={{ ...visibility, m: '0 auto' }}>
       {custom}
     </Box>
   ) : (
     <MenuButton
-      aria-expanded={menu ? "true" : "false"}
+      aria-expanded={menu ? 'true' : 'false'}
       onClick={toggleMenu}
       variant="header.menuButton"
-      sx={{ ...visibility, svg: { m: "0 auto" } }}
+      sx={{ ...visibility, svg: { m: '0 auto' } }}
     />
   )
 }

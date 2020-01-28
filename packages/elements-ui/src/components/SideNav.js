@@ -1,7 +1,8 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-import { useSideNav, useOptions } from '../context/ElementsContext'
+import { useOptions } from '../context/OptionContext'
+import { useSideNav } from '../context/ActionContext'
 
 const format = value => {
   return isNaN(value) ? value : `${value}px`

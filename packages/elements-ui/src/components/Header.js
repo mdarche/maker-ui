@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-import { useOptions } from '../context/ElementsContext'
+import { useOptions } from '../context/OptionContext'
 
 export const Header = React.forwardRef((props, ref) => {
   const { header } = useOptions()

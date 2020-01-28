@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box } from 'theme-ui'
 
-import { useOptions } from '../../context/ElementsContext'
+import { useOptions } from '../../context/OptionContext'
 import Dropdown from './Dropdown'
 
 const MenuItem = ({ data: { label, path, newTab, submenu }, caret }) => {
@@ -21,7 +21,8 @@ const MenuItem = ({ data: { label, path, newTab, submenu }, caret }) => {
       <a
         href={path}
         target={newTab && '_blank'}
-        onFocus={submenu ? () => set(true) : undefined}>
+        onFocus={submenu && (() => set(true))}
+        onBlur={submenu && (() => set(false))}>
         <Box
           as="span"
           sx={

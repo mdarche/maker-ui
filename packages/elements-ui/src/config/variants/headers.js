@@ -61,6 +61,6 @@ export default {
         justifyContent: 'flex-end',
       },
     },
-    submenu: dropdownStyles('fadeInDown'),
+    submenu: dropdownStyles('fade'),
   },
 }

@@ -1,6 +1,4 @@
-const format = value => {
-  return isNaN(value) ? value : `${value}px`
-}
+const format = value => (isNaN(value) ? value : `${value}px`)
 
 const content = {
   display: 'block',
