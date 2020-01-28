@@ -10,8 +10,8 @@ export default {
     border: '#e6e6e6',
     bg_topbar: '#355cac',
     bg_header: '#fff',
-    bg_mobilenav: 'rgba(0, 0, 0, 0.9)',
-    bg_sidenav: '#333',
+    bg_mobileNav: 'rgba(0, 0, 0, 0.9)',
+    bg_sideNav: '#333',
     bg_footer: '#fff',
   },
   fonts: {

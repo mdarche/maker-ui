@@ -3,7 +3,7 @@ import {
   Layout,
   Header,
   Navbar,
-  MobileNav,
+  MobileMenu,
   Content,
   Main,
   Sidebar,
@@ -19,7 +19,7 @@ export default props => (
   <Layout theme={theme}>
     <Header>
       <Navbar menu={menuItems} logo={<Logo />} />
-      <MobileNav />
+      <MobileMenu />
     </Header>
     <Content sx={{ pt: 4 }}>
       <Sidebar>

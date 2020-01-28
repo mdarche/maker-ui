@@ -3,6 +3,7 @@ export default {
   layout: 'content',
   topbar: {
     maxWidth: 1260,
+    hideOnMobile: false,
   },
   header: {
     maxWidth: 1460,
@@ -18,7 +19,7 @@ export default {
   },
   mobileMenu: {
     width: [300, '30vw'],
-    animation: 'slideLeft',
+    transition: 'slideLeft',
     visibleOnDesktop: false,
   },
   sideNav: {
