@@ -24,6 +24,7 @@ export default {
   },
   sideNav: {
     width: 300,
+    isPrimaryNavigation: false,
   },
   content: {
     maxWidth: 1020,
@@ -36,9 +37,4 @@ export default {
   footer: {
     maxWidth: 1020,
   },
-  // breakpoints: {
-  //   sm: 750,
-  //   md: 960,
-  //   lg: 1240,
-  // },
 }

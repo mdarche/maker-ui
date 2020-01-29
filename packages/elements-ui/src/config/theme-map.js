@@ -31,7 +31,7 @@ export default (theme, options = defaultOptions) => {
       heading: 1.125,
     },
     space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
-    breakpoints: ['768px', '960px', '1240px'],
+    breakpoints: ['750px', '960px', '1240px'],
     sizes: {
       maxWidth_header: options.header.maxWidth,
       maxWidth_topbar: options.topbar.maxWidth,

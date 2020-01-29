@@ -4,9 +4,7 @@ import { Box } from 'theme-ui'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
 
-const format = value => {
-  return isNaN(value) ? value : `${value}px`
-}
+const format = value => (isNaN(value) ? value : `${value}px`)
 
 export const SideNav = React.forwardRef(
   (
