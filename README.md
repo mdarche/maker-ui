@@ -2,13 +2,21 @@
 
 # Gatsby Theme Elements
 
-Build responsive Gatsby themes with layouts powered by [ThemeUI](https://theme-ui.com/).
+Build responsive Gatsby themes with layouts powered by [Theme UI](https://theme-ui.com/).
 
-Gatsby Theme Elements takes care of accessibility, responsive navigation, and theming so you can focus on creating awesome content or adding new integrations to your Gatsby site.
+Gatsby Theme Elements takes care of accessible layouts, responsive navigation, and theming so you can focus on creating awesome content or adding new integrations to your Gatsby site.
 
 [![npm version](https://badge.fury.io/js/gatsby-theme-elements.svg)](https://badge.fury.io/js/gatsby-theme-elements)
 
-https://gatsby-theme-elements.netlify.com/
+Preview: https://gatsby-theme-elements.netlify.com/
+
+Documentation: https://elements-docs.netlify.com/
+
+## NOTE
+
+I am currently moving all of GTE's layout components to a new component library built on top of Theme UI. You will be able to use this project with any React framework under the name `elements-ui`.
+
+Stay tuned for updates!
 
 ## Contents
 
@@ -103,11 +111,11 @@ export default {
     stickyMobile: true,
     maxWidth: 1260,
     mobileNavWidth: 300,
-    mobileAnimation: "fade", // fade, fadeInUp, fadeInDown, slideRight, slideLeft
+    mobileAnimation: 'fade', // fade, fadeInUp, fadeInDown, slideRight, slideLeft
     spring: { tension: 170, friction: 26 }, // React Spring config object for your MobileNav
   },
   sideNav: {
-    width: "18em",
+    width: '18em',
     spring: { tension: 170, friction: 26 }, // spring config for your responsive SideNav
   },
   content: {
@@ -115,7 +123,7 @@ export default {
     gridGap: 30,
   },
   sidebar: {
-    width: ".3fr",
+    width: '.3fr',
   },
   footer: {
     maxWidth: 1020,
@@ -257,7 +265,7 @@ const Component = () => {
 - `headerHeight`
 - `sideNavWidth`
 - `sidebarWidth`
-- `viewportWidth` (updates on resize)
+- `viewportHeight` (updates on resize)
 - `viewportWidth` (updates on resize)
 
 This might come in handy if you need to access screen dimensions or layout positions.
