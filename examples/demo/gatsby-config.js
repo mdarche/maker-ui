@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Theme Elements Demo",
+    title: 'Elements UI demo',
     description:
-      "A collection of responsive, accessible layout components for Gatsby",
-    siteUrl: "https://mikedarche.com",
+      'A collection of responsive, accessible layout components based on Theme UI',
+    siteUrl: 'https://mikedarche.com',
   },
-  plugins: ["gatsby-theme-elements", "gatsby-plugin-svgr"],
+  plugins: ['gatsby-plugin-svgr', 'gatsby-plugin-catch-links'],
 }

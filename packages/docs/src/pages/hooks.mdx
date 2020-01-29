@@ -1,0 +1,73 @@
+# Hooks
+
+If you prefer to build your own layout components or access theme options from child themes, you can use the following hooks:
+
+- `useOptions`
+- `useMenu`
+- `useSideNav`
+- `useMeasurements`
+
+## `useOptions`
+
+**useOptions** returns an object with all of the theme options specified in `options.js`:
+
+```jsx
+import { useOptions } from "gatsby-theme-elements"
+
+const Component = () => {
+  const options = useOptions()
+
+  return...
+}
+```
+
+## `useMenu`
+
+**useMenu** returns an array that lets you view and set the open / close status of the mobile nav.
+
+```jsx
+import { useMenu } from "gatsby-theme-elements"
+
+const Component = () => {
+  const [menuActive, toggleMenu] = useMenu()
+
+  return...
+}
+```
+
+## `useSideNav`
+
+**useSideNav** returns an array that lets you view and set the open / close status of the side nav. The **SideNav's** default status changes depending on the viewport width and your mobile breakpoint.
+
+```jsx
+import { useSideNav } from "gatsby-theme-elements"
+
+const Component = () => {
+  const [sideNavActive, toggleSideNav] = useSideNav()
+
+  return...
+}
+```
+
+## `useMeasurements`
+
+**useMeasurements** returns an object with all of Element's key measurements:
+
+- `topbarHeight`
+- `headerHeight`
+- `sideNavWidth`
+- `sidebarWidth`
+- `viewportWidth` (updates on resize)
+- `viewportHeight` (updates on resize)
+
+This might come in handy if you need to access screen dimensions or layout positions.
+
+```jsx
+import { useMeasurements } from "gatsby-theme-elements"
+
+const Component = () => {
+  const metrics = useMeasurements()
+
+  return...
+}
+```

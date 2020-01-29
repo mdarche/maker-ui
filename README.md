@@ -2,7 +2,7 @@
 
 # Gatsby Theme Elements
 
-Build responsive Gatsby themes with layouts powered by [ThemeUI](https://theme-ui.com/).
+Build responsive Gatsby themes with layouts powered by [Theme UI](https://theme-ui.com/).
 
 Gatsby Theme Elements takes care of accessible layouts, responsive navigation, and theming so you can focus on creating awesome content or adding new integrations to your Gatsby site.
 
@@ -14,13 +14,12 @@ Documentation: https://elements-docs.netlify.com/
 
 ## NOTE
 
-Since building this in July 2019, I have been testing the theme on a number of real projects. 
+I am currently moving all of GTE's layout components to a new component library built on top of Theme UI. You will be able to use this project with any React framework under the name `elements-ui`.
 
-In January 2020 I will be moving all of GTE's layout components to a new component library built on top of ThemeUI. NPM is granting me the elements-ui namespace, so you will be able to use this library with any React project.
-
-I'll continue supporting the Gatsby parent theme, but this repository will soon become a monorepo with a few additional packages. Stay tuned for updates!
+Stay tuned for updates!
 
 ## Contents
+
 - [Getting Started](#getting-started)
 - [Installation](#installation)
   - [theme.js](#themejs)
@@ -31,7 +30,6 @@ I'll continue supporting the Gatsby parent theme, but this repository will soon 
 - [Adding Content](#adding-content)
 - [Hooks](#hooks)
 - [License](#license)
-
 
 ## Getting Started
 
@@ -113,11 +111,11 @@ export default {
     stickyMobile: true,
     maxWidth: 1260,
     mobileNavWidth: 300,
-    mobileAnimation: "fade", // fade, fadeInUp, fadeInDown, slideRight, slideLeft
+    mobileAnimation: 'fade', // fade, fadeInUp, fadeInDown, slideRight, slideLeft
     spring: { tension: 170, friction: 26 }, // React Spring config object for your MobileNav
   },
   sideNav: {
-    width: "18em",
+    width: '18em',
     spring: { tension: 170, friction: 26 }, // spring config for your responsive SideNav
   },
   content: {
@@ -125,7 +123,7 @@ export default {
     gridGap: 30,
   },
   sidebar: {
-    width: ".3fr",
+    width: '.3fr',
   },
   footer: {
     maxWidth: 1020,
@@ -162,6 +160,7 @@ The Elements component library gives you access to all of the semantic markup yo
 | **TabBar**         | A fixed wrapper component that moves mobile navigation to the bottom of the screen like a native mobile app. You can wrap it around your own components or feed it a menu object. The TabBar formats this menu into a horizontal scrollable row with links, labels, and icons. |
 | **Footer**         | The document _footer_ element                                                                                                                                                                                                                                                  |
 | **FooterWidgets**  | A grid wrapper for building skiplink accessible footer columns                                                                                                                                                                                                                 |
+
 ### Usage
 
 To use any of these components, just import them from `gatsby-theme-elements`:
@@ -173,7 +172,6 @@ import { Layout, Header, ContentWrapper, Main, Footer } from 'gatsby-theme-eleme
 ```
 
 Unlike other Gatsby themes, you don't need to shadow components because you can edit their behavior from your config files. Detailed information on each component is coming to a documentation site soon.
-
 
 Components can be used independently, but they work best together in a layout tree like so:
 
@@ -206,7 +204,7 @@ By default, the layout components use the settings you defined in `options.js` a
 
 ## Adding Content
 
-Once you have designed a layout, all you have to do is wrap your page in the newly created layout component. If your app only requires one layout, you can do this with Gatsby's `wrapRootElement` function. 
+Once you have designed a layout, all you have to do is wrap your page in the newly created layout component. If your app only requires one layout, you can do this with Gatsby's `wrapRootElement` function.
 
 ## Hooks
 
@@ -267,8 +265,8 @@ const Component = () => {
 - `headerHeight`
 - `sideNavWidth`
 - `sidebarWidth`
-- `viewportX` (updates on resize)
-- `viewportY` (updates on resize)
+- `viewportHeight` (updates on resize)
+- `viewportWidth` (updates on resize)
 
 This might come in handy if you need to access screen dimensions or layout positions.
 

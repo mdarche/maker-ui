@@ -1,43 +1,32 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui"
-import { List } from "react-understudy"
+import React from 'react'
 import {
   Layout,
   Header,
-  Logo,
-  ColorToggle,
-  NavMenu,
-  ContentWrapper,
+  MobileNav,
+  Navbar,
+  Content,
   Main,
-  TabBar,
   SideNav,
-  SideNavToggle,
-} from "gatsby-theme-elements"
+  Footer,
+} from 'elements-ui'
+import { Box } from 'react-understudy'
 
-import { menuItems, logoColors } from "../utils/settings"
+// TODO - test adding variant to header... Will it conflict with eui_header?
+
+// TODO - Add gatsby-plugin-catch-links to config & test new pages
 
 export default props => (
   <Layout>
-    <Header justify="space-between">
-      <Logo colorOptions={logoColors} />
-      <NavMenu
-        flex
-        justify="flex-end"
-        menuItems={menuItems}
-        sx={{ a: { p: 3 } }}
-      />
-      <ColorToggle />
+    <Header>
+      <Navbar type="basic" menuButton="Menu" />
+      {/* <MobileNav /> */}
     </Header>
-    <ContentWrapper layout="sidenav-content">
-      <SideNav>
-        <List count={20} border={false} padding="15px 20px 0" />
-      </SideNav>
-      <Main maxWidth="750px" sx={{ pt: 5, px: 3 }}>
-        {props.children}
-      </Main>
-    </ContentWrapper>
-    <SideNavToggle defaultIcon sx={{ bottom: 85 }} />
-
-    <TabBar menuItems={menuItems} />
+    <Content layout="sidenav-content">
+      <SideNav>Secondary nav links</SideNav>
+      <Main>{props.children}</Main>
+    </Content>
+    <Footer>Footer</Footer>
   </Layout>
+
+  // TODO - add modal layer to Layout and let users access it with API
 )

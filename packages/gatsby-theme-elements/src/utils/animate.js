@@ -1,0 +1,56 @@
+// Default Mobile Nav Animations
+
+export const transitionTypes = (width, type) => {
+  const down = type.slice(-1) === "n" ? "-" : ""
+  const right = type.slice(-2) === "ht" ? "-" : ""
+
+  switch (type.toLowerCase()) {
+    case "fadeinup":
+    case "fadeindown":
+      return {
+        from: { opacity: 0, transform: `translateY(${down}10px)` },
+        enter: { opacity: 1, transform: `translateY(0)` },
+        leave: { opacity: 0, transform: `translateY(${down}10px)` },
+      }
+    case "slideright":
+    case "slideleft":
+      return {
+        from: { transform: `translateX(${right + width})` },
+        enter: { transform: `translateX(0)` },
+        leave: { transform: `translateX(${right + width})` },
+      }
+    default:
+      // Default fade
+      return {
+        from: { opacity: 0 },
+        enter: { opacity: 1 },
+        leave: { opacity: 0 },
+      }
+  }
+}
+
+// Springs
+
+export const reveal = (
+  toggle,
+  viewportWidth,
+  breakpoint,
+  width,
+  side,
+  config
+) => {
+  const unit = width.replace(/[0-9.]/g, "")
+  const direction = side === "left" ? "-" : ""
+  return {
+    to: {
+      opacity: toggle ? 1 : 0,
+      transform: toggle
+        ? `translateX(0${unit})`
+        : `translateX(${direction}${width})`,
+    },
+    from: {
+      opacity: viewportWidth > breakpoint ? 1 : 0,
+    },
+    config,
+  }
+}
