@@ -66,8 +66,6 @@ export const MobileMenu = React.forwardRef((props, ref) => {
     transition = mobileMenu.transition,
   } = props
 
-  console.log(getTransition(menu, transition, width))
-
   return (
     <React.Fragment>
       <MenuOverlay type={transition} menu={menu} toggleMenu={toggleMenu} />

@@ -30,7 +30,6 @@ export const Header = React.forwardRef((props, ref) => {
       variant={variant}
       bg={bg}
       {...rest}
-      __themeKey="header"
       __css={{
         zIndex: 100,
         ...partial,

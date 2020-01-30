@@ -6,17 +6,15 @@ import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
 import Skiplinks from './Skiplinks'
 import cssReset from '../config/reset'
-import optionMap from '../config/theme-map'
+import themeMap from '../config/theme-map'
 
 export const Layout = ({ theme, options, reset = cssReset, children }) => (
-  <ThemeProvider theme={optionMap(theme, options)}>
+  <ThemeProvider theme={themeMap(theme, options)}>
     <OptionProvider options={options}>
       <ActionProvider>
         <Global styles={reset} />
-        <Styled.root>
-          <Skiplinks />
-          {children}
-        </Styled.root>
+        <Skiplinks />
+        {children}
       </ActionProvider>
     </OptionProvider>
   </ThemeProvider>

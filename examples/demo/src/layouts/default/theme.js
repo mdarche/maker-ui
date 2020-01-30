@@ -19,6 +19,7 @@ export default {
     heading: 'system-ui, sans-serif',
     monospace: 'Menlo, monospace',
   },
+  breakpoints: ['768px', '960px', '1240px'],
   // Style the layout with the following variants
   header: {
     p: 2,
@@ -28,6 +29,7 @@ export default {
     logo: {},
     menu: {
       a: {
+        fontSize: 0,
         display: 'block',
         color: 'navlink',
         textDecoration: 'none',
