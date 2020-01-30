@@ -4,7 +4,7 @@ import { Box } from 'theme-ui'
 import { useOptions } from '../context/OptionContext'
 
 const Skiplinks = () => {
-  const { layout } = useOptions()
+  const { layout, a11y } = useOptions()
 
   let links = [
     { id: '#content', label: 'Skip to content' },
@@ -18,7 +18,7 @@ const Skiplinks = () => {
     })
   }
 
-  return (
+  return a11y.skiplinks ? (
     <Box
       as="ul"
       __css={{
@@ -44,7 +44,7 @@ const Skiplinks = () => {
         </li>
       ))}
     </Box>
-  )
+  ) : null
 }
 
 export default Skiplinks

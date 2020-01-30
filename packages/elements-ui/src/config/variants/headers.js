@@ -28,7 +28,7 @@ const dropdownStyles = type => {
   }
 }
 
-export default {
+export default options => ({
   eui_header: {
     base: {
       position: 'relative',
@@ -61,6 +61,6 @@ export default {
         justifyContent: 'flex-end',
       },
     },
-    submenu: dropdownStyles('fade'),
+    submenu: dropdownStyles(options.dropdown.transition),
   },
-}
+})

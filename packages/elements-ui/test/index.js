@@ -29,6 +29,12 @@ const theme = {
   },
 }
 
+const options = {
+  a11y: {
+    skiplinks: false,
+  },
+}
+
 const options = { navigation: 'sidebar-content' }
 
 describe('Layout', () => {

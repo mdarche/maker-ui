@@ -14,7 +14,7 @@ export default {
     hideWidgetsOnMobile: true,
     dropdown: {
       caret: true,
-      transition: 'fade',
+      transition: 'fadeInDown',
     },
   },
   mobileMenu: {
@@ -24,7 +24,7 @@ export default {
   },
   sideNav: {
     width: 300,
-    isPrimaryNavigation: false,
+    isPrimaryNav: false,
   },
   content: {
     maxWidth: 1020,
@@ -36,5 +36,8 @@ export default {
   },
   footer: {
     maxWidth: 1020,
+  },
+  a11y: {
+    skiplinks: true,
   },
 }

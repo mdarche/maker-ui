@@ -8,18 +8,11 @@ import Skiplinks from './Skiplinks'
 import cssReset from '../config/reset'
 import optionMap from '../config/theme-map'
 
-export const Layout = ({
-  theme,
-  options,
-  globalStyles,
-  reset = cssReset,
-  children,
-}) => (
+export const Layout = ({ theme, options, reset = cssReset, children }) => (
   <ThemeProvider theme={optionMap(theme, options)}>
     <OptionProvider options={options}>
       <ActionProvider>
         <Global styles={reset} />
-        {globalStyles ? <Global styles={globalStyles} /> : null}
         <Styled.root>
           <Skiplinks />
           {children}
