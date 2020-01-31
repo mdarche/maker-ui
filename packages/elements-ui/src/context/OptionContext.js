@@ -26,7 +26,9 @@ function useOptions() {
   const options = useContext(OptionContext)
 
   if (options === undefined)
-    throw new Error('useOptions must be used within an Elements UI layout')
+    throw new Error(
+      'useOptions must be used within an Elements UI Layout component'
+    )
 
   return options
 }
@@ -36,7 +38,7 @@ function useOptionUpdater() {
 
   if (dispatch === undefined)
     throw new Error(
-      'useOptionsUpdater must be used within an Elements UI layout'
+      'useOptionsUpdater must be used within an Elements UI Layout component'
     )
 
   function setOptions(options) {

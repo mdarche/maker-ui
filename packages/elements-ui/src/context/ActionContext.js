@@ -45,7 +45,9 @@ function useMenu() {
   const dispatch = useContext(ActionUpdateContext)
 
   if (typeof menuActive === undefined)
-    throw new Error('useMenu must be used within an Elements UI layout')
+    throw new Error(
+      'useMenu must be used within an Elements UI Layout component'
+    )
 
   function toggleMenu() {
     dispatch({ type: 'menu' })
@@ -59,7 +61,9 @@ function useSideNav() {
   const dispatch = useContext(ActionUpdateContext)
 
   if (typeof sideNavActive === undefined)
-    throw new Error('useSideNav must be used within an Elements UI layout')
+    throw new Error(
+      'useSideNav must be used within an Elements UI Layout component'
+    )
 
   function setSideNav() {
     dispatch({ type: 'sideNav' })

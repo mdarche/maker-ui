@@ -14,7 +14,7 @@ const MenuItem = ({ data: { label, path, newTab, submenu }, caret }) => {
         display: 'inline-flex',
         '&:hover': {
           '.sub-menu': {
-            variant: 'eui_header.submenu.active',
+            variant: 'eui_submenu.active',
           },
         },
       }}>

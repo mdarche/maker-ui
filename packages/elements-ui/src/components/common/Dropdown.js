@@ -14,9 +14,9 @@ const Dropdown = ({ submenu, active, set }) => (
       left: 0,
       opacity: 0,
       visibility: 'hidden',
-      variant: 'eui_header.submenu',
+      variant: 'eui_submenu',
       '&.active': {
-        variant: 'eui_header.submenu.active',
+        variant: 'eui_submenu.active',
       },
     }}>
     {submenu.map(({ label, path, newTab }, index) => (

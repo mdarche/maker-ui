@@ -3,6 +3,7 @@ import merge from 'deepmerge'
 import defaultOptions from './options'
 import layouts from './variants/layouts'
 import headers from './variants/headers'
+import submenu from './variants/submenu'
 
 const validate = obj =>
   obj !== undefined && typeof obj === 'object' ? obj : {}
@@ -41,7 +42,8 @@ export default (theme, options) => {
       gap_content: o.content.sidebarGap,
     },
     ...layouts,
-    ...headers(o.header),
+    ...headers,
+    ...submenu(o.header.dropdown.transition),
   }
 
   return merge(mappedOptions, validate(theme), {
