@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "old-docs",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "dev": "gatsby develop",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^1.1.4",
+    "gatsby": "^2.13.50",
+    "gatsby-plugin-google-fonts": "^1.0.1",
+    "gatsby-plugin-mdx": "^1.0.22",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

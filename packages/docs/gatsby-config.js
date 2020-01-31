@@ -1,24 +1,16 @@
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Theme Elements Documentation",
-    description: "The official doc site for Gatsby Theme Elements",
-    siteUrl: "https://mikedarche.com",
+    title: 'Elements UI',
+    description: 'The official doc site for Elements UI',
+    siteUrl: 'https://elements-ui.dev',
   },
   plugins: [
-    `gatsby-theme-elements`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-catch-links`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        extensions: [".mdx", ".md"],
-        defaultLayouts: {
-          default: require.resolve("./src/components/Layout.js"),
-        },
-      },
-    },
-    {
-      resolve: "gatsby-plugin-google-fonts",
-      options: {
-        fonts: ["Merriweather", "Merriweather+Sans:400,400i,700"],
+        extensions: ['.mdx', '.md'],
       },
     },
   ],

@@ -4,6 +4,8 @@ import { Box } from 'theme-ui'
 import { useOptions } from '../../context/OptionContext'
 import Dropdown from './Dropdown'
 
+// TODO - Add and test active links w/ classes
+
 const MenuItem = ({ data: { label, path, newTab, submenu }, caret }) => {
   const [active, set] = useState(false)
   return (
