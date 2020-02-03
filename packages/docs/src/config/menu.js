@@ -1,5 +1,6 @@
 export default [
-  { label: 'Features', path: '/docs' },
   { label: 'Docs', path: '/docs' },
-  { label: 'Demo', path: '/demo' },
+  { label: 'Tutorials', path: '/docs' },
+  { label: 'Examples', path: '/demo' },
+  { label: 'FAQs', path: '/demo' },
 ]
