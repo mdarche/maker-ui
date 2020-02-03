@@ -2,7 +2,6 @@ import React from 'react'
 
 import { useOptions, useOptionUpdater } from '../../context/OptionContext'
 import Basic from './Basic'
-import BasicCenter from './BasicCenter'
 import Split from './Split'
 import Center from './Center'
 import Reverse from './Reverse'
@@ -31,8 +30,8 @@ export const Navbar = ({ type, ...props }) => {
       return <MinimalCenter {...props} />
     case 'minimal-left':
       return <MinimalLeft {...props} />
-    case 'basic-center':
-      return <BasicCenter {...props} />
+    case 'basic-left':
+      return <Basic justify="space-between" {...props} />
     default:
       return <Basic {...props} />
   }

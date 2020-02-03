@@ -4,6 +4,8 @@ import { Box, MenuButton } from 'theme-ui'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu } from '../../context/ActionContext'
 
+// TODO useSideNav if sidenav is primary && floating button is disabled
+
 export default props => {
   const [menu, toggleMenu] = useMenu()
   const { mobileMenu } = useOptions()

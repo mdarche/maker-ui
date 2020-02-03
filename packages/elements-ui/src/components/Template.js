@@ -64,6 +64,7 @@ export const Template = ({
   menuToggle,
   colorToggle,
   logo,
+  menu,
   mobileMenu,
   sideNav,
   sidebar,

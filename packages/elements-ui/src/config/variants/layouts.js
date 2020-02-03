@@ -57,6 +57,10 @@ const sideNav = {
 export default {
   eui_layout: {
     content,
+    'full-width': {
+      display: 'block',
+      maxWidth: '100%',
+    },
     ...sidebar,
     ...sideNav,
   },

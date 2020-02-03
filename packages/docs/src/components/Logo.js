@@ -6,7 +6,7 @@ export default () => (
     as="svg"
     viewBox="0 0 340.81 45.08"
     xmlns="http://www.w3.org/2000/svg"
-    sx={{ height: [28, 32] }}>
+    sx={{ height: [26, 28] }}>
     <g>
       <Box
         as="path"

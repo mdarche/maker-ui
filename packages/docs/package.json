@@ -9,16 +9,18 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "elements-ui": "^*",
     "@mdx-js/mdx": "^1.5.5",
     "@mdx-js/react": "^1.5.5",
     "@theme-ui/prism": "^0.3.0",
+    "elements-ui": "^*",
     "gatsby": "^2.13.50",
     "gatsby-plugin-catch-links": "^2.1.24",
+    "gatsby-plugin-layout": "^1.1.22",
     "gatsby-plugin-mdx": "^1.0.22",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "theme-ui": "^0.3.1"
   }
 }

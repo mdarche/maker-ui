@@ -1,5 +1,5 @@
 export default {
-  navigation: 'basic-center',
+  navigation: 'basic-left',
   layout: 'content-sidenav',
   header: {
     maxWidth: 1460,

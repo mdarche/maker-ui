@@ -11,6 +11,7 @@ const Basic = React.forwardRef(
       widgetArea,
       menuToggle,
       colorToggle,
+      justify,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -28,7 +29,12 @@ const Basic = React.forwardRef(
       <Box id="site-logo" variant="header.logo">
         <a href="/">{logo}</a>
       </Box>
-      <Flex sx={{ alignItems: 'center' }}>
+      <Flex
+        sx={{
+          alignItems: 'center',
+          flex: justify === 'space-between' ? 1 : 'initial',
+          justifyContent: justify,
+        }}>
         <Menu menuItems={menu} />
         <Flex sx={{ alignItems: 'center' }}>
           <WidgetArea custom={widgetArea} />
