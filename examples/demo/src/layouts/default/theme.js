@@ -11,7 +11,7 @@ export default {
     bg_topbar: '#355cac',
     bg_header: '#fff',
     bg_mobileNav: 'rgba(0, 0, 0, 0.9)',
-    bg_sideNav: '#333',
+    bg_sideNav: '#eee',
     bg_footer: '#fff',
   },
   fonts: {
@@ -57,7 +57,7 @@ export default {
     menuButton: {},
     widgets: {},
   },
-  mobileNav: {},
+  mobileMenu: {},
   sideNav: {},
   modal: {},
   main: {},

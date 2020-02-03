@@ -13,6 +13,7 @@ import Prism from '@theme-ui/prism'
 import Logo from './logo'
 import options from '../config/options'
 import theme from '../config/theme'
+import menu from '../config/menu'
 
 const components = {
   pre: ({ children }) => <>{children}</>,
@@ -22,7 +23,7 @@ const components = {
 export default ({ children }) => (
   <Layout theme={theme} options={options} components={components}>
     <Header>
-      <Navbar logo={<Logo />} />
+      <Navbar logo={<Logo />} menu={menu} />
       <MobileMenu />
     </Header>
     <Content>

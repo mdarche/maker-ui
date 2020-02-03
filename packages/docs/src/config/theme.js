@@ -11,7 +11,7 @@ export default {
     bg_topbar: '#355cac',
     bg_header: '#fff',
     bg_mobileNav: 'rgba(0, 0, 0, 0.9)',
-    bg_sideNav: '#333',
+    bg_sideNav: '#eee',
     bg_footer: '#fff',
   },
   fonts: {
@@ -22,14 +22,14 @@ export default {
   breakpoints: ['768px', '960px', '1240px'],
   // Elements UI layout variants
   header: {
-    p: 2,
+    py: [2, '20px'],
     borderBottom: '1px solid',
     borderColor: 'border',
     fontFamily: 'heading',
     logo: {},
     menu: {
       a: {
-        fontSize: 0,
+        fontSize: 2,
         display: 'block',
         color: 'navlink',
         textDecoration: 'none',

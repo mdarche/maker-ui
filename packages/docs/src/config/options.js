@@ -15,12 +15,10 @@ export default {
     visibleOnDesktop: false,
   },
   sideNav: {
-    width: 300,
+    width: [400, 600],
     isPrimaryNav: false,
   },
   content: {
     maxWidth: 1020,
-    maxWidthSection: 1020,
-    sidebarGap: 30,
   },
 }

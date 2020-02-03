@@ -18,6 +18,7 @@ export const Content = React.forwardRef(({ layout, ...props }, ref) => {
       {...props}
       __css={{
         variant: `eui_layout.${baseLayout}`,
+        minHeight: '100vh',
       }}
     />
   )

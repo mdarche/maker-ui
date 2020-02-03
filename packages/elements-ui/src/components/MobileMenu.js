@@ -71,7 +71,7 @@ export const MobileMenu = React.forwardRef((props, ref) => {
       <MenuOverlay type={transition} menu={menu} toggleMenu={toggleMenu} />
       <Box
         ref={ref}
-        id="mobile-nav"
+        id="mobile-menu"
         variant={variant}
         {...props}
         __css={{
