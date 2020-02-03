@@ -1,6 +1,6 @@
 import React from 'react'
 import { Template } from 'elements-ui'
-import { BlogPost } from 'react-understudy'
+import { BlogPost, SideAds } from 'react-understudy'
 
 import Logo from '../../components/Logo'
 import Widgets from '../../components/Widgets'
@@ -8,7 +8,7 @@ import { menu, theme, Footer } from '../../components/Demo'
 
 const options = {
   navigation: 'basic',
-  layout: 'content',
+  layout: 'content-sidebar',
 }
 
 export default () => (
@@ -18,6 +18,7 @@ export default () => (
     menu={menu}
     logo={<Logo />}
     headerWidgets={<Widgets />}
+    sidebar={<SideAds adHeights={[250, 600]} />}
     footer={<Footer />}>
     <BlogPost paragraphs={6} image={false} />
   </Template>

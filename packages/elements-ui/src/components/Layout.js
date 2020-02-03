@@ -12,13 +12,13 @@ export const Layout = ({
   theme,
   options,
   components,
-  reset = cssReset,
+  // reset = cssReset,
   children,
 }) => (
   <ThemeProvider theme={themeMap(theme, options)} components={components}>
     <OptionProvider options={options}>
       <ActionProvider>
-        <Global styles={reset} />
+        {/* <Global styles={reset} /> */}
         <Skiplinks />
         {children}
       </ActionProvider>
