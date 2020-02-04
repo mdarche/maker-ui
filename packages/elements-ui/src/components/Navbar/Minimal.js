@@ -26,7 +26,7 @@ const Minimal = React.forwardRef(
       </Box>
       <Flex sx={{ alignItems: 'center' }}>
         <WidgetArea custom={widgetArea} />
-        <MenuButton custom={menuToggle} desktopVisible />
+        <MenuButton custom={menuToggle} visibleOnDesktop />
         <ColorButton custom={colorToggle} />
       </Flex>
     </Flex>

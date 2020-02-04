@@ -1,29 +1,17 @@
 import React from 'react'
-import { ThemeProvider, Styled } from 'theme-ui'
-import { Global } from '@emotion/core'
+import { ThemeProvider } from 'theme-ui'
 
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
 import Skiplinks from './Skiplinks'
-import cssReset from '../config/reset'
-import optionMap from '../config/theme-map'
+import themeMap from '../config/theme-map'
 
-export const Layout = ({
-  theme,
-  options,
-  globalStyles,
-  reset = cssReset,
-  children,
-}) => (
-  <ThemeProvider theme={optionMap(theme, options)}>
+export const Layout = ({ theme, options, components, children }) => (
+  <ThemeProvider theme={themeMap(theme, options)} components={components}>
     <OptionProvider options={options}>
       <ActionProvider>
-        <Global styles={reset} />
-        {globalStyles ? <Global styles={globalStyles} /> : null}
-        <Styled.root>
-          <Skiplinks />
-          {children}
-        </Styled.root>
+        <Skiplinks />
+        {children}
       </ActionProvider>
     </OptionProvider>
   </ThemeProvider>

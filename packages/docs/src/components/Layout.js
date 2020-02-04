@@ -1,63 +1,53 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+import React from 'react'
 import {
   Layout,
   Header,
-  Logo,
-  ColorToggle,
-  ContentWrapper,
-  HeaderWidgets,
+  Navbar,
+  MobileMenu,
+  Content,
   Main,
   SideNav,
-  SideNavToggle,
-} from "gatsby-theme-elements"
+} from 'elements-ui'
+import Prism from '@theme-ui/prism'
 
-import SideMenu from "./SideMenu.js"
-import Pagination from "./Pagination"
-import { colorOptions } from "../utils/logo-colors"
-import { ReactComponent as GithubLogo } from "../assets/github.svg"
+import Logo from './Logo'
+import DocsMenu from './DocsMenu'
+import Widgets from './Widgets'
 
-export default ({ children, location }) => (
-  <Layout>
-    <Header justify="space-between" sx={{ p: 3 }}>
-      <Logo height={["28px", "32px"]} colorOptions={colorOptions} />
-      <HeaderWidgets>
-        <a
-          href="https://github.com/mdarche/gatsby-theme-elements"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            display: "flex",
-            color: "primary",
-            fontSize: 3,
-            textDecoration: "none",
-            px: "25px",
-          }}>
-          <GithubLogo sx={{ height: "24px", fill: "currentColor" }} />
-        </a>
-        <ColorToggle
-          sx={{
-            border: "2px solid",
-            borderRadius: "2px",
-            background: "none",
-            borderColor: "primary",
-            color: "primary",
-            fontFamily: "heading",
-            fontSize: "1em",
-            p: "5px 10px",
-          }}
+import { options, menu } from '../config/options'
+import theme from '../config/theme'
+
+const components = {
+  pre: ({ children }) => <>{children}</>,
+  code: Prism,
+}
+
+export default ({ children, location }) => {
+  if (location.pathname.includes('/demo')) return children
+
+  return (
+    <Layout theme={theme} options={options} components={components}>
+      <Header>
+        <Navbar
+          logo={<Logo />}
+          menu={menu}
+          widgetArea={<Widgets />}
+          location={location.pathname}
         />
-      </HeaderWidgets>
-    </Header>
-    <ContentWrapper layout="sidenav-content" sx={{ py: [2, 5] }}>
-      <SideNav>
-        <SideMenu />
-      </SideNav>
-      <Main sx={{ p: "20px" }}>
-        {children}
-        <Pagination location={location.pathname} />
-      </Main>
-    </ContentWrapper>
-    <SideNavToggle defaultIcon sx={{ borderRadius: "2px" }} />
-  </Layout>
-)
+        <MobileMenu />
+      </Header>
+      {location.pathname.includes('/docs') ? (
+        <Content layout="content-sidenav">
+          <Main>{children}</Main>
+          <SideNav>
+            <DocsMenu />
+          </SideNav>
+        </Content>
+      ) : (
+        <Content layout="full-width">
+          <Main>{children}</Main>
+        </Content>
+      )}
+    </Layout>
+  )
+}

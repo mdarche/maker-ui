@@ -25,8 +25,10 @@ const OptionProvider = ({ options = {}, children }) => {
 function useOptions() {
   const options = useContext(OptionContext)
 
-  if (typeof options === undefined)
-    throw new Error('useOptions must be used within an Elements UI layout')
+  if (options === undefined)
+    throw new Error(
+      'useOptions must be used within an Elements UI Layout component'
+    )
 
   return options
 }
@@ -34,9 +36,9 @@ function useOptions() {
 function useOptionUpdater() {
   const dispatch = useContext(OptionUpdateContext)
 
-  if (typeof options === undefined)
+  if (dispatch === undefined)
     throw new Error(
-      'useOptionsUpdater must be used within an Elements UI layout'
+      'useOptionsUpdater must be used within an Elements UI Layout component'
     )
 
   function setOptions(options) {
@@ -50,7 +52,7 @@ function useLayout() {
   const { layout } = useContext(OptionContext)
   const dispatch = useContext(OptionUpdateContext)
 
-  if (typeof layout === undefined)
+  if (layout === undefined)
     throw new Error('useLayout must be used within an Elements UI layout')
 
   function setLayout(newLayout) {

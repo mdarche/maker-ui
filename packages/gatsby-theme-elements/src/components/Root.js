@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
-import { useLayoutEffect, useCallback } from "react"
-import { Global } from "@emotion/core"
+import { jsx, Styled } from 'theme-ui'
+import { useLayoutEffect, useCallback } from 'react'
+import { Global } from '@emotion/core'
 
-import { useMeasureUpdater } from "../context/MeasureContext"
-import defaultReset from "../utils/reset"
+import { useMeasureUpdater } from '../context/MeasureContext'
+import defaultReset from '../utils/reset'
 
 const skiplinks = [
-  { label: "Skip to primary navigation", path: "nav-primary" },
-  { label: "Skip to content", path: "content" },
-  { label: "Skip to footer widgets", path: "footer-widgets" },
+  { label: 'Skip to primary navigation', path: 'nav-primary' },
+  { label: 'Skip to content', path: 'content' },
+  { label: 'Skip to footer widgets', path: 'footer-widgets' },
 ]
 
 // function inspectWindow() {
@@ -17,8 +17,6 @@ const skiplinks = [
 //     return [window.innerWidth, window.innerHeight]
 //   }
 // }
-
-// TODO - Set options via layout prop
 
 const Root = ({ children, globalStyle, reset, ...props }) => {
   const setMeasurements = useMeasureUpdater()
@@ -45,7 +43,7 @@ const Root = ({ children, globalStyle, reset, ...props }) => {
   }, [measure])
 
   return (
-    <Styled.root id="__elements" sx={{ color: "text" }} {...props}>
+    <Styled.root id="__elements" sx={{ color: 'text' }} {...props}>
       <Global styles={reset !== undefined ? reset : defaultReset} />
       {globalStyle !== undefined ? <Global styles={globalStyle} /> : null}
 

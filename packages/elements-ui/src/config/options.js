@@ -14,17 +14,19 @@ export default {
     hideWidgetsOnMobile: true,
     dropdown: {
       caret: true,
-      transition: 'fade',
+      transition: 'fadeInDown',
     },
   },
   mobileMenu: {
     width: [300, '30vw'],
     transition: 'slideLeft',
+    defaultClose: true,
     visibleOnDesktop: false,
   },
   sideNav: {
     width: 300,
-    isPrimaryNavigation: false,
+    isPrimaryNav: false,
+    floatingToggle: true,
   },
   content: {
     maxWidth: 1020,
@@ -36,5 +38,8 @@ export default {
   },
   footer: {
     maxWidth: 1020,
+  },
+  a11y: {
+    skiplinks: true,
   },
 }

@@ -2,12 +2,9 @@ import React from 'react'
 import { Box } from 'theme-ui'
 
 export const Section = React.forwardRef(
-  (
-    { element = 'section', maxWidth = 'maxWidth_section', children, ...props },
-    ref
-  ) => {
+  ({ maxWidth = 'maxWidth_section', children, ...props }, ref) => {
     return (
-      <Box ref={ref} as={element}>
+      <Box ref={ref} as={props.as || 'section'}>
         <Box {...props} __css={{ maxWidth, mx: 'auto' }}>
           {children}
         </Box>

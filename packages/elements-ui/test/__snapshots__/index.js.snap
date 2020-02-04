@@ -5,29 +5,6 @@ exports[`Content renders 1`] = `
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-1 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
   display: block;
   max-width: 1020px;
   margin-left: auto;
@@ -35,64 +12,19 @@ exports[`Content renders 1`] = `
 }
 
 <div
-  className="emotion-2"
->
-  <ul
-    className="emotion-0"
-  >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <div
-    className="emotion-1"
-  />
-</div>
+  className="emotion-0"
+/>
 `;
 
 exports[`Footer renders 1`] = `
-.emotion-0 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-2 {
+.emotion-1 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
   background-color: var(--theme-ui-colors-bg_footer,#fff);
 }
 
-.emotion-1 {
+.emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -105,38 +37,16 @@ exports[`Footer renders 1`] = `
   display: flex;
 }
 
-<div
-  className="emotion-3"
+<footer
+  className="emotion-1"
+  id="footer"
+  role="contentinfo"
+  tabIndex="-1"
 >
-  <ul
+  <div
     className="emotion-0"
-  >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <footer
-    className="emotion-2"
-    id="footer"
-    role="contentinfo"
-    tabIndex="-1"
-  >
-    <div
-      className="emotion-1"
-    />
-  </footer>
-</div>
+  />
+</footer>
 `;
 
 exports[`Header renders 1`] = `
@@ -144,120 +54,25 @@ exports[`Header renders 1`] = `
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-1 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
   z-index: 100;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: var(--theme-ui-colors-bg_header,#fff);
+  background-color: var(--theme-ui-colors-bg_header,#000);
 }
 
-<div
-  className="emotion-2"
+<header
+  className="emotion-0"
+  id="site-header"
+  role="banner"
 >
-  <ul
-    className="emotion-0"
-  >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <header
-    className="emotion-1"
-    id="site-header"
-    role="banner"
-  >
-    Test
-  </header>
-</div>
+  Test
+</header>
 `;
 
 exports[`Layout renders 1`] = `
-.emotion-0 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-<div
-  className="emotion-1"
->
-  <ul
-    className="emotion-0"
-  >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <h1>
-    Test
-  </h1>
-</div>
-`;
-
-exports[`Layout user theme overrides default values 1`] = `
-.emotion-0 {
+Array [
+  .emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -280,17 +95,7 @@ exports[`Layout user theme overrides default values 1`] = `
   left: 0;
 }
 
-.emotion-1 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  background-color: var(--theme-ui-colors-bg_header,#000);
-}
-
-<div
-  className="emotion-2"
->
-  <ul
+<ul
     className="emotion-0"
   >
     <li>
@@ -307,38 +112,15 @@ exports[`Layout user theme overrides default values 1`] = `
         Skip to footer
       </a>
     </li>
-  </ul>
-  <div
-    className="emotion-1"
-  />
-</div>
+  </ul>,
+  "Hi",
+]
 `;
+
+exports[`Layout renders without skiplinks 1`] = `"Hello"`;
 
 exports[`Main renders 1`] = `
-.emotion-0 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-2 {
+.emotion-1 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -348,7 +130,7 @@ exports[`Main renders 1`] = `
   margin-right: auto;
 }
 
-.emotion-1 {
+.emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -358,65 +140,20 @@ exports[`Main renders 1`] = `
 }
 
 <div
-  className="emotion-3"
+  className="emotion-1"
 >
-  <ul
+  <main
     className="emotion-0"
+    id="content"
+    role="main"
   >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <div
-    className="emotion-2"
-  >
-    <main
-      className="emotion-1"
-      id="content"
-      role="main"
-    >
-      Test
-    </main>
-  </div>
+    Test
+  </main>
 </div>
 `;
 
 exports[`MobileMenu renders 1`] = `
-.emotion-0 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-3 {
+.emotion-2 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -424,10 +161,10 @@ exports[`MobileMenu renders 1`] = `
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: var(--theme-ui-colors-bg_header,#fff);
+  background-color: var(--theme-ui-colors-bg_header,#000);
 }
 
-.emotion-1 {
+.emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -443,7 +180,7 @@ exports[`MobileMenu renders 1`] = `
   transition: all ease .4s;
 }
 
-.emotion-2 {
+.emotion-1 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -463,87 +200,31 @@ exports[`MobileMenu renders 1`] = `
 }
 
 @media screen and (min-width:750px) {
-  .emotion-2 {
+  .emotion-1 {
     width: 30vw;
   }
 }
 
-<div
-  className="emotion-4"
+<header
+  className="emotion-2"
+  id="site-header"
+  role="banner"
 >
-  <ul
+  <div
     className="emotion-0"
-  >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <header
-    className="emotion-3"
-    id="site-header"
-    role="banner"
-  >
-    <div
-      className="emotion-1"
-      id="menu-overlay"
-      onClick={[Function]}
-      role="presentation"
-    />
-    <div
-      className="emotion-2"
-      id="mobile-nav"
-    />
-  </header>
-</div>
+    id="menu-overlay"
+    onClick={[Function]}
+    role="presentation"
+  />
+  <div
+    className="emotion-1"
+    id="mobile-nav"
+  />
+</header>
 `;
 
 exports[`Navbar renders 1`] = `
-.emotion-0 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-9 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  z-index: 100;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-}
-
-.emotion-8 {
+.emotion-7 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -567,13 +248,13 @@ exports[`Navbar renders 1`] = `
   display: flex;
 }
 
-.emotion-1 {
+.emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
 }
 
-.emotion-6 {
+.emotion-5 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -587,7 +268,7 @@ exports[`Navbar renders 1`] = `
   display: flex;
 }
 
-.emotion-3 {
+.emotion-2 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -595,7 +276,7 @@ exports[`Navbar renders 1`] = `
 }
 
 @media screen and (min-width:750px) {
-  .emotion-3 {
+  .emotion-2 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -603,7 +284,7 @@ exports[`Navbar renders 1`] = `
   }
 }
 
-.emotion-5 {
+.emotion-4 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -633,16 +314,16 @@ exports[`Navbar renders 1`] = `
 }
 
 @media screen and (min-width:750px) {
-  .emotion-5 {
+  .emotion-4 {
     display: none;
   }
 }
 
-.emotion-5 svg {
+.emotion-4 svg {
   margin: 0 auto;
 }
 
-.emotion-4 {
+.emotion-3 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -651,115 +332,264 @@ exports[`Navbar renders 1`] = `
 }
 
 <div
-  className="emotion-10"
+  className="emotion-7"
 >
-  <ul
+  <div
     className="emotion-0"
+    id="site-logo"
   >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <header
-    className="emotion-9"
-    id="site-header"
-    role="banner"
-  >
-    <div
-      className="emotion-8"
+    <a
+      href="/"
     >
-      <div
-        className="emotion-1"
-        id="site-logo"
+      Logo
+    </a>
+  </div>
+  <div
+    className="emotion-5"
+  >
+    <nav
+      className="nav-primary emotion-2"
+    >
+      <ul
+        className="menu-primary emotion-0"
+      />
+    </nav>
+    <div
+      className="emotion-5"
+    >
+      <button
+        aria-expanded="false"
+        aria-label="Toggle Menu"
+        className="emotion-4"
+        onClick={[Function]}
+        title="Menu"
       >
-        <a
-          href="/"
+        <svg
+          className="emotion-3"
+          fill="currentcolor"
+          height={24}
+          viewBox="0 0 24 24"
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Logo
-        </a>
-      </div>
-      <div
-        className="emotion-6"
-      >
-        <nav
-          className="nav-primary emotion-3"
-        >
-          <ul
-            className="menu-primary emotion-1"
+          <path
+            d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
           />
-        </nav>
-        <div
-          className="emotion-6"
-        >
-          <button
-            aria-expanded="false"
-            aria-label="Toggle Menu"
-            className="emotion-5"
-            onClick={[Function]}
-            title="Menu"
-          >
-            <svg
-              className="emotion-4"
-              fill="currentcolor"
-              height={24}
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
+        </svg>
+      </button>
     </div>
-  </header>
+  </div>
 </div>
 `;
 
-exports[`Section renders 1`] = `
+exports[`Navbar renders with type prop override 1`] = `
 .emotion-0 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-2 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
 }
 
 .emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  display: none;
+}
+
+@media screen and (min-width:750px) {
+  .emotion-1 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.emotion-3 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  display: block;
+}
+
+@media screen and (min-width:750px) {
+  .emotion-3 {
+    display: none;
+  }
+}
+
+.emotion-3 svg {
+  margin: 0 auto;
+}
+
+.emotion-2 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  display: block;
+  margin: 0;
+}
+
+.emotion-7 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  position: relative;
+  margin: 0 auto;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  max-width: 1460px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-7 .col-1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 25%;
+}
+
+@media screen and (min-width:750px) {
+  .emotion-7 .col-1 {
+    width: 33%;
+  }
+}
+
+.emotion-7 .col-2 {
+  width: 50%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+@media screen and (min-width:750px) {
+  .emotion-7 .col-2 {
+    width: 34%;
+  }
+}
+
+.emotion-7 .col-3 {
+  width: 25%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+@media screen and (min-width:750px) {
+  .emotion-7 .col-3 {
+    width: 33%;
+  }
+}
+
+.emotion-4 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+<div
+  className="emotion-7"
+>
+  <div
+    className="col-1 emotion-4"
+  >
+    <nav
+      className="nav-primary emotion-1"
+    >
+      <ul
+        className="menu-primary emotion-0"
+      />
+    </nav>
+    <button
+      aria-expanded="false"
+      aria-label="Toggle Menu"
+      className="emotion-3"
+      onClick={[Function]}
+      title="Menu"
+    >
+      <svg
+        className="emotion-2"
+        fill="currentcolor"
+        height={24}
+        viewBox="0 0 24 24"
+        width={24}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div
+    className="col-2 emotion-4"
+    id="site-logo"
+  >
+    <a
+      href="/"
+    >
+      Logo
+    </a>
+  </div>
+  <div
+    className="col-3 emotion-4"
+  />
+</div>
+`;
+
+exports[`Section renders 1`] = `
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+}
+
+.emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -768,64 +598,20 @@ exports[`Section renders 1`] = `
   margin-right: auto;
 }
 
-<div
-  className="emotion-3"
+<section
+  className="emotion-1"
 >
-  <ul
+  <div
     className="emotion-0"
   >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <section
-    className="emotion-2"
-  >
-    <div
-      className="emotion-1"
-    >
-      Test
-    </div>
-  </section>
-</div>
+    Test
+  </div>
+</section>
 `;
 
 exports[`SideNav renders 1`] = `
-.emotion-0 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-1 {
+Array [
+  .emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -844,7 +630,7 @@ exports[`SideNav renders 1`] = `
 }
 
 @media screen and (min-width:750px) {
-  .emotion-1 {
+  .emotion-0 {
     position: relative;
     -webkit-transform: none;
     -ms-transform: none;
@@ -852,7 +638,12 @@ exports[`SideNav renders 1`] = `
   }
 }
 
-.emotion-2 {
+<div
+    className="emotion-0"
+    id="side-nav"
+    role="navigation"
+  />,
+  .emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -862,47 +653,21 @@ exports[`SideNav renders 1`] = `
 }
 
 @media screen and (min-width:750px) {
-  .emotion-2 {
+  .emotion-0 {
     display: none;
   }
 }
 
-<div
-  className="emotion-3"
->
-  <ul
-    className="emotion-0"
-  >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <div
-    className="emotion-1"
-    id="side-nav"
-    role="navigation"
-  />
-  <button
+<button
     aria-label="Toggle side navigation"
-    className="emotion-2"
+    className="emotion-0"
     id="toggle-sidenav"
     onClick={[Function]}
     title="Toggle SideNav"
   >
     Toggle
-  </button>
-</div>
+  </button>,
+]
 `;
 
 exports[`Sidebar renders 1`] = `
@@ -910,32 +675,9 @@ exports[`Sidebar renders 1`] = `
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
 }
 
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-1 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-}
-
-.emotion-3 {
+.emotion-2 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -945,7 +687,7 @@ exports[`Sidebar renders 1`] = `
   margin-right: auto;
 }
 
-.emotion-2 {
+.emotion-1 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -955,68 +697,23 @@ exports[`Sidebar renders 1`] = `
 }
 
 <div
-  className="emotion-4"
+  className="emotion-2"
 >
-  <ul
+  <aside
     className="emotion-0"
-  >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <div
-    className="emotion-3"
-  >
-    <aside
-      className="emotion-1"
-      id="primary-sidebar"
-      role="complementary"
-    />
-    <main
-      className="emotion-2"
-      id="content"
-      role="main"
-    />
-  </div>
+    id="primary-sidebar"
+    role="complementary"
+  />
+  <main
+    className="emotion-1"
+    id="content"
+    role="main"
+  />
 </div>
 `;
 
 exports[`Topbar renders 1`] = `
-.emotion-0 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  list-style: none;
-  position: relative;
-  z-index: 1000;
-  padding: 0;
-}
-
-.emotion-0 a {
-  background-color: var(--theme-ui-colors-bg_header,#fff);
-  display: block;
-  position: absolute;
-  font-family: body;
-  left: -9999px;
-  padding: 1em;
-}
-
-.emotion-0 a:focus {
-  left: 0;
-}
-
-.emotion-2 {
+.emotion-1 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -1024,7 +721,7 @@ exports[`Topbar renders 1`] = `
   display: block;
 }
 
-.emotion-1 {
+.emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -1039,36 +736,12 @@ exports[`Topbar renders 1`] = `
   display: flex;
 }
 
-<div
-  className="emotion-3"
+<aside
+  className="emotion-1"
+  role="complementary"
 >
-  <ul
+  <div
     className="emotion-0"
-  >
-    <li>
-      <a
-        href="#content"
-      >
-        Skip to content
-      </a>
-    </li>
-    <li>
-      <a
-        href="#footer"
-      >
-        Skip to footer
-      </a>
-    </li>
-  </ul>
-  <aside
-    className="emotion-2"
-    role="complementary"
-  >
-    <div
-      className="emotion-1"
-    >
-      Test
-    </div>
-  </aside>
-</div>
+  />
+</aside>
 `;

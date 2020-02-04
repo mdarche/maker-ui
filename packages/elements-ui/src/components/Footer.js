@@ -18,7 +18,6 @@ export const Footer = React.forwardRef(
         as="footer"
         id="footer"
         role="contentinfo"
-        tabIndex="-1"
         variant={variant}
         bg={bg}
         {...props}>

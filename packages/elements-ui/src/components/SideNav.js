@@ -22,8 +22,9 @@ export const SideNav = React.forwardRef(
     const { layout } = useOptions()
 
     const getTransform = width => {
-      const direction = layout === 'sidenav-content' ? -width : width
-      return active ? `translateX(0)` : `translateX(${format(direction)})`
+      const w = Array.isArray(width) ? width[0] : width
+      const shift = layout === 'sidenav-content' ? -w : w
+      return active ? `translateX(0)` : `translateX(${format(shift)})`
     }
 
     return (
@@ -36,11 +37,11 @@ export const SideNav = React.forwardRef(
           {...props}
           __css={{
             bg,
-            width: 'width_sideNav',
             position: ['fixed', 'relative'],
             top: 0,
             bottom: 0,
-            zIndex: 100,
+            zIndex: [100, 0],
+            width: t => t.sizes.width_sideNav,
             transform: t => [getTransform(t.sizes.width_sideNav), 'none'],
             transition: 'transform ease .3s',
           }}>

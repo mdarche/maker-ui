@@ -11,6 +11,7 @@ const Split = React.forwardRef(
       widgetArea,
       menuToggle,
       colorToggle,
+      location,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -25,11 +26,11 @@ const Split = React.forwardRef(
         variant={variant}
         {...props}
         __css={{ variant: 'eui_header.center', maxWidth }}>
-        <Menu menuItems={menu.slice(0, mid)} />
+        <Menu menuItems={menu.slice(0, mid)} location={location} />
         <Box id="site-logo" variant="header.logo">
           <a href="/">{logo}</a>
         </Box>
-        <Menu menuItems={menu.slice(mid)} />
+        <Menu menuItems={menu.slice(mid)} location={location} />
         <Flex
           sx={{
             position: ['relative', 'absolute'],
