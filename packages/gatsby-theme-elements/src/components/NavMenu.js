@@ -1,11 +1,7 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
-
-// TODO - Add dropdown menu support and provide props / options for it
-
-// TODO - Add component package from parallax and animations that appear on scroll
+import { jsx } from 'theme-ui'
+import { Link } from 'gatsby'
+import PropTypes from 'prop-types'
 
 const NavMenu = ({
   width,
@@ -22,9 +18,9 @@ const NavMenu = ({
       id="nav-primary"
       aria-label="Primary Navigation Menu"
       sx={{
-        display: ["none", "flex"],
-        width: width || "auto",
-        justifyContent: justify || "flex-start",
+        display: ['none', 'flex'],
+        width: width || 'auto',
+        justifyContent: justify || 'flex-start',
         ...flexPartial,
       }}>
       {children ? (
@@ -34,13 +30,13 @@ const NavMenu = ({
           {...props}
           id="menu-primary"
           sx={{
-            display: "flex",
-            listStyle: "none",
+            display: 'flex',
+            listStyle: 'none',
           }}>
           {menuItems.map(({ label, path }) => (
             <li key={label}>
-              {path.charAt(0) === "/" ? (
-                <Link to={path} sx={{ variant: "navlink" }}>
+              {path.charAt(0) === '/' ? (
+                <Link to={path} sx={{ variant: 'navlink' }}>
                   {label}
                 </Link>
               ) : (
@@ -48,7 +44,7 @@ const NavMenu = ({
                   href={path}
                   target="_blank"
                   rel="noopener noreferrer"
-                  sx={{ variant: "navlink" }}>
+                  sx={{ variant: 'navlink' }}>
                   {label}
                 </a>
               )}

@@ -14,9 +14,8 @@ import Logo from './Logo'
 import DocsMenu from './DocsMenu'
 import Widgets from './Widgets'
 
-import options from '../config/options'
+import { options, menu } from '../config/options'
 import theme from '../config/theme'
-import menu from '../config/menu'
 
 const components = {
   pre: ({ children }) => <>{children}</>,
@@ -29,11 +28,16 @@ export default ({ children, location }) => {
   return (
     <Layout theme={theme} options={options} components={components}>
       <Header>
-        <Navbar logo={<Logo />} menu={menu} widgetArea={<Widgets />} />
+        <Navbar
+          logo={<Logo />}
+          menu={menu}
+          widgetArea={<Widgets />}
+          location={location.pathname}
+        />
         <MobileMenu />
       </Header>
       {location.pathname.includes('/docs') ? (
-        <Content>
+        <Content layout="content-sidenav">
           <Main>{children}</Main>
           <SideNav>
             <DocsMenu />

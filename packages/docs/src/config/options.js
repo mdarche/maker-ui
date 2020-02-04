@@ -1,4 +1,4 @@
-export default {
+export const options = {
   navigation: 'basic-left',
   layout: 'content-sidenav',
   header: {
@@ -22,3 +22,10 @@ export default {
     maxWidth: 1020,
   },
 }
+
+export const menu = [
+  { label: 'Docs', path: '/docs/getting-started' },
+  { label: 'Tutorials', path: '/docs' },
+  { label: 'Examples', path: '/demo' },
+  { label: 'FAQs', path: '/demo' },
+]

@@ -22,7 +22,7 @@ const MinimalCenter = React.forwardRef(
       {...props}
       __css={{ variant: 'eui_header.columns', maxWidth }}>
       <Flex className="col-1">
-        <MenuButton custom={menuToggle} desktopVisible />
+        <MenuButton custom={menuToggle} visibleOnDesktop />
       </Flex>
       <Flex className="col-2">
         <Box id="site-logo" variant="header.logo">

@@ -12,6 +12,7 @@ const Basic = React.forwardRef(
       menuToggle,
       colorToggle,
       justify,
+      location,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -35,7 +36,7 @@ const Basic = React.forwardRef(
           flex: justify === 'space-between' ? 1 : 'initial',
           justifyContent: justify,
         }}>
-        <Menu menuItems={menu} />
+        <Menu menuItems={menu} location={location} />
         <Flex sx={{ alignItems: 'center' }}>
           <WidgetArea custom={widgetArea} />
           <MenuButton custom={menuToggle} />

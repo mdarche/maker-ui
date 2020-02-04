@@ -26,5 +26,5 @@ export default [
       { label: 'SideNav / Content', path: '/demo/sidenav-content' },
     ],
   },
-  { label: 'Documentation', path: '/docs' },
+  { label: 'Documentation', path: '/docs/getting-started' },
 ]

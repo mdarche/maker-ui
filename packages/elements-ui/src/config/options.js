@@ -20,11 +20,13 @@ export default {
   mobileMenu: {
     width: [300, '30vw'],
     transition: 'slideLeft',
+    defaultClose: true,
     visibleOnDesktop: false,
   },
   sideNav: {
     width: 300,
     isPrimaryNav: false,
+    floatingToggle: true,
   },
   content: {
     maxWidth: 1020,

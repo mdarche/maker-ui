@@ -4,10 +4,13 @@ import { Box } from 'theme-ui'
 import { useOptions } from '../../context/OptionContext'
 import Dropdown from './Dropdown'
 
-// TODO - Add and test active links w/ classes
-
-const MenuItem = ({ data: { label, path, newTab, submenu }, caret }) => {
+const MenuItem = ({
+  data: { label, path, newTab, submenu },
+  caret,
+  location,
+}) => {
   const [active, set] = useState(false)
+
   return (
     <Box
       as="li"
@@ -22,6 +25,7 @@ const MenuItem = ({ data: { label, path, newTab, submenu }, caret }) => {
       }}>
       <a
         href={path}
+        className={location === path ? 'active' : ''}
         target={newTab && '_blank'}
         onFocus={submenu && (() => set(true))}
         onBlur={submenu && (() => set(false))}>
@@ -54,14 +58,19 @@ const MenuItem = ({ data: { label, path, newTab, submenu }, caret }) => {
   )
 }
 
-const Menu = ({ menuItems = [] }) => {
+const Menu = ({ menuItems = [], location }) => {
   const { header } = useOptions()
 
   return (
     <Box as="nav" className="nav-primary" sx={{ display: ['none', 'flex'] }}>
       <Box as="ul" variant="header.menu" className="menu-primary">
         {menuItems.map((item, index) => (
-          <MenuItem key={index} data={item} caret={header.dropdown.caret} />
+          <MenuItem
+            key={index}
+            data={item}
+            caret={header.dropdown.caret}
+            location={location}
+          />
         ))}
       </Box>
     </Box>

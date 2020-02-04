@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { jsx, useColorMode } from "theme-ui"
-import PropTypes from "prop-types"
+import { jsx, useColorMode } from 'theme-ui'
+import PropTypes from 'prop-types'
 
-import { useMenu } from "../context/ElementsContext"
-import { MenuIcon, CloseIcon } from "../assets"
-import theme from "../config/base-theme"
+import { useMenu } from '../context/ElementsContext'
+import { MenuIcon, CloseIcon } from '../assets'
+import theme from '../config/base-theme'
 
 const MenuToggle = ({
   fill,
@@ -24,26 +24,24 @@ const MenuToggle = ({
       : theme.colors.navlink
 
   const renderIcon = () => (
-    <div sx={{ display: "flex" }}>
-      {icon === "menu" ? <MenuIcon /> : <CloseIcon />}
+    <div sx={{ display: 'flex' }}>
+      {icon === 'menu' ? <MenuIcon /> : <CloseIcon />}
       {menuText ? <span>{menuText}</span> : null}
     </div>
   )
-
-  // TODO - Test this new menuText prop
 
   return (
     <button
       {...props}
       aria-label="Mobile Menu Toggle"
-      aria-expanded={menuActive ? "true" : "false"}
-      aria-pressed={menuActive ? "true" : "false"}
+      aria-expanded={menuActive ? 'true' : 'false'}
+      aria-pressed={menuActive ? 'true' : 'false'}
       aria-haspopup="true"
       onClick={() => toggleMenu()}
       sx={{
-        display: hiddenDesktop ? ["flex", "none"] : "flex",
-        border: "none",
-        background: "none",
+        display: hiddenDesktop ? ['flex', 'none'] : 'flex',
+        border: 'none',
+        background: 'none',
         svg: {
           fill: fill || fillColor,
           height: height || 32,

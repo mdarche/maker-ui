@@ -22,7 +22,7 @@ const MinimalLeft = React.forwardRef(
       {...props}
       __css={{ variant: 'eui_header.default', maxWidth }}>
       <Flex sx={{ alignItems: 'center' }}>
-        <MenuButton custom={menuToggle} desktopVisible />
+        <MenuButton custom={menuToggle} visibleOnDesktop />
         <Box id="site-logo" variant="header.logo">
           <a href="/">{logo}</a>
         </Box>
