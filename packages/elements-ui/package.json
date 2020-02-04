@@ -1,7 +1,13 @@
 {
   "name": "elements-ui",
-  "version": "0.0.3",
-  "main": "src/index.js",
+  "version": "0.0.4",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "sideEffects": false,
+  "scripts": {
+    "prepare": "microbundle --no-compress --jsx React.createElement",
+    "watch": "microbundle watch --no-compress --jsx React.createElement"
+  },
   "license": "MIT",
   "dependencies": {
     "theme-ui": "^0.3.1"

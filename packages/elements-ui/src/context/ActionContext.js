@@ -3,6 +3,8 @@ import React, { useReducer, useContext } from 'react'
 const ActionContext = React.createContext()
 const ActionUpdateContext = React.createContext()
 
+// TODO - build modal layer or use React Portal in modal component
+
 function reducer(state, action) {
   switch (action.type) {
     case 'menu': {

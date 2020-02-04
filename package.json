@@ -1,6 +1,8 @@
 {
   "private": true,
   "scripts": {
+    "prepare": "lerna run prepare",
+    "clean": "lerna run clean",
     "test": "jest"
   },
   "workspaces": [

@@ -1,8 +1,6 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-// TODO - Add full width prop to content
-
 export const Section = React.forwardRef(
   ({ maxWidth = 'maxWidth_section', children, ...props }, ref) => {
     return (
