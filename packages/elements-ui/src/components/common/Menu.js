@@ -27,6 +27,7 @@ const MenuItem = ({
         href={path}
         className={location === path ? 'active' : ''}
         target={newTab && '_blank'}
+        rel={newTab && 'noopener noreferrer'}
         onFocus={submenu && (() => set(true))}
         onBlur={submenu && (() => set(false))}>
         <Box

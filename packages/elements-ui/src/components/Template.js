@@ -11,7 +11,7 @@ import {
   SideNav,
   Sidebar,
   Footer,
-} from './index'
+} from './'
 import { useOptions } from '../context/OptionContext'
 
 const SiteInner = ({ sideNav, sidebar, children }) => {
@@ -65,7 +65,7 @@ export const Template = ({
   colorToggle,
   logo,
   menu,
-  mobileMenu,
+  mobileMenu = 'default',
   sideNav,
   sidebar,
   children,
@@ -82,7 +82,11 @@ export const Template = ({
           menuToggle={menuToggle}
           colorToggle={colorToggle}
         />
-        {mobileMenu && <MobileMenu>{mobileMenu}</MobileMenu>}
+        {mobileMenu === 'default' ? (
+          <MobileMenu menu={menu} />
+        ) : React.isValidElement(mobileMenu) ? (
+          <MobileMenu>{mobileMenu}</MobileMenu>
+        ) : null}
       </Header>
       <SiteInner sideNav={sideNav} sidebar={sidebar}>
         {children}

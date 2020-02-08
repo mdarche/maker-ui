@@ -22,6 +22,7 @@ export default {
     transition: 'slideLeft',
     defaultClose: true,
     visibleOnDesktop: false,
+    closeOnRouteChange: true,
   },
   sideNav: {
     width: 300,

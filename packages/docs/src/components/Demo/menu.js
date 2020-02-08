@@ -16,7 +16,7 @@ export default [
   },
   {
     label: 'Layouts',
-    path: '/test',
+    path: '#',
     submenu: [
       { label: 'Content', path: '/demo' },
       { label: 'Full Width', path: '/demo/full-width' },

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
+import { AccordionMenu } from './AccordionMenu'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
 
@@ -35,7 +36,7 @@ const getTransition = (active, type, width) => {
   }
 }
 
-const MenuOverlay = ({ menu, toggleMenu, type }) =>
+const MenuOverlay = ({ show, toggleMenu, type }) =>
   fullWidth.includes(type) ? null : (
     <Box
       id="menu-overlay"
@@ -47,16 +48,18 @@ const MenuOverlay = ({ menu, toggleMenu, type }) =>
         left: 0,
         right: 0,
         bottom: 0,
-        bg: 'rgba(0, 0, 0, 0.2)',
-        visibility: menu ? 'visible' : 'hidden',
-        opacity: menu ? 1 : 0,
+        bg: 'rgba(0, 0, 0, 0.15)',
+        visibility: show ? 'visible' : 'hidden',
+        opacity: show ? 1 : 0,
         transition: 'all ease .4s',
       }}
     />
   )
 
+// TODO - Add default mobile menu
+
 export const MobileMenu = React.forwardRef((props, ref) => {
-  const [menu, toggleMenu] = useMenu()
+  const [show, toggleMenu] = useMenu()
   const { mobileMenu } = useOptions()
 
   const {
@@ -64,11 +67,13 @@ export const MobileMenu = React.forwardRef((props, ref) => {
     variant = 'mobileMenu',
     width = mobileMenu.width,
     transition = mobileMenu.transition,
+    menu = [],
+    children,
   } = props
 
   return (
     <React.Fragment>
-      <MenuOverlay type={transition} menu={menu} toggleMenu={toggleMenu} />
+      <MenuOverlay show={show} type={transition} toggleMenu={toggleMenu} />
       <Box
         ref={ref}
         id="mobile-menu"
@@ -80,9 +85,10 @@ export const MobileMenu = React.forwardRef((props, ref) => {
           top: 0,
           bottom: 0,
           transition: 'all ease .3s',
-          ...getTransition(menu, transition, width),
-        }}
-      />
+          ...getTransition(show, transition, width),
+        }}>
+        {children || <AccordionMenu menu={menu} />}
+      </Box>
     </React.Fragment>
   )
 })

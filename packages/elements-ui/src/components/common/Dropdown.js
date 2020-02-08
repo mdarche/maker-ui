@@ -16,6 +16,7 @@ const Dropdown = ({ submenu, active, set }) => (
       visibility: 'hidden',
       m: 0,
       p: 0,
+      zIndex: 1,
       listStyle: 'none',
       variant: 'eui_submenu',
       '&.active': {

@@ -29,15 +29,13 @@ https://elements-ui.dev
   - MDX theming
   - 100% compatible with Theme UI components
 
-All layout components can be fully customized to your needs with theme variants and the `sx` prop.
-
 ## Getting Started
 
 ```sh
 npm i elements-ui
 ```
 
-Elements UI uses two configuration objects and optional custom components to build your layouts. Your custom theme and options configurations determine how each layout component should behave and appear.
+Elements UI uses two configuration objects and optional custom components to build your layouts. Your custom theme and options configurations determine how each layout should behave and appear.
 
 See the documentation on how to build a theme and configure your layout options.
 
@@ -102,7 +100,7 @@ export default props => (
 )
 ```
 
-All layout components can be styled with custom variants and the `sx` prop as specified in Theme UI's component library.
+All layout components can be styled with custom variants and the `sx` prop.
 
 ## Documentation
 
@@ -110,11 +108,10 @@ All layout components can be styled with custom variants and the `sx` prop as sp
 - [Configure Options](https://elements-ui.dev/docs/options)
 - [Layout Components](https://elements-ui.dev/docs/layout-components)
 - [Template Component](https://elements-ui.dev/docs/template)
-- [Customizing Styles](https://elements-ui.dev/docs/styling)
+- [Custom Styles](https://elements-ui.dev/docs/styling)
 - [Adding Content](https://elements-ui.dev/docs/adding-content)
 - [API](https://elements-ui.dev/docs/api)
 - [Tutorials](https://elements-ui.dev/tutorials)
-- [License](#license)
 
 ## Coming Soon
 
@@ -126,7 +123,8 @@ All layout components can be styled with custom variants and the `sx` prop as sp
   - Site search (Algolia)
   - Responsive tables
   - Filterable grids
-  - Scroll reveal wrapper
+  - Scroll reveal
+  - Mega dropdown menu
 - Pre-built themes
 - Ecommerce & payment layouts
 - Authentication layouts
