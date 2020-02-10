@@ -22,7 +22,9 @@ const Minimal = React.forwardRef(
       {...props}
       __css={{ variant: 'eui_header.default', maxWidth }}>
       <Box id="site-logo" variant="header.logo">
-        <a href="/">{logo}</a>
+        <a href="/" aria-label="Home page">
+          {logo}
+        </a>
       </Box>
       <Flex sx={{ alignItems: 'center' }}>
         <WidgetArea custom={widgetArea} />

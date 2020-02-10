@@ -28,7 +28,9 @@ const Reverse = React.forwardRef(
         <MenuButton custom={menuToggle} />
       </Flex>
       <Flex id="site-logo" className="col-2" variant="header.logo">
-        <a href="/">{logo}</a>
+        <a href="/" aria-label="Home page">
+          {logo}
+        </a>
       </Flex>
       <Flex className="col-3">
         <WidgetArea custom={widgetArea} />

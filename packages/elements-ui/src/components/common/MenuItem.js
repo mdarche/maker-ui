@@ -3,11 +3,12 @@ import { Box } from 'theme-ui'
 
 import Dropdown from './Dropdown'
 
-const getAttributes = (isHeader, submenu, set) =>
+const getAttributes = (isHeader, submenu, show, set) =>
   isHeader
     ? {
         onFocus: submenu && (() => set(true)),
         onBlur: submenu && (() => set(false)),
+        'aria-expanded': submenu ? (show ? 'true' : 'false') : null,
       }
     : null
 
@@ -22,7 +23,7 @@ const MenuItem = ({
   return (
     <Box
       as="li"
-      className={classes}
+      className={`menu-item ${classes}`}
       sx={
         isHeader
           ? {
@@ -55,7 +56,7 @@ const MenuItem = ({
         className={location === path ? 'active-link' : ''}
         target={newTab && '_blank'}
         rel={newTab && 'noopener noreferrer'}
-        {...getAttributes(isHeader, submenu, set)}>
+        {...getAttributes(isHeader, submenu, show, set)}>
         {icon && <span className="menu-link-icon">{icon}</span>}
         <span className="menu-link-text">{label}</span>
       </a>

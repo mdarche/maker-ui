@@ -24,7 +24,9 @@ const MinimalLeft = React.forwardRef(
       <Flex sx={{ alignItems: 'center' }}>
         <MenuButton custom={menuToggle} visibleOnDesktop />
         <Box id="site-logo" variant="header.logo">
-          <a href="/">{logo}</a>
+          <a href="/" aria-label="Home page">
+            {logo}
+          </a>
         </Box>
       </Flex>
       <Flex sx={{ alignItems: 'center' }}>

@@ -28,7 +28,9 @@ const Split = React.forwardRef(
         __css={{ variant: 'eui_header.center', maxWidth }}>
         <Menu menuItems={menu.slice(0, mid)} location={location} />
         <Box id="site-logo" variant="header.logo">
-          <a href="/">{logo}</a>
+          <a href="/" aria-label="Home page">
+            {logo}
+          </a>
         </Box>
         <Menu menuItems={menu.slice(mid)} location={location} />
         <Flex

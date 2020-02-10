@@ -28,7 +28,9 @@ const Basic = React.forwardRef(
         maxWidth,
       }}>
       <Box id="site-logo" variant="header.logo">
-        <a href="/">{logo}</a>
+        <a href="/" aria-label="Home page">
+          {logo}
+        </a>
       </Box>
       <Flex
         sx={{

@@ -26,7 +26,9 @@ const MinimalCenter = React.forwardRef(
       </Flex>
       <Flex className="col-2">
         <Box id="site-logo" variant="header.logo">
-          <a href="/">{logo}</a>
+          <a href="/" aria-label="Home page">
+            {logo}
+          </a>
         </Box>
       </Flex>
       <Flex className="col-3">

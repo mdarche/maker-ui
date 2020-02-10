@@ -13,7 +13,13 @@ const getAttributes = (isHeader, set) =>
 const Dropdown = ({ submenu, active, set, location, isHeader }) => (
   <React.Fragment>
     {!isHeader && (
-      <Box as="button" className="submenu-toggle" onClick={() => set(!active)}>
+      <Box
+        as="button"
+        className="submenu-toggle"
+        aria-expanded={active ? 'true' : 'false'}
+        aria-label="View More"
+        title="View More"
+        onClick={() => set(!active)}>
         More
       </Box>
     )}
@@ -44,7 +50,7 @@ const Dropdown = ({ submenu, active, set, location, isHeader }) => (
             : {}
         }>
         {submenu.map(({ label, path, newTab, classes = '', icon }, index) => (
-          <Box as="li" key={index} className={classes}>
+          <Box as="li" key={index} className={`menu-item ${classes}`}>
             <a
               href={path}
               target={newTab && '_blank'}
