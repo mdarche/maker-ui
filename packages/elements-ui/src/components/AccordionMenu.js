@@ -16,12 +16,16 @@ const MenuItem = ({ data: { label, path, newTab, submenu }, location }) => {
       </a>
       {submenu ? (
         <React.Fragment>
-          <Box as="button" onClick={() => set(!show)}>
+          <Box
+            as="button"
+            className="submenu-toggle"
+            onClick={() => set(!show)}>
             More
           </Box>
           {show ? (
             <Box
               as="ul"
+              className="accordion-submenu"
               sx={{
                 p: 0,
                 m: 0,
@@ -42,8 +46,13 @@ const MenuItem = ({ data: { label, path, newTab, submenu }, location }) => {
 }
 
 export const AccordionMenu = React.forwardRef(
-  ({ menu, location, variant = 'accordion-menu', ...props }, ref) => (
-    <Box ref={ref} as="ul" variant={variant} {...props}>
+  ({ menu = [], location, variant = 'accordion-menu', ...props }, ref) => (
+    <Box
+      ref={ref}
+      as="ul"
+      variant={variant}
+      className="accordion-menu"
+      {...props}>
       {menu.map((item, index) => (
         <MenuItem key={index} data={item} location={location} />
       ))}

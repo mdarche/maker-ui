@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
+import { AccordionMenu } from './AccordionMenu'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
 
@@ -13,13 +14,15 @@ export const SideNav = React.forwardRef(
       buttonVariant,
       buttonToggle = 'Toggle',
       variant = 'sideNav',
+      menu,
+      location,
       children,
       ...props
     },
     ref
   ) => {
     const [active, setActive] = useSideNav()
-    const { layout } = useOptions()
+    const { layout, sideNav } = useOptions()
 
     const getTransform = width => {
       const w = Array.isArray(width) ? width[0] : width
@@ -45,22 +48,24 @@ export const SideNav = React.forwardRef(
             transform: t => [getTransform(t.sizes.width_sideNav), 'none'],
             transition: 'transform ease .3s',
           }}>
-          {children}
+          {children || <AccordionMenu menu={menu} location={location} />}
         </Box>
-        <Box
-          as="button"
-          id="toggle-sidenav"
-          title="Toggle SideNav"
-          aria-label="Toggle side navigation"
-          onClick={setActive}
-          variant={buttonVariant}
-          sx={{
-            position: 'fixed',
-            display: ['inline-block', 'none'],
-            bottom: 30,
-          }}>
-          {buttonToggle}
-        </Box>
+        {sideNav.floatingToggle ? (
+          <Box
+            as="button"
+            id="toggle-sidenav"
+            title="Toggle SideNav"
+            aria-label="Toggle side navigation"
+            onClick={setActive}
+            variant={buttonVariant}
+            sx={{
+              position: 'fixed',
+              display: ['inline-block', 'none'],
+              bottom: 30,
+            }}>
+            {buttonToggle}
+          </Box>
+        ) : null}
       </React.Fragment>
     )
   }

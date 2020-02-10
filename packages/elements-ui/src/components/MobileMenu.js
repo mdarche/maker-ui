@@ -56,7 +56,7 @@ const MenuOverlay = ({ show, toggleMenu, type }) =>
     />
   )
 
-// TODO - Add default mobile menu
+// TODO - Add default close button
 
 export const MobileMenu = React.forwardRef((props, ref) => {
   const [show, toggleMenu] = useMenu()

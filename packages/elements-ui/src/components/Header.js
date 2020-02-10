@@ -3,6 +3,8 @@ import { Box } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
 
+// TODO - Hide / show on scroll
+
 export const Header = React.forwardRef((props, ref) => {
   const { header } = useOptions()
 

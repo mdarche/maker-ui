@@ -14,7 +14,7 @@ import {
 } from './'
 import { useOptions } from '../context/OptionContext'
 
-const SiteInner = ({ sideNav, sidebar, children }) => {
+const SiteInner = ({ sideNav, sidebar, menu, children }) => {
   const { layout } = useOptions()
 
   switch (layout) {
@@ -36,13 +36,13 @@ const SiteInner = ({ sideNav, sidebar, children }) => {
       return (
         <Content>
           <Main>{children}</Main>
-          <SideNav>{sideNav}</SideNav>
+          <SideNav menu={menu}>{sideNav}</SideNav>
         </Content>
       )
     case 'sideNav-content':
       return (
         <Content>
-          <SideNav>{sideNav}</SideNav>
+          <SideNav menu={menu}>{sideNav}</SideNav>
           <Main>{children}</Main>
         </Content>
       )
@@ -88,7 +88,7 @@ export const Template = ({
           <MobileMenu>{mobileMenu}</MobileMenu>
         ) : null}
       </Header>
-      <SiteInner sideNav={sideNav} sidebar={sidebar}>
+      <SiteInner sideNav={sideNav} sidebar={sidebar} menu={menu}>
         {children}
       </SiteInner>
       {footer && <Footer>{footer}</Footer>}

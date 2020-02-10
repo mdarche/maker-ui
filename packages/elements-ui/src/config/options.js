@@ -9,6 +9,7 @@ export default {
     maxWidth: 1460,
     sticky: true,
     stickyMobile: true,
+    stickyScroll: false, // todo
     colorToggle: true,
     hideColorToggleOnMobile: false,
     hideWidgetsOnMobile: true,
@@ -16,6 +17,7 @@ export default {
       caret: true,
       transition: 'fadeInDown',
     },
+    breakIndex: 0, // todo
   },
   mobileMenu: {
     width: [300, '30vw'],
@@ -26,13 +28,15 @@ export default {
   },
   sideNav: {
     width: 300,
-    isPrimaryNav: false,
+    isPrimaryNav: false, // todo
     floatingToggle: true,
+    breakIndex: 0, // todo
   },
   content: {
     maxWidth: 1020,
     maxWidthSection: 1020,
     sidebarGap: 30,
+    breakIndex: 0, // todo
   },
   sidebar: {
     width: 300,
