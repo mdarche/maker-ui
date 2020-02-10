@@ -68,8 +68,9 @@ export const Template = ({
   mobileMenu = 'default',
   sideNav,
   sidebar,
-  children,
   footer,
+  location,
+  children,
 }) => {
   return (
     <Layout theme={theme} options={options} components={components}>
@@ -81,6 +82,7 @@ export const Template = ({
           widgetArea={headerWidgets}
           menuToggle={menuToggle}
           colorToggle={colorToggle}
+          location={location}
         />
         {mobileMenu === 'default' ? (
           <MobileMenu menu={menu} />

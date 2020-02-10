@@ -20,11 +20,11 @@ export default {
     breakIndex: 0, // todo
   },
   mobileMenu: {
-    width: [300, '30vw'],
+    width: '30vw', // note: can be responsive array
     transition: 'slideLeft',
     defaultClose: true,
     visibleOnDesktop: false,
-    closeOnRouteChange: true,
+    closeOnRouteChange: true, //todo and test
   },
   sideNav: {
     width: 300,

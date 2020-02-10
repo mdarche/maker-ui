@@ -11,11 +11,12 @@ const options = {
   layout: 'content-sidebar',
 }
 
-export default () => (
+export default ({ location }) => (
   <Template
     options={options}
     theme={theme}
     menu={menu}
+    location={location.pathname}
     logo={<Logo />}
     headerWidgets={<Widgets />}
     sidebar={<SideAds adHeights={[250, 600]} />}
