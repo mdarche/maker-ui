@@ -26,14 +26,14 @@ export default {
     visibleOnDesktop: false,
     defaultCloseButton: true, // todo
     closeOnBlur: true,
-    closeOnRouteChange: true, //todo and test
+    closeOnRouteChange: true, // test this with gatsby / figure out whether to keep
   },
   sideNav: {
     width: 300,
     isPrimaryMobileNav: false,
     floatingToggle: true,
     defaultCloseButton: true, // todo
-    closeOnBlur: true, // todo
+    closeOnBlur: true,
     breakIndex: 0,
   },
   content: {

@@ -2,6 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 
 import { AccordionMenu } from './AccordionMenu'
+import { Overlay } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
 import setBreak from '../config/breakpoint'
@@ -12,8 +13,8 @@ export const SideNav = React.forwardRef(
   (
     {
       bg = 'bg_sideNav',
-      buttonVariant,
-      buttonToggle = 'Toggle',
+      toggleVariant,
+      customToggle = 'Toggle',
       variant = 'sideNav',
       menu,
       location,
@@ -35,6 +36,7 @@ export const SideNav = React.forwardRef(
 
     return (
       <React.Fragment>
+        {sideNav.closeOnBlur && <Overlay show={active} toggle={setActive} />}
         <Box
           ref={ref}
           variant={variant}
@@ -61,13 +63,13 @@ export const SideNav = React.forwardRef(
             title="Toggle SideNav"
             aria-label="Toggle side navigation"
             onClick={setActive}
-            variant={buttonVariant}
+            variant={toggleVariant}
             sx={{
               position: 'fixed',
               display: setBreak(bp, ['inline-block', 'none']),
               bottom: 30,
             }}>
-            {buttonToggle}
+            {customToggle}
           </Box>
         ) : null}
       </React.Fragment>

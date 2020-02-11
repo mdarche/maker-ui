@@ -2,6 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 
 import { AccordionMenu } from './AccordionMenu'
+import { Overlay } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
 
@@ -36,26 +37,6 @@ const getTransition = (active, type, width) => {
   }
 }
 
-const MenuOverlay = ({ show, toggleMenu, type }) =>
-  fullWidth.includes(type) ? null : (
-    <Box
-      id="menu-overlay"
-      role="presentation"
-      onClick={toggleMenu}
-      sx={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        bg: 'rgba(0, 0, 0, 0.15)',
-        visibility: show ? 'visible' : 'hidden',
-        opacity: show ? 1 : 0,
-        transition: 'all ease .4s',
-      }}
-    />
-  )
-
 // TODO - Add default close button
 
 export const MobileMenu = React.forwardRef((props, ref) => {
@@ -74,8 +55,8 @@ export const MobileMenu = React.forwardRef((props, ref) => {
 
   return (
     <React.Fragment>
-      {mobileMenu.closeOnBlur && (
-        <MenuOverlay show={show} type={transition} toggleMenu={toggleMenu} />
+      {mobileMenu.closeOnBlur && !fullWidth.includes(transition) && (
+        <Overlay show={show} toggle={toggleMenu} />
       )}
       <Box
         ref={ref}
