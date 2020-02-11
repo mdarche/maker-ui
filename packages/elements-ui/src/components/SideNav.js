@@ -4,6 +4,7 @@ import { Box } from 'theme-ui'
 import { AccordionMenu } from './AccordionMenu'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
+import setBreak from '../config/breakpoint'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
@@ -24,8 +25,10 @@ export const SideNav = React.forwardRef(
     const [active, setActive] = useSideNav()
     const { layout, sideNav } = useOptions()
 
+    const bp = sideNav.breakIndex
+
     const getTransform = width => {
-      const w = Array.isArray(width) ? width[0] : width
+      const w = Array.isArray(width) ? width[bp] : width
       const shift = layout === 'sidenav-content' ? -w : w
       return active ? `translateX(0)` : `translateX(${format(shift)})`
     }
@@ -40,12 +43,13 @@ export const SideNav = React.forwardRef(
           {...props}
           __css={{
             bg,
-            position: ['fixed', 'relative'],
+            position: setBreak(bp, ['fixed', 'relative']),
             top: 0,
             bottom: 0,
-            zIndex: [100, 0],
+            zIndex: setBreak(bp, [100, 0]),
             width: t => t.sizes.width_sideNav,
-            transform: t => [getTransform(t.sizes.width_sideNav), 'none'],
+            transform: t =>
+              setBreak(bp, [getTransform(t.sizes.width_sideNav), 'none']),
             transition: 'transform ease .3s',
           }}>
           {children || <AccordionMenu menu={menu} location={location} />}
@@ -60,7 +64,7 @@ export const SideNav = React.forwardRef(
             variant={buttonVariant}
             sx={{
               position: 'fixed',
-              display: ['inline-block', 'none'],
+              display: setBreak(bp, ['inline-block', 'none']),
               bottom: 30,
             }}>
             {buttonToggle}

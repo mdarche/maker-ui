@@ -68,12 +68,15 @@ export const MobileMenu = React.forwardRef((props, ref) => {
     width = mobileMenu.width,
     transition = mobileMenu.transition,
     menu = [],
+    location,
     children,
   } = props
 
   return (
     <React.Fragment>
-      <MenuOverlay show={show} type={transition} toggleMenu={toggleMenu} />
+      {mobileMenu.closeOnBlur && (
+        <MenuOverlay show={show} type={transition} toggleMenu={toggleMenu} />
+      )}
       <Box
         ref={ref}
         id="mobile-menu"
@@ -87,7 +90,7 @@ export const MobileMenu = React.forwardRef((props, ref) => {
           transition: 'all ease .3s',
           ...getTransition(show, transition, width),
         }}>
-        {children || <AccordionMenu menu={menu} />}
+        {children || <AccordionMenu menu={menu} location={location} />}
       </Box>
     </React.Fragment>
   )

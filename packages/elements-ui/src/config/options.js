@@ -4,6 +4,7 @@ export default {
   topbar: {
     maxWidth: 1260,
     hideOnMobile: false,
+    breakIndex: 0,
   },
   header: {
     maxWidth: 1460,
@@ -17,26 +18,29 @@ export default {
       caret: true,
       transition: 'fadeInDown',
     },
-    breakIndex: 0, // todo
+    breakIndex: 0,
   },
   mobileMenu: {
-    width: '30vw', // note: can be responsive array
+    width: '60vw', // note: can be responsive array
     transition: 'slideLeft',
-    defaultClose: true,
     visibleOnDesktop: false,
+    defaultCloseButton: true, // todo
+    closeOnBlur: true,
     closeOnRouteChange: true, //todo and test
   },
   sideNav: {
     width: 300,
-    isPrimaryNav: false, // todo
+    isPrimaryMobileNav: false,
     floatingToggle: true,
-    breakIndex: 0, // todo
+    defaultCloseButton: true, // todo
+    closeOnBlur: true, // todo
+    breakIndex: 0,
   },
   content: {
     maxWidth: 1020,
     maxWidthSection: 1020,
     sidebarGap: 30,
-    breakIndex: 0, // todo
+    breakIndex: 0,
   },
   sidebar: {
     width: 300,

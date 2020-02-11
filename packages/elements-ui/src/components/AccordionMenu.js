@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Box } from 'theme-ui'
 
 import { MenuItem } from './common'

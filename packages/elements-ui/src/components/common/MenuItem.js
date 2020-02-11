@@ -41,11 +41,11 @@ const MenuItem = ({
                       display: 'inline-block',
                       width: 0,
                       height: 0,
-                      ml: '.35em',
-                      verticalAlign: '.2em',
-                      borderTop: '.3em solid',
-                      borderRight: '.3em solid transparent',
-                      borderLeft: '.3em solid transparent',
+                      ml: '.4em',
+                      verticalAlign: '.25em',
+                      borderTop: '.25em solid',
+                      borderRight: '.25em solid transparent',
+                      borderLeft: '.25em solid transparent',
                     }
                   : null,
             }
@@ -56,6 +56,7 @@ const MenuItem = ({
         className={location === path ? 'active-link' : ''}
         target={newTab && '_blank'}
         rel={newTab && 'noopener noreferrer'}
+        aria-label={icon ? label : null}
         {...getAttributes(isHeader, submenu, show, set)}>
         {icon && <span className="menu-link-icon">{icon}</span>}
         <span className="menu-link-text">{label}</span>

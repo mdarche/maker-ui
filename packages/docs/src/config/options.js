@@ -16,7 +16,7 @@ export const options = {
   },
   sideNav: {
     width: [400, 600],
-    isPrimaryNav: false,
+    isPrimaryNav: true,
   },
   content: {
     maxWidth: 1020,

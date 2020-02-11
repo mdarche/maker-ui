@@ -2,6 +2,7 @@ import React from 'react'
 import { Flex, Box } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
+import setBreak from '../config/breakpoint'
 
 export const Topbar = React.forwardRef(
   (
@@ -23,7 +24,9 @@ export const Topbar = React.forwardRef(
         role="complementary"
         bg={bg}
         sx={{
-          display: topbar.hideOnMobile ? ['none', 'block'] : 'block',
+          display: topbar.hideOnMobile
+            ? setBreak(topbar.breakIndex, ['none', 'block'])
+            : 'block',
         }}>
         <Flex
           {...props}

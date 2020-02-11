@@ -85,7 +85,7 @@ export const Template = ({
           location={location}
         />
         {mobileMenu === 'default' ? (
-          <MobileMenu menu={menu} />
+          <MobileMenu menu={menu} location={location} />
         ) : React.isValidElement(mobileMenu) ? (
           <MobileMenu>{mobileMenu}</MobileMenu>
         ) : null}

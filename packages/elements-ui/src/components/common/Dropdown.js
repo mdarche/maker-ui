@@ -56,6 +56,7 @@ const Dropdown = ({ submenu, active, set, location, isHeader }) => (
               target={newTab && '_blank'}
               rel={newTab && 'noopener noreferrer'}
               className={location === path ? 'active-link' : ''}
+              aria-label={icon ? label : null}
               {...getAttributes(isHeader, set)}>
               {icon && <span className="sub-link-icon">{icon}</span>}
               <span className="sub-link-text">{label}</span>
