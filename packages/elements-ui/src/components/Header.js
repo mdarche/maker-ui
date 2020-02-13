@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
-
-// TODO - Hide / show on scroll
+import { useScrollPosition } from '../config/scroll-position'
+import setBreak from '../config/breakpoint'
 
 export const Header = React.forwardRef((props, ref) => {
   const { header } = useOptions()
+  const [hideOnScroll, setHideOnScroll] = useState(true)
 
   const {
     bg = 'bg_header',
@@ -18,10 +19,20 @@ export const Header = React.forwardRef((props, ref) => {
 
   const partial = sticky
     ? {
-        position: stickyMobile ? 'sticky' : ['initial', 'sticky'],
+        position: stickyMobile
+          ? 'sticky'
+          : setBreak(header.breakIndex, ['initial', 'sticky']),
         top: 0,
       }
     : null
+
+  if (header.stickyScroll) {
+    useScrollPosition(({ prevPos, currPos }) => {
+      console.log(currPos.y)
+    })
+  }
+
+  console.log('re-rendering')
 
   return (
     <Box

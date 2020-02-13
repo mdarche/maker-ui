@@ -36,13 +36,17 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
       return (
         <Content>
           <Main>{children}</Main>
-          <SideNav menu={menu}>{sideNav}</SideNav>
+          <SideNav menu={menu} customToggle={sideNav[1]}>
+            {sideNav[0]}
+          </SideNav>
         </Content>
       )
     case 'sideNav-content':
       return (
         <Content>
-          <SideNav menu={menu}>{sideNav}</SideNav>
+          <SideNav menu={menu} customToggle={sideNav[1]}>
+            {sideNav[0]}
+          </SideNav>
           <Main>{children}</Main>
         </Content>
       )
@@ -67,6 +71,7 @@ export const Template = ({
   menu,
   mobileMenu = 'default',
   sideNav,
+  sideNavToggle,
   sidebar,
   footer,
   location,
@@ -90,7 +95,10 @@ export const Template = ({
           <MobileMenu>{mobileMenu}</MobileMenu>
         ) : null}
       </Header>
-      <SiteInner sideNav={sideNav} sidebar={sidebar} menu={menu}>
+      <SiteInner
+        sideNav={[sideNav, sideNavToggle]}
+        sidebar={sidebar}
+        menu={menu}>
         {children}
       </SiteInner>
       {footer && <Footer>{footer}</Footer>}
