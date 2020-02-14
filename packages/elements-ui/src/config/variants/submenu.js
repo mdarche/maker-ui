@@ -23,6 +23,22 @@ const dropdownStyles = type => {
         ...fade,
         active: { ...base, transform: 'translateY(0)' },
       }
+    case 'scale': {
+      return {
+        transform: 'scale(1, 0)',
+        transformOrigin: '0 0',
+        transition: 'transform ease-in-out .25s',
+        ...base,
+        li: {
+          opacity: 0,
+          transition: 'opacity .03s 0s ease-in-out',
+        },
+        active: {
+          transform: 'scale(1, 1)',
+          li: { opacity: 1, transition: 'opacity ease-in-out .2s .2s' },
+        },
+      }
+    }
     default:
       return { active: base }
   }

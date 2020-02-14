@@ -21,7 +21,7 @@ export default {
     hideWidgetsOnMobile: true,
     dropdown: {
       caret: true,
-      transition: 'fadeInDown',
+      transition: 'scale',
     },
     breakIndex: 0,
   },
