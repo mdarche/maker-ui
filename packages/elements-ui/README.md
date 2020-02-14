@@ -2,6 +2,10 @@
 
 # Elements UI
 
+> This project is in an early stage and lacks a complete documentation. A robust demo, docs site, and example projects are in development and expected to be completed in March 2020.
+
+> If you arrived here from the Gatsby Theme Store, Gatsby Theme Elements v1.0.7 is still available for download, but it will be deprecated with the next stable release of Elements UI.
+
 Build React apps with a responsive layout system powered by [Theme UI](https://theme-ui.com/).
 
 Elements UI helps you design accessible, responsive page templates that can be customized in an infinite number of ways. Use Elements to quickly deploy a polished site layout so you can focus on developing great content or adding new integrations to your site.
@@ -14,7 +18,7 @@ https://elements-ui.dev
 
 ## Features
 
-- 8 customizable headers
+- 8 customizable header layouts
 - 6 common page layouts
 - Responsive header navigation
 - Responsive side navigation
@@ -64,7 +68,7 @@ The `Template` component accepts a variety of props for custom components like a
 
 ### Layout Components
 
-If your design requires a bit more customization or if you need conditional layouts depending on a page route or variable, you can build with the Elements UI layout components:
+If your design requires a bit more customization or if you need conditional layouts depending on a page route or variable, you can build with Elements UI's layout components:
 
 ```jsx
 // basic layout component usage
@@ -102,7 +106,9 @@ export default props => (
 
 All layout components can be styled with custom variants and the `sx` prop.
 
-## Documentation
+## Documentation - COMING SOON
+
+> Note: this is just an outline for planning purposes
 
 - [Design a Theme](https://elements-ui.dev/docs/theme)
 - [Configure Options](https://elements-ui.dev/docs/options)
@@ -113,21 +119,27 @@ All layout components can be styled with custom variants and the `sx` prop.
 - [API](https://elements-ui.dev/docs/api)
 - [Tutorials](https://elements-ui.dev/tutorials)
 
-## Coming Soon
+## Upcoming Packages
 
 - Common UI components
   - Image / video lightbox
   - Carousel slider
   - Reusable modal layer
+  - Custom loaders
   - On-page search
   - Site search (Algolia)
+  - Tab component
   - Responsive tables
   - Filterable grids
   - Scroll reveal
+  - Scroll progress indicator
   - Mega dropdown menu
+- Generative components
+- Speech Synthesis component
+- i18n support
 - Pre-built themes
-- Ecommerce & payment layouts
-- Authentication layouts
+- Ecommerce & payment templates
+- Authentication templates
 - [Blocks Editor](https://blocks-ui.com) compatibility
 
 ## License
