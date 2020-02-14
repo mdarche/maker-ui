@@ -12,9 +12,9 @@ export default {
     stickyMobile: true,
     stickyScroll: false,
     scroll: {
-      toggleClass: false,
+      toggleClass: true,
       scrollTop: 200,
-      class: 'sticky',
+      className: 'sticky',
     },
     colorToggle: true,
     hideColorToggleOnMobile: false,

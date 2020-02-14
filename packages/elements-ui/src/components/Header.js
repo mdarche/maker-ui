@@ -19,18 +19,20 @@ export const Header = React.forwardRef((props, ref) => {
     ...rest
   } = props
 
-  if (stickyScroll || header.scroll.toggleClass) {
+  if (stickyScroll) {
     useScrollPosition(({ prevPos, currPos }) => {
-      if (stickyScroll) {
-        const isShow = currPos.y > prevPos.y
-        if (isShow !== hideOnScroll) setHideOnScroll(isShow)
-      }
-
-      if (header.scroll.toggleClass) {
-        const isActive = currPos.y > header.scroll.scrollTop ? 'active' : null
-        if (isActive !== scrollClass) setScrollClass(header.scroll.class)
-      }
+      const isShow = currPos.y > prevPos.y
+      if (isShow !== hideOnScroll) setHideOnScroll(isShow)
     }, 450)
+  }
+
+  if (header.scroll.toggleClass) {
+    const { scrollTop, className } = header.scroll
+
+    useScrollPosition(({ currPos }) => {
+      const isActive = Math.abs(currPos.y) > scrollTop ? className : null
+      if (isActive !== scrollClass) setScrollClass(isActive)
+    }, 0)
   }
 
   const stickyPartial = () => {
