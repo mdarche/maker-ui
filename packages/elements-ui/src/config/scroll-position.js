@@ -1,31 +1,25 @@
-// Full credit to n8tb1t's performant implementation https://github.com/n8tb1t/use-scroll-position
+// Credit to n8tb1t's performant hooks implementation https://github.com/n8tb1t/use-scroll-position
 
 import { useRef, useLayoutEffect } from 'react'
 
 const isBrowser = typeof window !== 'undefined'
 
-function getScrollPosition({ element, useWindow }) {
+function getScrollPosition() {
   if (!isBrowser) return { x: 0, y: 0 }
+  const position = document.body.getBoundingClientRect()
 
-  const target = element ? element.current : document.body
-  const position = target.getBoundingClientRect()
-
-  return useWindow
-    ? { x: window.scrollX, y: window.scrollY }
-    : { x: position.left, y: position.top }
+  return { x: position.left, y: position.top }
 }
 
-// Hook
-
-export function useScrollPosition(effect, element, useWindow, wait) {
-  const position = useRef(getScrollPosition({ useWindow }))
+export function useScrollPosition(effect, wait) {
+  const position = useRef(getScrollPosition())
 
   useLayoutEffect(() => {
     if (!isBrowser) return
     let throttleTimeout = null
 
     const callBack = () => {
-      const currPos = getScrollPosition({ element, useWindow })
+      const currPos = getScrollPosition()
       effect({ prevPos: position.current, currPos })
       position.current = currPos
       throttleTimeout = null
@@ -44,5 +38,5 @@ export function useScrollPosition(effect, element, useWindow, wait) {
     window.addEventListener('scroll', handleScroll)
 
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [effect, element, useWindow, wait])
+  }, [effect, wait])
 }

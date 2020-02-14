@@ -68,6 +68,7 @@ export const MobileMenu = React.forwardRef((props, ref) => {
           bg,
           top: 0,
           bottom: 0,
+          zIndex: 100,
           transition: 'all ease .3s',
           ...getTransition(show, transition, width),
         }}>

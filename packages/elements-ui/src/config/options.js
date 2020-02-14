@@ -10,7 +10,12 @@ export default {
     maxWidth: 1460,
     sticky: true,
     stickyMobile: true,
-    stickyScroll: false, // todo
+    stickyScroll: false,
+    scroll: {
+      toggleClass: false,
+      scrollTop: 200,
+      class: 'sticky',
+    },
     colorToggle: true,
     hideColorToggleOnMobile: false,
     hideWidgetsOnMobile: true,
@@ -26,7 +31,7 @@ export default {
     visibleOnDesktop: false,
     defaultCloseButton: true, // todo
     closeOnBlur: true,
-    closeOnRouteChange: true, // test this with gatsby / figure out whether to keep
+    closeOnRouteChange: true, // todo figure out whether to keep
   },
   sideNav: {
     width: 300,
