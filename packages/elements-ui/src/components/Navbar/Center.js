@@ -11,7 +11,6 @@ const Center = React.forwardRef(
       widgetArea,
       menuToggle,
       colorToggle,
-      location,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -35,7 +34,7 @@ const Center = React.forwardRef(
         </Box>
       </Flex>
       <Flex sx={{ alignItems: 'center' }}>
-        <Menu menuItems={menu} location={location} />
+        <Menu menuItems={menu} />
         <Box>
           <WidgetArea custom={widgetArea} />
           <MenuButton custom={menuToggle} />

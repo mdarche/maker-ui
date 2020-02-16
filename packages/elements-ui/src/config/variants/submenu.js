@@ -31,7 +31,7 @@ const dropdownStyles = type => {
         ...base,
         li: {
           opacity: 0,
-          transition: 'opacity .03s 0s ease-in-out',
+          transition: 'opacity .03s ease-in-out',
         },
         active: {
           transform: 'scale(1, 1)',

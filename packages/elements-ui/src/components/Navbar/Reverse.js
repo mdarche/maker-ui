@@ -11,7 +11,6 @@ const Reverse = React.forwardRef(
       widgetArea,
       menuToggle,
       colorToggle,
-      location,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -24,7 +23,7 @@ const Reverse = React.forwardRef(
       {...props}
       __css={{ variant: 'eui_header.columns', maxWidth }}>
       <Flex className="col-1">
-        <Menu menuItems={menu} location={location} />
+        <Menu menuItems={menu} />
         <MenuButton custom={menuToggle} />
       </Flex>
       <Flex id="site-logo" className="col-2" variant="header.logo">

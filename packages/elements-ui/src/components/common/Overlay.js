@@ -17,6 +17,7 @@ const Overlay = React.forwardRef(({ show, toggle }, ref) => (
       zIndex: 100,
       visibility: show ? 'visible' : 'hidden',
       opacity: show ? 1 : 0,
+      willChange: 'opacity',
       transition: 'all ease .4s',
     }}
   />

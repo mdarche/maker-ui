@@ -1,6 +1,8 @@
 import React from 'react'
 
 import { useOptions, useOptionUpdater } from '../../context/OptionContext'
+import { useTraceUpdate } from '../../config/prop-trace'
+
 import Basic from './Basic'
 import Split from './Split'
 import Center from './Center'
@@ -9,13 +11,16 @@ import Minimal from './Minimal'
 import MinimalCenter from './MinimalCenter'
 import MinimalLeft from './MinimalLeft'
 
-export const Navbar = ({ type, ...props }) => {
+export const Navbar = React.memo(({ type, ...props }) => {
   const { navigation } = useOptions()
   const setOptions = useOptionUpdater()
 
   if (type !== undefined && type !== navigation) {
     setOptions({ navigation: type })
   }
+
+  useTraceUpdate(props)
+  console.log('re-rendering navbar')
 
   switch (navigation) {
     case 'split':
@@ -35,4 +40,4 @@ export const Navbar = ({ type, ...props }) => {
     default:
       return <Basic {...props} />
   }
-}
+})

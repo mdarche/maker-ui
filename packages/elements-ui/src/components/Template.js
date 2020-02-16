@@ -74,7 +74,6 @@ export const Template = ({
   sideNavToggle,
   sidebar,
   footer,
-  location,
   children,
 }) => {
   return (
@@ -87,10 +86,9 @@ export const Template = ({
           widgetArea={headerWidgets}
           menuToggle={menuToggle}
           colorToggle={colorToggle}
-          location={location}
         />
         {mobileMenu === 'default' ? (
-          <MobileMenu menu={menu} location={location} />
+          <MobileMenu menu={menu} />
         ) : React.isValidElement(mobileMenu) ? (
           <MobileMenu>{mobileMenu}</MobileMenu>
         ) : null}

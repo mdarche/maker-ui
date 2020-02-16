@@ -5,7 +5,9 @@ import { useOptions } from '../../context/OptionContext'
 import setBreak from '../../config/breakpoint'
 import MenuItem from './MenuItem'
 
-const Menu = ({ menuItems = [], location }) => {
+// TODO - write browser side location hook
+
+const Menu = ({ menuItems = [] }) => {
   const { header } = useOptions()
 
   return (
@@ -19,7 +21,7 @@ const Menu = ({ menuItems = [], location }) => {
             key={index}
             data={item}
             caret={header.dropdown.caret}
-            location={location}
+            // location={location}
             isHeader
           />
         ))}

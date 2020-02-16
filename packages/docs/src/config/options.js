@@ -15,7 +15,7 @@ export const options = {
     visibleOnDesktop: false,
   },
   sideNav: {
-    width: [400, 600],
+    width: ['60vw', 600],
     isPrimaryNav: true,
   },
   content: {

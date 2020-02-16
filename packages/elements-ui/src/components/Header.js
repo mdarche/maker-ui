@@ -5,10 +5,15 @@ import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../config/scroll-position'
 import setBreak from '../config/breakpoint'
 
+import { useTraceUpdate } from '../config/prop-trace'
+
 export const Header = React.forwardRef((props, ref) => {
   const { header } = useOptions()
   const [hideOnScroll, setHideOnScroll] = useState(true)
   const [scrollClass, setScrollClass] = useState(null)
+
+  console.log('Header re-render')
+  useTraceUpdate(props)
 
   const {
     bg = 'bg_header',

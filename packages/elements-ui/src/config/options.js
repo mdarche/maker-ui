@@ -29,7 +29,7 @@ export default {
     width: '60vw', // note: can be responsive array
     transition: 'slideLeft',
     visibleOnDesktop: false,
-    defaultCloseButton: true, // todo
+    defaultCloseButton: true,
     closeOnBlur: true,
     closeOnRouteChange: true, // todo figure out whether to keep
   },
@@ -37,7 +37,6 @@ export default {
     width: 300,
     isPrimaryMobileNav: false,
     floatingToggle: true,
-    defaultCloseButton: true, // todo
     closeOnBlur: true,
     breakIndex: 0,
   },

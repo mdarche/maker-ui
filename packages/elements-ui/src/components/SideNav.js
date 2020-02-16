@@ -17,7 +17,6 @@ export const SideNav = React.forwardRef(
       customToggle = 'Toggle',
       variant = 'sideNav',
       menu,
-      location,
       children,
       ...props
     },
@@ -50,11 +49,12 @@ export const SideNav = React.forwardRef(
             bottom: 0,
             zIndex: setBreak(bp, [100, 0]),
             width: t => t.sizes.width_sideNav,
+            willChange: 'transform',
             transform: t =>
               setBreak(bp, [getTransform(t.sizes.width_sideNav), 'none']),
             transition: 'transform ease .3s',
           }}>
-          {children || <AccordionMenu menu={menu} location={location} />}
+          {children || <AccordionMenu menu={menu} />}
         </Box>
         {sideNav.floatingToggle ? (
           <Box

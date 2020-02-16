@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 
 import { AccordionMenu } from './AccordionMenu'
-import { Overlay } from './common'
+import { Overlay, MenuButton } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
 
@@ -37,8 +37,6 @@ const getTransition = (active, type, width) => {
   }
 }
 
-// TODO - Add default close button
-
 export const MobileMenu = React.forwardRef((props, ref) => {
   const [show, toggleMenu] = useMenu()
   const { mobileMenu } = useOptions()
@@ -49,7 +47,6 @@ export const MobileMenu = React.forwardRef((props, ref) => {
     width = mobileMenu.width,
     transition = mobileMenu.transition,
     menu = [],
-    location,
     children,
   } = props
 
@@ -69,10 +66,17 @@ export const MobileMenu = React.forwardRef((props, ref) => {
           top: 0,
           bottom: 0,
           zIndex: 100,
+          willChange: 'transform opacity',
           transition: 'all ease .3s',
           ...getTransition(show, transition, width),
         }}>
-        {children || <AccordionMenu menu={menu} location={location} />}
+        {mobileMenu.defaultCloseButton ? (
+          <MenuButton
+            sx={{ position: 'absolute', top: 10, right: 10 }}
+            closeIcon
+          />
+        ) : null}
+        {children || <AccordionMenu menu={menu} />}
       </Box>
     </React.Fragment>
   )
