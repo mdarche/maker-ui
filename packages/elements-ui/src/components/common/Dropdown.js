@@ -10,7 +10,7 @@ const getAttributes = (isHeader, set) =>
       }
     : null
 
-const Dropdown = ({ submenu, active, set, isHeader }) => (
+const Dropdown = ({ submenu, active, set, isHeader, menuControls }) => (
   <React.Fragment>
     {!isHeader && (
       <Box
@@ -57,7 +57,8 @@ const Dropdown = ({ submenu, active, set, isHeader }) => (
               rel={newTab && 'noopener noreferrer'}
               // className={location === path ? 'active-link' : ''}
               aria-label={icon ? label : null}
-              {...getAttributes(isHeader, set)}>
+              {...getAttributes(isHeader, set)}
+              {...menuControls}>
               {icon && <span className="sub-link-icon">{icon}</span>}
               <span className="sub-link-text">{label}</span>
             </a>

@@ -15,7 +15,7 @@ const getAttributes = (isHeader, submenu, show, set) =>
 const MenuItem = ({
   data: { label, path, newTab, submenu, classes = '', icon },
   caret = false,
-  isMobileMenu = false,
+  menuControls,
   isHeader = false,
 }) => {
   const [show, set] = useState(false)
@@ -57,6 +57,7 @@ const MenuItem = ({
         target={newTab && '_blank'}
         rel={newTab && 'noopener noreferrer'}
         aria-label={icon ? label : null}
+        {...menuControls}
         {...getAttributes(isHeader, submenu, show, set)}>
         {icon && <span className="menu-link-icon">{icon}</span>}
         <span className="menu-link-text">{label}</span>
@@ -67,6 +68,7 @@ const MenuItem = ({
           active={show}
           set={set}
           isHeader={isHeader}
+          menuControls={menuControls}
         />
       ) : null}
     </Box>

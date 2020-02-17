@@ -31,18 +31,20 @@ export default ({ children, location }) => {
         <Navbar logo={<Logo />} menu={menu} widgetArea={<Widgets />} />
         <MobileMenu menu={menu} />
       </Header>
-      {location.pathname.includes('/docs') ? (
+      <Content layout="content-sidenav">
+        <Main>{children}</Main>
+        <SideNav menu={menu} />
+      </Content>
+      {/* {location.pathname.includes('/docs') ? (
         <Content layout="content-sidenav">
           <Main>{children}</Main>
-          <SideNav>
-            <DocsMenu />
-          </SideNav>
+          <SideNav menu={menu} />
         </Content>
       ) : (
         <Content layout="full-width">
           <Main>{children}</Main>
         </Content>
-      )}
+      )} */}
     </Layout>
   )
 }

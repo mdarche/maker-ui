@@ -31,7 +31,7 @@ export default {
     visibleOnDesktop: false,
     defaultCloseButton: true,
     closeOnBlur: true,
-    closeOnRouteChange: true, // todo
+    closeOnRouteChange: false, // todo
   },
   sideNav: {
     width: 300,
@@ -39,6 +39,7 @@ export default {
     isPrimaryMobileNav: false,
     floatingToggle: true,
     closeOnBlur: true,
+    closeOnRouteChange: true,
     breakIndex: 0,
   },
   content: {

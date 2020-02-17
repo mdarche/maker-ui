@@ -54,7 +54,7 @@ export const SideNav = React.forwardRef(
               setBreak(bp, [getTransform(t.sizes.width_sideNav), 'none']),
             transition: 'transform ease .3s',
           }}>
-          {children || <AccordionMenu menu={menu} />}
+          {children || <AccordionMenu menu={menu} menuType="sideNav" />}
         </Box>
         {sideNav.floatingToggle ? (
           <Box
