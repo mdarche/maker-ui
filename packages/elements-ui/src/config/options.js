@@ -31,10 +31,11 @@ export default {
     visibleOnDesktop: false,
     defaultCloseButton: true,
     closeOnBlur: true,
-    closeOnRouteChange: true, // todo figure out whether to keep
+    closeOnRouteChange: true, // todo
   },
   sideNav: {
     width: 300,
+    isHeader: false, // todo
     isPrimaryMobileNav: false,
     floatingToggle: true,
     closeOnBlur: true,

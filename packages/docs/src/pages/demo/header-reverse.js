@@ -9,6 +9,9 @@ import { menu, theme, Footer } from '../../components/Demo'
 const options = {
   navigation: 'reverse',
   layout: 'content',
+  header: {
+    hideWidgetsOnMobile: false,
+  },
 }
 
 export default () => (

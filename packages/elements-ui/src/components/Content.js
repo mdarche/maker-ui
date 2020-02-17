@@ -38,6 +38,7 @@ export const Content = React.forwardRef(({ layout, ...props }, ref) => {
   return (
     <Box
       ref={ref}
+      id="site-inner"
       {...props}
       __css={{
         variant: `eui_layout.${baseLayout}`,

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
+import setBreak from '../../config/breakpoint'
 import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Split = React.forwardRef(
@@ -11,6 +12,7 @@ const Split = React.forwardRef(
       widgetArea,
       menuToggle,
       colorToggle,
+      bp,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -34,7 +36,7 @@ const Split = React.forwardRef(
         <Menu menuItems={menu.slice(mid)} />
         <Flex
           sx={{
-            position: ['relative', 'absolute'],
+            position: setBreak(bp, ['relative', 'absolute']),
             right: 0,
             alignItems: 'center',
           }}>

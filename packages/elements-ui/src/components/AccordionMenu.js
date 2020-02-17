@@ -6,7 +6,7 @@ import { MenuItem } from './common'
 // TODO Add location hook here too
 
 export const AccordionMenu = React.forwardRef(
-  ({ menu = [], variant = 'accordion-menu', ...props }, ref) => (
+  ({ menu = [], variant = 'accordion-menu', isMobileMenu, ...props }, ref) => (
     <Box
       ref={ref}
       as="ul"
@@ -14,7 +14,7 @@ export const AccordionMenu = React.forwardRef(
       className="accordion-menu"
       {...props}>
       {menu.map((item, index) => (
-        <MenuItem key={index} data={item} />
+        <MenuItem key={index} data={item} isMobileMenu={isMobileMenu} />
       ))}
     </Box>
   )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
+import setBreak from '../../config/breakpoint'
 import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Basic = React.forwardRef(
@@ -12,6 +13,7 @@ const Basic = React.forwardRef(
       menuToggle,
       colorToggle,
       justify,
+      bp,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -34,8 +36,8 @@ const Basic = React.forwardRef(
       <Flex
         sx={{
           alignItems: 'center',
-          flex: justify === 'space-between' ? 1 : 'initial',
-          justifyContent: justify,
+          flex: justify !== undefined ? 1 : 'initial',
+          justifyContent: setBreak(bp, ['flex-end', justify]),
         }}>
         <Menu menuItems={menu} />
         <Flex sx={{ alignItems: 'center' }}>

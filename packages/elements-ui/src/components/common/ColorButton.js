@@ -23,7 +23,7 @@ const ColorButton = ({ custom }) => {
     <Box
       as="button"
       title="Color Mode"
-      id="color-toggle"
+      className="color-toggle"
       aria-label="Toggle Color Mode"
       variant="header.colorButton"
       onClick={cycleMode}

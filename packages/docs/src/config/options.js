@@ -25,7 +25,7 @@ export const options = {
 
 export const menu = [
   { label: 'Docs', path: '/docs/getting-started' },
-  { label: 'Tutorials', path: '/docs' },
-  { label: 'Examples', path: '/demo' },
-  { label: 'FAQs', path: '/demo' },
+  { label: 'Tutorials', path: '/tutorials' },
+  { label: 'Demo Site', path: '/demo' },
+  { label: 'FAQs', path: '/faqs' },
 ]

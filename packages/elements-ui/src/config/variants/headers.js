@@ -19,6 +19,9 @@ export default {
       '.col-1': {
         alignItems: 'center',
         width: ['25%', '33%'],
+        button: {
+          m: 0,
+        },
       },
       '.col-2': {
         width: ['50%', '34%'],

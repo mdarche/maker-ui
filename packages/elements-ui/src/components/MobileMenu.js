@@ -76,7 +76,7 @@ export const MobileMenu = React.forwardRef((props, ref) => {
             closeIcon
           />
         ) : null}
-        {children || <AccordionMenu menu={menu} />}
+        {children || <AccordionMenu menu={menu} isMobileMenu />}
       </Box>
     </React.Fragment>
   )

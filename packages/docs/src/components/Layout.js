@@ -22,19 +22,27 @@ const components = {
   code: Prism,
 }
 
-export default React.memo(({ children }) => {
+export default ({ children, location }) => {
+  if (location.pathname.includes('/demo')) return children
+
   return (
     <Layout theme={theme} options={options} components={components}>
       <Header>
         <Navbar logo={<Logo />} menu={menu} widgetArea={<Widgets />} />
         <MobileMenu menu={menu} />
       </Header>
-      <Content layout="content-sidenav">
-        <Main>{children}</Main>
-        <SideNav>
-          <DocsMenu />
-        </SideNav>
-      </Content>
+      {location.pathname.includes('/docs') ? (
+        <Content layout="content-sidenav">
+          <Main>{children}</Main>
+          <SideNav>
+            <DocsMenu />
+          </SideNav>
+        </Content>
+      ) : (
+        <Content layout="full-width">
+          <Main>{children}</Main>
+        </Content>
+      )}
     </Layout>
   )
-})
+}

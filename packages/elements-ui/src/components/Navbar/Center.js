@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
+import setBreak from '../../config/breakpoint'
 import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Center = React.forwardRef(
@@ -11,6 +12,7 @@ const Center = React.forwardRef(
       widgetArea,
       menuToggle,
       colorToggle,
+      bp,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -35,11 +37,12 @@ const Center = React.forwardRef(
       </Flex>
       <Flex sx={{ alignItems: 'center' }}>
         <Menu menuItems={menu} />
-        <Box>
+        <Flex
+          sx={{ position: setBreak(bp, ['relative', 'absolute']), right: 0 }}>
           <WidgetArea custom={widgetArea} />
           <MenuButton custom={menuToggle} />
           <ColorButton custom={colorToggle} />
-        </Box>
+        </Flex>
       </Flex>
     </Flex>
   )

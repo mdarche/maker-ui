@@ -11,6 +11,7 @@ const WidgetArea = props => {
   return custom ? (
     <Box
       variant="header.widgets"
+      className="widget-area"
       sx={{
         display: hideOnMobile
           ? setBreak(header.breakIndex, ['none', 'flex'])
