@@ -1,7 +1,8 @@
 {
   "name": "elements-ui",
   "version": "0.4.0",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "sideEffects": false,
   "scripts": {
     "prepare": "microbundle --no-compress --jsx React.createElement",

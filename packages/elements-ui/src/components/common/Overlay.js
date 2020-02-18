@@ -3,7 +3,7 @@ import { Box } from 'theme-ui'
 
 import setBreak from '../../config/breakpoint'
 
-const Overlay = ({ show, toggle, type, bp }, ref) => {
+const Overlay = ({ show, toggle, type, bp }) => {
   const visibility = show ? 'visible' : 'hidden'
   const opacity = show ? 1 : 0
 

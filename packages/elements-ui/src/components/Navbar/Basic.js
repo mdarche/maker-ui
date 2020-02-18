@@ -12,8 +12,8 @@ const Basic = React.forwardRef(
       widgetArea,
       menuToggle,
       colorToggle,
-      justify,
       bp,
+      type,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -36,8 +36,9 @@ const Basic = React.forwardRef(
       <Flex
         sx={{
           alignItems: 'center',
-          flex: justify !== undefined ? 1 : 'initial',
-          justifyContent: setBreak(bp, ['flex-end', justify]),
+          flex: type === 2 ? 1 : 'initial',
+          justifyContent:
+            type === 2 ? setBreak(bp, ['flex-end', 'space-between']) : null,
         }}>
         <Menu menuItems={menu} />
         <Flex sx={{ alignItems: 'center' }}>

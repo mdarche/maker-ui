@@ -1,1 +1,1 @@
-packages/elements-ui/README.md
+./packages/elements-ui/README.md

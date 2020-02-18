@@ -3,12 +3,9 @@ import React from 'react'
 import { useOptions, useOptionUpdater } from '../../context/OptionContext'
 
 import Basic from './Basic'
-import Split from './Split'
 import Center from './Center'
 import Reverse from './Reverse'
 import Minimal from './Minimal'
-import MinimalCenter from './MinimalCenter'
-import MinimalLeft from './MinimalLeft'
 
 export const Navbar = React.memo(({ type, ...props }) => {
   const { navigation, header } = useOptions()
@@ -19,20 +16,20 @@ export const Navbar = React.memo(({ type, ...props }) => {
   }
 
   switch (navigation) {
-    case 'split':
-      return <Split {...props} bp={header.breakIndex} />
     case 'center':
-      return <Center {...props} bp={header.breakIndex} />
+      return <Center type={1} {...props} bp={header.breakIndex} />
+    case 'split':
+      return <Center type={2} {...props} bp={header.breakIndex} />
     case 'reverse':
       return <Reverse {...props} />
     case 'minimal':
-      return <Minimal {...props} />
-    case 'minimal-center':
-      return <MinimalCenter {...props} />
+      return <Minimal type={1} {...props} />
     case 'minimal-left':
-      return <MinimalLeft {...props} />
+      return <Minimal type={2} {...props} />
+    case 'minimal-center':
+      return <Minimal type={3} {...props} />
     case 'basic-left':
-      return <Basic {...props} bp={header.breakIndex} justify="space-between" />
+      return <Basic type={2} {...props} bp={header.breakIndex} />
     default:
       return <Basic {...props} />
   }
