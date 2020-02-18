@@ -15,8 +15,8 @@ export const options = {
     visibleOnDesktop: false,
   },
   sideNav: {
-    width: [400, 600],
-    isPrimaryNav: false,
+    width: ['60vw', 600],
+    isPrimaryNav: true,
   },
   content: {
     maxWidth: 1020,
@@ -25,7 +25,7 @@ export const options = {
 
 export const menu = [
   { label: 'Docs', path: '/docs/getting-started' },
-  { label: 'Tutorials', path: '/docs' },
-  { label: 'Examples', path: '/demo' },
-  { label: 'FAQs', path: '/demo' },
+  { label: 'Tutorials', path: '/tutorials' },
+  { label: 'Demo Site', path: '/demo' },
+  { label: 'FAQs', path: '/faqs' },
 ]

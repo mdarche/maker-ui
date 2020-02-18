@@ -1,8 +1,11 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
+import { AccordionMenu } from './AccordionMenu'
+import { Overlay } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
+import setBreak from '../config/breakpoint'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
@@ -10,25 +13,37 @@ export const SideNav = React.forwardRef(
   (
     {
       bg = 'bg_sideNav',
-      buttonVariant,
-      buttonToggle = 'Toggle',
+      toggleVariant,
+      customToggle = 'Toggle',
       variant = 'sideNav',
+      menu,
+      pathname,
       children,
       ...props
     },
     ref
   ) => {
     const [active, setActive] = useSideNav()
-    const { layout } = useOptions()
+    const { layout, sideNav } = useOptions()
+
+    const bp = sideNav.breakIndex
 
     const getTransform = width => {
-      const w = Array.isArray(width) ? width[0] : width
+      const w = Array.isArray(width) ? width[bp] : width
       const shift = layout === 'sidenav-content' ? -w : w
       return active ? `translateX(0)` : `translateX(${format(shift)})`
     }
 
     return (
       <React.Fragment>
+        {sideNav.closeOnBlur && (
+          <Overlay
+            show={active}
+            toggle={setActive}
+            type="sideNav"
+            bp={sideNav.breakIndex}
+          />
+        )}
         <Box
           ref={ref}
           variant={variant}
@@ -37,30 +52,37 @@ export const SideNav = React.forwardRef(
           {...props}
           __css={{
             bg,
-            position: ['fixed', 'relative'],
+            position: setBreak(bp, ['fixed', 'relative']),
             top: 0,
             bottom: 0,
-            zIndex: [100, 0],
+            zIndex: setBreak(bp, [100, 0]),
             width: t => t.sizes.width_sideNav,
-            transform: t => [getTransform(t.sizes.width_sideNav), 'none'],
+            willChange: 'transform',
+            transform: t =>
+              setBreak(bp, [getTransform(t.sizes.width_sideNav), 'none']),
             transition: 'transform ease .3s',
           }}>
-          {children}
+          {children || (
+            <AccordionMenu menu={menu} menuType="sideNav" pathname={pathname} />
+          )}
         </Box>
-        <Box
-          as="button"
-          id="toggle-sidenav"
-          title="Toggle SideNav"
-          aria-label="Toggle side navigation"
-          onClick={setActive}
-          variant={buttonVariant}
-          sx={{
-            position: 'fixed',
-            display: ['inline-block', 'none'],
-            bottom: 30,
-          }}>
-          {buttonToggle}
-        </Box>
+        {sideNav.floatingToggle ? (
+          <Box
+            as="button"
+            id="toggle-sidenav"
+            title="Toggle SideNav"
+            aria-label="Toggle side navigation"
+            onClick={setActive}
+            variant={toggleVariant}
+            sx={{
+              position: 'fixed',
+              display: setBreak(bp, ['inline-block', 'none']),
+              bottom: 30,
+              zIndex: 100,
+            }}>
+            {customToggle}
+          </Box>
+        ) : null}
       </React.Fragment>
     )
   }

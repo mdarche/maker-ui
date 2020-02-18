@@ -12,6 +12,7 @@ const Minimal = React.forwardRef(
       colorToggle,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
+      type,
       ...props
     },
     ref
@@ -20,15 +21,56 @@ const Minimal = React.forwardRef(
       ref={ref}
       variant={variant}
       {...props}
-      __css={{ variant: 'eui_header.default', maxWidth }}>
-      <Box id="site-logo" variant="header.logo">
-        <a href="/">{logo}</a>
-      </Box>
-      <Flex sx={{ alignItems: 'center' }}>
-        <WidgetArea custom={widgetArea} />
-        <MenuButton custom={menuToggle} visibleOnDesktop />
-        <ColorButton custom={colorToggle} />
-      </Flex>
+      __css={{
+        variant: type === 3 ? 'eui_header.columns' : 'eui_header.default',
+        maxWidth,
+      }}>
+      {type === 1 ? (
+        <React.Fragment>
+          <Box id="site-logo" variant="header.logo">
+            <a href="/" aria-label="Home page">
+              {logo}
+            </a>
+          </Box>
+          <Flex sx={{ alignItems: 'center' }}>
+            <WidgetArea custom={widgetArea} />
+            <MenuButton custom={menuToggle} visibleOnDesktop />
+            <ColorButton custom={colorToggle} />
+          </Flex>
+        </React.Fragment>
+      ) : type === 2 ? (
+        <React.Fragment>
+          <Flex sx={{ alignItems: 'center' }}>
+            <MenuButton custom={menuToggle} visibleOnDesktop />
+            <Box id="site-logo" variant="header.logo">
+              <a href="/" aria-label="Home page">
+                {logo}
+              </a>
+            </Box>
+          </Flex>
+          <Flex sx={{ alignItems: 'center' }}>
+            <WidgetArea custom={widgetArea} />
+            <ColorButton custom={colorToggle} />
+          </Flex>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Flex className="col-1">
+            <MenuButton custom={menuToggle} visibleOnDesktop />
+          </Flex>
+          <Flex className="col-2">
+            <Box id="site-logo" variant="header.logo">
+              <a href="/" aria-label="Home page">
+                {logo}
+              </a>
+            </Box>
+          </Flex>
+          <Flex className="col-3">
+            <WidgetArea custom={widgetArea} />
+            <ColorButton custom={colorToggle} />
+          </Flex>
+        </React.Fragment>
+      )}
     </Flex>
   )
 )

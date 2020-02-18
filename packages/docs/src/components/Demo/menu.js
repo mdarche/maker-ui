@@ -16,7 +16,7 @@ export default [
   },
   {
     label: 'Layouts',
-    path: '/test',
+    path: '#',
     submenu: [
       { label: 'Content', path: '/demo' },
       { label: 'Full Width', path: '/demo/full-width' },
@@ -26,5 +26,5 @@ export default [
       { label: 'SideNav / Content', path: '/demo/sidenav-content' },
     ],
   },
-  { label: 'Documentation', path: '/docs/getting-started' },
+  { label: 'Docs', path: '/docs/getting-started' },
 ]

@@ -11,10 +11,10 @@ import {
   SideNav,
   Sidebar,
   Footer,
-} from './index'
+} from './'
 import { useOptions } from '../context/OptionContext'
 
-const SiteInner = ({ sideNav, sidebar, children }) => {
+const SiteInner = ({ sideNav, sidebar, menu, children }) => {
   const { layout } = useOptions()
 
   switch (layout) {
@@ -36,13 +36,17 @@ const SiteInner = ({ sideNav, sidebar, children }) => {
       return (
         <Content>
           <Main>{children}</Main>
-          <SideNav>{sideNav}</SideNav>
+          <SideNav menu={menu} customToggle={sideNav[1]} pathname={sideNav[2]}>
+            {sideNav[0]}
+          </SideNav>
         </Content>
       )
     case 'sideNav-content':
       return (
         <Content>
-          <SideNav>{sideNav}</SideNav>
+          <SideNav menu={menu} customToggle={sideNav[1]} pathname={sideNav[2]}>
+            {sideNav[0]}
+          </SideNav>
           <Main>{children}</Main>
         </Content>
       )
@@ -65,11 +69,13 @@ export const Template = ({
   colorToggle,
   logo,
   menu,
-  mobileMenu,
+  mobileMenu = 'default',
   sideNav,
+  sideNavToggle,
   sidebar,
-  children,
   footer,
+  pathname,
+  children,
 }) => {
   return (
     <Layout theme={theme} options={options} components={components}>
@@ -81,10 +87,18 @@ export const Template = ({
           widgetArea={headerWidgets}
           menuToggle={menuToggle}
           colorToggle={colorToggle}
+          pathname={pathname}
         />
-        {mobileMenu && <MobileMenu>{mobileMenu}</MobileMenu>}
+        {mobileMenu === 'default' ? (
+          <MobileMenu menu={menu} />
+        ) : React.isValidElement(mobileMenu) ? (
+          <MobileMenu>{mobileMenu}</MobileMenu>
+        ) : null}
       </Header>
-      <SiteInner sideNav={sideNav} sidebar={sidebar}>
+      <SiteInner
+        sideNav={[sideNav, sideNavToggle, pathname]}
+        sidebar={sidebar}
+        menu={menu}>
         {children}
       </SiteInner>
       {footer && <Footer>{footer}</Footer>}

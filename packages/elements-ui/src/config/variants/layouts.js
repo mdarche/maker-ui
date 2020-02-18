@@ -1,5 +1,3 @@
-const format = value => (isNaN(value) ? value : `${value}px`)
-
 const content = {
   display: 'block',
   maxWidth: 'maxWidth_content',
@@ -15,14 +13,12 @@ const sidebar = {
   },
   'sidebar-content': {
     variant: 'eui_layout.base_sidebar',
-    gridTemplateColumns: t => [`1fr`, `${format(t.sizes.width_sidebar)} 1fr`],
     '#primary-sidebar': {
       gridRow: [2, 'auto'],
     },
   },
   'content-sidebar': {
     variant: 'eui_layout.base_sidebar',
-    gridTemplateColumns: t => [`1fr`, `1fr ${format(t.sizes.width_sidebar)}`],
   },
 }
 

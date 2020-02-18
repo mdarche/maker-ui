@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
+import setBreak from '../../config/breakpoint'
 import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Basic = React.forwardRef(
@@ -11,8 +12,8 @@ const Basic = React.forwardRef(
       widgetArea,
       menuToggle,
       colorToggle,
-      justify,
-      location,
+      bp,
+      type,
       maxWidth = 'maxWidth_header',
       variant = 'navbar',
       ...props
@@ -28,15 +29,18 @@ const Basic = React.forwardRef(
         maxWidth,
       }}>
       <Box id="site-logo" variant="header.logo">
-        <a href="/">{logo}</a>
+        <a href="/" aria-label="Home page">
+          {logo}
+        </a>
       </Box>
       <Flex
         sx={{
           alignItems: 'center',
-          flex: justify === 'space-between' ? 1 : 'initial',
-          justifyContent: justify,
+          flex: type === 2 ? 1 : 'initial',
+          justifyContent:
+            type === 2 ? setBreak(bp, ['flex-end', 'space-between']) : null,
         }}>
-        <Menu menuItems={menu} location={location} />
+        <Menu menuItems={menu} />
         <Flex sx={{ alignItems: 'center' }}>
           <WidgetArea custom={widgetArea} />
           <MenuButton custom={menuToggle} />

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
+import { AccordionMenu } from './AccordionMenu'
+import { Overlay, MenuButton } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
 
 const fullWidth = ['fade', 'fadeInUp', 'fadeInDown']
-
-// TODO - Tighten up this format function
 
 const getTransition = (active, type, width) => {
   const opacity = type.includes('fade') ? (active ? 1 : 0) : 1
@@ -35,28 +35,8 @@ const getTransition = (active, type, width) => {
   }
 }
 
-const MenuOverlay = ({ menu, toggleMenu, type }) =>
-  fullWidth.includes(type) ? null : (
-    <Box
-      id="menu-overlay"
-      role="presentation"
-      onClick={toggleMenu}
-      sx={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        bg: 'rgba(0, 0, 0, 0.2)',
-        visibility: menu ? 'visible' : 'hidden',
-        opacity: menu ? 1 : 0,
-        transition: 'all ease .4s',
-      }}
-    />
-  )
-
 export const MobileMenu = React.forwardRef((props, ref) => {
-  const [menu, toggleMenu] = useMenu()
+  const [show, toggleMenu] = useMenu()
   const { mobileMenu } = useOptions()
 
   const {
@@ -64,11 +44,16 @@ export const MobileMenu = React.forwardRef((props, ref) => {
     variant = 'mobileMenu',
     width = mobileMenu.width,
     transition = mobileMenu.transition,
+    menu = [],
+    pathname,
+    children,
   } = props
 
   return (
     <React.Fragment>
-      <MenuOverlay type={transition} menu={menu} toggleMenu={toggleMenu} />
+      {mobileMenu.closeOnBlur && !fullWidth.includes(transition) && (
+        <Overlay show={show} toggle={toggleMenu} />
+      )}
       <Box
         ref={ref}
         id="mobile-menu"
@@ -79,10 +64,21 @@ export const MobileMenu = React.forwardRef((props, ref) => {
           bg,
           top: 0,
           bottom: 0,
+          zIndex: 100,
+          willChange: 'transform opacity',
           transition: 'all ease .3s',
-          ...getTransition(menu, transition, width),
-        }}
-      />
+          ...getTransition(show, transition, width),
+        }}>
+        {mobileMenu.defaultCloseButton ? (
+          <MenuButton
+            sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}
+            closeIcon
+          />
+        ) : null}
+        {children || (
+          <AccordionMenu menu={menu} menuType="mobile" pathname={pathname} />
+        )}
+      </Box>
     </React.Fragment>
   )
 })
