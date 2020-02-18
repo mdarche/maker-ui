@@ -5,15 +5,7 @@ import { useOptions } from '../../context/OptionContext'
 import setBreak from '../../config/breakpoint'
 import MenuItem from './MenuItem'
 
-// const isBrowser = typeof window !== 'undefined'
-
-// function useRoute() {
-//   return isBrowser ? window.location.pathname : ''
-// }
-
-// TODO - write browser side location hook
-
-const Menu = React.memo(({ menuItems = [] }) => {
+const Menu = React.memo(({ menuItems = [], pathname }) => {
   const { header } = useOptions()
 
   return (
@@ -27,7 +19,7 @@ const Menu = React.memo(({ menuItems = [] }) => {
             key={index}
             data={item}
             caret={header.dropdown.caret}
-            // location={useRoute()}
+            pathname={pathname}
             isHeader
           />
         ))}

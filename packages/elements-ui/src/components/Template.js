@@ -36,7 +36,7 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
       return (
         <Content>
           <Main>{children}</Main>
-          <SideNav menu={menu} customToggle={sideNav[1]}>
+          <SideNav menu={menu} customToggle={sideNav[1]} pathname={sideNav[2]}>
             {sideNav[0]}
           </SideNav>
         </Content>
@@ -44,7 +44,7 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
     case 'sideNav-content':
       return (
         <Content>
-          <SideNav menu={menu} customToggle={sideNav[1]}>
+          <SideNav menu={menu} customToggle={sideNav[1]} pathname={sideNav[2]}>
             {sideNav[0]}
           </SideNav>
           <Main>{children}</Main>
@@ -74,6 +74,7 @@ export const Template = ({
   sideNavToggle,
   sidebar,
   footer,
+  pathname,
   children,
 }) => {
   return (
@@ -86,6 +87,7 @@ export const Template = ({
           widgetArea={headerWidgets}
           menuToggle={menuToggle}
           colorToggle={colorToggle}
+          pathname={pathname}
         />
         {mobileMenu === 'default' ? (
           <MobileMenu menu={menu} />
@@ -94,7 +96,7 @@ export const Template = ({
         ) : null}
       </Header>
       <SiteInner
-        sideNav={[sideNav, sideNavToggle]}
+        sideNav={[sideNav, sideNavToggle, pathname]}
         sidebar={sidebar}
         menu={menu}>
         {children}

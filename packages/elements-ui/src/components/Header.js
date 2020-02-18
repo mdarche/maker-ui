@@ -10,8 +10,8 @@ const areEqual = (prev, next) => true
 export const Header = React.memo(
   React.forwardRef((props, ref) => {
     const { header } = useOptions()
-    const [hideOnScroll, setHideOnScroll] = useState(true)
     const [scrollClass, setScrollClass] = useState(null)
+    const [show, setShow] = useState(true)
 
     const {
       bg = 'bg_header',
@@ -24,48 +24,55 @@ export const Header = React.memo(
 
     if (stickyScroll) {
       useScrollPosition(({ prevPos, currPos }) => {
-        const isShow = currPos.y > prevPos.y
-        if (isShow !== hideOnScroll) setHideOnScroll(isShow)
-      }, 450)
+        const isDownScroll = currPos > prevPos
+        const aboveLimit = currPos > 500
+
+        if (!aboveLimit && !show) {
+          setShow(true)
+        }
+
+        if (aboveLimit && isDownScroll && show) {
+          setShow(false)
+        }
+
+        if (aboveLimit && !isDownScroll && !show) {
+          setShow(true)
+        }
+      }, 250)
     }
 
     if (header.scroll.toggleClass) {
       const { scrollTop, className } = header.scroll
 
       useScrollPosition(({ currPos }) => {
-        const isActive = Math.abs(currPos.y) > scrollTop ? className : null
-        if (isActive !== scrollClass) setScrollClass(isActive)
+        const isActive = currPos > scrollTop ? className : null
+
+        if (isActive !== scrollClass) {
+          setScrollClass(isActive)
+        }
       }, 0)
     }
 
-    const stickyPartial = () => {
-      if (stickyScroll) {
-        return {
+    const stickyPartial = stickyScroll
+      ? {
           position: 'sticky',
           top: 0,
-          transform: hideOnScroll ? 'none' : 'translateY(-100%)',
-          transition: `transform .3s ${hideOnScroll ? `ease-in` : `ease-out`}`,
+          transform: show ? 'none' : 'translateY(-100%)',
+          transition: `transform .3s ${show ? `ease-in` : `ease-out`}`,
         }
-      }
-
-      if (sticky) {
-        return {
+      : sticky
+      ? {
           top: 0,
           position: stickyMobile
             ? 'sticky'
             : setBreak(header.breakIndex, ['initial', 'sticky']),
         }
-      }
-
-      if (!sticky && stickyMobile) {
-        return {
+      : !sticky && stickyMobile
+      ? {
           top: 0,
           position: setBreak(header.breakIndex, ['sticky', 'initial']),
         }
-      }
-
-      return
-    }
+      : null
 
     return (
       <Box
@@ -79,7 +86,7 @@ export const Header = React.memo(
         {...rest}
         __css={{
           zIndex: 100,
-          ...stickyPartial(),
+          ...stickyPartial,
         }}
       />
     )

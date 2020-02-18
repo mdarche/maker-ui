@@ -19,6 +19,6 @@ export default () => (
     logo={<Logo />}
     headerWidgets={<Widgets />}
     footer={<Footer />}>
-    <BlogPost paragraphs={6} image={false} />
+    <BlogPost paragraphs={16} image={false} />
   </Template>
 )

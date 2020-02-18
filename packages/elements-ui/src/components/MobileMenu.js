@@ -8,8 +8,6 @@ import { useMenu } from '../context/ActionContext'
 
 const fullWidth = ['fade', 'fadeInUp', 'fadeInDown']
 
-// TODO - Tighten up this format function
-
 const getTransition = (active, type, width) => {
   const opacity = type.includes('fade') ? (active ? 1 : 0) : 1
   const visibility = active ? 'visible' : 'hidden'
@@ -47,6 +45,7 @@ export const MobileMenu = React.forwardRef((props, ref) => {
     width = mobileMenu.width,
     transition = mobileMenu.transition,
     menu = [],
+    pathname,
     children,
   } = props
 
@@ -72,11 +71,13 @@ export const MobileMenu = React.forwardRef((props, ref) => {
         }}>
         {mobileMenu.defaultCloseButton ? (
           <MenuButton
-            sx={{ position: 'absolute', top: 10, right: 10 }}
+            sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}
             closeIcon
           />
         ) : null}
-        {children || <AccordionMenu menu={menu} menuType="mobile" />}
+        {children || (
+          <AccordionMenu menu={menu} menuType="mobile" pathname={pathname} />
+        )}
       </Box>
     </React.Fragment>
   )

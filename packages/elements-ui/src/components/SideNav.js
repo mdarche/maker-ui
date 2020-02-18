@@ -17,6 +17,7 @@ export const SideNav = React.forwardRef(
       customToggle = 'Toggle',
       variant = 'sideNav',
       menu,
+      pathname,
       children,
       ...props
     },
@@ -35,7 +36,14 @@ export const SideNav = React.forwardRef(
 
     return (
       <React.Fragment>
-        {sideNav.closeOnBlur && <Overlay show={active} toggle={setActive} />}
+        {sideNav.closeOnBlur && (
+          <Overlay
+            show={active}
+            toggle={setActive}
+            type="sideNav"
+            bp={sideNav.breakIndex}
+          />
+        )}
         <Box
           ref={ref}
           variant={variant}
@@ -54,7 +62,9 @@ export const SideNav = React.forwardRef(
               setBreak(bp, [getTransform(t.sizes.width_sideNav), 'none']),
             transition: 'transform ease .3s',
           }}>
-          {children || <AccordionMenu menu={menu} menuType="sideNav" />}
+          {children || (
+            <AccordionMenu menu={menu} menuType="sideNav" pathname={pathname} />
+          )}
         </Box>
         {sideNav.floatingToggle ? (
           <Box
@@ -68,6 +78,7 @@ export const SideNav = React.forwardRef(
               position: 'fixed',
               display: setBreak(bp, ['inline-block', 'none']),
               bottom: 30,
+              zIndex: 100,
             }}>
             {customToggle}
           </Box>

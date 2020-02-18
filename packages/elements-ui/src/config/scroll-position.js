@@ -8,7 +8,7 @@ function getScrollPosition() {
   if (!isBrowser) return { x: 0, y: 0 }
   const position = document.body.getBoundingClientRect()
 
-  return { x: position.left, y: position.top }
+  return Math.abs(position.top)
 }
 
 export function useScrollPosition(effect, wait) {

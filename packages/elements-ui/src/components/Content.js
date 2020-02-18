@@ -16,7 +16,7 @@ export const Content = React.forwardRef(({ layout, ...props }, ref) => {
     setLayout(layout)
   }
 
-  const setSidebar =
+  const sidebarPartial =
     baseLayout === 'sidebar-content'
       ? {
           gridTemplateColumns: t =>
@@ -42,7 +42,7 @@ export const Content = React.forwardRef(({ layout, ...props }, ref) => {
       {...props}
       __css={{
         variant: `eui_layout.${baseLayout}`,
-        ...setSidebar,
+        ...sidebarPartial,
         minHeight: '100vh',
       }}
     />

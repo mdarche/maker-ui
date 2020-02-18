@@ -6,8 +6,8 @@ import Dropdown from './Dropdown'
 const getAttributes = (isHeader, submenu, show, set) =>
   isHeader
     ? {
-        onFocus: submenu && (() => set(true)),
-        onBlur: submenu && (() => set(false)),
+        onFocus: submenu && (e => set(true)),
+        onBlur: submenu && (e => set(false)),
         'aria-expanded': submenu ? (show ? 'true' : 'false') : null,
       }
     : null
@@ -16,6 +16,7 @@ const MenuItem = ({
   data: { label, path, newTab, submenu, classes = '', icon },
   caret = false,
   menuControls,
+  pathname,
   isHeader = false,
 }) => {
   const [show, set] = useState(false)
@@ -53,10 +54,11 @@ const MenuItem = ({
       }>
       <a
         href={path}
-        // className={location === path ? 'active-link' : ''}
+        className={pathname === path ? 'current' : undefined}
         target={newTab && '_blank'}
         rel={newTab && 'noopener noreferrer'}
         aria-label={icon ? label : null}
+        aria-current={pathname === path ? 'page' : undefined}
         {...menuControls}
         {...getAttributes(isHeader, submenu, show, set)}>
         {icon && <span className="menu-link-icon">{icon}</span>}
@@ -69,6 +71,7 @@ const MenuItem = ({
           set={set}
           isHeader={isHeader}
           menuControls={menuControls}
+          pathname={pathname}
         />
       ) : null}
     </Box>

@@ -10,7 +10,7 @@ export default {
     maxWidth: 1460,
     sticky: true,
     stickyMobile: true,
-    stickyScroll: false,
+    stickyScroll: true,
     scroll: {
       toggleClass: true,
       scrollTop: 200,
@@ -29,9 +29,9 @@ export default {
     width: '60vw', // note: can be responsive array
     transition: 'slideLeft',
     visibleOnDesktop: false,
-    defaultCloseButton: true,
+    defaultCloseButton: false,
     closeOnBlur: true,
-    closeOnRouteChange: false, // todo
+    closeOnRouteChange: false,
   },
   sideNav: {
     width: 300,

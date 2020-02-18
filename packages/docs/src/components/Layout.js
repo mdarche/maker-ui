@@ -28,12 +28,17 @@ export default ({ children, location }) => {
   return (
     <Layout theme={theme} options={options} components={components}>
       <Header>
-        <Navbar logo={<Logo />} menu={menu} widgetArea={<Widgets />} />
+        <Navbar
+          logo={<Logo />}
+          menu={menu}
+          pathname={location.pathname}
+          widgetArea={<Widgets />}
+        />
         <MobileMenu menu={menu} />
       </Header>
       <Content layout="content-sidenav">
         <Main>{children}</Main>
-        <SideNav menu={menu} />
+        <SideNav menu={menu} pathname={location.pathname} />
       </Content>
       {/* {location.pathname.includes('/docs') ? (
         <Content layout="content-sidenav">

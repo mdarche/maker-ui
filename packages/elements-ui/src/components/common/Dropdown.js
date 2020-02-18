@@ -4,13 +4,22 @@ import { Box } from 'theme-ui'
 const getAttributes = (isHeader, set) =>
   isHeader
     ? {
-        onFocus: () => set(true),
-        onBlur: () => set(false),
-        onClick: () => set(false),
+        onFocus: e => set(true),
+        onBlur: e => set(false),
+        onClick: e => set(false),
       }
     : null
 
-const Dropdown = ({ submenu, active, set, isHeader, menuControls }) => (
+// TODO - Add dropdown menu svg, set fill to text
+
+const Dropdown = ({
+  submenu,
+  active,
+  set,
+  isHeader,
+  menuControls,
+  pathname,
+}) => (
   <React.Fragment>
     {!isHeader && (
       <Box
@@ -53,10 +62,11 @@ const Dropdown = ({ submenu, active, set, isHeader, menuControls }) => (
           <Box as="li" key={index} className={`menu-item ${classes}`}>
             <a
               href={path}
+              className={pathname === path ? 'current' : undefined}
               target={newTab && '_blank'}
               rel={newTab && 'noopener noreferrer'}
-              // className={location === path ? 'active-link' : ''}
-              aria-label={icon ? label : null}
+              aria-label={icon ? label : undefined}
+              aria-current={pathname === path ? 'page' : undefined}
               {...getAttributes(isHeader, set)}
               {...menuControls}>
               {icon && <span className="sub-link-icon">{icon}</span>}
