@@ -72,7 +72,7 @@ export const Header = React.memo(
           top: 0,
           position: setBreak(header.breakIndex, ['sticky', 'initial']),
         }
-      : null
+      : { position: 'relative' }
 
     return (
       <Box

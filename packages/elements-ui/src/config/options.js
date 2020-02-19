@@ -8,11 +8,11 @@ export default {
   },
   header: {
     maxWidth: 1460,
-    sticky: true,
-    stickyMobile: true,
-    stickyScroll: true,
+    sticky: false,
+    stickyMobile: false,
+    stickyScroll: false,
     scroll: {
-      toggleClass: true,
+      toggleClass: false,
       scrollTop: 200,
       className: 'sticky',
     },
