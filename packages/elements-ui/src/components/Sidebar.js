@@ -5,7 +5,7 @@ export const Sidebar = React.forwardRef((props, ref) => {
   return (
     <Box
       ref={ref}
-      as="aside"
+      as={props.as || 'aside'}
       id="primary-sidebar"
       role="complementary"
       {...props}
