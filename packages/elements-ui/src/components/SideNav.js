@@ -1,15 +1,15 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-import { AccordionMenu } from './AccordionMenu'
+import AccordionMenu from './AccordionMenu'
 import { Overlay } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
-import setBreak from '../config/breakpoint'
+import setBreakpoint from '../utils/set-breakpoint'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
-export const SideNav = React.forwardRef(
+const SideNav = React.forwardRef(
   (
     {
       bg = 'bg_sideNav',
@@ -52,14 +52,14 @@ export const SideNav = React.forwardRef(
           {...props}
           __css={{
             bg,
-            position: setBreak(bp, ['fixed', 'relative']),
+            position: setBreakpoint(bp, ['fixed', 'relative']),
             top: 0,
             bottom: 0,
-            zIndex: setBreak(bp, [100, 0]),
+            zIndex: setBreakpoint(bp, [100, 0]),
             width: t => t.sizes.width_sideNav,
             willChange: 'transform',
             transform: t =>
-              setBreak(bp, [getTransform(t.sizes.width_sideNav), 'none']),
+              setBreakpoint(bp, [getTransform(t.sizes.width_sideNav), 'none']),
             transition: 'transform ease .3s',
           }}>
           {children || (
@@ -76,7 +76,7 @@ export const SideNav = React.forwardRef(
             variant={toggleVariant}
             sx={{
               position: 'fixed',
-              display: setBreak(bp, ['inline-block', 'none']),
+              display: setBreakpoint(bp, ['inline-block', 'none']),
               bottom: 30,
               zIndex: 100,
             }}>
@@ -87,3 +87,5 @@ export const SideNav = React.forwardRef(
     )
   }
 )
+
+export default SideNav

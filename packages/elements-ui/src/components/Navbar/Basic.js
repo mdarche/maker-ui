@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
-import setBreak from '../../config/breakpoint'
+import setBreakpoint from '../../utils/set-breakpoint'
 import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Basic = React.forwardRef(
@@ -38,7 +38,9 @@ const Basic = React.forwardRef(
           alignItems: 'center',
           flex: type === 2 ? 1 : 'initial',
           justifyContent:
-            type === 2 ? setBreak(bp, ['flex-end', 'space-between']) : null,
+            type === 2
+              ? setBreakpoint(bp, ['flex-end', 'space-between'])
+              : null,
         }}>
         <Menu menuItems={menu} />
         <Flex sx={{ alignItems: 'center' }}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-export const Section = React.forwardRef(
+const Section = React.forwardRef(
   (
     { maxWidth = 'maxWidth_section', bg, background, children, ...props },
     ref
@@ -19,3 +19,5 @@ export const Section = React.forwardRef(
     )
   }
 )
+
+export default Section

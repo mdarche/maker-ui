@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-export const Sidebar = React.forwardRef((props, ref) => {
+const Sidebar = React.forwardRef((props, ref) => {
   return (
     <Box
       ref={ref}
@@ -12,3 +12,5 @@ export const Sidebar = React.forwardRef((props, ref) => {
     />
   )
 })
+
+export default Sidebar

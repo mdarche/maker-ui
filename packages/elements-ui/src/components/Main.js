@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-export const Main = React.forwardRef((props, ref) => (
+const Main = React.forwardRef((props, ref) => (
   <Box
     ref={ref}
     as="main"
@@ -11,3 +11,5 @@ export const Main = React.forwardRef((props, ref) => (
     __css={{ flex: 1 }}
   />
 ))
+
+export default Main

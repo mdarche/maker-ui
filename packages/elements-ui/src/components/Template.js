@@ -59,7 +59,7 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
   }
 }
 
-export const Template = ({
+const Template = ({
   theme,
   options,
   components,
@@ -105,3 +105,5 @@ export const Template = ({
     </Layout>
   )
 }
+
+export default Template

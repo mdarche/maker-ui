@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Box } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
-import { useScrollPosition } from '../config/scroll-position'
-import setBreak from '../config/breakpoint'
+import { useScrollPosition } from '../utils/scroll-position'
+import setBreakpoint from '../utils/set-breakpoint'
 
-export const Header = React.forwardRef((props, ref) => {
+const Header = React.forwardRef((props, ref) => {
   const { header } = useOptions()
   const [scrollClass, setScrollClass] = useState(null)
   const [show, setShow] = useState(true)
@@ -62,12 +62,12 @@ export const Header = React.forwardRef((props, ref) => {
         top: 0,
         position: stickyMobile
           ? 'sticky'
-          : setBreak(header.breakIndex, ['initial', 'sticky']),
+          : setBreakpoint(header.breakIndex, ['initial', 'sticky']),
       }
     : !sticky && stickyMobile
     ? {
         top: 0,
-        position: setBreak(header.breakIndex, ['sticky', 'initial']),
+        position: setBreakpoint(header.breakIndex, ['sticky', 'initial']),
       }
     : { position: 'relative' }
 
@@ -88,3 +88,5 @@ export const Header = React.forwardRef((props, ref) => {
     />
   )
 })
+
+export default Header

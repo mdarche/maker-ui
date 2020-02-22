@@ -5,7 +5,7 @@ import { MenuItem } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu, useSideNav } from '../context/ActionContext'
 
-export const AccordionMenu = React.forwardRef(
+const AccordionMenu = React.forwardRef(
   (
     { menu = [], variant = 'accordion-menu', menuType, pathname, ...props },
     ref
@@ -45,3 +45,5 @@ export const AccordionMenu = React.forwardRef(
     )
   }
 )
+
+export default AccordionMenu
