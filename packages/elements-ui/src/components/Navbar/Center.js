@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
-import setBreak from '../../config/breakpoint'
+import setBreakpoint from '../../utils/set-breakpoint'
 import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Center = React.forwardRef(
@@ -25,7 +25,7 @@ const Center = React.forwardRef(
     const renderBlock = () => (
       <Flex
         sx={{
-          position: setBreak(bp, ['relative', 'absolute']),
+          position: setBreakpoint(bp, ['relative', 'absolute']),
           right: 0,
           alignItems: 'center',
         }}>
@@ -42,7 +42,8 @@ const Center = React.forwardRef(
         {...props}
         __css={{
           variant: 'eui_header.center',
-          flexDirection: type === 1 ? setBreak(bp, ['row', 'column']) : null,
+          flexDirection:
+            type === 1 ? setBreakpoint(bp, ['row', 'column']) : null,
           maxWidth,
         }}>
         {type === 1 ? (

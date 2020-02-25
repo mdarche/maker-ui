@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 
 import { useOptions } from '../../context/OptionContext'
-import setBreak from '../../config/breakpoint'
+import setBreakpoint from '../../utils/set-breakpoint'
 
 const WidgetArea = props => {
   const { header } = useOptions()
@@ -14,7 +14,7 @@ const WidgetArea = props => {
       className="widget-area"
       sx={{
         display: hideOnMobile
-          ? setBreak(header.breakIndex, ['none', 'flex'])
+          ? setBreakpoint(header.breakIndex, ['none', 'flex'])
           : 'flex',
       }}>
       {custom}

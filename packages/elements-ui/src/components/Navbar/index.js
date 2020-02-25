@@ -7,7 +7,7 @@ import Center from './Center'
 import Reverse from './Reverse'
 import Minimal from './Minimal'
 
-export const Navbar = React.memo(({ type, ...props }) => {
+const Navbar = React.memo(({ type, ...props }) => {
   const { navigation, header } = useOptions()
   const setOptions = useOptionUpdater()
 
@@ -34,3 +34,5 @@ export const Navbar = React.memo(({ type, ...props }) => {
       return <Basic {...props} />
   }
 })
+
+export default Navbar

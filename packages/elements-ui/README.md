@@ -12,7 +12,12 @@ Elements UI helps you design accessible, responsive page templates that can be c
 
 Elements UI extends all of Theme UI's core features so you can easily migrate your existing theme.
 
-[![npm version](https://badge.fury.io/js/gatsby-theme-elements.svg)](https://badge.fury.io/js/gatsby-theme-elements)
+[![Version][version]][npm]
+![MIT License][license]
+
+[version]: https://flat.badgen.net/npm/v/elements-ui
+[npm]: https://npmjs.com/package/elements-ui
+[license]: https://flat.badgen.net/badge/license/MIT/blue
 
 https://elements-ui.dev
 

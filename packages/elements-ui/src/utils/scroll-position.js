@@ -1,4 +1,4 @@
-// Credit to n8tb1t's performant hooks implementation https://github.com/n8tb1t/use-scroll-position
+// Credit to n8tb1t's https://github.com/n8tb1t/use-scroll-position
 
 import { useRef, useLayoutEffect } from 'react'
 

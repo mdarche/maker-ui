@@ -3,7 +3,7 @@ import { Box } from 'theme-ui'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import setBreak from '../../config/breakpoint'
+import setBreakpoint from '../../utils/set-breakpoint'
 
 const getAttributes = (
   menu,
@@ -32,7 +32,7 @@ export default props => {
     ? !sideNav.isPrimaryMobileNav
       ? { display: 'block' }
       : { display: 'none' }
-    : { display: setBreak(header.breakIndex, ['block', 'none']) }
+    : { display: setBreakpoint(header.breakIndex, ['block', 'none']) }
 
   return (
     <Box

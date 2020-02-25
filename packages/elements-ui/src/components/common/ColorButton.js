@@ -2,7 +2,7 @@ import React from 'react'
 import { useThemeUI, Box } from 'theme-ui'
 
 import { useOptions } from '../../context/OptionContext'
-import setBreak from '../../config/breakpoint'
+import setBreakpoint from '../../utils/set-breakpoint'
 
 const ColorButton = ({ custom }) => {
   const { theme, colorMode, setColorMode } = useThemeUI()
@@ -29,7 +29,7 @@ const ColorButton = ({ custom }) => {
       onClick={cycleMode}
       sx={{
         display: header.hideColorToggleOnMobile
-          ? setBreak(header.breakIndex, ['none', 'block'])
+          ? setBreakpoint(header.breakIndex, ['none', 'block'])
           : 'block',
       }}>
       {custom || colorMode}

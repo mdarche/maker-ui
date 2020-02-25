@@ -10,8 +10,6 @@ const getAttributes = (isHeader, set) =>
       }
     : null
 
-// TODO - Add dropdown menu svg, set fill to text
-
 const Dropdown = ({
   submenu,
   active,
@@ -24,15 +22,32 @@ const Dropdown = ({
     {!isHeader && (
       <Box
         as="button"
+        title="Expand Section"
         className="submenu-toggle"
         aria-expanded={active ? 'true' : 'false'}
-        aria-label="View More"
-        title="View More"
-        onClick={() => set(!active)}>
-        More
+        aria-label="Expand Section"
+        onClick={() => set(!active)}
+        sx={{ border: 'none', bg: 'transparent' }}>
+        <Box
+          as="svg"
+          viewBox="0 0 16 16"
+          width="12"
+          height="12"
+          sx={{
+            transition: 'transform ease .2s',
+            transformOrigin: '50% 55%',
+            transform: active ? 'rotate(180deg)' : null,
+          }}>
+          <path
+            stroke="currentcolor"
+            strokeWidth="2"
+            fill="none"
+            d="M14 6 L8 12 L2 6"
+          />
+        </Box>
       </Box>
     )}
-    {(!isHeader && active) || isHeader ? (
+    {isHeader || (!isHeader && active) ? (
       <Box
         as="ul"
         variant={isHeader ? 'header.submenu' : 'accordion'}

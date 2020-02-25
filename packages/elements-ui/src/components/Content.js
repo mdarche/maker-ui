@@ -2,13 +2,13 @@ import React from 'react'
 import { Box } from 'theme-ui'
 
 import { useOptions, useLayout } from '../context/OptionContext'
-import setBreak from '../config/breakpoint'
+import setBreakpoint from '../utils/set-breakpoint'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
 // TODO - Figure out padding top vs Main. Default mobile padding ?
 
-export const Content = React.forwardRef(({ layout, ...props }, ref) => {
+const Content = React.forwardRef(({ layout, ...props }, ref) => {
   const { content } = useOptions()
   const [baseLayout, setLayout] = useLayout()
 
@@ -20,7 +20,7 @@ export const Content = React.forwardRef(({ layout, ...props }, ref) => {
     baseLayout === 'sidebar-content'
       ? {
           gridTemplateColumns: t =>
-            setBreak(content.breakIndex, [
+            setBreakpoint(content.breakIndex, [
               `1fr`,
               `${format(t.sizes.width_sidebar)} 1fr`,
             ]),
@@ -28,7 +28,7 @@ export const Content = React.forwardRef(({ layout, ...props }, ref) => {
       : baseLayout === 'content-sidebar'
       ? {
           gridTemplateColumns: t =>
-            setBreak(content.breakIndex, [
+            setBreakpoint(content.breakIndex, [
               `1fr`,
               `1fr ${format(t.sizes.width_sidebar)}`,
             ]),
@@ -48,3 +48,5 @@ export const Content = React.forwardRef(({ layout, ...props }, ref) => {
     />
   )
 })
+
+export default Content

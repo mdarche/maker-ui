@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-import setBreak from '../../config/breakpoint'
+import setBreakpoint from '../../utils/set-breakpoint'
 
 const Overlay = ({ show, toggle, type, bp }) => {
   const visibility = show ? 'visible' : 'hidden'
@@ -10,8 +10,8 @@ const Overlay = ({ show, toggle, type, bp }) => {
   const partial =
     type === 'sideNav'
       ? {
-          visibility: setBreak(bp, [visibility, 'hidden']),
-          opacity: setBreak(bp, [opacity, 0]),
+          visibility: setBreakpoint(bp, [visibility, 'hidden']),
+          opacity: setBreakpoint(bp, [opacity, 0]),
         }
       : { visibility, opacity }
 

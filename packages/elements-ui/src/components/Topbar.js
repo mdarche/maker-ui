@@ -2,9 +2,9 @@ import React from 'react'
 import { Flex, Box } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
-import setBreak from '../config/breakpoint'
+import setBreakpoint from '../utils/set-breakpoint'
 
-export const Topbar = React.forwardRef(
+const Topbar = React.forwardRef(
   (
     {
       bg = 'bg_topbar',
@@ -25,7 +25,7 @@ export const Topbar = React.forwardRef(
         bg={bg}
         sx={{
           display: topbar.hideOnMobile
-            ? setBreak(topbar.breakIndex, ['none', 'block'])
+            ? setBreakpoint(topbar.breakIndex, ['none', 'block'])
             : 'block',
         }}>
         <Flex
@@ -41,3 +41,5 @@ export const Topbar = React.forwardRef(
     )
   }
 )
+
+export default Topbar

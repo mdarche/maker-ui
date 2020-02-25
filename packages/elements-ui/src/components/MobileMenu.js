@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-import { AccordionMenu } from './AccordionMenu'
+import AccordionMenu from './AccordionMenu'
 import { Overlay, MenuButton } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
@@ -35,7 +35,7 @@ const getTransition = (active, type, width) => {
   }
 }
 
-export const MobileMenu = React.forwardRef((props, ref) => {
+const MobileMenu = React.forwardRef((props, ref) => {
   const [show, toggleMenu] = useMenu()
   const { mobileMenu } = useOptions()
 
@@ -82,3 +82,5 @@ export const MobileMenu = React.forwardRef((props, ref) => {
     </React.Fragment>
   )
 })
+
+export default MobileMenu

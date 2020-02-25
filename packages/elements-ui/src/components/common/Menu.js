@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 
 import { useOptions } from '../../context/OptionContext'
-import setBreak from '../../config/breakpoint'
+import setBreakpoint from '../../utils/set-breakpoint'
 import MenuItem from './MenuItem'
 
 const Menu = React.memo(({ menuItems = [], pathname }) => {
@@ -12,7 +12,7 @@ const Menu = React.memo(({ menuItems = [], pathname }) => {
     <Box
       as="nav"
       className="nav-primary"
-      sx={{ display: setBreak(header.breakIndex, ['none', 'flex']) }}>
+      sx={{ display: setBreakpoint(header.breakIndex, ['none', 'flex']) }}>
       <Box as="ul" variant="header.menu" className="menu-primary">
         {menuItems.map((item, index) => (
           <MenuItem
