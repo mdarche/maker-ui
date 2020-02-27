@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Box } from 'theme-ui'
-import { useTransition, animated } from 'react-spring'
+import { animated } from 'react-spring'
 
 import Pagination from './Pagination'
 import Navigation from './Navigation'
-import getTransition from './transitions'
+import Canvas from './Canvas'
 
 const Carousel = React.forwardRef(
   (
@@ -14,20 +14,24 @@ const Carousel = React.forwardRef(
       nav = true,
       pageIndicator = false,
       transition = 'fade',
-      autoPlay = false,
+      autoPlay = true,
       hoverPause = false,
       pause = false,
-      customArrow,
+      arrow,
       duration = 5000,
       variant = 'carousel',
       ...props
     },
     ref
   ) => {
-    const [index, setIndex] = useState(0)
+    const [index, set] = useState(0)
     const [timer, setTimer] = useState(true)
-    const count = data.length - 1
-    const next = () => setIndex(index === count ? 0 : index + 1)
+
+    const next = useCallback(() => set(state => (state + 1) % 3), [])
+    const prev = useCallback(
+      () => set(state => (state === 0 ? data.length - 1 : state - 1)),
+      []
+    )
 
     useEffect(() => {
       if (timer && autoPlay && !pause) {
@@ -39,12 +43,8 @@ const Carousel = React.forwardRef(
       }
     }, [index, timer])
 
-    const transitions = useTransition(index, null, {
-      ...getTransition(transition),
-    })
-
     const slides = data.map(item => ({ style }, i) => (
-      <animated.div key={i} className="slide" style={{ ...style }}>
+      <animated.div key={i} style={{ ...style }} className="slide">
         {React.cloneElement(template, item)}
       </animated.div>
     ))
@@ -61,38 +61,14 @@ const Carousel = React.forwardRef(
         ref={ref}
         variant={variant}
         className="carousel"
+        {...getAttributes}
         {...props}
         __css={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-        <Box
-          tabIndex="-1"
-          onFocus={e => setTimer(false)}
-          onBlur={e => setTimer(true)}
-          {...getAttributes}
-          sx={{
-            position: 'relative',
-            zIndex: 0,
-            mx: 'auto',
-            minHeight: 200,
-            height: '100%',
-            width: '100%',
-            '.slide': {
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              willChange: 'transform, opacity',
-            },
-          }}>
-          {transitions.map(({ item, props, key }) => {
-            const Slide = slides[item]
-            return <Slide key={key} style={props} />
-          })}
-        </Box>
+        <Canvas index={index} slides={slides} transition={transition} />
         {pageIndicator && (
-          <Pagination current={index} set={setIndex} count={count} />
+          <Pagination current={index} set={set} count={data.length - 1} />
         )}
-        {nav && (
-          <Navigation set={setIndex} count={count} custom={customArrow} />
-        )}
+        {nav && <Navigation prev={prev} next={next} arrow={arrow} />}
       </Box>
     )
   }

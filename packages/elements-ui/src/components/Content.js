@@ -6,7 +6,7 @@ import setBreakpoint from '../utils/set-breakpoint'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
-// TODO - Figure out padding top vs Main. Default mobile padding ?
+// TODO - Figure out padding top vs Main
 
 const Content = React.forwardRef(({ layout, ...props }, ref) => {
   const { content } = useOptions()
