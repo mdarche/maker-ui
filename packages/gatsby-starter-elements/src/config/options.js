@@ -1,3 +1,12 @@
+/**
+ *  NOTE
+ *
+ *  - These are all of the default Elements UI options available in v0.4.2
+ *  - Depending on your layout, you might only need a few of these properties
+ *
+ *  See: https://elements-ui.dev/options for details on each
+ */
+
 export default {
   navigation: 'basic',
   layout: 'content',

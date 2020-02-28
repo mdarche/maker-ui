@@ -14,7 +14,15 @@
     "clean": "gatsby clean"
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "elements-ui": "^0.4.2",
+    "gatsby": "^2.19.23",
+    "gatsby-plugin-catch-links": "^2.1.26",
+    "gatsby-plugin-layout": "^1.1.22",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-helmet": "^5.2.1"
+  },
   "devDependencies": {},
   "keywords": [
     "gatsby",
