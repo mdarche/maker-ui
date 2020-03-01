@@ -27,21 +27,21 @@ const Carousel = React.forwardRef(
     const [index, set] = useState(0)
     const [timer, setTimer] = useState(true)
 
-    const next = useCallback(() => set(state => (state + 1) % 3), [])
+    const next = useCallback(() => set(state => (state + 1) % 3), [set])
     const prev = useCallback(
       () => set(state => (state === 0 ? data.length - 1 : state - 1)),
-      []
+      [set, data.length]
     )
 
     useEffect(() => {
       if (timer && autoPlay && !pause) {
-        const autoPlay = setTimeout(() => {
+        const auto = setTimeout(() => {
           next()
         }, duration)
 
-        return () => clearTimeout(autoPlay)
+        return () => clearTimeout(auto)
       }
-    }, [index, timer])
+    }, [index, timer, next, duration, autoPlay, pause])
 
     const slides = data.map(item => ({ style }, i) => (
       <animated.div key={i} style={{ ...style }} className="slide">

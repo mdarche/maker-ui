@@ -65,6 +65,8 @@ export default {
     pt: 50,
   },
   carousel: {
+    height: 500,
+    overflow: 'hidden',
     pagination: {
       bottom: 0,
       left: '50%',

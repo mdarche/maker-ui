@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react'
+import React, { Fragment } from 'react'
 import { Box } from 'theme-ui'
 
 const DefaultArrow = () => (

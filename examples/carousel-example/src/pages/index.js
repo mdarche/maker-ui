@@ -13,7 +13,7 @@ const Slide = ({ greeting, bg }) => (
 
 const IndexPage = () => (
   <div>
-    <Carousel data={data} template={<Slide />} pageIndicator />
+    <Carousel data={data} template={<Slide />} pageIndicator hoverPause />
   </div>
 )
 
