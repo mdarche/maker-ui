@@ -2,7 +2,7 @@
  *  NOTE
  *
  *  - These are all of the default Elements UI options available in v0.4.2
- *  - Depending on your layout, you might only need a few of these properties
+ *  - Depending on your layout, you might only need to access a few of these
  *
  *  See: https://elements-ui.dev/options for details on each
  */
@@ -11,12 +11,12 @@ export default {
   navigation: 'basic',
   layout: 'content',
   topbar: {
-    maxWidth: 1260,
+    maxWidth: 1080,
     hideOnMobile: false,
     breakIndex: 0,
   },
   header: {
-    maxWidth: 1460,
+    maxWidth: 1080,
     sticky: false,
     stickyMobile: false,
     stickyScroll: false,
@@ -35,7 +35,7 @@ export default {
     breakIndex: 0,
   },
   mobileMenu: {
-    width: '60vw', // note: can be responsive array
+    width: '60vw',
     transition: 'slideLeft',
     visibleOnDesktop: false,
     defaultCloseButton: false,
@@ -51,8 +51,8 @@ export default {
     breakIndex: 0,
   },
   content: {
-    maxWidth: 1020,
-    maxWidthSection: 1020,
+    maxWidth: 800,
+    maxWidthSection: 800,
     sidebarGap: 30,
     breakIndex: 0,
   },

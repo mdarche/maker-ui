@@ -21,11 +21,11 @@ export default ({ children, location }) => (
         menu={menu}
         pathname={location.pathname}
       />
-      <MobileMenu menu={menu} />
+      <MobileMenu menu={menu} pathname={location.pathname} />
     </Header>
     <Content>
       <Main>{children}</Main>
     </Content>
-    <Footer />
+    <Footer>Add a custom footer component here</Footer>
   </Layout>
 )
