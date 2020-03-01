@@ -92,7 +92,7 @@ const IndexPage = () => (
           <h4>Design your theme</h4>
           <div>
             Customize the look and feel of your theme by editing global styles,
-            responsive scales, color modes, and Elements UI variants in
+            responsive scales, color modes, and Elements UI theme variants in
             <Highlite fontSize={16}>src/config/theme.js</Highlite>.
           </div>
         </li>
@@ -100,14 +100,15 @@ const IndexPage = () => (
           <h4>Add extra plugins / packages</h4>
           <div>
             This starter ships with minimal dependencies. Consider adding a few
-            awesome tools like Gatsby Image, MDX, or a CMS data source.
+            awesome tools like Gatsby Image, MDX, TypographyJS, Google
+            Analytics, or a CMS data source.
           </div>
         </li>
         <li>
           <h4>Create content</h4>
           <div>
-            Elements UI gets your layouts up and running quickly so you can
-            focus on building pages and creating content. Have fun and enjoy!
+            Elements UI gets your layout up and running quickly so you can focus
+            on building pages and creating content. Have fun and enjoy!
           </div>
         </li>
       </Box>

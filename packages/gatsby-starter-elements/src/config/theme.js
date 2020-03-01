@@ -7,8 +7,10 @@ export default {
     secondary: '#355cac',
     border: '#e6e6e6',
     navlink: '#333',
+    bg_topbar: '',
     bg_header: '#fff',
     bg_mobileMenu: '#fff',
+    bg_sideNav: '',
     bg_footer: '#fff',
     modes: {
       dark: {
@@ -18,8 +20,10 @@ export default {
         secondary: '#355cac',
         border: '#443e5f',
         navlink: '#fff',
+        bg_topbar: '',
         bg_header: '#1b123c',
         bg_mobileMenu: 'rgba(0, 0, 0, 0.9)',
+        bg_sideNav: '',
         bg_footer: '#fff',
       },
     },
@@ -40,9 +44,9 @@ export default {
   },
   // ---------------------------
   //
-  // Elements UI layout variants
+  //  Elements UI layout variants
   //
-  // See: https://elements-ui.dev/layout-components for a complete list of variants
+  //  See: https://elements-ui.dev/layout-components for a complete list of variants
   //
   // ---------------------------
   header: {

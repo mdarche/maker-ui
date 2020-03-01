@@ -17,7 +17,7 @@ export default {
   },
   header: {
     maxWidth: 1080,
-    sticky: false,
+    sticky: true,
     stickyMobile: false,
     stickyScroll: false,
     scroll: {

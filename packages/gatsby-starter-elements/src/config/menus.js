@@ -27,7 +27,7 @@ export const menu = [
   { label: 'Home', path: '/', classes: 'custom-class' },
   {
     label: 'Help',
-    path: '/help',
+    path: '#',
     icon: <HelpIcon />,
     submenu: [
       {
