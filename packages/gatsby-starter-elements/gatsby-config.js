@@ -1,11 +1,8 @@
 module.exports = {
   siteMetadata: {
     title: `Gatsby Starter Elements`,
-    author: {
-      name: `Mike Darche`,
-      summary: `who lives and works in San Francisco building useful things.`,
-    },
-    description: `A starter boilerplate for using an Elements UI layout with a Theme UI theme.`,
+    author: `Mike Darche`,
+    description: `A starter boilerplate for using a Elements UI with Gatsby.`,
     siteUrl: `https://gatsby-starter-elements.netlify.com/`,
     social: {
       twitter: `mkdarshay`,
