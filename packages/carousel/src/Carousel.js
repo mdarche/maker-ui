@@ -13,7 +13,7 @@ const Carousel = React.forwardRef(
       template,
       nav = true,
       pageIndicator = false,
-      transition = 'fade',
+      transition,
       autoPlay = true,
       hoverPause = false,
       pause = false,
@@ -26,12 +26,7 @@ const Carousel = React.forwardRef(
   ) => {
     const [index, set] = useState(0)
     const [timer, setTimer] = useState(true)
-
-    const next = useCallback(() => set(state => (state + 1) % 3), [set])
-    const prev = useCallback(
-      () => set(state => (state === 0 ? data.length - 1 : state - 1)),
-      [set, data.length]
-    )
+    const [nextSlide, setNextSlide] = useState(true)
 
     useEffect(() => {
       if (timer && autoPlay && !pause) {
@@ -42,6 +37,18 @@ const Carousel = React.forwardRef(
         return () => clearTimeout(auto)
       }
     }, [index, timer, next, duration, autoPlay, pause])
+
+    const count = data.length
+
+    const next = useCallback(() => {
+      setNextSlide(true)
+      set(state => (state + 1) % count)
+    }, [set])
+
+    const prev = useCallback(() => {
+      setNextSlide(false)
+      set(state => (state === 0 ? count - 1 : state - 1))
+    }, [set, data.length])
 
     const slides = data.map(item => ({ style }, i) => (
       <animated.div key={i} style={{ ...style }} className="slide">
@@ -64,9 +71,14 @@ const Carousel = React.forwardRef(
         {...getAttributes}
         {...props}
         __css={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-        <Canvas index={index} slides={slides} transition={transition} />
+        <Canvas
+          index={index}
+          slides={slides}
+          transition={transition}
+          next={nextSlide}
+        />
         {pageIndicator && (
-          <Pagination current={index} set={set} count={data.length - 1} />
+          <Pagination current={index} set={set} count={count - 1} />
         )}
         {nav && <Navigation prev={prev} next={next} arrow={arrow} />}
       </Box>

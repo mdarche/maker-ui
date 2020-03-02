@@ -2,11 +2,29 @@ import React from 'react'
 import { Box } from 'theme-ui'
 import { useTransition } from 'react-spring'
 
-import getTransition from './transitions'
+// TODO - Add more slide transitions
 
-const Canvas = ({ slides, transition, index }) => {
+const getTransition = (type, next) => {
+  switch (type) {
+    case 'fade':
+      return {
+        from: { opacity: 0 },
+        enter: { opacity: 1 },
+        leave: { opacity: 0 },
+      }
+    case 'slide':
+    default:
+      return {
+        from: { transform: `translate3d(${next ? '100%' : '-100%'},0,0)` },
+        enter: { transform: 'translate3d(0%,0,0)' },
+        leave: { transform: `translate3d(${next ? '-50%' : '50%'},0,0)` },
+      }
+  }
+}
+
+const Canvas = ({ slides, transition, index, next }) => {
   const transitions = useTransition(index, p => p, {
-    ...getTransition(transition),
+    ...getTransition(transition, next),
   })
 
   return (
