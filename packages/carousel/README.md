@@ -37,7 +37,7 @@ export default () => (
       template={<Slide />}
       autoPlay
       duration={4500}
-      transition="slide"
+      transition="fade"
     />
   </ThemeProvider>
 )
@@ -55,7 +55,7 @@ export default () => (
 | **pageIndicator** |      _bool_       |      false      | shows / hides a current slide indicator                                                                                                                            |
 | **transition**    |     _string_      |     "slide"     | determines the slide enter / exit transition. Current options: `"fade"`, `"fade-up"`, `"fade-down"`, `"slide"`                                                     |
 | **hoverPause**    |      _bool_       |      false      | pauses the carousel's `autoPlay` feature onMouseEnter and resumes onMouseLeave.                                                                                    |
-| **pause**         |      _bool_       |      false      | **for development / testing only**. Pauses the carousel's `autoPlay` feature so you can design your slide template in local development.                           |
+| **pause**         |      _bool_       |      false      | Pauses the carousel's `autoPlay` feature. Helpful for designing slides in development or using with a custom control.                                              |
 | **arrow**         | _React component_ |      null       | overrides the default arrow icon for slide navigation. Submit a right facing arrow component for `next` and the Carousel will rotate it 180 degrees for `previous` |
 | **variant**       |     _string_      |   "carousel"    | a custom Theme UI variant for styling. Recommended: use the default `carousel` variant.                                                                            |
 

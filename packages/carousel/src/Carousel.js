@@ -78,7 +78,7 @@ const Carousel = React.forwardRef(
           next={nextSlide}
         />
         {pageIndicator && (
-          <Pagination current={index} set={set} count={count - 1} />
+          <Pagination current={index} set={set} count={count} />
         )}
         {nav && <Navigation prev={prev} next={next} arrow={arrow} />}
       </Box>

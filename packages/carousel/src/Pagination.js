@@ -4,7 +4,7 @@ import { Flex, Box } from 'theme-ui'
 const Pagination = ({ current, set, count }) => {
   let indicators = []
 
-  for (let i = 0; i <= count; i++) {
+  for (let i = 0; i <= count - 1; i++) {
     indicators.push(
       <Box
         key={i}
