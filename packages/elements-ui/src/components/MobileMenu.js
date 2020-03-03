@@ -6,19 +6,19 @@ import { Overlay, MenuButton } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
 
-const fullWidth = ['fade', 'fadeInUp', 'fadeInDown']
+const fullWidth = ['fade', 'fade-up', 'fade-down']
 
 const getTransition = (active, type, width) => {
   const opacity = type.includes('fade') ? (active ? 1 : 0) : 1
   const visibility = active ? 'visible' : 'hidden'
 
-  const directionX = type.includes('Right')
+  const directionX = type.includes('right')
     ? { right: 0, width, transform: active ? null : 'translateX(100%)' }
     : { left: 0, width, transform: active ? null : 'translateX(-100%)' }
 
   const directionY = () => {
     if (type !== 'fade') {
-      const sign = type === 'fadeInUp' ? '' : '-'
+      const sign = type === 'fade-up' ? '' : '-'
       return { transform: !active ? `translateY(${sign}20px)` : null }
     }
     return null

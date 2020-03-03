@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
-import { MenuButton, ColorButton, WidgetArea } from '../common'
+import { Logo, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Minimal = React.forwardRef(
   (
@@ -27,11 +27,7 @@ const Minimal = React.forwardRef(
       }}>
       {type === 1 ? (
         <React.Fragment>
-          <Box id="site-logo" variant="header.logo">
-            <a href="/" aria-label="Home page">
-              {logo}
-            </a>
-          </Box>
+          <Logo>{logo}</Logo>
           <Flex sx={{ alignItems: 'center' }}>
             <WidgetArea custom={widgetArea} />
             <MenuButton custom={menuToggle} visibleOnDesktop />
@@ -42,11 +38,7 @@ const Minimal = React.forwardRef(
         <React.Fragment>
           <Flex sx={{ alignItems: 'center' }}>
             <MenuButton custom={menuToggle} visibleOnDesktop />
-            <Box id="site-logo" variant="header.logo">
-              <a href="/" aria-label="Home page">
-                {logo}
-              </a>
-            </Box>
+            <Logo>{logo}</Logo>
           </Flex>
           <Flex sx={{ alignItems: 'center' }}>
             <WidgetArea custom={widgetArea} />
@@ -59,11 +51,7 @@ const Minimal = React.forwardRef(
             <MenuButton custom={menuToggle} visibleOnDesktop />
           </Flex>
           <Flex className="col-2">
-            <Box id="site-logo" variant="header.logo">
-              <a href="/" aria-label="Home page">
-                {logo}
-              </a>
-            </Box>
+            <Logo>{logo}</Logo>
           </Flex>
           <Flex className="col-3">
             <WidgetArea custom={widgetArea} />

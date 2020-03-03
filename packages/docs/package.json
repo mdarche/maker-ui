@@ -1,11 +1,12 @@
 {
   "private": true,
   "name": "docs",
-  "version": "0.0.4",
+  "version": "0.4.2",
+  "author": "Mike Darche",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "dev": "gatsby develop",
+    "develop": "gatsby develop",
     "clean": "gatsby clean"
   },
   "dependencies": {

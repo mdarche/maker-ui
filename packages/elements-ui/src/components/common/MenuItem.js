@@ -35,7 +35,7 @@ const MenuItem = ({
                   variant: 'eui_submenu.active',
                 },
               },
-              '.menu-link-text:after':
+              '.menu-text:after':
                 submenu && caret
                   ? {
                       content: '""',
@@ -61,8 +61,8 @@ const MenuItem = ({
         aria-current={pathname === path ? 'page' : undefined}
         {...menuControls}
         {...getAttributes(isHeader, submenu, show, set)}>
-        {icon && <span className="menu-link-icon">{icon}</span>}
-        <span className="menu-link-text">{label}</span>
+        {icon && <span className="menu-icon">{icon}</span>}
+        <span className="menu-text">{label}</span>
       </a>
       {submenu ? (
         <Dropdown

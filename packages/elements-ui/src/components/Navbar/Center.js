@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
 import setBreakpoint from '../../utils/set-breakpoint'
-import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
+import { Logo, Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Center = React.forwardRef(
   (
@@ -49,11 +49,7 @@ const Center = React.forwardRef(
         {type === 1 ? (
           <React.Fragment>
             <Flex>
-              <Box id="site-logo" variant="header.logo">
-                <a href="/" aria-label="Home page">
-                  {logo}
-                </a>
-              </Box>
+              <Logo>{logo}</Logo>
             </Flex>
             <Flex sx={{ alignItems: 'center' }}>
               <Menu menuItems={menu} />
@@ -63,11 +59,7 @@ const Center = React.forwardRef(
         ) : (
           <React.Fragment>
             <Menu menuItems={menu.slice(0, mid)} />
-            <Box id="site-logo" variant="header.logo">
-              <a href="/" aria-label="Home page">
-                {logo}
-              </a>
-            </Box>
+            <Logo>{logo}</Logo>
             <Menu menuItems={menu.slice(mid)} />
             {renderBlock()}
           </React.Fragment>

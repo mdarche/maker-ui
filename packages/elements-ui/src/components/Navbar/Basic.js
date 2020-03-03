@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
 import setBreakpoint from '../../utils/set-breakpoint'
-import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
+import { Menu, MenuButton, ColorButton, WidgetArea, Logo } from '../common'
 
 const Basic = React.forwardRef(
   (
@@ -28,11 +28,7 @@ const Basic = React.forwardRef(
         variant: 'eui_header.default',
         maxWidth,
       }}>
-      <Box id="site-logo" variant="header.logo">
-        <a href="/" aria-label="Home page">
-          {logo}
-        </a>
-      </Box>
+      <Logo>{logo}</Logo>
       <Flex
         sx={{
           alignItems: 'center',
