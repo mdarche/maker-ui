@@ -84,8 +84,8 @@ const Dropdown = ({
               aria-current={pathname === path ? 'page' : undefined}
               {...getAttributes(isHeader, set)}
               {...menuControls}>
-              {icon && <span className="sub-link-icon">{icon}</span>}
-              <span className="sub-link-text">{label}</span>
+              {icon && <span className="submenu-icon">{icon}</span>}
+              <span className="submenu-text">{label}</span>
             </a>
           </Box>
         ))}

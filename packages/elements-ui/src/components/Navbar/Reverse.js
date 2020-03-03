@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex } from 'theme-ui'
 
-import { Menu, MenuButton, ColorButton, WidgetArea } from '../common'
+import { Logo, Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Reverse = React.forwardRef(
   (
@@ -26,10 +26,8 @@ const Reverse = React.forwardRef(
         <Menu menuItems={menu} />
         <MenuButton custom={menuToggle} />
       </Flex>
-      <Flex id="site-logo" className="col-2" variant="header.logo">
-        <a href="/" aria-label="Home page">
-          {logo}
-        </a>
+      <Flex className="col-2">
+        <Logo>{logo}</Logo>
       </Flex>
       <Flex className="col-3">
         <WidgetArea custom={widgetArea} />

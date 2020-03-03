@@ -43,7 +43,7 @@ const Content = React.forwardRef(({ layout, ...props }, ref) => {
       __css={{
         variant: `eui_layout.${baseLayout}`,
         ...sidebarPartial,
-        minHeight: '100vh',
+        minHeight: '80vh',
       }}
     />
   )
