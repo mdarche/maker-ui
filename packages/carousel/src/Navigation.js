@@ -24,9 +24,10 @@ const Pagination = ({ prev, next, arrow }) => {
       title={`${isNext ? 'Next' : 'Previous'} Slide`}
       aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
       variant={isNext ? 'carousel.next' : 'carousel.prev'}
-      className={isNext ? 'carousel-next' : 'carousel-prev'}
+      className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
       onClick={isNext ? next : prev}
       sx={{
+        variant: 'carousel.nav',
         background: 'none',
         border: 'none',
         position: 'absolute',

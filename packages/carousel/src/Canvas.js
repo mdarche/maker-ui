@@ -22,9 +22,10 @@ const getTransition = (type, next) => {
   }
 }
 
-const Canvas = ({ slides, transition, index, next }) => {
+const Canvas = ({ slides, transition, index, config, next }) => {
   const transitions = useTransition(index, p => p, {
     ...getTransition(transition, next),
+    config,
   })
 
   return (

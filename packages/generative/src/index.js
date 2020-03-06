@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Image } from './theme-ui'
+import { Box, Image } from 'theme-ui'
 
 import shuffle from './shuffle'
 
@@ -24,7 +24,7 @@ export function generateStyles(options = {}) {
 
 export const GBox = React.forwardRef(({ options, ...props }, ref) => {
   const [, forceUpdate] = useState()
-  console.log('rendering')
+  console.count('rendering')
 
   useEffect(() => {
     forceUpdate()
@@ -44,17 +44,29 @@ export const GImage = React.forwardRef(({ src, ...props }, ref) => {
 })
 
 export const Generate = ({ data, count, children }) => {
-  const [random, setRandom] = useState(data)
+  const [random, setRandom] = useState([])
 
   useEffect(() => {
     setRandom(shuffle(data))
-  }, [])
+  }, [data, setRandom])
 
   if (!children) {
-    return random.map(i => i)
+    return random.map((item, index) => (
+      <React.Fragment key={index}>{item}</React.Fragment>
+    ))
   }
 
   return count
-    ? random.slice(0, count).map(i => React.cloneElement(children, i))
-    : random.map(i => React.cloneElement(children, i))
+    ? random
+        .slice(0, count)
+        .map((item, index) => (
+          <React.Fragment key={index}>
+            {React.cloneElement(children, item)}
+          </React.Fragment>
+        ))
+    : random.map((item, index) => (
+        <React.Fragment key={index}>
+          {React.cloneElement(children, item)}
+        </React.Fragment>
+      ))
 }

@@ -14,12 +14,13 @@ const Carousel = React.forwardRef(
       nav = true,
       pageIndicator = false,
       transition,
-      autoPlay = true,
+      autoPlay = false,
       hoverPause = false,
       pause = false,
       arrow,
       duration = 5000,
       variant = 'carousel',
+      config = { mass: 1, tension: 170, friction: 26 },
       ...props
     },
     ref
@@ -76,6 +77,7 @@ const Carousel = React.forwardRef(
           slides={slides}
           transition={transition}
           next={nextSlide}
+          config={config}
         />
         {pageIndicator && (
           <Pagination current={index} set={set} count={count} />
