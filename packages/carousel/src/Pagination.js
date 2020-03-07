@@ -1,14 +1,14 @@
 import React from 'react'
 import { Flex, Box } from 'theme-ui'
 
-const Pagination = ({ current, set, count }) => {
+const Pagination = ({ variant, current, set, count }) => {
   let indicators = []
 
   for (let i = 0; i <= count - 1; i++) {
     indicators.push(
       <Box
         key={i}
-        variant="carousel.page"
+        variant={`${variant}.page`}
         onClick={e => set(i)}
         className={`carousel-page ${current === i && 'active'}`}
         __css={{
@@ -24,7 +24,7 @@ const Pagination = ({ current, set, count }) => {
 
   return (
     <Flex
-      variant="carousel.pagination"
+      variant={`${variant}.pagination`}
       className="carousel-pagination"
       sx={{ position: 'absolute', alignItems: 'center', zIndex: 1 }}>
       {indicators}

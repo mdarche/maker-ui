@@ -41,6 +41,8 @@ const Carousel = React.forwardRef(
 
     const count = data.length
 
+    // TODO add Deps to these callbacks
+
     const next = useCallback(() => {
       setNextSlide(true)
       set(state => (state + 1) % count)

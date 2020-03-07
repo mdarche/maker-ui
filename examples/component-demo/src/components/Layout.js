@@ -7,6 +7,7 @@ import theme from './theme'
 const menu = [
   { label: 'Home', path: '/' },
   { label: 'Carousel', path: '/carousel' },
+  { label: 'Tabs', path: 'tabs' },
   { label: 'Generative', path: '/generative' },
 ]
 

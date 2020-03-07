@@ -11,7 +11,7 @@ const DefaultArrow = () => (
   </Box>
 )
 
-const Pagination = ({ prev, next, arrow }) => {
+const Pagination = ({ variant, prev, next, arrow }) => {
   const position = isNext => (isNext ? { right: 0 } : { left: 0 })
   const transform = isNext =>
     isNext
@@ -23,11 +23,11 @@ const Pagination = ({ prev, next, arrow }) => {
       as="button"
       title={`${isNext ? 'Next' : 'Previous'} Slide`}
       aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
-      variant={isNext ? 'carousel.next' : 'carousel.prev'}
+      variant={isNext ? `${variant}.next` : `${variant}.prev`}
       className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
       onClick={isNext ? next : prev}
       sx={{
-        variant: 'carousel.nav',
+        variant: `${variant}.nav`,
         cursor: 'pointer',
         background: 'none',
         border: 'none',

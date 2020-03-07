@@ -10,7 +10,7 @@
     "watch": "microbundle watch --no-compress --jsx React.createElement"
   },
   "dependencies": {
-    "react-spring": "^8.0.27"
+    "react-spring": "^9.0.0-beta.34"
   },
   "peerDependencies": {
     "react": "^16.12.0",
