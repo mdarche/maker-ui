@@ -22,6 +22,7 @@ export default {
   breakpoints: ['768px', '960px', '1240px'],
   styles: {
     root: {
+      fontFamily: 'body',
       a: {
         textDecoration: 'none',
       },

@@ -28,6 +28,7 @@ const Pagination = ({ prev, next, arrow }) => {
       onClick={isNext ? next : prev}
       sx={{
         variant: 'carousel.nav',
+        cursor: 'pointer',
         background: 'none',
         border: 'none',
         position: 'absolute',

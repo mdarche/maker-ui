@@ -13,27 +13,25 @@ export function generateStyles(options = {}) {
   let styles = {}
 
   for (const [selector, props] of Object.entries(options)) {
-    console.log(selector, props)
-    styles.selector = random(props)
+    styles[selector] = random(props)
   }
-  console.log(styles)
+
   return styles
 }
 
 // React Components
 
-export const GBox = React.forwardRef(({ options, ...props }, ref) => {
+export const BoxG = React.forwardRef(({ styles, ...props }, ref) => {
   const [, forceUpdate] = useState()
-  console.count('rendering')
 
   useEffect(() => {
     forceUpdate()
   }, [])
 
-  return <Box ref={ref} {...props} __css={{ ...generateStyles(options) }} />
+  return <Box ref={ref} {...props} __css={generateStyles(styles)} />
 })
 
-export const GImage = React.forwardRef(({ src, ...props }, ref) => {
+export const ImageG = React.forwardRef(({ src, ...props }, ref) => {
   const [img, set] = useState({ url: '', alt: '' })
 
   useEffect(() => {
