@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Grid } from 'theme-ui'
-import { Generate, BoxG, ImageG } from '@elements-ui/generative'
+import { Box, Grid, Image } from 'theme-ui'
+import { Generate, generateStyles, generateSrc } from '@elements-ui/generative'
 
 // Example 1 - Random grid items
 
@@ -67,30 +67,35 @@ const styles = {
   borderRadius: [0, 10, 5],
 }
 
-const GenerativePage = () => (
-  <React.Fragment>
-    <h2>Example 1</h2>
-    <Grid gap="30px" columns={[2, 4]}>
-      <Generate data={data}>
-        <Card />
-      </Generate>
-    </Grid>
-    <h2>Example 2</h2>
-    <Grid
-      gap="30px"
-      columns={[1, 3]}
-      sx={{ my: 80, textAlign: 'center', div: { p: 20 } }}>
-      <Generate data={componentData} />
-    </Grid>
-    <h2>Example 3</h2>
-    <ImageG src={imageData} />
-    <h2>Example 4</h2>
-    <BoxG
-      styles={styles}
-      sx={{ display: 'inline-flex', justifyContent: 'center' }}>
-      My styles are randomly generated on each component mount
-    </BoxG>
-  </React.Fragment>
-)
+const GenerativePage = () => {
+  return (
+    <React.Fragment>
+      <h2>Example 1</h2>
+      <Grid gap="30px" columns={[2, 4]}>
+        <Generate data={data}>
+          <Card />
+        </Generate>
+      </Grid>
+      <h2>Example 2</h2>
+      <Grid
+        gap="30px"
+        columns={[1, 3]}
+        sx={{ my: 80, textAlign: 'center', div: { p: 20 } }}>
+        <Generate data={componentData} />
+      </Grid>
+      <h2>Example 3</h2>
+      <Image {...generateSrc(imageData)} />
+      <h2>Example 4</h2>
+      <Box
+        sx={{
+          display: 'inline-flex',
+          justifyContent: 'center',
+          ...generateStyles(styles, true),
+        }}>
+        My styles are randomly generated on each rerender
+      </Box>
+    </React.Fragment>
+  )
+}
 
 export default GenerativePage

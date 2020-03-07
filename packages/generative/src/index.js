@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Image } from 'theme-ui'
 
 import shuffle from './shuffle'
 
@@ -9,37 +8,35 @@ export function random(options = []) {
   return shuffle(options)[0]
 }
 
-export function generateStyles(options = {}) {
+export function generateStyles(options = {}, groupByIndex = false) {
   let styles = {}
 
-  for (const [selector, props] of Object.entries(options)) {
-    styles[selector] = random(props)
+  if (groupByIndex) {
+    const indices = Object.entries(options)[0][1].length
+    const index = Math.floor(Math.random() * indices)
+
+    for (const [selector, props] of Object.entries(options)) {
+      styles[selector] = props[index]
+    }
+  } else {
+    for (const [s, p] of Object.entries(options)) {
+      styles[s] = random(p)
+    }
   }
 
   return styles
 }
 
-// React Components
+export function generateSrc(options = []) {
+  const selection = random(options)
 
-export const BoxG = React.forwardRef(({ styles, ...props }, ref) => {
-  const [, forceUpdate] = useState()
+  return {
+    src: selection.url,
+    alt: selection.alt,
+  }
+}
 
-  useEffect(() => {
-    forceUpdate()
-  }, [])
-
-  return <Box ref={ref} {...props} __css={generateStyles(styles)} />
-})
-
-export const ImageG = React.forwardRef(({ src, ...props }, ref) => {
-  const [img, set] = useState({ url: '', alt: '' })
-
-  useEffect(() => {
-    set(random(src))
-  }, [])
-
-  return <Image ref={ref} src={img.url} alt={img.alt} {...props} />
-})
+// React Component
 
 export const Generate = ({ data, count, children }) => {
   const [random, setRandom] = useState([])
