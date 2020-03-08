@@ -9,11 +9,19 @@ const items = [
   },
   { label: 'Tab 2', component: 'Text 2' },
   { label: 'Tab 3', component: 'Text 3' },
+  { label: 'Tab 4', component: 'Text 3' },
+  { label: 'Tab 5', component: 'Text 3' },
+  { label: 'Tab 6', component: 'Text 3' },
+  { label: 'Tab 7', component: 'Text 3' },
+  { label: 'Tab 8', component: 'Text 3' },
+  { label: 'Tab 9', component: 'Text 3' },
+  { label: 'Tab 10', component: 'Text 3' },
+  { label: 'Tab 11', component: 'Text 3' },
 ]
 
 const TabsPage = () => (
   <React.Fragment>
-    <Tabs nav="top" items={items} />
+    <Tabs nav="right" items={items} />
   </React.Fragment>
 )
 

@@ -9,6 +9,7 @@ const menu = [
   { label: 'Carousel', path: '/carousel' },
   { label: 'Tabs', path: 'tabs' },
   { label: 'Generative', path: '/generative' },
+  { label: 'Tree Menu', path: '/tree-menu' },
 ]
 
 export default ({ children, location }) => (

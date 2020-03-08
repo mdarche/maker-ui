@@ -8,15 +8,13 @@ const defaults = [1, 2, 3].map(i => ({
   component: `Tab ${i}: Add text or a custom component`,
 }))
 
-// TODO - Implement button stack for w/ setbreakpoint
-
 const Tabs = React.forwardRef(
   (
     {
       items = defaults,
       nav = 'top',
       variant = 'tabs',
-      buttonStack = false,
+      stack = false,
       breakIndex = 0,
       ...props
     },
@@ -26,11 +24,12 @@ const Tabs = React.forwardRef(
     const isVertical = nav !== 'left' && nav !== 'right' ? true : false
 
     return (
-      <Flex
+      <Box
         ref={ref}
         variant={variant}
         {...props}
         __css={{
+          display: setBreakpoint(breakIndex, ['block', 'flex']),
           flexDirection: isVertical ? 'column' : null,
           flexWrap: 'wrap',
         }}>
@@ -38,8 +37,15 @@ const Tabs = React.forwardRef(
           variant={`${variant}.navigation`}
           className="tabs-navigation"
           sx={{
-            flexDirection: isVertical ? null : 'column',
-            overflowX: 'scroll',
+            flexDirection: isVertical
+              ? stack
+                ? setBreakpoint(breakIndex, ['column', 'row'])
+                : 'row'
+              : stack
+              ? 'column'
+              : setBreakpoint(breakIndex, ['row', 'column']),
+            overflowX: stack ? null : 'scroll',
+            flexWrap: stack ? 'wrap' : 'nowrap',
             order: isVertical
               ? nav === 'top'
                 ? 1
@@ -51,12 +57,13 @@ const Tabs = React.forwardRef(
           {items.map((item, index) => (
             <Button
               key={index}
-              title="Open tab"
+              title={item.label}
               variant={`${variant}.button`}
               className={
                 show.label === item.label ? 'active tabs-button' : 'tabs-button'
               }
-              onClick={e => set(items[index])}>
+              onClick={e => set(items[index])}
+              sx={{ flex: stack ? null : '1 0 auto', minWidth: 'min' }}>
               {item.label}
             </Button>
           ))}
@@ -70,7 +77,7 @@ const Tabs = React.forwardRef(
           }}>
           {show.component}
         </Box>
-      </Flex>
+      </Box>
     )
   }
 )
