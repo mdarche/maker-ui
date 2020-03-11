@@ -3,6 +3,7 @@ import { Flex, Box } from 'theme-ui'
 
 const Pagination = ({ variant, current, set, count }) => {
   let indicators = []
+  console.log(`${variant}.pagination`)
 
   for (let i = 0; i <= count - 1; i++) {
     indicators.push(

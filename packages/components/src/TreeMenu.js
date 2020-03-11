@@ -62,7 +62,7 @@ const Tree = React.memo(({ children, name, style, open = false }) => {
   )
 })
 
-// TODO - This needs to be constructed with a visual editor or with MDX style syntax
+// TODO - This needs to be constructed with a visual editor or with MDX syntax
 
 const data = [
   {
@@ -116,17 +116,6 @@ root
 const TreeMenu = React.forwardRef(({ variant = 'tree', ...props }, ref) => {
   return (
     <Box ref={ref}>
-      {/* {data.map((a, index) => (
-        <Tree name={a.label}>
-          {a.submenu.map((b, index) => (
-            <Tree name={b.label}>
-              {b.submenu.map((c, index) => (
-                <Tree name={c.label} />
-              ))}
-            </Tree>
-          ))}
-        </Tree>
-      ))} */}
       <Tree name="main" open>
         <Tree name="hello" />
         <Tree name="subtree with children">
