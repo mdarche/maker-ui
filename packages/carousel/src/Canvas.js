@@ -15,13 +15,9 @@ const getTransition = (type, next) => {
     case 'slide':
     default:
       return {
-        from: {
-          transform: `translate3d(${next ? '50%' : '-50%'},0,0)`,
-        },
+        from: { transform: `translate3d(${next ? '50%' : '-50%'},0,0)` },
         enter: { transform: 'translate3d(0%,0,0)' },
-        leave: {
-          transform: `translate3d(${next ? '-100%' : '100%'},0,0)`,
-        },
+        leave: { transform: `translate3d(${next ? '-100%' : '100%'},0,0)` },
       }
   }
 }

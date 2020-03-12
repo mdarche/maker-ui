@@ -6,6 +6,8 @@ import Pagination from './Pagination'
 import Navigation from './Navigation'
 import Canvas from './Canvas'
 
+// TODO - prevent hover from stopping animation while it animates
+
 const Carousel = React.forwardRef(
   (
     {

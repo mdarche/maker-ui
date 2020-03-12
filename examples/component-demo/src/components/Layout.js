@@ -7,7 +7,8 @@ import theme from './theme'
 const menu = [
   { label: 'Home', path: '/' },
   { label: 'Carousel', path: '/carousel' },
-  { label: 'Tabs', path: 'tabs' },
+  { label: 'Tabs', path: '/tabs' },
+  { label: 'Accordion', path: '/accordion' },
   { label: 'Generative', path: '/generative' },
   { label: 'Tree Menu', path: '/tree-menu' },
 ]

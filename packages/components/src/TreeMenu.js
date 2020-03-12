@@ -98,7 +98,7 @@ const data = [
   },
 ]
 
-// Use this config syntax for code
+// MDX-style syntax for code
 const menu = `
 root
 - branch
