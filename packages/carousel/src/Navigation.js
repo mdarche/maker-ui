@@ -11,21 +11,21 @@ const DefaultArrow = () => (
   </Box>
 )
 
-const Pagination = ({ variant, prev, next, arrow }) => {
+const Pagination = React.memo(({ variant, controls, arrow }) => {
   const position = isNext => (isNext ? { right: 0 } : { left: 0 })
   const transform = isNext =>
     isNext
       ? { transform: 'translateY(-50%)' }
       : { transform: 'translateY(-50%) rotate(180deg)' }
 
-  const NavButton = ({ isNext = false }) => (
+  const NavButton = React.memo(({ isNext = false }) => (
     <Box
       as="button"
       title={`${isNext ? 'Next' : 'Previous'} Slide`}
       aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
       variant={isNext ? `${variant}.next` : `${variant}.prev`}
       className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
-      onClick={isNext ? next : prev}
+      onClick={isNext ? controls.next : controls.prev}
       sx={{
         variant: `${variant}.nav`,
         cursor: 'pointer',
@@ -39,7 +39,7 @@ const Pagination = ({ variant, prev, next, arrow }) => {
       }}>
       {arrow || <DefaultArrow />}
     </Box>
-  )
+  ))
 
   return (
     <Fragment>
@@ -47,6 +47,6 @@ const Pagination = ({ variant, prev, next, arrow }) => {
       <NavButton isNext />
     </Fragment>
   )
-}
+})
 
 export default Pagination

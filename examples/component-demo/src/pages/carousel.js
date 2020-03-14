@@ -53,18 +53,14 @@ const ImageSlide = ({ url, alt }) => (
 )
 
 const CarouselPage = () => (
-  <React.Fragment>
+  <>
     <Carousel
       data={basicData}
       template={<BasicSlide />}
       pageIndicator
-      autoPlay
       hoverPause
+      autoPlay
       duration="6000"
-    />
-    <Carousel
-      data={imageData}
-      template={<ImageSlide />}
       sx={{
         my: 80,
         button: {
@@ -79,7 +75,8 @@ const CarouselPage = () => (
         },
       }}
     />
-  </React.Fragment>
+    <Carousel data={imageData} template={<ImageSlide />} transition="fade" />
+  </>
 )
 
 export default CarouselPage

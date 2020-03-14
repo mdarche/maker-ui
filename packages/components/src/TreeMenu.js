@@ -62,60 +62,9 @@ const Tree = React.memo(({ children, name, style, open = false }) => {
   )
 })
 
-// TODO - This needs to be constructed with a visual editor or with MDX syntax
-
-const data = [
-  {
-    label: 'main',
-    path: '',
-    component: '',
-    submenu: [
-      {
-        label: 'subtree with children',
-        path: '',
-        component: '',
-        submenu: [
-          {
-            label: 'hello',
-            path: '',
-            component: '',
-            submenu: [
-              { label: 'Layer 3', path: '', component: '', submenu: [] },
-            ],
-          },
-          {
-            label: 'hi',
-            path: '',
-            component: '',
-            submenu: [
-              { label: 'Layer Layer 3', path: '', component: '', submenu: [] },
-            ],
-          },
-        ],
-      },
-      { label: 'hi', path: '', component: '', submenu: [] },
-    ],
-  },
-]
-
-// MDX-style syntax for code
-const menu = `
-root
-- branch
-- branch
-- branch
-  - nested
-  - nested
-    - deeper
-    - deeper
-      - deepest
-  -nested
-  -nested
-`
-
 const TreeMenu = React.forwardRef(({ variant = 'tree', ...props }, ref) => {
   return (
-    <Box ref={ref}>
+    <Box ref={ref} variant={variant} {...props}>
       <Tree name="main" open>
         <Tree name="hello" />
         <Tree name="subtree with children">

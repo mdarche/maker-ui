@@ -3,14 +3,13 @@ import { Flex, Box } from 'theme-ui'
 
 const Pagination = ({ variant, current, set, count }) => {
   let indicators = []
-  console.log(`${variant}.pagination`)
 
   for (let i = 0; i <= count - 1; i++) {
     indicators.push(
       <Box
         key={i}
         variant={`${variant}.page`}
-        onClick={e => set(i)}
+        onClick={e => set({ type: 'set', value: i })}
         className={`carousel-page ${current === i && 'active'}`}
         __css={{
           mx: 1,
