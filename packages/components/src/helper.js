@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
 export function usePrevious(value) {
@@ -18,4 +18,16 @@ export function useMeasure() {
     return () => ro.disconnect()
   }, [ro])
   return [{ ref }, bounds]
+}
+
+export function generateId(length = 5) {
+  let result = ''
+  let chars = 'abcdefghijklmnopqrstuv1234567890'
+  let charLength = chars.length
+
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * charLength))
+  }
+
+  return result
 }
