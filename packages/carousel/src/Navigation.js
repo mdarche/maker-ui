@@ -18,7 +18,7 @@ const Pagination = React.memo(({ variant, controls, arrow }) => {
       ? { transform: 'translateY(-50%)' }
       : { transform: 'translateY(-50%) rotate(180deg)' }
 
-  const NavButton = React.memo(({ isNext = false }) => (
+  const NavButton = ({ isNext = false }) => (
     <Box
       as="button"
       title={`${isNext ? 'Next' : 'Previous'} Slide`}
@@ -39,7 +39,7 @@ const Pagination = React.memo(({ variant, controls, arrow }) => {
       }}>
       {arrow || <DefaultArrow />}
     </Box>
-  ))
+  )
 
   return (
     <Fragment>

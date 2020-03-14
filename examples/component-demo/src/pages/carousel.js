@@ -1,5 +1,7 @@
 import React from 'react'
+import { Box } from 'theme-ui'
 import { Carousel } from '@elements-ui/carousel'
+import { Global, css } from '@emotion/core'
 
 // Example 1 - Basic
 
@@ -11,17 +13,21 @@ const basicData = [
 ]
 
 const BasicSlide = ({ greeting, bg }) => (
-  <div
-    style={{
+  <Box
+    sx={{
       background: bg,
       height: '100%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: 36,
+      p: {
+        opacity: 0,
+        animation: 'fadeInUp ease .6s forwards .8s',
+      },
     }}>
-    {greeting}
-  </div>
+    <p>{greeting}</p>
+  </Box>
 )
 
 // Example 2 - Image
@@ -54,6 +60,20 @@ const ImageSlide = ({ url, alt }) => (
 
 const CarouselPage = () => (
   <>
+    <Global
+      styles={css`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0px);
+          }
+        }
+      `}
+    />
     <Carousel
       data={basicData}
       template={<BasicSlide />}
@@ -61,6 +81,11 @@ const CarouselPage = () => (
       hoverPause
       autoPlay
       duration="6000"
+    />
+    <Carousel
+      data={imageData}
+      template={<ImageSlide />}
+      transition="fade"
       sx={{
         my: 80,
         button: {
@@ -75,7 +100,6 @@ const CarouselPage = () => (
         },
       }}
     />
-    <Carousel data={imageData} template={<ImageSlide />} transition="fade" />
   </>
 )
 

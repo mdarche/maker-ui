@@ -23,10 +23,10 @@ const getTransition = (type, next) => {
 }
 
 const Canvas = React.memo(
-  ({ slides, transition, index, config, next, animate }) => {
+  ({ slides, transition, index, config, next, onRest }) => {
     const transitions = useTransition(index, p => p, {
       ...getTransition(transition, next),
-      onRest: animate,
+      onRest,
       config,
     })
 

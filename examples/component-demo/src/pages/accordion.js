@@ -3,7 +3,9 @@ import { Accordion } from '@elements-ui/components'
 
 const IndexPage = () => (
   <React.Fragment>
-    <Accordion title="Accordion Title">Yooo!</Accordion>
+    <Accordion title="Accordion Title" open>
+      Yooo!
+    </Accordion>
   </React.Fragment>
 )
 

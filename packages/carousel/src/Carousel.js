@@ -1,12 +1,10 @@
-import React, { useReducer, useEffect, useCallback } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import { Box } from 'theme-ui'
 import { animated } from 'react-spring'
 
 import Pagination from './Pagination'
 import Navigation from './Navigation'
 import Canvas from './Canvas'
-
-// TODO - Fix onRest callback flicker
 
 function reducer(state, { type, value }) {
   switch (type) {
@@ -17,7 +15,6 @@ function reducer(state, { type, value }) {
       return {
         ...state,
         index: (state.index + 1) % state.count,
-        isAnimating: true,
         nextSlide: true,
       }
     }
@@ -25,15 +22,8 @@ function reducer(state, { type, value }) {
       return {
         ...state,
         index: state.index === 0 ? state.count - 1 : state.index - 1,
-        isAnimating: true,
         nextSlide: false,
       }
-    }
-    case 'pause': {
-      return { ...state, timer: value }
-    }
-    case 'complete': {
-      return { ...state, isAnimating: false }
     }
     default: {
       throw new Error(`Unhandled action type: ${type}`)
@@ -53,7 +43,7 @@ const Carousel = React.forwardRef(
       hoverPause = false,
       pause = false,
       arrow,
-      duration = 5000,
+      duration = 6000,
       variant = 'carousel',
       config = { mass: 1, tension: 160, friction: 28 },
       ...props
@@ -63,23 +53,14 @@ const Carousel = React.forwardRef(
     const [state, dispatch] = useReducer(reducer, {
       index: 0,
       count: data.length,
-      timer: true,
       nextSlide: false,
-      isAnimating: false,
     })
 
-    const next = useCallback(
-      () => (!state.isAnimating ? dispatch({ type: 'next' }) : null),
-      [dispatch, state]
-    )
-
-    const prev = useCallback(
-      () => (!state.isAnimating ? dispatch({ type: 'previous' }) : null),
-      [dispatch, state]
-    )
+    const next = () => dispatch({ type: 'next' })
+    const prev = () => dispatch({ type: 'previous' })
 
     useEffect(() => {
-      if (autoPlay && state.timer && !pause) {
+      if (autoPlay && !pause) {
         const auto = setTimeout(() => {
           next()
         }, duration)
@@ -94,24 +75,11 @@ const Carousel = React.forwardRef(
       </animated.div>
     ))
 
-    const getAttributes =
-      hoverPause && !state.isAnimating
-        ? {
-            onMouseEnter: e => dispatch({ type: 'pause', value: false }),
-            onMouseLeave: e => dispatch({ type: 'pause', value: true }),
-          }
-        : null
-
-    console.count(state)
-
-    const complete = () => dispatch({ type: 'complete' })
-
     return (
       <Box
         ref={ref}
         variant={variant}
         className="carousel"
-        // {...getAttributes}
         {...props}
         __css={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
         <Canvas
@@ -120,7 +88,6 @@ const Carousel = React.forwardRef(
           transition={transition}
           next={state.nextSlide}
           config={config}
-          animate={complete}
         />
         {pageIndicator && (
           <Pagination

@@ -9,7 +9,7 @@ const Pagination = ({ variant, current, set, count }) => {
       <Box
         key={i}
         variant={`${variant}.page`}
-        onClick={e => set({ type: 'set', value: i })}
+        onClick={e => (i !== current ? set({ type: 'set', value: i }) : null)}
         className={`carousel-page ${current === i && 'active'}`}
         __css={{
           mx: 1,

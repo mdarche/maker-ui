@@ -5,7 +5,17 @@ import { useSpring, animated as a } from 'react-spring'
 import { useMeasure } from './helper'
 
 const Accordion = React.forwardRef(
-  ({ title, open, variant = 'accordion', children, ...props }, ref) => {
+  (
+    {
+      title,
+      open = false,
+      indicator = 'false',
+      variant = 'accordion',
+      children,
+      ...props
+    },
+    ref
+  ) => {
     const [show, set] = useState(open)
     const [bind, { height: viewHeight }] = useMeasure()
 
@@ -17,11 +27,16 @@ const Accordion = React.forwardRef(
     })
 
     return (
-      <Box ref={ref} variant={variant} {...props}>
+      <Box
+        ref={ref}
+        variant={variant}
+        {...props}
+        __css={{ border: '1px solid' }}>
         <Box
           as="button"
           variant={`${variant}.toggle`}
-          onClick={() => set(!show)}>
+          onClick={() => set(!show)}
+          sx={{}}>
           {title}
         </Box>
         <a.div
