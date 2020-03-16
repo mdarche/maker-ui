@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box } from 'theme-ui'
-import { useSpring, animated as a } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
 
+import { useAccordion } from './AccordionGroup'
 import { useMeasure, generateId } from './helper'
 
 const Accordion = React.forwardRef(
@@ -9,18 +10,28 @@ const Accordion = React.forwardRef(
     {
       title,
       open = false,
-      indicator = false,
+      eventKey,
       variant = 'accordion',
       borderColor = '#dedede',
       children,
+      className = '',
       ...props
     },
     ref
   ) => {
-    const [show, set] = useState(open)
+    const [state, setState] = useAccordion()
+    const [show, set] = useState(
+      state.single && state.index === eventKey ? true : open
+    )
     const [bind, { height: viewHeight }] = useMeasure()
     const buttonId = generateId()
     const panelId = generateId()
+
+    useEffect(() => {
+      if (state.single) {
+        return state.activeKey !== eventKey ? set(false) : set(true)
+      }
+    }, [state, eventKey, set])
 
     const { height } = useSpring({
       from: { height: 0 },
@@ -29,24 +40,30 @@ const Accordion = React.forwardRef(
       },
     })
 
+    const setActive = () =>
+      !show && state.single
+        ? setState(s => ({ ...s, activeKey: eventKey }))
+        : set(!show)
+
     return (
       <Box
         ref={ref}
         variant={variant}
+        className={`${show ? 'expanded ' : ''}accordion ${className}`}
         {...props}
-        __css={{ border: `1px solid ${borderColor}` }}>
+        __css={{ border: `1px solid` }}>
         <Box
           as="button"
           title={`${show ? 'Collapse' : 'Expand'} content`}
           id={buttonId}
           aria-expanded={show ? 'true' : 'false'}
           aria-controls={panelId}
-          className="accordion-toggle"
+          className={`${show ? 'active ' : ''}accordion-toggle`}
           variant={`${variant}.toggle`}
-          onClick={() => set(!show)}
+          onClick={setActive}
           sx={{
             display: 'flex',
-            justifyContent: indicator ? 'space-between' : 'flex-start',
+            justifyContent: state.icon ? 'space-between' : 'flex-start',
             alignItems: 'center',
             width: '100%',
             border: 'none',
@@ -54,27 +71,37 @@ const Accordion = React.forwardRef(
             cursor: 'pointer',
           }}>
           <span>{title}</span>
-          {indicator && (
-            <Box
-              as="svg"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              sx={{
-                width: 15,
-                transition: 'all ease .3s',
-                transform: !show ? 'rotate(0)' : 'rotate(180deg)',
-              }}>
-              <path
-                fill="none"
-                stroke="currentColor"
-                stroke-miterlimit="10"
-                stroke-width="2"
-                d="M21 8.5l-9 9-9-9"
-              />
-            </Box>
+          {state.icon && (
+            <span>
+              {state.customIcons.expand !== null ? (
+                show ? (
+                  state.customIcons.collapse
+                ) : (
+                  state.customIcons.expand
+                )
+              ) : (
+                <Box
+                  as="svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  sx={{
+                    width: 15,
+                    transition: 'all ease .3s',
+                    transform: !show ? 'rotate(0)' : 'rotate(180deg)',
+                  }}>
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    strokeMiterlimit="10"
+                    strokeWidth="2"
+                    d="M21 8.5l-9 9-9-9"
+                  />
+                </Box>
+              )}
+            </span>
           )}
         </Box>
-        <a.div
+        <animated.div
           id={panelId}
           role="region"
           aria-labelledby={buttonId}
@@ -91,7 +118,7 @@ const Accordion = React.forwardRef(
               {children}
             </Box>
           </Box>
-        </a.div>
+        </animated.div>
       </Box>
     )
   }
