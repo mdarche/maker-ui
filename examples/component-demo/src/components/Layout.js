@@ -11,6 +11,7 @@ const menu = [
   { label: 'Accordion', path: '/accordion' },
   { label: 'Generative', path: '/generative' },
   { label: 'Tree Menu', path: '/tree-menu' },
+  { label: 'Modal', path: '/modal' },
 ]
 
 export default ({ children, location }) => (

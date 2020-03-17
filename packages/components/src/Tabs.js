@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Flex, Button } from 'theme-ui'
 
-import setBreakpoint from './set-breakpoint'
+import { setBreakpoint } from './helper'
 
 const defaults = [1, 2, 3].map(i => ({
   label: `Tab ${i}`,

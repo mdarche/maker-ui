@@ -31,3 +31,14 @@ export function generateId(length = 5) {
 
   return result
 }
+
+export function setBreakpoint(index, arr) {
+  let i = 0
+
+  while (i < index) {
+    arr.unshift(null)
+    i++
+  }
+
+  return arr
+}

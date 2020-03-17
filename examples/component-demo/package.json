@@ -13,6 +13,7 @@
     "elements-ui": "*",
     "@elements-ui/carousel": "*",
     "@elements-ui/generative": "*",
+    "@elements-ui/modal": "*",
     "gatsby": "^2.19.22",
     "gatsby-plugin-catch-links": "^2.1.26",
     "gatsby-plugin-layout": "^1.1.22",
