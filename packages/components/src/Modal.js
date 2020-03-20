@@ -1,9 +1,7 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Box } from 'theme-ui'
-
-// TODO move to components package
-// - react spring mount transition
+import { useTransition, animated as a } from 'react-spring'
 
 const focusElements = [
   'a',
@@ -14,9 +12,17 @@ const focusElements = [
   '[tabIndex]:not([tabIndex="-1"])',
 ].join(', ')
 
+const position = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  height: '100%',
+  width: '100%',
+}
+
 const Portal = ({ children, root }) => {
-  const target = document.getElementById(root)
-  return createPortal(children, target)
+  const link = document.getElementById(root)
+  return createPortal(children, link)
 }
 
 const Modal = ({
@@ -28,7 +34,7 @@ const Modal = ({
   focusRef,
   bg = 'rgba(0, 0, 0, 0.5)',
   children,
-  ...props
+  ...rest
 }) => {
   const modalRef = useRef(null)
   const [focusable, setFocusable] = useState({
@@ -44,6 +50,12 @@ const Modal = ({
 
     toggle(false)
   }, [toggle, focusRef])
+
+  const fade = useTransition(show, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  })
 
   // Handle Focus
 
@@ -97,28 +109,37 @@ const Modal = ({
     return () => window.removeEventListener(`keydown`, handleKeyDown)
   }, [show, focusable, closeModal])
 
-  return show ? (
+  return (
     <Portal root={id}>
-      <Box
-        ref={modalRef}
-        role="dialog"
-        aria-label={title}
-        tabIndex={focusable.count === 0 ? '0' : undefined}
-        onClick={e => (closeOnBlur ? closeModal() : null)}
-        {...props}
-        __css={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          height: '100%',
-          width: '100%',
-          zIndex: 100,
-          bg,
-        }}>
-        {children}
-      </Box>
+      {fade.map(
+        ({ item, key, props }) =>
+          item && (
+            <a.div
+              key={key}
+              style={{
+                zIndex: 100,
+                ...position,
+                ...props,
+              }}>
+              <Box
+                ref={modalRef}
+                role="dialog"
+                aria-label={title}
+                aria-modal="true"
+                tabIndex={focusable.count === 0 ? '0' : undefined}
+                onClick={e => (closeOnBlur ? closeModal() : null)}
+                {...rest}
+                __css={{
+                  ...position,
+                  bg,
+                }}>
+                {children}
+              </Box>
+            </a.div>
+          )
+      )}
     </Portal>
-  ) : null
+  )
 }
 
 export default Modal
