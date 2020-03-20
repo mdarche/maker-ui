@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Box } from 'theme-ui'
 import { useTransition, animated as a } from 'react-spring'
+import { Box } from 'theme-ui'
 
 const focusElements = [
   'a',
@@ -12,13 +12,7 @@ const focusElements = [
   '[tabIndex]:not([tabIndex="-1"])',
 ].join(', ')
 
-const position = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  height: '100%',
-  width: '100%',
-}
+const AnimatedBox = a(Box)
 
 const Portal = ({ children, root }) => {
   const link = document.getElementById(root)
@@ -33,6 +27,7 @@ const Modal = ({
   toggle,
   focusRef,
   bg = 'rgba(0, 0, 0, 0.5)',
+  style = {},
   children,
   ...rest
 }) => {
@@ -62,6 +57,7 @@ const Modal = ({
   useEffect(() => {
     if (show) {
       const elements = modalRef.current.querySelectorAll(focusElements)
+      document.body.style.overflow = 'hidden'
 
       if (elements.length !== 0) {
         setFocusable({
@@ -73,6 +69,8 @@ const Modal = ({
       } else {
         modalRef.current.focus()
       }
+    } else {
+      document.body.style.overflow = null
     }
   }, [show, setFocusable])
 
@@ -92,7 +90,7 @@ const Modal = ({
               e.preventDefault()
               return focusable.last.focus()
             }
-            if (document.activeElement === focusable.last) {
+            if (!e.shiftKey && document.activeElement === focusable.last) {
               e.preventDefault()
               return focusable.first.focus()
             }
@@ -114,28 +112,27 @@ const Modal = ({
       {fade.map(
         ({ item, key, props }) =>
           item && (
-            <a.div
+            <AnimatedBox
               key={key}
-              style={{
+              ref={modalRef}
+              role="dialog"
+              aria-label={title}
+              aria-modal="true"
+              style={{ ...style, ...props }}
+              tabIndex={focusable.count === 0 ? '0' : undefined}
+              onClick={e => (closeOnBlur ? closeModal() : null)}
+              {...rest}
+              __css={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                height: '100%',
+                width: '100%',
                 zIndex: 100,
-                ...position,
-                ...props,
+                bg,
               }}>
-              <Box
-                ref={modalRef}
-                role="dialog"
-                aria-label={title}
-                aria-modal="true"
-                tabIndex={focusable.count === 0 ? '0' : undefined}
-                onClick={e => (closeOnBlur ? closeModal() : null)}
-                {...rest}
-                __css={{
-                  ...position,
-                  bg,
-                }}>
-                {children}
-              </Box>
-            </a.div>
+              {children}
+            </AnimatedBox>
           )
       )}
     </Portal>
