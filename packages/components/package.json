@@ -10,6 +10,7 @@
     "watch": "microbundle watch --no-compress --jsx React.createElement"
   },
   "dependencies": {
+    "mark.js": "^8.11.1",
     "react-spring": "^9.0.0-beta.34",
     "resize-observer-polyfill": "^1.5.1"
   },

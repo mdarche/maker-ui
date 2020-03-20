@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Modal } from '@elements-ui/components'
+import { Modal, PageSearch } from '@elements-ui/components'
 
 const ModalPage = () => {
   const [show, set] = useState(false)
@@ -7,10 +7,16 @@ const ModalPage = () => {
 
   return (
     <div>
+      <PageSearch />
       <button ref={ref} onClick={e => set(!show)}>
         Toggle Modal
       </button>
       <button>Fake button</button>
+      <p>
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nost
+      </p>
       <Modal
         id="modal-root"
         show={show}
