@@ -9,8 +9,6 @@ const PageSearch = React.forwardRef(
       variant = 'pagesearch',
       controls = true,
       sticky = false,
-      markBg = 'orange',
-      currentMarkBg = 'blue',
       offsetTop = 50,
       ...props
     },
@@ -27,8 +25,8 @@ const PageSearch = React.forwardRef(
 
       instance.unmark({
         done: () => {
-          instance.mark(search, { className: 'eui-mark' })
-          setResults(document.querySelectorAll('.eui-mark'))
+          instance.mark(search, { className: 'elements-mark' })
+          setResults(document.querySelectorAll('.elements-mark'))
           setIndex(0)
         },
       })
@@ -64,14 +62,6 @@ const PageSearch = React.forwardRef(
       jumpTo()
     }
 
-    // Add global styles =
-    // '.eui-mark': {
-    //         bg: markBg,
-    //       },
-    //       '.current-mark': {
-    //         bg: currentMarkBg,
-    //       }
-
     return (
       <Flex
         ref={ref}
@@ -95,15 +85,21 @@ const PageSearch = React.forwardRef(
           <React.Fragment>
             <button
               title="Previous result"
+              aria-label="Previous result"
               onClick={results.length ? prev : null}>
               Prev
             </button>
-            <button title="Next result" onClick={results.length ? next : null}>
+            <button
+              title="Next result"
+              aria-label="Next result"
+              onClick={results.length ? next : null}>
               Next
             </button>
           </React.Fragment>
         )}
-        <button onClick={clear}>Clear</button>
+        <button title="Clear" aria-label="Clear search" onClick={clear}>
+          Clear
+        </button>
       </Flex>
     )
   }
