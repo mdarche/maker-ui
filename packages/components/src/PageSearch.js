@@ -35,6 +35,9 @@ const PageSearch = React.forwardRef(
     function jumpTo() {
       const current = results[index]
       const position = current.offsetTop - offsetTop
+      document.querySelectorAll('.elements-mark').forEach(e => {
+        e.classList.remove('current-mark')
+      })
       current.classList.add('current-mark')
       window.scrollTo(0, position)
     }

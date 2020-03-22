@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 
-const SeoContext = React.createContext()
-const SeoUpdateContext = React.createContext()
+const SEOContext = React.createContext()
+const SEOUpdateContext = React.createContext()
 
-const SeoProvider = ({ defaults, children }) => {
+const SEOProvider = ({ base, children }) => {
   const [state, setState] = useState({
-    title: defaults.title || '',
-    description: defaults.description || '',
+    title: base.title || '',
+    titleTemplate: base.titleTemplate || '',
+    description: base.description || '',
     siteUrl: '',
     image: undefined,
     twitter: '',
@@ -15,36 +16,36 @@ const SeoProvider = ({ defaults, children }) => {
   })
 
   return (
-    <SeoContext.Provider value={state}>
-      <SeoUpdateContext.Provider value={setState}>
+    <SEOContext.Provider value={state}>
+      <SEOUpdateContext.Provider value={setState}>
         {children}
-      </SeoUpdateContext.Provider>
-    </SeoContext.Provider>
+      </SEOUpdateContext.Provider>
+    </SEOContext.Provider>
   )
 }
 
-function useSeo() {
-  const state = useContext(SeoContext)
+function useSEO() {
+  const state = useContext(SEOContext)
 
   if (typeof state === undefined) {
-    throw new Error('Seo component must be used within an SeoProvider')
+    throw new Error('SEO component must be used within an SEOProvider')
   }
 
   return state
 }
 
-function useSeoUpdater() {
-  const setState = useContext(SeoUpdateContext)
+function useSEOUpdater() {
+  const setState = useContext(SEOUpdateContext)
 
   if (typeof state === undefined) {
-    throw new Error('useSeoUpdater must be used within an SeoProvider')
+    throw new Error('useSEOUpdater must be used within an SEOProvider')
   }
 
   return setState
 }
 
-const Seo = props => {
-  const state = useSeo()
+const SEO = props => {
+  const state = useSEO()
 
   const {
     title = state.title,
@@ -52,13 +53,15 @@ const Seo = props => {
     image = state.image,
     lang = state.lang,
     twitter = state.twitter,
+    titleTemplate = state.titleTemplate,
+    noTemplate = false,
     meta = [],
   } = props
 
   return (
     <Helmet
       htmlAttributes={{ lang }}
-      title={title}
+      title={noTemplate ? title : `${title}${titleTemplate}`}
       meta={[
         {
           name: `description`,
@@ -113,4 +116,4 @@ const Seo = props => {
   )
 }
 
-export { SeoProvider, useSeo, useSeoUpdater, Seo }
+export { SEOProvider, SEO, useSEO, useSEOUpdater }

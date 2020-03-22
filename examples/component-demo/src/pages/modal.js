@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Modal, PageSearch } from '@elements-ui/components'
+import { SEO } from '@elements-ui/seo'
 
 const ModalPage = () => {
   const [show, set] = useState(false)
@@ -7,6 +8,7 @@ const ModalPage = () => {
 
   return (
     <div>
+      <SEO title="Modal" />
       <PageSearch sticky />
       <br />
       <br />

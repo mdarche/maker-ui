@@ -10,6 +10,7 @@ const Topbar = React.forwardRef(
       bg = 'bg_topbar',
       maxWidth = 'maxWidth_topbar',
       variant = 'topbar',
+      scrollOverflow = false,
       ...props
     },
     ref
@@ -32,8 +33,8 @@ const Topbar = React.forwardRef(
           {...props}
           __css={{
             mx: 'auto',
-            overflowX: 'scroll',
-            whiteSpace: 'nowrap',
+            overflowX: scrollOverflow ? 'scroll' : null,
+            whiteSpace: scrollOverflow ? 'nowrap' : null,
             maxWidth,
           }}
         />

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Heading } from 'theme-ui'
-
-import SEO from '../components/Seo'
+import { SEO } from 'elements-ui'
 
 const Highlite = ({ fontSize = [17, 19], ...props }) => (
   <Box
