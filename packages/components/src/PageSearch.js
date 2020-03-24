@@ -30,7 +30,7 @@ const PageSearch = React.forwardRef(
           setIndex(0)
         },
       })
-    }, [search])
+    }, [search, content, setResults, setIndex])
 
     function jumpTo() {
       const current = results[index]

@@ -1,9 +1,8 @@
 {
   "name": "@elements-ui/components",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "author": "Mike Darche",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "main": "src/index.js",
   "sideEffects": false,
   "scripts": {
     "prepare": "microbundle --no-compress --jsx React.createElement",
@@ -11,7 +10,6 @@
   },
   "dependencies": {
     "mark.js": "^8.11.1",
-    "react-helmet": "^5.2.1",
     "react-spring": "^9.0.0-beta.34",
     "resize-observer-polyfill": "^1.5.1"
   },

@@ -19,7 +19,7 @@ const seo = {
   title: 'Components',
   description: 'Check out the Elements UI component showcase.',
   twitter: 'mkdarshay',
-  titleTemplate: ' | Elements UI',
+  titleTemplate: ' | Alpha UI',
   siteUrl: 'http://localhost:8000',
 }
 

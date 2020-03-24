@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react'
-import { Lightbox } from '@elements-ui/components'
+import { Lightbox, BoxItem } from '@elements-ui/components'
+
+const galleryData = [{ src: '', alt: '', title: '', description: '' }]
 
 const LightboxPage = () => {
   const [show, set] = useState(false)
@@ -7,18 +9,11 @@ const LightboxPage = () => {
 
   return (
     <div>
-      <Lightbox
-        id="modal-root"
-        show={show}
-        toggle={set}
-        focusRef={ref}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        closeOnBlur>
-        <a href="https://google.com">Google link</a>
+      <button ref={ref}>Focus Ref</button>
+      <Lightbox id="modal-root" focusRef={ref} closeOnBlur>
+        <BoxItem src="https://google.com">
+          <div>Test!!</div>
+        </BoxItem>
       </Lightbox>
     </div>
   )

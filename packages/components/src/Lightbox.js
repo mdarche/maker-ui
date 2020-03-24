@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Flex } from 'theme-ui'
 import { useTransition, animated as a } from 'react-spring'
 
+import { LightboxProvider, useLightbox } from './LightboxProvider'
 import Modal from './Modal'
 
 const AnimatedBox = a(Box)
 
-const Lightbox = ({
+const LightboxModal = ({
   id,
   title,
   show,
@@ -18,41 +19,50 @@ const Lightbox = ({
   children,
   ...props
 }) => {
+  const { active, toggleLightbox } = useLightbox()
   const [index, setIndex] = useState(0)
+
   return (
-    <Modal
-      id={id}
-      show={show}
-      toggle={toggle}
-      focusRef={focusRef}
-      closeOnBlur
-      {...props}>
-      <AnimatedBox className="canvas">Lightbox Content</AnimatedBox>
-      <Box className="toolbar">
-        {isGallery && <Box className="pagination"></Box>}
-        <Flex>
-          <button>Zoom</button>
-          <button>Play</button>
-          <button>Grid</button>
-          <button>Close</button>
-        </Flex>
-      </Box>
-      {isGallery && (
-        <Box className="navigation">
-          <button>Previous</button>
-          <button>Next</button>
+    <React.Fragment>
+      {children}
+      <Modal
+        id={id}
+        show={active}
+        toggle={toggleLightbox}
+        focusRef={focusRef}
+        closeOnBlur
+        {...props}>
+        <AnimatedBox className="canvas">Lightbox Content</AnimatedBox>
+        <Box className="toolbar">
+          {isGallery && <Box className="pagination"></Box>}
+          <Flex>
+            <button>Zoom</button>
+            <button>Play</button>
+            <button>Grid</button>
+            <button>Close</button>
+          </Flex>
         </Box>
-      )}
-      {showInfo && (
-        <Box className="info-bar">
-          <h4>Title</h4>
-          <p>Description</p>
-        </Box>
-      )}
-    </Modal>
+        {isGallery && (
+          <Box className="navigation">
+            <button>Previous</button>
+            <button>Next</button>
+          </Box>
+        )}
+        {showInfo && (
+          <Box className="info-bar">
+            <h4>Title</h4>
+            <p>Description</p>
+          </Box>
+        )}
+      </Modal>
+    </React.Fragment>
   )
 }
 
-// Cursor: zoom-in
+const Lightbox = ({ children, ...props }) => (
+  <LightboxProvider>
+    <LightboxModal {...props}>{children}</LightboxModal>
+  </LightboxProvider>
+)
 
 export default Lightbox
