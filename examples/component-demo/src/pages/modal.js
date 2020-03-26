@@ -41,12 +41,8 @@ const ModalPage = () => {
         show={show}
         toggle={set}
         focusRef={ref}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        closeOnBlur>
+        closeOnBlur
+        center>
         <div>Hello!</div>
         <button>Test</button>
         <button>Yo</button>

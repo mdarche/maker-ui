@@ -11,7 +11,7 @@ const DefaultArrow = () => (
   </Box>
 )
 
-const Pagination = React.memo(({ variant, controls, arrow }) => {
+const Navigation = React.memo(({ variant, controls, arrow }) => {
   const position = isNext => (isNext ? { right: 0 } : { left: 0 })
   const transform = isNext =>
     isNext
@@ -49,4 +49,4 @@ const Pagination = React.memo(({ variant, controls, arrow }) => {
   )
 })
 
-export default Pagination
+export default Navigation

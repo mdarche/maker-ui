@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom'
 import { useTransition, animated as a } from 'react-spring'
 import { Box } from 'theme-ui'
 
+// TODO - Test focus exit with lightbox
+
 const focusElements = [
   'a',
   'button:not([disabled])',
@@ -19,6 +21,23 @@ const Portal = ({ children, root }) => {
   return createPortal(children, link)
 }
 
+const position = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  height: '100%',
+  width: '100%',
+}
+
+const centered = val =>
+  val
+    ? {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }
+    : null
+
 const Modal = ({
   id,
   title = 'Modal Dialog',
@@ -26,7 +45,8 @@ const Modal = ({
   show,
   toggle,
   focusRef,
-  bg = 'rgba(0, 0, 0, 0.5)',
+  center = false,
+  bg = 'rgba(0, 0, 0, 0.66)',
   style = {},
   children,
   ...rest
@@ -120,18 +140,23 @@ const Modal = ({
               aria-modal="true"
               style={{ ...style, ...props }}
               tabIndex={focusable.count === 0 ? '0' : undefined}
-              onClick={e => (closeOnBlur ? closeModal() : null)}
-              {...rest}
               __css={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                height: '100%',
-                width: '100%',
+                ...position,
+                ...centered(center),
                 zIndex: 100,
-                bg,
               }}>
-              {children}
+              <Box
+                onClick={e => (closeOnBlur ? closeModal() : null)}
+                className="modal-overlay"
+                __css={{
+                  ...position,
+                  zIndex: -1,
+                  bg,
+                }}
+              />
+              <Box __css={{ zIndex: 1, overflow: 'scroll' }} {...rest}>
+                {children}
+              </Box>
             </AnimatedBox>
           )
       )}

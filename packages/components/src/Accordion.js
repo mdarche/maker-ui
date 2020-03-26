@@ -23,9 +23,9 @@ const Accordion = React.forwardRef(
     const [show, set] = useState(
       state.single && state.index === eventKey ? true : open
     )
+    const [buttonId] = useState(generateId())
+    const [panelId] = useState(generateId())
     const [bind, { height: viewHeight }] = useMeasure()
-    const buttonId = generateId()
-    const panelId = generateId()
 
     useEffect(() => {
       if (state.single) {

@@ -5,6 +5,7 @@ const LightboxUpdateContext = React.createContext()
 
 export const LightboxProvider = ({ children }) => {
   const [state, setState] = useState({
+    index: 0,
     active: false,
     urls: [],
   })
@@ -19,27 +20,28 @@ export const LightboxProvider = ({ children }) => {
 }
 
 export function useLightbox() {
-  const { active, urls } = useContext(LightboxContext)
+  const { active, index, urls } = useContext(LightboxContext)
   const setState = useContext(LightboxUpdateContext)
 
   if (typeof state === undefined) {
-    throw new Error('BoxItem must be used within an Lightbox component')
+    throw new Error('BoxItem must be used within a Lightbox component')
   }
 
-  function toggleLightbox() {
-    console.log('works', active)
-    setState(s => ({ ...s, active: !s.active }))
+  function toggleLightbox(id) {
+    if (id) {
+      const current = urls.findIndex(i => i.id === id)
+      return setState(s => ({ ...s, active: !s.active, index: current }))
+    }
+    return setState(s => ({ ...s, active: !s.active }))
   }
 
   function addToGallery(item) {
-    const exists = urls.find(e => e.src === item.src)
+    const exists = urls ? urls.find(e => e.id === item.id) : false
 
     if (!exists) {
-      setState(s => ({ ...s }))
+      setState(s => ({ ...s, urls: [...s.urls, item] }))
     }
   }
 
-  return { active, toggleLightbox, addToGallery }
-
-  // return { state, toggleLightbox, addToGallery }
+  return { index, active, urls, toggleLightbox, addToGallery }
 }
