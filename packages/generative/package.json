@@ -1,5 +1,5 @@
 {
-  "name": "@elements-ui/generative",
+  "name": "@maker-ui/generative",
   "version": "0.4.2",
   "author": "Mike Darche",
   "main": "dist/index.js",

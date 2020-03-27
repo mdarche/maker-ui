@@ -13,10 +13,10 @@ export function generateStyles(options = {}, groupByIndex = false) {
 
   if (groupByIndex) {
     const indices = Object.entries(options)[0][1].length
-    const rIndex = Math.floor(Math.random() * indices)
+    const randomIndex = Math.floor(Math.random() * indices)
 
     for (const [selector, props] of Object.entries(options)) {
-      styles[selector] = props[rIndex]
+      styles[selector] = props[randomIndex]
     }
   } else {
     for (const [s, p] of Object.entries(options)) {

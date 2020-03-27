@@ -1,5 +1,5 @@
 {
-  "name": "@elements-ui/components",
+  "name": "@maker-ui/components",
   "version": "0.4.3",
   "author": "Mike Darche",
   "main": "src/index.js",

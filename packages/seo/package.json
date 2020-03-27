@@ -1,5 +1,5 @@
 {
-  "name": "@elements-ui/seo",
+  "name": "@maker-ui/seo",
   "version": "0.4.3",
   "author": "Mike Darche",
   "main": "dist/index.js",

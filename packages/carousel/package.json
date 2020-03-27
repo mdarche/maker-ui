@@ -1,6 +1,6 @@
 {
-  "name": "@elements-ui/carousel",
-  "version": "0.4.2",
+  "name": "@maker-ui/carousel",
+  "version": "0.4.3",
   "author": "Mike Darche",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

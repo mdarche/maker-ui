@@ -10,9 +10,9 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@elements-ui/carousel": "*",
-    "@elements-ui/generative": "*",
-    "@elements-ui/seo": "*",
+    "@maker-ui/carousel": "*",
+    "@maker-ui/generative": "*",
+    "@maker-ui/seo": "*",
     "elements-ui": "*",
     "gatsby": "^2.19.22",
     "gatsby-plugin-catch-links": "^2.1.26",
