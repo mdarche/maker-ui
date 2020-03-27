@@ -16,6 +16,7 @@ const BoxItem = React.forwardRef(
       youtubeId,
       vimeoId,
       children,
+      poster,
       trigger = false,
       ...props
     },
@@ -23,7 +24,7 @@ const BoxItem = React.forwardRef(
   ) => {
     const [id] = useState(generateId())
     const { addToGallery, toggleLightbox } = useLightbox()
-    const htmlVideo = videoFormats.some(v => src === v)
+    const htmlVideo = src ? videoFormats.some(v => src.includes(v)) : false
 
     useEffect(() => {
       if (!trigger) {
@@ -35,6 +36,7 @@ const BoxItem = React.forwardRef(
           description,
           youtubeId,
           vimeoId,
+          poster,
           htmlVideo,
         })
       }
@@ -49,7 +51,8 @@ const BoxItem = React.forwardRef(
       <Box
         ref={ref}
         as="a"
-        href={src || 'javascript:void(0);'}
+        href={src || '#'}
+        role="button"
         onClick={handleClick}
         {...props}>
         {children}

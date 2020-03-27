@@ -3,10 +3,6 @@ import { createPortal } from 'react-dom'
 import { useTransition, animated as a } from 'react-spring'
 import { Box } from 'theme-ui'
 
-// TODO - Test focus exit with lightbox
-
-// TODO - send focus back to first item if modal doesn't detect current focus in elements array
-
 const focusElements = [
   'a',
   'button:not([disabled])',

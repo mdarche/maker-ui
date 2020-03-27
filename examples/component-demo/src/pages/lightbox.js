@@ -18,45 +18,15 @@ const LightboxPage = () => {
         <BoxItem title="Hilarious stuff" src="/reddit.jpg">
           <div>Test!!</div>
         </BoxItem>
-        <BoxItem src="/facebook.jpg">
+        <BoxItem title="Youtube video" youtubeId="4DTy32jdjP0">
           <div>Test!!</div>
         </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
+        <BoxItem title="Vimeo video" vimeoId="172062096">
+          Test!
         </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
+        {/* <BoxItem title="Youtube video" src="test.mp4">
           <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
-        <BoxItem src="/linkedIn.jpg">
-          <div>Test!!</div>
-        </BoxItem>
+        </BoxItem> */}
       </Lightbox>
     </div>
   )

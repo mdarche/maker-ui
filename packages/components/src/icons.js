@@ -1,4 +1,5 @@
 import React from 'react'
+import { Box } from 'theme-ui'
 
 export const MinusIcon = props => (
   <svg {...props} viewBox="64 -65 897 897">
@@ -28,6 +29,16 @@ export const CloseIcon = props => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
   </svg>
+)
+
+export const DefaultArrow = () => (
+  <Box
+    as="svg"
+    sx={{ height: 30, fill: '#fff' }}
+    viewBox="0 0 39 70"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M1.24 7.27L28.63 35.2 1.22 63.15a4.27 4.27 0 000 6 4.27 4.27 0 006.07 0l30.38-30.96a4.28 4.28 0 000-6L7.35 1.28a4.28 4.28 0 00-6.08 0 4.28 4.28 0 00-.03 5.99z" />
+  </Box>
 )
 
 export const ZoomIcon = props => (

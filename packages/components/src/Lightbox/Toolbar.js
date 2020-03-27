@@ -44,16 +44,14 @@ const Toolbar = ({
             cursor: 'pointer',
             background: 'none',
             border: 'none',
-            // border: '2px solid transparent',
             p: '8px 20px',
-            my: '2px',
+            m: '2px',
             transition: 'all ease .3s',
-            '&:hover': {
-              bg: 'rgba(0,0,0,0.66)',
+            '&:hover, &:active, &.active': {
+              bg: 'primary',
             },
             '&:focus': {
-              outline: '2px solid rgba(255,255,255,0.33)',
-              // boxShadow: 'none'
+              outline: '2px solid rgba(255,255,255,0.35)',
             },
           },
           'button:last-of-type': {
@@ -69,11 +67,15 @@ const Toolbar = ({
           </button>
         )}
         {autoPlay.show && (
-          <button onClick={e => autoPlay.set(a => !a)}>
+          <button
+            className={autoPlay.active ? 'active' : undefined}
+            onClick={e => autoPlay.set(a => !a)}>
             <PlayIcon height="24" />
           </button>
         )}
-        <button onClick={e => preview(p => !p)}>
+        <button
+          className={preview.show ? 'active' : undefined}
+          onClick={e => preview.set(p => !p)}>
           <PreviewIcon height="21" />
         </button>
         <button onClick={e => toggle()}>

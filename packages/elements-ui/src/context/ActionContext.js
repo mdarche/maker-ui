@@ -3,15 +3,10 @@ import React, { useReducer, useContext } from 'react'
 const ActionContext = React.createContext()
 const ActionUpdateContext = React.createContext()
 
-// TODO - build modal layer or use React Portal in modal component
-
 function reducer(state, action) {
   switch (action.type) {
     case 'menu': {
       return { ...state, menuActive: !state.menuActive }
-    }
-    case 'modal': {
-      return { ...state, modalActive: !state.modalActive }
     }
     case 'sideNav': {
       return { ...state, sideNavActive: !state.sideNavActive }
@@ -27,7 +22,6 @@ function reducer(state, action) {
 const ActionProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     menuActive: false,
-    modalActive: false,
     sideNavActive: false,
   })
 

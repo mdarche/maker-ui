@@ -1,19 +1,7 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Box } from 'theme-ui'
 
-// TODO - format controls for mobile
-
-// TODO - move all sx props to variants
-
-const DefaultArrow = () => (
-  <Box
-    as="svg"
-    sx={{ height: 30, fill: '#fff' }}
-    viewBox="0 0 39 70"
-    xmlns="http://www.w3.org/2000/svg">
-    <path d="M1.24 7.27L28.63 35.2 1.22 63.15a4.27 4.27 0 000 6 4.27 4.27 0 006.07 0l30.38-30.96a4.28 4.28 0 000-6L7.35 1.28a4.28 4.28 0 00-6.08 0 4.28 4.28 0 00-.03 5.99z" />
-  </Box>
-)
+import { DefaultArrow } from '../icons'
 
 const NavButton = React.forwardRef(
   ({ control, arrow, isNext = false }, ref) => {

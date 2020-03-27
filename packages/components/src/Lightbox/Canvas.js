@@ -1,22 +1,38 @@
 import React from 'react'
 import { Box } from 'theme-ui'
-import { useTransition, animated as a, config } from 'react-spring'
+import { useTransition, animated as a } from 'react-spring'
 
 const AnimatedBox = a(Box)
 
+const youtubeRoot = 'https://youtube.com/embed/'
+const vimeoRoot = 'https://player.vimeo.com/video/'
+
 // TODO add conditionals for info section and a scroll container for long descriptions
 
-const getMedia = ({ src, alt, youtubeId, vimeoId, htmlVideo }) => {
-  if (youtubeId) {
-    return 'youtube video'
-  }
-
-  if (vimeoId) {
-    return 'vimeo video'
+const getMedia = ({ src, alt, youtubeId, vimeoId, htmlVideo, poster }) => {
+  if (youtubeId || vimeoId) {
+    return (
+      <Box
+        as="iframe"
+        src={youtubeId ? youtubeRoot + youtubeId : vimeoRoot + vimeoId}
+        frameBorder="0"
+        allow="accelerometer; autoplay; fullscreen; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        sx={{ width: '100%', height: '100%' }}></Box>
+    )
   }
 
   if (htmlVideo) {
-    return 'html5 video'
+    return (
+      <Box
+        as="video"
+        controls
+        poster={poster ? poster : undefined}
+        sx={{ width: '100%', height: '100%' }}>
+        <source src={src} type={`video/${src.substr(-3, 3)}`} />
+        Your browser does not support the video tag.
+      </Box>
+    )
   }
 
   if (src) {
@@ -24,7 +40,7 @@ const getMedia = ({ src, alt, youtubeId, vimeoId, htmlVideo }) => {
       <Box
         as="img"
         src={src}
-        alt={alt ? alt : undefined}
+        alt={alt ? alt : 'Lightbox image'}
         sx={{ height: '100%', width: '100%', objectFit: 'contain' }}
       />
     )
@@ -33,7 +49,7 @@ const getMedia = ({ src, alt, youtubeId, vimeoId, htmlVideo }) => {
   return 'Add a src, vimeoId, or youtubeId to <BoxItem />'
 }
 
-const Canvas = ({ urls, index, info }) => {
+const Canvas = ({ urls, index, info, ...rest }) => {
   const transitions = useTransition(urls[index], item => item.id, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -56,7 +72,8 @@ const Canvas = ({ urls, index, info }) => {
             maxHeight: ['68vh', '85vh'],
             maxWidth: ['90vw', '75vw'],
             transform: 'translate(-50%, -50%)',
-          }}>
+          }}
+          {...rest}>
           {getMedia(item)}
           {info && item.title && (
             <Box className="info-bar">
