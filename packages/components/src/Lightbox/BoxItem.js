@@ -8,7 +8,17 @@ const videoFormats = ['.mp4', '.ogg', '.webm']
 
 const BoxItem = React.forwardRef(
   (
-    { src, alt, title, description, youtubeId, vimeoId, children, ...props },
+    {
+      src,
+      alt,
+      title,
+      description,
+      youtubeId,
+      vimeoId,
+      children,
+      trigger = false,
+      ...props
+    },
     ref
   ) => {
     const [id] = useState(generateId())
@@ -16,25 +26,32 @@ const BoxItem = React.forwardRef(
     const htmlVideo = videoFormats.some(v => src === v)
 
     useEffect(() => {
-      addToGallery({
-        id,
-        src,
-        alt,
-        title,
-        description,
-        youtubeId,
-        vimeoId,
-        htmlVideo,
-      })
+      if (!trigger) {
+        addToGallery({
+          id,
+          src,
+          alt,
+          title,
+          description,
+          youtubeId,
+          vimeoId,
+          htmlVideo,
+        })
+      }
     }, [src])
 
     const handleClick = e => {
       e.preventDefault()
-      toggleLightbox(id)
+      return trigger ? toggleLightbox() : toggleLightbox(id)
     }
 
     return (
-      <Box ref={ref} as="a" href={src} onClick={handleClick} {...props}>
+      <Box
+        ref={ref}
+        as="a"
+        href={src || 'javascript:void(0);'}
+        onClick={handleClick}
+        {...props}>
         {children}
       </Box>
     )

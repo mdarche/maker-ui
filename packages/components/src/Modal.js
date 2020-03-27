@@ -5,6 +5,8 @@ import { Box } from 'theme-ui'
 
 // TODO - Test focus exit with lightbox
 
+// TODO - send focus back to first item if modal doesn't detect current focus in elements array
+
 const focusElements = [
   'a',
   'button:not([disabled])',
@@ -82,6 +84,7 @@ const Modal = ({
       if (elements.length !== 0) {
         setFocusable({
           count: elements.length,
+          elements,
           first: elements[0],
           last: elements[elements.length - 1],
         })
@@ -112,6 +115,9 @@ const Modal = ({
             }
             if (!e.shiftKey && document.activeElement === focusable.last) {
               e.preventDefault()
+              return focusable.first.focus()
+            }
+            if (![...focusable.elements].includes(document.activeElement)) {
               return focusable.first.focus()
             }
             return

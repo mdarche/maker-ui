@@ -53,7 +53,7 @@ const Canvas = ({ urls, index, info }) => {
             left: '50%',
             height: '100%',
             width: '100%',
-            maxHeight: ['70vh', '85vh'],
+            maxHeight: ['68vh', '85vh'],
             maxWidth: ['90vw', '75vw'],
             transform: 'translate(-50%, -50%)',
           }}>

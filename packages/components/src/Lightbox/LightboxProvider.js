@@ -36,10 +36,14 @@ export function useLightbox() {
   }
 
   function addToGallery(item) {
-    const exists = urls ? urls.find(e => e.id === item.id) : false
+    if (Array.isArray(item)) {
+      setState(s => ({ ...s, urls: item }))
+    } else {
+      const exists = urls ? urls.find(e => e.id === item.id) : false
 
-    if (!exists) {
-      setState(s => ({ ...s, urls: [...s.urls, item] }))
+      if (!exists) {
+        setState(s => ({ ...s, urls: [...s.urls, item] }))
+      }
     }
   }
 

@@ -1,44 +1,51 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Box, Flex } from 'theme-ui'
 
 import Canvas from './Canvas'
-import Controls from './Controls'
+import NavButton from './NavButton'
+import Toolbar from './Toolbar'
 import Preview from './Preview'
-import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from '../icons'
 import { LightboxProvider, useLightbox } from './LightboxProvider'
 import Modal from '../Modal'
 
 // TODO add all variants to basic variant arry and make an extra installation step
 
-// TODO add Keyboard controls
-
 // TODO add hover/focus controls for hiding UI
 
 // TODO remove focus from next for autoplay
 
+// TODO implement zoom feature
+
 const LightboxModal = ({
   id,
   title,
-  show,
-  toggle,
   closeOnBlur,
   focusRef,
   arrow,
+  data,
+  bg = 'rgba(0, 0, 0, 0.85)',
   showInfo = true,
   showCount = true,
-  showZoom = true,
+  showZoom = false,
   showAutoPlay = true,
   duration = 6000,
   children,
   ...props
 }) => {
-  const { index, active, urls, toggleLightbox } = useLightbox()
-  const [current, setCurrent] = useState(0)
   const nextRef = useRef(null)
+  const prevRef = useRef(null)
+  const { index, active, urls, addToGallery, toggleLightbox } = useLightbox()
+  const [current, setCurrent] = useState(0)
   const [play, setPlay] = useState(false)
   const [preview, setPreview] = useState(false)
   const [zoom, setZoom] = useState(false)
   const [hideControls, setHideControls] = useState(false)
+
+  useEffect(() => {
+    if (data) {
+      addToGallery(data)
+    }
+  }, [data])
 
   useEffect(() => {
     setCurrent(index)
@@ -54,23 +61,44 @@ const LightboxModal = ({
     }
   }, [play])
 
-  const next = e => {
-    // TODO - keep focus on controls after click
-    if (current === urls.length - 1) {
-      setCurrent(0)
-    } else {
-      setCurrent(current + 1)
+  useEffect(() => {
+    if (!active && preview) {
+      setPreview(false)
     }
 
-    if (!play) {
-      setTimeout(() => {
-        nextRef.current.focus()
-      }, 10)
+    function handleKeyDown(e) {
+      switch (e.keyCode) {
+        case 39: // right arrow
+          return next()
+        case 37: // left arrow
+          return prev()
+        default:
+          return
+      }
     }
+
+    if (active) {
+      window.addEventListener(`keydown`, handleKeyDown)
+    }
+    return () => window.removeEventListener(`keydown`, handleKeyDown)
+  }, [active])
+
+  const next = e => {
+    setFocus(nextRef)
+    return setCurrent(s => (s === urls.length - 1 ? 0 : s + 1))
   }
 
-  const prev = e =>
-    current === 0 ? setCurrent(urls.length - 1) : setCurrent(current - 1)
+  const prev = e => {
+    setFocus(prevRef)
+    return setCurrent(s => (s === 0 ? urls.length - 1 : s - 1))
+  }
+
+  const setFocus = ref =>
+    !play
+      ? setTimeout(() => {
+          ref.current.focus()
+        }, 0)
+      : null
 
   return (
     <React.Fragment>
@@ -80,70 +108,35 @@ const LightboxModal = ({
         show={active}
         toggle={toggleLightbox}
         focusRef={focusRef}
-        bg="rgba(0, 0, 0, 0.75)"
+        bg={bg}
         closeOnBlur
         {...props}>
-        <Box className="toolbar">
-          {showCount && urls.length && (
-            <Box
-              className="pagination"
-              __css={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                bg: 'rgba(0, 0, 0, 0.25)',
-                p: '14px 20px',
-                fontSize: '14px',
-                color: '#fff',
-              }}>
-              {current + 1} / {urls.length}
-            </Box>
-          )}
-          <Flex
-            sx={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              bg: 'rgba(0, 0, 0, 0.25)',
-              button: {
-                cursor: 'pointer',
-                background: 'none',
-                border: 'none',
-                p: '10px 20px',
-                transition: 'all ease .3s',
-                '&:hover': {
-                  bg: 'rgba(0,0,0,0.66)',
-                },
-              },
-              svg: { fill: '#fff' },
-            }}>
-            {showZoom && (
-              <button
-                disabled={!urls[current].src}
-                onClick={e => setZoom(!zoom)}>
-                <ZoomIcon height="18" />
-              </button>
-            )}
-            {showAutoPlay && (
-              <button onClick={e => setPlay(!play)}>
-                <PlayIcon height="24" />
-              </button>
-            )}
-            <button onClick={e => setPreview(!preview)}>
-              <PreviewIcon height="21" />
-            </button>
-            <button onClick={e => toggleLightbox()}>
-              <CloseIcon height="24" />
-            </button>
-          </Flex>
-        </Box>
-        {urls.length ? (
-          <Canvas index={current} urls={urls} info={showInfo} />
-        ) : (
-          'Loading'
+        <Toolbar
+          count={showCount}
+          current={current}
+          item={urls[current]}
+          length={urls.length}
+          preview={setPreview}
+          zoom={{ show: showZoom, set: setZoom }}
+          autoPlay={{ show: showAutoPlay, set: setPlay }}
+          toggle={toggleLightbox}
+        />
+        {urls.length && (
+          <Canvas index={current} urls={urls} info={showInfo} zoom={zoom} />
         )}
         {urls.length > 1 && (
-          <Controls controls={{ prev, next }} arrow={arrow} ref={nextRef} />
+          <React.Fragment>
+            <Box className="lightbox-navigation">
+              <NavButton ref={prevRef} arrow={arrow} control={prev} />
+              <NavButton ref={nextRef} arrow={arrow} control={next} isNext />
+            </Box>
+            <Preview
+              show={preview}
+              index={current}
+              set={setCurrent}
+              urls={urls}
+            />
+          </React.Fragment>
         )}
       </Modal>
     </React.Fragment>
