@@ -49,7 +49,7 @@ const Carousel = React.forwardRef(
       pause = false,
       arrow,
       transition,
-      duration = 8000,
+      duration = 6500,
       variant = 'carousel',
       config = { mass: 1, tension: 160, friction: 28 },
       ...props

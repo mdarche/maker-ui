@@ -3,19 +3,19 @@ import { Box } from 'theme-ui'
 
 import { DefaultArrow } from '../icons'
 
+const position = isNext => (isNext ? { right: '10px' } : { left: '10px' })
+const transform = isNext =>
+  isNext
+    ? { transform: ['translateY(0)', 'translateY(-50%)'] }
+    : {
+        transform: [
+          'translateY(0) rotate(180deg)',
+          'translateY(-50%) rotate(180deg)',
+        ],
+      }
+
 const NavButton = React.forwardRef(
   ({ control, arrow, isNext = false }, ref) => {
-    const position = isNext => (isNext ? { right: '10px' } : { left: '10px' })
-    const transform = isNext =>
-      isNext
-        ? { transform: ['translateY(0)', 'translateY(-50%)'] }
-        : {
-            transform: [
-              'translateY(0) rotate(180deg)',
-              'translateY(-50%) rotate(180deg)',
-            ],
-          }
-
     return (
       <Box
         ref={ref}
