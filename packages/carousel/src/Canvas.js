@@ -2,8 +2,6 @@ import React from 'react'
 import { Box } from 'theme-ui'
 import { useTransition } from 'react-spring'
 
-// TODO - Add more slide transitions
-
 const getTransition = (type, next) => {
   switch (type) {
     case 'fade':
@@ -11,6 +9,18 @@ const getTransition = (type, next) => {
         from: { opacity: 0 },
         enter: { opacity: 1 },
         leave: { opacity: 0 },
+      }
+    case 'slide-fade':
+      return {
+        from: {
+          opacity: 0,
+          transform: `translate3d(${next ? '50%' : '-50%'},0,0)`,
+        },
+        enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+        leave: {
+          opacity: 0,
+          transform: `translate3d(${next ? '-100%' : '100%'},0,0)`,
+        },
       }
     case 'slide':
     default:

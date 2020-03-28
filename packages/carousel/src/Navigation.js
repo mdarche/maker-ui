@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Box } from 'theme-ui'
 
 const DefaultArrow = () => (
@@ -11,41 +11,42 @@ const DefaultArrow = () => (
   </Box>
 )
 
-const Navigation = React.memo(({ variant, controls, arrow }) => {
-  const position = isNext => (isNext ? { right: 0 } : { left: 0 })
-  const transform = isNext =>
-    isNext
-      ? { transform: 'translateY(-50%)' }
-      : { transform: 'translateY(-50%) rotate(180deg)' }
+const position = isNext => (isNext ? { right: 0 } : { left: 0 })
+const transform = isNext =>
+  isNext
+    ? { transform: 'translateY(-50%)' }
+    : { transform: 'translateY(-50%) rotate(180deg)' }
 
-  const NavButton = ({ isNext = false }) => (
-    <Box
-      as="button"
-      title={`${isNext ? 'Next' : 'Previous'} Slide`}
-      aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
-      variant={isNext ? `${variant}.next` : `${variant}.prev`}
-      className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
-      onClick={isNext ? controls.next : controls.prev}
-      sx={{
-        variant: `${variant}.nav`,
-        cursor: 'pointer',
-        background: 'none',
-        border: 'none',
-        position: 'absolute',
-        top: '50%',
-        zIndex: 1,
-        ...transform(isNext),
-        ...position(isNext),
-      }}>
-      {arrow || <DefaultArrow />}
-    </Box>
-  )
+const NavButton = ({ key, isNext = false, variant, control, arrow }) => (
+  <Box
+    key={key}
+    as="button"
+    title={`${isNext ? 'Next' : 'Previous'} Slide`}
+    aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
+    variant={isNext ? `${variant}.next` : `${variant}.prev`}
+    className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
+    onClick={control}
+    sx={{
+      variant: `${variant}.nav`,
+      cursor: 'pointer',
+      background: 'none',
+      border: 'none',
+      position: 'absolute',
+      top: '50%',
+      zIndex: 1,
+      ...transform(isNext),
+      ...position(isNext),
+    }}>
+    {arrow || <DefaultArrow />}
+  </Box>
+)
 
+const Navigation = React.memo(({ controls, ...props }) => {
   return (
-    <Fragment>
-      <NavButton />
-      <NavButton isNext />
-    </Fragment>
+    <Box>
+      <NavButton control={controls.prev} {...props} />
+      <NavButton control={controls.next} isNext {...props} />
+    </Box>
   )
 })
 

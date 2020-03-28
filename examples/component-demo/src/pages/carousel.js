@@ -80,9 +80,8 @@ const CarouselPage = () => (
       data={basicData}
       template={<BasicSlide />}
       pageIndicator
-      hoverPause
       autoPlay
-      duration="6000"
+      progressBar
     />
     <Carousel
       data={imageData}

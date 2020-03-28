@@ -2,9 +2,12 @@ import React, { useReducer, useEffect } from 'react'
 import { Box } from 'theme-ui'
 import { animated } from 'react-spring'
 
+import Canvas from './Canvas'
 import Pagination from './Pagination'
 import Navigation from './Navigation'
-import Canvas from './Canvas'
+import ProgressBar from './ProgressBar'
+
+// TODO add drag and swipe gesture
 
 function reducer(state, { type, value }) {
   switch (type) {
@@ -38,12 +41,15 @@ const Carousel = React.forwardRef(
       template,
       nav = true,
       pageIndicator = false,
-      transition,
+      progressBar = false,
+      barReverse = false,
       autoPlay = false,
-      hoverPause = false,
+      hoverPause = false, // TODO
+      hideControls = false, // TODO
       pause = false,
       arrow,
-      duration = 6000,
+      transition,
+      duration = 8000,
       variant = 'carousel',
       config = { mass: 1, tension: 160, friction: 28 },
       ...props
@@ -89,6 +95,13 @@ const Carousel = React.forwardRef(
           next={state.nextSlide}
           config={config}
         />
+        {nav && (
+          <Navigation
+            controls={{ prev, next }}
+            arrow={arrow}
+            variant={variant}
+          />
+        )}
         {pageIndicator && (
           <Pagination
             current={state.index}
@@ -97,11 +110,11 @@ const Carousel = React.forwardRef(
             variant={variant}
           />
         )}
-        {nav && (
-          <Navigation
-            controls={{ prev, next }}
-            arrow={arrow}
+        {progressBar && autoPlay && (
+          <ProgressBar
+            duration={duration}
             variant={variant}
+            reverse={barReverse}
           />
         )}
       </Box>
