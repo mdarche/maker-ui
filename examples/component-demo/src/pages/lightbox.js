@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Lightbox, BoxItem } from '@elements-ui/components'
+import { Lightbox, BoxItem } from '@maker-ui/components'
 
 const galleryData = [{ src: '', alt: '', title: '', description: '' }]
 

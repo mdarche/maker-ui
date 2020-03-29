@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Box, Flex, Button } from 'theme-ui'
+import { setBreakpoint } from 'elements-ui'
 
-import { setBreakpoint } from './helper'
+// TODO - Add React Proptypes to all of these components w/ default props
 
 const defaults = [1, 2, 3].map(i => ({
   label: `Tab ${i}`,
+  ariaLabel: `Tab ${i}`,
   component: `Tab ${i}: Add text or a custom component`,
 }))
 
@@ -36,6 +38,7 @@ const Tabs = React.forwardRef(
         <Flex
           variant={`${variant}.navigation`}
           className="tabs-navigation"
+          role="tablist"
           sx={{
             flexDirection: isVertical
               ? stack
@@ -58,19 +61,26 @@ const Tabs = React.forwardRef(
             <Button
               key={index}
               title={item.label}
+              role="tab"
+              aria-label={item.ariaLabel || item.label}
+              aria-controls="tab-panel"
+              aria-selected={show === item ? 'true' : 'false'}
               variant={`${variant}.button`}
               className={
-                show.label === item.label ? 'active tabs-button' : 'tabs-button'
+                show === item ? 'active-tab tabs-button' : 'tabs-button'
               }
               onClick={e => set(items[index])}
-              sx={{ flex: stack ? null : '1 0 auto', minWidth: 'min' }}>
+              sx={{ flex: stack ? null : '1 0 auto' }}>
               {item.label}
             </Button>
           ))}
         </Flex>
         <Box
-          variant={`${variant}.container`}
-          className="tabs-container"
+          id="tab-panel"
+          role="tabpanel"
+          aria-label={`${show.ariaLabel || show.label} Panel`}
+          variant={`${variant}.panel`}
+          className="tabs-panel"
           sx={{
             flex: 1,
             order: 1,

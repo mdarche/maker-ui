@@ -1,5 +1,5 @@
 import React from 'react'
-import { AccordionGroup, Accordion } from '@elements-ui/components'
+import { AccordionGroup, Accordion } from '@maker-ui/components'
 
 const IndexPage = () => (
   <React.Fragment>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from 'theme-ui'
 import { useSpring, animated } from 'react-spring'
+import { generateId } from 'elements-ui'
 
 import { useAccordion } from './AccordionGroup'
-import { useMeasure, generateId } from './helper'
+import { useMeasure } from './helper'
 
 const Accordion = React.forwardRef(
   (

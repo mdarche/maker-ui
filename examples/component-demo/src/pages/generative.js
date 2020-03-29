@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Grid, Image } from 'theme-ui'
-import { Generate, generateStyles, generateSrc } from '@elements-ui/generative'
+import { Generate, generateStyles, generateSrc } from '@maker-ui/generative'
 
 // Example 1 - Random grid items
 

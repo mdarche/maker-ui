@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
-import { SEO } from '@elements-ui/seo'
-import { Carousel } from '@elements-ui/carousel'
+import { SEO } from '@maker-ui/seo'
+import { Carousel } from '@maker-ui/carousel'
 import { Global, css } from '@emotion/core'
 
 // Example 1 - Basic

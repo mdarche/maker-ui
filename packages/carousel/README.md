@@ -18,7 +18,7 @@ You can style your carousel with the `sx` prop as well as variants or classNames
 ```js
 import React from 'react'
 import { ThemeProvider } from 'theme-ui'
-import Carousel from '@elements-ui/carousel'
+import Carousel from '@maker-ui/carousel'
 
 import theme from './theme'
 

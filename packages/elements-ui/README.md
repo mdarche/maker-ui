@@ -127,19 +127,13 @@ All layout components can be styled with custom variants and the `sx` prop.
 ## Upcoming Packages
 
 - Common UI components
-  - Image / video lightbox
-  - Carousel slider
-  - Reusable modal layer
   - Custom loaders
-  - On-page search
   - Site search (Algolia)
-  - Tab component
   - Responsive tables
   - Filterable grids
   - Scroll reveal
   - Scroll progress indicator
   - Mega dropdown menu
-- Generative components
 - Speech Synthesis component
 - i18n support
 - Pre-built themes

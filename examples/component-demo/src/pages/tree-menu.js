@@ -1,5 +1,5 @@
 import React from 'react'
-import { TreeMenu } from '@elements-ui/components'
+import { TreeMenu } from '@maker-ui/components'
 
 const TabsPage = () => (
   <React.Fragment>

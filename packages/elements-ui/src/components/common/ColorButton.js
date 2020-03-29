@@ -2,7 +2,7 @@ import React from 'react'
 import { useThemeUI, Box } from 'theme-ui'
 
 import { useOptions } from '../../context/OptionContext'
-import setBreakpoint from '../../utils/set-breakpoint'
+import setBreakpoint from '../../utils/helper'
 
 const ColorButton = ({ custom }) => {
   const { theme, colorMode, setColorMode } = useThemeUI()

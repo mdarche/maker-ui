@@ -1,6 +1,6 @@
 import React from 'react'
 import { Template } from 'elements-ui'
-import { SEOProvider } from '@elements-ui/seo'
+import { SEOProvider } from '@maker-ui/seo'
 
 import options from './options'
 import theme from './theme'

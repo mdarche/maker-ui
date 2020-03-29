@@ -35,7 +35,7 @@ _Your component:_
 
 ```js
 import React, { useState } from 'react'
-import { Modal } from '@elements-ui/modal'
+import { Modal } from '@maker-ui/modal'
 
 const CustomModal = () => {
   const [show, set] = useState(false)

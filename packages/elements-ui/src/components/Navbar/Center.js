@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
-import setBreakpoint from '../../utils/set-breakpoint'
+import setBreakpoint from '../../utils/helper'
 import { Logo, Menu, MenuButton, ColorButton, WidgetArea } from '../common'
 
 const Center = React.forwardRef(

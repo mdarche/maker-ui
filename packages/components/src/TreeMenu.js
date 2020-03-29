@@ -3,7 +3,7 @@ import { Box } from 'theme-ui'
 import { useSpring, animated as a } from 'react-spring'
 
 import { useMeasure, usePrevious } from './helper'
-import { MinusIcon, PlusIcon, CloseIcon } from './icons'
+import { MinusIcon, PlusIcon, ExIcon } from './icons'
 
 const Tree = React.memo(({ children, name, style, open = false }) => {
   const [isOpen, setOpen] = useState(open)
@@ -44,7 +44,7 @@ const Tree = React.memo(({ children, name, style, open = false }) => {
           },
           verticalAlign: 'middle',
         }}>
-        {children ? isOpen ? <MinusIcon /> : <PlusIcon /> : <CloseIcon />}
+        {children ? isOpen ? <MinusIcon /> : <PlusIcon /> : <ExIcon />}
       </Box>
       <Box as="span" style={style}>
         {name}
