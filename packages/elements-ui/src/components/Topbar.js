@@ -2,7 +2,7 @@ import React from 'react'
 import { Flex, Box } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
-import setBreakpoint from '../utils/helper'
+import { setBreakpoint } from '../utils/helper'
 
 const Topbar = React.forwardRef(
   (

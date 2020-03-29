@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 
 import { useOptions, useLayout } from '../context/OptionContext'
-import setBreakpoint from '../utils/helper'
+import { setBreakpoint } from '../utils/helper'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 

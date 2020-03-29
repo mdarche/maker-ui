@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
-import { Modal, PageSearch } from '@maker-ui/components'
+import { Modal } from '@maker-ui/components'
+import PageSearch from '@maker-ui/page-search'
 import { SEO } from '@maker-ui/seo'
 
 const ModalPage = () => {

@@ -5,7 +5,7 @@ import AccordionMenu from './AccordionMenu'
 import { Overlay } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
-import setBreakpoint from '../utils/helper'
+import { setBreakpoint } from '../utils/helper'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 

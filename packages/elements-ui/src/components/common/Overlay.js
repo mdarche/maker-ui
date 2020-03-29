@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-import setBreakpoint from '../../utils/helper'
+import { setBreakpoint } from '../../utils/helper'
 
 const Overlay = ({ show, toggle, type, bp }) => {
   const visibility = show ? 'visible' : 'hidden'

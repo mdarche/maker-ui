@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 
 import { useOptions } from '../../context/OptionContext'
-import setBreakpoint from '../../utils/helper'
+import { setBreakpoint } from '../../utils/helper'
 import MenuItem from './MenuItem'
 
 const Menu = React.memo(({ menuItems = [], pathname }) => {

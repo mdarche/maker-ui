@@ -3,7 +3,7 @@ import { Box } from 'theme-ui'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import setBreakpoint from '../../utils/helper'
+import { setBreakpoint } from '../../utils/helper'
 
 const getAttributes = (
   menu,

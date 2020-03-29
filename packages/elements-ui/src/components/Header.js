@@ -3,7 +3,7 @@ import { Box } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../utils/scroll-position'
-import setBreakpoint from '../utils/helper'
+import { setBreakpoint } from '../utils/helper'
 
 const Header = React.forwardRef((props, ref) => {
   const { header } = useOptions()

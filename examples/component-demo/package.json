@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "@maker-ui/carousel": "*",
+    "@maker-ui/components": "*",
     "@maker-ui/generative": "*",
+    "@maker-ui/lightbox": "*",
+    "@maker-ui/page-search": "*",
     "@maker-ui/seo": "*",
     "elements-ui": "*",
     "gatsby": "^2.19.22",

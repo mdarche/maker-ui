@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Box } from 'theme-ui'
+import { Modal } from '@maker-ui/components'
 
 import Canvas from './Canvas'
 import NavButton from './NavButton'
 import Toolbar from './Toolbar'
 import Preview from './Preview'
 import { LightboxProvider, useLightbox } from './LightboxProvider'
-import Modal from '../Modal'
 
 // TODO add all variants to basic variant arry and make an extra installation step
 
