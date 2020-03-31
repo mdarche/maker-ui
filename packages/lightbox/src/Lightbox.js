@@ -85,10 +85,12 @@ const LightboxModal = ({
       }
     }
 
-    if (active) {
-      window.addEventListener(`keydown`, handleKeyDown)
+    if (typeof window !== 'undefined') {
+      if (active) {
+        window.addEventListener(`keydown`, handleKeyDown)
+      }
+      return () => window.removeEventListener(`keydown`, handleKeyDown)
     }
-    return () => window.removeEventListener(`keydown`, handleKeyDown)
   }, [active, controlsActive])
 
   useEffect(() => {

@@ -123,10 +123,12 @@ const Modal = ({
       }
     }
 
-    if (show) {
-      window.addEventListener(`keydown`, handleKeyDown)
+    if (typeof window !== 'undefined') {
+      if (show) {
+        window.addEventListener(`keydown`, handleKeyDown)
+      }
+      return () => window.removeEventListener(`keydown`, handleKeyDown)
     }
-    return () => window.removeEventListener(`keydown`, handleKeyDown)
   }, [show, focusable, closeModal])
 
   return (

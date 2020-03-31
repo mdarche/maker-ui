@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Grid, Image } from 'theme-ui'
 import { Generate, generateStyles, generateSrc } from '@maker-ui/generative'
+import { FadeBox } from '@maker-ui/components'
 
 // Example 1 - Random grid items
 
@@ -85,6 +86,7 @@ const GenerativePage = () => {
       </Grid>
       <h2>Example 3</h2>
       <Image {...generateSrc(imageData)} />
+      <FadeBox sx={{ my: 100 }}>Test</FadeBox>
       <h2>Example 4</h2>
       <Box
         sx={{
@@ -94,6 +96,7 @@ const GenerativePage = () => {
         }}>
         My styles are randomly generated on each rerender
       </Box>
+      <Box sx={{ height: 800 }} />
     </React.Fragment>
   )
 }
