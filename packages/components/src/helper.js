@@ -28,39 +28,37 @@ export function useTracker(type, key, toggle, expiration) {
     }, 1000)
   }
 
-  function handleSession() {
-    const sessionCheck = sessionStorage.getItem(key)
-
-    if (toggle && sessionCheck) {
-      return set(false)
-    }
-    if (!toggle && !sessionCheck) {
-      delay()
-      return sessionStorage.setItem(key, 'true')
-    }
-  }
-
-  function handleCookie() {
-    const cookieCheck = document.getCookie(key)
-
-    if (toggle && cookieCheck) {
-      return set(false)
-    }
-    if (!toggle && !cookieCheck) {
-      delay()
-      return (document.cookie = `${key}=true;expires=${expiration};path=/`)
-    }
-  }
-
   useEffect(() => {
+    // Use session storage
+
     if (type === 'session') {
-      handleSession()
+      const sessionCheck = sessionStorage.getItem(key)
+
+      if (toggle && sessionCheck) {
+        return set(false)
+      }
+      if (!toggle && !sessionCheck) {
+        delay()
+        return sessionStorage.setItem(key, 'true')
+      }
     }
+
+    // Use cookie storage
 
     if (type === 'cookie') {
-      handleCookie()
+      const cookieCheck = document.cookie
+        .split(';')
+        .some(i => i.trim().startsWith(key))
+
+      if (toggle && cookieCheck) {
+        return set(false)
+      }
+      if (!toggle && !cookieCheck) {
+        delay()
+        return (document.cookie = `${key}=true;expires=${expiration};path=/`)
+      }
     }
-  }, [toggle])
+  }, [toggle, type, expiration, key])
 
   return active
 }

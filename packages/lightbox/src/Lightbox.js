@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box } from 'theme-ui'
 import { Modal } from '@maker-ui/components'
 
@@ -29,8 +29,6 @@ const LightboxModal = ({
   children,
   ...props
 }) => {
-  const nextRef = useRef(null)
-  const prevRef = useRef(null)
   const { index, active, urls, addToGallery, toggleLightbox } = useLightbox()
   const [current, setCurrent] = useState(0)
   const [play, setPlay] = useState(false)
@@ -38,15 +36,21 @@ const LightboxModal = ({
   const [zoom, setZoom] = useState(false)
   const [controlsActive, setControlsActive] = useState(true)
 
+  // Add data from props to Lightbox context
+
   useEffect(() => {
     if (data) {
       addToGallery(data)
     }
-  }, [data])
+  }, [data, addToGallery])
+
+  // Update canvas when index changes
 
   useEffect(() => {
     setCurrent(index)
   }, [index])
+
+  // Handle autoPlay controls
 
   useEffect(() => {
     if (play) {
@@ -61,6 +65,9 @@ const LightboxModal = ({
       return () => clearTimeout(auto)
     }
   }, [play, current])
+
+  // Hide preview area when lightbox closes
+  // Handle special keystrokes when lightbox is open
 
   useEffect(() => {
     if (!active && preview) {
@@ -91,7 +98,9 @@ const LightboxModal = ({
       }
       return () => window.removeEventListener(`keydown`, handleKeyDown)
     }
-  }, [active, controlsActive])
+  }, [active, controlsActive, disableHideControls])
+
+  // Hide controls and reset counter when they appear
 
   useEffect(() => {
     if (active && controlsActive && !disableHideControls && !preview) {
@@ -101,17 +110,10 @@ const LightboxModal = ({
 
       return () => clearTimeout(hide)
     }
-  }, [active, controlsActive, preview])
+  }, [active, controlsActive, preview, disableHideControls])
 
   const next = e => setCurrent(s => (s === urls.length - 1 ? 0 : s + 1))
   const prev = e => setCurrent(s => (s === 0 ? urls.length - 1 : s - 1))
-
-  // const setFocus = ref =>
-  //   !play
-  //     ? setTimeout(() => {
-  //         ref.current.focus()
-  //       }, 0)
-  //     : null
 
   const showControls = e =>
     !controlsActive && !disableHideControls
@@ -154,8 +156,8 @@ const LightboxModal = ({
           {urls.length > 1 && (
             <React.Fragment>
               <Box className="lightbox-navigation">
-                <NavButton ref={prevRef} arrow={arrow} control={prev} />
-                <NavButton ref={nextRef} arrow={arrow} control={next} isNext />
+                <NavButton arrow={arrow} control={prev} />
+                <NavButton arrow={arrow} control={next} isNext />
               </Box>
               <Preview
                 show={preview}

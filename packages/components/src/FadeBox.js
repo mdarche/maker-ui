@@ -32,12 +32,6 @@ const FadeBox = ({
   const [show, set] = useState(false)
   const fadeProps = direction ? { direction, distance } : settings
 
-  const handleScroll = e => {
-    if (!show && window.pageYOffset > ref.current.offsetTop - offset) {
-      set(true)
-    }
-  }
-
   const reveal = useSpring({
     opacity: show ? 1 : 0,
     transform: fade ? undefined : getTransform(fadeProps, show),
@@ -45,11 +39,16 @@ const FadeBox = ({
   })
 
   useEffect(() => {
+    const handleScroll = e =>
+      !show && window.pageYOffset > ref.current.offsetTop - offset
+        ? set(true)
+        : null
+
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', handleScroll)
       return () => window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [show, offset])
 
   return <AnimatedBox style={reveal} ref={ref} {...props} />
 }

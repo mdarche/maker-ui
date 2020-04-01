@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Box, Flex } from 'theme-ui'
 import { useSpring, animated as a } from 'react-spring'
 
@@ -27,9 +27,9 @@ const Announcement = React.forwardRef(
       bg = 'primary',
       color = '#fff',
       fixed = false,
-      showDismiss = true,
       trackerType = 'session',
       expiration = 2592000, // 30 days
+      allowClose = true,
       closeButton = <CloseIcon />,
       bottom = false,
       children,
@@ -74,7 +74,7 @@ const Announcement = React.forwardRef(
             {...props}>
             {children}
           </Flex>
-          {showDismiss && (
+          {allowClose && (
             <Box
               as="button"
               variant={`${variant}.close`}
@@ -87,6 +87,7 @@ const Announcement = React.forwardRef(
                 border: 'none',
                 background: 'none',
                 px: '15px',
+                color,
                 svg: { height: 27, fill: color },
               }}>
               {closeButton}

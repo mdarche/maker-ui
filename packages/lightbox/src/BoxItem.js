@@ -26,21 +26,23 @@ const BoxItem = React.forwardRef(
     const { addToGallery, toggleLightbox } = useLightbox()
     const htmlVideo = src ? videoFormats.some(v => src.includes(v)) : false
 
+    const config = {
+      id,
+      src,
+      alt,
+      title,
+      description,
+      youtubeId,
+      vimeoId,
+      poster,
+      htmlVideo,
+    }
+
     useEffect(() => {
       if (!trigger) {
-        addToGallery({
-          id,
-          src,
-          alt,
-          title,
-          description,
-          youtubeId,
-          vimeoId,
-          poster,
-          htmlVideo,
-        })
+        addToGallery(config)
       }
-    }, [src])
+    }, [config, trigger, addToGallery])
 
     const handleClick = e => {
       e.preventDefault()

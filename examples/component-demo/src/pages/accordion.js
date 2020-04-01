@@ -1,5 +1,5 @@
 import React from 'react'
-import { AccordionGroup, Accordion } from '@maker-ui/components'
+import { AccordionGroup, Accordion, CookieNotice } from '@maker-ui/components'
 
 const AccordionPage = () => (
   <React.Fragment>
@@ -24,6 +24,7 @@ const AccordionPage = () => (
         Yo 3!
       </Accordion>
     </AccordionGroup>
+    <CookieNotice />
   </React.Fragment>
 )
 
