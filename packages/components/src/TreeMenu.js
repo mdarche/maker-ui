@@ -5,16 +5,23 @@ import { useSpring, animated as a } from 'react-spring'
 import { useMeasure, usePrevious } from './helper'
 import { MinusIcon, PlusIcon, ExIcon } from './icons'
 
+// TODO - reduce class generation by moving styles to variant
+
 const TreeContext = React.createContext()
 
 export const TreeItem = React.forwardRef(
   ({ text, link, newTab, open = false, children, ...props }, ref) => {
     const [isOpen, setOpen] = useState(open)
-    const state = useContext(TreeContext)
+    const {
+      clickableText,
+      variant,
+      collapse,
+      expand,
+      neutral,
+      indentation,
+    } = useContext(TreeContext)
     const previous = usePrevious(isOpen)
     const [bind, { height: viewHeight }] = useMeasure()
-
-    console.log(state)
 
     const { height } = useSpring({
       from: { height: 0 },
@@ -28,9 +35,10 @@ export const TreeItem = React.forwardRef(
         ref={ref}
         className="tree-item"
         sx={{
+          display: link && 'flex',
+          alignItems: link && 'center',
           position: 'relative',
-          pt: '5px',
-          pl: '5px',
+          pt: '10px',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           verticalAlign: 'middle',
@@ -38,9 +46,12 @@ export const TreeItem = React.forwardRef(
         <Box
           as="button"
           onClick={() => setOpen(!isOpen)}
+          variant={`${variant}.button`}
           aria-label={text}
           aria-expanded={isOpen ? 'true' : 'false'}
           sx={{
+            display: !link && 'flex',
+            alignItems: !link && 'center',
             background: 'none',
             border: 'none',
             p: 0,
@@ -51,32 +62,38 @@ export const TreeItem = React.forwardRef(
               height: '16px',
               fill: 'currentColor',
             },
-            verticalAlign: 'middle',
           }}>
-          <Box as="span" className="tree-icon">
-            {children
-              ? isOpen
-                ? state.collapse
-                : state.expand
-              : state.neutral}
+          <Box
+            as="span"
+            variant={`${variant}.icon`}
+            className="tree-icon"
+            sx={{
+              mr: clickableText && !link ? '10px' : undefined,
+            }}>
+            {children ? (isOpen ? collapse : expand) : neutral}
           </Box>
-          {state.clickableText && !link && (
-            <Box as="span" className="tree-text">
+          {clickableText && !link && (
+            <Box
+              as="span"
+              variant={`${variant}.text`}
+              className="tree-text"
+              sx={{ fontSize: 2 }}>
               {text}
             </Box>
           )}
         </Box>
         <Box
           as={link ? 'a' : 'span'}
+          variant={`${variant}.text`}
           href={link && link}
           target={link && newTab && '_blank'}
           {...props}>
-          {(!state.clickableText || link) && text}
+          {(!clickableText || link) && text}
         </Box>
         <a.div
           style={{
             willChange: 'height',
-            paddingLeft: 10,
+            paddingLeft: indentation,
             overflow: 'hidden',
             height: isOpen && previous === isOpen ? 'auto' : height,
           }}>
@@ -96,6 +113,7 @@ export const TreeMenu = React.forwardRef(
         collapse: <MinusIcon />,
         neutral: <ExIcon />,
       },
+      indentation = '20px', // Note for Docs - can be responsive array
       clickableText = false,
       ...props
     },
@@ -106,6 +124,8 @@ export const TreeMenu = React.forwardRef(
       collapse: buttons.collapse,
       neutral: buttons.neutral,
       clickableText,
+      indentation,
+      variant,
     })
     return (
       <TreeContext.Provider value={state}>

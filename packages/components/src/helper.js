@@ -19,3 +19,48 @@ export function useMeasure() {
   }, [ro])
   return [{ ref }, bounds]
 }
+
+export function useTracker(type, key, toggle, expiration) {
+  const [active, set] = useState(true)
+  const delay = () => {
+    setTimeout(() => {
+      set(false)
+    }, 1000)
+  }
+
+  function handleSession() {
+    const sessionCheck = sessionStorage.getItem(key)
+
+    if (toggle && sessionCheck) {
+      return set(false)
+    }
+    if (!toggle && !sessionCheck) {
+      delay()
+      return sessionStorage.setItem(key, 'true')
+    }
+  }
+
+  function handleCookie() {
+    const cookieCheck = document.getCookie(key)
+
+    if (toggle && cookieCheck) {
+      return set(false)
+    }
+    if (!toggle && !cookieCheck) {
+      delay()
+      return (document.cookie = `${key}=true;expires=${expiration};path=/`)
+    }
+  }
+
+  useEffect(() => {
+    if (type === 'session') {
+      handleSession()
+    }
+
+    if (type === 'cookie') {
+      handleCookie()
+    }
+  }, [toggle])
+
+  return active
+}

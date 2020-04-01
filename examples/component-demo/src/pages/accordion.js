@@ -1,7 +1,7 @@
 import React from 'react'
 import { AccordionGroup, Accordion } from '@maker-ui/components'
 
-const IndexPage = () => (
+const AccordionPage = () => (
   <React.Fragment>
     <AccordionGroup
       single
@@ -27,4 +27,4 @@ const IndexPage = () => (
   </React.Fragment>
 )
 
-export default IndexPage
+export default AccordionPage

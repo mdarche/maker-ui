@@ -8,14 +8,14 @@ const TabsPage = () => (
     <TreeMenu clickableText>
       <TreeItem text="main" open>
         <TreeItem text="hello" />
-        <TreeItem text="subtree with children" link="https://google.com" newTab>
+        <TreeItem text="subtree with children">
           <TreeItem text="hello" />
           <TreeItem text="sub-subtree with children">
-            <TreeItem text="child 1" link="https://google.com" newTab />
-            <TreeItem text="child 2" />
+            <TreeItem text="child 1" />
+            <TreeItem text="child 2" link="https://google.com" newTab />
             <TreeItem text="child 3" />
             <TreeItem text="custom content">
-              <div>Test!</div>
+              <div style={{ padding: 30 }}>Test!</div>
             </TreeItem>
           </TreeItem>
           <TreeItem text="hello" />
