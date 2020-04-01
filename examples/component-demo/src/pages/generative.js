@@ -86,7 +86,9 @@ const GenerativePage = () => {
       </Grid>
       <h2>Example 3</h2>
       <Image {...generateSrc(imageData)} />
-      <FadeBox sx={{ my: 100 }}>Test</FadeBox>
+      <FadeBox direction="up" distance="10px" sx={{ my: 100 }}>
+        Test
+      </FadeBox>
       <h2>Example 4</h2>
       <Box
         sx={{

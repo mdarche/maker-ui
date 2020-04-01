@@ -22,11 +22,15 @@ const getTransform = ({ direction, distance }, show) => {
 const FadeBox = ({
   offset = 300,
   springConfig,
+  direction,
+  distance = '20px',
+  fade = false,
   settings = { direction: 'up', distance: '20px' },
   ...props
 }) => {
   const ref = useRef(null)
   const [show, set] = useState(false)
+  const fadeProps = direction ? { direction, distance } : settings
 
   const handleScroll = e => {
     if (!show && window.pageYOffset > ref.current.offsetTop - offset) {
@@ -36,7 +40,7 @@ const FadeBox = ({
 
   const reveal = useSpring({
     opacity: show ? 1 : 0,
-    transform: getTransform(settings, show),
+    transform: fade ? undefined : getTransform(fadeProps, show),
     config: springConfig,
   })
 
