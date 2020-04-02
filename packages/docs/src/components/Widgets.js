@@ -3,7 +3,7 @@ import { Box } from 'theme-ui'
 
 export default () => (
   <a
-    href="https://github.com/mdarche/elements-ui"
+    href="https://github.com/mdarche/maker-ui"
     target="_blank"
     rel="noopener noreferrer">
     <Box

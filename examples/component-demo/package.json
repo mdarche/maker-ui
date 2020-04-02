@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "name": "component-demo",
+  "version": "0.4.2",
+  "author": "Mike Darche",
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@maker-ui/carousel": "*",
+    "@maker-ui/components": "*",
+    "@maker-ui/generative": "*",
+    "@maker-ui/lightbox": "*",
+    "@maker-ui/page-search": "*",
+    "@maker-ui/seo": "*",
+    "maker-ui": "*",
+    "gatsby": "^2.19.22",
+    "gatsby-plugin-catch-links": "^2.1.26",
+    "gatsby-plugin-layout": "^1.1.22",
+    "gatsby-plugin-react-helmet": "^3.2.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  }
+}

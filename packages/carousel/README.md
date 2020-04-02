@@ -1,12 +1,12 @@
-# @elements-ui/carousel
+# @maker-ui/carousel
 
 An accessible carousel component built with [react-spring](https://www.react-spring.io/)
-that works seamlessly with a Theme UI theme provider or an Elements UI layout.
+that works seamlessly with a Theme UI theme provider or an Maker UI layout.
 
 ## Installation
 
 ```
-npm i @elements-ui/carousel
+npm i @maker-ui/carousel
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ You can style your carousel with the `sx` prop as well as variants or classNames
 ```js
 import React from 'react'
 import { ThemeProvider } from 'theme-ui'
-import Carousel from '@elements-ui/carousel'
+import Carousel from '@maker-ui/carousel'
 
 import theme from './theme'
 

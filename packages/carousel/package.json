@@ -1,6 +1,6 @@
 {
-  "name": "@elements-ui/carousel",
-  "version": "0.4.2",
+  "name": "@maker-ui/carousel",
+  "version": "0.4.3",
   "author": "Mike Darche",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -10,7 +10,7 @@
     "watch": "microbundle watch --no-compress --jsx React.createElement"
   },
   "dependencies": {
-    "react-spring": "^8.0.27"
+    "react-spring": "^9.0.0-beta.34"
   },
   "peerDependencies": {
     "react": "^16.12.0",
