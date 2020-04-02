@@ -44,9 +44,9 @@ export default {
   },
   // ---------------------------
   //
-  //  Elements UI layout variants
+  //  Maker UI layout variants
   //
-  //  See: https://elements-ui.dev/layout-components for a complete list of variants
+  //  See: https://maker-ui.dev/layout-components for a complete list of variants
   //
   // ---------------------------
   header: {

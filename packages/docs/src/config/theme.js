@@ -36,7 +36,7 @@ export default {
     monospace: 'Menlo, monospace',
   },
   breakpoints: ['768px', '960px', '1240px'],
-  // Elements UI layout variants
+  // Maker UI layout variants
   header: {
     py: [2, '10px'],
     borderBottom: '1px solid',

@@ -1,5 +1,5 @@
 {
-  "name": "elements-ui",
+  "name": "maker-ui",
   "version": "0.4.3",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

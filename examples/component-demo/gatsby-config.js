@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Elements UI Carousel Example',
+    title: 'Maker UI Carousel Example',
     description: 'An example Gatsby site with Carousel usage',
   },
   plugins: [

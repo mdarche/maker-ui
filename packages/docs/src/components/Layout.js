@@ -7,7 +7,7 @@ import {
   Content,
   Main,
   SideNav,
-} from 'elements-ui'
+} from 'maker-ui'
 import Prism from '@theme-ui/prism'
 
 import Logo from './Logo'

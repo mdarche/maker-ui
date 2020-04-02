@@ -1,12 +1,12 @@
-# @elements-ui/carousel
+# @maker-ui/carousel
 
 An accessible carousel component built with [react-spring](https://www.react-spring.io/)
-that works seamlessly with a Theme UI theme provider or an Elements UI layout.
+that works seamlessly with a Theme UI theme provider or an Maker UI layout.
 
 ## Installation
 
 ```
-npm i @elements-ui/carousel
+npm i @maker-ui/carousel
 ```
 
 ## Usage

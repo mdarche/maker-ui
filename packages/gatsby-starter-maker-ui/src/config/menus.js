@@ -1,14 +1,14 @@
 /**
  *  NOTE
  *
- *  This menu demonstrates all of the options you can use with a menu array for Elements UI <Navbar />,
+ *  This menu demonstrates all of the options you can use with a menu array for Maker UI <Navbar />,
  *  <MobileMenu />, or <AccordionMenu />:
  *    - nested menu (submenu)
  *    - open in new tab
  *    - custom classes
  *    - custom icon
  *
- *  See: https://elements-ui.dev/menus for details
+ *  See: https://maker-ui.dev/menus for details
  */
 import React from 'react'
 
@@ -32,20 +32,20 @@ export const menu = [
     submenu: [
       {
         label: 'Navigation',
-        path: 'https://elements-ui.dev/navigation',
+        path: 'https://maker-ui.dev/navigation',
         newTab: true,
       },
       {
         label: 'Layouts',
-        path: 'https://elements-ui.dev/layouts',
+        path: 'https://maker-ui.dev/layouts',
         newTab: true,
       },
       {
         label: 'Options',
-        path: 'https://elements-ui.dev/options',
+        path: 'https://maker-ui.dev/options',
         newTab: true,
       },
-      { label: 'Theme', path: 'https://elements-ui.dev/theming', newTab: true },
+      { label: 'Theme', path: 'https://maker-ui.dev/theming', newTab: true },
     ],
   },
 ]

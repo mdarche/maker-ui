@@ -1,1 +1,1 @@
-./packages/elements-ui/README.md
+package/maker-ui/README.md

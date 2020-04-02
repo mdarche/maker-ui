@@ -31,7 +31,7 @@ export default {
       },
     },
   },
-  // Elements UI layout variants
+  // Maker UI layout variants
   header: {
     py: [2, '10px'],
     borderBottom: '1px solid',

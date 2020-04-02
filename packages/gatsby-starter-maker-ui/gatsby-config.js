@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Elements`,
+    title: `Gatsby Starter Maker UI`,
     author: `Mike Darche`,
-    description: `A starter boilerplate for using a Elements UI with Gatsby.`,
+    description: `A starter boilerplate for using a Maker UI with Gatsby.`,
     siteUrl: `https://gatsby-starter-elements.netlify.com/`,
     social: {
       twitter: `mkdarshay`,
@@ -20,13 +20,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Elements`,
+        name: `Gatsby Starter Maker UI`,
         short_name: `EUI`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: false,
         display: `minimal-ui`,
-        icon: `src/assets/elements-ui.png`,
+        icon: `src/assets/maker-ui.png`,
       },
     },
   ],

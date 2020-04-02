@@ -16,7 +16,7 @@
     "@maker-ui/lightbox": "*",
     "@maker-ui/page-search": "*",
     "@maker-ui/seo": "*",
-    "elements-ui": "*",
+    "maker-ui": "*",
     "gatsby": "^2.19.22",
     "gatsby-plugin-catch-links": "^2.1.26",
     "gatsby-plugin-layout": "^1.1.22",

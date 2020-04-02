@@ -7,7 +7,7 @@ import {
   Content,
   Main,
   Footer,
-} from 'elements-ui'
+} from 'maker-ui'
 import { Announcement } from '@maker-ui/components'
 import { SEOProvider } from '@maker-ui/seo'
 

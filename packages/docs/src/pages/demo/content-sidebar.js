@@ -1,5 +1,5 @@
 import React from 'react'
-import { Template } from 'elements-ui'
+import { Template } from 'maker-ui'
 import { BlogPost, SideAds } from 'react-understudy'
 
 import Logo from '../../components/Logo'

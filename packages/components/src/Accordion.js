@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from 'theme-ui'
 import { useSpring, animated } from 'react-spring'
-import { generateId } from 'elements-ui'
+import { generateId } from 'maker-ui'
 
 import { useAccordion } from './AccordionGroup'
 import { useMeasure } from './helper'

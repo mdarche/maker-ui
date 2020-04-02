@@ -1,4 +1,4 @@
-# @elements-ui/components
+# @maker-ui/components
 
 ## Modal README
 
@@ -7,7 +7,7 @@ An accessible dialog component that uses React's Portal API to render a custom c
 ## Installation
 
 ```
-npm i @elements-ui/modal
+npm i @maker-ui/modal
 ```
 
 ## Usage
@@ -53,7 +53,7 @@ const CustomModal = () => {
 
 ## Event Bubbling
 
-Because the Modal component uses React's Portal API, it can still utilize all styles, variants, and properties of your Theme UI or Elements UI theme.
+Because the Modal component uses React's Portal API, it can still utilize all styles, variants, and properties of your Theme UI or Maker UI theme.
 
 ## Focus Management
 

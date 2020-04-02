@@ -29,7 +29,7 @@ const CookieNotice = React.forwardRef(
         closeButton="Got it!"
         {...props}>
         {children ||
-          'This site uses cookies to enhance the user experience. By continuing to browse the site, you agree to our use of cookies.'}
+          'We use cookies to ensure you get the best experience on our site.'}
       </Announcement>
     )
   }

@@ -11,7 +11,7 @@ import {
   SideNav,
   Sidebar,
   Footer,
-} from './'
+} from '.'
 import { useOptions } from '../context/OptionContext'
 
 const SiteInner = ({ sideNav, sidebar, menu, children }) => {

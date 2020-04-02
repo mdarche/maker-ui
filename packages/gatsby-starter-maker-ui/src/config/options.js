@@ -1,10 +1,10 @@
 /**
  *  NOTE
  *
- *  - These are all of the default Elements UI options available in v0.4.2
+ *  - These are all of the default Maker UI options available in v0.4.2
  *  - Depending on your layout, you might only need to access a few of these
  *
- *  See: https://elements-ui.dev/options for details on each
+ *  See: https://maker-ui.dev/options for details on each
  */
 
 export default {

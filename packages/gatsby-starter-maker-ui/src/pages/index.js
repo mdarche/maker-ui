@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Heading } from 'theme-ui'
-import { SEO } from 'elements-ui'
+import { SEO } from 'maker-ui'
 
 const Highlite = ({ fontSize = [17, 19], ...props }) => (
   <Box
@@ -19,10 +19,10 @@ const Highlite = ({ fontSize = [17, 19], ...props }) => (
 
 const IndexPage = () => (
   <React.Fragment>
-    <SEO title="Elements UI + Gatsby" />
+    <SEO title="Maker UI + Gatsby" />
     <Box sx={{ mt: 100, textAlign: 'center', px: 20 }}>
       <Box as="h1" sx={{ fontSize: [42, 70], mb: 60 }}>
-        Elements UI + Gatsby
+        Maker UI + Gatsby
       </Box>
       <Box
         as="p"
@@ -82,8 +82,8 @@ const IndexPage = () => (
         <li>
           <h4>Set theme options</h4>
           <div>
-            Elements UI gives you access to dozens of helpful features that you
-            can configure in{' '}
+            Maker UI gives you access to dozens of helpful features that you can
+            configure in{' '}
             <Highlite fontSize={16}>src/config/options.js.</Highlite>.
           </div>
         </li>
@@ -91,7 +91,7 @@ const IndexPage = () => (
           <h4>Design your theme</h4>
           <div>
             Customize the look and feel of your theme by editing global styles,
-            responsive scales, color modes, and Elements UI theme variants in
+            responsive scales, color modes, and Maker UI theme variants in
             <Highlite fontSize={16}>src/config/theme.js</Highlite>.
           </div>
         </li>
@@ -106,8 +106,8 @@ const IndexPage = () => (
         <li>
           <h4>Create content</h4>
           <div>
-            Elements UI gets your layout up and running quickly so you can focus
-            on building pages and creating content. Have fun and enjoy!
+            Maker UI gets your layout up and running quickly so you can focus on
+            building pages and creating content. Have fun and enjoy!
           </div>
         </li>
       </Box>

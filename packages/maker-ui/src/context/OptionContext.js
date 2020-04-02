@@ -27,7 +27,7 @@ function useOptions() {
 
   if (options === undefined)
     throw new Error(
-      'useOptions must be used within an Elements UI Layout component'
+      'useOptions must be used within an Maker UI Layout component'
     )
 
   return options
@@ -38,7 +38,7 @@ function useOptionUpdater() {
 
   if (dispatch === undefined)
     throw new Error(
-      'useOptionsUpdater must be used within an Elements UI Layout component'
+      'useOptionsUpdater must be used within an Maker UI Layout component'
     )
 
   function setOptions(options) {
@@ -53,7 +53,7 @@ function useLayout() {
   const dispatch = useContext(OptionUpdateContext)
 
   if (layout === undefined)
-    throw new Error('useLayout must be used within an Elements UI layout')
+    throw new Error('useLayout must be used within an Maker UI layout')
 
   function setLayout(newLayout) {
     dispatch(state => ({ ...state, layout: newLayout }))

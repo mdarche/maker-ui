@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Box } from 'theme-ui'
-import { generateId } from 'elements-ui'
+import { generateId } from 'maker-ui'
 
 import { useLightbox } from './LightboxProvider'
 
