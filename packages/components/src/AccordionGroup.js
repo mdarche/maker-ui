@@ -9,14 +9,14 @@ const AccordionGroup = ({
   icon = true,
   customIcons = { expand: null, collapse: null },
   defaultKey = 0,
-  single = false,
+  showSingle = false,
   ...props
 }) => {
   const [state, setState] = useState({
     activeKey: defaultKey,
     icon,
     customIcons,
-    single,
+    showSingle,
   })
 
   return (

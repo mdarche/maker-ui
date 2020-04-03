@@ -22,14 +22,14 @@ const Accordion = React.forwardRef(
   ) => {
     const [state, setState] = useAccordion()
     const [show, set] = useState(
-      state.single && state.index === eventKey ? true : open
+      state.showSingle && state.index === eventKey ? true : open
     )
     const [buttonId] = useState(generateId())
     const [panelId] = useState(generateId())
     const [bind, { height: viewHeight }] = useMeasure()
 
     useEffect(() => {
-      if (state.single) {
+      if (state.showSingle) {
         return state.activeKey !== eventKey ? set(false) : set(true)
       }
     }, [state, eventKey, set])
@@ -42,7 +42,7 @@ const Accordion = React.forwardRef(
     })
 
     const setActive = () =>
-      !show && state.single
+      !show && state.showSingle
         ? setState(s => ({ ...s, activeKey: eventKey }))
         : set(!show)
 

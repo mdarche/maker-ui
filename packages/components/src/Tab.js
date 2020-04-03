@@ -10,7 +10,7 @@ const defaults = [1, 2, 3].map(i => ({
   component: `Tab ${i}: Add text or a custom component`,
 }))
 
-const Tabs = React.forwardRef(
+const Tab = React.forwardRef(
   (
     {
       items = defaults,
@@ -92,4 +92,4 @@ const Tabs = React.forwardRef(
   }
 )
 
-export default Tabs
+export default Tab
