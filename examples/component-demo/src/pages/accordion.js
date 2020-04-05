@@ -24,7 +24,6 @@ const AccordionPage = () => (
         Yo 3!
       </Accordion>
     </AccordionGroup>
-    <CookieNotice />
   </React.Fragment>
 )
 

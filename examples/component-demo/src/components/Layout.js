@@ -8,7 +8,11 @@ import {
   Main,
   Footer,
 } from 'maker-ui'
-import { Announcement } from '@maker-ui/components'
+import {
+  Announcement,
+  PageTransition,
+  CookieNotice,
+} from '@maker-ui/components'
 import { SEOProvider } from '@maker-ui/seo'
 
 import options from './options'
@@ -41,9 +45,12 @@ export default ({ children, location }) => (
         <MobileMenu menu={menu} />
       </Header>
       <Content>
-        <Main>{children}</Main>
+        <Main>
+          <PageTransition>{children}</PageTransition>
+        </Main>
       </Content>
       <Footer>Footer</Footer>
+      <CookieNotice />
     </Layout>
     {/* <Template
       options={options}
