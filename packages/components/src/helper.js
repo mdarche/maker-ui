@@ -1,6 +1,14 @@
 import { useState, useRef, useEffect } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
+export function format(value) {
+  return isNaN(value) ? value : `${value}px`
+}
+
+export function getSign(type) {
+  return type.includes('right') || type.includes('down') ? '-' : ''
+}
+
 export function usePrevious(value) {
   const ref = useRef()
   useEffect(() => void (ref.current = value), [value])

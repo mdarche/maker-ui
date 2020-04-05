@@ -120,11 +120,10 @@ Maker UI ships with a variety of components you might need for your site, all fu
 - Lightbox
 - Tabs
 - Announcement
-- Subscribe forms
-- Social share buttons
 - TreeMenu
 - FadeBox (scroll reveal)
-- Options dropdown menu
+- Popover
+- Spinner
 - CookieNotice
 - On-page search
 
@@ -146,12 +145,15 @@ Maker UI ships with a variety of components you might need for your site, all fu
 - Components
   - Search (Algolia)
   - SmartTable
-  - MasonryGrid
-  - FilterGrid
+  - SmartGrid
+  - Subscribe forms
+  - Share buttons
   - Mega dropdown menu
   - Speech Synthesis
   - PricingTable
-  - Parallax
+  - Parallax Library
+  - Subheader
+- Workspace layout
 - i18n support
 - Pre-built themes
 - Ecommerce & payment templates

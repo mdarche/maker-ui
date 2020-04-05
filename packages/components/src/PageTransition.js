@@ -2,17 +2,16 @@ import React from 'react'
 import { Flex } from 'theme-ui'
 import { animated as a, useTransition } from 'react-spring'
 
-function getTransition(type, distance) {
-  const format = value => (isNaN(value) ? value : `${value}px`)
-  const sign = type.includes('right') || type.includes('down') ? '-' : ''
+import { format, getSign } from './helper'
 
+function getTransition(type, distance) {
   switch (type) {
     case 'fade-right':
     case 'fade-left':
-      return `translate3d(${sign}${format(distance)},0,0)`
+      return `translate3d(${getSign(type)}${format(distance)},0,0)`
     case 'fade-down':
     case 'fade-up':
-      return `translate3d(0,${sign}${format(distance)},0)`
+      return `translate3d(0,${getSign(type)}${format(distance)},0)`
     default:
       return undefined
   }

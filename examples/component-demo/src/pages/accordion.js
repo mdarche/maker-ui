@@ -4,7 +4,7 @@ import { AccordionGroup, Accordion, CookieNotice } from '@maker-ui/components'
 const AccordionPage = () => (
   <React.Fragment>
     <AccordionGroup
-      single
+      showSingle
       sx={{
         '.accordion': { borderColor: 'gainsboro' },
         '.accordion-toggle': {

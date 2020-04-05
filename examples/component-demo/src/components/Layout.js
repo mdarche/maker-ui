@@ -26,6 +26,7 @@ const menu = [
   { label: 'Tree Menu', path: '/tree-menu' },
   { label: 'Modal', path: '/modal' },
   { label: 'Lightbox', path: '/lightbox' },
+  { label: 'Popover', path: '/popover' },
 ]
 
 const seo = {
