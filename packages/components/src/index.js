@@ -1,5 +1,4 @@
 export { default as Accordion } from './Accordion'
-export { default as AccordionGroup } from './AccordionGroup'
 export { default as Announcement } from './Announcement'
 export { default as CookieNotice } from './CookieNotice'
 export { default as FadeBox } from './FadeBox'

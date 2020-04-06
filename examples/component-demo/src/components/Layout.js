@@ -33,7 +33,7 @@ const seo = {
   title: 'Components',
   description: 'Check out the Maker UI component showcase.',
   twitter: 'mkdarshay',
-  titleTemplate: ' | Alpha UI',
+  titleTemplate: ' | Maker UI',
   siteUrl: 'http://localhost:8000',
 }
 

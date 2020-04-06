@@ -35,11 +35,10 @@ const PageTransition = ({
   })
   return transitions.map(({ item, key, props }) => (
     <Flex
+      key={key}
       id="content-wrapper"
       sx={{ flexDirection: 'column', minHeight: '80vh' }}>
-      <a.div key={key} style={{ ...props, flex: 1 }}>
-        {item}
-      </a.div>
+      <a.div style={{ ...props, flex: 1 }}>{item}</a.div>
     </Flex>
   ))
 }
