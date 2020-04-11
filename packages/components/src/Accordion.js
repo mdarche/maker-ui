@@ -35,7 +35,7 @@ export function useAccordion() {
   const setState = useContext(AccordionUpdateContext)
 
   if (typeof state === undefined) {
-    throw new Error('Accordion must be used within an AccordionGroup component')
+    throw new Error('AccordionPanel must be used within an Accordion component')
   }
 
   return [state, setState]

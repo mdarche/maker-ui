@@ -6,7 +6,7 @@ import Canvas from './Canvas'
 import NavButton from './NavButton'
 import Toolbar from './Toolbar'
 import Preview from './Preview'
-import BoxItem from './BoxItem'
+import LightboxItem from './LightboxItem'
 import { LightboxProvider, useLightbox } from './LightboxProvider'
 
 // TODO add all variants to basic variant arry and make an extra installation step
@@ -190,6 +190,6 @@ const Lightbox = ({ children, ...props }) => (
   </LightboxProvider>
 )
 
-Lightbox.Item = BoxItem
+Lightbox.Item = LightboxItem
 
 export default Lightbox

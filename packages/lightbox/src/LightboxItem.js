@@ -6,7 +6,7 @@ import { useLightbox } from './LightboxProvider'
 
 const videoFormats = ['.mp4', '.ogg', '.webm']
 
-const BoxItem = React.forwardRef(
+const LightboxItem = React.forwardRef(
   (
     {
       src,
@@ -63,4 +63,4 @@ const BoxItem = React.forwardRef(
   }
 )
 
-export default BoxItem
+export default LightboxItem
