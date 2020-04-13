@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import { Lightbox } from '@maker-ui/lightbox'
+import { Spinner } from '@maker-ui/components'
 
 const galleryData = [{ src: '', alt: '', title: '', description: '' }]
 
@@ -8,6 +9,11 @@ const LightboxPage = () => {
 
   return (
     <div>
+      <Spinner type="scale" />
+      <Spinner type="rotate" />
+      <Spinner type="pulse" />
+      <Spinner type="blocks" />
+      <Spinner />
       <button ref={ref}>Focus Ref</button>
       <Lightbox focusRef={ref} closeOnBlur>
         <Lightbox.Item
