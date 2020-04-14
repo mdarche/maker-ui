@@ -1,7 +1,5 @@
 import { createPortal } from 'react-dom'
 
-// Add proptypes
-
 const Portal = ({ children, root }) => {
   if (typeof window !== `undefined`) {
     const link = root

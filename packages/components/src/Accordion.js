@@ -7,11 +7,11 @@ const AccordionContext = React.createContext()
 const AccordionUpdateContext = React.createContext()
 
 const Accordion = ({
-  children,
   icon = true,
   customIcons = { expand: null, collapse: null },
   defaultKey = 0,
   showSingle = false,
+  children,
   ...props
 }) => {
   const [state, setState] = useState({

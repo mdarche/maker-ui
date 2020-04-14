@@ -32,6 +32,8 @@ const Spinner = React.forwardRef(
   }
 )
 
+// Blocks
+
 const Blocks = ({
   size,
   colors: { primary, secondary, tertiary },
@@ -75,7 +77,7 @@ const Blocks = ({
   )
 }
 
-// Pulsing circles
+// Pulse
 
 const Pulse = ({ size, colors: { primary, secondary }, ...props }) => {
   const points = [
@@ -116,7 +118,7 @@ const Pulse = ({ size, colors: { primary, secondary }, ...props }) => {
   )
 }
 
-// Three dots in row
+// Scale - 3 dots in a row
 
 const Scale = ({
   size,
@@ -161,7 +163,7 @@ const Scale = ({
   )
 }
 
-// Twelve dots in circle
+// Circular Dots
 
 const Rotate = ({ size, colors: { primary, secondary }, ...props }) => {
   const themeColors = useThemeUI().theme.colors

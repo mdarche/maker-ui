@@ -27,6 +27,7 @@ const menu = [
   { label: 'Modal', path: '/modal' },
   { label: 'Lightbox', path: '/lightbox' },
   { label: 'Popover', path: '/popover' },
+  { label: 'SmartTable', path: '/smart-table' },
 ]
 
 const seo = {
