@@ -1,14 +1,12 @@
 import merge from 'deepmerge'
 
+import { validate } from '../utils/helper'
 import defaultOptions from './options'
 import layouts from './variants/layouts'
 import headers from './variants/headers'
 import submenu from './variants/submenu'
 
-const validate = obj =>
-  obj !== undefined && typeof obj === 'object' ? obj : {}
-
-export default (theme, options) => {
+export default (theme, extendedTheme, options) => {
   const o =
     options === undefined ? defaultOptions : merge(defaultOptions, options)
 
@@ -46,7 +44,7 @@ export default (theme, options) => {
     ...submenu(o.header.dropdown.transition),
   }
 
-  return merge(mappedOptions, validate(theme), {
+  return merge.all([mappedOptions, validate(extendedTheme), validate(theme)], {
     arrayMerge: (target, source, options) => source,
   })
 }

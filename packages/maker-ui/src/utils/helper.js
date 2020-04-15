@@ -20,3 +20,7 @@ export function setBreakpoint(index, arr) {
 
   return arr
 }
+
+export function validate(obj) {
+  return obj !== undefined && typeof obj === 'object' ? obj : {}
+}

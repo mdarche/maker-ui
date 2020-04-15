@@ -11,3 +11,5 @@ export { default as Footer } from './Footer'
 export { default as Section } from './Section'
 export { default as Template } from './Template'
 export { default as AccordionMenu } from './AccordionMenu'
+
+export { useMakerUI } from '../utils/hooks'

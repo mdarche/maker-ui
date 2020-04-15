@@ -45,7 +45,7 @@ const Blocks = ({
     { x: '56', y: '9', fill: tertiary, b1: '-0.5', b2: '0' },
   ]
 
-  const attributes = x => ({
+  const getAttributes = x => ({
     attributeName: x ? 'x' : 'y',
     dur: '2s',
     repeatCount: 'indefinite',
@@ -69,8 +69,8 @@ const Blocks = ({
           rx="1"
           ry="1"
           sx={{ fill, height: 35, width: 35 }}>
-          <animate {...attributes(true)} begin={b1} />
-          <animate {...attributes(false)} begin={b2} />
+          <animate {...getAttributes(true)} begin={b1} />
+          <animate {...getAttributes(false)} begin={b2} />
         </Box>
       ))}
     </Box>
@@ -85,7 +85,7 @@ const Pulse = ({ size, colors: { primary, secondary }, ...props }) => {
     { r: '39.6', begin: '0', color: secondary },
   ]
 
-  const attributes = r => ({
+  const getAttributes = r => ({
     attributeName: r ? 'r' : 'opacity',
     repeatCount: 'indefinite',
     dur: '1.5s',
@@ -110,8 +110,8 @@ const Pulse = ({ size, colors: { primary, secondary }, ...props }) => {
           cy="50"
           r={r}
           sx={{ fill: 'none', stroke: color, strokeWidth: 3 }}>
-          <animate {...attributes(true)} begin={begin} />
-          <animate {...attributes(false)} begin={begin} />
+          <animate {...getAttributes(true)} begin={begin} />
+          <animate {...getAttributes(false)} begin={begin} />
         </Box>
       ))}
     </Box>
@@ -187,7 +187,7 @@ const Rotate = ({ size, colors: { primary, secondary }, ...props }) => {
     { cx: '71.651', cy: '37.5', r: '3', begin: '0' },
   ]
 
-  const attributes = r => ({
+  const getAttributes = r => ({
     attributeName: r ? 'r' : 'fill',
     values: r ? '3;3;5;3;3' : `${s};${s};${p};${s};${s};`,
     repeatCount: 'indefinite',
@@ -203,8 +203,8 @@ const Rotate = ({ size, colors: { primary, secondary }, ...props }) => {
       {...props}>
       {points.map(({ cy, cx, r, begin }, index) => (
         <circle key={index} cx={cx} cy={cy} fill={secondary} r={r}>
-          <animate {...attributes(true)} begin={begin} />
-          <animate {...attributes(false)} begin={begin} />
+          <animate {...getAttributes(true)} begin={begin} />
+          <animate {...getAttributes(false)} begin={begin} />
         </circle>
       ))}
     </Box>

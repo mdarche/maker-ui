@@ -5,8 +5,6 @@ import { useSpring, animated as a } from 'react-spring'
 import { useMeasure, usePrevious } from './helper'
 import { MinusIcon, PlusIcon, ExIcon } from './icons'
 
-// TODO - reduce class generation by moving styles to variant
-
 const TreeContext = React.createContext()
 
 export const TreeItem = React.forwardRef(

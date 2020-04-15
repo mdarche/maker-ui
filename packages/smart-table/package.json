@@ -16,5 +16,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "react-csv": "^2.0.3",
+    "react-table": "^7.0.4"
+  },
+  "scarfSettings": {
+    "enabled": false
+  }
 }

@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box } from 'theme-ui'
+import { useMakerUI } from 'maker-ui'
+
 import { useTransition, animated as a } from 'react-spring'
 
 // use for Tooltips, Supplemental content, and Dropdown menus
@@ -16,12 +18,18 @@ const Popover = React.forwardRef(
     },
     ref
   ) => {
-    console.log(
-      target.current ? target.current.getBoundingClientRect() : 'nope'
-    )
+    const { extendTheme } = useMakerUI()
+
+    useEffect(() => {
+      extendTheme({ colors: { crazy: 'red' } })
+    }, [])
+
+    // console.log(
+    //   target.current ? target.current.getBoundingClientRect() : 'nope'
+    // )
     return (
       show && (
-        <Box role={role} ref={ref}>
+        <Box role={role} ref={ref} sx={{ bg: 'crazy' }}>
           TODO
         </Box>
       )

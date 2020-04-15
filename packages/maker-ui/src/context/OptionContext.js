@@ -25,10 +25,11 @@ const OptionProvider = ({ options = {}, children }) => {
 function useOptions() {
   const options = useContext(OptionContext)
 
-  if (options === undefined)
+  if (options === undefined) {
     throw new Error(
       'useOptions must be used within an Maker UI Layout component'
     )
+  }
 
   return options
 }
@@ -36,10 +37,11 @@ function useOptions() {
 function useOptionUpdater() {
   const dispatch = useContext(OptionUpdateContext)
 
-  if (dispatch === undefined)
+  if (dispatch === undefined) {
     throw new Error(
       'useOptionsUpdater must be used within an Maker UI Layout component'
     )
+  }
 
   function setOptions(options) {
     dispatch(state => merge(state, options))
@@ -52,8 +54,9 @@ function useLayout() {
   const { layout } = useContext(OptionContext)
   const dispatch = useContext(OptionUpdateContext)
 
-  if (layout === undefined)
+  if (layout === undefined) {
     throw new Error('useLayout must be used within an Maker UI layout')
+  }
 
   function setLayout(newLayout) {
     dispatch(state => ({ ...state, layout: newLayout }))
