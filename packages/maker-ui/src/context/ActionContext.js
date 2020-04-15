@@ -40,8 +40,9 @@ function useMenu() {
   const { menuActive } = useContext(ActionContext)
   const dispatch = useContext(ActionUpdateContext)
 
-  if (typeof menuActive === undefined)
-    throw new Error('useMenu must be used within an Maker UI Layout component')
+  if (typeof menuActive === undefined) {
+    throw new Error('useMenu must be used within an Maker UI layout')
+  }
 
   function toggleMenu() {
     dispatch({ type: 'menu' })
@@ -54,10 +55,9 @@ function useSideNav() {
   const { sideNavActive } = useContext(ActionContext)
   const dispatch = useContext(ActionUpdateContext)
 
-  if (typeof sideNavActive === undefined)
-    throw new Error(
-      'useSideNav must be used within an Maker UI Layout component'
-    )
+  if (typeof sideNavActive === undefined) {
+    throw new Error('useSideNav must be used within an Maker UI layout')
+  }
 
   function setSideNav() {
     dispatch({ type: 'sideNav' })

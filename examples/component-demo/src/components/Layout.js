@@ -8,7 +8,11 @@ import {
   Main,
   Footer,
 } from 'maker-ui'
-import { Announcement } from '@maker-ui/components'
+import {
+  Announcement,
+  PageTransition,
+  CookieNotice,
+} from '@maker-ui/components'
 import { SEOProvider } from '@maker-ui/seo'
 
 import options from './options'
@@ -22,13 +26,15 @@ const menu = [
   { label: 'Tree Menu', path: '/tree-menu' },
   { label: 'Modal', path: '/modal' },
   { label: 'Lightbox', path: '/lightbox' },
+  { label: 'Popover', path: '/popover' },
+  { label: 'SmartTable', path: '/smart-table' },
 ]
 
 const seo = {
   title: 'Components',
   description: 'Check out the Maker UI component showcase.',
   twitter: 'mkdarshay',
-  titleTemplate: ' | Alpha UI',
+  titleTemplate: ' | Maker UI',
   siteUrl: 'http://localhost:8000',
 }
 
@@ -41,9 +47,12 @@ export default ({ children, location }) => (
         <MobileMenu menu={menu} />
       </Header>
       <Content>
-        <Main>{children}</Main>
+        <Main>
+          <PageTransition>{children}</PageTransition>
+        </Main>
       </Content>
       <Footer>Footer</Footer>
+      <CookieNotice />
     </Layout>
     {/* <Template
       options={options}

@@ -18,9 +18,9 @@ const PageSearch = React.forwardRef(
     const [search, setSearch] = useState('')
     const [index, setIndex] = useState(0)
     const [results, setResults] = useState([])
-    const content = document.querySelector(`#${searchId}`)
 
     useEffect(() => {
+      const content = document.querySelector(`#${searchId}`)
       const instance = new Mark(content)
 
       instance.unmark({
@@ -30,7 +30,7 @@ const PageSearch = React.forwardRef(
           setIndex(0)
         },
       })
-    }, [search, content, setResults, setIndex])
+    }, [search, searchId, setResults, setIndex])
 
     function jumpTo() {
       const current = results[index]

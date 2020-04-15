@@ -1,10 +1,10 @@
 import React from 'react'
-import { AccordionGroup, Accordion, CookieNotice } from '@maker-ui/components'
+import { Accordion } from '@maker-ui/components'
 
 const AccordionPage = () => (
   <React.Fragment>
-    <AccordionGroup
-      single
+    <Accordion
+      showSingle
       sx={{
         '.accordion': { borderColor: 'gainsboro' },
         '.accordion-toggle': {
@@ -14,17 +14,16 @@ const AccordionPage = () => (
         },
         '.accordion-panel': { p: 100 },
       }}>
-      <Accordion title="Accordion Title" eventKey={0}>
+      <Accordion.Panel title="Accordion Title" eventKey={0}>
         Yo!
-      </Accordion>
-      <Accordion title="Accordion Title" eventKey={1}>
+      </Accordion.Panel>
+      <Accordion.Panel title="Accordion Title" eventKey={1}>
         Yo 2!
-      </Accordion>
-      <Accordion title="Accordion Title" eventKey={2}>
+      </Accordion.Panel>
+      <Accordion.Panel title="Accordion Title" eventKey={2}>
         Yo 3!
-      </Accordion>
-    </AccordionGroup>
-    <CookieNotice />
+      </Accordion.Panel>
+    </Accordion>
   </React.Fragment>
 )
 

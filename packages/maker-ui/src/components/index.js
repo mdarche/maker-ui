@@ -11,4 +11,5 @@ export { default as Footer } from './Footer'
 export { default as Section } from './Section'
 export { default as Template } from './Template'
 export { default as AccordionMenu } from './AccordionMenu'
-// export { SEO, SEOProvider, useSEO, useSEOUpdater } from './Seo'
+
+export { useMakerUI } from '../utils/hooks'

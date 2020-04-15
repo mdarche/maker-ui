@@ -1,7 +1,8 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
 import { useTransition, animated as a } from 'react-spring'
 import { Box } from 'theme-ui'
+
+import Portal from './Portal'
 
 const focusElements = [
   'a',
@@ -13,11 +14,6 @@ const focusElements = [
 ].join(', ')
 
 const AnimatedBox = a(Box)
-
-const Portal = ({ children, root }) => {
-  const link = document.getElementById(root)
-  return createPortal(children, link)
-}
 
 const position = {
   position: 'fixed',
@@ -37,7 +33,7 @@ const centered = val =>
     : null
 
 const Modal = ({
-  id,
+  appendTo,
   title = 'Modal Dialog',
   closeOnBlur = false,
   show,
@@ -132,7 +128,7 @@ const Modal = ({
   }, [show, focusable, closeModal])
 
   return (
-    <Portal root={id}>
+    <Portal root={appendTo}>
       {fade.map(
         ({ item, key, props }) =>
           item && (

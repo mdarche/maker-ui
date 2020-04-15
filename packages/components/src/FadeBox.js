@@ -2,18 +2,22 @@ import React, { useRef, useState, useEffect } from 'react'
 import { Box } from 'theme-ui'
 import { animated as a, useSpring } from 'react-spring'
 
+import { format, getSign } from './helper'
+
 const AnimatedBox = a(Box)
 
 const getTransform = ({ direction, distance }, show) => {
   switch (direction) {
     case 'up':
-      return show ? `translateY(0)` : `translateY(${distance})`
     case 'down':
-      return show ? `translateY(0)` : `translateY(-${distance})`
+      return show
+        ? `translate3d(0,0,0)`
+        : `translate3d(0,${getSign(direction)}${format(distance)},0)`
     case 'left':
-      return show ? `translateX(0)` : `translateX(${distance})`
     case 'right':
-      return show ? `translateX(0)` : `translateX(-${distance})`
+      return show
+        ? `translate3d(0,0,0)`
+        : `translate3d(${getSign(direction)}${format(distance)})`
     default:
       return undefined
   }
@@ -23,9 +27,9 @@ const FadeBox = ({
   offset = 300,
   springConfig,
   direction,
-  distance = '20px',
+  distance = 20,
   fade = false,
-  settings = { direction: 'up', distance: '20px' },
+  settings = { direction: 'up', distance: 20 },
   ...props
 }) => {
   const ref = useRef(null)
