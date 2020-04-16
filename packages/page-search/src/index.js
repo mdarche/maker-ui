@@ -25,8 +25,8 @@ const PageSearch = React.forwardRef(
 
       instance.unmark({
         done: () => {
-          instance.mark(search, { className: 'mui-mark' })
-          setResults(document.querySelectorAll('.mui-mark'))
+          instance.mark(search, { className: 'search-mark' })
+          setResults(document.querySelectorAll('.search-mark'))
           setIndex(0)
         },
       })
@@ -35,7 +35,7 @@ const PageSearch = React.forwardRef(
     function jumpTo() {
       const current = results[index]
       const position = current.offsetTop - offsetTop
-      document.querySelectorAll('.mui-mark').forEach(e => {
+      document.querySelectorAll('.search-mark').forEach(e => {
         e.classList.remove('current-mark')
       })
       current.classList.add('current-mark')
