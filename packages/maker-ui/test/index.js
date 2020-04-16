@@ -83,11 +83,6 @@ describe('Layout', () => {
     )
     expect(json).toHaveStyleRule('display', 'grid')
   })
-
-  // test('child components throw error if rendered outside <Layout/>', () => {
-  //   const json = renderJSON(<Header />)
-  //   expect(json).toThrow()
-  // })
 })
 
 describe('Header', () => {

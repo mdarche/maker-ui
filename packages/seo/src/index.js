@@ -37,26 +37,17 @@ const SEOProvider = ({
 
 function useSEO() {
   const state = useContext(SEOContext)
+  const setState = useContext(SEOUpdateContext)
 
   if (typeof state === undefined) {
     throw new Error('SEO component must be used within an SEOProvider')
   }
 
-  return state
-}
-
-function useSEOUpdater() {
-  const setState = useContext(SEOUpdateContext)
-
-  if (typeof state === undefined) {
-    throw new Error('useSEOUpdater must be used within an SEOProvider')
-  }
-
-  return setState
+  return [state, setState]
 }
 
 const SEO = props => {
-  const state = useSEO()
+  const [state] = useSEO()
 
   const {
     title = state.title,
@@ -128,4 +119,4 @@ const SEO = props => {
   )
 }
 
-export { SEOProvider, SEO, useSEO, useSEOUpdater }
+export { SEOProvider, SEO, useSEO }

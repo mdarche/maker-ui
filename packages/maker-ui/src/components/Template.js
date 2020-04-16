@@ -1,17 +1,16 @@
 import React from 'react'
 
-import {
-  Layout,
-  Topbar,
-  Header,
-  Navbar,
-  MobileMenu,
-  Content,
-  Main,
-  SideNav,
-  Sidebar,
-  Footer,
-} from '.'
+import Layout from './Layout'
+import Topbar from './Topbar'
+import Header from './Header'
+import Navbar from './Navbar'
+import MobileMenu from './MobileMenu'
+import Content from './Content'
+import Main from './Main'
+import SideNav from './SideNav'
+import Sidebar from './Sidebar'
+import Footer from './Footer'
+
 import { useOptions } from '../context/OptionContext'
 
 const SiteInner = ({ sideNav, sidebar, menu, children }) => {

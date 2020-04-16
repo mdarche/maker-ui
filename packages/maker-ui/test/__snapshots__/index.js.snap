@@ -9,10 +9,12 @@ exports[`Content renders 1`] = `
   max-width: 1020px;
   margin-left: auto;
   margin-right: auto;
+  min-height: 80vh;
 }
 
 <div
   className="emotion-0"
+  id="site-inner"
 />
 `;
 
@@ -41,7 +43,6 @@ exports[`Footer renders 1`] = `
   className="emotion-1"
   id="footer"
   role="contentinfo"
-  tabIndex="-1"
 >
   <div
     className="emotion-0"
@@ -55,9 +56,7 @@ exports[`Header renders 1`] = `
   margin: 0;
   min-width: 0;
   z-index: 100;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+  position: relative;
   background-color: var(--theme-ui-colors-bg_header,#000);
 }
 
@@ -128,6 +127,7 @@ exports[`Main renders 1`] = `
   max-width: 1020px;
   margin-left: auto;
   margin-right: auto;
+  min-height: 80vh;
 }
 
 .emotion-0 {
@@ -141,6 +141,7 @@ exports[`Main renders 1`] = `
 
 <div
   className="emotion-1"
+  id="site-inner"
 >
   <main
     className="emotion-0"
@@ -153,15 +154,19 @@ exports[`Main renders 1`] = `
 `;
 
 exports[`MobileMenu renders 1`] = `
-.emotion-2 {
+.emotion-3 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
   z-index: 100;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+  position: relative;
   background-color: var(--theme-ui-colors-bg_header,#000);
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
 }
 
 .emotion-0 {
@@ -173,14 +178,16 @@ exports[`MobileMenu renders 1`] = `
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.15);
+  z-index: 100;
   visibility: hidden;
   opacity: 0;
+  will-change: opacity;
   -webkit-transition: all ease .4s;
   transition: all ease .4s;
 }
 
-.emotion-1 {
+.emotion-2 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -188,38 +195,37 @@ exports[`MobileMenu renders 1`] = `
   background-color: var(--theme-ui-colors-bg_mobileMenu,rgba(0,0,0,0.9));
   top: 0;
   bottom: 0;
+  z-index: 100;
+  will-change: transform opacity;
   -webkit-transition: all ease .3s;
   transition: all ease .3s;
   opacity: 1;
   visibility: hidden;
   left: 0;
-  width: 300px;
+  width: 60vw;
   -webkit-transform: translateX(-100%);
   -ms-transform: translateX(-100%);
   transform: translateX(-100%);
 }
 
-@media screen and (min-width:750px) {
-  .emotion-1 {
-    width: 30vw;
-  }
-}
-
 <header
-  className="emotion-2"
+  className="emotion-3"
   id="site-header"
   role="banner"
 >
   <div
-    className="emotion-0"
-    id="menu-overlay"
+    className="menu-overlay emotion-0"
     onClick={[Function]}
     role="presentation"
   />
   <div
-    className="emotion-1"
-    id="mobile-nav"
-  />
+    className="emotion-2"
+    id="mobile-menu"
+  >
+    <ul
+      className="accordion-menu emotion-1"
+    />
+  </div>
 </header>
 `;
 
@@ -252,9 +258,13 @@ exports[`Navbar renders 1`] = `
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.emotion-5 {
+.emotion-6 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -262,6 +272,9 @@ exports[`Navbar renders 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-flex: initial;
+  -ms-flex: initial;
+  flex: initial;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -284,33 +297,34 @@ exports[`Navbar renders 1`] = `
   }
 }
 
-.emotion-4 {
+.emotion-1 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+}
+
+.emotion-5 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  padding: 4px;
-  width: 32px;
-  height: 32px;
-  color: inherit;
-  background-color: transparent;
-  border: none;
-  border-radius: 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-4 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
   display: block;
+  margin: 0 auto;
+  border: none;
+  background: none;
 }
 
 @media screen and (min-width:750px) {
@@ -329,29 +343,28 @@ exports[`Navbar renders 1`] = `
   min-width: 0;
   display: block;
   margin: 0;
+  height: 27px;
 }
 
 <div
   className="emotion-7"
 >
-  <div
+  <a
+    aria-label="Home page"
     className="emotion-0"
+    href="/"
     id="site-logo"
   >
-    <a
-      href="/"
-    >
-      Logo
-    </a>
-  </div>
+    Logo
+  </a>
   <div
-    className="emotion-5"
+    className="emotion-6"
   >
     <nav
       className="nav-primary emotion-2"
     >
       <ul
-        className="menu-primary emotion-0"
+        className="menu-primary emotion-1"
       />
     </nav>
     <div
@@ -360,16 +373,13 @@ exports[`Navbar renders 1`] = `
       <button
         aria-expanded="false"
         aria-label="Toggle Menu"
-        className="emotion-4"
+        className="menu-toggle emotion-4"
         onClick={[Function]}
         title="Menu"
       >
         <svg
           className="emotion-3"
-          fill="currentcolor"
-          height={24}
           viewBox="0 0 24 24"
-          width={24}
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -383,10 +393,14 @@ exports[`Navbar renders 1`] = `
 `;
 
 exports[`Navbar renders with type prop override 1`] = `
-.emotion-0 {
+.emotion-4 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .emotion-1 {
@@ -405,33 +419,20 @@ exports[`Navbar renders with type prop override 1`] = `
   }
 }
 
+.emotion-0 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+}
+
 .emotion-3 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  padding: 4px;
-  width: 32px;
-  height: 32px;
-  color: inherit;
-  background-color: transparent;
-  border: none;
-  border-radius: 4px;
   display: block;
+  margin: 0 auto;
+  border: none;
+  background: none;
 }
 
 @media screen and (min-width:750px) {
@@ -450,9 +451,10 @@ exports[`Navbar renders with type prop override 1`] = `
   min-width: 0;
   display: block;
   margin: 0;
+  height: 27px;
 }
 
-.emotion-7 {
+.emotion-8 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -472,7 +474,7 @@ exports[`Navbar renders with type prop override 1`] = `
   display: flex;
 }
 
-.emotion-7 .col-1 {
+.emotion-8 .col-1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -481,12 +483,16 @@ exports[`Navbar renders with type prop override 1`] = `
 }
 
 @media screen and (min-width:750px) {
-  .emotion-7 .col-1 {
+  .emotion-8 .col-1 {
     width: 33%;
   }
 }
 
-.emotion-7 .col-2 {
+.emotion-8 .col-1 button {
+  margin: 0;
+}
+
+.emotion-8 .col-2 {
   width: 50%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -499,12 +505,12 @@ exports[`Navbar renders with type prop override 1`] = `
 }
 
 @media screen and (min-width:750px) {
-  .emotion-7 .col-2 {
+  .emotion-8 .col-2 {
     width: 34%;
   }
 }
 
-.emotion-7 .col-3 {
+.emotion-8 .col-3 {
   width: 25%;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -517,23 +523,13 @@ exports[`Navbar renders with type prop override 1`] = `
 }
 
 @media screen and (min-width:750px) {
-  .emotion-7 .col-3 {
+  .emotion-8 .col-3 {
     width: 33%;
   }
 }
 
-.emotion-4 {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 <div
-  className="emotion-7"
+  className="emotion-8"
 >
   <div
     className="col-1 emotion-4"
@@ -548,16 +544,13 @@ exports[`Navbar renders with type prop override 1`] = `
     <button
       aria-expanded="false"
       aria-label="Toggle Menu"
-      className="emotion-3"
+      className="menu-toggle emotion-3"
       onClick={[Function]}
       title="Menu"
     >
       <svg
         className="emotion-2"
-        fill="currentcolor"
-        height={24}
         viewBox="0 0 24 24"
-        width={24}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -568,10 +561,12 @@ exports[`Navbar renders with type prop override 1`] = `
   </div>
   <div
     className="col-2 emotion-4"
-    id="site-logo"
   >
     <a
+      aria-label="Home page"
+      className="emotion-4"
       href="/"
+      id="site-logo"
     >
       Logo
     </a>
@@ -587,6 +582,7 @@ exports[`Section renders 1`] = `
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
+  width: 100%;
 }
 
 .emotion-0 {
@@ -615,12 +611,49 @@ Array [
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.15);
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  will-change: opacity;
+  -webkit-transition: all ease .4s;
+  transition: all ease .4s;
+}
+
+@media screen and (min-width:750px) {
+  .emotion-0 {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+<div
+    className="menu-overlay emotion-0"
+    onClick={[Function]}
+    role="presentation"
+  />,
+  .emotion-0 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
   background-color: var(--theme-ui-colors-bg_sideNav,#333);
-  width: 300px;
   position: fixed;
   top: 0;
   bottom: 0;
   z-index: 100;
+  width: 300px;
+  will-change: transform;
   -webkit-transform: translateX(300px);
   -ms-transform: translateX(300px);
   transform: translateX(300px);
@@ -630,8 +663,9 @@ Array [
 }
 
 @media screen and (min-width:750px) {
-  .emotion-0 {
+  .emotion-1 {
     position: relative;
+    z-index: 0;
     -webkit-transform: none;
     -ms-transform: none;
     transform: none;
@@ -639,10 +673,14 @@ Array [
 }
 
 <div
-    className="emotion-0"
+    className="emotion-1"
     id="side-nav"
     role="navigation"
-  />,
+  >
+    <ul
+      className="accordion-menu emotion-0"
+    />
+  </div>,
   .emotion-0 {
   box-sizing: border-box;
   margin: 0;
@@ -650,6 +688,7 @@ Array [
   position: fixed;
   display: inline-block;
   bottom: 30px;
+  z-index: 100;
 }
 
 @media screen and (min-width:750px) {
@@ -685,6 +724,7 @@ exports[`Sidebar renders 1`] = `
   max-width: 1020px;
   margin-left: auto;
   margin-right: auto;
+  min-height: 80vh;
 }
 
 .emotion-1 {
@@ -698,6 +738,7 @@ exports[`Sidebar renders 1`] = `
 
 <div
   className="emotion-2"
+  id="site-inner"
 >
   <aside
     className="emotion-0"
@@ -727,8 +768,6 @@ exports[`Topbar renders 1`] = `
   min-width: 0;
   margin-left: auto;
   margin-right: auto;
-  overflow-x: scroll;
-  white-space: nowrap;
   max-width: 1260px;
   display: -webkit-box;
   display: -webkit-flex;
