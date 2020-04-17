@@ -8,6 +8,8 @@ import Navigation from './Navigation'
 import ProgressBar from './ProgressBar'
 
 // TODO add drag and swipe gesture
+// TODO revisit accessibility re: https://www.w3.org/WAI/tutorials/carousels/full-code/
+// TODO make next() function into callback apparently
 
 function reducer(state, { type, value }) {
   switch (type) {

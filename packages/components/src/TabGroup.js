@@ -7,6 +7,8 @@ import TabNavigation from './TabNavigation'
 const TabContext = React.createContext()
 const TabUpdateContext = React.createContext()
 
+// TODO - Allow users to inject non Tab components into tab canvas (npm website for example)
+
 const TabGroup = ({
   variant = 'tabs',
   navPosition = 'top',

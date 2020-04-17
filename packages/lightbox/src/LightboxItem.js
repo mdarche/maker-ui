@@ -4,6 +4,8 @@ import { generateId } from 'maker-ui'
 
 import { useLightbox } from './LightboxProvider'
 
+// TODO - rename trigger prop ?
+
 const videoFormats = ['.mp4', '.ogg', '.webm']
 
 const LightboxItem = React.forwardRef(

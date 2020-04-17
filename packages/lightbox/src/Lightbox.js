@@ -9,8 +9,6 @@ import Preview from './Preview'
 import LightboxItem from './LightboxItem'
 import { LightboxProvider, useLightbox } from './LightboxProvider'
 
-// TODO add all variants to basic variant arry and make an extra installation step
-
 // TODO implement zoom feature
 
 const LightboxModal = ({
