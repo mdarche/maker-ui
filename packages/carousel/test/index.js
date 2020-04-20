@@ -2,10 +2,8 @@
 
 // 2 - Uses autoplay and renders with progress bar
 
-// 3 - Renders fade transition (expect CSS)
+// 3 - Renders with transitions (expect CSS)
 
-// 4 - Renders slide transition (expect CSS)
+// 4 - Pagination click changes slide
 
-// 5 - Pagination click changes slide
-
-// 6 - Navigation buttons and arrow keys change slide
+// 5 - Navigation buttons and arrow keys change slide

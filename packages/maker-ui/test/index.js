@@ -30,8 +30,6 @@ const Provider = ({ children, ...props }) => (
   </Layout>
 )
 
-// Test Config
-
 const theme = {
   colors: {
     bg_header: '#000',
@@ -84,6 +82,8 @@ describe('Layout', () => {
     expect(json).toHaveStyleRule('display', 'grid')
   })
 })
+
+// Uses header component to test integration with Theme UI components
 
 describe('Header', () => {
   test('renders', () => {

@@ -6,6 +6,9 @@ import { generateId } from 'maker-ui'
 import { useAccordion } from './Accordion'
 import { useMeasure } from './helper'
 
+// TODO - Refactor this by registering with context. Make event keys optional for hook control
+// TODO - Move all click and focus event handlers to functions outside of render
+
 const AccordionPanel = React.forwardRef(
   (
     {

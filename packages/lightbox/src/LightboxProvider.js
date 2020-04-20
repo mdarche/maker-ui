@@ -24,7 +24,7 @@ export function useLightbox() {
   const setState = useContext(LightboxUpdateContext)
 
   if (typeof state === undefined) {
-    throw new Error('BoxItem must be used within a Lightbox component')
+    throw new Error('useLightbox must be used within a Lightbox component')
   }
 
   function toggleLightbox(id) {

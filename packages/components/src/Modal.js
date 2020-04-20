@@ -4,6 +4,8 @@ import { Box } from 'theme-ui'
 
 import Portal from './Portal'
 
+// TODO add and export a close button and use as a sub-component
+
 const focusElements = [
   'a',
   'button:not([disabled])',

@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import Mark from 'mark.js'
 import { Box, Flex } from 'theme-ui'
 
+// TODO - add extra class to marks that are the current focus of the prev/next buttons
+
 const PageSearch = React.forwardRef(
   (
     {

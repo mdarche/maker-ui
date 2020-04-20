@@ -8,6 +8,7 @@ const TabContext = React.createContext()
 const TabUpdateContext = React.createContext()
 
 // TODO - Allow users to inject non Tab components into tab canvas (npm website for example)
+// TODO - expose the tab controls to outside components / actions (add optional event key)
 
 const TabGroup = ({
   variant = 'tabs',
