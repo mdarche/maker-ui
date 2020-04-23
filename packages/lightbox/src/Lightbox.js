@@ -13,11 +13,12 @@ import { LightboxProvider, useLightbox } from './LightboxProvider'
 
 const LightboxModal = ({
   id,
-  title,
   closeOnBlur,
   focusRef,
   arrow,
   data,
+  show,
+  toggle,
   bg = 'rgba(0, 0, 0, 0.8)',
   showInfo = true,
   showCount = true,
@@ -39,9 +40,19 @@ const LightboxModal = ({
 
   useEffect(() => {
     if (data) {
-      addToGallery(data)
+      addToGallery(data) // TODO move this step to parent component as Provider prop
     }
-  }, [data, addToGallery])
+  }, [data])
+
+  useEffect(() => {
+    if (show) {
+      toggleLightbox()
+    }
+
+    return () => {
+      toggle(false)
+    }
+  }, [show])
 
   // Update canvas when index changes
 
@@ -66,7 +77,7 @@ const LightboxModal = ({
   }, [play, current])
 
   // Hide preview area when lightbox closes
-  // Handle special keystrokes when lightbox is open
+  // Handle keystrokes when lightbox is open
 
   useEffect(() => {
     if (!active && preview) {

@@ -1,10 +1,21 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Lightbox } from '@maker-ui/lightbox'
 import { Spinner } from '@maker-ui/components'
 
-const galleryData = [{ src: '', alt: '', title: '', description: '' }]
+const galleryData = [
+  {
+    src:
+      'https://images.unsplash.com/photo-1585127366945-8249097d15fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+    alt: 'Image',
+    title: 'Image title',
+    description: '',
+  },
+  { youtubeId: '4DTy32jdjP0' },
+  { vimeoId: '172062096' },
+]
 
 const LightboxPage = () => {
+  const [show, set] = useState(false)
   const ref = useRef(null)
 
   return (
@@ -14,7 +25,10 @@ const LightboxPage = () => {
       <Spinner type="pulse" />
       <Spinner type="blocks" />
       <Spinner />
-      <button ref={ref}>Focus Ref</button>
+      <button ref={ref} onClick={e => set(true)}>
+        Focus Ref
+      </button>
+      {/* Test with Clickable lightbox items */}
       <Lightbox focusRef={ref} closeOnBlur>
         <Lightbox.Item
           title="Test"
@@ -31,6 +45,8 @@ const LightboxPage = () => {
           Test!
         </Lightbox.Item>
       </Lightbox>
+      {/* Test with data array */}
+      <Lightbox show={show} toggle={set} focusRef={ref} closeOnBlur />
     </div>
   )
 }

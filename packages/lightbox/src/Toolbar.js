@@ -18,14 +18,14 @@ const Toolbar = ({
       className="toolbar"
       __css={{
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: length > 1 ? 'space-between' : 'flex-end',
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bg: ['rgba(0, 0, 0, 0.25)', 'transparent'],
       }}>
-      {count && length && (
+      {count && length > 1 && (
         <Box
           className="pagination"
           __css={{
@@ -66,18 +66,20 @@ const Toolbar = ({
             <ZoomIcon height="18" />
           </button>
         )}
-        {autoPlay.show && (
+        {autoPlay.show && length > 1 && (
           <button
             className={autoPlay.active ? 'active' : undefined}
             onClick={e => autoPlay.set(a => !a)}>
             <PlayIcon height="24" />
           </button>
         )}
-        <button
-          className={preview.show ? 'active' : undefined}
-          onClick={e => preview.set(p => !p)}>
-          <PreviewIcon height="21" />
-        </button>
+        {length > 1 && (
+          <button
+            className={preview.show ? 'active' : undefined}
+            onClick={e => preview.set(p => !p)}>
+            <PreviewIcon height="21" />
+          </button>
+        )}
         <button onClick={e => toggle()}>
           <CloseIcon height="24" />
         </button>
