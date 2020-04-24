@@ -10,11 +10,13 @@ import Preview from './Preview'
 import { useLightbox } from './LightboxProvider'
 
 // TODO implement zoom feature
+// TODO add gesture controls and add canvas transition options
 
 const LightboxModal = ({
   id,
   focusRef,
   show,
+  variant = 'lightbox',
   bg = 'rgba(0, 0, 0, 0.8)',
   settings = {},
   children,
@@ -29,14 +31,14 @@ const LightboxModal = ({
 
   const config = merge(
     {
+      closeOnBlur: true,
+      customArrow: undefined,
       showInfo: true,
       showCount: true,
       showZoom: false,
       showAutoPlay: true,
       autoPlayDuration: 6000,
       disableHideControls: false,
-      closeOnBlur: false,
-      customArrow: undefined,
     },
     settings
   )
@@ -129,6 +131,7 @@ const LightboxModal = ({
       {children}
       <Modal
         id={id}
+        variant={variant}
         show={active}
         toggle={toggleLightbox}
         focusRef={focusRef}
@@ -137,9 +140,8 @@ const LightboxModal = ({
         {...props}>
         <Box
           onMouseEnter={showControls}
-          className={`lightbox-controls ${
-            controlsActive ? 'visible' : 'not-visible'
-          }`}
+          variant={`${variant}.controls`}
+          className={`lb-controls ${controlsActive ? 'visible' : 'hidden'}`}
           sx={{
             opacity: 0,
             transition: 'all ease .25s',
@@ -148,6 +150,7 @@ const LightboxModal = ({
             },
           }}>
           <Toolbar
+            variant={variant}
             count={config.showCount}
             current={current}
             item={data[current]}
@@ -159,11 +162,21 @@ const LightboxModal = ({
           />
           {data.length > 1 && (
             <React.Fragment>
-              <Box className="lightbox-navigation">
-                <NavButton arrow={config.customArrow} control={prev} />
-                <NavButton arrow={config.customArrow} control={next} isNext />
+              <Box variant={`${variant}.navigation`} className="lb-navigation">
+                <NavButton
+                  variant={`${variant}.prev`}
+                  arrow={config.customArrow}
+                  control={prev}
+                />
+                <NavButton
+                  variant={`${variant}.next`}
+                  arrow={config.customArrow}
+                  control={next}
+                  isNext
+                />
               </Box>
               <Preview
+                variant={`${variant}.preview`}
                 show={preview}
                 index={current}
                 set={setCurrent}
@@ -174,9 +187,10 @@ const LightboxModal = ({
         </Box>
         {data.length && (
           <Canvas
+            variant={variant}
             index={current}
             data={data}
-            info={config.showInfo}
+            showInfo={config.showInfo}
             zoom={zoom}
             onMouseEnter={showControls}
           />

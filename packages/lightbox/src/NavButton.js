@@ -14,13 +14,13 @@ const transform = isNext =>
         ],
       }
 
-const NavButton = ({ control, arrow, isNext = false }) => (
+const NavButton = ({ variant, control, arrow, isNext = false }) => (
   <Box
     as="button"
     title={isNext ? 'Next' : 'Previous'}
     aria-label={isNext ? 'Next' : 'Previous'}
-    variant={isNext ? `lightbox.next` : `lightbox.prev`}
-    className={`lightbox-nav ${isNext ? 'next' : '-prev'}`}
+    variant={variant}
+    className={`lb-nav-button ${isNext ? 'next-button' : 'prev-button'}`}
     onClick={control}
     sx={{
       variant: 'lightbox.nav',

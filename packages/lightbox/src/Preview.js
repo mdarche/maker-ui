@@ -3,7 +3,7 @@ import { Box } from 'theme-ui'
 
 import playIcon from './play.svg'
 
-const Preview = ({ index, set, data, show }) => {
+const Preview = ({ variant, index, set, data, show }) => {
   const handleClick = i => set(i)
   const ref = useRef(null)
 
@@ -32,7 +32,8 @@ const Preview = ({ index, set, data, show }) => {
   return (
     <Box
       ref={ref}
-      className={show ? 'active' : undefined}
+      variant={variant}
+      className={`${show ? 'active ' : ''}lb-preview`}
       sx={{
         position: 'fixed',
         display: 'grid',

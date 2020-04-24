@@ -38,6 +38,7 @@ const Modal = ({
   appendTo,
   title = 'Modal Dialog',
   closeOnBlur = false,
+  variant = 'modal',
   show,
   toggle,
   focusRef,
@@ -137,6 +138,7 @@ const Modal = ({
             <AnimatedBox
               key={key}
               ref={modalRef}
+              variant={variant}
               role="dialog"
               aria-label={title}
               aria-modal="true"
@@ -150,6 +152,7 @@ const Modal = ({
               <Box
                 onClick={e => (closeOnBlur ? closeModal() : null)}
                 className="modal-overlay"
+                variant={`${variant}.overlay`}
                 __css={{
                   ...position,
                   zIndex: -1,

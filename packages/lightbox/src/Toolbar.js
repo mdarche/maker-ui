@@ -4,6 +4,7 @@ import { Box, Flex } from 'theme-ui'
 import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from './icons'
 
 const Toolbar = ({
+  variant,
   count,
   current,
   length,
@@ -15,7 +16,8 @@ const Toolbar = ({
 }) => {
   return (
     <Flex
-      className="toolbar"
+      variant={`${variant}.toolbar`}
+      className="lb-toolbar"
       __css={{
         alignItems: 'center',
         justifyContent: length > 1 ? 'space-between' : 'flex-end',
@@ -27,7 +29,8 @@ const Toolbar = ({
       }}>
       {count && length > 1 && (
         <Box
-          className="pagination"
+          variant={`${variant}.pagination`}
+          className="lb-pagination"
           __css={{
             bg: ['transparent', 'rgba(0, 0, 0, 0.25)'],
             p: '14px 20px',
@@ -38,6 +41,7 @@ const Toolbar = ({
         </Box>
       )}
       <Flex
+        className="lb-button-group"
         sx={{
           bg: ['transparent', 'rgba(0, 0, 0, 0.25)'],
           button: {
@@ -61,6 +65,7 @@ const Toolbar = ({
         }}>
         {zoom.show && (
           <button
+            className="lb-zoom"
             disabled={item.src && !item.htmlVideo ? true : undefined}
             onClick={e => zoom.set(z => !z)}>
             <ZoomIcon height="18" />
@@ -68,19 +73,19 @@ const Toolbar = ({
         )}
         {autoPlay.show && length > 1 && (
           <button
-            className={autoPlay.active ? 'active' : undefined}
+            className={`${autoPlay.active ? 'active ' : ''}lb-autoplay`}
             onClick={e => autoPlay.set(a => !a)}>
             <PlayIcon height="24" />
           </button>
         )}
         {length > 1 && (
           <button
-            className={preview.show ? 'active' : undefined}
+            className={`${preview.show ? 'active ' : ''}lb-preview`}
             onClick={e => preview.set(p => !p)}>
             <PreviewIcon height="21" />
           </button>
         )}
-        <button onClick={e => toggle()}>
+        <button className="lb-close" onClick={e => toggle()}>
           <CloseIcon height="24" />
         </button>
       </Flex>
