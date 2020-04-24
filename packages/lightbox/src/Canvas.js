@@ -8,6 +8,7 @@ const youtubeRoot = 'https://youtube.com/embed/'
 const vimeoRoot = 'https://player.vimeo.com/video/'
 
 // TODO add conditionals for info section and a scroll container for long descriptions
+// TODO add spinner
 
 const getMedia = ({ src, alt, youtubeId, vimeoId, htmlVideo, poster }) => {
   if (youtubeId || vimeoId) {
@@ -49,8 +50,8 @@ const getMedia = ({ src, alt, youtubeId, vimeoId, htmlVideo, poster }) => {
   return 'Add a src, vimeoId, or youtubeId to <BoxItem />'
 }
 
-const Canvas = ({ urls, index, info, ...rest }) => {
-  const transitions = useTransition(urls[index], item => item.id, {
+const Canvas = ({ data, index, info, ...rest }) => {
+  const transitions = useTransition(data[index], item => item.id, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },

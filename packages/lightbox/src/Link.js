@@ -4,9 +4,7 @@ import { generateId } from 'maker-ui'
 
 import { useLightbox } from './LightboxProvider'
 
-const videoFormats = ['.mp4', '.ogg', '.webm']
-
-const LightboxItem = React.forwardRef(
+const Link = React.forwardRef(
   (
     {
       src,
@@ -24,7 +22,6 @@ const LightboxItem = React.forwardRef(
   ) => {
     const [id] = useState(generateId())
     const { addToGallery, toggleLightbox } = useLightbox()
-    const htmlVideo = src ? videoFormats.some(v => src.includes(v)) : false
 
     const config = {
       id,
@@ -35,18 +32,15 @@ const LightboxItem = React.forwardRef(
       youtubeId,
       vimeoId,
       poster,
-      htmlVideo,
     }
 
     useEffect(() => {
-      if (!trigger) {
-        addToGallery(config)
-      }
-    }, [config, trigger, addToGallery])
+      addToGallery(config)
+    }, [config, addToGallery])
 
     const handleClick = e => {
       e.preventDefault()
-      return trigger ? toggleLightbox() : toggleLightbox(id)
+      return toggleLightbox(id)
     }
 
     return (
@@ -63,4 +57,4 @@ const LightboxItem = React.forwardRef(
   }
 )
 
-export default LightboxItem
+export default Link

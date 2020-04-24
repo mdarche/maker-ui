@@ -1,56 +1,51 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from 'theme-ui'
 import { Modal } from '@maker-ui/components'
+import merge from 'deepmerge'
 
 import Canvas from './Canvas'
 import NavButton from './NavButton'
 import Toolbar from './Toolbar'
 import Preview from './Preview'
-import LightboxItem from './LightboxItem'
-import { LightboxProvider, useLightbox } from './LightboxProvider'
+import { useLightbox } from './LightboxProvider'
 
 // TODO implement zoom feature
 
 const LightboxModal = ({
   id,
-  closeOnBlur,
   focusRef,
-  arrow,
-  data,
   show,
-  toggle,
   bg = 'rgba(0, 0, 0, 0.8)',
-  showInfo = true,
-  showCount = true,
-  showZoom = false,
-  showAutoPlay = true,
-  duration = 6000,
-  disableHideControls = false,
+  settings = {},
   children,
   ...props
 }) => {
-  const { index, active, urls, addToGallery, toggleLightbox } = useLightbox()
+  const { index, active, data, toggleLightbox } = useLightbox()
   const [current, setCurrent] = useState(0)
   const [play, setPlay] = useState(false)
   const [preview, setPreview] = useState(false)
   const [zoom, setZoom] = useState(false)
   const [controlsActive, setControlsActive] = useState(true)
 
-  // Add data from props to Lightbox context
+  const config = merge(
+    {
+      showInfo: true,
+      showCount: true,
+      showZoom: false,
+      showAutoPlay: true,
+      autoPlayDuration: 6000,
+      disableHideControls: false,
+      closeOnBlur: false,
+      customArrow: undefined,
+    },
+    settings
+  )
 
-  useEffect(() => {
-    if (data) {
-      addToGallery(data) // TODO move this step to parent component as Provider prop
-    }
-  }, [data])
+  // Handle external lightbox toggle
 
   useEffect(() => {
     if (show) {
       toggleLightbox()
-    }
-
-    return () => {
-      toggle(false)
     }
   }, [show])
 
@@ -64,20 +59,19 @@ const LightboxModal = ({
 
   useEffect(() => {
     if (play) {
-      if (!urls[current].src || urls[current].htmlVideo) {
+      if (!data[current].src || data[current].htmlVideo) {
         setPlay(false)
       }
 
       const auto = setTimeout(() => {
         next()
-      }, duration)
+      }, config.autoPlayDuration)
 
       return () => clearTimeout(auto)
     }
-  }, [play, current])
+  }, [play, current, config.autoPlayDuration])
 
-  // Hide preview area when lightbox closes
-  // Handle keystrokes when lightbox is open
+  // Handle keystrokes and hide preview area when lightbox closes
 
   useEffect(() => {
     if (!active && preview) {
@@ -89,7 +83,7 @@ const LightboxModal = ({
     }
 
     function handleKeyDown(e) {
-      if (!controlsActive && active && !disableHideControls) {
+      if (!controlsActive && active && !config.disableHideControls) {
         setControlsActive(true)
       }
       switch (e.keyCode) {
@@ -108,25 +102,25 @@ const LightboxModal = ({
       }
       return () => window.removeEventListener(`keydown`, handleKeyDown)
     }
-  }, [active, controlsActive, disableHideControls])
+  }, [active, controlsActive, config.disableHideControls])
 
   // Hide controls and reset counter when they appear
 
   useEffect(() => {
-    if (active && controlsActive && !disableHideControls && !preview) {
+    if (active && controlsActive && !config.disableHideControls && !preview) {
       const hide = setTimeout(() => {
         setControlsActive(false)
       }, 4500)
 
       return () => clearTimeout(hide)
     }
-  }, [active, controlsActive, preview, disableHideControls])
+  }, [active, controlsActive, preview, config.disableHideControls])
 
-  const next = e => setCurrent(s => (s === urls.length - 1 ? 0 : s + 1))
-  const prev = e => setCurrent(s => (s === 0 ? urls.length - 1 : s - 1))
+  const next = e => setCurrent(s => (s === data.length - 1 ? 0 : s + 1))
+  const prev = e => setCurrent(s => (s === 0 ? data.length - 1 : s - 1))
 
   const showControls = e =>
-    !controlsActive && !disableHideControls
+    !controlsActive && !config.disableHideControls
       ? setControlsActive(true)
       : undefined
 
@@ -139,7 +133,7 @@ const LightboxModal = ({
         toggle={toggleLightbox}
         focusRef={focusRef}
         bg={bg}
-        closeOnBlur
+        closeOnBlur={config.closeOnBlur}
         {...props}>
         <Box
           onMouseEnter={showControls}
@@ -154,36 +148,35 @@ const LightboxModal = ({
             },
           }}>
           <Toolbar
-            count={showCount}
+            count={config.showCount}
             current={current}
-            item={urls[current]}
-            length={urls.length}
+            item={data[current]}
+            length={data.length}
             preview={{ show: preview, set: setPreview }}
-            zoom={{ show: showZoom, set: setZoom }}
-            autoPlay={{ show: showAutoPlay, active: play, set: setPlay }}
+            zoom={{ show: config.showZoom, set: setZoom }}
+            autoPlay={{ show: config.showAutoPlay, active: play, set: setPlay }}
             toggle={toggleLightbox}
           />
-          {urls.length > 1 && (
+          {data.length > 1 && (
             <React.Fragment>
               <Box className="lightbox-navigation">
-                <NavButton arrow={arrow} control={prev} />
-                <NavButton arrow={arrow} control={next} isNext />
+                <NavButton arrow={config.customArrow} control={prev} />
+                <NavButton arrow={config.customArrow} control={next} isNext />
               </Box>
               <Preview
                 show={preview}
                 index={current}
                 set={setCurrent}
-                urls={urls}
+                data={data}
               />
             </React.Fragment>
           )}
         </Box>
-
-        {urls.length && (
+        {data.length && (
           <Canvas
             index={current}
-            urls={urls}
-            info={showInfo}
+            data={data}
+            info={config.showInfo}
             zoom={zoom}
             onMouseEnter={showControls}
           />
@@ -193,12 +186,4 @@ const LightboxModal = ({
   )
 }
 
-const Lightbox = ({ children, ...props }) => (
-  <LightboxProvider>
-    <LightboxModal {...props}>{children}</LightboxModal>
-  </LightboxProvider>
-)
-
-Lightbox.Item = LightboxItem
-
-export default Lightbox
+export default LightboxModal

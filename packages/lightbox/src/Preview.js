@@ -3,7 +3,7 @@ import { Box } from 'theme-ui'
 
 import playIcon from './play.svg'
 
-const Preview = ({ index, set, urls, show }) => {
+const Preview = ({ index, set, data, show }) => {
   const handleClick = i => set(i)
   const ref = useRef(null)
 
@@ -57,7 +57,7 @@ const Preview = ({ index, set, urls, show }) => {
           opacity: 1,
         },
       }}>
-      {urls.map((item, i) => (
+      {data.map((item, i) => (
         <Box
           key={i}
           as="button"
