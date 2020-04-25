@@ -26,7 +26,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: false,
         display: `minimal-ui`,
-        icon: `src/assets/maker-ui.png`,
+        icon: `src/assets/elements-ui.png`,
       },
     },
   ],

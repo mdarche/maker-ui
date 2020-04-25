@@ -7,8 +7,8 @@ import {
   Content,
   Main,
   Footer,
-  SEOProvider,
 } from 'maker-ui'
+import { SEOProvider } from '@maker-ui/seo'
 
 import options from '../config/options'
 import theme from '../config/theme'
