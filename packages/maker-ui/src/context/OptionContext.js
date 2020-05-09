@@ -55,7 +55,9 @@ function useLayout() {
   const dispatch = useContext(OptionUpdateContext)
 
   if (layout === undefined) {
-    throw new Error('useLayout must be used within an Maker UI layout')
+    throw new Error(
+      'useLayout must be used within an Maker UI Layout component'
+    )
   }
 
   function setLayout(newLayout) {

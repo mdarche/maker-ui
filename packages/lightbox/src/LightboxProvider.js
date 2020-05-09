@@ -9,7 +9,7 @@ function formatData(original) {
     {
       id: generateId(),
       src: null,
-      alt: 'Lightbox media',
+      alt: original.alt || original.title || 'Lightbox media',
       title: null,
       description: null,
       youtubeId: null,

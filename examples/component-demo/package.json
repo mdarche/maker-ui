@@ -10,18 +10,18 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@maker-ui/carousel": "*",
+    "@maker-ui/carousel": "^0.4.3",
     "@maker-ui/components": "*",
     "@maker-ui/generative": "*",
     "@maker-ui/lightbox": "*",
     "@maker-ui/page-search": "*",
     "@maker-ui/seo": "*",
     "@maker-ui/smart-table": "*",
-    "maker-ui": "*",
     "gatsby": "^2.19.22",
     "gatsby-plugin-catch-links": "^2.1.26",
     "gatsby-plugin-layout": "^1.1.22",
     "gatsby-plugin-react-helmet": "^3.2.0",
+    "maker-ui": "*",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }

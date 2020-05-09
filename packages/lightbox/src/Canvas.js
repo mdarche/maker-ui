@@ -103,11 +103,13 @@ const Canvas = ({ variant, data, index, showInfo, ...rest }) => {
               <Box
                 as="h4"
                 variant={`${variant}.title`}
-                sx={{ my: 20, fontSize: '18px', textAlign: 'center' }}>
+                sx={{ mt: 20, fontSize: '18px', textAlign: 'center' }}>
                 {item.title}
               </Box>
               {item.description && (
-                <Box variant={`${variant}.description`}>{item.description}</Box>
+                <Box variant={`${variant}.description`} sx={{ mt: 20 }}>
+                  {item.description}
+                </Box>
               )}
             </Box>
           )}

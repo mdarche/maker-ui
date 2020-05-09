@@ -43,5 +43,3 @@ describe('Lightbox', () => {
 describe('LightboxItem', () => {})
 
 // 1 - Renders
-
-// 2 - Can trigger lightbox from button
