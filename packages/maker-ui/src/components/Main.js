@@ -1,7 +1,14 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-const Main = React.forwardRef(({ variant = 'main', ...props }, ref) => (
+// interface Props {
+//   variant?: string
+// }
+// const defaultProps = {
+//   variant: 'main',
+// }
+
+const Main = React.forwardRef(({ variant, ...props }, ref) => (
   <Box
     ref={ref}
     as="main"
@@ -12,5 +19,7 @@ const Main = React.forwardRef(({ variant = 'main', ...props }, ref) => (
     __css={{ flex: 1 }}
   />
 ))
+
+// Main.defaultProps = defaultProps
 
 export default Main

@@ -30,7 +30,7 @@ export function useMakerUI() {
 
     return setState(s => ({
       ...s,
-      extendedOptions: merge(s.extendedOptions, newOptions),
+      extendedOptions: merge(s.extendedOptions, validate(newOptions)),
     }))
   }
 

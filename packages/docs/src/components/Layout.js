@@ -14,8 +14,7 @@ import Logo from './Logo'
 import DocsMenu from './DocsMenu'
 import Widgets from './Widgets'
 
-import { options, menu } from '../config/options'
-import theme from '../config/theme'
+import { theme, options, seo, primaryMenu } from '../config'
 
 const components = {
   pre: ({ children }) => <>{children}</>,
@@ -23,22 +22,20 @@ const components = {
 }
 
 export default ({ children, location }) => {
-  if (location.pathname.includes('/demo')) return children
-
   return (
     <Layout theme={theme} options={options} components={components}>
       <Header>
         <Navbar
           logo={<Logo />}
-          menu={menu}
+          menu={primaryMenu}
           pathname={location.pathname}
           widgetArea={<Widgets />}
         />
-        <MobileMenu menu={menu} />
+        <MobileMenu menu={primaryMenu} />
       </Header>
       <Content layout="content-sidenav">
         <Main>{children}</Main>
-        <SideNav menu={menu} pathname={location.pathname} />
+        <SideNav menu={primaryMenu} pathname={location.pathname} />
       </Content>
       {/* {location.pathname.includes('/docs') ? (
         <Content layout="content-sidenav">

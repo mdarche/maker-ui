@@ -2,7 +2,9 @@
   "name": "@maker-ui/page-search",
   "version": "0.4.3",
   "author": "Mike Darche",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
     "prepare": "microbundle --no-compress --jsx React.createElement",

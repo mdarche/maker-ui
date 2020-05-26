@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box } from 'theme-ui'
 
 import { useOptions, useLayout } from '../context/OptionContext'
@@ -6,15 +6,15 @@ import { setBreakpoint } from '../utils/helper'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
-// TODO - Figure out padding top vs Main
-
 const Content = React.forwardRef(({ layout, ...props }, ref) => {
   const { content } = useOptions()
   const [baseLayout, setLayout] = useLayout()
 
-  if (layout !== undefined && layout !== baseLayout) {
-    setLayout(layout)
-  }
+  useEffect(() => {
+    if (layout !== undefined && layout !== baseLayout) {
+      setLayout(layout)
+    }
+  }, [layout, baseLayout, setLayout])
 
   const sidebarPartial =
     baseLayout === 'sidebar-content'

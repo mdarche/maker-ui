@@ -14,7 +14,7 @@ const Layout = props => (
   </ExtensionProvider>
 )
 
-const Root = ({ theme, options, components, children }) => {
+const Root = ({ theme, options = {}, components, children }) => {
   const [{ extendedOptions, extendedTheme }] = useExtensions()
   const allOptions = merge(extendedOptions, options)
 

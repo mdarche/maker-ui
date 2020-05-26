@@ -13,11 +13,11 @@ module.exports = {
         component: require.resolve(`./src/components/Layout.js`),
       },
     },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        extensions: ['.mdx', '.md'],
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-mdx`,
+    //   options: {
+    //     extensions: ['.mdx', '.md'],
+    //   },
+    // },
   ],
 }
