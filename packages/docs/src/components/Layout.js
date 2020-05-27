@@ -6,6 +6,7 @@ import {
   MobileMenu,
   Content,
   Main,
+  Footer,
   SideNav,
 } from 'maker-ui'
 import Prism from '@theme-ui/prism'
@@ -37,6 +38,7 @@ export default ({ children, location }) => {
         <Main>{children}</Main>
         <SideNav menu={primaryMenu} pathname={location.pathname} />
       </Content>
+      <Footer>test</Footer>
       {/* {location.pathname.includes('/docs') ? (
         <Content layout="content-sidenav">
           <Main>{children}</Main>

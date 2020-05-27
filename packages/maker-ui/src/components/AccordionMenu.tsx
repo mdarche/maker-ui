@@ -1,15 +1,24 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
+import { Box } from './Box'
+import { BoxProps, MenuProps } from './props'
 import { MenuItem } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu, useSideNav } from '../context/ActionContext'
 
-const AccordionMenu = React.forwardRef(
-  (
-    { menu = [], variant = 'accordion-menu', menuType, pathname, ...props },
-    ref
-  ) => {
+interface AccordionProps extends BoxProps {
+  menu: MenuProps[]
+  menuType: string
+  pathname: string
+}
+
+const defaultProps = {
+  variant: 'accordion-menu',
+  menu: [],
+}
+
+export const AccordionMenu = React.forwardRef<HTMLElement, AccordionProps>(
+  ({ menu, variant, menuType, pathname, ...props }, ref) => {
     const { mobileMenu, sideNav } = useOptions()
     const [showMenu, toggleMenu] = useMenu()
     const [showSideNav, toggleSideNav] = useSideNav()
@@ -46,4 +55,4 @@ const AccordionMenu = React.forwardRef(
   }
 )
 
-export default AccordionMenu
+AccordionMenu.defaultProps = defaultProps

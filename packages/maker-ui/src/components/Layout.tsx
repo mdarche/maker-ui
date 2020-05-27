@@ -5,16 +5,23 @@ import merge from 'deepmerge'
 import { ExtensionProvider, useExtensions } from '../context/ExtendContext'
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
-import Skiplinks from './Skiplinks'
+import { Skiplinks } from './Skiplinks'
 import themeMap from '../config/theme-map'
 
-const Layout = props => (
+export const Layout = props => (
   <ExtensionProvider>
     <Root {...props} />
   </ExtensionProvider>
 )
 
-const Root = ({ theme, options = {}, components, children }) => {
+interface Props {
+  theme: object
+  options: object
+  components: object
+  children: React.ReactNode
+}
+
+const Root = ({ theme, options = {}, components, children }: Props) => {
   const [{ extendedOptions, extendedTheme }] = useExtensions()
   const allOptions = merge(extendedOptions, options)
 
@@ -31,5 +38,3 @@ const Root = ({ theme, options = {}, components, children }) => {
     </ThemeProvider>
   )
 }
-
-export default Layout

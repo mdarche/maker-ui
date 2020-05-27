@@ -1,21 +1,18 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
-interface Props {
-  children: React.ReactNode
-  variant: string
-  sx?: object
-  bg?: string
-  as?: string
+import { Box } from './Box'
+import { BoxProps } from './props'
+
+interface SectionProps extends BoxProps {
   background?: string
-  maxWidth?: string | any[]
+  maxWidth: string | any[]
 }
 
 const defaultProps = {
   maxWidth: 'maxWidth_section',
 }
 
-export const Section = React.forwardRef<HTMLElement, Props>(
+export const Section = React.forwardRef<HTMLElement, SectionProps>(
   ({ maxWidth, bg, background, children, ...props }, ref) => {
     return (
       <Box
@@ -33,5 +30,3 @@ export const Section = React.forwardRef<HTMLElement, Props>(
 
 Section.defaultProps = defaultProps
 Section.displayName = 'Section'
-
-// export default Section

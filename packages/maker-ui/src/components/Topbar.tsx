@@ -1,20 +1,26 @@
 import React from 'react'
-import { Flex, Box } from 'theme-ui'
+import { Flex } from 'theme-ui'
 
+import { Box } from './Box'
+import { BoxProps } from './props'
 import { useOptions } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 
-const Topbar = React.forwardRef(
-  (
-    {
-      bg = 'bg_topbar',
-      maxWidth = 'maxWidth_topbar',
-      variant = 'topbar',
-      scrollOverflow = false,
-      ...props
-    },
-    ref
-  ) => {
+interface TopbarProps extends BoxProps {
+  background: string | string[]
+  maxWidth: string | string[]
+  scrollOverflow: boolean
+}
+
+const defaultProps = {
+  bg: 'bg_topbar',
+  maxWidth: 'maxWidth_topbar',
+  variant: 'topbar',
+  scrollOverflow: false,
+}
+
+export const Topbar = React.forwardRef<HTMLElement, TopbarProps>(
+  ({ bg, maxWidth, variant, scrollOverflow, ...props }, ref) => {
     const { topbar } = useOptions()
 
     return (
@@ -31,6 +37,7 @@ const Topbar = React.forwardRef(
         }}>
         <Flex
           {...props}
+          className="container"
           __css={{
             mx: 'auto',
             overflowX: scrollOverflow ? 'scroll' : null,
@@ -43,4 +50,4 @@ const Topbar = React.forwardRef(
   }
 )
 
-export default Topbar
+Topbar.defaultProps = defaultProps

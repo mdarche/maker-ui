@@ -1,12 +1,17 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
+import { Box } from './Box'
 import { useOptions } from '../context/OptionContext'
 
-const Skiplinks = () => {
+interface Link {
+  id: string
+  label: string
+}
+
+export const Skiplinks = () => {
   const { layout, a11y } = useOptions()
 
-  let links = [
+  let links: Link[] = [
     { id: '#content', label: 'Skip to content' },
     { id: '#footer', label: 'Skip to footer' },
   ]
@@ -46,5 +51,3 @@ const Skiplinks = () => {
     </Box>
   ) : null
 }
-
-export default Skiplinks

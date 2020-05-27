@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "prepare": "microbundle --no-compress --jsx React.createElement",
+    "prepare": "microbundle --no-compress --jsx React.createElement --tsconfig tsconfig.json",
     "watch": "microbundle watch --no-compress --jsx React.createElement --tsconfig tsconfig.json"
   },
   "license": "MIT",
@@ -17,5 +17,10 @@
   "peerDependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "typescript": "^3.9.3"
   }
 }

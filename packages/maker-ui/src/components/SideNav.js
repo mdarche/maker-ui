@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 
-import AccordionMenu from './AccordionMenu'
+import { AccordionMenu } from './AccordionMenu'
 import { Overlay } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'

@@ -1,25 +1,19 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
-interface Props {
-  children: React.ReactNode
-  variant: string
-  sx?: object
-  bg?: string
-}
+import { Box } from './Box'
+import { BoxProps } from './props'
 
 const defaultProps = {
   variant: 'main',
 }
 
-const Main = React.forwardRef(
-  ({ variant, ...props }: Props, ref: React.Ref<HTMLElement>) => (
+export const Main = React.forwardRef<HTMLElement, BoxProps>(
+  ({ variant, ...props }, ref) => (
     <Box
       ref={ref}
       as="main"
       id="content"
       role="main"
-      variant={variant}
       {...props}
       __css={{ flex: 1 }}
     />
@@ -27,5 +21,3 @@ const Main = React.forwardRef(
 )
 
 Main.defaultProps = defaultProps
-
-export default Main
