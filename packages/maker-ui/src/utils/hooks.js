@@ -3,6 +3,7 @@ import { useThemeUI } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
 import { useExtensions } from '../context/ExtendContext'
+import { useMenu, useSideNav } from '../context/ActionContext'
 import { validate } from './helper'
 
 export function useMakerUI() {
@@ -34,5 +35,14 @@ export function useMakerUI() {
     }))
   }
 
-  return { theme, colorMode, setColorMode, extendTheme, options, extendOptions }
+  return {
+    theme,
+    colorMode,
+    setColorMode,
+    useMenu,
+    useSideNav,
+    extendTheme,
+    options,
+    extendOptions,
+  }
 }
