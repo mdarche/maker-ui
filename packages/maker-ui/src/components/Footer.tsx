@@ -1,7 +1,6 @@
 import React from 'react'
-import { Flex } from 'theme-ui'
 
-import { Box } from './Box'
+import { Box, Flex } from './common'
 import { BoxProps } from './props'
 
 interface FooterProps extends BoxProps {

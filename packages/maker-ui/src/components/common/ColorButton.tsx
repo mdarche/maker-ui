@@ -1,10 +1,16 @@
 import React from 'react'
-import { useThemeUI, Box } from 'theme-ui'
+import { useThemeUI } from 'theme-ui'
 
+import { Box } from './Box'
+import { MaybeElement } from '../props'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
-const ColorButton = ({ custom }) => {
+interface ButtonProps {
+  custom: MaybeElement
+}
+
+export const ColorButton = ({ custom }: ButtonProps) => {
   const { theme, colorMode, setColorMode } = useThemeUI()
   const { header } = useOptions()
 
@@ -36,5 +42,3 @@ const ColorButton = ({ custom }) => {
     </Box>
   )
 }
-
-export default ColorButton

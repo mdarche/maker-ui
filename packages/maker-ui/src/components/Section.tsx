@@ -1,15 +1,16 @@
 import React from 'react'
 
-import { Box } from './Box'
-import { BoxProps } from './props'
+import { Box } from './common'
+import { MakerProps } from './props'
 
-interface SectionProps extends BoxProps {
+interface SectionProps extends MakerProps {
   background?: string
   maxWidth: string | any[]
 }
 
 const defaultProps = {
   maxWidth: 'maxWidth_section',
+  label: 'Section',
 }
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(

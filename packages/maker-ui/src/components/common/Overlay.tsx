@@ -3,11 +3,18 @@ import { Box } from 'theme-ui'
 
 import { setBreakpoint } from '../../utils/helper'
 
-const Overlay = ({ show, toggle, type, bp }) => {
+interface OverlayProps {
+  bp: number
+  show: boolean
+  toggle: any
+  type: string
+}
+
+export const Overlay = ({ show, toggle, type, bp }: OverlayProps) => {
   const visibility = show ? 'visible' : 'hidden'
   const opacity = show ? 1 : 0
 
-  const partial =
+  const partial: object =
     type === 'sideNav'
       ? {
           visibility: setBreakpoint(bp, [visibility, 'hidden']),
@@ -35,5 +42,3 @@ const Overlay = ({ show, toggle, type, bp }) => {
     />
   )
 }
-
-export default Overlay

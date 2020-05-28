@@ -1,9 +1,16 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
+import { SVG, Button } from './Box'
+import { BoxProps, MaybeElement } from '../props'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 import { setBreakpoint } from '../../utils/helper'
+
+interface Props extends BoxProps {
+  closeIcon: MaybeElement
+  custom: MaybeElement
+  visibleOnDesktop: boolean
+}
 
 const getAttributes = (
   menu,
@@ -16,7 +23,7 @@ const getAttributes = (
     ? { 'aria-expanded': sideMenu ? 'true' : 'false', onClick: toggleSideMenu }
     : { 'aria-expanded': menu ? 'true' : 'false', onClick: toggleMenu }
 
-export default props => {
+export const MenuButton = (props: Props) => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()
   const { mobileMenu, header, sideNav } = useOptions()
@@ -28,15 +35,14 @@ export default props => {
     ...rest
   } = props
 
-  const visibility = visibleOnDesktop
+  const visibility: React.CSSProperties = visibleOnDesktop
     ? !sideNav.isPrimaryMobileNav
       ? { display: 'block' }
       : { display: 'none' }
     : { display: setBreakpoint(header.breakIndex, ['block', 'none']) }
 
   return (
-    <Box
-      as="button"
+    <Button
       title="Menu"
       className="menu-toggle"
       aria-label="Toggle Menu"
@@ -57,9 +63,7 @@ export default props => {
         svg: { m: '0 auto' },
       }}>
       {custom || (
-        <Box
-          as="svg"
-          xmlns="http://www.w3.org/2000/svg"
+        <SVG
           viewBox="0 0 24 24"
           sx={{
             display: 'block',
@@ -71,8 +75,8 @@ export default props => {
           ) : (
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
           )}
-        </Box>
+        </SVG>
       )}
-    </Box>
+    </Button>
   )
 }

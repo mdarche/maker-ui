@@ -1,11 +1,17 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
+import { Box } from './Box'
+import { MenuProps } from '../props'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 import MenuItem from './MenuItem'
 
-const Menu = React.memo(({ menuItems = [], pathname }) => {
+interface Props {
+  menuItems: MenuProps[]
+  pathname: string
+}
+
+export const Menu = React.memo(({ menuItems = [], pathname }: Props) => {
   const { header } = useOptions()
 
   return (
@@ -27,5 +33,3 @@ const Menu = React.memo(({ menuItems = [], pathname }) => {
     </Box>
   )
 })
-
-export default Menu

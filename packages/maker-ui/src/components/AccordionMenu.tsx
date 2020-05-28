@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box } from './Box'
+import { Box } from './common'
 import { BoxProps, MenuProps } from './props'
 import { MenuItem } from './common'
 import { useOptions } from '../context/OptionContext'

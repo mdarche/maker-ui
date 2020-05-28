@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Box } from './Box'
+import { Box } from './common'
 import { BoxProps } from './props'
 import { useOptions, useLayout } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'

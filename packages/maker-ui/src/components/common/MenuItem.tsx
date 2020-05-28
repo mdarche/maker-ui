@@ -1,7 +1,21 @@
 import React, { useState } from 'react'
-import { Box } from 'theme-ui'
 
-import Dropdown from './Dropdown'
+import { Box } from './Box'
+import { MenuProps } from '../props'
+import { Dropdown } from './Dropdown'
+
+interface Props {
+  data: MenuProps
+  caret: boolean
+  menuControls: any
+  pathname: string
+  isHeader: boolean
+}
+
+const defaultProps = {
+  caret: false,
+  isHeader: false,
+}
 
 const getAttributes = (isHeader, submenu, show, set) =>
   isHeader
@@ -12,13 +26,13 @@ const getAttributes = (isHeader, submenu, show, set) =>
       }
     : null
 
-const MenuItem = ({
+export const MenuItem = ({
   data: { label, path, newTab, submenu, classes = '', icon },
-  caret = false,
+  caret,
   menuControls,
   pathname,
-  isHeader = false,
-}) => {
+  isHeader,
+}: Props) => {
   const [show, set] = useState(false)
 
   return (
@@ -78,4 +92,4 @@ const MenuItem = ({
   )
 }
 
-export default MenuItem
+MenuItem.defaultProps = defaultProps

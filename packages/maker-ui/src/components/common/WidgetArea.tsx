@@ -1,10 +1,16 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
+import { Box } from './Box'
+import { MakerProps, MaybeElement } from '../props'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
-const WidgetArea = props => {
+interface WidgetProps extends MakerProps {
+  custom?: MaybeElement
+  hideOnMobile?: boolean
+}
+
+export const WidgetArea = (props: WidgetProps) => {
   const { header } = useOptions()
   const { custom, hideOnMobile = header.hideWidgetsOnMobile } = props
 
@@ -21,5 +27,3 @@ const WidgetArea = props => {
     </Box>
   ) : null
 }
-
-export default WidgetArea

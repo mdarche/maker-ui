@@ -1,7 +1,18 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
-const getAttributes = (isHeader, set) =>
+import { Box, SVG } from './Box'
+import { MenuProps } from '../props'
+
+interface DropdownProps {
+  submenu: MenuProps[]
+  active: boolean
+  set: any
+  isHeader: boolean
+  menuControls: object
+  pathname: string
+}
+
+const getAttributes = (isHeader, set): object | null =>
   isHeader
     ? {
         onFocus: e => set(true),
@@ -10,14 +21,14 @@ const getAttributes = (isHeader, set) =>
       }
     : null
 
-const Dropdown = ({
+export const Dropdown = ({
   submenu,
   active,
   set,
   isHeader,
   menuControls,
   pathname,
-}) => (
+}: DropdownProps) => (
   <React.Fragment>
     {!isHeader && (
       <Box
@@ -28,8 +39,7 @@ const Dropdown = ({
         aria-label="Expand Section"
         onClick={() => set(!active)}
         sx={{ border: 'none', bg: 'transparent' }}>
-        <Box
-          as="svg"
+        <SVG
           viewBox="0 0 16 16"
           width="12"
           height="12"
@@ -44,7 +54,7 @@ const Dropdown = ({
             fill="none"
             d="M14 6 L8 12 L2 6"
           />
-        </Box>
+        </SVG>
       </Box>
     )}
     {isHeader || (!isHeader && active) ? (
@@ -93,5 +103,3 @@ const Dropdown = ({
     ) : null}
   </React.Fragment>
 )
-
-export default Dropdown
