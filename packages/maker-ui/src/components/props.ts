@@ -1,3 +1,5 @@
+import { AriaAttributes } from 'react'
+
 /**
  * Alias for all valid HTML props for `<div>` element.
  * Does not include React's `ref` or `key`.
@@ -20,7 +22,7 @@ export type HTMLSVGProps = React.SVGAttributes<HTMLElement>
  * Alias for all valid HTML props for `<svg>` element.
  * Does not include React's `ref` or `key`.
  */
-export type HTMLButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
+export type HTMLButtonProps = React.HTMLAttributes<HTMLButtonElement>
 
 /**
  * Alias for all valid HTML props for `<svg>` element.
@@ -31,17 +33,16 @@ export type HTMLAriaProps = React.AriaAttributes
 /**
  * Alias for a `JSX.Element` or a value that renders nothing.
  */
-export type MaybeElement = JSX.Element | false | null | undefined
+export type MaybeElement = JSX.Element | string | false | null | undefined
 
 /**
- * Alias and type shortcut for Theme UI responsive scales. Can be a `string`,
+ * Alias for Theme UI responsive scales. Can be a `string`,
  * `number`, or an array of either.
  */
 export type ResponsiveScale = string | number | string[] | number[]
 
 /**
- * Alias for all Maker UI compatible menus. Offers support for nesting menus
- * one level deeper.
+ * Alias for all Maker UI compatible menus. Offers support for nesting menus.
  */
 export interface MenuProps {
   label: string
@@ -49,7 +50,7 @@ export interface MenuProps {
   classes: string
   icon: MaybeElement
   newTab: boolean
-  submenu: MenuProps[] // TODO test that this might have a problem
+  submenu: MenuProps[] // TODO test that this works properly
 }
 
 /**
@@ -58,7 +59,7 @@ export interface MenuProps {
 export interface BasicBoxProps {
   children?: React.ReactNode
   // Theme UI-specific
-  variant?: string
+  variant?: string | string[]
   as?: string
   sx?: object
   ref?: React.Ref<HTMLElement>
@@ -114,7 +115,10 @@ export interface SVGProps extends BasicBoxProps, HTMLSVGProps {
  * Alias for Theme UI box component props that includes all
  * HTML button attributes. Used with MakerUI's internal `<Box />` component.
  */
-export interface ButtonProps extends BoxProps {
+export interface ButtonProps
+  extends BasicBoxProps,
+    HTMLDivProps,
+    AriaAttributes {
   __css?: object
 }
 
@@ -137,4 +141,21 @@ export interface LinkProps extends BoxProps {
 export interface MakerProps extends BasicBoxProps {
   label?: string
   className?: string
+}
+
+/**
+ * Alias for shared <Navbar /> component props.
+ */
+export interface NavProps extends MakerProps {
+  logo: MaybeElement
+  menuToggle: MaybeElement
+  colorToggle: MaybeElement
+  widgetArea: MaybeElement
+  menu?: MenuProps[]
+  bp?: number
+  type?: string
+  layout?: number
+  pathname?: string
+  maxWidth?: ResponsiveScale
+  variant?: string
 }

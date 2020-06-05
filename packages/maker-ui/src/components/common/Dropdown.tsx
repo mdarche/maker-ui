@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, SVG } from './Box'
+import { Box, SVG, Button, Link } from './Box'
 import { MenuProps } from '../props'
 
 interface DropdownProps {
@@ -31,8 +31,7 @@ export const Dropdown = ({
 }: DropdownProps) => (
   <React.Fragment>
     {!isHeader && (
-      <Box
-        as="button"
+      <Button
         title="Expand Section"
         className="submenu-toggle"
         aria-expanded={active ? 'true' : 'false'}
@@ -55,7 +54,7 @@ export const Dropdown = ({
             d="M14 6 L8 12 L2 6"
           />
         </SVG>
-      </Box>
+      </Button>
     )}
     {isHeader || (!isHeader && active) ? (
       <Box
@@ -85,7 +84,7 @@ export const Dropdown = ({
         }>
         {submenu.map(({ label, path, newTab, classes = '', icon }, index) => (
           <Box as="li" key={index} className={`menu-item ${classes}`}>
-            <a
+            <Link
               href={path}
               className={pathname === path ? 'current' : undefined}
               target={newTab && '_blank'}
@@ -96,7 +95,7 @@ export const Dropdown = ({
               {...menuControls}>
               {icon && <span className="submenu-icon">{icon}</span>}
               <span className="submenu-text">{label}</span>
-            </a>
+            </Link>
           </Box>
         ))}
       </Box>

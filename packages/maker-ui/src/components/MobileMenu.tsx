@@ -1,14 +1,28 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
+import { ResponsiveScale, MenuProps, BasicBoxProps } from './props'
 import { AccordionMenu } from './AccordionMenu'
-import { Overlay, MenuButton } from './common'
+import { Box, Overlay, MenuButton } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
 
-const fullWidth = ['fade', 'fade-up', 'fade-down']
+interface Props extends BasicBoxProps {
+  transition?: string
+  width?: ResponsiveScale
+  menu?: MenuProps[]
+  pathname?: string
+}
 
-const getTransition = (active, type, width) => {
+const defaultProps = {
+  bg: 'bg_mobileMenu',
+  variant: 'mobileMenu',
+  menu: [],
+}
+
+// Transitions that require a full-width menu overlay
+const fullWidth: string[] = ['fade', 'fade-up', 'fade-down']
+
+const getTransition = (active, type, width): React.CSSProperties => {
   const opacity = type.includes('fade') ? (active ? 1 : 0) : 1
   const visibility = active ? 'visible' : 'hidden'
 
@@ -35,16 +49,16 @@ const getTransition = (active, type, width) => {
   }
 }
 
-const MobileMenu = React.forwardRef((props, ref) => {
+export const MobileMenu = React.forwardRef<HTMLElement, Props>((props, ref) => {
   const [show, toggleMenu] = useMenu()
   const { mobileMenu } = useOptions()
 
   const {
-    bg = 'bg_mobileMenu',
-    variant = 'mobileMenu',
+    bg,
+    variant,
     width = mobileMenu.width,
     transition = mobileMenu.transition,
-    menu = [],
+    menu,
     pathname,
     children,
   } = props
@@ -83,4 +97,4 @@ const MobileMenu = React.forwardRef((props, ref) => {
   )
 })
 
-export default MobileMenu
+MobileMenu.defaultProps = defaultProps

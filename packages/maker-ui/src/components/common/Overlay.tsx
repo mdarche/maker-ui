@@ -4,10 +4,10 @@ import { Box } from 'theme-ui'
 import { setBreakpoint } from '../../utils/helper'
 
 interface OverlayProps {
-  bp: number
   show: boolean
   toggle: any
-  type: string
+  bp?: number
+  type?: string
 }
 
 export const Overlay = ({ show, toggle, type, bp }: OverlayProps) => {

@@ -7,9 +7,10 @@ import { useMenu, useSideNav } from '../../context/ActionContext'
 import { setBreakpoint } from '../../utils/helper'
 
 interface Props extends BoxProps {
-  closeIcon: MaybeElement
-  custom: MaybeElement
-  visibleOnDesktop: boolean
+  closeIcon?: boolean
+  custom?: MaybeElement
+  visibleOnDesktop?: boolean
+  'aria-expanded'?: boolean
 }
 
 const getAttributes = (
@@ -20,8 +21,8 @@ const getAttributes = (
   sideNavPrimary
 ) =>
   sideNavPrimary
-    ? { 'aria-expanded': sideMenu ? 'true' : 'false', onClick: toggleSideMenu }
-    : { 'aria-expanded': menu ? 'true' : 'false', onClick: toggleMenu }
+    ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
+    : { 'aria-expanded': menu ? true : false, onClick: toggleMenu }
 
 export const MenuButton = (props: Props) => {
   const [menu, toggleMenu] = useMenu()

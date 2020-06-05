@@ -17,7 +17,7 @@ export const Layout = props => (
 interface Props {
   theme: object
   options: object
-  components: object
+  components?: object
   children: React.ReactNode
 }
 

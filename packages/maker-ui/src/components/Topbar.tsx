@@ -6,9 +6,9 @@ import { useOptions } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 
 interface TopbarProps extends BoxProps {
-  background: string | string[]
-  maxWidth: string | string[]
-  scrollOverflow: boolean
+  background?: string | string[]
+  maxWidth?: string | string[]
+  scrollOverflow?: boolean
 }
 
 const defaultProps = {

@@ -1,14 +1,15 @@
 import React from 'react'
 
+import { MaybeElement, MenuProps } from './props'
 import { Layout } from './Layout'
 import { Topbar } from './Topbar'
-import Header from './Header'
-import Navbar from './Navbar'
-import MobileMenu from './MobileMenu'
+import { Header } from './Header'
+import { Navbar } from './Navbar'
+import { MobileMenu } from './MobileMenu'
 import { Content } from './Content'
 import { Main } from './Main'
-import SideNav from './SideNav'
-import Sidebar from './Sidebar'
+import { SideNav } from './SideNav'
+import { Sidebar } from './Sidebar'
 import { Footer } from './Footer'
 
 import { useOptions } from '../context/OptionContext'
@@ -58,7 +59,26 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
   }
 }
 
-const Template = ({
+interface TemplateProps {
+  theme: object
+  options: object
+  components?: object
+  topbar?: MaybeElement
+  headerWidgets?: MaybeElement
+  menuToggle?: MaybeElement
+  colorToggle?: MaybeElement
+  logo?: MaybeElement
+  menu: MenuProps[]
+  mobileMenu?: string
+  sideNav?: MaybeElement
+  sideNavToggle?: MaybeElement
+  sidebar?: MaybeElement
+  footer?: MaybeElement
+  pathname?: string
+  children: React.ReactNode
+}
+
+export const Template = ({
   theme,
   options,
   components,
@@ -75,7 +95,7 @@ const Template = ({
   footer,
   pathname,
   children,
-}) => {
+}: TemplateProps) => {
   return (
     <Layout theme={theme} options={options} components={components}>
       {topbar && <Topbar>{topbar}</Topbar>}
@@ -104,5 +124,3 @@ const Template = ({
     </Layout>
   )
 }
-
-export default Template

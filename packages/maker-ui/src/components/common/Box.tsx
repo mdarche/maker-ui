@@ -12,8 +12,8 @@ export const Box = (props: BoxProps) => <TBox {...props} __css={props.__css} />
 /**
  * A Theme UI `<Flex />` component for handling flexbox layouts.
  */
-export const Flex = ({ __css, ...props }: BoxProps) => (
-  <TFlex {...props} __css={__css} />
+export const Flex = (props: BoxProps) => (
+  <TFlex {...props} __css={props.__css} />
 )
 
 /**

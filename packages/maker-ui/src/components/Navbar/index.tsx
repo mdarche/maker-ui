@@ -1,0 +1,36 @@
+import React from 'react'
+
+import { NavProps } from '../props'
+import { useOptions, useOptionUpdater } from '../../context/OptionContext'
+import { Basic } from './Basic'
+import { Center } from './Center'
+import { Reverse } from './Reverse'
+import { Minimal } from './Minimal'
+
+export const Navbar = React.memo(({ type, ...props }: NavProps) => {
+  const { navigation, header } = useOptions()
+  const setOptions = useOptionUpdater()
+
+  if (type !== undefined && type !== navigation) {
+    setOptions({ navigation: type })
+  }
+
+  switch (navigation) {
+    case 'center':
+      return <Center layout={1} {...props} bp={header.breakIndex} />
+    case 'split':
+      return <Center layout={2} {...props} bp={header.breakIndex} />
+    case 'reverse':
+      return <Reverse {...props} />
+    case 'minimal':
+      return <Minimal layout={1} {...props} />
+    case 'minimal-left':
+      return <Minimal layout={2} {...props} />
+    case 'minimal-center':
+      return <Minimal layout={3} {...props} />
+    case 'basic-left':
+      return <Basic layout={2} {...props} bp={header.breakIndex} />
+    default:
+      return <Basic {...props} />
+  }
+})

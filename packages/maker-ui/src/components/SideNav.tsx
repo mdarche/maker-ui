@@ -1,6 +1,7 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
+import { BasicBoxProps, MenuProps, MaybeElement } from './props'
+import { Box, Button } from './common'
 import { AccordionMenu } from './AccordionMenu'
 import { Overlay } from './common'
 import { useOptions } from '../context/OptionContext'
@@ -9,13 +10,27 @@ import { setBreakpoint } from '../utils/helper'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
-const SideNav = React.forwardRef(
+interface Props extends BasicBoxProps {
+  toggleVariant?: string | string[]
+  customToggle: MaybeElement
+  menu?: MenuProps[]
+  pathname?: string
+}
+
+const defaultProps = {
+  bg: 'bg_sideNav',
+  customToggle: 'Toggle',
+  variant: 'sideNav',
+  toggleVariant: 'sideNav.toggle',
+}
+
+export const SideNav = React.forwardRef<HTMLElement, Props>(
   (
     {
-      bg = 'bg_sideNav',
+      bg,
       toggleVariant,
-      customToggle = 'Toggle',
-      variant = 'sideNav',
+      customToggle,
+      variant,
       menu,
       pathname,
       children,
@@ -67,8 +82,7 @@ const SideNav = React.forwardRef(
           )}
         </Box>
         {sideNav.floatingToggle ? (
-          <Box
-            as="button"
+          <Button
             id="toggle-sidenav"
             title="Toggle SideNav"
             aria-label="Toggle side navigation"
@@ -81,11 +95,11 @@ const SideNav = React.forwardRef(
               zIndex: 100,
             }}>
             {customToggle}
-          </Box>
+          </Button>
         ) : null}
       </React.Fragment>
     )
   }
 )
 
-export default SideNav
+SideNav.defaultProps = defaultProps

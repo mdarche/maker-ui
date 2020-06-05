@@ -4,11 +4,11 @@ import { Box } from './Box'
 import { MenuProps } from '../props'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
-import MenuItem from './MenuItem'
+import { MenuItem } from './MenuItem'
 
 interface Props {
   menuItems: MenuProps[]
-  pathname: string
+  pathname?: string
 }
 
 export const Menu = React.memo(({ menuItems = [], pathname }: Props) => {

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-import { Box } from './Box'
+import { Box, Link } from './Box'
 import { MenuProps } from '../props'
 import { Dropdown } from './Dropdown'
 
 interface Props {
   data: MenuProps
   caret: boolean
-  menuControls: any
+  menuControls?: any
   pathname: string
   isHeader: boolean
 }
@@ -39,6 +39,8 @@ export const MenuItem = ({
     <Box
       as="li"
       className={`menu-item ${classes}`}
+      onMouseEnter={submenu && isHeader ? e => set(true) : undefined}
+      onMouseLeave={submenu && isHeader ? e => set(false) : undefined}
       sx={
         isHeader
           ? {
@@ -66,7 +68,7 @@ export const MenuItem = ({
             }
           : {}
       }>
-      <a
+      <Link
         href={path}
         className={pathname === path ? 'current' : undefined}
         target={newTab && '_blank'}
@@ -77,7 +79,7 @@ export const MenuItem = ({
         {...getAttributes(isHeader, submenu, show, set)}>
         {icon && <span className="menu-icon">{icon}</span>}
         <span className="menu-text">{label}</span>
-      </a>
+      </Link>
       {submenu ? (
         <Dropdown
           submenu={submenu}

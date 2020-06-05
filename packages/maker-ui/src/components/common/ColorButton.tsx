@@ -1,7 +1,7 @@
 import React from 'react'
 import { useThemeUI } from 'theme-ui'
 
-import { Box } from './Box'
+import { Button } from './Box'
 import { MaybeElement } from '../props'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
@@ -26,8 +26,7 @@ export const ColorButton = ({ custom }: ButtonProps) => {
   }
 
   return modes.length === 1 && header.colorToggle ? null : (
-    <Box
-      as="button"
+    <Button
       title="Color Mode"
       className="color-toggle"
       aria-label="Toggle Color Mode"
@@ -39,6 +38,6 @@ export const ColorButton = ({ custom }: ButtonProps) => {
           : 'block',
       }}>
       {custom || colorMode}
-    </Box>
+    </Button>
   )
 }

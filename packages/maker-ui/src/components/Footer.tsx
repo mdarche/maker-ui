@@ -4,7 +4,7 @@ import { Box, Flex } from './common'
 import { BoxProps } from './props'
 
 interface FooterProps extends BoxProps {
-  maxWidth: string | string[]
+  maxWidth?: string | string[]
 }
 
 const defaultProps = {

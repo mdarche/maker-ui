@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
-import { Box } from 'theme-ui'
 
+import { BasicBoxProps } from './props'
+import { Box } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../utils/scroll-position'
 import { setBreakpoint } from '../utils/helper'
 
-const Header = React.forwardRef((props, ref) => {
+interface Props extends BasicBoxProps {
+  sticky?: boolean
+  stickyMobile?: boolean
+  stickyScroll?: boolean
+}
+
+export const Header = React.forwardRef<HTMLElement, Props>((props, ref) => {
   const { header } = useOptions()
   const [scrollClass, setScrollClass] = useState(null)
   const [show, setShow] = useState(true)
@@ -50,7 +57,7 @@ const Header = React.forwardRef((props, ref) => {
     }, 0)
   }
 
-  const stickyPartial = stickyScroll
+  const stickyPartial: React.CSSProperties = stickyScroll
     ? {
         position: 'sticky',
         top: 0,
@@ -88,5 +95,3 @@ const Header = React.forwardRef((props, ref) => {
     />
   )
 })
-
-export default Header
