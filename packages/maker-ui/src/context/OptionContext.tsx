@@ -3,8 +3,8 @@ import merge from 'deepmerge'
 
 import defaultOptions from '../config/options'
 
-const OptionContext = React.createContext()
-const OptionUpdateContext = React.createContext()
+const OptionContext = React.createContext(null)
+const OptionUpdateContext = React.createContext(null)
 
 // Provider
 

@@ -57,7 +57,7 @@ export const Header = React.forwardRef<HTMLElement, Props>((props, ref) => {
     }, 0)
   }
 
-  const stickyPartial: React.CSSProperties = stickyScroll
+  const stickyPartial = stickyScroll
     ? {
         position: 'sticky',
         top: 0,

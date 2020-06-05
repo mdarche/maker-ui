@@ -8,12 +8,6 @@ import { ActionProvider } from '../context/ActionContext'
 import { Skiplinks } from './Skiplinks'
 import themeMap from '../config/theme-map'
 
-export const Layout = props => (
-  <ExtensionProvider>
-    <Root {...props} />
-  </ExtensionProvider>
-)
-
 interface Props {
   theme: object
   options: object
@@ -38,3 +32,9 @@ const Root = ({ theme, options = {}, components, children }: Props) => {
     </ThemeProvider>
   )
 }
+
+export const Layout = (props: Props) => (
+  <ExtensionProvider>
+    <Root {...props} />
+  </ExtensionProvider>
+)

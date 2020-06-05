@@ -1,4 +1,4 @@
-export const options = {
+export default {
   navigation: 'basic-left',
   layout: 'content-sidenav',
   header: {
@@ -13,6 +13,7 @@ export const options = {
     width: [300, '30vw'],
     transition: 'slideLeft',
     visibleOnDesktop: false,
+    closeOnRouteChange: true,
   },
   sideNav: {
     width: ['60vw', 600],

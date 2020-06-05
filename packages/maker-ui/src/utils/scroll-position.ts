@@ -4,14 +4,22 @@ import { useRef, useLayoutEffect } from 'react'
 
 const isBrowser = typeof window !== 'undefined'
 
-function getScrollPosition() {
+function getScrollPosition(): number | { x: number; y: number } {
   if (!isBrowser) return { x: 0, y: 0 }
   const position = document.body.getBoundingClientRect()
 
   return Math.abs(position.top)
 }
 
-export function useScrollPosition(effect, wait) {
+/**
+ * A browser hook that returns the user's current scroll position via callback
+ *
+ * @param effect - A callback function that has the user's previous and current position as props
+ * @param wait - The timeout delay for obtaining new position values
+ *
+ */
+
+export function useScrollPosition(effect: any, wait: number): void {
   const position = useRef(getScrollPosition())
 
   useLayoutEffect(() => {

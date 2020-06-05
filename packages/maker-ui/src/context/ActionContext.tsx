@@ -1,7 +1,7 @@
 import React, { useReducer, useContext } from 'react'
 
-const ActionContext = React.createContext()
-const ActionUpdateContext = React.createContext()
+const ActionContext = React.createContext(null)
+const ActionUpdateContext = React.createContext(null)
 
 function reducer(state, action) {
   switch (action.type) {

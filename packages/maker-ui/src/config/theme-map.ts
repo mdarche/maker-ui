@@ -6,11 +6,11 @@ import layouts from './variants/layouts'
 import headers from './variants/headers'
 import submenu from './variants/submenu'
 
-export default (theme, extendedTheme, options) => {
+export default (theme, extendedTheme, options): object => {
   const o =
     options === undefined ? defaultOptions : merge(defaultOptions, options)
 
-  const mappedOptions = {
+  const mappedOptions: object = {
     colors: {
       bg_topbar: '#355cac',
       bg_header: '#000',

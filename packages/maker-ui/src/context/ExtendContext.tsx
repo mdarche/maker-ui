@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 
-const ExtendContext = React.createContext()
-const ExtendUpdateContext = React.createContext()
+const ExtendContext = React.createContext(null)
+const ExtendUpdateContext = React.createContext(null)
 
 // Provider
 

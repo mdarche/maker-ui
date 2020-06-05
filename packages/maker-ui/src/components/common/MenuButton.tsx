@@ -36,7 +36,7 @@ export const MenuButton = (props: Props) => {
     ...rest
   } = props
 
-  const visibility: React.CSSProperties = visibleOnDesktop
+  const visibility = visibleOnDesktop
     ? !sideNav.isPrimaryMobileNav
       ? { display: 'block' }
       : { display: 'none' }

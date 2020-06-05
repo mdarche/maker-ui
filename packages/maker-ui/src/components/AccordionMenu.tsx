@@ -9,7 +9,7 @@ import { useMenu, useSideNav } from '../context/ActionContext'
 interface AccordionProps extends BoxProps {
   menu: MenuProps[]
   menuType: string
-  pathname: string
+  pathname?: string
 }
 
 const defaultProps = {
