@@ -1,5 +1,12 @@
+/**
+ * Internal Maker UI variants for header layouts
+ *
+ * @internal only
+ *
+ */
+
 export default {
-  eui_header: {
+  mui_header: {
     base: {
       position: 'relative',
       m: '0 auto',
@@ -7,15 +14,15 @@ export default {
       flexWrap: 'wrap',
     },
     default: {
-      variant: 'eui_header.base',
+      variant: 'mui_header.base',
       justifyContent: 'space-between',
     },
     center: {
-      variant: 'eui_header.base',
+      variant: 'mui_header.base',
       justifyContent: ['space-between', 'center'],
     },
     columns: {
-      variant: 'eui_header.base',
+      variant: 'mui_header.base',
       '.col-1': {
         alignItems: 'center',
         width: ['25%', '33%'],

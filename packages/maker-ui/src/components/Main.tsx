@@ -7,6 +7,11 @@ const defaultProps = {
   variant: 'main',
 }
 
+/**
+ * Use the `Main` component to wrap your layout's main content.
+ * @see https://maker-ui.com/components/main
+ */
+
 export const Main = React.forwardRef<HTMLElement, BoxProps>(
   ({ variant, ...props }, ref) => (
     <Box

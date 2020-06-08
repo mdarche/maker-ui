@@ -8,3 +8,5 @@ export const primaryMenu = [
   { label: 'Demo Site', path: '/demo' },
   { label: 'FAQs', path: '/faqs' },
 ]
+
+export const docsMenu = []

@@ -29,7 +29,7 @@ export const Reverse = ({
   <Flex
     variant={variant}
     {...props}
-    __css={{ variant: 'eui_header.columns', maxWidth }}>
+    __css={{ variant: 'mui_header.columns', maxWidth }}>
     <Flex className="col-1">
       <Menu menuItems={menu} />
       <MenuButton custom={menuToggle} />

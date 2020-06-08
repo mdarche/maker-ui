@@ -23,7 +23,7 @@ export const Minimal = ({
     variant={variant}
     {...props}
     __css={{
-      variant: layout === 3 ? 'eui_header.columns' : 'eui_header.default',
+      variant: layout === 3 ? 'mui_header.columns' : 'mui_header.default',
       maxWidth,
     }}>
     {layout === 1 ? (

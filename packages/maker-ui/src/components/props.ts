@@ -1,67 +1,33 @@
-import { AriaAttributes } from 'react'
+import * as React from 'react'
 
-/**
- * Alias for all valid HTML props for `<div>` element.
- * Does not include React's `ref` or `key`.
- */
-export type HTMLDivProps = React.HTMLAttributes<HTMLDivElement>
+type HTMLDivProps = React.HTMLAttributes<HTMLDivElement>
 
-/**
- * Alias for all valid HTML props for `<input>` element.
- * Does not include React's `ref` or `key`.
- */
-export type HTMLInputProps = React.InputHTMLAttributes<HTMLInputElement>
+type HTMLSVGProps = React.SVGAttributes<HTMLElement>
 
-/**
- * Alias for all valid HTML props for `<svg>` element.
- * Does not include React's `ref` or `key`.
- */
-export type HTMLSVGProps = React.SVGAttributes<HTMLElement>
+// type HTMLButtonProps = React.HTMLAttributes<HTMLButtonElement>
 
-/**
- * Alias for all valid HTML props for `<svg>` element.
- * Does not include React's `ref` or `key`.
- */
-export type HTMLButtonProps = React.HTMLAttributes<HTMLButtonElement>
+type HTMLAriaProps = React.AriaAttributes
 
-/**
- * Alias for all valid HTML props for `<svg>` element.
- * Does not include React's `ref` or `key`.
- */
-export type HTMLAriaProps = React.AriaAttributes
-
-/**
- * Alias for a `JSX.Element` or a value that renders nothing.
- */
 export type MaybeElement = JSX.Element | string | false | null | undefined
 
-/**
- * Alias for Theme UI responsive scales. Can be a `string`,
- * `number`, or an array of either.
- */
 export type ResponsiveScale = string | number | string[] | number[]
 
 /**
- * Alias for all Maker UI compatible menus. Offers support for nesting menus.
+ * @TODO replace the following with `@types/theme-ui` and `@types/theme-ui__components`
+ * extensions when the packages are stable and `@theme-ui/components` is rebuilt in TS.
  */
-export interface MenuProps {
-  label: string
-  path: string
-  classes: string
-  icon: MaybeElement
-  newTab: boolean
-  submenu: MenuProps[] // TODO test that this works properly
-}
 
 /**
  * Interface for Theme UI `<Box/>` component props and style shortcuts.
  */
+
 export interface BasicBoxProps {
   children?: React.ReactNode
   // Theme UI-specific
   variant?: string | string[]
   as?: string
   sx?: object
+  __css?: object
   ref?: React.Ref<HTMLElement>
   // Style prop shortcuts
   bg?: string | string[]
@@ -99,17 +65,13 @@ export interface BasicBoxProps {
  * Alias for Theme UI box component props that includes all
  * HTML div attributes. Used with MakerUI's internal `<Box />` component.
  */
-export interface BoxProps extends BasicBoxProps, HTMLDivProps {
-  __css?: object
-}
+export interface BoxProps extends BasicBoxProps, HTMLDivProps {}
 
 /**
  * Alias for Theme UI box component props that includes all
  * HTML svg attributes. Used with MakerUI's internal `<Box />` component.
  */
-export interface SVGProps extends BasicBoxProps, HTMLSVGProps {
-  __css?: object
-}
+export interface SVGProps extends BasicBoxProps, HTMLSVGProps {}
 
 /**
  * Alias for Theme UI box component props that includes all
@@ -118,16 +80,13 @@ export interface SVGProps extends BasicBoxProps, HTMLSVGProps {
 export interface ButtonProps
   extends BasicBoxProps,
     HTMLDivProps,
-    AriaAttributes {
-  __css?: object
-}
+    HTMLAriaProps {}
 
 /**
  * Alias for Theme UI box component props that includes all
  * HTML button attributes. Used with MakerUI's internal `<Box />` component.
  */
 export interface LinkProps extends BoxProps {
-  __css?: object
   href: string
   target?: string
   download?: string
@@ -158,4 +117,16 @@ export interface NavProps extends MakerProps {
   pathname?: string
   maxWidth?: ResponsiveScale
   variant?: string
+}
+
+/**
+ * Alias for all Maker UI compatible menus. Offers support for nesting menus.
+ */
+export interface MenuProps {
+  label: string
+  path: string
+  classes: string
+  icon: MaybeElement
+  newTab: boolean
+  submenu: MenuProps[] // TODO test that this works properly
 }

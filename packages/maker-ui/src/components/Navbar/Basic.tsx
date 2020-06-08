@@ -33,7 +33,7 @@ export const Basic = ({
     variant={variant}
     {...props}
     __css={{
-      variant: 'eui_header.default',
+      variant: 'mui_header.default',
       maxWidth,
     }}>
     <Logo>{logo}</Logo>

@@ -1,11 +1,20 @@
 import React from 'react'
 import { Box as TBox, Flex as TFlex } from 'theme-ui'
 
-import { BoxProps, SVGProps, ButtonProps, LinkProps } from '../props'
+import { BoxProps, ButtonProps, SVGProps, LinkProps } from '../props'
 
 /**
- * A Theme UI `<Box />` component that lets admins overwrite user
- * styles by placing the __css prop last.
+ * Theme UI primitive aliases
+ *
+ * @remark In case of future breaking updates, it's easier to address
+ * in one place instead of throughout the entire code base.
+ *
+ * @TODO replace props with `@types/theme-ui` and `@types/theme-ui__components`
+ * types when stable.
+ */
+
+/**
+ * A Theme UI `<Box />` component that ensures admin styles are applied last.
  */
 export const Box = (props: BoxProps) => <TBox {...props} __css={props.__css} />
 

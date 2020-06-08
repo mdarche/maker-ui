@@ -18,6 +18,12 @@ const defaultProps = {
   scrollOverflow: false,
 }
 
+/**
+ * Use the `Topbar` component to display content like announcements, social media icons,
+ * or promotions above your header navigation.
+ * @see https://maker-ui.com/components/topbar
+ */
+
 export const Topbar = React.forwardRef<HTMLElement, TopbarProps>(
   ({ bg, maxWidth, variant, scrollOverflow, ...props }, ref) => {
     const { topbar } = useOptions()

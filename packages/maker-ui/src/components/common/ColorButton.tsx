@@ -14,11 +14,11 @@ export const ColorButton = ({ custom }: ButtonProps) => {
   const { theme, colorMode, setColorMode } = useThemeUI()
   const { header } = useOptions()
 
-  const modes = theme.colors.modes
+  const modes: string[] = theme.colors.modes
     ? [theme.initialColorModeName].concat(Object.keys(theme.colors.modes))
     : [theme.initialColorModeName]
 
-  const cycleMode = () => {
+  const cycleMode = (): void => {
     const i = modes.indexOf(colorMode)
     const next = modes[(i + 1) % modes.length]
 

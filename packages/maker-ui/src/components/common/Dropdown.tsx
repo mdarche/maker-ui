@@ -75,9 +75,9 @@ export const Dropdown = ({
                 p: 0,
                 zIndex: 1,
                 listStyle: 'none',
-                variant: 'eui_submenu',
+                variant: 'mui_submenu',
                 '&.active': {
-                  variant: 'eui_submenu.active',
+                  variant: 'mui_submenu.active',
                 },
               }
             : {}

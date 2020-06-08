@@ -48,7 +48,7 @@ export const MenuItem = ({
               display: 'inline-flex',
               '&:hover': {
                 '.sub-menu': {
-                  variant: 'eui_submenu.active',
+                  variant: 'mui_submenu.active',
                 },
               },
               '.menu-text:after':

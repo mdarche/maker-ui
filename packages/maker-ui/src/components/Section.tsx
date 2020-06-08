@@ -1,17 +1,23 @@
 import React from 'react'
 
 import { Box } from './common'
-import { MakerProps } from './props'
+import { MakerProps, ResponsiveScale } from './props'
 
 interface SectionProps extends MakerProps {
-  background?: string
-  maxWidth: string | any[]
+  background?: ResponsiveScale
+  maxWidth?: ResponsiveScale
 }
 
 const defaultProps = {
   maxWidth: 'maxWidth_section',
   label: 'Section',
 }
+
+/**
+ * Use the `Section` component to add new content sections that support full-width
+ * backgrounds with custom max-width content.
+ * @see https://maker-ui.com/components/section
+ */
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
   ({ maxWidth, bg, background, children, ...props }, ref) => {
@@ -30,4 +36,3 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
 )
 
 Section.defaultProps = defaultProps
-Section.displayName = 'Section'

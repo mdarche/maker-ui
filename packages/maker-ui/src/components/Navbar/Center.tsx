@@ -49,7 +49,7 @@ export const Center = ({
       variant={variant}
       {...props}
       __css={{
-        variant: 'eui_header.center',
+        variant: 'mui_header.center',
         flexDirection:
           layout === 1 ? setBreakpoint(bp, ['row', 'column']) : null,
         maxWidth,

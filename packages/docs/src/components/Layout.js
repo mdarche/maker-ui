@@ -12,10 +12,9 @@ import {
 import Prism from '@theme-ui/prism'
 
 import Logo from './Logo'
-import DocsMenu from './DocsMenu'
 import Widgets from './Widgets'
 
-import { theme, options, seo, primaryMenu } from '../config'
+import { theme, options, seo, primaryMenu, docsMenu } from '../config'
 
 const components = {
   pre: ({ children }) => <>{children}</>,
@@ -34,21 +33,11 @@ export default ({ children, location }) => {
         />
         <MobileMenu menu={primaryMenu} />
       </Header>
-      <Content layout="content-sidenav">
+      <Content layout="sidenav-content">
+        <SideNav menu={docsMenu} pathname={location.pathname} />
         <Main>{children}</Main>
-        <SideNav menu={primaryMenu} pathname={location.pathname} />
       </Content>
       <Footer>test</Footer>
-      {/* {location.pathname.includes('/docs') ? (
-        <Content layout="content-sidenav">
-          <Main>{children}</Main>
-          <SideNav menu={menu} />
-        </Content>
-      ) : (
-        <Content layout="full-width">
-          <Main>{children}</Main>
-        </Content>
-      )} */}
     </Layout>
   )
 }

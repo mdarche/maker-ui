@@ -19,7 +19,9 @@ const defaultProps = {
   menu: [],
 }
 
-// Transitions that require a full-width menu overlay
+/**
+ * Mobile nav transitions that require full-width screen
+ */
 const fullWidth: string[] = ['fade', 'fade-up', 'fade-down']
 
 const getTransition = (active, type, width): React.CSSProperties => {
@@ -48,6 +50,11 @@ const getTransition = (active, type, width): React.CSSProperties => {
     ...size,
   }
 }
+
+/**
+ * Use the `MobileMenu` component to customize a responsive overlay menu for mobile navigation.
+ * @see https://maker-ui.com/components/mobile-menu
+ */
 
 export const MobileMenu = React.forwardRef<HTMLElement, Props>((props, ref) => {
   const [show, toggleMenu] = useMenu()

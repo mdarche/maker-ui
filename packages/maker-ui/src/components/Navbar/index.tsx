@@ -7,6 +7,14 @@ import { Center } from './Center'
 import { Reverse } from './Reverse'
 import { Minimal } from './Minimal'
 
+/**
+ * Use the `Navbar` component to render your layout's primary navigation.
+ *
+ * Comes with 8 different layout options that can be selected via `type` prop
+ * or your layout's `options` configuration.
+ * @see https://maker-ui.com/components/navbar
+ */
+
 export const Navbar = React.memo(({ type, ...props }: NavProps) => {
   const { navigation, header } = useOptions()
   const setOptions = useOptionUpdater()

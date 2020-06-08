@@ -13,6 +13,12 @@ const defaultProps = {
   variant: 'footer',
 }
 
+/**
+ * Use the `Footer` component to store important information, links, and widgets at
+ * the bottom of your layout.
+ * @see https://maker-ui.com/components/footer
+ */
+
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(
   ({ maxWidth, children, ...props }, ref) => {
     return (

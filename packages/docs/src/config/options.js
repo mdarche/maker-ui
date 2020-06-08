@@ -16,7 +16,7 @@ export default {
     closeOnRouteChange: true,
   },
   sideNav: {
-    width: ['60vw', 600],
+    width: ['60vw', 400],
     isPrimaryNav: true,
   },
   content: {

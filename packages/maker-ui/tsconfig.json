@@ -1,12 +1,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    // "target": "es5",
-    // "module": "esnext",
+    "target": "es5",
+    "module": "esnext",
     "jsx": "react",
     "allowJs": true,
     "strict": false,
-    "strictFunctionTypes": true
+    "strictFunctionTypes": true,
+    "inlineSourceMap": true
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.js"]
 }

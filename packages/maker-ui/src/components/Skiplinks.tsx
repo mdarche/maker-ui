@@ -8,6 +8,14 @@ interface Link {
   label: string
 }
 
+/**
+ * Adds default skiplinks to the layout if enabled via `options` configuration.
+ * Currently supports #content, #footer, and #side-nav
+ *
+ * @internal only
+ * @TODO let users supply their own skiplink menu objects
+ */
+
 export const Skiplinks = () => {
   const { layout, a11y } = useOptions()
 

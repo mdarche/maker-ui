@@ -11,7 +11,17 @@ export function useMakerUI() {
   const { theme, colorMode, setColorMode } = useThemeUI()
   const options = useOptions()
 
-  function extendTheme(newTheme, key) {
+  /**
+   * Allows child themes, plugins, and external components to merge custom
+   * variants with the base theme (no need for additional theme providers).
+   *
+   * @param newTheme - a Theme UI theme object
+   * @param key - a unique string that helps determine whether
+   * or not the new theme has been included.
+   *
+   */
+
+  function extendTheme(newTheme: object, key: string) {
     // Check if the component's key has already been added before updating context / causing a re-render
 
     if (key && state.themeKeys.includes(key)) {
@@ -23,6 +33,16 @@ export function useMakerUI() {
       extendedTheme: merge(s.extendedTheme, validate(newTheme)),
     }))
   }
+
+  /**
+   * Allows child themes, plugins, and external components to overwrite
+   * the Maker UI options object.
+   *
+   * @param newOptions - a Maker UI options object
+   * @param key - a unique string that helps determine whether
+   * or not the new options have been included.
+   *
+   */
 
   function extendOptions(newOptions, key) {
     if (key && state.themeKeys.includes(key)) {

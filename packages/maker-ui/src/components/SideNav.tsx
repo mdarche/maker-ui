@@ -24,6 +24,12 @@ const defaultProps = {
   toggleVariant: 'sideNav.toggle',
 }
 
+/**
+ * Use the `SideNav` component for `content-sidenav` or `sidenav-content` layouts.
+ * Add it inside the `Content` component alongside the `Main` component.
+ * @see https://maker-ui.com/components/sidenav
+ */
+
 export const SideNav = React.forwardRef<HTMLElement, Props>(
   (
     {

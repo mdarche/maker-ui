@@ -1,3 +1,10 @@
+/**
+ * Internal Maker UI variants for page content layouts
+ *
+ * @internal only
+ *
+ */
+
 const content = {
   display: 'block',
   maxWidth: 'maxWidth_content',
@@ -12,13 +19,13 @@ const sidebar = {
     mx: 'auto',
   },
   'sidebar-content': {
-    variant: 'eui_layout.base_sidebar',
+    variant: 'mui_layout.base_sidebar',
     '#primary-sidebar': {
       gridRow: [2, 'auto'],
     },
   },
   'content-sidebar': {
-    variant: 'eui_layout.base_sidebar',
+    variant: 'mui_layout.base_sidebar',
   },
 }
 
@@ -31,7 +38,7 @@ const sideNav = {
     },
   },
   'sidenav-content': {
-    variant: 'eui_layout.base_sidenav',
+    variant: 'mui_layout.base_sidenav',
     '#side-nav': {
       left: 0,
     },
@@ -40,7 +47,7 @@ const sideNav = {
     },
   },
   'content-sidenav': {
-    variant: 'eui_layout.base_sidenav',
+    variant: 'mui_layout.base_sidenav',
     '#side-nav': {
       right: 0,
     },
@@ -51,7 +58,7 @@ const sideNav = {
 }
 
 export default {
-  eui_layout: {
+  mui_layout: {
     content,
     'full-width': {
       display: 'block',

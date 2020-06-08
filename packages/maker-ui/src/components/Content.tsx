@@ -11,7 +11,13 @@ interface ContentProps extends BoxProps {
   layout?: string
 }
 
-export const Content = React.forwardRef<HTMLElement, ContentProps>(
+/**
+ * Use the `Content` component to wrap all content between your `Header`
+ * and `Footer`.
+ * @see https://maker-ui.com/components/content
+ */
+
+export const Content = React.forwardRef<HTMLDivElement, ContentProps>(
   ({ layout, ...props }, ref) => {
     const { content } = useOptions()
     const [baseLayout, setLayout] = useLayout()
@@ -47,7 +53,7 @@ export const Content = React.forwardRef<HTMLElement, ContentProps>(
         id="site-inner"
         {...props}
         __css={{
-          variant: `eui_layout.${baseLayout}`,
+          variant: `mui_layout.${baseLayout}`,
           ...sidebarPartial,
           minHeight: '80vh',
         }}

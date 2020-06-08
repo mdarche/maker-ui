@@ -45,6 +45,6 @@ export default (theme, extendedTheme, options): object => {
   }
 
   return merge.all([mappedOptions, validate(extendedTheme), validate(theme)], {
-    arrayMerge: (target, source, options) => source,
+    arrayMerge: (_, source, __) => source,
   })
 }

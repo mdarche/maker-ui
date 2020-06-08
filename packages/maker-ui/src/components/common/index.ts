@@ -1,3 +1,10 @@
+/**
+ * Components in the `common` directory are used as building blocks for
+ * layout components. They are not directly exported by the package.
+ *
+ * @internal
+ */
+
 export { ColorButton } from './ColorButton'
 export { Overlay } from './Overlay'
 export { Menu } from './Menu'

@@ -14,7 +14,7 @@ function getScrollPosition(): number | { x: number; y: number } {
 /**
  * A browser hook that returns the user's current scroll position via callback
  *
- * @param effect - A callback function that has the user's previous and current position as props
+ * @param effect - A callback function that shows the user's previous and current positions
  * @param wait - The timeout delay for obtaining new position values
  *
  */

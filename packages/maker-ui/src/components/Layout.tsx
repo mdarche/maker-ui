@@ -8,14 +8,14 @@ import { ActionProvider } from '../context/ActionContext'
 import { Skiplinks } from './Skiplinks'
 import themeMap from '../config/theme-map'
 
-interface Props {
+interface LayoutProps {
   theme: object
   options: object
   components?: object
   children: React.ReactNode
 }
 
-const Root = ({ theme, options = {}, components, children }: Props) => {
+const Root = ({ theme, options = {}, components, children }: LayoutProps) => {
   const [{ extendedOptions, extendedTheme }] = useExtensions()
   const allOptions = merge(extendedOptions, options)
 
@@ -33,7 +33,12 @@ const Root = ({ theme, options = {}, components, children }: Props) => {
   )
 }
 
-export const Layout = (props: Props) => (
+/**
+ * Wrap your application in the `Layout` component to use Maker UI.
+ * @see https://maker-ui.com/components/layout
+ */
+
+export const Layout = (props: LayoutProps) => (
   <ExtensionProvider>
     <Root {...props} />
   </ExtensionProvider>

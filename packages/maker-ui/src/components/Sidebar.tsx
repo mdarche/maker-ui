@@ -8,6 +8,12 @@ const defaultProps = {
   label: 'Sidebar',
 }
 
+/**
+ * Use the `Sidebar` component for `content-sidebar` or `sidebar-content` layouts.
+ * Add it inside the `Content` component and alongside the `Main` component.
+ * @see https://maker-ui.com/components/sidebar
+ */
+
 export const Sidebar = React.forwardRef<HTMLElement, MakerProps>(
   (props, ref) => {
     return (

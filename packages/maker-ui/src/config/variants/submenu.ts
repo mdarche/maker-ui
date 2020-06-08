@@ -1,3 +1,10 @@
+/**
+ * Internal Maker UI variants for navigation dropdown menus
+ *
+ * @internal only
+ *
+ */
+
 const base = {
   opacity: 1,
   visibility: 'visible',
@@ -45,7 +52,7 @@ const dropdownStyles = type => {
 }
 
 export default type => ({
-  eui_submenu: {
+  mui_submenu: {
     ...dropdownStyles(type),
   },
 })
