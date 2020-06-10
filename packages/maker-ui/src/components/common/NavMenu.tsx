@@ -11,7 +11,7 @@ interface Props {
   pathname?: string
 }
 
-export const Menu = React.memo(({ menuItems = [], pathname }: Props) => {
+export const NavMenu = React.memo(({ menuItems = [], pathname }: Props) => {
   const { header } = useOptions()
 
   return (

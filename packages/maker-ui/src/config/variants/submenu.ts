@@ -1,5 +1,5 @@
 /**
- * Internal Maker UI variants for navigation dropdown menus
+ * Internal Maker UI variants for header nav dropdown menus
  *
  * @internal only
  *
@@ -17,7 +17,7 @@ const fade = {
 const dropdownStyles = type => {
   switch (type) {
     case 'fade':
-      return { ...fade, active: base }
+      return { transform: 'translateY(0)', ...fade, active: base }
     case 'fadeInDown':
       return {
         transform: 'translateY(-10px)',
@@ -53,6 +53,40 @@ const dropdownStyles = type => {
 
 export default type => ({
   mui_submenu: {
+    position: 'absolute',
+    display: 'inline-block',
+    width: 'max-content',
+    top: '99%',
+    left: 0,
+    opacity: 0,
+    visibility: 'hidden',
+    m: 0,
+    p: 0,
+    zIndex: 1,
+    listStyle: 'none',
+    a: {
+      width: '100%',
+    },
+    ul: {
+      position: 'fixed',
+      height: '100%',
+      left: '100%',
+      top: 0,
+    },
+    li: {
+      display: 'block',
+    },
     ...dropdownStyles(type),
+  },
+  mui_caret: {
+    content: '""',
+    display: 'inline-block',
+    width: 0,
+    height: 0,
+    ml: '.4em',
+    verticalAlign: '.25em',
+    borderTop: '.25em solid',
+    borderRight: '.25em solid transparent',
+    borderLeft: '.25em solid transparent',
   },
 })

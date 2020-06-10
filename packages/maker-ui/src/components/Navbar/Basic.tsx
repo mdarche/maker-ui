@@ -4,7 +4,7 @@ import { NavProps } from '../props'
 import { setBreakpoint } from '../../utils/helper'
 import {
   Flex,
-  Menu,
+  NavMenu,
   MenuButton,
   ColorButton,
   WidgetArea,
@@ -46,7 +46,7 @@ export const Basic = ({
             ? setBreakpoint(bp, ['flex-end', 'space-between'])
             : null,
       }}>
-      <Menu menuItems={menu} />
+      <NavMenu menuItems={menu} />
       <Flex sx={{ alignItems: 'center' }}>
         <WidgetArea custom={widgetArea} />
         <MenuButton custom={menuToggle} />

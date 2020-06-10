@@ -4,7 +4,7 @@ import { NavProps } from '../props'
 import {
   Flex,
   Logo,
-  Menu,
+  NavMenu,
   MenuButton,
   ColorButton,
   WidgetArea,
@@ -31,7 +31,7 @@ export const Reverse = ({
     {...props}
     __css={{ variant: 'mui_header.columns', maxWidth }}>
     <Flex className="col-1">
-      <Menu menuItems={menu} />
+      <NavMenu menuItems={menu} />
       <MenuButton custom={menuToggle} />
     </Flex>
     <Flex className="col-2">

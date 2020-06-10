@@ -20,6 +20,9 @@ const defaultProps = {
 /**
  * Use the `AccordionMenu` to display nested menus for `SideNav` and `MobileMenu`.
  * Menu items with submenus will render a show/hide arrow button next to the item label.
+ *
+ * @remark Used as a default menu for `SideNav` and `MobileMenu`
+ *
  * @see https://maker-ui.com/components/accordion-menu
  */
 

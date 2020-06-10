@@ -7,10 +7,10 @@
 
 export { ColorButton } from './ColorButton'
 export { Overlay } from './Overlay'
-export { Menu } from './Menu'
+export { NavMenu } from './NavMenu'
 export { MenuItem } from './MenuItem'
 export { MenuButton } from './MenuButton'
-export { Dropdown } from './Dropdown'
+export { ExpandButton } from './ExpandButton'
 export { WidgetArea } from './WidgetArea'
 export { Logo } from './Logo'
 export { Box, Flex, Button, Link, SVG } from './Box'

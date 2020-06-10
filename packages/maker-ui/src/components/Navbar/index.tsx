@@ -10,7 +10,7 @@ import { Minimal } from './Minimal'
 /**
  * Use the `Navbar` component to render your layout's primary navigation.
  *
- * Comes with 8 different layout options that can be selected via `type` prop
+ * Offers 8 different layout options that can be selected via `type` prop
  * or your layout's `options` configuration.
  * @see https://maker-ui.com/components/navbar
  */

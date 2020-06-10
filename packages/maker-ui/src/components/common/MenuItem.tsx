@@ -1,39 +1,58 @@
 import React, { useState } from 'react'
 
 import { Box, Link } from './Box'
+import { ExpandButton } from './ExpandButton'
 import { MenuProps } from '../props'
-import { Dropdown } from './Dropdown'
 
 interface Props {
   data: MenuProps
-  caret: boolean
+  caret?: boolean
   menuControls?: any
-  pathname: string
-  isHeader: boolean
+  pathname?: string
+  isHeader?: boolean
+  depth?: number
+  parentControls?: object
 }
 
 const defaultProps = {
   caret: false,
   isHeader: false,
+  depth: 0,
 }
 
-const getAttributes = (isHeader, submenu, show, set) =>
-  isHeader
+const getAttributes = (depth, parentControls, isHeader, submenu, controls) =>
+  depth > 0 && isHeader
     ? {
-        onFocus: submenu && (e => set(true)),
-        onBlur: submenu && (e => set(false)),
-        'aria-expanded': submenu ? (show ? 'true' : 'false') : null,
+        onFocus: e => parentControls.set(true),
+        onBlur: e => parentControls.set(false),
+        onClick: e => parentControls.set(false),
+      }
+    : depth === 0 && isHeader
+    ? {
+        onFocus: submenu && (e => controls.set(true)),
+        onBlur: submenu && (e => controls.set(false)),
+        'aria-expanded': submenu ? (controls.show ? 'true' : 'false') : null,
       }
     : null
 
 export const MenuItem = ({
-  data: { label, path, newTab, submenu, classes = '', icon },
+  data: {
+    label,
+    path,
+    newTab,
+    submenu,
+    openNested = false,
+    classes = '',
+    icon,
+  },
   caret,
   menuControls,
   pathname,
   isHeader,
+  depth,
+  parentControls,
 }: Props) => {
-  const [show, set] = useState(false)
+  const [show, set] = useState(openNested)
 
   return (
     <Box
@@ -46,25 +65,14 @@ export const MenuItem = ({
           ? {
               position: 'relative',
               display: 'inline-flex',
-              '&:hover': {
-                '.sub-menu': {
+              '&:hover, &:focus': {
+                '> .sub-menu': {
                   variant: 'mui_submenu.active',
                 },
               },
-              '.menu-text:after':
-                submenu && caret
-                  ? {
-                      content: '""',
-                      display: 'inline-block',
-                      width: 0,
-                      height: 0,
-                      ml: '.4em',
-                      verticalAlign: '.25em',
-                      borderTop: '.25em solid',
-                      borderRight: '.25em solid transparent',
-                      borderLeft: '.25em solid transparent',
-                    }
-                  : null,
+              '.menu-text:after': {
+                variant: submenu && caret && 'mui_caret',
+              },
             }
           : {}
       }>
@@ -73,23 +81,50 @@ export const MenuItem = ({
         className={pathname === path ? 'current' : undefined}
         target={newTab && '_blank'}
         rel={newTab && 'noopener noreferrer'}
-        aria-label={icon ? label : null}
+        aria-label={icon ? label : undefined}
         aria-current={pathname === path ? 'page' : undefined}
         {...menuControls}
-        {...getAttributes(isHeader, submenu, show, set)}>
+        {...getAttributes(depth, parentControls, isHeader, submenu, {
+          show,
+          set,
+        })}>
         {icon && <span className="menu-icon">{icon}</span>}
         <span className="menu-text">{label}</span>
       </Link>
-      {submenu ? (
-        <Dropdown
-          submenu={submenu}
-          active={show}
-          set={set}
-          isHeader={isHeader}
-          menuControls={menuControls}
-          pathname={pathname}
-        />
-      ) : null}
+      {submenu && (
+        <React.Fragment>
+          {!isHeader && <ExpandButton set={set} show={show} />}
+          {isHeader || (!isHeader && show) ? (
+            <Box
+              as="ul"
+              variant={isHeader ? 'header.submenu' : 'accordion'}
+              className={`sub-menu ${show ? 'active' : ''}`}
+              sx={
+                isHeader
+                  ? {
+                      variant: 'mui_submenu',
+                      '&.active': {
+                        variant: 'mui_submenu.active',
+                      },
+                    }
+                  : {}
+              }>
+              {submenu.map((item, index) => (
+                <MenuItem
+                  key={index}
+                  data={item}
+                  caret={caret}
+                  menuControls={menuControls}
+                  pathname={pathname}
+                  isHeader={isHeader}
+                  depth={depth + 1}
+                  parentControls={{ show, set }}
+                />
+              ))}
+            </Box>
+          ) : null}
+        </React.Fragment>
+      )}
     </Box>
   )
 }

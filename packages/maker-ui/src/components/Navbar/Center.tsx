@@ -5,7 +5,7 @@ import { setBreakpoint } from '../../utils/helper'
 import {
   Flex,
   Logo,
-  Menu,
+  NavMenu,
   MenuButton,
   ColorButton,
   WidgetArea,
@@ -60,15 +60,15 @@ export const Center = ({
             <Logo>{logo}</Logo>
           </Flex>
           <Flex sx={{ alignItems: 'center' }}>
-            <Menu menuItems={menu} />
+            <NavMenu menuItems={menu} />
             {renderBlock()}
           </Flex>
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Menu menuItems={menu.slice(0, mid)} />
+          <NavMenu menuItems={menu.slice(0, mid)} />
           <Logo>{logo}</Logo>
-          <Menu menuItems={menu.slice(mid)} />
+          <NavMenu menuItems={menu.slice(mid)} />
           {renderBlock()}
         </React.Fragment>
       )}

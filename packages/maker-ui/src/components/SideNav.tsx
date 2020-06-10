@@ -51,7 +51,7 @@ export const SideNav = React.forwardRef<HTMLElement, Props>(
 
     const getTransform = width => {
       const w = Array.isArray(width) ? width[bp] : width
-      const shift = layout === 'sidenav-content' ? -w : w
+      const shift = layout === 'sidenav-content' ? `-${w}` : w
       return active ? `translateX(0)` : `translateX(${format(shift)})`
     }
 

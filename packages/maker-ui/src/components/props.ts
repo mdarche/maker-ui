@@ -129,4 +129,5 @@ export interface MenuProps {
   icon: MaybeElement
   newTab: boolean
   submenu: MenuProps[] // TODO test that this works properly
+  openNested: boolean
 }
