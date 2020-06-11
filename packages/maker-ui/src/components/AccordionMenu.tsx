@@ -50,6 +50,7 @@ export const AccordionMenu = React.forwardRef<HTMLElement, AccordionProps>(
         as="ul"
         variant={variant}
         className="accordion-menu"
+        role="navigation"
         {...props}>
         {menu.map((item, index) => (
           <MenuItem

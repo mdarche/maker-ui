@@ -33,7 +33,7 @@ export default ({ children, location }) => {
         />
         <MobileMenu menu={primaryMenu} />
       </Header>
-      <Content layout="sidenav-content">
+      <Content>
         <SideNav menu={docsMenu} pathname={location.pathname} />
         <Main>{children}</Main>
       </Content>

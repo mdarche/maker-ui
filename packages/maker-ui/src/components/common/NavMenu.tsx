@@ -17,6 +17,7 @@ export const NavMenu = React.memo(({ menuItems = [], pathname }: Props) => {
   return (
     <Box
       as="nav"
+      role="navigation"
       className="nav-primary"
       sx={{ display: setBreakpoint(header.breakIndex, ['none', 'flex']) }}>
       <Box as="ul" variant="header.menu" className="menu-primary">

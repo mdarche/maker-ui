@@ -35,7 +35,7 @@ export default {
   },
   sideNav: {
     width: 300,
-    isHeader: false, // TODO
+    isHeader: false,
     isPrimaryMobileNav: false,
     floatingToggle: true,
     closeOnBlur: true,

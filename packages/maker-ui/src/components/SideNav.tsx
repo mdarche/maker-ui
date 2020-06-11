@@ -71,9 +71,9 @@ export const SideNav = React.forwardRef<HTMLElement, Props>(
         )}
         <Box
           ref={ref}
+          as={sideNav.isHeader && 'header'}
           variant={variant}
           id="side-nav"
-          role="navigation"
           {...props}
           __css={{
             bg,
