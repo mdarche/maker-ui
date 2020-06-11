@@ -15,6 +15,8 @@ interface Props extends BasicBoxProps {
   customToggle: MaybeElement
   menu?: MenuProps[]
   pathname?: string
+  header?: React.ReactElement
+  footer?: React.ReactElement
 }
 
 const defaultProps = {
@@ -39,6 +41,8 @@ export const SideNav = React.forwardRef<HTMLElement, Props>(
       variant,
       menu,
       pathname,
+      header,
+      footer,
       children,
       ...props
     },
@@ -83,9 +87,11 @@ export const SideNav = React.forwardRef<HTMLElement, Props>(
               setBreakpoint(bp, [getTransform(t.sizes.width_sideNav), 'none']),
             transition: 'transform ease .3s',
           }}>
+          {header && header}
           {children || (
             <AccordionMenu menu={menu} menuType="sideNav" pathname={pathname} />
           )}
+          {footer && footer}
         </Box>
         {sideNav.floatingToggle ? (
           <Button

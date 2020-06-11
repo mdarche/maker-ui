@@ -21,7 +21,6 @@ export default {
     hideWidgetsOnMobile: true,
     dropdown: {
       caret: true,
-      customCaret: 'React component', // TODO
       transition: 'fade',
     },
     breakIndex: 0,

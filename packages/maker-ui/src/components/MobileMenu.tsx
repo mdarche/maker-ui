@@ -11,6 +11,8 @@ interface Props extends BasicBoxProps {
   width?: ResponsiveScale
   menu?: MenuProps[]
   pathname?: string
+  header?: React.ReactElement
+  footer?: React.ReactElement
 }
 
 const defaultProps = {
@@ -67,6 +69,8 @@ export const MobileMenu = React.forwardRef<HTMLElement, Props>((props, ref) => {
     transition = mobileMenu.transition,
     menu,
     pathname,
+    header,
+    footer,
     children,
   } = props
 
@@ -96,9 +100,11 @@ export const MobileMenu = React.forwardRef<HTMLElement, Props>((props, ref) => {
             closeIcon
           />
         ) : null}
+        {header && header}
         {children || (
           <AccordionMenu menu={menu} menuType="mobile" pathname={pathname} />
         )}
+        {footer && footer}
       </Box>
     </React.Fragment>
   )

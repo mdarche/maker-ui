@@ -3,12 +3,12 @@ export const primaryMenu = [
     label: 'Docs',
     path: '/docs/getting-started',
   },
-  { label: 'Tutorials', path: '/tutorials' },
+  { label: 'Tutorials', path: '/' },
   {
     label: 'Demo Site',
     path: '/demo',
     submenu: [
-      { label: 'Tutorials', path: '/tutorials' },
+      { label: 'Tutorials', classes: 'special', path: '/tutorials' },
       { label: 'T', path: '/tutorials1' },
       { label: 'Test', path: '/tutorials2' },
       {
@@ -26,10 +26,10 @@ export const primaryMenu = [
             ],
           },
           {
-            label: 'Test',
+            label: 'This One',
             path: '/tutorials3',
             submenu: [
-              { label: 'Tutorials', path: '/tutorials' },
+              { label: 'Tutorials', path: '/' },
               { label: 'T', path: '/tutorials1' },
             ],
           },

@@ -11,7 +11,8 @@ interface Props {
   pathname?: string
   isHeader?: boolean
   depth?: number
-  parentControls?: object
+  rootControls?: any
+  menuInfo?: { index: number; length: number }
 }
 
 const defaultProps = {
@@ -20,20 +21,13 @@ const defaultProps = {
   depth: 0,
 }
 
-const getAttributes = (depth, parentControls, isHeader, submenu, controls) =>
-  depth > 0 && isHeader
-    ? {
-        onFocus: e => parentControls.set(true),
-        onBlur: e => parentControls.set(false),
-        onClick: e => parentControls.set(false),
-      }
-    : depth === 0 && isHeader
-    ? {
-        onFocus: submenu && (e => controls.set(true)),
-        onBlur: submenu && (e => controls.set(false)),
-        'aria-expanded': submenu ? (controls.show ? 'true' : 'false') : null,
-      }
-    : null
+/**
+ * Returns a menu item and nested children for `NavMenu` or `AccordionMenu`
+ * components.
+ *
+ * @remark This component uses recursion to build nested menus
+ *
+ */
 
 export const MenuItem = ({
   data: {
@@ -49,28 +43,64 @@ export const MenuItem = ({
   menuControls,
   pathname,
   isHeader,
+  rootControls,
   depth,
-  parentControls,
+  menuInfo,
 }: Props) => {
-  const [show, set] = useState(openNested)
+  // For nested accordion menus
+  const [showNested, setNested] = useState(openNested)
+  // For navigation menus
+  const [rootFocus, setRootFocus] = useState(
+    rootControls ? rootControls.rootFocus : false
+  )
+
+  const submenuClass: string = `submenu depth-${depth}${
+    rootFocus ? ' active' : ''
+  }`
+
+  /**
+   * Uses current state, parent menu state, and sibling information to manage
+   * focus and aria attributes
+   *
+   */
+  const getAttributes = () =>
+    depth > 0 && isHeader // Nested Header Menus
+      ? {
+          onFocus: e => {
+            setRootFocus(true)
+            rootControls.setRootFocus(true)
+          },
+          onBlur: e =>
+            menuInfo.index === menuInfo.length - 1 &&
+            rootControls.setRootFocus(false),
+          onMouseLeave: e => setRootFocus(false),
+          'aria-expanded': submenu ? (rootFocus ? 'true' : 'false') : null,
+        }
+      : depth === 0 && isHeader // Root Header Menu
+      ? {
+          onFocus: submenu && (e => setRootFocus(true)),
+          onBlur: submenu && (e => setRootFocus(false)),
+          onMouseEnter: submenu && (e => setRootFocus(true)),
+          onMouseLeave: submenu && (e => setRootFocus(false)),
+          'aria-expanded': submenu ? (rootFocus ? 'true' : 'false') : null,
+        }
+      : null
 
   return (
     <Box
       as="li"
-      className={`menu-item ${classes}`}
-      onMouseEnter={submenu && isHeader ? e => set(true) : undefined}
-      onMouseLeave={submenu && isHeader ? e => set(false) : undefined}
+      className={`menu-item${classes && ' ' + classes}`}
       sx={
         isHeader
           ? {
               position: 'relative',
               display: 'inline-flex',
               '&:hover, &:focus': {
-                '> .sub-menu': {
+                '> .submenu': {
                   variant: 'mui_submenu.active',
                 },
               },
-              '.menu-text:after': {
+              '> a .menu-text:after': {
                 variant: submenu && caret && 'mui_caret',
               },
             }
@@ -84,30 +114,25 @@ export const MenuItem = ({
         aria-label={icon ? label : undefined}
         aria-current={pathname === path ? 'page' : undefined}
         {...menuControls}
-        {...getAttributes(depth, parentControls, isHeader, submenu, {
-          show,
-          set,
-        })}>
+        {...getAttributes()}>
         {icon && <span className="menu-icon">{icon}</span>}
         <span className="menu-text">{label}</span>
       </Link>
       {submenu && (
         <React.Fragment>
-          {!isHeader && <ExpandButton set={set} show={show} />}
-          {isHeader || (!isHeader && show) ? (
+          {!isHeader && <ExpandButton set={setNested} show={showNested} />}
+          {isHeader || (!isHeader && showNested) ? (
             <Box
               as="ul"
               variant={isHeader ? 'header.submenu' : 'accordion'}
-              className={`sub-menu ${show ? 'active' : ''}`}
+              className={submenuClass}
               sx={
-                isHeader
-                  ? {
-                      variant: 'mui_submenu',
-                      '&.active': {
-                        variant: 'mui_submenu.active',
-                      },
-                    }
-                  : {}
+                isHeader && {
+                  variant: 'mui_submenu',
+                  '&.active': {
+                    variant: 'mui_submenu.active',
+                  },
+                }
               }>
               {submenu.map((item, index) => (
                 <MenuItem
@@ -118,7 +143,13 @@ export const MenuItem = ({
                   pathname={pathname}
                   isHeader={isHeader}
                   depth={depth + 1}
-                  parentControls={{ show, set }}
+                  rootControls={
+                    depth === 0 ? { rootFocus, setRootFocus } : rootControls
+                  }
+                  menuInfo={{
+                    index,
+                    length: submenu.length,
+                  }}
                 />
               ))}
             </Box>
