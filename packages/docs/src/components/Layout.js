@@ -11,6 +11,7 @@ import {
 } from 'maker-ui'
 import Prism from '@theme-ui/prism'
 
+import { CodeProvider } from './CodeContext'
 import Logo from './Logo'
 import Widgets from './Widgets'
 
@@ -35,7 +36,9 @@ export default ({ children, location }) => {
       </Header>
       <Content>
         <SideNav menu={docsMenu} pathname={location.pathname} />
-        <Main>{children}</Main>
+        <Main>
+          <CodeProvider>{children}</CodeProvider>
+        </Main>
       </Content>
       <Footer>test</Footer>
     </Layout>

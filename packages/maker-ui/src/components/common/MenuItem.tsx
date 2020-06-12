@@ -49,7 +49,7 @@ export const MenuItem = ({
 }: Props) => {
   // For nested accordion menus
   const [showNested, setNested] = useState(openNested)
-  // For navigation menus
+  // For header navigation menus
   const [rootFocus, setRootFocus] = useState(
     rootControls ? rootControls.rootFocus : false
   )
@@ -61,6 +61,8 @@ export const MenuItem = ({
   /**
    * Uses current state, parent menu state, and sibling information to manage
    * focus and aria attributes
+   *
+   * @todo fix aria-expanded triggers for root and nested dropdowns
    *
    */
   const getAttributes = () =>

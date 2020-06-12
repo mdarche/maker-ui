@@ -38,6 +38,23 @@ export default {
     monospace: 'Menlo, monospace',
   },
   breakpoints: ['768px', '960px', '1240px'],
+  styles: {
+    root: {
+      body: {
+        m: 0,
+      },
+    },
+    h1: {
+      fontSize: 60,
+    },
+    pre: {
+      mt: 0,
+    },
+    code: {
+      p: 3,
+      fontSize: 2,
+    },
+  },
   // Maker UI layout variants
   ...variants,
 }

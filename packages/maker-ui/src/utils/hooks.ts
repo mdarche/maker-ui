@@ -17,11 +17,13 @@ export function useMakerUI() {
    *
    * @param newTheme - a Theme UI theme object
    * @param key - a unique string that helps determine whether
-   * or not the new theme has been included.
+   * or not the new theme styles have been included.
+   * @param overwrite - lets the user override previously declared theme values
+   * associated with the key
    *
    */
 
-  function extendTheme(newTheme: object, key: string) {
+  function extendTheme(newTheme: object, key?: string, overwrite?: boolean) {
     // Check if the component's key has already been added before updating context / causing a re-render
 
     if (key && state.themeKeys.includes(key)) {
@@ -30,7 +32,9 @@ export function useMakerUI() {
 
     return setState(s => ({
       ...s,
-      extendedTheme: merge(s.extendedTheme, validate(newTheme)),
+      extendedTheme: overwrite
+        ? validate(newTheme)
+        : merge(s.extendedTheme, validate(newTheme)),
     }))
   }
 

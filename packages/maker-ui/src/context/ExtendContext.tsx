@@ -22,6 +22,10 @@ const ExtensionProvider = ({ children }) => {
 }
 
 // Usage Hook
+// TODO - clear all theme extensions
+// TODO - clear all extended options
+// TODO - function to return just theme keys
+// TODO - function to return new theme object w/o theme keys
 
 function useExtensions() {
   const state = useContext(ExtendContext)
