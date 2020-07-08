@@ -46,7 +46,7 @@ export const Basic = ({
             ? setBreakpoint(bp, ['flex-end', 'space-between'])
             : null,
       }}>
-      <NavMenu menuItems={menu} />
+      {React.isValidElement(menu) ? menu : <NavMenu menuItems={menu} />}
       <Flex sx={{ alignItems: 'center' }}>
         <WidgetArea custom={widgetArea} />
         <MenuButton custom={menuToggle} />

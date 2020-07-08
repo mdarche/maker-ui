@@ -17,6 +17,7 @@ export const Main = React.forwardRef<HTMLElement, BoxProps>(
     <Box
       ref={ref}
       as="main"
+      variant={variant}
       id="content"
       role="main"
       {...props}

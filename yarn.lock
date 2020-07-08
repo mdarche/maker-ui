@@ -16518,6 +16518,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typeface-barlow@^0.0.71:
+  version "0.0.71"
+  resolved "https://registry.yarnpkg.com/typeface-barlow/-/typeface-barlow-0.0.71.tgz#047396d800e19b33904ff820aec9e73d6f0c8e0d"
+  integrity sha512-dsDw7lOtAXUSe2kj6s9M2DVS5QMeIw+pOwd/Y3cgaMeB77mIIqWJOFIzEVqCGhrIDUpFbOCeo0kZxqGDZXM+sQ==
+
 typescript@>=2.8.3:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"

@@ -1,17 +1,21 @@
 export default {
   header: {
-    py: [2, '10px'],
+    py: [3, 2],
+    px: [3, 5],
     borderBottom: '1px solid',
     borderColor: 'border',
     fontFamily: 'heading',
     logo: {},
+    a: {
+      color: '#fff',
+    },
     menu: {
       px: 60,
       a: {
         fontSize: 2,
         fontWeight: 700,
         display: 'block',
-        color: 'primary',
+        color: '#fff',
         textDecoration: 'none',
         py: 3,
         px: 3,
@@ -49,5 +53,7 @@ export default {
   },
   mobileNav: {},
   sideNav: {},
-  main: {},
+  main: {
+    px: [20, 0],
+  },
 }

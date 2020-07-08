@@ -31,7 +31,7 @@ export const Reverse = ({
     {...props}
     __css={{ variant: 'mui_header.columns', maxWidth }}>
     <Flex className="col-1">
-      <NavMenu menuItems={menu} />
+      {React.isValidElement(menu) ? menu : <NavMenu menuItems={menu} />}
       <MenuButton custom={menuToggle} />
     </Flex>
     <Flex className="col-2">

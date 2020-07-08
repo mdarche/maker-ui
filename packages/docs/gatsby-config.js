@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: 'Maker UI',
     description: 'The official doc site for Maker UI',
-    siteUrl: 'https://maker-ui.dev',
+    siteUrl: 'https://maker-ui.com',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

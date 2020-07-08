@@ -2,10 +2,10 @@ export default {
   navigation: 'basic-left',
   layout: 'sidenav-content',
   header: {
-    maxWidth: 1460,
+    maxWidth: '100%',
     stickyScroll: true,
-    colorToggle: true,
-    hideColorToggleOnMobile: false,
+    colorToggle: false,
+    hideColorToggleOnMobile: true,
     hideWidgetsOnMobile: false,
   },
   mobileMenu: {
@@ -17,8 +17,9 @@ export default {
   sideNav: {
     width: ['60vw', 400],
     isPrimaryMobileNav: true,
+    floatingToggle: false,
   },
   content: {
-    maxWidth: 1020,
+    maxWidth: 960,
   },
 }

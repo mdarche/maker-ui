@@ -10,10 +10,9 @@ export default {
     accent: '#1858dc',
     muted: '#f6f6f6',
     border: '#e6e6e6',
-    bg_topbar: '#355cac',
-    bg_header: '#fff',
+    bg_header: '#043C70',
     bg_mobileNav: 'rgba(0, 0, 0, 0.9)',
-    bg_sideNav: '#eee',
+    bg_sideNav: '#F9F9F9',
     bg_footer: '#fff',
     modes: {
       dark: {
@@ -24,7 +23,6 @@ export default {
         accent: '#1858dc',
         muted: '#f6f6f6',
         border: '#e6e6e6',
-        bg_topbar: '#355cac',
         bg_header: '#000',
         bg_mobileNav: 'rgba(0, 0, 0, 0.9)',
         bg_sideNav: '#eee',
@@ -33,8 +31,8 @@ export default {
     },
   },
   fonts: {
-    body: 'system-ui, sans-serif',
-    heading: 'system-ui, sans-serif',
+    body: 'Barlow, sans-serif',
+    heading: 'Barlow, sans-serif',
     monospace: 'Menlo, monospace',
   },
   breakpoints: ['768px', '960px', '1240px'],
@@ -43,12 +41,19 @@ export default {
       body: {
         m: 0,
       },
+      button: {
+        cursor: 'pointer',
+      },
+      a: {
+        textDecoration: 'none',
+      },
     },
     h1: {
       fontSize: 60,
     },
     pre: {
-      mt: 0,
+      border: '1px solid gainsboro',
+      borderRadius: '5px',
     },
     code: {
       p: 3,
