@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { BasicBoxProps, MenuProps, MaybeElement } from './props'
+import { BasicBoxProps, MenuProps, MaybeElement } from './types'
 import { Box, Button } from './common'
 import { AccordionMenu } from './AccordionMenu'
 import { Overlay } from './common'
@@ -29,7 +29,8 @@ const defaultProps = {
 /**
  * Use the `SideNav` component for `content-sidenav` or `sidenav-content` layouts.
  * Add it inside the `Content` component alongside the `Main` component.
- * @see https://maker-ui.com/components/sidenav
+ *
+ * @see https://maker-ui.com/docs/sidenav
  */
 
 export const SideNav = React.forwardRef<HTMLElement, Props>(

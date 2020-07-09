@@ -5,7 +5,6 @@ export default {
     maxWidth: '100%',
     stickyScroll: true,
     colorToggle: false,
-    hideColorToggleOnMobile: true,
     hideWidgetsOnMobile: false,
   },
   mobileMenu: {

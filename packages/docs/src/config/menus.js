@@ -62,7 +62,6 @@ export const docsMenu = [
       { label: 'AccordionMenu', path: '/docs/accordion-menu' },
       { label: 'Footer', path: '/docs/footer' },
     ],
-    openNested: true,
   },
   { label: 'Add Content', path: '/docs/add-content' },
   { label: 'Conditional Layouts', path: '/docs/conditional-layouts' },

@@ -1,11 +1,13 @@
 export default {
   header: {
-    py: [3, 2],
+    py: [3, '15px'],
     px: [3, 5],
-    borderBottom: '1px solid',
-    borderColor: 'border',
     fontFamily: 'heading',
-    logo: {},
+    logo: {
+      svg: {
+        height: [23, 27],
+      },
+    },
     a: {
       color: '#fff',
     },
@@ -37,22 +39,24 @@ export default {
         borderBottom: t => `1px solid ${t.colors.border}`,
       },
     },
-    colorButton: {
-      border: t => `3px solid ${t.colors.primary}`,
-      color: 'primary',
-      bg: 'transparent',
-      py: '7px',
-      px: 3,
-      ml: 3,
-      borderRadius: 3,
-      fontSize: 2,
-      fontWeight: 700,
-    },
+    colorButton: {},
     menuButton: {},
     widgets: {},
   },
   mobileNav: {},
-  sideNav: {},
+  sideNav: {
+    pl: 30,
+    fontFamily: 'body',
+    minHeight: '90vh',
+    fontWeight: 700,
+    '.submenu-toggle': {
+      ml: 20,
+    },
+    ul: { listStyle: 'none', lineHeight: 2, fontSize: 3, ul: { pl: 20 } },
+    a: {
+      color: 'primary',
+    },
+  },
   main: {
     px: [20, 0],
   },

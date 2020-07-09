@@ -1,12 +1,12 @@
-import * as React from 'react'
+import React from 'react'
 
-type HTMLDivProps = React.HTMLAttributes<HTMLDivElement>
-
-type HTMLSVGProps = React.SVGAttributes<HTMLElement>
-
-// type HTMLButtonProps = React.HTMLAttributes<HTMLButtonElement>
-
-type HTMLAriaProps = React.AriaAttributes
+type Assign<T, U> = {
+  [P in keyof (T & U)]: P extends keyof T
+    ? T[P]
+    : P extends keyof U
+    ? U[P]
+    : never
+}
 
 export type MaybeElement = JSX.Element | string | false | null | undefined
 
@@ -20,16 +20,16 @@ export type ResponsiveScale = string | number | string[] | number[]
 /**
  * Interface for Theme UI `<Box/>` component props and style shortcuts.
  */
-
 export interface BasicBoxProps {
   children?: React.ReactNode
-  // Theme UI-specific
   variant?: string | string[]
-  as?: string
+  as?: React.ElementType | string
   sx?: object
   __css?: object
-  ref?: React.Ref<HTMLElement>
-  // Style prop shortcuts
+  className?: string
+  id?: string
+  // ref?: React.Ref<HTMLElement>
+  // Sx prop shortcuts
   bg?: string | string[]
   margin?: ResponsiveScale
   m?: ResponsiveScale
@@ -65,37 +65,32 @@ export interface BasicBoxProps {
  * Alias for Theme UI box component props that includes all
  * HTML div attributes. Used with MakerUI's internal `<Box />` component.
  */
-export interface BoxProps extends BasicBoxProps, HTMLDivProps {}
+export interface BoxProps
+  extends Assign<React.ComponentPropsWithRef<'div'>, BasicBoxProps> {}
 
 /**
- * Alias for Theme UI box component props that includes all
- * HTML svg attributes. Used with MakerUI's internal `<Box />` component.
+ * Alias for Theme UI `Box` component props that includes all
+ * svg attributes. Used with MakerUI's internal `Box` component.
  */
-export interface SVGProps extends BasicBoxProps, HTMLSVGProps {}
+export interface SVGProps
+  extends Assign<React.ComponentPropsWithRef<'svg'>, BasicBoxProps> {}
 
 /**
- * Alias for Theme UI box component props that includes all
- * HTML button attributes. Used with MakerUI's internal `<Box />` component.
+ * Alias for Theme UI `Box` component props that includes all
+ * HTML button attributes. Used with MakerUI's internal `Box` component.
  */
 export interface ButtonProps
-  extends BasicBoxProps,
-    HTMLDivProps,
-    HTMLAriaProps {}
+  extends Assign<React.ComponentPropsWithRef<'button'>, BasicBoxProps> {}
 
 /**
- * Alias for Theme UI box component props that includes all
- * HTML button attributes. Used with MakerUI's internal `<Box />` component.
+ * Alias for Theme UI `Box` component props that includes all
+ * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
  */
-export interface LinkProps extends BoxProps {
-  href: string
-  target?: string
-  download?: string
-  rel?: string
-}
+export interface LinkProps
+  extends Assign<React.ComponentPropsWithRef<'a'>, BasicBoxProps> {}
 
 /**
- * Alias for special <MakerBox /> component
- * that is used in the top level of each Maker UI layout component.
+ * Alias for top-level Maker UI components layout components.
  */
 export interface MakerProps extends BasicBoxProps {
   label?: string
@@ -128,6 +123,6 @@ export interface MenuProps {
   classes: string
   icon: MaybeElement
   newTab: boolean
-  submenu: MenuProps[] // TODO test that this works properly
+  submenu: MenuProps[]
   openNested: boolean
 }

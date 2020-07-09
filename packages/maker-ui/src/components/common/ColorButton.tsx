@@ -2,7 +2,7 @@ import React from 'react'
 import { useThemeUI } from 'theme-ui'
 
 import { Button } from './Box'
-import { MaybeElement } from '../props'
+import { MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
@@ -25,7 +25,11 @@ export const ColorButton = ({ custom }: ButtonProps) => {
     setColorMode(next)
   }
 
-  return modes.length === 1 && header.colorToggle ? null : (
+  if (modes.length === 1) {
+    return null
+  }
+
+  return header.colorToggle ? (
     <Button
       title="Color Mode"
       className="color-toggle"
@@ -39,5 +43,5 @@ export const ColorButton = ({ custom }: ButtonProps) => {
       }}>
       {custom || colorMode}
     </Button>
-  )
+  ) : null
 }

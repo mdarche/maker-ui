@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Link } from './Box'
-import { MakerProps } from '../props'
+import { MakerProps } from '../types'
 
 export const Logo = (props: MakerProps) => (
   <Link

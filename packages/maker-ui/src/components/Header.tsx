@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
 import { Box } from './common'
-import { BoxProps } from './props'
+import { BasicBoxProps } from './types'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../utils/scroll-position'
 import { setBreakpoint } from '../utils/helper'
 
-interface Props extends BoxProps {
+interface Props extends BasicBoxProps {
   sticky?: boolean
   stickyMobile?: boolean
   stickyScroll?: boolean
@@ -15,7 +15,8 @@ interface Props extends BoxProps {
 /**
  * Use the `Header` component to store your site logo, primary menu, mobile menu,
  * and any necessary navigation elements.
- * @see https://maker-ui.com/components/header
+ *
+ * @see https://maker-ui.com/docs/header
  */
 
 export const Header = React.forwardRef<HTMLElement, Props>((props, ref) => {

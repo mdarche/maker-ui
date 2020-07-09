@@ -31,8 +31,8 @@ export default {
     },
   },
   fonts: {
-    body: 'Barlow, sans-serif',
-    heading: 'Barlow, sans-serif',
+    body: 'Nunito Sans, sans-serif',
+    heading: 'Open Sans, sans-serif',
     monospace: 'Menlo, monospace',
   },
   breakpoints: ['768px', '960px', '1240px'],
@@ -40,12 +40,16 @@ export default {
     root: {
       body: {
         m: 0,
+        fontFamily: 'body',
       },
       button: {
         cursor: 'pointer',
       },
       a: {
         textDecoration: 'none',
+      },
+      'h1, h2, h3': {
+        fontFamily: 'heading',
       },
     },
     h1: {

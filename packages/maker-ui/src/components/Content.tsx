@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 
 import { Box } from './common'
-import { BoxProps } from './props'
+import { BasicBoxProps } from './types'
 import { useOptions, useLayout } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
-interface ContentProps extends BoxProps {
+interface ContentProps extends BasicBoxProps {
   layout?: string
 }
 

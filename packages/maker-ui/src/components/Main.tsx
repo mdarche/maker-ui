@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Box } from './common'
-import { BoxProps } from './props'
+import { BoxProps } from './types'
 
 const defaultProps = {
   variant: 'main',
@@ -9,7 +9,8 @@ const defaultProps = {
 
 /**
  * Use the `Main` component to wrap your layout's main content.
- * @see https://maker-ui.com/components/main
+ *
+ * @see https://maker-ui.com/docs/main
  */
 
 export const Main = React.forwardRef<HTMLElement, BoxProps>(

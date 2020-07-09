@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
-import { ButtonProps, SVGProps, LinkProps } from '../props'
+import { ButtonProps, SVGProps, LinkProps } from '../types'
 
 /**
  *  Aliases for Theme UI primitives
@@ -14,7 +14,7 @@ import { ButtonProps, SVGProps, LinkProps } from '../props'
  */
 
 /**
- * A Theme UI `<Box />` component for wrapping inline SVG components.
+ * A Theme UI `<Box />` component for wrapping inline SVGs.
  */
 export const SVG = (props: SVGProps) => (
   <Box as="svg" xmlns="http://www.w3.org/2000/svg" {...props} />

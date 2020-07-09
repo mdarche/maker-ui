@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Box, Flex } from './common'
-import { BoxProps } from './props'
+import { BoxProps } from './types'
 import { useOptions } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 
@@ -21,7 +21,8 @@ const defaultProps = {
 /**
  * Use the `Topbar` component to display content like announcements, social media icons,
  * or promotions above your header navigation.
- * @see https://maker-ui.com/components/topbar
+ *
+ * @see https://maker-ui.com/docs/topbar
  */
 
 export const Topbar = React.forwardRef<HTMLElement, TopbarProps>(

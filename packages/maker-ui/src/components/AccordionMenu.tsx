@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { Box } from './common'
-import { BoxProps, MenuProps } from './props'
+import { BasicBoxProps, MenuProps } from './types'
 import { MenuItem } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu, useSideNav } from '../context/ActionContext'
 
-interface AccordionProps extends BoxProps {
+interface AccordionProps extends BasicBoxProps {
   menu: MenuProps[]
   menuType: string
   pathname?: string
@@ -21,9 +21,10 @@ const defaultProps = {
  * Use the `AccordionMenu` to display nested menus for `SideNav` and `MobileMenu`.
  * Menu items with submenus will render a show/hide arrow button next to the item label.
  *
- * @remark Used as a default menu for `SideNav` and `MobileMenu`
+ * @remark Used as a default menu for `SideNav` and `MobileMenu` when child components
+ * are not included and you supply a menu prop.
  *
- * @see https://maker-ui.com/components/accordion-menu
+ * @see https://maker-ui.com/docs/accordion-menu
  */
 
 export const AccordionMenu = React.forwardRef<HTMLElement, AccordionProps>(

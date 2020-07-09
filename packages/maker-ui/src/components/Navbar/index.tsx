@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NavProps } from '../props'
+import { NavProps } from '../types'
 import { useOptions, useOptionUpdater } from '../../context/OptionContext'
 import { Basic } from './Basic'
 import { Center } from './Center'

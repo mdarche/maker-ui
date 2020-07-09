@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { SVG, Button } from './Box'
-import { BoxProps, MaybeElement } from '../props'
+import { BoxProps, MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 import { setBreakpoint } from '../../utils/helper'
@@ -33,7 +33,7 @@ export const MenuButton = (props: Props) => {
     custom,
     visibleOnDesktop = mobileMenu.visibleOnDesktop,
     closeIcon,
-    ...rest
+    sx,
   } = props
 
   const visibility = visibleOnDesktop
@@ -54,7 +54,7 @@ export const MenuButton = (props: Props) => {
         toggleSideMenu,
         sideNav.isPrimaryMobileNav
       )}
-      {...rest}
+      sx={{ sx }}
       variant="header.menuButton"
       __css={{
         ...visibility,

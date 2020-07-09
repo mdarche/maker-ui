@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Box } from './common'
-import { MakerProps } from './props'
+import { MakerProps } from './types'
 
 const defaultProps = {
   as: 'aside',
@@ -11,7 +11,8 @@ const defaultProps = {
 /**
  * Use the `Sidebar` component for `content-sidebar` or `sidebar-content` layouts.
  * Add it inside the `Content` component and alongside the `Main` component.
- * @see https://maker-ui.com/components/sidebar
+ *
+ * @see https://maker-ui.com/docs/sidebar
  */
 
 export const Sidebar = React.forwardRef<HTMLElement, MakerProps>(

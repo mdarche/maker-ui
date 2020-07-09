@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NavProps } from '../props'
+import { NavProps } from '../types'
 import {
   Flex,
   Logo,

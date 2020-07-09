@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 
+import { Box } from './Box'
 import { setBreakpoint } from '../../utils/helper'
 
 interface OverlayProps {

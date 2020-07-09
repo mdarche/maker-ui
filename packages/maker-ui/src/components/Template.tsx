@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { MaybeElement, MenuProps } from './props'
+import { MaybeElement, MenuProps } from './types'
 import { Layout } from './Layout'
 import { Topbar } from './Topbar'
 import { Header } from './Header'
@@ -81,7 +81,8 @@ interface TemplateProps {
 /**
  * Use the `Template` component to quickly build layouts. You can supply an assortment
  * of React elements as props and customize with your `theme` and `options` objects.
- * @see https://maker-ui.com/components/template
+ *
+ * @see https://maker-ui.com/docs/templates
  */
 
 export const Template = ({

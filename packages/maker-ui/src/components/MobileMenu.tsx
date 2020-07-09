@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ResponsiveScale, MenuProps, BasicBoxProps } from './props'
+import { ResponsiveScale, MenuProps, BasicBoxProps } from './types'
 import { AccordionMenu } from './AccordionMenu'
 import { Box, Overlay, MenuButton } from './common'
 import { useOptions } from '../context/OptionContext'
@@ -55,7 +55,8 @@ const getTransition = (active, type, width): React.CSSProperties => {
 
 /**
  * Use the `MobileMenu` component to customize a responsive overlay menu for mobile navigation.
- * @see https://maker-ui.com/components/mobile-menu
+ *
+ * @see https://maker-ui.com/docs/mobile-menu
  */
 
 export const MobileMenu = React.forwardRef<HTMLElement, Props>((props, ref) => {

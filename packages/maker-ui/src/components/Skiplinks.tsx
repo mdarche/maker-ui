@@ -3,29 +3,38 @@ import React from 'react'
 import { Box } from './common'
 import { useOptions } from '../context/OptionContext'
 
-interface Link {
+export interface Link {
   id: string
   label: string
 }
 
+interface SkipLinkProps {
+  links?: Link[]
+}
+
 /**
  * Adds default skiplinks to the layout if enabled via `options` configuration.
- * Currently supports #content, #footer, and #side-nav
+ * By default, Skiplinks support #content, #footer, and #side-nav. You can supply your own
+ * Link array for extra accessibility control.
  *
  * @internal only
- * @TODO let users supply their own skiplink menu objects
  */
 
-export const Skiplinks = () => {
+export const Skiplinks = (props: SkipLinkProps) => {
   const { layout, a11y } = useOptions()
+  let linkMenu: Link[] = []
 
-  let links: Link[] = [
-    { id: '#content', label: 'Skip to content' },
-    { id: '#footer', label: 'Skip to footer' },
-  ]
+  if (props.links) {
+    linkMenu = props.links
+  } else {
+    linkMenu = [
+      { id: '#content', label: 'Skip to content' },
+      { id: '#footer', label: 'Skip to footer' },
+    ]
+  }
 
   if (layout.includes('sidenav')) {
-    links.splice(1, 0, {
+    linkMenu.splice(1, 0, {
       id: '#side-nav',
       label: 'Skip to side navigation',
     })
@@ -34,7 +43,7 @@ export const Skiplinks = () => {
   return a11y.skiplinks ? (
     <Box
       as="ul"
-      __css={{
+      sx={{
         listStyle: 'none',
         position: 'relative',
         zIndex: 1000,
@@ -51,7 +60,7 @@ export const Skiplinks = () => {
           },
         },
       }}>
-      {links.map(({ id, label }) => (
+      {linkMenu.map(({ id, label }) => (
         <li key={id}>
           <a href={id}>{label}</a>
         </li>

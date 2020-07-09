@@ -1,4 +1,4 @@
-import { ResponsiveScale } from '../components/props'
+import { ResponsiveScale } from '../components/types'
 
 /**
  * Returns a randomly generated alphanumeric ID.

@@ -12,7 +12,7 @@ import {
 import Prism from '@theme-ui/prism'
 
 import { CodeProvider } from './CodeContext'
-import Logo from './Logo'
+import { Logo } from './Logo'
 import Widgets from './Widgets'
 import Search from './Search'
 
@@ -36,7 +36,7 @@ export default ({ children, location }) => {
           <CodeProvider>{children}</CodeProvider>
         </Main>
       </Content>
-      <Footer>test</Footer>
+      {/* <Footer>test</Footer> */}
     </Layout>
   )
 }

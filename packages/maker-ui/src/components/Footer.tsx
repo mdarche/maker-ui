@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Box, Flex } from './common'
-import { BoxProps } from './props'
+import { BoxProps } from './types'
 
 interface FooterProps extends BoxProps {
   maxWidth?: string | string[]
@@ -16,7 +16,8 @@ const defaultProps = {
 /**
  * Use the `Footer` component to store important information, links, and widgets at
  * the bottom of your layout.
- * @see https://maker-ui.com/components/footer
+ *
+ * @see https://maker-ui.com/docs/footer
  */
 
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(

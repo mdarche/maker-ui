@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Box, Link } from './Box'
 import { ExpandButton } from './ExpandButton'
-import { MenuProps } from '../props'
+import { MenuProps } from '../types'
 
 interface Props {
   data: MenuProps

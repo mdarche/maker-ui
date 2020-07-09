@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Box } from './Box'
-import { MakerProps, MaybeElement } from '../props'
+import { MakerProps, MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
