@@ -1,26 +1,25 @@
 {
   "name": "maker-ui",
+  "description": "The fastest way to build themeable, responsive layouts in React",
   "version": "0.4.4",
-  "source": "src/index.ts",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
-  "scripts": {
-    "prepare": "microbundle --no-compress --jsx React.createElement --tsconfig tsconfig.json",
-    "watch": "microbundle watch --no-compress --jsx React.createElement --tsconfig tsconfig.json"
-  },
   "license": "MIT",
+  "author": "Mike Darche <mike@newcreative.io>",
+  "main": "dist/index.js",
+  "module": "dist/maker-ui.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsdx build --format=cjs,esm",
+    "watch": "cross-env NODE_ENV=development tsdx watch",
+    "watch2": "microbundle watch --no-compress --jsx React.createElement --tsconfig tsconfig.json",
+    "lint": "tsdx lint",
+    "test": "tsdx test"
+  },
   "dependencies": {
+    "deep-merge": "^1.0.0",
     "theme-ui": "^0.3.1"
   },
   "peerDependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
-  },
-  "devDependencies": {
-    "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8",
-    "typescript": "^3.9.3"
   }
 }

@@ -36,7 +36,7 @@ export default ({ children, location }) => {
           <CodeProvider>{children}</CodeProvider>
         </Main>
       </Content>
-      {/* <Footer>test</Footer> */}
+      <Footer>test</Footer>
     </Layout>
   )
 }

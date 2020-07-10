@@ -12,3 +12,5 @@ export { Section } from './Section'
 export { Template } from './Template'
 export { AccordionMenu } from './AccordionMenu'
 export { Box, Flex, Button, Link, SVG } from './common'
+
+export * from './types'

@@ -1,7 +1,67 @@
 import React from 'react'
-import { Box, Flex } from 'theme-ui'
-
+import { Flex } from 'theme-ui'
+import { Box } from 'theme-ui'
 import { ButtonProps, SVGProps, LinkProps } from '../types'
+
+// import { jsx } from 'theme-ui'
+
+// const Box = React.forwardRef<HTMLElement, BasicBoxProps>(
+//   (
+//     {
+//       as = 'div',
+//       sx = {},
+//       variant,
+//       admin,
+//       color,
+//       bg,
+//       m,
+//       mt,
+//       mr,
+//       mb,
+//       ml,
+//       mx,
+//       my,
+//       p,
+//       pt,
+//       pr,
+//       pb,
+//       pl,
+//       px,
+//       py,
+//       b,
+//       bt,
+//       br,
+//       bl,
+//       bb,
+//       ...props
+//     },
+//     ref
+//   ) => {
+//     // prettier-ignore
+//     const styles = {
+//     boxSizing: 'border-box',
+//     margin: 0,
+//     minWidth: 0,
+//       color, bg,
+//       m, mt, mr, mb, ml, mx, my,
+//       p, pt, pr, pb, pl, px, py,
+//       border: b,
+//       borderTop: bt,
+//       borderRight: br,
+//       borderLeft: bl,
+//       borderBottom: bb,
+//     // ...admin?.sx,
+//     variant,
+//     ...sx,
+//   }
+
+//     return jsx(as, {
+//       sx: styles,
+//       ...ref,
+//       ...props,
+//     })
+//   }
+// )
 
 /**
  *  Aliases for Theme UI primitives
@@ -9,8 +69,6 @@ import { ButtonProps, SVGProps, LinkProps } from '../types'
  * @remark In case of future breaking updates, it's easier to address
  * in one place instead of throughout the entire code base.
  *
- * @TODO replace props with `@types/theme-ui` and `@types/theme-ui__components`
- * when stable.
  */
 
 /**
@@ -30,4 +88,5 @@ export const Button = (props: ButtonProps) => <Box as="button" {...props} />
  */
 export const Link = (props: LinkProps) => <Box as="a" {...props} />
 
-export { Box, Flex }
+export { Flex }
+export { Box }

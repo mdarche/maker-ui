@@ -14,7 +14,8 @@ interface ContentProps extends BasicBoxProps {
 /**
  * Use the `Content` component to wrap all content between your `Header`
  * and `Footer`.
- * @see https://maker-ui.com/components/content
+ *
+ * @see https://maker-ui.com/docs/content
  */
 
 export const Content = React.forwardRef<HTMLDivElement, ContentProps>(

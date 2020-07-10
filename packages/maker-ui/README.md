@@ -2,7 +2,7 @@
 
 > This project is currently under development.
 
-> If you arrived here from the Gatsby Theme Store, Gatsby Theme Elements is no longer supported and has now become a React component library. Consider trying `packages/gatsby-starter-maker-ui` for your project instead.
+> If you arrived here from the Gatsby Theme Store, Gatsby Theme Elements is no longer supported and has now become a React component library.
 
 Build React apps with a responsive layout system powered by [Theme UI](https://theme-ui.com/).
 
@@ -34,7 +34,7 @@ https://maker-ui.com
   - Responsive scales
   - Variant and `sx` prop support
   - MDX theming
-  - Compatibility with Theme UI components
+  - Compatibility with any Theme UI component library
 
 ## Getting Started
 
@@ -55,9 +55,7 @@ To get a site up and running in less than 5 minutes, you can use the `Template` 
 import React from 'react'
 import { Template } from 'maker-ui'
 
-import theme from './my-theme'
-import options from './my-options'
-import menu from './my-menu'
+import { theme, options, menu } from './config'
 import Logo from './Logo'
 
 export default props => (
@@ -71,7 +69,7 @@ The `Template` component accepts a variety of props for custom components like a
 
 ### Layout Components
 
-If your design requires a bit more customization or if you need conditional layouts depending on a page route or variable, you can build with Maker UI's layout components:
+If your design requires more customization or if you need conditional layouts depending on a page route or variable, you can build with Maker UI's layout components:
 
 ```jsx
 // basic layout component usage
@@ -87,12 +85,10 @@ import {
   Footer,
 } from 'maker-ui'
 
-import theme from './my-theme'
-import options from './my-options'
-import menu from './my-menu'
+import { theme, options, menu } from './config'
 import Logo from './Logo'
 
-export default props => (
+const MyLayout = props => (
   <Layout theme={theme} options={options}>
     <Header>
       <Navbar logo={<Logo />} menu={menu} />
@@ -105,13 +101,15 @@ export default props => (
     <Footer>Your custom footer</Footer>
   </Layout>
 )
+
+export default MyLayout
 ```
 
 All layout components can be styled with custom variants and the `sx` prop.
 
 ## Maker Components
 
-Maker UI ships with a variety of components you might need for your site, all fully accessible and customizable:
+Maker UI also has an optional package `@maker-ui/components` that exports a variety of common components you might need for your site:
 
 - Carousel
 - Accordion
@@ -122,43 +120,40 @@ Maker UI ships with a variety of components you might need for your site, all fu
 - Announcement
 - TreeMenu
 - FadeBox (scroll reveal)
-- Popover
+- Popover and Dropdown
 - Spinner
 - CookieNotice
+- Toast and ToastProvider
 - On-page search
 
-## Documentation - COMING SOON
+## Documentation
 
-> Note: this is just an outline for planning purposes
-
-- [Design a Theme](https://maker-ui.com/docs/theme)
+- [Design a Theme](https://maker-ui.com/docs/theming)
 - [Configure Options](https://maker-ui.com/docs/options)
 - [Layout Components](https://maker-ui.com/docs/layout-components)
 - [Template Component](https://maker-ui.com/docs/template)
-- [Custom Styles](https://maker-ui.com/docs/styling)
 - [Adding Content](https://maker-ui.com/docs/adding-content)
-- [API](https://maker-ui.com/docs/api)
+- [Hooks API](https://maker-ui.com/docs/hooks-api)
 - [Tutorials](https://maker-ui.com/tutorials)
 
-## Upcoming Packages
+## Upcoming Packages/Modules
 
 - Components
   - Search (Algolia)
   - SmartTable
   - SmartGrid
-  - Subscribe forms
+  - SubscribeForm
   - Share buttons
-  - Mega dropdown menu
+  - Mega dropdown menus
   - Speech Synthesis
   - PricingTable
-  - Parallax Library
+  - ParallaxBox
   - Subheader
 - Workspace layout
-- i18n support
+- i18n Provider
 - Pre-built themes
 - Ecommerce & payment templates
 - Authentication templates
-- [Blocks Editor](https://blocks-ui.com) compatibility
 
 ## License
 

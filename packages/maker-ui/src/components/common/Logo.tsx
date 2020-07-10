@@ -1,9 +1,10 @@
 import React from 'react'
 
 import { Link } from './Box'
-import { MakerProps } from '../types'
+import { BasicBoxProps } from '../types'
 
-export const Logo = (props: MakerProps) => (
+// TESTING REWRITE (props)
+export const Logo = (props: any) => (
   <Link
     href="/"
     id="site-logo"

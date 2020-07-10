@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { SmartTable } from '@maker-ui/smart-table'
+// import { SmartTable } from '@maker-ui/smart-table'
 
 const columns = [
   {
@@ -459,7 +459,7 @@ const TablePage = () => {
 
   return (
     <React.Fragment>
-      <SmartTable columns={columns} data={data} onRowSelect={select} />
+      {/* <SmartTable columns={columns} data={data} onRowSelect={select} /> */}
     </React.Fragment>
   )
 }

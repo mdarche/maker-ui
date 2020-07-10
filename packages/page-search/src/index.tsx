@@ -1,10 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Mark from 'mark.js'
-import { Box, Flex } from 'theme-ui'
+import { Box, Flex, BasicBoxProps } from 'maker-ui'
 
 // TODO - add extra class to marks that are the current focus of the prev/next buttons
 
-const PageSearch = React.forwardRef(
+export interface SearchProps extends BasicBoxProps {
+  searchId?: string
+  controls?: boolean
+  sticky?: boolean
+  offsetTop?: number
+}
+
+const PageSearch = React.forwardRef<HTMLElement, SearchProps>(
   (
     {
       searchId = 'content',
@@ -15,11 +22,11 @@ const PageSearch = React.forwardRef(
       ...props
     },
     ref
-  ) => {
+  ): JSX.Element => {
     const inputRef = useRef(null)
-    const [search, setSearch] = useState('')
-    const [index, setIndex] = useState(0)
-    const [results, setResults] = useState([])
+    const [search, setSearch] = useState<string>('')
+    const [index, setIndex] = useState<number>(0)
+    const [results, setResults] = useState<NodeListOf<Element> | any>([])
 
     useEffect(() => {
       const content = document.querySelector(`#${searchId}`)
@@ -87,7 +94,7 @@ const PageSearch = React.forwardRef(
             onChange={e => setSearch(e.target.value)}></input>
         </Box>
         {controls && (
-          <React.Fragment>
+          <>
             <button
               title="Previous result"
               aria-label="Previous result"
@@ -100,7 +107,7 @@ const PageSearch = React.forwardRef(
               onClick={results.length ? next : null}>
               Next
             </button>
-          </React.Fragment>
+          </>
         )}
         <button title="Clear" aria-label="Clear search" onClick={clear}>
           Clear

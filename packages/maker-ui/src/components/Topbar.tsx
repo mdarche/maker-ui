@@ -34,7 +34,7 @@ export const Topbar = React.forwardRef<HTMLElement, TopbarProps>(
         ref={ref}
         as="aside"
         variant={variant}
-        role="complementary"
+        // role="complementary"
         bg={bg}
         sx={{
           display: topbar.hideOnMobile

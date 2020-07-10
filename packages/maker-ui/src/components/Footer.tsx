@@ -21,7 +21,7 @@ const defaultProps = {
  */
 
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(
-  ({ maxWidth, children, ...props }, ref) => {
+  ({ maxWidth, children, ...props }, ref): JSX.Element => {
     return (
       <Box ref={ref} as="footer" id="footer" role="contentinfo" {...props}>
         <Flex

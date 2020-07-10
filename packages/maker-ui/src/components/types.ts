@@ -13,11 +13,6 @@ export type MaybeElement = JSX.Element | string | false | null | undefined
 export type ResponsiveScale = string | number | string[] | number[]
 
 /**
- * @TODO replace the following with `@types/theme-ui` and `@types/theme-ui__components`
- * extensions when the packages are stable and `@theme-ui/components` is rebuilt in TS.
- */
-
-/**
  * Interface for Theme UI `<Box/>` component props and style shortcuts.
  */
 export interface BasicBoxProps {
@@ -28,42 +23,43 @@ export interface BasicBoxProps {
   __css?: object
   className?: string
   id?: string
-  // ref?: React.Ref<HTMLElement>
-  // Sx prop shortcuts
+  admin?: {
+    variant?: string | string[]
+    sx?: object
+    label?: string
+  }
+  // TESTING REWRITE THIS
+  // ref?: any //React.Ref<HTMLElement>
+  // role?: any
+  // onClick?: any
   bg?: string | string[]
-  margin?: ResponsiveScale
+  color?: string | string[]
   m?: ResponsiveScale
-  marginTop?: ResponsiveScale
   mt?: ResponsiveScale
-  marginRight?: ResponsiveScale
   mr?: ResponsiveScale
-  marginLeft?: ResponsiveScale
   ml?: ResponsiveScale
-  marginBottom?: ResponsiveScale
   mb?: ResponsiveScale
-  marginX?: ResponsiveScale
-  mX?: ResponsiveScale
-  marginY?: ResponsiveScale
+  mx?: ResponsiveScale
   my?: ResponsiveScale
-  padding?: ResponsiveScale
   p?: ResponsiveScale
-  paddingTop?: ResponsiveScale
   pt?: ResponsiveScale
-  paddingRight?: ResponsiveScale
   pr?: ResponsiveScale
-  paddingLeft?: ResponsiveScale
   pl?: ResponsiveScale
-  paddingBottom?: ResponsiveScale
   pb?: ResponsiveScale
-  paddingX?: ResponsiveScale
   px?: ResponsiveScale
-  paddingY?: ResponsiveScale
   py?: ResponsiveScale
+  b?: ResponsiveScale
+  bt?: ResponsiveScale
+  br?: ResponsiveScale
+  bl?: ResponsiveScale
+  bb?: ResponsiveScale
 }
 
 /**
  * Alias for Theme UI box component props that includes all
  * HTML div attributes. Used with MakerUI's internal `<Box />` component.
+ *
+ * @TODO Make all components use Box prop and dynamically load type depending on 'as' prop
  */
 export interface BoxProps
   extends Assign<React.ComponentPropsWithRef<'div'>, BasicBoxProps> {}

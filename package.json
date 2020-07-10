@@ -3,20 +3,18 @@
   "scripts": {
     "prepare": "lerna run prepare",
     "clean": "lerna run clean",
-    "test": "jest"
+    "test": "leran run test"
   },
   "workspaces": [
     "examples/*",
     "packages/*"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/preset-typescript": "^7.9.0",
-    "@babel/runtime": "^7.9.6",
     "@testing-library/react": "^9.4.0",
+    "@types/jest": "^26.0.4",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "cross-env": "^7.0.2",
     "husky": "^4.0.10",
     "jest": "^24.9.0",
     "jest-emotion": "^10.0.27",
@@ -25,9 +23,13 @@
     "microbundle": "^0.11.0",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.12.0",
-    "tsdx": "^0.13.2"
+    "tsdx": "^0.13.2",
+    "typescript": "^3.9.6"
   },
   "jest": {
+    "globals": {
+      "__DEV__": "boolean"
+    },
     "testMatch": [
       "**/packages/**/test/*.js"
     ],
@@ -35,10 +37,24 @@
       "jest-emotion"
     ]
   },
+  "lint-staged": {
+    "**/*.{js,ts,tsx}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
-  "dependencies": {}
+  "prettier": {
+    "endOfLine": "lf",
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "proseWrap": "preserve",
+    "jsxBracketSameLine": true
+  }
 }
