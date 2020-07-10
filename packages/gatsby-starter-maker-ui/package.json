@@ -16,8 +16,9 @@
   "license": "MIT",
   "dependencies": {
     "maker-ui": "^0.4.2",
-    "gatsby": "^2.19.23",
-    "gatsby-plugin-catch-links": "^2.1.26",
+    "gatsby": "^2.23.17",
+    "gatsby-cli": "2.12.54",
+    "gatsby-plugin-catch-links": "^2.1.24",
     "gatsby-plugin-layout": "^1.1.22",
     "gatsby-plugin-manifest": "^2.2.42",
     "gatsby-plugin-react-helmet": "^3.2.1",

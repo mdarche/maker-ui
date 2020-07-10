@@ -1,6 +1,5 @@
 import React from 'react'
-import { Flex } from 'theme-ui'
-import { Box } from 'theme-ui'
+import { Flex as TFlex, Box as TBox } from 'theme-ui'
 import { ButtonProps, SVGProps, LinkProps } from '../types'
 
 // import { jsx } from 'theme-ui'
@@ -69,7 +68,12 @@ import { ButtonProps, SVGProps, LinkProps } from '../types'
  * @remark In case of future breaking updates, it's easier to address
  * in one place instead of throughout the entire code base.
  *
+ * @todo build custom Box and Flex implementations
+ *
  */
+
+export const Box = props => <TBox {...props} />
+export const Flex = props => <TFlex {...props} />
 
 /**
  * A Theme UI `<Box />` component for wrapping inline SVGs.
@@ -87,6 +91,3 @@ export const Button = (props: ButtonProps) => <Box as="button" {...props} />
  * A Theme UI `<Box />` component for wrapping anchor tags.
  */
 export const Link = (props: LinkProps) => <Box as="a" {...props} />
-
-export { Flex }
-export { Box }

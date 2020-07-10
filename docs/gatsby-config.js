@@ -21,3 +21,5 @@ module.exports = {
     },
   ],
 }
+
+// Yarn version 1.17.3

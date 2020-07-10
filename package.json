@@ -1,13 +1,16 @@
 {
   "private": true,
   "scripts": {
-    "prepare": "lerna run prepare",
     "clean": "lerna run clean",
-    "test": "leran run test"
+    "test": "lerna run test",
+    "docs-dev": "cd docs && yarn develop",
+    "docs-build": "cd docs && yarn build",
+    "git-reset": "git reset --hard HEAD"
   },
   "workspaces": [
     "examples/*",
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "devDependencies": {
     "@testing-library/react": "^9.4.0",
@@ -56,5 +59,8 @@
     "trailingComma": "es5",
     "proseWrap": "preserve",
     "jsxBracketSameLine": true
+  },
+  "dependencies": {
+    "react": "^16.13.1"
   }
 }
