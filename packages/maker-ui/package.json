@@ -6,15 +6,19 @@
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
   "module": "dist/maker-ui.esm.js",
-  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "cross-env NODE_ENV=production tsdx build --format=cjs,esm",
-    "watch": "cross-env NODE_ENV=development tsdx watch",
+    "watch": "cross-env NODE_ENV=development tsdx watch --verbose",
     "lint": "tsdx lint",
     "test": "tsdx test"
   },
   "dependencies": {
-    "theme-ui": "^0.3.1"
+    "theme-ui": "^0.3.1",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.12.0",
