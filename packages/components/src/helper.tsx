@@ -1,15 +1,15 @@
 import { useState, useRef, useEffect } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
-export function format(value) {
+export function format(value: any): string | number {
   return isNaN(value) ? value : `${value}px`
 }
 
-export function getSign(type) {
+export function getSign(type: string): string {
   return type.includes('right') || type.includes('down') ? '-' : ''
 }
 
-export function usePrevious(value) {
+export function usePrevious(value: any): any {
   const ref = useRef()
   useEffect(() => void (ref.current = value), [value])
   return ref.current
@@ -17,7 +17,12 @@ export function usePrevious(value) {
 
 export function useMeasure() {
   const ref = useRef()
-  const [bounds, set] = useState({ left: 0, top: 0, width: 0, height: 0 })
+  const [bounds, set] = useState<any>({
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+  })
   const [ro] = useState(
     () => new ResizeObserver(([entry]) => set(entry.contentRect))
   )
@@ -36,7 +41,7 @@ export function useTracker(type, key, toggle, expiration) {
     }, 1000)
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     // Use session storage
 
     if (type === 'session') {
@@ -63,7 +68,7 @@ export function useTracker(type, key, toggle, expiration) {
       }
       if (!toggle && !cookieCheck) {
         delay()
-        return (document.cookie = `${key}=true;expires=${expiration};path=/`)
+        document.cookie = `${key}=true;expires=${expiration};path=/`
       }
     }
   }, [toggle, type, expiration, key])

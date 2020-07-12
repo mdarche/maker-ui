@@ -1,16 +1,38 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Box } from 'theme-ui'
-import { setBreakpoint } from 'maker-ui'
+import { Box, BasicBoxProps, setBreakpoint } from 'maker-ui'
 
-import TabNavigation from './TabNavigation'
+import { TabNavigation } from './TabNavigation'
 
-const TabContext = React.createContext()
-const TabUpdateContext = React.createContext()
+const TabContext = React.createContext(null)
+const TabUpdateContext = React.createContext(null)
 
-// TODO - Allow users to inject non Tab components into tab canvas (npm website for example)
-// TODO - expose the tab controls to outside components / actions (add optional event key)
+export interface TabGroupProps extends BasicBoxProps {
+  navPosition?: string
+  navStack?: boolean
+  navScroll?: boolean
+  breakIndex?: number
+  renderInactive?: boolean
+}
 
-const TabGroup = ({
+export interface TabState {
+  activeId: string | number
+  tabs: any[]
+  variant: string | string[]
+  renderInactive: boolean
+}
+
+/**
+ * The `TabGroup` component is the root component for building a tabs container. It's a local
+ * provider that contains the settings for responsive behaviors, positioning, and nested
+ * `Tab` components.
+ *
+ * @todo - Allow users to inject non Tab components into tab canvas (npm website for example)
+ * @todo - Expose the tab controls to outside components / actions (add optional event key)
+ *
+ * @see https://maker-ui.com/docs/components/tab
+ */
+
+export const TabGroup = ({
   variant = 'tabs',
   navPosition = 'top',
   navStack = false,
@@ -19,8 +41,8 @@ const TabGroup = ({
   renderInactive = false,
   children,
   ...props
-}) => {
-  const [state, setState] = useState({
+}: TabGroupProps) => {
+  const [state, setState] = useState<TabState>({
     activeId: 0,
     tabs: [],
     variant,
@@ -63,21 +85,21 @@ const TabGroup = ({
 }
 
 export function useTabs() {
-  const state = useContext(TabContext)
+  const state: TabState = useContext(TabContext)
   const setState = useContext(TabUpdateContext)
 
   if (typeof state === undefined) {
     throw new Error('Tab must be used within a TabGroup component')
   }
 
-  function setActive(id) {
+  function setActive(id): void {
     setState(s => ({
       ...s,
       activeId: id,
     }))
   }
 
-  function addToTabGroup(item, isOpen) {
+  function addToTabGroup(item, isOpen): void {
     const exists = state.tabs ? state.tabs.find(t => t.id === item.id) : false
 
     if (!exists) {
@@ -91,5 +113,3 @@ export function useTabs() {
 
   return { state, setActive, addToTabGroup }
 }
-
-export default TabGroup

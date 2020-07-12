@@ -1,12 +1,20 @@
 import React, { useEffect } from 'react'
-import { Box } from 'theme-ui'
-import { useMakerUI } from 'maker-ui'
+import { Box, BasicBoxProps, useMakerUI } from 'maker-ui'
 
-import { useTransition, animated as a } from 'react-spring'
+// import { useTransition, animated as a } from 'react-spring'
 
 // use for Tooltips, Supplemental content, and Dropdown menus
 
-const Popover = React.forwardRef(
+export interface PopoverProps extends BasicBoxProps {
+  target?: string
+  position?: any
+  show?: boolean
+  role?: string
+  appendTo?: string
+  transition?: string
+}
+
+const Popover = React.forwardRef<HTMLElement, PopoverProps>(
   (
     {
       target,
@@ -22,7 +30,7 @@ const Popover = React.forwardRef(
 
     useEffect(() => {
       extendTheme({ colors: { crazy: 'red' } })
-    }, [])
+    }, [extendTheme])
 
     // console.log(
     //   target.current ? target.current.getBoundingClientRect() : 'nope'

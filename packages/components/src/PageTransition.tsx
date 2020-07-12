@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex } from 'theme-ui'
+import { Flex } from 'maker-ui'
 import { animated as a, useTransition } from 'react-spring'
 
 import { format, getSign } from './helper'
@@ -17,13 +17,30 @@ function getTransition(type, distance) {
   }
 }
 
-const PageTransition = ({
+export interface PageTransitionProps {
+  type: string
+  distance: number
+  config: any
+  children: React.ReactNode
+}
+
+/**
+ * The `PageTransition` component wraps your content in a transition container. See docs
+ * for curretly supported transitions.
+ *
+ * @todo - Add types for React Spring v8+ or v9 canary
+ *
+ * @see https://maker-ui.com/docs/components/page-transition
+ */
+
+export const PageTransition = ({
   type = 'fade-up',
   distance = 20,
   config,
   children,
-}) => {
-  const transitions = useTransition(children, children => children.key, {
+}: PageTransitionProps) => {
+  const transitions: any[] = useTransition(children, children => children.key, {
+    // @ts-ignore
     from: {
       opacity: 0,
       transform: getTransition(type, distance),
@@ -33,7 +50,7 @@ const PageTransition = ({
     leave: { opacity: 0 },
     config,
   })
-  return transitions.map(({ item, key, props }) => (
+  return transitions.map(({ item, key, props }: any) => (
     <Flex
       key={key}
       id="content-wrapper"
@@ -42,5 +59,3 @@ const PageTransition = ({
     </Flex>
   ))
 }
-
-export default PageTransition

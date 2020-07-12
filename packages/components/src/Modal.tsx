@@ -1,8 +1,8 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { useTransition, animated as a } from 'react-spring'
-import { Box } from 'theme-ui'
+import { Box, BasicBoxProps } from 'maker-ui'
 
-import Portal from './Portal'
+import { Portal } from './Portal'
 
 // TODO add and export a close button and use as a sub-component
 
@@ -34,7 +34,24 @@ const centered = val =>
       }
     : null
 
-const Modal = ({
+export interface ModalProps extends BasicBoxProps {
+  appendTo?: string
+  title?: string
+  closeOnBlur?: boolean
+  show: boolean
+  toggle: Function
+  focusRef: any
+  style: any
+  center: boolean
+}
+
+/**
+ * The `Modal` component displays content as a dialog box/popup window.
+ *
+ * @see https://maker-ui.com/docs/components/modal
+ */
+
+export const Modal = ({
   appendTo,
   title = 'Modal Dialog',
   closeOnBlur = false,
@@ -47,7 +64,7 @@ const Modal = ({
   style = {},
   children,
   ...rest
-}) => {
+}: ModalProps) => {
   const modalRef = useRef(null)
   const [focusable, setFocusable] = useState({
     count: 0,
@@ -63,7 +80,8 @@ const Modal = ({
     toggle(false)
   }, [toggle, focusRef])
 
-  const fade = useTransition(show, null, {
+  const fade = useTransition(show, modalRef, {
+    // @ts-ignore
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -79,6 +97,7 @@ const Modal = ({
       if (elements.length !== 0) {
         setFocusable({
           count: elements.length,
+          // @ts-ignore
           elements,
           first: elements[0],
           last: elements[elements.length - 1],
@@ -112,6 +131,7 @@ const Modal = ({
               e.preventDefault()
               return focusable.first.focus()
             }
+            // @ts-ignore
             if (![...focusable.elements].includes(document.activeElement)) {
               return focusable.first.focus()
             }
@@ -131,9 +151,10 @@ const Modal = ({
   }, [show, focusable, closeModal])
 
   return (
+    // @ts-ignore
     <Portal root={appendTo}>
       {fade.map(
-        ({ item, key, props }) =>
+        ({ item, key, props }: any) =>
           item && (
             <AnimatedBox
               key={key}
@@ -168,5 +189,3 @@ const Modal = ({
     </Portal>
   )
 }
-
-export default Modal

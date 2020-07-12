@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { Box } from 'theme-ui'
-import { generateId } from 'maker-ui'
+import { Box, BasicBoxProps, generateId } from 'maker-ui'
 
 import { useTabs } from './TabGroup'
 
-const Tab = React.forwardRef(
+export interface TabProps extends BasicBoxProps {
+  title?: string
+  open?: boolean
+  disabled?: boolean
+}
+
+/**
+ * The `Tab` component is a direct child of `TabGroup` and is used to wrap custom tab content.
+ *
+ * @see https://maker-ui.com/docs/components/tab
+ */
+
+export const Tab = React.forwardRef<HTMLElement, TabProps>(
   ({ title, open = false, disabled = false, ...props }, ref) => {
     const [id] = useState(generateId())
     const {
@@ -35,5 +46,3 @@ const Tab = React.forwardRef(
     ) : null
   }
 )
-
-export default Tab

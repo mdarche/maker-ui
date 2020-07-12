@@ -1,13 +1,27 @@
 import React, { useState, useContext } from 'react'
-import { Box } from 'theme-ui'
+import { Box, BasicBoxProps, MaybeElement, ResponsiveScale } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
 import { useMeasure, usePrevious } from './helper'
 import { MinusIcon, PlusIcon, ExIcon } from './icons'
 
-const TreeContext = React.createContext()
+const TreeContext = React.createContext(null)
 
-export const TreeItem = React.forwardRef(
+export interface TreeItemProps extends BasicBoxProps {
+  text?: string
+  link?: string
+  newTab?: boolean
+  open?: boolean
+}
+
+/**
+ * The `TreeItem` component is a direct child of `TreeMenu` and is used to wrap text, links,
+ * or custom React components.
+ *
+ * @see https://maker-ui.com/docs/components/tree-item
+ */
+
+export const TreeItem = React.forwardRef<HTMLElement, TreeItemProps>(
   ({ text, link, newTab, open = false, children, ...props }, ref) => {
     const [isOpen, setOpen] = useState(open)
     const {
@@ -102,7 +116,24 @@ export const TreeItem = React.forwardRef(
   }
 )
 
-export const TreeMenu = React.forwardRef(
+export interface TreeMenuProps extends BasicBoxProps {
+  buttons?: {
+    expand?: MaybeElement
+    collapse?: MaybeElement
+    neutral?: MaybeElement
+  }
+  indentation?: ResponsiveScale
+  clickableText?: boolean
+}
+
+/**
+ * The `TreeMenu` component is a Provider for that controls styles and behaviors
+ * for all child `TreeItem` components.
+ *
+ * @see https://maker-ui.com/docs/components/tree-menu
+ */
+
+export const TreeMenu = React.forwardRef<HTMLElement, TreeMenuProps>(
   (
     {
       variant = 'tree',

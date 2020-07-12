@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex as TFlex, Box as TBox } from 'theme-ui'
+import { Box, Flex } from 'theme-ui'
 import { ButtonProps, SVGProps, LinkProps } from '../types'
 
 // import { jsx } from 'theme-ui'
@@ -72,8 +72,7 @@ import { ButtonProps, SVGProps, LinkProps } from '../types'
  *
  */
 
-export const Box = props => <TBox {...props} />
-export const Flex = props => <TFlex {...props} />
+export { Box, Flex }
 
 /**
  * A Theme UI `<Box />` component for wrapping inline SVGs.

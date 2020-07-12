@@ -1,5 +1,6 @@
 import React from 'react'
-import { Box, Spinner as DefaultSpinner, useThemeUI } from 'theme-ui'
+import { Spinner as DefaultSpinner, useThemeUI } from 'theme-ui'
+import { Box, BasicBoxProps } from 'maker-ui'
 
 const defaultColors = {
   primary: '#0e94d4',
@@ -7,7 +8,25 @@ const defaultColors = {
   tertiary: '#9ad8f6',
 }
 
-const Spinner = React.forwardRef(
+export interface SpinnerProps extends BasicBoxProps {
+  type?: string
+  size?: number
+  colors?: {
+    primary?: string
+    secondary?: string
+    tertiary?: string
+  }
+  ref?: any
+}
+
+/**
+ * The `Spinner` component gives you easy access to 5 common loading indicators for a better
+ * user experience during network requests.
+ *
+ * @see https://maker-ui.com/docs/components/spinner
+ */
+
+export const Spinner = React.forwardRef<HTMLElement, SpinnerProps>(
   ({ type = 'default', size = 80, colors = defaultColors, ...props }, ref) => {
     switch (type) {
       case 'pulse':
@@ -38,7 +57,7 @@ const Blocks = ({
   size,
   colors: { primary, secondary, tertiary },
   ...props
-}) => {
+}: SpinnerProps) => {
   const points = [
     { x: '9', y: '9', fill: primary, b1: '-1.83', b2: '-1.33' },
     { x: '34.8', y: '56', fill: secondary, b1: '-1.16', b2: '-0.66' },
@@ -79,7 +98,11 @@ const Blocks = ({
 
 // Pulse
 
-const Pulse = ({ size, colors: { primary, secondary }, ...props }) => {
+const Pulse = ({
+  size,
+  colors: { primary, secondary },
+  ...props
+}: SpinnerProps) => {
   const points = [
     { r: '24', begin: '-0.8', color: primary },
     { r: '39.6', begin: '0', color: secondary },
@@ -124,7 +147,7 @@ const Scale = ({
   size,
   colors: { primary, secondary, tertiary },
   ...props
-}) => {
+}: SpinnerProps) => {
   const points = [
     { translate: '25 50', scale: '.81144', begin: '-0.4166', color: primary },
     { translate: '50 50', scale: '.35566', begin: '-0.2083', color: secondary },
@@ -165,7 +188,11 @@ const Scale = ({
 
 // Circular Dots
 
-const Rotate = ({ size, colors: { primary, secondary }, ...props }) => {
+const Rotate = ({
+  size,
+  colors: { primary, secondary },
+  ...props
+}: SpinnerProps) => {
   const themeColors = useThemeUI().theme.colors
   const getThemeColor = val => (val in themeColors ? themeColors[val] : val)
 
@@ -210,5 +237,3 @@ const Rotate = ({ size, colors: { primary, secondary }, ...props }) => {
     </Box>
   )
 }
-
-export default Spinner

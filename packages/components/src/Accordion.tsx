@@ -1,19 +1,35 @@
 import React, { useState, useContext } from 'react'
-import { Box } from 'theme-ui'
+import { Box, BasicBoxProps } from 'maker-ui'
 
-import AccordionPanel from './AccordionPanel'
+import { AccordionPanel } from './AccordionPanel'
 
-const AccordionContext = React.createContext()
-const AccordionUpdateContext = React.createContext()
+const AccordionContext = React.createContext(null)
+const AccordionUpdateContext = React.createContext(null)
 
-const Accordion = ({
+interface AccordionProps extends BasicBoxProps {
+  icon?: boolean
+  customIcons?: {
+    expand?: JSX.Element | null
+    collapse?: JSX.Element | null
+  }
+  defaultKey?: number
+  showSingle?: boolean
+}
+
+/**
+ * Use the `Accordion` component to build and customize collapsible accordions.
+ *
+ * @see https://maker-ui.com/docs/components/accordion
+ */
+
+export const Accordion = ({
   icon = true,
   customIcons = { expand: null, collapse: null },
   defaultKey = 0,
   showSingle = false,
   children,
   ...props
-}) => {
+}: AccordionProps) => {
   const [state, setState] = useState({
     activeKey: defaultKey,
     icon,
@@ -42,5 +58,3 @@ export function useAccordion() {
 }
 
 Accordion.Panel = AccordionPanel
-
-export default Accordion

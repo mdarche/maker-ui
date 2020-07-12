@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { Box } from 'theme-ui'
+import { Box, generateId, BasicBoxProps } from 'maker-ui'
 import { useSpring, animated } from 'react-spring'
-import { generateId } from 'maker-ui'
 
 import { useAccordion } from './Accordion'
 import { useMeasure } from './helper'
 
-// TODO - Refactor this by registering with context. Make event keys optional for hook control
-// TODO - Move all click and focus event handlers to functions outside of render
+export interface AccordionPanelProps extends BasicBoxProps {
+  title?: string
+  open?: boolean
+  eventKey?: string
+  borderColor?: string | string[]
+}
 
-const AccordionPanel = React.forwardRef(
+/**
+ * The `AccordionPanel` component wraps your custom collapsible content.
+ *
+ * @todo - Refactor this by registering with context. Make event keys optional for hook control
+ * @todo - Move all click and focus event handlers to functions outside of render
+ *
+ * @see https://maker-ui.com/docs/components/accordion-panel
+ */
+
+export const AccordionPanel = React.forwardRef<
+  HTMLElement,
+  AccordionPanelProps
+>(
   (
     {
       title,
@@ -127,5 +142,3 @@ const AccordionPanel = React.forwardRef(
     )
   }
 )
-
-export default AccordionPanel

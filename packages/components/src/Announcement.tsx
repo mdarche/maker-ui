@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Flex } from 'theme-ui'
+import { Box, Flex, BasicBoxProps } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
 import { useTracker, useMeasure } from './helper'
@@ -19,7 +19,25 @@ const fixedPartial = (fixed, bottom) =>
       }
     : null
 
-const Announcement = React.forwardRef(
+export interface AnnouncementProps extends BasicBoxProps {
+  key?: string
+  fixed?: boolean
+  trackerType?: string
+  expiration?: number
+  allowClose?: boolean
+  closeButton?: JSX.Element | string | null
+  bottom?: boolean
+  top?: boolean
+}
+
+/**
+ * The `Announcement` component renders a dismissable message to the top or bottom of the web page.
+ * You can choose the user's session or attach a cookie to determine when it appears.
+ *
+ * @see https://maker-ui.com/docs/components/announcement
+ */
+
+export const Announcement = React.forwardRef<HTMLElement, AnnouncementProps>(
   (
     {
       variant = 'announcement',
@@ -98,5 +116,3 @@ const Announcement = React.forwardRef(
     ) : null
   }
 )
-
-export default Announcement

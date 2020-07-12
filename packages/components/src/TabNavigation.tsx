@@ -1,6 +1,5 @@
 import React from 'react'
-import { Flex, Box } from 'theme-ui'
-import { setBreakpoint } from 'maker-ui'
+import { Flex, Box, setBreakpoint } from 'maker-ui'
 
 import { useTabs } from './TabGroup'
 
@@ -10,7 +9,7 @@ const responsiveStyles = ({
   navStack,
   navScroll,
   breakIndex,
-}) => {
+}: TabStyleProps) => {
   const shared = {
     overflowX: navScroll ? 'scroll' : null,
     flexWrap: navStack ? 'wrap' : 'nowrap',
@@ -38,7 +37,22 @@ const responsiveStyles = ({
   }
 }
 
-const TabNavigation = ({ settings }) => {
+export interface TabStyleProps {
+  isVertical?: boolean
+  navPosition?: string
+  navStack?: boolean
+  navScroll?: boolean
+  breakIndex?: number
+}
+
+/**
+ * The `TabNavigation` component uses the title supplied to each `Tab` component to render
+ * the clickable tab buttons. It renders inside the `TabGroup`.
+ *
+ * @internal use only
+ */
+
+export const TabNavigation = ({ settings }: { settings: TabStyleProps }) => {
   const { state, setActive } = useTabs()
 
   return (
@@ -69,5 +83,3 @@ const TabNavigation = ({ settings }) => {
     </Flex>
   )
 }
-
-export default TabNavigation

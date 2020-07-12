@@ -1,27 +1,29 @@
 {
   "name": "@maker-ui/components",
-  "version": "0.4.3",
-  "author": "Mike Darche",
-  "source": "src/index.js",
+  "description": "Customizable components for Maker UI themes.",
+  "version": "0.4.4",
+  "license": "MIT",
+  "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "sideEffects": false,
+  "module": "dist/@maker-ui/components.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "prepare": "microbundle --no-compress --jsx React.createElement",
-    "watch": "microbundle watch --no-compress --jsx React.createElement"
+    "build": "cross-env NODE_ENV=production tsdx build --format=cjs,esm",
+    "watch": "cross-env NODE_ENV=development tsdx watch --verbose",
+    "lint": "tsdx lint",
+    "test": "tsdx test"
   },
   "dependencies": {
     "react-spring": "^9.0.0-beta.34",
-    "resize-observer-polyfill": "^1.5.1"
+    "resize-observer-polyfill": "^1.5.1",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "maker-ui": "*",
+    "maker-ui": "0.4.4",
     "react": "^16.12.0",
-    "react-dom": "^16.13.1",
-    "theme-ui": "^0.3.1"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "license": "MIT"
+    "react-dom": "^16.13.1"
+  }
 }

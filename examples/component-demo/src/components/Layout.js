@@ -48,7 +48,8 @@ export default ({ children, location }) => (
       </Header>
       <Content>
         <Main>
-          <PageTransition>{children}</PageTransition>
+          {children}
+          {/* <PageTransition>{children}</PageTransition> */}
         </Main>
       </Content>
       <Footer>Footer</Footer>
