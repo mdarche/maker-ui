@@ -8,7 +8,6 @@
     },
     "outDir": "dist",
     "target": "es5",
-    "importHelpers": true,
     "module": "esnext",
     "moduleResolution": "node",
     "lib": ["dom", "esnext"],

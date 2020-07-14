@@ -1,8 +1,25 @@
 import React, { useContext, useState } from 'react'
 import { Helmet } from 'react-helmet'
 
-const SEOContext = React.createContext()
-const SEOUpdateContext = React.createContext()
+const SEOContext = React.createContext(null)
+const SEOUpdateContext = React.createContext(null)
+
+interface SEOProps {
+  title: string
+  titleTemplate?: string
+  description?: string
+  siteUrl?: string
+  image?: string
+  twitter?: string
+  lang?: string
+  noTemplate?: boolean
+  meta?: any[]
+}
+
+interface SEOProviderProps {
+  base: SEOProps
+  children: React.ReactNode
+}
 
 const SEOProvider = ({
   base: {
@@ -15,7 +32,7 @@ const SEOProvider = ({
     lang = 'en',
   },
   children,
-}) => {
+}: SEOProviderProps) => {
   const [state, setState] = useState({
     title,
     titleTemplate,
@@ -46,7 +63,7 @@ function useSEO() {
   return [state, setState]
 }
 
-const SEO = props => {
+const SEO = (props: SEOProps) => {
   const [state] = useSEO()
 
   const {

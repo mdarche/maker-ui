@@ -1,13 +1,16 @@
 {
   "name": "@maker-ui/seo",
-  "version": "0.4.3",
-  "author": "Mike Darche",
+  "version": "0.4.4",
+  "license": "MIT",
+  "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "sideEffects": false,
+  "module": "dist/seo.esm.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "prepare": "microbundle --no-compress --jsx React.createElement",
-    "watch": "microbundle watch --no-compress --jsx React.createElement"
+    "build": "cross-env NODE_ENV=production tsdx build --format=cjs,esm",
+    "watch": "cross-env NODE_ENV=development tsdx watch",
+    "lint": "tsdx lint",
+    "test": "tsdx test"
   },
   "dependencies": {
     "react-helmet": "^5.2.1"
@@ -15,9 +18,5 @@
   "peerDependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "license": "MIT"
+  }
 }

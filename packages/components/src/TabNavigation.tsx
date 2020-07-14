@@ -3,13 +3,19 @@ import { Flex, Box, setBreakpoint } from 'maker-ui'
 
 import { useTabs } from './TabGroup'
 
-const responsiveStyles = ({
-  isVertical,
-  navPosition,
-  navStack,
-  navScroll,
-  breakIndex,
-}: TabStyleProps) => {
+export interface TabStyleProps {
+  settings: {
+    isVertical?: boolean
+    navPosition?: string
+    navStack?: boolean
+    navScroll?: boolean
+    breakIndex?: number
+  }
+}
+
+const getNavPosition = ({
+  settings: { isVertical, navPosition, navStack, navScroll, breakIndex },
+}: TabStyleProps): Object => {
   const shared = {
     overflowX: navScroll ? 'scroll' : null,
     flexWrap: navStack ? 'wrap' : 'nowrap',
@@ -37,22 +43,14 @@ const responsiveStyles = ({
   }
 }
 
-export interface TabStyleProps {
-  isVertical?: boolean
-  navPosition?: string
-  navStack?: boolean
-  navScroll?: boolean
-  breakIndex?: number
-}
-
 /**
- * The `TabNavigation` component uses the title supplied to each `Tab` component to render
- * the clickable tab buttons. It renders inside the `TabGroup`.
+ * The `TabNavigation` component generates a nav bar for the `TabGroup`.
+ * It uses the `title` prop on a nested `Tab` component.
  *
  * @internal use only
  */
 
-export const TabNavigation = ({ settings }: { settings: TabStyleProps }) => {
+export const TabNavigation = ({ settings }: TabStyleProps) => {
   const { state, setActive } = useTabs()
 
   return (
@@ -60,7 +58,7 @@ export const TabNavigation = ({ settings }: { settings: TabStyleProps }) => {
       variant={`${state.variant}.list`}
       className="tabs-list"
       role="tablist"
-      sx={responsiveStyles(settings)}>
+      sx={getNavPosition({ settings })}>
       {state.tabs.map(item => (
         <Box
           key={item.id}
