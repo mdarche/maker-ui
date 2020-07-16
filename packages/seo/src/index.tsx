@@ -17,12 +17,19 @@ interface SEOProps {
 }
 
 interface SEOProviderProps {
-  base: SEOProps
+  defaultSeo: SEOProps
   children: React.ReactNode
 }
 
+/**
+ * The `SEOProvider` wraps your application's page content and supplies default
+ * values to all nested `SEO` components.
+ *
+ * @see https://maker-ui.com/docs/components/seo
+ */
+
 const SEOProvider = ({
-  base: {
+  defaultSeo: {
     title = '',
     titleTemplate = '',
     description = '',
@@ -52,16 +59,12 @@ const SEOProvider = ({
   )
 }
 
-function useSEO() {
-  const state = useContext(SEOContext)
-  const setState = useContext(SEOUpdateContext)
-
-  if (typeof state === undefined) {
-    throw new Error('SEO component must be used within an SEOProvider')
-  }
-
-  return [state, setState]
-}
+/**
+ * You can use an `SEO` component anywhere in a page or post layout to inject
+ * SEO tags into the document `<head>`. Powered by React Helmet.
+ *
+ * @see https://maker-ui.com/docs/components/seo
+ */
 
 const SEO = (props: SEOProps) => {
   const [state] = useSEO()
@@ -134,6 +137,17 @@ const SEO = (props: SEOProps) => {
         .concat(meta)}
     />
   )
+}
+
+function useSEO(): [any, any] {
+  const state = useContext(SEOContext)
+  const setState = useContext(SEOUpdateContext)
+
+  if (typeof state === undefined) {
+    throw new Error('SEO component must be used within an SEOProvider')
+  }
+
+  return [state, setState]
 }
 
 export { SEOProvider, SEO, useSEO }

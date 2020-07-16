@@ -32,7 +32,7 @@ export const Basic = ({
   <Flex
     variant={variant}
     {...props}
-    __css={{
+    sx={{
       variant: 'mui_header.default',
       maxWidth,
     }}>

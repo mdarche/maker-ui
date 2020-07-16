@@ -21,17 +21,17 @@ export interface BasicBoxProps {
   as?: React.ElementType | string
   sx?: object
   __css?: object
+  __sx?: object
   className?: string
   id?: string
-  admin?: {
-    variant?: string | string[]
-    sx?: object
-    label?: string
-  }
+  base?: object
   // TESTING REWRITE THIS
-  // ref?: any //React.Ref<HTMLElement>
-  // role?: any
-  // onClick?: any
+  ref?: any //React.Ref<HTMLElement>
+  role?: any
+  onClick?: any
+  title?: any
+  tabIndex?: any
+  // Stop testing
   bg?: string | string[]
   color?: string | string[]
   m?: ResponsiveScale

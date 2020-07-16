@@ -55,7 +55,7 @@ export const Center = ({
         maxWidth,
       }}>
       {layout === 1 ? (
-        <React.Fragment>
+        <>
           <Flex>
             <Logo>{logo}</Logo>
           </Flex>
@@ -63,14 +63,14 @@ export const Center = ({
             <NavMenu menuItems={menu} />
             {renderBlock()}
           </Flex>
-        </React.Fragment>
+        </>
       ) : (
-        <React.Fragment>
+        <>
           <NavMenu menuItems={menu.slice(0, mid)} />
           <Logo>{logo}</Logo>
           <NavMenu menuItems={menu.slice(mid)} />
           {renderBlock()}
-        </React.Fragment>
+        </>
       )}
     </Flex>
   )

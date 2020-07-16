@@ -31,6 +31,9 @@ export default {
       },
     },
   },
+  testVariant: {
+    bg: 'purple',
+  },
   // Maker UI layout variants
   header: {
     py: [2, '10px'],

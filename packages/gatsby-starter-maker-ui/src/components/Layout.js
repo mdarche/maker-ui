@@ -19,7 +19,7 @@ const defaultSEO = {
   titleTemplate: ' | Maker UI',
   description:
     'This is the default Gatsby starter for prototyping with Maker UI.',
-  siteUrl: 'https://maker-ui.dev/gatsby-starter-elements',
+  siteUrl: 'https://maker-ui.com/gatsby-starter-maker-ui',
   twitter: 'mkdarshay',
 }
 
@@ -35,7 +35,7 @@ export default ({ children, location }) => (
     </Header>
     <Content>
       <Main>
-        <SEOProvider base={defaultSEO}>{children}</SEOProvider>
+        <SEOProvider defaultSeo={defaultSEO}>{children}</SEOProvider>
       </Main>
     </Content>
     <Footer>Add a custom footer component here</Footer>

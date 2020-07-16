@@ -1,92 +1,93 @@
 import React from 'react'
-import { Box, Flex } from 'theme-ui'
-import { ButtonProps, SVGProps, LinkProps } from '../types'
+import { jsx } from 'theme-ui'
+import { ButtonProps, SVGProps, LinkProps, BasicBoxProps } from '../types'
 
-// import { jsx } from 'theme-ui'
+// TODO - change types based on "As" prop
 
-// const Box = React.forwardRef<HTMLElement, BasicBoxProps>(
-//   (
-//     {
-//       as = 'div',
-//       sx = {},
-//       variant,
-//       admin,
-//       color,
-//       bg,
-//       m,
-//       mt,
-//       mr,
-//       mb,
-//       ml,
-//       mx,
-//       my,
-//       p,
-//       pt,
-//       pr,
-//       pb,
-//       pl,
-//       px,
-//       py,
-//       b,
-//       bt,
-//       br,
-//       bl,
-//       bb,
-//       ...props
-//     },
-//     ref
-//   ) => {
-//     // prettier-ignore
-//     const styles = {
-//     boxSizing: 'border-box',
-//     margin: 0,
-//     minWidth: 0,
-//       color, bg,
-//       m, mt, mr, mb, ml, mx, my,
-//       p, pt, pr, pb, pl, px, py,
-//       border: b,
-//       borderTop: bt,
-//       borderRight: br,
-//       borderLeft: bl,
-//       borderBottom: bb,
-//     // ...admin?.sx,
-//     variant,
-//     ...sx,
-//   }
+export const Box = ({
+  as = 'div',
+  sx = {},
+  variant,
+  base,
+  __css,
+  __sx,
+  color,
+  bg,
+  m,
+  mt,
+  mr,
+  mb,
+  ml,
+  mx,
+  my,
+  p,
+  pt,
+  pr,
+  pb,
+  pl,
+  px,
+  py,
+  b,
+  bt,
+  br,
+  bl,
+  bb,
+  ...props
+}: BasicBoxProps) => {
+  // prettier-ignore
+  const styles = {
+    boxSizing: 'border-box',
+    margin: 0,
+    minWidth: 0,
+      color, bg,
+      m, mt, mr, mb, ml, mx, my,
+      p, pt, pr, pb, pl, px, py,
+      border: b,
+      borderTop: bt,
+      borderRight: br,
+      borderLeft: bl,
+      borderBottom: bb,
+      variant,
+    ...__css,
+    ...__sx,
+    ...sx,
+  }
 
-//     return jsx(as, {
-//       sx: styles,
-//       ...ref,
-//       ...props,
-//     })
-//   }
-// )
+  return jsx(as, {
+    sx: styles,
+    ...props,
+  })
+}
 
 /**
- *  Aliases for Theme UI primitives
- *
- * @remark In case of future breaking updates, it's easier to address
- * in one place instead of throughout the entire code base.
- *
- * @todo build custom Box and Flex implementations
- *
+ * A `<Box />` component for inline quick access to css Flex properties.
  */
 
-export { Box, Flex }
+export const Flex = (props: BasicBoxProps) => (
+  <Box __sx={{ display: 'flex' }} {...props} />
+)
 
 /**
- * A Theme UI `<Box />` component for wrapping inline SVGs.
+ * A `<Box />` component for inline SVGs.
  */
+
 export const SVG = (props: SVGProps) => (
   <Box as="svg" xmlns="http://www.w3.org/2000/svg" {...props} />
 )
 
 /**
- * A Theme UI `<Box />` component for wrapping Buttons.
+ * A `<Box />` component for Buttons.
  */
-export const Button = (props: ButtonProps) => <Box as="button" {...props} />
+
+export const Button = React.forwardRef(function Button(
+  props: ButtonProps,
+  ref
+) {
+  return <Box ref={ref} as="button" {...props} />
+})
 
 /**
- * A Theme UI `<Box />` component for wrapping anchor tags.
+ * A `<Box />` component for anchor tags.
  */
+
 export const Link = (props: LinkProps) => <Box as="a" {...props} />

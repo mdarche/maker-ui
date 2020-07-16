@@ -76,7 +76,7 @@ export const Announcement = React.forwardRef<HTMLElement, AnnouncementProps>(
         variant={variant}
         className="announcement"
         style={spring}
-        __css={{
+        sx={{
           ...fixedPartial(fixed, bottom),
           display: 'flex',
           alignItems: 'center',

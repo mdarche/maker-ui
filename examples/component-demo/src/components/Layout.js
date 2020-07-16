@@ -43,7 +43,7 @@ export default ({ children, location }) => (
     <Layout theme={theme} options={options}>
       <Announcement sx={{ p: 30 }}>This is an announcement</Announcement>
       <Header>
-        <Navbar logo={'Components Demo'} menu={menu} />
+        <Navbar variant="testVariant" logo={'Components Demo'} menu={menu} />
         <MobileMenu menu={menu} />
       </Header>
       <Content>

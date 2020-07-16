@@ -90,10 +90,12 @@ export const Modal = ({
   // Handle Focus
 
   useEffect(() => {
-    if (show) {
+    console.log(modalRef.current)
+    if (show && modalRef.current) {
       const elements = modalRef.current.querySelectorAll(focusElements)
       document.body.style.overflow = 'hidden'
 
+      // Look for any nested focusable elements and set focus to the first element in the array
       if (elements.length !== 0) {
         setFocusable({
           count: elements.length,
@@ -142,6 +144,8 @@ export const Modal = ({
       }
     }
 
+    // Add keyboard controls if rendered in the browser
+
     if (typeof window !== 'undefined') {
       if (show) {
         window.addEventListener(`keydown`, handleKeyDown)
@@ -165,22 +169,22 @@ export const Modal = ({
               aria-modal="true"
               style={{ ...style, ...props }}
               tabIndex={focusable.count === 0 ? '0' : undefined}
-              __css={{
+              sx={{
                 ...position,
                 ...centered(center),
                 zIndex: 100,
               }}>
               <Box
-                onClick={e => (closeOnBlur ? closeModal() : null)}
+                onClick={e => (closeOnBlur ? closeModal() : undefined)}
                 className="modal-overlay"
                 variant={`${variant}.overlay`}
-                __css={{
+                sx={{
                   ...position,
                   zIndex: -1,
                   bg,
                 }}
               />
-              <Box __css={{ zIndex: 1, overflow: 'scroll' }} {...rest}>
+              <Box sx={{ zIndex: 1, overflow: 'scroll' }} {...rest}>
                 {children}
               </Box>
             </AnimatedBox>

@@ -95,7 +95,7 @@ export const Header = React.forwardRef<HTMLElement, Props>((props, ref) => {
       variant={variant}
       bg={bg}
       {...rest}
-      __css={{
+      base={{
         zIndex: 100,
         ...stickyPartial,
       }}
