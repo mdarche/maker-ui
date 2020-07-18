@@ -1,4 +1,5 @@
 import React from 'react'
+import { SxStyleProp } from 'theme-ui'
 
 type Assign<T, U> = {
   [P in keyof (T & U)]: P extends keyof T
@@ -9,28 +10,34 @@ type Assign<T, U> = {
 }
 
 export type MaybeElement = JSX.Element | string | false | null | undefined
-
 export type ResponsiveScale = string | number | string[] | number[]
+export type ResponsiveString = string | string[]
+export type SxProp = SxStyleProp
+
+export interface LayoutProps {
+  sx?: SxStyleProp
+  variant?: ResponsiveString
+  bg?: ResponsiveString
+}
 
 /**
- * Interface for Theme UI `<Box/>` component props and style shortcuts.
+ * Interface for `<Box/>` component props and style shortcuts.
  */
 export interface BasicBoxProps {
-  children?: React.ReactNode
+  // children?: React.ReactNode
   variant?: string | string[]
-  as?: React.ElementType | string
-  sx?: object
-  __css?: object
-  __sx?: object
-  className?: string
-  id?: string
-  base?: object
+  as?: string | React.ElementType<any>
+  sx?: SxProp
+  __css?: SxProp
+  __sx?: SxProp
+  // className?: string
+  // id?: string
   // TESTING REWRITE THIS
   ref?: any //React.Ref<HTMLElement>
-  role?: any
-  onClick?: any
-  title?: any
-  tabIndex?: any
+  // role?: any
+  // onClick?: any
+  // title?: any
+  // tabIndex?: any
   // Stop testing
   bg?: string | string[]
   color?: string | string[]

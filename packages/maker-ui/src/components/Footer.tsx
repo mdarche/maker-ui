@@ -1,40 +1,45 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { forwardRef } from 'react'
 
-import { Box, Flex } from './common'
-import { BoxProps } from './types'
+import { LayoutProps, ResponsiveScale } from './types'
 
-interface FooterProps extends BoxProps {
-  maxWidth?: string | string[]
-}
-
-const defaultProps = {
-  bg: 'bg_footer',
-  maxWidth: 'maxWidth_footer',
-  variant: 'footer',
+interface FooterProps
+  extends LayoutProps,
+    React.HTMLAttributes<HTMLDivElement> {
+  maxWidth?: ResponsiveScale
 }
 
 /**
- * Use the `Footer` component to store important information, links, and widgets at
+ * Use the `Footer` component to store important site information, links, and widgets at
  * the bottom of your layout.
  *
  * @see https://maker-ui.com/docs/footer
  */
 
-export const Footer = React.forwardRef<HTMLElement, FooterProps>(
-  ({ maxWidth, children, ...props }, ref): JSX.Element => {
+export const Footer = forwardRef<HTMLElement, FooterProps>(
+  (
+    { maxWidth, variant = 'footer', sx, bg = 'bg_footer', children, ...props },
+    ref
+  ) => {
     return (
-      <Box ref={ref} as="footer" id="footer" role="contentinfo" {...props}>
-        <Flex
+      <footer
+        ref={ref}
+        id="footer"
+        role="contentinfo"
+        sx={{ bg, variant }}
+        {...props}>
+        <div
           className="container"
-          __css={{
-            maxWidth,
+          sx={{
+            display: 'flex',
+            maxWidth: maxWidth || (t => t.sizes.maxWidth_footer),
             mx: 'auto',
+            ...sx,
           }}>
           {children}
-        </Flex>
-      </Box>
+        </div>
+      </footer>
     )
   }
 )
-
-Footer.defaultProps = defaultProps

@@ -1,93 +1,44 @@
 import React from 'react'
-import { jsx } from 'theme-ui'
-import { ButtonProps, SVGProps, LinkProps, BasicBoxProps } from '../types'
+import { Box as TBox } from 'theme-ui'
+import { ButtonProps, SVGProps, LinkProps, BoxProps } from '../types'
 
 // TODO - change types based on "As" prop
 
-export const Box = ({
-  as = 'div',
-  sx = {},
-  variant,
-  base,
-  __css,
-  __sx,
-  color,
-  bg,
-  m,
-  mt,
-  mr,
-  mb,
-  ml,
-  mx,
-  my,
-  p,
-  pt,
-  pr,
-  pb,
-  pl,
-  px,
-  py,
-  b,
-  bt,
-  br,
-  bl,
-  bb,
-  ...props
-}: BasicBoxProps) => {
-  // prettier-ignore
-  const styles = {
-    boxSizing: 'border-box',
-    margin: 0,
-    minWidth: 0,
-      color, bg,
-      m, mt, mr, mb, ml, mx, my,
-      p, pt, pr, pb, pl, px, py,
-      border: b,
-      borderTop: bt,
-      borderRight: br,
-      borderLeft: bl,
-      borderBottom: bb,
-      variant,
-    ...__css,
-    ...__sx,
-    ...sx,
-  }
-
-  return jsx(as, {
-    sx: styles,
-    ...props,
-  })
-}
+export const Box = React.forwardRef<any, any>((props, ref) => {
+  const { __sx, sx, ...rest } = props
+  return <TBox ref={ref} sx={{ ...__sx, ...sx }} {...rest} />
+})
 
 /**
- * A `<Box />` component for inline quick access to css Flex properties.
+ * A `<Box />` component for quick access to css Flex properties.
  */
 
-export const Flex = (props: BasicBoxProps) => (
-  <Box __sx={{ display: 'flex' }} {...props} />
+export const Flex = React.forwardRef<HTMLElement, BoxProps | any>(
+  (props, ref) => <Box ref={ref} __sx={{ display: 'flex' }} {...props} />
 )
 
 /**
  * A `<Box />` component for inline SVGs.
  */
 
-export const SVG = (props: SVGProps) => (
-  <Box as="svg" xmlns="http://www.w3.org/2000/svg" {...props} />
-)
+export const SVG = React.forwardRef<SVGAElement, SVGProps>((props, ref) => (
+  <Box ref={ref} as="svg" xmlns="http://www.w3.org/2000/svg" {...props} />
+))
 
 /**
  * A `<Box />` component for Buttons.
  */
 
-export const Button = React.forwardRef(function Button(
-  props: ButtonProps,
-  ref
-) {
-  return <Box ref={ref} as="button" {...props} />
-})
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  // @ts-ignore
+  (props, ref) => <Box ref={ref} as="button" {...props} />
+)
 
 /**
  * A `<Box />` component for anchor tags.
  */
 
-export const Link = (props: LinkProps) => <Box as="a" {...props} />
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
+  // @ts-ignore
+  (props, ref) => <Box ref={ref} as="a" {...props} />
+)

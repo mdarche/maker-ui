@@ -6,5 +6,5 @@
     "rootDir": "src"
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.js"],
-  "exclude": ["src/**/*.test.ts"]
+  "exclude": ["src/**/*.test.ts", "./src/components/common/Box.tsx"]
 }

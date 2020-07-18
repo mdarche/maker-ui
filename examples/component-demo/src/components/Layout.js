@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Topbar,
   Layout,
   Header,
   Navbar,
@@ -7,6 +8,7 @@ import {
   Content,
   Main,
   Footer,
+  Sidebar,
 } from 'maker-ui'
 import {
   Announcement,
@@ -41,16 +43,15 @@ const seo = {
 export default ({ children, location }) => (
   <SEOProvider base={seo}>
     <Layout theme={theme} options={options}>
+      {/* <Topbar>Topbar content</Topbar> */}
       <Announcement sx={{ p: 30 }}>This is an announcement</Announcement>
       <Header>
-        <Navbar variant="testVariant" logo={'Components Demo'} menu={menu} />
+        <Navbar logo={'Components Demo'} menu={menu} />
         <MobileMenu menu={menu} />
       </Header>
       <Content>
-        <Main>
-          {children}
-          {/* <PageTransition>{children}</PageTransition> */}
-        </Main>
+        <Main>{children}</Main>
+        <Sidebar>Test</Sidebar>
       </Content>
       <Footer>Footer</Footer>
       <CookieNotice />

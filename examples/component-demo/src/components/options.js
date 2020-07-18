@@ -1,6 +1,9 @@
 export default {
   navigation: 'center',
-  layout: 'content',
+  layout: 'content-sidebar',
+  topbar: {
+    maxWidth: [200, 600],
+  },
   header: {
     maxWidth: 1080,
     breakIndex: 0,
@@ -15,5 +18,8 @@ export default {
     maxWidth: 960,
     maxWidthSection: 960,
     breakIndex: 0,
+  },
+  footer: {
+    maxWidth: [200, '100%'],
   },
 }

@@ -1,10 +1,11 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { forwardRef } from 'react'
 
-import { Box } from './common'
-import { BoxProps } from './types'
+import { LayoutProps } from './types'
 
-const defaultProps = {
-  variant: 'main',
+interface MainProps extends LayoutProps, React.HTMLAttributes<HTMLDivElement> {
+  background?: string | string[]
 }
 
 /**
@@ -13,18 +14,14 @@ const defaultProps = {
  * @see https://maker-ui.com/docs/main
  */
 
-export const Main = React.forwardRef<HTMLElement, BoxProps>(
-  ({ variant, ...props }, ref) => (
-    <Box
+export const Main = forwardRef<HTMLDivElement, MainProps>(
+  ({ variant = 'main', background, bg, ...props }, ref) => (
+    <main
       ref={ref}
-      as="main"
-      variant={variant}
       id="content"
       role="main"
+      sx={{ bg, background, variant, flex: 1 }}
       {...props}
-      __css={{ flex: 1 }}
     />
   )
 )
-
-Main.defaultProps = defaultProps

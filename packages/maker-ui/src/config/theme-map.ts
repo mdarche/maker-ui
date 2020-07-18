@@ -43,6 +43,7 @@ export default (theme, extendedTheme, options): object => {
     ...headers,
     ...submenu(o.header.dropdown.transition),
   }
+  console.log('Mapped options are', mappedOptions)
 
   return merge.all([mappedOptions, validate(extendedTheme), validate(theme)], {
     arrayMerge: (_, source, __) => source,

@@ -1,4 +1,4 @@
-import { ResponsiveScale } from '../components/types'
+import { SxProp } from '../components/types'
 
 /**
  * Returns a randomly generated alphanumeric ID.
@@ -31,7 +31,7 @@ export function generateId(length: number = 5): string {
  * @returns An array that adds `null` to all indices before the style rule begins
  */
 
-export function setBreakpoint(index: number, arr: any[]): ResponsiveScale {
+export function setBreakpoint(index: number, arr: any[]): SxProp {
   let i = 0
 
   while (i < index) {

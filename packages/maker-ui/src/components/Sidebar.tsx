@@ -1,11 +1,13 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { forwardRef } from 'react'
 
-import { Box } from './common'
-import { MakerProps } from './types'
+import { LayoutProps } from './types'
 
-const defaultProps = {
-  as: 'aside',
-  label: 'Sidebar',
+interface SidebarProps
+  extends LayoutProps,
+    React.HTMLAttributes<HTMLDivElement> {
+  background?: string | string[]
 }
 
 /**
@@ -15,12 +17,26 @@ const defaultProps = {
  * @see https://maker-ui.com/docs/sidebar
  */
 
-export const Sidebar = React.forwardRef<HTMLElement, MakerProps>(
-  (props, ref) => {
+export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
+  (
+    {
+      id = 'primary-sidebar',
+      bg,
+      background,
+      variant = 'sidebar',
+      sx,
+      ...props
+    },
+    ref
+  ) => {
     return (
-      <Box ref={ref} id="primary-sidebar" role="complementary" {...props} />
+      <div
+        ref={ref}
+        id={id}
+        role="complementary"
+        sx={{ bg, background, variant, ...sx }}
+        {...props}
+      />
     )
   }
 )
-
-Sidebar.defaultProps = defaultProps

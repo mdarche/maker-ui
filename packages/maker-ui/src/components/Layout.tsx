@@ -29,6 +29,7 @@ const Root = ({
   return (
     <ThemeProvider
       theme={themeMap(theme, extendedTheme, allOptions)}
+      // @ts-ignore
       components={components}>
       <OptionProvider options={allOptions}>
         <ActionProvider>

@@ -85,17 +85,15 @@ export const MobileMenu = React.forwardRef<HTMLElement, Props>((props, ref) => {
         id="mobile-menu"
         variant={variant}
         {...props}
-        base={{
-          sx: {
-            position: 'fixed',
-            bg,
-            top: 0,
-            bottom: 0,
-            zIndex: 100,
-            willChange: 'transform opacity',
-            transition: 'all ease .3s',
-            ...getTransition(show, transition, width),
-          },
+        __sx={{
+          position: 'fixed',
+          bg,
+          top: 0,
+          bottom: 0,
+          zIndex: 100,
+          willChange: 'transform opacity',
+          transition: 'all ease .3s',
+          ...getTransition(show, transition, width),
         }}>
         {mobileMenu.defaultCloseButton ? (
           <MenuButton

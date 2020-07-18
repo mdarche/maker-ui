@@ -1,6 +1,6 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 
-import { Box } from './common'
 import { useOptions } from '../context/OptionContext'
 
 export interface Link {
@@ -14,8 +14,9 @@ interface SkipLinkProps {
 
 /**
  * Adds default skiplinks to the layout if enabled via `options` configuration.
- * By default, Skiplinks support #content, #footer, and #side-nav. You can supply your own
- * Link array for extra accessibility control.
+ * By default, Skiplinks support #content, #footer, and #side-nav.
+ *
+ * @remark You can supply your own link array for extra accessibility control.
  *
  * @internal only
  */
@@ -41,13 +42,13 @@ export const Skiplinks = (props: SkipLinkProps) => {
   }
 
   return a11y.skiplinks ? (
-    <Box
-      as="ul"
+    <ul
       sx={{
         listStyle: 'none',
         position: 'relative',
         zIndex: 1000,
         p: 0,
+        m: 0,
         a: {
           bg: 'bg_header',
           display: 'block',
@@ -65,6 +66,6 @@ export const Skiplinks = (props: SkipLinkProps) => {
           <a href={id}>{label}</a>
         </li>
       ))}
-    </Box>
+    </ul>
   ) : null
 }

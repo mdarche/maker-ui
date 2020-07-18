@@ -1,21 +1,16 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { forwardRef } from 'react'
 
-import { Box, Flex } from './common'
-import { BoxProps } from './types'
+import { LayoutProps, ResponsiveScale } from './types'
 import { useOptions } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 
-interface TopbarProps extends BoxProps {
-  background?: string | string[]
-  maxWidth?: string | string[]
+interface TopbarProps
+  extends LayoutProps,
+    React.HTMLAttributes<HTMLDivElement> {
+  maxWidth?: ResponsiveScale
   scrollOverflow?: boolean
-}
-
-const defaultProps = {
-  bg: 'bg_topbar',
-  maxWidth: 'maxWidth_topbar',
-  variant: 'topbar',
-  scrollOverflow: false,
 }
 
 /**
@@ -25,35 +20,41 @@ const defaultProps = {
  * @see https://maker-ui.com/docs/topbar
  */
 
-export const Topbar = React.forwardRef<HTMLElement, TopbarProps>(
-  ({ bg, maxWidth, variant, scrollOverflow, ...props }, ref) => {
+export const Topbar = forwardRef<HTMLElement, TopbarProps>(
+  (
+    {
+      bg = 'bg_topbar',
+      maxWidth,
+      variant = 'topbar',
+      scrollOverflow = false,
+      ...props
+    },
+    ref
+  ) => {
     const { topbar } = useOptions()
 
     return (
-      <Box
+      <aside
         ref={ref}
-        as="aside"
-        variant={variant}
-        // role="complementary"
-        bg={bg}
+        id="topbar"
         sx={{
+          bg,
+          variant,
           display: topbar.hideOnMobile
             ? setBreakpoint(topbar.breakIndex, ['none', 'block'])
             : 'block',
         }}>
-        <Flex
-          {...props}
+        <div
           className="container"
-          __css={{
+          sx={{
             mx: 'auto',
             overflowX: scrollOverflow ? 'scroll' : null,
             whiteSpace: scrollOverflow ? 'nowrap' : null,
-            maxWidth,
+            maxWidth: maxWidth || (t => t.sizes.maxWidth_topbar),
           }}
+          {...props}
         />
-      </Box>
+      </aside>
     )
   }
 )
-
-Topbar.defaultProps = defaultProps

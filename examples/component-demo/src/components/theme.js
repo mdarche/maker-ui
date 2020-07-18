@@ -12,7 +12,7 @@ export default {
     bg_header: '#fff',
     bg_mobileNav: 'rgba(0, 0, 0, 0.9)',
     bg_sideNav: '#eee',
-    bg_footer: '#fff',
+    bg_footer: 'blue',
   },
   fonts: {
     body: 'system-ui, sans-serif',
@@ -33,6 +33,13 @@ export default {
   },
   testVariant: {
     bg: 'purple',
+    p: 300,
+  },
+  bigVariant: {
+    fontWeight: 700,
+  },
+  otherVariant: {
+    p: 20,
   },
   // Maker UI layout variants
   header: {
@@ -82,5 +89,10 @@ export default {
         bg: 'red',
       },
     },
+  },
+  footer: {
+    p: 200,
+    fontWeight: 700,
+    fontSize: 30,
   },
 }
