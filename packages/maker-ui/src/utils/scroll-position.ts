@@ -16,14 +16,21 @@ function getScrollPosition(): number | { x: number; y: number } {
  *
  * @param effect - A callback function that shows the user's previous and current positions
  * @param wait - The timeout delay for obtaining new position values
+ * @param active - A boolean that determines if the effect should be run
  *
  */
 
-export function useScrollPosition(effect: any, wait: number): void {
+export function useScrollPosition(
+  effect: any,
+  wait: number,
+  active: boolean
+): void {
   const position = useRef(getScrollPosition())
 
   useLayoutEffect(() => {
-    if (!isBrowser) return
+    // Exit if run on server or if the effect is not active
+    if (!active || !isBrowser) return
+
     let throttleTimeout = null
 
     const callBack = () => {
@@ -46,5 +53,5 @@ export function useScrollPosition(effect: any, wait: number): void {
     window.addEventListener('scroll', handleScroll)
 
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [effect, wait])
+  }, [effect, wait, active])
 }

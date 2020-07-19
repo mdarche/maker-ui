@@ -1,6 +1,8 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { forwardRef, Fragment } from 'react'
 
-import { BasicBoxProps, MenuProps, MaybeElement } from './types'
+import { LayoutProps, MenuProps, MaybeElement } from './types'
 import { Box, Button } from './common'
 import { AccordionMenu } from './AccordionMenu'
 import { Overlay } from './common'
@@ -10,20 +12,16 @@ import { setBreakpoint } from '../utils/helper'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
-interface Props extends BasicBoxProps {
+interface SideNavProps
+  extends LayoutProps,
+    React.HTMLAttributes<HTMLDivElement> {
   toggleVariant?: string | string[]
+  background?: string | string[]
   customToggle: MaybeElement
   menu?: MenuProps[]
   pathname?: string
   header?: React.ReactElement
   footer?: React.ReactElement
-}
-
-const defaultProps = {
-  bg: 'bg_sideNav',
-  customToggle: 'Toggle',
-  variant: 'sideNav',
-  toggleVariant: 'sideNav.toggle',
 }
 
 /**
@@ -33,13 +31,14 @@ const defaultProps = {
  * @see https://maker-ui.com/docs/sidenav
  */
 
-export const SideNav = React.forwardRef<HTMLElement, Props>(
+export const SideNav = forwardRef<HTMLElement, SideNavProps>(
   (
     {
-      bg,
-      toggleVariant,
-      customToggle,
-      variant,
+      bg = 'bg_sideNav',
+      background,
+      toggleVariant = 'sideNav.toggle',
+      customToggle = 'Toggle',
+      variant = 'sideNav',
       menu,
       pathname,
       header,
@@ -61,7 +60,7 @@ export const SideNav = React.forwardRef<HTMLElement, Props>(
     }
 
     return (
-      <React.Fragment>
+      <Fragment>
         {sideNav.closeOnBlur && (
           <Overlay
             show={active}
@@ -73,11 +72,11 @@ export const SideNav = React.forwardRef<HTMLElement, Props>(
         <Box
           ref={ref}
           as={sideNav.isHeader && 'header'}
-          variant={variant}
           id="side-nav"
-          {...props}
-          __css={{
+          sx={{
             bg,
+            background,
+            variant,
             position: setBreakpoint(bp, ['fixed', 'relative']),
             top: 0,
             bottom: 0,
@@ -87,7 +86,8 @@ export const SideNav = React.forwardRef<HTMLElement, Props>(
             transform: t =>
               setBreakpoint(bp, [getTransform(t.sizes.width_sideNav), 'none']),
             transition: 'transform ease .3s',
-          }}>
+          }}
+          {...props}>
           {header && header}
           {children || (
             <AccordionMenu menu={menu} menuType="sideNav" pathname={pathname} />
@@ -110,9 +110,7 @@ export const SideNav = React.forwardRef<HTMLElement, Props>(
             {customToggle}
           </Button>
         ) : null}
-      </React.Fragment>
+      </Fragment>
     )
   }
 )
-
-SideNav.defaultProps = defaultProps

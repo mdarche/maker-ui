@@ -1,6 +1,6 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 
-import { Box } from './Box'
 import { setBreakpoint } from '../../utils/helper'
 
 interface OverlayProps {
@@ -23,9 +23,9 @@ export const Overlay = ({ show, toggle, type, bp }: OverlayProps) => {
       : { visibility, opacity }
 
   return (
-    <Box
+    <div
       className="menu-overlay"
-      role="presentation"
+      role="button"
       onClick={toggle}
       sx={{
         position: 'fixed',

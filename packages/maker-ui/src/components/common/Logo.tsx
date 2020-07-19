@@ -1,18 +1,16 @@
 import React from 'react'
 
 import { Link } from './Box'
-import { BasicBoxProps } from '../types'
 
-// TESTING REWRITE (props)
-export const Logo = (props: any) => (
+export const Logo = ({ children }) => (
   <Link
     href="/"
     id="site-logo"
-    variant="header.logo"
     aria-label="Home page"
     sx={{
+      variant: 'header.logo',
       display: 'flex',
-    }}
-    {...props}
-  />
+    }}>
+    {children}
+  </Link>
 )

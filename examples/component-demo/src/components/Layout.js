@@ -21,7 +21,14 @@ import options from './options'
 import theme from './theme'
 
 const menu = [
-  { label: 'Carousel', path: '/carousel' },
+  {
+    label: 'Carousel',
+    path: '/carousel',
+    submenu: [
+      { label: 'Tabs', path: '/tabs' },
+      { label: 'Tabs', path: '/tabs' },
+    ],
+  },
   { label: 'Tabs', path: '/tabs' },
   { label: 'Accordion', path: '/accordion' },
   { label: 'Generative', path: '/generative' },

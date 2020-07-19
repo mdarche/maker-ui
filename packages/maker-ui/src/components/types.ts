@@ -16,7 +16,7 @@ export type SxProp = SxStyleProp
 
 export interface LayoutProps {
   sx?: SxStyleProp
-  variant?: ResponsiveString
+  variant?: string
   bg?: ResponsiveString
 }
 

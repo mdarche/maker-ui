@@ -2,7 +2,12 @@ import React from 'react'
 
 import { Button, SVG } from './Box'
 
-export const ExpandButton = ({ show, set }) => {
+interface ExpandButtonProps {
+  show: boolean
+  set: Function
+}
+
+export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
   return (
     <Button
       title="Expand Section"

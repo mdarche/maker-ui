@@ -1,20 +1,18 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { forwardRef } from 'react'
 
-import { Box } from './common'
-import { BasicBoxProps, MenuProps } from './types'
+import { MenuProps, LayoutProps } from './types'
 import { MenuItem } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu, useSideNav } from '../context/ActionContext'
 
-interface AccordionProps extends BasicBoxProps {
+interface AccordionProps
+  extends LayoutProps,
+    React.HTMLAttributes<HTMLUListElement> {
   menu: MenuProps[]
   menuType: string
   pathname?: string
-}
-
-const defaultProps = {
-  variant: 'accordion-menu',
-  menu: [],
 }
 
 /**
@@ -27,8 +25,11 @@ const defaultProps = {
  * @see https://maker-ui.com/docs/accordion-menu
  */
 
-export const AccordionMenu = React.forwardRef<HTMLElement, AccordionProps>(
-  ({ menu, variant, menuType, pathname, ...props }, ref) => {
+export const AccordionMenu = forwardRef<HTMLUListElement, AccordionProps>(
+  (
+    { menu = [], variant = 'accordionMenu', menuType, pathname, ...props },
+    ref
+  ) => {
     const { mobileMenu, sideNav } = useOptions()
     const [showMenu, toggleMenu] = useMenu()
     const [showSideNav, toggleSideNav] = useSideNav()
@@ -46,12 +47,11 @@ export const AccordionMenu = React.forwardRef<HTMLElement, AccordionProps>(
     }
 
     return (
-      <Box
+      <ul
         ref={ref}
-        as="ul"
-        variant={variant}
         className="accordion-menu"
         role="navigation"
+        sx={{ variant }}
         {...props}>
         {menu.map((item, index) => (
           <MenuItem
@@ -61,9 +61,7 @@ export const AccordionMenu = React.forwardRef<HTMLElement, AccordionProps>(
             pathname={pathname}
           />
         ))}
-      </Box>
+      </ul>
     )
   }
 )
-
-AccordionMenu.defaultProps = defaultProps

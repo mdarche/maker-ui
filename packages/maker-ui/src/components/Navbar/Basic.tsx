@@ -11,14 +11,8 @@ import {
   Logo,
 } from '../common'
 
-const defaultProps = {
-  logo: 'logo',
-  maxWidth: 'maxWidth_header',
-  variant: 'navbar',
-}
-
 export const Basic = ({
-  logo,
+  logo = 'logo',
   menu,
   widgetArea,
   menuToggle,
@@ -26,7 +20,7 @@ export const Basic = ({
   bp,
   layout,
   maxWidth,
-  variant,
+  variant = 'navbar',
   ...props
 }: NavProps) => (
   <Flex
@@ -34,7 +28,7 @@ export const Basic = ({
     {...props}
     sx={{
       variant: 'mui_header.default',
-      maxWidth,
+      maxWidth: t => t.sizes.maxWidth_header,
     }}>
     <Logo>{logo}</Logo>
     <Flex
@@ -55,5 +49,3 @@ export const Basic = ({
     </Flex>
   </Flex>
 )
-
-Basic.defaultProps = defaultProps

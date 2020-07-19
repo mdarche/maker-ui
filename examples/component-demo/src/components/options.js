@@ -7,12 +7,14 @@ export default {
   header: {
     maxWidth: 1080,
     breakIndex: 0,
+    stickyScroll: false,
   },
   mobileMenu: {
-    width: '60vw',
-    transition: 'slideRight',
+    width: '80vw',
+    transition: 'fade-down',
     closeOnBlur: true,
     closeOnRouteChange: true,
+    defaultCloseButton: true,
   },
   content: {
     maxWidth: 960,

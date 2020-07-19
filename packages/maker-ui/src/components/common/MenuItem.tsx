@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { Fragment, useState } from 'react'
 
-import { Box, Link } from './Box'
+import { Link } from './Box'
 import { ExpandButton } from './ExpandButton'
 import { MenuProps } from '../types'
 
@@ -15,15 +17,11 @@ interface Props {
   menuInfo?: { index: number; length: number }
 }
 
-const defaultProps = {
-  caret: false,
-  isHeader: false,
-  depth: 0,
-}
-
 /**
  * Returns a menu item and nested children for `NavMenu` or `AccordionMenu`
  * components.
+ *
+ * @todo - test single variant dropdown behavior
  *
  * @remark This component uses recursion to build nested menus
  *
@@ -39,12 +37,12 @@ export const MenuItem = ({
     classes = '',
     icon,
   },
-  caret,
+  caret = false,
   menuControls,
   pathname,
-  isHeader,
+  isHeader = false,
   rootControls,
-  depth,
+  depth = 0,
   menuInfo,
 }: Props) => {
   // For nested accordion menus
@@ -89,8 +87,7 @@ export const MenuItem = ({
       : null
 
   return (
-    <Box
-      as="li"
+    <li
       className={`menu-item${classes && ' ' + classes}`}
       sx={
         isHeader
@@ -121,17 +118,20 @@ export const MenuItem = ({
         <span className="menu-text">{label}</span>
       </Link>
       {submenu && (
-        <React.Fragment>
+        <Fragment>
           {!isHeader && <ExpandButton set={setNested} show={showNested} />}
           {isHeader || (!isHeader && showNested) ? (
-            <Box
-              as="ul"
-              variant={isHeader ? 'header.submenu' : 'accordion'}
+            <ul
+              // variant={isHeader ? 'header.submenu' : 'accordion'}
               className={submenuClass}
               sx={
+                // variant: isHeader ? 'header.submenu' : 'accordion',
+
                 isHeader && {
+                  // ...t => t.mui_submenu,
                   variant: 'mui_submenu',
                   '&.active': {
+                    // ...t => t.mui_submenu.active,
                     variant: 'mui_submenu.active',
                   },
                 }
@@ -154,12 +154,10 @@ export const MenuItem = ({
                   }}
                 />
               ))}
-            </Box>
+            </ul>
           ) : null}
-        </React.Fragment>
+        </Fragment>
       )}
-    </Box>
+    </li>
   )
 }
-
-MenuItem.defaultProps = defaultProps

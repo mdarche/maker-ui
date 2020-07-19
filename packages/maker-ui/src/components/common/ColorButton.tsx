@@ -6,11 +6,11 @@ import { MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
-interface ButtonProps {
+interface ColorButtonProps {
   custom: MaybeElement
 }
 
-export const ColorButton = ({ custom }: ButtonProps) => {
+export const ColorButton = ({ custom }: ColorButtonProps) => {
   const { theme, colorMode, setColorMode } = useThemeUI()
   const { header } = useOptions()
 

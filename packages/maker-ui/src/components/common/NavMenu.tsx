@@ -1,25 +1,25 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { memo } from 'react'
 
-import { Box } from './Box'
 import { MenuProps } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 import { MenuItem } from './MenuItem'
 
-interface Props {
+interface NavMenuProps {
   menuItems: MenuProps[]
   pathname?: string
 }
 
-export const NavMenu = React.memo(({ menuItems = [], pathname }: Props) => {
+export const NavMenu = memo(({ menuItems = [], pathname }: NavMenuProps) => {
   const { header } = useOptions()
 
   return (
-    <Box
-      as="nav"
+    <nav
       className="nav-primary"
       sx={{ display: setBreakpoint(header.breakIndex, ['none', 'flex']) }}>
-      <Box as="ul" variant="header.menu" className="menu-primary">
+      <ul className="menu-primary" sx={{ variant: 'header.menu' }}>
         {menuItems.map((item, index) => (
           <MenuItem
             key={index}
@@ -29,7 +29,7 @@ export const NavMenu = React.memo(({ menuItems = [], pathname }: Props) => {
             isHeader
           />
         ))}
-      </Box>
-    </Box>
+      </ul>
+    </nav>
   )
 })

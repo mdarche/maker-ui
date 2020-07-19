@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { forwardRef, useEffect } from 'react'
 
-import { Box } from './common'
-import { BasicBoxProps } from './types'
+import { LayoutProps } from './types'
 import { useOptions, useLayout } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
-interface ContentProps extends BasicBoxProps {
+interface ContentProps
+  extends LayoutProps,
+    React.HTMLAttributes<HTMLDivElement> {
   layout?: string
 }
 
@@ -18,7 +21,7 @@ interface ContentProps extends BasicBoxProps {
  * @see https://maker-ui.com/docs/content
  */
 
-export const Content = React.forwardRef<HTMLDivElement, ContentProps>(
+export const Content = forwardRef<HTMLDivElement, ContentProps>(
   ({ layout, ...props }, ref) => {
     const { content } = useOptions()
     const [baseLayout, setLayout] = useLayout()
@@ -49,15 +52,15 @@ export const Content = React.forwardRef<HTMLDivElement, ContentProps>(
         : null
 
     return (
-      <Box
+      <div
         ref={ref}
         id="site-inner"
-        {...props}
-        __css={{
+        sx={{
           variant: `mui_layout.${baseLayout}`,
           ...sidebarPartial,
           minHeight: '80vh',
         }}
+        {...props}
       />
     )
   }

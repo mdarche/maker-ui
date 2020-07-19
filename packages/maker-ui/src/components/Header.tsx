@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { forwardRef, useState } from 'react'
 
-import { Box } from './common'
-import { BasicBoxProps } from './types'
+import { LayoutProps } from './types'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../utils/scroll-position'
 import { setBreakpoint } from '../utils/helper'
 
-interface Props extends BasicBoxProps {
+interface HeaderProps
+  extends LayoutProps,
+    React.HTMLAttributes<HTMLDivElement> {
+  background?: string | string[]
   sticky?: boolean
   stickyMobile?: boolean
   stickyScroll?: boolean
@@ -19,22 +23,24 @@ interface Props extends BasicBoxProps {
  * @see https://maker-ui.com/docs/header
  */
 
-export const Header = React.forwardRef<HTMLElement, Props>((props, ref) => {
+export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
   const { header } = useOptions()
   const [scrollClass, setScrollClass] = useState(null)
   const [show, setShow] = useState(true)
 
   const {
-    bg = 'bg_header',
     variant = 'header',
+    bg = 'bg_header',
+    background,
     sticky = header.sticky,
     stickyMobile = header.stickyMobile,
     stickyScroll = header.stickyScroll,
     ...rest
   } = props
 
-  if (stickyScroll) {
-    useScrollPosition(({ prevPos, currPos }) => {
+  // Fire hook effect if stickyScroll === true
+  useScrollPosition(
+    ({ prevPos, currPos }) => {
       const isDownScroll = currPos > prevPos
       const aboveLimit = currPos > 500
 
@@ -49,20 +55,24 @@ export const Header = React.forwardRef<HTMLElement, Props>((props, ref) => {
       if (aboveLimit && !isDownScroll && !show) {
         setShow(true)
       }
-    }, 250)
-  }
+    },
+    250,
+    stickyScroll
+  )
 
-  if (header.scroll.toggleClass) {
-    const { scrollTop, className } = header.scroll
-
-    useScrollPosition(({ currPos }) => {
+  // Fire hook effect if header.scroll.toggleClass === true
+  useScrollPosition(
+    ({ currPos }) => {
+      const { scrollTop, className } = header.scroll
       const isActive = currPos > scrollTop ? className : null
 
       if (isActive !== scrollClass) {
         setScrollClass(isActive)
       }
-    }, 0)
-  }
+    },
+    0,
+    header.scroll.toggleClass
+  )
 
   const stickyPartial = stickyScroll
     ? {
@@ -86,19 +96,19 @@ export const Header = React.forwardRef<HTMLElement, Props>((props, ref) => {
     : { position: 'relative' }
 
   return (
-    <Box
+    <header
       ref={ref}
-      as="header"
       id="site-header"
       className={scrollClass}
       role="banner"
-      variant={variant}
-      bg={bg}
-      {...rest}
-      base={{
+      sx={{
+        bg,
+        background,
+        variant,
         zIndex: 100,
         ...stickyPartial,
       }}
+      {...rest}
     />
   )
 })

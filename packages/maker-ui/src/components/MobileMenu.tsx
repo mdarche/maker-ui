@@ -1,13 +1,18 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import { forwardRef, Fragment } from 'react'
 
-import { ResponsiveScale, MenuProps, BasicBoxProps } from './types'
+import { ResponsiveScale, MenuProps, LayoutProps } from './types'
 import { AccordionMenu } from './AccordionMenu'
-import { Box, Overlay, MenuButton } from './common'
+import { Overlay, MenuButton } from './common'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
 
-interface Props extends BasicBoxProps {
+interface MobileMenuProps
+  extends LayoutProps,
+    React.HTMLAttributes<HTMLDivElement> {
   transition?: string
+  background?: string | string[]
   width?: ResponsiveScale
   menu?: MenuProps[]
   pathname?: string
@@ -15,16 +20,19 @@ interface Props extends BasicBoxProps {
   footer?: React.ReactElement
 }
 
-const defaultProps = {
-  bg: 'bg_mobileMenu',
-  variant: 'mobileMenu',
-  menu: [],
-}
-
 /**
  * Mobile nav transitions that require full-width screen
  */
+
 const fullWidth: string[] = ['fade', 'fade-up', 'fade-down']
+
+/**
+ * Uses the nav's settings to build the appropriate transition and position.
+ *
+ * @param active - a boolean that determines whether or not the menu is active
+ * @param type - the transition style (string)
+ * @param width - the mobile menu's width specificed in the options configuration
+ */
 
 const getTransition = (active, type, width): React.CSSProperties => {
   const opacity = type.includes('fade') ? (active ? 1 : 0) : 1
@@ -56,59 +64,64 @@ const getTransition = (active, type, width): React.CSSProperties => {
 /**
  * Use the `MobileMenu` component to customize a responsive overlay menu for mobile navigation.
  *
+ * @todo calcluate default fill color of the close button with an accessibility color picker
+ *
  * @see https://maker-ui.com/docs/mobile-menu
  */
 
-export const MobileMenu = React.forwardRef<HTMLElement, Props>((props, ref) => {
-  const [show, toggleMenu] = useMenu()
-  const { mobileMenu } = useOptions()
+export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
+  (props, ref) => {
+    const [show, toggleMenu] = useMenu()
+    const { mobileMenu } = useOptions()
 
-  const {
-    bg,
-    variant,
-    width = mobileMenu.width,
-    transition = mobileMenu.transition,
-    menu,
-    pathname,
-    header,
-    footer,
-    children,
-  } = props
+    const {
+      bg = 'bg_mobileMenu',
+      variant = 'mobileMenu',
+      background,
+      width = mobileMenu.width,
+      transition = mobileMenu.transition,
+      menu = [],
+      pathname,
+      header,
+      footer,
+      children,
+      ...rest
+    } = props
 
-  return (
-    <React.Fragment>
-      {mobileMenu.closeOnBlur && !fullWidth.includes(transition) && (
-        <Overlay show={show} toggle={toggleMenu} />
-      )}
-      <Box
-        ref={ref}
-        id="mobile-menu"
-        variant={variant}
-        {...props}
-        __sx={{
-          position: 'fixed',
-          bg,
-          top: 0,
-          bottom: 0,
-          zIndex: 100,
-          willChange: 'transform opacity',
-          transition: 'all ease .3s',
-          ...getTransition(show, transition, width),
-        }}>
-        {mobileMenu.defaultCloseButton ? (
-          <MenuButton
-            sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}
-            closeIcon
-          />
-        ) : null}
-        {header && header}
-        {children || (
-          <AccordionMenu menu={menu} menuType="mobile" pathname={pathname} />
+    return (
+      <Fragment>
+        {mobileMenu.closeOnBlur && !fullWidth.includes(transition) && (
+          <Overlay show={show} toggle={toggleMenu} />
         )}
-        {footer && footer}
-      </Box>
-    </React.Fragment>
-  )
-})
-
-MobileMenu.defaultProps = defaultProps
+        <div
+          ref={ref}
+          id="mobile-menu"
+          sx={{
+            position: 'fixed',
+            bg,
+            background,
+            variant,
+            top: 0,
+            bottom: 0,
+            zIndex: 100,
+            willChange: 'transform opacity',
+            transition: 'all ease .3s',
+            ...getTransition(show, transition, width),
+          }}
+          {...rest}>
+          {mobileMenu.defaultCloseButton ? (
+            <MenuButton
+              sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}
+              closeIcon
+            />
+          ) : null}
+          {header && header}
+          {children || (
+            <AccordionMenu menu={menu} menuType="mobile" pathname={pathname} />
+          )}
+          {footer && footer}
+        </div>
+      </Fragment>
+    )
+  }
+)
