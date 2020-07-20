@@ -1,7 +1,7 @@
 import merge from 'deepmerge'
 
 import { validate } from '../utils/helper'
-import defaultOptions from './options'
+import { defaultOptions } from './options'
 import layouts from './variants/layouts'
 import headers from './variants/headers'
 import submenu from './variants/submenu'
@@ -43,7 +43,6 @@ export default (theme, extendedTheme, options): object => {
     ...headers,
     ...submenu(o.header.dropdown.transition),
   }
-  console.log('Mapped options are', mappedOptions)
 
   return merge.all([mappedOptions, validate(extendedTheme), validate(theme)], {
     arrayMerge: (_, source, __) => source,

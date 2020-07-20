@@ -1,17 +1,18 @@
 import React from 'react'
-import { ThemeProvider } from 'theme-ui'
+import { ThemeProvider, Theme } from 'theme-ui'
 import merge from 'deepmerge'
 
 import { ExtensionProvider, useExtensions } from '../context/ExtendContext'
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
 import { Skiplinks, Link } from './Skiplinks'
+import { MakerOptions } from './types'
 import themeMap from '../config/theme-map'
 
 interface LayoutProps {
   children: React.ReactNode
-  theme: object
-  options: object
+  theme: Theme
+  options: Partial<MakerOptions>
   components?: object
   skiplinks?: Link[]
 }

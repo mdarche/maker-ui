@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import merge from 'deepmerge'
 
-import defaultOptions from '../config/options'
+import { defaultOptions } from '../config/options'
 
 const OptionContext = React.createContext(null)
 const OptionUpdateContext = React.createContext(null)

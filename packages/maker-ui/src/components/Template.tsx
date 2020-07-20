@@ -1,6 +1,7 @@
 import React from 'react'
+import { Theme } from 'theme-ui'
 
-import { MaybeElement, MenuProps } from './types'
+import { MakerOptions, MaybeElement, MenuProps } from './types'
 import { Layout } from './Layout'
 import { Topbar } from './Topbar'
 import { Header } from './Header'
@@ -60,8 +61,8 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
 }
 
 interface TemplateProps {
-  theme: object
-  options: object
+  theme: Theme
+  options: MakerOptions
   components?: object
   topbar?: MaybeElement
   headerWidgets?: MaybeElement

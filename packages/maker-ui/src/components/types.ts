@@ -95,15 +95,72 @@ export interface LinkProps
 /**
  * Alias for top-level Maker UI components layout components.
  */
-export interface MakerProps extends BasicBoxProps {
-  label?: string
-  className?: string
+
+export interface MakerOptions {
+  navigation: string
+  layout: string
+  topbar: {
+    maxWidth: ResponsiveScale
+    hideOnMobile: boolean
+    breakIndex: number
+  }
+  header: {
+    maxWidth: ResponsiveScale
+    sticky: boolean
+    stickyMobile: boolean
+    stickyScroll: boolean
+    scroll: {
+      toggleClass: boolean
+      scrollTop: number
+      className: string
+    }
+    colorToggle: boolean
+    hideColorToggleOnMobile: boolean
+    hideWidgetsOnMobile: boolean
+    dropdown: {
+      caret: boolean
+      transition: string
+    }
+    breakIndex: number
+  }
+  mobileMenu: {
+    width: ResponsiveScale
+    transition: string
+    visibleOnDesktop: boolean
+    defaultCloseButton: boolean
+    closeOnBlur: boolean
+    closeOnRouteChange: boolean
+  }
+  sideNav: {
+    width: ResponsiveScale
+    isHeader: boolean
+    isPrimaryMobileNav: boolean
+    floatingToggle: boolean
+    closeOnBlur: boolean
+    closeOnRouteChange: boolean
+    breakIndex: number
+  }
+  content: {
+    maxWidth: ResponsiveScale
+    maxWidthSection: ResponsiveScale
+    sidebarGap: ResponsiveScale
+    breakIndex: number
+  }
+  sidebar: {
+    width: ResponsiveScale
+  }
+  footer: {
+    maxWidth: ResponsiveScale
+  }
+  a11y: {
+    skiplinks: boolean
+  }
 }
 
 /**
  * Alias for shared <Navbar /> component props.
  */
-export interface NavProps extends MakerProps {
+export interface NavProps extends BasicBoxProps {
   logo: MaybeElement
   menuToggle: MaybeElement
   colorToggle: MaybeElement

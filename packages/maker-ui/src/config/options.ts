@@ -1,4 +1,6 @@
-export default {
+import { MakerOptions } from '../components/types'
+
+export const defaultOptions: MakerOptions = {
   navigation: 'basic',
   layout: 'content',
   topbar: {
@@ -26,7 +28,7 @@ export default {
     breakIndex: 0,
   },
   mobileMenu: {
-    width: '60vw', // note: can be responsive array
+    width: '60vw',
     transition: 'slideLeft',
     visibleOnDesktop: false,
     defaultCloseButton: false,
