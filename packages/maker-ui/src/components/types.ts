@@ -10,8 +10,11 @@ type Assign<T, U> = {
 }
 
 export type MaybeElement = JSX.Element | string | false | null | undefined
+
 export type ResponsiveScale = string | number | string[] | number[]
+
 export type ResponsiveString = string | string[]
+
 export type SxProp = SxStyleProp
 
 export interface LayoutProps {
@@ -170,8 +173,9 @@ export interface NavProps extends BasicBoxProps {
   type?: string
   layout?: number
   pathname?: string
-  maxWidth?: ResponsiveScale
+  maxWidth?: ResponsiveScale | any
   variant?: string
+  sx?: SxStyleProp
 }
 
 /**

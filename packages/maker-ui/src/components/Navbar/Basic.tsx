@@ -10,6 +10,7 @@ import {
   WidgetArea,
   Logo,
 } from '../common'
+import { headerStyles } from './styles'
 
 export const Basic = ({
   logo = 'logo',
@@ -21,27 +22,27 @@ export const Basic = ({
   layout,
   maxWidth,
   variant = 'navbar',
+  sx,
   ...props
 }: NavProps) => (
   <Flex
     variant={variant}
-    {...props}
+    // @ts-ignore
     sx={{
-      variant: 'mui_header.default',
-      maxWidth: t => t.sizes.maxWidth_header,
-    }}>
+      ...headerStyles.default,
+      maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
+      ...sx,
+    }}
+    {...props}>
     <Logo>{logo}</Logo>
     <Flex
-      sx={{
-        alignItems: 'center',
-        flex: layout === 2 ? 1 : 'initial',
-        justifyContent:
-          layout === 2
-            ? setBreakpoint(bp, ['flex-end', 'space-between'])
-            : null,
-      }}>
+      align="center"
+      flex={layout === 2 ? 1 : 'initial'}
+      justify={
+        layout === 2 ? setBreakpoint(bp, ['flex-end', 'space-between']) : null
+      }>
       {React.isValidElement(menu) ? menu : <NavMenu menuItems={menu} />}
-      <Flex sx={{ alignItems: 'center' }}>
+      <Flex align="center">
         <WidgetArea custom={widgetArea} />
         <MenuButton custom={menuToggle} />
         <ColorButton custom={colorToggle} />

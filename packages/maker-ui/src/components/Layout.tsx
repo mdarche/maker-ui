@@ -7,7 +7,7 @@ import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
 import { Skiplinks, Link } from './Skiplinks'
 import { MakerOptions } from './types'
-import themeMap from '../config/theme-map'
+import { createTheme } from '../theme'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -29,7 +29,7 @@ const Root = ({
 
   return (
     <ThemeProvider
-      theme={themeMap(theme, extendedTheme, allOptions)}
+      theme={createTheme(theme, extendedTheme, allOptions)}
       // @ts-ignore
       components={components}>
       <OptionProvider options={allOptions}>

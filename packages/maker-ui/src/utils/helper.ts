@@ -1,4 +1,4 @@
-import { SxProp } from '../components/types'
+import { SxStyleProp } from 'theme-ui'
 
 /**
  * Returns a randomly generated alphanumeric ID.
@@ -31,7 +31,7 @@ export function generateId(length: number = 5): string {
  * @returns An array that adds `null` to all indices before the style rule begins
  */
 
-export function setBreakpoint(index: number, arr: any[]): SxProp {
+export function setBreakpoint(index: number, arr: any[]): SxStyleProp {
   let i = 0
 
   while (i < index) {

@@ -1,5 +1,5 @@
 import merge from 'deepmerge'
-import { useThemeUI } from 'theme-ui'
+import { useThemeUI, Theme } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
 import { useExtensions } from '../context/ExtendContext'
@@ -23,7 +23,7 @@ export function useMakerUI() {
    *
    */
 
-  function extendTheme(newTheme: object, key?: string, overwrite?: boolean) {
+  function extendTheme(newTheme: Theme, key?: string, overwrite?: boolean) {
     // Check if the component's key has already been added before updating context / causing a re-render
 
     if (key && state.themeKeys.includes(key)) {

@@ -1,12 +1,14 @@
 import merge from 'deepmerge'
+import { Theme } from 'theme-ui'
 
-import { validate } from '../utils/helper'
+import { validate } from './utils/helper'
 import { defaultOptions } from './options'
-import layouts from './variants/layouts'
-import headers from './variants/headers'
-import submenu from './variants/submenu'
 
-export default (theme, extendedTheme, options): object => {
+// TODO - Eliminate these
+import layouts from './config/variants/layouts'
+import submenu from './config/variants/submenu'
+
+export const createTheme = (theme, extendedTheme, options): Theme => {
   const o =
     options === undefined ? defaultOptions : merge(defaultOptions, options)
 
@@ -40,7 +42,6 @@ export default (theme, extendedTheme, options): object => {
       gap_content: o.content.sidebarGap,
     },
     ...layouts,
-    ...headers,
     ...submenu(o.header.dropdown.transition),
   }
 

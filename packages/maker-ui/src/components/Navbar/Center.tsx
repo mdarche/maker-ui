@@ -10,15 +10,11 @@ import {
   ColorButton,
   WidgetArea,
 } from '../common'
-
-const defaultProps = {
-  logo: 'logo',
-  maxWidth: 'maxWidth_header',
-  variant: 'navbar',
-}
+import { headerStyles } from './styles'
 
 export const Center = ({
-  logo,
+  variant = 'navbar',
+  logo = 'logo',
   menu,
   widgetArea,
   menuToggle,
@@ -26,7 +22,7 @@ export const Center = ({
   bp,
   layout,
   maxWidth,
-  variant,
+  sx,
   ...props
 }: NavProps) => {
   const mid = Math.ceil(menu.length / 2)
@@ -47,19 +43,20 @@ export const Center = ({
   return (
     <Flex
       variant={variant}
-      {...props}
-      __css={{
-        variant: 'mui_header.center',
-        flexDirection:
-          layout === 1 ? setBreakpoint(bp, ['row', 'column']) : null,
-        maxWidth,
-      }}>
+      direction={layout === 1 ? setBreakpoint(bp, ['row', 'column']) : null}
+      // @ts-ignore
+      sx={{
+        ...headerStyles.center,
+        maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
+        ...sx,
+      }}
+      {...props}>
       {layout === 1 ? (
         <>
-          <Flex>
+          <Flex justify={['flex-start', 'center']}>
             <Logo>{logo}</Logo>
           </Flex>
-          <Flex sx={{ alignItems: 'center' }}>
+          <Flex align="center">
             <NavMenu menuItems={menu} />
             {renderBlock()}
           </Flex>
@@ -75,5 +72,3 @@ export const Center = ({
     </Flex>
   )
 }
-
-Center.defaultProps = defaultProps

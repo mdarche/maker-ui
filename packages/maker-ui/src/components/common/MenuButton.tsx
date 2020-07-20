@@ -54,14 +54,14 @@ export const MenuButton = (props: Props) => {
         toggleSideMenu,
         sideNav.isPrimaryMobileNav
       )}
-      sx={{ sx }}
       variant="header.menuButton"
-      __css={{
+      sx={{
         ...visibility,
         m: '0 auto',
         border: 'none',
         background: 'none',
         svg: { m: '0 auto' },
+        ...sx,
       }}>
       {custom || (
         <SVG

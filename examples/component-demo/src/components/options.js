@@ -1,11 +1,11 @@
 export default {
-  navigation: 'center',
+  navigation: '',
   layout: 'content-sidebar',
   topbar: {
     maxWidth: [200, 600],
   },
   header: {
-    maxWidth: 1080,
+    maxWidth: '100%',
     breakIndex: 0,
     stickyScroll: false,
   },

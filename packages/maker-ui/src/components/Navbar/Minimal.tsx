@@ -2,52 +2,53 @@ import React from 'react'
 
 import { NavProps } from '../types'
 import { Flex, Logo, MenuButton, ColorButton, WidgetArea } from '../common'
+import { headerStyles } from './styles'
 
-const defaultProps = {
-  logo: 'logo',
-  maxWidth: 'maxWidth_header',
-  variant: 'navbar',
-}
+const getStyles = type =>
+  type === 3 ? headerStyles.columns : headerStyles.default
 
 export const Minimal = ({
-  logo,
+  variant = 'navbar',
+  logo = 'logo',
   widgetArea,
   menuToggle,
   colorToggle,
   maxWidth,
-  variant,
   layout,
+  sx,
   ...props
 }: NavProps) => (
   <Flex
     variant={variant}
-    {...props}
-    __css={{
-      variant: layout === 3 ? 'mui_header.columns' : 'mui_header.default',
-      maxWidth,
-    }}>
+    // @ts-ignore
+    sx={{
+      ...getStyles(layout),
+      maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
+      ...sx,
+    }}
+    {...props}>
     {layout === 1 ? (
-      <React.Fragment>
+      <>
         <Logo>{logo}</Logo>
-        <Flex sx={{ alignItems: 'center' }}>
+        <Flex align="center">
           <WidgetArea custom={widgetArea} />
           <MenuButton custom={menuToggle} visibleOnDesktop />
           <ColorButton custom={colorToggle} />
         </Flex>
-      </React.Fragment>
+      </>
     ) : layout === 2 ? (
-      <React.Fragment>
-        <Flex sx={{ alignItems: 'center' }}>
+      <>
+        <Flex align="center">
           <MenuButton custom={menuToggle} visibleOnDesktop />
           <Logo>{logo}</Logo>
         </Flex>
-        <Flex sx={{ alignItems: 'center' }}>
+        <Flex align="center">
           <WidgetArea custom={widgetArea} />
           <ColorButton custom={colorToggle} />
         </Flex>
-      </React.Fragment>
+      </>
     ) : (
-      <React.Fragment>
+      <>
         <Flex className="col-1">
           <MenuButton custom={menuToggle} visibleOnDesktop />
         </Flex>
@@ -58,9 +59,7 @@ export const Minimal = ({
           <WidgetArea custom={widgetArea} />
           <ColorButton custom={colorToggle} />
         </Flex>
-      </React.Fragment>
+      </>
     )}
   </Flex>
 )
-
-Minimal.defaultProps = defaultProps

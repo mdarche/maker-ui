@@ -1,4 +1,4 @@
-import { MakerOptions } from '../components/types'
+import { MakerOptions } from './components/types'
 
 export const defaultOptions: MakerOptions = {
   navigation: 'basic',

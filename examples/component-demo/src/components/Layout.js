@@ -53,7 +53,11 @@ export default ({ children, location }) => (
       {/* <Topbar>Topbar content</Topbar> */}
       <Announcement sx={{ p: 30 }}>This is an announcement</Announcement>
       <Header>
-        <Navbar logo={'Components Demo'} menu={menu} />
+        <Navbar
+          logo={'Components Demo'}
+          menu={menu}
+          widgetArea="test widget area"
+        />
         <MobileMenu menu={menu} />
       </Header>
       <Content>

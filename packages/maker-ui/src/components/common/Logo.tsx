@@ -9,7 +9,7 @@ export const Logo = ({ children }) => (
     aria-label="Home page"
     sx={{
       variant: 'header.logo',
-      display: 'flex',
+      display: 'inline-flex',
     }}>
     {children}
   </Link>

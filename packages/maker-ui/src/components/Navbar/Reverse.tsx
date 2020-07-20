@@ -9,27 +9,28 @@ import {
   ColorButton,
   WidgetArea,
 } from '../common'
-
-const defaultProps = {
-  logo: 'logo',
-  maxWidth: 'maxWidth_header',
-  variant: 'navbar',
-}
+import { headerStyles } from './styles'
 
 export const Reverse = ({
-  logo,
+  variant = 'navbar',
+  logo = 'logo',
   menu,
   widgetArea,
   menuToggle,
   colorToggle,
   maxWidth,
-  variant,
+  sx,
   ...props
 }: NavProps) => (
   <Flex
     variant={variant}
-    {...props}
-    __css={{ variant: 'mui_header.columns', maxWidth }}>
+    // @ts-ignore
+    sx={{
+      ...headerStyles.columns,
+      maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
+      ...sx,
+    }}
+    {...props}>
     <Flex className="col-1">
       {React.isValidElement(menu) ? menu : <NavMenu menuItems={menu} />}
       <MenuButton custom={menuToggle} />
@@ -43,5 +44,3 @@ export const Reverse = ({
     </Flex>
   </Flex>
 )
-
-Reverse.defaultProps = defaultProps
