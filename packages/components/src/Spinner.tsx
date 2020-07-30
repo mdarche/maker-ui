@@ -1,6 +1,6 @@
 import React from 'react'
-import { Spinner as DefaultSpinner, useThemeUI } from 'theme-ui'
-import { Box, BasicBoxProps } from 'maker-ui'
+import { Spinner as DefaultSpinner, useThemeUI, Box } from 'theme-ui'
+import { SVG, SVGProps } from 'maker-ui'
 
 const defaultColors = {
   primary: '#0e94d4',
@@ -8,7 +8,7 @@ const defaultColors = {
   tertiary: '#9ad8f6',
 }
 
-export interface SpinnerProps extends BasicBoxProps {
+export interface SpinnerProps extends SVGProps {
   type?: string
   size?: number
   colors?: {
@@ -26,7 +26,7 @@ export interface SpinnerProps extends BasicBoxProps {
  * @see https://maker-ui.com/docs/components/spinner
  */
 
-export const Spinner = React.forwardRef<HTMLElement, SpinnerProps>(
+export const Spinner = React.forwardRef<SVGSVGElement, SpinnerProps>(
   ({ type = 'default', size = 80, colors = defaultColors, ...props }, ref) => {
     switch (type) {
       case 'pulse':
@@ -40,6 +40,7 @@ export const Spinner = React.forwardRef<HTMLElement, SpinnerProps>(
       case 'default':
       default:
         return (
+          // @ts-ignore
           <DefaultSpinner
             ref={ref}
             size={size}
@@ -73,16 +74,12 @@ const Blocks = ({
   })
 
   return (
-    <Box
-      as="svg"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 100"
-      sx={{ height: size, width: size }}
-      {...props}>
+    <SVG viewBox="0 0 100 100" sx={{ height: size, width: size }} {...props}>
       {points.map(({ x, y, fill, b1, b2 }, index) => (
         <Box
           key={index}
           as="rect"
+          // @ts-ignore
           x={x}
           y={y}
           rx="1"
@@ -92,7 +89,7 @@ const Blocks = ({
           <animate {...getAttributes(false)} begin={b2} />
         </Box>
       ))}
-    </Box>
+    </SVG>
   )
 }
 
@@ -119,16 +116,12 @@ const Pulse = ({
   })
 
   return (
-    <Box
-      as="svg"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 100"
-      sx={{ height: size, width: size }}
-      {...props}>
+    <SVG viewBox="0 0 100 100" sx={{ height: size, width: size }} {...props}>
       {points.map(({ color, begin, r }, index) => (
         <Box
           as="circle"
           key={index}
+          // @ts-ignore
           cx="50"
           cy="50"
           r={r}
@@ -137,7 +130,7 @@ const Pulse = ({
           <animate {...getAttributes(false)} begin={begin} />
         </Box>
       ))}
-    </Box>
+    </SVG>
   )
 }
 
@@ -155,16 +148,12 @@ const Scale = ({
   ]
 
   return (
-    <Box
-      as="svg"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 100"
-      sx={{ width: size, height: size }}
-      {...props}>
+    <SVG viewBox="0 0 100 100" sx={{ width: size, height: size }} {...props}>
       {points.map(({ translate, scale, begin, color }, index) => (
         <g key={index} transform={`translate(${translate})`}>
           <Box
             as="circle"
+            // @ts-ignore
             r="9"
             transform={`scale(${scale})`}
             sx={{ fill: color }}>
@@ -182,7 +171,7 @@ const Scale = ({
           </Box>
         </g>
       ))}
-    </Box>
+    </SVG>
   )
 }
 
@@ -222,18 +211,13 @@ const Rotate = ({
   })
 
   return (
-    <Box
-      as="svg"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 100"
-      sx={{ height: size, width: size }}
-      {...props}>
+    <SVG viewBox="0 0 100 100" sx={{ height: size, width: size }} {...props}>
       {points.map(({ cy, cx, r, begin }, index) => (
         <circle key={index} cx={cx} cy={cy} fill={secondary} r={r}>
           <animate {...getAttributes(true)} begin={begin} />
           <animate {...getAttributes(false)} begin={begin} />
         </circle>
       ))}
-    </Box>
+    </SVG>
   )
 }

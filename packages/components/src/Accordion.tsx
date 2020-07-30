@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react'
-import { Box, BasicBoxProps } from 'maker-ui'
+import { Div, DivProps } from 'maker-ui'
 
 import { AccordionPanel } from './AccordionPanel'
 
 const AccordionContext = React.createContext(null)
 const AccordionUpdateContext = React.createContext(null)
 
-interface AccordionProps extends BasicBoxProps {
+interface AccordionProps extends DivProps {
   icon?: boolean
   customIcons?: {
     expand?: JSX.Element | null
@@ -14,6 +14,7 @@ interface AccordionProps extends BasicBoxProps {
   }
   defaultKey?: number
   showSingle?: boolean
+  children: React.ReactElement
 }
 
 /**
@@ -40,7 +41,7 @@ export const Accordion = ({
   return (
     <AccordionContext.Provider value={state}>
       <AccordionUpdateContext.Provider value={setState}>
-        <Box {...props}>{children}</Box>
+        <Div {...props}>{children}</Div>
       </AccordionUpdateContext.Provider>
     </AccordionContext.Provider>
   )

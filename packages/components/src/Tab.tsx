@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Box, BasicBoxProps, generateId } from 'maker-ui'
+import { Div, DivProps, generateId } from 'maker-ui'
 
 import { useTabs } from './TabGroup'
 
-export interface TabProps extends BasicBoxProps {
+export interface TabProps extends DivProps {
   title?: string
   open?: boolean
   disabled?: boolean
@@ -15,8 +15,8 @@ export interface TabProps extends BasicBoxProps {
  * @see https://maker-ui.com/docs/components/tab
  */
 
-export const Tab = React.forwardRef<HTMLElement, TabProps>(
-  ({ title, open = false, disabled = false, ...props }, ref) => {
+export const Tab = React.forwardRef<HTMLDivElement, TabProps>(
+  ({ title, open = false, disabled = false, sx, ...props }, ref) => {
     const [id] = useState(generateId())
     const {
       state: { variant, activeId, renderInactive },
@@ -29,17 +29,18 @@ export const Tab = React.forwardRef<HTMLElement, TabProps>(
     }, [addToTabGroup, tabItem, open])
 
     return renderInactive || activeId === id ? (
-      <Box
+      <Div
         ref={ref}
         id={id}
         className="tabs-panel"
-        tabIndex="0"
+        tabIndex={0}
         role="tabpanel"
-        variant={`${variant}.panel`}
-        __css={{
+        sx={{
+          variant: `${variant}.panel`,
           flex: 1,
           order: 1,
           display: renderInactive && activeId !== id ? 'none' : undefined,
+          ...sx,
         }}
         {...props}
       />

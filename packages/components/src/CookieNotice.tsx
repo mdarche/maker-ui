@@ -13,7 +13,7 @@ import { Announcement, AnnouncementProps } from './Announcement'
  * @see https://maker-ui.com/docs/components/cookie-notice
  */
 
-export const CookieNotice = React.forwardRef<HTMLElement, AnnouncementProps>(
+export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {
       variant = 'cookie',

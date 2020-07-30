@@ -1,17 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Box, BasicBoxProps, setBreakpoint } from 'maker-ui'
+import { Div, DivProps, setBreakpoint } from 'maker-ui'
 
 import { TabNavigation } from './TabNavigation'
 
 const TabContext = React.createContext(null)
 const TabUpdateContext = React.createContext(null)
 
-export interface TabGroupProps extends BasicBoxProps {
+export interface TabGroupProps extends DivProps {
   navPosition?: string
   navStack?: boolean
   navScroll?: boolean
   breakIndex?: number
   renderInactive?: boolean
+  children?: React.ReactElement
 }
 
 export interface TabState {
@@ -39,6 +40,7 @@ export const TabGroup = ({
   navScroll = true,
   breakIndex = 0,
   renderInactive = false,
+  sx,
   children,
   ...props
 }: TabGroupProps) => {
@@ -59,15 +61,16 @@ export const TabGroup = ({
   return (
     <TabContext.Provider value={state}>
       <TabUpdateContext.Provider value={setState}>
-        <Box
-          variant={variant}
+        <Div
           className="tabs"
-          {...props}
-          __css={{
+          sx={{
+            variant,
             display: setBreakpoint(breakIndex, ['block', 'flex']),
             flexDirection: isVertical ? 'column' : null,
             flexWrap: 'wrap',
-          }}>
+            ...sx,
+          }}
+          {...props}>
           <TabNavigation
             settings={{
               isVertical,
@@ -78,7 +81,7 @@ export const TabGroup = ({
             }}
           />
           {children}
-        </Box>
+        </Div>
       </TabUpdateContext.Provider>
     </TabContext.Provider>
   )

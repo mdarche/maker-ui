@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Flex, BasicBoxProps } from 'maker-ui'
+import { Flex, Button, DivProps } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
 import { useTracker, useMeasure } from './helper'
@@ -8,18 +8,16 @@ import { CloseIcon } from './icons'
 const AnimatedBox = a(Flex)
 
 const fixedPartial = (fixed, bottom) =>
-  fixed
-    ? {
-        position: 'fixed',
-        left: 0,
-        right: 0,
-        top: !bottom && 0,
-        bottom: bottom && 0,
-        zIndex: 1000,
-      }
-    : null
+  fixed && {
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    top: !bottom && 0,
+    bottom: bottom && 0,
+    zIndex: 1000,
+  }
 
-export interface AnnouncementProps extends BasicBoxProps {
+export interface AnnouncementProps extends DivProps {
   key?: string
   fixed?: boolean
   trackerType?: string
@@ -37,7 +35,7 @@ export interface AnnouncementProps extends BasicBoxProps {
  * @see https://maker-ui.com/docs/components/announcement
  */
 
-export const Announcement = React.forwardRef<HTMLElement, AnnouncementProps>(
+export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {
       variant = 'announcement',
@@ -50,6 +48,7 @@ export const Announcement = React.forwardRef<HTMLElement, AnnouncementProps>(
       allowClose = true,
       closeButton = <CloseIcon />,
       bottom = false,
+      sx,
       children,
       ...props
     },
@@ -72,35 +71,37 @@ export const Announcement = React.forwardRef<HTMLElement, AnnouncementProps>(
     return active ? (
       <AnimatedBox
         ref={ref}
-        as="aside"
-        variant={variant}
         className="announcement"
         style={spring}
         sx={{
-          ...fixedPartial(fixed, bottom),
+          variant,
           display: 'flex',
           alignItems: 'center',
           bg,
           color,
           willChange: !fixed && 'height',
+          ...fixedPartial(fixed, bottom),
         }}>
-        <Flex {...bind} __css={{ width: '100%', alignItems: 'center' }}>
+        <Flex {...bind} sx={{ width: '100%', alignItems: 'center' }}>
           <Flex
-            variant={`${variant}.text`}
             className="announcement-text"
-            __css={{ flex: 1, flexWrap: 'wrap' }}
+            sx={{
+              variant: `${variant}.text`,
+              flex: 1,
+              flexWrap: 'wrap',
+              ...sx,
+            }}
             {...props}>
             {children}
           </Flex>
           {allowClose && (
-            <Box
-              as="button"
-              variant={`${variant}.close`}
+            <Button
               className="announcement-close"
               title="Dismiss"
               aria-label="Dismiss"
               onClick={e => set(false)}
               sx={{
+                variant: `${variant}.close`,
                 cursor: 'pointer',
                 border: 'none',
                 background: 'none',
@@ -109,7 +110,7 @@ export const Announcement = React.forwardRef<HTMLElement, AnnouncementProps>(
                 svg: { height: 27, fill: color },
               }}>
               {closeButton}
-            </Box>
+            </Button>
           )}
         </Flex>
       </AnimatedBox>

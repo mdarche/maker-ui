@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Box, BasicBoxProps } from 'maker-ui'
+import { Div, DivProps } from 'maker-ui'
 import { animated as a, useSpring } from 'react-spring'
 
 import { format, getSign } from './helper'
 
-const AnimatedBox = a(Box)
+const AnimatedBox = a(Div)
 
 const getTransform = ({ direction, distance }, show) => {
   switch (direction) {
@@ -23,7 +23,7 @@ const getTransform = ({ direction, distance }, show) => {
   }
 }
 
-export interface FadeBoxProps extends BasicBoxProps {
+export interface FadeBoxProps extends DivProps {
   offset: number
   springConfig: any
   direction?: string

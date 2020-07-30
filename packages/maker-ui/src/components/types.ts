@@ -28,13 +28,8 @@ export interface LayoutProps {
  */
 export interface BasicBoxProps {
   // children?: React.ReactNode
-  variant?: string | string[]
-  as?: string | React.ElementType<any>
+  variant?: string
   sx?: SxProp
-  __css?: SxProp
-  __sx?: SxProp
-  // className?: string
-  // id?: string
   // TESTING REWRITE THIS
   ref?: any //React.Ref<HTMLElement>
   // role?: any

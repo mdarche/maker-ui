@@ -13,6 +13,7 @@ interface AccordionProps
   menu: MenuProps[]
   menuType: string
   pathname?: string
+  children?: React.ReactElement
 }
 
 /**

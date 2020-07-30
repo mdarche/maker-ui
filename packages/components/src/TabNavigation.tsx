@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box, setBreakpoint } from 'maker-ui'
+import { Flex, Button, setBreakpoint } from 'maker-ui'
 
 import { useTabs } from './TabGroup'
 
@@ -55,15 +55,16 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
 
   return (
     <Flex
-      variant={`${state.variant}.list`}
       className="tabs-list"
       role="tablist"
-      sx={getNavPosition({ settings })}>
+      sx={{
+        variant: `${state.variant}.list`,
+        ...getNavPosition({ settings }),
+      }}>
       {state.tabs.map(item => (
-        <Box
+        <Button
           key={item.id}
-          as="button"
-          variant={`${state.variant}.button`}
+          sx={{ variant: `${state.variant}.button` }}
           className={
             state.activeId === item.id
               ? 'active-tab tabs-button'
@@ -76,7 +77,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
           aria-selected={state.activeId === item.id ? 'true' : 'false'}
           onClick={e => setActive(item.id)}>
           {item.title}
-        </Box>
+        </Button>
       ))}
     </Flex>
   )

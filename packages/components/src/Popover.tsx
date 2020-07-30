@@ -28,9 +28,9 @@ const Popover = React.forwardRef<HTMLElement, PopoverProps>(
   ) => {
     const { extendTheme } = useMakerUI()
 
-    useEffect(() => {
-      extendTheme({ colors: { crazy: 'red' } })
-    }, [extendTheme])
+    // useEffect(() => {
+    //   extendTheme({ colors: { crazy: 'red' } })
+    // }, [extendTheme])
 
     // console.log(
     //   target.current ? target.current.getBoundingClientRect() : 'nope'

@@ -1,5 +1,13 @@
 import React, { useState, useContext } from 'react'
-import { Box, BasicBoxProps, MaybeElement, ResponsiveScale } from 'maker-ui'
+import {
+  Div,
+  DivProps,
+  Span,
+  Link,
+  Button,
+  MaybeElement,
+  ResponsiveScale,
+} from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
 import { useMeasure, usePrevious } from './helper'
@@ -7,7 +15,7 @@ import { MinusIcon, PlusIcon, ExIcon } from './icons'
 
 const TreeContext = React.createContext(null)
 
-export interface TreeItemProps extends BasicBoxProps {
+export interface TreeItemProps extends DivProps {
   text?: string
   link?: string
   newTab?: boolean
@@ -21,8 +29,8 @@ export interface TreeItemProps extends BasicBoxProps {
  * @see https://maker-ui.com/docs/components/tree-item
  */
 
-export const TreeItem = React.forwardRef<HTMLElement, TreeItemProps>(
-  ({ text, link, newTab, open = false, children, ...props }, ref) => {
+export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
+  ({ text, link, newTab, open = false, sx, children, ...props }, ref) => {
     const [isOpen, setOpen] = useState(open)
     const {
       clickableText,
@@ -43,7 +51,7 @@ export const TreeItem = React.forwardRef<HTMLElement, TreeItemProps>(
     })
 
     return (
-      <Box
+      <Div
         ref={ref}
         className="tree-item"
         sx={{
@@ -55,13 +63,12 @@ export const TreeItem = React.forwardRef<HTMLElement, TreeItemProps>(
           whiteSpace: 'nowrap',
           verticalAlign: 'middle',
         }}>
-        <Box
-          as="button"
+        <Button
           onClick={() => setOpen(!isOpen)}
-          variant={`${variant}.button`}
           aria-label={text}
           aria-expanded={isOpen ? 'true' : 'false'}
           sx={{
+            variant: `${variant}.button`,
             display: !link && 'flex',
             alignItems: !link && 'center',
             background: 'none',
@@ -75,33 +82,42 @@ export const TreeItem = React.forwardRef<HTMLElement, TreeItemProps>(
               fill: 'currentColor',
             },
           }}>
-          <Box
-            as="span"
-            variant={`${variant}.icon`}
+          <Span
             className="tree-icon"
             sx={{
+              variant: `${variant}.icon`,
               mr: clickableText && !link ? '10px' : undefined,
             }}>
             {children ? (isOpen ? collapse : expand) : neutral}
-          </Box>
+          </Span>
           {clickableText && !link && (
-            <Box
-              as="span"
-              variant={`${variant}.text`}
+            <Span
               className="tree-text"
-              sx={{ fontSize: 2 }}>
+              sx={{ variant: `${variant}.text`, fontSize: 2 }}>
               {text}
-            </Box>
+            </Span>
           )}
-        </Box>
-        <Box
+        </Button>
+        {link ? (
+          <Link
+            href={link}
+            target={newTab && '_blank'}
+            sx={{ variant: `${variant}.text`, ...sx }}>
+            {text}
+          </Link>
+        ) : (
+          <Span sx={{ variant: `${variant}.text`, ...sx }} {...props}>
+            {!clickableText && text}
+          </Span>
+        )}
+        {/* <Box
           as={link ? 'a' : 'span'}
           variant={`${variant}.text`}
           href={link && link}
           target={link && newTab && '_blank'}
           {...props}>
           {(!clickableText || link) && text}
-        </Box>
+        </Box> */}
         <a.div
           style={{
             willChange: 'height',
@@ -109,14 +125,14 @@ export const TreeItem = React.forwardRef<HTMLElement, TreeItemProps>(
             overflow: 'hidden',
             height: isOpen && previous === isOpen ? 'auto' : height,
           }}>
-          <Box {...bind}>{children}</Box>
+          <div {...bind}>{children}</div>
         </a.div>
-      </Box>
+      </Div>
     )
   }
 )
 
-export interface TreeMenuProps extends BasicBoxProps {
+export interface TreeMenuProps extends DivProps {
   buttons?: {
     expand?: MaybeElement
     collapse?: MaybeElement
@@ -133,7 +149,7 @@ export interface TreeMenuProps extends BasicBoxProps {
  * @see https://maker-ui.com/docs/components/tree-menu
  */
 
-export const TreeMenu = React.forwardRef<HTMLElement, TreeMenuProps>(
+export const TreeMenu = React.forwardRef<HTMLDivElement, TreeMenuProps>(
   (
     {
       variant = 'tree',
@@ -144,6 +160,7 @@ export const TreeMenu = React.forwardRef<HTMLElement, TreeMenuProps>(
       },
       indentation = '20px', // Note for Docs - can be responsive array
       clickableText = false,
+      sx,
       ...props
     },
     ref
@@ -158,7 +175,7 @@ export const TreeMenu = React.forwardRef<HTMLElement, TreeMenuProps>(
     })
     return (
       <TreeContext.Provider value={state}>
-        <Box ref={ref} variant={variant} {...props} />
+        <Div ref={ref} sx={{ variant, ...sx }} {...props} />
       </TreeContext.Provider>
     )
   }

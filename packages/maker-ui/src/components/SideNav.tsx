@@ -100,8 +100,8 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             title="Toggle SideNav"
             aria-label="Toggle side navigation"
             onClick={setActive}
-            variant={toggleVariant}
             sx={{
+              variant: toggleVariant,
               position: 'fixed',
               display: setBreakpoint(bp, ['inline-block', 'none']),
               bottom: 30,

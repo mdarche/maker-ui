@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from 'maker-ui'
+import { Div } from 'maker-ui'
 
 const IndexPage = () => {
   const boxRef = React.useRef(null)
@@ -11,21 +11,20 @@ const IndexPage = () => {
   return (
     <>
       <h1>Component Showcase!</h1>
-      <Box
-        as="section"
+      <Div
         ref={boxRef}
-        variant="testVariant"
-        __sx={{
-          fontSize: 30,
-          variant: 'bigVariant',
-        }}
-        sx={{ color: 'red' }}>
+        sx={{
+          variant: 'testVariant',
+          fontSize: 50,
+          // variant: 'bigVariant',
+          color: 'red',
+        }}>
         <div>
           Anoter title
           <h4>Subtitle</h4>
           <a href="/">Google</a>
         </div>
-      </Box>
+      </Div>
     </>
   )
 }

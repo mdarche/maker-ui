@@ -97,6 +97,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => <button ref={ref} {...props} />
 )
 
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
-  <a ref={ref} {...props} />
-))
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ children, ...props }, ref) => (
+    <a ref={ref} {...props}>
+      {children}
+    </a>
+  )
+)

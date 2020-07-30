@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Box, generateId, BasicBoxProps } from 'maker-ui'
+import { Div, DivProps, Button, generateId } from 'maker-ui'
 import { useSpring, animated } from 'react-spring'
 
 import { useAccordion } from './Accordion'
 import { useMeasure } from './helper'
 
-export interface AccordionPanelProps extends BasicBoxProps {
+export interface AccordionPanelProps extends DivProps {
   title?: string
   open?: boolean
   eventKey?: string
@@ -22,7 +22,7 @@ export interface AccordionPanelProps extends BasicBoxProps {
  */
 
 export const AccordionPanel = React.forwardRef<
-  HTMLElement,
+  HTMLDivElement,
   AccordionPanelProps
 >(
   (
@@ -34,6 +34,7 @@ export const AccordionPanel = React.forwardRef<
       borderColor = '#dedede',
       children,
       className = '',
+      sx,
       ...props
     },
     ref
@@ -65,14 +66,12 @@ export const AccordionPanel = React.forwardRef<
         : set(!show)
 
     return (
-      <Box
+      <Div
         ref={ref}
-        variant={variant}
         className={`${show ? 'expanded ' : ''}accordion ${className}`}
-        {...props}
-        __css={{ border: `1px solid` }}>
-        <Box
-          as="button"
+        sx={{ variant, border: '1px solid', ...sx }}
+        {...props}>
+        <Button
           title={`${show ? 'Collapse' : 'Expand'} content`}
           id={buttonId}
           aria-expanded={show ? 'true' : 'false'}
@@ -99,11 +98,10 @@ export const AccordionPanel = React.forwardRef<
                   state.customIcons.expand
                 )
               ) : (
-                <Box
-                  as="svg"
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  sx={{
+                  style={{
                     width: 15,
                     transition: 'all ease .3s',
                     transform: !show ? 'rotate(0)' : 'rotate(180deg)',
@@ -115,11 +113,11 @@ export const AccordionPanel = React.forwardRef<
                     strokeWidth="2"
                     d="M21 8.5l-9 9-9-9"
                   />
-                </Box>
+                </svg>
               )}
             </span>
           )}
-        </Box>
+        </Button>
         <animated.div
           id={panelId}
           role="region"
@@ -129,16 +127,18 @@ export const AccordionPanel = React.forwardRef<
             overflow: 'hidden',
             height,
           }}>
-          <Box {...bind}>
-            <Box
+          <div {...bind}>
+            <Div
               className="accordion-panel"
-              variant={`${variant}.panel`}
-              sx={{ borderTop: `1px solid ${borderColor}` }}>
+              sx={{
+                variant: `${variant}.panel`,
+                borderTop: `1px solid ${borderColor}`,
+              }}>
               {children}
-            </Box>
-          </Box>
+            </Div>
+          </div>
         </animated.div>
-      </Box>
+      </Div>
     )
   }
 )

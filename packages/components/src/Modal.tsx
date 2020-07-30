@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { useTransition, animated as a } from 'react-spring'
-import { Box, BasicBoxProps } from 'maker-ui'
+import { Div, DivProps } from 'maker-ui'
 
 import { Portal } from './Portal'
 
@@ -15,7 +15,7 @@ const focusElements = [
   '[tabIndex]:not([tabIndex="-1"])',
 ].join(', ')
 
-const AnimatedBox = a(Box)
+const AnimatedBox = a(Div)
 
 const position = {
   position: 'fixed',
@@ -34,7 +34,7 @@ const centered = val =>
       }
     : null
 
-export interface ModalProps extends BasicBoxProps {
+export interface ModalProps extends DivProps {
   appendTo?: string
   title?: string
   closeOnBlur?: boolean
@@ -90,7 +90,6 @@ export const Modal = ({
   // Handle Focus
 
   useEffect(() => {
-    console.log(modalRef.current)
     if (show && modalRef.current) {
       const elements = modalRef.current.querySelectorAll(focusElements)
       document.body.style.overflow = 'hidden'
@@ -163,30 +162,31 @@ export const Modal = ({
             <AnimatedBox
               key={key}
               ref={modalRef}
-              variant={variant}
               role="dialog"
               aria-label={title}
               aria-modal="true"
               style={{ ...style, ...props }}
-              tabIndex={focusable.count === 0 ? '0' : undefined}
+              tabIndex={focusable.count === 0 ? 0 : undefined}
               sx={{
+                variant,
                 ...position,
                 ...centered(center),
                 zIndex: 100,
               }}>
-              <Box
+              <Div
+                role="button"
                 onClick={e => (closeOnBlur ? closeModal() : undefined)}
                 className="modal-overlay"
-                variant={`${variant}.overlay`}
                 sx={{
+                  variant: `${variant}.overlay`,
                   ...position,
                   zIndex: -1,
                   bg,
                 }}
               />
-              <Box sx={{ zIndex: 1, overflow: 'scroll' }} {...rest}>
+              <Div sx={{ zIndex: 1, overflow: 'scroll' }} {...rest}>
                 {children}
-              </Box>
+              </Div>
             </AnimatedBox>
           )
       )}
