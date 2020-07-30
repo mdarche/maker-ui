@@ -1,5 +1,5 @@
 export default {
-  navigation: '',
+  navigation: 'center',
   layout: 'content-sidebar',
   topbar: {
     maxWidth: [200, 600],
@@ -8,10 +8,13 @@ export default {
     maxWidth: '100%',
     breakIndex: 0,
     stickyScroll: false,
+    dropdown: {
+      transition: 'fade-down',
+    },
   },
   mobileMenu: {
-    width: '80vw',
-    transition: 'fade-down',
+    width: '60vw',
+    transition: 'slide-left',
     closeOnBlur: true,
     closeOnRouteChange: true,
     defaultCloseButton: true,

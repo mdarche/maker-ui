@@ -26,7 +26,14 @@ const menu = [
     path: '/carousel',
     submenu: [
       { label: 'Tabs', path: '/tabs' },
-      { label: 'Tabs', path: '/tabs' },
+      {
+        label: 'Tabs',
+        path: '/tabs',
+        submenu: [
+          { label: 'Tabs', path: '/tabs' },
+          { label: 'Tabs', path: '/tabs' },
+        ],
+      },
     ],
   },
   { label: 'Tabs', path: '/tabs' },

@@ -18,6 +18,7 @@ export const NavMenu = memo(({ menuItems = [], pathname }: NavMenuProps) => {
   return (
     <nav
       className="nav-primary"
+      role="navigation"
       sx={{ display: setBreakpoint(header.breakIndex, ['none', 'flex']) }}>
       <ul className="menu-primary" sx={{ variant: 'header.menu' }}>
         {menuItems.map((item, index) => (

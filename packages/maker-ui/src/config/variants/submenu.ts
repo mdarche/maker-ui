@@ -55,6 +55,7 @@ export default type => ({
   mui_submenu: {
     position: 'absolute',
     display: 'inline-block',
+    bg: 'bg_header',
     width: 'max-content',
     top: '99%',
     left: 0,

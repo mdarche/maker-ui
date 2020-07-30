@@ -61,7 +61,9 @@ export default {
       },
     },
     navbar: {},
-    submenu: {},
+    submenu: {
+      bg: 'gainsboro',
+    },
     colorButton: {},
     mobileMenu: {
       pt: 40,
