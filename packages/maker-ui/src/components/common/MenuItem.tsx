@@ -2,13 +2,13 @@
 import { jsx } from 'theme-ui'
 import { Fragment, useState } from 'react'
 
-import { Link } from './Box'
+import { Link } from './Primitives'
 import { useOptions } from '../../context/OptionContext'
 import { ExpandButton } from './ExpandButton'
 import {
   caretStyles,
-  activeDropdownStyles,
-  generateStyles,
+  dropdownStyles,
+  getStyles,
 } from '../../utils/styles-submenu'
 import { MenuProps } from '../types'
 
@@ -46,10 +46,7 @@ export const MenuItem = ({
   depth = 0,
 }: MenuItemProps) => {
   const { header } = useOptions()
-
-  // For nested accordion menus
   const [showNested, setNested] = useState(openNested)
-
   const submenuClass: string = `submenu depth-${depth}`
 
   return (
@@ -61,19 +58,19 @@ export const MenuItem = ({
           position: 'relative',
           display: 'inline-flex',
           '&:focus-within > .submenu, &:hover > .submenu': {
-            ...activeDropdownStyles(header.dropdown.transition),
+            ...dropdownStyles(header.dropdown.transition),
           },
           '> a .menu-text:after': submenu && caret && caretStyles,
         }
       }>
       <Link
         href={path}
-        className={pathname === path ? 'current' : undefined}
+        className={pathname === path && 'current'}
         target={newTab && '_blank'}
         rel={newTab && 'noopener noreferrer'}
-        aria-label={icon ? label : undefined}
+        aria-label={icon && label}
         aria-haspopup={submenu && 'true'}
-        aria-current={pathname === path ? 'page' : undefined}
+        aria-current={pathname === path && 'page'}
         {...menuControls}>
         {icon && <span className="menu-icon">{icon}</span>}
         <span className="menu-text">{label}</span>
@@ -87,7 +84,7 @@ export const MenuItem = ({
               role="menu"
               aria-label="submenu"
               sx={{
-                ...generateStyles(isHeader, header.dropdown.transition, depth),
+                ...getStyles(isHeader, header.dropdown.transition, depth),
                 variant: isHeader ? 'header.submenu' : 'accordion',
               }}>
               {submenu.map((item, index) => (

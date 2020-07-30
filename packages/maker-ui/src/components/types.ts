@@ -68,32 +68,78 @@ export interface BasicBoxProps {
 /**
  * Alias for Theme UI box component props that includes all
  * HTML div attributes. Used with MakerUI's internal `<Box />` component.
- *
- * @TODO Make all components use Box prop and dynamically load type depending on 'as' prop
  */
 export interface BoxProps
   extends Assign<React.ComponentPropsWithRef<'div'>, BasicBoxProps> {}
 
 /**
- * Alias for Theme UI `Box` component props that includes all
- * svg attributes. Used with MakerUI's internal `Box` component.
+ * Alias for `SVG` component props that includes all
+ * svg attributes.
  */
 export interface SVGProps
   extends Assign<React.ComponentPropsWithRef<'svg'>, BasicBoxProps> {}
 
 /**
- * Alias for Theme UI `Box` component props that includes all
- * HTML button attributes. Used with MakerUI's internal `Box` component.
+ * Alias for `Button` component props that includes all
+ * HTML button attributes.
  */
 export interface ButtonProps
   extends Assign<React.ComponentPropsWithRef<'button'>, BasicBoxProps> {}
 
 /**
- * Alias for Theme UI `Box` component props that includes all
- * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ * Alias for `Link` component props that includes all
+ * anchor tag attributes.
  */
 export interface LinkProps
   extends Assign<React.ComponentPropsWithRef<'a'>, BasicBoxProps> {}
+
+/**
+ * Alias for `UList` component props that includes all
+ * unordered list tag attributes.
+ */
+export interface UListProps
+  extends Assign<React.ComponentPropsWithRef<'ul'>, BasicBoxProps> {}
+
+/**
+ * Alias for Theme UI `Box` component props that includes all
+ * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ */
+export interface OListProps
+  extends Assign<React.ComponentPropsWithRef<'ol'>, BasicBoxProps> {}
+
+/**
+ * Alias for Theme UI `Box` component props that includes all
+ * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ */
+export interface ListItemProps
+  extends Assign<React.ComponentPropsWithRef<'li'>, BasicBoxProps> {}
+
+/**
+ * Alias for Theme UI `Box` component props that includes all
+ * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ */
+export interface DivProps
+  extends Assign<React.ComponentPropsWithRef<'div'>, BasicBoxProps> {}
+
+/**
+ * Alias for Theme UI `Box` component props that includes all
+ * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ */
+export interface SpanProps
+  extends Assign<React.ComponentPropsWithRef<'span'>, BasicBoxProps> {}
+
+/**
+ * Alias for Theme UI `Box` component props that includes all
+ * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ */
+export interface FlexProps extends DivProps {
+  inline: ResponsiveString
+  align: ResponsiveString
+  justify: ResponsiveString
+  direction: ResponsiveString
+  flex: ResponsiveScale
+  wrap: ResponsiveString
+}
 
 /**
  * Alias for top-level Maker UI components layout components.

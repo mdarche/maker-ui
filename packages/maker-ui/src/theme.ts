@@ -4,10 +4,6 @@ import { Theme } from 'theme-ui'
 import { validate } from './utils/helper'
 import { defaultOptions } from './options'
 
-// TODO - Eliminate these
-import layouts from './config/variants/layouts'
-import submenu from './config/variants/submenu'
-
 export const createTheme = (theme, extendedTheme, options): Theme => {
   const o =
     options === undefined ? defaultOptions : merge(defaultOptions, options)
@@ -41,8 +37,6 @@ export const createTheme = (theme, extendedTheme, options): Theme => {
     gap: {
       gap_content: o.content.sidebarGap,
     },
-    ...layouts,
-    ...submenu(o.header.dropdown.transition),
   }
 
   return merge.all([mappedOptions, validate(extendedTheme), validate(theme)], {

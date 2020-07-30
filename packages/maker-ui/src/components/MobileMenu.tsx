@@ -85,6 +85,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       header,
       footer,
       children,
+      sx,
       ...rest
     } = props
 
@@ -107,6 +108,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
             willChange: 'transform opacity',
             transition: 'all ease .3s',
             ...getTransition(show, transition, width),
+            ...sx,
           }}
           {...rest}>
           {mobileMenu.defaultCloseButton ? (

@@ -1,6 +1,6 @@
 /**
  * Components in the `common` directory are used as building blocks for
- * layout components. They are not directly exported by the package.
+ * Maker UI components. They are not all directly exported by the package.
  *
  * @internal
  */
@@ -13,4 +13,4 @@ export { MenuButton } from './MenuButton'
 export { ExpandButton } from './ExpandButton'
 export { WidgetArea } from './WidgetArea'
 export { Logo } from './Logo'
-export { Box, Flex, Button, Link, SVG } from './Box'
+export * from './Primitives'

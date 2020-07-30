@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, SVG } from './Box'
+import { Button, SVG } from './Primitives'
 
 interface ExpandButtonProps {
   show: boolean

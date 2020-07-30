@@ -32,6 +32,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
     variant = 'header',
     bg = 'bg_header',
     background,
+    sx,
     sticky = header.sticky,
     stickyMobile = header.stickyMobile,
     stickyScroll = header.stickyScroll,
@@ -107,6 +108,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
         variant,
         zIndex: 100,
         ...stickyPartial,
+        ...sx,
       }}
       {...rest}
     />

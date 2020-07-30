@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Link } from './Box'
+import { Link } from './Primitives'
 
 export const Logo = ({ children }) => (
   <Link

@@ -12,59 +12,62 @@ const content = {
 }
 
 const sidebar = {
-  base_sidebar: {
-    display: 'grid',
-    gridGap: t => t.gap.gap_content,
-    maxWidth: 'maxWidth_content',
-    mx: 'auto',
-  },
-  'sidebar-content': {
-    variant: 'mui_layout.base_sidebar',
-    '#primary-sidebar': {
-      gridRow: [2, 'auto'],
-    },
-  },
-  'content-sidebar': {
-    variant: 'mui_layout.base_sidebar',
+  display: 'grid',
+  gridGap: t => t.gap.gap_content,
+  maxWidth: 'maxWidth_content',
+  mx: 'auto',
+}
+
+const sidebarContent = {
+  ...sidebar,
+  '#primary-sidebar': {
+    gridRow: [2, 'auto'],
   },
 }
 
 const sideNav = {
-  base_sidenav: {
-    display: 'flex',
-    '#content': {
-      maxWidth: 'maxWidth_content',
-      mx: 'auto',
-    },
-  },
-  'sidenav-content': {
-    variant: 'mui_layout.base_sidenav',
-    '#side-nav': {
-      left: 0,
-    },
-    '#toggle-sidenav': {
-      right: 30,
-    },
-  },
-  'content-sidenav': {
-    variant: 'mui_layout.base_sidenav',
-    '#side-nav': {
-      right: 0,
-    },
-    '#toggle-sidenav': {
-      left: 30,
-    },
+  display: 'flex',
+  '#content': {
+    maxWidth: 'maxWidth_content',
+    mx: 'auto',
   },
 }
 
-export default {
-  mui_layout: {
-    content,
-    'full-width': {
-      display: 'block',
-      maxWidth: '100%',
-    },
-    ...sidebar,
-    ...sideNav,
+const sideNavContent = {
+  ...sideNav,
+  '#side-nav': {
+    left: 0,
   },
+  '#toggle-sidenav': {
+    right: 30,
+  },
+}
+
+const contentSideNav = {
+  ...sideNav,
+  '#side-nav': {
+    right: 0,
+  },
+  '#toggle-sidenav': {
+    left: 30,
+  },
+}
+
+export const getLayoutStyles = (type: string) => {
+  switch (type) {
+    case 'full-width':
+      return { display: 'block', maxWidth: '100%' }
+    case 'content-sidebar':
+      return sidebar
+    case 'content-sidenav':
+      return contentSideNav
+    case 'sidebar-content':
+      return sidebarContent
+    case 'sidenav-content':
+      return sideNavContent
+    case 'content':
+    case 'workspace':
+    default:
+      return content
+  }
 }

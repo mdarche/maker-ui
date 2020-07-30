@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SVG, Button } from './Box'
+import { SVG, Button } from './Primitives'
 import { BoxProps, MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'

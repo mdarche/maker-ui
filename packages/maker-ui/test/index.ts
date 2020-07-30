@@ -1,5 +1,4 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 import renderer from 'react-test-renderer'
 // import { cleanup } from '@testing-library/react'
 import { matchers } from 'jest-emotion'
@@ -15,6 +14,7 @@ import {
   Sidebar,
   Footer,
   Section,
+  Box,
 } from '../src/components'
 
 expect.extend(matchers)

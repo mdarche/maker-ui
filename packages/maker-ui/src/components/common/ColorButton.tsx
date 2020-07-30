@@ -1,7 +1,7 @@
 import React from 'react'
 import { useThemeUI } from 'theme-ui'
 
-import { Button } from './Box'
+import { Button } from './Primitives'
 import { MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'

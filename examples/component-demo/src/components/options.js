@@ -1,6 +1,6 @@
 export default {
   navigation: 'center',
-  layout: 'content-sidebar',
+  layout: 'content-sidenav',
   topbar: {
     maxWidth: [200, 600],
   },

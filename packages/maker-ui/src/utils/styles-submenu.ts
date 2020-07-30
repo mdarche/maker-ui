@@ -16,7 +16,7 @@ const fade = {
   transition: 'all ease .3s',
 }
 
-export const activeDropdownStyles = type => {
+export const dropdownStyles = (type: string) => {
   switch (type) {
     case 'scale':
       return {
@@ -32,7 +32,27 @@ export const activeDropdownStyles = type => {
   }
 }
 
-export const baseDropdownStyles = type => {
+// Dropdown navigation styles
+
+const common = {
+  display: 'inline-block',
+  bg: 'bg_header',
+  width: 'max-content',
+  opacity: 0,
+  visibility: 'hidden',
+  m: 0,
+  p: 0,
+  zIndex: 1,
+  listStyle: 'none',
+  a: {
+    width: '100%',
+  },
+  li: {
+    display: 'block',
+  },
+}
+
+const baseStyles = (type: string) => {
   switch (type) {
     case 'scale':
       return {
@@ -56,48 +76,24 @@ export const baseDropdownStyles = type => {
   }
 }
 
-// Dropdown navigation styles
-
-const sharedStyles = {
-  display: 'inline-block',
-  bg: 'bg_header',
-  width: 'max-content',
-  opacity: 0,
-  visibility: 'hidden',
-  m: 0,
-  p: 0,
-  zIndex: 1,
-  listStyle: 'none',
-  a: {
-    width: '100%',
-  },
-  li: {
-    display: 'block',
-  },
-}
-
-const rootStyles = {
+const rootMenu = {
   position: 'absolute',
   top: '99%',
   left: 0,
 }
 
-const nestedStyles = {
+const nestedMenu = {
   position: 'fixed',
   height: '100%',
   left: '100%',
   top: 0,
 }
 
-export const generateStyles = (
-  isHeader: boolean,
-  type: string,
-  depth: number
-) => {
-  let styles = depth === 0 ? rootStyles : nestedStyles
+export const getStyles = (isHeader: boolean, type: string, depth: number) => {
+  const depthStyles = depth === 0 ? rootMenu : nestedMenu
 
   return isHeader
-    ? merge.all([sharedStyles, styles, baseDropdownStyles(type)], {
+    ? merge.all([common, depthStyles, baseStyles(type)], {
         arrayMerge: (_, source, __) => source,
       })
     : {}

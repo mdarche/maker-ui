@@ -5,6 +5,7 @@ import { forwardRef, useEffect } from 'react'
 import { LayoutProps } from './types'
 import { useOptions, useLayout } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
+import { getLayoutStyles } from '../utils/styles-layout'
 
 const format = value => (isNaN(value) ? value : `${value}px`)
 
@@ -22,7 +23,7 @@ interface ContentProps
  */
 
 export const Content = forwardRef<HTMLDivElement, ContentProps>(
-  ({ layout, ...props }, ref) => {
+  ({ layout, variant, sx, ...props }, ref) => {
     const { content } = useOptions()
     const [baseLayout, setLayout] = useLayout()
 
@@ -56,9 +57,11 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
         ref={ref}
         id="site-inner"
         sx={{
-          variant: `mui_layout.${baseLayout}`,
-          ...sidebarPartial,
+          variant,
+          ...getLayoutStyles(baseLayout),
           minHeight: '80vh',
+          ...sidebarPartial,
+          ...sx,
         }}
         {...props}
       />

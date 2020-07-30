@@ -9,6 +9,7 @@ import {
   Main,
   Footer,
   Sidebar,
+  SideNav,
 } from 'maker-ui'
 import {
   Announcement,
@@ -69,7 +70,7 @@ export default ({ children, location }) => (
       </Header>
       <Content>
         <Main>{children}</Main>
-        <Sidebar>Test</Sidebar>
+        <SideNav menu={menu} />
       </Content>
       <Footer>Footer</Footer>
       <CookieNotice />
