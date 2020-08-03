@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Mark from 'mark.js'
-import { Box, Flex, BasicBoxProps } from 'maker-ui'
+import { Flex, DivProps } from 'maker-ui'
 
 // TODO - add extra class to marks that are the current focus of the prev/next buttons
 
-export interface SearchProps extends BasicBoxProps {
+export interface SearchProps extends DivProps {
   searchId?: string
   controls?: boolean
   sticky?: boolean
@@ -20,7 +20,7 @@ export interface SearchProps extends BasicBoxProps {
  * @see https://maker-ui.com/docs/components/page-search
  */
 
-const PageSearch = React.forwardRef<HTMLElement, SearchProps>(
+const PageSearch = React.forwardRef<HTMLDivElement, SearchProps>(
   (
     {
       searchId = 'content',
@@ -28,6 +28,7 @@ const PageSearch = React.forwardRef<HTMLElement, SearchProps>(
       controls = true,
       sticky = false,
       offsetTop = 50,
+      sx,
       ...props
     },
     ref
@@ -86,14 +87,15 @@ const PageSearch = React.forwardRef<HTMLElement, SearchProps>(
     return (
       <Flex
         ref={ref}
-        variant={variant}
-        {...props}
-        __css={{
+        sx={{
+          variant: variant,
           alignItems: 'stretch',
           position: sticky ? 'sticky' : 'relative',
           top: 0,
-        }}>
-        <Box as="form" role="search" aria-label="On this page">
+          ...sx,
+        }}
+        {...props}>
+        <form role="search" aria-label="On this page">
           <input
             ref={inputRef}
             type="search"
@@ -101,7 +103,7 @@ const PageSearch = React.forwardRef<HTMLElement, SearchProps>(
             placeholder="Search this page..."
             value={search}
             onChange={e => setSearch(e.target.value)}></input>
-        </Box>
+        </form>
         {controls && (
           <>
             <button

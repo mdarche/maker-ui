@@ -14,7 +14,6 @@ interface AccordionProps extends DivProps {
   }
   defaultKey?: number
   showSingle?: boolean
-  children: React.ReactElement
 }
 
 /**

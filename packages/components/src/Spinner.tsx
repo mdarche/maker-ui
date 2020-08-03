@@ -1,5 +1,5 @@
 import React from 'react'
-import { Spinner as DefaultSpinner, useThemeUI, Box } from 'theme-ui'
+import { useThemeUI, Box } from 'theme-ui'
 import { SVG, SVGProps } from 'maker-ui'
 
 const defaultColors = {
@@ -31,23 +31,13 @@ export const Spinner = React.forwardRef<SVGSVGElement, SpinnerProps>(
     switch (type) {
       case 'pulse':
         return <Pulse ref={ref} size={size} colors={colors} {...props} />
-      case 'scale':
-        return <Scale ref={ref} size={size} colors={colors} {...props} />
       case 'rotate':
         return <Rotate ref={ref} size={size} colors={colors} {...props} />
       case 'blocks':
         return <Blocks ref={ref} size={size} colors={colors} {...props} />
-      case 'default':
+      case 'scale':
       default:
-        return (
-          // @ts-ignore
-          <DefaultSpinner
-            ref={ref}
-            size={size}
-            sx={{ color: colors.primary }}
-            {...props}
-          />
-        )
+        return <Scale ref={ref} size={size} colors={colors} {...props} />
     }
   }
 )

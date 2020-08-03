@@ -7,7 +7,7 @@ import { Portal } from './Portal'
 // TODO add and export a close button and use as a sub-component
 
 const focusElements = [
-  'a',
+  '[href]',
   'button:not([disabled])',
   'input',
   'textarea',
@@ -80,8 +80,7 @@ export const Modal = ({
     toggle(false)
   }, [toggle, focusRef])
 
-  const fade = useTransition(show, modalRef, {
-    // @ts-ignore
+  const transition = useTransition(show ? [1] : [], {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -98,8 +97,6 @@ export const Modal = ({
       if (elements.length !== 0) {
         setFocusable({
           count: elements.length,
-          // @ts-ignore
-          elements,
           first: elements[0],
           last: elements[elements.length - 1],
         })
@@ -120,24 +117,20 @@ export const Modal = ({
         case 27: // esc
           return closeModal()
         case 9: // tab
-          if (focusable.count <= 1) {
-            e.preventDefault()
-            return
+          if (e.shiftKey) {
+            // If tab + shift key is pressed
+            if (document.activeElement === focusable.first) {
+              focusable.last.focus()
+              e.preventDefault()
+            }
           } else {
-            if (e.shiftKey && document.activeElement === focusable.first) {
+            // If tab key is pressed
+            if (document.activeElement === focusable.last) {
+              focusable.first.focus()
               e.preventDefault()
-              return focusable.last.focus()
             }
-            if (!e.shiftKey && document.activeElement === focusable.last) {
-              e.preventDefault()
-              return focusable.first.focus()
-            }
-            // @ts-ignore
-            if (![...focusable.elements].includes(document.activeElement)) {
-              return focusable.first.focus()
-            }
-            return
           }
+          return
         default:
           return
       }
@@ -154,13 +147,11 @@ export const Modal = ({
   }, [show, focusable, closeModal])
 
   return (
-    // @ts-ignore
     <Portal root={appendTo}>
-      {fade.map(
-        ({ item, key, props }: any) =>
+      {transition(
+        (props, item) =>
           item && (
             <AnimatedBox
-              key={key}
               ref={modalRef}
               role="dialog"
               aria-label={title}

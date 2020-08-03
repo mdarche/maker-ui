@@ -1,50 +1,55 @@
-import React, { useEffect } from 'react'
-import { Box, BasicBoxProps, useMakerUI } from 'maker-ui'
+import React from 'react'
+import { Div, DivProps } from 'maker-ui'
+
+import { Portal } from './Portal'
 
 // import { useTransition, animated as a } from 'react-spring'
 
 // use for Tooltips, Supplemental content, and Dropdown menus
 
-export interface PopoverProps extends BasicBoxProps {
-  target?: string
-  position?: any
-  show?: boolean
-  role?: string
+export interface PopoverProps extends DivProps {
+  show: boolean
+  set: Function // required for onHover
+  variant?: string
+  onHover?: boolean
+  anchorElement?: HTMLElement
+  anchorOrigin?: {
+    x: 'left' | 'center' | 'right'
+    y: 'top' | 'center' | 'bottom'
+  }
   appendTo?: string
-  transition?: string
+  closeOnBlur?: boolean
+  transition?:
+    | 'fade'
+    | 'fade-down'
+    | 'fade-up'
+    | 'fade-left'
+    | 'fade-right'
+    | 'scale'
 }
 
-const Popover = React.forwardRef<HTMLElement, PopoverProps>(
+export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
   (
     {
-      target,
-      position,
       show,
-      role = 'tooltip',
-      appendTo = 'document.body',
+      role = 'presentation',
+      appendTo,
       transition,
+      variant,
+      sx,
+      children,
+      ...props
     },
     ref
   ) => {
-    const { extendTheme } = useMakerUI()
-
-    // useEffect(() => {
-    //   extendTheme({ colors: { crazy: 'red' } })
-    // }, [extendTheme])
-
-    // console.log(
-    //   target.current ? target.current.getBoundingClientRect() : 'nope'
-    // )
     return (
       show && (
-        <Box role={role} ref={ref} sx={{ bg: 'crazy' }}>
-          TODO
-        </Box>
+        <Portal root={appendTo}>
+          <Div ref={ref} role={role} sx={{ variant, ...sx }} {...props}>
+            {children}
+          </Div>
+        </Portal>
       )
     )
   }
 )
-
-// Need Popover, Tooltip for links, Dropdown Menu
-
-export default Popover

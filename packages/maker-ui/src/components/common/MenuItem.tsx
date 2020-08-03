@@ -65,7 +65,7 @@ export const MenuItem = ({
       }>
       <Link
         href={path}
-        className={pathname === path && 'current'}
+        className={pathname === path ? 'current' : undefined}
         target={newTab && '_blank'}
         rel={newTab && 'noopener noreferrer'}
         aria-label={icon && label}
