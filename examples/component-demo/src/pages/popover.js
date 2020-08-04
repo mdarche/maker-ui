@@ -6,14 +6,18 @@ const TabsPage = () => {
   const buttonRef = useRef(null)
 
   return (
-    <React.Fragment>
-      <button ref={buttonRef} onClick={e => set(!show)}>
+    <>
+      <button ref={buttonRef} style={{ height: 200 }} onClick={e => set(!show)}>
         Popover toggle
       </button>
-      <Popover target={buttonRef} position="right" show={show}>
+      <Popover
+        anchor={buttonRef}
+        origin={{ x: 'right', y: 'center' }}
+        show={show}
+        set={set}>
         Test!
       </Popover>
-    </React.Fragment>
+    </>
   )
 }
 

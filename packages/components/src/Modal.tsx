@@ -1,19 +1,11 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 import { useTransition, animated as a } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
 import { Portal } from './Portal'
+import { useFocus } from './helper'
 
 // TODO add and export a close button and use as a sub-component
-
-const focusElements = [
-  '[href]',
-  'button:not([disabled])',
-  'input',
-  'textarea',
-  'select',
-  '[tabIndex]:not([tabIndex="-1"])',
-].join(', ')
 
 const AnimatedBox = a(Div)
 
@@ -66,12 +58,6 @@ export const Modal = ({
   ...rest
 }: ModalProps) => {
   const modalRef = useRef(null)
-  const [focusable, setFocusable] = useState({
-    count: 0,
-    first: null,
-    last: null,
-  })
-
   const closeModal = useCallback(() => {
     if (focusRef !== undefined) {
       focusRef.current.focus()
@@ -80,71 +66,22 @@ export const Modal = ({
     toggle(false)
   }, [toggle, focusRef])
 
+  // Trap focus inside the modal
+  const { focusable } = useFocus(modalRef, show, closeModal)
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = null
+    }
+  }, [show])
+
   const transition = useTransition(show ? [1] : [], {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
   })
-
-  // Handle Focus
-
-  useEffect(() => {
-    if (show && modalRef.current) {
-      const elements = modalRef.current.querySelectorAll(focusElements)
-      document.body.style.overflow = 'hidden'
-
-      // Look for any nested focusable elements and set focus to the first element in the array
-      if (elements.length !== 0) {
-        setFocusable({
-          count: elements.length,
-          first: elements[0],
-          last: elements[elements.length - 1],
-        })
-        elements[0].focus()
-      } else {
-        modalRef.current.focus()
-      }
-    } else {
-      document.body.style.overflow = null
-    }
-  }, [show, setFocusable])
-
-  // Handle Keyboard
-
-  useEffect(() => {
-    function handleKeyDown(e) {
-      switch (e.keyCode) {
-        case 27: // esc
-          return closeModal()
-        case 9: // tab
-          if (e.shiftKey) {
-            // If tab + shift key is pressed
-            if (document.activeElement === focusable.first) {
-              focusable.last.focus()
-              e.preventDefault()
-            }
-          } else {
-            // If tab key is pressed
-            if (document.activeElement === focusable.last) {
-              focusable.first.focus()
-              e.preventDefault()
-            }
-          }
-          return
-        default:
-          return
-      }
-    }
-
-    // Add keyboard controls if rendered in the browser
-
-    if (typeof window !== 'undefined') {
-      if (show) {
-        window.addEventListener(`keydown`, handleKeyDown)
-      }
-      return () => window.removeEventListener(`keydown`, handleKeyDown)
-    }
-  }, [show, focusable, closeModal])
 
   return (
     <Portal root={appendTo}>

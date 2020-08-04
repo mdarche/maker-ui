@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, MutableRefObject } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
 export function format(value: any): string | number {
@@ -41,7 +41,7 @@ export function useTracker(type, key, toggle, expiration) {
     }, 1000)
   }
 
-  useEffect((): void => {
+  useEffect(() => {
     // Use session storage
 
     if (type === 'session') {
@@ -74,4 +74,102 @@ export function useTracker(type, key, toggle, expiration) {
   }, [toggle, type, expiration, key])
 
   return active
+}
+
+const focusElements = [
+  '[href]',
+  'button:not([disabled])',
+  'input',
+  'textarea',
+  'select',
+  '[tabIndex]:not([tabIndex="-1"])',
+].join(', ')
+
+export function useFocus(
+  ref: React.MutableRefObject<any>,
+  show: boolean,
+  toggle: Function
+) {
+  const [focusable, setFocusable] = useState({
+    count: 0,
+    first: null,
+    last: null,
+  })
+
+  useEffect(() => {
+    if (show && ref.current) {
+      const elements = ref.current.querySelectorAll(focusElements)
+      if (elements.length !== 0) {
+        setFocusable({
+          count: elements.length,
+          first: elements[0],
+          last: elements[elements.length - 1],
+        })
+        elements[0].focus()
+      } else {
+        ref.current.focus()
+      }
+    }
+  }, [ref, show])
+
+  useEffect(() => {
+    function handleKeyDown(e) {
+      switch (e.keyCode) {
+        case 27: // esc
+          return toggle()
+        case 9: // tab
+          if (e.shiftKey) {
+            // If tab + shift key is pressed
+            if (document.activeElement === focusable.first) {
+              focusable.last.focus()
+              e.preventDefault()
+            }
+          } else {
+            // If tab key is pressed
+            if (document.activeElement === focusable.last) {
+              focusable.first.focus()
+              e.preventDefault()
+            }
+          }
+          return
+        default:
+          return
+      }
+    }
+
+    if (typeof window !== 'undefined') {
+      if (show) {
+        window.addEventListener(`keydown`, handleKeyDown)
+      }
+      return () => window.removeEventListener(`keydown`, handleKeyDown)
+    }
+  }, [focusable, show, toggle])
+
+  return { focusable }
+}
+
+interface Position {
+  top: number
+  bottom: number
+  left: number
+  right: number
+  height: number
+  width: number
+  x: number
+  y: number
+}
+export const usePosition = (ref: MutableRefObject<any>) => {
+  const [box, setBox] = useState<any>({})
+
+  const set = () =>
+    // @ts-ignore
+    setBox(ref && ref.current ? ref.current.getBoundingClientRect() : {})
+
+  useEffect(() => {
+    set()
+    window.addEventListener('resize', set)
+    return () => window.removeEventListener('resize', set)
+  }, [])
+
+  return [box, ref]
 }
