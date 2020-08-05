@@ -158,11 +158,11 @@ interface Position {
   x: number
   y: number
 }
+
 export const usePosition = (ref: MutableRefObject<any>) => {
   const [box, setBox] = useState<any>({})
 
   const set = () =>
-    // @ts-ignore
     setBox(ref && ref.current ? ref.current.getBoundingClientRect() : {})
 
   useEffect(() => {

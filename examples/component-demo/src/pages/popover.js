@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Popover } from '@maker-ui/components'
+import { Popover as Dropdown } from '@maker-ui/components'
 
 const TabsPage = () => {
   const [show, set] = useState(false)
@@ -7,16 +7,16 @@ const TabsPage = () => {
 
   return (
     <>
-      <button ref={buttonRef} style={{ height: 200 }} onClick={e => set(!show)}>
+      <button ref={buttonRef} onClick={e => set(!show)}>
         Popover toggle
       </button>
-      <Popover
+      <Dropdown
         anchor={buttonRef}
         origin={{ x: 'right', y: 'center' }}
         show={show}
         set={set}>
         Test!
-      </Popover>
+      </Dropdown>
     </>
   )
 }
