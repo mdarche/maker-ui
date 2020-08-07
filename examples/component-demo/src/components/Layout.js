@@ -69,7 +69,10 @@ export default ({ children, location }) => (
         <MobileMenu menu={menu} />
       </Header>
       <Content>
-        <Main>{children}</Main>
+        <Main>
+          {/* {children} */}
+          <PageTransition>{children}</PageTransition>
+        </Main>
         <SideNav menu={menu} />
       </Content>
       <Footer>Footer</Footer>

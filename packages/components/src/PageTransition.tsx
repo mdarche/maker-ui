@@ -8,10 +8,10 @@ function getTransition(type, distance) {
   switch (type) {
     case 'fade-right':
     case 'fade-left':
-      return `translate3d(${getSign(type)}${format(distance)},0,0)`
+      return `translate3d(${getSign(type)}${distance}px,0px,0px)`
     case 'fade-down':
     case 'fade-up':
-      return `translate3d(0,${getSign(type)}${format(distance)},0)`
+      return `translate3d(0px,${getSign(type)}${distance}px,0px)`
     default:
       return undefined
   }
@@ -39,23 +39,24 @@ export const PageTransition = ({
   config,
   children,
 }: PageTransitionProps) => {
-  const transitions: any[] = useTransition(children, children => children.key, {
-    // @ts-ignore
+  const transitions = useTransition(children, {
+    keys: children => children.key,
     from: {
       opacity: 0,
       transform: getTransition(type, distance),
-      position: 'static',
+      // position: 'static',
     },
-    enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+    enter: { opacity: 1, transform: 'translate3d(0px,0px,0px)' },
     leave: { opacity: 0 },
+    unique: true,
     config,
   })
-  return transitions.map(({ item, key, props }: any) => (
+  return transitions((style, item) => (
     <Flex
-      key={key}
       id="content-wrapper"
       sx={{ flexDirection: 'column', minHeight: '80vh' }}>
-      <a.div style={{ ...props, flex: 1 }}>{item}</a.div>
+      {/* @ts-ignore */}
+      <a.div style={{ ...style, flex: 1 }}>{item}</a.div>
     </Flex>
   ))
 }
