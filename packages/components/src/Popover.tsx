@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useTransition, animated as a } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
@@ -10,7 +10,7 @@ const AnimatedDiv = a(Div)
 // Used for Tooltips, Supplemental content, and Dropdown menus
 
 interface Origin {
-  x: 'left' | 'center' | 'right'
+  x: 'left' | 'center' | 'right' | 'origin'
   y: 'top' | 'center' | 'bottom'
 }
 export interface PopoverProps extends DivProps {
@@ -52,7 +52,7 @@ export const Popover = ({
   set,
   role = 'presentation',
   anchor,
-  origin,
+  origin = { x: 'origin', y: 'bottom' },
   appendTo,
   transition,
   variant,
@@ -64,12 +64,17 @@ export const Popover = ({
   const [box, { current }] = usePosition(anchor)
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
-  const ref = useRef(null)
+  // TODO check for focusable elements and send focus to it.
+  // Back to original element on !show
 
-  useEffect(() => {
-    console.log('ref is', ref.current)
-  }, [ref])
+  const measuredRef = useCallback(node => {
+    if (node !== null) {
+      setHeight(node.offsetHeight)
+      setWidth(node.offsetWidth)
+    }
+  }, [])
 
+  // TODO refactor this into one ...getTransitions function
   const animate = useTransition(show ? [1] : [], {
     from: {
       opacity: transition.includes('fade') ? 0 : 1,
@@ -79,7 +84,7 @@ export const Popover = ({
     enter: {
       opacity: 1,
       transform: `translate3d(0px,0px,0px)`,
-      height: '200px',
+      height: transition === 'scale' ? `100px` : undefined,
     },
     leave: {
       opacity: transition.includes('fade') ? 0 : 1,
@@ -95,18 +100,35 @@ export const Popover = ({
       ? box.left + box.width / 2 - width / 2
       : origin.x === 'left'
       ? box.left - width
-      : box.right
+      : origin.x === 'right'
+      ? box.right
+      : box.left
   }
 
   const getY = () => {
     if (!box) return
-    console.log(current.offsetTop)
+    console.log('current top is', current.offsetTop)
+    console.log('box top is', box.top)
     return origin.y === 'top'
-      ? current.offsetTop
-      : origin.y === 'bottom'
-      ? current.offsetTop + box.height
-      : current.offsetTop + box.height / 2
+      ? box.top
+      : origin.y === 'bottom' || transition === 'scale'
+      ? box.top + box.height
+      : origin.y === 'center'
+      ? box.top + box.height / 2 - height / 2
+      : 0
   }
+
+  // const getY = () => {
+  //   if (!box) return
+  //   console.log('box top is', box.top)
+  //   return origin.y === 'top'
+  //     ? current.offsetTop
+  //     : origin.y === 'bottom' || transition === 'scale'
+  //     ? current.offsetTop + box.height
+  //     : origin.y === 'center'
+  //     ? current.offsetTop + box.height / 2 - height / 2
+  //     : 0
+  // }
 
   return (
     <Portal root={appendTo}>
@@ -114,11 +136,7 @@ export const Popover = ({
         (props, item) =>
           item && (
             <AnimatedDiv
-              ref={ref}
-              // ref={el => {
-              //   if (el) setWidth(el.clientWidth) // FIX THIS
-              //   if (el) setHeight(el.clientHeight) // FIX THIS
-              // }}
+              ref={measuredRef}
               role={role}
               style={props}
               sx={{
@@ -127,6 +145,7 @@ export const Popover = ({
                 zIndex: 100,
                 left: getX(),
                 top: getY(),
+                overflow: transition.includes('scale') && 'hidden',
                 ...sx,
               }}
               {...rest}>

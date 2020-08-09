@@ -13,9 +13,9 @@ const TabsPage = () => {
       </button>
       <Dropdown
         anchor={buttonRef}
-        origin={{ x: 'center', y: 'center' }}
+        // origin={{ x: 'origin', y: 'center' }}
         show={show}
-        transition="fade-down"
+        transition="scale"
         set={set}>
         <Div sx={{ bg: 'gainsboro', height: 100, ul: { m: 0, p: 2 } }}>
           <ul>

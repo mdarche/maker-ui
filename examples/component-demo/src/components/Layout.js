@@ -70,8 +70,8 @@ export default ({ children, location }) => (
       </Header>
       <Content>
         <Main>
-          {/* {children} */}
-          <PageTransition>{children}</PageTransition>
+          {children}
+          {/* <PageTransition>{children}</PageTransition> */}
         </Main>
         <SideNav menu={menu} />
       </Content>
