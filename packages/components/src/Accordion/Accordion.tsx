@@ -1,8 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Div, DivProps } from 'maker-ui'
 
-import { AccordionPanel } from './AccordionPanel'
-
 const AccordionContext = React.createContext(null)
 const AccordionUpdateContext = React.createContext(null)
 
@@ -51,10 +49,8 @@ export function useAccordion() {
   const setState = useContext(AccordionUpdateContext)
 
   if (typeof state === undefined) {
-    throw new Error('AccordionPanel must be used within an Accordion component')
+    throw new Error('Panel must be used within an Accordion component')
   }
 
   return [state, setState]
 }
-
-Accordion.Panel = AccordionPanel

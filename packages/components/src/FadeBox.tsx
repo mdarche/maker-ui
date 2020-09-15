@@ -36,8 +36,7 @@ export interface FadeBoxProps extends DivProps {
 }
 
 /**
- * The `FadeBox` component renders a react component based on the user's scroll and its position
- * in the browser viewport. This lets you reveal components on scroll.
+ * The `FadeBox` component lets you reveal components on scroll.
  *
  * @see https://maker-ui.com/docs/components/fade-box
  */

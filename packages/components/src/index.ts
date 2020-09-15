@@ -1,4 +1,4 @@
-export { Accordion } from './Accordion'
+export { Accordion, Panel } from './Accordion'
 export { Announcement } from './Announcement'
 export { CookieNotice } from './CookieNotice'
 export { FadeBox } from './FadeBox'

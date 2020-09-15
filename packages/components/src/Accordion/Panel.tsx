@@ -3,9 +3,9 @@ import { Div, DivProps, Button, generateId } from 'maker-ui'
 import { useSpring, animated } from 'react-spring'
 
 import { useAccordion } from './Accordion'
-import { useMeasure } from './helper'
+import { useMeasure } from '../helper'
 
-export interface AccordionPanelProps extends DivProps {
+export interface PanelProps extends DivProps {
   title?: string
   open?: boolean
   eventKey?: string
@@ -13,7 +13,7 @@ export interface AccordionPanelProps extends DivProps {
 }
 
 /**
- * The `AccordionPanel` component wraps your custom collapsible content.
+ * The `Panel` component wraps your collapsible accordion content.
  *
  * @todo - Refactor this by registering with context. Make event keys optional for hook control
  * @todo - Move all click and focus event handlers to functions outside of render
@@ -21,10 +21,7 @@ export interface AccordionPanelProps extends DivProps {
  * @see https://maker-ui.com/docs/components/accordion-panel
  */
 
-export const AccordionPanel = React.forwardRef<
-  HTMLDivElement,
-  AccordionPanelProps
->(
+export const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
   (
     {
       title,

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Div } from 'maker-ui'
-import { Popover as Dropdown } from '@maker-ui/components'
+import { Popover as Dropdown, FadeBox } from '@maker-ui/components'
 
 const TabsPage = () => {
   const [show, set] = useState(false)
@@ -25,6 +25,9 @@ const TabsPage = () => {
           </ul>
         </Div>
       </Dropdown>
+      <FadeBox direction="up" distance="10px" sx={{ my: 100 }}>
+        Test
+      </FadeBox>
     </>
   )
 }

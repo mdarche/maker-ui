@@ -1,5 +1,5 @@
 import React from 'react'
-import { Accordion } from '@maker-ui/components'
+import { Accordion, Panel } from '@maker-ui/components'
 
 const AccordionPage = () => (
   <React.Fragment>
@@ -14,15 +14,15 @@ const AccordionPage = () => (
         },
         '.accordion-panel': { p: 100 },
       }}>
-      <Accordion.Panel title="Accordion Title" eventKey={0}>
+      <Panel title="Accordion Title" eventKey={0}>
         Yo!
-      </Accordion.Panel>
-      <Accordion.Panel title="Accordion Title" eventKey={1}>
+      </Panel>
+      <Panel title="Accordion Title" eventKey={1}>
         Yo 2!
-      </Accordion.Panel>
-      <Accordion.Panel title="Accordion Title" eventKey={2}>
+      </Panel>
+      <Panel title="Accordion Title" eventKey={2}>
         Yo 3!
-      </Accordion.Panel>
+      </Panel>
     </Accordion>
   </React.Fragment>
 )
