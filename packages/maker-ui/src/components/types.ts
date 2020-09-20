@@ -15,8 +15,6 @@ export type ResponsiveScale = string | number | string[] | number[]
 
 export type ResponsiveString = string | string[]
 
-export type SxProp = SxStyleProp
-
 export interface LayoutProps {
   sx?: SxStyleProp
   variant?: string
@@ -27,18 +25,10 @@ export interface LayoutProps {
  * Interface for `<Box/>` component props and style shortcuts.
  */
 export interface BasicBoxProps {
-  // children?: React.ReactNode
   variant?: string
-  sx?: SxProp
-  // TESTING REWRITE THIS
-  ref?: any //React.Ref<HTMLElement>
-  // role?: any
-  // onClick?: any
-  // title?: any
-  // tabIndex?: any
-  // Stop testing
+  sx?: SxStyleProp
   bg?: string | string[]
-  color?: string | string[]
+  // color?: string | string[]
   m?: ResponsiveScale
   mt?: ResponsiveScale
   mr?: ResponsiveScale
@@ -61,79 +51,80 @@ export interface BasicBoxProps {
 }
 
 /**
- * Alias for Theme UI box component props that includes all
- * HTML div attributes. Used with MakerUI's internal `<Box />` component.
- */
-export interface BoxProps
-  extends Assign<React.ComponentPropsWithRef<'div'>, BasicBoxProps> {}
-
-/**
  * Alias for `SVG` component props that includes all
  * svg attributes.
  */
 export interface SVGProps
-  extends Assign<React.ComponentPropsWithRef<'svg'>, BasicBoxProps> {}
+  extends BasicBoxProps,
+    React.HTMLAttributes<SVGSVGElement> {}
 
 /**
  * Alias for `Button` component props that includes all
  * HTML button attributes.
  */
 export interface ButtonProps
-  extends Assign<React.ComponentPropsWithRef<'button'>, BasicBoxProps> {}
+  extends BasicBoxProps,
+    React.HTMLAttributes<HTMLButtonElement> {}
 
 /**
  * Alias for `Link` component props that includes all
  * anchor tag attributes.
  */
 export interface LinkProps
-  extends Assign<React.ComponentPropsWithRef<'a'>, BasicBoxProps> {}
+  extends BasicBoxProps,
+    React.HTMLAttributes<HTMLAnchorElement> {}
 
 /**
  * Alias for `UList` component props that includes all
  * unordered list tag attributes.
  */
 export interface UListProps
-  extends Assign<React.ComponentPropsWithRef<'ul'>, BasicBoxProps> {}
+  extends BasicBoxProps,
+    React.HTMLAttributes<HTMLUListElement> {}
 
 /**
- * Alias for Theme UI `Box` component props that includes all
- * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ * Alias for `OList` component props that includes all
+ * ordered list tag attributes.
  */
 export interface OListProps
-  extends Assign<React.ComponentPropsWithRef<'ol'>, BasicBoxProps> {}
+  extends BasicBoxProps,
+    React.HTMLAttributes<HTMLOListElement> {}
 
 /**
- * Alias for Theme UI `Box` component props that includes all
- * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ * Alias for `ListItem` component props that includes all
+ * list item tag attributes.
  */
 export interface ListItemProps
-  extends Assign<React.ComponentPropsWithRef<'li'>, BasicBoxProps> {}
+  extends BasicBoxProps,
+    React.HTMLAttributes<HTMLLIElement> {}
 
 /**
- * Alias for Theme UI `Box` component props that includes all
- * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ * Alias for `Div` component props that includes all
+ * HTML div tag attributes.
  */
 export interface DivProps
-  extends Assign<React.ComponentPropsWithRef<'div'>, BasicBoxProps> {}
+  extends BasicBoxProps,
+    React.HTMLAttributes<HTMLDivElement> {}
 
 /**
- * Alias for Theme UI `Box` component props that includes all
- * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ * Alias for `Span` component props that includes all
+ * HTML span tag attributes.
  */
 export interface SpanProps
-  extends Assign<React.ComponentPropsWithRef<'span'>, BasicBoxProps> {}
+  extends BasicBoxProps,
+    React.HTMLAttributes<HTMLSpanElement> {}
 
 /**
- * Alias for Theme UI `Box` component props that includes all
- * anchor tag attributes. Used with MakerUI's internal `<Box />` component.
+ * Alias for `Flex` component props that includes all
+ * HTML span tag attributes.
  */
 export interface FlexProps extends DivProps {
-  inline: ResponsiveString
-  align: ResponsiveString
-  justify: ResponsiveString
-  direction: ResponsiveString
-  flex: ResponsiveScale
-  wrap: ResponsiveString
+  inline?: ResponsiveString
+  align?: ResponsiveString
+  justify?: ResponsiveString
+  direction?: ResponsiveString
+  flex?: ResponsiveScale
+  wrap?: ResponsiveString
 }
 
 /**
@@ -205,10 +196,10 @@ export interface MakerOptions {
  * Alias for shared <Navbar /> component props.
  */
 export interface NavProps extends BasicBoxProps {
-  logo: MaybeElement
-  menuToggle: MaybeElement
-  colorToggle: MaybeElement
-  widgetArea: MaybeElement
+  logo?: MaybeElement
+  menuToggle?: MaybeElement
+  colorToggle?: MaybeElement
+  widgetArea?: MaybeElement
   menu?: MenuProps[]
   bp?: number
   type?: string
@@ -216,7 +207,6 @@ export interface NavProps extends BasicBoxProps {
   pathname?: string
   maxWidth?: ResponsiveScale | any
   variant?: string
-  sx?: SxStyleProp
 }
 
 /**
@@ -225,9 +215,9 @@ export interface NavProps extends BasicBoxProps {
 export interface MenuProps {
   label: string
   path: string
-  classes: string
-  icon: MaybeElement
-  newTab: boolean
-  submenu: MenuProps[]
-  openNested: boolean
+  classes?: string
+  icon?: MaybeElement
+  newTab?: boolean
+  submenu?: MenuProps[]
+  openNested?: boolean
 }

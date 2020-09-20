@@ -19,9 +19,7 @@ export const Box = forwardRef<any, any>((props, ref) => {
 })
 
 /**
- * A `<Box />` component for quick access to css Flex properties.
- *
- * @todo - Align props with SX object properties (requires emotion & styled system)
+ * A pre-styled div component for quick access to css Flex properties.
  */
 
 export const Flex = forwardRef<HTMLDivElement, any>(
@@ -60,7 +58,7 @@ export const Grid = forwardRef<HTMLDivElement, any>(
         gridTemplateRows: rows,
         gridGap: gap,
         columnGap: columnGap,
-        rowGap: rowGap,
+        rowGap: rowGap || gap,
         placeItems: center && 'center',
         ...sx,
       }}
@@ -69,37 +67,56 @@ export const Grid = forwardRef<HTMLDivElement, any>(
   )
 )
 
-export const Div = forwardRef<HTMLDivElement, DivProps>((props, ref) => (
-  <div ref={ref} {...props} />
-))
-
-export const Span = forwardRef<HTMLSpanElement, SpanProps>((props, ref) => (
-  <span ref={ref} {...props} />
-))
-
-export const OList = forwardRef<HTMLOListElement, OListProps>((props, ref) => (
-  <ol ref={ref} {...props} />
-))
-
-export const UList = forwardRef<HTMLUListElement, UListProps>((props, ref) => (
-  <ul ref={ref} {...props} />
-))
-
-export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
-  (props, ref) => <li ref={ref} {...props} />
+export const Div = forwardRef<HTMLDivElement, DivProps>(
+  ({ variant, sx, ...props }, ref) => (
+    <div ref={ref} sx={{ variant, ...sx }} {...props} />
+  )
 )
 
-export const SVG = forwardRef<SVGSVGElement, SVGProps>((props, ref) => (
-  <svg ref={ref} xmlns="http://www.w3.org/2000/svg" {...props} />
-))
+export const Span = forwardRef<HTMLSpanElement, SpanProps>(
+  ({ variant, sx, ...props }, ref) => (
+    <span ref={ref} sx={{ variant, ...sx }} {...props} />
+  )
+)
+
+export const OList = forwardRef<HTMLOListElement, OListProps>(
+  ({ variant, sx, ...props }, ref) => (
+    <ol ref={ref} sx={{ variant, ...sx }} {...props} />
+  )
+)
+
+export const UList = forwardRef<HTMLUListElement, UListProps>(
+  ({ variant, sx, ...props }, ref) => (
+    <ul ref={ref} sx={{ variant, ...sx }} {...props} />
+  )
+)
+
+export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
+  ({ variant, sx, ...props }, ref) => (
+    <li ref={ref} sx={{ variant, ...sx }} {...props} />
+  )
+)
+
+export const SVG = forwardRef<SVGSVGElement, SVGProps>(
+  ({ variant, sx, ...props }, ref) => (
+    <svg
+      ref={ref}
+      xmlns="http://www.w3.org/2000/svg"
+      sx={{ variant, ...sx }}
+      {...props}
+    />
+  )
+)
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => <button ref={ref} {...props} />
+  ({ variant, sx, ...props }, ref) => (
+    <button ref={ref} sx={{ variant, ...sx }} {...props} />
+  )
 )
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ children, ...props }, ref) => (
-    <a ref={ref} {...props}>
+  ({ variant, sx, children, ...props }, ref) => (
+    <a ref={ref} sx={{ variant, ...sx }} {...props}>
       {children}
     </a>
   )

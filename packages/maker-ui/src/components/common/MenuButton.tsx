@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { SVG, Button } from './Primitives'
-import { BoxProps, MaybeElement } from '../types'
+import { BasicBoxProps, MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 import { setBreakpoint } from '../../utils/helper'
 
-interface Props extends BoxProps {
+interface Props extends BasicBoxProps {
   closeIcon?: boolean
   custom?: MaybeElement
   visibleOnDesktop?: boolean

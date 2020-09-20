@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx, SxStyleProp } from 'theme-ui'
 import { forwardRef } from 'react'
 
 import { LayoutProps, ResponsiveScale } from './types'
@@ -8,7 +8,10 @@ interface SectionProps
   extends LayoutProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: ResponsiveScale
+  backgroundImage?: string
+  rootSx?: SxStyleProp
   maxWidth?: ResponsiveScale
+  container?: boolean
 }
 
 /**
@@ -19,21 +22,41 @@ interface SectionProps
  */
 
 export const Section = forwardRef<HTMLElement, SectionProps>(
-  ({ maxWidth, bg, background, variant, id, className, ...props }, ref) => {
+  (
+    {
+      maxWidth,
+      bg,
+      background,
+      color,
+      container = true,
+      variant,
+      id,
+      className,
+      rootSx,
+      sx,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <section
         ref={ref}
         id={id}
         className={className}
-        sx={{ bg, background, variant, width: '100%' }}>
-        <div
-          className="container"
-          sx={{
-            maxWidth: maxWidth || (t => t.sizes.maxWidth_section),
-            mx: 'auto',
-          }}
-          {...props}
-        />
+        sx={{ bg, background, color, variant, width: '100%', ...rootSx }}>
+        {container ? (
+          <div
+            className="container"
+            sx={{
+              maxWidth: maxWidth || (t => t.sizes.maxWidth_section),
+              mx: 'auto',
+              ...sx,
+            }}
+            {...props}
+          />
+        ) : (
+          props.children
+        )}
       </section>
     )
   }

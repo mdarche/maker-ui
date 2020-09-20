@@ -105,9 +105,9 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
       sx={{
         bg,
         background,
-        variant,
         zIndex: 100,
         ...stickyPartial,
+        variant,
         ...sx,
       }}
       {...rest}
