@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Button } from 'maker-ui'
+import { Flex } from 'maker-ui'
 import { NewTabIcon, PaintIcon } from '../assets/icons'
 
 export default () => (

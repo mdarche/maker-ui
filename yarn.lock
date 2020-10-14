@@ -11532,6 +11532,13 @@ makeerror@1.0.x:
   dependencies:
     tmpl "1.0.x"
 
+maker-ui@*, maker-ui@^0.4.2:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/maker-ui/-/maker-ui-0.4.4.tgz#9a8edd7ae29a4dc07b38864d87947a4a3c99e0dd"
+  integrity sha512-x9PuQ1ft8ah6/aLt3naZwNypo04hhcS91F26JCxRIxhkRtRwtk2iyfwMk+yCLqzz5COhLr0oqVpPcwbfbhuKCg==
+  dependencies:
+    theme-ui "^0.3.1"
+
 map-cache@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"

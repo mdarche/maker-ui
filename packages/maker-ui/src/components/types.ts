@@ -56,7 +56,7 @@ export interface BasicBoxProps {
  */
 export interface SVGProps
   extends BasicBoxProps,
-    React.HTMLAttributes<SVGSVGElement> {}
+    React.SVGAttributes<SVGElement> {}
 
 /**
  * Alias for `Button` component props that includes all
@@ -72,7 +72,7 @@ export interface ButtonProps
  */
 export interface LinkProps
   extends BasicBoxProps,
-    React.HTMLAttributes<HTMLAnchorElement> {}
+    React.AnchorHTMLAttributes<HTMLAnchorElement> {}
 
 /**
  * Alias for `UList` component props that includes all

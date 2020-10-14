@@ -54,8 +54,8 @@ export const MenuButton = (props: Props) => {
         toggleSideMenu,
         sideNav.isPrimaryMobileNav
       )}
-      variant="header.menuButton"
       sx={{
+        variant: 'header.menuButton',
         ...visibility,
         m: '0 auto',
         border: 'none',

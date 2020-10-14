@@ -12,7 +12,7 @@ import {
 import Prism from '@theme-ui/prism'
 
 import { CodeProvider } from './CodeContext'
-import { Logo } from './Logo'
+// import { Logo } from './Logo'
 import Widgets from './Widgets'
 import Search from './Search'
 
@@ -27,7 +27,7 @@ export default ({ children, location }) => {
   return (
     <Layout theme={theme} options={options} components={components}>
       <Header>
-        <Navbar logo={<Logo />} menu={<Search />} widgetArea={<Widgets />} />
+        <Navbar logo={'test'} menu={<Search />} widgetArea={<Widgets />} />
         <MobileMenu menu={primaryMenu} />
       </Header>
       <Content>
