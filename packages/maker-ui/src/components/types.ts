@@ -1,5 +1,6 @@
 import React from 'react'
 import { SxStyleProp } from 'theme-ui'
+import { SystemStyleObject } from '@styled-system/css'
 
 type Assign<T, U> = {
   [P in keyof (T & U)]: P extends keyof T
@@ -26,7 +27,7 @@ export interface LayoutProps {
  */
 export interface BasicBoxProps {
   variant?: string
-  sx?: SxStyleProp
+  sx?: SystemStyleObject
   bg?: string | string[]
   // color?: string | string[]
   m?: ResponsiveScale

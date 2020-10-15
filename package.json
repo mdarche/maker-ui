@@ -52,15 +52,6 @@
       "pre-commit": "lint-staged"
     }
   },
-  "prettier": {
-    "endOfLine": "lf",
-    "semi": false,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "proseWrap": "preserve",
-    "jsxBracketSameLine": true
-  },
   "dependencies": {
     "react": "^16.13.1"
   }
