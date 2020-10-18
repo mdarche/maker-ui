@@ -24,12 +24,12 @@ const Root = ({
   skiplinks,
   children,
 }: LayoutProps) => {
-  const [{ extendedOptions, extendedTheme }] = useExtensions()
-  const allOptions = merge(extendedOptions, options)
+  // const [{ extendedOptions, extendedTheme }] = useExtensions()
+  const allOptions = merge({}, options)
 
   return (
     <ThemeProvider
-      theme={createTheme(theme, extendedTheme, allOptions)}
+      theme={createTheme(theme, {}, allOptions)}
       // @ts-ignore
       components={components}>
       <OptionProvider options={allOptions}>
@@ -49,7 +49,6 @@ const Root = ({
  */
 
 export const Layout = (props: LayoutProps) => (
-  <ExtensionProvider>
-    <Root {...props} />
-  </ExtensionProvider>
+  // <ExtensionProvider>
+  <Root {...props} />
 )

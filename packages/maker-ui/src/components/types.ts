@@ -1,6 +1,5 @@
 import React from 'react'
 import { SxStyleProp } from 'theme-ui'
-import { SystemStyleObject } from '@styled-system/css'
 
 type Assign<T, U> = {
   [P in keyof (T & U)]: P extends keyof T
@@ -27,7 +26,7 @@ export interface LayoutProps {
  */
 export interface BasicBoxProps {
   variant?: string
-  sx?: SystemStyleObject
+  sx?: SxStyleProp
   bg?: string | string[]
   // color?: string | string[]
   m?: ResponsiveScale
@@ -129,67 +128,67 @@ export interface FlexProps extends DivProps {
 }
 
 /**
- * Alias for top-level Maker UI components layout components.
+ * Alias for top-level Maker UI layout components.
  */
 
 export interface MakerOptions {
-  navigation: string
-  layout: string
-  topbar: {
-    maxWidth: ResponsiveScale
-    hideOnMobile: boolean
-    breakIndex: number
+  navigation?: string
+  layout?: string
+  topbar?: {
+    maxWidth?: ResponsiveScale
+    hideOnMobile?: boolean
+    breakIndex?: number
   }
-  header: {
-    maxWidth: ResponsiveScale
-    sticky: boolean
-    stickyMobile: boolean
-    stickyScroll: boolean
-    scroll: {
-      toggleClass: boolean
-      scrollTop: number
-      className: string
+  header?: {
+    maxWidth?: ResponsiveScale
+    sticky?: boolean
+    stickyMobile?: boolean
+    stickyScroll?: boolean
+    scroll?: {
+      toggleClass?: boolean
+      scrollTop?: number
+      className?: string
     }
-    colorToggle: boolean
-    hideColorToggleOnMobile: boolean
-    hideWidgetsOnMobile: boolean
-    dropdown: {
-      caret: boolean
-      transition: string
+    colorToggle?: boolean
+    hideColorToggleOnMobile?: boolean
+    hideWidgetsOnMobile?: boolean
+    dropdown?: {
+      caret?: boolean
+      transition?: string
     }
-    breakIndex: number
+    breakIndex?: number
   }
-  mobileMenu: {
-    width: ResponsiveScale
-    transition: string
-    visibleOnDesktop: boolean
-    defaultCloseButton: boolean
-    closeOnBlur: boolean
-    closeOnRouteChange: boolean
+  mobileMenu?: {
+    width?: ResponsiveScale
+    transition?: string
+    visibleOnDesktop?: boolean
+    defaultCloseButton?: boolean
+    closeOnBlur?: boolean
+    closeOnRouteChange?: boolean
   }
-  sideNav: {
-    width: ResponsiveScale
-    isHeader: boolean
-    isPrimaryMobileNav: boolean
-    floatingToggle: boolean
-    closeOnBlur: boolean
-    closeOnRouteChange: boolean
-    breakIndex: number
+  sideNav?: {
+    width?: ResponsiveScale
+    isHeader?: boolean
+    isPrimaryMobileNav?: boolean
+    floatingToggle?: boolean
+    closeOnBlur?: boolean
+    closeOnRouteChange?: boolean
+    breakIndex?: number
   }
-  content: {
-    maxWidth: ResponsiveScale
-    maxWidthSection: ResponsiveScale
-    sidebarGap: ResponsiveScale
-    breakIndex: number
+  content?: {
+    maxWidth?: ResponsiveScale
+    maxWidthSection?: ResponsiveScale
+    sidebarGap?: ResponsiveScale
+    breakIndex?: number
   }
-  sidebar: {
-    width: ResponsiveScale
+  sidebar?: {
+    width?: ResponsiveScale
   }
-  footer: {
-    maxWidth: ResponsiveScale
+  footer?: {
+    maxWidth?: ResponsiveScale
   }
-  a11y: {
-    skiplinks: boolean
+  a11y?: {
+    skiplinks?: boolean
   }
 }
 

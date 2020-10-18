@@ -9,8 +9,8 @@ import {
   Footer,
 } from 'maker-ui'
 
-const theme = {}
-const options = {}
+import { theme } from '../config/theme'
+import { options } from '../config/options'
 
 const App = ({ children }) => {
   return (
@@ -26,5 +26,7 @@ const App = ({ children }) => {
     </Layout>
   )
 }
+
+// TODO - Add heading and image tags to primitive
 
 export default App
