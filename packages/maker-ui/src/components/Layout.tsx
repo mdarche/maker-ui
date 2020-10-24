@@ -1,8 +1,6 @@
 import React from 'react'
 import { ThemeProvider, Theme } from 'theme-ui'
-import merge from 'deepmerge'
 
-import { ExtensionProvider, useExtensions } from '../context/ExtendContext'
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
 import { Skiplinks, Link } from './Skiplinks'
@@ -17,22 +15,25 @@ interface LayoutProps {
   skiplinks?: Link[]
 }
 
-const Root = ({
-  theme,
+/**
+ * Wrap your application in the `Layout` component to use Maker UI.
+ *
+ * @see https://maker-ui.com/docs/layout
+ */
+
+export const Layout = ({
+  theme = {},
   options = {},
   components,
   skiplinks,
   children,
 }: LayoutProps) => {
-  // const [{ extendedOptions, extendedTheme }] = useExtensions()
-  const allOptions = merge({}, options)
-
   return (
     <ThemeProvider
-      theme={createTheme(theme, {}, allOptions)}
+      theme={createTheme(theme, options)}
       // @ts-ignore
       components={components}>
-      <OptionProvider options={allOptions}>
+      <OptionProvider options={options}>
         <ActionProvider>
           <Skiplinks links={skiplinks} />
           {children}
@@ -41,14 +42,3 @@ const Root = ({
     </ThemeProvider>
   )
 }
-
-/**
- * Wrap your application in the `Layout` component to use Maker UI.
- *
- * @see https://maker-ui.com/docs/layout
- */
-
-export const Layout = (props: LayoutProps) => (
-  // <ExtensionProvider>
-  <Root {...props} />
-)

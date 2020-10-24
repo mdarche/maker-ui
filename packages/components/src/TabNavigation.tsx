@@ -71,6 +71,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
               : 'tabs-button'
           }
           role="tab"
+          // @ts-ignore
           disabled={item.disabled}
           title={item.title}
           aria-controls={item.id}

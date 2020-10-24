@@ -1,4 +1,4 @@
-export default {
+export const theme = {
   initialColorModeName: 'light',
   colors: {
     text: '#333',
@@ -30,10 +30,6 @@ export default {
         listStyle: 'none',
       },
     },
-  },
-  testVariant: {
-    bg: 'purple',
-    p: 300,
   },
   bigVariant: {
     fontWeight: 700,

@@ -17,7 +17,7 @@ interface SideNavProps
     React.HTMLAttributes<HTMLDivElement> {
   toggleVariant?: string | string[]
   background?: string | string[]
-  customToggle: MaybeElement
+  customToggle?: MaybeElement
   menu?: MenuProps[]
   pathname?: string
   header?: React.ReactElement

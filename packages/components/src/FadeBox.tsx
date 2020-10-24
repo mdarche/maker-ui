@@ -72,5 +72,6 @@ export const FadeBox = ({
     }
   }, [show, offset])
 
+  // @ts-ignore
   return <AnimatedBox style={reveal} ref={ref} {...props} />
 }

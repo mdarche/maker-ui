@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
-const AccordionContext = React.createContext(null)
+const AccordionDataContext = React.createContext(null)
 const AccordionUpdateContext = React.createContext(null)
 
 interface AccordionContextProps {
@@ -9,7 +9,7 @@ interface AccordionContextProps {
     expand?: JSX.Element | null
     collapse?: JSX.Element | null
   }
-  defaultKey?: number
+  activeKey?: number | string
   showSingle?: boolean
   children: React.ReactElement
 }
@@ -20,37 +20,56 @@ interface AccordionContextProps {
  * @see https://maker-ui.com/docs/components/accordion
  */
 
-export const Context = ({
-  icon = true,
-  customIcons = { expand: null, collapse: null },
-  defaultKey = 0,
-  showSingle = false,
+export const AccordionContext = ({
+  icon,
+  customIcons,
+  activeKey,
+  showSingle,
   children,
-  ...props
 }: AccordionContextProps) => {
   const [state, setState] = useState({
-    activeKey: defaultKey,
+    activeKey,
+    panelKeys: [],
     icon,
     customIcons,
     showSingle,
   })
 
+  useEffect(() => {
+    setState(state => ({ ...state, activeKey }))
+  }, [activeKey])
+
   return (
-    <AccordionContext.Provider value={state}>
+    <AccordionDataContext.Provider value={state}>
       <AccordionUpdateContext.Provider value={setState}>
         {children}
       </AccordionUpdateContext.Provider>
-    </AccordionContext.Provider>
+    </AccordionDataContext.Provider>
   )
 }
 
 export function useAccordion() {
-  const state = useContext(AccordionContext)
+  const state = useContext(AccordionDataContext)
   const setState = useContext(AccordionUpdateContext)
 
   if (typeof state === undefined) {
     throw new Error('Panel must be used within an Accordion component')
   }
 
-  return [state, setState]
+  function registerPanel(id: string) {
+    const exists = state.panelKeys ? state.panelKeys.find(t => t === id) : false
+
+    if (!exists) {
+      setState(s => ({
+        ...s,
+        panelKeys: [...s.panelKeys, id],
+      }))
+    }
+  }
+
+  function setActivePanel(id: string) {
+    setState(s => ({ ...s, activeKey: id }))
+  }
+
+  return { state, registerPanel, setActivePanel }
 }

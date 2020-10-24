@@ -5,9 +5,7 @@ import { Div, DivProps } from 'maker-ui'
 import { Portal } from './Portal'
 import { useFocus } from './helper'
 
-// TODO add and export a close button and use as a sub-component
-
-const AnimatedBox = a(Div)
+const AnimatedDiv = a(Div)
 
 const position = {
   position: 'fixed',
@@ -27,18 +25,19 @@ const centered = val =>
     : null
 
 export interface ModalProps extends DivProps {
+  show: boolean
+  toggle: Function
   appendTo?: string
   title?: string
   closeOnBlur?: boolean
-  show: boolean
-  toggle: Function
   focusRef: any
-  style: any
-  center: boolean
+  style?: any
+  center?: boolean
 }
 
 /**
  * The `Modal` component displays content as a dialog box/popup window.
+ * You can close the modal with the 'ESC' key or the optional `closeOnBlur` prop.
  *
  * @see https://maker-ui.com/docs/components/modal
  */
@@ -88,7 +87,7 @@ export const Modal = ({
       {transition(
         (props, item) =>
           item && (
-            <AnimatedBox
+            <AnimatedDiv
               ref={modalRef}
               role="dialog"
               aria-label={title}
@@ -115,7 +114,7 @@ export const Modal = ({
               <Div sx={{ zIndex: 1, overflow: 'scroll' }} {...rest}>
                 {children}
               </Div>
-            </AnimatedBox>
+            </AnimatedDiv>
           )
       )}
     </Portal>

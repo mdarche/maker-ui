@@ -2,7 +2,7 @@ import React from 'react'
 import { Flex } from 'maker-ui'
 import { animated as a, useTransition } from 'react-spring'
 
-import { format, getSign } from './helper'
+import { getSign } from './helper'
 
 function getTransition(type, distance) {
   switch (type) {

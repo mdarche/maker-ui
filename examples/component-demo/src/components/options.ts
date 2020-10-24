@@ -1,4 +1,6 @@
-export default {
+import { MakerOptions } from 'maker-ui'
+
+export const options: MakerOptions = {
   navigation: 'center',
   layout: 'content-sidenav',
   topbar: {

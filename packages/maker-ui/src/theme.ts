@@ -4,7 +4,7 @@ import { Theme } from 'theme-ui'
 import { validate } from './utils/helper'
 import { defaultOptions } from './options'
 
-export const createTheme = (theme, extendedTheme, options): Theme => {
+export const createTheme = (theme, options): Theme => {
   const o =
     options === undefined ? defaultOptions : merge(defaultOptions, options)
 
@@ -39,7 +39,7 @@ export const createTheme = (theme, extendedTheme, options): Theme => {
     },
   }
 
-  return merge.all([mappedOptions, validate(extendedTheme), validate(theme)], {
+  return merge.all([mappedOptions, validate(theme)], {
     arrayMerge: (_, source, __) => source,
   })
 }

@@ -1,17 +1,14 @@
 import React from 'react'
-import { SxStyleProp } from 'theme-ui'
-
-type Assign<T, U> = {
-  [P in keyof (T & U)]: P extends keyof T
-    ? T[P]
-    : P extends keyof U
-    ? U[P]
-    : never
-}
+import { SxStyleProp, Theme } from 'theme-ui'
 
 export type MaybeElement = JSX.Element | string | false | null | undefined
 
-export type ResponsiveScale = string | number | string[] | number[]
+export type ResponsiveScale =
+  | string
+  | number
+  | string[]
+  | number[]
+  | (string | number)[]
 
 export type ResponsiveString = string | string[]
 
@@ -126,6 +123,12 @@ export interface FlexProps extends DivProps {
   flex?: ResponsiveScale
   wrap?: ResponsiveString
 }
+
+/**
+ * Alias for Maker UI theme object.
+ */
+
+export type MakerTheme = Theme
 
 /**
  * Alias for top-level Maker UI layout components.

@@ -120,7 +120,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
         </Box> */}
         <a.div
           style={{
-            willChange: 'height',
+            // willChange: 'height',
             paddingLeft: indentation,
             overflow: 'hidden',
             height: isOpen && previous === isOpen ? 'auto' : height,

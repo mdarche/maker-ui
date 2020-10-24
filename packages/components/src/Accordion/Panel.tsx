@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Div, DivProps, Button, generateId } from 'maker-ui'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated as a } from 'react-spring'
 
-import { useAccordion } from './Accordion'
+import { useAccordion } from './AccordionContext'
 import { useMeasure } from '../helper'
+
+const AnimatedDiv = a(Div)
 
 export interface PanelProps extends DivProps {
   title?: string
@@ -36,19 +38,24 @@ export const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
     },
     ref
   ) => {
-    const [state, setState] = useAccordion()
+    const { state, registerPanel, setActivePanel } = useAccordion()
     const [show, set] = useState(
       state.showSingle && state.index === eventKey ? true : open
     )
     const [buttonId] = useState(generateId())
     const [panelId] = useState(generateId())
+    const [panelKey] = useState(() => (eventKey ? eventKey : generateId()))
     const [bind, { height: viewHeight }] = useMeasure()
 
     useEffect(() => {
+      registerPanel(panelKey)
+    }, [registerPanel, panelKey])
+
+    useEffect(() => {
       if (state.showSingle) {
-        return state.activeKey !== eventKey ? set(false) : set(true)
+        return state.activeKey !== panelKey ? set(false) : set(true)
       }
-    }, [state, eventKey, set])
+    }, [state, eventKey, panelKey, set])
 
     const { height } = useSpring({
       from: { height: 0 },
@@ -58,9 +65,7 @@ export const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
     })
 
     const setActive = () =>
-      !show && state.showSingle
-        ? setState(s => ({ ...s, activeKey: eventKey }))
-        : set(!show)
+      !show && state.showSingle ? setActivePanel(panelKey) : set(!show)
 
     return (
       <Div
@@ -86,7 +91,7 @@ export const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
             cursor: 'pointer',
           }}>
           <span>{title}</span>
-          {state.icon && (
+          {state.icon ? (
             <span>
               {state.customIcons.expand !== null ? (
                 show ? (
@@ -113,13 +118,14 @@ export const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
                 </svg>
               )}
             </span>
-          )}
+          ) : null}
         </Button>
-        <animated.div
+        <AnimatedDiv
           id={panelId}
           role="region"
           aria-labelledby={buttonId}
           style={{
+            // @ts-ignore
             willChange: 'height',
             overflow: 'hidden',
             height,
@@ -128,13 +134,13 @@ export const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
             <Div
               className="accordion-panel"
               sx={{
-                variant: `${variant}.panel`,
                 borderTop: `1px solid ${borderColor}`,
+                variant: `${variant}.panel`,
               }}>
               {children}
             </Div>
           </div>
-        </animated.div>
+        </AnimatedDiv>
       </Div>
     )
   }

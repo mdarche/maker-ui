@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import { Div, DivProps } from 'maker-ui'
 
-const AccordionContext = React.createContext(null)
-const AccordionUpdateContext = React.createContext(null)
+import { AccordionContext } from './AccordionContext'
+import { Panel } from './Panel'
 
 interface AccordionProps extends DivProps {
   icon?: boolean
@@ -10,7 +10,7 @@ interface AccordionProps extends DivProps {
     expand?: JSX.Element | null
     collapse?: JSX.Element | null
   }
-  defaultKey?: number
+  activeKey?: number | string
   showSingle?: boolean
 }
 
@@ -23,34 +23,20 @@ interface AccordionProps extends DivProps {
 export const Accordion = ({
   icon = true,
   customIcons = { expand: null, collapse: null },
-  defaultKey = 0,
+  activeKey = 0,
   showSingle = false,
   children,
   ...props
 }: AccordionProps) => {
-  const [state, setState] = useState({
-    activeKey: defaultKey,
-    icon,
-    customIcons,
-    showSingle,
-  })
-
   return (
-    <AccordionContext.Provider value={state}>
-      <AccordionUpdateContext.Provider value={setState}>
-        <Div {...props}>{children}</Div>
-      </AccordionUpdateContext.Provider>
-    </AccordionContext.Provider>
+    <AccordionContext
+      icon={icon}
+      customIcons={customIcons}
+      activeKey={activeKey}
+      showSingle={showSingle}>
+      <Div {...props}>{children}</Div>
+    </AccordionContext>
   )
 }
 
-export function useAccordion() {
-  const state = useContext(AccordionContext)
-  const setState = useContext(AccordionUpdateContext)
-
-  if (typeof state === undefined) {
-    throw new Error('Panel must be used within an Accordion component')
-  }
-
-  return [state, setState]
-}
+Accordion.Panel = Panel

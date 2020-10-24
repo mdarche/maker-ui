@@ -13,6 +13,8 @@
     "docs"
   ],
   "devDependencies": {
+    "@testing-library/dom": "^7.26.0",
+    "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^9.4.0",
     "@types/jest": "^26.0.4",
     "@types/react": "^16.9.41",
@@ -35,7 +37,7 @@
       "__DEV__": "boolean"
     },
     "testMatch": [
-      "**/packages/**/test/*.js"
+      "**/packages/**/test/*.test.tsx"
     ],
     "snapshotSerializers": [
       "jest-emotion"

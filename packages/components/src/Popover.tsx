@@ -138,6 +138,7 @@ export const Popover = ({
             <AnimatedDiv
               ref={measuredRef}
               role={role}
+              // @ts-ignore
               style={props}
               sx={{
                 variant,
