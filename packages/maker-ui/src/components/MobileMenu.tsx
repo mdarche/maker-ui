@@ -117,13 +117,15 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
               closeIcon
             />
           ) : null}
-          {header && header}
+          {header ? header : null}
           {children || (
             <AccordionMenu menu={menu} menuType="mobile" pathname={pathname} />
           )}
-          {footer && footer}
+          {footer ? footer : null}
         </div>
       </Fragment>
     )
   }
 )
+
+MobileMenu.displayName = 'MobileMenu_MakerUI'

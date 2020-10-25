@@ -43,3 +43,5 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
     )
   }
 )
+
+Footer.displayName = 'Footer_MakerUI'

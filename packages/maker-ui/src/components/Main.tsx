@@ -25,3 +25,5 @@ export const Main = forwardRef<HTMLDivElement, MainProps>(
     />
   )
 )
+
+Main.displayName = 'Main_MakerUI'

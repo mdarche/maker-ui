@@ -40,3 +40,5 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
     )
   }
 )
+
+Sidebar.displayName = 'Sidebar_MakerUI'

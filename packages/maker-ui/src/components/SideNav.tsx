@@ -114,3 +114,5 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     )
   }
 )
+
+SideNav.displayName = 'SideNav_MakerUI'

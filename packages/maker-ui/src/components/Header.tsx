@@ -114,3 +114,5 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
     />
   )
 })
+
+Header.displayName = 'Header_MakerUI'
