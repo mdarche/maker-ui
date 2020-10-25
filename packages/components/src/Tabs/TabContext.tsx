@@ -1,51 +1,54 @@
 import React, { useState, useContext, useEffect } from 'react'
 
-// import { TabNavigation } from './TabNavigation'
-
 const TabDataContext = React.createContext(null)
 const TabUpdateContext = React.createContext(null)
 
 export interface TabContextProps {
   renderInactive?: boolean
+  activeKey?: number | string
   variant: string | string[]
   children?: React.ReactElement
 }
 
 export interface TabState {
   activeId: string | number
-  tabs: any[]
+  tabs: {
+    id: string
+    panelId: string
+    title: string | React.ReactElement
+    disabled: boolean
+  }[]
   variant: string | string[]
   renderInactive: boolean
 }
 
 /**
- * The `TabGroup` component is the root component for building a tabs container. It's a local
- * provider that contains the settings for responsive behaviors, positioning, and nested
- * `Tab` components.
+ * The `TabContext` component is a Context Provider handles all of the
+ * settings for a `Tabs` component and all of its `TabPanel` children.
  *
- * @todo - Allow users to inject non Tab components into tab canvas (npm website for example)
- * @todo - Expose the tab controls to outside components / actions (add optional event key)
- *
- * @see https://maker-ui.com/docs/components/tab
+ * @internal use only
  */
 
 export const TabContext = ({
   variant = 'tabs',
+  activeKey,
   renderInactive = false,
   children,
 }: TabContextProps) => {
   const [state, setState] = useState<TabState>({
-    activeId: 0,
+    activeId: activeKey,
     tabs: [],
     variant,
     renderInactive,
   })
 
   useEffect(() => {
-    if (state.activeId === 0 && state.tabs.length) {
-      setState(s => ({ ...s, activeId: s.tabs[0].id }))
+    if (activeKey === 0) {
+      setState(state => ({ ...state, activeId: state.tabs[0].id }))
+    } else {
+      setState(state => ({ ...state, activeId: activeKey.toString() }))
     }
-  }, [state])
+  }, [activeKey])
 
   return (
     <TabDataContext.Provider value={state}>
@@ -65,8 +68,8 @@ export function useTabs() {
   }
 
   function setActive(id): void {
-    setState(s => ({
-      ...s,
+    setState(state => ({
+      ...state,
       activeId: id,
     }))
   }
@@ -75,10 +78,10 @@ export function useTabs() {
     const exists = state.tabs ? state.tabs.find(t => t.id === item.id) : false
 
     if (!exists) {
-      setState(s => ({
-        ...s,
-        tabs: [...s.tabs, item],
-        activeId: isOpen ? item.id : s.activeId,
+      setState(state => ({
+        ...state,
+        tabs: [...state.tabs, item],
+        activeId: isOpen ? item.id : state.activeId,
       }))
     }
   }

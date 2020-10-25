@@ -6,8 +6,8 @@ const AccordionUpdateContext = React.createContext(null)
 interface AccordionContextProps {
   icon?: boolean
   customIcons?: {
-    expand?: JSX.Element | null
-    collapse?: JSX.Element | null
+    expand?: React.ReactElement | null
+    collapse?: React.ReactElement | null
   }
   activeKey?: number | string
   showSingle?: boolean

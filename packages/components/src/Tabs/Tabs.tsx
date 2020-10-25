@@ -7,6 +7,7 @@ import { TabPanel } from './TabPanel'
 
 export interface TabGroupProps extends DivProps {
   navPosition?: string
+  activeKey?: number | string
   navStack?: boolean
   navScroll?: boolean
   breakIndex?: number
@@ -17,16 +18,14 @@ export interface TabGroupProps extends DivProps {
 /**
  * The `Tabs` component is the root component for building a tabs container. It's a local
  * provider that contains the settings for responsive behaviors, positioning, and nested
- * `Tab` components.
+ * `TabPanel` components.
  *
- * @todo - Allow users to inject non Tab components into tab canvas (npm website for example)
- * @todo - Expose the tab controls to outside components / actions (add optional event key)
- *
- * @see https://maker-ui.com/docs/components/tab
+ * @see https://maker-ui.com/docs/components/tabs
  */
 
 export const Tabs = ({
   variant = 'tabs',
+  activeKey = 0,
   navPosition = 'top',
   navStack = false,
   navScroll = true,
@@ -39,7 +38,10 @@ export const Tabs = ({
   const isVertical = !['left', 'right'].includes(navPosition) ? true : false
 
   return (
-    <TabContext variant={variant} renderInactive={renderInactive}>
+    <TabContext
+      variant={variant}
+      activeKey={activeKey}
+      renderInactive={renderInactive}>
       <Div
         className="tabs"
         sx={{

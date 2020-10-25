@@ -45,7 +45,7 @@ const getNavPosition = ({
 
 /**
  * The `TabNavigation` component generates a nav bar for the `TabGroup`.
- * It uses the `title` prop on a nested `Tab` component.
+ * It uses the `title` prop on a `TabPanel` component.
  *
  * @internal use only
  */
@@ -73,8 +73,8 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
           role="tab"
           // @ts-ignore
           disabled={item.disabled}
-          title={item.title}
-          aria-controls={item.id}
+          title={typeof item.title === 'string' ? item.title : null}
+          aria-controls={item.panelId}
           aria-selected={state.activeId === item.id ? 'true' : 'false'}
           onClick={e => setActive(item.id)}>
           {item.title}

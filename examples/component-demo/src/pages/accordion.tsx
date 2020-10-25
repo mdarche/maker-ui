@@ -29,13 +29,13 @@ const AccordionPage = () => {
           },
           '.accordion-panel': { p: 100 },
         }}>
-        <Accordion.Panel title="Accordion Title" eventKey="1">
+        <Accordion.Panel title="Accordion Title 1" eventKey="1">
           Yo!
         </Accordion.Panel>
-        <Accordion.Panel title="Accordion Title" eventKey="2">
+        <Accordion.Panel title="Accordion Title 2" eventKey="2">
           Yo 2!
         </Accordion.Panel>
-        <Accordion.Panel title="Accordion Title" eventKey="3">
+        <Accordion.Panel title="Accordion Title 3" eventKey="3">
           Yo 3!
         </Accordion.Panel>
       </Accordion>

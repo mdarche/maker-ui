@@ -7,23 +7,23 @@ import { useMeasure } from '../helper'
 
 const AnimatedDiv = a(Div)
 
-export interface PanelProps extends DivProps {
-  title?: string
+export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
+  title?: string | React.ReactElement
   open?: boolean
   eventKey?: string
   borderColor?: string | string[]
 }
 
 /**
- * The `Panel` component wraps your collapsible accordion content.
- *
- * @todo - Refactor this by registering with context. Make event keys optional for hook control
- * @todo - Move all click and focus event handlers to functions outside of render
+ * The `AccordionPanel` component wraps your collapsible accordion content.
  *
  * @see https://maker-ui.com/docs/components/accordion-panel
  */
 
-export const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
+export const AccordionPanel = React.forwardRef<
+  HTMLDivElement,
+  AccordionPanelProps
+>(
   (
     {
       title,
@@ -90,7 +90,7 @@ export const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
             p: 3,
             cursor: 'pointer',
           }}>
-          <span>{title}</span>
+          {React.isValidElement(title) ? title : <span>{title}</span>}
           {state.icon ? (
             <span>
               {state.customIcons.expand !== null ? (

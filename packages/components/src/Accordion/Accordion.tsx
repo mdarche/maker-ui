@@ -2,13 +2,13 @@ import React from 'react'
 import { Div, DivProps } from 'maker-ui'
 
 import { AccordionContext } from './AccordionContext'
-import { Panel } from './Panel'
+import { AccordionPanel } from './AccordionPanel'
 
 interface AccordionProps extends DivProps {
   icon?: boolean
   customIcons?: {
-    expand?: JSX.Element | null
-    collapse?: JSX.Element | null
+    expand?: React.ReactElement | null
+    collapse?: React.ReactElement | null
   }
   activeKey?: number | string
   showSingle?: boolean
@@ -39,4 +39,4 @@ export const Accordion = ({
   )
 }
 
-Accordion.Panel = Panel
+Accordion.Panel = AccordionPanel

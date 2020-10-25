@@ -3,8 +3,9 @@ import { Div, DivProps, generateId } from 'maker-ui'
 
 import { useTabs } from './TabContext'
 
-export interface TabPanelProps extends DivProps {
-  title?: string
+export interface TabPanelProps extends Omit<DivProps, 'title'> {
+  title?: string | React.ReactElement
+  eventKey?: number | string
   open?: boolean
   disabled?: boolean
 }
@@ -16,13 +17,15 @@ export interface TabPanelProps extends DivProps {
  */
 
 export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
-  ({ title, open = false, disabled = false, sx, ...props }, ref) => {
-    const [id] = useState(generateId())
+  ({ title, eventKey, open = false, disabled = false, sx, ...props }, ref) => {
+    const [id] = useState(() => (eventKey ? eventKey.toString() : generateId()))
+    const [panelId] = useState(generateId())
+
     const {
       state: { variant, activeId, renderInactive },
       addToTabGroup,
     } = useTabs()
-    const tabItem = { id, title, disabled }
+    const tabItem = { id, panelId, title, disabled }
 
     useEffect(() => {
       addToTabGroup(tabItem, open)
@@ -31,7 +34,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     return renderInactive || activeId === id ? (
       <Div
         ref={ref}
-        id={id}
+        id={panelId}
         className="tabs-panel"
         tabIndex={0}
         role="tabpanel"
@@ -47,3 +50,5 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     ) : null
   }
 )
+
+TabPanel.displayName = 'TabPanel'
