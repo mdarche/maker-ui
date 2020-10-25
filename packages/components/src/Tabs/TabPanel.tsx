@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Div, DivProps, generateId } from 'maker-ui'
 
-import { useTabs } from './TabGroup'
+import { useTabs } from './TabContext'
 
-export interface TabProps extends DivProps {
+export interface TabPanelProps extends DivProps {
   title?: string
   open?: boolean
   disabled?: boolean
@@ -15,7 +15,7 @@ export interface TabProps extends DivProps {
  * @see https://maker-ui.com/docs/components/tab
  */
 
-export const Tab = React.forwardRef<HTMLDivElement, TabProps>(
+export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
   ({ title, open = false, disabled = false, sx, ...props }, ref) => {
     const [id] = useState(generateId())
     const {

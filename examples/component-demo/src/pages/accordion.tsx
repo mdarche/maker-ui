@@ -20,6 +20,7 @@ const AccordionPage = () => {
         showSingle
         activeKey={key}
         sx={{
+          mt: 50,
           '.accordion': { borderColor: 'gainsboro' },
           '.accordion-toggle': {
             fontSize: 3,
@@ -28,7 +29,7 @@ const AccordionPage = () => {
           },
           '.accordion-panel': { p: 100 },
         }}>
-        <Accordion.Panel open title="Accordion Title" eventKey="1">
+        <Accordion.Panel title="Accordion Title" eventKey="1">
           Yo!
         </Accordion.Panel>
         <Accordion.Panel title="Accordion Title" eventKey="2">

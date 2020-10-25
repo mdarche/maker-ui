@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex, Button, setBreakpoint } from 'maker-ui'
 
-import { useTabs } from './TabGroup'
+import { useTabs } from './TabContext'
 
 export interface TabStyleProps {
   settings: {

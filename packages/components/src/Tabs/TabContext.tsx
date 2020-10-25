@@ -1,17 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Div, DivProps, setBreakpoint } from 'maker-ui'
 
-import { TabNavigation } from './TabNavigation'
+// import { TabNavigation } from './TabNavigation'
 
-const TabContext = React.createContext(null)
+const TabDataContext = React.createContext(null)
 const TabUpdateContext = React.createContext(null)
 
-export interface TabGroupProps extends DivProps {
-  navPosition?: string
-  navStack?: boolean
-  navScroll?: boolean
-  breakIndex?: number
+export interface TabContextProps {
   renderInactive?: boolean
+  variant: string | string[]
   children?: React.ReactElement
 }
 
@@ -33,24 +29,17 @@ export interface TabState {
  * @see https://maker-ui.com/docs/components/tab
  */
 
-export const TabGroup = ({
+export const TabContext = ({
   variant = 'tabs',
-  navPosition = 'top',
-  navStack = false,
-  navScroll = true,
-  breakIndex = 0,
   renderInactive = false,
-  sx,
   children,
-  ...props
-}: TabGroupProps) => {
+}: TabContextProps) => {
   const [state, setState] = useState<TabState>({
     activeId: 0,
     tabs: [],
     variant,
     renderInactive,
   })
-  const isVertical = !['left', 'right'].includes(navPosition) ? true : false
 
   useEffect(() => {
     if (state.activeId === 0 && state.tabs.length) {
@@ -59,36 +48,16 @@ export const TabGroup = ({
   }, [state])
 
   return (
-    <TabContext.Provider value={state}>
+    <TabDataContext.Provider value={state}>
       <TabUpdateContext.Provider value={setState}>
-        <Div
-          className="tabs"
-          sx={{
-            variant,
-            display: setBreakpoint(breakIndex, ['block', 'flex']),
-            flexDirection: isVertical ? 'column' : null,
-            flexWrap: 'wrap',
-            ...sx,
-          }}
-          {...props}>
-          <TabNavigation
-            settings={{
-              isVertical,
-              navPosition,
-              navStack,
-              navScroll,
-              breakIndex,
-            }}
-          />
-          {children}
-        </Div>
+        {children}
       </TabUpdateContext.Provider>
-    </TabContext.Provider>
+    </TabDataContext.Provider>
   )
 }
 
 export function useTabs() {
-  const state: TabState = useContext(TabContext)
+  const state: TabState = useContext(TabDataContext)
   const setState = useContext(TabUpdateContext)
 
   if (typeof state === undefined) {

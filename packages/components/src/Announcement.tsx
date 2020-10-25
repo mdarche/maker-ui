@@ -8,14 +8,16 @@ import { CloseIcon } from './icons'
 const AnimatedBox = a(Flex)
 
 const fixedPartial = (fixed, bottom) =>
-  fixed && {
-    position: 'fixed',
-    left: 0,
-    right: 0,
-    top: !bottom && 0,
-    bottom: bottom && 0,
-    zIndex: 1000,
-  }
+  fixed
+    ? {
+        position: 'fixed',
+        left: 0,
+        right: 0,
+        top: !bottom && 0,
+        bottom: bottom && 0,
+        zIndex: 1000,
+      }
+    : null
 
 export interface AnnouncementProps extends DivProps {
   key?: string
@@ -30,7 +32,7 @@ export interface AnnouncementProps extends DivProps {
 
 /**
  * The `Announcement` component renders a dismissable message to the top or bottom of the web page.
- * You can choose the user's session or attach a cookie to determine when it appears.
+ * You can choose the user's session or attach a cookie to determine when it appears / re-appears.
  *
  * @see https://maker-ui.com/docs/components/announcement
  */

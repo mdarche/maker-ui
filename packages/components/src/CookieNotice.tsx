@@ -4,11 +4,8 @@ import { Announcement, AnnouncementProps } from './Announcement'
 
 /**
  * The `CookieNotice` component is a pre-configured `Announcement` for GDPR cookie notices.
- * By default, it is fixed to the bottom of the page and activated via cookie that expires
+ * By default, it is fixed to the bottom of the page and activated with a cookie that expires
  * after 30 days.
- *
- * @todo - Refactor this by registering with context. Make event keys optional for hook control
- * @todo - Move all click and focus event handlers to functions outside of render
  *
  * @see https://maker-ui.com/docs/components/cookie-notice
  */
