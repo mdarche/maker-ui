@@ -1,7 +1,7 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { BasicBoxProps, Button } from 'maker-ui'
 
-import { DefaultArrow } from './icons'
+import { DefaultArrow } from '../icons'
 
 const position = isNext => (isNext ? { right: '10px' } : { left: '10px' })
 const transform = isNext =>
@@ -14,9 +14,25 @@ const transform = isNext =>
         ],
       }
 
-const NavButton = ({ variant, control, arrow, isNext = false }) => (
-  <Box
-    as="button"
+interface NavButtonProps extends BasicBoxProps {
+  control?: any // TODO - Revisit this
+  arrow?: boolean
+  isNext?: boolean
+}
+
+/**
+ * The `NavButton` controls previous / next button clicks from the LighthouseModal.
+ *
+ * @internal use only
+ */
+
+export const NavButton = ({
+  variant,
+  control,
+  arrow,
+  isNext = false,
+}: NavButtonProps) => (
+  <Button
     title={isNext ? 'Next' : 'Previous'}
     aria-label={isNext ? 'Next' : 'Previous'}
     variant={variant}
@@ -45,7 +61,5 @@ const NavButton = ({ variant, control, arrow, isNext = false }) => (
       },
     }}>
     {arrow || <DefaultArrow />}
-  </Box>
+  </Button>
 )
-
-export default NavButton

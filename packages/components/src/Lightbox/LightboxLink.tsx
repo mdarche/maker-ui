@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Box } from 'theme-ui'
-import { generateId } from 'maker-ui'
+import { Link, generateId, BasicBoxProps } from 'maker-ui'
 
-import { useLightbox } from './LightboxProvider'
+import { useLightbox, LightboxData } from './LightboxContext'
 
-const Link = React.forwardRef(
+export interface LightboxLinkProps extends BasicBoxProps, LightboxData {
+  trigger?: boolean
+  children?: React.ReactElement
+}
+
+/**
+ * Use `LightboxLink` to render clickable elements that toggle the Lightbox detail view.
+ *
+ * @see https://maker-ui.com/docs/components/lightbox
+ */
+
+export const LightboxLink = React.forwardRef<HTMLAnchorElement, any>(
   (
     {
       src,
@@ -44,17 +54,14 @@ const Link = React.forwardRef(
     }
 
     return (
-      <Box
+      <Link
         ref={ref}
-        as="a"
         href={src || '#'}
         role="button"
         onClick={handleClick}
         {...props}>
         {children}
-      </Box>
+      </Link>
     )
   }
 )
-
-export default Link

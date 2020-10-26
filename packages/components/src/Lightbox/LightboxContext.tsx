@@ -1,10 +1,13 @@
-import React, { useState, useContext, useCallback } from 'react'
+import React, { useState, useContext } from 'react'
 import merge from 'deepmerge'
 import { generateId } from 'maker-ui'
 
 const videoFormats = ['.mp4', '.ogg', '.webm']
 
-function formatData(original) {
+const LightboxDataContext = React.createContext(null)
+const LightboxUpdateContext = React.createContext(null)
+
+function formatData(original: LightboxData) {
   return merge(
     {
       id: generateId(),
@@ -23,34 +26,63 @@ function formatData(original) {
   )
 }
 
-const LightboxContext = React.createContext()
-const LightboxUpdateContext = React.createContext()
+export interface LightboxData {
+  src?: string
+  alt?: string
+  title?: string
+  description?: string
+  youtubeId?: string
+  htmlVideo?: boolean
+  vimeoId?: string
+  poster?: string
+}
 
-export const LightboxProvider = ({ data = [], children }) => {
-  const [state, setState] = useState({
+interface LightboxContextProps {
+  data: LightboxData[]
+  children: React.ReactElement
+}
+
+interface LightboxState {
+  index: number
+  active: boolean
+  data: LightboxData[]
+}
+
+/**
+ * The `LightboxContext` component is a Provider that handles stores all of the data
+ * for a lightbox gallery.
+ *
+ * @internal use only
+ */
+
+export const LightboxContext = ({
+  data = [],
+  children,
+}: LightboxContextProps) => {
+  const [state, setState] = useState<LightboxState>({
     index: 0,
     active: false,
     data: data.map(i => formatData(i)),
   })
 
   return (
-    <LightboxContext.Provider value={state}>
+    <LightboxDataContext.Provider value={state}>
       <LightboxUpdateContext.Provider value={setState}>
         {children}
       </LightboxUpdateContext.Provider>
-    </LightboxContext.Provider>
+    </LightboxDataContext.Provider>
   )
 }
 
 export function useLightbox() {
-  const { active, index, data } = useContext(LightboxContext)
+  const { active, index, data } = useContext(LightboxDataContext)
   const setState = useContext(LightboxUpdateContext)
 
-  if (typeof state === undefined) {
+  if (typeof data === undefined) {
     throw new Error('useLightbox must be used within a Lightbox component')
   }
 
-  function toggleLightbox(id) {
+  function toggleLightbox(id?: string) {
     if (id) {
       const current = data.findIndex(i => i.id === id)
       return setState(s => ({ ...s, active: !s.active, index: current }))

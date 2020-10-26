@@ -25,12 +25,12 @@ const centered = val =>
     : null
 
 export interface ModalProps extends DivProps {
-  show: boolean
-  toggle: Function
+  show?: boolean
+  toggle?: Function
   appendTo?: string
   title?: string
   closeOnBlur?: boolean
-  focusRef: any
+  focusRef: React.MutableRefObject<any>
   style?: any
   center?: boolean
 }

@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import { Box } from 'theme-ui'
-import { Modal } from '@maker-ui/components'
+import { Div, BasicBoxProps } from 'maker-ui'
 import merge from 'deepmerge'
 
-import Canvas from './Canvas'
-import NavButton from './NavButton'
-import Toolbar from './Toolbar'
-import Preview from './Preview'
-import { useLightbox } from './LightboxProvider'
+import { Modal } from '../Modal'
+import { Canvas } from './Canvas'
+import { NavButton } from './NavButton'
+import { Toolbar } from './Toolbar'
+import { Preview } from './Preview'
+import { useLightbox, LightboxData } from './LightboxContext'
 
-// TODO implement zoom feature
-// TODO add gesture controls and add canvas transition options
+interface LightboxModalProps extends BasicBoxProps {
+  id: string
+  focusRef?: React.MutableRefObject<any>
+  show?: boolean
+  data: LightboxData[]
+  settings?: Object
+  children: React.ReactElement | React.ReactElement
+}
+/**
+ * The `LightboxModal` houses all views for the Lightbox component.
+ *
+ * @todo - implement zoom feature
+ * @todo - add gesture controls and canvas transition options
+ *
+ * @internal use only
+ */
 
-const LightboxModal = ({
+export const LightboxModal = ({
   id,
   focusRef,
   show,
@@ -21,7 +35,7 @@ const LightboxModal = ({
   settings = {},
   children,
   ...props
-}) => {
+}: LightboxModalProps) => {
   const { index, active, data, toggleLightbox } = useLightbox()
   const [current, setCurrent] = useState(0)
   const [play, setPlay] = useState(false)
@@ -118,8 +132,8 @@ const LightboxModal = ({
     }
   }, [active, controlsActive, preview, config.disableHideControls])
 
-  const next = e => setCurrent(s => (s === data.length - 1 ? 0 : s + 1))
-  const prev = e => setCurrent(s => (s === 0 ? data.length - 1 : s - 1))
+  const next = () => setCurrent(s => (s === data.length - 1 ? 0 : s + 1))
+  const prev = () => setCurrent(s => (s === 0 ? data.length - 1 : s - 1))
 
   const showControls = e =>
     !controlsActive && !config.disableHideControls
@@ -127,7 +141,7 @@ const LightboxModal = ({
       : undefined
 
   return (
-    <React.Fragment>
+    <>
       {children}
       <Modal
         id={id}
@@ -138,7 +152,7 @@ const LightboxModal = ({
         bg={bg}
         closeOnBlur={config.closeOnBlur}
         {...props}>
-        <Box
+        <Div
           onMouseEnter={showControls}
           variant={`${variant}.controls`}
           className={`lb-controls ${controlsActive ? 'visible' : 'hidden'}`}
@@ -160,9 +174,9 @@ const LightboxModal = ({
             autoPlay={{ show: config.showAutoPlay, active: play, set: setPlay }}
             toggle={toggleLightbox}
           />
-          {data.length > 1 && (
-            <React.Fragment>
-              <Box variant={`${variant}.navigation`} className="lb-navigation">
+          {data.length > 1 ? (
+            <>
+              <Div variant={`${variant}.navigation`} className="lb-navigation">
                 <NavButton
                   variant={`${variant}.prev`}
                   arrow={config.customArrow}
@@ -174,7 +188,7 @@ const LightboxModal = ({
                   control={next}
                   isNext
                 />
-              </Box>
+              </Div>
               <Preview
                 variant={`${variant}.preview`}
                 show={preview}
@@ -182,10 +196,10 @@ const LightboxModal = ({
                 set={setCurrent}
                 data={data}
               />
-            </React.Fragment>
-          )}
-        </Box>
-        {data.length && (
+            </>
+          ) : null}
+        </Div>
+        {data.length ? (
           <Canvas
             variant={variant}
             index={current}
@@ -194,10 +208,8 @@ const LightboxModal = ({
             zoom={zoom}
             onMouseEnter={showControls}
           />
-        )}
+        ) : null}
       </Modal>
-    </React.Fragment>
+    </>
   )
 }
-
-export default LightboxModal

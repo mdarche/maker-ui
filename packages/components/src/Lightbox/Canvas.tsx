@@ -1,69 +1,103 @@
 import React, { useState } from 'react'
-import { Box } from 'theme-ui'
+import { Div, Image } from 'maker-ui'
 import { useTransition, animated as a } from 'react-spring'
-import { Spinner } from '@maker-ui/components'
 
-const AnimatedBox = a(Box)
+import { LightboxData } from './LightboxContext'
+import { Spinner } from '../Spinner'
+
+const AnimatedDiv = a(Div)
 
 const youtubeRoot = 'https://youtube.com/embed/'
 const vimeoRoot = 'https://player.vimeo.com/video/'
 
+interface MediaFrameProps {
+  item: LightboxData
+}
+
+/**
+ * The `Media Frame` is a wrapper that conditionally loads and configures
+ * a Youtube/Vimeo iframe, HTML video element, or image.
+ *
+ * @internal use only
+ */
+
 const MediaFrame = ({
   item: { src, alt, youtubeId, vimeoId, htmlVideo, poster },
-}) => {
+}: MediaFrameProps) => {
   const [show, set] = useState(false)
 
   if (youtubeId || vimeoId) {
     return (
-      <Box
-        as="iframe"
+      <iframe
+        title="lightbox-video"
         src={youtubeId ? youtubeRoot + youtubeId : vimeoRoot + vimeoId}
         frameBorder="0"
         onLoad={() => set(true)}
         style={{ opacity: show ? 1 : 0, transition: 'opacity .3s ease' }}
         allow="accelerometer; autoplay; fullscreen; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></Box>
+        allowFullScreen></iframe>
     )
   }
 
   if (htmlVideo) {
     return (
-      <Box as="video" controls poster={poster ? poster : undefined}>
+      <video controls poster={poster ? poster : undefined}>
         <source src={src} type={`video/${src.substr(-3, 3)}`} />
         Your browser does not support the video tag.
-      </Box>
+      </video>
     )
   }
 
   if (src) {
     return (
-      <Box
-        as="img"
+      <Image
         src={src}
-        onLoad={() => set(true)}
         alt={alt ? alt : 'Lightbox image'}
+        onLoad={() => set(true)}
         sx={{ objectFit: 'contain' }}
       />
     )
   }
 
-  return 'Add a src, vimeoId, or youtubeId to <BoxItem />'
+  return null
 }
 
-const Canvas = ({ variant, data, index, showInfo, ...rest }) => {
-  const transitions = useTransition(data[index], item => item.id, {
+interface CanvasProps {
+  variant?: string | string[]
+  index?: number
+  data?: LightboxData[]
+  showInfo?: boolean
+  zoom?: boolean
+  onMouseEnter?: Function
+}
+
+/**
+ * The `Canvas` component uses transition animations to show / paginate
+ * the lightbox gallery content.
+ *
+ * @internal use only
+ */
+
+export const Canvas = ({
+  variant,
+  data,
+  index,
+  showInfo,
+  ...rest
+}: CanvasProps) => {
+  const transitions = useTransition(data[index], {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
   })
 
-  return transitions.map(
-    ({ item, props, key }) =>
+  return transitions(
+    (props, item) =>
       item && (
-        <AnimatedBox
-          key={key}
+        <AnimatedDiv
           variant={`${variant}.canvas`}
           className="lb-canvas"
+          // @ts-ignore
           style={props}
           sx={{
             position: 'absolute',
@@ -85,7 +119,7 @@ const Canvas = ({ variant, data, index, showInfo, ...rest }) => {
           }}
           {...rest}>
           <Spinner
-            size="60"
+            size={60}
             sx={{
               position: 'absolute',
               top: '50%',
@@ -96,26 +130,27 @@ const Canvas = ({ variant, data, index, showInfo, ...rest }) => {
           />
           <MediaFrame item={item} />
           {showInfo && item.title && (
-            <Box
+            <Div
               variant={`${variant}.info`}
               className="lb-info"
-              sx={{ color: '#fff' }}>
-              <Box
-                as="h4"
-                variant={`${variant}.title`}
-                sx={{ mt: 20, fontSize: '18px', textAlign: 'center' }}>
-                {item.title}
-              </Box>
+              sx={{
+                color: '#fff',
+                h4: {
+                  variant: `${variant}.title`,
+                  mt: 20,
+                  fontSize: '18px',
+                  textAlign: 'center',
+                },
+              }}>
+              <h4>{item.title}</h4>
               {item.description && (
-                <Box variant={`${variant}.description`} sx={{ mt: 20 }}>
+                <Div variant={`${variant}.description`} sx={{ mt: 20 }}>
                   {item.description}
-                </Box>
+                </Div>
               )}
-            </Box>
+            </Div>
           )}
-        </AnimatedBox>
+        </AnimatedDiv>
       )
   )
 }
-
-export default Canvas

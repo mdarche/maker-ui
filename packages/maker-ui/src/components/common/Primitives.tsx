@@ -121,3 +121,9 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     </a>
   )
 )
+
+export const Image = forwardRef<HTMLImageElement, any>(
+  ({ variant, src, alt, sx, children, ...props }, ref) => (
+    <img ref={ref} alt={alt} src={src} sx={{ variant, ...sx }} {...props} />
+  )
+)

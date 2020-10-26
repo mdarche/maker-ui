@@ -1,11 +1,26 @@
 import React, { useRef, useEffect } from 'react'
-import { Box } from 'theme-ui'
+import { Grid, Button } from 'maker-ui'
 
-import playIcon from './play.svg'
+import { LightboxData } from './LightboxContext'
 
-const Preview = ({ variant, index, set, data, show }) => {
-  const handleClick = i => set(i)
+interface PreviewProps {
+  variant?: string | string[]
+  index?: number
+  set?: Function
+  show?: boolean
+  data?: LightboxData[]
+}
+
+/**
+ * The `Preview` component shows additional gallery items while the lightbox view
+ * is active.
+ *
+ * @internal use only
+ */
+
+export const Preview = ({ variant, index, set, data, show }: PreviewProps) => {
   const ref = useRef(null)
+  const handleClick = i => set(i)
 
   useEffect(() => {
     if (show) {
@@ -17,7 +32,11 @@ const Preview = ({ variant, index, set, data, show }) => {
 
   const getBackground = i => {
     if (i.youtubeId || i.vimeoId || i.htmlVideo) {
-      return { background: `url(${playIcon})`, backgroundColor: '#000' }
+      // TODO - add play button back
+      return {
+        // background: `url(${playIcon})`,
+        backgroundColor: '#000',
+      }
     }
     if (i.src) {
       return {
@@ -30,15 +49,14 @@ const Preview = ({ variant, index, set, data, show }) => {
   }
 
   return (
-    <Box
+    <Grid
       ref={ref}
       variant={variant}
+      columns={['repeat(auto-fill, minmax(100px, 1fr))']}
+      gap={20}
       className={`${show ? 'active ' : ''}lb-preview`}
       sx={{
-        position: 'fixed',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
-        gridGap: '20px',
+        position: ['fixed'],
         p: '20px',
         bg: ['rgba(0, 0, 0, 0.85)', 'rgba(0, 0, 0, 0.66)'],
         bottom: 0,
@@ -59,9 +77,8 @@ const Preview = ({ variant, index, set, data, show }) => {
         },
       }}>
       {data.map((item, i) => (
-        <Box
+        <Button
           key={i}
-          as="button"
           title={item.title}
           onClick={e => handleClick(i)}
           className={i === index ? 'preview-active' : undefined}
@@ -78,8 +95,6 @@ const Preview = ({ variant, index, set, data, show }) => {
           }}
         />
       ))}
-    </Box>
+    </Grid>
   )
 }
-
-export default Preview

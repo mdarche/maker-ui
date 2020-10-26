@@ -16,6 +16,7 @@ export {
   Span,
   Flex,
   Grid,
+  Image,
   UList,
   OList,
   ListItem,

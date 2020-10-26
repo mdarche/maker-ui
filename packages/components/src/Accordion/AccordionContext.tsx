@@ -17,7 +17,7 @@ interface AccordionContextProps {
 /**
  * Use the `Accordion` component to build and customize collapsible accordions.
  *
- * @see https://maker-ui.com/docs/components/accordion
+ * @internal use only
  */
 
 export const AccordionContext = ({

@@ -1,9 +1,28 @@
 import React from 'react'
-import { Box, Flex } from 'theme-ui'
+import { Div, Flex } from 'maker-ui'
 
-import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from './icons'
+import { LightboxData } from './LightboxContext'
+import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from '../icons'
 
-const Toolbar = ({
+interface ToolbarProps {
+  variant?: string | string[]
+  count?: boolean
+  current?: number
+  length?: number
+  preview?: { show: boolean; set: Function }
+  zoom?: { show: boolean; set: Function }
+  autoPlay?: { active: boolean; show: boolean; set: Function }
+  toggle: Function
+  item: LightboxData
+}
+
+/**
+ * The `Toolbar` component provides utility button options inside the lightbox.
+ *
+ * @internal use only
+ */
+
+export const Toolbar = ({
   variant,
   count,
   current,
@@ -13,12 +32,12 @@ const Toolbar = ({
   autoPlay,
   toggle,
   item,
-}) => {
+}: ToolbarProps) => {
   return (
     <Flex
       variant={`${variant}.toolbar`}
       className="lb-toolbar"
-      __css={{
+      sx={{
         alignItems: 'center',
         justifyContent: length > 1 ? 'space-between' : 'flex-end',
         position: 'absolute',
@@ -28,17 +47,17 @@ const Toolbar = ({
         bg: ['rgba(0, 0, 0, 0.25)', 'transparent'],
       }}>
       {count && length > 1 && (
-        <Box
+        <Div
           variant={`${variant}.pagination`}
           className="lb-pagination"
-          __css={{
+          sx={{
             bg: ['transparent', 'rgba(0, 0, 0, 0.25)'],
             p: '14px 20px',
             fontSize: '14px',
             color: '#fff',
           }}>
           {current + 1} / {length}
-        </Box>
+        </Div>
       )}
       <Flex
         className="lb-button-group"
@@ -63,28 +82,28 @@ const Toolbar = ({
           },
           svg: { fill: '#fff' },
         }}>
-        {zoom.show && (
+        {zoom.show ? (
           <button
             className="lb-zoom"
             disabled={item.src && !item.htmlVideo ? true : undefined}
             onClick={e => zoom.set(z => !z)}>
             <ZoomIcon height="18" />
           </button>
-        )}
-        {autoPlay.show && length > 1 && (
+        ) : null}
+        {autoPlay.show && length > 1 ? (
           <button
             className={`${autoPlay.active ? 'active ' : ''}lb-autoplay`}
             onClick={e => autoPlay.set(a => !a)}>
             <PlayIcon height="24" />
           </button>
-        )}
-        {length > 1 && (
+        ) : null}
+        {length > 1 ? (
           <button
             className={`${preview.show ? 'active ' : ''}lb-preview`}
             onClick={e => preview.set(p => !p)}>
             <PreviewIcon height="21" />
           </button>
-        )}
+        ) : null}
         <button className="lb-close" onClick={e => toggle()}>
           <CloseIcon height="24" />
         </button>
@@ -92,5 +111,3 @@ const Toolbar = ({
     </Flex>
   )
 }
-
-export default Toolbar
