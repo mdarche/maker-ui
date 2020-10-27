@@ -1,35 +1,37 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useLayoutEffect, useEffect } from 'react'
 import { useTransition, animated as a } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
-import { Portal } from './Portal'
-import { usePosition, getSign } from './helper'
+import { Portal } from '../Portal'
+import { usePosition, getSign } from '../helper'
 
 const AnimatedDiv = a(Div)
 
 // Used for Tooltips, Supplemental content, and Dropdown menus
 
-interface Origin {
+export interface Origin {
   x: 'left' | 'center' | 'right' | 'origin'
   y: 'top' | 'center' | 'bottom'
 }
-export interface PopoverProps extends DivProps {
+export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
-  set: Function // required for onHover
   variant?: string
-  onHover?: boolean
   anchor?: React.MutableRefObject<any>
+  anchorWidth?: boolean
+  containerHeight?: number
   origin?: Origin
+  role?: string
   appendTo?: string
   closeOnBlur?: boolean
-  config: object
+  config?: object
   transition?:
     | 'fade'
     | 'fade-down'
     | 'fade-up'
     | 'fade-left'
     | 'fade-right'
-    | 'scale'
+    | 'scale' // Used for dropdown menu only. Requires the height prop
+  children: React.ReactElement
 }
 
 const getTransform = (type: string, stage: string) => {
@@ -47,11 +49,22 @@ const getTransform = (type: string, stage: string) => {
   }
 }
 
+/**
+ * The `Popover` component lets you add supplemental views like a Tooltip or Dropdown
+ * to a specified DOM node or the document body.
+ *
+ * Use the `Popover` to customize your own components, otherwise try out the pre-configured
+ * `Tooltip` or `Dropdown` components.
+ *
+ * @see https://maker-ui.com/docs/components/popover
+ */
+
 export const Popover = ({
   show,
-  set,
   role = 'presentation',
   anchor,
+  anchorWidth,
+  containerHeight,
   origin = { x: 'origin', y: 'bottom' },
   appendTo,
   transition,
@@ -61,18 +74,20 @@ export const Popover = ({
   children,
   ...rest
 }: PopoverProps) => {
-  const [box, { current }] = usePosition(anchor)
+  const [box] = usePosition(anchor)
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
   // TODO check for focusable elements and send focus to it.
   // Back to original element on !show
 
-  const measuredRef = useCallback(node => {
-    if (node !== null) {
-      setHeight(node.offsetHeight)
-      setWidth(node.offsetWidth)
-    }
-  }, [])
+  useEffect(() => {
+    console.log('show is', show)
+  }, [show])
+
+  useLayoutEffect(() => {
+    if (!box) return
+    setWidth(box.width)
+  }, [box])
 
   // TODO refactor this into one ...getTransitions function
   const animate = useTransition(show ? [1] : [], {
@@ -84,7 +99,7 @@ export const Popover = ({
     enter: {
       opacity: 1,
       transform: `translate3d(0px,0px,0px)`,
-      height: transition === 'scale' ? `100px` : undefined,
+      height: transition === 'scale' ? `${containerHeight}px` : undefined,
     },
     leave: {
       opacity: transition.includes('fade') ? 0 : 1,
@@ -107,8 +122,6 @@ export const Popover = ({
 
   const getY = () => {
     if (!box) return
-    console.log('current top is', current.offsetTop)
-    console.log('box top is', box.top)
     return origin.y === 'top'
       ? box.top
       : origin.y === 'bottom' || transition === 'scale'
@@ -118,25 +131,12 @@ export const Popover = ({
       : 0
   }
 
-  // const getY = () => {
-  //   if (!box) return
-  //   console.log('box top is', box.top)
-  //   return origin.y === 'top'
-  //     ? current.offsetTop
-  //     : origin.y === 'bottom' || transition === 'scale'
-  //     ? current.offsetTop + box.height
-  //     : origin.y === 'center'
-  //     ? current.offsetTop + box.height / 2 - height / 2
-  //     : 0
-  // }
-
   return (
     <Portal root={appendTo}>
       {animate(
         (props, item) =>
           item && (
             <AnimatedDiv
-              ref={measuredRef}
               role={role}
               // @ts-ignore
               style={props}
@@ -146,6 +146,7 @@ export const Popover = ({
                 zIndex: 100,
                 left: getX(),
                 top: getY(),
+                width: anchorWidth && width,
                 overflow: transition.includes('scale') && 'hidden',
                 ...sx,
               }}

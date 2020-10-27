@@ -163,9 +163,6 @@ export const usePosition = (ref: MutableRefObject<any>) => {
   const [box, setBox] = useState<any>({})
 
   const set = () => {
-    if (ref && ref.current) {
-      console.log('offset is', ref.current.getBoundingClientRect())
-    }
     setBox(ref && ref.current ? ref.current.getBoundingClientRect() : {})
   }
 
