@@ -28,8 +28,6 @@ export interface PageTransitionProps {
  * The `PageTransition` component wraps your content in a transition container. See docs
  * for curretly supported transitions.
  *
- * @todo - Add types for React Spring v8+ or v9 canary
- *
  * @see https://maker-ui.com/docs/components/page-transition
  */
 

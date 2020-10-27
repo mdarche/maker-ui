@@ -118,8 +118,9 @@ export const Canvas = ({
             },
           }}
           {...rest}>
+          {/* TODO - Fix this Spinner */}
           <Spinner
-            size={60}
+            size={20}
             sx={{
               position: 'absolute',
               top: '50%',

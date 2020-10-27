@@ -7,8 +7,9 @@ interface PortalProps {
 }
 
 /**
- * `Portal` is an internal component that powers the Modal. It checks for the browser window
- * and creates a React portal to a specified node or the document body.
+ * `Portal` is an internal component that powers the Modal, Lightbox, and Popover.
+ * It checks for the browser window and creates a React portal to a specified
+ * node or the document body.
  *
  * @internal usage only
  */

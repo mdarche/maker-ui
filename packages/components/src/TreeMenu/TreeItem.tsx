@@ -1,19 +1,9 @@
-import React, { useState, useContext } from 'react'
-import {
-  Div,
-  DivProps,
-  Span,
-  Link,
-  Button,
-  MaybeElement,
-  ResponsiveScale,
-} from 'maker-ui'
+import React, { useState } from 'react'
+import { Button, Span, Link, Div, DivProps } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
-import { useMeasure, usePrevious } from './helper'
-import { MinusIcon, PlusIcon, ExIcon } from './icons'
-
-const TreeContext = React.createContext(null)
+import { useMeasure, usePrevious } from '../helper'
+import { useTreeData } from './TreeContext'
 
 export interface TreeItemProps extends DivProps {
   text?: string
@@ -23,10 +13,10 @@ export interface TreeItemProps extends DivProps {
 }
 
 /**
- * The `TreeItem` component is a direct child of `TreeMenu` and is used to wrap text, links,
+ * The `TreeBranch` component is a direct child of `TreeMenu` and is used to wrap text, links,
  * or custom React components.
  *
- * @see https://maker-ui.com/docs/components/tree-item
+ * @see https://maker-ui.com/docs/components/tree-menu
  */
 
 export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
@@ -39,7 +29,8 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
       expand,
       neutral,
       indentation,
-    } = useContext(TreeContext)
+    } = useTreeData()
+
     const previous = usePrevious(isOpen)
     const [bind, { height: viewHeight }] = useMeasure()
 
@@ -53,7 +44,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
     return (
       <Div
         ref={ref}
-        className="tree-item"
+        className="tree-branch"
         sx={{
           display: link && 'flex',
           alignItems: link && 'center',
@@ -62,6 +53,9 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           verticalAlign: 'middle',
+          '.tree-branch-inner': {
+            pl: indentation,
+          },
         }}>
         <Button
           onClick={() => setOpen(!isOpen)}
@@ -90,13 +84,13 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
             }}>
             {children ? (isOpen ? collapse : expand) : neutral}
           </Span>
-          {clickableText && !link && (
+          {clickableText && !link ? (
             <Span
               className="tree-text"
               sx={{ variant: `${variant}.text`, fontSize: 2 }}>
               {text}
             </Span>
-          )}
+          ) : null}
         </Button>
         {link ? (
           <Link
@@ -110,73 +104,15 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
             {!clickableText && text}
           </Span>
         )}
-        {/* <Box
-          as={link ? 'a' : 'span'}
-          variant={`${variant}.text`}
-          href={link && link}
-          target={link && newTab && '_blank'}
-          {...props}>
-          {(!clickableText || link) && text}
-        </Box> */}
         <a.div
+          className="tree-branch-inner"
           style={{
-            // willChange: 'height',
-            paddingLeft: indentation,
             overflow: 'hidden',
             height: isOpen && previous === isOpen ? 'auto' : height,
           }}>
           <div {...bind}>{children}</div>
         </a.div>
       </Div>
-    )
-  }
-)
-
-export interface TreeMenuProps extends DivProps {
-  buttons?: {
-    expand?: MaybeElement
-    collapse?: MaybeElement
-    neutral?: MaybeElement
-  }
-  indentation?: ResponsiveScale
-  clickableText?: boolean
-}
-
-/**
- * The `TreeMenu` component is a Provider for that controls styles and behaviors
- * for all child `TreeItem` components.
- *
- * @see https://maker-ui.com/docs/components/tree-menu
- */
-
-export const TreeMenu = React.forwardRef<HTMLDivElement, TreeMenuProps>(
-  (
-    {
-      variant = 'tree',
-      buttons = {
-        expand: <PlusIcon />,
-        collapse: <MinusIcon />,
-        neutral: <ExIcon />,
-      },
-      indentation = '20px', // Note for Docs - can be responsive array
-      clickableText = false,
-      sx,
-      ...props
-    },
-    ref
-  ) => {
-    const [state] = useState({
-      expand: buttons.expand,
-      collapse: buttons.collapse,
-      neutral: buttons.neutral,
-      clickableText,
-      indentation,
-      variant,
-    })
-    return (
-      <TreeContext.Provider value={state}>
-        <Div ref={ref} sx={{ variant, ...sx }} {...props} />
-      </TreeContext.Provider>
     )
   }
 )
