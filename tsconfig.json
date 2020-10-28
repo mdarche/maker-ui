@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "maker-ui": ["packages/maker-ui/dist"],
+      "@maker-ui/*": ["packages/*/dist"],
+      "tslib": ["node_modules/tslib/tslib.d.ts"]
+    },
+    "outDir": "dist",
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "allowJs": true,
+    "alwaysStrict": false,
+    "strict": false,
+    "noImplicitUseStrict": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  },
+  "exclude": ["node_modules", "dist", "test"]
+}

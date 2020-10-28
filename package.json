@@ -1,20 +1,26 @@
 {
   "private": true,
   "scripts": {
-    "prepare": "lerna run prepare",
     "clean": "lerna run clean",
-    "test": "jest"
+    "test": "lerna run test",
+    "docs-dev": "cd docs && yarn develop",
+    "docs-build": "cd docs && yarn build",
+    "git-reset": "git reset --hard HEAD"
   },
   "workspaces": [
     "examples/*",
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
-    "@babel/preset-react": "^7.8.3",
+    "@testing-library/dom": "^7.26.0",
+    "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^9.4.0",
+    "@types/jest": "^26.0.4",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "@types/theme-ui": "^0.3.5",
+    "cross-env": "^7.0.2",
     "husky": "^4.0.10",
     "jest": "^24.9.0",
     "jest-emotion": "^10.0.27",
@@ -22,19 +28,33 @@
     "lint-staged": "^9.5.0",
     "microbundle": "^0.11.0",
     "prettier": "^1.19.1",
-    "react-test-renderer": "^16.12.0"
+    "react-test-renderer": "^16.12.0",
+    "tsdx": "^0.13.2",
+    "typescript": "^3.9.6"
   },
   "jest": {
+    "globals": {
+      "__DEV__": "boolean"
+    },
     "testMatch": [
-      "**/packages/**/test/*.js"
+      "**/packages/**/test/*.test.tsx"
     ],
     "snapshotSerializers": [
       "jest-emotion"
+    ]
+  },
+  "lint-staged": {
+    "**/*.{js,ts,tsx}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
     ]
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "dependencies": {
+    "react": "^16.13.1"
   }
 }

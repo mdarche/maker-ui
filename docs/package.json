@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "docs",
+  "version": "0.4.2",
+  "author": "Mike Darche",
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@maker-ui/components": "*",
+    "@mdx-js/mdx": "^1.5.5",
+    "@mdx-js/react": "^1.5.5",
+    "@theme-ui/prism": "^0.3.0",
+    "gatsby": "^2.23.17",
+    "gatsby-plugin-catch-links": "^2.1.24",
+    "gatsby-plugin-layout": "^1.1.22",
+    "gatsby-plugin-mdx": "^1.2.25",
+    "gatsby-plugin-react-helmet": "^3.0.12",
+    "maker-ui": "*",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-helmet": "^5.2.0",
+    "typeface-nunito-sans": "^0.0.72",
+    "typeface-open-sans": "^0.0.75"
+  }
+}

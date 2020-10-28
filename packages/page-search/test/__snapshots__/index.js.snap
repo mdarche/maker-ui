@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageSearch renders 1`] = `
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  position: relative;
+  top: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-0 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+}
+
+<div
+  className="emotion-1"
+>
+  <form
+    aria-label="On this page"
+    className="emotion-0"
+    role="search"
+  >
+    <input
+      name="search"
+      onChange={[Function]}
+      placeholder="Search this page..."
+      type="search"
+      value=""
+    />
+  </form>
+  <button
+    aria-label="Previous result"
+    onClick={null}
+    title="Previous result"
+  >
+    Prev
+  </button>
+  <button
+    aria-label="Next result"
+    onClick={null}
+    title="Next result"
+  >
+    Next
+  </button>
+  <button
+    aria-label="Clear search"
+    onClick={[Function]}
+    title="Clear"
+  >
+    Clear
+  </button>
+</div>
+`;

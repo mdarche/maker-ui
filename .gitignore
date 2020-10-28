@@ -16,3 +16,5 @@ dist
 package-lock.json
 yarn-error.log
 .yarn-integrity
+.vscode/
+.next/
