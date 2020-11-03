@@ -1,13 +1,12 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react'
+import React, { useState, useLayoutEffect, useCallback, useRef } from 'react'
 import { useTransition, animated as a } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { usePosition, getSign } from '../helper'
+import { useFocus } from '../_hooks'
 
 const AnimatedDiv = a(Div)
-
-// Used for Tooltips, Supplemental content, and Dropdown menus
 
 export interface Origin {
   x: 'left' | 'center' | 'right' | 'origin'
@@ -15,13 +14,13 @@ export interface Origin {
 }
 export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
-  variant?: string
-  anchor?: React.MutableRefObject<any>
+  set?: Function
+  anchorRef?: React.MutableRefObject<any>
   anchorWidth?: boolean
-  containerHeight?: number
   origin?: Origin
   role?: string
-  appendTo?: string
+  appendTo?: string | Element
+  trapFocus?: boolean
   closeOnBlur?: boolean
   config?: object
   transition?:
@@ -30,11 +29,11 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'fade-up'
     | 'fade-left'
     | 'fade-right'
-    | 'scale' // Used for dropdown menu only. Requires the height prop
-  children: React.ReactElement
+    | 'scale' // Used for dropdown menu only. Requires the set prop
+  children: React.ReactElement | React.ReactElement[]
 }
 
-const getTransform = (type: string, stage: string) => {
+const getTransform = (type: string) => {
   switch (type) {
     case 'fade-up':
     case 'fade-down':
@@ -61,12 +60,14 @@ const getTransform = (type: string, stage: string) => {
 
 export const Popover = ({
   show,
+  set,
   role = 'presentation',
-  anchor,
+  anchorRef,
   anchorWidth,
-  containerHeight,
   origin = { x: 'origin', y: 'bottom' },
   appendTo,
+  trapFocus,
+  closeOnBlur,
   transition,
   variant,
   config,
@@ -74,15 +75,41 @@ export const Popover = ({
   children,
   ...rest
 }: PopoverProps) => {
-  const [box] = usePosition(anchor)
+  const popoverRef = useRef(null)
+  const [box] = usePosition(anchorRef)
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
+  const [initialRender, setInitialRender] = useState(true)
+
+  const closePopover = useCallback(() => {
+    if (anchorRef !== undefined) {
+      anchorRef.current.focus()
+    }
+    if (set) {
+      set(false)
+    }
+  }, [set, anchorRef])
+
+  const measuredRef = useCallback(
+    node => {
+      if (node !== null && height === 0) {
+        setHeight(node.offsetHeight)
+      }
+    },
+    [height]
+  )
+
+  // useFocus(popoverRef, show, closePopover, trapFocus)
+
   // TODO check for focusable elements and send focus to it.
   // Back to original element on !show
 
-  useEffect(() => {
-    console.log('show is', show)
-  }, [show])
+  useLayoutEffect(() => {
+    if (transition === 'scale') {
+      setInitialRender(false)
+      set(false)
+    }
+  }, [transition, set])
 
   useLayoutEffect(() => {
     if (!box) return
@@ -94,17 +121,17 @@ export const Popover = ({
     from: {
       opacity: transition.includes('fade') ? 0 : 1,
       height: transition === 'scale' ? '0px' : undefined,
-      transform: getTransform(transition, 'start'),
+      transform: getTransform(transition),
     },
     enter: {
       opacity: 1,
       transform: `translate3d(0px,0px,0px)`,
-      height: transition === 'scale' ? `${containerHeight}px` : undefined,
+      height: transition === 'scale' ? `${height}px` : undefined,
     },
     leave: {
       opacity: transition.includes('fade') ? 0 : 1,
       height: transition === 'scale' ? '0px' : undefined,
-      transform: getTransform(transition, 'end'),
+      transform: getTransform(transition),
     },
     config,
   })
@@ -138,11 +165,13 @@ export const Popover = ({
           item && (
             <AnimatedDiv
               role={role}
+              ref={popoverRef}
               // @ts-ignore
               style={props}
               sx={{
                 variant,
                 position: 'absolute',
+                display: 'block',
                 zIndex: 100,
                 left: getX(),
                 top: getY(),
@@ -151,7 +180,15 @@ export const Popover = ({
                 ...sx,
               }}
               {...rest}>
-              {children}
+              <Div
+                ref={measuredRef}
+                sx={{
+                  opacity: transition === 'scale' && initialRender && [0],
+                  visibility: transition === 'scale' &&
+                    initialRender && ['hidden'],
+                }}>
+                {children}
+              </Div>
             </AnimatedDiv>
           )
       )}

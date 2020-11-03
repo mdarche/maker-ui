@@ -3,7 +3,7 @@ import { useTransition, animated as a } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
 import { Portal } from './Portal'
-import { useFocus } from './helper'
+import { useFocus } from './_hooks'
 
 const AnimatedDiv = a(Div)
 
@@ -66,7 +66,7 @@ export const Modal = ({
   }, [toggle, focusRef])
 
   // Trap focus inside the modal
-  const { focusable } = useFocus(modalRef, show, closeModal)
+  const { focusable } = useFocus(modalRef, show, closeModal, true)
 
   useEffect(() => {
     if (show) {

@@ -3,8 +3,11 @@ import { createPortal } from 'react-dom'
 
 interface PortalProps {
   children: React.ReactNode
-  root?: string
+  root?: string | Element
 }
+
+const getTarget = (root: string | Element) =>
+  typeof root === 'string' ? document.getElementById(root) : root
 
 /**
  * `Portal` is an internal component that powers the Modal, Lightbox, and Popover.
@@ -16,9 +19,7 @@ interface PortalProps {
 
 export const Portal = ({ children, root }: PortalProps) => {
   if (typeof window !== `undefined`) {
-    const targetNode = root
-      ? document.getElementById(root)
-      : document.querySelector('body')
+    const targetNode = root ? getTarget(root) : document.querySelector('body')
 
     return createPortal(children, targetNode)
   }

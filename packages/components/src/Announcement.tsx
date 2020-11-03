@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Flex, Button, DivProps } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
-import { useTracker, useMeasure } from './helper'
+import { useTracker, useMeasure } from './_hooks'
 import { CloseIcon } from './icons'
 
 const AnimatedBox = a(Flex)

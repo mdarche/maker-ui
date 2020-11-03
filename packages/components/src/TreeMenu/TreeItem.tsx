@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Button, Span, Link, Div, DivProps } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
-import { useMeasure, usePrevious } from '../helper'
+import { useMeasure } from '../_hooks'
 import { useTreeData } from './TreeContext'
+
+function usePrevious(value: any): any {
+  const ref = useRef()
+  useEffect(() => void (ref.current = value), [value])
+  return ref.current
+}
 
 export interface TreeItemProps extends DivProps {
   text?: string

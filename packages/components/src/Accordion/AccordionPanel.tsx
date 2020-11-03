@@ -3,7 +3,7 @@ import { Div, DivProps, Button, generateId } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
 import { useAccordion } from './AccordionContext'
-import { useMeasure } from '../helper'
+import { useMeasure } from '../_hooks'
 
 const AnimatedDiv = a(Div)
 

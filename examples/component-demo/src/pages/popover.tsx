@@ -12,25 +12,49 @@ const PopoverPage = () => {
         Popover toggle
       </button>
       <Popover
-        anchor={buttonRef}
+        anchorRef={buttonRef}
         // anchorWidth
-        origin={{ x: 'left', y: 'center' }}
+        // origin={{ x: 'left', y: 'center' }}
         show={show}
         transition="fade">
         <Div sx={{ bg: 'gainsboro', height: 200, ul: { m: 0, p: 2 } }}>
           <ul>
-            <li>Item</li>
-            <li>Item</li>
-            <li>Item</li>
+            <li>
+              <a href="https://google.com" target="_blank">
+                Link1
+              </a>
+            </li>
+            <li>
+              <a href="https://google.com" target="_blank">
+                Link2
+              </a>
+            </li>
+            <li>
+              <a href="https://google.com" target="_blank">
+                Link3
+              </a>
+            </li>
           </ul>
         </Div>
       </Popover>
       <Dropdown buttonInner="Click here" matchWidth>
-        <Div sx={{ bg: 'gainsboro', height: 200, ul: { m: 0, p: 2 } }}>
+        <Div sx={{ bg: 'gainsboro', height: 200, p: 3, ul: { m: 0, p: 0 } }}>
           <ul>
-            <li>Item</li>
-            <li>Item</li>
-            <li>Item</li>
+            <li>
+              <a href="https://google.com" target="_blank">
+                Link1
+              </a>
+            </li>
+            <li>
+              <a href="https://google.com" target="_blank">
+                Link2
+              </a>
+            </li>
+            <li>
+              <a href="https://google.com" target="_blank">
+                Link3
+              </a>
+            </li>
           </ul>
         </Div>
       </Dropdown>
