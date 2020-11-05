@@ -8,9 +8,20 @@ export function useMeasure() {
     top: 0,
     width: 0,
     height: 0,
+    documentTop: 0,
   })
   const [ro] = useState(
-    () => new ResizeObserver(([entry]) => set(entry.contentRect))
+    () =>
+      new ResizeObserver(([entry]) => {
+        const { top, bottom, width, height } = entry.contentRect
+        const documentTop = top + document.documentElement.scrollTop
+        // console.log('boundingRect =', ref.current.getBoundingClientRect().top)
+        console.log('top is', top)
+        console.log('scrollTop =', document.documentElement.scrollTop)
+        console.log('documenTop =', documentTop)
+        // Add these two values together to get the correct top value
+        set({ top, bottom, width, height, documentTop })
+      })
   )
   useEffect(() => {
     if (ref.current) ro.observe(ref.current)

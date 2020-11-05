@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Button } from 'maker-ui'
+import { Button, Div } from 'maker-ui'
 
 import { Popover } from './Popover'
 
@@ -22,7 +22,7 @@ export const Dropdown = ({
 }: DropdownProps) => {
   const buttonRef = useRef(null)
   const dropdownRef = useRef(null)
-  const [show, set] = useState(true)
+  const [show, toggle] = useState(true)
 
   return (
     <>
@@ -30,11 +30,11 @@ export const Dropdown = ({
         ref={buttonRef}
         aria-haspopup="listbox"
         aria-expanded={show}
-        onClick={e => set(!show)}
+        onClick={e => toggle(!show)}
         sx={{ variant: buttonVariant, width: 300, ...sx }}>
         {buttonInner}
       </Button>
-      <div ref={dropdownRef}>
+      <Div ref={dropdownRef}>
         <Popover
           appendTo={dropdownRef.current}
           role="listbox"
@@ -42,11 +42,11 @@ export const Dropdown = ({
           anchorRef={buttonRef}
           anchorWidth={matchWidth}
           show={show}
-          set={set}
+          toggle={toggle}
           transition="scale">
           {children}
         </Popover>
-      </div>
+      </Div>
     </>
   )
 }

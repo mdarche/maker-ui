@@ -4,7 +4,7 @@ import { Div, DivProps } from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { usePosition, getSign } from '../helper'
-import { useFocus } from '../_hooks'
+import { useFocus, useMeasure } from '../_hooks'
 
 const AnimatedDiv = a(Div)
 
@@ -14,7 +14,7 @@ export interface Origin {
 }
 export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
-  set?: Function
+  toggle?: Function
   anchorRef?: React.MutableRefObject<any>
   anchorWidth?: boolean
   origin?: Origin
@@ -60,7 +60,7 @@ const getTransform = (type: string) => {
 
 export const Popover = ({
   show,
-  set,
+  toggle,
   role = 'presentation',
   anchorRef,
   anchorWidth,
@@ -80,15 +80,7 @@ export const Popover = ({
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
   const [initialRender, setInitialRender] = useState(true)
-
-  const closePopover = useCallback(() => {
-    if (anchorRef !== undefined) {
-      anchorRef.current.focus()
-    }
-    if (set) {
-      set(false)
-    }
-  }, [set, anchorRef])
+  // const [bind, { height:, top, documentTop }] = useMeasure()
 
   const measuredRef = useCallback(
     node => {
@@ -99,7 +91,14 @@ export const Popover = ({
     [height]
   )
 
-  // useFocus(popoverRef, show, closePopover, trapFocus)
+  // useFocus({
+  //   containerRef: popoverRef,
+  //   focusRef: anchorRef,
+  //   show,
+  //   toggle,
+  //   closeOnBlur,
+  //   trapFocus,
+  // })
 
   // TODO check for focusable elements and send focus to it.
   // Back to original element on !show
@@ -107,9 +106,9 @@ export const Popover = ({
   useLayoutEffect(() => {
     if (transition === 'scale') {
       setInitialRender(false)
-      set(false)
+      toggle(false)
     }
-  }, [transition, set])
+  }, [transition, toggle])
 
   useLayoutEffect(() => {
     if (!box) return
@@ -181,7 +180,9 @@ export const Popover = ({
               }}
               {...rest}>
               <Div
+                // {...bind}
                 ref={measuredRef}
+                // BIND
                 sx={{
                   opacity: transition === 'scale' && initialRender && [0],
                   visibility: transition === 'scale' &&

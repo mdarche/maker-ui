@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 const focusElements = [
   '[href]',
@@ -9,64 +9,117 @@ const focusElements = [
   '[tabIndex]:not([tabIndex="-1"])',
 ].join(', ')
 
-export function useFocus(
-  ref: React.MutableRefObject<any>,
-  show: boolean,
-  toggle: Function,
-  trap?: boolean
-) {
-  const [focusable, setFocusable] = useState({
+interface FocusableElements {
+  count: number
+  container?: React.MutableRefObject<any>
+  original?: React.MutableRefObject<any>
+  first?: HTMLElement
+  last?: HTMLElement
+  next?: HTMLElement | any
+}
+
+interface FocusConfig {
+  type?: 'modal' | 'dropdown' | 'popover'
+  containerRef: React.MutableRefObject<any>
+  focusRef?: React.MutableRefObject<any>
+  show: boolean
+  toggle: Function
+  trapFocus?: boolean
+  closeOnBlur?: boolean
+}
+
+export function useFocus({
+  type,
+  containerRef,
+  focusRef,
+  show,
+  toggle,
+  trapFocus,
+  closeOnBlur,
+}: FocusConfig) {
+  const [focusable, setFocusable] = useState<FocusableElements>({
     count: 0,
+    container: containerRef ? containerRef.current : null,
+    original: focusRef ? focusRef.current : null,
     first: null,
     last: null,
+    next: null,
   })
 
+  const closeContainer = useCallback(() => {
+    if (toggle) {
+      // if (!trapFocus && focusable.next !== undefined) {
+      //   focusable.next.focus()
+      // }
+
+      if (trapFocus && focusRef !== undefined) {
+        focusRef.current.focus()
+      }
+      toggle(false)
+    }
+  }, [focusRef, focusable.next, toggle, trapFocus])
+
   useEffect(() => {
-    if (!trap && ref.current) {
+    // Query DOM for the next focusable element
+    // type !== 'modal' && don't trap focus
+    if (!trapFocus && type !== 'modal' && focusRef.current) {
       const elements = document.querySelectorAll(focusElements)
       console.log('Elements are', elements)
-      console.log('Ref current is', ref.current.className)
-      elements.forEach(i => {
-        console.log(i.className)
+      console.log('Ref current is', focusRef.current)
+      elements.forEach((i, index) => {
+        if (focusRef.current === i) {
+          setFocusable(state => ({ ...state, next: elements[index] }))
+        }
       })
     }
   }, [])
 
   useEffect(() => {
-    if (show && ref.current) {
-      const elements = ref.current.querySelectorAll(focusElements)
+    // Query the container for all focusable elements
+    // Set the first and last elements
+    if (show && containerRef.current) {
+      const elements = containerRef.current.querySelectorAll(focusElements)
       if (elements.length !== 0) {
-        setFocusable({
+        setFocusable(state => ({
+          ...state,
           count: elements.length,
           first: elements[0],
           last: elements[elements.length - 1],
-        })
+        }))
         elements[0].focus()
       } else {
-        ref.current.focus()
+        containerRef.current.focus()
       }
     }
-  }, [ref, show])
+  }, [containerRef, show])
 
   useEffect(() => {
-    function handleKeyDown(e) {
-      switch (e.keyCode) {
-        case 27: // esc
-          if (toggle) {
-            return toggle()
-          }
-          return
-        case 9: // tab
+    function handleKeyDown(e: KeyboardEvent) {
+      switch (e.code) {
+        case 'Esc':
+        case 'Escape':
+          return closeContainer()
+        case 'Tab':
           if (e.shiftKey) {
             // If tab + shift key is pressed
             if (document.activeElement === focusable.first) {
-              focusable.last.focus()
+              if (trapFocus) {
+                focusable.last.focus()
+              } else {
+                focusRef.current.focus()
+                return closeContainer()
+              }
               e.preventDefault()
             }
           } else {
             // If tab key is pressed
             if (document.activeElement === focusable.last) {
-              focusable.first.focus()
+              if (trapFocus) {
+                focusable.first.focus()
+              } else {
+                focusable.next.focus()
+                return closeContainer()
+              }
               e.preventDefault()
             }
           }
@@ -82,7 +135,7 @@ export function useFocus(
       }
       return () => window.removeEventListener(`keydown`, handleKeyDown)
     }
-  }, [focusable, show, toggle])
+  }, [focusable, show, closeContainer])
 
   return { focusable }
 }

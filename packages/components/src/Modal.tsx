@@ -66,7 +66,14 @@ export const Modal = ({
   }, [toggle, focusRef])
 
   // Trap focus inside the modal
-  const { focusable } = useFocus(modalRef, show, closeModal, true)
+  const { focusable } = useFocus({
+    type: 'modal',
+    containerRef: modalRef,
+    focusRef,
+    show,
+    toggle,
+    trapFocus: true,
+  })
 
   useEffect(() => {
     if (show) {

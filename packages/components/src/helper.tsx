@@ -23,6 +23,9 @@ export const usePosition = (ref: MutableRefObject<any>) => {
   const [box, setBox] = useState<any>({})
 
   const set = () => {
+    console.log('boundingRect =', ref.current.getBoundingClientRect())
+    console.log('scrollTop =', document.documentElement.scrollTop)
+    // Add these two values together to get the correct top value
     setBox(ref && ref.current ? ref.current.getBoundingClientRect() : {})
   }
 

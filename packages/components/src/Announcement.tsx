@@ -5,7 +5,7 @@ import { useSpring, animated as a } from 'react-spring'
 import { useTracker, useMeasure } from './_hooks'
 import { CloseIcon } from './icons'
 
-const AnimatedBox = a(Flex)
+const AnimatedDiv = a(Flex)
 
 const fixedPartial = (fixed, bottom) =>
   fixed
@@ -71,7 +71,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     })
 
     return active ? (
-      <AnimatedBox
+      <AnimatedDiv
         ref={ref}
         className="announcement"
         style={spring}
@@ -115,7 +115,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
             </Button>
           )}
         </Flex>
-      </AnimatedBox>
+      </AnimatedDiv>
     ) : null
   }
 )
