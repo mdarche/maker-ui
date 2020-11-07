@@ -46,37 +46,36 @@ export function useFocus({
     next: null,
   })
 
-  const closeContainer = useCallback(() => {
-    if (toggle) {
-      // if (!trapFocus && focusable.next !== undefined) {
-      //   focusable.next.focus()
-      // }
-
-      if (trapFocus && focusRef !== undefined) {
-        focusRef.current.focus()
+  const closeContainer = useCallback(
+    (originalFocus: boolean) => {
+      if (toggle) {
+        // Send focus back to focus ref or the next element in the DOM
+        if (originalFocus) {
+          focusRef.current.focus()
+        } else {
+          // TODO need to check for back or forwards
+          focusable.next.focus()
+        }
+        toggle(false)
       }
-      toggle(false)
-    }
-  }, [focusRef, focusable.next, toggle, trapFocus])
+    },
+    [focusRef, focusable.next, toggle]
+  )
 
+  // 1. Query DOM for the next focusable element
   useEffect(() => {
-    // Query DOM for the next focusable element
-    // type !== 'modal' && don't trap focus
     if (!trapFocus && type !== 'modal' && focusRef.current) {
       const elements = document.querySelectorAll(focusElements)
-      console.log('Elements are', elements)
-      console.log('Ref current is', focusRef.current)
       elements.forEach((i, index) => {
         if (focusRef.current === i) {
-          setFocusable(state => ({ ...state, next: elements[index] }))
+          setFocusable(state => ({ ...state, next: elements[index + 1] }))
         }
       })
     }
-  }, [])
+  }, [focusRef, trapFocus, type])
 
+  // 2. Query the container for all focusable elements
   useEffect(() => {
-    // Query the container for all focusable elements
-    // Set the first and last elements
     if (show && containerRef.current) {
       const elements = containerRef.current.querySelectorAll(focusElements)
       if (elements.length !== 0) {
@@ -93,12 +92,15 @@ export function useFocus({
     }
   }, [containerRef, show])
 
+  // TODO add arrow keys for type === 'dropdown'
+  // TODO clean up this whole function
+
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       switch (e.code) {
         case 'Esc':
         case 'Escape':
-          return closeContainer()
+          return closeContainer(true)
         case 'Tab':
           if (e.shiftKey) {
             // If tab + shift key is pressed
@@ -106,8 +108,7 @@ export function useFocus({
               if (trapFocus) {
                 focusable.last.focus()
               } else {
-                focusRef.current.focus()
-                return closeContainer()
+                return closeContainer(true)
               }
               e.preventDefault()
             }
@@ -117,12 +118,17 @@ export function useFocus({
               if (trapFocus) {
                 focusable.first.focus()
               } else {
-                focusable.next.focus()
-                return closeContainer()
+                if (closeOnBlur) {
+                  closeContainer(false)
+                }
               }
               e.preventDefault()
             }
           }
+          return
+        case 'ArrowDown':
+          return
+        case 'ArrowUp':
           return
         default:
           return
@@ -135,7 +141,7 @@ export function useFocus({
       }
       return () => window.removeEventListener(`keydown`, handleKeyDown)
     }
-  }, [focusable, show, closeContainer])
+  }, [focusable, show, closeOnBlur, focusRef, trapFocus, closeContainer])
 
   return { focusable }
 }

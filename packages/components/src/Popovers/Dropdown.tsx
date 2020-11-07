@@ -8,6 +8,7 @@ interface DropdownProps {
   buttonInner?: string | React.ReactElement
   matchWidth?: boolean
   trapFocus?: boolean
+  closeOnBlur?: boolean
   sx?: any
   children: React.ReactElement | React.ReactElement[]
 }
@@ -17,6 +18,7 @@ export const Dropdown = ({
   buttonInner = 'Dropdown',
   matchWidth = false,
   trapFocus = false,
+  closeOnBlur = true,
   sx,
   children,
 }: DropdownProps) => {
@@ -38,11 +40,12 @@ export const Dropdown = ({
         <Popover
           appendTo={dropdownRef.current}
           role="listbox"
+          show={show}
+          toggle={toggle}
           trapFocus={trapFocus}
           anchorRef={buttonRef}
           anchorWidth={matchWidth}
-          show={show}
-          toggle={toggle}
+          closeOnBlur={closeOnBlur}
           transition="scale">
           {children}
         </Popover>

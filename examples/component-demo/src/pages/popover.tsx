@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Div } from 'maker-ui'
-import { Popover, Dropdown } from '@maker-ui/components'
+import { Popover, Dropdown, Tooltip } from '@maker-ui/components'
 
 const PopoverPage = () => {
   const [show, set] = useState(false)
@@ -11,12 +11,13 @@ const PopoverPage = () => {
       <button ref={buttonRef} onClick={e => set(!show)}>
         Popover toggle
       </button>
+      <Tooltip label="test">Hover here!</Tooltip>
       <Popover
         anchorRef={buttonRef}
         // anchorWidth
         // origin={{ x: 'left', y: 'center' }}
         show={show}
-        transition="fade">
+        toggle={set}>
         <Div sx={{ bg: 'gainsboro', height: 200, ul: { m: 0, p: 2 } }}>
           <ul>
             <li>

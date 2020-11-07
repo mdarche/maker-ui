@@ -3,21 +3,21 @@ import { useTransition, animated as a } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
 import { Portal } from '../Portal'
-import { usePosition, getSign } from '../helper'
-import { useFocus, useMeasure } from '../_hooks'
+import { getSign } from '../helper'
+import { useFocus, usePosition } from '../_hooks'
 
 const AnimatedDiv = a(Div)
 
-export interface Origin {
+export interface Position {
   x: 'left' | 'center' | 'right' | 'origin'
   y: 'top' | 'center' | 'bottom'
 }
 export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
-  toggle?: Function
+  toggle: Function
   anchorRef?: React.MutableRefObject<any>
   anchorWidth?: boolean
-  origin?: Origin
+  position?: Position
   role?: string
   appendTo?: string | Element
   trapFocus?: boolean
@@ -29,8 +29,8 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'fade-up'
     | 'fade-left'
     | 'fade-right'
-    | 'scale' // Used for dropdown menu only. Requires the set prop
-  children: React.ReactElement | React.ReactElement[]
+    | 'scale' // Used for dropdown menu only
+  children: string | React.ReactElement | React.ReactElement[]
 }
 
 const getTransform = (type: string) => {
@@ -56,19 +56,21 @@ const getTransform = (type: string) => {
  * `Tooltip` or `Dropdown` components.
  *
  * @see https://maker-ui.com/docs/components/popover
+ * @todo - refactor with useMeasure Resize Observer
  */
 
 export const Popover = ({
   show,
   toggle,
   role = 'presentation',
+  id,
   anchorRef,
   anchorWidth,
-  origin = { x: 'origin', y: 'bottom' },
+  position = { x: 'origin', y: 'bottom' },
   appendTo,
   trapFocus,
-  closeOnBlur,
-  transition,
+  closeOnBlur = true,
+  transition = 'fade',
   variant,
   config,
   sx,
@@ -80,7 +82,6 @@ export const Popover = ({
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
   const [initialRender, setInitialRender] = useState(true)
-  // const [bind, { height:, top, documentTop }] = useMeasure()
 
   const measuredRef = useCallback(
     node => {
@@ -91,17 +92,14 @@ export const Popover = ({
     [height]
   )
 
-  // useFocus({
-  //   containerRef: popoverRef,
-  //   focusRef: anchorRef,
-  //   show,
-  //   toggle,
-  //   closeOnBlur,
-  //   trapFocus,
-  // })
-
-  // TODO check for focusable elements and send focus to it.
-  // Back to original element on !show
+  useFocus({
+    containerRef: popoverRef,
+    focusRef: anchorRef,
+    show,
+    toggle,
+    closeOnBlur,
+    trapFocus,
+  })
 
   useLayoutEffect(() => {
     if (transition === 'scale') {
@@ -137,22 +135,22 @@ export const Popover = ({
 
   const getX = () => {
     if (!box) return
-    return origin.x === 'center'
+    return position.x === 'center'
       ? box.left + box.width / 2 - width / 2
-      : origin.x === 'left'
+      : position.x === 'left'
       ? box.left - width
-      : origin.x === 'right'
+      : position.x === 'right'
       ? box.right
       : box.left
   }
 
   const getY = () => {
     if (!box) return
-    return origin.y === 'top'
+    return position.y === 'top'
       ? box.top
-      : origin.y === 'bottom' || transition === 'scale'
+      : position.y === 'bottom' || transition === 'scale'
       ? box.top + box.height
-      : origin.y === 'center'
+      : position.y === 'center'
       ? box.top + box.height / 2 - height / 2
       : 0
   }
@@ -163,8 +161,10 @@ export const Popover = ({
         (props, item) =>
           item && (
             <AnimatedDiv
+              id={id}
               role={role}
               ref={popoverRef}
+              aria-hidden={show}
               // @ts-ignore
               style={props}
               sx={{
@@ -180,9 +180,7 @@ export const Popover = ({
               }}
               {...rest}>
               <Div
-                // {...bind}
                 ref={measuredRef}
-                // BIND
                 sx={{
                   opacity: transition === 'scale' && initialRender && [0],
                   visibility: transition === 'scale' &&
