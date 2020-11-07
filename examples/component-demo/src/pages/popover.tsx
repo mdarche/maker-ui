@@ -11,14 +11,16 @@ const PopoverPage = () => {
       <button ref={buttonRef} onClick={e => set(!show)}>
         Popover toggle
       </button>
-      <Tooltip label="test">Hover here!</Tooltip>
+      <Tooltip bg="purple" label="test" position="top">
+        Hover here!
+      </Tooltip>
       <Popover
         anchorRef={buttonRef}
         // anchorWidth
-        // origin={{ x: 'left', y: 'center' }}
+        position={{ x: 'center', y: 'top' }}
         show={show}
         toggle={set}>
-        <Div sx={{ bg: 'gainsboro', height: 200, ul: { m: 0, p: 2 } }}>
+        <Div sx={{ bg: 'gainsboro', height: 100, ul: { m: 0, p: 2 } }}>
           <ul>
             <li>
               <a href="https://google.com" target="_blank">

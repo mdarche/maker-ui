@@ -53,7 +53,6 @@ export function useFocus({
         if (originalFocus) {
           focusRef.current.focus()
         } else {
-          // TODO need to check for back or forwards
           focusable.next.focus()
         }
         toggle(false)

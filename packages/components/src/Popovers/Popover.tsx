@@ -18,10 +18,12 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   anchorRef?: React.MutableRefObject<any>
   anchorWidth?: boolean
   position?: Position
+  gap?: { x: number; y: number }
   role?: string
   appendTo?: string | Element
   trapFocus?: boolean
   closeOnBlur?: boolean
+  containerSx?: any
   config?: object
   transition?:
     | 'fade'
@@ -69,10 +71,12 @@ export const Popover = ({
   position = { x: 'origin', y: 'bottom' },
   appendTo,
   trapFocus,
+  gap = { x: 0, y: 0 },
   closeOnBlur = true,
   transition = 'fade',
   variant,
   config,
+  containerSx,
   sx,
   children,
   ...rest
@@ -87,6 +91,7 @@ export const Popover = ({
     node => {
       if (node !== null && height === 0) {
         setHeight(node.offsetHeight)
+        setWidth(node.offsetWidth)
       }
     },
     [height]
@@ -110,8 +115,10 @@ export const Popover = ({
 
   useLayoutEffect(() => {
     if (!box) return
-    setWidth(box.width)
-  }, [box])
+    if (anchorWidth) {
+      setWidth(box.width)
+    }
+  }, [box, anchorWidth])
 
   // TODO refactor this into one ...getTransitions function
   const animate = useTransition(show ? [1] : [], {
@@ -133,6 +140,7 @@ export const Popover = ({
     config,
   })
 
+  // TODO add and test gapX
   const getX = () => {
     if (!box) return
     return position.x === 'center'
@@ -147,9 +155,9 @@ export const Popover = ({
   const getY = () => {
     if (!box) return
     return position.y === 'top'
-      ? box.top
+      ? box.top - height - gap.y
       : position.y === 'bottom' || transition === 'scale'
-      ? box.top + box.height
+      ? box.top + box.height + gap.y
       : position.y === 'center'
       ? box.top + box.height / 2 - height / 2
       : 0
@@ -182,6 +190,7 @@ export const Popover = ({
               <Div
                 ref={measuredRef}
                 sx={{
+                  ...containerSx,
                   opacity: transition === 'scale' && initialRender && [0],
                   visibility: transition === 'scale' &&
                     initialRender && ['hidden'],
