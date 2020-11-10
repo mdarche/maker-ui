@@ -9,11 +9,11 @@ import {
   Footer,
   SideNav,
 } from 'maker-ui'
-// import {
-//   Announcement,
-//   // PageTransition,
-//   CookieNotice,
-// } from '@maker-ui/components'
+import {
+  Announcement,
+  // PageTransition,
+  // CookieNotice,
+} from '@maker-ui/components'
 // import { SEOProvider } from '@maker-ui/seo'
 
 import { options } from './options'
@@ -42,7 +42,7 @@ const menu = [
   { label: 'Modal', path: '/modal' },
   { label: 'Lightbox', path: '/lightbox' },
   { label: 'Popover', path: '/popover' },
-  { label: 'SmartTable', path: '/smart-table' },
+  { label: 'TableofContents', path: '/toc' },
 ]
 
 // const seo = {
@@ -56,7 +56,7 @@ const menu = [
 export default ({ children, location }) => (
   <Layout theme={theme} options={options}>
     {/* <Topbar>Topbar content</Topbar> */}
-    {/* <Announcement sx={{ p: 30 }}>This is an announcement</Announcement> */}
+    <Announcement sx={{ p: 30 }}>This is an announcement</Announcement>
     <Header>
       <Navbar
         logo={'Components Demo'}
