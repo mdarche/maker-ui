@@ -16,7 +16,7 @@ import {
 } from '@maker-ui/components'
 // import { SEOProvider } from '@maker-ui/seo'
 
-import { options } from './options'
+import { options } from './options.tsx'
 import { theme } from './theme'
 
 const menu = [

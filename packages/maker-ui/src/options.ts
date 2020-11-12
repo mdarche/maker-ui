@@ -25,6 +25,7 @@ export const defaultOptions: MakerOptions = {
       caret: true,
       transition: 'fade',
     },
+    linkFunction: undefined,
     breakIndex: 0,
   },
   mobileMenu: {

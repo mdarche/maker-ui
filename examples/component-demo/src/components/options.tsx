@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { MakerOptions } from 'maker-ui'
 
 export const options: MakerOptions = {
@@ -12,6 +13,13 @@ export const options: MakerOptions = {
     stickyScroll: false,
     dropdown: {
       transition: 'fade-down',
+    },
+    linkFunction: (path, label, attributes) => {
+      return (
+        <a href={path} {...attributes}>
+          {label}
+        </a>
+      )
     },
   },
   mobileMenu: {

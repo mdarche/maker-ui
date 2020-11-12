@@ -25,6 +25,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   closeOnBlur?: boolean
   containerSx?: any
   config?: object
+  _type?: 'popover' | 'dropdown' | 'tooltip'
   transition?:
     | 'fade'
     | 'fade-down'
@@ -77,6 +78,7 @@ export const Popover = ({
   variant,
   config,
   containerSx,
+  _type = 'popover',
   sx,
   children,
   ...rest
@@ -98,6 +100,7 @@ export const Popover = ({
   )
 
   useFocus({
+    type: _type,
     containerRef: popoverRef,
     focusRef: anchorRef,
     show,

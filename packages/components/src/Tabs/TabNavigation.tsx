@@ -1,43 +1,47 @@
-import React from 'react'
+import * as React from 'react'
 import { Flex, Button, setBreakpoint } from 'maker-ui'
 
 import { useTabs } from './TabContext'
+import { useFocus } from '../_hooks'
 
 export interface TabStyleProps {
   settings: {
     isVertical?: boolean
+    overflow?: 'stack' | 'scroll'
     navPosition?: string
-    navStack?: boolean
-    navScroll?: boolean
     breakIndex?: number
   }
 }
 
 const getNavPosition = ({
-  settings: { isVertical, navPosition, navStack, navScroll, breakIndex },
+  settings: { isVertical, navPosition, overflow = 'stack', breakIndex },
 }: TabStyleProps): Object => {
   const shared = {
-    overflowX: navScroll ? 'scroll' : null,
-    flexWrap: navStack ? 'wrap' : 'nowrap',
+    overflowX: overflow === 'scroll' ? 'scroll' : null,
+    flexWrap: overflow === 'stack' ? 'wrap' : 'nowrap',
     button: {
-      flex: navScroll && setBreakpoint(breakIndex, ['1 0 auto', 'none']),
+      flex:
+        overflow === 'scroll' &&
+        setBreakpoint(breakIndex, ['1 0 auto', 'none']),
     },
   }
 
   if (isVertical) {
     return {
-      flexDirection: navStack
-        ? setBreakpoint(breakIndex, ['column', 'row'])
-        : 'row',
+      flexDirection:
+        overflow === 'stack'
+          ? setBreakpoint(breakIndex, ['column', 'row'])
+          : 'row',
       order: navPosition === 'top' ? 1 : 2,
       ...shared,
     }
   }
 
   return {
-    flexDirection: navStack
-      ? 'column'
-      : setBreakpoint(breakIndex, ['row', 'column']),
+    flexDirection:
+      overflow === 'stack'
+        ? 'column'
+        : setBreakpoint(breakIndex, ['row', 'column']),
     order: navPosition === 'left' ? 1 : 2,
     ...shared,
   }
@@ -51,32 +55,48 @@ const getNavPosition = ({
  */
 
 export const TabNavigation = ({ settings }: TabStyleProps) => {
+  const [ref, setRef] = React.useState(null)
   const { state, setActive } = useTabs()
+
+  if (ref) {
+    const elements = ref.querySelectorAll('button')
+    console.log('new elements are', elements)
+    // useFocus({
+    //   type: 'tabs',
+    //   containerRef: ref,
+    //   trapFocus: true,
+    // })
+  }
+
+  // useFocus({
+  //   type: 'tabs',
+  //   containerRef: ref,
+  //   trapFocus: true,
+  // })
 
   return (
     <Flex
-      className="tabs-list"
+      ref={newRef => setRef(newRef)}
+      className="tab-navigation"
       role="tablist"
       sx={{
         variant: `${state.variant}.list`,
         ...getNavPosition({ settings }),
       }}>
+      <button>Test button</button>
       {state.tabs.map(item => (
         <Button
           key={item.id}
-          sx={{ variant: `${state.variant}.button` }}
-          className={
-            state.activeId === item.id
-              ? 'active-tab tabs-button'
-              : 'tabs-button'
-          }
           role="tab"
+          // tabIndex={state.activeId === item.id ? 0 : -1}
+          className={`tab-button${state.activeId === item.id ? ' active' : ''}`}
           // @ts-ignore
           disabled={item.disabled}
           title={typeof item.title === 'string' ? item.title : null}
           aria-controls={item.panelId}
           aria-selected={state.activeId === item.id ? 'true' : 'false'}
-          onClick={e => setActive(item.id)}>
+          onClick={e => setActive(item.id)}
+          sx={{ variant: `${state.variant}.button` }}>
           {item.title}
         </Button>
       ))}

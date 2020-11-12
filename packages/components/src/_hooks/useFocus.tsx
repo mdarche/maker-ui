@@ -10,6 +10,7 @@ const focusElements = [
 ].join(', ')
 
 interface FocusableElements {
+  all?: HTMLElement[]
   count: number
   container?: React.MutableRefObject<any>
   original?: React.MutableRefObject<any>
@@ -19,11 +20,11 @@ interface FocusableElements {
 }
 
 interface FocusConfig {
-  type?: 'modal' | 'dropdown' | 'popover'
+  type?: 'modal' | 'dropdown' | 'popover' | 'tabs' | 'tooltip'
   containerRef: React.MutableRefObject<any>
   focusRef?: React.MutableRefObject<any>
-  show: boolean
-  toggle: Function
+  show?: boolean
+  toggle?: Function
   trapFocus?: boolean
   closeOnBlur?: boolean
 }
@@ -38,6 +39,7 @@ export function useFocus({
   closeOnBlur,
 }: FocusConfig) {
   const [focusable, setFocusable] = useState<FocusableElements>({
+    all: null,
     count: 0,
     container: containerRef ? containerRef.current : null,
     original: focusRef ? focusRef.current : null,
@@ -75,11 +77,19 @@ export function useFocus({
 
   // 2. Query the container for all focusable elements
   useEffect(() => {
-    if (show && containerRef.current) {
+    if ((show && containerRef.current) || type === 'tabs') {
       const elements = containerRef.current.querySelectorAll(focusElements)
+      console.log('container ref is', containerRef.current)
+      console.log('elements are', elements)
+      // console.log(
+      //   'Made it here via tabs',
+      //   containerRef.current.querySelectorAll('button')
+      // )
+
       if (elements.length !== 0) {
         setFocusable(state => ({
           ...state,
+          all: type === 'tabs' && elements,
           count: elements.length,
           first: elements[0],
           last: elements[elements.length - 1],
@@ -89,58 +99,80 @@ export function useFocus({
         containerRef.current.focus()
       }
     }
-  }, [containerRef, show])
+  }, [containerRef, show, type])
 
   // TODO add arrow keys for type === 'dropdown'
   // TODO clean up this whole function
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      switch (e.code) {
-        case 'Esc':
-        case 'Escape':
-          return closeContainer(true)
-        case 'Tab':
-          if (e.shiftKey) {
-            // If tab + shift key is pressed
-            if (document.activeElement === focusable.first) {
-              if (trapFocus) {
-                focusable.last.focus()
-              } else {
-                return closeContainer(true)
-              }
-              e.preventDefault()
-            }
-          } else {
-            // If tab key is pressed
-            if (document.activeElement === focusable.last) {
-              if (trapFocus) {
-                focusable.first.focus()
-              } else {
-                if (closeOnBlur) {
-                  closeContainer(false)
+      if (type !== 'tabs') {
+        switch (e.code) {
+          case 'Esc':
+          case 'Escape':
+            return closeContainer(true)
+          case 'Tab':
+            if (e.shiftKey) {
+              // If tab + shift key is pressed
+              if (document.activeElement === focusable.first) {
+                if (trapFocus) {
+                  focusable.last.focus()
+                } else {
+                  return closeContainer(true)
                 }
+                e.preventDefault()
               }
-              e.preventDefault()
+            } else {
+              // If tab key is pressed
+              if (document.activeElement === focusable.last) {
+                if (trapFocus) {
+                  focusable.first.focus()
+                } else {
+                  if (closeOnBlur) {
+                    closeContainer(false)
+                  }
+                }
+                e.preventDefault()
+              }
             }
-          }
-          return
-        case 'ArrowDown':
-          return
-        case 'ArrowUp':
-          return
-        default:
-          return
+            return
+          case 'ArrowDown':
+            return
+          case 'ArrowUp':
+            return
+          default:
+            return
+        }
+      } else {
+        switch (e.code) {
+          case 'ArrowDown':
+            console.log(focusable)
+            // if (document.activeElement.hasAttribute('role="tab"')) {
+            //   console.log('Yas!')
+            // }
+            return
+          case 'ArrowRight':
+            return console.log('Right!')
+          case 'ArrowLeft':
+            return console.log('Left!')
+          default:
+            return
+        }
       }
     }
 
     if (typeof window !== 'undefined') {
-      if (show) {
+      if (type !== 'tabs') {
+        if (show) {
+          window.addEventListener(`keydown`, handleKeyDown)
+        }
+        return () => window.removeEventListener(`keydown`, handleKeyDown)
+      } else {
         window.addEventListener(`keydown`, handleKeyDown)
+        return () => window.removeEventListener(`keydown`, handleKeyDown)
       }
-      return () => window.removeEventListener(`keydown`, handleKeyDown)
     }
-  }, [focusable, show, closeOnBlur, focusRef, trapFocus, closeContainer])
+  }, [type, focusable, show, closeOnBlur, focusRef, trapFocus, closeContainer])
 
   return { focusable }
 }

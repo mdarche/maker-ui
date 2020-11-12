@@ -46,7 +46,8 @@ export const Dropdown = ({
           anchorRef={buttonRef}
           anchorWidth={matchWidth}
           closeOnBlur={closeOnBlur}
-          transition="scale">
+          transition="scale"
+          _type="dropdown">
           {children}
         </Popover>
       </Div>

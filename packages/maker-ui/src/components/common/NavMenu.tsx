@@ -27,6 +27,7 @@ export const NavMenu = memo(({ menuItems = [], pathname }: NavMenuProps) => {
             data={item}
             caret={header.dropdown.caret}
             pathname={pathname}
+            linkFunction={header.linkFunction}
             isHeader
           />
         ))}

@@ -82,6 +82,7 @@ export const Canvas = ({
   variant,
   data,
   index,
+  zoom,
   showInfo,
   ...rest
 }: CanvasProps) => {

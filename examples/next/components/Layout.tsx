@@ -15,25 +15,27 @@ import { options } from '../config/options'
 import { menu } from '../config/menu'
 
 const Layout = ({ children }) => {
-  const router = useRouter()
+  // const router = useRouter()
 
   // Convert Maker UI's anchor tags into NextJS Links
-  useEffect(() => {
-    const baseUrl = window.location.origin
-    const makerLinks = document.querySelectorAll('#site-header a')
+  // useEffect(() => {
+  //   const baseUrl = window.location.origin
+  //   const makerLinks = document.querySelectorAll('#site-header a')
 
-    makerLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        const target = e.currentTarget as HTMLAnchorElement
-        const path = target.closest('a').href
+  //   makerLinks.forEach(link => {
+  //     link.addEventListener('click', e => {
+  //       const target = e.currentTarget as HTMLAnchorElement
+  //       const path = target.closest('a').href
 
-        if (path.includes(baseUrl)) {
-          e.preventDefault()
-          router.push(target.closest('a').pathname)
-        }
-      })
-    })
-  }, [router])
+  //       if (path.includes(baseUrl)) {
+  //         e.preventDefault()
+  //         router.push(target.closest('a').pathname)
+  //       }
+  //     })
+  //   })
+  // }, [router])
+
+  console.log('options are', options)
   return (
     <ThemeLayout theme={theme} options={options}>
       <Header>

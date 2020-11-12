@@ -159,6 +159,7 @@ export interface MakerOptions {
       caret?: boolean
       transition?: string
     }
+    linkFunction?: Function
     breakIndex?: number
   }
   mobileMenu?: {
@@ -204,6 +205,7 @@ export interface NavProps extends BasicBoxProps {
   colorToggle?: MaybeElement
   widgetArea?: MaybeElement
   menu?: MenuProps[]
+  header?: MakerOptions['header']
   bp?: number
   type?: string
   layout?: number

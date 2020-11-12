@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
+// TODO rebuild this to work like usePosition
 export function useMeasure() {
   const ref = useRef()
   const [bounds, set] = useState<any>({
@@ -16,9 +17,9 @@ export function useMeasure() {
         const { top, bottom, width, height } = entry.contentRect
         const documentTop = top + document.documentElement.scrollTop
         // console.log('boundingRect =', ref.current.getBoundingClientRect().top)
-        console.log('top is', top)
-        console.log('scrollTop =', document.documentElement.scrollTop)
-        console.log('documenTop =', documentTop)
+        // console.log('top is', top)
+        // console.log('scrollTop =', document.documentElement.scrollTop)
+        // console.log('documenTop =', documentTop)
         // Add these two values together to get the correct top value
         set({ top, bottom, width, height, documentTop })
       })

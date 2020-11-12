@@ -18,6 +18,7 @@ interface MenuItemProps {
   menuControls?: any
   pathname?: string
   isHeader?: boolean
+  linkFunction?: Function
   depth?: number
 }
 
@@ -43,11 +44,22 @@ export const MenuItem = ({
   menuControls,
   pathname,
   isHeader = false,
+  linkFunction,
   depth = 0,
 }: MenuItemProps) => {
   const { header } = useOptions()
   const [showNested, setNested] = useState(openNested)
   const submenuClass: string = `submenu depth-${depth}`
+
+  const attributes = {
+    className: pathname === path ? 'current' : undefined,
+    target: newTab && '_blank',
+    rel: newTab && 'noopener noreferrer',
+    'aria-label': icon && label,
+    'aria-haspopup': submenu && 'true',
+    'aria-current': pathname === path && 'page',
+    ...menuControls,
+  }
 
   return (
     <li
@@ -63,18 +75,14 @@ export const MenuItem = ({
           '> a .menu-text:after': submenu && caret && caretStyles,
         }
       }>
-      <Link
-        href={path}
-        className={pathname === path ? 'current' : undefined}
-        target={newTab && '_blank'}
-        rel={newTab && 'noopener noreferrer'}
-        aria-label={icon && label}
-        aria-haspopup={submenu && 'true'}
-        aria-current={pathname === path && 'page'}
-        {...menuControls}>
-        {icon && <span className="menu-icon">{icon}</span>}
-        <span className="menu-text">{label}</span>
-      </Link>
+      {linkFunction ? (
+        linkFunction(path, label, attributes, icon)
+      ) : (
+        <Link href={path} {...attributes}>
+          {icon && <span className="menu-icon">{icon}</span>}
+          <span className="menu-text">{label}</span>
+        </Link>
+      )}
       {submenu && (
         <Fragment>
           {!isHeader && <ExpandButton set={setNested} show={showNested} />}

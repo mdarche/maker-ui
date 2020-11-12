@@ -35,7 +35,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
       <Div
         ref={ref}
         id={panelId}
-        className="tabs-panel"
+        className="tab-panel"
         tabIndex={0}
         role="tabpanel"
         sx={{
