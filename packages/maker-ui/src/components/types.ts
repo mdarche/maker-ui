@@ -18,35 +18,6 @@ export interface MakerProps {
 }
 
 /**
- * Interface for `<Box/>` component props and style shortcuts.
- */
-export interface BasicBoxProps {
-  variant?: string
-  sx?: SxStyleProp
-  bg?: string | string[]
-  // color?: string | string[]
-  m?: ResponsiveScale
-  mt?: ResponsiveScale
-  mr?: ResponsiveScale
-  ml?: ResponsiveScale
-  mb?: ResponsiveScale
-  mx?: ResponsiveScale
-  my?: ResponsiveScale
-  p?: ResponsiveScale
-  pt?: ResponsiveScale
-  pr?: ResponsiveScale
-  pl?: ResponsiveScale
-  pb?: ResponsiveScale
-  px?: ResponsiveScale
-  py?: ResponsiveScale
-  b?: ResponsiveScale
-  bt?: ResponsiveScale
-  br?: ResponsiveScale
-  bl?: ResponsiveScale
-  bb?: ResponsiveScale
-}
-
-/**
  * Alias for Maker UI theme object.
  */
 
@@ -57,8 +28,8 @@ export type MakerTheme = Theme
  */
 
 export interface MakerOptions {
-  navigation?: string
   layout?: string
+  navType?: string
   linkFunction?(
     path: string,
     children: string | React.ReactElement,

@@ -59,7 +59,7 @@ export const docsMenu = [
       { label: 'Section', path: '/docs/section' },
       { label: 'SideNav', path: '/docs/sidenav' },
       { label: 'Sidebar', path: '/docs/sidebar' },
-      { label: 'AccordionMenu', path: '/docs/accordion-menu' },
+      { label: 'CollapsibleMenu', path: '/docs/collapsible-menu' },
       { label: 'Footer', path: '/docs/footer' },
     ],
   },

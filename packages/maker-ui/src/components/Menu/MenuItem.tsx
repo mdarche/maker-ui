@@ -36,7 +36,7 @@ interface MenuItemProps {
 }
 
 /**
- * Returns a menu item and nested children for `NavMenu` or `AccordionMenu`
+ * Returns a menu item and nested children for `NavMenu` or `CollapsibleMenu`
  * components.
  *
  * @remark This component uses recursion to build nested menus

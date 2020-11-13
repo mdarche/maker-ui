@@ -37,14 +37,14 @@ export interface NavProps extends MakerProps {
  */
 
 export const Navbar = React.memo(({ type, ...props }: NavProps) => {
-  const { navigation, header } = useOptions()
+  const { navType, header } = useOptions()
   const setOptions = useOptionUpdater()
 
-  if (type !== undefined && type !== navigation) {
-    setOptions({ navigation: type })
+  if (type !== undefined && type !== navType) {
+    setOptions({ navType: type })
   }
 
-  switch (navigation) {
+  switch (navType) {
     case 'center':
       return <Center layout={1} {...props} bp={header.breakIndex} />
     case 'split':

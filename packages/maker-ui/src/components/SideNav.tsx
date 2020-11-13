@@ -6,7 +6,7 @@ import { MakerProps, MaybeElement } from './types'
 import { MenuProps } from './Menu'
 import { Box, Button } from './Primitives'
 
-import { AccordionMenu } from './Menu/AccordionMenu'
+import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
@@ -103,7 +103,11 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
           {...props}>
           {header && header}
           {children || (
-            <AccordionMenu menu={menu} menuType="sideNav" pathname={pathname} />
+            <CollapsibleMenu
+              menu={menu}
+              menuType="sideNav"
+              pathname={pathname}
+            />
           )}
           {footer && footer}
         </Box>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link, generateId, BasicBoxProps } from 'maker-ui'
+import { Link, generateId, MakerProps } from 'maker-ui'
 
 import { useLightbox, LightboxData } from './LightboxContext'
 
-export interface LightboxLinkProps extends BasicBoxProps, LightboxData {
+export interface LightboxLinkProps extends MakerProps, LightboxData {
   trigger?: boolean
   children?: React.ReactElement
 }

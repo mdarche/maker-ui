@@ -2,7 +2,7 @@ import * as React from 'react'
 import { MakerOptions } from 'maker-ui'
 
 export const options: MakerOptions = {
-  navigation: 'center',
+  navType: 'center',
   layout: 'content-sidenav',
   topbar: {
     maxWidth: [200, 600],
@@ -23,13 +23,13 @@ export const options: MakerOptions = {
     defaultCloseButton: true,
   },
   sideNav: {
-    customToggle: (isOpen, attributes) => (
-      <button
-        style={{ position: 'fixed', bottom: 100, left: 20 }}
-        {...attributes}>
-        {isOpen ? 'close' : 'open'}
-      </button>
-    ),
+    // customToggle: (isOpen, attributes) => (
+    //   <button
+    //     style={{ position: 'fixed', bottom: 100, left: 20 }}
+    //     {...attributes}>
+    //     {isOpen ? 'close' : 'open'}
+    //   </button>
+    // ),
   },
   content: {
     maxWidth: 960,

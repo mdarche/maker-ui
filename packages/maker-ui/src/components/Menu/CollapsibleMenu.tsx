@@ -7,7 +7,7 @@ import { MenuItem, MenuProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 
-interface AccordionProps
+interface CollapsibleProps
   extends MakerProps,
     React.HTMLAttributes<HTMLUListElement> {
   menu: MenuProps[]
@@ -17,7 +17,7 @@ interface AccordionProps
 }
 
 /**
- * Use the `AccordionMenu` to display nested menus for `SideNav` and `MobileMenu`.
+ * Use the `CollapsibleMenu` to display nested menus for `SideNav` and `MobileMenu`.
  * Menu items with submenus will render a show/hide arrow button next to the item label.
  *
  * @remark Used as a default menu for `SideNav` and `MobileMenu` when child components
@@ -26,9 +26,9 @@ interface AccordionProps
  * @see https://maker-ui.com/docs/accordion-menu
  */
 
-export const AccordionMenu = forwardRef<HTMLUListElement, AccordionProps>(
+export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
   (
-    { menu = [], variant = 'accordionMenu', menuType, pathname, ...props },
+    { menu = [], variant = 'collapsibleMenu', menuType, pathname, ...props },
     ref
   ) => {
     const { mobileMenu, sideNav, linkFunction } = useOptions()

@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react'
-import { Div, BasicBoxProps } from 'maker-ui'
+import { Div, MakerProps } from 'maker-ui'
 import { animated as a } from 'react-spring'
 
 import { Canvas } from './Canvas'
@@ -7,7 +7,7 @@ import Navigation from './Navigation'
 import { Pagination } from './Pagination'
 import { ProgressBar } from './ProgressBar'
 
-export interface CarouselProps extends BasicBoxProps {
+export interface CarouselProps extends MakerProps {
   data: Object[]
   template: React.ReactElement
   nav?: boolean

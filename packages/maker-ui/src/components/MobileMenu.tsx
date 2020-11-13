@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui'
 import { forwardRef, Fragment } from 'react'
 
 import { ResponsiveScale, MakerProps } from './types'
-import { AccordionMenu, MenuButton, MenuProps } from './Menu'
+import { CollapsibleMenu, MenuButton, MenuProps } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
@@ -120,7 +120,11 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
           ) : null}
           {header ? header : null}
           {children || (
-            <AccordionMenu menu={menu} menuType="mobile" pathname={pathname} />
+            <CollapsibleMenu
+              menu={menu}
+              menuType="mobile"
+              pathname={pathname}
+            />
           )}
           {footer ? footer : null}
         </div>

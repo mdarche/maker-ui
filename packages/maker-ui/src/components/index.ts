@@ -9,7 +9,7 @@ export { SideNav } from './SideNav'
 export { Sidebar } from './Sidebar'
 export { Footer } from './Footer'
 export { Section } from './Section'
-export { AccordionMenu } from './Menu'
+export { CollapsibleMenu } from './Menu'
 export * from './Primitives'
 // export { Template } from './Template'
 

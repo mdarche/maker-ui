@@ -1,5 +1,5 @@
 import React from 'react'
-import { BasicBoxProps, Button } from 'maker-ui'
+import { MakerProps, Button } from 'maker-ui'
 
 import { DefaultArrow } from '../icons'
 
@@ -14,7 +14,7 @@ const transform = isNext =>
         ],
       }
 
-interface NavButtonProps extends BasicBoxProps {
+interface NavButtonProps extends MakerProps {
   control?: any // TODO - Revisit this
   arrow?: boolean
   isNext?: boolean

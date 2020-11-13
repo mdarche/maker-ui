@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Div, BasicBoxProps } from 'maker-ui'
+import { Div, MakerProps } from 'maker-ui'
 import merge from 'deepmerge'
 
 import { Modal } from '../Modal'
@@ -9,7 +9,7 @@ import { Toolbar } from './Toolbar'
 import { Preview } from './Preview'
 import { useLightbox, LightboxData } from './LightboxContext'
 
-interface LightboxModalProps extends BasicBoxProps {
+interface LightboxModalProps extends MakerProps {
   id: string
   focusRef?: React.MutableRefObject<any>
   show?: boolean
