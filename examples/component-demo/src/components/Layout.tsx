@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {
   Layout,
   Header,
@@ -16,7 +16,7 @@ import {
 } from '@maker-ui/components'
 // import { SEOProvider } from '@maker-ui/seo'
 
-import { options } from './options.tsx'
+import { options } from './options'
 import { theme } from './theme'
 
 const menu = [
@@ -70,7 +70,16 @@ export default ({ children, location }) => (
         {children}
         {/* <PageTransition>{children}</PageTransition> */}
       </Main>
-      <SideNav menu={menu} />
+      <SideNav
+        // customToggle={(isOpen, attributes) => (
+        //   <button
+        //     style={{ position: 'fixed', bottom: 100, left: 20 }}
+        //     {...attributes}>
+        //     {isOpen ? 'close' : 'open'}
+        //   </button>
+        // )}
+        menu={menu}
+      />
     </Content>
     <Footer>Footer</Footer>
     {/* <CookieNotice /> */}

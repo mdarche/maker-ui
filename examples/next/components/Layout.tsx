@@ -35,7 +35,6 @@ const Layout = ({ children }) => {
   //   })
   // }, [router])
 
-  console.log('options are', options)
   return (
     <ThemeLayout theme={theme} options={options}>
       <Header>

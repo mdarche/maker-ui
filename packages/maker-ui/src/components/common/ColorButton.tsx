@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { useThemeUI } from 'theme-ui'
 
 import { Button } from './Primitives'

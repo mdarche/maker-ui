@@ -12,7 +12,7 @@ export const theme = {
     bg_header: '#fff',
     bg_mobileNav: 'rgba(0, 0, 0, 0.9)',
     bg_sideNav: '#eee',
-    bg_footer: 'blue',
+    bg_footer: 'purple',
   },
   fonts: {
     body: 'system-ui, sans-serif',

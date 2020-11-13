@@ -13,7 +13,7 @@ interface NavMenuProps {
 }
 
 export const NavMenu = memo(({ menuItems = [], pathname }: NavMenuProps) => {
-  const { header } = useOptions()
+  const { header, linkFunction } = useOptions()
 
   return (
     <nav
@@ -27,7 +27,7 @@ export const NavMenu = memo(({ menuItems = [], pathname }: NavMenuProps) => {
             data={item}
             caret={header.dropdown.caret}
             pathname={pathname}
-            linkFunction={header.linkFunction}
+            linkFunction={linkFunction}
             isHeader
           />
         ))}

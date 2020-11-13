@@ -14,13 +14,6 @@ export const options: MakerOptions = {
     dropdown: {
       transition: 'fade-down',
     },
-    linkFunction: (path, label, attributes) => {
-      return (
-        <a href={path} {...attributes}>
-          {label}
-        </a>
-      )
-    },
   },
   mobileMenu: {
     width: '60vw',
@@ -28,6 +21,15 @@ export const options: MakerOptions = {
     closeOnBlur: true,
     closeOnRouteChange: true,
     defaultCloseButton: true,
+  },
+  sideNav: {
+    customToggle: (isOpen, attributes) => (
+      <button
+        style={{ position: 'fixed', bottom: 100, left: 20 }}
+        {...attributes}>
+        {isOpen ? 'close' : 'open'}
+      </button>
+    ),
   },
   content: {
     maxWidth: 960,

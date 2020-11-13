@@ -8,14 +8,10 @@ export const options: MakerOptions = {
     dropdown: {
       transition: 'fade-down',
     },
-    linkFunction: (path, label, attributes) => {
-      console.log('Executing this!')
-      return (
-        <div>Poop</div>
-        // <Link href={path}>
-        //   <a {...attributes}>{label}</a>
-        // </Link>
-      )
-    },
   },
+  linkFunction: (path, children, attributes) => (
+    <Link href={path}>
+      <a {...attributes}>{children}</a>
+    </Link>
+  ),
 }

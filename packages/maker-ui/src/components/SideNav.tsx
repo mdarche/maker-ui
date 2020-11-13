@@ -17,7 +17,8 @@ interface SideNavProps
     React.HTMLAttributes<HTMLDivElement> {
   toggleVariant?: string | string[]
   background?: string | string[]
-  customToggle?: MaybeElement
+  buttonInner?: MaybeElement
+  customToggle?(isOpen?: boolean, attributes?: object): React.ReactElement
   menu?: MenuProps[]
   pathname?: string
   header?: React.ReactElement
@@ -37,7 +38,8 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       bg = 'bg_sideNav',
       background,
       toggleVariant = 'sideNav.toggle',
-      customToggle = 'Toggle',
+      buttonInner = 'Toggle',
+      customToggle,
       variant = 'sideNav',
       menu,
       pathname,
@@ -52,11 +54,19 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     const { layout, sideNav } = useOptions()
 
     const bp = sideNav.breakIndex
+    const customButton = customToggle || sideNav.customToggle
 
     const getTransform = width => {
       const w = Array.isArray(width) ? width[bp] : width
       const shift = layout === 'sidenav-content' ? `-${w}` : w
       return active ? `translateX(0)` : `translateX(${format(shift)})`
+    }
+
+    const toggleAttributes = {
+      id: 'toggle-sidenav',
+      title: 'Toggle side navigation',
+      'aria-label': 'Toggle side navigation',
+      onClick: setActive,
     }
 
     return (
@@ -94,12 +104,10 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
           )}
           {footer && footer}
         </Box>
-        {sideNav.floatingToggle ? (
+        {customButton ? customButton(active, toggleAttributes) : null}
+        {sideNav.floatingToggle && !customButton ? (
           <Button
-            id="toggle-sidenav"
-            title="Toggle SideNav"
-            aria-label="Toggle side navigation"
-            onClick={setActive}
+            {...toggleAttributes}
             sx={{
               variant: toggleVariant,
               position: 'fixed',
@@ -107,7 +115,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
               bottom: 30,
               zIndex: 100,
             }}>
-            {customToggle}
+            {buttonInner}
           </Button>
         ) : null}
       </Fragment>

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { SVG, Button } from './Primitives'
 import { BasicBoxProps, MaybeElement } from '../types'

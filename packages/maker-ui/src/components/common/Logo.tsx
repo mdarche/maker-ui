@@ -1,17 +1,24 @@
-import React from 'react'
+import * as React from 'react'
 
+import { useOptions } from '../../context/OptionContext'
 import { Link } from './Primitives'
 
-// TODO - Add wrapper component instead of Link primitive
-export const Logo = ({ children }) => (
-  <Link
-    href="/"
-    id="site-logo"
-    aria-label="Home page"
-    sx={{
-      variant: 'header.logo',
-      display: 'inline-flex',
-    }}>
-    {children}
-  </Link>
-)
+export const Logo = ({ children }) => {
+  const { linkFunction } = useOptions()
+
+  const attributes = {
+    id: 'site-logo',
+    'aria-label': 'Home page',
+  }
+
+  return linkFunction ? (
+    linkFunction('/', children, attributes)
+  ) : (
+    <Link
+      href="/"
+      {...attributes}
+      sx={{ variant: 'header.logo', display: 'inline-flex' }}>
+      {children}
+    </Link>
+  )
+}

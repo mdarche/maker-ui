@@ -10,7 +10,7 @@ import {
   dropdownStyles,
   getStyles,
 } from '../../utils/styles-submenu'
-import { MenuProps } from '../types'
+import { MenuProps, MakerOptions } from '../types'
 
 interface MenuItemProps {
   data: MenuProps
@@ -18,7 +18,7 @@ interface MenuItemProps {
   menuControls?: any
   pathname?: string
   isHeader?: boolean
-  linkFunction?: Function
+  linkFunction?: MakerOptions['linkFunction']
   depth?: number
 }
 

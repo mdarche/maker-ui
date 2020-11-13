@@ -31,7 +31,7 @@ export const AccordionMenu = forwardRef<HTMLUListElement, AccordionProps>(
     { menu = [], variant = 'accordionMenu', menuType, pathname, ...props },
     ref
   ) => {
-    const { mobileMenu, sideNav } = useOptions()
+    const { mobileMenu, sideNav, linkFunction } = useOptions()
     const [showMenu, toggleMenu] = useMenu()
     const [showSideNav, toggleSideNav] = useSideNav()
 
@@ -60,6 +60,7 @@ export const AccordionMenu = forwardRef<HTMLUListElement, AccordionProps>(
             data={item}
             menuControls={getControls()}
             pathname={pathname}
+            linkFunction={linkFunction}
           />
         ))}
       </ul>

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { SxStyleProp, Theme } from 'theme-ui'
 
 export type MaybeElement = JSX.Element | string | false | null | undefined
@@ -137,6 +137,12 @@ export type MakerTheme = Theme
 export interface MakerOptions {
   navigation?: string
   layout?: string
+  linkFunction?(
+    path: string,
+    children: string | React.ReactElement,
+    attributes: object,
+    icon?: MaybeElement
+  ): React.ReactElement
   topbar?: {
     maxWidth?: ResponsiveScale
     hideOnMobile?: boolean
@@ -159,7 +165,6 @@ export interface MakerOptions {
       caret?: boolean
       transition?: string
     }
-    linkFunction?: Function
     breakIndex?: number
   }
   mobileMenu?: {
@@ -169,6 +174,7 @@ export interface MakerOptions {
     defaultCloseButton?: boolean
     closeOnBlur?: boolean
     closeOnRouteChange?: boolean
+    customButton?(state?: boolean): React.ReactElement
   }
   sideNav?: {
     width?: ResponsiveScale
@@ -177,6 +183,7 @@ export interface MakerOptions {
     floatingToggle?: boolean
     closeOnBlur?: boolean
     closeOnRouteChange?: boolean
+    customToggle?(isOpen?: boolean, attributes?: object): React.ReactElement
     breakIndex?: number
   }
   content?: {

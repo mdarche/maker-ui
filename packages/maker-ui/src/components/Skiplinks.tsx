@@ -43,6 +43,7 @@ export const Skiplinks = (props: SkipLinkProps) => {
 
   return a11y.skiplinks ? (
     <ul
+      className="skiplinks"
       sx={{
         listStyle: 'none',
         position: 'relative',

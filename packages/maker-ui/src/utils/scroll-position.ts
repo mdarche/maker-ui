@@ -1,6 +1,6 @@
 // Credit to n8tb1t's https://github.com/n8tb1t/use-scroll-position
 
-import { useRef, useLayoutEffect } from 'react'
+import { useRef, useEffect } from 'react'
 
 const isBrowser = typeof window !== 'undefined'
 
@@ -27,7 +27,7 @@ export function useScrollPosition(
 ): void {
   const position = useRef(getScrollPosition())
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Exit if run on server or if the effect is not active
     if (!active || !isBrowser) return
 
