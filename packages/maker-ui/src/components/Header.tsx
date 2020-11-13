@@ -2,15 +2,14 @@
 import { jsx } from 'theme-ui'
 import { forwardRef, useState } from 'react'
 
-import { LayoutProps } from './types'
+import { MakerProps } from './types'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../utils/scroll-position'
 import { setBreakpoint } from '../utils/helper'
 
-interface HeaderProps
-  extends LayoutProps,
-    React.HTMLAttributes<HTMLDivElement> {
+interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
+  bg?: string | string[]
   sticky?: boolean
   stickyMobile?: boolean
   stickyScroll?: boolean

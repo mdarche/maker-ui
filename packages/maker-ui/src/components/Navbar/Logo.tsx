@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { useOptions } from '../../context/OptionContext'
-import { Link } from './Primitives'
+import { Link } from '../Primitives'
 
 export const Logo = ({ children }) => {
   const { linkFunction } = useOptions()

@@ -2,12 +2,13 @@
 import { jsx, SxStyleProp } from 'theme-ui'
 import { forwardRef } from 'react'
 
-import { LayoutProps, ResponsiveScale } from './types'
+import { MakerProps, ResponsiveScale } from './types'
 
 interface SectionProps
-  extends LayoutProps,
+  extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
-  background?: ResponsiveScale
+  background?: string | string[]
+  bg?: string | string[]
   backgroundImage?: string
   rootSx?: SxStyleProp
   maxWidth?: ResponsiveScale

@@ -2,12 +2,13 @@
 import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
-import { LayoutProps } from './types'
+import { MakerProps } from './types'
 
 interface SidebarProps
-  extends LayoutProps,
+  extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
+  bg?: string | string[]
 }
 
 /**

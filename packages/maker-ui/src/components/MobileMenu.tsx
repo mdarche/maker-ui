@@ -2,17 +2,18 @@
 import { jsx } from 'theme-ui'
 import { forwardRef, Fragment } from 'react'
 
-import { ResponsiveScale, MenuProps, LayoutProps } from './types'
-import { AccordionMenu } from './AccordionMenu'
-import { Overlay, MenuButton } from './common'
+import { ResponsiveScale, MakerProps } from './types'
+import { AccordionMenu, MenuButton, MenuProps } from './Menu'
+import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
 
 interface MobileMenuProps
-  extends LayoutProps,
+  extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   transition?: string
   background?: string | string[]
+  bg?: string | string[]
   width?: ResponsiveScale
   menu?: MenuProps[]
   pathname?: string

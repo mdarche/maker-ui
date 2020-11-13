@@ -9,21 +9,8 @@ export { SideNav } from './SideNav'
 export { Sidebar } from './Sidebar'
 export { Footer } from './Footer'
 export { Section } from './Section'
-export { AccordionMenu } from './AccordionMenu'
-export {
-  Box,
-  Div,
-  Span,
-  Flex,
-  Grid,
-  Image,
-  UList,
-  OList,
-  ListItem,
-  Button,
-  Link,
-  SVG,
-} from './common'
+export { AccordionMenu } from './Menu'
+export * from './Primitives'
 // export { Template } from './Template'
 
 export * from './types'

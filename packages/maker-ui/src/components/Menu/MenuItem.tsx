@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui'
 import { Fragment, useState } from 'react'
 
-import { Link } from './Primitives'
+import { Link } from '../Primitives'
 import { useOptions } from '../../context/OptionContext'
 import { ExpandButton } from './ExpandButton'
 import {
@@ -10,7 +10,20 @@ import {
   dropdownStyles,
   getStyles,
 } from '../../utils/styles-submenu'
-import { MenuProps, MakerOptions } from '../types'
+import { MaybeElement, MakerOptions } from '../types'
+
+/**
+ * Alias for all Maker UI compatible menus. Offers support for nesting menus.
+ */
+export interface MenuProps {
+  label: string
+  path: string
+  classes?: string
+  icon?: MaybeElement
+  newTab?: boolean
+  submenu?: MenuProps[]
+  openNested?: boolean
+}
 
 interface MenuItemProps {
   data: MenuProps

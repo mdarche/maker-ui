@@ -2,10 +2,11 @@
 import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
-import { LayoutProps } from './types'
+import { MakerProps } from './types'
 
-interface MainProps extends LayoutProps, React.HTMLAttributes<HTMLDivElement> {
+interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
+  bg?: string | string[]
 }
 
 /**

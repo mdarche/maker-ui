@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui'
 import { forwardRef, useEffect } from 'react'
 
-import { LayoutProps } from './types'
+import { MakerProps } from './types'
 import { useOptions, useLayout } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 import { getLayoutStyles } from '../utils/styles-layout'
@@ -10,7 +10,7 @@ import { getLayoutStyles } from '../utils/styles-layout'
 const format = value => (isNaN(value) ? value : `${value}px`)
 
 interface ContentProps
-  extends LayoutProps,
+  extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   layout?: string
 }

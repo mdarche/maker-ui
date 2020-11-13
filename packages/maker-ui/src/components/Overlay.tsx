@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 
-import { setBreakpoint } from '../../utils/helper'
+import { setBreakpoint } from '../utils/helper'
 
 interface OverlayProps {
   show: boolean

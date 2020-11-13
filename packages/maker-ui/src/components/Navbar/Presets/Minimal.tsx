@@ -1,8 +1,14 @@
-import React from 'react'
+import * as React from 'react'
 
-import { NavProps } from '../types'
-import { Flex, Logo, MenuButton, ColorButton, WidgetArea } from '../common'
-import { headerStyles } from './styles'
+import { NavProps } from '../'
+import { Flex } from '../../Primitives'
+
+import { Logo } from '../Logo'
+import { WidgetArea } from '../WidgetArea'
+import { ColorButton } from '../ColorButton'
+import { MenuButton } from '../../Menu'
+
+import { headerStyles } from './shared-styles'
 
 const getStyles = type =>
   type === 3 ? headerStyles.columns : headerStyles.default

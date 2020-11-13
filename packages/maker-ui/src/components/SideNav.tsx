@@ -2,10 +2,12 @@
 import { jsx } from 'theme-ui'
 import { forwardRef, Fragment } from 'react'
 
-import { LayoutProps, MenuProps, MaybeElement } from './types'
-import { Box, Button } from './common'
-import { AccordionMenu } from './AccordionMenu'
-import { Overlay } from './common'
+import { MakerProps, MaybeElement } from './types'
+import { MenuProps } from './Menu'
+import { Box, Button } from './Primitives'
+
+import { AccordionMenu } from './Menu/AccordionMenu'
+import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
 import { setBreakpoint } from '../utils/helper'
@@ -13,10 +15,11 @@ import { setBreakpoint } from '../utils/helper'
 const format = value => (isNaN(value) ? value : `${value}px`)
 
 interface SideNavProps
-  extends LayoutProps,
+  extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   toggleVariant?: string | string[]
   background?: string | string[]
+  bg?: string | string[]
   buttonInner?: MaybeElement
   customToggle?(isOpen?: boolean, attributes?: object): React.ReactElement
   menu?: MenuProps[]

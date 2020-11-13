@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Theme } from 'theme-ui'
 
-import { MakerOptions, MaybeElement, MenuProps } from './types'
+import { MakerOptions, MaybeElement } from './types'
+import { MenuProps } from './Menu'
 import { Layout } from './Layout'
 import { Topbar } from './Topbar'
 import { Header } from './Header'

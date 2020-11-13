@@ -1,16 +1,15 @@
-import React from 'react'
+import * as React from 'react'
 
-import { NavProps } from '../types'
-import { setBreakpoint } from '../../utils/helper'
-import {
-  Flex,
-  Logo,
-  NavMenu,
-  MenuButton,
-  ColorButton,
-  WidgetArea,
-} from '../common'
-import { headerStyles } from './styles'
+import { NavProps } from '../'
+import { setBreakpoint } from '../../../utils/helper'
+import { Flex } from '../../Primitives'
+
+import { Logo } from '../Logo'
+import { WidgetArea } from '../WidgetArea'
+import { ColorButton } from '../ColorButton'
+import { NavMenu, MenuButton } from '../../Menu'
+
+import { headerStyles } from './shared-styles'
 
 export const Center = ({
   variant = 'navbar',

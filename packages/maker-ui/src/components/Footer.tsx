@@ -2,12 +2,11 @@
 import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
-import { LayoutProps, ResponsiveScale } from './types'
+import { MakerProps, ResponsiveScale } from './types'
 
-interface FooterProps
-  extends LayoutProps,
-    React.HTMLAttributes<HTMLDivElement> {
+interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: ResponsiveScale
+  bg?: string | string[]
 }
 
 /**

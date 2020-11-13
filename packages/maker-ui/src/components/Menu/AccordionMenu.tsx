@@ -2,13 +2,13 @@
 import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
-import { MenuProps, LayoutProps } from './types'
-import { MenuItem } from './common'
-import { useOptions } from '../context/OptionContext'
-import { useMenu, useSideNav } from '../context/ActionContext'
+import { MakerProps } from '../types'
+import { MenuItem, MenuProps } from './MenuItem'
+import { useOptions } from '../../context/OptionContext'
+import { useMenu, useSideNav } from '../../context/ActionContext'
 
 interface AccordionProps
-  extends LayoutProps,
+  extends MakerProps,
     React.HTMLAttributes<HTMLUListElement> {
   menu: MenuProps[]
   menuType: string

@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui'
 import { memo } from 'react'
 
-import { MenuProps } from '../types'
+import { MenuProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 import { MenuItem } from './MenuItem'

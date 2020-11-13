@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Button, SVG } from './Primitives'
+import { Button, SVG } from '../Primitives'
 
 interface ExpandButtonProps {
   show: boolean

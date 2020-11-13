@@ -2,13 +2,12 @@
 import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
-import { LayoutProps, ResponsiveScale } from './types'
+import { MakerProps, ResponsiveScale } from './types'
 import { useOptions } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 
-interface TopbarProps
-  extends LayoutProps,
-    React.HTMLAttributes<HTMLDivElement> {
+interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
+  bg?: string | string[]
   maxWidth?: ResponsiveScale
   scrollOverflow?: boolean
 }

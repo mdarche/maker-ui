@@ -1,11 +1,32 @@
-import React from 'react'
+import * as React from 'react'
 
-import { NavProps } from '../types'
+import {
+  MaybeElement,
+  MakerOptions,
+  MakerProps,
+  ResponsiveScale,
+} from '../types'
 import { useOptions, useOptionUpdater } from '../../context/OptionContext'
-import { Basic } from './Basic'
-import { Center } from './Center'
-import { Reverse } from './Reverse'
-import { Minimal } from './Minimal'
+import { MenuProps } from '../Menu'
+import { Basic, Center, Reverse, Minimal } from './Presets'
+
+/**
+ * Alias for shared <Navbar /> component props.
+ */
+export interface NavProps extends MakerProps {
+  logo?: MaybeElement
+  menuToggle?: MaybeElement
+  colorToggle?: MaybeElement
+  widgetArea?: MaybeElement
+  menu?: MenuProps[]
+  header?: MakerOptions['header']
+  bp?: number
+  type?: string
+  layout?: number
+  pathname?: string
+  maxWidth?: ResponsiveScale | any
+  variant?: string
+}
 
 /**
  * Use the `Navbar` component to render your layout's primary navigation.
