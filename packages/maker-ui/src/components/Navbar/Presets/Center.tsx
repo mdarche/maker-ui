@@ -15,9 +15,11 @@ export const Center = ({
   variant = 'navbar',
   logo = 'logo',
   menu,
+  menuButtonInner,
+  customMenuButton,
+  colorButtonInner,
+  customColorButton,
   widgetArea,
-  menuToggle,
-  colorToggle,
   bp,
   layout,
   maxWidth,
@@ -33,9 +35,15 @@ export const Center = ({
         right: 0,
         alignItems: 'center',
       }}>
-      <WidgetArea custom={widgetArea} />
-      <MenuButton custom={menuToggle} />
-      <ColorButton custom={colorToggle} />
+      <WidgetArea content={widgetArea} />
+      <MenuButton
+        buttonInner={menuButtonInner}
+        customButton={customMenuButton}
+      />
+      <ColorButton
+        buttonInner={colorButtonInner}
+        customButton={customColorButton}
+      />
     </Flex>
   )
 

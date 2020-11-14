@@ -1,7 +1,7 @@
 import { MakerOptions } from './components/types'
 
 export const defaultOptions: MakerOptions = {
-  navigation: 'basic',
+  navType: 'basic',
   layout: 'content',
   topbar: {
     maxWidth: 1260,
@@ -11,8 +11,8 @@ export const defaultOptions: MakerOptions = {
   header: {
     maxWidth: 1460,
     sticky: false,
-    stickyMobile: false,
-    stickyScroll: false,
+    stickyOnMobile: false,
+    stickyUpScroll: false,
     scroll: {
       toggleClass: false,
       scrollTop: 200,
@@ -29,7 +29,7 @@ export const defaultOptions: MakerOptions = {
   },
   mobileMenu: {
     width: '60vw',
-    transition: 'slideLeft',
+    transition: 'slide-left',
     visibleOnDesktop: false,
     defaultCloseButton: false,
     closeOnBlur: true,

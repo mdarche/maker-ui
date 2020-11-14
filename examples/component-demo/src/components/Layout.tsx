@@ -61,7 +61,10 @@ export default ({ children, location }) => (
       <Navbar
         logo={'Components Demo'}
         menu={menu}
-        widgetArea="test widget area"
+        colorButtonInner={<div>Test</div>}
+        customColorButton={(mode, attributes) => (
+          <button {...attributes}>Mode is {mode}</button>
+        )}
       />
       <MobileMenu menu={menu} />
     </Header>

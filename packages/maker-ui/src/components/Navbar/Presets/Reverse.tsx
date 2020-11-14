@@ -14,9 +14,11 @@ export const Reverse = ({
   variant = 'navbar',
   logo = 'logo',
   menu,
+  menuButtonInner,
+  customMenuButton,
+  colorButtonInner,
+  customColorButton,
   widgetArea,
-  menuToggle,
-  colorToggle,
   maxWidth,
   sx,
   ...props
@@ -31,15 +33,21 @@ export const Reverse = ({
     }}
     {...props}>
     <Flex className="col-1">
-      {React.isValidElement(menu) ? menu : <NavMenu menuItems={menu} />}
-      <MenuButton custom={menuToggle} />
+      <NavMenu menuItems={menu} />
+      <MenuButton
+        buttonInner={menuButtonInner}
+        customButton={customMenuButton}
+      />
     </Flex>
     <Flex className="col-2">
       <Logo>{logo}</Logo>
     </Flex>
     <Flex className="col-3">
-      <WidgetArea custom={widgetArea} />
-      <ColorButton custom={colorToggle} />
+      <WidgetArea content={widgetArea} />
+      <ColorButton
+        buttonInner={colorButtonInner}
+        customButton={customColorButton}
+      />
     </Flex>
   </Flex>
 )

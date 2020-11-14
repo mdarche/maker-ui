@@ -12,9 +12,11 @@ import { headerStyles } from './shared-styles'
 export const Basic = ({
   logo = 'logo',
   menu,
+  menuButtonInner,
+  customMenuButton,
+  colorButtonInner,
+  customColorButton,
   widgetArea,
-  menuToggle,
-  colorToggle,
   bp,
   layout,
   maxWidth,
@@ -38,11 +40,17 @@ export const Basic = ({
       justify={
         layout === 2 ? setBreakpoint(bp, ['flex-end', 'space-between']) : null
       }>
-      {React.isValidElement(menu) ? menu : <NavMenu menuItems={menu} />}
+      <NavMenu menuItems={menu} />
       <Flex align="center">
-        <WidgetArea custom={widgetArea} />
-        <MenuButton custom={menuToggle} />
-        <ColorButton custom={colorToggle} />
+        <WidgetArea content={widgetArea} />
+        <MenuButton
+          buttonInner={menuButtonInner}
+          customButton={customMenuButton}
+        />
+        <ColorButton
+          buttonInner={colorButtonInner}
+          customButton={customColorButton}
+        />
       </Flex>
     </Flex>
   </Flex>

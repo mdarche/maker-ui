@@ -11,8 +11,8 @@ interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
   bg?: string | string[]
   sticky?: boolean
-  stickyMobile?: boolean
-  stickyScroll?: boolean
+  stickyOnMobile?: boolean
+  stickyUpScroll?: boolean
 }
 
 /**
@@ -33,12 +33,12 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
     background,
     sx,
     sticky = header.sticky,
-    stickyMobile = header.stickyMobile,
-    stickyScroll = header.stickyScroll,
+    stickyOnMobile = header.stickyOnMobile,
+    stickyUpScroll = header.stickyUpScroll,
     ...rest
   } = props
 
-  // Fire hook effect if stickyScroll === true
+  // Fire hook effect if stickyUpScroll === true
   useScrollPosition(
     ({ prevPos, currPos }) => {
       const isDownScroll = currPos > prevPos
@@ -57,7 +57,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
       }
     },
     250,
-    stickyScroll
+    stickyUpScroll
   )
 
   // Fire hook effect if header.scroll.toggleClass === true
@@ -74,7 +74,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
     header.scroll.toggleClass
   )
 
-  const stickyPartial = stickyScroll
+  const stickyPartial = stickyUpScroll
     ? {
         position: 'sticky',
         top: 0,
@@ -84,11 +84,11 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
     : sticky
     ? {
         top: 0,
-        position: stickyMobile
+        position: stickyOnMobile
           ? 'sticky'
           : setBreakpoint(header.breakIndex, ['initial', 'sticky']),
       }
-    : !sticky && stickyMobile
+    : !sticky && stickyOnMobile
     ? {
         top: 0,
         position: setBreakpoint(header.breakIndex, ['sticky', 'initial']),

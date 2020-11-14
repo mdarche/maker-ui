@@ -1,18 +1,18 @@
 import * as React from 'react'
-import { ThemeProvider, Theme } from 'theme-ui'
+import { ThemeProvider } from 'theme-ui'
 
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
-import { Skiplinks, Link } from './Skiplinks'
+import { Skiplinks, LinkItem } from './Skiplinks'
 import { MakerOptions } from './types'
 import { createTheme } from '../theme'
 
 interface LayoutProps {
   children: React.ReactNode
-  theme: Theme
+  theme: object
   options: Partial<MakerOptions>
-  components?: object
-  skiplinks?: Link[]
+  components?: object // TODO Strip this from props and make people use MDX provider for MDX
+  skiplinks?: LinkItem[]
 }
 
 /**

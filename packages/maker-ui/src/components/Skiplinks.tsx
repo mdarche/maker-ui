@@ -3,13 +3,13 @@ import { jsx } from 'theme-ui'
 
 import { useOptions } from '../context/OptionContext'
 
-export interface Link {
+export interface LinkItem {
   id: string
   label: string
 }
 
 interface SkipLinkProps {
-  links?: Link[]
+  links?: LinkItem[]
 }
 
 /**
@@ -23,7 +23,7 @@ interface SkipLinkProps {
 
 export const Skiplinks = (props: SkipLinkProps) => {
   const { layout, a11y } = useOptions()
-  let linkMenu: Link[] = []
+  let linkMenu: LinkItem[] = []
 
   if (props.links) {
     linkMenu = props.links

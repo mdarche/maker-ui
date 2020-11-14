@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import merge from 'deepmerge'
 
+import { MakerOptions } from '../components/types'
 import { defaultOptions } from '../options'
 
 const OptionContext = React.createContext(null)
@@ -9,7 +10,9 @@ const OptionUpdateContext = React.createContext(null)
 // Provider
 
 const OptionProvider = ({ options = {}, children }) => {
-  const [state, dispatch] = useState(merge(defaultOptions, options))
+  const [state, dispatch] = useState<MakerOptions>(
+    merge(defaultOptions, options)
+  )
 
   return (
     <OptionContext.Provider value={state}>
@@ -23,7 +26,7 @@ const OptionProvider = ({ options = {}, children }) => {
 // Usage Hooks
 
 function useOptions() {
-  const options = useContext(OptionContext)
+  const options: MakerOptions = useContext(OptionContext)
 
   if (options === undefined) {
     throw new Error(

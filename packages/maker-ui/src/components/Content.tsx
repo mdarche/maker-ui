@@ -33,6 +33,8 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
       }
     }, [layout, baseLayout, setLayout])
 
+    // TODO - Use Error boundary to wrap children
+
     const sidebarPartial: object | null =
       baseLayout === 'sidebar-content'
         ? {

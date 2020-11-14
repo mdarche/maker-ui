@@ -6,9 +6,10 @@ import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 import { setBreakpoint } from '../../utils/helper'
 
-interface Props extends MakerProps {
+interface MenuButtonProps extends MakerProps {
   closeIcon?: boolean
-  custom?: MaybeElement
+  buttonInner?: MaybeElement
+  customButton?(isOpen?: boolean, attributes?: object): React.ReactElement
   visibleOnDesktop?: boolean
   'aria-expanded'?: boolean
 }
@@ -24,13 +25,13 @@ const getAttributes = (
     ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
     : { 'aria-expanded': menu ? true : false, onClick: toggleMenu }
 
-export const MenuButton = (props: Props) => {
+export const MenuButton = (props: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()
   const { mobileMenu, header, sideNav } = useOptions()
 
   const {
-    custom,
+    buttonInner,
     visibleOnDesktop = mobileMenu.visibleOnDesktop,
     closeIcon,
     sx,
@@ -63,7 +64,7 @@ export const MenuButton = (props: Props) => {
         svg: { m: '0 auto' },
         ...sx,
       }}>
-      {custom || (
+      {buttonInner || (
         <SVG
           viewBox="0 0 24 24"
           sx={{

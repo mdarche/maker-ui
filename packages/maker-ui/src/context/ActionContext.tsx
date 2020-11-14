@@ -11,6 +11,9 @@ function reducer(state, action) {
     case 'sideNav': {
       return { ...state, sideNavActive: !state.sideNavActive }
     }
+    case 'workspace-left':
+    case 'workspace-right':
+    case 'dock':
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
     }

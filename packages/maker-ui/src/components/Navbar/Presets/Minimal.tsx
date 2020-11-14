@@ -17,8 +17,10 @@ export const Minimal = ({
   variant = 'navbar',
   logo = 'logo',
   widgetArea,
-  menuToggle,
-  colorToggle,
+  menuButtonInner,
+  customMenuButton,
+  colorButtonInner,
+  customColorButton,
   maxWidth,
   layout,
   sx,
@@ -37,33 +39,54 @@ export const Minimal = ({
       <>
         <Logo>{logo}</Logo>
         <Flex align="center">
-          <WidgetArea custom={widgetArea} />
-          <MenuButton custom={menuToggle} visibleOnDesktop />
-          <ColorButton custom={colorToggle} />
+          <WidgetArea content={widgetArea} />
+          <MenuButton
+            buttonInner={menuButtonInner}
+            customButton={customMenuButton}
+            visibleOnDesktop
+          />
+          <ColorButton
+            buttonInner={colorButtonInner}
+            customButton={customColorButton}
+          />
         </Flex>
       </>
     ) : layout === 2 ? (
       <>
         <Flex align="center">
-          <MenuButton custom={menuToggle} visibleOnDesktop />
+          <MenuButton
+            buttonInner={menuButtonInner}
+            customButton={customMenuButton}
+            visibleOnDesktop
+          />
           <Logo>{logo}</Logo>
         </Flex>
         <Flex align="center">
-          <WidgetArea custom={widgetArea} />
-          <ColorButton custom={colorToggle} />
+          <WidgetArea content={widgetArea} />
+          <ColorButton
+            buttonInner={colorButtonInner}
+            customButton={customColorButton}
+          />
         </Flex>
       </>
     ) : (
       <>
         <Flex className="col-1">
-          <MenuButton custom={menuToggle} visibleOnDesktop />
+          <MenuButton
+            buttonInner={menuButtonInner}
+            customButton={customMenuButton}
+            visibleOnDesktop
+          />
         </Flex>
         <Flex className="col-2">
           <Logo>{logo}</Logo>
         </Flex>
         <Flex className="col-3">
-          <WidgetArea custom={widgetArea} />
-          <ColorButton custom={colorToggle} />
+          <WidgetArea content={widgetArea} />
+          <ColorButton
+            buttonInner={colorButtonInner}
+            customButton={customColorButton}
+          />
         </Flex>
       </>
     )}

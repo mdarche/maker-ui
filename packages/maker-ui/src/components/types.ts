@@ -44,30 +44,38 @@ export interface MakerOptions {
   header?: {
     maxWidth?: ResponsiveScale
     sticky?: boolean
-    stickyMobile?: boolean
-    stickyScroll?: boolean
+    stickyOnMobile?: boolean
+    stickyUpScroll?: boolean
     scroll?: {
       toggleClass?: boolean
       scrollTop?: number
       className?: string
     }
-    colorToggle?: boolean
-    hideColorToggleOnMobile?: boolean
+    showColorButton?: boolean
+    hideColorButtonOnMobile?: boolean
     hideWidgetsOnMobile?: boolean
     dropdown?: {
       caret?: boolean
       transition?: string
     }
+    customMenuButton?(isOpen?: boolean, attributes?: object): React.ReactElement // TODO
+    customColorButton?(
+      currentMode?: string,
+      attributes?: object
+    ): React.ReactElement
     breakIndex?: number
   }
   mobileMenu?: {
     width?: ResponsiveScale
-    transition?: string
+    transition?: 'fade' | 'fade-up' | 'fade-down' | 'slide-left' | 'slide-right'
     visibleOnDesktop?: boolean
+    customCloseButton?(
+      isOpen?: boolean,
+      attributes?: object
+    ): React.ReactElement // TODO
     defaultCloseButton?: boolean
     closeOnBlur?: boolean
     closeOnRouteChange?: boolean
-    customButton?(state?: boolean): React.ReactElement
   }
   sideNav?: {
     width?: ResponsiveScale

@@ -11,7 +11,7 @@ import { useMenu } from '../context/ActionContext'
 interface MobileMenuProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
-  transition?: string
+  transition?: 'fade' | 'fade-up' | 'fade-down' | 'slide-left' | 'slide-right'
   background?: string | string[]
   bg?: string | string[]
   width?: ResponsiveScale

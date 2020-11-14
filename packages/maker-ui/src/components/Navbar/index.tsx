@@ -15,10 +15,15 @@ import { Basic, Center, Reverse, Minimal } from './Presets'
  */
 export interface NavProps extends MakerProps {
   logo?: MaybeElement
-  menuToggle?: MaybeElement
-  colorToggle?: MaybeElement
-  widgetArea?: MaybeElement
   menu?: MenuProps[]
+  menuButtonInner?: MaybeElement
+  customMenuButton?(isOpen?: boolean, attributes?: object): React.ReactElement
+  colorButtonInner?: MaybeElement
+  customColorButton?(
+    colorMode?: string,
+    attributes?: object
+  ): React.ReactElement
+  widgetArea?: MaybeElement
   header?: MakerOptions['header']
   bp?: number
   type?: string

@@ -10,7 +10,8 @@ export const options: MakerOptions = {
   header: {
     maxWidth: '100%',
     breakIndex: 0,
-    stickyScroll: false,
+    stickyUpScroll: false,
+    showColorButton: true,
     dropdown: {
       transition: 'fade-down',
     },

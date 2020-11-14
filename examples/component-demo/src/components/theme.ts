@@ -13,6 +13,11 @@ export const theme = {
     bg_mobileNav: 'rgba(0, 0, 0, 0.9)',
     bg_sideNav: '#eee',
     bg_footer: 'blue',
+    modes: {
+      dark: {
+        background: '#000',
+      },
+    },
   },
   fonts: {
     body: 'system-ui, sans-serif',

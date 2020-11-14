@@ -7,10 +7,14 @@ import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
 interface ColorButtonProps {
-  custom: MaybeElement
+  buttonInner?: MaybeElement
+  customButton?(colorMode?: string, attributes?: object): React.ReactElement
 }
 
-export const ColorButton = ({ custom }: ColorButtonProps) => {
+export const ColorButton = ({
+  buttonInner,
+  customButton,
+}: ColorButtonProps) => {
   const { theme, colorMode, setColorMode } = useThemeUI()
   const { header } = useOptions()
 
@@ -25,23 +29,35 @@ export const ColorButton = ({ custom }: ColorButtonProps) => {
     setColorMode(next)
   }
 
+  const attributes = {
+    title: 'Color Mode',
+    className: 'color-button',
+    'aria-label': 'Toggle Color Mode',
+    onClick: cycleMode,
+  }
+
+  // Use custom button from props or check header options
+  const colorButton = customButton || header.customColorButton
+
   if (modes.length === 1) {
     return null
   }
 
-  return header.colorToggle ? (
-    <Button
-      title="Color Mode"
-      className="color-toggle"
-      aria-label="Toggle Color Mode"
-      variant="header.colorButton"
-      onClick={cycleMode}
-      sx={{
-        display: header.hideColorToggleOnMobile
-          ? setBreakpoint(header.breakIndex, ['none', 'block'])
-          : 'block',
-      }}>
-      {custom || colorMode}
-    </Button>
-  ) : null
+  if (header.showColorButton) {
+    return colorButton ? (
+      colorButton(colorMode, attributes)
+    ) : (
+      <Button
+        {...attributes}
+        variant="header.colorButton"
+        sx={{
+          display: header.hideColorButtonOnMobile
+            ? setBreakpoint(header.breakIndex, ['none', 'block'])
+            : 'block',
+        }}>
+        {buttonInner || colorMode}
+      </Button>
+    )
+  }
+  return null
 }

@@ -6,15 +6,15 @@ import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
 interface WidgetProps {
-  custom?: MaybeElement
+  content?: MaybeElement
   hideOnMobile?: boolean
 }
 
 export const WidgetArea = (props: WidgetProps) => {
   const { header } = useOptions()
-  const { custom, hideOnMobile = header.hideWidgetsOnMobile } = props
+  const { content, hideOnMobile = header.hideWidgetsOnMobile } = props
 
-  return custom ? (
+  return content ? (
     <div
       className="widget-area"
       sx={{
@@ -23,7 +23,7 @@ export const WidgetArea = (props: WidgetProps) => {
           ? setBreakpoint(header.breakIndex, ['none', 'flex'])
           : 'flex',
       }}>
-      {custom}
+      {content}
     </div>
   ) : null
 }
