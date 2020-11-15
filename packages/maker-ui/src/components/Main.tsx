@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
 import { MakerProps } from './types'
+import { ErrorBoundary } from './ErrorBoundary'
 
 interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
@@ -16,14 +17,15 @@ interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  */
 
 export const Main = forwardRef<HTMLDivElement, MainProps>(
-  ({ variant = 'main', background, bg, ...props }, ref) => (
+  ({ variant = 'main', background, bg, sx, children, ...props }, ref) => (
     <main
       ref={ref}
       id="content"
       role="main"
-      sx={{ bg, background, variant, flex: 1 }}
-      {...props}
-    />
+      sx={{ bg, background, variant, flex: 1, ...sx }}
+      {...props}>
+      <ErrorBoundary errorKey="main">{children}</ErrorBoundary>
+    </main>
   )
 )
 

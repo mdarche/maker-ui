@@ -45,7 +45,7 @@ export const getTransition = (active, type, width): React.CSSProperties => {
  * Returns a randomly generated alphanumeric ID.
  *
  * @param length - The number of characters in the ID. Default = 5
- * 
+ *
  */
 
 export function generateId(length: number = 5): string {

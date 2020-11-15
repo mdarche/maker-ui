@@ -2,6 +2,7 @@
 import { jsx } from 'theme-ui'
 import { forwardRef, useEffect } from 'react'
 
+import { ErrorBoundary } from './ErrorBoundary'
 import { MakerProps } from './types'
 import { useOptions, useLayout } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
@@ -33,8 +34,6 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
       }
     }, [layout, baseLayout, setLayout])
 
-    // TODO - Use Error boundary to wrap children
-
     const sidebarPartial: object | null =
       baseLayout === 'sidebar-content'
         ? {
@@ -55,18 +54,20 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
         : null
 
     return (
-      <div
-        ref={ref}
-        id="site-inner"
-        sx={{
-          variant,
-          ...getLayoutStyles(baseLayout),
-          minHeight: '80vh',
-          ...sidebarPartial,
-          ...sx,
-        }}
-        {...props}
-      />
+      <ErrorBoundary>
+        <div
+          ref={ref}
+          id="site-inner"
+          sx={{
+            variant,
+            ...getLayoutStyles(baseLayout),
+            minHeight: '80vh',
+            ...sidebarPartial,
+            ...sx,
+          }}
+          {...props}
+        />
+      </ErrorBoundary>
     )
   }
 )

@@ -4,7 +4,7 @@ import merge from 'deepmerge'
 import { MakerOptions } from '../components/types'
 import { defaultOptions } from '../options'
 
-const OptionContext = React.createContext(null)
+export const OptionContext = React.createContext(null)
 const OptionUpdateContext = React.createContext(null)
 
 // Provider

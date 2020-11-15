@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui'
 import { forwardRef, useState } from 'react'
 
 import { MakerProps } from './types'
+import { ErrorBoundary } from './ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../utils/scroll-position'
 import { setBreakpoint } from '../utils/helper'
@@ -35,6 +36,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
     sticky = header.sticky,
     stickyOnMobile = header.stickyOnMobile,
     stickyUpScroll = header.stickyUpScroll,
+    children,
     ...rest
   } = props
 
@@ -109,8 +111,9 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
         variant,
         ...sx,
       }}
-      {...rest}
-    />
+      {...rest}>
+      <ErrorBoundary errorKey="header">{children}</ErrorBoundary>
+    </header>
   )
 })
 

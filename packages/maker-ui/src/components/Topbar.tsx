@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
 import { MakerProps, ResponsiveScale } from './types'
+import { ErrorBoundary } from './ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 
@@ -26,6 +27,7 @@ export const Topbar = forwardRef<HTMLElement, TopbarProps>(
       maxWidth,
       variant = 'topbar',
       scrollOverflow = false,
+      children,
       ...props
     },
     ref
@@ -51,8 +53,9 @@ export const Topbar = forwardRef<HTMLElement, TopbarProps>(
             whiteSpace: scrollOverflow ? 'nowrap' : null,
             maxWidth: maxWidth || (t => t.sizes.maxWidth_topbar),
           }}
-          {...props}
-        />
+          {...props}>
+          <ErrorBoundary errorKey="topbar">{children}</ErrorBoundary>
+        </div>
       </aside>
     )
   }

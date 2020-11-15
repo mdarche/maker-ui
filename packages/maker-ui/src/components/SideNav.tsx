@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui'
 import { forwardRef, Fragment } from 'react'
 
 import { MakerProps, MakerOptions, MaybeElement } from './types'
+import { ErrorBoundary } from './ErrorBoundary'
 import { MenuProps } from './Menu'
 import { Box, Button } from './Primitives'
 
@@ -101,15 +102,17 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             transition: 'transform ease .3s',
           }}
           {...props}>
-          {header && header}
-          {children || (
-            <CollapsibleMenu
-              menu={menu}
-              menuType="sideNav"
-              pathname={pathname}
-            />
-          )}
-          {footer && footer}
+          <ErrorBoundary errorKey="sideNav">
+            {header && header}
+            {children || (
+              <CollapsibleMenu
+                menu={menu}
+                menuType="sideNav"
+                pathname={pathname}
+              />
+            )}
+            {footer && footer}
+          </ErrorBoundary>
         </Box>
         {customButton ? customButton(active, toggleAttributes) : null}
         {sideNav.floatingToggle && !customButton ? (

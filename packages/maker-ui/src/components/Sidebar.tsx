@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
 import { MakerProps } from './types'
+import { ErrorBoundary } from './ErrorBoundary'
 
 interface SidebarProps
   extends MakerProps,
@@ -26,6 +27,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
       background,
       variant = 'sidebar',
       sx,
+      children,
       ...props
     },
     ref
@@ -34,10 +36,12 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
       <div
         ref={ref}
         id={id}
+        className="sidebar"
         role="complementary"
         sx={{ bg, background, variant, ...sx }}
-        {...props}
-      />
+        {...props}>
+        <ErrorBoundary errorKey="sidebar">{children}</ErrorBoundary>
+      </div>
     )
   }
 )

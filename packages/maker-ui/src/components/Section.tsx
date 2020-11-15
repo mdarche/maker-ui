@@ -2,6 +2,7 @@
 import { jsx, SxStyleProp } from 'theme-ui'
 import { forwardRef } from 'react'
 
+import { ErrorBoundary } from './ErrorBoundary'
 import { MakerProps, ResponsiveScale } from './types'
 
 interface SectionProps
@@ -45,19 +46,21 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
         id={id}
         className={className}
         sx={{ bg, background, color, variant, width: '100%', ...rootSx }}>
-        {container ? (
-          <div
-            className="container"
-            sx={{
-              maxWidth: maxWidth || (t => t.sizes.maxWidth_section),
-              mx: 'auto',
-              ...sx,
-            }}
-            {...props}
-          />
-        ) : (
-          props.children
-        )}
+        <ErrorBoundary errorKey="section">
+          {container ? (
+            <div
+              className="container"
+              sx={{
+                maxWidth: maxWidth || (t => t.sizes.maxWidth_section),
+                mx: 'auto',
+                ...sx,
+              }}
+              {...props}
+            />
+          ) : (
+            props.children
+          )}
+        </ErrorBoundary>
       </section>
     )
   }

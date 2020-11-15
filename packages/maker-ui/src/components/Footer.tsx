@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
 import { MakerProps, ResponsiveScale } from './types'
+import { ErrorBoundary } from './ErrorBoundary'
 
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: ResponsiveScale
@@ -22,23 +23,25 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
     ref
   ) => {
     return (
-      <footer
-        ref={ref}
-        id="footer"
-        role="contentinfo"
-        sx={{ bg, variant }}
-        {...props}>
-        <div
-          className="container"
-          sx={{
-            display: 'flex',
-            maxWidth: maxWidth || (t => t.sizes.maxWidth_footer),
-            mx: 'auto',
-            ...sx,
-          }}>
-          {children}
-        </div>
-      </footer>
+      <ErrorBoundary>
+        <footer
+          ref={ref}
+          id="footer"
+          role="contentinfo"
+          sx={{ bg, variant }}
+          {...props}>
+          <div
+            className="container"
+            sx={{
+              display: 'flex',
+              maxWidth: maxWidth || (t => t.sizes.maxWidth_footer),
+              mx: 'auto',
+              ...sx,
+            }}>
+            {children}
+          </div>
+        </footer>
+      </ErrorBoundary>
     )
   }
 )

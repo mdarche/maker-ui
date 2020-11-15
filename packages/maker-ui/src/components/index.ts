@@ -10,6 +10,7 @@ export { Sidebar } from './Sidebar'
 export { Footer } from './Footer'
 export { Section } from './Section'
 export { CollapsibleMenu } from './Menu'
+export { ErrorBoundary } from './ErrorBoundary'
 export * from './Primitives'
 // export { Template } from './Template'
 

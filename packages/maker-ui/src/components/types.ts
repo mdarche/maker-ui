@@ -25,6 +25,8 @@ export type MakerTheme = Theme
 
 /**
  * Alias for top-level Maker UI layout components.
+ *
+ * @TODO - address button callbacks vs react components
  */
 
 export interface MakerOptions {
@@ -107,5 +109,25 @@ export interface MakerOptions {
   }
   a11y?: {
     skiplinks?: boolean
+  }
+  errors?: {
+    errorComponent?: (error: string, errorDetails: object) => React.ReactNode
+    logFunction?: (
+      error: string,
+      errorDetails: object,
+      component: string
+    ) => void
+    eventHandlerCatch?: (error: string) => React.ReactNode
+    errorMessage?: {
+      topbar?: React.ReactNode
+      header?: React.ReactNode
+      mobileMenu?: React.ReactNode
+      content?: React.ReactNode
+      main?: React.ReactNode
+      sideNav?: React.ReactNode
+      sidebar?: React.ReactNode
+      footer?: React.ReactNode
+      section?: React.ReactNode
+    }
   }
 }
