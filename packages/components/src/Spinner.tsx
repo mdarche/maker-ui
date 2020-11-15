@@ -1,5 +1,5 @@
 import React from 'react'
-import { useThemeUI, Box } from 'theme-ui'
+import { useThemeUI } from 'theme-ui'
 import { SVG, SVGProps } from 'maker-ui'
 
 const defaultColors = {
@@ -66,18 +66,16 @@ const Blocks = ({
   return (
     <SVG viewBox="0 0 100 100" sx={{ height: size, width: size }} {...props}>
       {points.map(({ x, y, fill, b1, b2 }, index) => (
-        <Box
+        <rect
           key={index}
-          as="rect"
-          // @ts-ignore
           x={x}
           y={y}
           rx="1"
           ry="1"
-          sx={{ fill, height: 35, width: 35 }}>
+          style={{ fill, height: 35, width: 35 }}>
           <animate {...getAttributes(true)} begin={b1} />
           <animate {...getAttributes(false)} begin={b2} />
-        </Box>
+        </rect>
       ))}
     </SVG>
   )
@@ -108,17 +106,16 @@ const Pulse = ({
   return (
     <SVG viewBox="0 0 100 100" sx={{ height: size, width: size }} {...props}>
       {points.map(({ color, begin, r }, index) => (
-        <Box
-          as="circle"
+        <circle
           key={index}
           // @ts-ignore
           cx="50"
           cy="50"
           r={r}
-          sx={{ fill: 'none', stroke: color, strokeWidth: 3 }}>
+          style={{ fill: 'none', stroke: color, strokeWidth: 3 }}>
           <animate {...getAttributes(true)} begin={begin} />
           <animate {...getAttributes(false)} begin={begin} />
-        </Box>
+        </circle>
       ))}
     </SVG>
   )
@@ -141,12 +138,7 @@ const Scale = ({
     <SVG viewBox="0 0 100 100" sx={{ width: size, height: size }} {...props}>
       {points.map(({ translate, scale, begin, color }, index) => (
         <g key={index} transform={`translate(${translate})`}>
-          <Box
-            as="circle"
-            // @ts-ignore
-            r="9"
-            transform={`scale(${scale})`}
-            sx={{ fill: color }}>
+          <circle r="9" transform={`scale(${scale})`} style={{ fill: color }}>
             <animateTransform
               attributeName="transform"
               type="scale"
@@ -158,7 +150,7 @@ const Scale = ({
               dur="1.25s"
               repeatCount="indefinite"
             />
-          </Box>
+          </circle>
         </g>
       ))}
     </SVG>

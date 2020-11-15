@@ -1,14 +1,8 @@
 /** @jsx jsx */
 import { forwardRef } from 'react'
-import { jsx, Box as TBox } from 'theme-ui'
+import { jsx } from 'theme-ui'
 
 import { MakerProps, ResponsiveString, ResponsiveScale } from './types'
-
-// TODO - REMOVE BOX Component and change dependency to be @theme-ui/core
-export const Box = forwardRef<any, any>((props, ref) => {
-  const { __sx, sx, ...rest } = props
-  return <TBox ref={ref} sx={{ ...__sx, ...sx }} {...rest} />
-})
 
 /** -----------------------   DIV   -----------------------
  * Alias for `Div` component props that includes all

@@ -1,10 +1,15 @@
 import { SxStyleProp } from 'theme-ui'
 
 /**
+ * Utility for adding pixel value to numbers for transitions and animations
+ */
+
+export const format = value => (isNaN(value) ? value : `${value}px`)
+
+/**
  * Utility for mobile nav transitions that require a full-width window
  */
 export const fullWidth = ['fade', 'fade-up', 'fade-down']
-
 
 /**
  * Uses the nav's settings to build the appropriate transition and position.

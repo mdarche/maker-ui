@@ -12,7 +12,6 @@ const IndexPage = () => {
       </div>
       <Section>
         <h2>Test</h2>
-        <Yee />
       </Section>
     </>
   )

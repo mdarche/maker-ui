@@ -5,15 +5,16 @@ import { forwardRef, Fragment } from 'react'
 import { MakerProps, MakerOptions, MaybeElement } from './types'
 import { ErrorBoundary } from './ErrorBoundary'
 import { MenuProps } from './Menu'
-import { Box, Button } from './Primitives'
+import { Button } from './Primitives'
 
 import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
-import { setBreakpoint } from '../utils/helper'
+import { setBreakpoint, format } from '../utils/helper'
 
-const format = value => (isNaN(value) ? value : `${value}px`)
+const Container = ({ isHeader, ...props }) =>
+  isHeader ? <header {...props} /> : <div {...props} />
 
 interface SideNavProps
   extends MakerProps,
@@ -73,6 +74,9 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       onClick: setActive,
     }
 
+    // const Container = ({ isHeader, ...props}) =>
+    //   sideNav.isHeader ? <header {...props} /> : <div {...props} />
+
     return (
       <Fragment>
         {sideNav.closeOnBlur && (
@@ -83,9 +87,10 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             bp={sideNav.breakIndex}
           />
         )}
-        <Box
+        <Container
+          isHeader={sideNav.isHeader}
           ref={ref}
-          as={sideNav.isHeader && 'header'}
+          // as={sideNav.isHeader && 'header'}
           id="side-nav"
           sx={{
             bg,
@@ -113,7 +118,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             )}
             {footer && footer}
           </ErrorBoundary>
-        </Box>
+        </Container>
         {customButton ? customButton(active, toggleAttributes) : null}
         {sideNav.floatingToggle && !customButton ? (
           <Button

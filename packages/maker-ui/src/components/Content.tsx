@@ -5,10 +5,8 @@ import { forwardRef, useEffect } from 'react'
 import { ErrorBoundary } from './ErrorBoundary'
 import { MakerProps } from './types'
 import { useOptions, useLayout } from '../context/OptionContext'
-import { setBreakpoint } from '../utils/helper'
+import { setBreakpoint, format } from '../utils/helper'
 import { getLayoutStyles } from '../utils/styles-layout'
-
-const format = value => (isNaN(value) ? value : `${value}px`)
 
 interface ContentProps
   extends MakerProps,
@@ -24,7 +22,7 @@ interface ContentProps
  */
 
 export const Content = forwardRef<HTMLDivElement, ContentProps>(
-  ({ layout, variant, sx, ...props }, ref) => {
+  ({ layout, variant, sx, children, ...props }, ref) => {
     const { content } = useOptions()
     const [baseLayout, setLayout] = useLayout()
 
@@ -54,20 +52,19 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
         : null
 
     return (
-      <ErrorBoundary>
-        <div
-          ref={ref}
-          id="site-inner"
-          sx={{
-            variant,
-            ...getLayoutStyles(baseLayout),
-            minHeight: '80vh',
-            ...sidebarPartial,
-            ...sx,
-          }}
-          {...props}
-        />
-      </ErrorBoundary>
+      <div
+        ref={ref}
+        id="site-inner"
+        sx={{
+          variant,
+          ...getLayoutStyles(baseLayout),
+          minHeight: '80vh',
+          ...sidebarPartial,
+          ...sx,
+        }}
+        {...props}>
+        <ErrorBoundary errorKey="content">{children}</ErrorBoundary>
+      </div>
     )
   }
 )
