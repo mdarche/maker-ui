@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { SVG, Button } from '../Primitives'
-import { MakerProps, MaybeElement } from '../types'
+import { MakerProps, MakerOptions, MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 import { setBreakpoint } from '../../utils/helper'
@@ -9,21 +9,10 @@ import { setBreakpoint } from '../../utils/helper'
 interface MenuButtonProps extends MakerProps {
   closeIcon?: boolean
   buttonInner?: MaybeElement
-  customButton?(isOpen?: boolean, attributes?: object): React.ReactElement
+  customButton?: MakerOptions['header']['customMenuButton']
   visibleOnDesktop?: boolean
   'aria-expanded'?: boolean
 }
-
-const getAttributes = (
-  menu,
-  toggleMenu,
-  sideMenu,
-  toggleSideMenu,
-  sideNavPrimary
-) =>
-  sideNavPrimary
-    ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
-    : { 'aria-expanded': menu ? true : false, onClick: toggleMenu }
 
 export const MenuButton = (props: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
@@ -32,10 +21,14 @@ export const MenuButton = (props: MenuButtonProps) => {
 
   const {
     buttonInner,
+    customButton,
     visibleOnDesktop = mobileMenu.visibleOnDesktop,
     closeIcon,
     sx,
   } = props
+
+  // Use custom button from props or check header options
+  const menuButton = customButton || header.customMenuButton
 
   const visibility = visibleOnDesktop
     ? !sideNav.isPrimaryMobileNav
@@ -43,18 +36,22 @@ export const MenuButton = (props: MenuButtonProps) => {
       : { display: 'none' }
     : { display: setBreakpoint(header.breakIndex, ['block', 'none']) }
 
-  return (
+  const conditionalAttributes = sideNav.isPrimaryMobileNav
+    ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
+    : { 'aria-expanded': menu ? true : false, onClick: toggleMenu }
+
+  const attributes = {
+    title: 'Menu',
+    className: 'menu-button',
+    'aria-label': 'Toggle Menu',
+    ...conditionalAttributes,
+  }
+
+  return menuButton ? (
+    menuButton(sideNav.isPrimaryMobileNav ? sideMenu : menu, attributes)
+  ) : (
     <Button
-      title="Menu"
-      className="menu-toggle"
-      aria-label="Toggle Menu"
-      {...getAttributes(
-        menu,
-        toggleMenu,
-        sideMenu,
-        toggleSideMenu,
-        sideNav.isPrimaryMobileNav
-      )}
+      {...attributes}
       sx={{
         variant: 'header.menuButton',
         ...visibility,

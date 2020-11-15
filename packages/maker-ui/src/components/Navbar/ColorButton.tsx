@@ -2,13 +2,13 @@ import * as React from 'react'
 import { useThemeUI } from 'theme-ui'
 
 import { Button } from '../Primitives'
-import { MaybeElement } from '../types'
+import { MakerOptions, MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
 interface ColorButtonProps {
   buttonInner?: MaybeElement
-  customButton?(colorMode?: string, attributes?: object): React.ReactElement
+  customButton?: MakerOptions['header']['customColorButton']
 }
 
 export const ColorButton = ({

@@ -58,21 +58,24 @@ export interface MakerOptions {
       caret?: boolean
       transition?: string
     }
-    customMenuButton?(isOpen?: boolean, attributes?: object): React.ReactElement // TODO
-    customColorButton?(
+    customMenuButton?: (
+      isOpen?: boolean,
+      attributes?: object
+    ) => React.ReactElement | React.ReactElement
+    customColorButton?: (
       currentMode?: string,
       attributes?: object
-    ): React.ReactElement
+    ) => React.ReactElement | React.ReactElement
     breakIndex?: number
   }
   mobileMenu?: {
     width?: ResponsiveScale
     transition?: 'fade' | 'fade-up' | 'fade-down' | 'slide-left' | 'slide-right'
     visibleOnDesktop?: boolean
-    customCloseButton?(
+    customCloseButton?: (
       isOpen?: boolean,
       attributes?: object
-    ): React.ReactElement // TODO
+    ) => React.ReactElement | React.ReactElement
     defaultCloseButton?: boolean
     closeOnBlur?: boolean
     closeOnRouteChange?: boolean
@@ -84,7 +87,10 @@ export interface MakerOptions {
     floatingToggle?: boolean
     closeOnBlur?: boolean
     closeOnRouteChange?: boolean
-    customToggle?(isOpen?: boolean, attributes?: object): React.ReactElement
+    customToggle?: (
+      isOpen?: boolean,
+      attributes?: object
+    ) => React.ReactElement | React.ReactElement
     breakIndex?: number
   }
   content?: {

@@ -62,11 +62,13 @@ export default ({ children, location }) => (
         logo={'Components Demo'}
         menu={menu}
         colorButtonInner={<div>Test</div>}
-        customColorButton={(mode, attributes) => (
-          <button {...attributes}>Mode is {mode}</button>
+        menuButtonInner="Menu!"
+        customMenuButton={(isOpen, attributes) => (
+          <button {...attributes}>{isOpen ? 'Close' : 'Open'}</button>
         )}
       />
       <MobileMenu menu={menu} />
+      {/* <MobileMenu menu={menu} closeButton={<div>Close!</div>} /> */}
     </Header>
     <Content>
       <Main>

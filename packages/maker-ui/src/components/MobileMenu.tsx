@@ -2,64 +2,25 @@
 import { jsx } from 'theme-ui'
 import { forwardRef, Fragment } from 'react'
 
-import { ResponsiveScale, MakerProps } from './types'
+import { ResponsiveScale, MakerProps, MakerOptions } from './types'
 import { CollapsibleMenu, MenuButton, MenuProps } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
+import { getTransition, fullWidth } from '../utils/helper'
 
 interface MobileMenuProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
-  transition?: 'fade' | 'fade-up' | 'fade-down' | 'slide-left' | 'slide-right'
+  transition?: MakerOptions['mobileMenu']['transition']
   background?: string | string[]
   bg?: string | string[]
   width?: ResponsiveScale
   menu?: MenuProps[]
   pathname?: string
+  closeButton?: MakerOptions['mobileMenu']['customCloseButton']
   header?: React.ReactElement
   footer?: React.ReactElement
-}
-
-/**
- * Mobile nav transitions that require full-width screen
- */
-
-const fullWidth: string[] = ['fade', 'fade-up', 'fade-down']
-
-/**
- * Uses the nav's settings to build the appropriate transition and position.
- *
- * @param active - a boolean that determines whether or not the menu is active
- * @param type - the transition style (string)
- * @param width - the mobile menu's width specificed in the options configuration
- */
-
-const getTransition = (active, type, width): React.CSSProperties => {
-  const opacity = type.includes('fade') ? (active ? 1 : 0) : 1
-  const visibility = active ? 'visible' : 'hidden'
-
-  const directionX = type.includes('right')
-    ? { right: 0, width, transform: active ? null : 'translateX(100%)' }
-    : { left: 0, width, transform: active ? null : 'translateX(-100%)' }
-
-  const directionY = () => {
-    if (type !== 'fade') {
-      const sign = type === 'fade-up' ? '' : '-'
-      return { transform: !active ? `translateY(${sign}20px)` : null }
-    }
-    return null
-  }
-
-  const size = fullWidth.includes(type)
-    ? { width: '100%', left: 0, ...directionY() }
-    : directionX
-
-  return {
-    opacity,
-    visibility,
-    ...size,
-  }
 }
 
 /**
@@ -79,6 +40,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       bg = 'bg_mobileMenu',
       variant = 'mobileMenu',
       background,
+      closeButton,
       width = mobileMenu.width,
       transition = mobileMenu.transition,
       menu = [],
@@ -89,12 +51,13 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       sx,
       ...rest
     } = props
+    const customButton = closeButton || mobileMenu.customCloseButton
 
     return (
       <Fragment>
-        {mobileMenu.closeOnBlur && !fullWidth.includes(transition) && (
+        {mobileMenu.closeOnBlur && !fullWidth.includes(transition) ? (
           <Overlay show={show} toggle={toggleMenu} />
-        )}
+        ) : null}
         <div
           ref={ref}
           id="mobile-menu"
@@ -112,8 +75,9 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
             ...sx,
           }}
           {...rest}>
-          {mobileMenu.defaultCloseButton ? (
+          {mobileMenu.defaultCloseButton || customButton ? (
             <MenuButton
+              customButton={customButton}
               sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}
               closeIcon
             />

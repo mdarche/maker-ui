@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui'
 import { forwardRef, Fragment } from 'react'
 
-import { MakerProps, MaybeElement } from './types'
+import { MakerProps, MakerOptions, MaybeElement } from './types'
 import { MenuProps } from './Menu'
 import { Box, Button } from './Primitives'
 
@@ -21,7 +21,7 @@ interface SideNavProps
   background?: string | string[]
   bg?: string | string[]
   buttonInner?: MaybeElement
-  customToggle?(isOpen?: boolean, attributes?: object): React.ReactElement
+  customToggle?: MakerOptions['sideNav']['customToggle']
   menu?: MenuProps[]
   pathname?: string
   header?: React.ReactElement

@@ -22,6 +22,9 @@ export const options: MakerOptions = {
     closeOnBlur: true,
     closeOnRouteChange: true,
     defaultCloseButton: true,
+    // customCloseButton: (isOpen, attributes) => (
+    //   <button {...attributes}>{isOpen ? 'Close!' : 'Open!'}</button>
+    // ),
   },
   sideNav: {
     // customToggle: (isOpen, attributes) => (
