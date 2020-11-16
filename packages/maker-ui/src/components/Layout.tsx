@@ -4,6 +4,7 @@ import { ThemeProvider } from 'theme-ui'
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
 import { Skiplinks, LinkItem } from './Skiplinks'
+import { ErrorBoundary } from './ErrorBoundary'
 import { MakerOptions } from './types'
 import { createTheme } from '../theme'
 
@@ -36,7 +37,7 @@ export const Layout = ({
       <OptionProvider options={options}>
         <ActionProvider>
           <Skiplinks links={skiplinks} />
-          {children}
+          <ErrorBoundary errorKey="layout">{children}</ErrorBoundary>
         </ActionProvider>
       </OptionProvider>
     </ThemeProvider>

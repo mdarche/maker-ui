@@ -43,4 +43,19 @@ export const options: MakerOptions = {
   footer: {
     maxWidth: [200, '100%'],
   },
+  errors: {
+    logFunction: (error, errorInfo, component) => {
+      console.log(
+        'Coming in hot from the log function: ',
+        error,
+        errorInfo,
+        component
+      )
+    },
+    showStackTrace: true,
+    errorMessage: {
+      content: <div>Content</div>,
+      // main: <div>Main</div>,
+    },
+  },
 }

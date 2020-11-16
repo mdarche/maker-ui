@@ -7,6 +7,7 @@ import { MakerProps, ResponsiveString, ResponsiveScale } from './types'
 /** -----------------------   DIV   -----------------------
  * Alias for `Div` component props that includes all
  * HTML div tag attributes.
+ *
  */
 export interface DivProps
   extends MakerProps,
@@ -14,6 +15,8 @@ export interface DivProps
 
 /**
  * The basic theme-enabled building block for Maker UI.
+ *
+ * @see https://maker-ui.com/docs/primitives
  */
 
 export const Div = forwardRef<HTMLDivElement, DivProps>(
@@ -38,6 +41,8 @@ export interface FlexProps extends DivProps {
 
 /**
  * A pre-styled `Div` for quick access to CSS Flex properties.
+ *
+ * @see https://maker-ui.com/docs/primitives
  */
 
 export const Flex = forwardRef<HTMLDivElement, any>(
@@ -72,6 +77,8 @@ export interface GridProps
 
 /**
  * A pre-styled `Div` for quick access to CSS Grid properties.
+ *
+ * @see https://maker-ui.com/docs/primitives
  */
 
 export const Grid = forwardRef<HTMLDivElement, any>(
@@ -118,7 +125,9 @@ export interface SpanProps
     React.HTMLAttributes<HTMLSpanElement> {}
 
 /**
- * A pre-styled `Div` for quick access to CSS Grid properties.
+ * A theme-enabled `span` tag.
+ *
+ * @see https://maker-ui.com/docs/primitives
  */
 
 export const Span = forwardRef<HTMLSpanElement, SpanProps>(
@@ -135,6 +144,12 @@ export interface OListProps
   extends MakerProps,
     React.HTMLAttributes<HTMLOListElement> {}
 
+/**
+ * A theme-enabled `ol` tag.
+ *
+ * @see https://maker-ui.com/docs/primitives
+ */
+
 export const OList = forwardRef<HTMLOListElement, OListProps>(
   ({ variant, sx, ...props }, ref) => (
     <ol ref={ref} sx={{ variant, ...sx }} {...props} />
@@ -148,6 +163,12 @@ export const OList = forwardRef<HTMLOListElement, OListProps>(
 export interface UListProps
   extends MakerProps,
     React.HTMLAttributes<HTMLUListElement> {}
+
+/**
+ * A theme-enabled `ul` tag.
+ *
+ * @see https://maker-ui.com/docs/primitives
+ */
 
 export const UList = forwardRef<HTMLUListElement, UListProps>(
   ({ variant, sx, ...props }, ref) => (
@@ -163,6 +184,12 @@ export interface ListItemProps
   extends MakerProps,
     React.HTMLAttributes<HTMLLIElement> {}
 
+/**
+ * A theme-enabled `li` tag.
+ *
+ * @see https://maker-ui.com/docs/primitives
+ */
+
 export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
   ({ variant, sx, ...props }, ref) => (
     <li ref={ref} sx={{ variant, ...sx }} {...props} />
@@ -174,6 +201,12 @@ export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
  * svg attributes.
  */
 export interface SVGProps extends MakerProps, React.SVGAttributes<SVGElement> {}
+
+/**
+ * A theme-enabled `svg` tag.
+ *
+ * @see https://maker-ui.com/docs/primitives
+ */
 
 export const SVG = forwardRef<SVGSVGElement, SVGProps>(
   ({ variant, sx, ...props }, ref) => (
@@ -194,6 +227,12 @@ export interface ButtonProps
   extends MakerProps,
     React.HTMLAttributes<HTMLButtonElement> {}
 
+/**
+ * A theme-enabled `button` tag.
+ *
+ * @see https://maker-ui.com/docs/primitives
+ */
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant, sx, ...props }, ref) => (
     <button ref={ref} sx={{ variant, ...sx }} {...props} />
@@ -208,6 +247,12 @@ export interface LinkProps
   extends MakerProps,
     React.AnchorHTMLAttributes<HTMLAnchorElement> {}
 
+/**
+ * A theme-enabled `a` tag.
+ *
+ * @see https://maker-ui.com/docs/primitives
+ */
+
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ variant, sx, children, ...props }, ref) => (
     <a ref={ref} sx={{ variant, ...sx }} {...props}>
@@ -217,12 +262,18 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 )
 
 /** -----------------------   IMAGE   -----------------------
- * Alias for `Link` component props that includes all
- * anchor tag attributes.
+ * Alias for `Image` component props that includes all
+ * image tag attributes.
  */
 export interface ImageProps
   extends MakerProps,
     React.AnchorHTMLAttributes<HTMLImageElement> {}
+
+/**
+ * A theme-enabled `img` tag.
+ *
+ * @see https://maker-ui.com/docs/primitives
+ */
 
 export const Image = forwardRef<HTMLImageElement, any>(
   ({ variant, src, alt, sx, children, ...props }, ref) => (

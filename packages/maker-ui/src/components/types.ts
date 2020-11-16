@@ -111,13 +111,13 @@ export interface MakerOptions {
     skiplinks?: boolean
   }
   errors?: {
-    errorComponent?: (error: string, errorDetails: object) => React.ReactNode
     logFunction?: (
       error: string,
       errorDetails: object,
       component: string
-    ) => void
+    ) => any
     eventHandlerCatch?: (error: string) => React.ReactNode
+    showStackTrace?: boolean
     errorMessage?: {
       topbar?: React.ReactNode
       header?: React.ReactNode

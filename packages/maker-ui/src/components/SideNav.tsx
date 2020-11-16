@@ -32,7 +32,7 @@ interface SideNavProps
 
 /**
  * Use the `SideNav` component for `content-sidenav` or `sidenav-content` layouts.
- * Add it inside the `Content` component alongside the `Main` component.
+ * Add it inside `Content` alongside the `Main` component.
  *
  * @see https://maker-ui.com/docs/sidenav
  */
@@ -73,9 +73,6 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       'aria-label': 'Toggle side navigation',
       onClick: setActive,
     }
-
-    // const Container = ({ isHeader, ...props}) =>
-    //   sideNav.isHeader ? <header {...props} /> : <div {...props} />
 
     return (
       <Fragment>

@@ -18,8 +18,7 @@ export const defaultOptions: MakerOptions = {
       scrollTop: 200,
       className: 'sticky',
     },
-    colorToggle: true,
-    hideColorToggleOnMobile: false,
+    hideColorButtonOnMobile: false,
     hideWidgetsOnMobile: true,
     dropdown: {
       caret: true,
@@ -58,5 +57,8 @@ export const defaultOptions: MakerOptions = {
   },
   a11y: {
     skiplinks: true,
+  },
+  errors: {
+    showStackTrace: false,
   },
 }
