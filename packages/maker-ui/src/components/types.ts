@@ -30,7 +30,6 @@ export type MakerTheme = Theme
  */
 
 export interface MakerOptions {
-  layout?: string
   navType?: string
   linkFunction?(
     path: string,
@@ -128,6 +127,18 @@ export interface MakerOptions {
       sidebar?: React.ReactNode
       footer?: React.ReactNode
       section?: React.ReactNode
+    }
+  }
+  workspace?: {
+    canvasType?: string
+    canvasMaxWidth?: ResponsiveScale
+    panelLeft?: {
+      collapsible?: boolean // Always collapsible on mobile
+      width?: ResponsiveScale
+      collapseWidth?: ResponsiveScale
+      defaultOpen?: boolean
+      animationStyle?: 'slide' | 'scale'
+      breakIndex?: number
     }
   }
 }

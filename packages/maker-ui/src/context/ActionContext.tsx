@@ -11,9 +11,10 @@ function reducer(state, action) {
     case 'sideNav': {
       return { ...state, sideNavActive: !state.sideNavActive }
     }
-    case 'workspace-left':
-    case 'workspace-right':
-    case 'dock':
+    case 'left-panel':
+      return { ...state, leftPanelActive: !state.panelLeftActive }
+    case 'right-panel':
+      return { ...state, rightPanelActive: !state.panelRightActive }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
     }
@@ -26,6 +27,8 @@ const ActionProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     menuActive: false,
     sideNavActive: false,
+    leftPanelActive: true,
+    rightPanelActive: true,
   })
 
   return (

@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import * as React from 'react'
-import { forwardRef, useEffect, useState } from 'react'
+import { Children, forwardRef, useEffect, useState } from 'react'
 
 import { ErrorBoundary } from './ErrorBoundary'
 import { ContentError } from './Errors'
@@ -9,19 +8,6 @@ import { MakerProps } from './types'
 import { useOptions, useLayout } from '../context/OptionContext'
 import { setBreakpoint, format, getLayoutString } from '../utils/helper'
 import { getLayoutStyles } from '../utils/styles-layout'
-
-const regularLayouts = [
-  'content sidebar',
-  'content sidenav',
-  'content',
-  'sidebar content',
-  'sidebar content sidebar',
-  'sidenav content',
-  'dock workspace',
-  'workspace',
-  'workspace dock',
-  'page-transition',
-]
 
 const layoutTypes = [
   'content sidebar',
@@ -34,15 +20,11 @@ const layoutTypes = [
   'workspace',
   'workspace dock',
   'page-transition',
-] as const
-
-type Layout = typeof layoutTypes[number]
+]
 
 interface ContentProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
-  layout?: Layout
-}
+    React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * Use the `Content` component to wrap all content between your `Header`
@@ -52,14 +34,14 @@ interface ContentProps
  */
 
 export const Content = forwardRef<HTMLDivElement, ContentProps>(
-  ({ layout, variant, sx, children, ...props }, ref) => {
+  ({ variant, sx, children, ...props }, ref) => {
     const { content } = useOptions()
     const [baseLayout, setLayout] = useLayout()
     const [debugMessage, setDebugMessage] = useState(false)
 
     // Sync JSX layout with Option Context
     useEffect(() => {
-      let nodes: any[] = React.Children.toArray(children)
+      let nodes: any[] = Children.toArray(children)
 
       if (nodes) {
         const currentLayout = getLayoutString(
@@ -72,7 +54,7 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
             .join(' ')
         )
 
-        if (regularLayouts.includes(currentLayout)) {
+        if (layoutTypes.includes(currentLayout)) {
           if (baseLayout !== currentLayout) {
             setLayout(currentLayout)
           }
@@ -82,7 +64,7 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
       } else {
         setDebugMessage(true)
       }
-    }, [layout, baseLayout, setLayout, children])
+    }, [baseLayout, setLayout, children])
 
     const sidebarPartial: object | null =
       baseLayout === 'sidebar content'
