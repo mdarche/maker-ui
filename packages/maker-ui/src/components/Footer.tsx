@@ -4,6 +4,7 @@ import { forwardRef } from 'react'
 
 import { MakerProps, ResponsiveScale } from './types'
 import { ErrorBoundary } from './ErrorBoundary'
+import { useLayout } from '../context/OptionContext'
 
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: ResponsiveScale
@@ -22,7 +23,9 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
     { maxWidth, variant = 'footer', sx, bg = 'bg_footer', children, ...props },
     ref
   ) => {
-    return (
+    const [baseLayout] = useLayout()
+
+    return !baseLayout.includes('workspace') ? (
       <ErrorBoundary>
         <footer
           ref={ref}
@@ -42,8 +45,8 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
           </div>
         </footer>
       </ErrorBoundary>
-    )
+    ) : null
   }
 )
 
-Footer.displayName = 'Footer_MakerUI'
+Footer.displayName = 'Footer'

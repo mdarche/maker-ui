@@ -66,4 +66,4 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
   }
 )
 
-Section.displayName = 'Section_MakerUI'
+Section.displayName = 'Section'

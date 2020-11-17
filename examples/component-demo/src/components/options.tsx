@@ -3,7 +3,7 @@ import { MakerOptions } from 'maker-ui'
 
 export const options: MakerOptions = {
   navType: 'center',
-  layout: 'content-sidenav',
+  layout: 'content sidenav',
   topbar: {
     maxWidth: [200, 600],
   },

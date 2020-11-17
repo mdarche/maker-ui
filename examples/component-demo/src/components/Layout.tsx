@@ -15,7 +15,7 @@ import {
   // CookieNotice,
 } from '@maker-ui/components'
 // import { SEOProvider } from '@maker-ui/seo'
-
+import { Fixed } from './Fixed'
 import { options } from './options'
 import { theme } from './theme'
 
@@ -71,10 +71,6 @@ export default ({ children, location }) => (
       {/* <MobileMenu menu={menu} closeButton={<div>Close!</div>} /> */}
     </Header>
     <Content>
-      <Main>
-        {children}
-        {/* <PageTransition>{children}</PageTransition> */}
-      </Main>
       <SideNav
         // customToggle={(isOpen, attributes) => (
         //   <button
@@ -85,6 +81,11 @@ export default ({ children, location }) => (
         // )}
         menu={menu}
       />
+      <div>yes</div>
+      <Main>
+        {children}
+        {/* <PageTransition>{children}</PageTransition> */}
+      </Main>
     </Content>
     <Footer>Footer</Footer>
     {/* <CookieNotice /> */}

@@ -61,4 +61,4 @@ export const Topbar = forwardRef<HTMLElement, TopbarProps>(
   }
 )
 
-Topbar.displayName = 'Topbar_MakerUI'
+Topbar.displayName = 'Topbar'

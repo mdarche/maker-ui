@@ -100,4 +100,4 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
   }
 )
 
-MobileMenu.displayName = 'MobileMenu_MakerUI'
+MobileMenu.displayName = 'MobileMenu'

@@ -31,7 +31,7 @@ interface SideNavProps
 }
 
 /**
- * Use the `SideNav` component for `content-sidenav` or `sidenav-content` layouts.
+ * Use the `SideNav` component for `content sidenav` or `sidenav content` layouts.
  * Add it inside `Content` alongside the `Main` component.
  *
  * @see https://maker-ui.com/docs/sidenav
@@ -63,7 +63,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
 
     const getTransform = width => {
       const w = Array.isArray(width) ? width[bp] : width
-      const shift = layout === 'sidenav-content' ? `-${w}` : w
+      const shift = layout === 'sidenav content' ? `-${w}` : w
       return active ? `translateX(0)` : `translateX(${format(shift)})`
     }
 
@@ -87,7 +87,6 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
         <Container
           isHeader={sideNav.isHeader}
           ref={ref}
-          // as={sideNav.isHeader && 'header'}
           id="side-nav"
           sx={{
             bg,
@@ -135,4 +134,4 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
   }
 )
 
-SideNav.displayName = 'SideNav_MakerUI'
+SideNav.displayName = 'SideNav'

@@ -57,16 +57,18 @@ export const getLayoutStyles = (type: string) => {
   switch (type) {
     case 'full-width':
       return { display: 'block', maxWidth: '100%' }
-    case 'content-sidebar':
+    case 'content sidebar':
       return sidebar
-    case 'content-sidenav':
+    case 'content sidenav':
       return contentSideNav
-    case 'sidebar-content':
+    case 'sidebar content':
       return sidebarContent
-    case 'sidenav-content':
+    case 'sidenav content':
       return sideNavContent
     case 'content':
     case 'workspace':
+    case 'workspace dock':
+    case 'dock workspace':
     default:
       return content
   }

@@ -11,6 +11,7 @@ const IndexPage = () => {
         <a href="/">Google</a>
       </div>
       <Section>
+        {/* <Yeeeee /> */}
         <h2>Test</h2>
       </Section>
     </>

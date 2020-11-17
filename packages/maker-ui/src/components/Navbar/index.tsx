@@ -69,4 +69,4 @@ export const Navbar = React.memo(({ type, ...props }: NavProps) => {
   }
 })
 
-Navbar.displayName = 'Navbar_MakerUI'
+Navbar.displayName = 'Navbar'
