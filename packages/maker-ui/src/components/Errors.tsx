@@ -23,11 +23,11 @@ export const DefaultError = ({
     <Div variant="errorBoundary">
       <ErrorIcon sx={{ height: 30 }} />
       <div>
-        There was an error loading this section of the app.
+        There was an issue loading this section of the app.
         <Span
           sx={{ ml: '5px', cursor: 'pointer', color: 'primary' }}
           onClick={e => window.location.reload()}>
-          Try reloading this page.
+          Try reloading the page.
         </Span>
       </div>
       {showStackTrace ? (
@@ -73,32 +73,49 @@ export const ContentError = () => {
           border: '1px solid gainsboro',
         },
       }}>
-      <Flex inline>
-        <ErrorIcon />
-        <strong>Error:</strong> Invalid layout configuration.
+      <Flex
+        inline
+        align="center"
+        justify="center"
+        sx={{
+          width: '100%',
+          p: '20px',
+          mb: '30px',
+          bg: 'muted',
+          strong: { mr: '20px' },
+        }}>
+        <ErrorIcon sx={{ height: 35, mr: '10px' }} />
+        <strong>Error</strong> Invalid layout configuration.
       </Flex>
-      <p>
-        The <span>Content</span> component only accepts the following direct
-        children:
-      </p>
-      <UList sx={{ columns: 2, li: { mb: '10px', width: 'min-content' } }}>
-        {acceptable.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </UList>
-      <p>
-        If your custom child component has fixed positioning, you can still use
-        it here by assigning it a <strong>displayName</strong> of 'Fixed'.
-      </p>
-      <p>
-        <a
-          href="https://maker-ui.com/docs/content"
-          target="_blank"
-          rel="noreferrer">
-          See the docs
-        </a>{' '}
-        for a complete list of layout configurations.
-      </p>
+      <Div>
+        <p>
+          The <span>Content</span> component only accepts the following direct
+          children:
+        </p>
+        <UList
+          sx={{
+            columns: 2,
+            m: '50px 0 35px',
+            li: { mb: '10px', width: 'min-content' },
+          }}>
+          {acceptable.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </UList>
+        <p>
+          If your custom child component has fixed positioning, you can still
+          use it here by assigning it a <strong>displayName</strong> of 'Fixed'.
+        </p>
+        <p>
+          <a
+            href="https://maker-ui.com/docs/content"
+            target="_blank"
+            rel="noreferrer">
+            See the docs
+          </a>{' '}
+          for a complete list of layout configurations.
+        </p>
+      </Div>
     </Div>
   )
 }

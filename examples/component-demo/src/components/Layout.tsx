@@ -81,7 +81,7 @@ export default ({ children, location }) => (
         // )}
         menu={menu}
       />
-      <div>yes</div>
+      {/* <div>yes</div> */}
       <Main>
         {children}
         {/* <PageTransition>{children}</PageTransition> */}
