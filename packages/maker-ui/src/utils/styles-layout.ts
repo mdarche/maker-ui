@@ -55,8 +55,6 @@ const contentSideNav = {
 
 export const getLayoutStyles = (type: string) => {
   switch (type) {
-    case 'full-width':
-      return { display: 'block', maxWidth: '100%' }
     case 'content sidebar':
       return sidebar
     case 'content sidenav':

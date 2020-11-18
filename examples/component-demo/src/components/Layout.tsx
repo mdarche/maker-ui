@@ -8,6 +8,7 @@ import {
   Main,
   Footer,
   SideNav,
+  Workspace,
 } from 'maker-ui'
 import {
   Announcement,
@@ -43,6 +44,7 @@ const menu = [
   { label: 'Lightbox', path: '/lightbox' },
   { label: 'Popover', path: '/popover' },
   { label: 'TableofContents', path: '/toc' },
+  { label: 'Workspace', path: '/workspace' },
 ]
 
 // const seo = {
@@ -70,23 +72,21 @@ export default ({ children, location }) => (
       <MobileMenu menu={menu} />
       {/* <MobileMenu menu={menu} closeButton={<div>Close!</div>} /> */}
     </Header>
-    <Content>
-      <SideNav
-        // customToggle={(isOpen, attributes) => (
-        //   <button
-        //     style={{ position: 'fixed', bottom: 100, left: 20 }}
-        //     {...attributes}>
-        //     {isOpen ? 'close' : 'open'}
-        //   </button>
-        // )}
-        menu={menu}
-      />
-      {/* <div>yes</div> */}
-      <Main>
-        {children}
-        {/* <PageTransition>{children}</PageTransition> */}
-      </Main>
-    </Content>
+    {location.pathname !== '/workspace' ? (
+      <Content>
+        <SideNav menu={menu} />
+        <Main>{children}</Main>
+      </Content>
+    ) : (
+      <Content>
+        <Workspace>
+          <Workspace.Toolbar />
+          <Workspace.Panel></Workspace.Panel>
+          <Workspace.Canvas>{children}</Workspace.Canvas>
+          <Workspace.Panel></Workspace.Panel>
+        </Workspace>
+      </Content>
+    )}
     <Footer>Footer</Footer>
     {/* <CookieNotice /> */}
   </Layout>

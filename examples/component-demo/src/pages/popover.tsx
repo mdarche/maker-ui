@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react'
+import * as React from 'react'
 import { Div } from 'maker-ui'
 import { Popover, Dropdown, Tooltip } from '@maker-ui/components'
 
 const PopoverPage = () => {
-  const [show, set] = useState(false)
-  const buttonRef = useRef(null)
+  const [show, set] = React.useState(false)
+  const buttonRef = React.useRef(null)
 
   return (
     <>

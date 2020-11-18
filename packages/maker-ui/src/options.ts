@@ -2,7 +2,7 @@ import { MakerOptions } from './components/types'
 
 export const defaultOptions: MakerOptions = {
   navType: 'basic',
-  layout: 'content',
+  layout: 'initial',
   topbar: {
     maxWidth: 1260,
     hideOnMobile: false,

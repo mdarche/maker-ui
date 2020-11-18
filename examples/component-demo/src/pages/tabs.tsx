@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import * as React from 'react'
+
 import { Div } from 'maker-ui'
 import { Tabs } from '@maker-ui/components'
 

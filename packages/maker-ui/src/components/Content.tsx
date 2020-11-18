@@ -1,26 +1,18 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { Children, forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 
 import { ErrorBoundary } from './ErrorBoundary'
 import { ContentError } from './Errors'
 import { MakerProps } from './types'
 import { useOptions, useLayout } from '../context/OptionContext'
-import { setBreakpoint, format, getLayoutString } from '../utils/helper'
+import {
+  setBreakpoint,
+  format,
+  getLayoutType,
+  layoutMatch,
+} from '../utils/helper'
 import { getLayoutStyles } from '../utils/styles-layout'
-
-const layoutTypes = [
-  'content sidebar',
-  'content sidenav',
-  'content',
-  'sidebar content',
-  'sidebar content sidebar',
-  'sidenav content',
-  'dock workspace',
-  'workspace',
-  'workspace dock',
-  'page-transition',
-]
 
 interface ContentProps
   extends MakerProps,
@@ -36,38 +28,25 @@ interface ContentProps
 export const Content = forwardRef<HTMLDivElement, ContentProps>(
   ({ variant, sx, children, ...props }, ref) => {
     const { content } = useOptions()
-    const [baseLayout, setLayout] = useLayout()
+    const [layout, setLayout] = useLayout()
     const [debugMessage, setDebugMessage] = useState(false)
 
     // Sync JSX layout with Option Context
     useEffect(() => {
-      let nodes: any[] = Children.toArray(children)
+      const currentLayout = getLayoutType('content', children)
+      const isValidLayout = layoutMatch('content', currentLayout)
 
-      if (nodes) {
-        const currentLayout = getLayoutString(
-          nodes
-            .map(child =>
-              child.type.displayName
-                ? child.type.displayName.toLowerCase()
-                : 'unknown'
-            )
-            .join(' ')
-        )
-
-        if (layoutTypes.includes(currentLayout)) {
-          if (baseLayout !== currentLayout) {
-            setLayout(currentLayout)
-          }
-        } else {
-          setDebugMessage(true)
+      if (isValidLayout) {
+        if (layout !== currentLayout) {
+          setLayout(currentLayout)
         }
       } else {
         setDebugMessage(true)
       }
-    }, [baseLayout, setLayout, children])
+    }, [layout, setLayout, children])
 
     const sidebarPartial: object | null =
-      baseLayout === 'sidebar content'
+      layout === 'sidebar content'
         ? {
             gridTemplateColumns: t =>
               setBreakpoint(content.breakIndex, [
@@ -75,7 +54,7 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
                 `${format(t.sizes.width_sidebar)} 1fr`,
               ]),
           }
-        : baseLayout === 'content sidebar'
+        : layout === 'content sidebar'
         ? {
             gridTemplateColumns: t =>
               setBreakpoint(content.breakIndex, [
@@ -91,7 +70,7 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
         id="site-inner"
         sx={{
           variant,
-          ...getLayoutStyles(baseLayout),
+          ...getLayoutStyles(layout),
           minHeight: '80vh',
           ...sidebarPartial,
           ...sx,

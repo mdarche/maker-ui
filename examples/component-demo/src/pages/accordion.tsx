@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import * as React from 'react'
 import { Accordion } from '@maker-ui/components'
 
 const AccordionPage = () => {
-  const [key, setKey] = useState('1')
+  const [key, setKey] = React.useState('1')
 
   const keyValues = ['1', '2', '3']
   const handleClick = (i: string) => setKey(i)

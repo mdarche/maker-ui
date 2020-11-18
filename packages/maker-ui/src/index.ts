@@ -1,5 +1,5 @@
 export * from './components'
-export { useMakerUI } from './utils/hooks'
-export { useScrollPosition } from './utils/scroll-position'
+export { useMakerUI } from './hooks/useMakerUI'
+export { useScrollPosition } from './hooks/useScrollPosition'
 
 export { setBreakpoint, generateId } from './utils/helper'

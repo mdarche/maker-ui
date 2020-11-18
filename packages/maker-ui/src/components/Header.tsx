@@ -5,7 +5,7 @@ import { forwardRef, useState } from 'react'
 import { MakerProps } from './types'
 import { ErrorBoundary } from './ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
-import { useScrollPosition } from '../utils/scroll-position'
+import { useScrollPosition } from '../hooks/useScrollPosition'
 import { setBreakpoint } from '../utils/helper'
 
 interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {

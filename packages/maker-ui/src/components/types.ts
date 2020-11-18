@@ -26,11 +26,12 @@ export type MakerTheme = Theme
 /**
  * Alias for top-level Maker UI layout components.
  *
- * @TODO - address button callbacks vs react components
+ * @TODO - address button callbacks vs react components ---> React.ReactNode
  */
 
 export interface MakerOptions {
   navType?: string
+  layout?: string // readonly
   linkFunction?(
     path: string,
     children: string | React.ReactElement,
@@ -115,7 +116,7 @@ export interface MakerOptions {
       errorDetails: object,
       component: string
     ) => any
-    eventHandlerCatch?: (error: string) => React.ReactNode
+    eventHandlerCatch?: (error: string) => any
     showStackTrace?: boolean
     errorMessage?: {
       topbar?: React.ReactNode
@@ -130,10 +131,10 @@ export interface MakerOptions {
     }
   }
   workspace?: {
+    layout?: string // read only
     canvasType?: string
     canvasMaxWidth?: ResponsiveScale
     panelLeft?: {
-      collapsible?: boolean // Always collapsible on mobile
       width?: ResponsiveScale
       collapseWidth?: ResponsiveScale
       defaultOpen?: boolean

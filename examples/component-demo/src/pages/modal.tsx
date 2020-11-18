@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react'
+import * as React from 'react'
 import { Modal } from '@maker-ui/components'
 import PageSearch from '@maker-ui/page-search'
 // import { SEO } from '@maker-ui/seo'
 
 const ModalPage = () => {
-  const [show, set] = useState(false)
-  const ref = useRef(null)
+  const [show, set] = React.useState(false)
+  const ref = React.useRef(null)
 
   return (
     <div>
