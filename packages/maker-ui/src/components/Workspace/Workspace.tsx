@@ -1,30 +1,30 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { useEffect, useState } from 'react'
 
+import { MakerProps } from '../types'
 import { WorkspaceContext } from './WorkspaceContext'
-import { getLayoutType } from '../../utils/helper'
+import { useLayoutDetector } from '../../hooks/useLayoutDetector'
+import { getWorkspaceStyles } from '../../utils/styles-workspace'
+
+// Dot compatible JSX children
 import { Canvas } from './Canvas'
 import { Toolbar } from './Toolbar'
 import { Panel } from './Panel'
 
-const layoutTypes = [
-  'panel canvas panel',
-  'panel canvas',
-  'canvas panel',
-  'canvas',
-]
+interface WorkspaceProps
+  extends MakerProps,
+    React.HtmlHTMLAttributes<HTMLDivElement> {}
 
-export const Workspace = ({ children }) => {
-  const [debugMessage, setDebugMessage] = useState(false)
+export const Workspace = ({ variant, sx, children }: WorkspaceProps) => {
+  const { layout, showError } = useLayoutDetector('workspace', children)
 
-  useEffect(() => {
-    const currentLayout = getLayoutType('workspace', children)
-    // Get the current layout and pass to context
-  }, [])
   return (
-    <WorkspaceContext>
-      <div>{children}</div>
+    <WorkspaceContext variant={variant}>
+      <div
+        id="workspace"
+        sx={{ variant, ...getWorkspaceStyles(layout), ...sx }}>
+        {showError ? 'Error!' : children}
+      </div>
     </WorkspaceContext>
   )
 }

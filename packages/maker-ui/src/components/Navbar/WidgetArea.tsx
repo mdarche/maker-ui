@@ -27,3 +27,5 @@ export const WidgetArea = (props: WidgetProps) => {
     </div>
   ) : null
 }
+
+WidgetArea.displayName = 'WidgetArea'

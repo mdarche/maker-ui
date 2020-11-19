@@ -43,3 +43,5 @@ export const Layout = ({
     </ThemeProvider>
   )
 }
+
+Layout.displayName = 'MakerUI_Layout'

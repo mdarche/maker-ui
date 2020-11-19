@@ -22,3 +22,5 @@ export const Logo = ({ children }) => {
     </Link>
   )
 }
+
+Logo.displayName = 'Logo'

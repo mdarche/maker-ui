@@ -25,6 +25,8 @@ export const Div = forwardRef<HTMLDivElement, DivProps>(
   )
 )
 
+Div.displayName = 'Div'
+
 /** -----------------------   FLEX   -----------------------
  * Alias for `Flex` component props that includes all
  * HTML span tag attributes.
@@ -66,6 +68,8 @@ export const Flex = forwardRef<HTMLDivElement, any>(
     />
   )
 )
+
+Flex.displayName = 'Flex'
 
 /** -----------------------   GRID   -----------------------
  * Alias for `Div` component props that includes all
@@ -116,6 +120,8 @@ export const Grid = forwardRef<HTMLDivElement, any>(
   )
 )
 
+Grid.displayName = 'Grid'
+
 /** -----------------------   SPAN   -----------------------
  * Alias for `Div` component props that includes all
  * HTML div tag attributes.
@@ -135,6 +141,8 @@ export const Span = forwardRef<HTMLSpanElement, SpanProps>(
     <span ref={ref} sx={{ variant, ...sx }} {...props} />
   )
 )
+
+Span.displayName = 'Span'
 
 /** -----------------------   OLIST   -----------------------
  * Alias for `OList` component props that includes all
@@ -156,6 +164,8 @@ export const OList = forwardRef<HTMLOListElement, OListProps>(
   )
 )
 
+OList.displayName = 'OList'
+
 /** -----------------------   ULIST   -----------------------
  * Alias for `UList` component props that includes all
  * unordered list tag attributes.
@@ -176,6 +186,8 @@ export const UList = forwardRef<HTMLUListElement, UListProps>(
   )
 )
 
+UList.displayName = 'UList'
+
 /** -----------------------   LISTITEM   -----------------------
  * Alias for `ListItem` component props that includes all
  * list item tag attributes.
@@ -195,6 +207,8 @@ export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
     <li ref={ref} sx={{ variant, ...sx }} {...props} />
   )
 )
+
+ListItem.displayName = 'ListItem'
 
 /** -----------------------   SVG   -----------------------
  * Alias for `SVG` component props that includes all
@@ -219,6 +233,8 @@ export const SVG = forwardRef<SVGSVGElement, SVGProps>(
   )
 )
 
+SVG.displayName = 'SVG'
+
 /** -----------------------   BUTTON   -----------------------
  * Alias for `Button` component props that includes all
  * HTML button attributes.
@@ -238,6 +254,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     <button ref={ref} sx={{ variant, ...sx }} {...props} />
   )
 )
+
+Button.displayName = 'Button'
 
 /** -----------------------   LINK   -----------------------
  * Alias for `Link` component props that includes all
@@ -261,6 +279,8 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   )
 )
 
+Link.displayName = 'Link'
+
 /** -----------------------   IMAGE   -----------------------
  * Alias for `Image` component props that includes all
  * image tag attributes.
@@ -280,3 +300,5 @@ export const Image = forwardRef<HTMLImageElement, any>(
     <img ref={ref} alt={alt} src={src} sx={{ variant, ...sx }} {...props} />
   )
 )
+
+Image.displayName = 'Image'

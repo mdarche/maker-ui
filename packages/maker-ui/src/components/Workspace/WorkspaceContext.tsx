@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import * as React from 'react'
 
 const WorkspaceDataContext = React.createContext(null)
 const WorkspaceUpdateContext = React.createContext(null)
@@ -10,6 +10,7 @@ interface WorkspaceState {
 
 interface WorkspaceContextProps {
   layout?: WorkspaceState['layout']
+  variant?: string
   children: React.ReactNode
 }
 
@@ -22,9 +23,11 @@ interface WorkspaceContextProps {
 
 export const WorkspaceContext = ({
   layout,
+  variant,
   children,
 }: WorkspaceContextProps) => {
-  const [state, setState] = useState<WorkspaceState>({
+  const [state, setState] = React.useState<WorkspaceState>({
+    variant,
     layout,
   })
 
@@ -38,8 +41,8 @@ export const WorkspaceContext = ({
 }
 
 export function useWorkspace() {
-  const settings: WorkspaceState = useContext(WorkspaceDataContext)
-  const setState = useContext(WorkspaceUpdateContext)
+  const settings: WorkspaceState = React.useContext(WorkspaceDataContext)
+  const setState = React.useContext(WorkspaceUpdateContext)
 
   if (typeof settings === undefined) {
     throw new Error('useWorkspace must be called inside a Workspace component.')

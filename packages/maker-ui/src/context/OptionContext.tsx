@@ -53,8 +53,8 @@ function useOptionUpdater() {
   return setOptions
 }
 
-function useLayout() {
-  const { layout } = useContext(OptionContext)
+function useLayout(type?: 'content' | 'workspace') {
+  const { layout, workspace } = useContext(OptionContext)
   const dispatch = useContext(OptionUpdateContext)
 
   if (layout === undefined) {
@@ -63,11 +63,17 @@ function useLayout() {
     )
   }
 
-  function setLayout(newLayout) {
+  function setContentLayout(newLayout: string) {
     dispatch(state => ({ ...state, layout: newLayout }))
   }
 
-  return [layout, setLayout]
+  function setWorkspaceLayout(newLayout: string) {
+    dispatch(state => ({ ...state, workspace: { layout: newLayout } }))
+  }
+
+  return type === 'workspace'
+    ? [workspace.layout, setWorkspaceLayout]
+    : [layout, setContentLayout]
 }
 
 export { OptionProvider, useOptions, useOptionUpdater, useLayout }

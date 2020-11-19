@@ -41,8 +41,6 @@ export const TableofContents = ({
     )
 
     if (nodes.length) {
-      // Check if all nodes are same heading tag
-      console.log('nodes are ', nodes)
       const menu = nodes.reduce(
         (filtered, { id, innerText, offsetTop, tagName }) => {
           if (id) {

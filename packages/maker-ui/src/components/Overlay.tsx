@@ -42,3 +42,5 @@ export const Overlay = ({ show, toggle, type, bp }: OverlayProps) => {
     />
   )
 }
+
+Overlay.displayName = 'Overlay'

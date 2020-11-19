@@ -70,3 +70,5 @@ export const Skiplinks = (props: SkipLinkProps) => {
     </ul>
   ) : null
 }
+
+Skiplinks.displayName = 'Skiplinks'

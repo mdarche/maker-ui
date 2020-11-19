@@ -79,8 +79,7 @@ export function useFocus({
   useEffect(() => {
     if ((show && containerRef.current) || type === 'tabs') {
       const elements = containerRef.current.querySelectorAll(focusElements)
-      console.log('container ref is', containerRef.current)
-      console.log('elements are', elements)
+
       // console.log(
       //   'Made it here via tabs',
       //   containerRef.current.querySelectorAll('button')

@@ -35,3 +35,5 @@ export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
     </Button>
   )
 }
+
+ExpandButton.displayName = 'ExpandButton'

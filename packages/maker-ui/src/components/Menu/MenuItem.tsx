@@ -126,3 +126,5 @@ export const MenuItem = ({
     </li>
   )
 }
+
+MenuItem.displayName = 'MenuItem'

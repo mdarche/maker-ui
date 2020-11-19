@@ -20,22 +20,10 @@ interface SidebarProps
  */
 
 export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
-  (
-    {
-      id = 'primary-sidebar',
-      bg,
-      background,
-      variant = 'sidebar',
-      sx,
-      children,
-      ...props
-    },
-    ref
-  ) => {
+  ({ bg, background, variant = 'sidebar', sx, children, ...props }, ref) => {
     return (
       <div
         ref={ref}
-        id={id}
         className="sidebar"
         role="complementary"
         sx={{ bg, background, variant, ...sx }}

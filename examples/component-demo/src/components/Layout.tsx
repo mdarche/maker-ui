@@ -7,7 +7,9 @@ import {
   Content,
   Main,
   Footer,
+  Sidebar,
   SideNav,
+  Topbar,
   Workspace,
 } from 'maker-ui'
 import {
@@ -16,7 +18,7 @@ import {
   // CookieNotice,
 } from '@maker-ui/components'
 // import { SEOProvider } from '@maker-ui/seo'
-import { Fixed } from './Fixed'
+// import { Fixed } from './Fixed'
 import { options } from './options'
 import { theme } from './theme'
 
@@ -47,18 +49,9 @@ const menu = [
   { label: 'Workspace', path: '/workspace' },
 ]
 
-// const seo = {
-//   title: 'Components',
-//   description: 'Check out the Maker UI component showcase.',
-//   twitter: 'mkdarshay',
-//   titleTemplate: ' | Maker UI',
-//   siteUrl: 'http://localhost:8000',
-// }
-
 export default ({ children, location }) => (
   <Layout theme={theme} options={options}>
-    {/* <Topbar>Topbar content</Topbar> */}
-    <Announcement sx={{ p: 30 }}>This is an announcement</Announcement>
+    <Topbar>Topbar content</Topbar>
     <Header>
       <Navbar
         logo={'Components Demo'}
@@ -74,8 +67,8 @@ export default ({ children, location }) => (
     </Header>
     {location.pathname !== '/workspace' ? (
       <Content>
-        <SideNav menu={menu} />
         <Main>{children}</Main>
+        <SideNav menu={menu} />
       </Content>
     ) : (
       <Content>

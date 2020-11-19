@@ -61,4 +61,7 @@ export const defaultOptions: MakerOptions = {
   errors: {
     showStackTrace: false,
   },
+  workspace: {
+    layout: 'panel canvas',
+  },
 }

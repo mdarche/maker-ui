@@ -67,3 +67,5 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
     )
   }
 )
+
+CollapsibleMenu.displayName = 'CollapsibleMenu'

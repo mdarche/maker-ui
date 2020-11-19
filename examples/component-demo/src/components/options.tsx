@@ -44,14 +44,14 @@ export const options: MakerOptions = {
     maxWidth: [200, '100%'],
   },
   errors: {
-    logFunction: (error, errorInfo, component) => {
-      console.log(
-        'Coming in hot from the log function: ',
-        error,
-        errorInfo,
-        component
-      )
-    },
+    // logFunction: (error, errorInfo, component) => {
+    //   console.log(
+    //     'Coming in hot from the log function: ',
+    //     error,
+    //     errorInfo,
+    //     component
+    //   )
+    // },
     showStackTrace: true,
     errorMessage: {
       content: <div>Content</div>,

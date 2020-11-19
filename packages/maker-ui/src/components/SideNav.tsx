@@ -87,7 +87,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
         <Container
           isHeader={sideNav.isHeader}
           ref={ref}
-          id="side-nav"
+          id="sidenav"
           sx={{
             bg,
             background,

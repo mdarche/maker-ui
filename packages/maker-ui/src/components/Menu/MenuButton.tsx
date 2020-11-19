@@ -79,3 +79,5 @@ export const MenuButton = (props: MenuButtonProps) => {
     </Button>
   )
 }
+
+MenuButton.displayName = 'MenuButton'

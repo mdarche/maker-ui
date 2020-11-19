@@ -61,3 +61,5 @@ export const ColorButton = ({
   }
   return null
 }
+
+ColorButton.displayName = 'ColorButton'

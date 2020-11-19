@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { memo } from 'react'
 
 import { MenuProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
@@ -12,7 +11,7 @@ interface NavMenuProps {
   pathname?: string
 }
 
-export const NavMenu = memo(({ menuItems = [], pathname }: NavMenuProps) => {
+export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
   const { header, linkFunction } = useOptions()
 
   return (
@@ -34,4 +33,6 @@ export const NavMenu = memo(({ menuItems = [], pathname }: NavMenuProps) => {
       </ul>
     </nav>
   )
-})
+}
+
+NavMenu.displayName = 'NavMenu'
