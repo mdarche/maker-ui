@@ -41,7 +41,7 @@ export interface NavProps extends MakerProps {
  * @see https://maker-ui.com/components/navbar
  */
 
-export const Navbar = React.memo(({ type, ...props }: NavProps) => {
+export const Navbar = ({ type, ...props }: NavProps) => {
   const { navType, header } = useOptions()
   const setOptions = useOptionUpdater()
 
@@ -67,6 +67,6 @@ export const Navbar = React.memo(({ type, ...props }: NavProps) => {
     default:
       return <Basic {...props} />
   }
-})
+}
 
 Navbar.displayName = 'Navbar'

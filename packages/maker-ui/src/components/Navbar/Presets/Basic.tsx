@@ -55,3 +55,5 @@ export const Basic = ({
     </Flex>
   </Flex>
 )
+
+Basic.displayName = 'BasicNav'

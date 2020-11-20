@@ -51,3 +51,5 @@ export const Reverse = ({
     </Flex>
   </Flex>
 )
+
+Reverse.displayName = 'ReverseNav'

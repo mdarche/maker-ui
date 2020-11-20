@@ -73,10 +73,10 @@ export default ({ children, location }) => (
     ) : (
       <Content>
         <Workspace>
-          <Workspace.Toolbar />
-          <Workspace.Panel></Workspace.Panel>
+          {/* <Workspace.Toolbar>Toolbar</Workspace.Toolbar> */}
+          <Workspace.Panel>Panel</Workspace.Panel>
           <Workspace.Canvas>{children}</Workspace.Canvas>
-          <Workspace.Panel></Workspace.Panel>
+          <Workspace.Panel>Panel</Workspace.Panel>
         </Workspace>
       </Content>
     )}

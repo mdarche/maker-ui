@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui'
 
 import { MakerProps } from '../types'
 import { WorkspaceContext } from './WorkspaceContext'
+import { useOptions } from '../../context/OptionContext'
 import { useLayoutDetector } from '../../hooks/useLayoutDetector'
 import { getWorkspaceStyles } from '../../utils/styles-workspace'
 
@@ -16,13 +17,18 @@ interface WorkspaceProps
     React.HtmlHTMLAttributes<HTMLDivElement> {}
 
 export const Workspace = ({ variant, sx, children }: WorkspaceProps) => {
+  const { workspace } = useOptions()
   const { layout, showError } = useLayoutDetector('workspace', children)
 
   return (
     <WorkspaceContext variant={variant}>
       <div
         id="workspace"
-        sx={{ variant, ...getWorkspaceStyles(layout), ...sx }}>
+        sx={{
+          variant,
+          ...getWorkspaceStyles(layout, workspace),
+          ...sx,
+        }}>
         {showError ? 'Error!' : children}
       </div>
     </WorkspaceContext>

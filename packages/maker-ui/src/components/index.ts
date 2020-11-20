@@ -11,7 +11,7 @@ export { Footer } from './Footer'
 export { Section } from './Section'
 export { CollapsibleMenu } from './Menu'
 export { ErrorBoundary } from './ErrorBoundary'
-export { Workspace, PanelButton } from './Workspace'
+export { Workspace, PanelButton, useWorkspace } from './Workspace'
 export { Dock } from './Dock'
 export * from './Primitives'
 

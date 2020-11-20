@@ -130,16 +130,30 @@ export interface MakerOptions {
       section?: React.ReactNode
     }
   }
+  dock?: {
+    width?: ResponsiveScale
+    hideOnMobile?: boolean
+    breakIndex?: number
+  }
   workspace?: {
     layout?: string // read only
     canvasType?: string
     canvasMaxWidth?: ResponsiveScale
+    toolbarHeight?: ResponsiveScale
+    breakIndex?: number
     panelLeft?: {
       width?: ResponsiveScale
       collapseWidth?: ResponsiveScale
       defaultOpen?: boolean
       animationStyle?: 'slide' | 'scale'
-      breakIndex?: number
+      stickyContents?: boolean
+    }
+    panelRight?: {
+      width?: ResponsiveScale
+      collapseWidth?: ResponsiveScale
+      defaultOpen?: boolean
+      animationStyle?: 'slide' | 'scale'
+      stickyContents?: boolean
     }
   }
 }

@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { forwardRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MakerProps } from './types'
 import { ErrorBoundary } from './ErrorBoundary'
-import { useOptions } from '../context/OptionContext'
+import { useOptions, useOptionUpdater } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
 import { setBreakpoint } from '../utils/helper'
+import { useMeasure } from '../hooks/useMeasure'
 
 interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
@@ -23,10 +24,18 @@ interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  * @see https://maker-ui.com/docs/header
  */
 
-export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
-  const { header } = useOptions()
+export const Header = (props: HeaderProps) => {
+  const { header, layout } = useOptions()
   const [scrollClass, setScrollClass] = useState(null)
   const [show, setShow] = useState(true)
+  const [bind, { height }] = useMeasure(layout.includes('workspace'))
+  const setOptions = useOptionUpdater()
+
+  useEffect(() => {
+    if (height !== 0) {
+      setOptions({ measure: { header: height } })
+    }
+  }, [height])
 
   const {
     variant = 'header',
@@ -99,7 +108,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
 
   return (
     <header
-      ref={ref}
+      {...bind}
       id="site-header"
       className={scrollClass}
       role="banner"
@@ -115,6 +124,6 @@ export const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
       <ErrorBoundary errorKey="header">{children}</ErrorBoundary>
     </header>
   )
-})
+}
 
 Header.displayName = 'Header'

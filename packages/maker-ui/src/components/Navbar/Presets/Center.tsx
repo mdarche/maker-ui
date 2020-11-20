@@ -79,3 +79,5 @@ export const Center = ({
     </Flex>
   )
 }
+
+Center.displayName = 'CenterNav'

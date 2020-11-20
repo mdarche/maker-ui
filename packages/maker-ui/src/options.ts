@@ -62,6 +62,19 @@ export const defaultOptions: MakerOptions = {
     showStackTrace: false,
   },
   workspace: {
-    layout: 'panel canvas',
+    layout: 'panel canvas panel',
+    canvasMaxWidth: '100%',
+    toolbarHeight: '80px',
+    breakIndex: 0,
+    panelLeft: {
+      width: '.25fr',
+      collapseWidth: 0,
+      stickyContents: true,
+    },
+    panelRight: {
+      width: 300,
+      collapseWidth: 0,
+      stickyContents: true,
+    },
   },
 }

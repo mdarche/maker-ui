@@ -7,11 +7,18 @@ import { defaultOptions } from '../options'
 export const OptionContext = React.createContext(null)
 const OptionUpdateContext = React.createContext(null)
 
+interface OptionState extends MakerOptions {
+  measure?: {
+    header?: number
+    topbar?: number
+  }
+}
+
 // Provider
 
 const OptionProvider = ({ options = {}, children }) => {
-  const [state, dispatch] = useState<MakerOptions>(
-    merge(defaultOptions, options)
+  const [state, dispatch] = useState<OptionState>(
+    merge({ ...defaultOptions, measure: { header: 0, topbar: 0 } }, options)
   )
 
   return (
@@ -26,7 +33,7 @@ const OptionProvider = ({ options = {}, children }) => {
 // Usage Hooks
 
 function useOptions() {
-  const options: MakerOptions = useContext(OptionContext)
+  const options: OptionState = useContext(OptionContext)
 
   if (options === undefined) {
     throw new Error(

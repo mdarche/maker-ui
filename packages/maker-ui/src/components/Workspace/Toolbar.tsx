@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-export const Toolbar = () => {
-  return <div>Toolbar</div>
+export const Toolbar = ({ children }) => {
+  return <div className="workspace-toolbar">{children}</div>
 }
 
 Toolbar.displayName = 'Toolbar'

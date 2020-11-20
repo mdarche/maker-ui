@@ -20,7 +20,7 @@ interface ContentProps
  */
 
 export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
-  const { content } = useOptions()
+  const { content, measure } = useOptions()
   const { layout, showError } = useLayoutDetector('content', children)
 
   return (
@@ -28,7 +28,8 @@ export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
       id="site-inner"
       sx={{
         variant,
-        ...getLayoutStyles(layout, content.breakIndex),
+        position: 'relative',
+        ...getLayoutStyles(layout, content.breakIndex, measure),
         ...sx,
       }}
       {...props}>

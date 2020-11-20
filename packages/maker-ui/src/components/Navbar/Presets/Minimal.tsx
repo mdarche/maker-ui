@@ -92,3 +92,5 @@ export const Minimal = ({
     )}
   </Flex>
 )
+
+Minimal.displayName = 'MinimalNav'
