@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react'
+import * as React from 'react'
 
 const ActionContext = React.createContext(null)
 const ActionUpdateContext = React.createContext(null)
@@ -24,7 +24,7 @@ function reducer(state, action) {
 // Provider
 
 const ActionProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = React.useReducer(reducer, {
     menuActive: false,
     sideNavActive: false,
     leftPanelActive: true,
@@ -43,8 +43,8 @@ const ActionProvider = ({ children }) => {
 // Usage Hooks
 
 function useMenu() {
-  const { menuActive } = useContext(ActionContext)
-  const dispatch = useContext(ActionUpdateContext)
+  const { menuActive } = React.useContext(ActionContext)
+  const dispatch = React.useContext(ActionUpdateContext)
 
   if (typeof menuActive === undefined) {
     throw new Error('useMenu must be used within an Maker UI layout')
@@ -58,8 +58,8 @@ function useMenu() {
 }
 
 function useSideNav() {
-  const { sideNavActive } = useContext(ActionContext)
-  const dispatch = useContext(ActionUpdateContext)
+  const { sideNavActive } = React.useContext(ActionContext)
+  const dispatch = React.useContext(ActionUpdateContext)
 
   if (typeof sideNavActive === undefined) {
     throw new Error('useSideNav must be used within an Maker UI layout')

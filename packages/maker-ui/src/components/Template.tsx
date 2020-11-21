@@ -14,10 +14,10 @@ import { SideNav } from './SideNav'
 import { Sidebar } from './Sidebar'
 import { Footer } from './Footer'
 
-import { useOptions } from '../context/OptionContext'
+import { useLayout } from '../context/LayoutContext'
 
 const SiteInner = ({ sideNav, sidebar, menu, children }) => {
-  const { layout } = useOptions()
+  const [layout] = useLayout('content')
 
   switch (layout) {
     case 'content-sidebar':
@@ -113,8 +113,8 @@ export const Template = ({
           logo={logo}
           menu={menu}
           widgetArea={headerWidgets}
-          menuToggle={menuToggle}
-          colorToggle={colorToggle}
+          // menuToggle={menuToggle}
+          // colorToggle={colorToggle}
           pathname={pathname}
         />
         {mobileMenu === 'default' ? (

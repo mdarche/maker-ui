@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react'
 
 import { MakerProps } from './types'
 import { ErrorBoundary } from './ErrorBoundary'
-import { useOptions, useOptionUpdater } from '../context/OptionContext'
+import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
 import { setBreakpoint } from '../utils/helper'
 import { useMeasure } from '../hooks/useMeasure'
+import { useLayout, useMeasurements } from '../context/LayoutContext'
 
 interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
@@ -25,15 +26,17 @@ interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  */
 
 export const Header = (props: HeaderProps) => {
-  const { header, layout } = useOptions()
   const [scrollClass, setScrollClass] = useState(null)
   const [show, setShow] = useState(true)
+
+  const { header } = useOptions()
+  const [layout] = useLayout('content')
   const [bind, { height }] = useMeasure(layout.includes('workspace'))
-  const setOptions = useOptionUpdater()
+  const { setMeasurement } = useMeasurements()
 
   useEffect(() => {
     if (height !== 0) {
-      setOptions({ measure: { header: height } })
+      setMeasurement('height_header', height)
     }
   }, [height])
 

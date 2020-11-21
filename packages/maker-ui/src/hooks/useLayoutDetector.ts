@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { contentTypes, workspaceTypes } from '../utils/constants'
-import { useLayout } from '../context/OptionContext'
+import { useLayout } from '../context/LayoutContext'
 
 function layoutString(type: string, val: string) {
   let v = type === 'content' ? val.replace('main', 'content') : val

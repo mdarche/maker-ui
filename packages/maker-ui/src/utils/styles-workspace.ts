@@ -23,7 +23,15 @@ export const getWorkspaceStyles = (
     bottom: 0,
     display: 'grid',
     gridGap: 0,
+    '.workspace-panel, .workspace-canvas, .workspace-toolbar': {
+      overflow: 'hidden',
+    },
+    '.workspace-container': {
+      height: '100%',
+      overflowY: 'scroll',
+    },
     '.workspace-toolbar': {
+      overflowX: 'scroll',
       gridArea: 't',
     },
     '.workspace-panel': {
@@ -49,7 +57,11 @@ export const getWorkspaceStyles = (
         ...styles,
         gridTemplateRows: t => [
           `1fr`,
-          `${t.sizes.height_workspace_toolbar} 1fr`,
+          `${format(t.sizes.height_workspace_toolbar)} 1fr`,
+        ],
+        gridTemplateColumns: t => [
+          `1fr`,
+          `${format(t.sizes.width_panel_right)} 1fr`,
         ],
         gridTemplateAreas: `
         "t t"
@@ -61,7 +73,11 @@ export const getWorkspaceStyles = (
         ...styles,
         gridTemplateRows: t => [
           `1fr`,
-          `${t.sizes.height_workspace_toolbar} 1fr`,
+          `${format(t.sizes.height_workspace_toolbar)} 1fr`,
+        ],
+        gridTemplateColumns: t => [
+          `1fr`,
+          ` 1fr ${format(t.sizes.width_panel_right)}`,
         ],
         gridTemplateAreas: `
           "t t"
@@ -71,6 +87,16 @@ export const getWorkspaceStyles = (
     case 'toolbar panel canvas panel':
       return {
         ...styles,
+        gridTemplateRows: t => [
+          `1fr`,
+          `${format(t.sizes.height_workspace_toolbar)} 1fr`,
+        ],
+        gridTemplateColumns: t => [
+          `1fr`,
+          `${format(t.sizes.width_panel_left)} 1fr ${format(
+            t.sizes.width_panel_right
+          )}`,
+        ],
         gridTemplateAreas: `
         "t t t"
         "p c z"

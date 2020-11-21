@@ -7,6 +7,7 @@ import { MakerProps } from './types'
 import { useOptions } from '../context/OptionContext'
 import { getLayoutStyles } from '../utils/styles-layout'
 import { useLayoutDetector } from '../hooks/useLayoutDetector'
+import { useMeasurements } from '../context/LayoutContext'
 
 interface ContentProps
   extends MakerProps,
@@ -20,7 +21,8 @@ interface ContentProps
  */
 
 export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
-  const { content, measure } = useOptions()
+  const { content } = useOptions()
+  const { measurements } = useMeasurements()
   const { layout, showError } = useLayoutDetector('content', children)
 
   return (
@@ -29,7 +31,7 @@ export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
       sx={{
         variant,
         position: 'relative',
-        ...getLayoutStyles(layout, content.breakIndex, measure),
+        ...getLayoutStyles(layout, content.breakIndex, measurements),
         ...sx,
       }}
       {...props}>

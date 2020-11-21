@@ -12,6 +12,7 @@ import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
 import { setBreakpoint, format } from '../utils/helper'
+import { useLayout } from '../context/LayoutContext'
 
 const Container = ({ isHeader, ...props }) =>
   isHeader ? <header {...props} /> : <div {...props} />
@@ -56,7 +57,8 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     ref
   ) => {
     const [active, setActive] = useSideNav()
-    const { layout, sideNav } = useOptions()
+    const [layout] = useLayout('content')
+    const { sideNav } = useOptions()
 
     const bp = sideNav.breakIndex
     const customButton = customToggle || sideNav.customToggle

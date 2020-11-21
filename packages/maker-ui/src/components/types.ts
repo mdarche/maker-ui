@@ -31,7 +31,6 @@ export type MakerTheme = Theme
 
 export interface MakerOptions {
   navType?: string
-  layout?: string // readonly
   linkFunction?(
     path: string,
     children: string | React.ReactElement,
@@ -136,13 +135,13 @@ export interface MakerOptions {
     breakIndex?: number
   }
   workspace?: {
-    layout?: string // read only
     canvasType?: string
     canvasMaxWidth?: ResponsiveScale
     toolbarHeight?: ResponsiveScale
     breakIndex?: number
     panelLeft?: {
       width?: ResponsiveScale
+      collapsible?: boolean
       collapseWidth?: ResponsiveScale
       defaultOpen?: boolean
       animationStyle?: 'slide' | 'scale'
@@ -150,6 +149,7 @@ export interface MakerOptions {
     }
     panelRight?: {
       width?: ResponsiveScale
+      collapsible?: boolean
       collapseWidth?: ResponsiveScale
       defaultOpen?: boolean
       animationStyle?: 'slide' | 'scale'

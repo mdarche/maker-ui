@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 
+import { useLayout } from '../context/LayoutContext'
 import { useOptions } from '../context/OptionContext'
 
 export interface LinkItem {
@@ -22,7 +23,8 @@ interface SkipLinkProps {
  */
 
 export const Skiplinks = (props: SkipLinkProps) => {
-  const { layout, a11y } = useOptions()
+  const { a11y } = useOptions()
+  const [layout] = useLayout('content')
   let linkMenu: LinkItem[] = []
 
   if (props.links) {

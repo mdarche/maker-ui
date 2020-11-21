@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, MutableRefObject } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
 interface MeasureState {

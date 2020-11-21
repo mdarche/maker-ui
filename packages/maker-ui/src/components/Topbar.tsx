@@ -4,9 +4,10 @@ import { useEffect } from 'react'
 
 import { MakerProps, ResponsiveScale } from './types'
 import { ErrorBoundary } from './ErrorBoundary'
-import { useOptions, useOptionUpdater } from '../context/OptionContext'
+import { useOptions } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 import { useMeasure } from '../hooks/useMeasure'
+import { useLayout, useMeasurements } from '../context/LayoutContext'
 
 interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   bg?: string | string[]
@@ -29,13 +30,14 @@ export const Topbar = ({
   children,
   ...props
 }: TopbarProps) => {
-  const { topbar, layout } = useOptions()
+  const { topbar } = useOptions()
+  const [layout] = useLayout('content')
   const [bind, { height }] = useMeasure(layout.includes('workspace'))
-  const setOptions = useOptionUpdater()
+  const { setMeasurement } = useMeasurements()
 
   useEffect(() => {
     if (height !== 0) {
-      setOptions({ measure: { topbar: height } })
+      setMeasurement('height_topbar', height)
     }
   }, [height])
 

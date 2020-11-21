@@ -11,6 +11,7 @@ import {
   SideNav,
   Topbar,
   Workspace,
+  Div,
 } from 'maker-ui'
 import {
   Announcement,
@@ -66,21 +67,27 @@ export default ({ children, location }) => (
       {/* <MobileMenu menu={menu} closeButton={<div>Close!</div>} /> */}
     </Header>
     {location.pathname !== '/workspace' ? (
-      <Content>
-        <Main>{children}</Main>
-        <SideNav menu={menu} />
-      </Content>
+      <>
+        <Content>
+          <Main>{children}</Main>
+          <SideNav menu={menu} />
+        </Content>
+        <Footer>Footer</Footer>
+      </>
     ) : (
       <Content>
         <Workspace>
-          {/* <Workspace.Toolbar>Toolbar</Workspace.Toolbar> */}
-          <Workspace.Panel>Panel</Workspace.Panel>
+          <Workspace.Toolbar>Toolbar</Workspace.Toolbar>
+          <Workspace.Panel>
+            <Div sx={{ height: 1000 }}>test</Div>
+          </Workspace.Panel>
           <Workspace.Canvas>{children}</Workspace.Canvas>
-          <Workspace.Panel>Panel</Workspace.Panel>
+          <Workspace.Panel>
+            <Div sx={{ height: 1000 }}>test</Div>
+          </Workspace.Panel>
         </Workspace>
       </Content>
     )}
-    <Footer>Footer</Footer>
     {/* <CookieNotice /> */}
   </Layout>
 )

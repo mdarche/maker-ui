@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import * as React from 'react'
 import merge from 'deepmerge'
 
 import { MakerOptions } from '../components/types'
@@ -7,18 +7,11 @@ import { defaultOptions } from '../options'
 export const OptionContext = React.createContext(null)
 const OptionUpdateContext = React.createContext(null)
 
-interface OptionState extends MakerOptions {
-  measure?: {
-    header?: number
-    topbar?: number
-  }
-}
-
 // Provider
 
 const OptionProvider = ({ options = {}, children }) => {
-  const [state, dispatch] = useState<OptionState>(
-    merge({ ...defaultOptions, measure: { header: 0, topbar: 0 } }, options)
+  const [state, dispatch] = React.useState<MakerOptions>(
+    merge(defaultOptions, options)
   )
 
   return (
@@ -33,7 +26,7 @@ const OptionProvider = ({ options = {}, children }) => {
 // Usage Hooks
 
 function useOptions() {
-  const options: OptionState = useContext(OptionContext)
+  const options: MakerOptions = React.useContext(OptionContext)
 
   if (options === undefined) {
     throw new Error(
@@ -45,7 +38,7 @@ function useOptions() {
 }
 
 function useOptionUpdater() {
-  const dispatch = useContext(OptionUpdateContext)
+  const dispatch = React.useContext(OptionUpdateContext)
 
   if (dispatch === undefined) {
     throw new Error(
@@ -60,27 +53,4 @@ function useOptionUpdater() {
   return setOptions
 }
 
-function useLayout(type?: 'content' | 'workspace') {
-  const { layout, workspace } = useContext(OptionContext)
-  const dispatch = useContext(OptionUpdateContext)
-
-  if (layout === undefined) {
-    throw new Error(
-      'useLayout must be used within an Maker UI Layout component'
-    )
-  }
-
-  function setContentLayout(newLayout: string) {
-    dispatch(state => ({ ...state, layout: newLayout }))
-  }
-
-  function setWorkspaceLayout(newLayout: string) {
-    dispatch(state => ({ ...state, workspace: { layout: newLayout } }))
-  }
-
-  return type === 'workspace'
-    ? [workspace.layout, setWorkspaceLayout]
-    : [layout, setContentLayout]
-}
-
-export { OptionProvider, useOptions, useOptionUpdater, useLayout }
+export { OptionProvider, useOptions, useOptionUpdater }

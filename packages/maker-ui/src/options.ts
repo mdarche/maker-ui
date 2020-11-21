@@ -2,7 +2,6 @@ import { MakerOptions } from './components/types'
 
 export const defaultOptions: MakerOptions = {
   navType: 'basic',
-  layout: 'initial',
   topbar: {
     maxWidth: 1260,
     hideOnMobile: false,
@@ -62,9 +61,8 @@ export const defaultOptions: MakerOptions = {
     showStackTrace: false,
   },
   workspace: {
-    layout: 'panel canvas panel',
     canvasMaxWidth: '100%',
-    toolbarHeight: '80px',
+    toolbarHeight: 40,
     breakIndex: 0,
     panelLeft: {
       width: '.25fr',

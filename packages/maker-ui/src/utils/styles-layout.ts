@@ -1,4 +1,5 @@
 import { format, setBreakpoint } from './helper'
+import { LayoutState } from '../context/LayoutContext'
 
 /**
  * Internal Maker UI variants for page content layouts
@@ -22,7 +23,11 @@ const sidebarPartial = (layout: string) =>
       }
     : null
 
-export const getLayoutStyles = (layout: string, bp: number, measurements: any) => {
+export const getLayoutStyles = (
+  layout: string,
+  bp: number,
+  measurements: LayoutState
+) => {
   // Sidebar Layouts
   if (layout && layout.includes('sidebar')) {
     return {
@@ -69,16 +74,12 @@ export const getLayoutStyles = (layout: string, bp: number, measurements: any) =
 
   // Workspace Layouts
   if (layout && layout.includes('workspace')) {
-    console.log('measurements are', measurements)
     return {
       display: 'flex',
       width: '100%',
       height: `calc(100vh - ${format(
-        measurements.header + measurements.topbar
+        measurements.height_header + measurements.height_topbar
       )})`,
-      '#workspace': {
-        flex: 1,
-      },
     }
   }
 
