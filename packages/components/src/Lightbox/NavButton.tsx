@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { MakerProps, Button } from 'maker-ui'
 
 import { DefaultArrow } from '../icons'
@@ -63,3 +63,5 @@ export const NavButton = ({
     {arrow || <DefaultArrow />}
   </Button>
 )
+
+NavButton.displayName = 'LightboxNavButton'

@@ -9,6 +9,12 @@ import { ColorButton } from '../ColorButton'
 import { NavMenu, MenuButton } from '../../Menu'
 import { headerStyles } from './shared-styles'
 
+/**
+ * Formats the inner layout styles for `basic` and `basic-left` nav types.
+ *
+ * @internal usage only
+ */
+
 export const Basic = ({
   logo = 'logo',
   menu,
@@ -18,7 +24,7 @@ export const Basic = ({
   customColorButton,
   widgetArea,
   bp,
-  layout,
+  type,
   maxWidth,
   variant = 'navbar',
   sx,
@@ -36,9 +42,11 @@ export const Basic = ({
     <Logo>{logo}</Logo>
     <Flex
       align="center"
-      flex={layout === 2 ? 1 : 'initial'}
+      flex={type === 'basic-left' ? 1 : 'initial'}
       justify={
-        layout === 2 ? setBreakpoint(bp, ['flex-end', 'space-between']) : null
+        type === 'basic-left'
+          ? setBreakpoint(bp, ['flex-end', 'space-between'])
+          : null
       }>
       <NavMenu menuItems={menu} />
       <Flex align="center">

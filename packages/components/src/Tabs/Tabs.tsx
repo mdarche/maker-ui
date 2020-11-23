@@ -74,4 +74,5 @@ export const Tabs = ({
   )
 }
 
+Tabs.displayName = 'Tabs'
 Tabs.Panel = TabPanel

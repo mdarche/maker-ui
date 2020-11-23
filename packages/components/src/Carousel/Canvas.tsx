@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Div } from 'maker-ui'
 import { useTransition } from 'react-spring'
 
@@ -35,14 +35,14 @@ const getTransition = (type, next) => {
 interface CanvasProps {
   currentIndex: number
   slides?: any
-  transition?: string
+  transition?: 'slide' | 'fade' | 'slide-fade'
   config?: Object
   next?: boolean
 }
 
 /**
- * The `Canvas` component creates an animated dive for paging through
- * the `Carousel`'s slides.
+ * The `Canvas` component creates an animated div for paging through
+ * the carousel slides.
  *
  * @internal usage only
  */
@@ -79,3 +79,5 @@ export const Canvas = React.memo(
     )
   }
 )
+
+Canvas.displayName = 'CarouselCanvas'

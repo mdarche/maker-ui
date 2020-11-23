@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import * as React from 'react'
 import { Div, DivProps, generateId } from 'maker-ui'
 
 import { useTabs } from './TabContext'
@@ -13,13 +13,15 @@ export interface TabPanelProps extends Omit<DivProps, 'title'> {
 /**
  * The `Tab` component is a direct child of `TabGroup` and is used to wrap custom tab content.
  *
- * @see https://maker-ui.com/docs/components/tab
+ * @see https://maker-ui.com/docs/components/tabs
  */
 
 export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
   ({ title, eventKey, open = false, disabled = false, sx, ...props }, ref) => {
-    const [id] = useState(() => (eventKey ? eventKey.toString() : generateId()))
-    const [panelId] = useState(generateId())
+    const [id] = React.useState(() =>
+      eventKey ? eventKey.toString() : generateId()
+    )
+    const [panelId] = React.useState(generateId())
 
     const {
       state: { variant, activeId, renderInactive },
@@ -27,7 +29,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     } = useTabs()
     const tabItem = { id, panelId, title, disabled }
 
-    useEffect(() => {
+    React.useEffect(() => {
       addToTabGroup(tabItem, open)
     }, [addToTabGroup, tabItem, open])
 

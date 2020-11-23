@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react'
+import * as React from 'react'
 import { Div, DivProps } from 'maker-ui'
 import { animated as a, useSpring } from 'react-spring'
 
 import { format, getSign } from './helper'
 
-const AnimatedBox = a(Div)
+const AnimatedDiv = a(Div)
 
 const getTransform = ({ direction, distance }, show) => {
   switch (direction) {
@@ -50,8 +50,8 @@ export const FadeBox = ({
   settings = { direction: 'up', distance: 20 },
   ...props
 }: FadeBoxProps) => {
-  const ref = useRef(null)
-  const [show, set] = useState(false)
+  const ref = React.useRef(null)
+  const [show, set] = React.useState(false)
   const fadeProps = direction ? { direction, distance } : settings
 
   const reveal = useSpring({
@@ -60,7 +60,7 @@ export const FadeBox = ({
     config: springConfig,
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleScroll = e =>
       !show && window.pageYOffset > ref.current.offsetTop - offset
         ? set(true)
@@ -73,5 +73,7 @@ export const FadeBox = ({
   }, [show, offset])
 
   // @ts-ignore
-  return <AnimatedBox style={reveal} ref={ref} {...props} />
+  return <AnimatedDiv style={reveal} ref={ref} {...props} />
 }
+
+FadeBox.displayName = 'FadeBox'

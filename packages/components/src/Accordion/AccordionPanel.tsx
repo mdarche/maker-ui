@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import * as React from 'react'
 import { Div, DivProps, Button, generateId } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
@@ -15,7 +15,7 @@ export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
 }
 
 /**
- * The `AccordionPanel` component wraps your collapsible accordion content.
+ * The `AccordionPanel` component wraps all collapsible accordion content.
  *
  * @see https://maker-ui.com/docs/components/accordion-panel
  */
@@ -39,19 +39,21 @@ export const AccordionPanel = React.forwardRef<
     ref
   ) => {
     const { state, registerPanel, setActivePanel } = useAccordion()
-    const [show, set] = useState(
+    const [show, set] = React.useState(
       state.showSingle && state.index === eventKey ? true : open
     )
-    const [buttonId] = useState(generateId())
-    const [panelId] = useState(generateId())
-    const [panelKey] = useState(() => (eventKey ? eventKey : generateId()))
+    const [buttonId] = React.useState(generateId())
+    const [panelId] = React.useState(generateId())
+    const [panelKey] = React.useState(() =>
+      eventKey ? eventKey : generateId()
+    )
     const [bind, { height: viewHeight }] = useMeasure()
 
-    useEffect(() => {
+    React.useEffect(() => {
       registerPanel(panelKey)
     }, [registerPanel, panelKey])
 
-    useEffect(() => {
+    React.useEffect(() => {
       if (state.showSingle) {
         return state.activeKey !== panelKey ? set(false) : set(true)
       }
@@ -145,3 +147,5 @@ export const AccordionPanel = React.forwardRef<
     )
   }
 )
+
+AccordionPanel.displayName = 'AccordionPanel'

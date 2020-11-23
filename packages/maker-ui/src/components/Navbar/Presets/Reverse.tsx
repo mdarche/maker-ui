@@ -10,6 +10,12 @@ import { NavMenu, MenuButton } from '../../Menu'
 
 import { headerStyles } from './shared-styles'
 
+/**
+ * Formats the inner layout styles for the `reverse` nav type.
+ *
+ * @internal usage only
+ */
+
 export const Reverse = ({
   variant = 'navbar',
   logo = 'logo',

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { Announcement, AnnouncementProps } from './Announcement'
 
@@ -42,3 +42,5 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     )
   }
 )
+
+CookieNotice.displayName = 'CookieNotice'

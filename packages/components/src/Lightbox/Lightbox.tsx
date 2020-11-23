@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import * as React from 'react'
 
 import { LightboxContext, LightboxData } from './LightboxContext'
 import { LightboxModal } from './LightboxModal'
@@ -12,7 +12,7 @@ interface LightboxProps extends ModalProps {
 }
 
 /**
- * Use the `Lightbox` component to show and customize a lightbox gallery or detail view.
+ * The `Lightbox` component displays a modal lightbox gallery or detail view.
  *
  * @see https://maker-ui.com/docs/components/lightbox
  */
@@ -25,10 +25,10 @@ export const Lightbox = ({
   children,
   ...props
 }: LightboxProps) => {
-  useEffect(() => {
+  React.useEffect(() => {
     if (!show && toggle !== undefined) {
       return () => {
-        toggle(false)
+        toggle()
       }
     }
   }, [toggle, show])
@@ -42,4 +42,5 @@ export const Lightbox = ({
   )
 }
 
+Lightbox.displayName = 'Lightbox'
 Lightbox.Link = LightboxLink

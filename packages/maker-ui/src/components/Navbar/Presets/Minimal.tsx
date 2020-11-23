@@ -11,7 +11,14 @@ import { MenuButton } from '../../Menu'
 import { headerStyles } from './shared-styles'
 
 const getStyles = type =>
-  type === 3 ? headerStyles.columns : headerStyles.default
+  type === 'minimal-center' ? headerStyles.columns : headerStyles.default
+
+/**
+ * Formats the inner layout styles for `minimal` and `minimal-center` and
+ * `minimal-left` nav types.
+ *
+ * @internal usage only
+ */
 
 export const Minimal = ({
   variant = 'navbar',
@@ -22,7 +29,7 @@ export const Minimal = ({
   colorButtonInner,
   customColorButton,
   maxWidth,
-  layout,
+  type,
   sx,
   ...props
 }: NavProps) => (
@@ -30,12 +37,12 @@ export const Minimal = ({
     variant={variant}
     // @ts-ignore
     sx={{
-      ...getStyles(layout),
+      ...getStyles(type),
       maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
       ...sx,
     }}
     {...props}>
-    {layout === 1 ? (
+    {type === 'minimal' ? (
       <>
         <Logo>{logo}</Logo>
         <Flex align="center">
@@ -51,7 +58,7 @@ export const Minimal = ({
           />
         </Flex>
       </>
-    ) : layout === 2 ? (
+    ) : type === 'minimal-left' ? (
       <>
         <Flex align="center">
           <MenuButton

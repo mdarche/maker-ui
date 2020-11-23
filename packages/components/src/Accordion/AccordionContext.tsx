@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import * as React from 'react'
 
 const AccordionDataContext = React.createContext(null)
 const AccordionUpdateContext = React.createContext(null)
@@ -27,7 +27,7 @@ export const AccordionContext = ({
   showSingle,
   children,
 }: AccordionContextProps) => {
-  const [state, setState] = useState({
+  const [state, setState] = React.useState({
     activeKey,
     panelKeys: [],
     icon,
@@ -35,7 +35,7 @@ export const AccordionContext = ({
     showSingle,
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     setState(state => ({ ...state, activeKey }))
   }, [activeKey])
 
@@ -48,9 +48,11 @@ export const AccordionContext = ({
   )
 }
 
+AccordionContext.displayName = 'AccordionContext'
+
 export function useAccordion() {
-  const state = useContext(AccordionDataContext)
-  const setState = useContext(AccordionUpdateContext)
+  const state = React.useContext(AccordionDataContext)
+  const setState = React.useContext(AccordionUpdateContext)
 
   if (typeof state === undefined) {
     throw new Error('Panel must be used within an Accordion component')

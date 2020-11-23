@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import * as React from 'react'
 import merge from 'deepmerge'
 import { generateId } from 'maker-ui'
 
@@ -59,7 +59,7 @@ export const LightboxContext = ({
   data = [],
   children,
 }: LightboxContextProps) => {
-  const [state, setState] = useState<LightboxState>({
+  const [state, setState] = React.useState<LightboxState>({
     index: 0,
     active: false,
     data: data.map(i => formatData(i)),
@@ -74,9 +74,18 @@ export const LightboxContext = ({
   )
 }
 
+LightboxContext.displayName = 'LightboxContext'
+
+/**
+ * Browser hook that registers all lightbox links and data as well as control
+ * of the lightbox state.
+ *
+ * @internal usage only
+ */
+
 export function useLightbox() {
-  const { active, index, data } = useContext(LightboxDataContext)
-  const setState = useContext(LightboxUpdateContext)
+  const { active, index, data } = React.useContext(LightboxDataContext)
+  const setState = React.useContext(LightboxUpdateContext)
 
   if (typeof data === undefined) {
     throw new Error('useLightbox must be used within a Lightbox component')

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import * as React from 'react'
 
 const TabDataContext = React.createContext(null)
 const TabUpdateContext = React.createContext(null)
@@ -35,14 +35,14 @@ export const TabContext = ({
   renderInactive = false,
   children,
 }: TabContextProps) => {
-  const [state, setState] = useState<TabState>({
+  const [state, setState] = React.useState<TabState>({
     activeId: activeKey,
     tabs: [],
     variant,
     renderInactive,
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (activeKey === 0) {
       setState(state => ({ ...state, activeId: state.tabs[0].id }))
     } else {
@@ -59,9 +59,17 @@ export const TabContext = ({
   )
 }
 
+TabContext.displayName = 'TabContext'
+
+/**
+ * Hook for registering tab panels and tracking the currently active tab.
+ *
+ * @internal usage only
+ */
+
 export function useTabs() {
-  const state: TabState = useContext(TabDataContext)
-  const setState = useContext(TabUpdateContext)
+  const state: TabState = React.useContext(TabDataContext)
+  const setState = React.useContext(TabUpdateContext)
 
   if (typeof state === undefined) {
     throw new Error('Tab must be used within a TabGroup component')

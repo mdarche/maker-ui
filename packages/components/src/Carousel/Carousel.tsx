@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import * as React from 'react'
 import { Div, MakerProps } from 'maker-ui'
 import { animated as a } from 'react-spring'
 
@@ -19,7 +19,7 @@ export interface CarouselProps extends MakerProps {
   hideControls?: boolean
   pause?: boolean
   arrow?: React.ReactElement
-  transition?: string
+  transition?: 'fade' | 'slide' | 'slide-fade'
   duration?: number
   config?: Object
 }
@@ -83,7 +83,7 @@ export const Carousel = React.forwardRef(
     }: CarouselProps,
     ref
   ) => {
-    const [state, dispatch] = useReducer(reducer, {
+    const [state, dispatch] = React.useReducer(reducer, {
       index: 0,
       count: data.length,
       nextSlide: false,
@@ -94,7 +94,7 @@ export const Carousel = React.forwardRef(
     // @ts-ignore
     const prev = () => dispatch({ type: 'previous' })
 
-    useEffect(() => {
+    React.useEffect(() => {
       if (autoPlay && !pause) {
         const auto = setTimeout(() => {
           next()
@@ -156,3 +156,5 @@ export const Carousel = React.forwardRef(
     )
   }
 )
+
+Carousel.displayName = 'Carousel'

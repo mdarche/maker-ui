@@ -32,7 +32,6 @@ export type MakerTheme = Theme
  */
 
 export interface MakerOptions {
-  navType?: string
   linkFunction?(
     path: string,
     children: string | React.ReactElement,

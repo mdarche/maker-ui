@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { useThemeUI } from 'theme-ui'
 import { SVG, SVGProps } from 'maker-ui'
 
@@ -9,14 +9,13 @@ const defaultColors = {
 }
 
 export interface SpinnerProps extends SVGProps {
-  type?: string
+  type?: 'default' | 'pulse' | 'rotate' | 'blocks' | 'scale'
   size?: number
   colors?: {
     primary?: string
     secondary?: string
     tertiary?: string
   }
-  ref?: any
 }
 
 /**
@@ -26,21 +25,26 @@ export interface SpinnerProps extends SVGProps {
  * @see https://maker-ui.com/docs/components/spinner
  */
 
-export const Spinner = React.forwardRef<SVGSVGElement, SpinnerProps>(
-  ({ type = 'default', size = 80, colors = defaultColors, ...props }, ref) => {
-    switch (type) {
-      case 'pulse':
-        return <Pulse ref={ref} size={size} colors={colors} {...props} />
-      case 'rotate':
-        return <Rotate ref={ref} size={size} colors={colors} {...props} />
-      case 'blocks':
-        return <Blocks ref={ref} size={size} colors={colors} {...props} />
-      case 'scale':
-      default:
-        return <Scale ref={ref} size={size} colors={colors} {...props} />
-    }
+export const Spinner = ({
+  type = 'default',
+  size = 80,
+  colors = defaultColors,
+  ...props
+}: SpinnerProps) => {
+  switch (type) {
+    case 'pulse':
+      return <Pulse size={size} colors={colors} {...props} />
+    case 'rotate':
+      return <Rotate size={size} colors={colors} {...props} />
+    case 'blocks':
+      return <Blocks size={size} colors={colors} {...props} />
+    case 'scale':
+    default:
+      return <Scale size={size} colors={colors} {...props} />
   }
-)
+}
+
+Spinner.displayName = 'Spinner'
 
 // Blocks
 

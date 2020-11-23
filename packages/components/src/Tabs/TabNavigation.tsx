@@ -59,8 +59,8 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
   const { state, setActive } = useTabs()
 
   if (ref) {
-    const elements = ref.querySelectorAll('button')
-    console.log('new elements are', elements)
+    // const elements = ref.querySelectorAll('button')
+    // console.log('new elements are', elements)
     // useFocus({
     //   type: 'tabs',
     //   containerRef: ref,
@@ -103,3 +103,5 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
     </Flex>
   )
 }
+
+TabNavigation.displayName = 'TabNavigation'

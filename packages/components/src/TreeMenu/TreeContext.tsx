@@ -1,7 +1,13 @@
-import React, { useState, useContext } from 'react'
+import * as React from 'react'
 import { MaybeElement, ResponsiveScale } from 'maker-ui'
 
 const TreeDataContext = React.createContext(null)
+
+interface TreeState extends Omit<TreeContextProps, 'buttons' | 'children'> {
+  expand: MaybeElement
+  collapse: MaybeElement
+  neutral: MaybeElement
+}
 
 export interface TreeContextProps {
   buttons?: {
@@ -29,7 +35,7 @@ export const TreeContext = ({
   clickableText,
   children,
 }: TreeContextProps) => {
-  const [state] = useState({
+  const [state] = React.useState<TreeState>({
     expand: buttons.expand,
     collapse: buttons.collapse,
     neutral: buttons.neutral,
@@ -44,8 +50,16 @@ export const TreeContext = ({
   )
 }
 
+TreeContext.displayName = 'TreeContext'
+
+/**
+ * Hook for passing tree menu configuration to all child components.
+ *
+ * @internal usage only
+ */
+
 export function useTreeData() {
-  const state: any = useContext(TreeDataContext)
+  const state: TreeState = React.useContext(TreeDataContext)
 
   if (typeof state === undefined) {
     throw new Error('TreeItem must be used inside a TreeMenu component')

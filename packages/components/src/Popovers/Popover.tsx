@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useCallback, useRef } from 'react'
+import * as React from 'react'
 import { useTransition, animated as a } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
@@ -14,7 +14,7 @@ export interface Position {
 }
 export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
-  toggle: Function
+  toggle: (state?: boolean) => void
   anchorRef?: React.MutableRefObject<any>
   anchorWidth?: boolean
   position?: Position
@@ -33,7 +33,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'fade-left'
     | 'fade-right'
     | 'scale' // Used for dropdown menu only
-  children: string | React.ReactElement | React.ReactElement[]
+  children: React.ReactNode
 }
 
 const getTransform = (type: string) => {
@@ -58,7 +58,7 @@ const getTransform = (type: string) => {
  * Use the `Popover` to customize your own components, otherwise try out the pre-configured
  * `Tooltip` or `Dropdown` components.
  *
- * @see https://maker-ui.com/docs/components/popover
+ * @see https://maker-ui.com/docs/components/popovers
  * @todo - refactor with useMeasure Resize Observer
  */
 
@@ -83,13 +83,13 @@ export const Popover = ({
   children,
   ...rest
 }: PopoverProps) => {
-  const popoverRef = useRef(null)
+  const popoverRef = React.useRef(null)
+  const [width, setWidth] = React.useState(0)
+  const [height, setHeight] = React.useState(0)
+  const [initialRender, setInitialRender] = React.useState(true)
   const [box] = usePosition(anchorRef)
-  const [width, setWidth] = useState(0)
-  const [height, setHeight] = useState(0)
-  const [initialRender, setInitialRender] = useState(true)
 
-  const measuredRef = useCallback(
+  const measuredRef = React.useCallback(
     node => {
       if (node !== null && height === 0) {
         setHeight(node.offsetHeight)
@@ -109,14 +109,14 @@ export const Popover = ({
     trapFocus,
   })
 
-  useLayoutEffect(() => {
+  React.useEffect(() => {
     if (transition === 'scale') {
       setInitialRender(false)
       toggle(false)
     }
   }, [transition, toggle])
 
-  useLayoutEffect(() => {
+  React.useEffect(() => {
     if (!box) return
     if (anchorWidth) {
       setWidth(box.width)
@@ -206,3 +206,5 @@ export const Popover = ({
     </Portal>
   )
 }
+
+Popover.displayName = 'Popover'

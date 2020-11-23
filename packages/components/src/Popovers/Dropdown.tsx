@@ -1,17 +1,24 @@
-import React, { useState, useRef } from 'react'
+import * as React from 'react'
 import { Button, Div } from 'maker-ui'
 
 import { Popover } from './Popover'
 
 interface DropdownProps {
   buttonVariant?: string | string[]
-  buttonInner?: string | React.ReactElement
+  buttonInner?: React.ReactNode
   matchWidth?: boolean
   trapFocus?: boolean
   closeOnBlur?: boolean
   sx?: any
-  children: React.ReactElement | React.ReactElement[]
+  children: React.ReactNode
 }
+
+/**
+ * The `Dropdown` component is a pre-built popover for revealing a menu or supplemental
+ * content. It returns a customizable button and the corresponding dropdown content.
+ *
+ * @see https://maker-ui.com/docs/components/popovers
+ */
 
 export const Dropdown = ({
   buttonVariant = 'dropdownButton',
@@ -22,9 +29,9 @@ export const Dropdown = ({
   sx,
   children,
 }: DropdownProps) => {
-  const buttonRef = useRef(null)
-  const dropdownRef = useRef(null)
-  const [show, toggle] = useState(true)
+  const buttonRef = React.useRef(null)
+  const dropdownRef = React.useRef(null)
+  const [show, toggle] = React.useState(true)
 
   return (
     <>
@@ -54,3 +61,5 @@ export const Dropdown = ({
     </>
   )
 }
+
+Dropdown.displayName = 'Dropdown'

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Flex } from 'maker-ui'
 import { animated as a, useTransition } from 'react-spring'
 
@@ -26,7 +26,7 @@ export interface PageTransitionProps {
 
 /**
  * The `PageTransition` component wraps your content in a transition container. See docs
- * for curretly supported transitions.
+ * for currently supported transitions.
  *
  * @see https://maker-ui.com/docs/components/page-transition
  */
@@ -58,3 +58,5 @@ export const PageTransition = ({
     </Flex>
   ))
 }
+
+PageTransition.displayName = 'PageTransition'

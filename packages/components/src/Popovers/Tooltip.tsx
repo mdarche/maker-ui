@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import * as React from 'react'
 import { Button, Div, DivProps, ResponsiveScale, generateId } from 'maker-ui'
 
 import { Popover, Position } from './Popover'
@@ -57,8 +57,8 @@ function convertPosition(
 }
 
 interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
-  label: string | React.ReactElement
-  children: string | React.ReactElement
+  label: React.ReactNode
+  children: React.ReactNode
   bg?: ResponsiveScale
   color?: ResponsiveScale
   gap?: number
@@ -68,6 +68,14 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
   position?: 'top' | 'bottom' | 'left' | 'right'
   buttonSx?: any
 }
+
+/**
+ * The `Tooltip` component is a traditional tooltip element for revealing
+ * additional information on hover. It includes a wrapper element as well as semantically
+ * correct button toggle.
+ *
+ * @see https://maker-ui.com/docs/components/popovers
+ */
 
 export const Tooltip = ({
   label,
@@ -81,13 +89,11 @@ export const Tooltip = ({
   sx,
   children,
 }: TooltipProps) => {
-  const buttonRef = useRef(null)
-  const [show, toggle] = useState(false)
-  const [tooltipId] = useState(generateId())
+  const buttonRef = React.useRef(null)
+  const [show, toggle] = React.useState(false)
+  const [tooltipId] = React.useState(generateId())
 
   const positionData = convertPosition(position, bg, gap)
-
-  // console.log('Position is', positionData.position)
 
   const styles = {
     bg,
@@ -133,3 +139,5 @@ export const Tooltip = ({
     </Div>
   )
 }
+
+Tooltip.displayName = 'Tooltip'

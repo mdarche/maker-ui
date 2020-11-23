@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import * as React from 'react'
 import { Button, Span, Link, Div, DivProps } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
@@ -6,8 +6,8 @@ import { useMeasure } from '../_hooks'
 import { useTreeData } from './TreeContext'
 
 function usePrevious(value: any): any {
-  const ref = useRef()
-  useEffect(() => void (ref.current = value), [value])
+  const ref = React.useRef()
+  React.useEffect(() => void (ref.current = value), [value])
   return ref.current
 }
 
@@ -19,7 +19,7 @@ export interface TreeItemProps extends DivProps {
 }
 
 /**
- * The `TreeBranch` component is a direct child of `TreeMenu` and is used to wrap text, links,
+ * The `TreeItem` component is a direct child of `TreeMenu` and is used to wrap text, links,
  * or custom React components.
  *
  * @see https://maker-ui.com/docs/components/tree-menu
@@ -27,7 +27,7 @@ export interface TreeItemProps extends DivProps {
 
 export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
   ({ text, link, newTab, open = false, sx, children, ...props }, ref) => {
-    const [isOpen, setOpen] = useState(open)
+    const [isOpen, setOpen] = React.useState(open)
     const {
       clickableText,
       variant,
@@ -122,3 +122,5 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
     )
   }
 )
+
+TreeItem.displayName = 'TreeItem'

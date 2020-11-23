@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import * as React from 'react'
 import { Div, Image } from 'maker-ui'
 import { useTransition, animated as a } from 'react-spring'
 
@@ -24,7 +24,7 @@ interface MediaFrameProps {
 const MediaFrame = ({
   item: { src, alt, youtubeId, vimeoId, htmlVideo, poster },
 }: MediaFrameProps) => {
-  const [show, set] = useState(false)
+  const [show, set] = React.useState(false)
 
   if (youtubeId || vimeoId) {
     return (
@@ -61,6 +61,8 @@ const MediaFrame = ({
 
   return null
 }
+
+MediaFrame.displayName = 'MediaFrame'
 
 interface CanvasProps {
   variant?: string | string[]
@@ -156,3 +158,5 @@ export const Canvas = ({
       )
   )
 }
+
+Canvas.displayName = 'LightboxCanvas'

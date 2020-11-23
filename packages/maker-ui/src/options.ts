@@ -1,7 +1,6 @@
 import { MakerOptions } from './components/types'
 
 export const defaultOptions: MakerOptions = {
-  navType: 'basic',
   topbar: {
     maxWidth: 1260,
     hideOnMobile: false,

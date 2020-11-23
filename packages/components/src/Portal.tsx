@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { createPortal } from 'react-dom'
 
 interface PortalProps {
@@ -25,3 +25,5 @@ export const Portal = ({ children, root }: PortalProps) => {
   }
   return <>children</>
 }
+
+Portal.displayName = 'Portal'

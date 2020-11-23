@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import * as React from 'react'
 import { Grid, Button } from 'maker-ui'
 
 import { LightboxData } from './LightboxContext'
@@ -19,10 +19,10 @@ interface PreviewProps {
  */
 
 export const Preview = ({ variant, index, set, data, show }: PreviewProps) => {
-  const ref = useRef(null)
+  const ref = React.useRef(null)
   const handleClick = i => set(i)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (show) {
       setTimeout(() => {
         ref.current.querySelector('button').focus()
@@ -98,3 +98,5 @@ export const Preview = ({ variant, index, set, data, show }: PreviewProps) => {
     </Grid>
   )
 }
+
+Preview.displayName = 'LightboxPreview'

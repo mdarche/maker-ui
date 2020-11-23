@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Div, DivProps } from 'maker-ui'
 import { MinusIcon, PlusIcon, ExIcon } from '../icons'
 
@@ -10,8 +10,8 @@ interface TreeMenuProps
     Omit<DivProps, 'children' | 'variant'> {}
 
 /**
- * The `TreeMenu` component is a Provider for that controls styles and behaviors
- * for all child `TreeItem` components.
+ * The `TreeMenu` wraps all child `TreeItem` components to control the styles
+ * and behaviors for all nested expanded or collapsed states.
  *
  * @see https://maker-ui.com/docs/components/tree-menu
  */
@@ -40,4 +40,5 @@ export const TreeMenu = ({
   )
 }
 
+TreeMenu.displayName = 'TreeMenu'
 TreeMenu.Item = TreeItem

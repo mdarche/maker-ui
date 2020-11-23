@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import * as React from 'react'
 import { Link, generateId, MakerProps } from 'maker-ui'
 
 import { useLightbox, LightboxData } from './LightboxContext'
@@ -9,12 +9,16 @@ export interface LightboxLinkProps extends MakerProps, LightboxData {
 }
 
 /**
- * Use `LightboxLink` to render clickable elements that toggle the Lightbox detail view.
+ * The `LightboxLink` renders clickable elements that toggle the Lightbox detail view.
+ * Must be wrapped inside a `Lightbox` component.
  *
  * @see https://maker-ui.com/docs/components/lightbox
  */
 
-export const LightboxLink = React.forwardRef<HTMLAnchorElement, any>(
+export const LightboxLink = React.forwardRef<
+  HTMLAnchorElement,
+  LightboxLinkProps
+>(
   (
     {
       src,
@@ -30,7 +34,7 @@ export const LightboxLink = React.forwardRef<HTMLAnchorElement, any>(
     },
     ref
   ) => {
-    const [id] = useState(generateId())
+    const [id] = React.useState(generateId())
     const { addToGallery, toggleLightbox } = useLightbox()
 
     const config = {
@@ -44,7 +48,7 @@ export const LightboxLink = React.forwardRef<HTMLAnchorElement, any>(
       poster,
     }
 
-    useEffect(() => {
+    React.useEffect(() => {
       addToGallery(config)
     }, [config, addToGallery])
 
@@ -65,3 +69,5 @@ export const LightboxLink = React.forwardRef<HTMLAnchorElement, any>(
     )
   }
 )
+
+LightboxLink.displayName = 'LightboxLink'

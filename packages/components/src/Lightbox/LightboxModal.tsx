@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import * as React from 'react'
 import { Div, MakerProps } from 'maker-ui'
 import merge from 'deepmerge'
 
@@ -13,6 +13,7 @@ interface LightboxModalProps extends MakerProps {
   id: string
   focusRef?: React.MutableRefObject<any>
   show?: boolean
+  bg?: string | string
   data: LightboxData[]
   settings?: Object
   children: React.ReactElement | React.ReactElement
@@ -37,11 +38,11 @@ export const LightboxModal = ({
   ...props
 }: LightboxModalProps) => {
   const { index, active, data, toggleLightbox } = useLightbox()
-  const [current, setCurrent] = useState(0)
-  const [play, setPlay] = useState(false)
-  const [preview, setPreview] = useState(false)
-  const [zoom, setZoom] = useState(false)
-  const [controlsActive, setControlsActive] = useState(true)
+  const [current, setCurrent] = React.useState(0)
+  const [play, setPlay] = React.useState(false)
+  const [preview, setPreview] = React.useState(false)
+  const [zoom, setZoom] = React.useState(false)
+  const [controlsActive, setControlsActive] = React.useState(true)
 
   const config = merge(
     {
@@ -59,7 +60,7 @@ export const LightboxModal = ({
 
   // Handle external lightbox toggle
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (show) {
       toggleLightbox()
     }
@@ -67,13 +68,13 @@ export const LightboxModal = ({
 
   // Update canvas when index changes
 
-  useEffect(() => {
+  React.useEffect(() => {
     setCurrent(index)
   }, [index])
 
   // Handle autoPlay controls
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (play) {
       if (!data[current].src || data[current].htmlVideo) {
         setPlay(false)
@@ -89,7 +90,7 @@ export const LightboxModal = ({
 
   // Handle keystrokes and hide preview area when lightbox closes
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!active && preview) {
       setPreview(false)
     }
@@ -122,7 +123,7 @@ export const LightboxModal = ({
 
   // Hide controls and reset counter when they appear
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (active && controlsActive && !config.disableHideControls && !preview) {
       const hide = setTimeout(() => {
         setControlsActive(false)
@@ -213,3 +214,5 @@ export const LightboxModal = ({
     </>
   )
 }
+
+LightboxModal.displayName = 'LightboxModal'

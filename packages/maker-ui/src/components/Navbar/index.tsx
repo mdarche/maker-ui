@@ -25,7 +25,6 @@ export interface NavProps extends MakerProps {
   header?: MakerOptions['header']
   bp?: number
   type?: MakerOptions['header']['navType']
-  layout?: number
   pathname?: string
   maxWidth?: ResponsiveScale | any
 }
@@ -41,28 +40,30 @@ export const Navbar = (props: NavProps) => {
   const { header } = useOptions()
   const [layout, setLayout] = useLayout('nav')
 
-  if (props.type !== undefined && props.type !== layout) {
-    setLayout(props.type)
-  }
+  React.useEffect(() => {
+    if (props.type !== undefined && props.type !== layout) {
+      setLayout(props.type)
+    }
+  }, [props.type, layout, setLayout])
 
   switch (layout) {
     case 'center':
-      return <Center layout={1} {...props} bp={header.breakIndex} />
+      return <Center {...props} bp={header.breakIndex} />
     case 'split':
-      return <Center layout={2} {...props} bp={header.breakIndex} />
+      return <Center {...props} bp={header.breakIndex} />
     case 'minimal':
-      return <Minimal layout={1} {...props} />
+      return <Minimal {...props} />
     case 'minimal-left':
-      return <Minimal layout={2} {...props} />
+      return <Minimal {...props} />
     case 'minimal-center':
-      return <Minimal layout={3} {...props} />
+      return <Minimal {...props} />
     case 'reverse':
       return <Reverse {...props} />
     case 'basic-left':
-      return <Basic layout={2} {...props} bp={header.breakIndex} />
+      return <Basic {...props} bp={header.breakIndex} />
     case 'basic':
     default:
-      return <Basic {...props} />
+      return <Basic {...props} bp={header.breakIndex} />
   }
 }
 

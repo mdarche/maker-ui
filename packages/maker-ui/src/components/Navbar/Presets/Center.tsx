@@ -11,6 +11,12 @@ import { NavMenu, MenuButton } from '../../Menu'
 
 import { headerStyles } from './shared-styles'
 
+/**
+ * Formats the inner layout styles for `center` and `split` nav types.
+ *
+ * @internal usage only
+ */
+
 export const Center = ({
   variant = 'navbar',
   logo = 'logo',
@@ -21,7 +27,7 @@ export const Center = ({
   customColorButton,
   widgetArea,
   bp,
-  layout,
+  type,
   maxWidth,
   sx,
   ...props
@@ -50,7 +56,9 @@ export const Center = ({
   return (
     <Flex
       variant={variant}
-      direction={layout === 1 ? setBreakpoint(bp, ['row', 'column']) : null}
+      direction={
+        type === 'center' ? setBreakpoint(bp, ['row', 'column']) : null
+      }
       // @ts-ignore
       sx={{
         ...headerStyles.center,
@@ -58,7 +66,7 @@ export const Center = ({
         ...sx,
       }}
       {...props}>
-      {layout === 1 ? (
+      {type === 'center' ? (
         <>
           <Flex justify={['flex-start', 'center']}>
             <Logo>{logo}</Logo>

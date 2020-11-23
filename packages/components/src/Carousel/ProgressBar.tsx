@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Div } from 'maker-ui'
 import { animated as a, useSpring } from 'react-spring'
 
@@ -56,3 +56,5 @@ export const ProgressBar = ({
     </Div>
   )
 }
+
+ProgressBar.displayName = 'CarouselProgress'

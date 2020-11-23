@@ -2,11 +2,11 @@ import * as React from 'react'
 import { MakerOptions } from 'maker-ui'
 
 export const options: MakerOptions = {
-  navType: 'basic',
   topbar: {
     maxWidth: [200, 600],
   },
   header: {
+    navType: 'basic',
     maxWidth: '100%',
     breakIndex: 0,
     stickyUpScroll: false,

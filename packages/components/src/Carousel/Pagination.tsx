@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Flex, Button } from 'maker-ui'
 
 interface PaginationProps {
@@ -55,3 +55,5 @@ export const Pagination = ({
     </Flex>
   )
 }
+
+Pagination.displayName = 'CarouselPagination'

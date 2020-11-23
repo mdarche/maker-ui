@@ -11,8 +11,8 @@ interface WidgetProps {
 }
 
 /**
- * The `WidgetArea` is used by `Navbar` to show an optional area next to the primary
- * navigation that can be used for supplementary features or information.
+ * The `WidgetArea` is used to show an optional area next to the primary
+ * navigation that can be used for social icons, shortcut buttons, and search.
  *
  * @internal usage only
  */

@@ -56,29 +56,28 @@ export default ({ children, location }) => (
     <Header>
       <Navbar
         logo={'Components Demo'}
-        type="split"
+        type="center"
         menu={menu}
         colorButtonInner={<div>Test</div>}
-        menuButtonInner="Menu!"
         customMenuButton={(isOpen, attributes) => (
           <button {...attributes}>{isOpen ? 'Close' : 'Open'}</button>
         )}
       />
       <MobileMenu menu={menu} />
-      {/* <MobileMenu menu={menu} closeButton={<div>Close!</div>} /> */}
     </Header>
     {location.pathname !== '/workspace' ? (
       <>
         <Content>
           <Main>{children}</Main>
-          <SideNav menu={menu} />
+          <Sidebar>test</Sidebar>
+          {/* <SideNav menu={menu} /> */}
         </Content>
         <Footer>Footer</Footer>
       </>
     ) : (
       <Content>
         <Workspace>
-          {/* <Workspace.Toolbar>Toolbar</Workspace.Toolbar> */}
+          <Workspace.Toolbar>Toolbar</Workspace.Toolbar>
           {/* <Workspace.Panel>
             <Div sx={{ height: 1000 }}>test</Div>
           </Workspace.Panel> */}

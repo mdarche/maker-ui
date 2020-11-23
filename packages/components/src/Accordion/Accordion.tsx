@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Div, DivProps } from 'maker-ui'
 
 import { AccordionContext } from './AccordionContext'
@@ -15,7 +15,8 @@ interface AccordionProps extends DivProps {
 }
 
 /**
- * Use the `Accordion` component to build and customize collapsible accordions.
+ * The `Accordion` shows collapsible panel content that can be toggled via
+ * `activeKey` prop or the panel title buttle.
  *
  * @see https://maker-ui.com/docs/components/accordion
  */
@@ -39,4 +40,5 @@ export const Accordion = ({
   )
 }
 
+Accordion.displayName = 'Accordion'
 Accordion.Panel = AccordionPanel

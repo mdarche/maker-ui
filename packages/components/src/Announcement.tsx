@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import * as React from 'react'
 import { Flex, Button, DivProps } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
@@ -22,6 +22,7 @@ const fixedPartial = (fixed, bottom) =>
 export interface AnnouncementProps extends DivProps {
   key?: string
   fixed?: boolean
+  bg?: string | string[]
   trackerType?: string
   expiration?: number
   allowClose?: boolean
@@ -56,7 +57,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     },
     ref
   ) => {
-    const [show, set] = useState(true)
+    const [show, set] = React.useState(true)
     const [bind, { height: viewHeight }] = useMeasure()
     const active = useTracker(trackerType, key, show, expiration)
 
@@ -119,3 +120,5 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     ) : null
   }
 )
+
+Announcement.displayName = 'Announcement'

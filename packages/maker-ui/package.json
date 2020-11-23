@@ -17,6 +17,7 @@
     "test": "tsdx test"
   },
   "dependencies": {
+    "resize-observer-polyfill": "^1.5.1",
     "theme-ui": "^0.3.1",
     "tslib": "^2.0.0"
   },

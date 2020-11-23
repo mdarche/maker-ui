@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Div, UList, ListItem, DivProps, useScrollPosition } from 'maker-ui'
-import { MenuItem } from 'packages/maker-ui/dist/components/common'
 
 interface TocProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
@@ -30,7 +29,7 @@ export const TableofContents = ({
   pseudoSx,
   sx,
 }: TocProps) => {
-  const [menuItems, setMenu] = React.useState<MenuItem[]>([])
+  const [menuItems, setMenu] = React.useState<any[]>([])
   const [activeNode, setActiveNode] = React.useState(null)
 
   // Query DOM for applicable heading elements
@@ -150,3 +149,5 @@ export const TableofContents = ({
     </Div>
   )
 }
+
+TableofContents.displayName = 'TableofContents'

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Button } from 'maker-ui'
 
 import { CarouselArrowIcon } from '../icons'
@@ -73,5 +73,7 @@ const Navigation = React.memo(({ controls, ...props }: NavigationProps) => {
     </div>
   )
 })
+
+Navigation.displayName = 'CarouselNavigation'
 
 export default Navigation

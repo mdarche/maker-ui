@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react'
+import * as React from 'react'
 import { useTransition, animated as a } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
@@ -26,7 +26,8 @@ const centered = val =>
 
 export interface ModalProps extends DivProps {
   show?: boolean
-  toggle?: Function
+  toggle?: (state?: boolean | string) => void
+  bg?: string | string
   appendTo?: string
   title?: string
   closeOnBlur?: boolean
@@ -56,13 +57,13 @@ export const Modal = ({
   children,
   ...rest
 }: ModalProps) => {
-  const modalRef = useRef(null)
-  const closeModal = useCallback(() => {
+  const modalRef = React.useRef(null)
+  const closeModal = React.useCallback(() => {
     if (focusRef !== undefined) {
       focusRef.current.focus()
     }
 
-    toggle(false)
+    toggle()
   }, [toggle, focusRef])
 
   // Trap focus inside the modal
@@ -75,7 +76,7 @@ export const Modal = ({
     trapFocus: true,
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (show) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -127,3 +128,5 @@ export const Modal = ({
     </Portal>
   )
 }
+
+Modal.displayName = 'Modal'

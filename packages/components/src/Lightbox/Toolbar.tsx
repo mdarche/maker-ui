@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Div, Flex } from 'maker-ui'
 
 import { LightboxData } from './LightboxContext'
@@ -12,7 +12,7 @@ interface ToolbarProps {
   preview?: { show: boolean; set: Function }
   zoom?: { show: boolean; set: Function }
   autoPlay?: { active: boolean; show: boolean; set: Function }
-  toggle: Function
+  toggle: (state?: string) => void
   item: LightboxData
 }
 
@@ -111,3 +111,5 @@ export const Toolbar = ({
     </Flex>
   )
 }
+
+Toolbar.displayName = 'LightboxToolbar'
