@@ -17,13 +17,13 @@ interface CollapsibleProps
 }
 
 /**
- * Use the `CollapsibleMenu` to display nested menus for `SideNav` and `MobileMenu`.
+ * The `CollapsibleMenu` displays nested menus for the `SideNav` and `MobileMenu` components.
  * Menu items with submenus will render a show/hide arrow button next to the item label.
  *
- * @remark Used as a default menu for `SideNav` and `MobileMenu` when child components
+ * Used as a default menu for `SideNav` and `MobileMenu` when child components
  * are not included and you supply a menu prop.
  *
- * @see https://maker-ui.com/docs/accordion-menu
+ * @see https://maker-ui.com/docs/layout/collapsible-menu
  */
 
 export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
@@ -32,16 +32,16 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
     ref
   ) => {
     const { mobileMenu, sideNav, linkFunction } = useOptions()
-    const [showMenu, toggleMenu] = useMenu()
-    const [showSideNav, toggleSideNav] = useSideNav()
+    const [, toggleMenu] = useMenu()
+    const [, toggleSideNav] = useSideNav()
 
     const getControls = () => {
       if (menuType === 'mobile' && mobileMenu.closeOnRouteChange) {
-        return { onClick: e => toggleMenu(!showMenu) }
+        return { onClick: e => toggleMenu() }
       }
 
       if (menuType === 'sideNav' && sideNav.closeOnRouteChange) {
-        return { onClick: e => toggleSideNav(!showSideNav) }
+        return { onClick: e => toggleSideNav() }
       }
 
       return undefined

@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { SxStyleProp, Theme } from 'theme-ui'
 
+import { navTypes, transitionTypes } from '../utils/constants'
+
 export type MaybeElement = JSX.Element | string | false | null | undefined
 
 export type ResponsiveScale =
@@ -43,6 +45,7 @@ export interface MakerOptions {
     breakIndex?: number
   }
   header?: {
+    navType?: typeof navTypes[number]
     maxWidth?: ResponsiveScale
     sticky?: boolean
     stickyOnMobile?: boolean
@@ -71,7 +74,7 @@ export interface MakerOptions {
   }
   mobileMenu?: {
     width?: ResponsiveScale
-    transition?: 'fade' | 'fade-up' | 'fade-down' | 'slide-left' | 'slide-right'
+    transition?: typeof transitionTypes[number]
     visibleOnDesktop?: boolean
     customCloseButton?: (
       isOpen?: boolean,
@@ -135,7 +138,7 @@ export interface MakerOptions {
     breakIndex?: number
   }
   workspace?: {
-    canvasType?: string
+    canvasType?: string // draggable vs scroll
     canvasMaxWidth?: ResponsiveScale
     toolbarHeight?: ResponsiveScale
     breakIndex?: number

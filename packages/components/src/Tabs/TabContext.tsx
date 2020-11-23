@@ -26,7 +26,7 @@ export interface TabState {
  * The `TabContext` component is a Context Provider handles all of the
  * settings for a `Tabs` component and all of its `TabPanel` children.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const TabContext = ({

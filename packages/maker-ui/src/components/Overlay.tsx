@@ -10,6 +10,13 @@ interface OverlayProps {
   type?: string
 }
 
+/**
+ * The `Overlay` component acts as an `onBlur` click toggle for closing the
+ * SideNav or MobileMenu components on mobile.
+ *
+ * @internal usage only
+ */
+
 export const Overlay = ({ show, toggle, type, bp }: OverlayProps) => {
   const visibility = show ? 'visible' : 'hidden'
   const opacity = show ? 1 : 0

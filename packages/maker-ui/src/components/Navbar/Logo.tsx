@@ -3,6 +3,13 @@ import * as React from 'react'
 import { useOptions } from '../../context/OptionContext'
 import { Link } from '../Primitives'
 
+/**
+ * The `Logo` is used by `Navbar` to show a custom logo wrapped in a link to
+ * the site's index page.
+ *
+ * @internal usage only
+ */
+
 export const Logo = ({ children }) => {
   const { linkFunction } = useOptions()
 

@@ -51,7 +51,7 @@ const getNavPosition = ({
  * The `TabNavigation` component generates a nav bar for the `TabGroup`.
  * It uses the `title` prop on a `TabPanel` component.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const TabNavigation = ({ settings }: TabStyleProps) => {

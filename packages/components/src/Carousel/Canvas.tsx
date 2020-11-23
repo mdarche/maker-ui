@@ -44,7 +44,7 @@ interface CanvasProps {
  * The `Canvas` component creates an animated dive for paging through
  * the `Carousel`'s slides.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const Canvas = React.memo(

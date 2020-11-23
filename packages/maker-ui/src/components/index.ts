@@ -15,6 +15,6 @@ export { Workspace, PanelButton, useWorkspace } from './Workspace'
 export { Dock } from './Dock'
 export * from './Primitives'
 
-// export { Template } from './Template'
+export { Template } from './Template'
 
 export * from './types'

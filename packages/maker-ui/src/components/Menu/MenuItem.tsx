@@ -12,9 +12,6 @@ import {
 } from '../../utils/styles-submenu'
 import { MaybeElement, MakerOptions } from '../types'
 
-/**
- * Alias for all Maker UI compatible menus. Offers support for nesting menus.
- */
 export interface MenuProps {
   label: string
   path: string
@@ -37,9 +34,9 @@ interface MenuItemProps {
 
 /**
  * Returns a menu item and nested children for `NavMenu` or `CollapsibleMenu`
- * components.
+ * components. This component uses recursion to create nested menus.
  *
- * @remark This component uses recursion to build nested menus
+ * @internal usage only
  *
  */
 

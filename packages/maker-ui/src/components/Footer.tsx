@@ -12,10 +12,10 @@ interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Use the `Footer` component to store important site information, links, and widgets at
- * the bottom of your layout.
+ * The `Footer` component stores important site information, links, and widgets at
+ * the bottom of your layout. It is not compatible with workspace layouts.
  *
- * @see https://maker-ui.com/docs/footer
+ * @see https://maker-ui.com/docs/layout/footer
  */
 
 export const Footer = forwardRef<HTMLElement, FooterProps>(

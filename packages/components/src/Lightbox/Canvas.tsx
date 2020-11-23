@@ -18,7 +18,7 @@ interface MediaFrameProps {
  * The `Media Frame` is a wrapper that conditionally loads and configures
  * a Youtube/Vimeo iframe, HTML video element, or image.
  *
- * @internal use only
+ * @internal usage only
  */
 
 const MediaFrame = ({
@@ -75,7 +75,7 @@ interface CanvasProps {
  * The `Canvas` component uses transition animations to show / paginate
  * the lightbox gallery content.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const Canvas = ({

@@ -15,7 +15,7 @@ interface PreviewProps {
  * The `Preview` component shows additional gallery items while the lightbox view
  * is active.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const Preview = ({ variant, index, set, data, show }: PreviewProps) => {

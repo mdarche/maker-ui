@@ -5,19 +5,20 @@ import { ErrorBoundary } from './ErrorBoundary'
 import { ContentError } from './Errors'
 import { MakerProps } from './types'
 import { useOptions } from '../context/OptionContext'
-import { getLayoutStyles } from '../utils/styles-layout'
-import { useLayoutDetector } from '../hooks/useLayoutDetector'
-import { useMeasurements } from '../context/LayoutContext'
+import { getLayoutStyles } from '../utils/styles-content'
+import { useMeasurements, useLayoutDetector } from '../context/LayoutContext'
 
 interface ContentProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {}
 
 /**
- * Use the `Content` component to wrap all content between your `Header`
- * and `Footer`.
+ * The `Content` component is a wrapper that reads the contents of its
+ * child nodes and updates the LayoutProvider for valid layouts or throws a development error.
  *
- * @see https://maker-ui.com/docs/content
+ * Use it to wrap everything between your `Header` and `Footer` components.
+ *
+ * @see https://maker-ui.com/docs/layout/content
  */
 
 export const Content = ({ variant, sx, children, ...props }: ContentProps) => {

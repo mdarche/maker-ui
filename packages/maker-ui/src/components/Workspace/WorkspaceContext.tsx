@@ -4,12 +4,10 @@ const WorkspaceDataContext = React.createContext(null)
 const WorkspaceUpdateContext = React.createContext(null)
 
 interface WorkspaceState {
-  layout?: 'panel canvas panel' | 'panel canvas' | 'canvas panel' | 'canvas'
   [key: string]: any
 }
 
 interface WorkspaceContextProps {
-  layout?: WorkspaceState['layout']
   variant?: string
   children: React.ReactNode
 }
@@ -18,17 +16,15 @@ interface WorkspaceContextProps {
  * The `WorkspaceContext` provider wraps all Workspace components to allow
  * easy access to shared functions, configurations, and variables.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const WorkspaceContext = ({
-  layout,
   variant,
   children,
 }: WorkspaceContextProps) => {
   const [state, setState] = React.useState<WorkspaceState>({
     variant,
-    layout,
   })
 
   return (

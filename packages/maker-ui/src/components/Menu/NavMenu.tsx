@@ -11,6 +11,13 @@ interface NavMenuProps {
   pathname?: string
 }
 
+/**
+ * Used by the `Navbar` to render a list of primary menu items.
+ *
+ * @internal usage only
+ *
+ */
+
 export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
   const { header, linkFunction } = useOptions()
 

@@ -3,7 +3,7 @@ import merge from 'deepmerge'
 /**
  * Maker UI styles for header nav dropdown menus
  *
- * @internal only
+ * @internal usage only
  *
  */
 

@@ -20,7 +20,7 @@ interface LayoutProps {
 /**
  * Wrap your application in the `Layout` component to use Maker UI.
  *
- * @see https://maker-ui.com/docs/layout
+ * @see https://maker-ui.com/docs/layout/layout
  */
 
 export const Layout = ({

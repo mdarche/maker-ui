@@ -14,6 +14,13 @@ interface MenuButtonProps extends MakerProps {
   'aria-expanded'?: boolean
 }
 
+/**
+ * The `MenuButton` controls opening / closing the `MobileMenu`. It is included
+ * inside the Navbar component but can be used anywhere inside your layout.
+ *
+ * @see https://maker-ui.com/docs/layout/buttons/#menuButton
+ */
+
 export const MenuButton = (props: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()

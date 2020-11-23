@@ -32,10 +32,11 @@ interface SideNavProps
 }
 
 /**
- * Use the `SideNav` component for `content sidenav` or `sidenav content` layouts.
- * Add it inside `Content` alongside the `Main` component.
+ * The `SideNav` component creates a side navigation panel alongside the page's main
+ * content. It can be toggled open or closed on mobile or it can serve as the page's
+ * primary <header> tag.
  *
- * @see https://maker-ui.com/docs/sidenav
+ * @see https://maker-ui.com/docs/layout/sidenav
  */
 
 export const SideNav = forwardRef<HTMLElement, SideNavProps>(

@@ -29,7 +29,7 @@ interface NavButtonProps {
  * The `NavButton` component creates an accessible button component for
  * the Carousel `Navigation`.
  *
- * @internal use only
+ * @internal usage only
  */
 
 const NavButton = ({
@@ -62,7 +62,7 @@ const NavButton = ({
 /**
  * The `Navigation` component adds previous / next buttons to the `Carousel` component.
  *
- * @internal use only
+ * @internal usage only
  */
 
 const Navigation = React.memo(({ controls, ...props }: NavigationProps) => {

@@ -19,10 +19,10 @@ interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Use the `Header` component to store your site logo, primary menu, mobile menu,
+ * The `Header` component stores your site logo, primary menu, mobile menu,
  * and any necessary navigation elements.
  *
- * @see https://maker-ui.com/docs/header
+ * @see https://maker-ui.com/docs/layout/header
  */
 
 export const Header = (props: HeaderProps) => {
@@ -36,7 +36,7 @@ export const Header = (props: HeaderProps) => {
 
   useEffect(() => {
     if (height !== 0) {
-      setMeasurement('height_header', height)
+      setMeasurement('header', height)
     }
   }, [height])
 

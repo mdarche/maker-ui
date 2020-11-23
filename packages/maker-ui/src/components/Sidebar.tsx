@@ -13,10 +13,9 @@ interface SidebarProps
 }
 
 /**
- * Use the `Sidebar` component for `content-sidebar` or `sidebar-content` layouts.
- * Add it inside the `Content` component and alongside the `Main` component.
+ * The `Sidebar` component shows complementary content alongside the `Main` component..
  *
- * @see https://maker-ui.com/docs/sidebar
+ * @see https://maker-ui.com/docs/layout/sidebar
  */
 
 export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(

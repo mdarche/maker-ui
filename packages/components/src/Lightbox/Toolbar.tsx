@@ -19,7 +19,7 @@ interface ToolbarProps {
 /**
  * The `Toolbar` component provides utility button options inside the lightbox.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const Toolbar = ({

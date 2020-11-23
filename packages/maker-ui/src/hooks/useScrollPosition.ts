@@ -4,24 +4,26 @@ import { useRef, useEffect } from 'react'
 
 const isBrowser = typeof window !== 'undefined'
 
-function getScrollPosition(): number | { x: number; y: number } {
-  if (!isBrowser) return { x: 0, y: 0 }
+function getScrollPosition(): number {
+  if (!isBrowser) return 0
   const position = document.body.getBoundingClientRect()
 
   return Math.abs(position.top)
 }
 
 /**
- * A browser hook that returns the user's current scroll position via callback
+ * A browser hook that returns the user's current and previous scroll position via callback
  *
  * @param effect - A callback function that shows the user's previous and current positions
  * @param wait - The timeout delay for obtaining new position values
  * @param active - A boolean that determines if the effect should be run
  *
+ * @see https://maker-ui.com/docs/hooks/#useScrollPosition
+ *
  */
 
 export function useScrollPosition(
-  effect: any,
+  effect: (props: { prevPos: number; currPos: number }) => void,
   wait: number,
   active: boolean
 ): void {

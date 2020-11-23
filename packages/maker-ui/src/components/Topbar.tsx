@@ -16,10 +16,10 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Use the `Topbar` component to display content like announcements, social media icons,
- * or promotions above your header navigation.
+ * The `Topbar` component displays content like announcements, social media icons,
+ * or promotions above the page header.
  *
- * @see https://maker-ui.com/docs/topbar
+ * @see https://maker-ui.com/docs/layout/topbar
  */
 
 export const Topbar = ({
@@ -37,7 +37,7 @@ export const Topbar = ({
 
   useEffect(() => {
     if (height !== 0) {
-      setMeasurement('height_topbar', height)
+      setMeasurement('topbar', height)
     }
   }, [height])
 
@@ -48,7 +48,6 @@ export const Topbar = ({
       sx={{
         bg,
         variant,
-        boxSizing: 'border-box',
         display: topbar.hideOnMobile
           ? setBreakpoint(topbar.breakIndex, ['none', 'block'])
           : 'block',

@@ -23,7 +23,7 @@ interface LightboxModalProps extends MakerProps {
  * @todo - implement zoom feature
  * @todo - add gesture controls and canvas transition options
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const LightboxModal = ({

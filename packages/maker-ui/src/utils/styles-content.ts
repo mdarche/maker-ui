@@ -4,7 +4,7 @@ import { LayoutState } from '../context/LayoutContext'
 /**
  * Internal Maker UI variants for page content layouts
  *
- * @internal only
+ * @internal usage only
  *
  */
 
@@ -83,7 +83,7 @@ export const getLayoutStyles = (
     }
   }
 
-  // Basic Layouts
+  // Content Layouts
   return {
     display: 'block',
     maxWidth: 'maxWidth_content',

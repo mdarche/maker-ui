@@ -52,7 +52,7 @@ interface LightboxState {
  * The `LightboxContext` component is a Provider that handles stores all of the data
  * for a lightbox gallery.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const LightboxContext = ({

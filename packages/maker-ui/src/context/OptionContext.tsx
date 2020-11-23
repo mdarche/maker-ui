@@ -7,9 +7,19 @@ import { defaultOptions } from '../options'
 export const OptionContext = React.createContext(null)
 const OptionUpdateContext = React.createContext(null)
 
-// Provider
+interface OptionProviderProps {
+  options: MakerOptions
+  children: React.ReactNode
+}
 
-const OptionProvider = ({ options = {}, children }) => {
+/**
+ * The `OptionProvider` stores all of Maker UI's client-facing
+ * configurations.
+ *
+ * @internal usage only
+ */
+
+const OptionProvider = ({ options = {}, children }: OptionProviderProps) => {
   const [state, dispatch] = React.useState<MakerOptions>(
     merge(defaultOptions, options)
   )
@@ -23,9 +33,13 @@ const OptionProvider = ({ options = {}, children }) => {
   )
 }
 
-// Usage Hooks
+/**
+ * Retrieves the current Maker UI options configuration.
+ *
+ * @see https://maker-ui.com/hooks/#useOptions
+ */
 
-function useOptions() {
+function useOptions(): MakerOptions {
   const options: MakerOptions = React.useContext(OptionContext)
 
   if (options === undefined) {
@@ -37,7 +51,15 @@ function useOptions() {
   return options
 }
 
-function useOptionUpdater() {
+/**
+ * Allows you to update the current Maker UI options configuration.
+ *
+ * @see https://maker-ui.com/hooks/#useOptionsUpdater
+ */
+
+function useOptionsUpdater(): React.Dispatch<
+  React.SetStateAction<MakerOptions>
+> {
   const dispatch = React.useContext(OptionUpdateContext)
 
   if (dispatch === undefined) {
@@ -46,11 +68,11 @@ function useOptionUpdater() {
     )
   }
 
-  function setOptions(options) {
+  function setOptions(options: Partial<MakerOptions>) {
     dispatch(state => merge(state, options))
   }
 
   return setOptions
 }
 
-export { OptionProvider, useOptions, useOptionUpdater }
+export { OptionProvider, useOptions, useOptionsUpdater }

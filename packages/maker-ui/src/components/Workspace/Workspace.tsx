@@ -4,7 +4,7 @@ import { jsx } from 'theme-ui'
 import { MakerProps } from '../types'
 import { WorkspaceContext } from './WorkspaceContext'
 import { useOptions } from '../../context/OptionContext'
-import { useLayoutDetector } from '../../hooks/useLayoutDetector'
+import { useLayoutDetector } from '../../context/LayoutContext'
 import { getWorkspaceStyles } from '../../utils/styles-workspace'
 
 // Dot compatible JSX children

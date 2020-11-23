@@ -12,23 +12,37 @@ function reducer(state, action) {
       return { ...state, sideNavActive: !state.sideNavActive }
     }
     case 'left-panel':
-      return { ...state, leftPanelActive: !state.panelLeftActive }
+      return { ...state, leftPanelActive: !state.leftPanelActive }
     case 'right-panel':
-      return { ...state, rightPanelActive: !state.panelRightActive }
+      return { ...state, rightPanelActive: !state.rightPanelActive }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
     }
   }
 }
 
-// Provider
+export interface ActionState {
+  menuActive: boolean
+  sideNavActive: boolean
+  leftPanelActive: boolean
+  rightPanelActive: boolean
+  toolbarActive: boolean
+}
+
+/**
+ * The `ActionProvider` controls the showing / toggling of all compatible Maker UI
+ * layout components.
+ *
+ * @internal usage only
+ */
 
 const ActionProvider = ({ children }) => {
-  const [state, dispatch] = React.useReducer(reducer, {
+  const [state, dispatch]: [ActionState, any] = React.useReducer(reducer, {
     menuActive: false,
     sideNavActive: false,
     leftPanelActive: true,
     rightPanelActive: true,
+    toolbarActive: true,
   })
 
   return (
@@ -40,10 +54,14 @@ const ActionProvider = ({ children }) => {
   )
 }
 
-// Usage Hooks
+/**
+ * Returns the current state and a toggle function for the `MobileMenu`
+ *
+ * @see https://maker-ui.com/hooks/#useMenu
+ */
 
-function useMenu() {
-  const { menuActive } = React.useContext(ActionContext)
+function useMenu(): [boolean, () => void] {
+  const { menuActive }: ActionState = React.useContext(ActionContext)
   const dispatch = React.useContext(ActionUpdateContext)
 
   if (typeof menuActive === undefined) {
@@ -57,8 +75,14 @@ function useMenu() {
   return [menuActive, toggleMenu]
 }
 
-function useSideNav() {
-  const { sideNavActive } = React.useContext(ActionContext)
+/**
+ * Returns the current state and a toggle function for the `SideNav`
+ *
+ * @see https://maker-ui.com/hooks/#useSideNav
+ */
+
+function useSideNav(): [boolean, () => void] {
+  const { sideNavActive }: ActionState = React.useContext(ActionContext)
   const dispatch = React.useContext(ActionUpdateContext)
 
   if (typeof sideNavActive === undefined) {
@@ -68,7 +92,26 @@ function useSideNav() {
   function setSideNav() {
     dispatch({ type: 'sideNav' })
   }
+
   return [sideNavActive, setSideNav]
 }
 
-export { ActionProvider, useMenu, useSideNav }
+/**
+ * Returns the current state and a toggle function for the left or right `Workspace.Panel`
+ *
+ * @see https://maker-ui.com/hooks/#usePanel
+ */
+
+function usePanel(panel: 'left' | 'right'): [boolean, () => void] {
+  const { leftPanelActive, rightPanelActive }: ActionState = React.useContext(
+    ActionContext
+  )
+  const dispatch = React.useContext(ActionUpdateContext)
+  const togglePanel = () => dispatch({ type: `${panel}-panel` })
+
+  return panel === 'left'
+    ? [leftPanelActive, togglePanel]
+    : [rightPanelActive, togglePanel]
+}
+
+export { ActionProvider, useMenu, useSideNav, usePanel }

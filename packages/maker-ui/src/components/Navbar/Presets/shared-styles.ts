@@ -13,7 +13,6 @@ const base = {
 }
 
 export const headerStyles = {
-  base,
   default: {
     ...base,
     justifyContent: 'space-between',

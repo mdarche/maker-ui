@@ -25,11 +25,11 @@ interface MobileMenuProps
 }
 
 /**
- * Use the `MobileMenu` component to customize a responsive overlay menu for mobile navigation.
+ * The `MobileMenu` component lets you customize a responsive overlay menu for mobile navigation.
  *
  * @todo calcluate default fill color of the close button with an accessibility color picker
  *
- * @see https://maker-ui.com/docs/mobile-menu
+ * @see https://maker-ui.com/docs/layout/mobile-menu
  */
 
 export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(

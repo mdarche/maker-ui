@@ -20,21 +20,21 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
   const [layout] = useLayout('content')
 
   switch (layout) {
-    case 'content-sidebar':
+    case 'content sidebar':
       return (
         <Content>
           <Main>{children}</Main>
           <Sidebar>{sidebar}</Sidebar>
         </Content>
       )
-    case 'sidebar-content':
+    case 'sidebar content':
       return (
         <Content>
           <Sidebar>{sidebar}</Sidebar>
           <Main>{children}</Main>
         </Content>
       )
-    case 'content-sideNav':
+    case 'content sidenav':
       return (
         <Content>
           <Main>{children}</Main>
@@ -43,7 +43,7 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
           </SideNav>
         </Content>
       )
-    case 'sideNav-content':
+    case 'sidenav content':
       return (
         <Content>
           <SideNav menu={menu} customToggle={sideNav[1]} pathname={sideNav[2]}>
@@ -84,7 +84,7 @@ interface TemplateProps {
  * Use the `Template` component to quickly build layouts. You can supply an assortment
  * of React elements as props and customize with your `theme` and `options` objects.
  *
- * @see https://maker-ui.com/docs/templates
+ * @see https://maker-ui.com/docs/layout/template
  */
 
 export const Template = ({

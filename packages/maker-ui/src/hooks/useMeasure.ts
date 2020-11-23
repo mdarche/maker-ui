@@ -1,3 +1,5 @@
+// Credit to drcmda's React Spring examples
+
 import { useRef, useEffect, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
@@ -10,8 +12,23 @@ interface MeasureState {
   height: number
   documentTop: number
 }
-// TODO - fix output type
-export function useMeasure(active?: boolean, contentRect?: boolean): any {
+
+/**
+ * A browser hook that binds a Resize Observer to the specified React Node and returns either
+ * its `contentRect` or `getClientBoundingRect()` properties.
+ *
+ * @param active - A boolean that determines whether the hook should connect the Resize Observer
+ * @param contentRect - A boolean that returns the node's content rect if true. Otherwise it will
+ * calculate getClientBoundingRect()
+ *
+ * @see https://maker-ui.com/docs/hooks/#useMeasure
+ *
+ */
+
+export function useMeasure(
+  active?: boolean,
+  contentRect?: boolean
+): [{ ref: React.MutableRefObject<any> }, MeasureState] {
   const ref = useRef(null)
   const [bounds, set] = useState<MeasureState>({
     top: 0,

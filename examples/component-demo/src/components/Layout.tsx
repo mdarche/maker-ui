@@ -56,6 +56,7 @@ export default ({ children, location }) => (
     <Header>
       <Navbar
         logo={'Components Demo'}
+        type="split"
         menu={menu}
         colorButtonInner={<div>Test</div>}
         menuButtonInner="Menu!"
@@ -77,10 +78,10 @@ export default ({ children, location }) => (
     ) : (
       <Content>
         <Workspace>
-          <Workspace.Toolbar>Toolbar</Workspace.Toolbar>
-          <Workspace.Panel>
+          {/* <Workspace.Toolbar>Toolbar</Workspace.Toolbar> */}
+          {/* <Workspace.Panel>
             <Div sx={{ height: 1000 }}>test</Div>
-          </Workspace.Panel>
+          </Workspace.Panel> */}
           <Workspace.Canvas>{children}</Workspace.Canvas>
           <Workspace.Panel>
             <Div sx={{ height: 1000 }}>test</Div>

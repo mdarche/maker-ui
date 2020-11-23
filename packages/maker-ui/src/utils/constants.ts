@@ -1,3 +1,4 @@
+// Typescript read-only values for consistent types
 export const contentTypes = [
   'content sidebar',
   'content sidenav',
@@ -9,7 +10,7 @@ export const contentTypes = [
   'workspace',
   'workspace dock',
   'page-transition',
-]
+] as const
 
 export const workspaceTypes = [
   'panel canvas panel',
@@ -20,4 +21,23 @@ export const workspaceTypes = [
   'toolbar panel canvas',
   'toolbar canvas panel',
   'toolbar canvas',
-]
+] as const
+
+export const navTypes = [
+  'basic',
+  'basic-left',
+  'center',
+  'split',
+  'minimal',
+  'minimal-left',
+  'minimal-center',
+  'reverse',
+] as const
+
+export const transitionTypes = [
+  'fade',
+  'fade-up',
+  'fade-down',
+  'slide-left',
+  'slide-right',
+] as const

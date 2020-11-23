@@ -19,7 +19,7 @@ export interface TreeContextProps {
  * The `TreeContext` is a provider component that wraps all the `TreeMenu` and all
  * nested tree branches.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const TreeContext = ({

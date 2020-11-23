@@ -4,8 +4,16 @@ import { Button, SVG } from '../Primitives'
 
 interface ExpandButtonProps {
   show: boolean
-  set: Function
+  set: (show: boolean) => void
 }
+
+/**
+ * The `ExpandButton` is used in collapsible menus to open or close the
+ * next group of nested menu items.
+ *
+ * @internal usage only
+ *
+ */
 
 export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
   return (

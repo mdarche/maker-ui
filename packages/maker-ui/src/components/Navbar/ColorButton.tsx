@@ -11,6 +11,13 @@ interface ColorButtonProps {
   customButton?: MakerOptions['header']['customColorButton']
 }
 
+/**
+ * The `ColorButton` is used by `Navbar` to show the current color mode and let you toggle
+ * to other color presets. You can also use this button anywhere within your layout.
+ *
+ * @see https://maker-ui.com/docs/layout/buttons/#colorButton
+ */
+
 export const ColorButton = ({
   buttonInner,
   customButton,

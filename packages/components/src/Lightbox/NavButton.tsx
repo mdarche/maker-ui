@@ -23,7 +23,7 @@ interface NavButtonProps extends MakerProps {
 /**
  * The `NavButton` controls previous / next button clicks from the LighthouseModal.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const NavButton = ({

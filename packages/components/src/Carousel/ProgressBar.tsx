@@ -14,7 +14,7 @@ interface ProgressBarProps {
  * The `ProgressBar` component is used to visually show a slide's
  * display duration in the `Carousel` component..
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const ProgressBar = ({

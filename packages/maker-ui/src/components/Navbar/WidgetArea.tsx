@@ -10,6 +10,13 @@ interface WidgetProps {
   hideOnMobile?: boolean
 }
 
+/**
+ * The `WidgetArea` is used by `Navbar` to show an optional area next to the primary
+ * navigation that can be used for supplementary features or information.
+ *
+ * @internal usage only
+ */
+
 export const WidgetArea = (props: WidgetProps) => {
   const { header } = useOptions()
   const { content, hideOnMobile = header.hideWidgetsOnMobile } = props

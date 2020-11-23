@@ -17,7 +17,7 @@ interface AccordionContextProps {
 /**
  * Use the `Accordion` component to build and customize collapsible accordions.
  *
- * @internal use only
+ * @internal usage only
  */
 
 export const AccordionContext = ({

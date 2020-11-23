@@ -17,9 +17,9 @@ interface SkipLinkProps {
  * Adds default skiplinks to the layout if enabled via `options` configuration.
  * By default, Skiplinks support #content, #footer, and #side-nav.
  *
- * @remark You can supply your own link array for extra accessibility control.
+ * Supply your own link array for extra control via the `Layout` component props.
  *
- * @internal only
+ * @internal usage only
  */
 
 export const Skiplinks = (props: SkipLinkProps) => {
