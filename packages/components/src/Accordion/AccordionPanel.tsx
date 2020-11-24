@@ -46,7 +46,7 @@ export const AccordionPanel = React.forwardRef<
     const [panelKey] = React.useState(() =>
       eventKey ? eventKey : generateId()
     )
-    const [bind, { height: viewHeight }] = useMeasure(true)
+    const [bind, { height: viewHeight }] = useMeasure()
 
     React.useEffect(() => {
       registerPanel(panelKey)

@@ -52,8 +52,8 @@ const menu = [
 
 export default ({ children, location }) => (
   <Layout theme={theme} options={options}>
-    <Announcement>Test</Announcement>
-    <Topbar>Topbar content</Topbar>
+    {/* <Announcement>Test</Announcement>
+    <Topbar>Topbar content</Topbar> */}
     <Header>
       <Navbar
         logo={'Components Demo'}

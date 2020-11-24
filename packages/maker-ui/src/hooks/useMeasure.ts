@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
 interface MeasureProps {
-  active?: boolean
+  observe?: boolean
   contentRect?: boolean
   externalRef?: React.MutableRefObject<any>
 }
@@ -23,8 +23,8 @@ interface MeasureState {
  * A browser hook that binds a Resize Observer to the specified React Node and returns either
  * its `contentRect` or `getClientBoundingRect()` properties.
  *
- * @param active - A boolean that determines whether the hook should connect the Resize Observer
- * @param contentRect - A boolean that returns the node's content rect if true. Otherwise it will
+ * @param active - Boolean that determines whether the hook should connect the Resize Observer
+ * @param contentRect - Boolean that returns the node's content rect if true. Otherwise it will
  * calculate getClientBoundingRect()
  * @param externalRef - If you can't bind the output ref to your component, you can also supply
  * another React ref object to make the size calculations.
@@ -34,10 +34,16 @@ interface MeasureState {
  */
 
 export function useMeasure(
-  active?: boolean,
-  contentRect?: boolean
+  props?: MeasureProps
 ): [{ ref: React.MutableRefObject<any> }, MeasureState] {
-  const ref = useRef(null)
+  // TODO - revisit TS issues with props destructuring
+  const observe = props && props.observe ? props.observe : true
+  const contentRect = props && props.contentRect ? props.contentRect : false
+  const externalRef = props && props.externalRef ? props.externalRef : undefined
+
+  const localRef = useRef(null)
+  const ref = externalRef || localRef
+
   const [bounds, set] = useState<MeasureState>({
     top: 0,
     bottom: 0,
@@ -47,6 +53,7 @@ export function useMeasure(
     height: 0,
     documentTop: 0,
   })
+
   const [ro] = useState(
     () =>
       new ResizeObserver(([entry]) => {
@@ -57,11 +64,12 @@ export function useMeasure(
         set({ top, bottom, left, right, width, height, documentTop })
       })
   )
+
   useEffect(() => {
-    if (active) {
+    if (observe) {
       if (ref.current) ro.observe(ref.current)
       return () => ro.disconnect()
     }
-  }, [active, ro])
+  }, [observe, ref, ro])
   return [{ ref }, bounds]
 }

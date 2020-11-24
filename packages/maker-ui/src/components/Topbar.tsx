@@ -32,7 +32,9 @@ export const Topbar = ({
 }: TopbarProps) => {
   const { topbar } = useOptions()
   const [layout] = useLayout('content')
-  const [bind, { height }] = useMeasure(layout.includes('workspace'))
+  const [bind, { height }] = useMeasure({
+    observe: layout.includes('workspace'),
+  })
   const { setMeasurement } = useMeasurements()
 
   useEffect(() => {

@@ -37,7 +37,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
     } = useTreeData()
 
     const previous = usePrevious(isOpen)
-    const [bind, { height: viewHeight }] = useMeasure(true)
+    const [bind, { height: viewHeight }] = useMeasure()
 
     const { height } = useSpring({
       from: { height: 0 },

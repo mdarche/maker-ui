@@ -31,7 +31,12 @@ export const Header = (props: HeaderProps) => {
 
   const { header } = useOptions()
   const [layout] = useLayout('content')
-  const [bind, { height }] = useMeasure(layout.includes('workspace'))
+
+  const [bind, { height }] = useMeasure({
+    observe: layout.includes('workspace'),
+    // contentRect: true,
+    // parentComponent: 'header',
+  })
   const { setMeasurement } = useMeasurements()
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { useTransition, animated as a } from 'react-spring'
-import { Div, DivProps } from 'maker-ui'
+import { Div, DivProps, useMeasure } from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { getSign } from '../helper'
-import { useFocus, usePosition } from '../_hooks'
+import { useFocus } from '../_hooks'
 
 const AnimatedDiv = a(Div)
 
@@ -87,7 +87,9 @@ export const Popover = ({
   const [width, setWidth] = React.useState(0)
   const [height, setHeight] = React.useState(0)
   const [initialRender, setInitialRender] = React.useState(true)
-  const [box] = usePosition(anchorRef)
+  const [, box] = useMeasure({
+    externalRef: anchorRef,
+  })
 
   const measuredRef = React.useCallback(
     node => {

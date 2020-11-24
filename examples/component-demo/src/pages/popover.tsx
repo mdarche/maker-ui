@@ -14,7 +14,7 @@ const PopoverPage = () => {
       <Tooltip bg="purple" gap={5} label="test" position="left">
         Hover here!
       </Tooltip>
-      {/* <Popover
+      <Popover
         anchorRef={buttonRef}
         // anchorWidth
         // position={{ x: 'right', y: 'bottom' }}
@@ -60,7 +60,7 @@ const PopoverPage = () => {
             </li>
           </ul>
         </Div>
-      </Dropdown> */}
+      </Dropdown>
       <Div sx={{ height: 500 }} />
     </>
   )

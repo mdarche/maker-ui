@@ -58,7 +58,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     ref
   ) => {
     const [show, set] = React.useState(true)
-    const [bind, { height: viewHeight }] = useMeasure(true)
+    const [bind, { height: viewHeight }] = useMeasure()
     const active = useTracker(trackerType, key, show, expiration)
 
     const spring = useSpring({
