@@ -14,7 +14,7 @@ export interface Position {
 }
 export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
-  toggle: (state?: boolean) => void
+  toggle(state?: boolean): void
   anchorRef?: React.MutableRefObject<any>
   anchorWidth?: boolean
   position?: Position
@@ -25,7 +25,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   closeOnBlur?: boolean
   containerSx?: any
   config?: object
-  _type?: 'popover' | 'dropdown' | 'tooltip'
+  _type?: 'popover' | 'dropdown' | 'tooltip' // internal usage only
   transition?:
     | 'fade'
     | 'fade-down'
@@ -149,20 +149,20 @@ export const Popover = ({
     return position.x === 'center'
       ? box.left + box.width / 2 - width / 2
       : position.x === 'left'
-      ? box.left - width
+      ? box.left - width - gap.x
       : position.x === 'right'
-      ? box.right
+      ? box.right + gap.x
       : box.left
   }
 
   const getY = () => {
     if (!box) return
     return position.y === 'top'
-      ? box.top - height - gap.y
-      : position.y === 'bottom' || transition === 'scale'
-      ? box.top + box.height + gap.y
+      ? box.documentTop - height - gap.y
+      : position.y === 'bottom'
+      ? box.documentTop + box.height + gap.y
       : position.y === 'center'
-      ? box.top + box.height / 2 - height / 2
+      ? box.documentTop + box.height / 2 - height / 2
       : 0
   }
 
@@ -183,8 +183,8 @@ export const Popover = ({
                 position: 'absolute',
                 display: 'block',
                 zIndex: 100,
-                left: getX(),
-                top: getY(),
+                left: _type !== 'dropdown' && getX(),
+                top: _type !== 'dropdown' && getY(),
                 width: anchorWidth && width,
                 overflow: transition.includes('scale') && 'hidden',
                 ...sx,

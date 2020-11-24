@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { Flex, Button, DivProps } from 'maker-ui'
+import { Flex, Button, DivProps, useMeasure } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
-import { useTracker, useMeasure } from './_hooks'
+import { useTracker } from './_hooks'
 import { CloseIcon } from './icons'
 
 const AnimatedDiv = a(Flex)
@@ -58,7 +58,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     ref
   ) => {
     const [show, set] = React.useState(true)
-    const [bind, { height: viewHeight }] = useMeasure()
+    const [bind, { height: viewHeight }] = useMeasure(true)
     const active = useTracker(trackerType, key, show, expiration)
 
     const spring = useSpring({

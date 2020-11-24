@@ -11,13 +11,13 @@ const PopoverPage = () => {
       <button ref={buttonRef} onClick={e => set(!show)}>
         Popover toggle
       </button>
-      <Tooltip bg="purple" label="test" position="top">
+      <Tooltip bg="purple" gap={5} label="test" position="left">
         Hover here!
       </Tooltip>
-      <Popover
+      {/* <Popover
         anchorRef={buttonRef}
         // anchorWidth
-        position={{ x: 'center', y: 'top' }}
+        // position={{ x: 'right', y: 'bottom' }}
         show={show}
         toggle={set}>
         <Div sx={{ bg: 'gainsboro', height: 100, ul: { m: 0, p: 2 } }}>
@@ -40,8 +40,8 @@ const PopoverPage = () => {
           </ul>
         </Div>
       </Popover>
-      <Dropdown buttonInner="Click here" matchWidth>
-        <Div sx={{ bg: 'gainsboro', height: 200, p: 3, ul: { m: 0, p: 0 } }}>
+      <Dropdown buttonInner="Click here">
+        <Div sx={{ bg: 'gainsboro', width: 200, p: 3, ul: { m: 0, p: 0 } }}>
           <ul>
             <li>
               <a href="https://google.com" target="_blank">
@@ -60,7 +60,8 @@ const PopoverPage = () => {
             </li>
           </ul>
         </Div>
-      </Dropdown>
+      </Dropdown> */}
+      <Div sx={{ height: 500 }} />
     </>
   )
 }

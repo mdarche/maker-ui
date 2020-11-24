@@ -52,6 +52,7 @@ const menu = [
 
 export default ({ children, location }) => (
   <Layout theme={theme} options={options}>
+    <Announcement>Test</Announcement>
     <Topbar>Topbar content</Topbar>
     <Header>
       <Navbar
@@ -69,8 +70,8 @@ export default ({ children, location }) => (
       <>
         <Content>
           <Main>{children}</Main>
-          <Sidebar>test</Sidebar>
-          {/* <SideNav menu={menu} /> */}
+          {/* <Sidebar>test</Sidebar> */}
+          <SideNav menu={menu} />
         </Content>
         <Footer>Footer</Footer>
       </>

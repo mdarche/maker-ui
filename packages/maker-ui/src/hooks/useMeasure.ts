@@ -3,6 +3,12 @@
 import { useRef, useEffect, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
+interface MeasureProps {
+  active?: boolean
+  contentRect?: boolean
+  externalRef?: React.MutableRefObject<any>
+}
+
 interface MeasureState {
   top: number
   bottom: number
@@ -20,6 +26,8 @@ interface MeasureState {
  * @param active - A boolean that determines whether the hook should connect the Resize Observer
  * @param contentRect - A boolean that returns the node's content rect if true. Otherwise it will
  * calculate getClientBoundingRect()
+ * @param externalRef - If you can't bind the output ref to your component, you can also supply
+ * another React ref object to make the size calculations.
  *
  * @see https://maker-ui.com/docs/hooks/#useMeasure
  *

@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { Div, DivProps, Button, generateId } from 'maker-ui'
+import { Div, DivProps, Button, generateId, useMeasure } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
 import { useAccordion } from './AccordionContext'
-import { useMeasure } from '../_hooks'
 
 const AnimatedDiv = a(Div)
 
@@ -47,7 +46,7 @@ export const AccordionPanel = React.forwardRef<
     const [panelKey] = React.useState(() =>
       eventKey ? eventKey : generateId()
     )
-    const [bind, { height: viewHeight }] = useMeasure()
+    const [bind, { height: viewHeight }] = useMeasure(true)
 
     React.useEffect(() => {
       registerPanel(panelKey)

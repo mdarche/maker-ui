@@ -34,16 +34,17 @@ export const Dropdown = ({
   const [show, toggle] = React.useState(true)
 
   return (
-    <>
+    <Div sx={{ display: 'inline-block' }}>
       <Button
         ref={buttonRef}
+        className="dropdown-button"
         aria-haspopup="listbox"
         aria-expanded={show}
         onClick={e => toggle(!show)}
-        sx={{ variant: buttonVariant, width: 300, ...sx }}>
+        sx={{ variant: buttonVariant, width: 100, ...sx }}>
         {buttonInner}
       </Button>
-      <Div ref={dropdownRef}>
+      <Div className="dropdown-container" ref={dropdownRef}>
         <Popover
           appendTo={dropdownRef.current}
           role="listbox"
@@ -58,7 +59,7 @@ export const Dropdown = ({
           {children}
         </Popover>
       </Div>
-    </>
+    </Div>
   )
 }
 

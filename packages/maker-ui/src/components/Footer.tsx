@@ -26,25 +26,23 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
     const [baseLayout] = useLayout('content')
 
     return !baseLayout.includes('workspace') ? (
-      <ErrorBoundary>
-        <footer
-          ref={ref}
-          id="footer"
-          role="contentinfo"
-          sx={{ bg, variant }}
-          {...props}>
-          <div
-            className="container"
-            sx={{
-              display: 'flex',
-              maxWidth: maxWidth || (t => t.sizes.maxWidth_footer),
-              mx: 'auto',
-              ...sx,
-            }}>
-            {children}
-          </div>
-        </footer>
-      </ErrorBoundary>
+      <footer
+        ref={ref}
+        id="footer"
+        role="contentinfo"
+        sx={{ bg, variant }}
+        {...props}>
+        <div
+          className="container"
+          sx={{
+            display: 'flex',
+            maxWidth: maxWidth || (t => t.sizes.maxWidth_footer),
+            mx: 'auto',
+            ...sx,
+          }}>
+          <ErrorBoundary>{children}</ErrorBoundary>
+        </div>
+      </footer>
     ) : null
   }
 )

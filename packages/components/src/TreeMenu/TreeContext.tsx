@@ -17,8 +17,8 @@ export interface TreeContextProps {
   }
   indentation?: ResponsiveScale
   clickableText?: boolean
-  children?: React.ReactElement | React.ReactElement[]
-  variant?: string | string[]
+  children?: React.ReactNode
+  variant?: string
 }
 
 /**

@@ -5,9 +5,7 @@ import { MinusIcon, PlusIcon, ExIcon } from '../icons'
 import { TreeContext, TreeContextProps } from './TreeContext'
 import { TreeItem } from './TreeItem'
 
-interface TreeMenuProps
-  extends TreeContextProps,
-    Omit<DivProps, 'children' | 'variant'> {}
+interface TreeMenuProps extends TreeContextProps, DivProps {}
 
 /**
  * The `TreeMenu` wraps all child `TreeItem` components to control the styles
@@ -23,7 +21,7 @@ export const TreeMenu = ({
     collapse: <MinusIcon />,
     neutral: <ExIcon />,
   },
-  indentation = '20px', // Note for Docs - can be responsive array
+  indentation = '20px',
   clickableText = false,
   sx,
   ...props
@@ -34,7 +32,6 @@ export const TreeMenu = ({
       buttons={buttons}
       indentation={indentation}
       clickableText={clickableText}>
-      {/* @ts-ignore */}
       <Div sx={{ variant, ...sx }} {...props} />
     </TreeContext>
   )

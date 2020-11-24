@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { Button, Span, Link, Div, DivProps } from 'maker-ui'
+import { Button, Span, Link, Div, DivProps, useMeasure } from 'maker-ui'
 import { useSpring, animated as a } from 'react-spring'
 
-import { useMeasure } from '../_hooks'
 import { useTreeData } from './TreeContext'
 
 function usePrevious(value: any): any {
@@ -38,7 +37,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
     } = useTreeData()
 
     const previous = usePrevious(isOpen)
-    const [bind, { height: viewHeight }] = useMeasure()
+    const [bind, { height: viewHeight }] = useMeasure(true)
 
     const { height } = useSpring({
       from: { height: 0 },
