@@ -27,7 +27,6 @@ export const Reverse = ({
   widgetArea,
   maxWidth,
   sx,
-  ...props
 }: NavProps) => (
   <Flex
     variant={variant}
@@ -36,8 +35,7 @@ export const Reverse = ({
       ...headerStyles.columns,
       maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
       ...sx,
-    }}
-    {...props}>
+    }}>
     <Flex className="col-1">
       <NavMenu menuItems={menu} />
       <MenuButton

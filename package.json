@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "clean": "lerna run clean",
+    "git-clean": "git clean -fXd -e \\!node_modules -e \\!node_modules/**/*",
     "test": "lerna run test",
     "docs-dev": "cd docs && yarn develop",
     "docs-build": "cd docs && yarn build",

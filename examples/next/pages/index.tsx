@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { Div } from 'maker-ui'
 
 export default function IndexPage() {
   return (
@@ -9,6 +10,7 @@ export default function IndexPage() {
       <Link href="page-2">
         <a>Go to Page 2</a>
       </Link>
+      <Div sx={{ height: 3000 }} />
     </>
   )
 }

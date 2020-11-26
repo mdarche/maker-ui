@@ -21,6 +21,19 @@ export const headerStyles = {
     ...base,
     justifyContent: ['space-between', 'center'],
   },
+  split: {
+    '.col': {
+      alignItems: 'center',
+    },
+    '.nav-left': {},
+    '.nav-center': { justifyContent: 'center' },
+    '.nav-right': {},
+    '.nav-controls': {
+      top: 0,
+      right: 0,
+      height: '100%',
+    },
+  },
   columns: {
     ...base,
     '.col-1': {

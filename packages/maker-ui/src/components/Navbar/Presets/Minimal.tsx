@@ -31,7 +31,6 @@ export const Minimal = ({
   maxWidth,
   type,
   sx,
-  ...props
 }: NavProps) => (
   <Flex
     variant={variant}
@@ -40,8 +39,7 @@ export const Minimal = ({
       ...getStyles(type),
       maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
       ...sx,
-    }}
-    {...props}>
+    }}>
     {type === 'minimal' ? (
       <>
         <Logo>{logo}</Logo>

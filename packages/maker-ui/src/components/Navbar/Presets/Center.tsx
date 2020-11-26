@@ -12,7 +12,7 @@ import { NavMenu, MenuButton } from '../../Menu'
 import { headerStyles } from './shared-styles'
 
 /**
- * Formats the inner layout styles for `center` and `split` nav types.
+ * Formats the inner layout styles for `center` nav types.
  *
  * @internal usage only
  */
@@ -30,60 +30,39 @@ export const Center = ({
   type,
   maxWidth,
   sx,
-  ...props
 }: NavProps) => {
-  const mid = Math.ceil(menu.length / 2)
-
-  const renderBlock = () => (
-    <Flex
-      sx={{
-        position: setBreakpoint(bp, ['relative', 'absolute']),
-        right: 0,
-        alignItems: 'center',
-      }}>
-      <WidgetArea content={widgetArea} />
-      <MenuButton
-        buttonInner={menuButtonInner}
-        customButton={customMenuButton}
-      />
-      <ColorButton
-        buttonInner={colorButtonInner}
-        customButton={customColorButton}
-      />
-    </Flex>
-  )
-
   return (
     <Flex
       variant={variant}
-      direction={
-        type === 'center' ? setBreakpoint(bp, ['row', 'column']) : null
-      }
+      direction={setBreakpoint(bp, ['row', 'column'])}
       // @ts-ignore
       sx={{
         ...headerStyles.center,
         maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
         ...sx,
-      }}
-      {...props}>
-      {type === 'center' ? (
-        <>
-          <Flex justify={['flex-start', 'center']}>
-            <Logo>{logo}</Logo>
-          </Flex>
-          <Flex align="center">
-            <NavMenu menuItems={menu} />
-            {renderBlock()}
-          </Flex>
-        </>
-      ) : (
-        <>
-          <NavMenu menuItems={menu.slice(0, mid)} />
-          <Logo>{logo}</Logo>
-          <NavMenu menuItems={menu.slice(mid)} />
-          {renderBlock()}
-        </>
-      )}
+      }}>
+      <Flex justify={['flex-start', 'center']}>
+        <Logo>{logo}</Logo>
+      </Flex>
+      <Flex align="center">
+        <NavMenu menuItems={menu} />
+        <Flex
+          sx={{
+            position: setBreakpoint(bp, ['relative', 'absolute']),
+            right: 0,
+            alignItems: 'center',
+          }}>
+          <WidgetArea content={widgetArea} />
+          <MenuButton
+            buttonInner={menuButtonInner}
+            customButton={customMenuButton}
+          />
+          <ColorButton
+            buttonInner={colorButtonInner}
+            customButton={customColorButton}
+          />
+        </Flex>
+      </Flex>
     </Flex>
   )
 }

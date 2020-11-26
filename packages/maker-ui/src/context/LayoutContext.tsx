@@ -147,6 +147,7 @@ function useLayoutDetector(
 ) {
   const [layout, setLayout] = useLayout(type)
   const [showError, setShowError] = React.useState(false)
+  const [initialRender, setInitialRender] = React.useState(true)
 
   React.useEffect(() => {
     if (children) {
@@ -159,14 +160,15 @@ function useLayoutDetector(
       if (isValidLayout) {
         if (layout !== currentLayout) {
           setLayout(currentLayout as LayoutString)
+          if (initialRender) setInitialRender(false)
         }
       } else {
         setShowError(true)
       }
     }
-  }, [layout, setLayout, type, children])
+  }, [layout, setLayout, type, initialRender, children])
 
-  return { layout, showError }
+  return { layout, showError, initialRender }
 }
 
 export { LayoutProvider, useMeasurements, useLayout, useLayoutDetector }

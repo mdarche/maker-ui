@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import React from 'react'
 import {
   Layout as ThemeLayout,
   Header,
@@ -8,6 +7,7 @@ import {
   Content,
   Main,
   Footer,
+  Sidebar,
 } from 'maker-ui'
 
 import { theme } from '../config/theme'
@@ -38,11 +38,12 @@ const Layout = ({ children }) => {
   return (
     <ThemeLayout theme={theme} options={options}>
       <Header>
-        <Navbar menu={menu} />
+        <Navbar type="basic-left" menu={menu} />
         <MobileMenu menu={menu} />
       </Header>
       <Content>
         <Main>{children}</Main>
+        <Sidebar>Test</Sidebar>
       </Content>
       <Footer>Footer</Footer>
     </ThemeLayout>

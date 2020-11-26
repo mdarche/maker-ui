@@ -8,7 +8,7 @@ import {
 } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { MenuProps } from '../Menu'
-import { Basic, Center, Reverse, Minimal } from './Presets'
+import { Basic, Center, Reverse, Minimal, Split } from './Presets'
 import { useLayout } from '../../context/LayoutContext'
 
 export interface NavProps extends MakerProps {
@@ -23,7 +23,9 @@ export interface NavProps extends MakerProps {
   ): React.ReactElement
   widgetArea?: MaybeElement
   header?: MakerOptions['header']
-  bp?: number
+  bp?: MakerOptions['header']['breakIndex']
+  columnsDesktop?: MakerOptions['header']['columnsDesktop']
+  columnsMobile?: MakerOptions['header']['columnsMobile']
   type?: MakerOptions['header']['navType']
   pathname?: string
   maxWidth?: ResponsiveScale | any
@@ -46,24 +48,32 @@ export const Navbar = (props: NavProps) => {
     }
   }, [props.type, layout, setLayout])
 
+  const attributes = {
+    type: layout as NavProps['type'],
+    bp: header.breakIndex,
+    columnsDesktop: header.columnsDesktop,
+    columnsMobile: header.columnsMobile,
+    ...props,
+  }
+
   switch (layout) {
     case 'center':
-      return <Center {...props} bp={header.breakIndex} />
+      return <Center {...attributes} />
     case 'split':
-      return <Center {...props} bp={header.breakIndex} />
+      return <Split {...attributes} />
     case 'minimal':
-      return <Minimal {...props} />
+      return <Minimal {...attributes} />
     case 'minimal-left':
-      return <Minimal {...props} />
+      return <Minimal {...attributes} />
     case 'minimal-center':
-      return <Minimal {...props} />
+      return <Minimal {...attributes} />
     case 'reverse':
-      return <Reverse {...props} />
+      return <Reverse {...attributes} />
     case 'basic-left':
-      return <Basic {...props} bp={header.breakIndex} />
+      return <Basic {...attributes} />
     case 'basic':
     default:
-      return <Basic {...props} bp={header.breakIndex} />
+      return <Basic {...attributes} />
   }
 }
 

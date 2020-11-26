@@ -26,18 +26,15 @@ interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  */
 
 export const Header = (props: HeaderProps) => {
-  const [scrollClass, setScrollClass] = useState(null)
+  const [scrollClass, setScrollClass] = useState('')
   const [show, setShow] = useState(true)
-
+  const { setMeasurement } = useMeasurements()
   const { header } = useOptions()
   const [layout] = useLayout('content')
 
   const [bind, { height }] = useMeasure({
     observe: layout.includes('workspace'),
-    // contentRect: true,
-    // parentComponent: 'header',
   })
-  const { setMeasurement } = useMeasurements()
 
   useEffect(() => {
     if (height !== 0) {
@@ -83,7 +80,7 @@ export const Header = (props: HeaderProps) => {
   useScrollPosition(
     ({ currPos }) => {
       const { scrollTop, className } = header.scroll
-      const isActive = currPos > scrollTop ? className : null
+      const isActive = currPos > scrollTop ? className : ''
 
       if (isActive !== scrollClass) {
         setScrollClass(isActive)
@@ -97,8 +94,10 @@ export const Header = (props: HeaderProps) => {
     ? {
         position: 'sticky',
         top: 0,
-        transform: show ? 'none' : 'translateY(-100%)',
-        transition: `transform .3s ${show ? `ease-in` : `ease-out`}`,
+        transition: 'transform .3s ease-in',
+        '&.scroll-active': {
+          transform: 'translateY(-100%)',
+        },
       }
     : sticky
     ? {
@@ -118,15 +117,17 @@ export const Header = (props: HeaderProps) => {
     <header
       {...bind}
       id="site-header"
-      className={scrollClass}
+      className={`${scrollClass}${
+        stickyUpScroll && !show ? ' scroll-active' : ''
+      }`}
       role="banner"
       sx={{
         bg,
         background,
         zIndex: 100,
-        ...stickyPartial,
         variant,
         ...sx,
+        ...stickyPartial,
       }}
       {...rest}>
       <ErrorBoundary errorKey="header">{children}</ErrorBoundary>

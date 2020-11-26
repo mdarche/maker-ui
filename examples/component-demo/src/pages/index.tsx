@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Section } from 'maker-ui'
+import { Div, Section } from 'maker-ui'
 
 const IndexPage = () => {
   return (
@@ -13,6 +13,7 @@ const IndexPage = () => {
       <Section>
         <h2>Test</h2>
       </Section>
+      <Div sx={{ height: 5000 }}>test</Div>
     </>
   )
 }

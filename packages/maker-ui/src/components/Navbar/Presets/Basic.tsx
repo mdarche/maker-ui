@@ -28,7 +28,6 @@ export const Basic = ({
   maxWidth,
   variant = 'navbar',
   sx,
-  ...props
 }: NavProps) => (
   <Flex
     variant={variant}
@@ -37,8 +36,7 @@ export const Basic = ({
       ...headerStyles.default,
       maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
       ...sx,
-    }}
-    {...props}>
+    }}>
     <Logo>{logo}</Logo>
     <Flex
       align="center"

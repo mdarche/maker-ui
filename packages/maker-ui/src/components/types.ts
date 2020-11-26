@@ -32,6 +32,7 @@ export type MakerTheme = Theme
  */
 
 export interface MakerOptions {
+  framework?: 'gatsby' | 'next'
   linkFunction?(
     path: string,
     children: string | React.ReactElement,
@@ -69,6 +70,8 @@ export interface MakerOptions {
       currentMode?: string,
       attributes?: object
     ) => React.ReactElement | React.ReactElement
+    columnsDesktop: string
+    columnsMobile: string
     breakIndex?: number
   }
   mobileMenu?: {

@@ -3,13 +3,13 @@
 import { useRef, useEffect, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
-interface MeasureProps {
+export interface MeasureProps {
   observe?: boolean
   contentRect?: boolean
   externalRef?: React.MutableRefObject<any>
 }
 
-interface MeasureState {
+export interface MeasureState {
   top: number
   bottom: number
   left: number
@@ -36,7 +36,7 @@ interface MeasureState {
 export function useMeasure(
   props?: MeasureProps
 ): [{ ref: React.MutableRefObject<any> }, MeasureState] {
-  // TODO - revisit TS issues with props destructuring
+  // TODO - revisit optional root prop + Typescript issue with destructuring
   const observe = props && props.observe ? props.observe : true
   const contentRect = props && props.contentRect ? props.contentRect : false
   const externalRef = props && props.externalRef ? props.externalRef : undefined

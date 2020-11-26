@@ -4,10 +4,13 @@ import Link from 'next/link'
 
 export const options: MakerOptions = {
   header: {
-    stickyScroll: true,
+    navType: 'basic',
+    sticky: true,
+    stickyOnMobile: true,
     dropdown: {
       transition: 'fade-down',
     },
+    breakIndex: 0,
   },
   linkFunction: (path, children, attributes) => (
     <Link href={path}>

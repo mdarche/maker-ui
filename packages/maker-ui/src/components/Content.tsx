@@ -22,9 +22,12 @@ interface ContentProps
  */
 
 export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
-  const { content } = useOptions()
+  const { framework, content } = useOptions()
   const { measurements } = useMeasurements()
-  const { layout, showError } = useLayoutDetector('content', children)
+  const { layout, showError, initialRender } = useLayoutDetector(
+    'content',
+    children
+  )
 
   return (
     <div
@@ -32,6 +35,7 @@ export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
       sx={{
         variant,
         position: 'relative',
+        visibility: framework === 'gatsby' && initialRender && ['hidden'],
         ...getLayoutStyles(layout, content.breakIndex, measurements),
         ...sx,
       }}

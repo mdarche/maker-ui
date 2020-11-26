@@ -2,15 +2,18 @@ import * as React from 'react'
 import { MakerOptions } from 'maker-ui'
 
 export const options: MakerOptions = {
+  framework: 'gatsby',
   topbar: {
     maxWidth: [200, 600],
   },
   header: {
-    navType: 'basic',
+    navType: 'split',
     maxWidth: '100%',
     breakIndex: 0,
-    stickyUpScroll: false,
-    showColorButton: true,
+    sticky: true,
+    stickyUpScroll: true,
+    // stickyOnMobile: true,
+    // showColorButton: true,
     dropdown: {
       transition: 'fade-down',
     },

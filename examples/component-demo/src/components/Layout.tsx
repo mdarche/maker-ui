@@ -44,20 +44,19 @@ const menu = [
   { label: 'Generative', path: '/generative' },
   { label: 'Tree Menu', path: '/tree-menu' },
   { label: 'Modal', path: '/modal' },
-  { label: 'Lightbox', path: '/lightbox' },
-  { label: 'Popover', path: '/popover' },
-  { label: 'TableofContents', path: '/toc' },
-  { label: 'Workspace', path: '/workspace' },
+  // { label: 'Lightbox', path: '/lightbox' },
+  // { label: 'Popover', path: '/popover' },
+  // { label: 'TableofContents', path: '/toc' },
+  // { label: 'Workspace', path: '/workspace' },
 ]
 
 export default ({ children, location }) => (
   <Layout theme={theme} options={options}>
-    {/* <Announcement>Test</Announcement>
-    <Topbar>Topbar content</Topbar> */}
+    <Announcement>Test</Announcement>
+    <Topbar>Topbar content</Topbar>
     <Header>
       <Navbar
         logo={'Components Demo'}
-        type="center"
         menu={menu}
         colorButtonInner={<div>Test</div>}
         customMenuButton={(isOpen, attributes) => (
