@@ -19,7 +19,7 @@ interface MobileMenuProps
   width?: ResponsiveScale
   menu?: MenuProps[]
   pathname?: string
-  closeButton?: MakerOptions['mobileMenu']['customCloseButton']
+  closeButton?: MakerOptions['mobileMenu']['closeButton']
   header?: React.ReactElement
   footer?: React.ReactElement
 }
@@ -52,7 +52,6 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       sx,
       ...rest
     } = props
-    const customButton = closeButton || mobileMenu.customCloseButton
 
     return (
       <Fragment>
@@ -70,19 +69,15 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
             top: 0,
             bottom: 0,
             zIndex: 100,
-            willChange: 'transform opacity',
-            transition: 'all ease .3s',
+            willChange: 'transform, opacity',
+            transition: mobileMenu.easingCurve || 'all ease .3s',
             ...getTransition(show, transition, width),
             ...sx,
           }}
           {...rest}>
           <ErrorBoundary errorKey="mobileMenu">
-            {mobileMenu.defaultCloseButton || customButton ? (
-              <MenuButton
-                customButton={customButton}
-                sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}
-                closeIcon
-              />
+            {mobileMenu.showCloseButton || closeButton ? (
+              <MenuButton customButton={closeButton} isCloseButton />
             ) : null}
             {header ? header : null}
             {children || (

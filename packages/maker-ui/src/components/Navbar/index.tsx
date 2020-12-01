@@ -14,13 +14,8 @@ import { useLayout } from '../../context/LayoutContext'
 export interface NavProps extends MakerProps {
   logo?: MaybeElement
   menu?: MenuProps[]
-  menuButtonInner?: MaybeElement
-  customMenuButton?(isOpen?: boolean, attributes?: object): React.ReactElement
-  colorButtonInner?: MaybeElement
-  customColorButton?(
-    colorMode?: string,
-    attributes?: object
-  ): React.ReactElement
+  colorButton?: MakerOptions['header']['colorButton']
+  menuButton?: MakerOptions['header']['menuButton']
   widgetArea?: MaybeElement
   header?: MakerOptions['header']
   bp?: MakerOptions['header']['breakIndex']

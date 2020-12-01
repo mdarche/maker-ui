@@ -1,15 +1,14 @@
 import * as React from 'react'
 
 import { SVG, Button } from '../Primitives'
-import { MakerProps, MakerOptions, MaybeElement } from '../types'
+import { MakerProps, MakerOptions } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 import { setBreakpoint } from '../../utils/helper'
 
 interface MenuButtonProps extends MakerProps {
-  closeIcon?: boolean
-  buttonInner?: MaybeElement
-  customButton?: MakerOptions['header']['customMenuButton']
+  isCloseButton?: boolean
+  customButton?: MakerOptions['header']['menuButton']
   visibleOnDesktop?: boolean
   'aria-expanded'?: boolean
 }
@@ -27,15 +26,14 @@ export const MenuButton = (props: MenuButtonProps) => {
   const { mobileMenu, header, sideNav } = useOptions()
 
   const {
-    buttonInner,
     customButton,
     visibleOnDesktop = mobileMenu.visibleOnDesktop,
-    closeIcon,
+    isCloseButton,
     sx,
   } = props
 
-  // Use custom button from props or check header options
-  const menuButton = customButton || header.customMenuButton
+  // Use custom button from props or check header / mobileMenu options
+  const menuButton = customButton || header.menuButton
 
   const visibility = visibleOnDesktop
     ? !sideNav.isPrimaryMobileNav
@@ -54,7 +52,7 @@ export const MenuButton = (props: MenuButtonProps) => {
     ...conditionalAttributes,
   }
 
-  return menuButton ? (
+  return typeof menuButton === 'function' ? (
     menuButton(sideNav.isPrimaryMobileNav ? sideMenu : menu, attributes)
   ) : (
     <Button
@@ -68,15 +66,15 @@ export const MenuButton = (props: MenuButtonProps) => {
         svg: { m: '0 auto' },
         ...sx,
       }}>
-      {buttonInner || (
+      {menuButton || (
         <SVG
           viewBox="0 0 24 24"
           sx={{
             display: 'block',
             margin: 0,
-            height: closeIcon ? 35 : 27,
+            height: isCloseButton ? 35 : 27,
           }}>
-          {closeIcon ? (
+          {isCloseButton ? (
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
           ) : (
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />

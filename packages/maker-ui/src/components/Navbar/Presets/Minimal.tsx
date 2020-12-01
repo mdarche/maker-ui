@@ -24,10 +24,8 @@ export const Minimal = ({
   variant = 'navbar',
   logo = 'logo',
   widgetArea,
-  menuButtonInner,
-  customMenuButton,
-  colorButtonInner,
-  customColorButton,
+  colorButton,
+  menuButton,
   maxWidth,
   type,
   sx,
@@ -45,53 +43,32 @@ export const Minimal = ({
         <Logo>{logo}</Logo>
         <Flex align="center">
           <WidgetArea content={widgetArea} />
-          <MenuButton
-            buttonInner={menuButtonInner}
-            customButton={customMenuButton}
-            visibleOnDesktop
-          />
-          <ColorButton
-            buttonInner={colorButtonInner}
-            customButton={customColorButton}
-          />
+          <MenuButton customButton={menuButton} visibleOnDesktop />
+          <ColorButton customButton={colorButton} />
         </Flex>
       </>
     ) : type === 'minimal-left' ? (
       <>
         <Flex align="center">
-          <MenuButton
-            buttonInner={menuButtonInner}
-            customButton={customMenuButton}
-            visibleOnDesktop
-          />
+          <MenuButton customButton={menuButton} visibleOnDesktop />
           <Logo>{logo}</Logo>
         </Flex>
         <Flex align="center">
           <WidgetArea content={widgetArea} />
-          <ColorButton
-            buttonInner={colorButtonInner}
-            customButton={customColorButton}
-          />
+          <ColorButton customButton={colorButton} />
         </Flex>
       </>
     ) : (
       <>
         <Flex className="col-1">
-          <MenuButton
-            buttonInner={menuButtonInner}
-            customButton={customMenuButton}
-            visibleOnDesktop
-          />
+          <MenuButton customButton={menuButton} visibleOnDesktop />
         </Flex>
         <Flex className="col-2">
           <Logo>{logo}</Logo>
         </Flex>
         <Flex className="col-3">
           <WidgetArea content={widgetArea} />
-          <ColorButton
-            buttonInner={colorButtonInner}
-            customButton={customColorButton}
-          />
+          <ColorButton customButton={colorButton} />
         </Flex>
       </>
     )}

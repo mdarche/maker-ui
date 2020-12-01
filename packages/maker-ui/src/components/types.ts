@@ -25,10 +25,18 @@ export interface MakerProps {
 
 export type MakerTheme = Theme
 
+type PanelProps = {
+  width?: ResponsiveScale
+  collapsible?: boolean
+  collapseWidth?: ResponsiveScale
+  defaultOpen?: boolean
+  animationStyle?: 'slide' | 'scale'
+  stickyContents?: boolean
+}
+
 /**
- * Alias for top-level Maker UI layout components.
+ * Configuration for Maker UI layout system.
  *
- * @TODO - address button callbacks vs react components ---> React.ReactNode
  */
 
 export interface MakerOptions {
@@ -38,7 +46,7 @@ export interface MakerOptions {
     children: string | React.ReactElement,
     attributes: object,
     icon?: MaybeElement
-  ): React.ReactElement
+  ): React.ReactNode
   topbar?: {
     maxWidth?: ResponsiveScale
     hideOnMobile?: boolean
@@ -50,8 +58,7 @@ export interface MakerOptions {
     sticky?: boolean
     stickyOnMobile?: boolean
     stickyUpScroll?: boolean
-    scroll?: {
-      toggleClass?: boolean
+    scrollClass?: {
       scrollTop?: number
       className?: string
     }
@@ -59,35 +66,37 @@ export interface MakerOptions {
     hideColorButtonOnMobile?: boolean
     hideWidgetsOnMobile?: boolean
     dropdown?: {
-      caret?: boolean
-      transition?: string
+      caret?: boolean | 'default' | React.ReactNode
+      transition?: 'scale' | 'fade' | 'fade-down' | 'fade-up'
     }
-    customMenuButton?: (
-      isOpen?: boolean,
-      attributes?: object
-    ) => React.ReactElement | React.ReactElement
-    customColorButton?: (
-      currentMode?: string,
-      attributes?: object
-    ) => React.ReactElement | React.ReactElement
-    columnsDesktop: string
-    columnsMobile: string
+    menuButton?:
+      | 'default'
+      | React.ReactNode
+      | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+    colorButton?:
+      | 'default'
+      | React.ReactNode
+      | ((currentMode?: string, attributes?: object) => React.ReactNode)
+    columnsDesktop?: string
+    columnsMobile?: string
     breakIndex?: number
   }
   mobileMenu?: {
     width?: ResponsiveScale
     transition?: typeof transitionTypes[number]
+    easingCurve?: string
     visibleOnDesktop?: boolean
-    customCloseButton?: (
-      isOpen?: boolean,
-      attributes?: object
-    ) => React.ReactElement | React.ReactElement
-    defaultCloseButton?: boolean
+    closeButton?:
+      | 'default'
+      | React.ReactNode
+      | ((isOpen?: string, attributes?: object) => React.ReactNode)
+    showCloseButton?: boolean
     closeOnBlur?: boolean
     closeOnRouteChange?: boolean
   }
   sideNav?: {
     width?: ResponsiveScale
+    easingCurve?: string
     isHeader?: boolean
     isPrimaryMobileNav?: boolean
     floatingToggle?: boolean
@@ -115,12 +124,8 @@ export interface MakerOptions {
     skiplinks?: boolean
   }
   errors?: {
-    logFunction?: (
-      error: string,
-      errorDetails: object,
-      component: string
-    ) => any
-    eventHandlerCatch?: (error: string) => any
+    logFunction?(error: string, errorDetails: object, component: string): any
+    eventHandlerCatch?(error: string): any
     showStackTrace?: boolean
     errorMessage?: {
       topbar?: React.ReactNode
@@ -140,25 +145,10 @@ export interface MakerOptions {
     breakIndex?: number
   }
   workspace?: {
-    canvasType?: string // draggable vs scroll
     canvasMaxWidth?: ResponsiveScale
     toolbarHeight?: ResponsiveScale
     breakIndex?: number
-    panelLeft?: {
-      width?: ResponsiveScale
-      collapsible?: boolean
-      collapseWidth?: ResponsiveScale
-      defaultOpen?: boolean
-      animationStyle?: 'slide' | 'scale'
-      stickyContents?: boolean
-    }
-    panelRight?: {
-      width?: ResponsiveScale
-      collapsible?: boolean
-      collapseWidth?: ResponsiveScale
-      defaultOpen?: boolean
-      animationStyle?: 'slide' | 'scale'
-      stickyContents?: boolean
-    }
+    panelLeft?: PanelProps
+    panelRight?: PanelProps
   }
 }

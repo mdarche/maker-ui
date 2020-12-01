@@ -20,10 +20,8 @@ export const Reverse = ({
   variant = 'navbar',
   logo = 'logo',
   menu,
-  menuButtonInner,
-  customMenuButton,
-  colorButtonInner,
-  customColorButton,
+  colorButton,
+  menuButton,
   widgetArea,
   maxWidth,
   sx,
@@ -38,20 +36,14 @@ export const Reverse = ({
     }}>
     <Flex className="col-1">
       <NavMenu menuItems={menu} />
-      <MenuButton
-        buttonInner={menuButtonInner}
-        customButton={customMenuButton}
-      />
+      <MenuButton customButton={menuButton} />
     </Flex>
     <Flex className="col-2">
       <Logo>{logo}</Logo>
     </Flex>
     <Flex className="col-3">
       <WidgetArea content={widgetArea} />
-      <ColorButton
-        buttonInner={colorButtonInner}
-        customButton={customColorButton}
-      />
+      <ColorButton customButton={colorButton} />
     </Flex>
   </Flex>
 )

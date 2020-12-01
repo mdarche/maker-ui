@@ -13,17 +13,29 @@ export const options: MakerOptions = {
     sticky: true,
     stickyUpScroll: true,
     // stickyOnMobile: true,
-    // showColorButton: true,
+    showColorButton: true,
+    scrollClass: {
+      className: 'scroll-test',
+      scrollTop: 2000,
+    },
     dropdown: {
       transition: 'fade-down',
     },
+    // menuButton: (isOpen, atts) => (
+    //   <button {...atts}>{isOpen ? 'yes' : 'no'}</button>
+    // ),
   },
   mobileMenu: {
     width: '60vw',
     transition: 'slide-left',
     closeOnBlur: true,
+    visibleOnDesktop: true,
     closeOnRouteChange: true,
-    defaultCloseButton: true,
+    // closeButton: (isOpen, atts) => (
+    //   <button {...atts} style={{ color: '#fff' }}>
+    //     {isOpen ? 'yes' : 'no'}
+    //   </button>
+    // ),
     // customCloseButton: (isOpen, attributes) => (
     //   <button {...attributes}>{isOpen ? 'Close!' : 'Open!'}</button>
     // ),

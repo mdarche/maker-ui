@@ -1,6 +1,7 @@
 export const theme = {
   initialColorModeName: 'light',
   colors: {
+    link: 'red',
     text: '#333',
     background: '#fff',
     primary: '#1858dc',
@@ -10,12 +11,19 @@ export const theme = {
     border: '#e6e6e6',
     bg_topbar: '#355cac',
     bg_header: '#fff',
-    bg_mobileNav: 'rgba(0, 0, 0, 0.9)',
+    bg_mobileMenu: 'rgba(0, 0, 0, 0.1)',
     bg_sideNav: '#eee',
     bg_footer: 'blue',
     modes: {
       dark: {
-        background: '#000',
+        link: '#fff',
+        text: '#fff',
+        primary: '#fff',
+        accent: '#fff',
+        background: '#1b2048',
+        bg_header: '#1b2048',
+        bg_sideNav: '#000',
+        bg_mobileMenu: '#fff',
       },
     },
   },

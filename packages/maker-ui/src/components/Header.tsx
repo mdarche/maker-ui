@@ -31,6 +31,7 @@ export const Header = (props: HeaderProps) => {
   const { setMeasurement } = useMeasurements()
   const { header } = useOptions()
   const [layout] = useLayout('content')
+  const activateScrollClass = header.scrollClass ? true : false
 
   const [bind, { height }] = useMeasure({
     observe: layout.includes('workspace'),
@@ -79,15 +80,17 @@ export const Header = (props: HeaderProps) => {
   // Fire hook effect if header.scroll.toggleClass === true
   useScrollPosition(
     ({ currPos }) => {
-      const { scrollTop, className } = header.scroll
-      const isActive = currPos > scrollTop ? className : ''
+      if (activateScrollClass) {
+        const { scrollTop, className } = header.scrollClass
+        const isActive = currPos > scrollTop ? className : ''
 
-      if (isActive !== scrollClass) {
-        setScrollClass(isActive)
+        if (isActive !== scrollClass) {
+          setScrollClass(isActive)
+        }
       }
     },
     0,
-    header.scroll.toggleClass
+    activateScrollClass
   )
 
   const stickyPartial = stickyUpScroll

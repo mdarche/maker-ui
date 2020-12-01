@@ -55,15 +55,8 @@ export default ({ children, location }) => (
     <Announcement>Test</Announcement>
     <Topbar>Topbar content</Topbar>
     <Header>
-      <Navbar
-        logo={'Components Demo'}
-        menu={menu}
-        colorButtonInner={<div>Test</div>}
-        customMenuButton={(isOpen, attributes) => (
-          <button {...attributes}>{isOpen ? 'Close' : 'Open'}</button>
-        )}
-      />
-      <MobileMenu menu={menu} />
+      <Navbar logo={'Components Demo'} menu={menu} />
+      <MobileMenu menu={menu} closeButton="test" />
     </Header>
     {location.pathname !== '/workspace' ? (
       <>

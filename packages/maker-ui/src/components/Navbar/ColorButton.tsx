@@ -2,13 +2,12 @@ import * as React from 'react'
 import { useThemeUI } from 'theme-ui'
 
 import { Button } from '../Primitives'
-import { MakerOptions, MaybeElement } from '../types'
+import { MakerOptions } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
 interface ColorButtonProps {
-  buttonInner?: MaybeElement
-  customButton?: MakerOptions['header']['customColorButton']
+  customButton?: MakerOptions['header']['colorButton']
 }
 
 /**
@@ -18,10 +17,7 @@ interface ColorButtonProps {
  * @see https://maker-ui.com/docs/layout/buttons/#colorButton
  */
 
-export const ColorButton = ({
-  buttonInner,
-  customButton,
-}: ColorButtonProps) => {
+export const ColorButton = ({ customButton }: ColorButtonProps) => {
   const { theme, colorMode, setColorMode } = useThemeUI()
   const { header } = useOptions()
 
@@ -44,14 +40,14 @@ export const ColorButton = ({
   }
 
   // Use custom button from props or check header options
-  const colorButton = customButton || header.customColorButton
+  const colorButton = customButton || header.colorButton
 
   if (modes.length === 1) {
     return null
   }
 
   if (header.showColorButton) {
-    return colorButton ? (
+    return typeof colorButton === 'function' ? (
       colorButton(colorMode, attributes)
     ) : (
       <Button
@@ -62,7 +58,7 @@ export const ColorButton = ({
             ? setBreakpoint(header.breakIndex, ['none', 'block'])
             : 'block',
         }}>
-        {buttonInner || colorMode}
+        {colorButton || colorMode}
       </Button>
     )
   }

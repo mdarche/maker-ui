@@ -18,10 +18,8 @@ import { headerStyles } from './shared-styles'
 export const Basic = ({
   logo = 'logo',
   menu,
-  menuButtonInner,
-  customMenuButton,
-  colorButtonInner,
-  customColorButton,
+  colorButton,
+  menuButton,
   widgetArea,
   bp,
   type,
@@ -49,14 +47,8 @@ export const Basic = ({
       <NavMenu menuItems={menu} />
       <Flex align="center">
         <WidgetArea content={widgetArea} />
-        <MenuButton
-          buttonInner={menuButtonInner}
-          customButton={customMenuButton}
-        />
-        <ColorButton
-          buttonInner={colorButtonInner}
-          customButton={customColorButton}
-        />
+        <MenuButton customButton={menuButton} />
+        <ColorButton customButton={colorButton} />
       </Flex>
     </Flex>
   </Flex>

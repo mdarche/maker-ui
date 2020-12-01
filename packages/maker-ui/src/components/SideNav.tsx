@@ -103,7 +103,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             willChange: 'transform',
             transform: t =>
               setBreakpoint(bp, [getTransform(t.sizes.width_sideNav), 'none']),
-            transition: 'transform ease .3s',
+            transition: sideNav.easingCurve || 'transform ease .3s',
           }}
           {...props}>
           <ErrorBoundary errorKey="sideNav">

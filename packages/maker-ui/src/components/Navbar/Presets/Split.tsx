@@ -21,10 +21,8 @@ export const Split = ({
   variant = 'navbar',
   logo = 'logo',
   menu,
-  menuButtonInner,
-  customMenuButton,
-  colorButtonInner,
-  customColorButton,
+  colorButton,
+  menuButton,
   widgetArea,
   bp,
   type,
@@ -67,14 +65,8 @@ export const Split = ({
           position: setBreakpoint(bp, ['relative', 'absolute']),
         }}>
         <WidgetArea content={widgetArea} />
-        <MenuButton
-          buttonInner={menuButtonInner}
-          customButton={customMenuButton}
-        />
-        <ColorButton
-          buttonInner={colorButtonInner}
-          customButton={customColorButton}
-        />
+        <MenuButton customButton={menuButton} />
+        <ColorButton customButton={colorButton} />
       </Flex>
     </Grid>
   )

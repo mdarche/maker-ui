@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { Fragment, useState, memo } from 'react'
+import { Fragment, useState, memo, isValidElement } from 'react'
 
 import { Link } from '../Primitives'
 import { useOptions } from '../../context/OptionContext'
@@ -24,7 +24,7 @@ export interface MenuProps {
 
 interface MenuItemProps {
   data: MenuProps
-  caret?: boolean
+  caret?: MakerOptions['header']['dropdown']['caret']
   menuControls?: any
   pathname?: string
   isHeader?: boolean
@@ -83,7 +83,8 @@ export const MenuItem = memo(
             '&:focus-within > .submenu, &:hover > .submenu': {
               ...dropdownStyles(header.dropdown.transition),
             },
-            '> a .menu-text:after': submenu && caret && caretStyles,
+            '> a .menu-text:after':
+              submenu && caret === 'default' && caretStyles,
           }
         }>
         {linkFunction ? (
@@ -92,6 +93,7 @@ export const MenuItem = memo(
           <Link href={path} {...attributes}>
             {icon && <span className="menu-icon">{icon}</span>}
             <span className="menu-text">{label}</span>
+            {submenu && caret && isValidElement(caret) ? caret : null}
           </Link>
         )}
         {submenu && (

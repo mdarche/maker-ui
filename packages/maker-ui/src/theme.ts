@@ -10,8 +10,15 @@ export const createTheme = (theme, options): Theme => {
 
   const mappedOptions: object = {
     colors: {
+      text: '',
+      link: '',
+      link_hover: '',
+      primary: '',
+      secondary: '',
+      background: '',
       bg_topbar: '#355cac',
       bg_header: '#000',
+      bg_dropdown: '',
       bg_mobileMenu: 'rgba(0, 0, 0, 0.9)',
       bg_sideNav: '#333',
       bg_footer: '#fff',
@@ -24,7 +31,7 @@ export const createTheme = (theme, options): Theme => {
     },
     fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
     space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
-    breakpoints: ['750px', '960px', '1240px'],
+    breakpoints: ['568px', '768px', '1440px'],
     sizes: {
       height_workspace_toolbar: o.workspace.toolbarHeight,
       maxWidth_header: o.header.maxWidth,
@@ -43,6 +50,17 @@ export const createTheme = (theme, options): Theme => {
     },
     gap: {
       gap_content: o.content.sidebarGap,
+    },
+    styles: {
+      root: {
+        fontFamily: 'body',
+      },
+      a: {
+        color: 'link',
+        '&:hover': {
+          color: 'link_hover',
+        },
+      },
     },
   }
 
