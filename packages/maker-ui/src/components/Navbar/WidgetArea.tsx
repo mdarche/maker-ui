@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 
-import { MaybeElement } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { setBreakpoint } from '../../utils/helper'
 
 interface WidgetProps {
-  content?: MaybeElement
+  content?: React.ReactNode
   hideOnMobile?: boolean
 }
 

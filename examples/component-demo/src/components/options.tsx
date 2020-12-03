@@ -21,9 +21,6 @@ export const options: MakerOptions = {
     dropdown: {
       transition: 'fade-down',
     },
-    // menuButton: (isOpen, atts) => (
-    //   <button {...atts}>{isOpen ? 'yes' : 'no'}</button>
-    // ),
   },
   mobileMenu: {
     width: '60vw',
@@ -31,23 +28,9 @@ export const options: MakerOptions = {
     closeOnBlur: true,
     visibleOnDesktop: true,
     closeOnRouteChange: true,
-    // closeButton: (isOpen, atts) => (
-    //   <button {...atts} style={{ color: '#fff' }}>
-    //     {isOpen ? 'yes' : 'no'}
-    //   </button>
-    // ),
-    // customCloseButton: (isOpen, attributes) => (
-    //   <button {...attributes}>{isOpen ? 'Close!' : 'Open!'}</button>
-    // ),
   },
   sideNav: {
-    // customToggle: (isOpen, attributes) => (
-    //   <button
-    //     style={{ position: 'fixed', bottom: 100, left: 20 }}
-    //     {...attributes}>
-    //     {isOpen ? 'close' : 'open'}
-    //   </button>
-    // ),
+    // toggleButton: (isActive, atts) => <button {...atts}>Whaaat</button>,
   },
   content: {
     maxWidth: 960,

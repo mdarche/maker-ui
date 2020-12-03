@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Theme } from 'theme-ui'
 
-import { MakerOptions, MaybeElement } from './types'
+import { MakerOptions } from './types'
 import { MenuProps } from './Menu'
 import { Layout } from './Layout'
 import { Topbar } from './Topbar'
@@ -38,7 +38,7 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
       return (
         <Content>
           <Main>{children}</Main>
-          <SideNav menu={menu} customToggle={sideNav[1]} pathname={sideNav[2]}>
+          <SideNav menu={menu} toggleButton={sideNav[1]} pathname={sideNav[2]}>
             {sideNav[0]}
           </SideNav>
         </Content>
@@ -46,7 +46,7 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
     case 'sidenav content':
       return (
         <Content>
-          <SideNav menu={menu} customToggle={sideNav[1]} pathname={sideNav[2]}>
+          <SideNav menu={menu} toggleButton={sideNav[1]} pathname={sideNav[2]}>
             {sideNav[0]}
           </SideNav>
           <Main>{children}</Main>
@@ -65,17 +65,17 @@ interface TemplateProps {
   theme: Theme
   options: MakerOptions
   components?: object
-  topbar?: MaybeElement
-  headerWidgets?: MaybeElement
-  menuToggle?: MaybeElement
-  colorToggle?: MaybeElement
-  logo?: MaybeElement
+  topbar?: React.ReactNode
+  headerWidgets?: React.ReactNode
+  menuToggle?: React.ReactNode
+  colorToggle?: React.ReactNode
+  logo?: React.ReactNode
   menu: MenuProps[]
   mobileMenu?: string
-  sideNav?: MaybeElement
-  sideNavToggle?: MaybeElement
-  sidebar?: MaybeElement
-  footer?: MaybeElement
+  sideNav?: React.ReactNode
+  sideNavToggle?: React.ReactNode
+  sidebar?: React.ReactNode
+  footer?: React.ReactNode
   pathname?: string
   children: React.ReactNode
 }

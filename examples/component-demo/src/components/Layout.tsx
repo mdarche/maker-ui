@@ -61,9 +61,9 @@ export default ({ children, location }) => (
     {location.pathname !== '/workspace' ? (
       <>
         <Content>
+          <SideNav menu={menu} />
           <Main>{children}</Main>
           {/* <Sidebar>test</Sidebar> */}
-          <SideNav menu={menu} />
         </Content>
         <Footer>Footer</Footer>
       </>

@@ -10,7 +10,7 @@ import { Link } from '../Primitives'
  * @internal usage only
  */
 
-export const Logo = ({ children }) => {
+export const Logo = ({ children }): React.ReactElement => {
   const { linkFunction } = useOptions()
 
   const attributes = {

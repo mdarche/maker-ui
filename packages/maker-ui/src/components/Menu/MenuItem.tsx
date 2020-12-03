@@ -10,13 +10,13 @@ import {
   dropdownStyles,
   getStyles,
 } from '../../utils/styles-submenu'
-import { MaybeElement, MakerOptions } from '../types'
+import { MakerOptions } from '../types'
 
 export interface MenuProps {
   label: string
   path: string
   classes?: string
-  icon?: MaybeElement
+  icon?: React.ReactElement
   newTab?: boolean
   submenu?: MenuProps[]
   openNested?: boolean

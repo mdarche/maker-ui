@@ -1,19 +1,19 @@
 import * as React from 'react'
-import { MaybeElement, ResponsiveScale } from 'maker-ui'
+import { ResponsiveScale } from 'maker-ui'
 
 const TreeDataContext = React.createContext(null)
 
 interface TreeState extends Omit<TreeContextProps, 'buttons' | 'children'> {
-  expand: MaybeElement
-  collapse: MaybeElement
-  neutral: MaybeElement
+  expand: React.ReactNode
+  collapse: React.ReactNode
+  neutral: React.ReactNode
 }
 
 export interface TreeContextProps {
   buttons?: {
-    expand?: MaybeElement
-    collapse?: MaybeElement
-    neutral?: MaybeElement
+    expand?: React.ReactNode
+    collapse?: React.ReactNode
+    neutral?: React.ReactNode
   }
   indentation?: ResponsiveScale
   clickableText?: boolean

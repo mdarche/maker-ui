@@ -3,8 +3,6 @@ import { SxStyleProp, Theme } from 'theme-ui'
 
 import { navTypes, transitionTypes } from '../utils/constants'
 
-export type MaybeElement = JSX.Element | string | false | null | undefined
-
 export type ResponsiveScale =
   | string
   | string[]
@@ -45,8 +43,8 @@ export interface MakerOptions {
     path: string,
     children: string | React.ReactElement,
     attributes: object,
-    icon?: MaybeElement
-  ): React.ReactNode
+    icon?: React.ReactElement
+  ): React.ReactElement
   topbar?: {
     maxWidth?: ResponsiveScale
     hideOnMobile?: boolean
@@ -89,7 +87,7 @@ export interface MakerOptions {
     closeButton?:
       | 'default'
       | React.ReactNode
-      | ((isOpen?: string, attributes?: object) => React.ReactNode)
+      | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
     showCloseButton?: boolean
     closeOnBlur?: boolean
     closeOnRouteChange?: boolean
@@ -99,13 +97,13 @@ export interface MakerOptions {
     easingCurve?: string
     isHeader?: boolean
     isPrimaryMobileNav?: boolean
-    floatingToggle?: boolean
     closeOnBlur?: boolean
     closeOnRouteChange?: boolean
-    customToggle?: (
-      isOpen?: boolean,
-      attributes?: object
-    ) => React.ReactElement | React.ReactElement
+    showToggleOnMobile?: boolean
+    toggleButton?:
+      | 'default'
+      | React.ReactNode
+      | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
     breakIndex?: number
   }
   content?: {

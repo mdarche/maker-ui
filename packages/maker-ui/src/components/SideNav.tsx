@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { forwardRef, Fragment } from 'react'
+import { forwardRef } from 'react'
 
-import { MakerProps, MakerOptions, MaybeElement } from './types'
+import { MakerProps, MakerOptions } from './types'
 import { ErrorBoundary } from './ErrorBoundary'
 import { MenuProps } from './Menu'
 import { Button } from './Primitives'
@@ -20,11 +20,9 @@ const Container = ({ isHeader, ...props }) =>
 interface SideNavProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
-  toggleVariant?: string | string[]
   background?: string | string[]
   bg?: string | string[]
-  buttonInner?: MaybeElement
-  customToggle?: MakerOptions['sideNav']['customToggle']
+  toggleButton?: MakerOptions['sideNav']['toggleButton']
   menu?: MenuProps[]
   pathname?: string
   header?: React.ReactElement
@@ -44,9 +42,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     {
       bg = 'bg_sideNav',
       background,
-      toggleVariant = 'sideNav.toggle',
-      buttonInner = 'Toggle',
-      customToggle,
+      toggleButton,
       variant = 'sideNav',
       menu,
       pathname,
@@ -62,7 +58,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     const { sideNav } = useOptions()
 
     const bp = sideNav.breakIndex
-    const customButton = customToggle || sideNav.customToggle
+    const customButton = toggleButton || sideNav.toggleButton
 
     const getTransform = width => {
       const w = Array.isArray(width) ? width[bp] : width
@@ -78,15 +74,15 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     }
 
     return (
-      <Fragment>
-        {sideNav.closeOnBlur && (
+      <ErrorBoundary errorKey="sideNav">
+        {sideNav.closeOnBlur ? (
           <Overlay
             show={active}
             toggle={setActive}
             type="sideNav"
             bp={sideNav.breakIndex}
           />
-        )}
+        ) : null}
         <Container
           isHeader={sideNav.isHeader}
           ref={ref}
@@ -106,33 +102,36 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             transition: sideNav.easingCurve || 'transform ease .3s',
           }}
           {...props}>
-          <ErrorBoundary errorKey="sideNav">
-            {header && header}
-            {children || (
-              <CollapsibleMenu
-                menu={menu}
-                menuType="sideNav"
-                pathname={pathname}
-              />
-            )}
-            {footer && footer}
-          </ErrorBoundary>
+          {header ? header : null}
+          {children || menu ? (
+            <CollapsibleMenu
+              menu={menu}
+              menuType="sideNav"
+              pathname={pathname}
+            />
+          ) : null}
+          {footer ? footer : null}
         </Container>
-        {customButton ? customButton(active, toggleAttributes) : null}
-        {sideNav.floatingToggle && !customButton ? (
+        {typeof customButton === 'function' ? (
+          customButton(active, toggleAttributes)
+        ) : sideNav.showToggleOnMobile ? (
           <Button
             {...toggleAttributes}
             sx={{
-              variant: toggleVariant,
+              variant: `${variant}.toggle`,
               position: 'fixed',
               display: setBreakpoint(bp, ['inline-block', 'none']),
               bottom: 30,
               zIndex: 100,
             }}>
-            {buttonInner}
+            {customButton === 'default'
+              ? active
+                ? 'close'
+                : 'open'
+              : customButton}
           </Button>
         ) : null}
-      </Fragment>
+      </ErrorBoundary>
     )
   }
 )

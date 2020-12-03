@@ -1,14 +1,17 @@
 import * as React from 'react'
 
 import { SVG, Button } from '../Primitives'
-import { MakerProps, MakerOptions } from '../types'
+import { MakerProps } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 import { setBreakpoint } from '../../utils/helper'
 
 interface MenuButtonProps extends MakerProps {
   isCloseButton?: boolean
-  customButton?: MakerOptions['header']['menuButton']
+  customButton?:
+    | 'default'
+    | React.ReactNode
+    | ((isOpen?: string, attributes?: object) => React.ReactNode)
   visibleOnDesktop?: boolean
   'aria-expanded'?: boolean
 }

@@ -1,22 +1,17 @@
 import * as React from 'react'
 
-import {
-  MaybeElement,
-  MakerOptions,
-  MakerProps,
-  ResponsiveScale,
-} from '../types'
+import { MakerOptions, MakerProps, ResponsiveScale } from '../types'
 import { useOptions } from '../../context/OptionContext'
 import { MenuProps } from '../Menu'
 import { Basic, Center, Reverse, Minimal, Split } from './Presets'
 import { useLayout } from '../../context/LayoutContext'
 
 export interface NavProps extends MakerProps {
-  logo?: MaybeElement
+  logo?: React.ReactNode
   menu?: MenuProps[]
   colorButton?: MakerOptions['header']['colorButton']
   menuButton?: MakerOptions['header']['menuButton']
-  widgetArea?: MaybeElement
+  widgetArea?: React.ReactNode
   header?: MakerOptions['header']
   bp?: MakerOptions['header']['breakIndex']
   columnsDesktop?: MakerOptions['header']['columnsDesktop']
