@@ -10,7 +10,7 @@ export interface TabGroupProps extends DivProps {
   navPosition?: string
   activeKey?: number | string
   overflow?: 'stack' | 'scroll'
-  breakIndex?: number
+  bpIndex?: number
   renderInactive?: boolean
   children?: React.ReactElement | React.ReactElement[]
 }
@@ -28,7 +28,7 @@ export const Tabs = ({
   activeKey = 0,
   navPosition = 'top',
   overflow = 'stack',
-  breakIndex = 0,
+  bpIndex = 0,
   renderInactive = true,
   sx,
   children,
@@ -54,7 +54,7 @@ export const Tabs = ({
         variant={variant}
         className="tabs-container"
         sx={{
-          display: setBreakpoint(breakIndex, ['block', 'flex']),
+          display: setBreakpoint(bpIndex, ['block', 'flex']),
           flexDirection: isVertical ? 'column' : null,
           flexWrap: 'wrap',
           ...sx,
@@ -65,7 +65,7 @@ export const Tabs = ({
             isVertical,
             navPosition,
             overflow,
-            breakIndex,
+            bpIndex,
           }}
         />
         {children}

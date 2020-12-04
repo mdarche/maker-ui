@@ -5,8 +5,8 @@ import { ErrorBoundary } from './ErrorBoundary'
 import { ContentError } from './Errors'
 import { MakerProps } from './types'
 import { useOptions } from '../context/OptionContext'
-import { getLayoutStyles } from '../utils/styles-content'
-import { useMeasurements, useLayoutDetector } from '../context/LayoutContext'
+import { useLayoutDetector } from '../context/LayoutContext'
+import { useLayoutStyles } from '../hooks/useLayoutStyles'
 
 interface ContentProps
   extends MakerProps,
@@ -22,12 +22,12 @@ interface ContentProps
  */
 
 export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
-  const { framework, content } = useOptions()
-  const { measurements } = useMeasurements()
+  const { framework } = useOptions()
   const { layout, showError, initialRender } = useLayoutDetector(
     'content',
     children
   )
+  const layoutStyles = useLayoutStyles(layout)
 
   return (
     <div
@@ -36,7 +36,7 @@ export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
         variant,
         position: 'relative',
         visibility: framework === 'gatsby' && initialRender && ['hidden'],
-        ...getLayoutStyles(layout, content.breakIndex, measurements),
+        ...layoutStyles,
         ...sx,
       }}
       {...props}>

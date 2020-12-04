@@ -55,7 +55,7 @@ export const ColorButton = ({ customButton }: ColorButtonProps) => {
         variant="header.colorButton"
         sx={{
           display: header.hideColorButtonOnMobile
-            ? setBreakpoint(header.breakIndex, ['none', 'block'])
+            ? setBreakpoint(header.bpIndex, ['none', 'block'])
             : 'block',
         }}>
         {colorButton || colorMode}

@@ -9,10 +9,10 @@ export function useMakerUI() {
 
   return {
     theme,
+    options,
     colorMode,
     setColorMode,
     useMenu,
     useSideNav,
-    options,
   }
 }

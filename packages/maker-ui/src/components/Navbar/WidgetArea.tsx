@@ -26,7 +26,7 @@ export const WidgetArea = (props: WidgetProps) => {
       sx={{
         variant: 'header.widgets',
         display: hideOnMobile
-          ? setBreakpoint(header.breakIndex, ['none', 'flex'])
+          ? setBreakpoint(header.bpIndex, ['none', 'flex'])
           : 'flex',
       }}>
       {content}

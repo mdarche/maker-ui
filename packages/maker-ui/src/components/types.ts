@@ -29,7 +29,6 @@ type PanelProps = {
   collapseWidth?: ResponsiveScale
   defaultOpen?: boolean
   animationStyle?: 'slide' | 'scale'
-  stickyContents?: boolean
 }
 
 /**
@@ -47,8 +46,10 @@ export interface MakerOptions {
   ): React.ReactElement
   topbar?: {
     maxWidth?: ResponsiveScale
+    sticky?: boolean
+    stickyOnMobile?: boolean
     hideOnMobile?: boolean
-    breakIndex?: number
+    bpIndex?: number
   }
   header?: {
     navType?: typeof navTypes[number]
@@ -77,7 +78,7 @@ export interface MakerOptions {
       | ((currentMode?: string, attributes?: object) => React.ReactNode)
     columnsDesktop?: string
     columnsMobile?: string
-    breakIndex?: number
+    bpIndex?: number
   }
   mobileMenu?: {
     width?: ResponsiveScale
@@ -104,13 +105,13 @@ export interface MakerOptions {
       | 'default'
       | React.ReactNode
       | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
-    breakIndex?: number
+    bpIndex?: number
   }
   content?: {
     maxWidth?: ResponsiveScale
     maxWidthSection?: ResponsiveScale
     sidebarGap?: ResponsiveScale
-    breakIndex?: number
+    bpIndex?: number
   }
   sidebar?: {
     width?: ResponsiveScale
@@ -140,12 +141,12 @@ export interface MakerOptions {
   dock?: {
     width?: ResponsiveScale
     hideOnMobile?: boolean
-    breakIndex?: number
+    bpIndex?: number
   }
   workspace?: {
     canvasMaxWidth?: ResponsiveScale
     toolbarHeight?: ResponsiveScale
-    breakIndex?: number
+    bpIndex?: number
     panelLeft?: PanelProps
     panelRight?: PanelProps
   }

@@ -42,7 +42,7 @@ export const MenuButton = (props: MenuButtonProps) => {
     ? !sideNav.isPrimaryMobileNav
       ? { display: 'block' }
       : { display: 'none' }
-    : { display: setBreakpoint(header.breakIndex, ['block', 'none']) }
+    : { display: setBreakpoint(header.bpIndex, ['block', 'none']) }
 
   const conditionalAttributes = sideNav.isPrimaryMobileNav
     ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }

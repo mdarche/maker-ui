@@ -13,7 +13,7 @@ export interface NavProps extends MakerProps {
   menuButton?: MakerOptions['header']['menuButton']
   widgetArea?: React.ReactNode
   header?: MakerOptions['header']
-  bp?: MakerOptions['header']['breakIndex']
+  bp?: MakerOptions['header']['bpIndex']
   columnsDesktop?: MakerOptions['header']['columnsDesktop']
   columnsMobile?: MakerOptions['header']['columnsMobile']
   type?: MakerOptions['header']['navType']
@@ -40,7 +40,7 @@ export const Navbar = (props: NavProps) => {
 
   const attributes = {
     type: layout as NavProps['type'],
-    bp: header.breakIndex,
+    bp: header.bpIndex,
     columnsDesktop: header.columnsDesktop,
     columnsMobile: header.columnsMobile,
     ...props,

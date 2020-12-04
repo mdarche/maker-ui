@@ -4,7 +4,7 @@ export const defaultOptions: MakerOptions = {
   topbar: {
     maxWidth: 1260,
     hideOnMobile: false,
-    breakIndex: 0,
+    bpIndex: 0,
   },
   header: {
     navType: 'basic',
@@ -18,31 +18,33 @@ export const defaultOptions: MakerOptions = {
       caret: 'default',
       transition: 'fade',
     },
-    breakIndex: 0,
+    bpIndex: 0,
   },
   mobileMenu: {
     width: '60vw',
     transition: 'slide-left',
+    easingCurve: 'all ease .3s',
     visibleOnDesktop: false,
     showCloseButton: true,
     closeOnBlur: true,
     closeOnRouteChange: false,
   },
   sideNav: {
-    width: 300,
+    width: [200, 300],
     isHeader: false,
     isPrimaryMobileNav: false,
     showToggleOnMobile: true,
     toggleButton: 'default',
     closeOnBlur: true,
     closeOnRouteChange: true,
-    breakIndex: 0,
+    easingCurve: 'all ease .3s',
+    bpIndex: 0,
   },
   content: {
     maxWidth: 1020,
     maxWidthSection: 1020,
     sidebarGap: 30,
-    breakIndex: 0,
+    bpIndex: 0,
   },
   sidebar: {
     width: 300,
@@ -59,16 +61,14 @@ export const defaultOptions: MakerOptions = {
   workspace: {
     canvasMaxWidth: '100%',
     toolbarHeight: 40,
-    breakIndex: 0,
+    bpIndex: 0,
     panelLeft: {
       width: '.25fr',
       collapseWidth: 0,
-      stickyContents: true,
     },
     panelRight: {
       width: 300,
       collapseWidth: 0,
-      stickyContents: true,
     },
   },
 }

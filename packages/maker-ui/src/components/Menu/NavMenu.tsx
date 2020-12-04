@@ -25,7 +25,7 @@ export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
     <nav
       className="nav-primary"
       role="navigation"
-      sx={{ display: setBreakpoint(header.breakIndex, ['none', 'flex']) }}>
+      sx={{ display: setBreakpoint(header.bpIndex, ['none', 'flex']) }}>
       <ul className="menu-primary" sx={{ variant: 'header.menu' }}>
         {menuItems.map((item, index) => (
           <MenuItem

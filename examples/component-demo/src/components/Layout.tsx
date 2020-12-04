@@ -44,28 +44,34 @@ const menu = [
   { label: 'Generative', path: '/generative' },
   { label: 'Tree Menu', path: '/tree-menu' },
   { label: 'Modal', path: '/modal' },
-  // { label: 'Lightbox', path: '/lightbox' },
-  // { label: 'Popover', path: '/popover' },
-  // { label: 'TableofContents', path: '/toc' },
-  // { label: 'Workspace', path: '/workspace' },
+  { label: 'Lightbox', path: '/lightbox' },
+  { label: 'Popover', path: '/popover' },
+  { label: 'TableofContents', path: '/toc' },
+  { label: 'Workspace', path: '/workspace' },
 ]
 
 export default ({ children, location }) => (
   <Layout theme={theme} options={options}>
-    <Announcement>Test</Announcement>
+    {/* <Announcement>Test</Announcement> */}
     <Topbar>Topbar content</Topbar>
     <Header>
-      <Navbar logo={'Components Demo'} menu={menu} />
+      <Navbar type="center" logo={'Components Demo'} menu={menu} />
       <MobileMenu menu={menu} closeButton="test" />
     </Header>
     {location.pathname !== '/workspace' ? (
       <>
         <Content>
           <SideNav menu={menu} />
-          <Main>{children}</Main>
+          <Main>
+            <>
+              {children}
+              <Div sx={{ height: 2000 }} />
+            </>
+          </Main>
+          {/* <Footer>Footer</Footer> */}
+
           {/* <Sidebar>test</Sidebar> */}
         </Content>
-        <Footer>Footer</Footer>
       </>
     ) : (
       <Content>

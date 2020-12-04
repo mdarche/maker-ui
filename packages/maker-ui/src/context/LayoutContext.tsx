@@ -16,6 +16,7 @@ export interface LayoutState {
   layout_workspace?: typeof workspaceTypes[number]
   height_header?: number
   height_topbar?: number
+  height_toolbar?: number
 }
 
 /**
@@ -33,6 +34,7 @@ const LayoutProvider = ({ children }) => {
     layout_workspace: 'canvas',
     height_header: 0,
     height_topbar: 0,
+    height_toolbar: 0,
   })
 
   return (
@@ -112,7 +114,7 @@ function getLayoutType(
   function layoutString(val: string) {
     let v = type === 'content' ? val.replace('main', 'content') : val
     return v
-      .replace(/fixed|provider|context/g, '')
+      .replace(/fixed|provider|context|footer/g, '')
       .replace(/ {2,}/g, ' ')
       .trim()
   }

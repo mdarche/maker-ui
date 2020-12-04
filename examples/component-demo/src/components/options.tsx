@@ -4,15 +4,16 @@ import { MakerOptions } from 'maker-ui'
 export const options: MakerOptions = {
   framework: 'gatsby',
   topbar: {
+    sticky: false,
+    stickyOnMobile: true,
     maxWidth: [200, 600],
   },
   header: {
     navType: 'split',
     maxWidth: '100%',
-    breakIndex: 0,
     sticky: true,
-    stickyUpScroll: true,
-    // stickyOnMobile: true,
+    // stickyUpScroll: true,
+    stickyOnMobile: true,
     showColorButton: true,
     scrollClass: {
       className: 'scroll-test',
@@ -21,6 +22,7 @@ export const options: MakerOptions = {
     dropdown: {
       transition: 'fade-down',
     },
+    bpIndex: 0,
   },
   mobileMenu: {
     width: '60vw',
@@ -35,7 +37,7 @@ export const options: MakerOptions = {
   content: {
     maxWidth: 960,
     maxWidthSection: 960,
-    breakIndex: 0,
+    bpIndex: 0,
   },
   footer: {
     maxWidth: [200, '100%'],

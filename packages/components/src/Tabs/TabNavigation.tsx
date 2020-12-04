@@ -9,20 +9,19 @@ export interface TabStyleProps {
     isVertical?: boolean
     overflow?: 'stack' | 'scroll'
     navPosition?: string
-    breakIndex?: number
+    bpIndex?: number
   }
 }
 
 const getNavPosition = ({
-  settings: { isVertical, navPosition, overflow = 'stack', breakIndex },
+  settings: { isVertical, navPosition, overflow = 'stack', bpIndex },
 }: TabStyleProps): Object => {
   const shared = {
     overflowX: overflow === 'scroll' ? 'scroll' : null,
     flexWrap: overflow === 'stack' ? 'wrap' : 'nowrap',
     button: {
       flex:
-        overflow === 'scroll' &&
-        setBreakpoint(breakIndex, ['1 0 auto', 'none']),
+        overflow === 'scroll' && setBreakpoint(bpIndex, ['1 0 auto', 'none']),
     },
   }
 
@@ -30,7 +29,7 @@ const getNavPosition = ({
     return {
       flexDirection:
         overflow === 'stack'
-          ? setBreakpoint(breakIndex, ['column', 'row'])
+          ? setBreakpoint(bpIndex, ['column', 'row'])
           : 'row',
       order: navPosition === 'top' ? 1 : 2,
       ...shared,
@@ -41,7 +40,7 @@ const getNavPosition = ({
     flexDirection:
       overflow === 'stack'
         ? 'column'
-        : setBreakpoint(breakIndex, ['row', 'column']),
+        : setBreakpoint(bpIndex, ['row', 'column']),
     order: navPosition === 'left' ? 1 : 2,
     ...shared,
   }

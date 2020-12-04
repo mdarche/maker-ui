@@ -70,7 +70,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
             bottom: 0,
             zIndex: 100,
             willChange: 'transform, opacity',
-            transition: mobileMenu.easingCurve || 'all ease .3s',
+            transition: mobileMenu.easingCurve,
             ...getTransition(show, transition, width),
             ...sx,
           }}
