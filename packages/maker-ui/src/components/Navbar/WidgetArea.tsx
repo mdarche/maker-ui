@@ -6,7 +6,6 @@ import { setBreakpoint } from '../../utils/helper'
 
 interface WidgetProps {
   content?: React.ReactNode
-  hideOnMobile?: boolean
 }
 
 /**
@@ -16,16 +15,15 @@ interface WidgetProps {
  * @internal usage only
  */
 
-export const WidgetArea = (props: WidgetProps) => {
+export const WidgetArea = ({ content }: WidgetProps) => {
   const { header } = useOptions()
-  const { content, hideOnMobile = header.hideWidgetsOnMobile } = props
 
   return content ? (
     <div
       className="widget-area"
       sx={{
         variant: 'header.widgets',
-        display: hideOnMobile
+        display: header.hideWidgetsOnMobile
           ? setBreakpoint(header.bpIndex, ['none', 'flex'])
           : 'flex',
       }}>

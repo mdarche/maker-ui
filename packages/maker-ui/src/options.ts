@@ -30,7 +30,7 @@ export const defaultOptions: MakerOptions = {
     closeOnRouteChange: false,
   },
   sideNav: {
-    width: [200, 300],
+    width: [250, 300],
     isHeader: false,
     isPrimaryMobileNav: false,
     showToggleOnMobile: true,

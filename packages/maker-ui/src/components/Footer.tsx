@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { forwardRef } from 'react'
 
 import { MakerProps, ResponsiveScale } from './types'
 import { ErrorBoundary } from './ErrorBoundary'
@@ -18,33 +17,30 @@ interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  * @see https://maker-ui.com/docs/layout/footer
  */
 
-export const Footer = forwardRef<HTMLElement, FooterProps>(
-  (
-    { maxWidth, variant = 'footer', sx, bg = 'bg_footer', children, ...props },
-    ref
-  ) => {
-    const [baseLayout] = useLayout('content')
+export const Footer = ({
+  maxWidth,
+  variant = 'footer',
+  sx,
+  bg = 'bg_footer',
+  children,
+  ...props
+}) => {
+  const [baseLayout] = useLayout('content')
 
-    return !baseLayout.includes('workspace') ? (
-      <footer
-        ref={ref}
-        id="footer"
-        role="contentinfo"
-        sx={{ bg, variant }}
-        {...props}>
-        <div
-          className="container"
-          sx={{
-            display: 'flex',
-            maxWidth: maxWidth || (t => t.sizes.maxWidth_footer),
-            mx: 'auto',
-            ...sx,
-          }}>
-          <ErrorBoundary>{children}</ErrorBoundary>
-        </div>
-      </footer>
-    ) : null
-  }
-)
+  return !baseLayout.includes('workspace') ? (
+    <footer id="footer" role="contentinfo" sx={{ bg, variant }} {...props}>
+      <div
+        className="container"
+        sx={{
+          display: 'flex',
+          maxWidth: maxWidth || (t => t.sizes.maxWidth_footer),
+          mx: 'auto',
+          ...sx,
+        }}>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </div>
+    </footer>
+  ) : null
+}
 
 Footer.displayName = 'Footer'

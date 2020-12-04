@@ -28,7 +28,7 @@ export const options: MakerOptions = {
     width: '60vw',
     transition: 'slide-left',
     closeOnBlur: true,
-    visibleOnDesktop: true,
+    // visibleOnDesktop: true,
     closeOnRouteChange: true,
   },
   sideNav: {

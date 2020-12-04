@@ -72,6 +72,7 @@ export default ({ children, location }) => (
 
           {/* <Sidebar>test</Sidebar> */}
         </Content>
+        <Footer>Test</Footer>
       </>
     ) : (
       <Content>

@@ -83,7 +83,8 @@ export const SideNav = ({
         {...props}>
         <div className="container">
           {header ? header : null}
-          {children || menu ? (
+          {children ? children : null}
+          {menu ? (
             <CollapsibleMenu
               menu={menu}
               menuType="sideNav"

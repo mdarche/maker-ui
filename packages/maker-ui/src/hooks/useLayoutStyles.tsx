@@ -7,26 +7,29 @@ export function useLayoutStyles(layout: LayoutString): object {
   const { topbar, header, sideNav, content } = useOptions()
 
   /**
-   * @SidebarStyles
-   * -- Determine CSS grid configuration
+   * Sidebar Styles
+   * Determine CSS grid configuration
    *
    */
   if (layout && layout.includes('sidebar')) {
     // Handle row reversal on mobile so main content always appears first
-    const sidebarPartial =
-      layout === 'sidebar content'
-        ? {
-            '.sidebar': {
-              gridRow: setBreakpoint(content.bpIndex, [2, 'auto']),
-            },
-          }
-        : layout === 'sidebar content sidebar'
-        ? {
-            '.sidebar:first-of-type': {
-              gridRow: setBreakpoint(content.bpIndex, [2, 'auto']),
-            },
-          }
-        : null
+    const sidebarPartial = () => {
+      if (layout === 'sidebar content') {
+        return {
+          '.sidebar': {
+            gridRow: setBreakpoint(content.bpIndex, [2, 'auto']),
+          },
+        }
+      }
+      if (layout === 'sidebar content sidebar') {
+        return {
+          '.sidebar:first-of-type': {
+            gridRow: setBreakpoint(content.bpIndex, [2, 'auto']),
+          },
+        }
+      }
+      return null
+    }
 
     return {
       display: 'grid',
@@ -34,6 +37,7 @@ export function useLayoutStyles(layout: LayoutString): object {
       maxWidth: 'maxWidth_content',
       mx: 'auto',
       minHeight: '80vh',
+      ...sidebarPartial(),
       gridTemplateColumns: t => {
         const width = format(t.sizes.width_sidebar)
         const grid =
@@ -47,16 +51,16 @@ export function useLayoutStyles(layout: LayoutString): object {
 
         return setBreakpoint(content.bpIndex, [`1fr`, grid])
       },
-      ...sidebarPartial,
     }
   }
 
   /**
-   * @SideNavStyles
+   * SideNav Styles
    * Determine sticky sideNav configuration
    *
    */
   if (layout && layout.includes('sidenav')) {
+    // Determine the top value for sidenav content
     const calculateTop = () => {
       let top = header.sticky ? measurements.height_header : 0
 
@@ -67,10 +71,20 @@ export function useLayoutStyles(layout: LayoutString): object {
       return setBreakpoint(sideNav.bpIndex, [0, top])
     }
 
+    // Determine the transform direction for toggling on mobile
     const getTransform = width => {
       const w = Array.isArray(width) ? width[sideNav.bpIndex] : width
       const shift = layout === 'sidenav content' ? `-${w}` : w
       return `translateX(${format(shift)})`
+    }
+
+    // Check for measurements to complete before adding transition style
+    const getTransition = () => {
+      if (!sideNav.isHeader) {
+        return measurements.height_header !== 0 ? sideNav.easingCurve : null
+      }
+      // TODO find a mobile `sidenav-content` solution for when <Header> does not exist
+      return sideNav.easingCurve
     }
 
     return {
@@ -85,7 +99,7 @@ export function useLayoutStyles(layout: LayoutString): object {
         left: layout === 'sidenav content' && 0,
         willChange: 'transform',
         transform: 'translateX(0)',
-        transition: sideNav.easingCurve,
+        transition: getTransition(),
         '&.hide': {
           transform: t =>
             setBreakpoint(sideNav.bpIndex, [
@@ -112,7 +126,7 @@ export function useLayoutStyles(layout: LayoutString): object {
   }
 
   /**
-   * @WorkspaceStyles
+   * Workspace Styles
    * Determine sticky sideNav configuration
    *
    */
