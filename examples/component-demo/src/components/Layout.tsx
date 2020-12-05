@@ -68,9 +68,6 @@ export default ({ children, location }) => (
               <Div sx={{ height: 2000 }} />
             </>
           </Main>
-          {/* <Footer>Footer</Footer> */}
-
-          {/* <Sidebar>test</Sidebar> */}
         </Content>
         <Footer>Test</Footer>
       </>

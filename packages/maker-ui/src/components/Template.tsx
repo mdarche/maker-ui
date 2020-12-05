@@ -14,11 +14,16 @@ import { SideNav } from './SideNav'
 import { Sidebar } from './Sidebar'
 import { Footer } from './Footer'
 
-import { useLayout } from '../context/LayoutContext'
+import { navTypes, contentTypes } from '../utils/constants'
 
-const SiteInner = ({ sideNav, sidebar, menu, children }) => {
-  const [layout] = useLayout('content')
-
+const SiteInner = ({
+  sideNav,
+  sidebar,
+  sidebarTwo,
+  menu,
+  layout,
+  children,
+}) => {
   switch (layout) {
     case 'content sidebar':
       return (
@@ -32,6 +37,14 @@ const SiteInner = ({ sideNav, sidebar, menu, children }) => {
         <Content>
           <Sidebar>{sidebar}</Sidebar>
           <Main>{children}</Main>
+        </Content>
+      )
+    case 'sidebar content sidebar':
+      return (
+        <Content>
+          <Sidebar>{sidebar}</Sidebar>
+          <Main>{children}</Main>
+          <Sidebar>{sidebarTwo}</Sidebar>
         </Content>
       )
     case 'content sidenav':
@@ -67,14 +80,17 @@ interface TemplateProps {
   components?: object
   topbar?: React.ReactNode
   headerWidgets?: React.ReactNode
-  menuToggle?: React.ReactNode
-  colorToggle?: React.ReactNode
+  menuButton?: MakerOptions['header']['menuButton']
+  colorButton?: MakerOptions['header']['colorButton']
   logo?: React.ReactNode
   menu: MenuProps[]
   mobileMenu?: string
+  navType?: typeof navTypes[number]
+  layoutType?: typeof contentTypes[number]
   sideNav?: React.ReactNode
   sideNavToggle?: React.ReactNode
   sidebar?: React.ReactNode
+  sidebarTwo?: React.ReactNode
   footer?: React.ReactNode
   pathname?: string
   children: React.ReactNode
@@ -93,14 +109,17 @@ export const Template = ({
   components,
   topbar,
   headerWidgets,
-  menuToggle,
-  colorToggle,
+  menuButton,
+  colorButton,
+  layoutType,
+  navType,
   logo,
   menu,
   mobileMenu = 'default',
   sideNav,
   sideNavToggle,
   sidebar,
+  sidebarTwo,
   footer,
   pathname,
   children,
@@ -110,11 +129,12 @@ export const Template = ({
       {topbar && <Topbar>{topbar}</Topbar>}
       <Header>
         <Navbar
+          type={navType}
           logo={logo}
           menu={menu}
           widgetArea={headerWidgets}
-          // menuToggle={menuToggle}
-          // colorToggle={colorToggle}
+          menuButton={menuButton}
+          colorButton={colorButton}
           pathname={pathname}
         />
         {mobileMenu === 'default' ? (
@@ -124,12 +144,14 @@ export const Template = ({
         ) : null}
       </Header>
       <SiteInner
+        layout={layoutType}
         sideNav={[sideNav, sideNavToggle, pathname]}
         sidebar={sidebar}
+        sidebarTwo={sidebarTwo}
         menu={menu}>
         {children}
       </SiteInner>
-      {footer && <Footer>{footer}</Footer>}
+      {footer ? <Footer>{footer}</Footer> : null}
     </Layout>
   )
 }

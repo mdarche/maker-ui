@@ -114,7 +114,7 @@ function getLayoutType(
   function layoutString(val: string) {
     let v = type === 'content' ? val.replace('main', 'content') : val
     return v
-      .replace(/fixed|provider|context|footer/g, '')
+      .replace(/fixed|provider|context/g, '')
       .replace(/ {2,}/g, ' ')
       .trim()
   }
@@ -166,6 +166,7 @@ function useLayoutDetector(
         }
       } else {
         setShowError(true)
+        if (initialRender) setInitialRender(false)
       }
     }
   }, [layout, setLayout, type, initialRender, children])

@@ -59,7 +59,7 @@ export const ContentError = () => {
   return (
     <Div
       sx={{
-        mt: 150,
+        my: 150,
         mx: 'auto',
         maxWidth: 600,
         fontSize: '20px',
@@ -103,8 +103,9 @@ export const ContentError = () => {
           ))}
         </UList>
         <p>
-          If your custom child component has fixed positioning, you can still
-          use it here by assigning it a <strong>displayName</strong> of 'Fixed'.
+          If your custom child component has fixed positioning or is a Provider,
+          you can still use it here by assigning the component a{' '}
+          <strong>displayName</strong> of 'Fixed', 'Provider', or 'Context'.
         </p>
         <p>
           <a

@@ -3,7 +3,6 @@ import { jsx } from 'theme-ui'
 
 import { MakerProps, ResponsiveScale } from './types'
 import { ErrorBoundary } from './ErrorBoundary'
-import { useLayout } from '../context/LayoutContext'
 
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: ResponsiveScale
@@ -24,10 +23,8 @@ export const Footer = ({
   bg = 'bg_footer',
   children,
   ...props
-}) => {
-  const [baseLayout] = useLayout('content')
-
-  return !baseLayout.includes('workspace') ? (
+}: FooterProps) => {
+  return (
     <footer id="footer" role="contentinfo" sx={{ bg, variant }} {...props}>
       <div
         className="container"
@@ -40,7 +37,7 @@ export const Footer = ({
         <ErrorBoundary>{children}</ErrorBoundary>
       </div>
     </footer>
-  ) : null
+  )
 }
 
 Footer.displayName = 'Footer'

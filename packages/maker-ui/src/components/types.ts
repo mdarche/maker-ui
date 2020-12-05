@@ -25,8 +25,13 @@ export type MakerTheme = Theme
 
 type PanelProps = {
   width?: ResponsiveScale
+  /** `NOTE` Will cause a repaint */
   collapsible?: boolean
   collapseWidth?: ResponsiveScale
+  collapseButton?:
+    | 'default'
+    | React.ReactNode
+    | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
   defaultOpen?: boolean
   animationStyle?: 'slide' | 'scale'
 }
@@ -115,6 +120,7 @@ export interface MakerOptions {
   }
   sidebar?: {
     width?: ResponsiveScale
+    secondWidth?: ResponsiveScale // TODO
   }
   footer?: {
     maxWidth?: ResponsiveScale
