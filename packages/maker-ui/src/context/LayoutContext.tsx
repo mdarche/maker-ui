@@ -1,7 +1,12 @@
 import * as React from 'react'
 
 import { useOptions } from './OptionContext'
-import { contentTypes, workspaceTypes, navTypes } from '../utils/constants'
+import {
+  contentTypes,
+  workspaceTypes,
+  navTypes,
+  mobileNavTypes,
+} from '../utils/constants'
 
 export const LayoutContext = React.createContext(null)
 
@@ -12,6 +17,7 @@ export type LayoutString =
 
 export interface LayoutState {
   layout_nav?: typeof navTypes[number]
+  layout_navMobile?: typeof mobileNavTypes[number]
   layout_content?: typeof contentTypes[number]
   layout_workspace?: typeof workspaceTypes[number]
   height_header?: number
@@ -30,6 +36,7 @@ const LayoutProvider = ({ children }) => {
   const { header } = useOptions()
   const [state, dispatch] = React.useState<LayoutState>({
     layout_nav: header.navType,
+    layout_navMobile: header.mobileNavType,
     layout_content: 'content',
     layout_workspace: 'canvas',
     height_header: 0,
@@ -51,9 +58,12 @@ const LayoutProvider = ({ children }) => {
  */
 
 function useLayout(
-  type: 'content' | 'workspace' | 'nav'
+  type: 'content' | 'workspace' | 'nav' | 'mobileNav'
 ): [LayoutString, (layout: LayoutString) => void] {
-  const [{ layout_content, layout_workspace, layout_nav }, dispatch]: [
+  const [
+    { layout_content, layout_workspace, layout_nav, layout_navMobile },
+    dispatch,
+  ]: [
     LayoutState,
     React.Dispatch<React.SetStateAction<LayoutState>>
   ] = React.useContext(LayoutContext)
@@ -70,6 +80,8 @@ function useLayout(
     ? [layout_workspace, setLayout]
     : type === 'nav'
     ? [layout_nav, setLayout]
+    : type === 'mobileNav'
+    ? [layout_navMobile, setLayout]
     : [layout_content, setLayout]
 }
 

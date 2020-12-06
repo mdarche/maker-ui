@@ -5,6 +5,7 @@ import { useOptions } from '../../context/OptionContext'
 import { MenuProps } from '../Menu'
 import { Basic, Center, Reverse, Minimal, Split } from './Presets'
 import { useLayout } from '../../context/LayoutContext'
+// import { Navbar } from './New'
 
 export interface NavProps extends MakerProps {
   logo?: React.ReactNode
@@ -14,8 +15,6 @@ export interface NavProps extends MakerProps {
   widgetArea?: React.ReactNode
   header?: MakerOptions['header']
   bp?: MakerOptions['header']['bpIndex']
-  columnsDesktop?: MakerOptions['header']['columnsDesktop']
-  columnsMobile?: MakerOptions['header']['columnsMobile']
   type?: MakerOptions['header']['navType']
   pathname?: string
   maxWidth?: ResponsiveScale | any
@@ -28,43 +27,42 @@ export interface NavProps extends MakerProps {
  * @see https://maker-ui.com/components/layout/navbar
  */
 
-export const Navbar = (props: NavProps) => {
-  const { header } = useOptions()
-  const [layout, setLayout] = useLayout('nav')
+export { Navbar } from './New'
+// export const Navbar = (props: NavProps) => {
+//   const { header } = useOptions()
+//   const [layout, setLayout] = useLayout('nav')
 
-  React.useEffect(() => {
-    if (props.type !== undefined && props.type !== layout) {
-      setLayout(props.type)
-    }
-  }, [props.type, layout, setLayout])
+//   React.useEffect(() => {
+//     if (props.type !== undefined && props.type !== layout) {
+//       setLayout(props.type)
+//     }
+//   }, [props.type, layout, setLayout])
 
-  const attributes = {
-    type: layout as NavProps['type'],
-    bp: header.bpIndex,
-    columnsDesktop: header.columnsDesktop,
-    columnsMobile: header.columnsMobile,
-    ...props,
-  }
+//   const attributes = {
+//     type: layout as NavProps['type'],
+//     bp: header.bpIndex,
+//     ...props,
+//   }
 
-  switch (layout) {
-    case 'center':
-      return <Center {...attributes} />
-    case 'split':
-      return <Split {...attributes} />
-    case 'minimal':
-      return <Minimal {...attributes} />
-    case 'minimal-left':
-      return <Minimal {...attributes} />
-    case 'minimal-center':
-      return <Minimal {...attributes} />
-    case 'reverse':
-      return <Reverse {...attributes} />
-    case 'basic-left':
-      return <Basic {...attributes} />
-    case 'basic':
-    default:
-      return <Basic {...attributes} />
-  }
-}
+//   switch (layout) {
+//     case 'center':
+//       return <Center {...attributes} />
+//     case 'split':
+//       return <Split {...attributes} />
+//     case 'minimal':
+//       return <Minimal {...attributes} />
+//     case 'minimal-left':
+//       return <Minimal {...attributes} />
+//     case 'minimal-center':
+//       return <Minimal {...attributes} />
+//     case 'reverse':
+//       return <Reverse {...attributes} />
+//     case 'basic-left':
+//       return <Basic {...attributes} />
+//     case 'basic':
+//     default:
+//       return <Basic {...attributes} />
+//   }
+// }
 
-Navbar.displayName = 'Navbar'
+// Navbar.displayName = 'Navbar'

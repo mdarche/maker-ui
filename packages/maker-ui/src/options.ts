@@ -8,6 +8,7 @@ export const defaultOptions: MakerOptions = {
   },
   header: {
     navType: 'basic',
+    mobileNavType: 'basic',
     maxWidth: 1460,
     sticky: false,
     stickyOnMobile: false,

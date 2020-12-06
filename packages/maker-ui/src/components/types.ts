@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { SxStyleProp, Theme } from 'theme-ui'
 
-import { navTypes, transitionTypes } from '../utils/constants'
+import { mobileNavTypes, navTypes, transitionTypes } from '../utils/constants'
 
 export type ResponsiveScale =
   | string
@@ -58,6 +58,7 @@ export interface MakerOptions {
   }
   header?: {
     navType?: typeof navTypes[number]
+    mobileNavType?: typeof mobileNavTypes[number]
     maxWidth?: ResponsiveScale
     sticky?: boolean
     stickyOnMobile?: boolean
@@ -81,8 +82,13 @@ export interface MakerOptions {
       | 'default'
       | React.ReactNode
       | ((currentMode?: string, attributes?: object) => React.ReactNode)
-    columnsDesktop?: string
-    columnsMobile?: string
+    grid?: {
+      columns?: ResponsiveString
+      rows?: ResponsiveString
+      areas?: ResponsiveString
+      columnGap?: ResponsiveScale
+      rowGap?: ResponsiveScale
+    }
     bpIndex?: number
   }
   mobileMenu?: {

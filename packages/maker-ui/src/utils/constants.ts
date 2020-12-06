@@ -26,12 +26,20 @@ export const workspaceTypes = [
 export const navTypes = [
   'basic',
   'basic-left',
+  'basic-center',
   'center',
   'split',
   'minimal',
   'minimal-left',
   'minimal-center',
   'reverse',
+] as const
+
+export const mobileNavTypes = [
+  'basic',
+  'basic-left',
+  'logo-center',
+  'logo-center-alt',
 ] as const
 
 export const transitionTypes = [
