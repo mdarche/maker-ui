@@ -37,7 +37,7 @@ export const navTypes = [
 
 export const mobileNavTypes = [
   'basic',
-  'basic-left',
+  'basic-menu-left',
   'logo-center',
   'logo-center-alt',
 ] as const

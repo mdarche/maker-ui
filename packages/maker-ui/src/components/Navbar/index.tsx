@@ -2,67 +2,141 @@ import * as React from 'react'
 
 import { MakerOptions, MakerProps, ResponsiveScale } from '../types'
 import { useOptions } from '../../context/OptionContext'
-import { MenuProps } from '../Menu'
-import { Basic, Center, Reverse, Minimal, Split } from './Presets'
-import { useLayout } from '../../context/LayoutContext'
-// import { Navbar } from './New'
+import { LayoutString, useLayout } from '../../context/LayoutContext'
+
+import { Logo } from './Logo'
+import { ColorButton } from './ColorButton'
+import { NavMenu, MenuButton, MenuProps } from '../Menu'
+import { WidgetArea } from './WidgetArea'
+import { Grid, Flex } from '../Primitives'
+import { gridStyles } from './styles'
+import { setBreakpoint } from '../../utils/helper'
+
+const edge = ['minimal-left', 'minimal-center']
+const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
 
 export interface NavProps extends MakerProps {
+  type?: MakerOptions['header']['navType']
+  mobileType?: MakerOptions['header']['mobileNavType']
   logo?: React.ReactNode
   menu?: MenuProps[]
   colorButton?: MakerOptions['header']['colorButton']
   menuButton?: MakerOptions['header']['menuButton']
-  widgetArea?: React.ReactNode
-  header?: MakerOptions['header']
-  bp?: MakerOptions['header']['bpIndex']
-  type?: MakerOptions['header']['navType']
+  navArea?: React.ReactNode
+  grid?: MakerOptions['header']['grid']
   pathname?: string
-  maxWidth?: ResponsiveScale | any
+  maxWidth?: ResponsiveScale
 }
 
 /**
  * The `Navbar` component renders your layout's primary navigation in one of
- * 8 conventional styles.
+ * 8 conventional styles or you can fully customize it with the `grid` prop.
  *
  * @see https://maker-ui.com/components/layout/navbar
  */
 
-export { Navbar } from './New'
-// export const Navbar = (props: NavProps) => {
-//   const { header } = useOptions()
-//   const [layout, setLayout] = useLayout('nav')
+export const Navbar = (props: NavProps) => {
+  const { header, mobileMenu } = useOptions()
+  const [layout, setLayout] = useLayout('nav')
+  const [mobileLayout, setMobileLayout] = useLayout('mobileNav')
 
-//   React.useEffect(() => {
-//     if (props.type !== undefined && props.type !== layout) {
-//       setLayout(props.type)
-//     }
-//   }, [props.type, layout, setLayout])
+  const {
+    type,
+    mobileType,
+    logo,
+    menu,
+    navArea,
+    menuButton,
+    colorButton,
+    grid = header.grid,
+    maxWidth,
+    variant = 'navbar',
+    sx,
+  } = props
 
-//   const attributes = {
-//     type: layout as NavProps['type'],
-//     bp: header.bpIndex,
-//     ...props,
-//   }
+  const mid = Math.ceil(menu.length / 2)
 
-//   switch (layout) {
-//     case 'center':
-//       return <Center {...attributes} />
-//     case 'split':
-//       return <Split {...attributes} />
-//     case 'minimal':
-//       return <Minimal {...attributes} />
-//     case 'minimal-left':
-//       return <Minimal {...attributes} />
-//     case 'minimal-center':
-//       return <Minimal {...attributes} />
-//     case 'reverse':
-//       return <Reverse {...attributes} />
-//     case 'basic-left':
-//       return <Basic {...attributes} />
-//     case 'basic':
-//     default:
-//       return <Basic {...attributes} />
-//   }
-// }
+  React.useEffect(() => {
+    if (type !== undefined && type !== layout) {
+      setLayout(type)
+    }
 
-// Navbar.displayName = 'Navbar'
+    if (mobileType !== undefined && mobileType !== mobileLayout) {
+      setMobileLayout(mobileType as LayoutString) // TODO check this TS issue
+    }
+  }, [type, mobileType, layout, mobileLayout, setLayout, setMobileLayout])
+
+  const wrapPartial =
+    header.menuOverflow === 'scroll'
+      ? { '.menu-area': { overflowX: 'scroll', whiteSpace: 'nowrap' } }
+      : null
+
+  return (
+    <Grid
+      variant={variant}
+      className={`nav-grid layout-${layout} m-layout-${mobileLayout}`}
+      sx={{
+        maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
+        mx: 'auto',
+        position: 'relative',
+        ...gridStyles(layout, mobileLayout, grid, header.bpIndex),
+        ...wrapPartial,
+        ...sx,
+      }}>
+      {edge.includes(layout) || mobileEdge.includes(mobileLayout) ? (
+        <Flex
+          align="center"
+          className="button-area"
+          sx={{
+            gridArea: 'button',
+            display: setBreakpoint(header.bpIndex, [
+              mobileEdge.includes(mobileLayout) ? 'flex' : 'none',
+              edge.includes(layout) ? 'flex' : 'none',
+            ]),
+          }}>
+          <MenuButton customButton={menuButton} visibleOnDesktop />
+        </Flex>
+      ) : null}
+      {layout === 'split' ? (
+        <Flex
+          align="center"
+          className="menu-area split"
+          sx={{
+            gridArea: 'menu-split',
+            display: setBreakpoint(header.bpIndex, ['none', 'flex']),
+          }}>
+          <NavMenu menuItems={menu.slice(0, mid)} />
+        </Flex>
+      ) : null}
+      <Flex align="center" className="logo-area" sx={{ gridArea: 'logo' }}>
+        <Logo>{logo}</Logo>
+      </Flex>
+      <Flex
+        align="center"
+        className="menu-area"
+        sx={{
+          gridArea: 'menu',
+          display: setBreakpoint(header.bpIndex, ['none', 'flex']),
+        }}>
+        <NavMenu menuItems={layout === 'split' ? menu.slice(mid) : menu} />
+      </Flex>
+      <Flex align="center" className="nav-area" sx={{ gridArea: 'nav' }}>
+        <WidgetArea content={navArea} />
+        <MenuButton
+          customButton={menuButton}
+          sx={{
+            display: setBreakpoint(header.bpIndex, [
+              mobileEdge.includes(mobileLayout) ? 'none' : 'block',
+              layout === 'minimal' || mobileMenu.visibleOnDesktop
+                ? 'block'
+                : 'none',
+            ]),
+          }}
+        />
+        <ColorButton customButton={colorButton} />
+      </Flex>
+    </Grid>
+  )
+}
+
+Navbar.displayName = 'Navbar'

@@ -74,6 +74,7 @@ export interface MakerOptions {
       caret?: boolean | 'default' | React.ReactNode
       transition?: 'scale' | 'fade' | 'fade-down' | 'fade-up'
     }
+    menuOverflow?: 'wrap' | 'scroll'
     menuButton?:
       | 'default'
       | React.ReactNode

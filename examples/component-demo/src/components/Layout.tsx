@@ -55,7 +55,7 @@ export default ({ children, location }) => (
     {/* <Announcement>Test</Announcement> */}
     <Topbar>Topbar content</Topbar>
     <Header>
-      <Navbar type="center" logo={'Components Demo'} menu={menu} />
+      <Navbar logo={'Components Demo'} menu={menu} />
       <MobileMenu menu={menu} closeButton="test" />
     </Header>
     {location.pathname !== '/workspace' ? (

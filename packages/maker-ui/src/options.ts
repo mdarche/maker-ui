@@ -15,6 +15,7 @@ export const defaultOptions: MakerOptions = {
     stickyUpScroll: false,
     hideColorButtonOnMobile: false,
     hideWidgetsOnMobile: true,
+    menuOverflow: 'wrap',
     dropdown: {
       caret: 'default',
       transition: 'fade',

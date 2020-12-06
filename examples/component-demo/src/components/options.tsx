@@ -9,12 +9,14 @@ export const options: MakerOptions = {
     maxWidth: [200, 600],
   },
   header: {
-    navType: 'split',
+    navType: 'reverse',
+    mobileNavType: 'basic',
     maxWidth: '100%',
     sticky: true,
     // stickyUpScroll: true,
     stickyOnMobile: true,
     showColorButton: true,
+    // menuOverflow: 'scroll',
     scrollClass: {
       className: 'scroll-test',
       scrollTop: 2000,

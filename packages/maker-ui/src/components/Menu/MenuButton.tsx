@@ -23,17 +23,15 @@ interface MenuButtonProps extends MakerProps {
  * @see https://maker-ui.com/docs/layout/buttons/#menuButton
  */
 
-export const MenuButton = (props: MenuButtonProps) => {
+export const MenuButton = ({
+  customButton,
+  visibleOnDesktop,
+  isCloseButton,
+  sx,
+}: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()
-  const { mobileMenu, header, sideNav } = useOptions()
-
-  const {
-    customButton,
-    visibleOnDesktop = mobileMenu.visibleOnDesktop,
-    isCloseButton,
-    sx,
-  } = props
+  const { header, sideNav } = useOptions()
 
   // Use custom button from props or check header / mobileMenu options
   const menuButton = customButton || header.menuButton
@@ -63,7 +61,7 @@ export const MenuButton = (props: MenuButtonProps) => {
       sx={{
         variant: 'header.menuButton',
         ...visibility,
-        m: '0 auto',
+        m: '0',
         border: 'none',
         background: 'none',
         svg: { m: '0 auto' },
