@@ -1,7 +1,100 @@
 import * as React from 'react'
 import { Button, Div, DivProps, ResponsiveScale, generateId } from 'maker-ui'
 
-import { Popover, Position } from './Popover'
+import { Popover, PopoverProps, Position } from './Popover'
+
+interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
+  label: React.ReactNode
+  children: React.ReactNode
+  bg?: ResponsiveScale
+  color?: ResponsiveScale
+  gap?: number
+  trapFocus?: boolean
+  closeOnBlur?: boolean
+  noArrow?: boolean
+  position?: 'top' | 'bottom' | 'left' | 'right'
+  buttonSx?: any
+  springConfig: PopoverProps['springConfig']
+}
+
+/**
+ * The `Tooltip` component is a traditional tooltip element for revealing
+ * additional information on hover. It includes a wrapper element as well as semantically
+ * correct button toggle.
+ *
+ * @see https://maker-ui.com/docs/components/popovers
+ */
+
+export const Tooltip = ({
+  label,
+  variant,
+  noArrow = false,
+  position = 'right',
+  bg = '#555',
+  color = '#fff',
+  gap = 5,
+  springConfig,
+  buttonSx,
+  sx,
+  children,
+}: TooltipProps) => {
+  const buttonRef = React.useRef(null)
+  const [show, toggle] = React.useState(false)
+  const [tooltipId] = React.useState(generateId())
+
+  const positionData = convertPosition(position, bg, gap)
+
+  const styles = {
+    bg,
+    color,
+    p: '5px',
+    borderRadius: 3,
+    ':after': !noArrow && {
+      content: '""',
+      position: 'absolute',
+      borderWidth: 5,
+      borderStyle: 'solid',
+      ...positionData.styles,
+    },
+    ...sx,
+  }
+
+  return (
+    <Div
+      sx={{ display: 'inline-block' }}
+      onMouseOver={e => toggle(true)}
+      onMouseOut={e => toggle(false)}>
+      <Button
+        ref={buttonRef}
+        onFocus={e => toggle(true)}
+        onBlur={e => typeof label === 'string' && toggle(false)}
+        onClick={e => toggle(!show)}
+        variant={variant}
+        sx={buttonSx}
+        aria-describedby={tooltipId}>
+        {children}
+      </Button>
+      <Popover
+        id={tooltipId}
+        role="tooltip"
+        anchorRef={buttonRef}
+        position={positionData.position}
+        gap={positionData.gap}
+        show={show}
+        toggle={toggle}
+        containerSx={styles}
+        springConfig={springConfig}>
+        {label}
+      </Popover>
+    </Div>
+  )
+}
+
+Tooltip.displayName = 'Tooltip'
+
+/**
+ * Format the simpler Tooltip API to work with the `Popover` parent.
+ */
 
 function convertPosition(
   pos: string,
@@ -55,89 +148,3 @@ function convertPosition(
       }
   }
 }
-
-interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
-  label: React.ReactNode
-  children: React.ReactNode
-  bg?: ResponsiveScale
-  color?: ResponsiveScale
-  gap?: number
-  trapFocus?: boolean
-  closeOnBlur?: boolean
-  noArrow?: boolean
-  position?: 'top' | 'bottom' | 'left' | 'right'
-  buttonSx?: any
-}
-
-/**
- * The `Tooltip` component is a traditional tooltip element for revealing
- * additional information on hover. It includes a wrapper element as well as semantically
- * correct button toggle.
- *
- * @see https://maker-ui.com/docs/components/popovers
- */
-
-export const Tooltip = ({
-  label,
-  variant,
-  noArrow = false,
-  position = 'right',
-  bg = '#555',
-  color = '#fff',
-  gap = 5,
-  buttonSx,
-  sx,
-  children,
-}: TooltipProps) => {
-  const buttonRef = React.useRef(null)
-  const [show, toggle] = React.useState(false)
-  const [tooltipId] = React.useState(generateId())
-
-  const positionData = convertPosition(position, bg, gap)
-
-  const styles = {
-    bg,
-    color,
-    p: '5px',
-    borderRadius: 3,
-    ':after': !noArrow && {
-      content: '""',
-      position: 'absolute',
-      borderWidth: 5,
-      borderStyle: 'solid',
-      ...positionData.styles,
-    },
-    ...sx,
-  }
-
-  return (
-    <Div
-      sx={{ display: 'inline-block' }}
-      onMouseOver={e => toggle(true)}
-      onMouseOut={e => toggle(false)}>
-      <Button
-        ref={buttonRef}
-        onFocus={e => toggle(true)}
-        onBlur={e => typeof label === 'string' && toggle(false)}
-        onClick={e => toggle(!show)}
-        variant={variant}
-        sx={buttonSx}
-        aria-describedby={tooltipId}>
-        {children}
-      </Button>
-      <Popover
-        id={tooltipId}
-        role="tooltip"
-        anchorRef={buttonRef}
-        position={positionData.position}
-        gap={positionData.gap}
-        show={show}
-        toggle={toggle}
-        containerSx={styles}>
-        {label}
-      </Popover>
-    </Div>
-  )
-}
-
-Tooltip.displayName = 'Tooltip'

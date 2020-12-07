@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div } from 'maker-ui'
-import { useTransition } from 'react-spring'
+import { SpringConfig, useTransition } from 'react-spring'
 
 const getTransition = (type, next) => {
   switch (type) {
@@ -36,7 +36,7 @@ interface CanvasProps {
   currentIndex: number
   slides?: any
   transition?: 'slide' | 'fade' | 'slide-fade'
-  config?: Object
+  config?: SpringConfig
   next?: boolean
 }
 

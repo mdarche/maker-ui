@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Button, Div } from 'maker-ui'
 
-import { Popover } from './Popover'
+import { Popover, PopoverProps } from './Popover'
 
 interface DropdownProps {
   buttonVariant?: string | string[]
@@ -9,6 +9,8 @@ interface DropdownProps {
   matchWidth?: boolean
   trapFocus?: boolean
   closeOnBlur?: boolean
+  transition?: PopoverProps['transition']
+  springConfig?: PopoverProps['springConfig']
   sx?: any
   children: React.ReactNode
 }
@@ -26,12 +28,13 @@ export const Dropdown = ({
   matchWidth = false,
   trapFocus = false,
   closeOnBlur = true,
+  transition = 'scale',
   sx,
   children,
 }: DropdownProps) => {
   const buttonRef = React.useRef(null)
   const dropdownRef = React.useRef(null)
-  const [show, toggle] = React.useState(true)
+  const [show, toggle] = React.useState(transition === 'scale' ? true : false)
 
   return (
     <Div sx={{ display: 'inline-block' }}>
@@ -41,7 +44,7 @@ export const Dropdown = ({
         aria-haspopup="listbox"
         aria-expanded={show}
         onClick={e => toggle(!show)}
-        sx={{ variant: buttonVariant, width: 100, ...sx }}>
+        sx={{ variant: buttonVariant, ...sx }}>
         {buttonInner}
       </Button>
       <Div className="dropdown-container" ref={dropdownRef}>
@@ -54,7 +57,7 @@ export const Dropdown = ({
           anchorRef={buttonRef}
           anchorWidth={matchWidth}
           closeOnBlur={closeOnBlur}
-          transition="scale"
+          transition={transition}
           _type="dropdown">
           {children}
         </Popover>

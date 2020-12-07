@@ -3,6 +3,7 @@ import { Div, DivProps } from 'maker-ui'
 
 import { AccordionContext } from './AccordionContext'
 import { AccordionPanel } from './AccordionPanel'
+import { SpringConfig } from 'react-spring'
 
 interface AccordionProps extends DivProps {
   icon?: boolean
@@ -12,6 +13,7 @@ interface AccordionProps extends DivProps {
   }
   activeKey?: number | string
   showSingle?: boolean
+  springConfig?: SpringConfig
 }
 
 /**

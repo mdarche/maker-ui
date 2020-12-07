@@ -18,6 +18,7 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       color,
       key = 'mui_cookie_notice',
       expiration,
+      springConfig,
       closeButton = 'Got it!',
       top = false,
       children,
@@ -35,6 +36,7 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         color={color}
         trackerType="cookie"
         closeButton={closeButton}
+        springConfig={springConfig}
         {...props}>
         {children ||
           'We use cookies to ensure you get the best experience on our site.'}

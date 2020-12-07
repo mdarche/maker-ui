@@ -7,6 +7,7 @@ export interface MeasureProps {
   observe?: boolean
   contentRect?: boolean
   externalRef?: React.MutableRefObject<any>
+  documentResize?: boolean
 }
 
 export interface MeasureState {
@@ -28,6 +29,8 @@ export interface MeasureState {
  * calculate getClientBoundingRect()
  * @param externalRef - If you can't bind the output ref to your component, you can also supply
  * another React ref object to make the size calculations.
+ * @param documentResize - Boolean that recalculates the measurements of a ref when the document
+ * body (window) is resized
  *
  * @see https://maker-ui.com/docs/hooks/#useMeasure
  *
@@ -36,10 +39,10 @@ export interface MeasureState {
 export function useMeasure(
   props?: MeasureProps
 ): [{ ref: React.MutableRefObject<any> }, MeasureState] {
-  // TODO - revisit optional root prop + Typescript issue with destructuring
-  const observe = props && props.observe ? props.observe : true
-  const contentRect = props && props.contentRect ? props.contentRect : false
-  const externalRef = props && props.externalRef ? props.externalRef : undefined
+  const observe = props?.observe || true
+  const contentRect = props?.contentRect || false
+  const externalRef = props?.externalRef
+  const documentResize = props?.documentResize
 
   const localRef = useRef(null)
   const ref = externalRef || localRef
@@ -57,7 +60,9 @@ export function useMeasure(
   const [ro] = useState(
     () =>
       new ResizeObserver(([entry]) => {
-        const { top, bottom, left, right, width, height } = contentRect
+        const { top, bottom, left, right, width, height } = documentResize
+          ? ref.current.getBoundingClientRect()
+          : contentRect
           ? entry.contentRect
           : entry.target.getBoundingClientRect()
         const documentTop = top + document.documentElement.scrollTop
@@ -67,9 +72,13 @@ export function useMeasure(
 
   useEffect(() => {
     if (observe) {
-      if (ref.current) ro.observe(ref.current)
+      if (ref.current) {
+        ro.observe(
+          documentResize ? document.querySelector('body') : ref.current
+        )
+      }
       return () => ro.disconnect()
     }
-  }, [observe, ref, ro])
+  }, [observe, ref, ro, documentResize])
   return [{ ref }, bounds]
 }

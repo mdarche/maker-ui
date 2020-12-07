@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useTransition, animated as a } from 'react-spring'
+import { useTransition, animated as a, SpringConfig } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
 import { Portal } from './Portal'
@@ -34,6 +34,7 @@ export interface ModalProps extends DivProps {
   focusRef: React.MutableRefObject<any>
   style?: any
   center?: boolean
+  springConfig?: SpringConfig
 }
 
 /**
@@ -55,6 +56,7 @@ export const Modal = ({
   bg = 'rgba(0, 0, 0, 0.66)',
   style = {},
   children,
+  springConfig,
   ...rest
 }: ModalProps) => {
   const modalRef = React.useRef(null)
@@ -88,6 +90,7 @@ export const Modal = ({
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
+    config: springConfig,
   })
 
   return (

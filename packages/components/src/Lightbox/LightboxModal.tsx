@@ -23,6 +23,7 @@ interface LightboxModalProps extends MakerProps {
  *
  * @todo - implement zoom feature
  * @todo - add gesture controls and canvas transition options
+ * @todo - add React Spring config
  *
  * @internal usage only
  */

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, MakerProps } from 'maker-ui'
-import { animated as a } from 'react-spring'
+import { animated as a, SpringConfig } from 'react-spring'
 
 import { Canvas } from './Canvas'
 import Navigation from './Navigation'
@@ -21,7 +21,7 @@ export interface CarouselProps extends MakerProps {
   arrow?: React.ReactElement
   transition?: 'fade' | 'slide' | 'slide-fade'
   duration?: number
-  config?: Object
+  springConfig?: SpringConfig
 }
 
 function reducer(state, { type, value }) {
@@ -77,7 +77,7 @@ export const Carousel = React.forwardRef(
       transition,
       duration = 6500,
       variant = 'carousel',
-      config = { mass: 1, tension: 160, friction: 28 },
+      springConfig = { mass: 1, tension: 160, friction: 28 },
       sx,
       ...props
     }: CarouselProps,
@@ -128,7 +128,7 @@ export const Carousel = React.forwardRef(
           slides={slides}
           transition={transition}
           next={state.nextSlide}
-          config={config}
+          config={springConfig}
         />
         {nav ? (
           <Navigation

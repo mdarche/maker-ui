@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { ResponsiveScale } from 'maker-ui'
+import { SpringConfig } from 'react-spring'
 
 const TreeDataContext = React.createContext(null)
 
@@ -17,6 +18,7 @@ export interface TreeContextProps {
   }
   indentation?: ResponsiveScale
   clickableText?: boolean
+  springConfig?: SpringConfig
   children?: React.ReactNode
   variant?: string
 }
@@ -33,6 +35,7 @@ export const TreeContext = ({
   buttons,
   indentation,
   clickableText,
+  springConfig,
   children,
 }: TreeContextProps) => {
   const [state] = React.useState<TreeState>({
@@ -41,6 +44,7 @@ export const TreeContext = ({
     neutral: buttons.neutral,
     clickableText,
     indentation,
+    springConfig,
     variant,
   })
   return (

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Flex, Button, DivProps, useMeasure } from 'maker-ui'
-import { useSpring, animated as a } from 'react-spring'
+import { useSpring, animated as a, SpringConfig } from 'react-spring'
 
 import { useTracker } from './_hooks'
 import { CloseIcon } from './icons'
@@ -29,6 +29,7 @@ export interface AnnouncementProps extends DivProps {
   closeButton?: JSX.Element | string | null
   bottom?: boolean
   top?: boolean
+  springConfig?: SpringConfig
 }
 
 /**
@@ -51,6 +52,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       allowClose = true,
       closeButton = <CloseIcon />,
       bottom = false,
+      springConfig,
       sx,
       children,
       ...props
@@ -69,6 +71,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         : undefined,
       height: !fixed ? (show ? viewHeight : 0) : undefined,
       opacity: show ? 1 : 0,
+      config: springConfig,
     })
 
     return active ? (

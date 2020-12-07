@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useTransition, animated as a } from 'react-spring'
+import { useTransition, animated as a, SpringConfig } from 'react-spring'
 import { Div, DivProps, useMeasure } from 'maker-ui'
 
 import { Portal } from '../Portal'
@@ -12,6 +12,7 @@ export interface Position {
   x: 'left' | 'center' | 'right' | 'origin'
   y: 'top' | 'center' | 'bottom'
 }
+
 export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
   toggle(state?: boolean): void
@@ -24,7 +25,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   trapFocus?: boolean
   closeOnBlur?: boolean
   containerSx?: any
-  config?: object
+  springConfig?: SpringConfig
   _type?: 'popover' | 'dropdown' | 'tooltip' // internal usage only
   transition?:
     | 'fade'
@@ -32,23 +33,8 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'fade-up'
     | 'fade-left'
     | 'fade-right'
-    | 'scale' // Used for dropdown menu only
+    | 'scale'
   children: React.ReactNode
-}
-
-const getTransform = (type: string) => {
-  switch (type) {
-    case 'fade-up':
-    case 'fade-down':
-      return `translate3d(0,${getSign(type)}10px,0)`
-    case 'fade-left':
-    case 'fade-right':
-      return `translate3d(${getSign(type)}10px, 0, 0)`
-    case 'scale':
-    case 'fade':
-    default:
-      return `translate3d(0px,0px,0px)`
-  }
 }
 
 /**
@@ -59,7 +45,6 @@ const getTransform = (type: string) => {
  * `Tooltip` or `Dropdown` components.
  *
  * @see https://maker-ui.com/docs/components/popovers
- * @todo - refactor with useMeasure Resize Observer
  */
 
 export const Popover = ({
@@ -76,7 +61,7 @@ export const Popover = ({
   closeOnBlur = true,
   transition = 'fade',
   variant,
-  config,
+  springConfig,
   containerSx,
   _type = 'popover',
   sx,
@@ -89,7 +74,14 @@ export const Popover = ({
   const [initialRender, setInitialRender] = React.useState(true)
   const [, box] = useMeasure({
     externalRef: anchorRef,
+    documentResize: true,
   })
+
+  /**
+   * Measure the popover's direct child container to use its height and width for
+   * positioning & the `scale` transition.
+   * @todo - rebuild with useMeasure() Resize Observer?
+   */
 
   const measuredRef = React.useCallback(
     node => {
@@ -125,7 +117,10 @@ export const Popover = ({
     }
   }, [box, anchorWidth])
 
-  // TODO refactor this into one ...getTransitions function
+  /**
+   * Configure the React-spring useTransition animation
+   */
+
   const animate = useTransition(show ? [1] : [], {
     from: {
       opacity: transition.includes('fade') ? 0 : 1,
@@ -142,10 +137,13 @@ export const Popover = ({
       height: transition === 'scale' ? '0px' : undefined,
       transform: getTransform(transition),
     },
-    config,
+    config: springConfig,
   })
 
-  // TODO add and test gapX
+  /**
+   * Get the popover's X position by calculating its distance to the anchor ref element.
+   */
+
   const getX = () => {
     if (!box) return
     return position.x === 'center'
@@ -156,6 +154,10 @@ export const Popover = ({
       ? box.right + gap.x
       : box.left
   }
+
+  /**
+   * Get the popover's Y position by calculating its distance to the anchor ref element.
+   */
 
   const getY = () => {
     if (!box) return
@@ -184,9 +186,11 @@ export const Popover = ({
                 variant,
                 position: 'absolute',
                 display: 'block',
-                zIndex: 100,
+                zIndex: 99,
                 left: _type !== 'dropdown' && getX(),
                 top: _type !== 'dropdown' && getY(),
+                // left: getX(),
+                // top: getY(),
                 width: anchorWidth && width,
                 overflow: transition.includes('scale') && 'hidden',
                 ...sx,
@@ -210,3 +214,22 @@ export const Popover = ({
 }
 
 Popover.displayName = 'Popover'
+
+/**
+ * Helper function that returns a CSS transform string
+ */
+
+const getTransform = (type: string) => {
+  switch (type) {
+    case 'fade-up':
+    case 'fade-down':
+      return `translate3d(0,${getSign(type)}10px,0)`
+    case 'fade-left':
+    case 'fade-right':
+      return `translate3d(${getSign(type)}10px, 0, 0)`
+    case 'scale':
+    case 'fade':
+    default:
+      return `translate3d(0px,0px,0px)`
+  }
+}

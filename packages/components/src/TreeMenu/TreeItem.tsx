@@ -34,6 +34,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
       expand,
       neutral,
       indentation,
+      springConfig,
     } = useTreeData()
 
     const previous = usePrevious(isOpen)
@@ -44,6 +45,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
       to: {
         height: isOpen ? viewHeight : 0,
       },
+      config: springConfig,
     })
 
     return (

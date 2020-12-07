@@ -7,17 +7,17 @@ import {
   Content,
   Main,
   Footer,
-  Sidebar,
+  // Sidebar,
   SideNav,
   Topbar,
   Workspace,
   Div,
 } from 'maker-ui'
-import {
-  Announcement,
-  // PageTransition,
-  // CookieNotice,
-} from '@maker-ui/components'
+// import {
+//   // Announcement,
+//   // PageTransition,
+//   // CookieNotice,
+// } from '@maker-ui/components'
 // import { SEOProvider } from '@maker-ui/seo'
 // import { Fixed } from './Fixed'
 import { options } from './options'

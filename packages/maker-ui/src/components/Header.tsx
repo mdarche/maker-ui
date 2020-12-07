@@ -60,7 +60,9 @@ export const Header = (props: HeaderProps) => {
     ...rest
   } = props
 
-  // Fire hook effect if stickyUpScroll === true
+  /**
+   * Fire hook effect if stickyUpScroll === true
+   */
   useScrollPosition(
     ({ prevPos, currPos }) => {
       const isDownScroll = currPos > prevPos
@@ -82,7 +84,9 @@ export const Header = (props: HeaderProps) => {
     stickyUpScroll
   )
 
-  // Fire hook effect if header.scroll.toggleClass === true
+  /**
+   * Fire hook effect if header.scroll.toggleClass === true
+   */
   useScrollPosition(
     ({ currPos }) => {
       if (activateScrollClass) {
@@ -98,7 +102,9 @@ export const Header = (props: HeaderProps) => {
     activateScrollClass
   )
 
-  // Calculate responsive top value depending on the topbar sticky configuration
+  /**
+   * Calculate responsive top value according to topbar.sticky configuration
+   */
   const calculateTop = () => {
     if (topbar.sticky && !topbar.stickyOnMobile) {
       return setBreakpoint(header.bpIndex, [0, measurements.height_topbar])
@@ -115,7 +121,10 @@ export const Header = (props: HeaderProps) => {
     return 0
   }
 
-  // Calculate responsive header styles for sticky header configurations
+  /**
+   * Calculate responsive header styles for header.sticky configurations
+   */
+
   const stickyPartial = () => {
     if (stickyUpScroll) {
       return {

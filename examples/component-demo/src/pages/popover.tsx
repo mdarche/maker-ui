@@ -11,7 +11,7 @@ const PopoverPage = () => {
       <button ref={buttonRef} onClick={e => set(!show)}>
         Popover toggle
       </button>
-      <Tooltip bg="purple" gap={5} label="test" position="left">
+      {/* <Tooltip bg="purple" gap={5} label="test" position="left">
         Hover here!
       </Tooltip>
       <Popover
@@ -23,39 +23,39 @@ const PopoverPage = () => {
         <Div sx={{ bg: 'gainsboro', height: 100, ul: { m: 0, p: 2 } }}>
           <ul>
             <li>
-              <a href="https://google.com" target="_blank">
+              <a href="https://google.com" target="_blank" rel="noreferrer">
                 Link1
               </a>
             </li>
             <li>
-              <a href="https://google.com" target="_blank">
+              <a href="https://google.com" target="_blank" rel="noreferrer">
                 Link2
               </a>
             </li>
             <li>
-              <a href="https://google.com" target="_blank">
+              <a href="https://google.com" target="_blank" rel="noreferrer">
                 Link3
               </a>
             </li>
           </ul>
         </Div>
-      </Popover>
-      <Dropdown buttonInner="Click here">
+      </Popover> */}
+      <Dropdown buttonInner="Click here" transition="fade-right">
         <Div sx={{ bg: 'gainsboro', width: 200, p: 3, ul: { m: 0, p: 0 } }}>
           <ul>
             <li>
-              <a href="https://google.com" target="_blank">
+              <a href="https://google.com" target="_blank" rel="noreferrer">
                 Link1
               </a>
             </li>
             <li>
-              <a href="https://google.com" target="_blank">
+              <a href="https://google.com" target="_blank" rel="noreferrer">
                 Link2
               </a>
             </li>
             <li>
-              <a href="https://google.com" target="_blank">
-                Link3
+              <a href="https://google.com" target="_blank" rel="noreferrer">
+                Link314
               </a>
             </li>
           </ul>

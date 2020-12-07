@@ -31,9 +31,10 @@ export const TableofContents = ({
   smoothScroll = false,
   sx,
 }: TocProps) => {
-  const [menuItems, setMenu] = React.useState<any[]>([])
+  const [menuItems, setMenu] = React.useState([])
   const [activeNode, setActiveNode] = React.useState(null)
 
+  // Add smooth scroll to document if required
   React.useEffect(() => {
     document.querySelector('html').style.scrollBehavior = smoothScroll
       ? 'smooth'

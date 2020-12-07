@@ -63,6 +63,7 @@ export const AccordionPanel = React.forwardRef<
       to: {
         height: show ? viewHeight : 0,
       },
+      config: state.springConfig,
     })
 
     const setActive = () =>

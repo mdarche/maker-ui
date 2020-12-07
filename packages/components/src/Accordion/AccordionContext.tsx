@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { SpringConfig } from 'react-spring'
 
 const AccordionDataContext = React.createContext(null)
 const AccordionUpdateContext = React.createContext(null)
@@ -11,6 +12,7 @@ interface AccordionContextProps {
   }
   activeKey?: number | string
   showSingle?: boolean
+  springConfig?: SpringConfig
   children: React.ReactElement
 }
 
@@ -25,6 +27,7 @@ export const AccordionContext = ({
   customIcons,
   activeKey,
   showSingle,
+  springConfig,
   children,
 }: AccordionContextProps) => {
   const [state, setState] = React.useState({
@@ -33,6 +36,7 @@ export const AccordionContext = ({
     icon,
     customIcons,
     showSingle,
+    springConfig,
   })
 
   React.useEffect(() => {
