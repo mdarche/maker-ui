@@ -9,7 +9,7 @@ export const options: MakerOptions = {
     maxWidth: [200, 600],
   },
   header: {
-    navType: 'reverse',
+    navType: 'basic',
     mobileNavType: 'basic',
     maxWidth: '100%',
     sticky: true,

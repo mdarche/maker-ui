@@ -9,6 +9,7 @@ interface TocProps extends Omit<DivProps, 'title'> {
   indentSize?: number
   activeColor?: string | string[]
   pseudoSx?: any
+  smoothScroll?: boolean
 }
 
 interface MenuItem {
@@ -27,24 +28,31 @@ export const TableofContents = ({
   indentSize = 10,
   variant = 'toc',
   pseudoSx,
+  smoothScroll = false,
   sx,
 }: TocProps) => {
   const [menuItems, setMenu] = React.useState<any[]>([])
   const [activeNode, setActiveNode] = React.useState(null)
 
+  React.useEffect(() => {
+    document.querySelector('html').style.scrollBehavior = smoothScroll
+      ? 'smooth'
+      : null
+  }, [smoothScroll])
+
   // Query DOM for applicable heading elements
-  React.useLayoutEffect(() => {
-    const selectors: string = headings.map(h => `main h${h}`).join(', ')
+  React.useEffect(() => {
+    const selectors = headings.map(h => `main h${h}`).join(', ')
     const nodes: HTMLElement[] = Array.from(
       document.querySelectorAll(selectors)
     )
 
     if (nodes.length) {
       const menu = nodes.reduce(
-        (filtered, { id, innerText, offsetTop, tagName }) => {
+        (filtered, { id, innerHTML, offsetTop, tagName }) => {
           if (id) {
             filtered.push({
-              text: innerText,
+              text: innerHTML,
               id,
               level: tagName === 'H3' ? 1 : tagName === 'H4' ? 2 : 0,
               offset: offsetTop,
@@ -71,7 +79,6 @@ export const TableofContents = ({
         if (activeNode === null) {
           // Check if scroll is between first 2 heading nodes (inexpensive)
           if (menuItems.length > 1 && currPos <= menuItems[1].offset) {
-            console.log('right here')
             return setActiveNode(0)
           } else {
             // Else find the nearest offset (expensive)

@@ -106,7 +106,7 @@ export const Modal = ({
                 variant,
                 ...position,
                 ...centered(center),
-                zIndex: 100,
+                zIndex: 101,
               }}>
               <Div
                 role="button"
