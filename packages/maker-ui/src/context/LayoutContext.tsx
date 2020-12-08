@@ -6,7 +6,7 @@ import {
   workspaceTypes,
   navTypes,
   mobileNavTypes,
-} from '../utils/constants'
+} from '../constants'
 
 export const LayoutContext = React.createContext(null)
 
@@ -14,6 +14,7 @@ export type LayoutString =
   | typeof navTypes[number]
   | typeof contentTypes[number]
   | typeof workspaceTypes[number]
+  | typeof mobileNavTypes[number]
 
 export interface LayoutState {
   layout_nav?: typeof navTypes[number]
@@ -34,7 +35,7 @@ export interface LayoutState {
 
 const LayoutProvider = ({ children }) => {
   const { header } = useOptions()
-  const [state, dispatch] = React.useState<LayoutState>({
+  const [state, setState] = React.useState<LayoutState>({
     layout_nav: header.navType,
     layout_navMobile: header.mobileNavType,
     layout_content: 'content',
@@ -45,7 +46,7 @@ const LayoutProvider = ({ children }) => {
   })
 
   return (
-    <LayoutContext.Provider value={[state, dispatch]}>
+    <LayoutContext.Provider value={[state, setState]}>
       {children}
     </LayoutContext.Provider>
   )
@@ -62,18 +63,18 @@ function useLayout(
 ): [LayoutString, (layout: LayoutString) => void] {
   const [
     { layout_content, layout_workspace, layout_nav, layout_navMobile },
-    dispatch,
+    setState,
   ]: [
     LayoutState,
     React.Dispatch<React.SetStateAction<LayoutState>>
   ] = React.useContext(LayoutContext)
 
-  if (dispatch === undefined) {
+  if (setState === undefined) {
     throw new Error('useLayout must be used within a Maker UI Layout component')
   }
 
   function setLayout(newLayout: LayoutString) {
-    dispatch(state => ({ ...state, [`layout_${type}`]: newLayout }))
+    setState(state => ({ ...state, [`layout_${type}`]: newLayout }))
   }
 
   return type === 'workspace'
@@ -92,7 +93,7 @@ function useLayout(
  */
 
 function useMeasurements() {
-  const [measurements, dispatch]: [
+  const [measurements, setState]: [
     LayoutState,
     React.Dispatch<React.SetStateAction<LayoutState>>
   ] = React.useContext(LayoutContext)
@@ -103,8 +104,8 @@ function useMeasurements() {
     )
   }
 
-  function setMeasurement(key: 'topbar' | 'header', value: number) {
-    dispatch(state => ({ ...state, [`height_${key}`]: value }))
+  function setMeasurement(key: 'topbar' | 'header' | 'toolbar', value: number) {
+    setState(state => ({ ...state, [`height_${key}`]: value }))
   }
 
   return { measurements, setMeasurement }

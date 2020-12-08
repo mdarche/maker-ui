@@ -2,7 +2,7 @@
 import { forwardRef } from 'react'
 import { jsx } from 'theme-ui'
 
-import { MakerProps, ResponsiveString, ResponsiveScale } from './types'
+import { MakerProps, ResponsiveString, ResponsiveScale } from '../types'
 
 /** -----------------------   DIV   -----------------------
  * Alias for `Div` component props that includes all

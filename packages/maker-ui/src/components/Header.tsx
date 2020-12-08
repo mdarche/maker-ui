@@ -2,8 +2,8 @@
 import { jsx } from 'theme-ui'
 import { useEffect, useState } from 'react'
 
-import { MakerProps } from './types'
-import { ErrorBoundary } from './ErrorBoundary'
+import { MakerProps } from '../types'
+import { ErrorBoundary } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
 import { setBreakpoint } from '../utils/helper'

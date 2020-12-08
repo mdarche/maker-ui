@@ -2,8 +2,8 @@
 import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
-import { MakerProps } from './types'
-import { ErrorBoundary } from './ErrorBoundary'
+import { MakerProps } from '../types'
+import { ErrorBoundary } from './Errors'
 
 interface SidebarProps
   extends MakerProps,

@@ -5,7 +5,7 @@ export const Panel = ({ bg = 'bg_panel', children }) => {
   return (
     <div className="workspace-panel" sx={{ overflow: 'hidden' }}>
       <div
-        className="workspace-container"
+        className="container"
         sx={{ bg, height: '100%', overflowY: 'scroll' }}>
         {children}
       </div>

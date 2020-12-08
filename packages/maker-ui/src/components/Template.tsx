@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Theme } from 'theme-ui'
 
-import { MakerOptions } from './types'
+import { MakerOptions } from '../types'
 import { MenuProps } from './Menu'
 import { Layout } from './Layout'
 import { Topbar } from './Topbar'
@@ -14,7 +14,7 @@ import { SideNav } from './SideNav'
 import { Sidebar } from './Sidebar'
 import { Footer } from './Footer'
 
-import { navTypes, contentTypes } from '../utils/constants'
+import { navTypes, contentTypes } from '../constants'
 
 const SiteInner = ({
   sideNav,
@@ -132,7 +132,7 @@ export const Template = ({
           type={navType}
           logo={logo}
           menu={menu}
-          widgetArea={headerWidgets}
+          // widgetArea={headerWidgets}
           menuButton={menuButton}
           colorButton={colorButton}
           pathname={pathname}

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { SxStyleProp, Theme } from 'theme-ui'
 
-import { mobileNavTypes, navTypes, transitionTypes } from '../utils/constants'
+import { mobileNavTypes, navTypes, transitionTypes } from './constants'
 
 export type ResponsiveScale =
   | string
@@ -22,19 +22,6 @@ export interface MakerProps {
  */
 
 export type MakerTheme = Theme
-
-type PanelProps = {
-  width?: ResponsiveScale
-  /** `NOTE` Will cause a repaint */
-  collapsible?: boolean
-  collapseWidth?: ResponsiveScale
-  collapseButton?:
-    | 'default'
-    | React.ReactNode
-    | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
-  defaultOpen?: boolean
-  animationStyle?: 'slide' | 'scale'
-}
 
 /**
  * Configuration for Maker UI layout system.
@@ -151,16 +138,28 @@ export interface MakerOptions {
       section?: React.ReactNode
     }
   }
-  dock?: {
-    width?: ResponsiveScale
-    hideOnMobile?: boolean
-    bpIndex?: number
-  }
   workspace?: {
     canvasMaxWidth?: ResponsiveScale
-    toolbarHeight?: ResponsiveScale
-    bpIndex?: number
     panelLeft?: PanelProps
     panelRight?: PanelProps
+    dock?: {
+      width?: ResponsiveScale
+      hideOnMobile?: boolean
+      bpIndex?: number
+    }
+    bpIndex?: number
   }
+}
+
+type PanelProps = {
+  width?: ResponsiveScale
+  /** `NOTE` Will cause a repaint */
+  collapsible?: boolean
+  collapseWidth?: ResponsiveScale
+  collapseButton?:
+    | 'default'
+    | React.ReactNode
+    | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+  defaultOpen?: boolean
+  animationStyle?: 'slide' | 'scale'
 }

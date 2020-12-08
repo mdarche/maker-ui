@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
-import { MakerProps } from '../types'
+import { MakerProps } from '../../types'
 import { MenuItem, MenuProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'

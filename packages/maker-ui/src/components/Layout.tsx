@@ -5,8 +5,8 @@ import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
 import { LayoutProvider } from '../context/LayoutContext'
 import { Skiplinks, LinkItem } from './Skiplinks'
-import { ErrorBoundary } from './ErrorBoundary'
-import { MakerOptions } from './types'
+import { ErrorBoundary } from './Errors'
+import { MakerOptions } from '../types'
 import { createTheme } from '../theme'
 
 interface LayoutProps {

@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 
-import { MakerProps, MakerOptions } from './types'
-import { ErrorBoundary } from './ErrorBoundary'
+import { MakerProps, MakerOptions } from '../types'
+import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { MenuProps } from './Menu'
 import { Button } from './Primitives'
 

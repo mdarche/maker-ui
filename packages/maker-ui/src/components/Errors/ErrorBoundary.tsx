@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { OptionContext } from '../context/OptionContext'
+import { OptionContext } from '../../context/OptionContext'
 import { DefaultError } from './Errors'
 
 interface ErrorState {

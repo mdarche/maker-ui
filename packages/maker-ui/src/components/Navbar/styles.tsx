@@ -1,4 +1,4 @@
-import { MakerOptions } from '../types'
+import { MakerOptions } from '../../types'
 import { setBreakpoint } from '../../utils/helper'
 
 // Grid & flex justification styles for desktop

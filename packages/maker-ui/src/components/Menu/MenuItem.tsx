@@ -10,7 +10,7 @@ import {
   dropdownStyles,
   getStyles,
 } from '../../utils/styles-submenu'
-import { MakerOptions } from '../types'
+import { MakerOptions } from '../../types'
 
 export interface MenuProps {
   label: string

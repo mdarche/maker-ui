@@ -1,4 +1,4 @@
-import { MakerOptions } from './components/types'
+import { MakerOptions } from './types'
 
 export const defaultOptions: MakerOptions = {
   topbar: {
@@ -62,7 +62,6 @@ export const defaultOptions: MakerOptions = {
   },
   workspace: {
     canvasMaxWidth: '100%',
-    toolbarHeight: 40,
     bpIndex: 0,
     panelLeft: {
       width: '.25fr',

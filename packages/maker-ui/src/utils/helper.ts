@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { SxStyleProp } from 'theme-ui'
 
-import { transitionTypes } from '../utils/constants'
+import { transitionTypes } from '../constants'
 
 /**
  * Utility for adding pixel value to numbers for transitions and animations

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { MakerOptions, MakerProps, ResponsiveScale } from '../types'
+import { MakerOptions, MakerProps, ResponsiveScale } from '../../types'
 import { useOptions } from '../../context/OptionContext'
 import { LayoutString, useLayout } from '../../context/LayoutContext'
 

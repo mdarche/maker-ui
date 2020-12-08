@@ -1,4 +1,4 @@
-import { MakerOptions } from '../components/types'
+import { MakerOptions } from '../types'
 import { format, setBreakpoint } from './helper'
 
 const secondPanel = (layout: string) => {

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 
-import { MakerProps } from '../types'
+import { MakerProps } from '../../types'
 import { WorkspaceContext } from './WorkspaceContext'
 import { useOptions } from '../../context/OptionContext'
 import { useLayoutDetector } from '../../context/LayoutContext'

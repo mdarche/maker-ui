@@ -7,13 +7,14 @@ export function useLayoutStyles(layout: LayoutString): object {
   const { topbar, header, sideNav, content } = useOptions()
 
   /**
-   * Sidebar Styles
-   * Determine CSS grid configuration
-   *
+   * -------- Sidebar Styles --------
    */
   if (layout && layout.includes('sidebar')) {
-    // Handle row reversal on mobile so main content always appears first
-    const sidebarPartial = () => {
+    /**
+     * Handle row reversal on mobile so main content always appears first
+     *
+     */
+    const sidebarPartial = (): object | null => {
       if (layout === 'sidebar content') {
         return {
           '.sidebar': {
@@ -55,13 +56,16 @@ export function useLayoutStyles(layout: LayoutString): object {
   }
 
   /**
-   * SideNav Styles
-   * Determine sticky sideNav configuration
-   *
+   * -------- SideNav Styles --------
    */
   if (layout && layout.includes('sidenav')) {
-    // Determine the top value for sidenav content
-    const calculateTop = () => {
+    /**
+     * Determine the top value for `sidenav content` and `content sidenav` layouts
+     *
+     * @todo connect output type to theme-ui SystemStyleObject
+     *
+     */
+    const calculateTop = (): any => {
       let top = header.sticky ? measurements.height_header : 0
 
       if (topbar.sticky) {
@@ -71,19 +75,26 @@ export function useLayoutStyles(layout: LayoutString): object {
       return setBreakpoint(sideNav.bpIndex, [0, top])
     }
 
-    // Determine the transform direction for toggling on mobile
+    /**
+     * Determine the transform direction for toggling on mobile
+     *
+     */
     const getTransform = width => {
       const w = Array.isArray(width) ? width[sideNav.bpIndex] : width
       const shift = layout === 'sidenav content' ? `-${w}` : w
       return `translateX(${format(shift)})`
     }
 
-    // Check for measurements to complete before adding transition style
+    /**
+     * Check for measurements to complete before adding transition style
+     *
+     * @todo Find a mobile `sidenav-content` solution for when <Header> does not exist
+     *
+     */
     const getTransition = () => {
       if (!sideNav.isHeader) {
         return measurements.height_header !== 0 ? sideNav.easingCurve : null
       }
-      // TODO find a mobile `sidenav-content` solution for when <Header> does not exist
       return sideNav.easingCurve
     }
 
@@ -126,24 +137,20 @@ export function useLayoutStyles(layout: LayoutString): object {
   }
 
   /**
-   * Workspace Styles
-   * Determine sticky sideNav configuration
-   *
+   * -------- Workspace Styles --------
    */
   if (layout && layout.includes('workspace')) {
     return {
       display: 'flex',
       width: '100%',
-      height: `calc(100vh - ${format(
-        measurements.height_header + measurements.height_topbar
-      )})`,
+      // height: `calc(100vh - ${format(
+      //   measurements.height_header + measurements.height_topbar
+      // )})`,
     }
   }
 
   /**
-   * @Content
-   * Default configuration for `content` layout
-   *
+   * -------- Content Styles (default) --------
    */
   return {
     display: 'block',

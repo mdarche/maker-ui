@@ -2,8 +2,8 @@
 import { jsx } from 'theme-ui'
 import { useEffect } from 'react'
 
-import { MakerOptions, MakerProps, ResponsiveScale } from './types'
-import { ErrorBoundary } from './ErrorBoundary'
+import { MakerOptions, MakerProps, ResponsiveScale } from '../types'
+import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
 import { setBreakpoint } from '../utils/helper'
 import { useMeasure } from '../hooks/useMeasure'

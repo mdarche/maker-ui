@@ -2,9 +2,9 @@
 import { jsx } from 'theme-ui'
 import { forwardRef, Fragment } from 'react'
 
-import { ResponsiveScale, MakerProps, MakerOptions } from './types'
+import { ResponsiveScale, MakerProps, MakerOptions } from '../types'
 import { CollapsibleMenu, MenuButton, MenuProps } from './Menu'
-import { ErrorBoundary } from './ErrorBoundary'
+import { ErrorBoundary } from './Errors'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
@@ -27,7 +27,7 @@ interface MobileMenuProps
 /**
  * The `MobileMenu` component lets you customize a responsive overlay menu for mobile navigation.
  *
- * @todo calcluate default fill color of the close button with an accessibility color picker
+ * @todo use accessible color picker to calculate opposite of mobile BG color
  *
  * @see https://maker-ui.com/docs/layout/mobile-menu
  */

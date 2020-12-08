@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { SVG, Div, UList, Span, Flex } from './Primitives'
+import { SVG, Div, UList, Span, Flex } from '../Primitives'
 
 const ErrorIcon = props => (
   <SVG viewBox="0 0 512 512" {...props}>

@@ -14,6 +14,7 @@ export const theme = {
     bg_mobileMenu: 'rgba(0, 0, 0, 0.1)',
     bg_sideNav: '#eee',
     bg_footer: 'blue',
+    bg_toolbar: 'red',
     modes: {
       dark: {
         link: '#fff',

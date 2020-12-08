@@ -2,8 +2,8 @@
 import { jsx, SxStyleProp } from 'theme-ui'
 import { forwardRef } from 'react'
 
-import { ErrorBoundary } from './ErrorBoundary'
-import { MakerProps, ResponsiveScale } from './types'
+import { ErrorBoundary } from './Errors'
+import { MakerProps, ResponsiveScale } from '../types'
 
 interface SectionProps
   extends MakerProps,

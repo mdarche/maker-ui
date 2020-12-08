@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 
-import { ErrorBoundary } from './ErrorBoundary'
-import { ContentError } from './Errors'
-import { MakerProps } from './types'
+import { ErrorBoundary } from './Errors/ErrorBoundary'
+import { ContentError } from './Errors/Errors'
+import { MakerProps } from '../types'
 import { useOptions } from '../context/OptionContext'
 import { useLayoutDetector } from '../context/LayoutContext'
 import { useLayoutStyles } from '../hooks/useLayoutStyles'

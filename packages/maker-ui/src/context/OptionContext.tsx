@@ -1,7 +1,7 @@
 import * as React from 'react'
 import merge from 'deepmerge'
 
-import { MakerOptions } from '../components/types'
+import { MakerOptions } from '../types'
 import { defaultOptions } from '../options'
 
 export const OptionContext = React.createContext(null)

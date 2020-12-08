@@ -25,7 +25,7 @@ export interface MeasureState {
  * its `contentRect` or `getClientBoundingRect()` properties.
  *
  * @param active - Boolean that determines whether the hook should connect the Resize Observer
- * @param contentRect - Boolean that returns the node's content rect if true. Otherwise it will
+ * @param contentRect - Boolean that returns the node's content rect if true, otherwise it will
  * calculate getClientBoundingRect()
  * @param externalRef - If you can't bind the output ref to your component, you can also supply
  * another React ref object to make the size calculations.
