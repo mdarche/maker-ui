@@ -90,7 +90,10 @@ const GenerativePage = () => {
       </Grid>
       <h2>Example 3</h2>
       <Image {...generateSrc(imageData)} />
-      <FadeBox direction="up" distance={10} sx={{ my: 100 }}>
+      <FadeBox
+        transition="fade-left"
+        distance={100}
+        sx={{ bg: 'gainsboro', my: 100 }}>
         Test
       </FadeBox>
       <h2>Example 4</h2>

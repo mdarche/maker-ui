@@ -72,6 +72,7 @@ export const TableofContents = ({
       )
       setMenu(menu)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useScrollPosition(

@@ -50,6 +50,8 @@ const getNavPosition = ({
  * The `TabNavigation` component generates a nav bar for the `TabGroup`.
  * It uses the `title` prop on a `TabPanel` component.
  *
+ * @todo - revisit best practices with tabindex
+ *
  * @internal usage only
  */
 
@@ -89,7 +91,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
           role="tab"
           // tabIndex={state.activeId === item.id ? 0 : -1}
           className={`tab-button${state.activeId === item.id ? ' active' : ''}`}
-          // @ts-ignore
+          //@ts-ignore
           disabled={item.disabled}
           title={typeof item.title === 'string' ? item.title : null}
           aria-controls={item.panelId}

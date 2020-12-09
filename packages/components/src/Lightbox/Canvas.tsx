@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, Image } from 'maker-ui'
+import { Div, Image, MakerProps } from 'maker-ui'
 import { useTransition, animated as a } from 'react-spring'
 
 import { LightboxData } from './LightboxContext'
@@ -64,13 +64,11 @@ const MediaFrame = ({
 
 MediaFrame.displayName = 'MediaFrame'
 
-interface CanvasProps {
-  variant?: string | string[]
+interface CanvasProps extends MakerProps, HTMLDivElement {
   index?: number
   data?: LightboxData[]
   showInfo?: boolean
   zoom?: boolean
-  onMouseEnter?: Function
 }
 
 /**

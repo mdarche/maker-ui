@@ -6,19 +6,6 @@ import { getSign } from './helper'
 
 const AnimatedDiv = a(Div)
 
-function getTransition(type, distance) {
-  switch (type) {
-    case 'fade-right':
-    case 'fade-left':
-      return `translate3d(${getSign(type)}${distance}px,0px,0px)`
-    case 'fade-down':
-    case 'fade-up':
-      return `translate3d(0px,${getSign(type)}${distance}px,0px)`
-    default:
-      return undefined
-  }
-}
-
 export interface PageTransitionProps {
   type?: string
   distance?: number
@@ -67,3 +54,20 @@ export const PageTransition = ({
 }
 
 PageTransition.displayName = 'PageTransition'
+
+/**
+ * Utility function to calculate transform string
+ */
+
+function getTransition(type, distance) {
+  switch (type) {
+    case 'fade-right':
+    case 'fade-left':
+      return `translate3d(${getSign(type)}${distance}px,0px,0px)`
+    case 'fade-down':
+    case 'fade-up':
+      return `translate3d(0px,${getSign(type)}${distance}px,0px)`
+    default:
+      return undefined
+  }
+}

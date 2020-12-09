@@ -11,7 +11,7 @@ const PopoverPage = () => {
       <button ref={buttonRef} onClick={e => set(!show)}>
         Popover toggle
       </button>
-      {/* <Tooltip bg="purple" gap={5} label="test" position="left">
+      <Tooltip bg="purple" gap={5} label="test" position="left">
         Hover here!
       </Tooltip>
       <Popover
@@ -39,7 +39,7 @@ const PopoverPage = () => {
             </li>
           </ul>
         </Div>
-      </Popover> */}
+      </Popover>
       <Dropdown buttonInner="Click here" transition="fade-right">
         <Div sx={{ bg: 'gainsboro', width: 200, p: 3, ul: { m: 0, p: 0 } }}>
           <ul>

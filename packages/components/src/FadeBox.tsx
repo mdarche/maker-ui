@@ -1,38 +1,23 @@
 import * as React from 'react'
-import { Div, DivProps } from 'maker-ui'
+import { Div, DivProps, useScrollPosition } from 'maker-ui'
 import { animated as a, useSpring, SpringConfig } from 'react-spring'
 
 import { format, getSign } from './helper'
 
 const AnimatedDiv = a(Div)
 
-const getTransform = ({ direction, distance }, show) => {
-  switch (direction) {
-    case 'up':
-    case 'down':
-      return show
-        ? `translate3d(0,0,0)`
-        : `translate3d(0,${getSign(direction)}${format(distance)},0)`
-    case 'left':
-    case 'right':
-      return show
-        ? `translate3d(0,0,0)`
-        : `translate3d(${getSign(direction)}${format(distance)})`
-    default:
-      return undefined
-  }
+interface TransitionProps {
+  transition?: 'fade' | 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right'
+  distance?: number
 }
 
 export interface FadeBoxProps extends DivProps {
-  offset: number
-  springConfig: SpringConfig
-  direction?: string
-  distance: number
+  offset?: number
+  springConfig?: SpringConfig
+  transition?: TransitionProps['transition']
+  distance?: TransitionProps['distance']
   fade?: boolean
-  settings?: {
-    direction: string
-    distance: number
-  }
+  settings?: TransitionProps
 }
 
 /**
@@ -43,37 +28,56 @@ export interface FadeBoxProps extends DivProps {
 
 export const FadeBox = ({
   offset = 300,
-  springConfig,
-  direction,
+  transition,
   distance = 20,
   fade = false,
-  settings = { direction: 'up', distance: 20 },
+  settings = { transition: 'fade-up', distance: 20 },
+  springConfig,
   ...props
 }: FadeBoxProps) => {
   const ref = React.useRef(null)
   const [show, set] = React.useState(false)
-  const fadeProps = direction ? { direction, distance } : settings
+  const fadeProps = transition ? { transition, distance } : settings
 
-  const reveal = useSpring({
-    opacity: show ? 1 : 0,
+  const spring = useSpring({
     transform: fade ? undefined : getTransform(fadeProps, show),
+    opacity: show ? 1 : 0,
     config: springConfig,
   })
 
-  React.useEffect(() => {
-    const handleScroll = e =>
-      !show && window.pageYOffset > ref.current.offsetTop - offset
-        ? set(true)
-        : null
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', handleScroll)
-      return () => window.removeEventListener('scroll', handleScroll)
-    }
-  }, [show, offset])
-
-  // @ts-ignore
-  return <AnimatedDiv style={reveal} ref={ref} {...props} />
+  useScrollPosition(
+    ({ currPos }) => {
+      if (!show && currPos > ref.current.offsetTop - offset) {
+        set(true)
+      }
+    },
+    100,
+    true
+  )
+  // TODO - remove w/ stable React-spring v9
+  return <AnimatedDiv ref={ref} style={spring as any} {...props} />
 }
 
 FadeBox.displayName = 'FadeBox'
+
+/**
+ * Utility function to calculate transform string
+ */
+
+const getTransform = ({ transition, distance }: TransitionProps, show) => {
+  switch (transition) {
+    case 'fade-up':
+    case 'fade-down':
+      return show
+        ? `translate3d(0,0,0)`
+        : `translate3d(0,${getSign(transition)}${format(distance)},0)`
+    case 'fade-left':
+    case 'fade-right':
+      return show
+        ? `translate3d(0,0,0)`
+        : `translate3d(${getSign(transition)}${format(distance)},0,0)`
+    case 'fade':
+    default:
+      return undefined
+  }
+}

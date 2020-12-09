@@ -114,7 +114,6 @@ const Pulse = ({
       {points.map(({ color, begin, r }, index) => (
         <circle
           key={index}
-          // @ts-ignore
           cx="50"
           cy="50"
           r={r}

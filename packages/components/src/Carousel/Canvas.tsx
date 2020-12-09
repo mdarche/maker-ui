@@ -51,7 +51,6 @@ export const Canvas = React.memo(
   ({ slides, transition, currentIndex, config, next }: CanvasProps) => {
     const transitions = useTransition(currentIndex, {
       ...getTransition(transition, next),
-      // @ts-ignore
       config,
     })
 

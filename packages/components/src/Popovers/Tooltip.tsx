@@ -14,7 +14,7 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
   noArrow?: boolean
   position?: 'top' | 'bottom' | 'left' | 'right'
   buttonSx?: any
-  springConfig: PopoverProps['springConfig']
+  springConfig?: PopoverProps['springConfig']
 }
 
 /**

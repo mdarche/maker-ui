@@ -60,7 +60,7 @@ function reducer(state, { type, value }) {
  * @see https://maker-ui.com/docs/components/carousel
  */
 
-export const Carousel = React.forwardRef(
+export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   (
     {
       data = [],
@@ -80,7 +80,7 @@ export const Carousel = React.forwardRef(
       springConfig = { mass: 1, tension: 160, friction: 28 },
       sx,
       ...props
-    }: CarouselProps,
+    },
     ref
   ) => {
     const [state, dispatch] = React.useReducer(reducer, {
@@ -112,7 +112,6 @@ export const Carousel = React.forwardRef(
 
     return (
       <Div
-        // @ts-ignore
         ref={ref}
         variant={variant}
         className="carousel"

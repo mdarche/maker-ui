@@ -127,8 +127,6 @@ export const AccordionPanel = React.forwardRef<
           role="region"
           aria-labelledby={buttonId}
           style={{
-            // @ts-ignore
-            willChange: 'height',
             overflow: 'hidden',
             height,
           }}>

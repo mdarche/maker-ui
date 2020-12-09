@@ -43,6 +43,8 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
  * Use the `Popover` to customize your own components, otherwise try out the pre-configured
  * `Tooltip` or `Dropdown` components.
  *
+ * @todo - make Popover play nicely with PageTransition and other transition wrappers
+ *
  * @see https://maker-ui.com/docs/components/popovers
  */
 
@@ -175,8 +177,8 @@ export const Popover = ({
             <AnimatedDiv
               id={id}
               ref={popoverRef}
-              // @ts-ignore
-              style={props}
+              // TODO - remove w/ stable React-spring v9
+              style={props as any}
               sx={{
                 variant,
                 position: 'absolute',

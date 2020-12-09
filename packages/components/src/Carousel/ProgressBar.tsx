@@ -49,8 +49,8 @@ export const ProgressBar = ({
       <AnimatedBox
         variant={`${variant}.progress.bar`}
         className="carousel-progress-bar"
-        // @ts-ignore
-        style={props}
+        // TODO - remove w/ stable React-spring v9
+        style={props as any}
         sx={{ height: '3px', bg: '#000' }}
       />
     </Div>
