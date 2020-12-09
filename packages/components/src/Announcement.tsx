@@ -7,7 +7,7 @@ import { CloseIcon } from './icons'
 
 const AnimatedDiv = a(Flex)
 
-const fixedPartial = (fixed, bottom) =>
+const fixedPartial = (fixed: boolean, bottom: boolean) =>
   fixed
     ? {
         position: 'fixed',

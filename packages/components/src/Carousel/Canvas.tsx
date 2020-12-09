@@ -71,8 +71,8 @@ export const Canvas = React.memo(
         }}>
         {transitions((props, item) => {
           const Page = slides[item]
-          // @ts-ignore
-          return <Page style={props} />
+          // TODO - remove w/ stable React-spring v9
+          return <Page style={props as any} />
         })}
       </Div>
     )

@@ -53,6 +53,7 @@ export const defaultOptions: MakerOptions = {
     maxWidth: 1020,
     maxWidthSection: 1020,
     sidebarGap: 30,
+    deferMeasurements: 0,
     bpIndex: 0,
   },
   sidebar: {

@@ -39,6 +39,7 @@ export const options: MakerOptions = {
   content: {
     maxWidth: '1260px',
     maxWidthSection: 960,
+    deferMeasurements: 500,
     bpIndex: 0,
   },
   footer: {

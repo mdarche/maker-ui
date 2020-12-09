@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTransition, animated as a, SpringConfig } from 'react-spring'
-import { Div, DivProps, useMeasure } from 'maker-ui'
+import { Div, DivProps, useMeasure, useMakerUI } from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { getSign } from '../helper'
@@ -33,6 +33,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'fade-left'
     | 'fade-right'
     | 'scale'
+  defer?: number
   children: React.ReactNode
 }
 
@@ -42,8 +43,6 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
  *
  * Use the `Popover` to customize your own components, otherwise try out the pre-configured
  * `Tooltip` or `Dropdown` components.
- *
- * @todo - make Popover play nicely with PageTransition and other transition wrappers
  *
  * @see https://maker-ui.com/docs/components/popovers
  */
@@ -63,6 +62,7 @@ export const Popover = ({
   variant,
   springConfig,
   containerSx,
+  defer,
   _type = 'popover',
   sx,
   children,
@@ -72,9 +72,11 @@ export const Popover = ({
   const [width, setWidth] = React.useState(0)
   const [height, setHeight] = React.useState(0)
   const [initialRender, setInitialRender] = React.useState(true)
+  const { options } = useMakerUI()
   const [, box] = useMeasure({
     externalRef: anchorRef,
     documentResize: true,
+    timeout: defer || options.content.deferMeasurements,
   })
 
   /**

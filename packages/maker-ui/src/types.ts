@@ -110,6 +110,7 @@ export interface MakerOptions {
     maxWidth?: ResponsiveScale
     maxWidthSection?: ResponsiveScale
     sidebarGap?: ResponsiveScale
+    deferMeasurements?: number
     bpIndex?: number
   }
   sidebar?: {
