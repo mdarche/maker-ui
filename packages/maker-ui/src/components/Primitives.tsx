@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { forwardRef } from 'react'
 import { jsx } from 'theme-ui'
+import { forwardRef } from 'react'
 
 import { MakerProps, ResponsiveString, ResponsiveScale } from '../types'
 
@@ -16,7 +16,7 @@ export interface DivProps
 /**
  * The basic theme-enabled building block for Maker UI.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#div
  */
 
 export const Div = forwardRef<HTMLDivElement, DivProps>(
@@ -44,7 +44,7 @@ export interface FlexProps extends DivProps {
 /**
  * A pre-styled `Div` for quick access to CSS Flex properties.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#flex
  */
 
 export const Flex = forwardRef<HTMLDivElement, any>(
@@ -82,7 +82,7 @@ export interface GridProps
 /**
  * A pre-styled `Div` for quick access to CSS Grid properties.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#grid
  */
 
 export const Grid = forwardRef<HTMLDivElement, any>(
@@ -133,7 +133,7 @@ export interface SpanProps
 /**
  * A theme-enabled `span` tag.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#span
  */
 
 export const Span = forwardRef<HTMLSpanElement, SpanProps>(
@@ -155,7 +155,7 @@ export interface OListProps
 /**
  * A theme-enabled `ol` tag.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#olist
  */
 
 export const OList = forwardRef<HTMLOListElement, OListProps>(
@@ -177,7 +177,7 @@ export interface UListProps
 /**
  * A theme-enabled `ul` tag.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#ulist
  */
 
 export const UList = forwardRef<HTMLUListElement, UListProps>(
@@ -199,7 +199,7 @@ export interface ListItemProps
 /**
  * A theme-enabled `li` tag.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#listItem
  */
 
 export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
@@ -219,7 +219,7 @@ export interface SVGProps extends MakerProps, React.SVGAttributes<SVGElement> {}
 /**
  * A theme-enabled `svg` tag.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#svg
  */
 
 export const SVG = forwardRef<SVGSVGElement, SVGProps>(
@@ -246,7 +246,7 @@ export interface ButtonProps
 /**
  * A theme-enabled `button` tag.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#button
  */
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -268,7 +268,7 @@ export interface LinkProps
 /**
  * A theme-enabled `a` tag.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#link
  */
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -292,7 +292,7 @@ export interface ImageProps
 /**
  * A theme-enabled `img` tag.
  *
- * @see https://maker-ui.com/docs/primitives
+ * @see https://maker-ui.com/docs/primitives/#image
  */
 
 export const Image = forwardRef<HTMLImageElement, any>(

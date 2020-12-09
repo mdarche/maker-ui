@@ -27,8 +27,6 @@ interface MobileMenuProps
 /**
  * The `MobileMenu` component lets you customize a responsive overlay menu for mobile navigation.
  *
- * @todo use accessible color picker to calculate opposite of mobile BG color
- *
  * @see https://maker-ui.com/docs/layout/mobile-menu
  */
 

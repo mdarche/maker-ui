@@ -54,7 +54,7 @@ function reducer(state, { type, value }) {
  * to show an animated carousel.
  *
  * @todo - add drag and swipe gesture
- * @todo - revisit accessibile controls: https://www.w3.org/WAI/tutorials/carousels/full-code/
+ * @todo - revisit accessible controls: https://www.w3.org/WAI/tutorials/carousels/full-code/
  * @todo - rebuild next() and prev() functions with useCallback hooks
  *
  * @see https://maker-ui.com/docs/components/carousel

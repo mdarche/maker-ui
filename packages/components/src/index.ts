@@ -11,3 +11,6 @@ export { Popover, Tooltip, Dropdown } from './Popovers'
 export { Tabs, TabPanel } from './Tabs'
 export { TreeMenu, TreeItem } from './TreeMenu'
 export { TableofContents } from './TableofContents'
+export { Generate } from './Generate'
+
+export { shuffle, random, generateStyles, generateSrc } from './helper'

@@ -78,7 +78,6 @@ export const Popover = ({
   /**
    * Measure the popover's direct child container to use its height and width for
    * positioning & the `scale` transition.
-   * @todo - rebuild with useMeasure() Resize Observer?
    */
 
   const measuredRef = React.useCallback(

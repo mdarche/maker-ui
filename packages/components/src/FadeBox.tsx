@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, DivProps } from 'maker-ui'
-import { animated as a, useSpring } from 'react-spring'
+import { animated as a, useSpring, SpringConfig } from 'react-spring'
 
 import { format, getSign } from './helper'
 
@@ -25,7 +25,7 @@ const getTransform = ({ direction, distance }, show) => {
 
 export interface FadeBoxProps extends DivProps {
   offset: number
-  springConfig: any
+  springConfig: SpringConfig
   direction?: string
   distance: number
   fade?: boolean

@@ -22,6 +22,8 @@ export interface SpinnerProps extends SVGProps {
  * The `Spinner` component gives you easy access to 5 common loading indicators for a better
  * user experience during network requests.
  *
+ * @todo add useTransition to this component for smooth entry and exit
+ *
  * @see https://maker-ui.com/docs/components/spinner
  */
 

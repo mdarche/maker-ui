@@ -1,6 +1,13 @@
 import * as React from 'react'
 import { Div, UList, ListItem, DivProps, useScrollPosition } from 'maker-ui'
 
+interface MenuItem {
+  id: string
+  text: string
+  level: number
+  offset: number
+}
+
 interface TocProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
   headings?: number[]
@@ -12,12 +19,12 @@ interface TocProps extends Omit<DivProps, 'title'> {
   smoothScroll?: boolean
 }
 
-interface MenuItem {
-  id: string
-  text: string
-  level: number
-  offset: number
-}
+/**
+ * The `TableofContents` component queries the DOM for all heading tags that
+ * have an ID. It then creates an indented / scroll activated list of heading links.
+ *
+ * @see https://maker-ui.com/docs/components/tableofcontents
+ */
 
 export const TableofContents = ({
   title = 'Contents',
