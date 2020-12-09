@@ -4,7 +4,7 @@ import { MakerOptions } from 'maker-ui'
 export const options: MakerOptions = {
   framework: 'gatsby',
   topbar: {
-    sticky: false,
+    sticky: true,
     stickyOnMobile: true,
     maxWidth: [200, 600],
   },
@@ -24,7 +24,7 @@ export const options: MakerOptions = {
     dropdown: {
       transition: 'fade-down',
     },
-    bpIndex: 0,
+    bpIndex: 2,
   },
   mobileMenu: {
     width: '60vw',
@@ -37,7 +37,7 @@ export const options: MakerOptions = {
     // toggleButton: (isActive, atts) => <button {...atts}>Whaaat</button>,
   },
   content: {
-    maxWidth: 960,
+    maxWidth: '1260px',
     maxWidthSection: 960,
     bpIndex: 0,
   },

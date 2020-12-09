@@ -43,9 +43,16 @@ export const Toolbar = ({
     <div
       {...bind}
       className="toolbar"
-      sx={{ bg, background, variant }}
+      sx={{
+        bg,
+        background,
+        gridArea: 'toolbar',
+        overflowX: 'scroll',
+        variant,
+        ...sx,
+      }}
       {...props}>
-      {children}
+      <ErrorBoundary errorKey="toolbar">{children}</ErrorBoundary>
     </div>
   )
 }

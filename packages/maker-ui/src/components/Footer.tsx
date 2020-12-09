@@ -34,7 +34,7 @@ export const Footer = ({
           mx: 'auto',
           ...sx,
         }}>
-        <ErrorBoundary>{children}</ErrorBoundary>
+        <ErrorBoundary errorKey="footer">{children}</ErrorBoundary>
       </div>
     </footer>
   )

@@ -78,21 +78,30 @@ export function generateId(length: number = 5): string {
  *
  * This function is used internally for layout and Maker UI components
  *
- * @param index - The theme's `breakpoints` array where the style rule should begin
+ * @todo - write test for this function
+ * @todo - make stateful and read options value from context --> string matching to find index
+ * @todo - revisit this when building @maker-ui/core jsx pragma
+ *
+ * @param index - Index of the theme's `breakpoints` array where the mobile style rule should begin
  * @param array - The original responsive style array
  *
  */
 
 export function setBreakpoint(index: number, arr: any[]): SxStyleProp {
+  const fill = arr[0]
   let i = 0
 
   while (i < index) {
-    arr.unshift(null)
+    arr.unshift(fill)
     i++
   }
 
   return arr
 }
+
+/**
+ * Check to see if value is an object else return an empty object
+ */
 
 export function validate(obj) {
   return obj !== undefined && typeof obj === 'object' ? obj : {}

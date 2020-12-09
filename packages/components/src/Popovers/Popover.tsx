@@ -20,7 +20,6 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   anchorWidth?: boolean
   position?: Position
   gap?: { x: number; y: number }
-  role?: string
   appendTo?: string | Element
   trapFocus?: boolean
   closeOnBlur?: boolean
@@ -50,7 +49,6 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
 export const Popover = ({
   show,
   toggle,
-  role = 'presentation',
   id,
   anchorRef,
   anchorWidth,
@@ -177,9 +175,7 @@ export const Popover = ({
           item && (
             <AnimatedDiv
               id={id}
-              role={role}
               ref={popoverRef}
-              aria-hidden={show}
               // @ts-ignore
               style={props}
               sx={{
@@ -189,8 +185,6 @@ export const Popover = ({
                 zIndex: 99,
                 left: _type !== 'dropdown' && getX(),
                 top: _type !== 'dropdown' && getY(),
-                // left: getX(),
-                // top: getY(),
                 width: anchorWidth && width,
                 overflow: transition.includes('scale') && 'hidden',
                 ...sx,

@@ -13,11 +13,11 @@ import {
   Workspace,
   Div,
 } from 'maker-ui'
-// import {
-//   // Announcement,
-//   // PageTransition,
-//   // CookieNotice,
-// } from '@maker-ui/components'
+import {
+  // Announcement,
+  PageTransition,
+  // CookieNotice,
+} from '@maker-ui/components'
 // import { SEOProvider } from '@maker-ui/seo'
 // import { Fixed } from './Fixed'
 import { options } from './options'
@@ -63,10 +63,12 @@ export default ({ children, location }) => (
         <Content>
           <SideNav menu={menu} />
           <Main>
-            <>
-              {children}
-              <Div sx={{ height: 2000 }} />
-            </>
+            <PageTransition id={location.pathname} type="fade-up" distance={50}>
+              <>
+                {children}
+                <Div sx={{ height: 2000 }} />
+              </>
+            </PageTransition>
           </Main>
         </Content>
         <Footer>Test</Footer>

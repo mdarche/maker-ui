@@ -1,7 +1,11 @@
 import * as React from 'react'
-import { Div, Section } from 'maker-ui'
+import { Div, Section, setBreakpoint } from 'maker-ui'
 
 const IndexPage = () => {
+  // const responsiveArray = ['10px', '20px']
+
+  // console.log(setBreakpoint(1, responsiveArray))
+
   return (
     <>
       <h1>Component Showcase!</h1>
@@ -10,7 +14,12 @@ const IndexPage = () => {
         <h4>Subtitle</h4>
         <a href="/">Google</a>
       </div>
-      <Section>
+      <Section
+      // bg={() => {
+      //   console.log(setBreakpoint(1, ['blue', 'green', 'red', 'purple']))
+      //   return setBreakpoint(1, ['blue', 'green', 'red', 'purple'])
+      // }}
+      >
         <h2>Test</h2>
       </Section>
       <Div sx={{ height: 5000 }}>test</Div>

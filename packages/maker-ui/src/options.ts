@@ -1,5 +1,12 @@
 import { MakerOptions } from './types'
 
+/**
+ * Default Maker UI option configuration.
+ *
+ * @see `MakerOptions` for complete list of properties.
+ *
+ */
+
 export const defaultOptions: MakerOptions = {
   topbar: {
     maxWidth: 1260,
@@ -70,6 +77,11 @@ export const defaultOptions: MakerOptions = {
     panelRight: {
       width: 300,
       collapseWidth: 0,
+    },
+    dock: {
+      width: 50,
+      hideOnMobile: true,
+      bpIndex: 0,
     },
   },
 }

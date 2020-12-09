@@ -11,10 +11,10 @@ export const theme = {
     border: '#e6e6e6',
     bg_topbar: '#355cac',
     bg_header: '#fff',
-    bg_mobileMenu: 'rgba(0, 0, 0, 0.1)',
+    bg_mobileMenu: 'black',
     bg_sideNav: '#eee',
     bg_footer: 'blue',
-    bg_toolbar: 'red',
+    bg_toolbar: '#fbfbfb',
     modes: {
       dark: {
         link: '#fff',
@@ -33,7 +33,7 @@ export const theme = {
     heading: 'system-ui, sans-serif',
     monospace: 'Menlo, monospace',
   },
-  breakpoints: ['768px', '960px', '1240px'],
+  breakpoints: ['768px', '960px', '1240px', '1400px', '1800px'],
   styles: {
     root: {
       fontFamily: 'body',

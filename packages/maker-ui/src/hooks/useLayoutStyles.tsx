@@ -4,7 +4,7 @@ import { format, setBreakpoint } from '../utils/helper'
 
 export function useLayoutStyles(layout: LayoutString): object {
   const { measurements } = useMeasurements()
-  const { topbar, header, sideNav, content } = useOptions()
+  const { topbar, header, sideNav, content, workspace } = useOptions()
 
   /**
    * -------- Sidebar Styles --------
@@ -137,15 +137,18 @@ export function useLayoutStyles(layout: LayoutString): object {
   }
 
   /**
-   * -------- Workspace Styles --------
+   * -------- Workspace / Dock Styles --------
    */
   if (layout && layout.includes('workspace')) {
     return {
       display: 'flex',
-      width: '100%',
-      // height: `calc(100vh - ${format(
-      //   measurements.height_header + measurements.height_topbar
-      // )})`,
+      '#workspace': { flex: 1 },
+      '#dock': {
+        width: t => t.sizes.width_dock,
+        display: workspace.dock.hideOnMobile
+          ? setBreakpoint(workspace.dock.bpIndex, ['none', 'block'])
+          : 'block',
+      },
     }
   }
 

@@ -1,8 +1,10 @@
 import * as React from 'react'
-import { Flex } from 'maker-ui'
-import { animated as a, useTransition } from 'react-spring'
+import { Div } from 'maker-ui'
+import { animated as a, Transition } from 'react-spring'
 
 import { getSign } from './helper'
+
+const AnimatedDiv = a(Div)
 
 function getTransition(type, distance) {
   switch (type) {
@@ -18,9 +20,10 @@ function getTransition(type, distance) {
 }
 
 export interface PageTransitionProps {
-  type: string
-  distance: number
-  config: any
+  type?: string
+  distance?: number
+  springConfig?: any
+  id?: string | number
   children: React.ReactNode
 }
 
@@ -34,29 +37,33 @@ export interface PageTransitionProps {
 export const PageTransition = ({
   type = 'fade-up',
   distance = 20,
-  config,
-  children,
+  id,
+  springConfig,
+  ...props
 }: PageTransitionProps) => {
-  const transitions = useTransition(children, {
-    keys: children => children.key,
-    from: {
-      opacity: 0,
-      transform: getTransition(type, distance),
-      // position: 'static',
-    },
-    enter: { opacity: 1, transform: 'translate3d(0px,0px,0px)' },
-    leave: { opacity: 0 },
-    unique: true,
-    config,
-  })
-  return transitions((style, item) => (
-    <Flex
-      id="content-wrapper"
-      sx={{ flexDirection: 'column', minHeight: '80vh' }}>
-      {/* @ts-ignore */}
-      <a.div style={{ ...style, flex: 1 }}>{item}</a.div>
-    </Flex>
-  ))
+  const items = [{ id, props }]
+
+  return (
+    <Transition
+      reset
+      items={items}
+      keys={item => item.id}
+      from={{ opacity: 0, transform: getTransition(type, distance) }}
+      enter={{ opacity: 1, transform: 'translate3d(0px,0px,0px)' }}
+      leave={{
+        opacity: 0,
+        position: 'absolute',
+      }}
+      config={springConfig}>
+      {(styles, { props }) => (
+        <AnimatedDiv
+          className="page-transition"
+          style={{ ...styles, width: '100%' }}>
+          <div {...props} />
+        </AnimatedDiv>
+      )}
+    </Transition>
+  )
 }
 
 PageTransition.displayName = 'PageTransition'

@@ -22,7 +22,7 @@ export const Main = forwardRef<HTMLDivElement, MainProps>(
       ref={ref}
       id="content"
       role="main"
-      sx={{ bg, background, variant, flex: 1, ...sx }}
+      sx={{ bg, background, variant, position: 'relative', flex: 1, ...sx }}
       {...props}>
       <ErrorBoundary errorKey="main">{children}</ErrorBoundary>
     </main>

@@ -4,8 +4,8 @@ import { format, setBreakpoint } from './helper'
 const secondPanel = (layout: string) => {
   return layout.includes('panel canvas panel')
     ? {
-        '.workspace-panel:last-of-type': {
-          gridArea: 'z',
+        '.panel:last-of-type': {
+          gridArea: 'panel2',
         },
       }
     : null
@@ -16,11 +16,6 @@ export const getWorkspaceStyles = (
   workspace: MakerOptions['workspace']
 ) => {
   const styles = {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
     display: 'grid',
     gridGap: 0,
     '.workspace-panel, .workspace-canvas, .workspace-toolbar': {
@@ -29,13 +24,6 @@ export const getWorkspaceStyles = (
     '.workspace-container': {
       height: '100%',
       overflowY: 'scroll',
-    },
-    '.workspace-toolbar': {
-      overflowX: 'scroll',
-      gridArea: 't',
-    },
-    '.workspace-panel': {
-      gridArea: 'p',
     },
     '.workspace-canvas': {
       gridArea: 'c',
@@ -46,51 +34,39 @@ export const getWorkspaceStyles = (
     case 'toolbar canvas':
       return {
         ...styles,
-        gridTemplateRows: t => [
-          `1fr`,
-          `${t.sizes.height_workspace_toolbar} 1fr`,
-        ],
+        gridTemplateRows: [`1fr`, `auto 1fr`],
         gridTemplateAreas: `"t" "c"`,
       }
     case 'toolbar panel canvas':
       return {
         ...styles,
-        gridTemplateRows: t => [
-          `1fr`,
-          `${format(t.sizes.height_workspace_toolbar)} 1fr`,
-        ],
+        gridTemplateRows: [`1fr`, `auto 1fr`],
         gridTemplateColumns: t => [
           `1fr`,
-          `${format(t.sizes.width_panel_right)} 1fr`,
+          `${format(t.sizes.width_panel_left)} 1fr`,
         ],
         gridTemplateAreas: `
-        "t t"
-        "p c"
+        "toolbar toolbar"
+        "panel canvas"
         `,
       }
     case 'toolbar canvas panel':
       return {
         ...styles,
-        gridTemplateRows: t => [
-          `1fr`,
-          `${format(t.sizes.height_workspace_toolbar)} 1fr`,
-        ],
+        gridTemplateRows: t => [`1fr`, `auto 1fr`],
         gridTemplateColumns: t => [
           `1fr`,
           ` 1fr ${format(t.sizes.width_panel_right)}`,
         ],
         gridTemplateAreas: `
-          "t t"
-          "c p"
+          "toolbar toolbar"
+          "canvas panel"
           `,
       }
     case 'toolbar panel canvas panel':
       return {
         ...styles,
-        gridTemplateRows: t => [
-          `1fr`,
-          `${format(t.sizes.height_workspace_toolbar)} 1fr`,
-        ],
+        gridTemplateRows: ['1fr', 'auto 1fr'],
         gridTemplateColumns: t => [
           `1fr`,
           `${format(t.sizes.width_panel_left)} 1fr ${format(
@@ -98,8 +74,8 @@ export const getWorkspaceStyles = (
           )}`,
         ],
         gridTemplateAreas: `
-        "t t t"
-        "p c z"
+        "toolbar toolbar toolbar"
+        "panel canvas panel2"
         `,
       }
     case 'canvas panel':
@@ -110,7 +86,7 @@ export const getWorkspaceStyles = (
           `1fr`,
           ` 1fr ${format(t.sizes.width_panel_right)}`,
         ],
-        gridTemplateAreas: `"c p"`,
+        gridTemplateAreas: `"canvas panel"`,
       }
     case 'panel canvas panel':
       return {
@@ -122,7 +98,7 @@ export const getWorkspaceStyles = (
             t.sizes.width_panel_right
           )}`,
         ],
-        gridTemplateAreas: `"p c z"`,
+        gridTemplateAreas: `"panel canvas panel2"`,
       }
     case 'panel canvas':
     default:
@@ -133,7 +109,7 @@ export const getWorkspaceStyles = (
           `1fr`,
           `${format(t.sizes.width_panel_left)} 1fr`,
         ],
-        gridTemplateAreas: `"p c"`,
+        gridTemplateAreas: `"panel canvas"`,
       }
   }
 }

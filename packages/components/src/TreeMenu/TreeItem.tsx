@@ -51,7 +51,8 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
     return (
       <Div
         ref={ref}
-        className="tree-branch"
+        aria-expanded={isOpen}
+        className="tree-item"
         sx={{
           display: link && 'flex',
           alignItems: link && 'center',
