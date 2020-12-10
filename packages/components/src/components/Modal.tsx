@@ -3,7 +3,7 @@ import { useTransition, animated, SpringConfig } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
 import { Portal } from './Portal'
-import { useFocus } from './_hooks'
+import { useFocus } from '../hooks'
 
 const AnimatedDiv = animated(Div)
 

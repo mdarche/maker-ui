@@ -202,13 +202,14 @@ export const LightboxModal = ({
           ) : null}
         </Div>
         {data.length ? (
+          // @ts-ignore
           <Canvas
             variant={variant}
             index={current}
             data={data}
             showInfo={config.showInfo}
             zoom={zoom}
-            onMouseEnter={showControls}
+            // onmouseenter={showControls}
           />
         ) : null}
       </Modal>

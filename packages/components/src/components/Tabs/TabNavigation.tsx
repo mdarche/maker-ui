@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Flex, Button, setBreakpoint } from 'maker-ui'
 
 import { useTabs } from './TabContext'
-import { useFocus } from '../_hooks'
+import { useFocus } from '../../hooks'
 
 export interface TabStyleProps {
   settings: {
