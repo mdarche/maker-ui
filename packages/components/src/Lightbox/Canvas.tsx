@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Div, Image, MakerProps } from 'maker-ui'
-import { useTransition, animated as a } from 'react-spring'
+import { animated, useTransition } from 'react-spring'
 
 import { LightboxData } from './LightboxContext'
 import { Spinner } from '../Spinner'
 
-const AnimatedDiv = a(Div)
+const AnimatedDiv = animated(Div)
 
 const youtubeRoot = 'https://youtube.com/embed/'
 const vimeoRoot = 'https://player.vimeo.com/video/'

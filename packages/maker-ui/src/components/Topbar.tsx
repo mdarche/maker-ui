@@ -69,7 +69,7 @@ export const Topbar = (props: TopbarProps) => {
         bg,
         variant,
         top: 0,
-        zIndex: 101,
+        zIndex: 100,
         ...stickyPartial,
         display: topbar.hideOnMobile
           ? setBreakpoint(topbar.bpIndex, ['none', 'block'])

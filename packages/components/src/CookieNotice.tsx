@@ -34,7 +34,7 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         bottom={!top ? true : false}
         bg={bg}
         color={color}
-        trackerType="cookie"
+        type="cookie"
         closeButton={closeButton}
         springConfig={springConfig}
         {...props}>

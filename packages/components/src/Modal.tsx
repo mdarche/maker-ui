@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { useTransition, animated as a, SpringConfig } from 'react-spring'
+import { useTransition, animated, SpringConfig } from 'react-spring'
 import { Div, DivProps } from 'maker-ui'
 
 import { Portal } from './Portal'
 import { useFocus } from './_hooks'
 
-const AnimatedDiv = a(Div)
+const AnimatedDiv = animated(Div)
 
 const position = {
   position: 'fixed',

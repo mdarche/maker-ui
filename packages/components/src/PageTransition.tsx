@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Div } from 'maker-ui'
-import { animated as a, Transition } from 'react-spring'
+import { animated, Transition } from 'react-spring'
 
 import { getSign } from './helper'
 
-const AnimatedDiv = a(Div)
+const AnimatedDiv = animated(Div)
 
 export interface PageTransitionProps {
   type?: string

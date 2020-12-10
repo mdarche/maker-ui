@@ -36,10 +36,10 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     return renderInactive || activeId === id ? (
       <Div
         ref={ref}
-        id={panelId}
-        className="tab-panel"
-        tabIndex={0}
         role="tabpanel"
+        id={`panel-${panelId}`}
+        aria-labelledby={`control-${panelId}`}
+        className="tab-panel"
         sx={{
           variant: `${variant}.panel`,
           flex: 1,

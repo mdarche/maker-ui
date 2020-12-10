@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Button, Span, Link, Div, DivProps, useMeasure } from 'maker-ui'
-import { useSpring, animated as a } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
 
 import { useTreeData } from './TreeContext'
 
@@ -112,14 +112,14 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
             {!clickableText && text}
           </Span>
         )}
-        <a.div
+        <animated.div
           className="tree-branch-inner"
           style={{
             overflow: 'hidden',
             height: isOpen && previous === isOpen ? 'auto' : height,
           }}>
           <div {...bind}>{children}</div>
-        </a.div>
+        </animated.div>
       </Div>
     )
   }

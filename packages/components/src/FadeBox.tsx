@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Div, DivProps, useScrollPosition } from 'maker-ui'
-import { animated as a, useSpring, SpringConfig } from 'react-spring'
+import { animated, useSpring, SpringConfig } from 'react-spring'
 
 import { format, getSign } from './helper'
 
-const AnimatedDiv = a(Div)
+const AnimatedDiv = animated(Div)
 
 interface TransitionProps {
   transition?: 'fade' | 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right'

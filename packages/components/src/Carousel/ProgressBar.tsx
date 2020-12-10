@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Div } from 'maker-ui'
-import { animated as a, useSpring } from 'react-spring'
+import { animated, useSpring } from 'react-spring'
 
-const AnimatedBox = a(Div)
+const AnimatedDiv = animated(Div)
 
 interface ProgressBarProps {
   duration?: number
@@ -46,7 +46,7 @@ export const ProgressBar = ({
         width: '100%',
         overflow: 'hidden',
       }}>
-      <AnimatedBox
+      <AnimatedDiv
         variant={`${variant}.progress.bar`}
         className="carousel-progress-bar"
         // TODO - remove w/ stable React-spring v9

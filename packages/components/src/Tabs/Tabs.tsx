@@ -4,7 +4,6 @@ import { Div, DivProps, setBreakpoint } from 'maker-ui'
 import { TabContext } from './TabContext'
 import { TabNavigation } from './TabNavigation'
 import { TabPanel } from './TabPanel'
-import { useFocus } from '../_hooks'
 
 export interface TabGroupProps extends DivProps {
   navPosition?: string
@@ -19,6 +18,8 @@ export interface TabGroupProps extends DivProps {
  * The `Tabs` component is the root component for building a tab container. It's a local
  * provider that contains the settings for responsive behaviors, positioning, and nested
  * `TabPanel` components.
+ *
+ * @todo add preset styles
  *
  * @see https://maker-ui.com/docs/components/tabs
  */
@@ -36,21 +37,12 @@ export const Tabs = ({
 }: TabGroupProps) => {
   const isVertical = !['left', 'right'].includes(navPosition) ? true : false
 
-  const tabsRef = React.useRef(null)
-
-  useFocus({
-    type: 'tabs',
-    containerRef: tabsRef,
-    trapFocus: true,
-  })
-
   return (
     <TabContext
       variant={variant}
       activeKey={activeKey}
       renderInactive={renderInactive}>
       <Div
-        ref={tabsRef}
         variant={variant}
         className="tabs-container"
         sx={{

@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Div, DivProps, Button, generateId, useMeasure } from 'maker-ui'
-import { useSpring, animated as a } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
 
 import { useAccordion } from './AccordionContext'
 
-const AnimatedDiv = a(Div)
+const AnimatedDiv = animated(Div)
 
 export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
@@ -37,14 +37,14 @@ export const AccordionPanel = React.forwardRef<
     },
     ref
   ) => {
-    const { state, registerPanel, setActivePanel } = useAccordion()
-    const [show, set] = React.useState(
-      state.showSingle && state.index === eventKey ? true : open
-    )
     const [buttonId] = React.useState(generateId())
     const [panelId] = React.useState(generateId())
     const [panelKey] = React.useState(() =>
       eventKey ? eventKey : generateId()
+    )
+    const { state, registerPanel, setActivePanel } = useAccordion()
+    const [show, set] = React.useState(
+      state.showSingle && state.index === eventKey ? true : open
     )
     const [bind, { height: viewHeight }] = useMeasure()
 
@@ -59,6 +59,7 @@ export const AccordionPanel = React.forwardRef<
     }, [state, eventKey, panelKey, set])
 
     const { height } = useSpring({
+      initial: { height: show ? viewHeight : 0 },
       from: { height: 0 },
       to: {
         height: show ? viewHeight : 0,

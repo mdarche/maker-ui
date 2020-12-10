@@ -49,8 +49,9 @@ const TabsPage = () => {
         <Tabs.Panel title="Title 9">Ninth Text</Tabs.Panel>
       </Tabs> */}
       <Tabs
-        navPosition="right"
+        navPosition="top"
         overflow="scroll"
+        className="tabs"
         sx={{
           '.tab-button': {
             bg: 'blue',
@@ -60,7 +61,9 @@ const TabsPage = () => {
           },
         }}>
         <Tabs.Panel title="Title 1">First Text</Tabs.Panel>
-        <Tabs.Panel title="Title 2">Second Text</Tabs.Panel>
+        <Tabs.Panel disabled title="Title 2">
+          Second Text
+        </Tabs.Panel>
         <Tabs.Panel title="Title 3">Third Text</Tabs.Panel>
         <Tabs.Panel title="Title 4">
           <a href="/test">Test</a>

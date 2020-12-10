@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, MakerProps } from 'maker-ui'
-import { animated as a, SpringConfig } from 'react-spring'
+import { animated, SpringConfig } from 'react-spring'
 
 import { Canvas } from './Canvas'
 import Navigation from './Navigation'
@@ -105,9 +105,9 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     }, [state, autoPlay, pause, next, duration])
 
     const slides = data.map(item => ({ style }, i) => (
-      <a.div key={i} style={{ ...style }} className="slide">
+      <animated.div key={i} style={{ ...style }} className="slide">
         {React.cloneElement(template, item)}
-      </a.div>
+      </animated.div>
     ))
 
     return (

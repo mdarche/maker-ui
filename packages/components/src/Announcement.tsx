@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Flex, Button, DivProps, useMeasure } from 'maker-ui'
-import { useSpring, animated as a, SpringConfig } from 'react-spring'
+import { useSpring, animated, SpringConfig } from 'react-spring'
 
 import { useTracker } from './_hooks'
 import { CloseIcon } from './icons'
 
-const AnimatedDiv = a(Flex)
+const AnimatedDiv = animated(Flex)
 
 const fixedPartial = (fixed: boolean, bottom: boolean) =>
   fixed
@@ -23,7 +23,7 @@ export interface AnnouncementProps extends DivProps {
   key?: string
   fixed?: boolean
   bg?: string | string[]
-  trackerType?: string
+  type?: 'session' | 'cookie'
   expiration?: number
   allowClose?: boolean
   closeButton?: JSX.Element | string | null
@@ -47,7 +47,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       bg = 'primary',
       color = '#fff',
       fixed = false,
-      trackerType = 'session',
+      type = 'session',
       expiration = 2592000, // 30 days
       allowClose = true,
       closeButton = <CloseIcon />,
@@ -61,7 +61,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   ) => {
     const [show, set] = React.useState(true)
     const [bind, { height: viewHeight }] = useMeasure()
-    const active = useTracker(trackerType, key, show, expiration)
+    const active = useTracker({ type, key, show, expiration })
 
     const spring = useSpring({
       transform: fixed

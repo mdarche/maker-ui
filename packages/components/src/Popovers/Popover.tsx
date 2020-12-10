@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { useTransition, animated as a, SpringConfig } from 'react-spring'
+import { useTransition, animated, SpringConfig } from 'react-spring'
 import { Div, DivProps, useMeasure, useMakerUI } from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { getSign } from '../helper'
 import { useFocus } from '../_hooks'
 
-const AnimatedDiv = a(Div)
+const AnimatedDiv = animated(Div)
 
 export interface Position {
   x: 'left' | 'center' | 'right' | 'origin'

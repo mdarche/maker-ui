@@ -1,6 +1,18 @@
 import { useState, useEffect } from 'react'
 
-export function useTracker(type, key, toggle, expiration) {
+interface TrackerProps {
+  type?: 'session' | 'cookie'
+  key?: string
+  show?: boolean
+  expiration?: number
+}
+
+export function useTracker({
+  type,
+  key,
+  show,
+  expiration,
+}: TrackerProps): boolean {
   const [active, set] = useState(true)
   const delay = () => {
     setTimeout(() => {
@@ -14,10 +26,10 @@ export function useTracker(type, key, toggle, expiration) {
     if (type === 'session') {
       const sessionCheck = sessionStorage.getItem(key)
 
-      if (toggle && sessionCheck) {
+      if (show && sessionCheck) {
         return set(false)
       }
-      if (!toggle && !sessionCheck) {
+      if (!show && !sessionCheck) {
         delay()
         return sessionStorage.setItem(key, 'true')
       }
@@ -30,15 +42,15 @@ export function useTracker(type, key, toggle, expiration) {
         .split(';')
         .some(i => i.trim().startsWith(key))
 
-      if (toggle && cookieCheck) {
+      if (show && cookieCheck) {
         return set(false)
       }
-      if (!toggle && !cookieCheck) {
+      if (!show && !cookieCheck) {
         delay()
         document.cookie = `${key}=true;expires=${expiration};path=/`
       }
     }
-  }, [toggle, type, expiration, key])
+  }, [show, type, expiration, key])
 
   return active
 }

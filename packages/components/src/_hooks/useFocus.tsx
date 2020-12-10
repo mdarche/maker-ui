@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 
+import { useKeyboard } from './useKeyboard'
+
 const focusElements = [
   '[href]',
   'button:not([disabled])',
@@ -9,11 +11,10 @@ const focusElements = [
   '[tabIndex]:not([tabIndex="-1"])',
 ].join(', ')
 
-interface FocusableElements {
+export interface FocusState {
   all?: HTMLElement[]
   count: number
   container?: React.MutableRefObject<any>
-  original?: React.MutableRefObject<any>
   first?: HTMLElement
   last?: HTMLElement
   next?: HTMLElement | any
@@ -24,10 +25,17 @@ interface FocusConfig {
   containerRef: React.MutableRefObject<any>
   focusRef?: React.MutableRefObject<any>
   show?: boolean
-  toggle?: Function
+  toggle?(set?: boolean): void
   trapFocus?: boolean
   closeOnBlur?: boolean
 }
+
+/**
+ * The `useFocus` hook controls all Maker UI components that require
+ * dynamic focus management for accessibility
+ *
+ * @internal usage only
+ */
 
 export function useFocus({
   type,
@@ -38,11 +46,10 @@ export function useFocus({
   trapFocus,
   closeOnBlur,
 }: FocusConfig) {
-  const [focusable, setFocusable] = useState<FocusableElements>({
+  const [focusable, setFocusable] = useState<FocusState>({
     all: null,
     count: 0,
     container: containerRef ? containerRef.current : null,
-    original: focusRef ? focusRef.current : null,
     first: null,
     last: null,
     next: null,
@@ -52,18 +59,17 @@ export function useFocus({
     (originalFocus: boolean) => {
       if (toggle) {
         // Send focus back to focus ref or the next element in the DOM
-        if (originalFocus) {
-          focusRef.current.focus()
-        } else {
-          focusable.next.focus()
-        }
+        originalFocus ? focusRef.current.focus() : focusable.next.focus()
         toggle(false)
       }
     },
     [focusRef, focusable.next, toggle]
   )
 
-  // 1. Query DOM for the next focusable element
+  /**
+   * 1. Query DOM for the next focusable element
+   */
+
   useEffect(() => {
     if (!trapFocus && type !== 'modal' && focusRef.current) {
       const elements = document.querySelectorAll(focusElements)
@@ -75,15 +81,18 @@ export function useFocus({
     }
   }, [focusRef, trapFocus, type])
 
-  // 2. Query the container for all focusable elements
+  /**
+   * 2. Query the container for all focusable elements
+   */
+
   useEffect(() => {
+    if (containerRef.current && focusable.container === null) {
+      setFocusable(s => ({ ...s, container: containerRef.current }))
+    }
+
     if ((show && containerRef.current) || type === 'tabs') {
       const elements = containerRef.current.querySelectorAll(focusElements)
-
-      // console.log(
-      //   'Made it here via tabs',
-      //   containerRef.current.querySelectorAll('button')
-      // )
+      console.log(elements)
 
       if (elements.length !== 0) {
         setFocusable(state => ({
@@ -98,80 +107,19 @@ export function useFocus({
         containerRef.current.focus()
       }
     }
-  }, [containerRef, show, type])
+  }, [containerRef, focusable.container, show, type])
 
-  // TODO add arrow keys for type === 'dropdown'
-  // TODO clean up this whole function
+  /**
+   * 3. Send focus information to useKeyboard event handler
+   */
 
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (type !== 'tabs') {
-        switch (e.code) {
-          case 'Esc':
-          case 'Escape':
-            return closeContainer(true)
-          case 'Tab':
-            if (e.shiftKey) {
-              // If tab + shift key is pressed
-              if (document.activeElement === focusable.first) {
-                if (trapFocus) {
-                  focusable.last.focus()
-                } else {
-                  return closeContainer(true)
-                }
-                e.preventDefault()
-              }
-            } else {
-              // If tab key is pressed
-              if (document.activeElement === focusable.last) {
-                if (trapFocus) {
-                  focusable.first.focus()
-                } else {
-                  if (closeOnBlur) {
-                    closeContainer(false)
-                  }
-                }
-                e.preventDefault()
-              }
-            }
-            return
-          case 'ArrowDown':
-            return
-          case 'ArrowUp':
-            return
-          default:
-            return
-        }
-      } else {
-        switch (e.code) {
-          case 'ArrowDown':
-            console.log(focusable)
-            // if (document.activeElement.hasAttribute('role="tab"')) {
-            //   console.log('Yas!')
-            // }
-            return
-          case 'ArrowRight':
-            return console.log('Right!')
-          case 'ArrowLeft':
-            return console.log('Left!')
-          default:
-            return
-        }
-      }
-    }
-
-    if (typeof window !== 'undefined') {
-      if (type !== 'tabs') {
-        if (show) {
-          window.addEventListener(`keydown`, handleKeyDown)
-        }
-        return () => window.removeEventListener(`keydown`, handleKeyDown)
-      } else {
-        window.addEventListener(`keydown`, handleKeyDown)
-        return () => window.removeEventListener(`keydown`, handleKeyDown)
-      }
-    }
-  }, [type, focusable, show, closeOnBlur, focusRef, trapFocus, closeContainer])
+  useKeyboard({
+    type,
+    closeContainer,
+    focusable,
+    show,
+    config: { trapFocus, closeOnBlur },
+  })
 
   return { focusable }
 }
