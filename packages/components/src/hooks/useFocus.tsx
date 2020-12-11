@@ -73,6 +73,7 @@ export function useFocus({
   useEffect(() => {
     if (!trapFocus && type !== 'modal' && focusRef.current) {
       const elements = document.querySelectorAll(focusElements)
+
       elements.forEach((i, index) => {
         if (focusRef.current === i) {
           setFocusable(state => ({ ...state, next: elements[index + 1] }))
@@ -110,7 +111,7 @@ export function useFocus({
   }, [containerRef, focusable.container, show, type])
 
   /**
-   * 3. Send focus information to useKeyboard event handler
+   * 4. Send focus information to useKeyboard event handler
    */
 
   useKeyboard({
@@ -120,6 +121,22 @@ export function useFocus({
     show,
     config: { trapFocus, closeOnBlur },
   })
+
+  /**
+   * 3. Trap focus catch all
+   */
+  // useEffect(() => {
+  //   function returnFocus(e) {
+  //     // @ts-ignore
+  //     if (focusable.container?.contains(e.target)) {
+  //       focusable.first?.focus()
+  //     }
+  //   }
+  //   if (trapFocus) {
+  //     window.addEventListener(`focusin`, returnFocus)
+  //   }
+  //   return () => window.removeEventListener(`keydown`, returnFocus)
+  // }, [trapFocus, focusable.container, focusable.first])
 
   return { focusable }
 }

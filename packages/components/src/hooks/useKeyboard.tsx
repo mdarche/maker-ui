@@ -67,8 +67,11 @@ export const useKeyboard = ({
           case 'Escape':
             return closeContainer(true)
           case 'Tab':
-            console.log('focusable is', focusable)
             e.shiftKey ? previous() : next()
+            // @ts-ignore
+            if (!focusable.container?.contains(e.target)) {
+              focusable.first?.focus()
+            }
             return
           case 'ArrowDown':
             return
@@ -105,6 +108,12 @@ export const useKeyboard = ({
     if (type === 'tabs' || show) {
       window.addEventListener(`keydown`, handleKeyDown)
     }
-    return () => window.removeEventListener(`keydown`, handleKeyDown)
+    if (config.trapFocus) {
+      window.addEventListener('focusin', handleKeyDown)
+    }
+    return () => {
+      window.removeEventListener(`focusin`, handleKeyDown)
+      window.removeEventListener(`keydown`, handleKeyDown)
+    }
   }, [closeContainer, config, focusable, show, type])
 }
