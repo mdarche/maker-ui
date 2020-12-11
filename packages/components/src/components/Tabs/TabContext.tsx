@@ -75,7 +75,7 @@ export function useTabs() {
     throw new Error('Tab must be used within a TabGroup component')
   }
 
-  function setActive(id): void {
+  function setActive(id: string): void {
     setState(state => ({
       ...state,
       activeId: id,

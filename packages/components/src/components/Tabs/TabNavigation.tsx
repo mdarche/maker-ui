@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Flex, Button, setBreakpoint } from 'maker-ui'
 
 import { useTabs } from './TabContext'
-import { useFocus } from '../../hooks'
 
 export interface TabStyleProps {
   settings: {
@@ -24,11 +23,50 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
   const ref = React.useRef(null)
   const { state, setActive } = useTabs()
 
-  useFocus({
-    type: 'tabs',
-    containerRef: ref,
-    trapFocus: true,
-  })
+  React.useEffect(() => {
+    /**
+     * Create array of all tab ids that are not disabled
+     */
+    const tabIds = state.tabs.reduce((filtered, { disabled, id }) => {
+      if (!disabled) {
+        filtered.push(id)
+      }
+      return filtered
+    }, [])
+
+    function handleKeyDown(e) {
+      if (tabIds.some(id => document.activeElement.id.includes(id))) {
+        const index = tabIds.findIndex(i => i === state.activeId)
+
+        const next = index === tabIds.length - 1 ? 0 : index + 1
+        const prev = index === 0 ? tabIds.length - 1 : index - 1
+
+        switch (e.code) {
+          case 'ArrowUp':
+            if (!settings.isVertical) {
+              e.preventDefault()
+              return setActive(tabIds[prev])
+            }
+            return
+          case 'ArrowDown':
+            if (!settings.isVertical) {
+              e.preventDefault()
+              return setActive(tabIds[next])
+            }
+            return
+          case 'ArrowRight':
+            return setActive(tabIds[next])
+          case 'ArrowLeft':
+            return setActive(tabIds[prev])
+          default:
+            return
+        }
+      }
+    }
+
+    window.addEventListener(`keydown`, handleKeyDown)
+    return () => window.removeEventListener(`keydown`, handleKeyDown)
+  }, [setActive, settings.isVertical, state])
 
   return (
     <Flex

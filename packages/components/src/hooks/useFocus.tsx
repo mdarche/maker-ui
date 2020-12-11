@@ -15,12 +15,13 @@ export interface FocusState {
   all?: HTMLElement[]
   count: number
   container?: React.MutableRefObject<any>
+  // original?: React.MutableRefObject<any>
   first?: HTMLElement
   last?: HTMLElement
   next?: HTMLElement | any
 }
 
-interface FocusConfig {
+export interface FocusConfig {
   type?: 'modal' | 'dropdown' | 'popover' | 'tabs' | 'tooltip'
   containerRef: React.MutableRefObject<any>
   focusRef?: React.MutableRefObject<any>
@@ -49,7 +50,8 @@ export function useFocus({
   const [focusable, setFocusable] = useState<FocusState>({
     all: null,
     count: 0,
-    container: containerRef ? containerRef.current : null,
+    container: containerRef?.current,
+    // original: focusRef?.current,
     first: null,
     last: null,
     next: null,
@@ -93,7 +95,7 @@ export function useFocus({
 
     if ((show && containerRef.current) || type === 'tabs') {
       const elements = containerRef.current.querySelectorAll(focusElements)
-      console.log(elements)
+      // console.log(elements)
 
       if (elements.length !== 0) {
         setFocusable(state => ({
@@ -108,10 +110,10 @@ export function useFocus({
         containerRef.current.focus()
       }
     }
-  }, [containerRef, focusable.container, show, type])
+  }, [containerRef, focusRef, focusable.container, show, type])
 
   /**
-   * 4. Send focus information to useKeyboard event handler
+   * 3. Send focus information to useKeyboard event handler
    */
 
   useKeyboard({
@@ -123,20 +125,24 @@ export function useFocus({
   })
 
   /**
-   * 3. Trap focus catch all
+   * 4. Trap focus catch all
    */
   // useEffect(() => {
-  //   function returnFocus(e) {
-  //     // @ts-ignore
-  //     if (focusable.container?.contains(e.target)) {
-  //       focusable.first?.focus()
+  //   function redirectFocus(e) {
+  //     //@ts-ignore
+  //     if (show && !focusable.container?.contains(e.target)) {
+  //       console.log('focus is', e.target)
+  //       console.log('executing. container is', focusable.container)
+  //       // focusable.first?.focus()
   //     }
   //   }
+
   //   if (trapFocus) {
-  //     window.addEventListener(`focusin`, returnFocus)
+  //     window.addEventListener('focusin', redirectFocus)
   //   }
-  //   return () => window.removeEventListener(`keydown`, returnFocus)
-  // }, [trapFocus, focusable.container, focusable.first])
+
+  //   return () => window.removeEventListener(`focusin`, redirectFocus)
+  // }, [trapFocus, show, focusable])
 
   return { focusable }
 }

@@ -35,7 +35,7 @@ export const Tabs = ({
   children,
   ...props
 }: TabGroupProps) => {
-  const isVertical = !['left', 'right'].includes(navPosition) ? true : false
+  const isVertical = ['top', 'bottom'].includes(navPosition) ? true : false
 
   return (
     <TabContext

@@ -7,6 +7,7 @@ interface KeyboardProps {
   closeContainer?(set: boolean): void
   focusable: FocusState
   show?: boolean
+  closeContainer?(set: boolean): void
   config?: {
     trapFocus?: boolean
     closeOnBlur?: boolean
@@ -21,7 +22,8 @@ export const useKeyboard = ({
   config,
 }: KeyboardProps) => {
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // console.log('e is', e)
       const focusGroup = ['modal', 'popover', 'tooltip', 'dropdown']
 
       /**
@@ -68,52 +70,20 @@ export const useKeyboard = ({
             return closeContainer(true)
           case 'Tab':
             e.shiftKey ? previous() : next()
-            // @ts-ignore
-            if (!focusable.container?.contains(e.target)) {
-              focusable.first?.focus()
-            }
             return
           case 'ArrowDown':
             return
           case 'ArrowUp':
             return
-          default:
-            return
-        }
-      }
-
-      /**
-       * Keyboard Controls for Tabs
-       */
-
-      if (type === 'tabs') {
-        switch (e.code) {
-          case 'ArrowDown':
-            console.log(focusable)
-            // if (document.activeElement.hasAttribute('role="tab"')) {
-            //   console.log('Yas!')
-            // }
-            return
-          case 'ArrowRight':
-            return console.log('Right!')
-          case 'ArrowUp':
-          case 'ArrowLeft':
-            return console.log('Left!')
           default:
             return
         }
       }
     }
-
-    if (type === 'tabs' || show) {
+    if (show) {
       window.addEventListener(`keydown`, handleKeyDown)
     }
-    if (config.trapFocus) {
-      window.addEventListener('focusin', handleKeyDown)
-    }
-    return () => {
-      window.removeEventListener(`focusin`, handleKeyDown)
-      window.removeEventListener(`keydown`, handleKeyDown)
-    }
+
+    return () => window.removeEventListener(`keydown`, handleKeyDown)
   }, [closeContainer, config, focusable, show, type])
 }
