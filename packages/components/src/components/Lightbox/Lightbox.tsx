@@ -28,7 +28,7 @@ export const Lightbox = ({
   React.useEffect(() => {
     if (!show && toggle !== undefined) {
       return () => {
-        toggle()
+        toggle(s => !s)
       }
     }
   }, [toggle, show])

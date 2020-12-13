@@ -47,7 +47,7 @@ export const FadeBox = ({
 
   useScrollPosition(
     ({ currPos }) => {
-      if (!show && currPos > ref.current.offsetTop - offset) {
+      if (ref.current && !show && currPos > ref.current.offsetTop - offset) {
         set(true)
       }
     },

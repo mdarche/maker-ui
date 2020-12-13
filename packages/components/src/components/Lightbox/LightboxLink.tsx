@@ -5,7 +5,7 @@ import { useLightbox, LightboxData } from './LightboxContext'
 
 export interface LightboxLinkProps extends MakerProps, LightboxData {
   trigger?: boolean
-  children?: React.ReactElement
+  children?: React.ReactNode
 }
 
 /**

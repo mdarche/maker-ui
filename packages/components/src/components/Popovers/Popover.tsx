@@ -15,7 +15,7 @@ export interface Position {
 
 export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
-  toggle(state?: boolean): void
+  toggle?: React.Dispatch<React.SetStateAction<boolean>>
   anchorRef?: React.MutableRefObject<any>
   anchorWidth?: boolean
   position?: Position
@@ -33,6 +33,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'fade-left'
     | 'fade-right'
     | 'scale'
+    | 'none' // TODO
   defer?: number
   children: React.ReactNode
 }
@@ -80,7 +81,7 @@ export const Popover = ({
   })
 
   /**
-   * Measure the popover's direct child container to use its height and width for
+   * Measure the popover's child container to calculate its height and width for
    * positioning & the `scale` transition.
    */
 
@@ -94,22 +95,31 @@ export const Popover = ({
     [height]
   )
 
-  useFocus({
-    type: _type,
+  /**
+   * Get all relevant focusable elements.
+   */
+
+  const { focusable } = useFocus({
     containerRef: popoverRef,
     focusRef: anchorRef,
     show,
-    toggle,
-    closeOnBlur,
-    trapFocus,
   })
 
+  /**
+   * If transition = 'scale', activate the popover with `visibility: hidden`
+   * to capture height measurement
+   */
+
   React.useEffect(() => {
-    if (transition === 'scale') {
+    if (transition === 'scale' && setInitialRender) {
       setInitialRender(false)
       toggle(false)
     }
   }, [transition, toggle])
+
+  /**
+   * Set anchor width measurement
+   */
 
   React.useEffect(() => {
     if (!box) return
@@ -117,6 +127,81 @@ export const Popover = ({
       setWidth(box.width)
     }
   }, [box, anchorWidth])
+
+  /**
+   * Add focus trap and update tab sequence for popovers attached to body
+   */
+
+  const handleKeyDown = React.useCallback(
+    (e: KeyboardEvent) => {
+      const setFocus = (
+        close?: boolean,
+        focus?: 'anchor' | 'nextEl' | 'first' | 'last',
+        preventDefault?: boolean
+      ) => {
+        if (close) toggle(false)
+        if (preventDefault) e.preventDefault()
+
+        return focus === 'anchor'
+          ? anchorRef.current.focus()
+          : focus === 'nextEl'
+          ? focusable.next?.focus()
+          : focus === 'first'
+          ? focusable.first?.focus
+          : focus === 'last'
+          ? focusable.last?.focus()
+          : anchorRef.current.focus()
+
+        // return _type === 'dropdown' ? anchor : nextEl
+      }
+
+      switch (e.code) {
+        case 'Esc':
+        case 'Escape':
+          return trapFocus
+            ? setFocus(true, _type === 'dropdown' ? 'anchor' : 'nextEl')
+            : null
+        case 'Tab':
+          if (e.shiftKey && document.activeElement === focusable.first) {
+            if (trapFocus) {
+              return setFocus(false, 'last', true)
+            }
+            if (closeOnBlur) {
+              return setFocus(true, 'anchor', true)
+            }
+          }
+          if (!e.shiftKey && document.activeElement === focusable.last) {
+            if (trapFocus) {
+              console.log('here', focusable.first)
+              return setFocus(false, 'first', true)
+              // return e.preventDefault()
+            }
+            console.log('Made it here')
+            return setFocus(closeOnBlur ? true : false, 'anchor')
+            // if (closeOnBlur) {
+            //   return setFocus(
+            //     true,
+            //     _type === 'dropdown' ? 'anchor' : 'nextEl',
+            //     true
+            //   )
+            // }
+            // e.preventDefault()
+            // return setFocus()
+          }
+          return
+        default:
+          return
+      }
+    },
+    [anchorRef, closeOnBlur, focusable, toggle, trapFocus, _type]
+  )
+
+  React.useEffect(() => {
+    const ref = popoverRef.current
+    ref?.addEventListener(`keydown`, handleKeyDown)
+
+    return () => ref?.removeEventListener(`keydown`, handleKeyDown)
+  }, [handleKeyDown])
 
   /**
    * Configure the React-spring useTransition animation

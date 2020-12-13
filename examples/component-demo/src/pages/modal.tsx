@@ -44,7 +44,7 @@ const ModalPage = () => {
         closeOnBlur
         center>
         <div>Hello!</div>
-        <button>Test</button>
+        <button className="target-button">Test</button>
         <button>Yo</button>
         <button>Ya</button>
         <a href="https://google.com">Google link</a>

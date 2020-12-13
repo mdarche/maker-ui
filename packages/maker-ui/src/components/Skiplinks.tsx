@@ -38,7 +38,7 @@ export const Skiplinks = (props: SkipLinkProps) => {
 
   if (layout.includes('sidenav')) {
     linkMenu.splice(1, 0, {
-      id: '#side-nav',
+      id: '#sidenav',
       label: 'Skip to side navigation',
     })
   }
