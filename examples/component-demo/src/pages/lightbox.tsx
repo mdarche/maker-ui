@@ -51,13 +51,7 @@ const LightboxPage = () => {
         </Lightbox.Link>
       </Lightbox>
       {/* Test with data array */}
-      <Lightbox
-        closeOnBlur
-        show={show}
-        toggle={set}
-        data={galleryData}
-        focusRef={ref}
-      />
+      <Lightbox show={show} toggle={set} data={galleryData} focusRef={ref} />
     </div>
   )
 }

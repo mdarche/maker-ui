@@ -9,7 +9,7 @@ const AnimatedDiv = animated(Div)
 
 export interface ModalProps extends DivProps {
   show?: boolean
-  toggle?: React.Dispatch<React.SetStateAction<boolean>>
+  toggle?: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
   bg?: string | string
   appendTo?: string
   title?: string
@@ -18,6 +18,7 @@ export interface ModalProps extends DivProps {
   style?: any
   center?: boolean
   springConfig?: SpringConfig
+  isLightbox?: boolean // Internal only
 }
 
 /**
@@ -40,6 +41,7 @@ export const Modal = ({
   style = {},
   children,
   springConfig,
+  isLightbox = false,
   ...rest
 }: ModalProps) => {
   const modalRef = React.useRef(null)

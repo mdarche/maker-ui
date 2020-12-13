@@ -2,10 +2,150 @@ import * as React from 'react'
 import merge from 'deepmerge'
 import { generateId } from 'maker-ui'
 
+import { LightboxProps } from './Lightbox'
+
 const videoFormats = ['.mp4', '.ogg', '.webm']
 
 const LightboxDataContext = React.createContext(null)
 const LightboxUpdateContext = React.createContext(null)
+
+export interface LightboxData {
+  id?: string
+  src?: string
+  alt?: string
+  title?: string
+  description?: string
+  youtubeId?: string
+  htmlVideo?: boolean
+  vimeoId?: string
+  poster?: string
+}
+
+interface LightboxContextProps {
+  data: LightboxData[]
+  variant?: string
+  settings: LightboxProps['settings']
+  show?: boolean
+  toggle?: LightboxProps['toggle']
+  children: React.ReactNode
+}
+
+interface LightboxState {
+  index: number
+  active: boolean
+  variant: LightboxProps['variant']
+  data: LightboxData[]
+  settings: LightboxProps['settings']
+  toggle: LightboxProps['toggle']
+}
+
+/**
+ * The `LightboxContext` component is a Provider that handles stores all of the data
+ * for a lightbox gallery.
+ *
+ * @internal usage only
+ */
+
+export const LightboxContext = ({
+  data = [],
+  settings = {},
+  variant = 'lightbox',
+  show,
+  toggle,
+  children,
+}: LightboxContextProps) => {
+  const [state, setState] = React.useState<LightboxState>({
+    index: 0,
+    active: false,
+    variant,
+    data: data.map(i => formatData(i)),
+    settings: mergeSettings(settings),
+    toggle,
+  })
+
+  React.useEffect(() => {
+    setState(s => ({ ...s, active: show }))
+  }, [show])
+
+  return (
+    <LightboxDataContext.Provider value={state}>
+      <LightboxUpdateContext.Provider value={setState}>
+        {children}
+      </LightboxUpdateContext.Provider>
+    </LightboxDataContext.Provider>
+  )
+}
+
+LightboxContext.displayName = 'LightboxContext'
+
+/**
+ * React hook that registers all lightbox links and data as well as control
+ * of the lightbox state.
+ *
+ * @internal usage only
+ */
+
+export function useLightbox() {
+  const { variant, active, index, data, settings, toggle } = React.useContext(
+    LightboxDataContext
+  )
+  const setState = React.useContext(LightboxUpdateContext)
+
+  if (typeof data === undefined) {
+    throw new Error('useLightbox must be used within a Lightbox component')
+  }
+
+  /**
+   * Accepts an option `ID` string and opens or closes the lightbox modal
+   */
+
+  function toggleLightbox(id?: string) {
+    if (id) {
+      const current = data.findIndex(i => i.id === id)
+      return setState(s => ({ ...s, active: !s.active, index: current }))
+    }
+    return toggle ? toggle(false) : setState(s => ({ ...s, active: false }))
+  }
+
+  /**
+   * Registers and formats a `LightboxData` object to the Lightbox context
+   */
+
+  function addToGallery(item: LightboxData) {
+    const exists = data ? data.find(e => e.id === item.id) : false
+
+    if (!exists) {
+      setState(s => ({ ...s, data: [...s.data, formatData(item)] }))
+    }
+  }
+
+  function setIndex(type: 'previous' | 'next' | 'index', index?: number) {
+    setState(s => {
+      if (type === 'index') {
+        return { ...s, index }
+      }
+      const next = s.index === s.data.length - 1 ? 0 : s.index + 1
+      const prev = s.index === 0 ? s.data.length - 1 : s.index - 1
+
+      return { ...s, index: type === 'previous' ? prev : next }
+    })
+  }
+
+  return {
+    variant,
+    index,
+    active,
+    data,
+    settings,
+    toggleLightbox,
+    addToGallery,
+    setIndex,
+  }
+}
+
+/**
+ * Utility that formats LightboxLink prop data and assigns an ID
+ */
 
 function formatData(original: LightboxData) {
   return merge(
@@ -26,86 +166,22 @@ function formatData(original: LightboxData) {
   )
 }
 
-export interface LightboxData {
-  src?: string
-  alt?: string
-  title?: string
-  description?: string
-  youtubeId?: string
-  htmlVideo?: boolean
-  vimeoId?: string
-  poster?: string
-}
-
-interface LightboxContextProps {
-  data: LightboxData[]
-  children: React.ReactElement
-}
-
-interface LightboxState {
-  index: number
-  active: boolean
-  data: LightboxData[]
-}
-
 /**
- * The `LightboxContext` component is a Provider that handles stores all of the data
- * for a lightbox gallery.
- *
- * @internal usage only
+ * Utility that merges user settings with `Lightbox` defaults.
  */
 
-export const LightboxContext = ({
-  data = [],
-  children,
-}: LightboxContextProps) => {
-  const [state, setState] = React.useState<LightboxState>({
-    index: 0,
-    active: false,
-    data: data.map(i => formatData(i)),
-  })
-
-  return (
-    <LightboxDataContext.Provider value={state}>
-      <LightboxUpdateContext.Provider value={setState}>
-        {children}
-      </LightboxUpdateContext.Provider>
-    </LightboxDataContext.Provider>
+function mergeSettings(settings: LightboxProps['settings']) {
+  return merge(
+    {
+      closeOnBlur: true,
+      customArrow: undefined,
+      showInfo: true,
+      showCount: true,
+      showZoom: false,
+      showAutoPlay: true,
+      autoPlayDuration: 6000,
+      disableHideControls: false,
+    },
+    settings
   )
-}
-
-LightboxContext.displayName = 'LightboxContext'
-
-/**
- * Browser hook that registers all lightbox links and data as well as control
- * of the lightbox state.
- *
- * @internal usage only
- */
-
-export function useLightbox() {
-  const { active, index, data } = React.useContext(LightboxDataContext)
-  const setState = React.useContext(LightboxUpdateContext)
-
-  if (typeof data === undefined) {
-    throw new Error('useLightbox must be used within a Lightbox component')
-  }
-
-  function toggleLightbox(id?: string) {
-    if (id) {
-      const current = data.findIndex(i => i.id === id)
-      return setState(s => ({ ...s, active: !s.active, index: current }))
-    }
-    return setState(s => ({ ...s, active: !s.active }))
-  }
-
-  function addToGallery(item) {
-    const exists = data ? data.find(e => e.id === item.id) : false
-
-    if (!exists) {
-      setState(s => ({ ...s, data: [...s.data, formatData(item)] }))
-    }
-  }
-
-  return { index, active, data, toggleLightbox, addToGallery }
 }

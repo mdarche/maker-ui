@@ -1,14 +1,28 @@
 import * as React from 'react'
+import { SpringConfig } from 'react-spring'
 
 import { LightboxContext, LightboxData } from './LightboxContext'
 import { LightboxModal } from './LightboxModal'
 import { LightboxLink } from './LightboxLink'
 import { ModalProps } from '../Modal'
 
-interface LightboxProps extends ModalProps {
+export interface LightboxProps
+  extends Omit<
+    ModalProps,
+    'closeOnBlur' | 'center' | 'appendTo' | 'springConfig'
+  > {
   id?: string
   data?: LightboxData[]
-  children?: any
+  settings?: {
+    closeOnBlur?: boolean
+    showInfo?: boolean
+    showCount?: boolean
+    showZoom?: boolean // TODO
+    showAutoPlay?: boolean
+    autoPlayDuration?: number
+    disableHideControls?: boolean
+    springConfig?: SpringConfig
+  }
 }
 
 /**
@@ -19,25 +33,21 @@ interface LightboxProps extends ModalProps {
 
 export const Lightbox = ({
   data,
-  id,
   toggle,
   show,
+  settings,
+  variant,
   children,
   ...props
 }: LightboxProps) => {
-  React.useEffect(() => {
-    if (!show && toggle !== undefined) {
-      return () => {
-        toggle(s => !s)
-      }
-    }
-  }, [toggle, show])
-
   return (
-    <LightboxContext data={data}>
-      <LightboxModal id={id} show={show} data={data} {...props}>
-        {children}
-      </LightboxModal>
+    <LightboxContext
+      variant={variant}
+      data={data}
+      show={show}
+      settings={settings}
+      toggle={toggle}>
+      <LightboxModal {...props}>{children}</LightboxModal>
     </LightboxContext>
   )
 }

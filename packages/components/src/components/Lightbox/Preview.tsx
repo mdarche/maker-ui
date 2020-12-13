@@ -1,14 +1,10 @@
 import * as React from 'react'
 import { Grid, Button } from 'maker-ui'
 
-import { LightboxData } from './LightboxContext'
+import { useLightbox } from './LightboxContext'
 
 interface PreviewProps {
-  variant?: string | string[]
-  index?: number
-  set?: Function
   show?: boolean
-  data?: LightboxData[]
 }
 
 /**
@@ -18,9 +14,11 @@ interface PreviewProps {
  * @internal usage only
  */
 
-export const Preview = ({ variant, index, set, data, show }: PreviewProps) => {
+export const Preview = ({ show }: PreviewProps) => {
   const ref = React.useRef(null)
-  const handleClick = i => set(i)
+  const { variant, index, data, setIndex } = useLightbox()
+
+  const handleClick = (i: number) => setIndex('index', i)
 
   React.useEffect(() => {
     if (show) {

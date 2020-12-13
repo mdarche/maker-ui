@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { Div, Image, MakerProps } from 'maker-ui'
+import { Div, Image, DivProps } from 'maker-ui'
 import { animated, useTransition } from 'react-spring'
 
-import { LightboxData } from './LightboxContext'
+import { useLightbox, LightboxData } from './LightboxContext'
 import { Spinner } from '../Spinner'
 
 const AnimatedDiv = animated(Div)
@@ -64,10 +64,7 @@ const MediaFrame = ({
 
 MediaFrame.displayName = 'MediaFrame'
 
-interface CanvasProps extends MakerProps, HTMLDivElement {
-  index?: number
-  data?: LightboxData[]
-  showInfo?: boolean
+interface CanvasProps extends DivProps {
   zoom?: boolean
 }
 
@@ -78,18 +75,14 @@ interface CanvasProps extends MakerProps, HTMLDivElement {
  * @internal usage only
  */
 
-export const Canvas = ({
-  variant,
-  data,
-  index,
-  zoom,
-  showInfo,
-  ...rest
-}: CanvasProps) => {
+export const Canvas = ({ zoom }: CanvasProps) => {
+  const { variant, data, index, settings } = useLightbox()
+
   const transitions = useTransition(data[index], {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
+    config: settings.springConfig,
   })
 
   return transitions(
@@ -112,13 +105,12 @@ export const Canvas = ({
             transform: 'translate(-50%, -50%)',
             'img, video, iframe': {
               height:
-                item.title && showInfo
+                item.title && settings.showInfo
                   ? ['calc(100% - 100px)', 'calc(100% - 50px)']
                   : '100%',
               width: '100%',
             },
-          }}
-          {...rest}>
+          }}>
           {/* TODO - Fix this Spinner */}
           <Spinner
             size={20}
@@ -131,7 +123,7 @@ export const Canvas = ({
             }}
           />
           <MediaFrame item={item} />
-          {showInfo && item.title && (
+          {settings.showInfo && item.title && (
             <Div
               variant={`${variant}.info`}
               className="lb-info"
