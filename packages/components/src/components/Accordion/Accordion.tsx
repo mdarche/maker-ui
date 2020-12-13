@@ -5,11 +5,11 @@ import { AccordionContext } from './AccordionContext'
 import { AccordionPanel } from './AccordionPanel'
 import { SpringConfig } from 'react-spring'
 
-interface AccordionProps extends DivProps {
+export interface AccordionProps extends DivProps {
   icon?: boolean
   customIcons?: {
-    expand?: React.ReactElement | null
-    collapse?: React.ReactElement | null
+    expand?: React.ReactElement
+    collapse?: React.ReactElement
   }
   activeKey?: number | string
   showSingle?: boolean

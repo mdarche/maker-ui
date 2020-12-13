@@ -36,6 +36,7 @@ export const Topbar = (props: TopbarProps) => {
     if (height !== 0) {
       setMeasurement('topbar', height)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height])
 
   const {

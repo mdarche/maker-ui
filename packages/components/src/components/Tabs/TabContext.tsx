@@ -1,25 +1,23 @@
 import * as React from 'react'
+import { TabGroupProps } from './Tabs'
 
 const TabDataContext = React.createContext(null)
 const TabUpdateContext = React.createContext(null)
 
 export interface TabContextProps {
-  renderInactive?: boolean
-  activeKey?: number | string
-  variant: string | string[]
+  renderInactive?: TabGroupProps['renderInactive']
+  activeKey?: TabGroupProps['activeKey']
+  variant: string
   children?: React.ReactElement
 }
 
-export interface TabState {
-  activeId: string | number
+export interface TabState extends Omit<TabContextProps, 'children'> {
   tabs: {
     id: string
     panelId: string
     title: string | React.ReactElement
     disabled: boolean
   }[]
-  variant: string | string[]
-  renderInactive: boolean
 }
 
 /**
@@ -36,7 +34,7 @@ export const TabContext = ({
   children,
 }: TabContextProps) => {
   const [state, setState] = React.useState<TabState>({
-    activeId: activeKey,
+    activeKey,
     tabs: [],
     variant,
     renderInactive,
@@ -44,9 +42,9 @@ export const TabContext = ({
 
   React.useEffect(() => {
     if (activeKey === 0) {
-      setState(state => ({ ...state, activeId: state.tabs[0].id }))
+      setState(state => ({ ...state, activeKey: state.tabs[0].id }))
     } else {
-      setState(state => ({ ...state, activeId: activeKey.toString() }))
+      setState(state => ({ ...state, activeKey: activeKey.toString() }))
     }
   }, [activeKey])
 
@@ -75,21 +73,21 @@ export function useTabs() {
     throw new Error('Tab must be used within a TabGroup component')
   }
 
-  function setActive(id: string): void {
+  function setActive(id: string) {
     setState(state => ({
       ...state,
-      activeId: id,
+      activeKey: id,
     }))
   }
 
-  function addToTabGroup(item, isOpen): void {
+  function addToTabGroup(item, isOpen) {
     const exists = state.tabs ? state.tabs.find(t => t.id === item.id) : false
 
     if (!exists) {
       setState(state => ({
         ...state,
         tabs: [...state.tabs, item],
-        activeId: isOpen ? item.id : state.activeId,
+        activeKey: isOpen ? item.id : state.activeId,
       }))
     }
   }

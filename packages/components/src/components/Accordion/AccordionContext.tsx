@@ -1,19 +1,16 @@
 import * as React from 'react'
-import { SpringConfig } from 'react-spring'
+
+import { AccordionProps } from './Accordion'
 
 const AccordionDataContext = React.createContext(null)
 const AccordionUpdateContext = React.createContext(null)
 
-interface AccordionContextProps {
-  icon?: boolean
-  customIcons?: {
-    expand?: React.ReactElement | null
-    collapse?: React.ReactElement | null
-  }
-  activeKey?: number | string
-  showSingle?: boolean
-  springConfig?: SpringConfig
+interface AccordionContextProps extends AccordionProps {
   children: React.ReactElement
+}
+
+interface AccordionState extends Omit<AccordionProps, 'children'> {
+  panelKeys: string[]
 }
 
 /**
@@ -30,7 +27,7 @@ export const AccordionContext = ({
   springConfig,
   children,
 }: AccordionContextProps) => {
-  const [state, setState] = React.useState({
+  const [state, setState] = React.useState<AccordionState>({
     activeKey,
     panelKeys: [],
     icon,

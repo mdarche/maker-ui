@@ -24,7 +24,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     const [panelId] = React.useState(generateId())
 
     const {
-      state: { variant, activeId, renderInactive },
+      state: { variant, activeKey, renderInactive },
       addToTabGroup,
     } = useTabs()
     const tabItem = { id, panelId, title, disabled }
@@ -33,7 +33,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
       addToTabGroup(tabItem, open)
     }, [addToTabGroup, tabItem, open])
 
-    return renderInactive || activeId === id ? (
+    return renderInactive || activeKey === id ? (
       <Div
         ref={ref}
         role="tabpanel"
@@ -44,7 +44,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
           variant: `${variant}.panel`,
           flex: 1,
           order: 1,
-          display: renderInactive && activeId !== id ? 'none' : undefined,
+          display: renderInactive && activeKey !== id ? 'none' : undefined,
           ...sx,
         }}
         {...props}

@@ -46,7 +46,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
   const handleKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
       if (tabIds.some(id => document.activeElement.id.includes(id))) {
-        const index = tabIds.findIndex(i => i === state.activeId)
+        const index = tabIds.findIndex(i => i === state.activeKey)
 
         const next = index === tabIds.length - 1 ? 0 : index + 1
         const prev = index === 0 ? tabIds.length - 1 : index - 1
@@ -73,7 +73,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
         }
       }
     },
-    [setActive, settings.isVertical, state.activeId, tabIds]
+    [setActive, settings.isVertical, state.activeKey, tabIds]
   )
 
   React.useEffect(() => {
@@ -94,16 +94,16 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
         <Button
           key={item.id}
           role="tab"
-          tabIndex={state.activeId === item.id ? 0 : -1}
+          tabIndex={state.activeKey === item.id ? 0 : -1}
           id={`control-${item.id}`}
           className={`tab-button${
-            state.activeId === item.id ? ' active' : ''
+            state.activeKey === item.id ? ' active' : ''
           }${item.disabled && 'disabled'}`}
           //@ts-ignore
           disabled={item.disabled}
           title={typeof item.title === 'string' ? item.title : null}
           aria-controls={`panel-${item.panelId}`}
-          aria-selected={state.activeId === item.id ? 'true' : 'false'}
+          aria-selected={state.activeKey === item.id ? 'true' : 'false'}
           onClick={e => setActive(item.id)}
           sx={{ variant: `${state.variant}.button` }}>
           {item.title}

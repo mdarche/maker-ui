@@ -15,7 +15,7 @@ export interface SearchProps extends DivProps {
  * The `PageSearch`component scans all HTML innerText inside the provided ID
  * selector and highlights all text that matches the search query.
  *
- * @remark searching occurs on the DOM itself
+ * NOTE: searching occurs on the rendered DOM itself
  *
  * @see https://maker-ui.com/docs/components/page-search
  */

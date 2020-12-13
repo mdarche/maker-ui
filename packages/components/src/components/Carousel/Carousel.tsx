@@ -3,7 +3,7 @@ import { Div, MakerProps } from 'maker-ui'
 import { animated, SpringConfig } from 'react-spring'
 
 import { Canvas } from './Canvas'
-import Navigation from './Navigation'
+import { Navigation } from './Navigation'
 import { Pagination } from './Pagination'
 import { ProgressBar } from './ProgressBar'
 
@@ -24,7 +24,12 @@ export interface CarouselProps extends MakerProps {
   springConfig?: SpringConfig
 }
 
-function reducer(state, { type, value }) {
+interface ReducerProps {
+  type: string
+  value?: any
+}
+
+function reducer(state, { type, value }: ReducerProps) {
   switch (type) {
     case 'set': {
       return { ...state, index: value }
@@ -55,7 +60,7 @@ function reducer(state, { type, value }) {
  *
  * @todo - add drag and swipe gesture
  * @todo - revisit accessible controls: https://www.w3.org/WAI/tutorials/carousels/full-code/
- * @todo - rebuild next() and prev() functions with useCallback hooks
+ * @todo - Rebuild with context and cleaner API
  *
  * @see https://maker-ui.com/docs/components/carousel
  */
@@ -89,10 +94,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       nextSlide: false,
     })
 
-    // @ts-ignore
-    const next = () => dispatch({ type: 'next' })
-    // @ts-ignore
-    const prev = () => dispatch({ type: 'previous' })
+    const next = React.useCallback(() => dispatch({ type: 'next' }), [])
+    const prev = React.useCallback(() => dispatch({ type: 'previous' }), [])
 
     React.useEffect(() => {
       if (autoPlay && !pause) {

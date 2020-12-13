@@ -42,6 +42,7 @@ export const Header = (props: HeaderProps) => {
     if (height !== 0) {
       setMeasurement('header', height)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height])
 
   useEffect(() => {

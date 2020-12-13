@@ -65,15 +65,15 @@ const NavButton = ({
  * @internal usage only
  */
 
-const Navigation = React.memo(({ controls, ...props }: NavigationProps) => {
-  return (
-    <div>
-      <NavButton control={controls.prev} {...props} />
-      <NavButton control={controls.next} isNext {...props} />
-    </div>
-  )
-})
+export const Navigation = React.memo(
+  ({ controls, ...props }: NavigationProps) => {
+    return (
+      <div>
+        <NavButton control={controls.prev} {...props} />
+        <NavButton control={controls.next} isNext {...props} />
+      </div>
+    )
+  }
+)
 
 Navigation.displayName = 'CarouselNavigation'
-
-export default Navigation
