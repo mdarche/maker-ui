@@ -22,19 +22,29 @@ export interface TabStyleProps {
 export const TabNavigation = ({ settings }: TabStyleProps) => {
   const ref = React.useRef(null)
   const { state, setActive } = useTabs()
+  const [tabIds, setTabIds] = React.useState([])
+
+  /**
+   * Create array of all tab ids that are not disabled
+   */
 
   React.useEffect(() => {
-    /**
-     * Create array of all tab ids that are not disabled
-     */
-    const tabIds = state.tabs.reduce((filtered, { disabled, id }) => {
+    const ids = state.tabs.reduce((filtered, { disabled, id }) => {
       if (!disabled) {
         filtered.push(id)
       }
       return filtered
     }, [])
 
-    function handleKeyDown(e) {
+    setTabIds(ids)
+  }, [state.tabs])
+
+  /**
+   * Handle keyboard arrow controls
+   */
+
+  const handleKeyDown = React.useCallback(
+    (e: KeyboardEvent) => {
       if (tabIds.some(id => document.activeElement.id.includes(id))) {
         const index = tabIds.findIndex(i => i === state.activeId)
 
@@ -62,11 +72,14 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
             return
         }
       }
-    }
+    },
+    [setActive, settings.isVertical, state.activeId, tabIds]
+  )
 
+  React.useEffect(() => {
     window.addEventListener(`keydown`, handleKeyDown)
     return () => window.removeEventListener(`keydown`, handleKeyDown)
-  }, [setActive, settings.isVertical, state])
+  }, [handleKeyDown])
 
   return (
     <Flex

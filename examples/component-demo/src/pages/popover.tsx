@@ -21,6 +21,7 @@ const PopoverPage = () => {
         show={show}
         toggle={set}>
         <Div sx={{ bg: 'gainsboro', height: 100, ul: { m: 0, p: 2 } }}>
+          <div>Simple popover</div>
           <ul>
             <li>
               <a href="https://google.com" target="_blank" rel="noreferrer">

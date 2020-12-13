@@ -41,14 +41,20 @@ export const TableofContents = ({
   const [menuItems, setMenu] = React.useState([])
   const [activeNode, setActiveNode] = React.useState(null)
 
-  // Add smooth scroll to document if required
+  /**
+   * Add smooth scroll to document if required
+   */
+
   React.useEffect(() => {
     document.querySelector('html').style.scrollBehavior = smoothScroll
       ? 'smooth'
       : null
   }, [smoothScroll])
 
-  // Query DOM for applicable heading elements
+  /**
+   * Query DOM for applicable heading elements
+   */
+
   React.useEffect(() => {
     const selectors = headings.map(h => `main h${h}`).join(', ')
     const nodes: HTMLElement[] = Array.from(
@@ -79,19 +85,26 @@ export const TableofContents = ({
     ({ currPos, prevPos }) => {
       const isDownScroll = currPos > prevPos
 
-      // Reset activeNode if scroll position is above first selector
+      /**
+       * Reset activeNode if scroll position is above first selector
+       */
+
       if (activeNode !== undefined && currPos < menuItems[0].offset) {
         return setActiveNode(null)
       }
 
       if (currPos >= menuItems[0].offset) {
         if (activeNode === null) {
-          // Check if scroll is between first 2 heading nodes (inexpensive)
+          /**
+           * Check if scroll is between first 2 heading nodes
+           */
           if (menuItems.length > 1 && currPos <= menuItems[1].offset) {
             return setActiveNode(0)
           } else {
-            // Else find the nearest offset (expensive)
-            // Used for fresh page loads if scroll is not at top of document
+            /**
+             * Else find the nearest offset (expensive)
+             * Used for fresh page loads if scroll is not at top of document
+             */
             const offsets = menuItems.map(i => i.offset)
             const closest = offsets.reduce((a, b) => {
               return Math.abs(b - currPos) < Math.abs(a - currPos) ? b : a
@@ -101,7 +114,9 @@ export const TableofContents = ({
         }
 
         if (isDownScroll) {
-          // If scrolling down, compare current node offset with the next offset
+          /**
+           * If scrolling down, compare current node offset with the next offset
+           */
           if (
             activeNode !== menuItems.length - 1 &&
             currPos >= menuItems[activeNode + 1].offset
@@ -109,7 +124,9 @@ export const TableofContents = ({
             return setActiveNode(activeNode + 1)
           }
         } else {
-          // If scrolling up, compare current node offset with previous offset
+          /**
+           * If scrolling up, compare current node offset with previous offset
+           */
           if (currPos <= menuItems[activeNode].offset) {
             return setActiveNode(activeNode - 1)
           }

@@ -23,7 +23,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   appendTo?: string | Element
   trapFocus?: boolean
   closeOnBlur?: boolean
-  containerSx?: any
+  containerSx?: object
   springConfig?: SpringConfig
   _type?: 'popover' | 'dropdown' | 'tooltip' // internal usage only
   transition?:
@@ -147,12 +147,10 @@ export const Popover = ({
           : focus === 'nextEl'
           ? focusable.next?.focus()
           : focus === 'first'
-          ? focusable.first?.focus
+          ? focusable.first?.focus()
           : focus === 'last'
           ? focusable.last?.focus()
           : anchorRef.current.focus()
-
-        // return _type === 'dropdown' ? anchor : nextEl
       }
 
       switch (e.code) {
@@ -163,30 +161,20 @@ export const Popover = ({
             : null
         case 'Tab':
           if (e.shiftKey && document.activeElement === focusable.first) {
-            if (trapFocus) {
-              return setFocus(false, 'last', true)
-            }
-            if (closeOnBlur) {
-              return setFocus(true, 'anchor', true)
-            }
+            return trapFocus
+              ? setFocus(false, 'last', true)
+              : closeOnBlur
+              ? setFocus(true, 'anchor', true)
+              : null
           }
           if (!e.shiftKey && document.activeElement === focusable.last) {
-            if (trapFocus) {
-              console.log('here', focusable.first)
-              return setFocus(false, 'first', true)
-              // return e.preventDefault()
-            }
-            console.log('Made it here')
-            return setFocus(closeOnBlur ? true : false, 'anchor')
-            // if (closeOnBlur) {
-            //   return setFocus(
-            //     true,
-            //     _type === 'dropdown' ? 'anchor' : 'nextEl',
-            //     true
-            //   )
-            // }
-            // e.preventDefault()
-            // return setFocus()
+            return trapFocus
+              ? setFocus(false, 'first', true)
+              : setFocus(
+                  closeOnBlur ? true : false,
+                  _type === 'dropdown' ? 'anchor' : 'nextEl',
+                  true
+                )
           }
           return
         default:

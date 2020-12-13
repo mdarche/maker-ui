@@ -114,12 +114,10 @@ export const LightboxModal = ({
       }
     }
 
-    if (typeof window !== 'undefined') {
-      if (active) {
-        window.addEventListener(`keydown`, handleKeyDown)
-      }
-      return () => window.removeEventListener(`keydown`, handleKeyDown)
+    if (active) {
+      window.addEventListener(`keydown`, handleKeyDown)
     }
+    return () => window.removeEventListener(`keydown`, handleKeyDown)
   }, [active, controlsActive, config.disableHideControls])
 
   // Hide controls and reset counter when they appear
