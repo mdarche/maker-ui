@@ -2,18 +2,25 @@ import { useState, useEffect } from 'react'
 
 interface TrackerProps {
   type?: 'session' | 'cookie'
-  key?: string
+  storageKey?: string
   show?: boolean
   expiration?: number
 }
 
+/**
+ * The `useTracker` hook lets you create a session token or a cookie to conditionally
+ * show or hide a component.
+ *
+ */
+
 export function useTracker({
   type,
-  key,
+  storageKey,
   show,
   expiration,
 }: TrackerProps): boolean {
   const [active, set] = useState(true)
+
   const delay = () => {
     setTimeout(() => {
       set(false)
@@ -21,36 +28,40 @@ export function useTracker({
   }
 
   useEffect(() => {
-    // Use session storage
+    /**
+     * Use session storage
+     */
 
     if (type === 'session') {
-      const sessionCheck = sessionStorage.getItem(key)
+      const sessionCheck = sessionStorage.getItem(storageKey)
 
       if (show && sessionCheck) {
         return set(false)
       }
       if (!show && !sessionCheck) {
         delay()
-        return sessionStorage.setItem(key, 'true')
+        return sessionStorage.setItem(storageKey, 'true')
       }
     }
 
-    // Use cookie storage
+    /**
+     * Use cookie storage
+     */
 
     if (type === 'cookie') {
       const cookieCheck = document.cookie
         .split(';')
-        .some(i => i.trim().startsWith(key))
+        .some(i => i.trim().startsWith(storageKey))
 
       if (show && cookieCheck) {
         return set(false)
       }
       if (!show && !cookieCheck) {
         delay()
-        document.cookie = `${key}=true;expires=${expiration};path=/`
+        document.cookie = `${storageKey}=true;expires=${expiration};path=/`
       }
     }
-  }, [show, type, expiration, key])
+  }, [show, type, expiration, storageKey])
 
   return active
 }

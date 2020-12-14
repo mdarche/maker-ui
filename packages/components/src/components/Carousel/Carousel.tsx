@@ -10,6 +10,22 @@ import { ProgressBar } from './ProgressBar'
 export interface CarouselProps extends MakerProps {
   data: Object[]
   template: React.ReactElement
+  spinner?: React.ReactElement
+  settings?: {
+    showNav?: boolean
+    pageIndicator?: boolean
+    progressBar?: boolean
+    barReverse?: boolean
+    pauseOnHover?: boolean
+    hideControls?: boolean | number // number is the timeout
+    showControlsOnHover?: boolean
+    duration?: number
+    arrow?:
+      | React.ReactElement
+      | { left?: React.ReactElement; right?: React.ReactElement }
+    transition?: 'fade' | 'slide' | 'slide-fade'
+    springConfig?: SpringConfig
+  }
   nav?: boolean
   pageIndicator?: boolean
   progressBar?: boolean
@@ -70,6 +86,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     {
       data = [],
       template,
+      settings,
       nav = true,
       pageIndicator = false,
       progressBar = false,

@@ -3,7 +3,6 @@ import { Div, Image, DivProps } from 'maker-ui'
 import { animated, useTransition } from 'react-spring'
 
 import { useLightbox, LightboxData } from './LightboxContext'
-import { Spinner } from '../Spinner'
 
 const AnimatedDiv = animated(Div)
 
@@ -72,10 +71,12 @@ interface CanvasProps extends DivProps {
  * The `Canvas` component uses transition animations to show / paginate
  * the lightbox gallery content.
  *
+ * @todo - add loading spinner to background
+ *
  * @internal usage only
  */
 
-export const Canvas = ({ zoom }: CanvasProps) => {
+export const Canvas = (props: CanvasProps) => {
   const { variant, data, index, settings } = useLightbox()
 
   const transitions = useTransition(data[index], {
@@ -111,17 +112,6 @@ export const Canvas = ({ zoom }: CanvasProps) => {
               width: '100%',
             },
           }}>
-          {/* TODO - Fix this Spinner */}
-          <Spinner
-            size={20}
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: -1,
-            }}
-          />
           <MediaFrame item={item} />
           {settings.showInfo && item.title && (
             <Div

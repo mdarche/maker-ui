@@ -20,13 +20,13 @@ const fixedPartial = (fixed: boolean, bottom: boolean) =>
     : null
 
 export interface AnnouncementProps extends DivProps {
-  key?: string
+  storageKey?: string
   fixed?: boolean
   bg?: string | string[]
   type?: 'session' | 'cookie'
   expiration?: number
   allowClose?: boolean
-  closeButton?: JSX.Element | string | null
+  closeButton?: React.ReactNode
   bottom?: boolean
   top?: boolean
   springConfig?: SpringConfig
@@ -43,7 +43,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {
       variant = 'announcement',
-      key = 'mui_dismiss_announce',
+      storageKey = 'mui_dismiss_announce',
       bg = 'primary',
       color = '#fff',
       fixed = false,
@@ -61,7 +61,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   ) => {
     const [show, set] = React.useState(true)
     const [bind, { height: viewHeight }] = useMeasure()
-    const active = useTracker({ type, key, show, expiration })
+    const active = useTracker({ type, storageKey, show, expiration })
 
     const spring = useSpring({
       transform: fixed

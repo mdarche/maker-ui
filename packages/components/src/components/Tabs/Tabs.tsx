@@ -11,7 +11,7 @@ export interface TabGroupProps extends DivProps {
   overflow?: 'stack' | 'scroll'
   bpIndex?: number
   renderInactive?: boolean
-  children?: React.ReactElement | React.ReactElement[]
+  children?: React.ReactNode
 }
 
 /**
