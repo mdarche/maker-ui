@@ -1,22 +1,22 @@
 /**
  * Utility for checking and converting number values into strings for transitions / animations
+ * @param value - A value that will be formatted into a string for transforms
  */
-
 export function format(value: any): string {
   return isNaN(value) ? value : `${value}px`
 }
 
 /**
  * Utility for parsing transition strings and setting positive or negative value
+ * @param type - A transition string ('fade-up', 'slide-right', etc.)
  */
-
 export const getSign = (type: string): string =>
   type.includes('right') || type.includes('down') ? '-' : ''
 
 /**
  * Fisher-Yates shuffle for generating a random value from an array
+ * @param array - An array of anything that will be randomly shuffled
  */
-
 export const shuffle = (array: any[]) => {
   let m = array.length,
     temp,
@@ -35,8 +35,8 @@ export const shuffle = (array: any[]) => {
 
 /**
  * Return a random item from an array
+ * @param options - An array of anything that will be randomly shuffled
  */
-
 export function random(options = []) {
   return shuffle(options)[0]
 }
@@ -46,9 +46,12 @@ export function random(options = []) {
  * of possible options. Can be applied based on position in array or individually for
  * each property.
  *
+ * @param {Object} options - A style object where each key has an array of possible values
+ * @param {Boolean} groupByIndex - A boolean that determines if the same index of each
+ * options value should be used
+ *
  * @todo add strong types
  */
-
 export function generateStyles(options = {}, groupByIndex = false) {
   let styles = {}
 
@@ -77,11 +80,36 @@ interface RandomImage {
 
 /**
  * Return a random image object
- *
+ * @param {RandomImage[]} options - An array of objects that include a `src` URL and `alt` text
  */
-
 export function generateSrc(options: RandomImage[] = []) {
   const { src, alt }: RandomImage = random(options)
 
   return { src, alt }
+}
+
+/**
+ * Clamps `number` within the inclusive `lower` and `upper` bounds.
+ * @param {number} number The number to clamp.
+ * @param {number} lower The lower bound.
+ * @param {number} upper The upper bound.
+ *
+ * @returns {number} Returns the clamped number.
+ *
+ * @see https://github.com/lodash/lodash/blob/master/clamp.js
+ */
+export function clamp(number: number, lower: number, upper: number) {
+  number = +number
+  lower = +lower
+  upper = +upper
+  // eslint-disable-next-line no-self-compare
+  lower = lower === lower ? lower : 0
+  // eslint-disable-next-line no-self-compare
+  upper = upper === upper ? upper : 0
+  // eslint-disable-next-line no-self-compare
+  if (number === number) {
+    number = number <= upper ? number : upper
+    number = number >= lower ? number : lower
+  }
+  return number
 }

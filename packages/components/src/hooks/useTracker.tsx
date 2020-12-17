@@ -11,8 +11,12 @@ interface TrackerProps {
  * The `useTracker` hook lets you create a session token or a cookie to conditionally
  * show or hide a component.
  *
+ * @param type - The browser tracking method, session or cookie
+ * @param storageKey - A unique key for the browser's local storage
+ * @param show - A boolean that determines whether the effect is run
+ * @param expiration - A number in milliseconds that determines how long the tracker is active
+ *
  */
-
 export function useTracker({
   type,
   storageKey,
@@ -31,7 +35,6 @@ export function useTracker({
     /**
      * Use session storage
      */
-
     if (type === 'session') {
       const sessionCheck = sessionStorage.getItem(storageKey)
 
@@ -47,7 +50,6 @@ export function useTracker({
     /**
      * Use cookie storage
      */
-
     if (type === 'cookie') {
       const cookieCheck = document.cookie
         .split(';')

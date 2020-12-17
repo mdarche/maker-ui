@@ -20,14 +20,12 @@ export interface MakerProps {
 /**
  * Alias for Maker UI theme object.
  */
-
 export type MakerTheme = Theme
 
 /**
  * Configuration for Maker UI layout system.
  *
  */
-
 export interface MakerOptions {
   framework?: 'gatsby' | 'next'
   linkFunction?(

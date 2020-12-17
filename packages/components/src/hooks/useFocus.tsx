@@ -27,6 +27,10 @@ export interface FocusConfig {
  * The `useFocus` hook queries the DOM for nearby focusable elements and
  * returns an object that can be used for dynamic focus management
  *
+ * @param containerRef - A react ref that points to the focus container
+ * @param focusRef - A react ref that points to the desired focus HTML Element
+ * @param show - A boolean that determines whether the effect should run
+ *
  * @internal usage only
  */
 

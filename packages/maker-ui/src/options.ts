@@ -6,7 +6,6 @@ import { MakerOptions } from './types'
  * @see `MakerOptions` for complete list of properties.
  *
  */
-
 export const defaultOptions: MakerOptions = {
   topbar: {
     maxWidth: 1260,

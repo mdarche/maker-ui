@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { forwardRef } from 'react'
 
 import { MakerProps } from '../types'
 import { ErrorBoundary } from './Errors'
@@ -18,19 +17,23 @@ interface SidebarProps
  * @see https://maker-ui.com/docs/layout/sidebar
  */
 
-export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
-  ({ bg, background, variant = 'sidebar', sx, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className="sidebar"
-        role="complementary"
-        sx={{ bg, background, variant, ...sx }}
-        {...props}>
-        <ErrorBoundary errorKey="sidebar">{children}</ErrorBoundary>
-      </div>
-    )
-  }
-)
+export const Sidebar = ({
+  bg,
+  background,
+  variant = 'sidebar',
+  sx,
+  children,
+  ...props
+}: SidebarProps) => {
+  return (
+    <div
+      className="sidebar"
+      role="complementary"
+      sx={{ bg, background, variant, ...sx }}
+      {...props}>
+      <ErrorBoundary errorKey="sidebar">{children}</ErrorBoundary>
+    </div>
+  )
+}
 
 Sidebar.displayName = 'Sidebar'

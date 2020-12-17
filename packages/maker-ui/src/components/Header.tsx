@@ -125,7 +125,6 @@ export const Header = (props: HeaderProps) => {
   /**
    * Calculate responsive header styles for header.sticky configurations
    */
-
   const stickyPartial = () => {
     if (stickyUpScroll) {
       return {

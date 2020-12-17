@@ -47,7 +47,6 @@ export const LightboxModal = ({
   /**
    * Handle autoPlay controls
    */
-
   React.useEffect(() => {
     if (play) {
       if (!data[index].src || data[index].htmlVideo) {
@@ -65,7 +64,6 @@ export const LightboxModal = ({
   /**
    * Hide preview area when lightbox closes
    */
-
   React.useEffect(() => {
     if (!active && preview) {
       setPreview(false)
@@ -79,7 +77,6 @@ export const LightboxModal = ({
   /**
    * Handle accesible key strokes
    */
-
   const handleKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
       if (!controlsActive && active && !settings.disableHideControls) {
@@ -108,7 +105,6 @@ export const LightboxModal = ({
   /**
    * Hide controls and reset timer when they appear
    */
-
   React.useEffect(() => {
     if (active && controlsActive && !settings.disableHideControls && !preview) {
       const hide = setTimeout(() => {
@@ -128,7 +124,6 @@ export const LightboxModal = ({
     <>
       {children}
       <Modal
-        isLightbox
         id={id}
         variant={variant}
         show={active}

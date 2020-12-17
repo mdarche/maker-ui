@@ -62,8 +62,9 @@ FadeBox.displayName = 'FadeBox'
 
 /**
  * Utility function to calculate transform string
+ * @param {TransitionProps} transitionObject - The transition and distance values
+ * @param {boolean} show - The current state of the transition
  */
-
 const getTransform = ({ transition, distance }: TransitionProps, show) => {
   switch (transition) {
     case 'fade-up':

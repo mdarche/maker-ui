@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { forwardRef } from 'react'
 
 import { MakerProps } from '../types'
 import { ErrorBoundary } from './Errors'
@@ -16,17 +15,21 @@ interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  * @see https://maker-ui.com/docs/layout/main
  */
 
-export const Main = forwardRef<HTMLDivElement, MainProps>(
-  ({ variant = 'main', background, bg, sx, children, ...props }, ref) => (
-    <main
-      ref={ref}
-      id="content"
-      role="main"
-      sx={{ bg, background, variant, position: 'relative', flex: 1, ...sx }}
-      {...props}>
-      <ErrorBoundary errorKey="main">{children}</ErrorBoundary>
-    </main>
-  )
+export const Main = ({
+  variant = 'main',
+  background,
+  bg,
+  sx,
+  children,
+  ...props
+}: MainProps) => (
+  <main
+    id="content"
+    role="main"
+    sx={{ bg, background, variant, position: 'relative', flex: 1, ...sx }}
+    {...props}>
+    <ErrorBoundary errorKey="main">{children}</ErrorBoundary>
+  </main>
 )
 
 Main.displayName = 'Main'

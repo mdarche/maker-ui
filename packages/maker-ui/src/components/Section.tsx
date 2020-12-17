@@ -10,7 +10,6 @@ interface SectionProps
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
   bg?: string | string[]
-  backgroundImage?: string
   rootSx?: SxStyleProp
   maxWidth?: ResponsiveScale
   container?: boolean

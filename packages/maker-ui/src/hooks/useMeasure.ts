@@ -1,5 +1,3 @@
-// Credit to drcmda's React Spring examples
-
 import { useRef, useEffect, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
@@ -38,7 +36,6 @@ export interface MeasureState {
  * @see https://maker-ui.com/docs/hooks/#useMeasure
  *
  */
-
 export function useMeasure(
   props?: MeasureProps
 ): [{ ref: React.MutableRefObject<any> }, MeasureState] {

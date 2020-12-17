@@ -18,7 +18,6 @@ export interface ModalProps extends DivProps {
   style?: any
   center?: boolean
   springConfig?: SpringConfig
-  isLightbox?: boolean // Internal only
 }
 
 /**
@@ -41,7 +40,6 @@ export const Modal = ({
   style = {},
   children,
   springConfig,
-  isLightbox = false,
   ...rest
 }: ModalProps) => {
   const modalRef = React.useRef(null)
@@ -53,7 +51,6 @@ export const Modal = ({
   /**
    * Get important focusable elements.
    */
-
   const { focusable } = useFocus({
     containerRef: modalRef,
     focusRef,
@@ -63,7 +60,6 @@ export const Modal = ({
   /**
    * Lock body when modal is active
    */
-
   React.useEffect(() => {
     if (show) {
       document.body.style.overflow = 'hidden'
@@ -75,7 +71,6 @@ export const Modal = ({
   /**
    * Add accessible keyboard shortcuts
    */
-
   const handleKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
       function previous(e: KeyboardEvent) {
@@ -116,7 +111,6 @@ export const Modal = ({
   /**
    * Configure react-spring mount animation
    */
-
   const transition = useTransition(show ? [1] : [], {
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -168,7 +162,6 @@ Modal.displayName = 'Modal'
 /**
  * Helper positioning function
  */
-
 const position = {
   position: 'fixed',
   top: 0,
@@ -180,7 +173,6 @@ const position = {
 /**
  * Helper centering function
  */
-
 const centered = val =>
   val
     ? {

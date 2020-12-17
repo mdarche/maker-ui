@@ -44,7 +44,6 @@ export const TableofContents = ({
   /**
    * Add smooth scroll to document if required
    */
-
   React.useEffect(() => {
     document.querySelector('html').style.scrollBehavior = smoothScroll
       ? 'smooth'
@@ -54,7 +53,6 @@ export const TableofContents = ({
   /**
    * Query DOM for applicable heading elements
    */
-
   React.useEffect(() => {
     const selectors = headings.map(h => `main h${h}`).join(', ')
     const nodes: HTMLElement[] = Array.from(
@@ -88,7 +86,6 @@ export const TableofContents = ({
       /**
        * Reset activeNode if scroll position is above first selector
        */
-
       if (activeNode !== undefined && currPos < menuItems[0].offset) {
         return setActiveNode(null)
       }

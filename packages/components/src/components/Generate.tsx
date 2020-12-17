@@ -30,7 +30,6 @@ export const Generate = ({
    * If there is no template component but the data array itself is composed of
    * React components, shuffle them and return
    */
-
   if (!children && React.isValidElement(data[0])) {
     return (
       <React.Fragment>
@@ -68,6 +67,5 @@ export const Generate = ({
   /**
    * Else return null
    */
-
   return null
 }
