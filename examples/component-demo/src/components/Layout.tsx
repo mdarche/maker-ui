@@ -66,7 +66,7 @@ export default ({ children, location }) => (
             <PageTransition id={location.pathname} type="fade-up" distance={50}>
               <>
                 {children}
-                <Div sx={{ height: 2000 }} />
+                <div style={{ height: 2000 }} />
               </>
             </PageTransition>
           </Main>

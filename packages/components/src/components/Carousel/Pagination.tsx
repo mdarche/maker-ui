@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { Flex, Button } from 'maker-ui'
 
+import { CarouselProps } from './Carousel'
+
 interface PaginationProps {
   current: number
   count: number
-  set: Function
-  variant?: string | string[]
+  variant?: CarouselProps['variant']
 }
 
 /**
@@ -14,12 +15,7 @@ interface PaginationProps {
  * @internal usage only
  */
 
-export const Pagination = ({
-  variant,
-  current,
-  set,
-  count,
-}: PaginationProps) => {
+export const Pagination = ({ variant, current, count }: PaginationProps) => {
   let indicators = []
 
   for (let i = 0; i <= count - 1; i++) {
@@ -30,7 +26,6 @@ export const Pagination = ({
         role="tab"
         aria-label={`Show slide ${i + 1}`}
         aria-selected={i === current ? 'true' : 'false'}
-        onClick={e => (i !== current ? set({ type: 'set', value: i }) : null)}
         className={`carousel-page ${current === i && 'active'}`}
         sx={{
           mx: 1,

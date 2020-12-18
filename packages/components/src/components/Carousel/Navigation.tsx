@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Button } from 'maker-ui'
 
 import { CarouselArrowIcon } from '../icons'
+import { CarouselProps } from './Carousel'
 
 const position = isNext => (isNext ? { right: 0 } : { left: 0 })
 const transform = isNext =>
@@ -10,19 +11,14 @@ const transform = isNext =>
     : { transform: 'translateY(-50%) rotate(180deg)' }
 
 interface NavigationProps {
-  arrow?: string | React.ReactElement
-  variant?: string | string[]
-  controls: {
-    prev: Function
-    next: Function
-  }
+  arrow?: CarouselProps['settings']['arrow']
+  variant?: CarouselProps['variant']
+  navigate?(type: string): any
 }
 
-interface NavButtonProps {
+interface NavButtonProps extends NavigationProps {
   isNext?: boolean
-  arrow?: string | React.ReactElement
-  control: any
-  variant?: string | string[]
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 /**
@@ -35,15 +31,15 @@ interface NavButtonProps {
 const NavButton = ({
   isNext = false,
   variant,
-  control,
   arrow,
+  onClick,
 }: NavButtonProps) => (
   <Button
     title={`${isNext ? 'Next' : 'Previous'} Slide`}
     aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
     variant={isNext ? `${variant}.next` : `${variant}.prev`}
     className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
-    onClick={control}
+    onClick={onClick}
     sx={{
       variant: `${variant}.nav`,
       cursor: 'pointer',
@@ -55,7 +51,15 @@ const NavButton = ({
       ...transform(isNext),
       ...position(isNext),
     }}>
-    {arrow || <CarouselArrowIcon />}
+    {arrow ? (
+      React.isValidElement(arrow) ? (
+        arrow
+      ) : (
+        arrow[isNext ? 'next' : 'prev']
+      )
+    ) : (
+      <CarouselArrowIcon />
+    )}
   </Button>
 )
 
@@ -66,11 +70,11 @@ const NavButton = ({
  */
 
 export const Navigation = React.memo(
-  ({ controls, ...props }: NavigationProps) => {
+  ({ navigate, ...props }: NavigationProps) => {
     return (
       <div>
-        <NavButton control={controls.prev} {...props} />
-        <NavButton control={controls.next} isNext {...props} />
+        <NavButton onClick={e => navigate('previous')} {...props} />
+        <NavButton onClick={e => navigate('next')} isNext {...props} />
       </div>
     )
   }

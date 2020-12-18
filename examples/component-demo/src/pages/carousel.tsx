@@ -58,12 +58,21 @@ const imageData: ImageSlideProps[] = [
 ]
 
 const ImageSlide = ({ url, alt }: ImageSlideProps) => (
-  <img
-    src={url}
-    alt={alt}
-    style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+  <div
+    style={{
+      backgroundImage: `url(${url})`,
+      height: '100%',
+      width: '100%',
+      objectFit: 'cover',
+    }}
   />
 )
+
+const data = [
+  'https://images.pexels.com/photos/62689/pexels-photo-62689.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+  'https://images.pexels.com/photos/351265/pexels-photo-351265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+  'https://images.pexels.com/photos/924675/pexels-photo-924675.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+]
 
 const CarouselPage = () => (
   <>
@@ -81,30 +90,11 @@ const CarouselPage = () => (
         }
       `}
     />
-    <Carousel
-      data={basicData}
-      template={<BasicSlide />}
-      pageIndicator
-      autoPlay
-      progressBar
-    />
+    <Carousel data={basicData} template={<BasicSlide />} />
     <Carousel
       data={imageData}
       template={<ImageSlide />}
-      transition="fade"
-      sx={{
-        my: 80,
-        button: {
-          px: 20,
-          height: '100%',
-          bg: 'rgba(0, 0, 0, 0.15)',
-          transition: 'all ease .3s',
-          '&:hover': {
-            bg: 'rgba(0,0,0, .5)',
-          },
-          svg: { fill: '#fff' },
-        },
-      }}
+      settings={{ autoPlay: false }}
     />
   </>
 )

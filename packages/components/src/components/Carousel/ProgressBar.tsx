@@ -2,12 +2,13 @@ import * as React from 'react'
 import { Div } from 'maker-ui'
 import { animated, useSpring } from 'react-spring'
 
+import { CarouselProps } from './Carousel'
+
 const AnimatedDiv = animated(Div)
 
 interface ProgressBarProps {
-  duration?: number
-  variant?: string | string[]
-  reverse?: boolean
+  variant?: CarouselProps['variant']
+  settings?: CarouselProps['settings']
 }
 
 /**
@@ -18,18 +19,17 @@ interface ProgressBarProps {
  */
 
 export const ProgressBar = ({
-  duration,
   variant,
-  reverse,
+  settings: { barReverse, duration },
 }: ProgressBarProps) => {
   const props = useSpring({
     from: {
-      opacity: reverse ? 0 : 1,
-      transform: `translateX(${reverse ? 100 : 0}%)`,
+      opacity: barReverse ? 0 : 1,
+      transform: `translateX(${barReverse ? 100 : 0}%)`,
     },
     to: {
-      opacity: reverse ? 1 : 0,
-      transform: `translateX(${reverse ? 0 : 100}%)`,
+      opacity: barReverse ? 1 : 0,
+      transform: `translateX(${barReverse ? 0 : 100}%)`,
     },
     config: { duration },
     reset: true,

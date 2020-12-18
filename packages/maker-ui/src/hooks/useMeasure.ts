@@ -32,6 +32,8 @@ export interface MeasureState {
  * body (window) is resized
  * @param timeout - Number in milliseconds that defers the initial ref measurement.
  * Useful if a parent container has a mounting animation like the `PageTransition`.
+ * 
+ * @todo rename `externalRef` to ref -- less confusing
  *
  * @see https://maker-ui.com/docs/hooks/#useMeasure
  *

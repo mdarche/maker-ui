@@ -98,7 +98,7 @@ export function generateSrc(options: RandomImage[] = []) {
  *
  * @see https://github.com/lodash/lodash/blob/master/clamp.js
  */
-export function clamp(number: number, lower: number, upper: number) {
+export function clamp(number: number, lower: number, upper: number): number {
   number = +number
   lower = +lower
   upper = +upper
