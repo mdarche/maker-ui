@@ -8,10 +8,9 @@ import { clamp } from '../helper'
 
 import { Navigation } from './Navigation'
 import { Pagination } from './Pagination'
-import { ProgressBar } from './ProgressBar'
 
 export interface CarouselProps extends MakerProps {
-  data: Object[] | string[] // component props or an array of URL strings for images
+  data: Object[]
   template: React.ReactElement
   height?: ResponsiveScale
   settings?: {
@@ -19,11 +18,9 @@ export interface CarouselProps extends MakerProps {
     showNav?: boolean
     pageIndicator?: boolean
     infiniteScroll?: boolean
-    progressBar?: boolean
-    barReverse?: boolean
-    hideControlsDelay?: number
-    hideControlsOnMobile?: boolean
-    showControlsOnHover?: boolean
+    hideControlsDelay?: number // TODO
+    hideControlsOnMobile?: boolean // TODO
+    showControlsOnHover?: boolean // TODO
     duration?: number // milliseconds
     spinner?: React.ReactElement
     arrow?:
@@ -39,8 +36,6 @@ export interface CarouselProps extends MakerProps {
 /**
  * Use the `Carousel` component to iterate over an array of data objects or React components
  * to show an animated carousel.
- *
- * @todo add callback functions for buttons and page indicators w/ attributes
  *
  * @see https://maker-ui.com/docs/components/carousel
  */
@@ -69,7 +64,6 @@ export const Carousel = ({
     duration,
     showNav,
     arrow,
-    progressBar,
     pageIndicator,
     transition,
     fadeDuration,
@@ -296,9 +290,6 @@ export const Carousel = ({
           count={data.length}
         />
       ) : null}
-      {progressBar && autoPlay ? (
-        <ProgressBar current={active} variant={variant} settings={settings} />
-      ) : null}
     </Div>
   )
 }
@@ -316,8 +307,6 @@ function mergeSettings(settings: CarouselProps['settings']) {
       showNav: true,
       pageIndicator: true,
       infiniteScroll: false,
-      progressBar: false,
-      barReverse: false,
       hideControls: false,
       showControlsOnHover: false,
       duration: 6500,
