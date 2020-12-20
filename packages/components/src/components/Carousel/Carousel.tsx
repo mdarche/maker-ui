@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, MakerProps, useMeasure } from 'maker-ui'
+import { Div, MakerProps, ResponsiveScale, useMeasure } from 'maker-ui'
 import { animated, useSprings, SpringConfig } from 'react-spring'
 import { useDrag } from 'react-use-gesture'
 import merge from 'deepmerge'
@@ -11,9 +11,9 @@ import { Pagination } from './Pagination'
 import { ProgressBar } from './ProgressBar'
 
 export interface CarouselProps extends MakerProps {
-  data: Object[] | string[] // component props or an array of URL strings
+  data: Object[] | string[] // component props or an array of URL strings for images
   template: React.ReactElement
-  spinner?: React.ReactElement
+  height?: ResponsiveScale
   settings?: {
     autoPlay?: boolean
     showNav?: boolean
@@ -21,14 +21,18 @@ export interface CarouselProps extends MakerProps {
     infiniteScroll?: boolean
     progressBar?: boolean
     barReverse?: boolean
-    hideControls?: boolean | number // number is the timeout
+    hideControlsDelay?: number
+    hideControlsOnMobile?: boolean
     showControlsOnHover?: boolean
-    duration?: number
+    duration?: number // milliseconds
+    spinner?: React.ReactElement
     arrow?:
       | React.ReactElement
-      | { left?: React.ReactElement; right?: React.ReactElement }
+      | { prev?: React.ReactElement; next?: React.ReactElement }
     transition?: 'fade' | 'slide' | 'scale'
+    fadeDuration?: number // seconds
     springConfig?: SpringConfig
+    breakIndex?: boolean
   }
 }
 
@@ -36,8 +40,7 @@ export interface CarouselProps extends MakerProps {
  * Use the `Carousel` component to iterate over an array of data objects or React components
  * to show an animated carousel.
  *
- * @todo - revisit accessible controls: https://www.w3.org/WAI/tutorials/carousels/full-code/
- * @todo - Add lazy image loading and Youtube/Vimeo video caching
+ * @todo add callback functions for buttons and page indicators w/ attributes
  *
  * @see https://maker-ui.com/docs/components/carousel
  */
@@ -47,6 +50,7 @@ export const Carousel = ({
   template,
   settings = {},
   variant = 'carousel',
+  height = 500,
   sx,
   ...rest
 }: CarouselProps) => {
@@ -67,6 +71,9 @@ export const Carousel = ({
     arrow,
     progressBar,
     pageIndicator,
+    transition,
+    fadeDuration,
+    springConfig,
   } = mergeSettings(settings)
 
   /**
@@ -77,7 +84,7 @@ export const Carousel = ({
     i => ({
       x: i * (width === 0 ? window.innerWidth : width),
       scale: 1,
-      config: settings?.springConfig,
+      config: springConfig,
     }),
     [width]
   )
@@ -122,7 +129,7 @@ export const Carousel = ({
    * Handle external navigation from arrow buttons
    */
   const navigate = React.useCallback(
-    (type: 'next' | 'previous') => {
+    (type: 'next' | 'previous' | 'index', idx?: number) => {
       const isFirst = index.current === 0 ? true : false
       const isLast = index.current === data.length - 1 ? true : false
       const nextIndex = type === 'next' ? index.current + 1 : index.current - 1
@@ -132,6 +139,16 @@ export const Carousel = ({
           x: (i - index.current) * width,
           scale: 1,
         }))
+      }
+
+      /**
+       * Handle page indicator buttons that select a specific slide index
+       */
+      if (type === 'index') {
+        index.current = idx
+        setActive(idx)
+        update()
+        return
       }
 
       /**
@@ -151,7 +168,7 @@ export const Carousel = ({
         }
       } else {
         /**
-         * Simulate a bouncing / deflection gesture
+         * Simulate a bouncing / deflection drag gesture
          */
         if ((type === 'next' && isLast) || (type === 'previous' && isFirst)) {
           set(i => ({
@@ -217,9 +234,13 @@ export const Carousel = ({
       onMouseLeave={autoPlay ? resume : undefined}
       className="carousel"
       sx={{
+        overflow: 'hidden',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
+        height,
+        ...sx,
+        '.slide-container': {},
         '.slide': {
           position: 'absolute',
           display: 'block',
@@ -228,6 +249,9 @@ export const Carousel = ({
           height: '100%',
           width: '100%',
           willChange: 'transform',
+          opacity: transition === 'fade' && 0,
+          transition:
+            transition === 'fade' && `opacity ${fadeDuration}s ease-in-out`,
         },
         '.slide-inner': {
           height: '100%',
@@ -237,32 +261,43 @@ export const Carousel = ({
         button: {
           zIndex: 100,
         },
-        ...sx,
       }}
       {...rest}>
-      {props.map(({ x, scale }, i) => (
-        <animated.div
-          className={`slide${index.current === i ? ' active' : ''}`}
-          {...bind()}
-          key={i}
-          // @ts-ignore
-          style={{ x }}>
+      <Div className="slide-container">
+        {props.map(({ x, scale }, i) => (
           <animated.div
-            className="slide-inner"
-            style={{ scale: settings?.transition === 'scale' && scale }}>
-            {React.cloneElement(template, data[i])}
+            className={`slide${active === i ? ' active' : ''}`}
+            {...bind()}
+            key={i}
+            style={{
+              // @ts-ignore
+              opacity: transition === 'fade' && active === i && 1,
+              x: transition !== 'fade' && x,
+            }}>
+            <animated.div
+              className="slide-inner"
+              style={{
+                scale: transition === 'scale' && scale,
+              }}>
+              {React.cloneElement(template, data[i])}
+            </animated.div>
           </animated.div>
-        </animated.div>
-      ))}
+        ))}
+      </Div>
 
       {showNav ? (
         <Navigation variant={variant} navigate={navigate} arrow={arrow} />
       ) : null}
       {pageIndicator ? (
-        <Pagination variant={variant} current={active} count={data.length} />
+        <Pagination
+          variant={variant}
+          navigate={navigate}
+          current={active}
+          count={data.length}
+        />
       ) : null}
       {progressBar && autoPlay ? (
-        <ProgressBar variant={variant} settings={settings} />
+        <ProgressBar current={active} variant={variant} settings={settings} />
       ) : null}
     </Div>
   )
@@ -277,7 +312,7 @@ Carousel.displayName = 'Carousel'
 function mergeSettings(settings: CarouselProps['settings']) {
   return merge(
     {
-      autoPlay: true,
+      autoPlay: false,
       showNav: true,
       pageIndicator: true,
       infiniteScroll: false,
@@ -287,6 +322,7 @@ function mergeSettings(settings: CarouselProps['settings']) {
       showControlsOnHover: false,
       duration: 6500,
       transition: 'slide',
+      fadeDuration: 0.5,
       springConfig: { mass: 1, tension: 160, friction: 28 },
     },
     settings

@@ -7,6 +7,7 @@ interface PaginationProps {
   current: number
   count: number
   variant?: CarouselProps['variant']
+  navigate?(type: 'next' | 'previous' | 'index', index?: number): void
 }
 
 /**
@@ -15,18 +16,24 @@ interface PaginationProps {
  * @internal usage only
  */
 
-export const Pagination = ({ variant, current, count }: PaginationProps) => {
+export const Pagination = ({
+  variant,
+  navigate,
+  current,
+  count,
+}: PaginationProps) => {
   let indicators = []
 
   for (let i = 0; i <= count - 1; i++) {
     indicators.push(
       <Button
         key={i}
-        variant={`${variant}.page`}
+        variant={`${variant}.pageIndicator`}
+        className={`carousel-page ${current === i && 'active'}`}
         role="tab"
+        onClick={e => navigate('index', i)}
         aria-label={`Show slide ${i + 1}`}
         aria-selected={i === current ? 'true' : 'false'}
-        className={`carousel-page ${current === i && 'active'}`}
         sx={{
           mx: 1,
           p: 0,
@@ -43,8 +50,8 @@ export const Pagination = ({ variant, current, count }: PaginationProps) => {
   return (
     <Flex
       variant={`${variant}.pagination`}
-      role="tablist"
       className="carousel-pagination"
+      role="tablist"
       sx={{ position: 'absolute', alignItems: 'center', zIndex: 1 }}>
       {indicators}
     </Flex>

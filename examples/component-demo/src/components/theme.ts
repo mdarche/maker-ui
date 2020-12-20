@@ -95,7 +95,7 @@ export const theme = {
       left: '50%',
       transform: 'translateX(-50%)',
     },
-    page: {
+    pageIndicator: {
       bg: 'rgba(123, 0, 0, 0.25)',
       '&.active': {
         bg: 'red',

@@ -25,10 +25,6 @@ const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: 36,
-      p: {
-        opacity: 0,
-        animation: 'fadeInUp ease .6s forwards .8s',
-      },
     }}>
     <p>{greeting}</p>
   </Div>
@@ -68,14 +64,14 @@ const ImageSlide = ({ url, alt }: ImageSlideProps) => (
   />
 )
 
-const data = [
-  'https://images.pexels.com/photos/62689/pexels-photo-62689.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/351265/pexels-photo-351265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/924675/pexels-photo-924675.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-]
-
 const CarouselPage = () => (
-  <>
+  <Div
+    sx={{
+      '.active p': {
+        opacity: 0,
+        animation: 'fadeInUp ease .6s forwards .8s',
+      },
+    }}>
     <Global
       styles={css`
         @keyframes fadeInUp {
@@ -90,13 +86,27 @@ const CarouselPage = () => (
         }
       `}
     />
-    <Carousel data={basicData} template={<BasicSlide />} />
     <Carousel
+      data={basicData}
+      template={<BasicSlide />}
+      settings={{
+        autoPlay: true,
+        progressBar: true,
+        // transition: 'fade',
+        // infiniteScroll: true,
+        // arrow: <div>Cmoon!</div>,
+        // arrow: {
+        //   prev: <div>Prev</div>,
+        //   next: <div>Next</div>,
+        // },
+      }}
+    />
+    {/* <Carousel
       data={imageData}
       template={<ImageSlide />}
       settings={{ autoPlay: false }}
-    />
-  </>
+    /> */}
+  </Div>
 )
 
 export default CarouselPage
