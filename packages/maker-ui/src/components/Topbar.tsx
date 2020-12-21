@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 import { useEffect } from 'react'
 
 import { MakerOptions, MakerProps, ResponsiveScale } from '../types'
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
-import { setBreakpoint } from '../utils/helper'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useMeasure } from '../hooks/useMeasure'
 import { useLayout, useMeasurements } from '../context/LayoutContext'
 
 interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
-  bg?: string | string[]
+  background?: string
   maxWidth?: ResponsiveScale
   scrollOverflow?: boolean
   sticky?: MakerOptions['topbar']['sticky']
@@ -26,6 +26,7 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 
 export const Topbar = (props: TopbarProps) => {
   const { topbar } = useOptions()
+  const { mediaQuery } = useMediaQuery('topbar')
   const [layout] = useLayout('content')
   const [bind, { height }] = useMeasure({
     observe: layout.includes('workspace'),
@@ -40,49 +41,46 @@ export const Topbar = (props: TopbarProps) => {
   }, [height])
 
   const {
-    bg = 'bg_topbar',
+    background = 'var(--bg_topbar)',
     maxWidth,
-    variant = 'topbar',
     sticky = topbar.sticky,
     stickyOnMobile = topbar.stickyOnMobile,
     scrollOverflow = false,
     children,
+    css,
     ...rest
   } = props
 
   const stickyPartial = sticky
-    ? {
-        position: stickyOnMobile
-          ? 'sticky'
-          : setBreakpoint(topbar.bpIndex, ['relative', 'sticky']),
-      }
+    ? mediaQuery(
+        'position',
+        stickyOnMobile ? ['sticky'] : ['relative', 'sticky']
+      )
     : !sticky && stickyOnMobile
-    ? {
-        position: setBreakpoint(topbar.bpIndex, ['sticky', 'relative']),
-      }
-    : null
+    ? mediaQuery('position', ['sticky', 'relative'])
+    : undefined
 
   return (
     <aside
       {...bind}
       id="topbar"
-      sx={{
-        bg,
-        variant,
+      css={{
+        background,
         top: 0,
         zIndex: 100,
         ...stickyPartial,
-        display: topbar.hideOnMobile
-          ? setBreakpoint(topbar.bpIndex, ['none', 'block'])
-          : 'block',
+        ...mediaQuery(
+          'display',
+          topbar.hideOnMobile ? ['none', 'block'] : ['block']
+        ),
       }}>
       <div
         className="container"
-        sx={{
-          mx: 'auto',
+        css={{
+          margin: '0 auto',
           overflowX: scrollOverflow ? 'scroll' : null,
           whiteSpace: scrollOverflow ? 'nowrap' : null,
-          maxWidth: maxWidth || (t => t.sizes.maxWidth_topbar),
+          maxWidth: `var(--maxWidth_topbar)`,
         }}
         {...rest}>
         <ErrorBoundary errorKey="topbar">{children}</ErrorBoundary>

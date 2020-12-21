@@ -43,6 +43,8 @@ export const options: MakerOptions = {
     sticky: true,
     stickyOnMobile: true,
     maxWidth: [200, 600],
+    hideOnMobile: true,
+    bpIndex: 0,
   },
   header: {
     navType: 'basic',

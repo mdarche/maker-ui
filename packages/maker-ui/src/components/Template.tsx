@@ -125,7 +125,7 @@ export const Template = ({
   children,
 }: TemplateProps) => {
   return (
-    <Layout theme={theme} options={options} components={components}>
+    <Layout theme={theme} options={options}>
       {topbar && <Topbar>{topbar}</Topbar>}
       <Header>
         <Navbar

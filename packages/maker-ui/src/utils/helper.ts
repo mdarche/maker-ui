@@ -87,7 +87,7 @@ export function generateId(length: number = 5): string {
  *
  */
 
-export function setBreakpoint(index: number, arr: any[]): SxStyleProp {
+export function setBreakpoint(index: number, arr: any[]) {
   const fill = arr[0]
   let i = 0
 
