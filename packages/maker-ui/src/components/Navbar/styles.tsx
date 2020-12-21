@@ -1,4 +1,3 @@
-import { MakerOptions } from '../../types'
 import { setBreakpoint } from '../../utils/helper'
 
 // Grid & flex justification styles for desktop
@@ -77,12 +76,7 @@ const mobile = {
  * Calculate grid-template-area, grid-template-columns, and grid-template-rows
  */
 
-export function gridStyles(
-  layout: string,
-  mobileLayout: string,
-  grid: MakerOptions['header']['grid'],
-  bp: number
-) {
+export function gridStyles(layout: string, mobileLayout: string, bp: number) {
   return {
     gridTemplateAreas: setBreakpoint(bp, [
       mobile[mobileLayout].areas,

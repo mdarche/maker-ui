@@ -28,6 +28,34 @@ export type MakerTheme = Theme
  */
 export interface MakerOptions {
   framework?: 'gatsby' | 'next'
+  breakpoints?: string[] | number[]
+  fonts?: {
+    body?: string
+    heading?: string
+    monospace?: string
+    [key: string]: string
+  }
+  colors?: {
+    // @ts-ignore --- Need to figure this out
+    initialTheme?: string
+    [key: string]: {
+      text?: string
+      link?: string
+      link_hover?: string
+      primary?: string
+      secondary?: string
+      background?: string
+      bg_topbar?: string
+      bg_header?: string
+      bg_dropdown?: string
+      bg_mobileMenu?: string
+      bg_sideNav?: string
+      bg_footer?: string
+      bg_toolbar?: string
+      bg_panel?: string
+      [key: string]: string
+    }
+  }
   linkFunction?(
     path: string,
     children: string | React.ReactElement,
@@ -68,13 +96,6 @@ export interface MakerOptions {
       | 'default'
       | React.ReactNode
       | ((currentMode?: string, attributes?: object) => React.ReactNode)
-    grid?: {
-      columns?: ResponsiveString
-      rows?: ResponsiveString
-      areas?: ResponsiveString
-      columnGap?: ResponsiveScale
-      rowGap?: ResponsiveScale
-    }
     bpIndex?: number
   }
   mobileMenu?: {

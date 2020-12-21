@@ -11,7 +11,6 @@ import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
 import { setBreakpoint } from '../utils/helper'
-// import { useMeasure } from '../hooks/useMeasure'
 
 const Container = ({ isHeader, ...props }) =>
   isHeader ? <header {...props} /> : <div {...props} />

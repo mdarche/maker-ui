@@ -50,7 +50,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
             <div
               className="container"
               sx={{
-                maxWidth: maxWidth || (t => t.sizes.maxWidth_section),
+                maxWidth: 'var(--maxWidth_section)',
                 mx: 'auto',
                 ...sx,
               }}

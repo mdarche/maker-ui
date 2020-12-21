@@ -23,7 +23,6 @@ export interface NavProps extends MakerProps {
   colorButton?: MakerOptions['header']['colorButton']
   menuButton?: MakerOptions['header']['menuButton']
   navArea?: React.ReactNode
-  grid?: MakerOptions['header']['grid']
   pathname?: string
   maxWidth?: ResponsiveScale
 }
@@ -48,7 +47,6 @@ export const Navbar = (props: NavProps) => {
     navArea,
     menuButton,
     colorButton,
-    grid = header.grid,
     maxWidth,
     variant = 'navbar',
     sx,
@@ -79,7 +77,7 @@ export const Navbar = (props: NavProps) => {
         maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
         mx: 'auto',
         position: 'relative',
-        ...gridStyles(layout, mobileLayout, grid, header.bpIndex),
+        ...gridStyles(layout, mobileLayout, header.bpIndex),
         ...wrapPartial,
         ...sx,
       }}>

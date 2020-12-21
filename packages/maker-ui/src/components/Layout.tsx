@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { ThemeProvider } from 'theme-ui'
+import { Global } from '@emotion/react'
 
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
@@ -9,11 +10,12 @@ import { ErrorBoundary } from './Errors'
 import { MakerOptions } from '../types'
 import { createTheme } from '../theme'
 
+import { colorVars, themeVars } from '../utils/css-builder'
+
 interface LayoutProps {
   children: React.ReactNode
   theme: object
   options: Partial<MakerOptions>
-  components?: object // TODO Strip this from props and make people use MDX provider for MDX
   skiplinks?: LinkItem[]
 }
 
@@ -26,15 +28,13 @@ interface LayoutProps {
 export const Layout = ({
   theme = {},
   options = {},
-  components,
   skiplinks,
   children,
 }: LayoutProps) => {
   return (
-    <ThemeProvider
-      theme={createTheme(theme, options)}
-      // @ts-ignore
-      components={components}>
+    <ThemeProvider theme={createTheme(theme, options)}>
+      <Global styles={colorVars(options.colors)} />
+      <Global styles={themeVars(options)} />
       <OptionProvider options={options}>
         <LayoutProvider>
           <ActionProvider>

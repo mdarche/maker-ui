@@ -7,6 +7,11 @@ import { MakerOptions } from './types'
  *
  */
 export const defaultOptions: MakerOptions = {
+  fonts: {
+    body: 'sans-serif',
+    heading: 'sans-serif',
+    monospace: 'monospace',
+  },
   topbar: {
     maxWidth: 1260,
     hideOnMobile: false,
