@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { SxStyleProp, Theme } from 'theme-ui'
-import { CSSObject } from '@emotion/react'
 
 import { mobileNavTypes, navTypes, transitionTypes } from './constants'
 
