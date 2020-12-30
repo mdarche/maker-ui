@@ -12,6 +12,28 @@ export const defaultOptions: MakerOptions = {
     heading: 'sans-serif',
     monospace: 'monospace',
   },
+  breakpoints: ['568px', '768px', '1440px'],
+  // @ts-ignore
+  colors: {
+    initialTheme: 'light',
+    light: {
+      link: 'red',
+      link_hover: 'green',
+      text: '#333',
+      background: '#fff',
+      primary: '#1858dc',
+      secondary: '#355cac',
+      accent: '#1858dc',
+      muted: '#f6f6f6',
+      border: '#e6e6e6',
+      bg_topbar: '#355cac',
+      bg_header: '#fff',
+      bg_mobileMenu: 'black',
+      bg_sideNav: '#eee',
+      bg_footer: 'blue',
+      bg_toolbar: '#fbfbfb',
+    },
+  },
   topbar: {
     maxWidth: 1260,
     hideOnMobile: false,

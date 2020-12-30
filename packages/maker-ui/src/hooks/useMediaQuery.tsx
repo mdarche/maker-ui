@@ -9,7 +9,7 @@ type LayoutKey =
   | 'sidebar'
   | 'content'
   | 'workspace'
-// TODO accept an optional layout type to fetch selected options break indices
+
 export const useMediaQuery = (type?: LayoutKey) => {
   const options = useOptions()
 
@@ -52,5 +52,6 @@ export const useMediaQuery = (type?: LayoutKey) => {
     }
     return styles
   }
+
   return { mediaQuery }
 }

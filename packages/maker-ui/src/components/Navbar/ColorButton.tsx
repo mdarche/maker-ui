@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useThemeUI } from 'theme-ui'
 
 import { Button } from '../Primitives'
 import { MakerOptions } from '../../types'
@@ -18,18 +17,22 @@ interface ColorButtonProps {
  */
 
 export const ColorButton = ({ customButton }: ColorButtonProps) => {
-  const { theme, colorMode, setColorMode } = useThemeUI()
-  const { header } = useOptions()
+  const { header, colors } = useOptions()
+  const [theme, setTheme] = React.useState(colors.initialTheme || 'light')
 
-  const modes: string[] = theme.colors.modes
-    ? [theme.initialColorModeName].concat(Object.keys(theme.colors.modes))
-    : [theme.initialColorModeName]
+  const { initialTheme, ...colorModes } = colors
 
-  const cycleMode = (): void => {
-    const i = modes.indexOf(colorMode)
+  const modes = colorModes ? Object.keys(colorModes) : [initialTheme]
+
+  React.useEffect(() => {
+    document.body.dataset.theme = theme
+  }, [theme])
+
+  const cycleMode = () => {
+    const i = modes.indexOf(theme)
     const next = modes[(i + 1) % modes.length]
 
-    setColorMode(next)
+    setTheme(next)
   }
 
   const attributes = {
@@ -48,17 +51,16 @@ export const ColorButton = ({ customButton }: ColorButtonProps) => {
 
   if (header.showColorButton) {
     return typeof colorButton === 'function' ? (
-      colorButton(colorMode, attributes)
+      colorButton(theme, attributes)
     ) : (
       <Button
         {...attributes}
-        variant="header.colorButton"
         sx={{
           display: header.hideColorButtonOnMobile
             ? setBreakpoint(header.bpIndex, ['none', 'block'])
             : 'block',
         }}>
-        {colorButton || colorMode}
+        {colorButton || theme}
       </Button>
     )
   }

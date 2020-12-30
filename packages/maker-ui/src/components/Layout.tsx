@@ -10,6 +10,7 @@ import { ErrorBoundary } from './Errors'
 import { MakerOptions } from '../types'
 import { createTheme } from '../theme'
 
+import { globalStyles } from '../utils/styles'
 import { colorVars, themeVars } from '../utils/css-builder'
 
 interface LayoutProps {
@@ -35,6 +36,7 @@ export const Layout = ({
     <ThemeProvider theme={createTheme(theme, options)}>
       <Global styles={colorVars(options.colors)} />
       <Global styles={themeVars(options)} />
+      <Global styles={globalStyles} />
       <OptionProvider options={options}>
         <LayoutProvider>
           <ActionProvider>

@@ -5,9 +5,9 @@ export const options: MakerOptions = {
   framework: 'gatsby',
   breakpoints: ['568px', '768px', '1440px'],
   colors: {
-    // initialTheme: 'light',
     light: {
       link: 'red',
+      link_hover: 'green',
       text: '#333',
       background: '#fff',
       primary: '#1858dc',
@@ -29,7 +29,7 @@ export const options: MakerOptions = {
       primary: '',
       secondary: '',
       background: '',
-      bg_topbar: '#355cac',
+      bg_topbar: '#000',
       bg_header: '#000',
       bg_dropdown: '',
       bg_mobileMenu: 'rgba(0, 0, 0, 0.9)',

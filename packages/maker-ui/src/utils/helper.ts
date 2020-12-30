@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { SxStyleProp } from 'theme-ui'
 
 import { transitionTypes } from '../constants'
 

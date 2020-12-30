@@ -9,7 +9,7 @@ import { MakerOptions } from '../types'
  * Converts the colors from the Maker UI options configuration into CSS variables
  *
  * @param {Object} colors - the `colors` object from MakerOptions
- * @returns class-scoped CSS variable declarations
+ * @returns body dataset-scoped CSS variable declarations
  *
  * @internal usage only
  */
@@ -21,7 +21,7 @@ export const colorVars = ({
   let css = {}
 
   themeKeys.forEach(k => {
-    const selector = `.theme-${k}`
+    const selector = `body[data-theme='${k}']`
     let styles = { [selector]: {} }
 
     for (const [key, value] of Object.entries(colorModes[k])) {
@@ -35,7 +35,7 @@ export const colorVars = ({
 }
 
 /**
- * Converts relevant `MakerOptions` values into CSS variables with the necessary
+ * Converts relevant `MakerOptions` values into CSS variables with
  * media query support
  *
  * @param {Object} options - the entire options object

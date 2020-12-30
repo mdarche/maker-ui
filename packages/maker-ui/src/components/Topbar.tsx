@@ -41,7 +41,7 @@ export const Topbar = (props: TopbarProps) => {
   }, [height])
 
   const {
-    background = 'var(--bg_topbar)',
+    background = 'var(--color-bg_topbar)',
     maxWidth,
     sticky = topbar.sticky,
     stickyOnMobile = topbar.stickyOnMobile,
@@ -80,7 +80,7 @@ export const Topbar = (props: TopbarProps) => {
           margin: '0 auto',
           overflowX: scrollOverflow ? 'scroll' : null,
           whiteSpace: scrollOverflow ? 'nowrap' : null,
-          maxWidth: `var(--maxWidth_topbar)`,
+          maxWidth: 'var(--maxWidth_topbar)',
         }}
         {...rest}>
         <ErrorBoundary errorKey="topbar">{children}</ErrorBoundary>
