@@ -1,4 +1,6 @@
-export const globalStyles = {
+import { GlobalProps } from '@emotion/react'
+
+export const globalStyles: GlobalProps['styles'] = {
   '*': {
     boxSizing: 'border-box',
   },
@@ -23,6 +25,7 @@ export const globalStyles = {
       color: 'var(--colors-link_hover)',
     },
   },
-  // Optional normalize
-  // Optional scaling & responsive width
 }
+
+// Optional normalize
+// Optional scaling & responsive width

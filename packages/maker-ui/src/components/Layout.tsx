@@ -17,6 +17,7 @@ interface LayoutProps {
   children: React.ReactNode
   theme: object
   options: Partial<MakerOptions>
+  styles: object
   skiplinks?: LinkItem[]
 }
 
@@ -29,6 +30,7 @@ interface LayoutProps {
 export const Layout = ({
   theme = {},
   options = {},
+  styles = {},
   skiplinks,
   children,
 }: LayoutProps) => {
@@ -37,6 +39,7 @@ export const Layout = ({
       <Global styles={colorVars(options.colors)} />
       <Global styles={themeVars(options)} />
       <Global styles={globalStyles} />
+      <Global styles={{ ...(styles as object) }} />
       <OptionProvider options={options}>
         <LayoutProvider>
           <ActionProvider>
