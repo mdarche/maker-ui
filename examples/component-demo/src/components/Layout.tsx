@@ -51,7 +51,7 @@ const menu = [
 ]
 
 export default ({ children, location }) => (
-  <Layout theme={theme} options={options}>
+  <Layout styles={theme} options={options}>
     {/* <Announcement>Test</Announcement> */}
     <Topbar>Topbar content</Topbar>
     <Header>

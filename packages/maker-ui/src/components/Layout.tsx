@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { ThemeProvider } from 'theme-ui'
 import { Global } from '@emotion/react'
 
 import { OptionProvider } from '../context/OptionContext'
@@ -8,14 +7,12 @@ import { LayoutProvider } from '../context/LayoutContext'
 import { Skiplinks, LinkItem } from './Skiplinks'
 import { ErrorBoundary } from './Errors'
 import { MakerOptions } from '../types'
-import { createTheme } from '../theme'
 
 import { globalStyles } from '../utils/styles'
 import { colorVars, themeVars } from '../utils/css-builder'
 
 interface LayoutProps {
   children: React.ReactNode
-  theme: object
   options: Partial<MakerOptions>
   styles?: object
   skiplinks?: LinkItem[]
@@ -23,32 +20,29 @@ interface LayoutProps {
 
 /**
  * Wrap your application in the `Layout` component to use Maker UI.
- *
+ * @TODO - support responsive arrays for global styles
  * @see https://maker-ui.com/docs/layout/layout
  */
 
 export const Layout = ({
-  theme = {},
   options = {},
   styles = {},
   skiplinks,
   children,
 }: LayoutProps) => {
   return (
-    <ThemeProvider theme={createTheme(theme, options)}>
-      <Global styles={colorVars(options.colors)} />
-      <Global styles={themeVars(options)} />
-      <Global styles={globalStyles} />
-      <Global styles={{ ...(styles as object) }} />
-      <OptionProvider options={options}>
-        <LayoutProvider>
-          <ActionProvider>
-            <Skiplinks links={skiplinks} />
-            <ErrorBoundary errorKey="layout">{children}</ErrorBoundary>
-          </ActionProvider>
-        </LayoutProvider>
-      </OptionProvider>
-    </ThemeProvider>
+    <OptionProvider options={options}>
+      <LayoutProvider>
+        <ActionProvider>
+          <Global styles={colorVars(options.colors)} />
+          <Global styles={themeVars(options)} />
+          <Global styles={globalStyles} />
+          <Global styles={{ ...(styles as object) }} />
+          <Skiplinks links={skiplinks} />
+          <ErrorBoundary errorKey="layout">{children}</ErrorBoundary>
+        </ActionProvider>
+      </LayoutProvider>
+    </OptionProvider>
   )
 }
 

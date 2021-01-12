@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, Section, Deez } from 'maker-ui'
+import { Div, Section } from 'maker-ui'
 
 const IndexPage = () => {
   // const responsiveArray = ['10px', '20px']
@@ -9,15 +9,6 @@ const IndexPage = () => {
   return (
     <>
       <h1>Component Showcase!</h1>
-      <Deez
-        breakpoints={[800, 200]}
-        _css={{
-          position: 'relative',
-          background: ['blue', 'red', 'purple'],
-          color: ['green', 'purple'],
-        }}>
-        Deez tests
-      </Deez>
       <div>
         Anoter title
         <h4>Subtitle</h4>
@@ -31,7 +22,7 @@ const IndexPage = () => {
       >
         <h2>Test</h2>
       </Section>
-      <Div sx={{ height: 5000 }}>test</Div>
+      <Div css={{ height: 5000 }}>test</Div>
     </>
   )
 }
