@@ -53,7 +53,7 @@ const MediaFrame = ({
         src={src}
         alt={alt ? alt : 'Lightbox image'}
         onLoad={() => set(true)}
-        sx={{ objectFit: 'contain' }}
+        css={{ objectFit: 'contain' }}
       />
     )
   }
@@ -93,7 +93,7 @@ export const Canvas = (props: CanvasProps) => {
           className="lb-canvas"
           // @ts-ignore
           style={props}
-          sx={{
+          css={{
             position: 'absolute',
             top: '50%',
             left: '50%',
@@ -115,7 +115,7 @@ export const Canvas = (props: CanvasProps) => {
           {settings.showInfo && item.title && (
             <Div
               className="lb-info"
-              sx={{
+              css={{
                 color: '#fff',
                 h4: {
                   marginTop: 20,
@@ -125,7 +125,7 @@ export const Canvas = (props: CanvasProps) => {
               }}>
               <h4>{item.title}</h4>
               {item.description && (
-                <Div sx={{ marginTop: 20 }}>{item.description}</Div>
+                <Div css={{ marginTop: 20 }}>{item.description}</Div>
               )}
             </Div>
           )}

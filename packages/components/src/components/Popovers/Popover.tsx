@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTransition, animated, SpringConfig } from 'react-spring'
-import { Div, DivProps, useMeasure, useMakerUI } from 'maker-ui'
+import { Div, DivProps, useMeasure, useMakerUI, MakerProps } from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { getSign } from '../helper'
@@ -23,7 +23,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   appendTo?: string | Element
   trapFocus?: boolean
   closeOnBlur?: boolean
-  containerSx?: object
+  containerCss?: MakerProps['css']
   springConfig?: SpringConfig
   _type?: 'popover' | 'dropdown' | 'tooltip' // internal usage only
   transition?:
@@ -62,10 +62,10 @@ export const Popover = ({
   transition = 'fade',
   variant,
   springConfig,
-  containerSx,
+  containerCss,
   defer,
   _type = 'popover',
-  sx,
+  css,
   children,
   ...rest
 }: PopoverProps) => {
@@ -254,8 +254,7 @@ export const Popover = ({
               ref={popoverRef}
               // TODO - remove w/ stable React-spring v9
               style={props as any}
-              sx={{
-                variant,
+              css={{
                 position: 'absolute',
                 display: 'block',
                 zIndex: 99,
@@ -263,13 +262,13 @@ export const Popover = ({
                 top: _type !== 'dropdown' && getY(),
                 width: anchorWidth && width,
                 overflow: transition.includes('scale') && 'hidden',
-                ...sx,
+                ...(css as object),
               }}
               {...rest}>
               <Div
                 ref={measuredRef}
-                sx={{
-                  ...containerSx,
+                css={{
+                  ...(containerCss as object),
                   opacity: transition === 'scale' && initialRender && [0],
                   visibility: transition === 'scale' &&
                     initialRender && ['hidden'],

@@ -80,7 +80,7 @@ const PageSearch = ({
 
   return (
     <Flex
-      sx={{
+      css={{
         alignItems: 'stretch',
         position: sticky ? 'sticky' : 'relative',
         top: 0,

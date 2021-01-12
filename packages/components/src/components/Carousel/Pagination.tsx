@@ -1,12 +1,9 @@
 import * as React from 'react'
 import { Flex, Button } from 'maker-ui'
 
-import { CarouselProps } from './Carousel'
-
 interface PaginationProps {
   current: number
   count: number
-  variant?: CarouselProps['variant']
   navigate?(type: 'next' | 'previous' | 'index', index?: number): void
 }
 
@@ -16,25 +13,19 @@ interface PaginationProps {
  * @internal usage only
  */
 
-export const Pagination = ({
-  variant,
-  navigate,
-  current,
-  count,
-}: PaginationProps) => {
+export const Pagination = ({ navigate, current, count }: PaginationProps) => {
   let indicators = []
 
   for (let i = 0; i <= count - 1; i++) {
     indicators.push(
       <Button
         key={i}
-        variant={`${variant}.pageIndicator`}
         className={`carousel-page ${current === i && 'active'}`}
         role="tab"
         onClick={e => navigate('index', i)}
         aria-label={`Show slide ${i + 1}`}
         aria-selected={i === current ? 'true' : 'false'}
-        sx={{
+        css={{
           margin: '0 5px',
           padding: 0,
           height: 10,
@@ -49,10 +40,9 @@ export const Pagination = ({
 
   return (
     <Flex
-      variant={`${variant}.pagination`}
       className="carousel-pagination"
       role="tablist"
-      sx={{ position: 'absolute', alignItems: 'center', zIndex: 1 }}>
+      css={{ position: 'absolute', alignItems: 'center', zIndex: 1 }}>
       {indicators}
     </Flex>
   )

@@ -11,7 +11,7 @@ import { useLightbox } from './LightboxContext'
 interface LightboxModalProps extends DivProps {
   focusRef?: React.MutableRefObject<any>
   show?: boolean
-  bg?: string | string
+  background?: string | string
 }
 /**
  * The `LightboxModal` houses all views for the Lightbox component.
@@ -26,8 +26,9 @@ export const LightboxModal = ({
   id,
   focusRef,
   show,
-  bg = 'rgba(0, 0, 0, 0.8)',
+  background = 'rgba(0, 0, 0, 0.8)',
   children,
+  css,
   ...props
 }: LightboxModalProps) => {
   const {
@@ -130,14 +131,14 @@ export const LightboxModal = ({
         //@ts-ignore
         toggle={toggleLightbox}
         focusRef={focusRef}
-        bg={bg}
+        background={background}
         closeOnBlur={settings.closeOnBlur}
+        css={{ ...(css as object) }}
         {...props}>
         <Div
           onMouseEnter={showControls}
-          variant={`${variant}.controls`}
           className={`lb-controls ${controlsActive ? 'visible' : 'hidden'}`}
-          sx={{
+          css={{
             opacity: 0,
             transition: 'all ease .25s',
             '&.visible': {
@@ -151,10 +152,10 @@ export const LightboxModal = ({
           />
           {data.length > 1 ? (
             <>
-              <Div variant={`${variant}.navigation`} className="lb-navigation">
+              <div className="lb-navigation">
                 <NavButton type="prev" />
                 <NavButton type="next" />
-              </Div>
+              </div>
               <Preview show={preview} />
             </>
           ) : null}

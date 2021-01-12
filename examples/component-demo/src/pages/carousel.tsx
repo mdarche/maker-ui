@@ -18,7 +18,7 @@ const basicData: BasicSlideProps[] = [
 
 const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
   <Div
-    sx={{
+    css={{
       background: bg,
       height: '100%',
       display: 'flex',
@@ -66,7 +66,7 @@ const ImageSlide = ({ url, alt }: ImageSlideProps) => (
 
 const CarouselPage = () => (
   <Div
-    sx={{
+    css={{
       '.active p': {
         opacity: 0,
         animation: 'fadeInUp ease .6s forwards .8s',
@@ -91,7 +91,7 @@ const CarouselPage = () => (
       template={<BasicSlide />}
       settings={{
         autoPlay: true,
-        progressBar: true,
+        // progressBar: true,
         // transition: 'fade',
         // infiniteScroll: true,
         // arrow: <div>Cmoon!</div>,

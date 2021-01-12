@@ -7,7 +7,7 @@ import { CloseIcon } from './icons'
 
 const AnimatedDiv = animated(Flex)
 
-const fixedPartial = (fixed: boolean, bottom: boolean) =>
+const fixedPartial = (fixed: boolean, bottom: boolean): object | undefined =>
   fixed
     ? {
         position: 'fixed',
@@ -17,7 +17,7 @@ const fixedPartial = (fixed: boolean, bottom: boolean) =>
         bottom: bottom && 0,
         zIndex: 1000,
       }
-    : null
+    : undefined
 
 export interface AnnouncementProps extends DivProps {
   storageKey?: string
@@ -43,7 +43,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {
       storageKey = 'mui_dismiss_announce',
-      background = 'primary',
+      background = 'var(--color-primary)',
       color = '#fff',
       fixed = false,
       type = 'session',
@@ -52,7 +52,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       closeButton = <CloseIcon />,
       bottom = false,
       springConfig,
-      sx,
+      css,
       children,
       ...props
     },
@@ -78,25 +78,21 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         ref={ref}
         className="announcement"
         style={spring}
-        sx={{
-          // @ts-ignore
+        css={{
           display: 'flex',
-          // @ts-ignore
           alignItems: 'center',
-          // @ts-ignore
           background,
-          // @ts-ignore
           color,
           willChange: !fixed && ['height'],
           ...fixedPartial(fixed, bottom),
         }}>
-        <Flex {...bind} sx={{ width: '100%', alignItems: 'center' }}>
+        <Flex {...bind} css={{ width: '100%', alignItems: 'center' }}>
           <Flex
             className="announcement-text"
-            sx={{
+            css={{
               flex: 1,
               flexWrap: 'wrap',
-              ...sx,
+              ...(css as object),
             }}
             {...props}>
             {children}
@@ -107,7 +103,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
               title="Dismiss"
               aria-label="Dismiss"
               onClick={e => set(false)}
-              sx={{
+              css={{
                 cursor: 'pointer',
                 border: 'none',
                 background: 'none',

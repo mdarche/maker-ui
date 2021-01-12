@@ -25,31 +25,26 @@ export interface TabGroupProps extends DivProps {
  */
 
 export const Tabs = ({
-  variant = 'tabs',
   activeKey = 0,
   navPosition = 'top',
   overflow = 'stack',
   bpIndex = 0,
   renderInactive = true,
-  sx,
+  css,
   children,
   ...props
 }: TabGroupProps) => {
   const isVertical = ['top', 'bottom'].includes(navPosition) ? true : false
 
   return (
-    <TabContext
-      variant={variant}
-      activeKey={activeKey}
-      renderInactive={renderInactive}>
+    <TabContext activeKey={activeKey} renderInactive={renderInactive}>
       <Div
-        variant={variant}
         className="tabs-container"
-        sx={{
+        css={{
           display: setBreakpoint(bpIndex, ['block', 'flex']),
           flexDirection: isVertical ? 'column' : null,
           flexWrap: 'wrap',
-          ...sx,
+          ...(css as object),
         }}
         {...props}>
         <TabNavigation

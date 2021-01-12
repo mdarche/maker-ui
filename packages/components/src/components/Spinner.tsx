@@ -22,6 +22,7 @@ export interface SpinnerProps extends SVGProps {
  * user experience during network requests.
  *
  * @todo add useTransition to this component for smooth entry and exit
+ * @todo refactor and remove the css repetition
  *
  * @see https://maker-ui.com/docs/components/spinner
  */
@@ -30,18 +31,47 @@ export const Spinner = ({
   type = 'default',
   size = 80,
   colors = defaultColors,
+  css,
   ...props
 }: SpinnerProps) => {
   switch (type) {
     case 'pulse':
-      return <Pulse size={size} colors={colors} {...props} />
+      return (
+        <Pulse
+          size={size}
+          colors={colors}
+          css={{ ...(css as object) }}
+          {...props}
+        />
+      )
     case 'rotate':
-      return <Rotate size={size} colors={colors} {...props} />
+      return (
+        <Rotate
+          size={size}
+          colors={colors}
+          css={{ ...(css as object) }}
+          {...props}
+        />
+      )
     case 'blocks':
-      return <Blocks size={size} colors={colors} {...props} />
+      return (
+        <Blocks
+          size={size}
+          colors={colors}
+          css={{ ...(css as object) }}
+          {...props}
+        />
+      )
     case 'scale':
     default:
-      return <Scale size={size} colors={colors} {...props} />
+      return (
+        <Scale
+          size={size}
+          colors={colors}
+          css={{ ...(css as object) }}
+          {...props}
+        />
+      )
   }
 }
 
@@ -52,6 +82,7 @@ Spinner.displayName = 'Spinner'
 const Blocks = ({
   size,
   colors: { primary, secondary, tertiary },
+  css,
   ...props
 }: SpinnerProps) => {
   const points = [
@@ -69,7 +100,10 @@ const Blocks = ({
   })
 
   return (
-    <SVG viewBox="0 0 100 100" sx={{ height: size, width: size }} {...props}>
+    <SVG
+      viewBox="0 0 100 100"
+      css={{ height: size, width: size, ...(css as object) }}
+      {...props}>
       {points.map(({ x, y, fill, b1, b2 }, index) => (
         <rect
           key={index}
@@ -91,6 +125,7 @@ const Blocks = ({
 const Pulse = ({
   size,
   colors: { primary, secondary },
+  css,
   ...props
 }: SpinnerProps) => {
   const points = [
@@ -109,7 +144,10 @@ const Pulse = ({
   })
 
   return (
-    <SVG viewBox="0 0 100 100" sx={{ height: size, width: size }} {...props}>
+    <SVG
+      viewBox="0 0 100 100"
+      css={{ height: size, width: size, ...(css as object) }}
+      {...props}>
       {points.map(({ color, begin, r }, index) => (
         <circle
           key={index}
@@ -130,6 +168,7 @@ const Pulse = ({
 const Scale = ({
   size,
   colors: { primary, secondary, tertiary },
+  css,
   ...props
 }: SpinnerProps) => {
   const points = [
@@ -139,7 +178,10 @@ const Scale = ({
   ]
 
   return (
-    <SVG viewBox="0 0 100 100" sx={{ width: size, height: size }} {...props}>
+    <SVG
+      viewBox="0 0 100 100"
+      css={{ width: size, height: size, ...(css as object) }}
+      {...props}>
       {points.map(({ translate, scale, begin, color }, index) => (
         <g key={index} transform={`translate(${translate})`}>
           <circle r="9" transform={`scale(${scale})`} style={{ fill: color }}>
@@ -166,6 +208,7 @@ const Scale = ({
 const Rotate = ({
   size,
   colors: { primary, secondary },
+  css,
   ...props
 }: SpinnerProps) => {
   // TODO remove this
@@ -198,7 +241,10 @@ const Rotate = ({
   })
 
   return (
-    <SVG viewBox="0 0 100 100" sx={{ height: size, width: size }} {...props}>
+    <SVG
+      viewBox="0 0 100 100"
+      css={{ height: size, width: size, ...(css as object) }}
+      {...props}>
       {points.map(({ cy, cx, r, begin }, index) => (
         <circle key={index} cx={cx} cy={cy} fill={secondary} r={r}>
           <animate {...getAttributes(true)} begin={begin} />

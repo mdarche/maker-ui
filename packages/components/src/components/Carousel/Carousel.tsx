@@ -44,9 +44,8 @@ export const Carousel = ({
   data = [],
   template,
   settings = {},
-  variant = 'carousel',
   height = 500,
-  sx,
+  css,
   ...rest
 }: CarouselProps) => {
   const index = React.useRef(0)
@@ -223,17 +222,16 @@ export const Carousel = ({
   return (
     <Div
       ref={carouselRef}
-      variant={variant}
       onMouseEnter={autoPlay ? pause : undefined}
       onMouseLeave={autoPlay ? resume : undefined}
       className="carousel"
-      sx={{
+      css={{
         overflow: 'hidden',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
         height,
-        ...sx,
+        ...(css as object),
         '.slide-container': {},
         '.slide': {
           position: 'absolute',
@@ -279,16 +277,9 @@ export const Carousel = ({
         ))}
       </Div>
 
-      {showNav ? (
-        <Navigation variant={variant} navigate={navigate} arrow={arrow} />
-      ) : null}
+      {showNav ? <Navigation navigate={navigate} arrow={arrow} /> : null}
       {pageIndicator ? (
-        <Pagination
-          variant={variant}
-          navigate={navigate}
-          current={active}
-          count={data.length}
-        />
+        <Pagination navigate={navigate} current={active} count={data.length} />
       ) : null}
     </Div>
   )

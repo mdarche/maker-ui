@@ -15,7 +15,6 @@ interface TreeMenuProps extends TreeContextProps, DivProps {}
  */
 
 export const TreeMenu = ({
-  variant = 'tree',
   buttons = {
     expand: <PlusIcon />,
     collapse: <MinusIcon />,
@@ -23,16 +22,15 @@ export const TreeMenu = ({
   },
   indentation = '20px',
   clickableText = false,
-  sx,
+  css,
   ...props
 }: TreeMenuProps) => {
   return (
     <TreeContext
-      variant={variant}
       buttons={buttons}
       indentation={indentation}
       clickableText={clickableText}>
-      <Div sx={{ variant, ...sx }} {...props} />
+      <Div css={{ ...(css as object) }} {...props} />
     </TreeContext>
   )
 }

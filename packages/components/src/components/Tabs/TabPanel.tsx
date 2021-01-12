@@ -17,7 +17,7 @@ export interface TabPanelProps extends Omit<DivProps, 'title'> {
  */
 
 export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
-  ({ title, eventKey, open = false, disabled = false, sx, ...props }, ref) => {
+  ({ title, eventKey, open = false, disabled = false, css, ...props }, ref) => {
     const [id] = React.useState(() =>
       eventKey ? eventKey.toString() : generateId()
     )
@@ -40,11 +40,11 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
         id={`panel-${panelId}`}
         aria-labelledby={`control-${panelId}`}
         className="tab-panel"
-        sx={{
+        css={{
           flex: 1,
           order: 1,
           display: renderInactive && activeKey !== id ? 'none' : undefined,
-          ...sx,
+          ...(css as object),
         }}
         {...props}
       />

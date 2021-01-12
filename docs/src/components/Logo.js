@@ -4,7 +4,7 @@ import { SVG } from 'maker-ui'
 export const Logo = () => (
   <SVG
     viewBox="0 0 356.04 56.72"
-    sx={{
+    css={{
       // height: [23, 25],
       '.base': { fill: 'bg_header' },
       '.lines': { fill: '#fff' },

@@ -16,7 +16,7 @@ interface PreviewProps {
 
 export const Preview = ({ show }: PreviewProps) => {
   const ref = React.useRef(null)
-  const { variant, index, data, setIndex } = useLightbox()
+  const { index, data, setIndex } = useLightbox()
 
   const handleClick = (i: number) => setIndex('index', i)
 
@@ -49,13 +49,12 @@ export const Preview = ({ show }: PreviewProps) => {
   return (
     <Grid
       ref={ref}
-      variant={variant}
       columns={['repeat(auto-fill, minmax(100px, 1fr))']}
       gap={20}
       className={`${show ? 'active ' : ''}lb-preview`}
-      sx={{
+      css={{
         position: ['fixed'],
-        p: '20px',
+        padding: 20,
         bg: ['rgba(0, 0, 0, 0.85)', 'rgba(0, 0, 0, 0.66)'],
         bottom: 0,
         left: 0,
@@ -80,7 +79,7 @@ export const Preview = ({ show }: PreviewProps) => {
           title={item.title}
           onClick={e => handleClick(i)}
           className={i === index ? 'preview-active' : undefined}
-          sx={{
+          css={{
             cursor: 'pointer',
             height: 80,
             borderColor: '#ababab',

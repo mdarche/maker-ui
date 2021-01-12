@@ -6,19 +6,19 @@ const TocPage = () => {
   return (
     <Grid columns={['1fr 1fr']}>
       <div>
-        <Div sx={{ height: 400 }}>
+        <Div css={{ height: 400 }}>
           <h2 id="section1">Title 1</h2>
         </Div>
-        <Div sx={{ height: 400 }}>
+        <Div css={{ height: 400 }}>
           <h4 id="section10">Title 10</h4>
         </Div>
-        <Div sx={{ height: 400 }}>
+        <Div css={{ height: 400 }}>
           <h3 id="section12">Title 10</h3>
         </Div>
-        <Div sx={{ height: 600 }}>
+        <Div css={{ height: 600 }}>
           <h2 id="section2">Title 2</h2>
         </Div>
-        <Div sx={{ height: 800 }}>
+        <Div css={{ height: 800 }}>
           <h2 id="section3">Title 3</h2>
         </Div>
       </div>
@@ -27,7 +27,7 @@ const TocPage = () => {
           title="On this page"
           activeColor="blue"
           marker="before"
-          sx={{
+          css={{
             display: ['none', 'block'],
             position: 'sticky',
             top: 80,

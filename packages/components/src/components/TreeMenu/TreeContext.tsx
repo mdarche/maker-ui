@@ -20,7 +20,6 @@ export interface TreeContextProps {
   clickableText?: boolean
   springConfig?: SpringConfig
   children?: React.ReactNode
-  variant?: string
 }
 
 /**
@@ -31,7 +30,6 @@ export interface TreeContextProps {
  */
 
 export const TreeContext = ({
-  variant,
   buttons,
   indentation,
   clickableText,
@@ -45,7 +43,6 @@ export const TreeContext = ({
     clickableText,
     indentation,
     springConfig,
-    variant,
   })
   return (
     <TreeDataContext.Provider value={state}>

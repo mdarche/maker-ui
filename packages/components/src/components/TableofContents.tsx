@@ -1,5 +1,12 @@
 import * as React from 'react'
-import { Div, UList, ListItem, DivProps, useScrollPosition } from 'maker-ui'
+import {
+  Div,
+  UList,
+  ListItem,
+  DivProps,
+  useScrollPosition,
+  MakerProps,
+} from 'maker-ui'
 
 interface MenuItem {
   id: string
@@ -15,7 +22,7 @@ interface TocProps extends Omit<DivProps, 'title'> {
   marker?: 'before' | 'after'
   indentSize?: number
   activeColor?: string | string[]
-  pseudoSx?: any
+  pseudoCss?: MakerProps['css']
   smoothScroll?: boolean
 }
 
@@ -33,10 +40,9 @@ export const TableofContents = ({
   marker,
   indent = true,
   indentSize = 10,
-  variant = 'toc',
-  pseudoSx,
+  pseudoCss,
   smoothScroll = false,
-  sx,
+  css,
 }: TocProps) => {
   const [menuItems, setMenu] = React.useState([])
   const [activeNode, setActiveNode] = React.useState(null)
@@ -135,16 +141,16 @@ export const TableofContents = ({
   )
 
   return (
-    <Div variant={variant} sx={sx}>
-      <Div variant={`${variant}.list`}>{title}</Div>
-      <UList variant={`${variant}.list`} sx={{ p: 0 }}>
+    <Div css={{ ...(css as object) }}>
+      <Div>{title}</Div>
+      <UList css={{ p: 0 }}>
         {menuItems.length
           ? menuItems.map(({ id, text, level }: MenuItem, index) => (
               <ListItem
                 key={index}
                 className={`level-${level}`}
-                sx={{
-                  pl: indent ? `${indentSize * level}px` : undefined,
+                css={{
+                  paddingLeft: indent ? `${indentSize * level}px` : undefined,
                   a: { position: 'relative' },
                   'a.active, a:hover': { color: activeColor || undefined },
                   'a.active': marker && {
@@ -162,7 +168,7 @@ export const TableofContents = ({
                       right: marker === 'after' && 0,
                       borderLeft: marker === 'before' && `2px solid`,
                       borderRight: marker === 'after' && `2px solid`,
-                      ...pseudoSx,
+                      ...(pseudoCss as object),
                     },
                   },
                 }}>

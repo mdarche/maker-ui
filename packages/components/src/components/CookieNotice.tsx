@@ -14,13 +14,14 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {
       variant = 'cookie',
-      bg = '#000',
+      background = '#000',
       color,
       storageKey = 'mui_cookie_notice',
       expiration,
       springConfig,
       closeButton = 'Got it!',
       top = false,
+      css,
       children,
       ...props
     },
@@ -29,15 +30,15 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     return (
       <Announcement
         ref={ref}
-        variant={variant}
         fixed
         bottom={!top ? true : false}
-        bg={bg}
+        background={background}
         color={color}
         type="cookie"
         storageKey={storageKey}
         closeButton={closeButton}
         springConfig={springConfig}
+        css={{ ...(css as object) }}
         {...props}>
         {children ||
           'We use cookies to ensure you get the best experience on our site.'}

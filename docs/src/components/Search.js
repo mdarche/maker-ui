@@ -6,7 +6,7 @@ import { SearchIcon } from '../assets/icons'
 const Search = () => {
   return (
     <Flex
-      sx={{
+      css={{
         ml: 160,
         fontSize: 17,
         alignItems: 'center',

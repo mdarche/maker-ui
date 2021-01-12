@@ -25,7 +25,7 @@ export interface TreeItemProps extends DivProps {
  */
 
 export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
-  ({ text, link, newTab, open = false, sx, children, ...props }, ref) => {
+  ({ text, link, newTab, open = false, css, children, ...props }, ref) => {
     const [isOpen, setOpen] = React.useState(open)
     const {
       clickableText,
@@ -52,55 +52,58 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
         ref={ref}
         aria-expanded={isOpen}
         className="tree-item"
-        sx={{
+        css={{
           display: link && 'flex',
           alignItems: link && 'center',
           position: 'relative',
-          pt: '10px',
+          paddingTop: 10,
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           verticalAlign: 'middle',
           '.tree-branch-inner': {
-            pl: indentation,
+            paddingLeft: indentation,
           },
         }}>
         <Button
           onClick={() => setOpen(!isOpen)}
           aria-label={text}
           aria-expanded={isOpen ? 'true' : 'false'}
-          sx={{
+          css={{
             display: !link && 'flex',
             alignItems: !link && 'center',
             background: 'none',
             border: 'none',
             padding: 0,
-            mr: '10px',
+            marginRight: 10,
             cursor: 'pointer',
             color: 'primary',
             svg: {
-              height: '16px',
+              height: 16,
               fill: 'currentColor',
             },
           }}>
           <Span
             className="tree-icon"
-            sx={{
+            css={{
               marginRight: clickableText && !link ? '10px' : undefined,
             }}>
             {children ? (isOpen ? collapse : expand) : neutral}
           </Span>
           {clickableText && !link ? (
-            <Span className="tree-text" sx={{ fontSize: '1em' }}>
+            <Span className="tree-text" css={{ fontSize: '1em' }}>
               {text}
             </Span>
           ) : null}
         </Button>
         {link ? (
-          <Link href={link} target={newTab && '_blank'} sx={{ ...sx }}>
+          <Link
+            href={link}
+            target={newTab && '_blank'}
+            css={{ ...(css as object) }}>
             {text}
           </Link>
         ) : (
-          <Span sx={{ ...sx }} {...props}>
+          <Span css={{ ...(css as object) }} {...props}>
             {!clickableText && text}
           </Span>
         )}

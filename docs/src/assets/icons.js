@@ -2,7 +2,7 @@ import React from 'react'
 import { SVG } from 'maker-ui'
 
 export const SearchIcon = props => (
-  <SVG viewBox="0 0 27 27" sx={{ height: '25px', fill: '#fff' }} {...props}>
+  <SVG viewBox="0 0 27 27" css={{ height: '25px', fill: '#fff' }} {...props}>
     <path d="M18.366 16.761l6.052 6.053a1.134 1.134 0 11-1.605 1.604l-6.053-6.052a9 9 0 111.604-1.605h.002zM11.25 18a6.75 6.75 0 100-13.5 6.75 6.75 0 000 13.5z" />
   </SVG>
 )
@@ -14,7 +14,7 @@ export const NewTabIcon = props => (
 )
 
 export const PaintIcon = props => (
-  <SVG viewBox="0 0 24 24" sx={{ height: '24px', fill: '#fff' }} {...props}>
+  <SVG viewBox="0 0 24 24" css={{ height: '24px', fill: '#fff' }} {...props}>
     <path d="M20 14c-.092.064-2 2.083-2 3.5 0 1.494.949 2.448 2 2.5.906.044 2-.891 2-2.5 0-1.5-1.908-3.436-2-3.5zM9.586 20c.378.378.88.586 1.414.586.534 0 1.036-.208 1.414-.586l7-7-.707-.707L11 4.586 8.707 2.293 7.293 3.707 9.586 6 4 11.586c-.378.378-.586.88-.586 1.414 0 .534.208 1.036.586 1.414L9.586 20zM11 7.414L16.586 13H5.414L11 7.414z" />
   </SVG>
 )

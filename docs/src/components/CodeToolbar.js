@@ -29,16 +29,16 @@ export const CodeToolbar = () => {
   return (
     <Flex
       ref={toolbarRef}
-      sx={{
+      css={{
         position: 'relative',
         justifyContent: 'flex-end',
         alignItems: 'stretch',
-        button: { fontSize: 1, py: 2, px: [2, 3] },
+        button: { fontSize: 1, padding: 20 },
       }}>
       <Button
         onClick={onCopyClick}
         onBlur={onCopyBlur}
-        sx={{
+        css={{
           position: 'absolute',
           bottom: 0,
           right: 0,
@@ -51,11 +51,11 @@ export const CodeToolbar = () => {
         }}>
         <SVG
           viewBox="0 0 24 24"
-          sx={{ height: '14px', mr: [0, 2], fill: '#fff' }}>
+          css={{ height: '14px', marginRight: [5, 10], fill: '#fff' }}>
           <path d="M0 0h24v24H0z" fill="none" />
           <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z" />
         </SVG>
-        <Span as="span" sx={{ display: ['none', 'block'] }}>
+        <Span as="span" css={{ display: ['none', 'block'] }}>
           {copyState}
         </Span>
       </Button>
@@ -65,7 +65,9 @@ export const CodeToolbar = () => {
             key={index}
             onClick={e => onChangeTheme(item.label)}
             title={`Use ${item.label} code theme`}
-            sx={{ bg: item.label === theme.label ? '#ededed' : '#dedede' }}>
+            css={{
+              background: item.label === theme.label ? '#ededed' : '#dedede',
+            }}>
             {item.label}
           </Button>
         ))}

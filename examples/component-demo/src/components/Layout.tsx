@@ -80,11 +80,11 @@ export default ({ children, location }) => (
         <Workspace>
           <Workspace.Toolbar>Toolbar</Workspace.Toolbar>
           {/* <Workspace.Panel>
-            <Div sx={{ height: 1000 }}>test</Div>
+            <Div css={{ height: 1000 }}>test</Div>
           </Workspace.Panel> */}
           <Workspace.Canvas>{children}</Workspace.Canvas>
           <Workspace.Panel>
-            <Div sx={{ height: 1000 }}>test</Div>
+            <Div css={{ height: 1000 }}>test</Div>
           </Workspace.Panel>
         </Workspace>
       </Content>

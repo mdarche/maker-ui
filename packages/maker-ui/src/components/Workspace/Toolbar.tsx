@@ -40,7 +40,7 @@ export const Toolbar = ({
     <div
       {...bind}
       className="ws-toolbar"
-      sx={{
+      css={{
         background,
         gridArea: 'toolbar',
         overflowX: 'scroll',

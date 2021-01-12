@@ -28,6 +28,7 @@ export const Accordion = ({
   customIcons = { expand: null, collapse: null },
   activeKey = 0,
   showSingle = false,
+  css,
   children,
   ...props
 }: AccordionProps) => {
@@ -37,7 +38,9 @@ export const Accordion = ({
       customIcons={customIcons}
       activeKey={activeKey}
       showSingle={showSingle}>
-      <Div {...props}>{children}</Div>
+      <Div css={{ ...(css as object) }} {...props}>
+        {children}
+      </Div>
     </AccordionContext>
   )
 }

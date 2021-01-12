@@ -6,14 +6,14 @@ import { Popover, PopoverProps, Position } from './Popover'
 interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
   label: React.ReactNode
   children: React.ReactNode
-  bg?: ResponsiveScale
+  background?: ResponsiveScale
   color?: ResponsiveScale
   gap?: number
   trapFocus?: boolean
   closeOnBlur?: boolean
   noArrow?: boolean
   position?: 'top' | 'bottom' | 'left' | 'right'
-  buttonSx?: any
+  buttonCss?: any
   springConfig?: PopoverProps['springConfig']
   defer?: PopoverProps['defer']
 }
@@ -31,25 +31,25 @@ export const Tooltip = ({
   variant,
   noArrow = false,
   position = 'right',
-  bg = '#555',
+  background = '#555',
   color = '#fff',
   gap = 5,
   springConfig,
   defer,
-  buttonSx,
-  sx,
+  buttonCss,
+  css,
   children,
 }: TooltipProps) => {
   const buttonRef = React.useRef(null)
   const [show, toggle] = React.useState(false)
   const [tooltipId] = React.useState(generateId())
 
-  const positionData = convertPosition(position, bg, gap)
+  const positionData = convertPosition(position, background, gap)
 
-  const styles = {
-    bg,
+  const styles: object = {
+    background,
     color,
-    p: '5px',
+    padding: 5,
     borderRadius: 3,
     ':after': !noArrow && {
       content: '""',
@@ -58,12 +58,12 @@ export const Tooltip = ({
       borderStyle: 'solid',
       ...positionData.styles,
     },
-    ...sx,
+    ...(css as object),
   }
 
   return (
     <Div
-      sx={{ display: 'inline-block' }}
+      css={{ display: 'inline-block' }}
       onMouseOver={e => toggle(true)}
       onMouseOut={e => toggle(false)}>
       <Button
@@ -72,7 +72,7 @@ export const Tooltip = ({
         onBlur={e => typeof label === 'string' && toggle(false)}
         onClick={e => toggle(!show)}
         variant={variant}
-        sx={buttonSx}
+        css={buttonCss}
         aria-describedby={tooltipId}>
         {children}
       </Button>
@@ -85,7 +85,7 @@ export const Tooltip = ({
         show={show}
         defer={defer}
         toggle={toggle}
-        containerSx={styles}
+        containerCss={{ ...styles }}
         springConfig={springConfig}>
         {label}
       </Popover>
@@ -104,8 +104,8 @@ function convertPosition(
   bg: ResponsiveScale,
   gap: number
 ): { position: Position; styles: object; gap: { x: number; y: number } } {
-  const vertical = { left: '50%', ml: '-5px' }
-  const horizontal = { top: '50%', mt: '-5px' }
+  const vertical = { left: '50%', marginLeft: '-5px' }
+  const horizontal = { top: '50%', marginTop: '-5px' }
 
   switch (pos) {
     case 'top':

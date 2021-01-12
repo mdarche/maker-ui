@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Flex, Button, setBreakpoint } from 'maker-ui'
+import { Flex, Button, useMediaQuery } from 'maker-ui'
 
 import { useTabs } from './TabContext'
 
@@ -10,6 +10,11 @@ export interface TabStyleProps {
     navPosition?: string
     bpIndex?: number
   }
+  mediaQuery?: (
+    key: string,
+    rule: (string | number)[],
+    bp: number | string
+  ) => object
 }
 
 /**
@@ -23,6 +28,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
   const ref = React.useRef(null)
   const { state, setActive } = useTabs()
   const [tabIds, setTabIds] = React.useState([])
+  const { mediaQuery } = useMediaQuery()
 
   /**
    * Create array of all tab ids that are not disabled
@@ -87,8 +93,8 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
       className="tab-navigation"
       role="tablist"
       // @ts-ignore
-      sx={{
-        ...getNavPosition({ settings }),
+      css={{
+        ...getNavPosition({ settings, mediaQuery }),
       }}>
       {state.tabs.map(item => (
         <Button
@@ -120,30 +126,36 @@ TabNavigation.displayName = 'TabNavigation'
 
 const getNavPosition = ({
   settings: { isVertical, navPosition, overflow = 'stack', bpIndex },
+  mediaQuery,
 }: TabStyleProps): Object => {
   const shared = {
     overflowX: overflow === 'scroll' ? 'scroll' : null,
     flexWrap: overflow === 'stack' ? 'wrap' : 'nowrap',
-    button: {
-      flex:
-        overflow === 'scroll' && setBreakpoint(bpIndex, ['1 0 auto', 'none']),
+    button: overflow === 'scroll' && {
+      ...mediaQuery('flex', ['1 0 auto', 'none'], bpIndex),
     },
   }
 
   return isVertical
     ? {
-        flexDirection:
-          overflow === 'stack'
-            ? setBreakpoint(bpIndex, ['column', 'row'])
-            : 'row',
+        ...mediaQuery(
+          'flexDirection',
+          overflow === 'stack' ? ['column', 'row'] : ['row'],
+          bpIndex
+        ),
         order: navPosition === 'top' ? 1 : 2,
         ...shared,
       }
     : {
-        flexDirection:
-          overflow === 'stack'
-            ? 'column'
-            : setBreakpoint(bpIndex, ['row', 'column']),
+        ...mediaQuery(
+          'flexDirection',
+          overflow === 'stack' ? ['column'] : ['row', 'column'],
+          bpIndex
+        ),
+        // flexDirection:
+        //   overflow === 'stack'
+        //     ? 'column'
+        //     : setBreakpoint(bpIndex, ['row', 'column']),
         order: navPosition === 'left' ? 1 : 2,
         ...shared,
       }

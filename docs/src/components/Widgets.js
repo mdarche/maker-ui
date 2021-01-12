@@ -1,20 +1,19 @@
 import React from 'react'
-import { Flex } from 'maker-ui'
+import { Flex, Link } from 'maker-ui'
 import { NewTabIcon, PaintIcon } from '../assets/icons'
 
 export default () => (
-  <Flex sx={{ alignItems: 'center' }}>
-    <Flex
-      as="a"
+  <Flex css={{ alignItems: 'center' }}>
+    <Link
       href="https://github.com/mdarche/maker-ui"
       target="_blank"
       rel="noopener noreferrer"
-      sx={{ fontSize: '16px', alignItems: 'center' }}>
+      css={{ display: 'flex', fontSize: '16px', alignItems: 'center' }}>
       Github
       <NewTabIcon
-        sx={{ ml: '10px', height: '14px', fill: '#fff', opacity: 0.4 }}
+        css={{ marginLeft: '10px', height: '14px', fill: '#fff', opacity: 0.4 }}
       />
-    </Flex>
+    </Link>
 
     <Flex>
       <PaintIcon />

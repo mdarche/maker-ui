@@ -10,7 +10,7 @@ export default function IndexPage() {
       <Link href="page-2">
         <a>Go to Page 2</a>
       </Link>
-      <Div sx={{ height: 3000 }} />
+      <Div css={{ height: 3000 }} />
     </>
   )
 }

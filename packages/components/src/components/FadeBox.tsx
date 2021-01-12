@@ -33,6 +33,7 @@ export const FadeBox = ({
   fade = false,
   settings = { transition: 'fade-up', distance: 20 },
   springConfig,
+  css,
   ...props
 }: FadeBoxProps) => {
   const ref = React.useRef(null)
@@ -55,7 +56,14 @@ export const FadeBox = ({
     true
   )
   // TODO - remove w/ stable React-spring v9
-  return <AnimatedDiv ref={ref} style={spring as any} {...props} />
+  return (
+    <AnimatedDiv
+      ref={ref}
+      style={spring as any}
+      css={{ ...(css as object) }}
+      {...props}
+    />
+  )
 }
 
 FadeBox.displayName = 'FadeBox'

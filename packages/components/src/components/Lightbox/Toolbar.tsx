@@ -30,27 +30,25 @@ interface ToolbarProps {
  */
 
 export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
-  const { index, variant, data, settings, toggleLightbox } = useLightbox()
+  const { index, data, settings, toggleLightbox } = useLightbox()
   return (
     <Flex
-      variant={`${variant}.toolbar`}
       className="lb-toolbar"
-      sx={{
+      css={{
         alignItems: 'center',
         justifyContent: data.length > 1 ? 'space-between' : 'flex-end',
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        bg: ['rgba(0, 0, 0, 0.25)', 'transparent'],
+        background: ['rgba(0, 0, 0, 0.25)', 'transparent'],
       }}>
       {settings.showCount && data.length > 1 && (
         <Div
-          variant={`${variant}.pagination`}
           className="lb-pagination"
-          sx={{
-            bg: ['transparent', 'rgba(0, 0, 0, 0.25)'],
-            p: '14px 20px',
+          css={{
+            background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
+            padding: '14px 20px',
             fontSize: '14px',
             color: '#fff',
           }}>
@@ -59,24 +57,24 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
       )}
       <Flex
         className="lb-button-group"
-        sx={{
-          bg: ['transparent', 'rgba(0, 0, 0, 0.25)'],
+        css={{
+          background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
           button: {
             cursor: 'pointer',
             background: 'none',
             border: 'none',
-            p: '8px 20px',
-            m: '2px',
+            padding: '8px 20px',
+            margin: 2,
             transition: 'all ease .3s',
             '&:hover, &:active, &.active': {
-              bg: 'primary',
+              background: 'var(--color-primary)',
             },
             '&:focus': {
               outline: '2px solid rgba(255,255,255,0.35)',
             },
           },
           'button:last-of-type': {
-            mr: [0, '5px'],
+            marginRight: [0, '5px'],
           },
           svg: { fill: '#fff' },
         }}>

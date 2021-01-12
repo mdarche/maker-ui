@@ -39,6 +39,7 @@ export const Modal = ({
   style = {},
   children,
   springConfig,
+  css,
   ...rest
 }: ModalProps) => {
   const modalRef = React.useRef(null)
@@ -129,25 +130,26 @@ export const Modal = ({
               aria-modal="true"
               style={{ ...style, ...props }}
               tabIndex={focusable.count === 0 ? 0 : undefined}
-              sx={{
+              // @ts-ignore
+              css={{
                 ...position,
                 ...centered(center),
-                // @ts-ignore
                 zIndex: 101,
               }}>
               <Div
                 role="button"
                 onClick={e => (closeOnBlur ? closeModal() : undefined)}
                 className="modal-overlay"
-                sx={{
+                // @ts-ignore
+                css={{
                   ...position,
-                  // @ts-ignore
                   zIndex: -1,
-                  // @ts-ignore
                   background,
                 }}
               />
-              <Div sx={{ zIndex: 1, overflow: 'scroll' }} {...rest}>
+              <Div
+                css={{ zIndex: 1, overflow: 'scroll', ...(css as object) }}
+                {...rest}>
                 {children}
               </Div>
             </AnimatedDiv>

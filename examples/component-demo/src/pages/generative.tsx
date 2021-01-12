@@ -22,7 +22,7 @@ const data = [
 
 const Card = props => (
   <Div
-    sx={{
+    css={{
       textAlign: 'center',
       p: 40,
       fontSize: 5,
@@ -35,9 +35,15 @@ const Card = props => (
 
 // Example 2 - Random components
 
-const Component1 = () => <Div sx={{ bg: '#ffd2a4' }}>Custom Component 1</Div>
-const Component2 = () => <Div sx={{ bg: '#d3d3ff' }}>Custom Component 2</Div>
-const Component3 = () => <Div sx={{ bg: '#aaffaa' }}>Custom Component 3</Div>
+const Component1 = () => (
+  <Div css={{ background: '#ffd2a4' }}>Custom Component 1</Div>
+)
+const Component2 = () => (
+  <Div css={{ background: '#d3d3ff' }}>Custom Component 2</Div>
+)
+const Component3 = () => (
+  <Div css={{ background: '#aaffaa' }}>Custom Component 3</Div>
+)
 
 const componentData = [<Component1 />, <Component2 />, <Component3 />]
 
@@ -85,7 +91,7 @@ const GenerativePage = () => {
       <Grid
         gap="30px"
         columns={['1fr', 'repeat(3, 1fr)']}
-        sx={{ margin: '80px 0', textAlign: 'center', div: { padding: 20 } }}>
+        css={{ margin: '80px 0', textAlign: 'center', div: { padding: 20 } }}>
         <Generate data={componentData} />
       </Grid>
       <h2>Example 3</h2>
@@ -93,19 +99,19 @@ const GenerativePage = () => {
       <FadeBox
         transition="fade-left"
         distance={100}
-        sx={{ bg: 'gainsboro', margin: '100px 0' }}>
+        css={{ bg: 'gainsboro', margin: '100px 0' }}>
         Test
       </FadeBox>
       <h2>Example 4</h2>
       <Flex
         inline
         justify="center"
-        sx={{
+        css={{
           ...generateStyles(styles, true),
         }}>
         My styles are randomly generated on each rerender
       </Flex>
-      <Flex sx={{ height: 800 }} />
+      <Flex css={{ height: 800 }} />
     </React.Fragment>
   )
 }

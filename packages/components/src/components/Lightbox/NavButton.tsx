@@ -25,7 +25,7 @@ export const NavButton = ({ type }: NavButtonProps) => {
       variant={`${variant}.${type}`}
       className={`lb-nav-button ${isNext ? 'next-button' : 'prev-button'}`}
       onClick={e => setIndex(isNext ? 'next' : 'previous')}
-      sx={{
+      css={{
         cursor: 'pointer',
         background: 'rgba(0, 0, 0, 0.25)',
         padding: ['20px 40px', '20px'],

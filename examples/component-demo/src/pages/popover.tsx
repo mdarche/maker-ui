@@ -20,7 +20,12 @@ const PopoverPage = () => {
         // position={{ x: 'right', y: 'bottom' }}
         show={show}
         toggle={set}>
-        <Div sx={{ bg: 'gainsboro', height: 100, ul: { m: 0, p: 2 } }}>
+        <Div
+          css={{
+            background: 'gainsboro',
+            height: 100,
+            ul: { margin: 0, padding: 10 },
+          }}>
           <div>Simple popover</div>
           <ul>
             <li>
@@ -42,7 +47,13 @@ const PopoverPage = () => {
         </Div>
       </Popover>
       <Dropdown buttonInner="Click here" transition="scale" trapFocus>
-        <Div sx={{ bg: 'gainsboro', width: 200, p: 3, ul: { m: 0, p: 0 } }}>
+        <Div
+          css={{
+            background: 'gainsboro',
+            width: 200,
+            padding: 16,
+            ul: { margin: 0, padding: 0 },
+          }}>
           <ul>
             <li>
               <a href="https://google.com" target="_blank" rel="noreferrer">
@@ -62,7 +73,7 @@ const PopoverPage = () => {
           </ul>
         </Div>
       </Dropdown>
-      <Div sx={{ height: 500 }}>{/* <a href="/">Test</a> */}</Div>
+      <Div css={{ height: 500 }}>{/* <a href="/">Test</a> */}</Div>
     </>
   )
 }

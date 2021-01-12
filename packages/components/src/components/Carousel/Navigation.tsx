@@ -16,7 +16,6 @@ const transform = (isNext: boolean, arrow: NavigationProps['arrow']) => {
 
 interface NavigationProps {
   arrow?: CarouselProps['settings']['arrow']
-  variant?: CarouselProps['variant']
   navigate?(type: 'next' | 'previous' | 'index', index?: number): void
 }
 
@@ -38,7 +37,7 @@ const NavButton = ({ isNext = false, arrow, onClick }: NavButtonProps) => (
     aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
     className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
     onClick={onClick}
-    sx={{
+    css={{
       cursor: 'pointer',
       background: 'none',
       border: 'none',

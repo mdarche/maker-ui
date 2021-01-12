@@ -19,6 +19,11 @@ export const theme = {
       fontSize: 24,
     },
   },
+  footer: {
+    padding: 200,
+    fontWeight: 700,
+    fontSize: 30,
+  },
 }
 // Maker UI layout variants
 //   header: {
