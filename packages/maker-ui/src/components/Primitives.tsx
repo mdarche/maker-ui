@@ -2,7 +2,34 @@
 import { jsx } from 'theme-ui'
 import { forwardRef } from 'react'
 
+import { useMediaQuery } from '../hooks/useMediaQuery'
+
 import { MakerProps, ResponsiveString, ResponsiveScale } from '../types'
+
+export interface DeezProps
+  extends MakerProps,
+    React.HTMLAttributes<HTMLDivElement> {
+  _css?: object
+  breakpoints?: (string | number)[]
+}
+
+/**
+ * The basic theme-enabled building block for Maker UI.
+ *
+ * @see https://maker-ui.com/docs/primitives/#div
+ */
+
+export const Deez = forwardRef<HTMLDivElement, DeezProps>(
+  ({ _css, breakpoints, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+
+    console.log(parseStyles(_css, breakpoints))
+
+    return (
+      <div ref={ref} sx={{ ...parseStyles(_css, breakpoints) }} {...props} />
+    )
+  }
+)
 
 /** -----------------------   DIV   -----------------------
  * Alias for `Div` component props that includes all

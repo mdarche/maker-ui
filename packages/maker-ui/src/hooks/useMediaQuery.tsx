@@ -1,5 +1,6 @@
 import { useOptions } from '../context/OptionContext'
 import { format } from '../utils/helper'
+import merge from 'deepmerge'
 
 type LayoutKey =
   | 'topbar'
@@ -38,14 +39,10 @@ export const useMediaQuery = (type?: LayoutKey) => {
     styles[att] = values[0]
 
     if (typeof bp === 'string') {
-      /**
-       * Handle specific breakpoint
-       * */
+      /** Handle specific breakpoint */
       styles[`@media (min-width: ${bp})`] = { [att]: format(values[1]) }
     } else {
-      /**
-       * Handle breakpoint array
-       * */
+      /** Handle breakpoint array */
       let i = 0
       while (i < values.length - 1) {
         styles[`@media (min-width: ${format(mqs[bp + i])})`] = {
@@ -59,11 +56,33 @@ export const useMediaQuery = (type?: LayoutKey) => {
 
   /**
    * @param {object} css - an Emotion CSS object
+   * @todo create a type for this
    * */
 
-  function parse() {
-    return {}
+  function parseStyles(css: object, breakpoints?: (string | number)[]) {
+    let output = {}
+
+    const bps = breakpoints ? breakpoints : options.breakpoints
+
+    for (const [key, value] of Object.entries(css)) {
+      let styles = {}
+
+      if (Array.isArray(value)) {
+        styles[key] = value[0]
+        let i = 0
+        while (i < value.length - 1) {
+          styles[`@media (min-width: ${format(bps[i])})`] = {
+            [key]: value[i + 1],
+          }
+          i++
+        }
+        output = merge(styles, output)
+      } else {
+        output[key] = value
+      }
+    }
+    return output
   }
 
-  return { mediaQuery, parse }
+  return { mediaQuery, parseStyles }
 }

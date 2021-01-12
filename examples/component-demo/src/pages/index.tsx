@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, Section, setBreakpoint } from 'maker-ui'
+import { Div, Section, Deez } from 'maker-ui'
 
 const IndexPage = () => {
   // const responsiveArray = ['10px', '20px']
@@ -9,6 +9,15 @@ const IndexPage = () => {
   return (
     <>
       <h1>Component Showcase!</h1>
+      <Deez
+        breakpoints={[800, 200]}
+        _css={{
+          position: 'relative',
+          background: ['blue', 'red', 'purple'],
+          color: ['green', 'purple'],
+        }}>
+        Deez tests
+      </Deez>
       <div>
         Anoter title
         <h4>Subtitle</h4>

@@ -13,6 +13,8 @@ export type ResponsiveScale =
 export type ResponsiveString = string | string[]
 
 export interface MakerProps {
+  // css?: object
+  breakpoints?: ResponsiveScale
   sx?: SxStyleProp
   variant?: string
 }
