@@ -21,10 +21,7 @@ export const Logo = ({ children }): React.ReactElement => {
   return linkFunction ? (
     linkFunction('/', children, attributes)
   ) : (
-    <Link
-      href="/"
-      {...attributes}
-      sx={{ variant: 'header.logo', display: 'inline-flex' }}>
+    <Link href="/" {...attributes} css={{ display: 'inline-flex' }}>
       {children}
     </Link>
   )

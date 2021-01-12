@@ -21,19 +21,23 @@ export const DefaultError = ({
 }: DefaultErrorProps) => {
   return (
     <Div variant="errorBoundary">
-      <ErrorIcon sx={{ height: 30 }} />
+      <ErrorIcon css={{ height: 30 }} />
       <div>
         There was an issue loading this section of the app.
         <Span
-          sx={{ ml: '5px', cursor: 'pointer', color: 'primary' }}
+          css={{
+            marginLeft: '5px',
+            cursor: 'pointer',
+            color: 'var(--color-primary)',
+          }}
           onClick={e => window.location.reload()}>
           Try reloading the page.
         </Span>
       </div>
       {showStackTrace ? (
         <Div
-          sx={{
-            details: { pl: '20px', whiteSpace: 'pre' },
+          css={{
+            details: { paddingLeft: '20px', whiteSpace: 'pre' },
             summary: { cursor: 'pointer' },
           }}>
           <details className="error-details">
@@ -58,16 +62,15 @@ const acceptable = [
 export const ContentError = () => {
   return (
     <Div
-      sx={{
-        my: 150,
-        mx: 'auto',
+      css={{
+        margin: '150px auto',
         maxWidth: 600,
         fontSize: '20px',
         lineHeight: 1.5,
         'li, span': {
-          p: '0 8px',
+          padding: '0 8px',
           fontFamily: 'monospace',
-          bg: 'muted',
+          backgroundColor: 'var(--color-muted)',
           fontSize: '18px',
           borderRadius: 3,
           border: '1px solid gainsboro',
@@ -77,14 +80,14 @@ export const ContentError = () => {
         inline
         align="center"
         justify="center"
-        sx={{
+        css={{
           width: '100%',
-          p: '20px',
+          padding: '20px',
           mb: '30px',
-          bg: 'muted',
-          strong: { mr: '20px' },
+          background: 'var(--color-muted)',
+          strong: { marginRight: '20px' },
         }}>
-        <ErrorIcon sx={{ height: 35, mr: '10px' }} />
+        <ErrorIcon css={{ height: 35, marginRight: '10px' }} />
         <strong>Error</strong> Invalid layout configuration.
       </Flex>
       <Div>
@@ -93,10 +96,10 @@ export const ContentError = () => {
           children:
         </p>
         <UList
-          sx={{
+          css={{
             columns: 2,
-            m: '50px 0 35px',
-            li: { mb: '10px', width: 'min-content' },
+            margin: '50px 0 35px',
+            li: { marginBottom: '10px', width: 'min-content' },
           }}>
           {acceptable.map((item, index) => (
             <li key={index}>{item}</li>

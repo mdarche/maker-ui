@@ -9,7 +9,7 @@ import { useMenu, useSideNav } from '../../context/ActionContext'
 
 interface CollapsibleProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLUListElement> {
+    Omit<React.HTMLAttributes<HTMLUListElement>, 'css'> {
   menu: MenuProps[]
   menuType: string
   pathname?: string

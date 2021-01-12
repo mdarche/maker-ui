@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { SxStyleProp, Theme } from 'theme-ui'
+// import { SxStyleProp, Theme } from 'theme-ui'
+import { Interpolation, Theme } from '@emotion/react'
 
 import { mobileNavTypes, navTypes, transitionTypes } from './constants'
 
@@ -13,9 +14,8 @@ export type ResponsiveScale =
 export type ResponsiveString = string | string[]
 
 export interface MakerProps {
-  // css?: object
-  breakpoints?: ResponsiveScale
-  sx?: SxStyleProp
+  css?: Interpolation<Theme>
+  breakpoints?: (string | number)[]
   variant?: string
 }
 

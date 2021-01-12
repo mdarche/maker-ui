@@ -14,7 +14,7 @@ import { Panel } from './Panel'
 
 interface WorkspaceProps
   extends MakerProps,
-    React.HtmlHTMLAttributes<HTMLDivElement> {}
+    Omit<React.HtmlHTMLAttributes<HTMLDivElement>, 'css'> {}
 
 export const Workspace = ({ css, children }: WorkspaceProps) => {
   const { workspace } = useOptions()

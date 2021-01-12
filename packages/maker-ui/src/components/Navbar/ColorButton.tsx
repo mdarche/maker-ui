@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Button } from '../Primitives'
 import { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
-import { setBreakpoint } from '../../utils/helper'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 interface ColorButtonProps {
   customButton?: MakerOptions['header']['colorButton']
@@ -18,6 +18,7 @@ interface ColorButtonProps {
 
 export const ColorButton = ({ customButton }: ColorButtonProps) => {
   const { header, colors } = useOptions()
+  const { mediaQuery } = useMediaQuery('header')
   const [theme, setTheme] = React.useState(colors.initialTheme || 'light')
 
   const { initialTheme, ...colorModes } = colors
@@ -55,11 +56,10 @@ export const ColorButton = ({ customButton }: ColorButtonProps) => {
     ) : (
       <Button
         {...attributes}
-        sx={{
-          display: header.hideColorButtonOnMobile
-            ? setBreakpoint(header.bpIndex, ['none', 'block'])
-            : 'block',
-        }}>
+        css={mediaQuery(
+          'display',
+          header.hideColorButtonOnMobile ? ['none', 'block'] : ['block']
+        )}>
         {colorButton || theme}
       </Button>
     )

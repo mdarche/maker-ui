@@ -6,7 +6,7 @@ import { ErrorBoundary } from './Errors'
 
 interface SidebarProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string | string[]
 }
 

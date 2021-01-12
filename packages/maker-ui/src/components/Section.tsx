@@ -7,9 +7,9 @@ import { MakerProps, ResponsiveScale } from '../types'
 
 interface SectionProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string | string[]
-  _css?: object
+  _css?: MakerProps['css']
   maxWidth?: ResponsiveScale
   container?: boolean
 }
@@ -42,7 +42,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
         ref={ref}
         id={id}
         className={className}
-        css={{ background, color, width: '100%', ..._css }}>
+        css={{ background, color, width: '100%', ...(_css as object) }}>
         <ErrorBoundary errorKey="section">
           {container ? (
             <div

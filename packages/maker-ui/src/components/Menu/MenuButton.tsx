@@ -4,7 +4,7 @@ import { SVG, Button } from '../Primitives'
 import { MakerProps } from '../../types'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { setBreakpoint } from '../../utils/helper'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 interface MenuButtonProps extends MakerProps {
   isCloseButton?: boolean
@@ -27,11 +27,12 @@ export const MenuButton = ({
   customButton,
   visibleOnDesktop,
   isCloseButton,
-  sx,
+  css,
 }: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()
   const { header, sideNav } = useOptions()
+  const { mediaQuery } = useMediaQuery('header')
 
   // Use custom button from props or check header / mobileMenu options
   const menuButton = customButton || header.menuButton
@@ -40,7 +41,7 @@ export const MenuButton = ({
     ? !sideNav.isPrimaryMobileNav
       ? { display: 'block' }
       : { display: 'none' }
-    : { display: setBreakpoint(header.bpIndex, ['block', 'none']) }
+    : { ...mediaQuery('display', ['block', 'none']) }
 
   const conditionalAttributes = sideNav.isPrimaryMobileNav
     ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
@@ -58,18 +59,18 @@ export const MenuButton = ({
   ) : (
     <Button
       {...attributes}
-      sx={{
+      css={{
         ...visibility,
-        m: '0',
+        margin: 0,
         border: 'none',
         background: 'none',
-        svg: { m: '0 auto' },
-        ...sx,
+        svg: { margin: '0 auto' },
+        ...(css as object),
       }}>
       {menuButton || (
         <SVG
           viewBox="0 0 24 24"
-          sx={{
+          css={{
             display: 'block',
             margin: 0,
             height: isCloseButton ? 35 : 27,

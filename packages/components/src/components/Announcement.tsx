@@ -22,7 +22,7 @@ const fixedPartial = (fixed: boolean, bottom: boolean) =>
 export interface AnnouncementProps extends DivProps {
   storageKey?: string
   fixed?: boolean
-  bg?: string | string[]
+  background?: string | string[]
   type?: 'session' | 'cookie'
   expiration?: number
   allowClose?: boolean
@@ -42,9 +42,8 @@ export interface AnnouncementProps extends DivProps {
 export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {
-      variant = 'announcement',
       storageKey = 'mui_dismiss_announce',
-      bg = 'primary',
+      background = 'primary',
       color = '#fff',
       fixed = false,
       type = 'session',
@@ -80,19 +79,21 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         className="announcement"
         style={spring}
         sx={{
-          variant,
+          // @ts-ignore
           display: 'flex',
+          // @ts-ignore
           alignItems: 'center',
-          bg,
+          // @ts-ignore
+          background,
+          // @ts-ignore
           color,
-          willChange: !fixed && 'height',
+          willChange: !fixed && ['height'],
           ...fixedPartial(fixed, bottom),
         }}>
         <Flex {...bind} sx={{ width: '100%', alignItems: 'center' }}>
           <Flex
             className="announcement-text"
             sx={{
-              variant: `${variant}.text`,
               flex: 1,
               flexWrap: 'wrap',
               ...sx,
@@ -107,11 +108,10 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
               aria-label="Dismiss"
               onClick={e => set(false)}
               sx={{
-                variant: `${variant}.close`,
                 cursor: 'pointer',
                 border: 'none',
                 background: 'none',
-                px: '15px',
+                padding: '0 15px',
                 color,
                 svg: { height: 27, fill: color },
               }}>

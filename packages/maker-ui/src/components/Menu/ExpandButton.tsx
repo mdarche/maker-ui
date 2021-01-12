@@ -23,12 +23,12 @@ export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
       aria-expanded={show ? 'true' : 'false'}
       aria-label="Expand Section"
       onClick={() => set(!show)}
-      sx={{ border: 'none', bg: 'transparent' }}>
+      css={{ border: 'none', background: 'transparent' }}>
       <SVG
         viewBox="0 0 16 16"
         width="12"
         height="12"
-        sx={{
+        css={{
           transition: 'transform ease .2s',
           transformOrigin: '50% 55%',
           transform: show ? 'rotate(180deg)' : null,

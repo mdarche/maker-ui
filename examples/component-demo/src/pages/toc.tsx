@@ -36,8 +36,7 @@ const TocPage = () => {
               borderLeft: '1px solid gainsboro',
             },
             a: {
-              px: 20,
-              py: '5px',
+              padding: '20px 5px',
               color: '#555',
             },
           }}

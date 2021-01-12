@@ -59,7 +59,10 @@ export const useMediaQuery = (type?: LayoutKey) => {
    * @todo create a type for this
    * */
 
-  function parseStyles(css: object, breakpoints?: (string | number)[]) {
+  function parseStyles(
+    css: any | object = {},
+    breakpoints?: (string | number)[]
+  ) {
     let output = {}
 
     const bps = breakpoints ? breakpoints : options.breakpoints

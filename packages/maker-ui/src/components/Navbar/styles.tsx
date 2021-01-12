@@ -1,4 +1,4 @@
-import { setBreakpoint } from '../../utils/helper'
+import merge from 'deepmerge'
 
 // Grid & flex justification styles for desktop
 const desktop = {
@@ -76,24 +76,30 @@ const mobile = {
  * Calculate grid-template-area, grid-template-columns, and grid-template-rows
  */
 
-export function gridStyles(layout: string, mobileLayout: string, bp: number) {
+export function gridStyles(
+  layout: string,
+  mobileLayout: string,
+  mediaQuery: (rule: string, arr: (string | number)[]) => object
+) {
   return {
-    gridTemplateAreas: setBreakpoint(bp, [
-      mobile[mobileLayout].areas,
-      desktop[layout].areas,
-    ]),
-    gridTemplateColumns: setBreakpoint(bp, [
-      mobile[mobileLayout].columns,
-      desktop[layout].columns,
-    ]),
-    gridTemplateRows: setBreakpoint(bp, [
-      '1fr',
-      layout !== 'center' ? '1fr' : '1fr 1fr',
+    ...merge.all([
+      mediaQuery('gridTemplateAreas', [
+        mobile[mobileLayout].areas,
+        desktop[layout].areas,
+      ]),
+      mediaQuery('gridTemplateColumns', [
+        mobile[mobileLayout].columns,
+        desktop[layout].columns,
+      ]),
+      mediaQuery('gridTemplateRows', [
+        '1fr',
+        layout !== 'center' ? '1fr' : '1fr 1fr',
+      ]),
     ]),
     gap: 0,
     '.nav-area': {
-      ...absolutePosition(layout, bp),
-      justifyContent: setBreakpoint(bp, [
+      ...absolutePosition(layout, mediaQuery),
+      ...mediaQuery('justifyContent', [
         mobile[mobileLayout].navArea,
         desktop[layout].navArea || 'flex-start',
       ]),
@@ -114,7 +120,7 @@ export function gridStyles(layout: string, mobileLayout: string, bp: number) {
       justifyContent: 'flex-start',
     },
     '&.m-layout-logo-center-alt .button-area': {
-      justifyContent: setBreakpoint(bp, ['flex-end', 'flex-start']),
+      ...mediaQuery('justifyContent', ['flex-end', 'flex-start']),
     },
     // overflow flex-wrap vs scroll
   }
@@ -124,11 +130,14 @@ export function gridStyles(layout: string, mobileLayout: string, bp: number) {
  * Add absolute positioning to nav-area for `split` and `center` desktop layouts
  */
 
-function absolutePosition(layout: string, bp: number) {
+function absolutePosition(
+  layout: string,
+  mediaQuery: (rule: string, arr: (string | number)[]) => object
+) {
   const abs = ['center', 'split']
   return abs.includes(layout)
     ? {
-        position: setBreakpoint(bp, ['relative', 'absolute']),
+        ...mediaQuery('position', ['relative', 'absolute']),
         top: 0,
         right: 0,
         height: '100%',

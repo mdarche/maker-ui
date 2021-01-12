@@ -28,7 +28,6 @@ export const AccordionPanel = React.forwardRef<
       title,
       open = false,
       eventKey,
-      variant = 'accordion',
       borderColor = '#dedede',
       children,
       className = '',
@@ -74,7 +73,7 @@ export const AccordionPanel = React.forwardRef<
       <Div
         ref={ref}
         className={`${show ? 'expanded ' : ''}accordion ${className}`}
-        sx={{ variant, border: '1px solid', ...sx }}
+        sx={{ border: '1px solid', ...sx }}
         {...props}>
         <Button
           title={`${show ? 'Collapse' : 'Expand'} content`}
@@ -82,7 +81,6 @@ export const AccordionPanel = React.forwardRef<
           aria-expanded={show ? 'true' : 'false'}
           aria-controls={panelId}
           className={`${show ? 'active ' : ''}accordion-toggle`}
-          variant={`${variant}.toggle`}
           onClick={setActive}
           sx={{
             display: 'flex',
@@ -136,7 +134,6 @@ export const AccordionPanel = React.forwardRef<
               className="accordion-panel"
               sx={{
                 borderTop: `1px solid ${borderColor}`,
-                variant: `${variant}.panel`,
               }}>
               {children}
             </Div>

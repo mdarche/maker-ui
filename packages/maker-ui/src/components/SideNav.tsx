@@ -17,7 +17,7 @@ const Container = ({ isHeader, ...props }) =>
 
 interface SideNavProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string | string[]
   toggleButton?: MakerOptions['sideNav']['toggleButton']
   menu?: MenuProps[]

@@ -24,7 +24,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     const [panelId] = React.useState(generateId())
 
     const {
-      state: { variant, activeKey, renderInactive },
+      state: { activeKey, renderInactive },
       addToTabGroup,
     } = useTabs()
     const tabItem = { id, panelId, title, disabled }
@@ -41,7 +41,6 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
         aria-labelledby={`control-${panelId}`}
         className="tab-panel"
         sx={{
-          variant: `${variant}.panel`,
           flex: 1,
           order: 1,
           display: renderInactive && activeKey !== id ? 'none' : undefined,

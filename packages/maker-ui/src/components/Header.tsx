@@ -10,7 +10,9 @@ import { useMeasure } from '../hooks/useMeasure'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useLayout, useMeasurements } from '../context/LayoutContext'
 
-interface HeaderProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
+interface HeaderProps
+  extends MakerProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string | string[]
   sticky?: boolean
   stickyOnMobile?: boolean
@@ -51,7 +53,6 @@ export const Header = (props: HeaderProps) => {
 
   const {
     background = 'var(--color-bg_header)',
-    sx,
     sticky = header.sticky,
     stickyOnMobile = header.stickyOnMobile,
     stickyUpScroll = header.stickyUpScroll,

@@ -9,7 +9,7 @@ import { useMeasurements } from '../../context/LayoutContext'
 
 export interface ToolbarProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string | string[]
   scrollOverflow?: 'wrap' | 'scroll'
 }

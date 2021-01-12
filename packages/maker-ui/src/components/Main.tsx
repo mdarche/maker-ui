@@ -4,7 +4,9 @@ import { jsx } from '@emotion/react'
 import { MakerProps } from '../types'
 import { ErrorBoundary } from './Errors'
 
-interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
+interface MainProps
+  extends MakerProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string | string[]
 }
 

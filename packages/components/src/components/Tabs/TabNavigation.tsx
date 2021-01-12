@@ -86,8 +86,8 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
       ref={ref}
       className="tab-navigation"
       role="tablist"
+      // @ts-ignore
       sx={{
-        variant: `${state.variant}.list`,
         ...getNavPosition({ settings }),
       }}>
       {state.tabs.map(item => (
@@ -104,8 +104,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
           title={typeof item.title === 'string' ? item.title : null}
           aria-controls={`panel-${item.panelId}`}
           aria-selected={state.activeKey === item.id ? 'true' : 'false'}
-          onClick={e => setActive(item.id)}
-          sx={{ variant: `${state.variant}.button` }}>
+          onClick={e => setActive(item.id)}>
           {item.title}
         </Button>
       ))}

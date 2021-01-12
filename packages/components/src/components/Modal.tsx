@@ -10,7 +10,7 @@ const AnimatedDiv = animated(Div)
 export interface ModalProps extends DivProps {
   show?: boolean
   toggle?: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
-  bg?: string | string
+  background?: string | string
   appendTo?: string
   title?: string
   closeOnBlur?: boolean
@@ -31,12 +31,11 @@ export const Modal = ({
   appendTo,
   title = 'Modal Dialog',
   closeOnBlur = false,
-  variant = 'modal',
   show,
   toggle,
   focusRef,
   center = false,
-  bg = 'rgba(0, 0, 0, 0.66)',
+  background = 'rgba(0, 0, 0, 0.66)',
   style = {},
   children,
   springConfig,
@@ -131,9 +130,9 @@ export const Modal = ({
               style={{ ...style, ...props }}
               tabIndex={focusable.count === 0 ? 0 : undefined}
               sx={{
-                variant,
                 ...position,
                 ...centered(center),
+                // @ts-ignore
                 zIndex: 101,
               }}>
               <Div
@@ -141,10 +140,11 @@ export const Modal = ({
                 onClick={e => (closeOnBlur ? closeModal() : undefined)}
                 className="modal-overlay"
                 sx={{
-                  variant: `${variant}.overlay`,
                   ...position,
+                  // @ts-ignore
                   zIndex: -1,
-                  bg,
+                  // @ts-ignore
+                  background,
                 }}
               />
               <Div sx={{ zIndex: 1, overflow: 'scroll' }} {...rest}>

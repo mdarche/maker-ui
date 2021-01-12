@@ -12,7 +12,7 @@ import { getTransition, fullWidth } from '../utils/helper'
 
 interface MobileMenuProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   transition?: MakerOptions['mobileMenu']['transition']
   background?: string | string[]
   width?: ResponsiveScale

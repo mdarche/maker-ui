@@ -26,9 +26,8 @@ export const NavButton = ({ type }: NavButtonProps) => {
       className={`lb-nav-button ${isNext ? 'next-button' : 'prev-button'}`}
       onClick={e => setIndex(isNext ? 'next' : 'previous')}
       sx={{
-        variant: 'lightbox.nav',
         cursor: 'pointer',
-        bg: 'rgba(0, 0, 0, 0.25)',
+        background: 'rgba(0, 0, 0, 0.25)',
         padding: ['20px 40px', '20px'],
         width: ['calc(50% - 15px)', 'auto'],
         border: 'none',

@@ -1,35 +1,10 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 import { forwardRef } from 'react'
 
 import { useMediaQuery } from '../hooks/useMediaQuery'
 
 import { MakerProps, ResponsiveString, ResponsiveScale } from '../types'
-
-export interface DeezProps
-  extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
-  _css?: object
-  breakpoints?: (string | number)[]
-}
-
-/**
- * The basic theme-enabled building block for Maker UI.
- *
- * @see https://maker-ui.com/docs/primitives/#div
- */
-
-export const Deez = forwardRef<HTMLDivElement, DeezProps>(
-  ({ _css, breakpoints, ...props }, ref) => {
-    const { parseStyles } = useMediaQuery()
-
-    console.log(parseStyles(_css, breakpoints))
-
-    return (
-      <div ref={ref} sx={{ ...parseStyles(_css, breakpoints) }} {...props} />
-    )
-  }
-)
 
 /** -----------------------   DIV   -----------------------
  * Alias for `Div` component props that includes all
@@ -38,7 +13,7 @@ export const Deez = forwardRef<HTMLDivElement, DeezProps>(
  */
 export interface DivProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {}
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {}
 
 /**
  * The basic theme-enabled building block for Maker UI.
@@ -47,9 +22,13 @@ export interface DivProps
  */
 
 export const Div = forwardRef<HTMLDivElement, DivProps>(
-  ({ variant, sx, ...props }, ref) => (
-    <div ref={ref} sx={{ variant, ...sx }} {...props} />
-  )
+  ({ css, breakpoints, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+
+    return (
+      <div ref={ref} css={{ ...parseStyles(css, breakpoints) }} {...props} />
+    )
+  }
 )
 
 Div.displayName = 'Div'
@@ -76,24 +55,36 @@ export interface FlexProps extends DivProps {
 
 export const Flex = forwardRef<HTMLDivElement, any>(
   (
-    { variant, inline, align, justify, direction, flex, wrap, sx, ...props },
+    {
+      inline,
+      align,
+      justify,
+      direction,
+      flex,
+      wrap,
+      css,
+      breakpoints,
+      ...props
+    },
     ref
-  ) => (
-    <div
-      ref={ref}
-      sx={{
-        variant,
-        display: inline ? 'inline-flex' : 'flex',
-        alignItems: align,
-        justifyContent: justify,
-        flexDirection: direction,
-        flexWrap: wrap && 'wrap',
-        flex,
-        ...sx,
-      }}
-      {...props}
-    />
-  )
+  ) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <div
+        ref={ref}
+        css={{
+          display: inline ? 'inline-flex' : 'flex',
+          alignItems: align,
+          justifyContent: justify,
+          flexDirection: direction,
+          flexWrap: wrap && 'wrap',
+          flex,
+          ...parseStyles(css, breakpoints),
+        }}
+        {...props}
+      />
+    )
+  }
 )
 
 Flex.displayName = 'Flex'
@@ -102,9 +93,15 @@ Flex.displayName = 'Flex'
  * Alias for `Div` component props that includes all
  * HTML div tag attributes.
  */
-export interface GridProps
-  extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {}
+export interface GridProps extends MakerProps, DivProps {
+  columns?: any
+  rows?: any
+  gap?: any
+  areas?: any
+  columnGap?: any
+  rowGap?: any
+  center?: any
+}
 
 /**
  * A pre-styled `Div` for quick access to CSS Grid properties.
@@ -112,10 +109,9 @@ export interface GridProps
  * @see https://maker-ui.com/docs/primitives/#grid
  */
 
-export const Grid = forwardRef<HTMLDivElement, any>(
+export const Grid = forwardRef<HTMLDivElement, GridProps>(
   (
     {
-      variant,
       columns,
       rows,
       gap,
@@ -123,28 +119,31 @@ export const Grid = forwardRef<HTMLDivElement, any>(
       columnGap,
       rowGap,
       center,
-      sx,
+      css,
+      breakpoints,
       ...props
     },
     ref
-  ) => (
-    <div
-      ref={ref}
-      sx={{
-        variant,
-        display: 'grid',
-        gridTemplateColumns: columns,
-        gridTemplateRows: rows,
-        gridTemplateAreas: areas,
-        gridGap: gap,
-        columnGap: columnGap,
-        rowGap: rowGap || gap,
-        placeItems: center && 'center',
-        ...sx,
-      }}
-      {...props}
-    />
-  )
+  ) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <div
+        ref={ref}
+        css={{
+          display: 'grid',
+          gridTemplateColumns: columns,
+          gridTemplateRows: rows,
+          gridTemplateAreas: areas,
+          gridGap: gap,
+          columnGap: columnGap,
+          rowGap: rowGap || gap,
+          placeItems: center && 'center',
+          ...parseStyles(css, breakpoints),
+        }}
+        {...props}
+      />
+    )
+  }
 )
 
 Grid.displayName = 'Grid'
@@ -155,7 +154,7 @@ Grid.displayName = 'Grid'
  */
 export interface SpanProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLSpanElement> {}
+    Omit<React.HTMLAttributes<HTMLSpanElement>, 'css'> {}
 
 /**
  * A theme-enabled `span` tag.
@@ -164,9 +163,12 @@ export interface SpanProps
  */
 
 export const Span = forwardRef<HTMLSpanElement, SpanProps>(
-  ({ variant, sx, ...props }, ref) => (
-    <span ref={ref} sx={{ variant, ...sx }} {...props} />
-  )
+  ({ css, breakpoints, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <span ref={ref} css={{ ...parseStyles(css, breakpoints) }} {...props} />
+    )
+  }
 )
 
 Span.displayName = 'Span'
@@ -177,7 +179,7 @@ Span.displayName = 'Span'
  */
 export interface OListProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLOListElement> {}
+    Omit<React.HTMLAttributes<HTMLOListElement>, 'css'> {}
 
 /**
  * A theme-enabled `ol` tag.
@@ -186,9 +188,12 @@ export interface OListProps
  */
 
 export const OList = forwardRef<HTMLOListElement, OListProps>(
-  ({ variant, sx, ...props }, ref) => (
-    <ol ref={ref} sx={{ variant, ...sx }} {...props} />
-  )
+  ({ css, breakpoints, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <ol ref={ref} css={{ ...parseStyles(css, breakpoints) }} {...props} />
+    )
+  }
 )
 
 OList.displayName = 'OList'
@@ -199,7 +204,7 @@ OList.displayName = 'OList'
  */
 export interface UListProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLUListElement> {}
+    Omit<React.HTMLAttributes<HTMLUListElement>, 'css'> {}
 
 /**
  * A theme-enabled `ul` tag.
@@ -208,9 +213,12 @@ export interface UListProps
  */
 
 export const UList = forwardRef<HTMLUListElement, UListProps>(
-  ({ variant, sx, ...props }, ref) => (
-    <ul ref={ref} sx={{ variant, ...sx }} {...props} />
-  )
+  ({ css, breakpoints, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <ul ref={ref} css={{ ...parseStyles(css, breakpoints) }} {...props} />
+    )
+  }
 )
 
 UList.displayName = 'UList'
@@ -221,7 +229,7 @@ UList.displayName = 'UList'
  */
 export interface ListItemProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLLIElement> {}
+    Omit<React.HTMLAttributes<HTMLLIElement>, 'css'> {}
 
 /**
  * A theme-enabled `li` tag.
@@ -230,9 +238,12 @@ export interface ListItemProps
  */
 
 export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
-  ({ variant, sx, ...props }, ref) => (
-    <li ref={ref} sx={{ variant, ...sx }} {...props} />
-  )
+  ({ css, breakpoints, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <li ref={ref} css={{ ...parseStyles(css, breakpoints) }} {...props} />
+    )
+  }
 )
 
 ListItem.displayName = 'ListItem'
@@ -241,7 +252,9 @@ ListItem.displayName = 'ListItem'
  * Alias for `SVG` component props that includes all
  * svg attributes.
  */
-export interface SVGProps extends MakerProps, React.SVGAttributes<SVGElement> {}
+export interface SVGProps
+  extends MakerProps,
+    Omit<React.SVGAttributes<SVGElement>, 'css'> {}
 
 /**
  * A theme-enabled `svg` tag.
@@ -250,14 +263,17 @@ export interface SVGProps extends MakerProps, React.SVGAttributes<SVGElement> {}
  */
 
 export const SVG = forwardRef<SVGSVGElement, SVGProps>(
-  ({ variant, sx, ...props }, ref) => (
-    <svg
-      ref={ref}
-      xmlns="http://www.w3.org/2000/svg"
-      sx={{ variant, ...sx }}
-      {...props}
-    />
-  )
+  ({ css, breakpoints, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <svg
+        ref={ref}
+        xmlns="http://www.w3.org/2000/svg"
+        css={{ ...parseStyles(css, breakpoints) }}
+        {...props}
+      />
+    )
+  }
 )
 
 SVG.displayName = 'SVG'
@@ -268,7 +284,7 @@ SVG.displayName = 'SVG'
  */
 export interface ButtonProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLButtonElement> {}
+    Omit<React.HTMLAttributes<HTMLButtonElement>, 'css'> {}
 
 /**
  * A theme-enabled `button` tag.
@@ -277,9 +293,12 @@ export interface ButtonProps
  */
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant, sx, ...props }, ref) => (
-    <button ref={ref} sx={{ variant, ...sx }} {...props} />
-  )
+  ({ css, breakpoints, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <button ref={ref} css={{ ...parseStyles(css, breakpoints) }} {...props} />
+    )
+  }
 )
 
 Button.displayName = 'Button'
@@ -290,7 +309,7 @@ Button.displayName = 'Button'
  */
 export interface LinkProps
   extends MakerProps,
-    React.AnchorHTMLAttributes<HTMLAnchorElement> {}
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'css'> {}
 
 /**
  * A theme-enabled `a` tag.
@@ -299,11 +318,14 @@ export interface LinkProps
  */
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ variant, sx, children, ...props }, ref) => (
-    <a ref={ref} sx={{ variant, ...sx }} {...props}>
-      {children}
-    </a>
-  )
+  ({ css, breakpoints, children, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <a ref={ref} css={{ ...parseStyles(css, breakpoints) }} {...props}>
+        {children}
+      </a>
+    )
+  }
 )
 
 Link.displayName = 'Link'
@@ -314,7 +336,7 @@ Link.displayName = 'Link'
  */
 export interface ImageProps
   extends MakerProps,
-    React.AnchorHTMLAttributes<HTMLImageElement> {}
+    Omit<React.AnchorHTMLAttributes<HTMLImageElement>, 'css'> {}
 
 /**
  * A theme-enabled `img` tag.
@@ -323,9 +345,18 @@ export interface ImageProps
  */
 
 export const Image = forwardRef<HTMLImageElement, any>(
-  ({ variant, src, alt, sx, children, ...props }, ref) => (
-    <img ref={ref} alt={alt} src={src} sx={{ variant, ...sx }} {...props} />
-  )
+  ({ src, alt, css, breakpoints, children, ...props }, ref) => {
+    const { parseStyles } = useMediaQuery()
+    return (
+      <img
+        ref={ref}
+        alt={alt}
+        src={src}
+        css={{ ...parseStyles(css, breakpoints) }}
+        {...props}
+      />
+    )
+  }
 )
 
 Image.displayName = 'Image'

@@ -29,7 +29,6 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
     const [isOpen, setOpen] = React.useState(open)
     const {
       clickableText,
-      variant,
       collapse,
       expand,
       neutral,
@@ -70,12 +69,11 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
           aria-label={text}
           aria-expanded={isOpen ? 'true' : 'false'}
           sx={{
-            variant: `${variant}.button`,
             display: !link && 'flex',
             alignItems: !link && 'center',
             background: 'none',
             border: 'none',
-            p: 0,
+            padding: 0,
             mr: '10px',
             cursor: 'pointer',
             color: 'primary',
@@ -87,28 +85,22 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
           <Span
             className="tree-icon"
             sx={{
-              variant: `${variant}.icon`,
-              mr: clickableText && !link ? '10px' : undefined,
+              marginRight: clickableText && !link ? '10px' : undefined,
             }}>
             {children ? (isOpen ? collapse : expand) : neutral}
           </Span>
           {clickableText && !link ? (
-            <Span
-              className="tree-text"
-              sx={{ variant: `${variant}.text`, fontSize: 2 }}>
+            <Span className="tree-text" sx={{ fontSize: '1em' }}>
               {text}
             </Span>
           ) : null}
         </Button>
         {link ? (
-          <Link
-            href={link}
-            target={newTab && '_blank'}
-            sx={{ variant: `${variant}.text`, ...sx }}>
+          <Link href={link} target={newTab && '_blank'} sx={{ ...sx }}>
             {text}
           </Link>
         ) : (
-          <Span sx={{ variant: `${variant}.text`, ...sx }} {...props}>
+          <Span sx={{ ...sx }} {...props}>
             {!clickableText && text}
           </Span>
         )}

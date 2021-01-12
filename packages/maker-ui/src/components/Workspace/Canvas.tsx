@@ -6,7 +6,7 @@ import { ErrorBoundary } from '../Errors'
 
 export interface CanvasProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string | string[]
 }
 

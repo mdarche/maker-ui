@@ -33,7 +33,6 @@ interface LightboxContextProps {
 interface LightboxState {
   index: number
   active: boolean
-  variant: LightboxProps['variant']
   data: LightboxData[]
   settings: LightboxProps['settings']
   toggle: LightboxProps['toggle']
@@ -57,7 +56,6 @@ export const LightboxContext = ({
   const [state, setState] = React.useState<LightboxState>({
     index: 0,
     active: false,
-    variant,
     data: data.map(i => formatData(i)),
     settings: mergeSettings(settings),
     toggle,

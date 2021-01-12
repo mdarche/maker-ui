@@ -9,7 +9,7 @@ import { useMeasurements } from '../../context/LayoutContext'
 
 export interface PanelProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string | string[]
 }
 
@@ -39,7 +39,7 @@ export const Panel = ({
     <div
       {...bind}
       className="ws-panel"
-      sx={{
+      css={{
         background,
         gridArea: 'panel',
         ...(css as object),

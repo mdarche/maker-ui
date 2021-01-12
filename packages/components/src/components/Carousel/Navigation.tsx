@@ -32,20 +32,13 @@ interface NavButtonProps extends NavigationProps {
  * @internal usage only
  */
 
-const NavButton = ({
-  isNext = false,
-  variant,
-  arrow,
-  onClick,
-}: NavButtonProps) => (
+const NavButton = ({ isNext = false, arrow, onClick }: NavButtonProps) => (
   <Button
     title={`${isNext ? 'Next' : 'Previous'} Slide`}
     aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
-    variant={isNext ? `${variant}.next` : `${variant}.prev`}
     className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
     onClick={onClick}
     sx={{
-      variant: `${variant}.nav`,
       cursor: 'pointer',
       background: 'none',
       border: 'none',

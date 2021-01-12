@@ -10,7 +10,7 @@ import { useLayoutStyles } from '../hooks/useLayoutStyles'
 
 interface ContentProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {}
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {}
 
 /**
  * The `Content` component is a wrapper that reads the contents of its

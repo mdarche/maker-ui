@@ -21,7 +21,6 @@ export interface SearchProps extends DivProps {
 
 const PageSearch = ({
   searchId = 'content',
-  variant = 'pagesearch',
   controls = true,
   sticky = false,
   offsetTop = 50,
@@ -82,7 +81,6 @@ const PageSearch = ({
   return (
     <Flex
       sx={{
-        variant: variant,
         alignItems: 'stretch',
         position: sticky ? 'sticky' : 'relative',
         top: 0,

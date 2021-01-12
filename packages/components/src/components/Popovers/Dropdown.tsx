@@ -44,7 +44,7 @@ export const Dropdown = ({
         aria-haspopup="listbox"
         aria-expanded={show}
         onClick={e => toggle(!show)}
-        sx={{ variant: buttonVariant, ...sx }}>
+        sx={{ ...sx }}>
         {buttonInner}
       </Button>
       <Div className="dropdown-container" ref={dropdownRef}>

@@ -10,7 +10,7 @@ import { NavMenu, MenuButton, MenuProps } from '../Menu'
 import { WidgetArea } from './WidgetArea'
 import { Grid, Flex } from '../Primitives'
 import { gridStyles } from './styles'
-import { setBreakpoint } from '../../utils/helper'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 const edge = ['minimal-left', 'minimal-center']
 const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
@@ -38,6 +38,7 @@ export const Navbar = (props: NavProps) => {
   const { header, mobileMenu } = useOptions()
   const [layout, setLayout] = useLayout('nav')
   const [mobileLayout, setMobileLayout] = useLayout('mobileNav')
+  const { mediaQuery } = useMediaQuery('header')
 
   const {
     type,
@@ -47,9 +48,8 @@ export const Navbar = (props: NavProps) => {
     navArea,
     menuButton,
     colorButton,
-    maxWidth,
-    variant = 'navbar',
-    sx,
+    maxWidth = 'var(--maxWidth_header)',
+    css,
   } = props
 
   const mid = Math.ceil(menu.length / 2)
@@ -64,30 +64,29 @@ export const Navbar = (props: NavProps) => {
     }
   }, [type, mobileType, layout, mobileLayout, setLayout, setMobileLayout])
 
-  const wrapPartial =
+  const wrapPartial: object | undefined =
     header.menuOverflow === 'scroll'
       ? { '.menu-area': { overflowX: 'scroll', whiteSpace: 'nowrap' } }
-      : null
+      : undefined
 
   return (
     <Grid
-      variant={variant}
       className={`nav-grid layout-${layout} m-layout-${mobileLayout}`}
-      sx={{
-        maxWidth: maxWidth || (t => t.sizes.maxWidth_header),
-        mx: 'auto',
+      css={{
+        maxWidth,
+        margin: '0 auto',
         position: 'relative',
-        ...gridStyles(layout, mobileLayout, header.bpIndex),
+        ...gridStyles(layout, mobileLayout, mediaQuery),
         ...wrapPartial,
-        ...sx,
+        ...(css as object),
       }}>
       {edge.includes(layout) || mobileEdge.includes(mobileLayout) ? (
         <Flex
           align="center"
           className="button-area"
-          sx={{
+          css={{
             gridArea: 'button',
-            display: setBreakpoint(header.bpIndex, [
+            ...mediaQuery('display', [
               mobileEdge.includes(mobileLayout) ? 'flex' : 'none',
               edge.includes(layout) ? 'flex' : 'none',
             ]),
@@ -99,31 +98,31 @@ export const Navbar = (props: NavProps) => {
         <Flex
           align="center"
           className="menu-area split"
-          sx={{
+          css={{
             gridArea: 'menu-split',
-            display: setBreakpoint(header.bpIndex, ['none', 'flex']),
+            ...mediaQuery('display', ['none', 'flex']),
           }}>
           <NavMenu menuItems={menu.slice(0, mid)} />
         </Flex>
       ) : null}
-      <Flex align="center" className="logo-area" sx={{ gridArea: 'logo' }}>
+      <Flex align="center" className="logo-area" css={{ gridArea: 'logo' }}>
         <Logo>{logo}</Logo>
       </Flex>
       <Flex
         align="center"
         className="menu-area"
-        sx={{
+        css={{
           gridArea: 'menu',
-          display: setBreakpoint(header.bpIndex, ['none', 'flex']),
+          ...mediaQuery('display', ['none', 'flex']),
         }}>
         <NavMenu menuItems={layout === 'split' ? menu.slice(mid) : menu} />
       </Flex>
-      <Flex align="center" className="nav-area" sx={{ gridArea: 'nav' }}>
+      <Flex align="center" className="nav-area" css={{ gridArea: 'nav' }}>
         <WidgetArea content={navArea} />
         <MenuButton
           customButton={menuButton}
-          sx={{
-            display: setBreakpoint(header.bpIndex, [
+          css={{
+            ...mediaQuery('display', [
               mobileEdge.includes(mobileLayout) ? 'none' : 'block',
               layout === 'minimal' || mobileMenu.visibleOnDesktop
                 ? 'block'

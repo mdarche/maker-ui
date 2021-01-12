@@ -4,7 +4,9 @@ import { jsx } from '@emotion/react'
 import { MakerProps, ResponsiveScale } from '../types'
 import { ErrorBoundary } from './Errors'
 
-interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
+interface FooterProps
+  extends MakerProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   maxWidth?: ResponsiveScale
   background?: string | string[]
 }

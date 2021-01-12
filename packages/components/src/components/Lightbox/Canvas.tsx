@@ -77,7 +77,7 @@ interface CanvasProps extends DivProps {
  */
 
 export const Canvas = (props: CanvasProps) => {
-  const { variant, data, index, settings } = useLightbox()
+  const { data, index, settings } = useLightbox()
 
   const transitions = useTransition(data[index], {
     from: { opacity: 0 },
@@ -90,7 +90,6 @@ export const Canvas = (props: CanvasProps) => {
     (props, item) =>
       item && (
         <AnimatedDiv
-          variant={`${variant}.canvas`}
           className="lb-canvas"
           // @ts-ignore
           style={props}
@@ -115,22 +114,18 @@ export const Canvas = (props: CanvasProps) => {
           <MediaFrame item={item} />
           {settings.showInfo && item.title && (
             <Div
-              variant={`${variant}.info`}
               className="lb-info"
               sx={{
                 color: '#fff',
                 h4: {
-                  variant: `${variant}.title`,
-                  mt: 20,
+                  marginTop: 20,
                   fontSize: '18px',
                   textAlign: 'center',
                 },
               }}>
               <h4>{item.title}</h4>
               {item.description && (
-                <Div variant={`${variant}.description`} sx={{ mt: 20 }}>
-                  {item.description}
-                </Div>
+                <Div sx={{ marginTop: 20 }}>{item.description}</Div>
               )}
             </Div>
           )}

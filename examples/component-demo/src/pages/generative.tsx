@@ -85,7 +85,7 @@ const GenerativePage = () => {
       <Grid
         gap="30px"
         columns={['1fr', 'repeat(3, 1fr)']}
-        sx={{ my: 80, textAlign: 'center', div: { p: 20 } }}>
+        sx={{ margin: '80px 0', textAlign: 'center', div: { padding: 20 } }}>
         <Generate data={componentData} />
       </Grid>
       <h2>Example 3</h2>
@@ -93,7 +93,7 @@ const GenerativePage = () => {
       <FadeBox
         transition="fade-left"
         distance={100}
-        sx={{ bg: 'gainsboro', my: 100 }}>
+        sx={{ bg: 'gainsboro', margin: '100px 0' }}>
         Test
       </FadeBox>
       <h2>Example 4</h2>

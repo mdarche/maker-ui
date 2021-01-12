@@ -35,13 +35,13 @@ export const Pagination = ({
         aria-label={`Show slide ${i + 1}`}
         aria-selected={i === current ? 'true' : 'false'}
         sx={{
-          mx: 1,
-          p: 0,
+          margin: '0 5px',
+          padding: 0,
           height: 10,
           width: 10,
           border: 'none',
           borderRadius: '50%',
-          bg: 'rgba(0, 0, 0, 0.25)',
+          backgroundColor: 'rgba(0, 0, 0, 0.25)',
         }}
       />
     )

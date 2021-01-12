@@ -7,7 +7,6 @@ const TabUpdateContext = React.createContext(null)
 export interface TabContextProps {
   renderInactive?: TabGroupProps['renderInactive']
   activeKey?: TabGroupProps['activeKey']
-  variant: string
   children?: React.ReactElement
 }
 
@@ -28,7 +27,6 @@ export interface TabState extends Omit<TabContextProps, 'children'> {
  */
 
 export const TabContext = ({
-  variant = 'tabs',
   activeKey,
   renderInactive = false,
   children,
@@ -36,7 +34,6 @@ export const TabContext = ({
   const [state, setState] = React.useState<TabState>({
     activeKey,
     tabs: [],
-    variant,
     renderInactive,
   })
 

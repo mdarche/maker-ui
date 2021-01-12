@@ -9,7 +9,9 @@ import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useMeasure } from '../hooks/useMeasure'
 import { useLayout, useMeasurements } from '../context/LayoutContext'
 
-interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
+interface TopbarProps
+  extends MakerProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string
   maxWidth?: ResponsiveScale
   scrollOverflow?: boolean
