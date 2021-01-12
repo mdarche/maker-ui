@@ -52,17 +52,6 @@ export const createTheme = (theme, options): Theme => {
     gap: {
       gap_content: o.content.sidebarGap,
     },
-    styles: {
-      root: {
-        fontFamily: 'body',
-      },
-      a: {
-        color: 'link',
-        '&:hover': {
-          color: 'link_hover',
-        },
-      },
-    },
   }
 
   return merge.all([mappedOptions, validate(theme)], {

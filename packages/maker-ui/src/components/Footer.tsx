@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { MakerProps, ResponsiveScale } from '../types'
 import { ErrorBoundary } from './Errors'
 
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: ResponsiveScale
-  bg?: string | string[]
+  background?: string | string[]
 }
 
 /**
@@ -17,22 +17,21 @@ interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  */
 
 export const Footer = ({
-  maxWidth,
-  variant = 'footer',
-  sx,
-  bg = 'bg_footer',
+  maxWidth = 'var(--maxWidth_footer)',
+  background = 'var(--color-bg_footer)',
+  css,
   children,
   ...props
 }: FooterProps) => {
   return (
-    <footer id="footer" role="contentinfo" sx={{ bg, variant }} {...props}>
+    <footer id="footer" role="contentinfo" css={{ background }} {...props}>
       <div
         className="container"
-        sx={{
+        css={{
           display: 'flex',
-          maxWidth: maxWidth || (t => t.sizes.maxWidth_footer),
-          mx: 'auto',
-          ...sx,
+          maxWidth: maxWidth,
+          margin: '0 auto',
+          ...(css as object),
         }}>
         <ErrorBoundary errorKey="footer">{children}</ErrorBoundary>
       </div>

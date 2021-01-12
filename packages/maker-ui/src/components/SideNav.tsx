@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { MakerProps, MakerOptions } from '../types'
 import { ErrorBoundary } from './Errors/ErrorBoundary'
@@ -10,7 +10,7 @@ import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
-import { setBreakpoint } from '../utils/helper'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 
 const Container = ({ isHeader, ...props }) =>
   isHeader ? <header {...props} /> : <div {...props} />
@@ -19,7 +19,6 @@ interface SideNavProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
-  bg?: string | string[]
   toggleButton?: MakerOptions['sideNav']['toggleButton']
   menu?: MenuProps[]
   pathname?: string
@@ -36,21 +35,20 @@ interface SideNavProps
  */
 
 export const SideNav = ({
-  bg = 'bg_sideNav',
-  background,
+  background = 'var(--color-bg_sideNav)',
   toggleButton,
-  variant = 'sideNav',
   menu,
   pathname,
   header,
   footer,
+  css,
   children,
   ...props
 }: SideNavProps) => {
   const [active, setActive] = useSideNav()
   const { sideNav } = useOptions()
+  const { mediaQuery } = useMediaQuery('sideNav')
 
-  const bp = sideNav.bpIndex
   const customButton = toggleButton || sideNav.toggleButton
 
   const toggleAttributes = {
@@ -74,10 +72,9 @@ export const SideNav = ({
         isHeader={sideNav.isHeader}
         id="sidenav"
         className={!active ? 'hide' : null}
-        sx={{
-          bg,
+        css={{
           background,
-          variant,
+          ...(css as object),
         }}
         {...props}>
         <div className="container">
@@ -98,10 +95,9 @@ export const SideNav = ({
       ) : sideNav.showToggleOnMobile ? (
         <Button
           {...toggleAttributes}
-          sx={{
-            variant: `${variant}.toggle`,
+          css={{
             position: 'fixed',
-            display: setBreakpoint(bp, ['inline-block', 'none']),
+            ...mediaQuery('display', ['inline-block', 'none']),
             bottom: 30,
             zIndex: 100,
           }}>

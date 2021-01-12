@@ -5,7 +5,7 @@ type LayoutKey =
   | 'topbar'
   | 'header'
   | 'mobileMenu'
-  | 'sidenav'
+  | 'sideNav'
   | 'sidebar'
   | 'content'
   | 'workspace'
@@ -27,8 +27,12 @@ export const useMediaQuery = (type?: LayoutKey) => {
     breakpoint?: string | number,
     bpArray?: number[] | string[] | (number | string)[]
   ) {
-    const bp = breakpoint || (type ? options[type]['bpIndex'] : undefined)
+    let bp = breakpoint
     const mqs = bpArray || options.breakpoints
+
+    if (bp === undefined && type) {
+      bp = options[type]['bpIndex']
+    }
 
     let styles = {}
     styles[att] = values[0]
@@ -45,7 +49,7 @@ export const useMediaQuery = (type?: LayoutKey) => {
       let i = 0
       while (i < values.length - 1) {
         styles[`@media (min-width: ${format(mqs[bp + i])})`] = {
-          [att]: format(values[i + 1]),
+          [att]: values[i + 1],
         }
         i++
       }
@@ -53,5 +57,13 @@ export const useMediaQuery = (type?: LayoutKey) => {
     return styles
   }
 
-  return { mediaQuery }
+  /**
+   * @param {object} css - an Emotion CSS object
+   * */
+
+  function parse() {
+    return {}
+  }
+
+  return { mediaQuery, parse }
 }

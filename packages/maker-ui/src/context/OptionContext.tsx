@@ -21,7 +21,9 @@ interface OptionProviderProps {
 
 const OptionProvider = ({ options = {}, children }: OptionProviderProps) => {
   const [state, dispatch] = React.useState<MakerOptions>(
-    merge(defaultOptions, options)
+    merge(defaultOptions, options, {
+      arrayMerge: (_, source, __) => source,
+    })
   )
 
   return (

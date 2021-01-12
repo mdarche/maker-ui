@@ -1,9 +1,13 @@
+import merge from 'deepmerge'
+
 import { useOptions } from '../context/OptionContext'
 import { useMeasurements, LayoutString } from '../context/LayoutContext'
-import { format, setBreakpoint } from '../utils/helper'
+import { format } from '../utils/helper'
+import { useMediaQuery } from './useMediaQuery'
 
 export function useLayoutStyles(layout: LayoutString): object {
   const { measurements } = useMeasurements()
+  const { mediaQuery } = useMediaQuery()
   const { topbar, header, sideNav, content, workspace } = useOptions()
 
   /**
@@ -12,46 +16,54 @@ export function useLayoutStyles(layout: LayoutString): object {
   if (layout && layout.includes('sidebar')) {
     /**
      * Handle row reversal on mobile so main content always appears first
-     *
      */
-    const sidebarPartial = (): object | null => {
+    const sidebarOrder = (): object | null => {
       if (layout === 'sidebar content') {
         return {
-          '.sidebar': {
-            gridRow: setBreakpoint(content.bpIndex, [2, 'auto']),
-          },
+          '.sidebar': mediaQuery('gridRow', [2, 'auto'], content.bpIndex),
         }
       }
       if (layout === 'sidebar content sidebar') {
         return {
-          '.sidebar:first-of-type': {
-            gridRow: setBreakpoint(content.bpIndex, [2, 'auto']),
-          },
+          '.sidebar:first-of-type': mediaQuery(
+            'gridRow',
+            [2, 'auto'],
+            content.bpIndex
+          ),
         }
       }
       return null
     }
 
+    /**
+     * Set grid column widths
+     */
+    const sidebarColumns = (): object | null => {
+      const width = 'var(--width_sidebar)'
+      const grid =
+        layout === 'sidebar content'
+          ? `${width} 1fr`
+          : layout === 'sidebar content sidebar'
+          ? `${width} 1fr ${width}`
+          : layout === 'content sidebar'
+          ? `1fr ${width}`
+          : null
+
+      return mediaQuery('gridTemplateColumns', [`1fr`, grid], content.bpIndex)
+    }
+
+    /**
+     * Merge styles that may share the same breakpoints
+     */
+    const responsiveStyles: object = merge(sidebarOrder(), sidebarColumns())
+
     return {
       display: 'grid',
-      gridGap: t => t.gap.gap_content,
-      maxWidth: 'maxWidth_content',
-      mx: 'auto',
+      gridGap: 'var(--gap_content)',
+      maxWidth: 'var(--maxWidth_content)',
+      margin: '0 auto',
       minHeight: '80vh',
-      ...sidebarPartial(),
-      gridTemplateColumns: t => {
-        const width = format(t.sizes.width_sidebar)
-        const grid =
-          layout === 'sidebar content'
-            ? `${width} 1fr`
-            : layout === 'sidebar content sidebar'
-            ? `${width} 1fr ${width}`
-            : layout === 'content sidebar'
-            ? `1fr ${width}`
-            : null
-
-        return setBreakpoint(content.bpIndex, [`1fr`, grid])
-      },
+      ...responsiveStyles,
     }
   }
 
@@ -65,19 +77,18 @@ export function useLayoutStyles(layout: LayoutString): object {
      * @todo connect output type to theme-ui SystemStyleObject
      *
      */
-    const calculateTop = (): any => {
+    const calculateTop = (styleRule?: boolean) => {
       let top = header.sticky ? measurements.height_header : 0
 
       if (topbar.sticky) {
         top += measurements.height_topbar
       }
 
-      return setBreakpoint(sideNav.bpIndex, [0, top])
+      return styleRule ? mediaQuery('top', [0, top], sideNav.bpIndex) : top
     }
 
     /**
      * Determine the transform direction for toggling on mobile
-     *
      */
     const getTransform = width => {
       const w = Array.isArray(width) ? width[sideNav.bpIndex] : width
@@ -87,9 +98,7 @@ export function useLayoutStyles(layout: LayoutString): object {
 
     /**
      * Check for measurements to complete before adding transition style
-     *
      * @todo Find a mobile `sidenav-content` solution for when <Header> does not exist
-     *
      */
     const getTransition = () => {
       if (!sideNav.isHeader) {
@@ -98,36 +107,43 @@ export function useLayoutStyles(layout: LayoutString): object {
       return sideNav.easingCurve
     }
 
+    /**
+     * Merge styles that may share the same breakpoints
+     */
+    const responsiveStyles: object = merge(
+      mediaQuery('position', ['fixed', 'relative'], sideNav.bpIndex),
+      mediaQuery('zIndex', [101, 0], sideNav.bpIndex)
+    )
+
     return {
       display: 'flex',
       '#sidenav': {
-        position: setBreakpoint(sideNav.bpIndex, ['fixed', 'relative']),
+        ...responsiveStyles,
         top: 0,
         bottom: 0,
-        zIndex: setBreakpoint(sideNav.bpIndex, [101, 0]),
-        width: t => t.sizes.width_sideNav,
+        width: 'var(--width_sideNav)',
         right: layout === 'content sidenav' && 0,
         left: layout === 'sidenav content' && 0,
         willChange: 'transform',
         transform: 'translateX(0)',
         transition: getTransition(),
         '&.hide': {
-          transform: t =>
-            setBreakpoint(sideNav.bpIndex, [
-              getTransform(t.sizes.width_sideNav),
-              'none',
-            ]),
+          ...mediaQuery(
+            'transform',
+            [getTransform(sideNav.width), 'none'],
+            sideNav.bpIndex
+          ),
         },
         '> .container': {
           position: 'sticky',
-          top: calculateTop,
-          height: `calc(100vh - ${calculateTop}px)`,
+          ...calculateTop(true),
+          height: `calc(100vh - ${calculateTop()}px)`,
           overflowY: 'auto',
         },
       },
       '#content': {
-        maxWidth: 'maxWidth_content',
-        mx: 'auto',
+        maxWidth: 'var(--maxWidth_content)',
+        margin: '0 auto',
       },
       '#toggle-sidenav': {
         right: layout === 'sidenav content' && 30,
@@ -144,10 +160,12 @@ export function useLayoutStyles(layout: LayoutString): object {
       display: 'flex',
       '#workspace': { flex: 1 },
       '#dock': {
-        width: t => t.sizes.width_dock,
-        display: workspace.dock.hideOnMobile
-          ? setBreakpoint(workspace.dock.bpIndex, ['none', 'block'])
-          : 'block',
+        width: 'var(--width_dock)',
+        ...mediaQuery(
+          'display',
+          workspace.dock.hideOnMobile ? ['none', 'block'] : ['block'],
+          workspace.dock.bpIndex
+        ),
       },
     }
   }
@@ -157,7 +175,7 @@ export function useLayoutStyles(layout: LayoutString): object {
    */
   return {
     display: 'block',
-    maxWidth: 'maxWidth_content',
-    mx: 'auto',
+    maxWidth: 'var(--maxWidth_content)',
+    margin: '0 auto',
   }
 }

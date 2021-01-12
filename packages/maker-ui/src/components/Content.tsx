@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { ContentError } from './Errors/Errors'
@@ -21,7 +21,7 @@ interface ContentProps
  * @see https://maker-ui.com/docs/layout/content
  */
 
-export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
+export const Content = ({ children, css, ...props }: ContentProps) => {
   const { framework } = useOptions()
   const { layout, showError, initialRender } = useLayoutDetector(
     'content',
@@ -32,12 +32,11 @@ export const Content = ({ variant, sx, children, ...props }: ContentProps) => {
   return (
     <div
       id="site-inner"
-      sx={{
-        variant,
+      css={{
         position: 'relative',
         visibility: framework === 'gatsby' && initialRender && ['hidden'],
         ...layoutStyles,
-        ...sx,
+        ...(css as object),
       }}
       {...props}>
       {showError ? (

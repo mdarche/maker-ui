@@ -9,7 +9,7 @@ import { MakerOptions } from '../types'
  * Converts the colors from the Maker UI options configuration into CSS variables
  *
  * @param {Object} colors - the `colors` object from MakerOptions
- * @returns body dataset-scoped CSS variable declarations
+ * @returns CSS variable declarations scoped to body dataset attribute
  *
  * @internal usage only
  */
@@ -39,7 +39,7 @@ export const colorVars = ({
  * media query support
  *
  * @param {Object} options - the entire options object
- * @returns global CSS variable declarations
+ * @returns CSS variable declarations for Emotion <Global />
  *
  * @internal usage only
  */
@@ -55,7 +55,7 @@ export const themeVars = (options: MakerOptions): GlobalProps['styles'] => {
     sideNav,
     footer,
     workspace,
-  } = merge(defaultOptions, options)
+  } = merge(defaultOptions, options, { arrayMerge: (_, source, __) => source })
   // @ts-ignore
   const mq: string[] = breakpoints.map(
     (bp: string | number) => `@media(min-width: ${format(bp)})`
@@ -86,8 +86,12 @@ export const themeVars = (options: MakerOptions): GlobalProps['styles'] => {
   for (const [key, value] of Object.entries(measurements)) {
     if (Array.isArray(value)) {
       let styles = {}
+      styles[key] = format(value[0])
+
       value.forEach((v, index) => {
-        styles[mq[index]] = { [key]: format(v) }
+        if (index !== 0) {
+          styles[mq[index]] = { [key]: format(v) }
+        }
       })
       css = merge(css, styles)
     } else {
@@ -99,8 +103,13 @@ export const themeVars = (options: MakerOptions): GlobalProps['styles'] => {
    * Handle font family declarations
    */
   for (const [key, value] of Object.entries(fonts)) {
-    css[`--fonts-${key}`] = value
+    css[`--font-${key}`] = value
   }
+
+  /**
+   * Add breakpoints to variable string for external usage
+   */
+  css['--breakpoints'] = breakpoints.join(',')
 
   return { html: css }
 }

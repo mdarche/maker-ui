@@ -6,23 +6,23 @@ export const globalStyles: GlobalProps['styles'] = {
   },
   body: {
     margin: 0,
-    fontFamily: 'var(--fonts-body)',
-    color: 'var(--colors-text)',
-    backgroundColor: 'var(--colors-background)',
+    fontFamily: 'var(--font-body)',
+    color: 'var(--color-text)',
+    backgroundColor: 'var(--color-background)',
   },
   'h1, h2, h3, h4, h5, h6': {
-    fontFamily: 'var(--fonts-heading)',
+    fontFamily: 'var(--font-heading)',
   },
   'code, pre': {
-    fontFamily: 'var(--fonts-monospace)',
+    fontFamily: 'var(--font-monospace)',
   },
   'b, strong': {
     fontWeight: 'bold',
   },
   a: {
-    color: 'var(--colors-link)',
+    color: 'var(--color-link)',
     '&:hover': {
-      color: 'var(--colors-link_hover)',
+      color: 'var(--color-link_hover)',
     },
   },
 }

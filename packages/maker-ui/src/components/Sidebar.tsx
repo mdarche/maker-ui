@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { MakerProps } from '../types'
 import { ErrorBoundary } from './Errors'
@@ -8,7 +8,6 @@ interface SidebarProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
-  bg?: string | string[]
 }
 
 /**
@@ -18,18 +17,16 @@ interface SidebarProps
  */
 
 export const Sidebar = ({
-  bg,
   background,
-  variant = 'sidebar',
-  sx,
   children,
+  css,
   ...props
 }: SidebarProps) => {
   return (
     <div
       className="sidebar"
       role="complementary"
-      sx={{ bg, background, variant, ...sx }}
+      css={{ background, ...(css as object) }}
       {...props}>
       <ErrorBoundary errorKey="sidebar">{children}</ErrorBoundary>
     </div>

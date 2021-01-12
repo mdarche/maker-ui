@@ -7,7 +7,7 @@ import {
   Content,
   Main,
   Footer,
-  // Sidebar,
+  Sidebar,
   SideNav,
   Topbar,
   Workspace,
@@ -62,14 +62,16 @@ export default ({ children, location }) => (
       <>
         <Content>
           <SideNav menu={menu} />
+          {/* <Sidebar>test</Sidebar> */}
           <Main>
-            <PageTransition id={location.pathname} type="fade-up" distance={50}>
-              <>
-                {children}
-                <div style={{ height: 2000 }} />
-              </>
-            </PageTransition>
+            {/* <PageTransition id={location.pathname} type="fade-up" distance={50}>
+              <> */}
+            {children}
+            <div style={{ height: 2000 }} />
+            {/* </>
+            </PageTransition> */}
           </Main>
+          {/* <Sidebar>test</Sidebar> */}
         </Content>
         <Footer>Test</Footer>
       </>

@@ -25,7 +25,7 @@ export const getTransition = (
   active: boolean,
   type: typeof transitionTypes[number],
   width: any
-): React.CSSProperties => {
+): object => {
   const opacity = type.includes('fade') ? (active ? 1 : 0) : 1
   const visibility = active ? 'visible' : 'hidden'
 

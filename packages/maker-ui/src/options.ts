@@ -58,7 +58,7 @@ export const defaultOptions: MakerOptions = {
   mobileMenu: {
     width: '60vw',
     transition: 'slide-left',
-    easingCurve: 'all ease .3s',
+    easingCurve: 'transform ease .3s',
     visibleOnDesktop: false,
     showCloseButton: true,
     closeOnBlur: true,
@@ -72,7 +72,7 @@ export const defaultOptions: MakerOptions = {
     toggleButton: 'default',
     closeOnBlur: true,
     closeOnRouteChange: true,
-    easingCurve: 'all ease .3s',
+    easingCurve: 'transform ease .3s',
     bpIndex: 0,
   },
   content: {

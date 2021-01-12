@@ -36,7 +36,7 @@ export const dropdownStyles = (type: string) => {
 
 const common = {
   display: 'inline-block',
-  bg: 'bg_header',
+  bg: 'var(--color-bg_header)',
   width: 'max-content',
   opacity: 0,
   visibility: 'hidden',

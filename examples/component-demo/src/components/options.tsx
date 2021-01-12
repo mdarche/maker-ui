@@ -3,7 +3,12 @@ import { MakerOptions } from 'maker-ui'
 
 export const options: MakerOptions = {
   framework: 'gatsby',
-  breakpoints: ['568px', '768px', '1440px'],
+  breakpoints: ['520px', '720px', '1280px'],
+  fonts: {
+    body: 'system-ui, sans-serif',
+    heading: 'system-ui, sans-serif',
+    monospace: 'Menlo, monospace',
+  },
   colors: {
     light: {
       link: 'red',
@@ -19,7 +24,7 @@ export const options: MakerOptions = {
       bg_header: '#fff',
       bg_mobileMenu: 'black',
       bg_sideNav: '#eee',
-      bg_footer: 'blue',
+      bg_footer: 'gainsboro',
       bg_toolbar: '#fbfbfb',
     },
     dark: {
@@ -41,9 +46,9 @@ export const options: MakerOptions = {
   },
   topbar: {
     sticky: true,
-    stickyOnMobile: true,
+    stickyOnMobile: false,
     maxWidth: [200, 600],
-    hideOnMobile: true,
+    hideOnMobile: false,
     bpIndex: 0,
   },
   header: {
@@ -62,7 +67,7 @@ export const options: MakerOptions = {
     dropdown: {
       transition: 'fade-down',
     },
-    bpIndex: 2,
+    bpIndex: 0,
   },
   mobileMenu: {
     width: '60vw',
@@ -81,7 +86,7 @@ export const options: MakerOptions = {
     bpIndex: 0,
   },
   footer: {
-    maxWidth: [200, '100%'],
+    maxWidth: [200, 960],
   },
   errors: {
     // logFunction: (error, errorInfo, component) => {

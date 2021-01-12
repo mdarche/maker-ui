@@ -1,12 +1,11 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { MakerProps } from '../types'
 import { ErrorBoundary } from './Errors'
 
 interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
-  bg?: string | string[]
 }
 
 /**
@@ -15,18 +14,11 @@ interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  * @see https://maker-ui.com/docs/layout/main
  */
 
-export const Main = ({
-  variant = 'main',
-  background,
-  bg,
-  sx,
-  children,
-  ...props
-}: MainProps) => (
+export const Main = ({ background, css, children, ...props }: MainProps) => (
   <main
     id="content"
     role="main"
-    sx={{ bg, background, variant, position: 'relative', flex: 1, ...sx }}
+    css={{ background, position: 'relative', flex: 1, ...(css as object) }}
     {...props}>
     <ErrorBoundary errorKey="main">{children}</ErrorBoundary>
   </main>

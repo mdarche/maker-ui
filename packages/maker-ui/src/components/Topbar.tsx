@@ -21,6 +21,8 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  * The `Topbar` component displays content like announcements, social media icons,
  * or promotions above the page header.
  *
+ * @TODO - revisit hide on mobile / sticky style conflict
+ *
  * @see https://maker-ui.com/docs/layout/topbar
  */
 
@@ -42,7 +44,7 @@ export const Topbar = (props: TopbarProps) => {
 
   const {
     background = 'var(--color-bg_topbar)',
-    maxWidth,
+    maxWidth = 'var(--maxWidth_topbar)',
     sticky = topbar.sticky,
     stickyOnMobile = topbar.stickyOnMobile,
     scrollOverflow = false,
@@ -80,7 +82,8 @@ export const Topbar = (props: TopbarProps) => {
           margin: '0 auto',
           overflowX: scrollOverflow ? 'scroll' : null,
           whiteSpace: scrollOverflow ? 'nowrap' : null,
-          maxWidth: 'var(--maxWidth_topbar)',
+          maxWidth,
+          ...(css as object),
         }}
         {...rest}>
         <ErrorBoundary errorKey="topbar">{children}</ErrorBoundary>

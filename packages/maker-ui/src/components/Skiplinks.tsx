@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { useLayout } from '../context/LayoutContext'
 import { useOptions } from '../context/OptionContext'
@@ -46,19 +46,19 @@ export const Skiplinks = (props: SkipLinkProps) => {
   return a11y.skiplinks ? (
     <ul
       className="skiplinks"
-      sx={{
+      css={{
         listStyle: 'none',
         position: 'relative',
         zIndex: 1000,
-        p: 0,
-        m: 0,
+        padding: 0,
+        margin: 0,
         a: {
-          bg: 'bg_header',
+          background: 'var(--color-bg_header)',
           display: 'block',
           position: 'absolute',
           fontFamily: 'body',
           left: -9999,
-          p: '1em',
+          padding: '1em',
           '&:focus': {
             left: 0,
           },

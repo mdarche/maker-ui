@@ -1,60 +1,22 @@
 export const theme = {
-  initialColorModeName: 'light',
-  colors: {
-    link: 'red',
-    text: '#333',
-    background: '#fff',
-    primary: '#1858dc',
-    secondary: '#355cac',
-    accent: '#1858dc',
-    muted: '#f6f6f6',
-    border: '#e6e6e6',
-    bg_topbar: '#355cac',
-    bg_header: '#fff',
-    bg_mobileMenu: 'black',
-    bg_sideNav: '#eee',
-    bg_footer: 'blue',
-    bg_toolbar: '#fbfbfb',
-    modes: {
-      dark: {
-        link: '#fff',
-        text: '#fff',
-        primary: '#fff',
-        accent: '#fff',
-        background: '#1b2048',
-        bg_header: '#1b2048',
-        bg_sideNav: '#000',
-        bg_mobileMenu: '#fff',
-      },
-    },
-  },
-  fonts: {
-    body: 'system-ui, sans-serif',
-    heading: 'system-ui, sans-serif',
-    monospace: 'Menlo, monospace',
-  },
-  breakpoints: ['768px', '960px', '1240px', '1400px', '1800px'],
   styles: {
     root: {
-      fontFamily: 'body',
+      // fontFamily: 'body',
       a: {
         textDecoration: 'none',
       },
       li: {
         listStyle: 'none',
       },
+      header: {
+        borderBottom: '1px solid gainsboro',
+      },
     },
-  },
-  bigVariant: {
-    fontWeight: 700,
-  },
-  otherVariant: {
-    p: 20,
   },
   // Maker UI layout variants
   header: {
     py: [2, '10px'],
-    borderBottom: '1px solid',
+
     borderColor: 'border',
     fontFamily: 'heading',
     logo: { fontSize: [24, 36] },
@@ -71,9 +33,7 @@ export const theme = {
       },
     },
     navbar: {},
-    submenu: {
-      bg: 'gainsboro',
-    },
+    submenu: {},
     colorButton: {},
     mobileMenu: {
       pt: 40,

@@ -17,7 +17,7 @@ interface LayoutProps {
   children: React.ReactNode
   theme: object
   options: Partial<MakerOptions>
-  styles: object
+  styles?: object
   skiplinks?: LinkItem[]
 }
 

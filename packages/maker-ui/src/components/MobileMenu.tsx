@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 import { forwardRef, Fragment } from 'react'
 
 import { ResponsiveScale, MakerProps, MakerOptions } from '../types'
@@ -15,7 +15,6 @@ interface MobileMenuProps
     React.HTMLAttributes<HTMLDivElement> {
   transition?: MakerOptions['mobileMenu']['transition']
   background?: string | string[]
-  bg?: string | string[]
   width?: ResponsiveScale
   menu?: MenuProps[]
   pathname?: string
@@ -36,18 +35,16 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
     const { mobileMenu } = useOptions()
 
     const {
-      bg = 'bg_mobileMenu',
-      variant = 'mobileMenu',
-      background,
+      background = 'var(--color-bg_mobileMenu)',
       closeButton,
-      width = mobileMenu.width,
+      width = 'var(--width_mobileMenu)',
       transition = mobileMenu.transition,
       menu = [],
       pathname,
       header,
       footer,
       children,
-      sx,
+      css,
       ...rest
     } = props
 
@@ -59,18 +56,17 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
         <div
           ref={ref}
           id="mobile-menu"
-          sx={{
+          className={show ? 'active' : undefined}
+          css={{
             position: 'fixed',
-            bg,
             background,
-            variant,
             top: 0,
             bottom: 0,
             zIndex: 100,
             willChange: 'transform, opacity',
             transition: mobileMenu.easingCurve,
             ...getTransition(show, transition, width),
-            ...sx,
+            ...(css as object),
           }}
           {...rest}>
           <ErrorBoundary errorKey="mobileMenu">
