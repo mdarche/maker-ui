@@ -10,14 +10,7 @@ const defaultSettings = {
 
 const SmartTable = React.forwardRef(
   (
-    {
-      variant = 'table',
-      settings = defaultSettings,
-      columns,
-      data,
-      onRowSelect,
-      ...props
-    },
+    { settings = defaultSettings, columns, data, onRowSelect, ...props },
     ref
   ) => {
     const [filterInput, setFilterInput] = useState('')
@@ -86,10 +79,7 @@ const SmartTable = React.forwardRef(
                 onClick={onRowSelect && (e => onRowSelect(row.original))}>
                 {row.cells.map((cell, index) => {
                   return (
-                    <td
-                      variant={`${variant}.cell`}
-                      key={index}
-                      {...cell.getCellProps()}>
+                    <td key={index} {...cell.getCellProps()}>
                       {cell.render('Cell')}
                     </td>
                   )

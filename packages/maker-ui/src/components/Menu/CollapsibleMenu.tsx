@@ -27,17 +27,7 @@ interface CollapsibleProps
  */
 
 export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
-  (
-    {
-      menu = [],
-      variant = 'collapsibleMenu',
-      menuType,
-      pathname,
-      css,
-      ...props
-    },
-    ref
-  ) => {
+  ({ menu = [], menuType, pathname, css, ...props }, ref) => {
     const { mobileMenu, sideNav, linkFunction } = useOptions()
     const [, toggleMenu] = useMenu()
     const [, toggleSideNav] = useSideNav()

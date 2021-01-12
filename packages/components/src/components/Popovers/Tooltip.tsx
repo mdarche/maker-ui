@@ -28,7 +28,6 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
 
 export const Tooltip = ({
   label,
-  variant,
   noArrow = false,
   position = 'right',
   background = '#555',
@@ -71,7 +70,6 @@ export const Tooltip = ({
         onFocus={e => toggle(true)}
         onBlur={e => typeof label === 'string' && toggle(false)}
         onClick={e => toggle(!show)}
-        variant={variant}
         css={buttonCss}
         aria-describedby={tooltipId}>
         {children}

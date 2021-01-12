@@ -15,7 +15,6 @@ export type ResponsiveString = string | string[]
 export interface MakerProps {
   css?: Interpolation<any>
   breakpoints?: (string | number)[]
-  variant?: string
 }
 
 /**

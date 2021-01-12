@@ -15,14 +15,13 @@ interface NavButtonProps extends MakerProps {
  */
 
 export const NavButton = ({ type }: NavButtonProps) => {
-  const { variant, settings, setIndex } = useLightbox()
+  const { settings, setIndex } = useLightbox()
   const isNext = type === 'next' ? true : false
 
   return (
     <Button
       title={isNext ? 'Next' : 'Previous'}
       aria-label={isNext ? 'Next' : 'Previous'}
-      variant={`${variant}.${type}`}
       className={`lb-nav-button ${isNext ? 'next-button' : 'prev-button'}`}
       onClick={e => setIndex(isNext ? 'next' : 'previous')}
       css={{
@@ -40,7 +39,7 @@ export const NavButton = ({ type }: NavButtonProps) => {
         ...transform(isNext),
         ...position(isNext),
         '&:hover, &:focus': {
-          bg: 'rgba(0, 0, 0, 0.66)',
+          background: 'rgba(0, 0, 0, 0.66)',
         },
         '&:focus': {
           outline: '2px solid rgba(255, 255, 255, 0.35)',

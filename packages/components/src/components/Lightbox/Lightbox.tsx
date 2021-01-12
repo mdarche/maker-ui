@@ -36,18 +36,19 @@ export const Lightbox = ({
   toggle,
   show,
   settings,
-  variant,
+  css,
   children,
   ...props
 }: LightboxProps) => {
   return (
     <LightboxContext
-      variant={variant}
       data={data}
       show={show}
       settings={settings}
       toggle={toggle}>
-      <LightboxModal {...props}>{children}</LightboxModal>
+      <LightboxModal css={{ ...(css as object) }} {...props}>
+        {children}
+      </LightboxModal>
     </LightboxContext>
   )
 }

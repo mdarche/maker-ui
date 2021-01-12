@@ -8,7 +8,6 @@ interface WorkspaceState {
 }
 
 interface WorkspaceContextProps {
-  variant?: string
   children: React.ReactNode
 }
 
@@ -19,13 +18,8 @@ interface WorkspaceContextProps {
  * @internal usage only
  */
 
-export const WorkspaceContext = ({
-  variant,
-  children,
-}: WorkspaceContextProps) => {
-  const [state, setState] = React.useState<WorkspaceState>({
-    variant,
-  })
+export const WorkspaceContext = ({ children }: WorkspaceContextProps) => {
+  const [state, setState] = React.useState<WorkspaceState>({})
 
   return (
     <WorkspaceDataContext.Provider value={state}>

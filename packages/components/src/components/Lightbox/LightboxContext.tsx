@@ -23,7 +23,6 @@ export interface LightboxData {
 
 interface LightboxContextProps {
   data: LightboxData[]
-  variant?: string
   settings: LightboxProps['settings']
   show?: boolean
   toggle?: LightboxProps['toggle']
@@ -48,7 +47,6 @@ interface LightboxState {
 export const LightboxContext = ({
   data = [],
   settings = {},
-  variant = 'lightbox',
   show,
   toggle,
   children,
@@ -84,7 +82,7 @@ LightboxContext.displayName = 'LightboxContext'
  */
 
 export function useLightbox() {
-  const { variant, active, index, data, settings, toggle } = React.useContext(
+  const { active, index, data, settings, toggle } = React.useContext(
     LightboxDataContext
   )
   const setState = React.useContext(LightboxUpdateContext)
@@ -130,7 +128,6 @@ export function useLightbox() {
   }
 
   return {
-    variant,
     index,
     active,
     data,

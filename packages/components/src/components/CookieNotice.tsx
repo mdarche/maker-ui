@@ -13,7 +13,6 @@ import { Announcement, AnnouncementProps } from './Announcement'
 export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {
-      variant = 'cookie',
       background = '#000',
       color,
       storageKey = 'mui_cookie_notice',

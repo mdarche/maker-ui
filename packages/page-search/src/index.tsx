@@ -24,7 +24,7 @@ const PageSearch = ({
   controls = true,
   sticky = false,
   offsetTop = 50,
-  sx,
+  css,
   ...props
 }: SearchProps) => {
   const inputRef = useRef(null)
@@ -84,7 +84,7 @@ const PageSearch = ({
         alignItems: 'stretch',
         position: sticky ? 'sticky' : 'relative',
         top: 0,
-        ...sx,
+        ...(css as object),
       }}
       {...props}>
       <form role="search" aria-label="On this page">

@@ -60,7 +60,6 @@ export const Popover = ({
   gap = { x: 0, y: 0 },
   closeOnBlur = true,
   transition = 'fade',
-  variant,
   springConfig,
   containerCss,
   defer,

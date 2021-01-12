@@ -20,7 +20,7 @@ export const DefaultError = ({
   errorInfo,
 }: DefaultErrorProps) => {
   return (
-    <Div variant="errorBoundary">
+    <Div className="error-boundary">
       <ErrorIcon css={{ height: 30 }} />
       <div>
         There was an issue loading this section of the app.

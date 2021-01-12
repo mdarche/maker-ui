@@ -5,7 +5,6 @@ import { useLightbox } from './LightboxContext'
 import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from '../icons'
 
 interface ToolbarProps {
-  variant?: string | string[]
   count?: boolean
   current?: number
   length?: number

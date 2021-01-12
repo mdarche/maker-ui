@@ -33,7 +33,6 @@ export const LightboxModal = ({
 }: LightboxModalProps) => {
   const {
     index,
-    variant,
     active,
     data,
     settings,
@@ -126,7 +125,6 @@ export const LightboxModal = ({
       {children}
       <Modal
         id={id}
-        variant={variant}
         show={active}
         //@ts-ignore
         toggle={toggleLightbox}
