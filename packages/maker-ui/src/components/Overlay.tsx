@@ -15,7 +15,7 @@ interface OverlayProps {
  * @internal usage only
  */
 
-export const Overlay = ({ show, toggle, type, bp }: OverlayProps) => {
+export const Overlay = ({ show, toggle }: OverlayProps) => {
   return (
     <div
       className={`menu-overlay${show ? ' active' : ''}`}

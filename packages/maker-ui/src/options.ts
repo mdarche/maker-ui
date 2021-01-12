@@ -93,6 +93,9 @@ export const defaultOptions: MakerOptions = {
   },
   errors: {
     showStackTrace: false,
+    errorMessage: {
+      sidebar: 'You must add a child component to <Sidebar />',
+    },
   },
   workspace: {
     canvasMaxWidth: '100%',

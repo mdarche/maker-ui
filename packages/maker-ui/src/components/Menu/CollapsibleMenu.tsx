@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 import { forwardRef } from 'react'
 
 import { MakerProps } from '../../types'
@@ -28,7 +28,14 @@ interface CollapsibleProps
 
 export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
   (
-    { menu = [], variant = 'collapsibleMenu', menuType, pathname, ...props },
+    {
+      menu = [],
+      variant = 'collapsibleMenu',
+      menuType,
+      pathname,
+      css,
+      ...props
+    },
     ref
   ) => {
     const { mobileMenu, sideNav, linkFunction } = useOptions()
@@ -52,7 +59,7 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
         ref={ref}
         className="accordion-menu"
         role="navigation"
-        sx={{ variant }}
+        css={{ ...(css as object) }}
         {...props}>
         {menu.map((item, index) => (
           <MenuItem

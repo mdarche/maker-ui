@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { MakerProps } from '../../types'
 import { WorkspaceContext } from './WorkspaceContext'
@@ -16,18 +16,17 @@ interface WorkspaceProps
   extends MakerProps,
     React.HtmlHTMLAttributes<HTMLDivElement> {}
 
-export const Workspace = ({ variant, sx, children }: WorkspaceProps) => {
+export const Workspace = ({ css, children }: WorkspaceProps) => {
   const { workspace } = useOptions()
   const { layout, showError } = useLayoutDetector('workspace', children)
 
   return (
-    <WorkspaceContext variant={variant}>
+    <WorkspaceContext>
       <div
         id="workspace"
-        sx={{
-          variant,
+        css={{
           ...getWorkspaceStyles(layout, workspace),
-          ...sx,
+          ...(css as object),
         }}>
         {showError ? 'Error!' : children}
       </div>

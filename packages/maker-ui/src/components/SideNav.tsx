@@ -61,12 +61,7 @@ export const SideNav = ({
   return (
     <ErrorBoundary errorKey="sideNav">
       {sideNav.closeOnBlur ? (
-        <Overlay
-          show={active}
-          toggle={setActive}
-          type="sideNav"
-          bp={sideNav.bpIndex}
-        />
+        <Overlay show={active} toggle={setActive} />
       ) : null}
       <Container
         isHeader={sideNav.isHeader}

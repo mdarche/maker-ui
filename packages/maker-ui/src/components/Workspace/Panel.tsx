@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 import { useEffect } from 'react'
 
 import { MakerProps } from '../../types'
@@ -10,7 +10,6 @@ import { useMeasurements } from '../../context/LayoutContext'
 export interface PanelProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
-  bg?: string | string[]
   background?: string | string[]
 }
 
@@ -21,10 +20,8 @@ export interface PanelProps
  */
 
 export const Panel = ({
-  bg = 'bg_panel',
-  background,
-  variant,
-  sx,
+  background = 'var(--color-bg_panel)',
+  css,
   children,
   ...props
 }: PanelProps) => {
@@ -41,13 +38,11 @@ export const Panel = ({
   return (
     <div
       {...bind}
-      className="panel"
+      className="ws-panel"
       sx={{
-        bg,
         background,
         gridArea: 'panel',
-        variant,
-        ...sx,
+        ...(css as object),
       }}
       {...props}>
       <ErrorBoundary errorKey="toolbar">{children}</ErrorBoundary>

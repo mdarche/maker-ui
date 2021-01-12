@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useTable, useFilters, useSortBy } from 'react-table'
-import { Box } from 'theme-ui'
 
 const defaultSettings = {
   border: false,
@@ -41,12 +40,10 @@ const SmartTable = React.forwardRef(
     )
 
     return (
-      <Box
+      <table
         ref={ref}
-        as="table"
-        variant={variant}
         {...getTableProps()}
-        __css={{
+        style={{
           borderCollapse: settings.border && 'collapse',
           'th, td': {
             border: settings.border && '1px solid',
@@ -58,7 +55,7 @@ const SmartTable = React.forwardRef(
           },
         }}
         {...props}>
-        <Box as="thead" variant={`${variant}.head`}>
+        <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
@@ -76,8 +73,8 @@ const SmartTable = React.forwardRef(
               ))}
             </tr>
           ))}
-        </Box>
-        <Box as="tbody" variant={`${variant}.body`} {...getTableBodyProps()}>
+        </thead>
+        <tbody {...getTableBodyProps()}>
           {rows.map((row, index) => {
             prepareRow(row)
             return (
@@ -89,20 +86,19 @@ const SmartTable = React.forwardRef(
                 onClick={onRowSelect && (e => onRowSelect(row.original))}>
                 {row.cells.map((cell, index) => {
                   return (
-                    <Box
-                      as="td"
+                    <td
                       variant={`${variant}.cell`}
                       key={index}
                       {...cell.getCellProps()}>
                       {cell.render('Cell')}
-                    </Box>
+                    </td>
                   )
                 })}
               </tr>
             )
           })}
-        </Box>
-      </Box>
+        </tbody>
+      </table>
     )
   }
 )

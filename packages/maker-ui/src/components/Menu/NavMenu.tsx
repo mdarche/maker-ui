@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { MenuProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
-import { setBreakpoint } from '../../utils/helper'
 import { MenuItem } from './MenuItem'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 interface NavMenuProps {
   menuItems: MenuProps[]
@@ -20,13 +20,14 @@ interface NavMenuProps {
 
 export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
   const { header, linkFunction } = useOptions()
+  const { mediaQuery } = useMediaQuery('header')
 
   return (
     <nav
       className="nav-primary"
       role="navigation"
-      sx={{ display: setBreakpoint(header.bpIndex, ['none', 'flex']) }}>
-      <ul className="menu-primary" sx={{ variant: 'header.menu' }}>
+      css={mediaQuery('display', ['none', 'flex'])}>
+      <ul className="menu-primary">
         {menuItems.map((item, index) => (
           <MenuItem
             key={index}

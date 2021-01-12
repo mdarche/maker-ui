@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Theme } from 'theme-ui'
 
 import { MakerOptions } from '../types'
 import { MenuProps } from './Menu'
@@ -75,7 +74,7 @@ const SiteInner = ({
 }
 
 interface TemplateProps {
-  theme: Theme
+  theme: object
   options: MakerOptions
   components?: object
   topbar?: React.ReactNode

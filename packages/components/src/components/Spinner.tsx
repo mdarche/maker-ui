@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useThemeUI } from 'theme-ui'
 import { SVG, SVGProps } from 'maker-ui'
 
 const defaultColors = {
@@ -169,7 +168,8 @@ const Rotate = ({
   colors: { primary, secondary },
   ...props
 }: SpinnerProps) => {
-  const themeColors = useThemeUI().theme.colors
+  // TODO remove this
+  const themeColors = {}
   const getThemeColor = val => (val in themeColors ? themeColors[val] : val)
 
   const p = getThemeColor(primary)

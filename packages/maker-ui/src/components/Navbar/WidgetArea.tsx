@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { useOptions } from '../../context/OptionContext'
-import { setBreakpoint } from '../../utils/helper'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 interface WidgetProps {
   content?: React.ReactNode
@@ -17,15 +17,16 @@ interface WidgetProps {
 
 export const WidgetArea = ({ content }: WidgetProps) => {
   const { header } = useOptions()
+  const { mediaQuery } = useMediaQuery('header')
 
   return content ? (
     <div
       className="widget-area"
-      sx={{
-        variant: 'header.widgets',
-        display: header.hideWidgetsOnMobile
-          ? setBreakpoint(header.bpIndex, ['none', 'flex'])
-          : 'flex',
+      css={{
+        ...mediaQuery(
+          'display',
+          header.hideWidgetsOnMobile ? ['none', 'flex'] : ['flex']
+        ),
       }}>
       {content}
     </div>

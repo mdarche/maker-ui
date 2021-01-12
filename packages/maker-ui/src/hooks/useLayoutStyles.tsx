@@ -73,9 +73,6 @@ export function useLayoutStyles(layout: LayoutString): object {
   if (layout && layout.includes('sidenav')) {
     /**
      * Determine the top value for `sidenav content` and `content sidenav` layouts
-     *
-     * @todo connect output type to theme-ui SystemStyleObject
-     *
      */
     const calculateTop = (styleRule?: boolean) => {
       let top = header.sticky ? measurements.height_header : 0

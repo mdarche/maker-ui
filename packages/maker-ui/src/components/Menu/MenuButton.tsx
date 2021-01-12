@@ -59,7 +59,6 @@ export const MenuButton = ({
     <Button
       {...attributes}
       sx={{
-        variant: 'header.menuButton',
         ...visibility,
         m: '0',
         border: 'none',

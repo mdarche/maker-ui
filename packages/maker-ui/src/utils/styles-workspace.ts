@@ -1,5 +1,5 @@
 import { MakerOptions } from '../types'
-import { format, setBreakpoint } from './helper'
+import { format } from './helper'
 
 const secondPanel = (layout: string) => {
   return layout.includes('panel canvas panel')
@@ -14,7 +14,7 @@ const secondPanel = (layout: string) => {
 export const getWorkspaceStyles = (
   layout: string,
   workspace: MakerOptions['workspace']
-) => {
+): object => {
   const styles = {
     display: 'grid',
     gridGap: 0,

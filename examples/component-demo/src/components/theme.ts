@@ -10,6 +10,15 @@ export const theme = {
       },
       header: {
         borderBottom: '1px solid gainsboro',
+        'li a': {
+          fontSize: 2,
+          fontWeight: 700,
+          display: 'block',
+          color: 'primary',
+          textDecoration: 'none',
+          py: 3,
+          px: 3,
+        },
       },
     },
   },

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, SxStyleProp } from 'theme-ui'
+import { jsx } from '@emotion/react'
 import { forwardRef } from 'react'
 
 import { ErrorBoundary } from './Errors'
@@ -9,8 +9,7 @@ interface SectionProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
-  bg?: string | string[]
-  rootSx?: SxStyleProp
+  _css?: object
   maxWidth?: ResponsiveScale
   container?: boolean
 }
@@ -26,15 +25,14 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
   (
     {
       maxWidth,
-      bg,
       background,
       color,
       container = true,
-      variant,
       id,
       className,
-      rootSx,
-      sx,
+      _css, // root styles
+      css, // container styles (direct parent)
+      children,
       ...props
     },
     ref
@@ -44,20 +42,20 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
         ref={ref}
         id={id}
         className={className}
-        sx={{ bg, background, color, variant, width: '100%', ...rootSx }}>
+        css={{ background, color, width: '100%', ..._css }}>
         <ErrorBoundary errorKey="section">
           {container ? (
             <div
               className="container"
-              sx={{
+              css={{
                 maxWidth: 'var(--maxWidth_section)',
-                mx: 'auto',
-                ...sx,
+                margin: '0 auto',
+                ...(css as object),
               }}
               {...props}
             />
           ) : (
-            props.children
+            children
           )}
         </ErrorBoundary>
       </section>

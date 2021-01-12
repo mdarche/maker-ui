@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 import { useEffect } from 'react'
 
 import { MakerProps } from '../../types'
@@ -10,7 +10,6 @@ import { useMeasurements } from '../../context/LayoutContext'
 export interface ToolbarProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
-  bg?: string | string[]
   background?: string | string[]
   scrollOverflow?: 'wrap' | 'scroll'
 }
@@ -22,10 +21,8 @@ export interface ToolbarProps
  */
 
 export const Toolbar = ({
-  bg = 'bg_toolbar',
-  background,
-  variant,
-  sx,
+  background = 'var(--color-bg_toolbar)',
+  css,
   children,
   ...props
 }: ToolbarProps) => {
@@ -42,14 +39,12 @@ export const Toolbar = ({
   return (
     <div
       {...bind}
-      className="toolbar"
+      className="ws-toolbar"
       sx={{
-        bg,
         background,
         gridArea: 'toolbar',
         overflowX: 'scroll',
-        variant,
-        ...sx,
+        ...(css as object),
       }}
       {...props}>
       <ErrorBoundary errorKey="toolbar">{children}</ErrorBoundary>

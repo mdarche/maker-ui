@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 import { Fragment, useState, memo, isValidElement } from 'react'
 
 import { Link } from '../Primitives'
@@ -76,7 +76,7 @@ export const MenuItem = memo(
       <li
         className={`menu-item${classes && ' ' + classes}`}
         //@ts-ignore
-        sx={
+        css={
           isHeader && {
             position: 'relative',
             display: 'inline-flex',
@@ -91,7 +91,7 @@ export const MenuItem = memo(
           linkFunction(path, label, attributes, icon)
         ) : (
           <Link href={path} {...attributes}>
-            {icon && <span className="menu-icon">{icon}</span>}
+            {icon ? <span className="menu-icon">{icon}</span> : undefined}
             <span className="menu-text">{label}</span>
             {submenu && caret && isValidElement(caret) ? caret : null}
           </Link>
@@ -104,9 +104,8 @@ export const MenuItem = memo(
                 className={submenuClass}
                 role="menu"
                 aria-label="submenu"
-                sx={{
+                css={{
                   ...getStyles(isHeader, header.dropdown.transition, depth),
-                  variant: isHeader ? 'header.submenu' : 'accordion',
                 }}>
                 {submenu.map((item, index) => (
                   <MenuItem

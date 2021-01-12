@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx } from '@emotion/react'
 
 import { MakerProps } from '../../types'
 import { ErrorBoundary } from '../Errors'
@@ -7,7 +7,6 @@ import { ErrorBoundary } from '../Errors'
 export interface CanvasProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
-  bg?: string | string[]
   background?: string | string[]
 }
 
@@ -18,22 +17,18 @@ export interface CanvasProps
  */
 
 export const Canvas = ({
-  bg = 'background',
-  background,
-  variant,
-  sx,
+  background = 'var(--color-background)',
+  css,
   children,
   ...props
 }: CanvasProps) => {
   return (
     <div
-      className="canvas"
-      sx={{
-        bg,
+      className="ws-canvas"
+      css={{
         background,
         gridArea: 'canvas',
-        variant,
-        ...sx,
+        ...(css as object),
       }}
       {...props}>
       <ErrorBoundary errorKey="canvas">

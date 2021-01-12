@@ -36,12 +36,12 @@ export const dropdownStyles = (type: string) => {
 
 const common = {
   display: 'inline-block',
-  bg: 'var(--color-bg_header)',
+  background: 'var(--color-bg_header)',
   width: 'max-content',
   opacity: 0,
   visibility: 'hidden',
-  m: 0,
-  p: 0,
+  margin: 0,
+  padding: 0,
   zIndex: 1,
   listStyle: 'none',
   a: {
@@ -106,7 +106,7 @@ export const caretStyles = {
   display: 'inline-block',
   width: 0,
   height: 0,
-  ml: '.4em',
+  marginLeft: '.4em',
   verticalAlign: '.25em',
   borderTop: '.25em solid',
   borderRight: '.25em solid transparent',
