@@ -11,7 +11,7 @@ const PopoverPage = () => {
       <button ref={buttonRef} onClick={e => set(!show)}>
         Popover toggle
       </button>
-      <Tooltip bg="purple" gap={5} label="test" position="left">
+      <Tooltip background="purple" gap={5} label="test" position="left">
         Hover here!
       </Tooltip>
       <Popover

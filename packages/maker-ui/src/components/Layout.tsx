@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Global } from '@emotion/react'
+import { Global, Interpolation } from '@emotion/react'
+import merge from 'deepmerge'
 
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
@@ -30,14 +31,17 @@ export const Layout = ({
   skiplinks,
   children,
 }: LayoutProps) => {
+  const cssVariables = merge(
+    colorVars(options.colors) as object,
+    themeVars(options) as object
+  )
+  console.log(cssVariables)
   return (
     <OptionProvider options={options}>
-      <LayoutProvider>
+      <LayoutProvider styles={styles}>
         <ActionProvider>
-          <Global styles={colorVars(options.colors)} />
-          <Global styles={themeVars(options)} />
+          <Global styles={cssVariables as Interpolation<any>} />
           <Global styles={globalStyles} />
-          <Global styles={{ ...(styles as object) }} />
           <Skiplinks links={skiplinks} />
           <ErrorBoundary errorKey="layout">{children}</ErrorBoundary>
         </ActionProvider>

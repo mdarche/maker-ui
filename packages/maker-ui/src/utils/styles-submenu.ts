@@ -16,7 +16,7 @@ const fade = {
   transition: 'all ease .3s',
 }
 
-export const dropdownStyles = (type: string) => {
+export const dropdownStyles = (type: string): object => {
   switch (type) {
     case 'scale':
       return {

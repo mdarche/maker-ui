@@ -92,7 +92,6 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
       ref={ref}
       className="tab-navigation"
       role="tablist"
-      // @ts-ignore
       css={{
         ...getNavPosition({ settings, mediaQuery }),
       }}>
@@ -104,7 +103,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
           id={`control-${item.id}`}
           className={`tab-button${
             state.activeKey === item.id ? ' active' : ''
-          }${item.disabled && 'disabled'}`}
+          }${item.disabled ? 'disabled' : ''}`}
           //@ts-ignore
           disabled={item.disabled}
           title={typeof item.title === 'string' ? item.title : null}
@@ -127,7 +126,7 @@ TabNavigation.displayName = 'TabNavigation'
 const getNavPosition = ({
   settings: { isVertical, navPosition, overflow = 'stack', bpIndex },
   mediaQuery,
-}: TabStyleProps): Object => {
+}: TabStyleProps): object => {
   const shared = {
     overflowX: overflow === 'scroll' ? 'scroll' : null,
     flexWrap: overflow === 'stack' ? 'wrap' : 'nowrap',

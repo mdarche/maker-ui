@@ -21,7 +21,7 @@ import {
 // import { SEOProvider } from '@maker-ui/seo'
 // import { Fixed } from './Fixed'
 import { options } from './options'
-import { theme } from './theme'
+import { styles } from './styles'
 
 const menu = [
   {
@@ -51,7 +51,7 @@ const menu = [
 ]
 
 export default ({ children, location }) => (
-  <Layout styles={theme} options={options}>
+  <Layout styles={styles} options={options}>
     {/* <Announcement>Test</Announcement> */}
     <Topbar>Topbar content</Topbar>
     <Header>

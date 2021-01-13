@@ -103,9 +103,7 @@ interface TemplateProps {
  */
 
 export const Template = ({
-  theme,
   options,
-  components,
   topbar,
   headerWidgets,
   menuButton,
@@ -124,7 +122,7 @@ export const Template = ({
   children,
 }: TemplateProps) => {
   return (
-    <Layout theme={theme} options={options}>
+    <Layout options={options}>
       {topbar && <Topbar>{topbar}</Topbar>}
       <Header>
         <Navbar

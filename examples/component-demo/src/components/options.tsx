@@ -49,7 +49,7 @@ export const options: MakerOptions = {
     stickyOnMobile: false,
     maxWidth: [200, 600],
     hideOnMobile: false,
-    bpIndex: 0,
+    bpIndex: 1,
   },
   header: {
     navType: 'basic',
@@ -83,7 +83,7 @@ export const options: MakerOptions = {
     maxWidth: '1260px',
     maxWidthSection: 960,
     deferMeasurements: 500,
-    bpIndex: 0,
+    bpIndex: 1,
   },
   footer: {
     maxWidth: [200, 960],

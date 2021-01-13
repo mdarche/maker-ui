@@ -55,7 +55,6 @@ const TabsPage = () => {
           '.tab-button': {
             background: 'blue',
             color: '#fff',
-            fontSize: 2,
             padding: 10,
           },
         }}>
@@ -70,7 +69,7 @@ const TabsPage = () => {
         <Tabs.Panel title="Title 5">Fifth Text</Tabs.Panel>
         <Tabs.Panel title="Title 6">Sixth Text</Tabs.Panel>
       </Tabs>
-      <Div css={{ height: 2000 }}>test</Div>
+      <Div css={{ height: [100, 2000] }}>test</Div>
     </>
   )
 }

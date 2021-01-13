@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Global } from '@emotion/react'
 
 import { useOptions } from './OptionContext'
 import {
@@ -7,6 +8,7 @@ import {
   navTypes,
   mobileNavTypes,
 } from '../constants'
+// import { useMediaQuery } from '../hooks/useMediaQuery'
 
 export const LayoutContext = React.createContext(null)
 
@@ -29,12 +31,15 @@ export interface LayoutState {
 /**
  * The `LayoutProvider` tracks the current site layout and important
  * runtime UI measurements.
+ * @todo create and memoize a recursive version of parseStyles
  *
  * @internal usage only
  */
 
-const LayoutProvider = ({ children }) => {
+const LayoutProvider = ({ children, styles }) => {
   const { header } = useOptions()
+  // const { parseStyles } = useMediaQuery()
+
   const [state, setState] = React.useState<LayoutState>({
     layout_nav: header.navType,
     layout_navMobile: header.mobileNavType,
@@ -47,6 +52,7 @@ const LayoutProvider = ({ children }) => {
 
   return (
     <LayoutContext.Provider value={[state, setState]}>
+      <Global styles={styles} />
       {children}
     </LayoutContext.Provider>
   )

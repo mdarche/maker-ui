@@ -75,7 +75,6 @@ export const MenuItem = memo(
     return (
       <li
         className={`menu-item${classes && ' ' + classes}`}
-        //@ts-ignore
         css={
           isHeader && {
             position: 'relative',
