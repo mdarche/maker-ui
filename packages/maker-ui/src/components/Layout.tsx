@@ -35,7 +35,6 @@ export const Layout = ({
     colorVars(options.colors) as object,
     themeVars(options) as object
   )
-  console.log(cssVariables)
   return (
     <OptionProvider options={options}>
       <LayoutProvider styles={styles}>

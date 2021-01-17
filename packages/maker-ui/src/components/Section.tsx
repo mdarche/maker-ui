@@ -52,8 +52,9 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
                 margin: '0 auto',
                 ...(css as object),
               }}
-              {...props}
-            />
+              {...props}>
+              {children}
+            </div>
           ) : (
             children
           )}
