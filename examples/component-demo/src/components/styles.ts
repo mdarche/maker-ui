@@ -8,7 +8,7 @@ export const styles = {
   header: {
     borderBottom: '1px solid gainsboro',
     'li a': {
-      fontSize: ['14px', '20px', '26px'],
+      fontSize: '16px',
       fontWeight: 700,
       display: 'block',
       textDecoration: 'none',

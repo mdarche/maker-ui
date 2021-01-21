@@ -71,7 +71,7 @@ export const options: MakerOptions = {
   },
   mobileMenu: {
     width: '60vw',
-    transition: 'slide-left',
+    transition: 'fade',
     closeOnBlur: true,
     // visibleOnDesktop: true,
     closeOnRouteChange: true,

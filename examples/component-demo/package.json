@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@maker-ui/components": "*",
+    "@maker-ui/css": "*",
     "gatsby": "^2.23.17",
     "gatsby-plugin-catch-links": "^2.1.24",
     "gatsby-plugin-layout": "^1.1.22",

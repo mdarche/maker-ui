@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.1.4",
-    "deepmerge": "^4.2.2"
+    "deepmerge": "^4.2.2",
+    "maker-ui": "*"
   },
   "peerDependencies": {
     "react": "^16.14.0"

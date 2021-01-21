@@ -17,7 +17,6 @@ const AccordionPage = () => {
         ))}
       </div>
       <Accordion
-        showSingle
         activeKey={key}
         css={{
           margin: 50,
