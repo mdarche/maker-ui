@@ -8,7 +8,7 @@ interface PaginationProps {
 }
 
 /**
- * The `Pagination` component adds page indicators for the `Carousel` component.
+ * The `Pagination` component adds page indicators to the `Carousel` component.
  *
  * @internal usage only
  */

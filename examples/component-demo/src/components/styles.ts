@@ -15,7 +15,7 @@ export const styles = {
       padding: '10px 15px',
     },
     '#site-logo': {
-      fontSize: 24,
+      fontSize: [12, 24, 32],
     },
   },
   main: {

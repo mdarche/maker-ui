@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { jsx, Global } from '@maker-ui/css'
+import { jsx } from '@maker-ui/css'
 
 const JSXPage = () => {
   return (
     <div
+      breakpoints={[200, 900, 1200]}
       css={{
         color: ['red', 'blue', 'purple'],
         span: {
@@ -15,12 +16,6 @@ const JSXPage = () => {
       }}>
       Test 1<span>Another test</span>
       <div className="yo">Orange</div>
-      <Global
-        // breakpoints={[500, 800]}
-        styles={{
-          '.yo': { fontWeight: 'bold', color: ['purple', 'blue', 'green'] },
-        }}
-      />
     </div>
     // <div>
     //   <ul>

@@ -49,6 +49,7 @@ export const Layout = ({
           <ActionProvider>
             <Global styles={cssVariables as Interpolation<any>} />
             <Global styles={globalStyles} />
+            <Global styles={styles as Interpolation<any>} />
             <Skiplinks links={skiplinks} />
             <ErrorBoundary errorKey="layout">{children}</ErrorBoundary>
           </ActionProvider>
