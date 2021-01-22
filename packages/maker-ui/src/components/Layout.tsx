@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Global, Interpolation } from '@emotion/react'
+import { Global, Interpolation, ThemeProvider } from '@maker-ui/css'
 import merge from 'deepmerge'
 
 import { OptionProvider } from '../context/OptionContext'
@@ -16,18 +16,19 @@ interface LayoutProps {
   children: React.ReactNode
   options: Partial<MakerOptions>
   styles?: object
+  theme?: object
   skiplinks?: LinkItem[]
 }
 
 /**
  * Wrap your application in the `Layout` component to use Maker UI.
- * @TODO - support responsive arrays for global styles
  * @see https://maker-ui.com/docs/layout/layout
  */
 
 export const Layout = ({
   options = {},
   styles = {},
+  theme = {},
   skiplinks,
   children,
 }: LayoutProps) => {
@@ -35,17 +36,25 @@ export const Layout = ({
     colorVars(options.colors) as object,
     themeVars(options) as object
   )
+
   return (
-    <OptionProvider options={options}>
-      <LayoutProvider styles={styles}>
-        <ActionProvider>
-          <Global styles={cssVariables as Interpolation<any>} />
-          <Global styles={globalStyles} />
-          <Skiplinks links={skiplinks} />
-          <ErrorBoundary errorKey="layout">{children}</ErrorBoundary>
-        </ActionProvider>
-      </LayoutProvider>
-    </OptionProvider>
+    <ThemeProvider
+      theme={
+        options.breakpoints
+          ? merge(theme, { breakpoints: options.breakpoints })
+          : theme
+      }>
+      <OptionProvider options={options}>
+        <LayoutProvider styles={styles}>
+          <ActionProvider>
+            <Global styles={cssVariables as Interpolation<any>} />
+            <Global styles={globalStyles} />
+            <Skiplinks links={skiplinks} />
+            <ErrorBoundary errorKey="layout">{children}</ErrorBoundary>
+          </ActionProvider>
+        </LayoutProvider>
+      </OptionProvider>
+    </ThemeProvider>
   )
 }
 

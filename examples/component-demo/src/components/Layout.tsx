@@ -13,7 +13,6 @@ import {
   Workspace,
   Div,
 } from 'maker-ui'
-import { ThemeProvider } from '@maker-ui/css'
 import {
   // Announcement,
   PageTransition,
@@ -53,46 +52,43 @@ const menu = [
 ]
 
 export default ({ children, location }) => (
-  <ThemeProvider
-    theme={{ breakpoints: ['20px', '30px'], colors: { primary: 'orange' } }}>
-    <Layout styles={styles} options={options}>
-      <Topbar>Topbar content</Topbar>
-      <Header>
-        <Navbar logo={'Components Demo'} menu={menu} />
-        <MobileMenu menu={menu} closeButton="test" />
-      </Header>
-      {location.pathname !== '/workspace' ? (
-        <>
-          <Content>
-            <SideNav menu={menu} />
-            {/* <Sidebar>test</Sidebar> */}
-            <Main>
-              {/* <PageTransition id={location.pathname} type="fade-up" distance={50}>
-              <> */}
-              {children}
-              <div style={{ height: 2000 }} />
-              {/* </>
-            </PageTransition> */}
-            </Main>
-            {/* <Sidebar>test</Sidebar> */}
-          </Content>
-          <Footer>Test</Footer>
-        </>
-      ) : (
+  <Layout styles={styles} options={options}>
+    <Topbar>Topbar content</Topbar>
+    <Header>
+      <Navbar logo={'Components Demo'} menu={menu} />
+      <MobileMenu menu={menu} closeButton="test" />
+    </Header>
+    {location.pathname !== '/workspace' ? (
+      <>
         <Content>
-          <Workspace>
-            <Workspace.Toolbar>Toolbar</Workspace.Toolbar>
-            {/* <Workspace.Panel>
+          <SideNav menu={menu} />
+          {/* <Sidebar>test</Sidebar> */}
+          <Main>
+            {/* <PageTransition id={location.pathname} type="fade-up" distance={50}>
+              <> */}
+            {children}
+            <div style={{ height: 2000 }} />
+            {/* </>
+            </PageTransition> */}
+          </Main>
+          {/* <Sidebar>test</Sidebar> */}
+        </Content>
+        <Footer>Test</Footer>
+      </>
+    ) : (
+      <Content>
+        <Workspace>
+          <Workspace.Toolbar>Toolbar</Workspace.Toolbar>
+          {/* <Workspace.Panel>
             <Div css={{ height: 1000 }}>test</Div>
           </Workspace.Panel> */}
-            <Workspace.Canvas>{children}</Workspace.Canvas>
-            <Workspace.Panel>
-              <Div css={{ height: 1000 }}>test</Div>
-            </Workspace.Panel>
-          </Workspace>
-        </Content>
-      )}
-      {/* <CookieNotice /> */}
-    </Layout>
-  </ThemeProvider>
+          <Workspace.Canvas>{children}</Workspace.Canvas>
+          <Workspace.Panel>
+            <Div css={{ height: 1000 }}>test</Div>
+          </Workspace.Panel>
+        </Workspace>
+      </Content>
+    )}
+    {/* <CookieNotice /> */}
+  </Layout>
 )

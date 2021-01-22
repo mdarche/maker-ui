@@ -3,7 +3,7 @@ import { MakerOptions } from 'maker-ui'
 
 export const options: MakerOptions = {
   framework: 'gatsby',
-  breakpoints: ['520px', '720px', '1280px'],
+  breakpoints: ['510px', '730px', '1280px'],
   fonts: {
     body: 'system-ui, sans-serif',
     heading: 'system-ui, sans-serif',

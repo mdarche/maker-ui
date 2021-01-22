@@ -1,13 +1,26 @@
 /** @jsx jsx */
-// import { jsx } from '@emotion/react'
-import { jsx } from '@maker-ui/css'
+import { jsx, Global } from '@maker-ui/css'
 
 const JSXPage = () => {
   return (
     <div
-      breakpoints={['768px', '960px']}
-      css={{ color: 'var(--color-primary)' }}>
-      Test 1
+      css={{
+        color: ['red', 'blue', 'purple'],
+        span: {
+          color: ['red', 'green'],
+        },
+        '.yo': {
+          color: 'hotpink',
+        },
+      }}>
+      Test 1<span>Another test</span>
+      <div className="yo">Orange</div>
+      <Global
+        // breakpoints={[500, 800]}
+        styles={{
+          '.yo': { fontWeight: 'bold', color: ['purple', 'blue', 'green'] },
+        }}
+      />
     </div>
     // <div>
     //   <ul>
