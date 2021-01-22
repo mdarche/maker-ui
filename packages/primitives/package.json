@@ -1,0 +1,21 @@
+{
+  "name": "@maker-ui/primitives",
+  "version": "0.4.3",
+  "author": "Mike Darche <mike@newcreative.io>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/css.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsdx build --format=cjs,esm",
+    "watch": "cross-env NODE_ENV=development tsdx watch --verbose",
+    "lint": "tsdx lint",
+    "test": "tsdx test"
+  },
+  "dependencies": {
+    "@maker-ui/css": "*"
+  },
+  "peerDependencies": {
+    "react": "^16.14.0"
+  }
+}
