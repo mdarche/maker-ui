@@ -32,10 +32,8 @@ function parseProps(props: any) {
  *
  */
 
-export const jsx = <P>(
+export const jsx = <P extends {}>(
   type: React.ElementType<P>,
   props: React.Attributes & P,
   ...children: React.ReactNode[]
-) => {
-  return emotionJsx(type, parseProps(props), ...children)
-}
+) => emotionJsx(type, parseProps(props), ...children)

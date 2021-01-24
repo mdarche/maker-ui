@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps } from '@maker-ui/css'
 import { useEffect, useState } from 'react'
 
-import { MakerProps } from '../types'
 import { ErrorBoundary } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
@@ -10,9 +9,7 @@ import { useMeasure } from '../hooks/useMeasure'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useLayout, useMeasurements } from '../context/LayoutContext'
 
-interface HeaderProps
-  extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
+interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
   background?: string | string[]
   sticky?: boolean
   stickyOnMobile?: boolean
@@ -126,7 +123,7 @@ export const Header = (props: HeaderProps) => {
    * Calculate responsive header styles for header.sticky configurations
    */
 
-  const stickyPartial = () => {
+  const stickyPartial = (): object => {
     if (stickyUpScroll) {
       return {
         position: 'sticky',
@@ -170,7 +167,7 @@ export const Header = (props: HeaderProps) => {
         background,
         zIndex: 100,
         visibility: framework === 'gatsby' && initialRender && ['hidden'],
-        ...(stickyPartial() as object),
+        ...stickyPartial(),
         ...(css as object),
       }}
       {...rest}>

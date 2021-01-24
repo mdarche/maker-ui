@@ -2,7 +2,8 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { forwardRef } from 'react'
 
-/** -----------------------   DIV   -----------------------
+/** -----------------------   Div   ----------------------- */
+/**
  * Alias for `Div` component props that includes all
  * HTML div tag attributes.
  *
@@ -23,9 +24,10 @@ export const Div = forwardRef<HTMLDivElement, DivProps>((props, ref) => (
 
 Div.displayName = 'Div'
 
-/** -----------------------   FLEX   -----------------------
+/** -----------------------   FLEX   ----------------------- */
+/**
  * Alias for `Flex` component props that includes all
- * HTML span tag attributes.
+ * HTML div tag attributes.
  */
 
 export interface FlexProps extends DivProps {
@@ -63,7 +65,8 @@ export const Flex = forwardRef<HTMLDivElement, any>(
 
 Flex.displayName = 'Flex'
 
-/** -----------------------   GRID   -----------------------
+/** -----------------------   GRID   ----------------------- */
+/**
  * Alias for `Div` component props that includes all
  * HTML div tag attributes.
  */
@@ -108,9 +111,10 @@ export const Grid = forwardRef<HTMLDivElement, any>(
 
 Grid.displayName = 'Grid'
 
-/** -----------------------   SPAN   -----------------------
- * Alias for `Div` component props that includes all
- * HTML div tag attributes.
+/** -----------------------   SPAN   ----------------------- */
+/**
+ * Alias for `Span` component props that includes all
+ * HTML span tag attributes.
  */
 export interface SpanProps
   extends MakerProps,
@@ -128,7 +132,8 @@ export const Span = forwardRef<HTMLSpanElement, SpanProps>((props, ref) => (
 
 Span.displayName = 'Span'
 
-/** -----------------------   OLIST   -----------------------
+/** -----------------------   OLIST   ----------------------- */
+/**
  * Alias for `OList` component props that includes all
  * ordered list tag attributes.
  */
@@ -148,7 +153,8 @@ export const OList = forwardRef<HTMLOListElement, OListProps>((props, ref) => (
 
 OList.displayName = 'OList'
 
-/** -----------------------   ULIST   -----------------------
+/** -----------------------   ULIST   ----------------------- */
+/**
  * Alias for `UList` component props that includes all
  * unordered list tag attributes.
  */
@@ -168,7 +174,8 @@ export const UList = forwardRef<HTMLUListElement, UListProps>((props, ref) => (
 
 UList.displayName = 'UList'
 
-/** -----------------------   LISTITEM   -----------------------
+/** -----------------------   LISTITEM   ----------------------- */
+/**
  * Alias for `ListItem` component props that includes all
  * list item tag attributes.
  */
@@ -188,7 +195,8 @@ export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
 
 ListItem.displayName = 'ListItem'
 
-/** -----------------------   SVG   -----------------------
+/** -----------------------   SVG   ----------------------- */
+/**
  * Alias for `SVG` component props that includes all
  * svg attributes.
  */
@@ -208,7 +216,8 @@ export const SVG = forwardRef<SVGSVGElement, SVGProps>((props, ref) => (
 
 SVG.displayName = 'SVG'
 
-/** -----------------------   BUTTON   -----------------------
+/** -----------------------   BUTTON   ----------------------- */
+/**
  * Alias for `Button` component props that includes all
  * HTML button attributes.
  */
@@ -228,7 +237,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'Button'
 
-/** -----------------------   LINK   -----------------------
+/** -----------------------   LINK   ----------------------- */
+/**
  * Alias for `Link` component props that includes all
  * anchor tag attributes.
  */
@@ -248,7 +258,8 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
 
 Link.displayName = 'Link'
 
-/** -----------------------   IMAGE   -----------------------
+/** -----------------------   IMAGE   ----------------------- */
+/**
  * Alias for `Image` component props that includes all
  * image tag attributes.
  */

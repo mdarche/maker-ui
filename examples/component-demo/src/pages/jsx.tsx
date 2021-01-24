@@ -7,12 +7,6 @@ const JSXPage = () => {
       breakpoints={[200, 900, 1200]}
       css={{
         color: ['red', 'blue', 'purple'],
-        span: {
-          color: ['red', 'green'],
-        },
-        '.yo': {
-          color: 'hotpink',
-        },
       }}>
       Test 1<span>Another test</span>
       <div className="yo">Orange</div>

@@ -92,6 +92,7 @@ export interface MakerOptions {
       | React.ReactNode
       | ((currentMode?: string, attributes?: object) => React.ReactNode)
     bpIndex?: number
+    breakpoint?: number | string
   }
   mobileMenu?: {
     width?: ResponsiveScale
