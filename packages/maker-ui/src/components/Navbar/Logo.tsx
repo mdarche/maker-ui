@@ -1,7 +1,7 @@
 import * as React from 'react'
+import { Link } from '@maker-ui/primitives'
 
 import { useOptions } from '../../context/OptionContext'
-import { Link } from '../Primitives'
 
 /**
  * The `Logo` is used by `Navbar` to show a custom logo wrapped in a link to

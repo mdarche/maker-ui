@@ -6,8 +6,8 @@ import { ErrorBoundary } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
 import { useMeasure } from '../hooks/useMeasure'
-import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useLayout, useMeasurements } from '../context/LayoutContext'
+import { setBreakpoint } from '../utils/helper'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
   background?: string | string[]
@@ -29,8 +29,7 @@ export const Header = (props: HeaderProps) => {
   const [show, setShow] = useState(true)
   const [layout] = useLayout('content')
   const { measurements, setMeasurement } = useMeasurements()
-  const { framework, header, topbar } = useOptions()
-  const { mediaQuery } = useMediaQuery('header')
+  const { framework, header, topbar, breakpoints } = useOptions()
   const activateScrollClass = header.scrollClass ? true : false
 
   const [bind, { height }] = useMeasure({
@@ -105,18 +104,18 @@ export const Header = (props: HeaderProps) => {
    */
   const calculateTop = () => {
     if (topbar.sticky && !topbar.stickyOnMobile) {
-      return { ...mediaQuery('top', [0, measurements.height_topbar]) }
+      return [0, measurements.height_topbar]
     }
 
     if (topbar.sticky && topbar.stickyOnMobile) {
-      return { top: measurements.height_topbar }
+      return measurements.height_topbar
     }
 
     if (!topbar.sticky && topbar.stickyOnMobile) {
-      return { ...mediaQuery('top', [measurements.height_topbar, 0]) }
+      return [measurements.height_topbar, 0]
     }
 
-    return { top: 0 }
+    return 0
   }
 
   /**
@@ -127,7 +126,7 @@ export const Header = (props: HeaderProps) => {
     if (stickyUpScroll) {
       return {
         position: 'sticky',
-        ...calculateTop(),
+        top: calculateTop(),
         transition: 'transform .3s ease-in',
         '&.scroll-active': {
           transform: 'translateY(-100%)',
@@ -137,18 +136,15 @@ export const Header = (props: HeaderProps) => {
 
     if (sticky) {
       return {
-        ...calculateTop(),
-        ...mediaQuery(
-          'position',
-          stickyOnMobile ? ['sticky'] : ['initial', 'sticky']
-        ),
+        top: calculateTop(),
+        position: stickyOnMobile ? ['sticky'] : ['initial', 'sticky'],
       }
     }
 
     if (!sticky && stickyOnMobile) {
       return {
-        ...calculateTop(),
-        ...mediaQuery('position', ['sticky', 'initial']),
+        top: calculateTop(),
+        position: ['sticky', 'initial'],
       }
     }
 
@@ -163,6 +159,7 @@ export const Header = (props: HeaderProps) => {
         stickyUpScroll && !show ? ' scroll-active' : ''
       }`}
       role="banner"
+      breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
       css={{
         background,
         zIndex: 100,

@@ -62,6 +62,7 @@ export interface MakerOptions {
     sticky?: boolean
     stickyOnMobile?: boolean
     hideOnMobile?: boolean
+    breakpoint?: number | string
     bpIndex?: number
   }
   header?: {
@@ -120,6 +121,7 @@ export interface MakerOptions {
       | React.ReactNode
       | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
     bpIndex?: number
+    breakpoint?: string | number
   }
   content?: {
     maxWidth?: ResponsiveScale
@@ -127,6 +129,7 @@ export interface MakerOptions {
     sidebarGap?: ResponsiveScale
     deferMeasurements?: number
     bpIndex?: number
+    breakpoint?: string | number
   }
   sidebar?: {
     width?: ResponsiveScale
@@ -161,8 +164,10 @@ export interface MakerOptions {
     dock?: {
       width?: ResponsiveScale
       hideOnMobile?: boolean
+      breakpoint?: string | number
       bpIndex?: number
     }
+    breakpoint?: string | number
     bpIndex?: number
   }
 }

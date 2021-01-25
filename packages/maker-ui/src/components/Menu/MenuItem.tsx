@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx } from '@maker-ui/css'
+import { Link } from '@maker-ui/primitives'
 import { Fragment, useState, memo, isValidElement } from 'react'
 
-import { Link } from '../Primitives'
 import { useOptions } from '../../context/OptionContext'
 import { ExpandButton } from './ExpandButton'
 import {

@@ -5,3 +5,5 @@ export { useMeasure } from './hooks/useMeasure'
 export { useMediaQuery } from './hooks/useMediaQuery'
 
 export { setBreakpoint, generateId } from './utils/helper'
+
+export * from '@maker-ui/primitives'

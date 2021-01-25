@@ -1,10 +1,22 @@
 import { transitionTypes } from '../constants'
 
 /**
+ * Evaluates a MakerOptions breakpoint and formats the `breakpoints` prop array
+ * @param bp - a breakpoint value
+ * @param bpArray - the MakerOptions breakpoints array
+ */
+
+export const setBreakpoint = (
+  bp: string | number,
+  bpArray: (string | number)[]
+) =>
+  typeof bp === 'string' ? [bp] : bp < bpArray.length ? [bpArray[bp]] : [bp]
+
+/**
  * Utility for adding pixel value to numbers for transitions and animations
  */
 
-export const format = value => (isNaN(value) ? value : `${value}px`)
+export const format = (value) => (isNaN(value) ? value : `${value}px`)
 
 /**
  * Utility for mobile nav transitions that require a full-width window
@@ -84,17 +96,17 @@ export function generateId(length: number = 5): string {
  *
  */
 
-export function setBreakpoint(index: number, arr: any[]) {
-  const fill = arr[0]
-  let i = 0
+// export function setBreakpoint(index: number, arr: any[]) {
+//   const fill = arr[0]
+//   let i = 0
 
-  while (i < index) {
-    arr.unshift(fill)
-    i++
-  }
+//   while (i < index) {
+//     arr.unshift(fill)
+//     i++
+//   }
 
-  return arr
-}
+//   return arr
+// }
 
 /**
  * Check to see if value is an object else return an empty object

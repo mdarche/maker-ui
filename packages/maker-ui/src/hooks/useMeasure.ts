@@ -23,7 +23,7 @@ export interface MeasureState {
  * A browser hook that binds a Resize Observer to the specified React Node and returns either
  * its `contentRect` or `getClientBoundingRect()` properties.
  *
- * @param active - Boolean that determines whether the hook should connect the Resize Observer
+ * @param observe - Boolean that determines whether the hook should connect the Resize Observer
  * @param contentRect - Boolean that returns the node's content rect if true, otherwise it will
  * calculate getClientBoundingRect()
  * @param externalRef - If you can't bind the output ref to your component, you can also supply
@@ -32,7 +32,7 @@ export interface MeasureState {
  * body (window) is resized
  * @param timeout - Number in milliseconds that defers the initial ref measurement.
  * Useful if a parent container has a mounting animation like the `PageTransition`.
- * 
+ *
  * @todo rename `externalRef` to ref -- less confusing
  *
  * @see https://maker-ui.com/docs/hooks/#useMeasure

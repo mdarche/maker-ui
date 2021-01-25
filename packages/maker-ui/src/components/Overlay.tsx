@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx } from '@maker-ui/css'
 
 interface OverlayProps {
   show: boolean

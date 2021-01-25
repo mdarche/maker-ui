@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, MakerProps } from '@maker-ui/css'
 import { forwardRef } from 'react'
+import * as CSS from 'csstype'
 
 /** -----------------------   Div   ----------------------- */
 /**
@@ -10,7 +11,7 @@ import { forwardRef } from 'react'
  */
 export interface DivProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {}
+    React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * The basic theme-enabled building block for Maker UI.
@@ -32,10 +33,10 @@ Div.displayName = 'Div'
 
 export interface FlexProps extends DivProps {
   inline?: boolean
-  align?: any
-  justify?: any
-  direction?: any
-  flex?: any
+  align?: CSS.Properties['alignItems']
+  justify?: CSS.Properties['justifyContent']
+  direction?: CSS.Properties['flexDirection']
+  flex?: CSS.Properties['flex']
   wrap?: boolean
 }
 
@@ -45,7 +46,7 @@ export interface FlexProps extends DivProps {
  * @see https://maker-ui.com/docs/primitives/#flex
  */
 
-export const Flex = forwardRef<HTMLDivElement, any>(
+export const Flex = forwardRef<HTMLDivElement, FlexProps>(
   ({ inline, align, justify, direction, flex, wrap, css, ...props }, ref) => (
     <div
       ref={ref}
@@ -54,9 +55,9 @@ export const Flex = forwardRef<HTMLDivElement, any>(
         alignItems: align,
         justifyContent: justify,
         flexDirection: direction,
-        flexWrap: wrap && 'wrap',
+        flexWrap: wrap ? 'wrap' : undefined,
         flex,
-        ...css,
+        ...(css as object),
       }}
       {...props}
     />
@@ -71,13 +72,11 @@ Flex.displayName = 'Flex'
  * HTML div tag attributes.
  */
 export interface GridProps extends MakerProps, DivProps {
-  columns?: any
-  rows?: any
-  gap?: any
-  areas?: any
-  columnGap?: any
-  rowGap?: any
-  center?: any
+  columns?: CSS.Properties['gridTemplateColumns']
+  rows?: CSS.Properties['gridTemplateRows']
+  areas?: CSS.Properties['gridTemplateAreas']
+  gap?: CSS.Properties['gap']
+  center?: boolean
 }
 
 /**
@@ -86,11 +85,8 @@ export interface GridProps extends MakerProps, DivProps {
  * @see https://maker-ui.com/docs/primitives/#grid
  */
 
-export const Grid = forwardRef<HTMLDivElement, any>(
-  (
-    { columns, rows, gap, areas, columnGap, rowGap, center, css, ...props },
-    ref
-  ) => (
+export const Grid = forwardRef<HTMLDivElement, GridProps>(
+  ({ columns, rows, gap, areas, center, css, ...props }, ref) => (
     <div
       ref={ref}
       css={{
@@ -98,11 +94,9 @@ export const Grid = forwardRef<HTMLDivElement, any>(
         gridTemplateColumns: columns,
         gridTemplateRows: rows,
         gridTemplateAreas: areas,
-        gridGap: gap,
-        columnGap: columnGap,
-        rowGap: rowGap || gap,
-        placeItems: center && 'center',
-        ...css,
+        gap,
+        placeItems: center ? 'center' : undefined,
+        ...(css as object),
       }}
       {...props}
     />
@@ -118,7 +112,7 @@ Grid.displayName = 'Grid'
  */
 export interface SpanProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLSpanElement>, 'css'> {}
+    React.HTMLAttributes<HTMLSpanElement> {}
 
 /**
  * A theme-enabled `span` tag.
@@ -139,7 +133,7 @@ Span.displayName = 'Span'
  */
 export interface OListProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLOListElement>, 'css'> {}
+    React.HTMLAttributes<HTMLOListElement> {}
 
 /**
  * A theme-enabled `ol` tag.
@@ -160,7 +154,7 @@ OList.displayName = 'OList'
  */
 export interface UListProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLUListElement>, 'css'> {}
+    React.HTMLAttributes<HTMLUListElement> {}
 
 /**
  * A theme-enabled `ul` tag.
@@ -181,7 +175,7 @@ UList.displayName = 'UList'
  */
 export interface ListItemProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLLIElement>, 'css'> {}
+    React.HTMLAttributes<HTMLLIElement> {}
 
 /**
  * A theme-enabled `li` tag.
@@ -200,9 +194,7 @@ ListItem.displayName = 'ListItem'
  * Alias for `SVG` component props that includes all
  * svg attributes.
  */
-export interface SVGProps
-  extends MakerProps,
-    Omit<React.SVGAttributes<SVGElement>, 'css'> {}
+export interface SVGProps extends MakerProps, React.SVGAttributes<SVGElement> {}
 
 /**
  * A theme-enabled `svg` tag.
@@ -223,7 +215,7 @@ SVG.displayName = 'SVG'
  */
 export interface ButtonProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLButtonElement>, 'css'> {}
+    React.HTMLAttributes<HTMLButtonElement> {}
 
 /**
  * A theme-enabled `button` tag.
@@ -244,7 +236,7 @@ Button.displayName = 'Button'
  */
 export interface LinkProps
   extends MakerProps,
-    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'css'> {}
+    React.AnchorHTMLAttributes<HTMLAnchorElement> {}
 
 /**
  * A theme-enabled `a` tag.
@@ -252,9 +244,13 @@ export interface LinkProps
  * @see https://maker-ui.com/docs/primitives/#link
  */
 
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
-  <a ref={ref} {...props} />
-))
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ children, ...props }, ref) => (
+    <a ref={ref} {...props}>
+      {children}
+    </a>
+  )
+)
 
 Link.displayName = 'Link'
 
@@ -265,7 +261,7 @@ Link.displayName = 'Link'
  */
 export interface ImageProps
   extends MakerProps,
-    Omit<React.AnchorHTMLAttributes<HTMLImageElement>, 'css'> {}
+    React.AnchorHTMLAttributes<HTMLImageElement> {}
 
 /**
  * A theme-enabled `img` tag.

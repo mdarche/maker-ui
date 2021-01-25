@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx } from '@maker-ui/css'
 
 import { useOptions } from '../../context/OptionContext'
-import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { setBreakpoint } from '../../utils/helper'
 
 interface WidgetProps {
   content?: React.ReactNode
@@ -16,17 +16,14 @@ interface WidgetProps {
  */
 
 export const WidgetArea = ({ content }: WidgetProps) => {
-  const { header } = useOptions()
-  const { mediaQuery } = useMediaQuery('header')
+  const { header, breakpoints } = useOptions()
 
   return content ? (
     <div
       className="widget-area"
+      breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
       css={{
-        ...mediaQuery(
-          'display',
-          header.hideWidgetsOnMobile ? ['none', 'flex'] : ['flex']
-        ),
+        display: header.hideWidgetsOnMobile ? ['none', 'flex'] : ['flex'],
       }}>
       {content}
     </div>

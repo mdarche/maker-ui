@@ -7,6 +7,15 @@ export interface MakerProps {
   breakpoints?: Breakpoints
 }
 
+export type ResponsiveScale =
+  | string
+  | string[]
+  | number
+  | number[]
+  | (string | number)[]
+
 declare module 'react' {
   interface Attributes extends MakerProps {}
 }
+
+export { Interpolation }

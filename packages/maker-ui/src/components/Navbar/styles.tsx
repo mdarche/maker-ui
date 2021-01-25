@@ -1,6 +1,4 @@
-import merge from 'deepmerge'
-
-// Grid & flex justification styles for desktop
+/**  Grid & flex justification styles for desktop */
 const desktop = {
   basic: {
     areas: '"logo menu nav"',
@@ -48,7 +46,7 @@ const desktop = {
   },
 }
 
-// Grid & flex justification styles for mobile
+/**  Grid & flex justification styles for mobile */
 const mobile = {
   basic: {
     areas: '"logo nav"',
@@ -76,33 +74,21 @@ const mobile = {
  * Calculate grid-template-area, grid-template-columns, and grid-template-rows
  */
 
-export function gridStyles(
-  layout: string,
-  mobileLayout: string,
-  mediaQuery: (rule: string, arr: (string | number)[]) => object
-) {
+export function gridStyles(layout: string, mobileLayout: string): object {
   return {
-    ...merge.all([
-      mediaQuery('gridTemplateAreas', [
-        mobile[mobileLayout].areas,
-        desktop[layout].areas,
-      ]),
-      mediaQuery('gridTemplateColumns', [
-        mobile[mobileLayout].columns,
-        desktop[layout].columns,
-      ]),
-      mediaQuery('gridTemplateRows', [
-        '1fr',
-        layout !== 'center' ? '1fr' : '1fr 1fr',
-      ]),
-    ]),
+    gridTemplateAreas: [mobile[mobileLayout].areas, desktop[layout].areas],
+    gridTemplateColumns: [
+      mobile[mobileLayout].columns,
+      desktop[layout].columns,
+    ],
+    gridTemplateRows: ['1fr', layout !== 'center' ? '1fr' : '1fr 1fr'],
     gap: 0,
     '.nav-area': {
-      ...absolutePosition(layout, mediaQuery),
-      ...mediaQuery('justifyContent', [
+      ...absolutePosition(layout),
+      justifyContent: [
         mobile[mobileLayout].navArea,
         desktop[layout].navArea || 'flex-start',
-      ]),
+      ],
     },
     '.menu-area': {
       justifyContent: desktop[layout].menuArea && desktop[layout].menuArea,
@@ -120,7 +106,7 @@ export function gridStyles(
       justifyContent: 'flex-start',
     },
     '&.m-layout-logo-center-alt .button-area': {
-      ...mediaQuery('justifyContent', ['flex-end', 'flex-start']),
+      justifyContent: ['flex-end', 'flex-start'],
     },
     // overflow flex-wrap vs scroll
   }
@@ -130,14 +116,11 @@ export function gridStyles(
  * Add absolute positioning to nav-area for `split` and `center` desktop layouts
  */
 
-function absolutePosition(
-  layout: string,
-  mediaQuery: (rule: string, arr: (string | number)[]) => object
-) {
+function absolutePosition(layout: string) {
   const abs = ['center', 'split']
   return abs.includes(layout)
     ? {
-        ...mediaQuery('position', ['relative', 'absolute']),
+        position: ['relative', 'absolute'],
         top: 0,
         right: 0,
         height: '100%',

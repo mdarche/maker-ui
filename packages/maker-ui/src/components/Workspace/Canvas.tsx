@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps } from '@maker-ui/css'
 
-import { MakerProps } from '../../types'
 import { ErrorBoundary } from '../Errors'
 
 export interface CanvasProps

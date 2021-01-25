@@ -1,12 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps } from '@maker-ui/css'
 
-import { MakerProps } from '../types'
 import { ErrorBoundary } from './Errors'
 
-interface MainProps
-  extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
+interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
 }
 

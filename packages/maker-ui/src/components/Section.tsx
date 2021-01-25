@@ -1,13 +1,12 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { forwardRef } from 'react'
 
 import { ErrorBoundary } from './Errors'
-import { MakerProps, ResponsiveScale } from '../types'
 
 interface SectionProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
+    React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
   _css?: MakerProps['css']
   maxWidth?: ResponsiveScale

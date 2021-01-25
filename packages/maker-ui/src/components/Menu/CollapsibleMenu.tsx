@@ -1,15 +1,14 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps } from '@maker-ui/css'
 import { forwardRef } from 'react'
 
-import { MakerProps } from '../../types'
 import { MenuItem, MenuProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 
 interface CollapsibleProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLUListElement>, 'css'> {
+    React.HTMLAttributes<HTMLUListElement> {
   menu: MenuProps[]
   menuType: string
   pathname?: string
@@ -34,11 +33,11 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
 
     const getControls = () => {
       if (menuType === 'mobile' && mobileMenu.closeOnRouteChange) {
-        return { onClick: e => toggleMenu() }
+        return { onClick: (e) => toggleMenu() }
       }
 
       if (menuType === 'sideNav' && sideNav.closeOnRouteChange) {
-        return { onClick: e => toggleSideNav() }
+        return { onClick: (e) => toggleSideNav() }
       }
 
       return undefined

@@ -1,12 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 
-import { MakerProps, ResponsiveScale } from '../types'
 import { ErrorBoundary } from './Errors'
 
-interface FooterProps
-  extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
+interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: ResponsiveScale
   background?: string | string[]
 }

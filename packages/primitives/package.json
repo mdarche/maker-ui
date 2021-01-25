@@ -13,7 +13,8 @@
     "test": "tsdx test"
   },
   "dependencies": {
-    "@maker-ui/css": "*"
+    "@maker-ui/css": "*",
+    "csstype": "^3.0.6"
   },
   "peerDependencies": {
     "react": "^16.14.0"

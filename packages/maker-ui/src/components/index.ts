@@ -13,7 +13,6 @@ export { CollapsibleMenu, MenuProps } from './Menu'
 export { ErrorBoundary } from './Errors/ErrorBoundary'
 export { Workspace, PanelButton, useWorkspace } from './Workspace'
 export { Dock } from './Dock'
-export * from './Primitives'
 
 export { Template } from './Template'
 

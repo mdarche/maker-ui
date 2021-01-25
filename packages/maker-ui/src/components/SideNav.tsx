@@ -1,23 +1,23 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps } from '@maker-ui/css'
+import { Button } from '@maker-ui/primitives'
 
-import { MakerProps, MakerOptions } from '../types'
+import { MakerOptions } from '../types'
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { MenuProps } from './Menu'
-import { Button } from './Primitives'
 
 import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
-import { useMediaQuery } from '../hooks/useMediaQuery'
+import { setBreakpoint } from '../utils/helper'
 
 const Container = ({ isHeader, ...props }) =>
   isHeader ? <header {...props} /> : <div {...props} />
 
 interface SideNavProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
+    React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
   toggleButton?: MakerOptions['sideNav']['toggleButton']
   menu?: MenuProps[]
@@ -46,8 +46,7 @@ export const SideNav = ({
   ...props
 }: SideNavProps) => {
   const [active, setActive] = useSideNav()
-  const { sideNav } = useOptions()
-  const { mediaQuery } = useMediaQuery('sideNav')
+  const { sideNav, breakpoints } = useOptions()
 
   const customButton = toggleButton || sideNav.toggleButton
 
@@ -56,6 +55,7 @@ export const SideNav = ({
     title: 'Toggle side navigation',
     'aria-label': 'Toggle side navigation',
     onClick: setActive,
+    breakpoints: setBreakpoint(sideNav.breakpoint, breakpoints),
   }
 
   return (
@@ -92,7 +92,7 @@ export const SideNav = ({
           {...toggleAttributes}
           css={{
             position: 'fixed',
-            ...mediaQuery('display', ['inline-block', 'none']),
+            display: ['inline-block', 'none'],
             bottom: 30,
             zIndex: 100,
           }}>

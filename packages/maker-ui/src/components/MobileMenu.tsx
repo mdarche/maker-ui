@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { forwardRef, Fragment } from 'react'
 
-import { ResponsiveScale, MakerProps, MakerOptions } from '../types'
+import { MakerOptions } from '../types'
 import { CollapsibleMenu, MenuButton, MenuProps } from './Menu'
 import { ErrorBoundary } from './Errors'
 import { Overlay } from './Overlay'
@@ -12,7 +12,7 @@ import { getTransition, fullWidth } from '../utils/helper'
 
 interface MobileMenuProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
+    React.HTMLAttributes<HTMLDivElement> {
   transition?: MakerOptions['mobileMenu']['transition']
   background?: string | string[]
   width?: ResponsiveScale

@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx } from '@maker-ui/css'
 
 import { MenuProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { MenuItem } from './MenuItem'
-import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { setBreakpoint } from '../../utils/helper'
 
 interface NavMenuProps {
   menuItems: MenuProps[]
@@ -19,14 +19,14 @@ interface NavMenuProps {
  */
 
 export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
-  const { header, linkFunction } = useOptions()
-  const { mediaQuery } = useMediaQuery('header')
+  const { header, breakpoints, linkFunction } = useOptions()
 
   return (
     <nav
       className="nav-primary"
       role="navigation"
-      css={mediaQuery('display', ['none', 'flex'])}>
+      breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
+      css={{ display: ['none', 'flex'] }}>
       <ul className="menu-primary">
         {menuItems.map((item, index) => (
           <MenuItem

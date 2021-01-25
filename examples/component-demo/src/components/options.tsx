@@ -49,7 +49,7 @@ export const options: MakerOptions = {
     stickyOnMobile: false,
     maxWidth: [200, 600],
     hideOnMobile: false,
-    bpIndex: 1,
+    breakpoint: 0,
   },
   header: {
     navType: 'basic',
@@ -67,7 +67,7 @@ export const options: MakerOptions = {
     dropdown: {
       transition: 'fade-down',
     },
-    bpIndex: 0,
+    breakpoint: 0,
   },
   mobileMenu: {
     width: '60vw',

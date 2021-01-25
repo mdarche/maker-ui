@@ -1,16 +1,16 @@
 import * as React from 'react'
+import { Grid, Flex } from '@maker-ui/primitives'
+import { MakerProps, ResponsiveScale } from '@maker-ui/css'
 
-import { MakerOptions, MakerProps, ResponsiveScale } from '../../types'
+import { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
 import { LayoutString, useLayout } from '../../context/LayoutContext'
-
 import { Logo } from './Logo'
 import { ColorButton } from './ColorButton'
 import { NavMenu, MenuButton, MenuProps } from '../Menu'
 import { WidgetArea } from './WidgetArea'
-import { Grid, Flex } from '../Primitives'
 import { gridStyles } from './styles'
-import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { setBreakpoint } from '../../utils/helper'
 
 const edge = ['minimal-left', 'minimal-center']
 const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
@@ -35,10 +35,11 @@ export interface NavProps extends MakerProps {
  */
 
 export const Navbar = (props: NavProps) => {
-  const { header, mobileMenu } = useOptions()
+  const { header, mobileMenu, breakpoints } = useOptions()
   const [layout, setLayout] = useLayout('nav')
   const [mobileLayout, setMobileLayout] = useLayout('mobileNav')
-  const { mediaQuery } = useMediaQuery('header')
+
+  const bpArray = setBreakpoint(header.breakpoint, breakpoints)
 
   const {
     type,
@@ -72,11 +73,12 @@ export const Navbar = (props: NavProps) => {
   return (
     <Grid
       className={`nav-grid layout-${layout} m-layout-${mobileLayout}`}
+      breakpoints={bpArray}
       css={{
         maxWidth,
         margin: '0 auto',
         position: 'relative',
-        ...gridStyles(layout, mobileLayout, mediaQuery),
+        ...gridStyles(layout, mobileLayout),
         ...wrapPartial,
         ...(css as object),
       }}>
@@ -84,12 +86,13 @@ export const Navbar = (props: NavProps) => {
         <Flex
           align="center"
           className="button-area"
+          breakpoints={bpArray}
           css={{
             gridArea: 'button',
-            ...mediaQuery('display', [
+            display: [
               mobileEdge.includes(mobileLayout) ? 'flex' : 'none',
               edge.includes(layout) ? 'flex' : 'none',
-            ]),
+            ],
           }}>
           <MenuButton customButton={menuButton} visibleOnDesktop />
         </Flex>
@@ -98,9 +101,10 @@ export const Navbar = (props: NavProps) => {
         <Flex
           align="center"
           className="menu-area split"
+          breakpoints={bpArray}
           css={{
             gridArea: 'menu-split',
-            ...mediaQuery('display', ['none', 'flex']),
+            display: ['none', 'flex'],
           }}>
           <NavMenu menuItems={menu.slice(0, mid)} />
         </Flex>
@@ -111,9 +115,10 @@ export const Navbar = (props: NavProps) => {
       <Flex
         align="center"
         className="menu-area"
+        breakpoints={bpArray}
         css={{
           gridArea: 'menu',
-          ...mediaQuery('display', ['none', 'flex']),
+          display: ['none', 'flex'],
         }}>
         <NavMenu menuItems={layout === 'split' ? menu.slice(mid) : menu} />
       </Flex>
@@ -121,16 +126,17 @@ export const Navbar = (props: NavProps) => {
         <WidgetArea content={navArea} />
         <MenuButton
           customButton={menuButton}
+          breakpoints={bpArray}
           css={{
-            ...mediaQuery('display', [
+            display: [
               mobileEdge.includes(mobileLayout) ? 'none' : 'block',
               layout === 'minimal' || mobileMenu.visibleOnDesktop
                 ? 'block'
                 : 'none',
-            ]),
+            ],
           }}
         />
-        <ColorButton customButton={colorButton} />
+        <ColorButton isHeaderButton customButton={colorButton} />
       </Flex>
     </Grid>
   )

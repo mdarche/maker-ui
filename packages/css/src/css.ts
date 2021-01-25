@@ -1,7 +1,9 @@
+import merge from 'deepmerge'
+
 import { Interpolation } from '@emotion/react'
 import { Breakpoints } from './types'
 
-const format = value => (isNaN(value) ? value : `${value}px`)
+const format = (value) => (isNaN(value) ? value : `${value}px`)
 const defaultBreakpoints = ['768px', '960px', '1440px']
 
 /**
@@ -27,8 +29,13 @@ function responsive(styles: Interpolation<any>, breakpoints: Breakpoints) {
     /** If value is a responsive array */
     next[key] = value[0]
     for (let i = 0; i < value.length - 1; i++) {
-      next[`@media screen and (min-width: ${format(breakpoints[i])})`] = {
-        [key]: value[i + 1],
+      const mq = `@media screen and (min-width: ${format(breakpoints[i])})`
+      if (next[mq]) {
+        merge(next, { mq: { [key]: value[i + 1] } })
+      } else {
+        next[mq] = {
+          [key]: value[i + 1],
+        }
       }
     }
   }

@@ -1,6 +1,5 @@
 import * as React from 'react'
-
-import { Button, SVG } from '../Primitives'
+import { Button, SVG } from '@maker-ui/primitives'
 
 interface ExpandButtonProps {
   show: boolean

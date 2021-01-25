@@ -1,12 +1,11 @@
 import * as React from 'react'
+import { SVG, Button, ButtonProps } from '@maker-ui/primitives'
 
-import { SVG, Button } from '../Primitives'
-import { MakerProps } from '../../types'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { setBreakpoint } from '../../utils/helper'
 
-interface MenuButtonProps extends MakerProps {
+interface MenuButtonProps extends ButtonProps {
   isCloseButton?: boolean
   customButton?:
     | 'default'
@@ -31,17 +30,16 @@ export const MenuButton = ({
 }: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()
-  const { header, sideNav } = useOptions()
-  const { mediaQuery } = useMediaQuery('header')
+  const { header, sideNav, breakpoints } = useOptions()
 
   // Use custom button from props or check header / mobileMenu options
   const menuButton = customButton || header.menuButton
 
   const visibility = visibleOnDesktop
     ? !sideNav.isPrimaryMobileNav
-      ? { display: 'block' }
-      : { display: 'none' }
-    : { ...mediaQuery('display', ['block', 'none']) }
+      ? 'block'
+      : 'none'
+    : ['block', 'none']
 
   const conditionalAttributes = sideNav.isPrimaryMobileNav
     ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
@@ -59,8 +57,9 @@ export const MenuButton = ({
   ) : (
     <Button
       {...attributes}
+      breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
       css={{
-        ...visibility,
+        display: visibility,
         margin: 0,
         border: 'none',
         background: 'none',

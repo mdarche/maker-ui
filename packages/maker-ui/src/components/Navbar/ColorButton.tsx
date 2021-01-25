@@ -1,11 +1,12 @@
 import * as React from 'react'
+import { Button, ButtonProps } from '@maker-ui/primitives'
 
-import { Button } from '../Primitives'
 import { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
-import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { setBreakpoint } from '../../utils/helper'
 
-interface ColorButtonProps {
+interface ColorButtonProps extends ButtonProps {
+  isHeaderButton?: boolean
   customButton?: MakerOptions['header']['colorButton']
 }
 
@@ -16,9 +17,13 @@ interface ColorButtonProps {
  * @see https://maker-ui.com/docs/layout/buttons/#colorButton
  */
 
-export const ColorButton = ({ customButton }: ColorButtonProps) => {
-  const { header, colors } = useOptions()
-  const { mediaQuery } = useMediaQuery('header')
+export const ColorButton = ({
+  isHeaderButton,
+  customButton,
+  breakpoints,
+  css,
+}: ColorButtonProps) => {
+  const { header, colors, breakpoints: bps } = useOptions()
   const [theme, setTheme] = React.useState(colors.initialTheme || 'light')
 
   const { initialTheme, ...colorModes } = colors
@@ -41,6 +46,9 @@ export const ColorButton = ({ customButton }: ColorButtonProps) => {
     className: 'color-button',
     'aria-label': 'Toggle Color Mode',
     onClick: cycleMode,
+    breakpoints: isHeaderButton
+      ? setBreakpoint(header.breakpoint, bps)
+      : breakpoints,
   }
 
   // Use custom button from props or check header options
@@ -56,10 +64,13 @@ export const ColorButton = ({ customButton }: ColorButtonProps) => {
     ) : (
       <Button
         {...attributes}
-        css={mediaQuery(
-          'display',
-          header.hideColorButtonOnMobile ? ['none', 'block'] : ['block']
-        )}>
+        css={{
+          display:
+            isHeaderButton && header.hideColorButtonOnMobile
+              ? ['none', 'block']
+              : ['block'],
+          ...(css as object),
+        }}>
         {colorButton || theme}
       </Button>
     )

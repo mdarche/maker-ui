@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps } from '@maker-ui/css'
 
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { ContentError } from './Errors/Errors'
-import { MakerProps } from '../types'
 import { useOptions } from '../context/OptionContext'
 import { useLayoutDetector } from '../context/LayoutContext'
 import { useLayoutStyles } from '../hooks/useLayoutStyles'
+import { setBreakpoint } from '../utils/helper'
 
 interface ContentProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {}
+    React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * The `Content` component is a wrapper that reads the contents of its
@@ -22,16 +22,20 @@ interface ContentProps
  */
 
 export const Content = ({ children, css, ...props }: ContentProps) => {
-  const { framework } = useOptions()
+  const { framework, content, sideNav, breakpoints } = useOptions()
   const { layout, showError, initialRender } = useLayoutDetector(
     'content',
     children
   )
   const layoutStyles = useLayoutStyles(layout)
+  const bp = layout.includes('sidenav')
+    ? sideNav.breakpoint
+    : content.breakpoint
 
   return (
     <div
       id="site-inner"
+      breakpoints={setBreakpoint(bp, breakpoints)}
       css={{
         position: 'relative',
         visibility: framework === 'gatsby' && initialRender && ['hidden'],

@@ -1,17 +1,15 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { useEffect } from 'react'
 
-import { MakerOptions, MakerProps, ResponsiveScale } from '../types'
+import { MakerOptions } from '../types'
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
-import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useMeasure } from '../hooks/useMeasure'
 import { useLayout, useMeasurements } from '../context/LayoutContext'
+import { setBreakpoint } from '../utils/helper'
 
-interface TopbarProps
-  extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
+interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string
   maxWidth?: ResponsiveScale
   scrollOverflow?: boolean
@@ -29,8 +27,7 @@ interface TopbarProps
  */
 
 export const Topbar = (props: TopbarProps) => {
-  const { topbar } = useOptions()
-  const { mediaQuery } = useMediaQuery('topbar')
+  const { topbar, breakpoints } = useOptions()
   const [layout] = useLayout('content')
   const [bind, { height }] = useMeasure({
     observe: layout.includes('workspace'),
@@ -56,27 +53,25 @@ export const Topbar = (props: TopbarProps) => {
   } = props
 
   const stickyPartial = sticky
-    ? mediaQuery(
-        'position',
-        stickyOnMobile ? ['sticky'] : ['relative', 'sticky']
-      )
+    ? stickyOnMobile
+      ? 'sticky'
+      : ['relative', 'sticky']
     : !sticky && stickyOnMobile
-    ? mediaQuery('position', ['sticky', 'relative'])
+    ? ['sticky', 'relative']
     : undefined
 
   return (
     <aside
       {...bind}
       id="topbar"
+      breakpoints={setBreakpoint(topbar.breakpoint, breakpoints)}
+      // @ts-ignore
       css={{
         background,
         top: 0,
         zIndex: 100,
-        ...stickyPartial,
-        ...mediaQuery(
-          'display',
-          topbar.hideOnMobile ? ['none', 'block'] : ['block']
-        ),
+        position: stickyPartial,
+        display: topbar.hideOnMobile ? ['none', 'block'] : ['block'],
       }}>
       <div
         className="container"

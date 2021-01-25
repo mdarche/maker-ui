@@ -1,15 +1,14 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react'
+import { jsx, MakerProps } from '@maker-ui/css'
 import { useEffect } from 'react'
 
-import { MakerProps } from '../../types'
 import { ErrorBoundary } from '../Errors'
 import { useMeasure } from '../../hooks/useMeasure'
 import { useMeasurements } from '../../context/LayoutContext'
 
 export interface ToolbarProps
   extends MakerProps,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
+    React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
   scrollOverflow?: 'wrap' | 'scroll'
 }
