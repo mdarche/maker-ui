@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.5",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": ["packages/*"],
@@ -9,7 +9,7 @@
     },
     "publish": {
       "npmClient": "npm",
-      "allowBranch": ["master"],
+      "allowBranch": ["master", "canary"],
       "registry": "https://registry.npmjs.org/"
     }
   }

@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "maker-ui": "*",
+    "maker-ui": "latest",
     "next": "^9.5.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"

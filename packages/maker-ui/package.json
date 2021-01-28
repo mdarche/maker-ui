@@ -8,18 +8,19 @@
   "module": "dist/maker-ui.esm.js",
   "types": "dist/index.d.ts",
   "files": [
+    "README.md",
     "dist"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production tsdx build --format=cjs,esm",
-    "watch": "cross-env NODE_ENV=development tsdx watch",
+    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "tsdx test",
     "lint": "tsdx lint",
-    "test": "tsdx test"
+    "prepublish": "npm run build"
   },
   "dependencies": {
-    "@emotion/react": "^11.1.2",
-    "@maker-ui/css": "*",
-    "@maker-ui/primitives": "*",
+    "@maker-ui/css": "1.0.0-beta.4",
+    "@maker-ui/primitives": "1.0.0-beta.4",
     "deepmerge": "^4.2.2",
     "resize-observer-polyfill": "^1.5.1",
     "tslib": "^2.0.0"

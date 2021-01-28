@@ -20,8 +20,8 @@
     "gatsby-plugin-mdx": "^1.2.25",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "maker-ui": "*",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-helmet": "^5.2.0",
     "typeface-nunito-sans": "^0.0.72",
     "typeface-open-sans": "^0.0.75"
