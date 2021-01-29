@@ -1,6 +1,6 @@
 import { useOptions } from '../context/OptionContext'
 import { useMeasurements, LayoutString } from '../context/LayoutContext'
-import { format } from '../utils/helper'
+// import { format } from '../utils/helper'
 
 export function useLayoutStyles(layout: LayoutString): object {
   const { measurements } = useMeasurements()
@@ -69,11 +69,11 @@ export function useLayoutStyles(layout: LayoutString): object {
     }
 
     /**Determine the transform direction for toggling on mobile */
-    const getTransform = (width) => {
-      const w = Array.isArray(width) ? width[sideNav.bpIndex] : width
-      const shift = layout === 'sidenav content' ? `-${w}` : w
-      return `translateX(${format(shift)})`
-    }
+    // const getTransform = width => {
+    //   const w = Array.isArray(width) ? width[sideNav.bpIndex] : width
+    //   const shift = layout === 'sidenav content' ? `-${w}` : w
+    //   return `translateX(${format(shift)})`
+    // }
 
     /**
      * Check for measurements to complete before adding transition style
@@ -100,7 +100,7 @@ export function useLayoutStyles(layout: LayoutString): object {
         transform: 'translateX(0)',
         transition: getTransition(),
         '&.hide': {
-          transform: [getTransform(sideNav.width), 'none'],
+          transform: ['var(--width_sidenav)', 'none'],
         },
         '> .container': {
           position: 'sticky',
@@ -129,7 +129,7 @@ export function useLayoutStyles(layout: LayoutString): object {
       '#workspace': { flex: 1 },
       '#dock': {
         width: 'var(--width_dock)',
-        display: workspace.dock.hideOnMobile ? ['none', 'block'] : ['block'],
+        display: workspace.dock?.hideOnMobile ? ['none', 'block'] : ['block'],
       },
     }
   }

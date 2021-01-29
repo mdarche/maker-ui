@@ -105,7 +105,6 @@ interface TemplateProps {
 export const Template = ({
   options,
   topbar,
-  headerWidgets,
   menuButton,
   colorButton,
   layoutType,

@@ -28,11 +28,12 @@ export interface MakerOptions {
     body?: string
     heading?: string
     monospace?: string
+  } & {
     [key: string]: string
   }
   colors?: {
-    // @ts-ignore --- Need to figure this out
     initialTheme?: string
+  } & {
     [key: string]: {
       text?: string
       link?: string
@@ -48,6 +49,7 @@ export interface MakerOptions {
       bg_footer?: string
       bg_toolbar?: string
       bg_panel?: string
+    } & {
       [key: string]: string
     }
   }
@@ -57,15 +59,14 @@ export interface MakerOptions {
     attributes: object,
     icon?: React.ReactElement
   ): React.ReactElement
-  topbar?: {
+  topbar: {
     maxWidth?: ResponsiveScale
     sticky?: boolean
     stickyOnMobile?: boolean
     hideOnMobile?: boolean
     breakpoint?: number | string
-    bpIndex?: number
   }
-  header?: {
+  header: {
     navType?: typeof navTypes[number]
     mobileNavType?: typeof mobileNavTypes[number]
     maxWidth?: ResponsiveScale
@@ -92,10 +93,9 @@ export interface MakerOptions {
       | 'default'
       | React.ReactNode
       | ((currentMode?: string, attributes?: object) => React.ReactNode)
-    bpIndex?: number
     breakpoint?: number | string
   }
-  mobileMenu?: {
+  mobileMenu: {
     width?: ResponsiveScale
     transition?: typeof transitionTypes[number]
     easingCurve?: string
@@ -108,7 +108,7 @@ export interface MakerOptions {
     closeOnBlur?: boolean
     closeOnRouteChange?: boolean
   }
-  sideNav?: {
+  sideNav: {
     width?: ResponsiveScale
     easingCurve?: string
     isHeader?: boolean
@@ -120,28 +120,26 @@ export interface MakerOptions {
       | 'default'
       | React.ReactNode
       | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
-    bpIndex?: number
     breakpoint?: string | number
   }
-  content?: {
+  content: {
     maxWidth?: ResponsiveScale
     maxWidthSection?: ResponsiveScale
     sidebarGap?: ResponsiveScale
     deferMeasurements?: number
-    bpIndex?: number
     breakpoint?: string | number
   }
-  sidebar?: {
+  sidebar: {
     width?: ResponsiveScale
     secondWidth?: ResponsiveScale // TODO
   }
-  footer?: {
+  footer: {
     maxWidth?: ResponsiveScale
   }
-  a11y?: {
+  a11y: {
     skiplinks?: boolean
   }
-  errors?: {
+  errors: {
     logFunction?(error: string, errorDetails: object, component: string): any
     eventHandlerCatch?(error: string): any
     showStackTrace?: boolean
@@ -157,7 +155,7 @@ export interface MakerOptions {
       section?: React.ReactNode
     }
   }
-  workspace?: {
+  workspace: {
     canvasMaxWidth?: ResponsiveScale
     panelLeft?: PanelProps
     panelRight?: PanelProps
@@ -165,10 +163,8 @@ export interface MakerOptions {
       width?: ResponsiveScale
       hideOnMobile?: boolean
       breakpoint?: string | number
-      bpIndex?: number
     }
     breakpoint?: string | number
-    bpIndex?: number
   }
 }
 

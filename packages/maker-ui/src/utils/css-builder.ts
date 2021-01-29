@@ -43,7 +43,9 @@ export const colorVars = ({
  *
  * @internal usage only
  */
-export const themeVars = (options: MakerOptions): GlobalProps['styles'] => {
+export const themeVars = (
+  options: Partial<MakerOptions>
+): GlobalProps['styles'] => {
   const {
     breakpoints,
     fonts,

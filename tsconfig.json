@@ -4,7 +4,6 @@
   "compilerOptions": {
     "allowJs": false,
     "baseUrl": ".",
-    "typeRoots": ["./node_modules/@types", "./types"],
     "paths": {
       "maker-ui": ["packages/maker-ui/src"],
       "@maker-ui/*": ["packages/*/src"],

@@ -38,7 +38,6 @@ export const defaultOptions: MakerOptions = {
     maxWidth: 1260,
     hideOnMobile: false,
     breakpoint: 0,
-    bpIndex: 0,
   },
   header: {
     navType: 'basic',
@@ -55,7 +54,6 @@ export const defaultOptions: MakerOptions = {
       transition: 'fade',
     },
     breakpoint: 0,
-    bpIndex: 0,
   },
   mobileMenu: {
     width: '60vw',
@@ -75,7 +73,6 @@ export const defaultOptions: MakerOptions = {
     closeOnBlur: true,
     closeOnRouteChange: true,
     easingCurve: 'transform ease .3s',
-    bpIndex: 0,
     breakpoint: 0,
   },
   content: {
@@ -83,7 +80,6 @@ export const defaultOptions: MakerOptions = {
     maxWidthSection: 1020,
     sidebarGap: 30,
     deferMeasurements: 0,
-    bpIndex: 0,
     breakpoint: 0,
   },
   sidebar: {
@@ -103,7 +99,6 @@ export const defaultOptions: MakerOptions = {
   },
   workspace: {
     canvasMaxWidth: '100%',
-    bpIndex: 0,
     breakpoint: 0,
     panelLeft: {
       width: '.25fr',
@@ -116,7 +111,6 @@ export const defaultOptions: MakerOptions = {
     dock: {
       width: 50,
       hideOnMobile: true,
-      bpIndex: 0,
       breakpoint: 0,
     },
   },

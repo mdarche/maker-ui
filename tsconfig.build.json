@@ -1,17 +1,23 @@
 {
   "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    // "noImplicitReturns": false,
+    // "noFallthroughCasesInSwitch": true,
+    // "moduleResolution": "node",
+    "jsx": "react",
+
     "module": "esnext",
+    "moduleResolution": "node",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
     "declaration": true,
+    "alwaysStrict": false,
+    "strict": false,
+    "noImplicitUseStrict": true,
     "sourceMap": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true
   }
 }

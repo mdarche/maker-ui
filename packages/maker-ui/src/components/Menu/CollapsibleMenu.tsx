@@ -33,11 +33,11 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
 
     const getControls = () => {
       if (menuType === 'mobile' && mobileMenu.closeOnRouteChange) {
-        return { onClick: (e) => toggleMenu() }
+        return { onClick: () => toggleMenu() }
       }
 
       if (menuType === 'sideNav' && sideNav.closeOnRouteChange) {
-        return { onClick: (e) => toggleSideNav() }
+        return { onClick: () => toggleSideNav() }
       }
 
       return undefined

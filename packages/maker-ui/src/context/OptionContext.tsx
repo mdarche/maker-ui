@@ -8,7 +8,7 @@ export const OptionContext = React.createContext(null)
 const OptionUpdateContext = React.createContext(null)
 
 interface OptionProviderProps {
-  options: MakerOptions
+  options: Partial<MakerOptions>
   children: React.ReactNode
 }
 
@@ -59,9 +59,7 @@ function useOptions(): MakerOptions {
  * @see https://maker-ui.com/hooks/#useOptionsUpdater
  */
 
-function useOptionsUpdater(): React.Dispatch<
-  React.SetStateAction<MakerOptions>
-> {
+function useOptionsUpdater() {
   const dispatch = React.useContext(OptionUpdateContext)
 
   if (dispatch === undefined) {

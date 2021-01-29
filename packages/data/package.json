@@ -1,5 +1,5 @@
 {
-  "name": "@maker-ui/smart-table",
+  "name": "@maker-ui/data",
   "version": "1.0.0-beta.4",
   "author": "Mike Darche",
   "main": "dist/index.js",
@@ -23,7 +23,8 @@
   "license": "MIT",
   "dependencies": {
     "react-csv": "^2.0.3",
-    "react-table": "^7.0.4"
+    "react-table": "^7.0.4",
+    "tslib": "^2.0.0"
   },
   "scarfSettings": {
     "enabled": false

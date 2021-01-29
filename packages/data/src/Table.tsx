@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import * as React from 'react'
 import { useTable, useFilters, useSortBy } from 'react-table'
 
 const defaultSettings = {
@@ -8,13 +8,13 @@ const defaultSettings = {
   searchFilters: [],
 }
 
-const SmartTable = React.forwardRef(
+export const SmartTable = React.forwardRef(
   (
     { settings = defaultSettings, columns, data, onRowSelect, ...props },
     ref
   ) => {
-    const [filterInput, setFilterInput] = useState('')
-    const memoized = useMemo(() => columns, [])
+    const [filterInput, setFilterInput] = React.useState('')
+    const memoized = React.useMemo(() => columns, [])
 
     const {
       getTableProps,
@@ -49,9 +49,9 @@ const SmartTable = React.forwardRef(
         }}
         {...props}>
         <thead>
-          {headerGroups.map(headerGroup => (
+          {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
+              {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   className={
@@ -76,7 +76,7 @@ const SmartTable = React.forwardRef(
                 {...row.getRowProps()}
                 tabIndex={onRowSelect && '0'}
                 role={onRowSelect && 'button'}
-                onClick={onRowSelect && (e => onRowSelect(row.original))}>
+                onClick={onRowSelect && ((e) => onRowSelect(row.original))}>
                 {row.cells.map((cell, index) => {
                   return (
                     <td key={index} {...cell.getCellProps()}>
@@ -92,5 +92,3 @@ const SmartTable = React.forwardRef(
     )
   }
 )
-
-export default SmartTable

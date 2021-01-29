@@ -83,7 +83,7 @@ export const options: MakerOptions = {
     maxWidth: '1260px',
     maxWidthSection: 960,
     deferMeasurements: 500,
-    bpIndex: 1,
+    breakpoint: 1,
   },
   footer: {
     maxWidth: [200, 960],

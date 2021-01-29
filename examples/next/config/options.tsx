@@ -10,7 +10,7 @@ export const options: MakerOptions = {
     dropdown: {
       transition: 'fade-down',
     },
-    bpIndex: 0,
+    breakpoint: 0,
   },
   linkFunction: (path, children, attributes) => (
     <Link href={path}>

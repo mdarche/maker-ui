@@ -36,18 +36,18 @@ export function useScrollPosition(
      */
     if (!active || !isBrowser) return
 
-    let throttleTimeout = null
+    let throttleTimeout: any
 
     const callBack = () => {
       const currPos = getScrollPosition()
       effect({ prevPos: position.current, currPos })
       position.current = currPos
-      throttleTimeout = null
+      throttleTimeout = undefined
     }
 
     const handleScroll = () => {
       if (wait) {
-        if (throttleTimeout === null) {
+        if (throttleTimeout === undefined) {
           throttleTimeout = setTimeout(callBack, wait)
         }
       } else {

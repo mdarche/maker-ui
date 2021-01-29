@@ -3,7 +3,7 @@ import merge from 'deepmerge'
 import { Interpolation } from '@emotion/react'
 import { Breakpoints } from './types'
 
-const format = (value) => (isNaN(value) ? value : `${value}px`)
+const format = (value: any) => (isNaN(value) ? value : `${value}px`)
 const defaultBreakpoints = ['768px', '960px', '1440px']
 
 /**
@@ -18,8 +18,8 @@ const defaultBreakpoints = ['768px', '960px', '1440px']
  */
 
 function responsive(styles: Interpolation<any>, breakpoints: Breakpoints) {
-  let next = {}
-  for (const [key, value] of Object.entries(styles)) {
+  let next: Interpolation<any> = {}
+  for (const [key, value] of Object.entries(styles as object)) {
     if (value === null) continue
     /** If value is not an array */
     if (!Array.isArray(value)) {
@@ -58,12 +58,13 @@ export const formatCSS = (
   breakpoints?: Breakpoints
 ) => (theme: any) => {
   /** The theme call is a critical piece of Emotion's themeable css prop. */
-  let result = {}
+  let result: Interpolation<any> = {}
 
   const bp = breakpoints || theme.breakpoints || defaultBreakpoints
   const styles = responsive(css, bp)
 
   for (const [key, value] of Object.entries(styles)) {
+    // @ts-ignore
     const val = typeof value === 'function' ? value(theme) : value
 
     if (val && typeof val === 'object') {

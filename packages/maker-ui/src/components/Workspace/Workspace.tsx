@@ -26,7 +26,7 @@ export const Workspace = ({ css, children }: WorkspaceProps) => {
         id="workspace"
         breakpoints={setBreakpoint(workspace.breakpoint, breakpoints)}
         css={{
-          ...getWorkspaceStyles(layout, workspace),
+          ...getWorkspaceStyles(layout),
           ...(css as object),
         }}>
         {showError ? 'Error!' : children}

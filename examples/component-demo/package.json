@@ -10,15 +10,15 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@maker-ui/components": "latest",
-    "@maker-ui/css": "latest",
+    "@maker-ui/components": "1.0.0-beta.4",
+    "@maker-ui/css": "1.0.0-beta.4",
     "gatsby": "^2.23.17",
     "gatsby-plugin-catch-links": "^2.1.24",
     "gatsby-plugin-layout": "^1.1.22",
     "gatsby-plugin-react-helmet": "^3.0.12",
-    "maker-ui": "latest",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "maker-ui": "1.0.0-beta.4",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   },
   "devDependencies": {
     "tslib": "^2.0.3"

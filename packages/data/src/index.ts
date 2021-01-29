@@ -1,0 +1,1 @@
+export { SmartTable } from './Table'

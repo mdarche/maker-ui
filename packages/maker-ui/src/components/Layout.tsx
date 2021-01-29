@@ -45,7 +45,7 @@ export const Layout = ({
           : theme
       }>
       <OptionProvider options={options}>
-        <LayoutProvider styles={styles}>
+        <LayoutProvider>
           <ActionProvider>
             <Global styles={cssVariables as Interpolation<any>} />
             <Global styles={globalStyles} />

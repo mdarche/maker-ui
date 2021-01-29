@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react'
+import * as React from 'react'
 
 const TableContext = React.createContext()
 const TableUpdateContext = React.createContext()
@@ -9,7 +9,7 @@ function reducer(state, action) {
 }
 
 const TableProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = React.useReducer(reducer, {
     columns: [],
     data: [],
     filteredData: [],

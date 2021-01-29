@@ -3,10 +3,20 @@
   "scripts": {
     "clean": "lerna run clean",
     "git-clean": "git clean -fXd -e \\!node_modules -e \\!node_modules/**/*",
-    "test": "lerna run test",
-    "docs-dev": "cd docs && yarn develop",
-    "docs-build": "cd docs && yarn build",
-    "git-reset": "git reset --hard HEAD"
+    "git-reset": "git reset --hard HEAD",
+    "lerna": "lerna",
+    "start": "lerna run start --stream --parallel",
+    "test": "lerna run test --",
+    "lint": "lerna run lint -- --fix",
+    "build": "lerna run build",
+    "prepublish": "lerna run prepublish",
+    "start:app": "yarn run build && yarn --cwd example && yarn --cwd example start",
+    "cypress": "cypress run",
+    "cypress:open": "cypress open",
+    "changeset": "changeset",
+    "release": "changeset publish",
+    "version:canary": "changeset version --snapshot canary",
+    "release:canary": "changeset publish --tag canary"
   },
   "workspaces": [
     "examples/*",
@@ -31,26 +41,10 @@
     "tsdx": "^0.13.2",
     "typescript": "^3.9.6"
   },
-  "jest": {
-    "globals": {
-      "__DEV__": "boolean"
-    },
-    "testMatch": [
-      "**/packages/**/test/*.test.tsx"
-    ],
-    "snapshotSerializers": [
-      "jest-emotion"
-    ]
-  },
   "lint-staged": {
-    "**/*.{js,ts,tsx}": [
-      "prettier --trailing-comma es5 --single-quote --write",
-      "git add"
+    "**/*.{ts,tsx,md,mdx,js,jsx}": [
+      "npm run format",
+      "tsdx lint"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }

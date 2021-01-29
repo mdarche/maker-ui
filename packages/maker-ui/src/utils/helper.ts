@@ -16,7 +16,7 @@ export const setBreakpoint = (
  * Utility for adding pixel value to numbers for transitions and animations
  */
 
-export const format = (value) => (isNaN(value) ? value : `${value}px`)
+export const format = (value: any) => (isNaN(value) ? value : `${value}px`)
 
 /**
  * Utility for mobile nav transitions that require a full-width window
@@ -83,35 +83,9 @@ export function generateId(length: number = 5): string {
 }
 
 /**
- * Returns a responsive array that adds `null` to all indices before the style rule begins.
- *
- * This function is used internally for layout and Maker UI components
- *
- * @todo - write test for this function
- * @todo - make stateful and read options value from context --> string matching to find index
- * @todo - revisit this when building @maker-ui/core jsx pragma
- *
- * @param index - Index of the theme's `breakpoints` array where the mobile style rule should begin
- * @param array - The original responsive style array
- *
- */
-
-// export function setBreakpoint(index: number, arr: any[]) {
-//   const fill = arr[0]
-//   let i = 0
-
-//   while (i < index) {
-//     arr.unshift(fill)
-//     i++
-//   }
-
-//   return arr
-// }
-
-/**
  * Check to see if value is an object else return an empty object
  */
 
-export function validate(obj) {
+export function validate(obj: any) {
   return obj !== undefined && typeof obj === 'object' ? obj : {}
 }
