@@ -1,11 +1,8 @@
-import React, { useContext, useState } from 'react'
+import * as React from 'react'
 import { Helmet } from 'react-helmet'
 
-const SEOContext = React.createContext(null)
-const SEOUpdateContext = React.createContext(null)
-
 interface SEOProps {
-  title: string
+  title?: string
   titleTemplate?: string
   description?: string
   siteUrl?: string
@@ -16,10 +13,26 @@ interface SEOProps {
   meta?: any[]
 }
 
+type SEOContextType = {
+  state?: SEOProps
+  setState?: (s: SEOProps) => void
+}
+
 interface SEOProviderProps {
-  defaultSeo: SEOProps
+  default: Partial<SEOProps>
   children: React.ReactNode
 }
+
+const SEOContext = React.createContext<SEOContextType>({
+  state: {
+    title: '',
+    titleTemplate: '',
+    description: '',
+    siteUrl: '',
+    twitter: '',
+    lang: 'en',
+  },
+})
 
 /**
  * The `SEOProvider` wraps your application's page content and supplies default
@@ -28,33 +41,14 @@ interface SEOProviderProps {
  * @see https://maker-ui.com/docs/components/seo
  */
 
-const SEOProvider = ({
-  defaultSeo: {
-    title = '',
-    titleTemplate = '',
-    description = '',
-    siteUrl = '',
-    image,
-    twitter = '',
-    lang = 'en',
-  },
-  children,
-}: SEOProviderProps) => {
-  const [state, setState] = useState({
-    title,
-    titleTemplate,
-    description,
-    siteUrl,
-    image,
-    twitter,
-    lang,
-  })
+const SEOProvider = (props: SEOProviderProps) => {
+  const [state, setState] = React.useState<SEOContextType['state']>(
+    props.default
+  )
 
   return (
-    <SEOContext.Provider value={state}>
-      <SEOUpdateContext.Provider value={setState}>
-        {children}
-      </SEOUpdateContext.Provider>
+    <SEOContext.Provider value={{ state, setState }}>
+      {props.children}
     </SEOContext.Provider>
   )
 }
@@ -67,16 +61,16 @@ const SEOProvider = ({
  */
 
 const SEO = (props: SEOProps) => {
-  const [state] = useSEO()
+  const { state } = useSEO()
 
   const {
-    title = state.title,
-    description = state.description,
-    image = state.image,
-    lang = state.lang,
-    twitter = state.twitter,
-    titleTemplate = state.titleTemplate,
-    siteUrl = state.siteUrl,
+    title = state?.title,
+    description = state?.description,
+    image = state?.image,
+    lang = state?.lang,
+    twitter = state?.twitter,
+    titleTemplate = state?.titleTemplate,
+    siteUrl = state?.siteUrl,
     noTemplate = false,
     meta = [],
   } = props
@@ -139,15 +133,17 @@ const SEO = (props: SEOProps) => {
   )
 }
 
-function useSEO(): [any, any] {
-  const state = useContext(SEOContext)
-  const setState = useContext(SEOUpdateContext)
+function useSEO(): {
+  state: SEOProps | undefined
+  setState: SEOContextType['setState']
+} {
+  const { state, setState } = React.useContext(SEOContext)
 
   if (typeof state === undefined) {
     throw new Error('SEO component must be used within an SEOProvider')
   }
 
-  return [state, setState]
+  return { state, setState }
 }
 
 export { SEOProvider, SEO, useSEO }

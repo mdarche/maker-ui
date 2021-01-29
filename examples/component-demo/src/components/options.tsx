@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { MakerOptions } from 'maker-ui'
 
-export const options: MakerOptions = {
+export const options: Partial<MakerOptions> = {
   framework: 'gatsby',
   breakpoints: ['510px', '730px', '1280px'],
   fonts: {

@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { SVG, Div, UList, Span, Flex } from '@maker-ui/primitives'
+import { SVG, SVGProps, Div, UList, Span, Flex } from '@maker-ui/primitives'
 
-const ErrorIcon = props => (
+const ErrorIcon = (props: SVGProps) => (
   <SVG viewBox="0 0 512 512" {...props}>
     <path d="M256 0C114.497 0 0 114.507 0 256c0 141.503 114.507 256 256 256 141.503 0 256-114.507 256-256C512 114.497 397.493 0 256 0zm0 472c-119.393 0-216-96.615-216-216 0-119.393 96.615-216 216-216 119.393 0 216 96.615 216 216 0 119.393-96.615 216-216 216z" />
     <path d="M256 128.877c-11.046 0-20 8.954-20 20V277.67c0 11.046 8.954 20 20 20s20-8.954 20-20V148.877c0-11.046-8.954-20-20-20z" />

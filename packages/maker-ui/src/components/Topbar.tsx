@@ -77,8 +77,8 @@ export const Topbar = (props: TopbarProps) => {
         className="container"
         css={{
           margin: '0 auto',
-          overflowX: scrollOverflow ? 'scroll' : null,
-          whiteSpace: scrollOverflow ? 'nowrap' : null,
+          overflowX: scrollOverflow ? 'scroll' : undefined,
+          whiteSpace: scrollOverflow ? 'nowrap' : undefined,
           maxWidth,
           ...(css as object),
         }}

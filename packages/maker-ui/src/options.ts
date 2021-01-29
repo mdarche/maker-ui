@@ -3,7 +3,7 @@ import { MakerOptions } from './types'
 /**
  * Default Maker UI option configuration.
  *
- * @see `MakerOptions` for complete list of properties.
+ * @see `MakerOptions` in src/types.ts for complete list of properties.
  *
  */
 export const defaultOptions: MakerOptions = {
@@ -13,9 +13,7 @@ export const defaultOptions: MakerOptions = {
     monospace: 'monospace',
   },
   breakpoints: ['568px', '768px', '1440px'],
-  // @ts-ignore
   colors: {
-    initialTheme: 'light',
     light: {
       link: 'red',
       link_hover: 'green',

@@ -1,5 +1,5 @@
-import React from 'react'
-import { render, wait, cleanup } from '@testing-library/react'
+import * as React from 'react'
+import { render, waitFor, cleanup } from '@testing-library/react'
 
 import { SEO, SEOProvider } from '../src'
 
@@ -13,22 +13,22 @@ const meta = {
 
 test('SEOProvider uses default values', async () => {
   render(
-    <SEOProvider base={meta}>
+    <SEOProvider default={meta}>
       <SEO />
       <h1>Hello</h1>
     </SEOProvider>
   )
-  await wait(() => expect(document.title).toBe('SEO Test | Maker UI'))
+  await waitFor(() => expect(document.title).toBe('SEO Test | Maker UI'))
 })
 
 test('SEO component overrides provider defaults', async () => {
   render(
-    <SEOProvider base={meta}>
+    <SEOProvider default={meta}>
       <SEO title="New Title" description="Test description" noTemplate />
       <h1>Hello</h1>
     </SEOProvider>
   )
-  await wait(() => {
+  await waitFor(() => {
     expect(document.title).toBe('New Title')
     expect(
       document.querySelector('meta[name="description"]').getAttribute('content')

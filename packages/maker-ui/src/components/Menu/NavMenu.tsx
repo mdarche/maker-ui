@@ -32,7 +32,7 @@ export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
           <MenuItem
             key={index}
             data={item}
-            caret={header.dropdown.caret}
+            caret={header.dropdown?.caret}
             pathname={pathname}
             linkFunction={linkFunction}
             isHeader

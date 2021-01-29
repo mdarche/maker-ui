@@ -30,7 +30,7 @@ export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
         css={{
           transition: 'transform ease .2s',
           transformOrigin: '50% 55%',
-          transform: show ? 'rotate(180deg)' : null,
+          transform: show ? 'rotate(180deg)' : undefined,
         }}>
         <path
           stroke="currentcolor"

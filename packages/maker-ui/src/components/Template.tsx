@@ -15,6 +15,41 @@ import { Footer } from './Footer'
 
 import { navTypes, contentTypes } from '../constants'
 
+interface TemplateProps {
+  theme: object
+  options: MakerOptions
+  components?: object
+  topbar?: React.ReactNode
+  headerWidgets?: React.ReactNode
+  menuButton?: MakerOptions['header']['menuButton']
+  colorButton?: MakerOptions['header']['colorButton']
+  logo?: React.ReactNode
+  menu: MenuProps[]
+  mobileMenu?: string
+  navType?: typeof navTypes[number]
+  layoutType?: typeof contentTypes[number]
+  sideNav?: React.ReactNode
+  sideNavToggle?: React.ReactNode
+  sidebar?: React.ReactNode
+  sidebarTwo?: React.ReactNode
+  footer?: React.ReactNode
+  pathname?: string
+  children: React.ReactNode
+}
+
+interface InnerProps {
+  sideNav: [
+    TemplateProps['sideNav'],
+    TemplateProps['sideNavToggle'],
+    TemplateProps['pathname']
+  ]
+  sidebar: TemplateProps['sidebar']
+  sidebarTwo: TemplateProps['sidebarTwo']
+  menu: TemplateProps['menu']
+  layout: TemplateProps['layoutType']
+  children: TemplateProps['children']
+}
+
 const SiteInner = ({
   sideNav,
   sidebar,
@@ -22,7 +57,7 @@ const SiteInner = ({
   menu,
   layout,
   children,
-}) => {
+}: InnerProps) => {
   switch (layout) {
     case 'content sidebar':
       return (
@@ -71,28 +106,6 @@ const SiteInner = ({
         </Content>
       )
   }
-}
-
-interface TemplateProps {
-  theme: object
-  options: MakerOptions
-  components?: object
-  topbar?: React.ReactNode
-  headerWidgets?: React.ReactNode
-  menuButton?: MakerOptions['header']['menuButton']
-  colorButton?: MakerOptions['header']['colorButton']
-  logo?: React.ReactNode
-  menu: MenuProps[]
-  mobileMenu?: string
-  navType?: typeof navTypes[number]
-  layoutType?: typeof contentTypes[number]
-  sideNav?: React.ReactNode
-  sideNavToggle?: React.ReactNode
-  sidebar?: React.ReactNode
-  sidebarTwo?: React.ReactNode
-  footer?: React.ReactNode
-  pathname?: string
-  children: React.ReactNode
 }
 
 /**

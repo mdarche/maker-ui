@@ -1,14 +1,9 @@
 import * as React from 'react'
-import { Interpolation } from '@emotion/react'
+import { Interpolation } from '@maker-ui/css'
 
 import { mobileNavTypes, navTypes, transitionTypes } from './constants'
 
-export type ResponsiveScale =
-  | string
-  | string[]
-  | number
-  | number[]
-  | (string | number)[]
+export type ResponsiveScale = string | number | (string | number)[]
 
 export type ResponsiveString = string | string[]
 
@@ -17,42 +12,43 @@ export interface MakerProps {
   breakpoints?: (string | number)[]
 }
 
-/**
- * Configuration for Maker UI layout system.
- *
- */
-export interface MakerOptions {
-  framework?: 'gatsby' | 'next'
-  breakpoints?: string[] | number[]
-  fonts?: {
-    body?: string
-    heading?: string
-    monospace?: string
+type ThemeColors = {
+  [key: string]: {
+    text?: string
+    link?: string
+    link_hover?: string
+    primary?: string
+    secondary?: string
+    background?: string
+    bg_topbar?: string
+    bg_header?: string
+    bg_dropdown?: string
+    bg_mobileMenu?: string
+    bg_sideNav?: string
+    bg_footer?: string
+    bg_toolbar?: string
+    bg_panel?: string
   } & {
     [key: string]: string
   }
-  colors?: {
-    initialTheme?: string
-  } & {
-    [key: string]: {
-      text?: string
-      link?: string
-      link_hover?: string
-      primary?: string
-      secondary?: string
-      background?: string
-      bg_topbar?: string
-      bg_header?: string
-      bg_dropdown?: string
-      bg_mobileMenu?: string
-      bg_sideNav?: string
-      bg_footer?: string
-      bg_toolbar?: string
-      bg_panel?: string
-    } & {
-      [key: string]: string
-    }
-  }
+}
+
+type ThemeFonts = {
+  body?: string
+  heading?: string
+  monospace?: string
+} & {
+  [key: string]: string
+}
+
+/**
+ * Configuration for Maker UI layout system.
+ */
+export interface MakerOptions {
+  framework?: 'gatsby' | 'next'
+  breakpoints: (string | number)[]
+  fonts: ThemeFonts
+  colors: ThemeColors
   linkFunction?(
     path: string,
     children: string | React.ReactElement,
@@ -60,22 +56,22 @@ export interface MakerOptions {
     icon?: React.ReactElement
   ): React.ReactElement
   topbar: {
-    maxWidth?: ResponsiveScale
+    maxWidth: ResponsiveScale
     sticky?: boolean
     stickyOnMobile?: boolean
     hideOnMobile?: boolean
-    breakpoint?: number | string
+    breakpoint: number | string
   }
   header: {
-    navType?: typeof navTypes[number]
-    mobileNavType?: typeof mobileNavTypes[number]
-    maxWidth?: ResponsiveScale
+    navType: typeof navTypes[number]
+    mobileNavType: typeof mobileNavTypes[number]
+    maxWidth: ResponsiveScale
     sticky?: boolean
     stickyOnMobile?: boolean
     stickyUpScroll?: boolean
     scrollClass?: {
-      scrollTop?: number
-      className?: string
+      scrollTop: number
+      className: string
     }
     showColorButton?: boolean
     hideColorButtonOnMobile?: boolean
@@ -93,11 +89,11 @@ export interface MakerOptions {
       | 'default'
       | React.ReactNode
       | ((currentMode?: string, attributes?: object) => React.ReactNode)
-    breakpoint?: number | string
+    breakpoint: number | string
   }
   mobileMenu: {
-    width?: ResponsiveScale
-    transition?: typeof transitionTypes[number]
+    width: ResponsiveScale
+    transition: typeof transitionTypes[number]
     easingCurve?: string
     visibleOnDesktop?: boolean
     closeButton?:
@@ -120,14 +116,14 @@ export interface MakerOptions {
       | 'default'
       | React.ReactNode
       | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
-    breakpoint?: string | number
+    breakpoint: string | number
   }
   content: {
     maxWidth?: ResponsiveScale
     maxWidthSection?: ResponsiveScale
     sidebarGap?: ResponsiveScale
     deferMeasurements?: number
-    breakpoint?: string | number
+    breakpoint: string | number
   }
   sidebar: {
     width?: ResponsiveScale
@@ -162,9 +158,9 @@ export interface MakerOptions {
     dock?: {
       width?: ResponsiveScale
       hideOnMobile?: boolean
-      breakpoint?: string | number
+      breakpoint: string | number
     }
-    breakpoint?: string | number
+    breakpoint: string | number
   }
 }
 

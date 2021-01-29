@@ -38,7 +38,8 @@ export const Content = ({ children, css, ...props }: ContentProps) => {
       breakpoints={setBreakpoint(bp, breakpoints)}
       css={{
         position: 'relative',
-        visibility: framework === 'gatsby' && initialRender && ['hidden'],
+        visibility:
+          framework === 'gatsby' && initialRender ? ['hidden'] : undefined,
         ...layoutStyles,
         ...(css as object),
       }}

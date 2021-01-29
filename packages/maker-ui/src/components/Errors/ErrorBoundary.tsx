@@ -33,11 +33,11 @@ export class ErrorBoundary extends React.Component<ErrorProps, ErrorState> {
     hasError: false,
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: any) {
     return { error, hasError: true }
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: any, errorInfo: any) {
     const logger =
       this.props.logFunction || this.context.errors.logFunction || false
 

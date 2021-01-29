@@ -8,23 +8,23 @@ import { MakerOptions } from '../types'
 /**
  * Converts the colors from the Maker UI options configuration into CSS variables
  *
- * @param {Object} colors - the `colors` object from MakerOptions
+ * @param colors - the `colors` object from MakerOptions
  * @returns CSS variable declarations scoped to body dataset attribute
  *
  * @internal usage only
  */
-export const colorVars = ({
-  initialTheme,
-  ...colorModes
-}: MakerOptions['colors']): GlobalProps['styles'] => {
-  const themeKeys = Object.keys(colorModes)
+
+export const colorVars = (
+  colors: MakerOptions['colors']
+): GlobalProps['styles'] => {
+  const themeKeys = Object.keys(colors)
   let css = {}
 
   themeKeys.forEach(k => {
     const selector = `body[data-theme='${k}']`
     let styles = { [selector]: {} }
 
-    for (const [key, value] of Object.entries(colorModes[k])) {
+    for (const [key, value] of Object.entries(colors[k])) {
       styles[selector][`--color-${key}`] = value
     }
 
@@ -77,11 +77,11 @@ export const themeVars = (
     '--width_mobileMenu': mobileMenu.width,
     '--width_sidebar': sidebar.width,
     '--width_sideNav': sideNav.width,
-    '--width_dock': workspace.dock.width,
-    '--width_panel_left': workspace.panelLeft.width,
-    '--width_panel_left_collapse': workspace.panelLeft.collapseWidth,
-    '--width_panel_right': workspace.panelRight.width,
-    '--width_panel_right_collapse': workspace.panelRight.collapseWidth,
+    '--width_dock': workspace.dock?.width,
+    '--width_panel_left': workspace.panelLeft?.width,
+    '--width_panel_left_collapse': workspace.panelLeft?.collapseWidth,
+    '--width_panel_right': workspace.panelRight?.width,
+    '--width_panel_right_collapse': workspace.panelRight?.collapseWidth,
     '--gap_content': content.sidebarGap,
   }
 

@@ -53,7 +53,7 @@ export const Navbar = (props: NavProps) => {
     css,
   } = props
 
-  const mid = Math.ceil(menu.length / 2)
+  const mid = menu && Math.ceil(menu.length / 2)
 
   React.useEffect(() => {
     if (type !== undefined && type !== layout) {
