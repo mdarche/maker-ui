@@ -1,6 +1,5 @@
 import { useOptions } from '../context/OptionContext'
 import { useMeasurements, LayoutString } from '../context/LayoutContext'
-// import { format } from '../utils/helper'
 
 export function useLayoutStyles(layout: LayoutString): object {
   const { measurements } = useMeasurements()

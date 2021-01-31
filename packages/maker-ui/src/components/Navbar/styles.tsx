@@ -1,48 +1,60 @@
+import { navTypes, mobileNavTypes } from '../../constants'
+
 /**  Grid & flex justification styles for desktop */
 const desktop = {
   basic: {
     areas: '"logo menu nav"',
     columns: 'auto 1fr auto',
+    navArea: 'flex-start',
     menuArea: 'flex-end',
   },
   'basic-left': {
     areas: '"logo menu nav"',
     columns: 'auto 1fr auto',
+    navArea: 'flex-start',
     menuArea: 'flex-start',
   },
   'basic-center': {
     areas: '"logo menu nav"',
     columns: 'auto 1fr auto',
+    navArea: 'flex-start',
     menuArea: 'center',
   },
   center: {
     areas: '"logo logo" "menu nav"',
     columns: '1fr',
+    navArea: 'flex-start',
     menuArea: 'center',
   },
   split: {
     areas: '"menu-split logo menu nav"',
     columns: '1fr auto 1fr',
+    navArea: 'flex-start',
+    menuArea: false,
   },
   reverse: {
     areas: '"menu logo nav"',
     columns: '1fr auto 1fr',
     navArea: 'flex-end',
+    menuArea: false,
   },
   minimal: {
     areas: '"logo nav"',
     columns: 'auto 1fr',
     navArea: 'flex-end',
+    menuArea: false,
   },
   'minimal-left': {
     areas: '"button logo nav"',
     columns: 'auto auto 1fr',
     navArea: 'flex-end',
+    menuArea: false,
   },
   'minimal-center': {
     areas: '"button logo nav"',
     columns: '1fr auto 1fr',
     navArea: 'flex-end',
+    menuArea: false,
   },
 }
 
@@ -74,7 +86,10 @@ const mobile = {
  * Calculate grid-template-area, grid-template-columns, and grid-template-rows
  */
 
-export function gridStyles(layout: string, mobileLayout: string): object {
+export function gridStyles(
+  layout: typeof navTypes[number],
+  mobileLayout: typeof mobileNavTypes[number]
+): object {
   return {
     gridTemplateAreas: [mobile[mobileLayout].areas, desktop[layout].areas],
     gridTemplateColumns: [
@@ -85,13 +100,12 @@ export function gridStyles(layout: string, mobileLayout: string): object {
     gap: 0,
     '.nav-area': {
       ...absolutePosition(layout),
-      justifyContent: [
-        mobile[mobileLayout].navArea,
-        desktop[layout].navArea || 'flex-start',
-      ],
+      justifyContent: [mobile[mobileLayout].navArea, desktop[layout].navArea],
     },
     '.menu-area': {
-      justifyContent: desktop[layout].menuArea && desktop[layout].menuArea,
+      justifyContent: desktop[layout].menuArea
+        ? desktop[layout].menuArea
+        : undefined,
     },
     '.menu-area.split': { justifyContent: 'flex-end' },
     '&.layout-center .logo-area': {
@@ -125,5 +139,5 @@ function absolutePosition(layout: string) {
         right: 0,
         height: '100%',
       }
-    : null
+    : undefined
 }

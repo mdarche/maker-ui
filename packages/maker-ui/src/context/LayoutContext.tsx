@@ -17,13 +17,17 @@ export type LayoutString =
   | typeof mobileNavTypes[number]
 
 export interface LayoutState {
-  layout_nav?: typeof navTypes[number]
-  layout_navMobile?: typeof mobileNavTypes[number]
-  layout_content?: typeof contentTypes[number]
-  layout_workspace?: typeof workspaceTypes[number]
-  height_header?: number
-  height_topbar?: number
-  height_toolbar?: number
+  layout_nav: typeof navTypes[number]
+  layout_navMobile: typeof mobileNavTypes[number]
+  layout_content: typeof contentTypes[number]
+  layout_workspace: typeof workspaceTypes[number]
+  height_header: number
+  height_topbar: number
+  height_toolbar: number
+}
+
+interface LayoutProviderProps {
+  children: React.ReactNode
 }
 
 /**
@@ -33,7 +37,7 @@ export interface LayoutState {
  * @internal usage only
  */
 
-const LayoutProvider = ({ children }) => {
+const LayoutProvider = ({ children }: LayoutProviderProps) => {
   const { header } = useOptions()
   const [state, setState] = React.useState<LayoutState>({
     layout_nav: header.navType,
@@ -122,7 +126,7 @@ function getLayoutType(
   children: React.ReactNode
 ): string {
   let nodes: any[] = React.Children.toArray(children)
-  let currentLayout
+  let currentLayout: string
 
   function layoutString(val: string) {
     let v = type === 'content' ? val.replace('main', 'content') : val

@@ -163,7 +163,8 @@ export const Header = (props: HeaderProps) => {
       css={{
         background,
         zIndex: 100,
-        visibility: framework === 'gatsby' && initialRender && ['hidden'],
+        visibility:
+          framework === 'gatsby' && initialRender ? ['hidden'] : undefined,
         ...stickyPartial(),
         ...(css as object),
       }}

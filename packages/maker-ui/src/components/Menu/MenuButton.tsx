@@ -32,7 +32,7 @@ export const MenuButton = ({
   const [sideMenu, toggleSideMenu] = useSideNav()
   const { header, sideNav, breakpoints } = useOptions()
 
-  // Use custom button from props or check header / mobileMenu options
+  /** Use custom button from props or check header / mobileMenu options */
   const menuButton = customButton || header.menuButton
 
   const visibility = visibleOnDesktop

@@ -1,9 +1,13 @@
-import { GlobalProps } from '@emotion/react'
+import { GlobalProps } from '@maker-ui/css'
 import merge from 'deepmerge'
 
 import { defaultOptions } from '../options'
 import { format } from './helper'
 import { MakerOptions } from '../types'
+
+interface Dictionary<TValue> {
+  [id: string]: TValue
+}
 
 /**
  * Converts the colors from the Maker UI options configuration into CSS variables
@@ -22,7 +26,7 @@ export const colorVars = (
 
   themeKeys.forEach(k => {
     const selector = `body[data-theme='${k}']`
-    let styles = { [selector]: {} }
+    let styles: Dictionary<any> = { [selector]: {} }
 
     for (const [key, value] of Object.entries(colors[k])) {
       styles[selector][`--color-${key}`] = value
@@ -58,15 +62,13 @@ export const themeVars = (
     footer,
     workspace,
   } = merge(defaultOptions, options, { arrayMerge: (_, source, __) => source })
-  // @ts-ignore
+
   const mq: string[] = breakpoints.map(
     (bp: string | number) => `@media(min-width: ${format(bp)})`
   )
-  let css = {}
+  let css: Dictionary<any> = {}
 
-  /**
-   * Handle width and max-width layout values
-   */
+  /** Assign width and max-width layout values */
   const measurements = {
     '--maxWidth_header': header.maxWidth,
     '--maxWidth_topbar': topbar.maxWidth,
@@ -87,7 +89,8 @@ export const themeVars = (
 
   for (const [key, value] of Object.entries(measurements)) {
     if (Array.isArray(value)) {
-      let styles = {}
+      let styles: Dictionary<any> = {}
+
       styles[key] = format(value[0])
 
       value.forEach((v, index) => {
@@ -101,16 +104,12 @@ export const themeVars = (
     }
   }
 
-  /**
-   * Handle font family declarations
-   */
+  /** Assign font family declarations */
   for (const [key, value] of Object.entries(fonts)) {
     css[`--font-${key}`] = value
   }
 
-  /**
-   * Add breakpoints to variable string for external usage
-   */
+  /** Add breakpoints to variable string for external usage */
   css['--breakpoints'] = breakpoints.join(',')
 
   return { html: css }

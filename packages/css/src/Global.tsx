@@ -7,7 +7,7 @@ import {
 
 import { formatCSS } from './css'
 
-interface GlobalProps {
+export interface GlobalProps {
   styles: Interpolation<any>
   breakpoints?: (string | number)[]
 }

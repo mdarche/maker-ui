@@ -66,21 +66,21 @@ export interface MakerOptions {
     navType: typeof navTypes[number]
     mobileNavType: typeof mobileNavTypes[number]
     maxWidth: ResponsiveScale
-    sticky?: boolean
-    stickyOnMobile?: boolean
-    stickyUpScroll?: boolean
-    scrollClass?: {
+    sticky: boolean
+    stickyOnMobile: boolean
+    stickyUpScroll: boolean
+    scrollClass: {
       scrollTop: number
       className: string
     }
-    showColorButton?: boolean
-    hideColorButtonOnMobile?: boolean
-    hideWidgetsOnMobile?: boolean
-    dropdown?: {
-      caret?: boolean | 'default' | React.ReactNode
-      transition?: 'scale' | 'fade' | 'fade-down' | 'fade-up'
+    showColorButton: boolean
+    hideColorButtonOnMobile: boolean
+    hideWidgetsOnMobile: boolean
+    dropdown: {
+      caret: boolean | 'default' | React.ReactNode
+      transition: 'scale' | 'fade' | 'fade-down' | 'fade-up'
     }
-    menuOverflow?: 'wrap' | 'scroll'
+    menuOverflow: 'wrap' | 'scroll'
     menuButton?:
       | 'default'
       | React.ReactNode
@@ -100,18 +100,18 @@ export interface MakerOptions {
       | 'default'
       | React.ReactNode
       | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
-    showCloseButton?: boolean
-    closeOnBlur?: boolean
-    closeOnRouteChange?: boolean
+    showCloseButton: boolean
+    closeOnBlur: boolean
+    closeOnRouteChange: boolean
   }
   sideNav: {
-    width?: ResponsiveScale
-    easingCurve?: string
-    isHeader?: boolean
-    isPrimaryMobileNav?: boolean
-    closeOnBlur?: boolean
-    closeOnRouteChange?: boolean
-    showToggleOnMobile?: boolean
+    width: ResponsiveScale
+    easingCurve: string
+    isHeader: boolean
+    isPrimaryMobileNav: boolean
+    closeOnBlur: boolean
+    closeOnRouteChange: boolean
+    showToggleOnMobile: boolean
     toggleButton?:
       | 'default'
       | React.ReactNode

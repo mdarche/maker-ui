@@ -12,13 +12,10 @@ import { WidgetArea } from './WidgetArea'
 import { gridStyles } from './styles'
 import { setBreakpoint } from '../../utils/helper'
 
-const edge = ['minimal-left', 'minimal-center']
-const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
-
 export interface NavProps extends MakerProps {
   type?: MakerOptions['header']['navType']
   mobileType?: MakerOptions['header']['mobileNavType']
-  logo?: React.ReactNode
+  logo?: React.ReactElement
   menu?: MenuProps[]
   colorButton?: MakerOptions['header']['colorButton']
   menuButton?: MakerOptions['header']['menuButton']
@@ -26,6 +23,10 @@ export interface NavProps extends MakerProps {
   pathname?: string
   maxWidth?: ResponsiveScale
 }
+
+/** Special cases */
+const edge = ['minimal-left', 'minimal-center']
+const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
 
 /**
  * The `Navbar` component renders your layout's primary navigation in one of
@@ -44,7 +45,7 @@ export const Navbar = (props: NavProps) => {
   const {
     type,
     mobileType,
-    logo,
+    logo = 'Logo',
     menu,
     navArea,
     menuButton,
@@ -56,10 +57,12 @@ export const Navbar = (props: NavProps) => {
   const mid = menu && Math.ceil(menu.length / 2)
 
   React.useEffect(() => {
+    /** Update layout context if current desktop layout is different */
     if (type !== undefined && type !== layout) {
       setLayout(type)
     }
 
+    /** Update layout context if current mobile layout is different */
     if (mobileType !== undefined && mobileType !== mobileLayout) {
       setMobileLayout(mobileType as LayoutString) // TODO check this TS issue
     }
@@ -106,7 +109,7 @@ export const Navbar = (props: NavProps) => {
             gridArea: 'menu-split',
             display: ['none', 'flex'],
           }}>
-          <NavMenu menuItems={menu.slice(0, mid)} />
+          <NavMenu menuItems={menu?.slice(0, mid)} />
         </Flex>
       ) : null}
       <Flex align="center" className="logo-area" css={{ gridArea: 'logo' }}>
@@ -120,7 +123,7 @@ export const Navbar = (props: NavProps) => {
           gridArea: 'menu',
           display: ['none', 'flex'],
         }}>
-        <NavMenu menuItems={layout === 'split' ? menu.slice(mid) : menu} />
+        <NavMenu menuItems={layout === 'split' ? menu?.slice(mid) : menu} />
       </Flex>
       <Flex align="center" className="nav-area" css={{ gridArea: 'nav' }}>
         <WidgetArea content={navArea} />

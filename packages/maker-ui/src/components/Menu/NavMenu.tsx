@@ -7,7 +7,7 @@ import { MenuItem } from './MenuItem'
 import { setBreakpoint } from '../../utils/helper'
 
 interface NavMenuProps {
-  menuItems: MenuProps[]
+  menuItems?: MenuProps[]
   pathname?: string
 }
 
