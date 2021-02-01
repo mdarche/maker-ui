@@ -1,6 +1,6 @@
 import merge from 'deepmerge'
-
 import { Interpolation } from '@emotion/react'
+
 import { Breakpoints } from './types'
 
 const format = (value: any) => (isNaN(value) ? value : `${value}px`)

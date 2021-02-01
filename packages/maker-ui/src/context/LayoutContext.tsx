@@ -8,13 +8,13 @@ import {
   mobileNavTypes,
 } from '../constants'
 
-export const LayoutContext = React.createContext(null)
-
-export type LayoutString =
-  | typeof navTypes[number]
-  | typeof contentTypes[number]
-  | typeof workspaceTypes[number]
-  | typeof mobileNavTypes[number]
+export type LayoutString<T> = T extends 'content'
+  ? typeof contentTypes[number]
+  : T extends 'workspace'
+  ? typeof workspaceTypes[number]
+  : T extends 'nav'
+  ? typeof navTypes[number]
+  : typeof mobileNavTypes[number]
 
 export interface LayoutState {
   layout_nav: typeof navTypes[number]
@@ -29,6 +29,16 @@ export interface LayoutState {
 interface LayoutProviderProps {
   children: React.ReactNode
 }
+
+type LayoutContextType = {
+  state: Partial<LayoutState>
+  setState: React.Dispatch<React.SetStateAction<LayoutState>>
+}
+
+export const LayoutContext = React.createContext<LayoutContextType>({
+  state: {},
+  setState: () => {},
+})
 
 /**
  * The `LayoutProvider` tracks the current site layout and important
@@ -50,7 +60,7 @@ const LayoutProvider = ({ children }: LayoutProviderProps) => {
   })
 
   return (
-    <LayoutContext.Provider value={[state, setState]}>
+    <LayoutContext.Provider value={{ state, setState }}>
       {children}
     </LayoutContext.Provider>
   )
@@ -62,32 +72,29 @@ const LayoutProvider = ({ children }: LayoutProviderProps) => {
  * @see https://maker-ui.com/hooks/#useLayout
  */
 
-function useLayout(
-  type: 'content' | 'workspace' | 'nav' | 'mobileNav'
-): [LayoutString, (layout: LayoutString) => void] {
-  const [
-    { layout_content, layout_workspace, layout_nav, layout_navMobile },
-    setState,
-  ]: [
-    LayoutState,
-    React.Dispatch<React.SetStateAction<LayoutState>>
-  ] = React.useContext(LayoutContext)
+function useLayout<T extends 'content' | 'workspace' | 'nav' | 'mobileNav'>(
+  type: T
+): [LayoutString<T>, (layout: LayoutString<T>) => void] {
+  const { state, setState } = React.useContext(LayoutContext)
 
-  if (setState === undefined) {
+  if (state === undefined) {
     throw new Error('useLayout must be used within a Maker UI Layout component')
   }
 
-  function setLayout(newLayout: LayoutString) {
-    setState(state => ({ ...state, [`layout_${type}`]: newLayout }))
+  function setLayout(newLayout: LayoutString<T>) {
+    setState((s: LayoutState) => ({
+      ...s,
+      [`layout_${type}`]: newLayout,
+    }))
   }
 
   return type === 'workspace'
-    ? [layout_workspace, setLayout]
+    ? [state.layout_workspace, setLayout]
     : type === 'nav'
-    ? [layout_nav, setLayout]
+    ? [state.layout_nav, setLayout]
     : type === 'mobileNav'
-    ? [layout_navMobile, setLayout]
-    : [layout_content, setLayout]
+    ? [state.layout_navMobile, setLayout]
+    : [state.layout_content, setLayout]
 }
 
 /**
@@ -149,6 +156,8 @@ function getLayoutType(
 
     return currentLayout
   }
+
+  return 'unknown'
 }
 
 /**
@@ -160,10 +169,10 @@ function getLayoutType(
  * @internal usage only
  */
 
-function useLayoutDetector(
-  type: 'content' | 'workspace',
-  children: React.ReactNode
-) {
+function useLayoutDetector<
+  T extends 'content' | 'workspace',
+  K extends React.ReactNode
+>(type: T, children: K) {
   const [layout, setLayout] = useLayout(type)
   const [showError, setShowError] = React.useState(false)
   const [initialRender, setInitialRender] = React.useState(true)
@@ -178,7 +187,7 @@ function useLayoutDetector(
 
       if (isValidLayout) {
         if (layout !== currentLayout) {
-          setLayout(currentLayout as LayoutString)
+          setLayout(currentLayout as LayoutString<T>)
           if (initialRender) setInitialRender(false)
         }
       } else {

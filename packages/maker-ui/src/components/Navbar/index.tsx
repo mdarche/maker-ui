@@ -4,7 +4,7 @@ import { MakerProps, ResponsiveScale } from '@maker-ui/css'
 
 import { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
-import { LayoutString, useLayout } from '../../context/LayoutContext'
+import { useLayout } from '../../context/LayoutContext'
 import { Logo } from './Logo'
 import { ColorButton } from './ColorButton'
 import { NavMenu, MenuButton, MenuProps } from '../Menu'
@@ -64,7 +64,7 @@ export const Navbar = (props: NavProps) => {
 
     /** Update layout context if current mobile layout is different */
     if (mobileType !== undefined && mobileType !== mobileLayout) {
-      setMobileLayout(mobileType as LayoutString) // TODO check this TS issue
+      setMobileLayout(mobileType)
     }
   }, [type, mobileType, layout, mobileLayout, setLayout, setMobileLayout])
 

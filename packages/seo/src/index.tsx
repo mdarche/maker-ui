@@ -42,9 +42,7 @@ const SEOContext = React.createContext<SEOContextType>({
  */
 
 const SEOProvider = (props: SEOProviderProps) => {
-  const [state, setState] = React.useState<SEOContextType['state']>(
-    props.default
-  )
+  const [state, setState] = React.useState<SEOProps>(props.default)
 
   return (
     <SEOContext.Provider value={{ state, setState }}>

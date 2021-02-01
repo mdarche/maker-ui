@@ -1,7 +1,7 @@
 import { useOptions } from '../context/OptionContext'
-import { useMeasurements, LayoutString } from '../context/LayoutContext'
+import { useMeasurements } from '../context/LayoutContext'
 
-export function useLayoutStyles(layout: LayoutString): object {
+export function useLayoutStyles(layout: string): object {
   const { measurements } = useMeasurements()
   const { topbar, header, sideNav, workspace } = useOptions()
 

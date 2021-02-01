@@ -137,7 +137,6 @@ export interface MakerOptions {
   }
   errors: {
     logFunction?(error: string, errorDetails: object, component: string): any
-    eventHandlerCatch?(error: string): any
     showStackTrace?: boolean
     errorMessage?: {
       topbar?: React.ReactNode
