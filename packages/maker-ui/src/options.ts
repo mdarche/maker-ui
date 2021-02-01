@@ -1,12 +1,16 @@
 import { MakerOptions } from './types'
 
+type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>
+}
+
 /**
  * Default Maker UI option configuration.
  *
  * @see `MakerOptions` in src/types.ts for complete list of properties.
  *
  */
-export const defaultOptions: MakerOptions = {
+export const defaultOptions: RecursivePartial<MakerOptions> = {
   fonts: {
     body: 'sans-serif',
     heading: 'sans-serif',

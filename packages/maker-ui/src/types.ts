@@ -45,6 +45,7 @@ type ThemeFonts = {
  * Configuration for Maker UI layout system.
  */
 export interface MakerOptions {
+  /** Your SSG framework. MakerUI currently supports minor optimations for Gatsby and NextJS. */
   framework?: 'gatsby' | 'next'
   breakpoints: (string | number)[]
   fonts: ThemeFonts

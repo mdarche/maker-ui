@@ -1,5 +1,9 @@
 import * as React from 'react'
+import merge from 'deepmerge'
+import { Global, Interpolation } from '@maker-ui/css'
 
+import { colorVars, themeVars } from '../utils/css-builder'
+import { globalStyles } from '../utils/styles'
 import { useOptions } from './OptionContext'
 import {
   contentTypes,
@@ -28,6 +32,7 @@ export interface LayoutState {
 
 interface LayoutProviderProps {
   children: React.ReactNode
+  styles?: object
 }
 
 type LayoutContextType = {
@@ -41,17 +46,17 @@ export const LayoutContext = React.createContext<LayoutContextType>({
 })
 
 /**
- * The `LayoutProvider` tracks the current site layout and important
- * runtime UI measurements.
+ * The `LayoutProvider` tracks the current site layout / key runtime
+ * UI measurements and formats the framework's global styles.
  *
  * @internal usage only
  */
 
-const LayoutProvider = ({ children }: LayoutProviderProps) => {
-  const { header } = useOptions()
+const LayoutProvider = ({ styles, children }: LayoutProviderProps) => {
+  const options = useOptions()
   const [state, setState] = React.useState<LayoutState>({
-    layout_nav: header.navType,
-    layout_navMobile: header.mobileNavType,
+    layout_nav: options.header.navType,
+    layout_navMobile: options.header.mobileNavType,
     layout_content: 'content',
     layout_workspace: 'canvas',
     height_header: 0,
@@ -59,8 +64,16 @@ const LayoutProvider = ({ children }: LayoutProviderProps) => {
     height_toolbar: 0,
   })
 
+  const cssVariables = merge(
+    colorVars(options.colors) as object,
+    themeVars(options) as object
+  )
+
   return (
     <LayoutContext.Provider value={{ state, setState }}>
+      <Global styles={cssVariables as Interpolation<any>} />
+      <Global styles={globalStyles} />
+      <Global styles={styles as Interpolation<any>} />
       {children}
     </LayoutContext.Provider>
   )
@@ -88,6 +101,7 @@ function useLayout<T extends 'content' | 'workspace' | 'nav' | 'mobileNav'>(
     }))
   }
 
+  // @ts-ignore
   return type === 'workspace'
     ? [state.layout_workspace, setLayout]
     : type === 'nav'
@@ -104,10 +118,10 @@ function useLayout<T extends 'content' | 'workspace' | 'nav' | 'mobileNav'>(
  */
 
 function useMeasurements() {
-  const [measurements, setState]: [
-    LayoutState,
-    React.Dispatch<React.SetStateAction<LayoutState>>
-  ] = React.useContext(LayoutContext)
+  const { state: measurements, setState } = React.useContext(LayoutContext) as {
+    state: LayoutState
+    setState: LayoutContextType['setState']
+  }
 
   if (measurements === undefined) {
     throw new Error(
@@ -116,7 +130,7 @@ function useMeasurements() {
   }
 
   function setMeasurement(key: 'topbar' | 'header' | 'toolbar', value: number) {
-    setState(state => ({ ...state, [`height_${key}`]: value }))
+    setState(s => ({ ...s, [`height_${key}`]: value }))
   }
 
   return { measurements, setMeasurement }

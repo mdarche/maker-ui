@@ -1,26 +1,5 @@
 import * as React from 'react'
 
-const ActionContext = React.createContext(null)
-const ActionUpdateContext = React.createContext(null)
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'menu': {
-      return { ...state, menuActive: !state.menuActive }
-    }
-    case 'sideNav': {
-      return { ...state, sideNavActive: !state.sideNavActive }
-    }
-    case 'left-panel':
-      return { ...state, leftPanelActive: !state.leftPanelActive }
-    case 'right-panel':
-      return { ...state, rightPanelActive: !state.rightPanelActive }
-    default: {
-      throw new Error(`Unhandled action type: ${action.type}`)
-    }
-  }
-}
-
 export interface ActionState {
   menuActive: boolean
   sideNavActive: boolean
@@ -28,6 +7,38 @@ export interface ActionState {
   rightPanelActive: boolean
   toolbarActive: boolean
 }
+type Action =
+  | { type: 'MENU' }
+  | { type: 'SIDENAV' }
+  | { type: 'PANEL-LEFT' }
+  | { type: 'PANEL-RIGHT' }
+
+type DispatchType = (s: Action) => void
+
+interface ActionProviderProps {
+  children: React.ReactNode
+}
+
+function reducer(state: ActionState, action: Action): ActionState {
+  switch (action.type) {
+    case 'MENU': {
+      return { ...state, menuActive: !state.menuActive }
+    }
+    case 'SIDENAV': {
+      return { ...state, sideNavActive: !state.sideNavActive }
+    }
+    case 'PANEL-LEFT':
+      return { ...state, leftPanelActive: !state.leftPanelActive }
+    case 'PANEL-RIGHT':
+      return { ...state, rightPanelActive: !state.rightPanelActive }
+    default: {
+      throw new Error(`Unhandled action type.`)
+    }
+  }
+}
+
+const ActionContext = React.createContext<Partial<ActionState>>({})
+const ActionUpdateContext = React.createContext<DispatchType>(() => {})
 
 /**
  * The `ActionProvider` controls the showing / toggling of all compatible Maker UI
@@ -36,7 +47,7 @@ export interface ActionState {
  * @internal usage only
  */
 
-const ActionProvider = ({ children }) => {
+const ActionProvider = ({ children }: ActionProviderProps) => {
   const [state, dispatch]: [ActionState, any] = React.useReducer(reducer, {
     menuActive: false,
     sideNavActive: false,
@@ -61,7 +72,7 @@ const ActionProvider = ({ children }) => {
  */
 
 function useMenu(): [boolean, () => void] {
-  const { menuActive }: ActionState = React.useContext(ActionContext)
+  const { menuActive }: Partial<ActionState> = React.useContext(ActionContext)
   const dispatch = React.useContext(ActionUpdateContext)
 
   if (typeof menuActive === undefined) {
@@ -69,10 +80,10 @@ function useMenu(): [boolean, () => void] {
   }
 
   function toggleMenu() {
-    dispatch({ type: 'menu' })
+    dispatch({ type: 'MENU' })
   }
 
-  return [menuActive, toggleMenu]
+  return [menuActive as boolean, toggleMenu]
 }
 
 /**
@@ -82,7 +93,9 @@ function useMenu(): [boolean, () => void] {
  */
 
 function useSideNav(): [boolean, () => void] {
-  const { sideNavActive }: ActionState = React.useContext(ActionContext)
+  const { sideNavActive }: Partial<ActionState> = React.useContext(
+    ActionContext
+  )
   const dispatch = React.useContext(ActionUpdateContext)
 
   if (typeof sideNavActive === undefined) {
@@ -90,10 +103,10 @@ function useSideNav(): [boolean, () => void] {
   }
 
   function setSideNav() {
-    dispatch({ type: 'sideNav' })
+    dispatch({ type: 'SIDENAV' })
   }
 
-  return [sideNavActive, setSideNav]
+  return [sideNavActive as boolean, setSideNav]
 }
 
 /**
@@ -103,15 +116,17 @@ function useSideNav(): [boolean, () => void] {
  */
 
 function usePanel(panel: 'left' | 'right'): [boolean, () => void] {
-  const { leftPanelActive, rightPanelActive }: ActionState = React.useContext(
-    ActionContext
-  )
+  const {
+    leftPanelActive,
+    rightPanelActive,
+  }: Partial<ActionState> = React.useContext(ActionContext)
+  const type = 'left' ? 'PANEL-LEFT' : 'PANEL-RIGHT'
   const dispatch = React.useContext(ActionUpdateContext)
-  const togglePanel = () => dispatch({ type: `${panel}-panel` })
+  const togglePanel = () => dispatch({ type })
 
   return panel === 'left'
-    ? [leftPanelActive, togglePanel]
-    : [rightPanelActive, togglePanel]
+    ? [leftPanelActive as boolean, togglePanel]
+    : [rightPanelActive as boolean, togglePanel]
 }
 
 export { ActionProvider, useMenu, useSideNav, usePanel }

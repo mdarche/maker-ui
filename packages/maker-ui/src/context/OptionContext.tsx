@@ -4,13 +4,15 @@ import merge from 'deepmerge'
 import { MakerOptions } from '../types'
 import { defaultOptions } from '../options'
 
-export const OptionContext = React.createContext(null)
-const OptionUpdateContext = React.createContext(null)
-
 interface OptionProviderProps {
   options: Partial<MakerOptions>
   children: React.ReactNode
 }
+
+export const OptionContext = React.createContext<Partial<MakerOptions>>({})
+const OptionUpdateContext = React.createContext<
+  React.Dispatch<React.SetStateAction<MakerOptions>>
+>(() => {})
 
 /**
  * The `OptionProvider` stores all of Maker UI's client-facing
@@ -19,8 +21,8 @@ interface OptionProviderProps {
  * @internal usage only
  */
 
-const OptionProvider = ({ options = {}, children }: OptionProviderProps) => {
-  const [state, dispatch] = React.useState<MakerOptions>(
+const OptionProvider = ({ options, children }: OptionProviderProps) => {
+  const [state, setState] = React.useState<MakerOptions>(
     merge(defaultOptions, options, {
       arrayMerge: (_, source, __) => source,
     })
@@ -28,7 +30,7 @@ const OptionProvider = ({ options = {}, children }: OptionProviderProps) => {
 
   return (
     <OptionContext.Provider value={state}>
-      <OptionUpdateContext.Provider value={dispatch}>
+      <OptionUpdateContext.Provider value={setState}>
         {children}
       </OptionUpdateContext.Provider>
     </OptionContext.Provider>
@@ -42,7 +44,7 @@ const OptionProvider = ({ options = {}, children }: OptionProviderProps) => {
  */
 
 function useOptions(): MakerOptions {
-  const options: MakerOptions = React.useContext(OptionContext)
+  const options: Partial<MakerOptions> = React.useContext(OptionContext)
 
   if (options === undefined) {
     throw new Error(
@@ -50,7 +52,7 @@ function useOptions(): MakerOptions {
     )
   }
 
-  return options
+  return options as MakerOptions
 }
 
 /**

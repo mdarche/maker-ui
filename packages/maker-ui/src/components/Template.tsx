@@ -23,7 +23,7 @@ interface TemplateProps {
   headerWidgets?: React.ReactNode
   menuButton?: MakerOptions['header']['menuButton']
   colorButton?: MakerOptions['header']['colorButton']
-  logo?: React.ReactNode
+  logo?: React.ReactElement
   menu: MenuProps[]
   mobileMenu?: string
   navType?: typeof navTypes[number]

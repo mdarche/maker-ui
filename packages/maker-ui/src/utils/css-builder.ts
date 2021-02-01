@@ -5,12 +5,12 @@ import { defaultOptions } from '../options'
 import { format } from './helper'
 import { MakerOptions } from '../types'
 
-interface Dictionary<TValue> {
-  [id: string]: TValue
+interface Dictionary<T> {
+  [id: string]: T
 }
 
 /**
- * Converts the colors from the Maker UI options configuration into CSS variables
+ * Converts colors from the Maker UI options configuration into CSS variables
  *
  * @param colors - the `colors` object from MakerOptions
  * @returns CSS variable declarations scoped to body dataset attribute
@@ -39,7 +39,7 @@ export const colorVars = (
 }
 
 /**
- * Converts relevant `MakerOptions` values into CSS variables with
+ * Converts relevant `MakerOptions` into CSS variables with
  * media query support
  *
  * @param {Object} options - the entire options object

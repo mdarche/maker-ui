@@ -1,8 +1,5 @@
 import * as React from 'react'
 
-const WorkspaceDataContext = React.createContext(null)
-const WorkspaceUpdateContext = React.createContext(null)
-
 interface WorkspaceState {
   [key: string]: any
 }
@@ -10,6 +7,11 @@ interface WorkspaceState {
 interface WorkspaceContextProps {
   children: React.ReactNode
 }
+
+const WorkspaceDataContext = React.createContext<Partial<WorkspaceState>>({})
+const WorkspaceUpdateContext = React.createContext<
+  React.Dispatch<React.SetStateAction<WorkspaceState>>
+>(() => {})
 
 /**
  * The `WorkspaceContext` provider wraps all Workspace components to allow
@@ -38,7 +40,7 @@ export function useWorkspace() {
     throw new Error('useWorkspace must be called inside a Workspace component.')
   }
 
-  function updateSetting(key, value) {
+  function updateSetting(key: string, value: any) {
     setState(s => ({ ...s, [key]: value }))
   }
 
