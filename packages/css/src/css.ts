@@ -1,5 +1,5 @@
-import merge from 'deepmerge'
 import { Interpolation } from '@emotion/react'
+import merge from 'deepmerge'
 
 import { Breakpoints } from './types'
 

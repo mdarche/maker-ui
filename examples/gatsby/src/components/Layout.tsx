@@ -9,12 +9,11 @@ import {
   Footer,
 } from 'maker-ui'
 
-import { theme } from '../config/theme'
 import { options } from '../config/options'
 
 const App = ({ children }) => {
   return (
-    <Layout theme={theme} options={options}>
+    <Layout options={options}>
       <Header>
         <Navbar />
         <MobileMenu />

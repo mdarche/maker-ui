@@ -1,9 +1,5 @@
 import * as React from 'react'
-import {
-  Global as EmotionGlobal,
-  Interpolation,
-  ThemeProvider,
-} from '@emotion/react'
+import { Global as EmotionGlobal, Interpolation } from '@emotion/react'
 
 import { formatCSS } from './css'
 
@@ -28,5 +24,3 @@ export const Global = ({ styles, breakpoints }: GlobalProps) => {
     />
   )
 }
-
-export { ThemeProvider }
