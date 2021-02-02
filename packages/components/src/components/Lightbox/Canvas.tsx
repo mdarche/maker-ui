@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, Image, DivProps } from 'maker-ui'
+import { Div, Image } from 'maker-ui'
 import { animated, useTransition } from 'react-spring'
 
 import { useLightbox, LightboxData } from './LightboxContext'
@@ -41,7 +41,7 @@ const MediaFrame = ({
   if (htmlVideo) {
     return (
       <video controls poster={poster ? poster : undefined}>
-        <source src={src} type={`video/${src.substr(-3, 3)}`} />
+        <source src={src} type={`video/${src?.substr(-3, 3)}`} />
         Your browser does not support the video tag.
       </video>
     )
@@ -63,20 +63,20 @@ const MediaFrame = ({
 
 MediaFrame.displayName = 'MediaFrame'
 
-interface CanvasProps extends DivProps {
-  zoom?: boolean
-}
+// interface CanvasProps extends DivProps {
+//   zoom?: boolean
+// }
 
 /**
  * The `Canvas` component uses transition animations to show / paginate
  * the lightbox gallery content.
  *
- * @todo - add loading spinner to background
+ * @todo - add props and loading spinner to background
  *
  * @internal usage only
  */
 
-export const Canvas = (props: CanvasProps) => {
+export const Canvas = () => {
   const { data, index, settings } = useLightbox()
 
   const transitions = useTransition(data[index], {
@@ -91,8 +91,7 @@ export const Canvas = (props: CanvasProps) => {
       item && (
         <AnimatedDiv
           className="lb-canvas"
-          // @ts-ignore
-          style={props}
+          style={props as object}
           css={{
             position: 'absolute',
             top: '50%',

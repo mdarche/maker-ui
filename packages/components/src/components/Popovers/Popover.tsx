@@ -15,12 +15,12 @@ export interface Position {
 
 export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
-  toggle?: React.Dispatch<React.SetStateAction<boolean>>
-  anchorRef?: React.MutableRefObject<any>
+  toggle: React.Dispatch<React.SetStateAction<boolean>>
+  anchorRef: React.MutableRefObject<any>
   anchorWidth?: boolean
   position?: Position
   gap?: { x: number; y: number }
-  appendTo?: string | Element
+  appendTo?: string | Element | null
   trapFocus?: boolean
   closeOnBlur?: boolean
   containerCss?: MakerProps['css']
@@ -68,7 +68,7 @@ export const Popover = ({
   children,
   ...rest
 }: PopoverProps) => {
-  const popoverRef = React.useRef(null)
+  const popoverRef = React.useRef<any>(null)
   const [width, setWidth] = React.useState(0)
   const [height, setHeight] = React.useState(0)
   const [initialRender, setInitialRender] = React.useState(true)
@@ -257,10 +257,10 @@ export const Popover = ({
                 position: 'absolute',
                 display: 'block',
                 zIndex: 99,
-                left: _type !== 'dropdown' && getX(),
-                top: _type !== 'dropdown' && getY(),
-                width: anchorWidth && width,
-                overflow: transition.includes('scale') && 'hidden',
+                left: _type !== 'dropdown' ? getX() : undefined,
+                top: _type !== 'dropdown' ? getY() : undefined,
+                width: anchorWidth ? width : undefined,
+                overflow: transition.includes('scale') ? 'hidden' : undefined,
                 ...(css as object),
               }}
               {...rest}>
@@ -268,9 +268,12 @@ export const Popover = ({
                 ref={measuredRef}
                 css={{
                   ...(containerCss as object),
-                  opacity: transition === 'scale' && initialRender && [0],
-                  visibility: transition === 'scale' &&
-                    initialRender && ['hidden'],
+                  opacity:
+                    transition === 'scale' && initialRender ? 0 : undefined,
+                  visibility:
+                    transition === 'scale' && initialRender
+                      ? 'hidden'
+                      : undefined,
                 }}>
                 {children}
               </Div>

@@ -22,7 +22,7 @@ export const Pagination = ({ navigate, current, count }: PaginationProps) => {
         key={i}
         className={`carousel-page ${current === i && 'active'}`}
         role="tab"
-        onClick={e => navigate('index', i)}
+        onClick={() => navigate && navigate('index', i)}
         aria-label={`Show slide ${i + 1}`}
         aria-selected={i === current ? 'true' : 'false'}
         css={{

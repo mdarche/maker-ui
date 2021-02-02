@@ -77,31 +77,31 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
           },
           svg: { fill: '#fff' },
         }}>
-        {zoom.show ? (
+        {zoom?.show ? (
           <button
             className="lb-zoom"
             disabled={
               data[index].src && !data[index].htmlVideo ? true : undefined
             }
-            onClick={e => zoom.set(z => !z)}>
+            onClick={() => zoom?.set(z => !z)}>
             <ZoomIcon height="18" />
           </button>
         ) : null}
         {settings.showAutoPlay && data.length > 1 ? (
           <button
-            className={`${autoPlay.show ? 'active ' : ''}lb-autoplay`}
-            onClick={e => autoPlay.set(a => !a)}>
+            className={`${autoPlay?.show ? 'active ' : ''}lb-autoplay`}
+            onClick={() => autoPlay?.set(a => !a)}>
             <PlayIcon height="24" />
           </button>
         ) : null}
         {data.length > 1 ? (
           <button
-            className={`${preview.show ? 'active ' : ''}lb-preview`}
-            onClick={e => preview.set(p => !p)}>
+            className={`${preview?.show ? 'active ' : ''}lb-preview`}
+            onClick={() => preview?.set(p => !p)}>
             <PreviewIcon height="21" />
           </button>
         ) : null}
-        <button className="lb-close" onClick={e => toggleLightbox()}>
+        <button className="lb-close" onClick={() => toggleLightbox()}>
           <CloseIcon height="24" />
         </button>
       </Flex>

@@ -1,9 +1,5 @@
 import * as React from 'react'
-
 import { AccordionProps } from './Accordion'
-
-const AccordionDataContext = React.createContext(null)
-const AccordionUpdateContext = React.createContext(null)
 
 interface AccordionContextProps extends AccordionProps {
   children: React.ReactElement
@@ -12,6 +8,11 @@ interface AccordionContextProps extends AccordionProps {
 interface AccordionState extends Omit<AccordionProps, 'children'> {
   panelKeys: string[]
 }
+
+const AccordionDataContext = React.createContext<Partial<AccordionState>>({})
+const AccordionUpdateContext = React.createContext<
+  React.Dispatch<React.SetStateAction<AccordionState>>
+>(() => {})
 
 /**
  * Use the `Accordion` component to build and customize collapsible accordions.

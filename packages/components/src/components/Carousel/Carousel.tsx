@@ -49,7 +49,7 @@ export const Carousel = ({
   ...rest
 }: CarouselProps) => {
   const index = React.useRef(0)
-  const carouselRef = React.useRef(null)
+  const carouselRef = React.useRef<any>(null)
   const [active, setActive] = React.useState(0)
   const [isPaused, setPause] = React.useState(false)
   const [, { width }] = useMeasure({ externalRef: carouselRef })
@@ -137,7 +137,7 @@ export const Carousel = ({
       /**
        * Handle page indicator buttons that select a specific slide index
        */
-      if (type === 'index') {
+      if (type === 'index' && idx) {
         index.current = idx
         setActive(idx)
         update()
@@ -241,9 +241,11 @@ export const Carousel = ({
           height: '100%',
           width: '100%',
           willChange: 'transform',
-          opacity: transition === 'fade' && 0,
+          opacity: transition === 'fade' ? 0 : undefined,
           transition:
-            transition === 'fade' && `opacity ${fadeDuration}s ease-in-out`,
+            transition === 'fade'
+              ? `opacity ${fadeDuration}s ease-in-out`
+              : undefined,
         },
         '.slide-inner': {
           height: '100%',
@@ -302,12 +304,13 @@ function mergeSettings(settings: CarouselProps['settings']) {
       pageIndicator: true,
       infiniteScroll: false,
       hideControls: false,
+      arrow: undefined,
       showControlsOnHover: false,
       duration: 6500,
       transition: 'slide',
       fadeDuration: 0.5,
       springConfig: { mass: 1, tension: 160, friction: 28 },
     },
-    settings
+    settings as object
   )
 }

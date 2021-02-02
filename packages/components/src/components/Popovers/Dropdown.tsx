@@ -42,7 +42,7 @@ export const Dropdown = ({
         className="dropdown-button"
         aria-haspopup="listbox"
         aria-expanded={show}
-        onClick={e => toggle(!show)}
+        onClick={() => toggle(!show)}
         css={{ ...(css as object) }}>
         {buttonInner}
       </Button>

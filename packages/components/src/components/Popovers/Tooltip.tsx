@@ -63,13 +63,13 @@ export const Tooltip = ({
   return (
     <Div
       css={{ display: 'inline-block' }}
-      onMouseOver={e => toggle(true)}
-      onMouseOut={e => toggle(false)}>
+      onMouseOver={() => toggle(true)}
+      onMouseOut={() => toggle(false)}>
       <Button
         ref={buttonRef}
-        onFocus={e => toggle(true)}
-        onBlur={e => typeof label === 'string' && toggle(false)}
-        onClick={e => toggle(!show)}
+        onFocus={() => toggle(true)}
+        onBlur={() => typeof label === 'string' && toggle(false)}
+        onClick={() => toggle(!show)}
         css={buttonCss}
         aria-describedby={tooltipId}>
         {children}

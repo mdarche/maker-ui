@@ -2,11 +2,9 @@ import * as React from 'react'
 import { Button } from 'maker-ui'
 
 import { CarouselArrowIcon } from '../icons'
-import { CarouselProps } from './Carousel'
 
 const position = (isNext: boolean) => (isNext ? { right: 0 } : { left: 0 })
 const transform = (isNext: boolean, arrow: NavigationProps['arrow']) => {
-  // @ts-ignore
   return arrow?.prev
     ? null
     : isNext
@@ -15,7 +13,7 @@ const transform = (isNext: boolean, arrow: NavigationProps['arrow']) => {
 }
 
 interface NavigationProps {
-  arrow?: CarouselProps['settings']['arrow']
+  arrow?: any
   navigate?(type: 'next' | 'previous' | 'index', index?: number): void
 }
 
@@ -69,8 +67,15 @@ export const Navigation = React.memo(
   ({ navigate, ...props }: NavigationProps) => {
     return (
       <div className="carousel-navigation">
-        <NavButton onClick={e => navigate('previous')} {...props} />
-        <NavButton onClick={e => navigate('next')} isNext {...props} />
+        <NavButton
+          onClick={() => navigate && navigate('previous')}
+          {...props}
+        />
+        <NavButton
+          onClick={() => navigate && navigate('next')}
+          isNext
+          {...props}
+        />
       </div>
     )
   }

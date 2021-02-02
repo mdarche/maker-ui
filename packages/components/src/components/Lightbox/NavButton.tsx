@@ -23,7 +23,7 @@ export const NavButton = ({ type }: NavButtonProps) => {
       title={isNext ? 'Next' : 'Previous'}
       aria-label={isNext ? 'Next' : 'Previous'}
       className={`lb-nav-button ${isNext ? 'next-button' : 'prev-button'}`}
-      onClick={e => setIndex(isNext ? 'next' : 'previous')}
+      onClick={() => setIndex(isNext ? 'next' : 'previous')}
       css={{
         cursor: 'pointer',
         background: 'rgba(0, 0, 0, 0.25)',
@@ -56,13 +56,14 @@ NavButton.displayName = 'LightboxNavButton'
  * Utility for calculating absolute positioning
  */
 
-const position = isNext => (isNext ? { right: '10px' } : { left: '10px' })
+const position = (isNext: boolean) =>
+  isNext ? { right: '10px' } : { left: '10px' }
 
 /**
  * Utility for reflecting the arrow icon
  */
 
-const transform = isNext =>
+const transform = (isNext: boolean) =>
   isNext
     ? { transform: ['translateY(0)', 'translateY(-50%)'] }
     : {

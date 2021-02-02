@@ -44,17 +44,19 @@ export const TableofContents = ({
   smoothScroll = false,
   css,
 }: TocProps) => {
-  const [menuItems, setMenu] = React.useState([])
-  const [activeNode, setActiveNode] = React.useState(null)
+  const [menuItems, setMenu] = React.useState<MenuItem[]>([])
+  const [activeNode, setActiveNode] = React.useState<number | null>(null)
 
   /**
    * Add smooth scroll to document if required
    */
   React.useEffect(() => {
-    // @ts-ignore
-    document.querySelector('html').style.scrollBehavior = smoothScroll
-      ? 'smooth'
-      : 'initial'
+    const html = document.querySelector('html') as HTMLElement
+    if (smoothScroll) {
+      html.style.scrollBehavior = 'smooth'
+    } else {
+      html.style.removeProperty('scroll-behavior')
+    }
   }, [smoothScroll])
 
   /**
@@ -67,7 +69,7 @@ export const TableofContents = ({
     )
 
     if (nodes.length) {
-      const menu = nodes.reduce(
+      const menu = nodes.reduce<any>(
         (filtered, { id, innerHTML, offsetTop, tagName }) => {
           if (id) {
             filtered.push({

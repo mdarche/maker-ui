@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Grid, Button } from 'maker-ui'
 
-import { useLightbox } from './LightboxContext'
+import { useLightbox, LightboxData } from './LightboxContext'
 
 interface PreviewProps {
   show?: boolean
@@ -15,7 +15,7 @@ interface PreviewProps {
  */
 
 export const Preview = ({ show }: PreviewProps) => {
-  const ref = React.useRef(null)
+  const ref = React.useRef<any>(null)
   const { index, data, setIndex } = useLightbox()
 
   const handleClick = (i: number) => setIndex('index', i)
@@ -28,7 +28,7 @@ export const Preview = ({ show }: PreviewProps) => {
     }
   }, [show])
 
-  const getBackground = i => {
+  const getBackground = (i: LightboxData) => {
     if (i.youtubeId || i.vimeoId || i.htmlVideo) {
       // TODO - add play button back
       return {
@@ -73,11 +73,11 @@ export const Preview = ({ show }: PreviewProps) => {
           opacity: 1,
         },
       }}>
-      {data.map((item, i) => (
+      {data.map((item: LightboxData, i: number) => (
         <Button
           key={i}
           title={item.title}
-          onClick={e => handleClick(i)}
+          onClick={() => handleClick(i)}
           className={i === index ? 'preview-active' : undefined}
           css={{
             cursor: 'pointer',

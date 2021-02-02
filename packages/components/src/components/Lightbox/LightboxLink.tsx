@@ -52,7 +52,7 @@ export const LightboxLink = React.forwardRef<
       addToGallery(config)
     }, [config, addToGallery])
 
-    const handleClick = e => {
+    const handleClick = (e: React.MouseEvent) => {
       e.preventDefault()
       return toggleLightbox(id)
     }

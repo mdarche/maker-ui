@@ -36,7 +36,7 @@ export const FadeBox = ({
   css,
   ...props
 }: FadeBoxProps) => {
-  const ref = React.useRef(null)
+  const ref = React.useRef<any>(null)
   const [show, set] = React.useState(false)
   const fadeProps = transition ? { transition, distance } : settings
 
@@ -48,7 +48,6 @@ export const FadeBox = ({
 
   useScrollPosition(
     ({ currPos }) => {
-      // @ts-ignore
       if (ref.current && !show && currPos > ref.current.offsetTop - offset) {
         set(true)
       }

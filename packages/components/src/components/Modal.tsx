@@ -8,13 +8,13 @@ import { useFocus } from '../hooks'
 const AnimatedDiv = animated(Div)
 
 export interface ModalProps extends DivProps {
-  show?: boolean
-  toggle?: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
+  show: boolean
+  toggle: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
   background?: string | string
   appendTo?: string
   title?: string
   closeOnBlur?: boolean
-  focusRef: React.MutableRefObject<any>
+  focusRef: React.MutableRefObject<any> | any
   style?: any
   center?: boolean
   springConfig?: SpringConfig
@@ -42,7 +42,7 @@ export const Modal = ({
   css,
   ...rest
 }: ModalProps) => {
-  const modalRef = React.useRef(null)
+  const modalRef = React.useRef<any>(null)
   const closeModal = React.useCallback(() => {
     toggle(false)
     focusRef?.current.focus()
@@ -64,7 +64,7 @@ export const Modal = ({
     if (show) {
       document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = null
+      document.body.style.removeProperty('overflow')
     }
   }, [show])
 
@@ -75,14 +75,14 @@ export const Modal = ({
     (e: KeyboardEvent) => {
       function previous(e: KeyboardEvent) {
         if (document.activeElement === focusable.first) {
-          focusable.last.focus()
+          focusable.last?.focus()
           e.preventDefault()
         }
       }
 
       function next(e: KeyboardEvent) {
         if (document.activeElement === focusable.last) {
-          focusable.first.focus()
+          focusable.first?.focus()
           e.preventDefault()
         }
       }
@@ -92,7 +92,7 @@ export const Modal = ({
           return closeModal()
         case 'Tab':
           if (show && !modalRef?.current.contains(document.activeElement)) {
-            return focusable?.first.focus()
+            return focusable.first?.focus()
           }
           e.shiftKey ? previous(e) : next(e)
           return

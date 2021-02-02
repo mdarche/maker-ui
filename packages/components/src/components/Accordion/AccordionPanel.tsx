@@ -43,7 +43,7 @@ export const AccordionPanel = React.forwardRef<
     )
     const { state, registerPanel, setActivePanel } = useAccordion()
     const [show, set] = React.useState(
-      state.showSingle && state.index === eventKey ? true : open
+      state.showSingle && state.activeKey === eventKey ? true : open
     )
     const [bind, { height: viewHeight }] = useMeasure()
 
@@ -94,11 +94,11 @@ export const AccordionPanel = React.forwardRef<
           {React.isValidElement(title) ? title : <span>{title}</span>}
           {state.icon ? (
             <span>
-              {state.customIcons.expand !== null ? (
+              {state.customIcons?.expand !== null ? (
                 show ? (
-                  state.customIcons.collapse
+                  state.customIcons?.collapse
                 ) : (
-                  state.customIcons.expand
+                  state?.customIcons?.expand
                 )
               ) : (
                 <svg

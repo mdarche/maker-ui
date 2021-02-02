@@ -25,7 +25,7 @@ export interface AccordionProps extends DivProps {
 
 export const Accordion = ({
   icon = true,
-  customIcons = { expand: null, collapse: null },
+  customIcons,
   activeKey = 0,
   showSingle = false,
   css,

@@ -4,11 +4,6 @@ import { generateId } from 'maker-ui'
 
 import { LightboxProps } from './Lightbox'
 
-const videoFormats = ['.mp4', '.ogg', '.webm']
-
-const LightboxDataContext = React.createContext(null)
-const LightboxUpdateContext = React.createContext(null)
-
 export interface LightboxData {
   id?: string
   src?: string
@@ -22,10 +17,10 @@ export interface LightboxData {
 }
 
 interface LightboxContextProps {
-  data: LightboxData[]
+  data?: LightboxData[]
   settings: LightboxProps['settings']
-  show?: boolean
-  toggle?: LightboxProps['toggle']
+  show: boolean
+  toggle: LightboxProps['toggle']
   children: React.ReactNode
 }
 
@@ -36,6 +31,13 @@ interface LightboxState {
   settings: LightboxProps['settings']
   toggle: LightboxProps['toggle']
 }
+
+const videoFormats = ['.mp4', '.ogg', '.webm']
+
+const LightboxDataContext = React.createContext<Partial<LightboxState>>({})
+const LightboxUpdateContext = React.createContext<
+  React.Dispatch<React.SetStateAction<LightboxState>>
+>(() => {})
 
 /**
  * The `LightboxContext` component is a Provider that handles stores all of the data
@@ -81,7 +83,7 @@ LightboxContext.displayName = 'LightboxContext'
  * @internal usage only
  */
 
-export function useLightbox() {
+export function useLightbox(): any {
   const { active, index, data, settings, toggle } = React.useContext(
     LightboxDataContext
   )
@@ -96,7 +98,7 @@ export function useLightbox() {
    */
 
   function toggleLightbox(id?: string) {
-    if (id) {
+    if (id && data) {
       const current = data.findIndex(i => i.id === id)
       return setState(s => ({ ...s, active: !s.active, index: current }))
     }
@@ -108,7 +110,9 @@ export function useLightbox() {
    */
 
   function addToGallery(item: LightboxData) {
-    const exists = data ? data.find(e => e.id === item.id) : false
+    const exists = data
+      ? data.find((e: LightboxData) => e.id === item.id)
+      : false
 
     if (!exists) {
       setState(s => ({ ...s, data: [...s.data, formatData(item)] }))
@@ -117,7 +121,7 @@ export function useLightbox() {
 
   function setIndex(type: 'previous' | 'next' | 'index', index?: number) {
     setState(s => {
-      if (type === 'index') {
+      if (type === 'index' && index) {
         return { ...s, index }
       }
       const next = s.index === s.data.length - 1 ? 0 : s.index + 1
@@ -154,7 +158,7 @@ function formatData(original: LightboxData) {
       vimeoId: null,
       poster: null,
       htmlVideo: original.src
-        ? videoFormats.some(v => original.src.includes(v))
+        ? videoFormats.some(v => original.src?.includes(v))
         : false,
     },
     original
@@ -177,6 +181,6 @@ function mergeSettings(settings: LightboxProps['settings']) {
       autoPlayDuration: 6000,
       disableHideControls: false,
     },
-    settings
+    settings as object
   )
 }

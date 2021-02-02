@@ -41,7 +41,7 @@ export const LightboxModal = ({
   } = useLightbox()
   const [play, setPlay] = React.useState(false)
   const [preview, setPreview] = React.useState(false)
-  const [zoom, setZoom] = React.useState(false)
+  // const [zoom, setZoom] = React.useState(false)
   const [controlsActive, setControlsActive] = React.useState(true)
 
   /**
@@ -115,7 +115,7 @@ export const LightboxModal = ({
     }
   }, [active, controlsActive, preview, settings.disableHideControls])
 
-  const showControls = e =>
+  const showControls = () =>
     !controlsActive && !settings.disableHideControls
       ? setControlsActive(true)
       : undefined
@@ -126,7 +126,6 @@ export const LightboxModal = ({
       <Modal
         id={id}
         show={active}
-        //@ts-ignore
         toggle={toggleLightbox}
         focusRef={focusRef}
         background={background}
@@ -145,7 +144,7 @@ export const LightboxModal = ({
           }}>
           <Toolbar
             preview={{ show: preview, set: setPreview }}
-            zoom={{ show: settings.showZoom, set: setZoom }}
+            // zoom={{ show: settings.showZoom, set: setZoom }}
             autoPlay={{ show: play, set: setPlay }}
           />
           {data.length > 1 ? (
@@ -160,8 +159,8 @@ export const LightboxModal = ({
         </Div>
         {data.length ? (
           <Canvas
-            zoom={zoom}
-            // onmouseenter={showControls}
+          // zoom={zoom}
+          // onmouseenter={showControls}
           />
         ) : null}
       </Modal>

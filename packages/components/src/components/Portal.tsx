@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 
 interface PortalProps {
   children: React.ReactNode
-  root?: string | Element
+  root?: string | Element | null
 }
 
 const getTarget = (root: string | Element) =>

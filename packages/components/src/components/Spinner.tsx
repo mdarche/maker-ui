@@ -8,14 +8,16 @@ const defaultColors = {
 }
 
 export interface SpinnerProps extends SVGProps {
-  type?: 'default' | 'pulse' | 'rotate' | 'blocks' | 'scale'
-  size?: number
-  colors?: {
-    primary?: string
-    secondary?: string
-    tertiary?: string
+  type: 'default' | 'pulse' | 'rotate' | 'blocks' | 'scale'
+  size: number
+  colors: {
+    primary: string
+    secondary: string
+    tertiary: string
   }
 }
+
+interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
 
 /**
  * The `Spinner` component gives you easy access to 5 common loading indicators for a better
@@ -33,7 +35,7 @@ export const Spinner = ({
   colors = defaultColors,
   css,
   ...props
-}: SpinnerProps) => {
+}: Partial<SpinnerProps>) => {
   switch (type) {
     case 'pulse':
       return (
@@ -84,14 +86,14 @@ const Blocks = ({
   colors: { primary, secondary, tertiary },
   css,
   ...props
-}: SpinnerProps) => {
+}: SpinnerSVGProps) => {
   const points = [
     { x: '9', y: '9', fill: primary, b1: '-1.83', b2: '-1.33' },
     { x: '34.8', y: '56', fill: secondary, b1: '-1.16', b2: '-0.66' },
     { x: '56', y: '9', fill: tertiary, b1: '-0.5', b2: '0' },
   ]
 
-  const getAttributes = x => ({
+  const getAttributes = (x: boolean) => ({
     attributeName: x ? 'x' : 'y',
     dur: '2s',
     repeatCount: 'indefinite',
@@ -127,13 +129,13 @@ const Pulse = ({
   colors: { primary, secondary },
   css,
   ...props
-}: SpinnerProps) => {
+}: SpinnerSVGProps) => {
   const points = [
     { r: '24', begin: '-0.8', color: primary },
     { r: '39.6', begin: '0', color: secondary },
   ]
 
-  const getAttributes = r => ({
+  const getAttributes = (r: boolean) => ({
     attributeName: r ? 'r' : 'opacity',
     repeatCount: 'indefinite',
     dur: '1.5s',
@@ -170,7 +172,7 @@ const Scale = ({
   colors: { primary, secondary, tertiary },
   css,
   ...props
-}: SpinnerProps) => {
+}: SpinnerSVGProps) => {
   const points = [
     { translate: '25 50', scale: '.81144', begin: '-0.4166', color: primary },
     { translate: '50 50', scale: '.35566', begin: '-0.2083', color: secondary },
@@ -210,14 +212,7 @@ const Rotate = ({
   colors: { primary, secondary },
   css,
   ...props
-}: SpinnerProps) => {
-  // TODO remove this
-  const themeColors = {}
-  const getThemeColor = val => (val in themeColors ? themeColors[val] : val)
-
-  const p = getThemeColor(primary)
-  const s = getThemeColor(secondary)
-
+}: SpinnerSVGProps) => {
   const points = [
     { cx: '75', cy: '50', r: '3', begin: '-0.9166' },
     { cx: '71.651', cy: '62.5', r: '3', begin: '-0.8333' },
@@ -233,9 +228,11 @@ const Rotate = ({
     { cx: '71.651', cy: '37.5', r: '3', begin: '0' },
   ]
 
-  const getAttributes = r => ({
+  const getAttributes = (r: boolean) => ({
     attributeName: r ? 'r' : 'fill',
-    values: r ? '3;3;5;3;3' : `${s};${s};${p};${s};${s};`,
+    values: r
+      ? '3;3;5;3;3'
+      : `${secondary};${secondary};${primary};${secondary};${secondary};`,
     repeatCount: 'indefinite',
     dur: '1s',
   })

@@ -34,8 +34,7 @@ export const PageTransition = ({
     <Transition
       reset
       items={items}
-      // @ts-ignore
-      keys={item => item.id}
+      keys={(item: any) => item.id}
       from={{ opacity: 0, transform: getTransition(type, distance) }}
       enter={{ opacity: 1, transform: 'translate3d(0px,0px,0px)' }}
       leave={{

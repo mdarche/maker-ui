@@ -72,10 +72,10 @@ Flex.displayName = 'Flex'
  * HTML div tag attributes.
  */
 export interface GridProps extends MakerProps, DivProps {
-  columns?: CSS.Properties['gridTemplateColumns']
-  rows?: CSS.Properties['gridTemplateRows']
-  areas?: CSS.Properties['gridTemplateAreas']
-  gap?: CSS.Properties['gap']
+  columns?: string | string[]
+  rows?: string | string[]
+  areas?: string | string[]
+  gap?: number | string | (number | string)[]
   center?: boolean
 }
 
