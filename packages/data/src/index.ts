@@ -1,1 +1,1 @@
-export { SmartTable } from './Table'
+// export { SmartTable } from './Table'

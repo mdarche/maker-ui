@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Div } from 'maker-ui'
 import { Carousel } from '@maker-ui/components'
-import { Global, css } from '@emotion/core'
 
 // Example 1 - Basic
 interface BasicSlideProps {
@@ -72,7 +71,7 @@ const CarouselPage = () => (
         animation: 'fadeInUp ease .6s forwards .8s',
       },
     }}>
-    <Global
+    {/* <Global
       styles={css`
         @keyframes fadeInUp {
           from {
@@ -85,7 +84,7 @@ const CarouselPage = () => (
           }
         }
       `}
-    />
+    /> */}
     <Carousel
       data={basicData}
       template={<BasicSlide />}

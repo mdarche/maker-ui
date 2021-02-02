@@ -31,7 +31,7 @@ function responsive(styles: Interpolation<any>, breakpoints: Breakpoints) {
     for (let i = 0; i < value.length - 1; i++) {
       const mq = `@media screen and (min-width: ${format(breakpoints[i])})`
       if (next[mq]) {
-        merge(next, { mq: { [key]: value[i + 1] } })
+        merge(next, { [mq]: { [key]: value[i + 1] } })
       } else {
         next[mq] = {
           [key]: value[i + 1],
@@ -57,7 +57,6 @@ export const formatCSS = (
   css: Interpolation<any>,
   breakpoints?: Breakpoints
 ) => (theme: any) => {
-  /** The theme call is a critical piece of Emotion's themeable css prop. */
   let result: Interpolation<any> = {}
 
   const bp = breakpoints || theme.breakpoints || defaultBreakpoints
