@@ -3,9 +3,9 @@ import * as React from 'react'
 import { shuffle } from './helper'
 
 interface GenerateProps {
-  data?: Object[] | JSX.Element[]
+  data: Object[] | React.ReactElement[]
   count?: number
-  children?: JSX.Element
+  children?: React.ReactElement
 }
 
 /**
@@ -15,11 +15,7 @@ interface GenerateProps {
  * @see https://maker-ui.com/docs/components/generate
  */
 
-export const Generate = ({
-  data,
-  count,
-  children,
-}: GenerateProps): JSX.Element => {
+export const Generate = ({ data, count, children }: GenerateProps) => {
   const [random, setRandom] = React.useState<GenerateProps['data'][]>([])
 
   React.useEffect(() => {

@@ -37,8 +37,12 @@ export const shuffle = (array: any[]) => {
  * Return a random item from an array
  * @param {any[]} options - An array of anything that will be randomly shuffled
  */
-export function random(options = []) {
+export function random(options: any[] = []) {
   return shuffle(options)[0]
+}
+
+interface Dictionary<T> {
+  [id: string]: T
 }
 
 /**
@@ -52,11 +56,13 @@ export function random(options = []) {
  *
  * @todo add strong types
  */
-export function generateStyles(options = {}, groupByIndex = false) {
-  let styles = {}
+export function generateStyles(
+  options: { [key: string]: (number | string)[] } = {},
+  groupByIndex = false
+) {
+  let styles: Dictionary<any> = {}
 
   if (groupByIndex) {
-    //@ts-ignore
     const indices = Object.entries(options)[0][1].length
     const randomIndex = Math.floor(Math.random() * indices)
 
@@ -65,7 +71,6 @@ export function generateStyles(options = {}, groupByIndex = false) {
     }
   } else {
     for (const [s, p] of Object.entries(options)) {
-      //@ts-ignore
       styles[s] = random(p)
     }
   }

@@ -130,19 +130,17 @@ export const Modal = ({
               aria-modal="true"
               style={{ ...style, ...props }}
               tabIndex={focusable.count === 0 ? 0 : undefined}
-              // @ts-ignore
               css={{
-                ...position,
-                ...centered(center),
+                ...(position as object),
+                ...(centered(center) as object),
                 zIndex: 101,
               }}>
               <Div
                 role="button"
-                onClick={e => (closeOnBlur ? closeModal() : undefined)}
+                onClick={() => (closeOnBlur ? closeModal() : undefined)}
                 className="modal-overlay"
-                // @ts-ignore
                 css={{
-                  ...position,
+                  ...(position as object),
                   zIndex: -1,
                   background,
                 }}
@@ -175,11 +173,11 @@ const position = {
 /**
  * Helper centering function
  */
-const centered = val =>
+const centered = (val: boolean) =>
   val
     ? {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
       }
-    : null
+    : undefined

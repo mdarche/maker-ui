@@ -9,6 +9,8 @@ import { useMeasure } from '../hooks/useMeasure'
 import { useLayout, useMeasurements } from '../context/LayoutContext'
 import { setBreakpoint } from '../utils/helper'
 
+type StickyType = 'sticky' | ('sticky' | 'relative')[] | undefined
+
 interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string
   maxWidth?: ResponsiveScale
@@ -52,7 +54,7 @@ export const Topbar = (props: TopbarProps) => {
     ...rest
   } = props
 
-  const stickyPartial = sticky
+  const stickyPartial: StickyType = sticky
     ? stickyOnMobile
       ? 'sticky'
       : ['relative', 'sticky']
@@ -65,7 +67,6 @@ export const Topbar = (props: TopbarProps) => {
       {...bind}
       id="topbar"
       breakpoints={setBreakpoint(topbar.breakpoint, breakpoints)}
-      // @ts-ignore
       css={{
         background,
         top: 0,

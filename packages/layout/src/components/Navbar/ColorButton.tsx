@@ -25,7 +25,6 @@ export const ColorButton = ({
 }: ColorButtonProps) => {
   const { header, colors, breakpoints: bps } = useOptions()
   const [theme, setTheme] = React.useState(Object.keys(colors)[0] || 'light')
-  // get first key in object
 
   const modes = colors ? Object.keys(colors) : ['light']
 
@@ -46,8 +45,7 @@ export const ColorButton = ({
     'aria-label': 'Toggle Color Mode',
     onClick: cycleMode,
     breakpoints: isHeaderButton
-      ? // @ts-ignore
-        setBreakpoint(header.breakpoint, bps)
+      ? setBreakpoint(header.breakpoint, bps)
       : breakpoints,
   }
 

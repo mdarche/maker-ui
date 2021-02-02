@@ -1,23 +1,27 @@
 import * as React from 'react'
 import { TabGroupProps } from './Tabs'
 
-const TabDataContext = React.createContext(null)
-const TabUpdateContext = React.createContext(null)
-
 export interface TabContextProps {
   renderInactive?: TabGroupProps['renderInactive']
-  activeKey?: TabGroupProps['activeKey']
-  children?: React.ReactElement
+  activeKey: number | string
+  children: React.ReactElement
+}
+
+export interface TabItem {
+  id: string
+  panelId: string
+  title: string | React.ReactElement
+  disabled: boolean
 }
 
 export interface TabState extends Omit<TabContextProps, 'children'> {
-  tabs: {
-    id: string
-    panelId: string
-    title: string | React.ReactElement
-    disabled: boolean
-  }[]
+  tabs: TabItem[]
 }
+
+const TabDataContext = React.createContext<Partial<TabState>>({})
+const TabUpdateContext = React.createContext<
+  React.Dispatch<React.SetStateAction<TabState>>
+>(() => {})
 
 /**
  * The `TabContext` component is a Context Provider handles all of the
@@ -63,7 +67,7 @@ TabContext.displayName = 'TabContext'
  */
 
 export function useTabs() {
-  const state: TabState = React.useContext(TabDataContext)
+  const state: Partial<TabState> = React.useContext(TabDataContext)
   const setState = React.useContext(TabUpdateContext)
 
   if (typeof state === undefined) {
@@ -77,14 +81,14 @@ export function useTabs() {
     }))
   }
 
-  function addToTabGroup(item, isOpen) {
+  function addToTabGroup(item: TabItem, isOpen: boolean) {
     const exists = state.tabs ? state.tabs.find(t => t.id === item.id) : false
 
     if (!exists) {
       setState(state => ({
         ...state,
         tabs: [...state.tabs, item],
-        activeKey: isOpen ? item.id : state.activeId,
+        activeKey: isOpen ? item.id : state.activeKey,
       }))
     }
   }

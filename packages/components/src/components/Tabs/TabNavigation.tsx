@@ -8,13 +8,8 @@ export interface TabStyleProps {
     isVertical?: boolean
     overflow?: 'stack' | 'scroll'
     navPosition?: string
-    bpIndex?: number
+    breakpoints?: (string | number)[]
   }
-  mediaQuery?: (
-    key: string,
-    rule: (string | number)[],
-    bp: number | string
-  ) => object
 }
 
 /**
@@ -27,21 +22,23 @@ export interface TabStyleProps {
 export const TabNavigation = ({ settings }: TabStyleProps) => {
   const ref = React.useRef(null)
   const { state, setActive } = useTabs()
-  const [tabIds, setTabIds] = React.useState([])
+  const [tabIds, setTabIds] = React.useState<string[]>([])
 
   /**
    * Create array of all tab ids that are not disabled
    */
 
   React.useEffect(() => {
-    const ids = state.tabs.reduce((filtered, { disabled, id }) => {
+    const ids = state.tabs?.reduce((filtered: string[], { disabled, id }) => {
       if (!disabled) {
         filtered.push(id)
       }
       return filtered
     }, [])
 
-    setTabIds(ids)
+    if (ids) {
+      setTabIds(ids)
+    }
   }, [state.tabs])
 
   /**
@@ -50,7 +47,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
 
   const handleKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
-      if (tabIds.some(id => document.activeElement.id.includes(id))) {
+      if (tabIds.some(id => document.activeElement?.id.includes(id))) {
         const index = tabIds.findIndex(i => i === state.activeKey)
 
         const next = index === tabIds.length - 1 ? 0 : index + 1
@@ -94,7 +91,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
       css={{
         ...getNavPosition({ settings }),
       }}>
-      {state.tabs.map(item => (
+      {state.tabs?.map(item => (
         <Button
           key={item.id}
           role="tab"
@@ -105,10 +102,10 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
           }${item.disabled ? 'disabled' : ''}`}
           //@ts-ignore
           disabled={item.disabled}
-          title={typeof item.title === 'string' ? item.title : null}
+          title={typeof item.title === 'string' ? item.title : undefined}
           aria-controls={`panel-${item.panelId}`}
           aria-selected={state.activeKey === item.id ? 'true' : 'false'}
-          onClick={e => setActive(item.id)}>
+          onClick={() => setActive(item.id)}>
           {item.title}
         </Button>
       ))}
@@ -126,7 +123,7 @@ const getNavPosition = ({
   settings: { isVertical, navPosition, overflow = 'stack' },
 }: TabStyleProps): object => {
   const shared = {
-    overflowX: overflow === 'scroll' ? 'scroll' : null,
+    overflowX: overflow === 'scroll' ? 'scroll' : undefined,
     flexWrap: overflow === 'stack' ? 'wrap' : 'nowrap',
     button: overflow === 'scroll' && {
       flex: ['1 0 auto', 'none'],

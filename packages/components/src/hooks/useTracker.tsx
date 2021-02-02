@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 
 interface TrackerProps {
-  type?: 'session' | 'cookie'
-  storageKey?: string
+  type: 'session' | 'cookie'
+  storageKey: string
   show?: boolean
   expiration?: number
 }

@@ -77,13 +77,13 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       <AnimatedDiv
         ref={ref}
         className="announcement"
-        style={spring}
+        style={spring as any}
         css={{
           display: 'flex',
           alignItems: 'center',
           background,
           color,
-          willChange: !fixed && ['height'],
+          willChange: !fixed ? 'height' : undefined,
           ...fixedPartial(fixed, bottom),
         }}>
         <Flex {...bind} css={{ width: '100%', alignItems: 'center' }}>
@@ -102,7 +102,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
               className="announcement-close"
               title="Dismiss"
               aria-label="Dismiss"
-              onClick={e => set(false)}
+              onClick={() => set(false)}
               css={{
                 cursor: 'pointer',
                 border: 'none',

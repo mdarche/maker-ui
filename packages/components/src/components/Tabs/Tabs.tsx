@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, DivProps, setBreakpoint } from 'maker-ui'
+import { Div, DivProps } from 'maker-ui'
 
 import { TabContext } from './TabContext'
 import { TabNavigation } from './TabNavigation'
@@ -28,7 +28,7 @@ export const Tabs = ({
   activeKey = 0,
   navPosition = 'top',
   overflow = 'stack',
-  bpIndex = 0,
+  breakpoints,
   renderInactive = true,
   css,
   children,
@@ -40,9 +40,10 @@ export const Tabs = ({
     <TabContext activeKey={activeKey} renderInactive={renderInactive}>
       <Div
         className="tabs-container"
+        breakpoints={breakpoints}
         css={{
-          display: setBreakpoint(bpIndex, ['block', 'flex']),
-          flexDirection: isVertical ? 'column' : null,
+          display: ['block', 'flex'],
+          flexDirection: isVertical ? 'column' : undefined,
           flexWrap: 'wrap',
           ...(css as object),
         }}
@@ -52,7 +53,7 @@ export const Tabs = ({
             isVertical,
             navPosition,
             overflow,
-            bpIndex,
+            breakpoints,
           }}
         />
         {children}

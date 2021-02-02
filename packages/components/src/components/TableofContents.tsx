@@ -51,9 +51,10 @@ export const TableofContents = ({
    * Add smooth scroll to document if required
    */
   React.useEffect(() => {
+    // @ts-ignore
     document.querySelector('html').style.scrollBehavior = smoothScroll
       ? 'smooth'
-      : null
+      : 'initial'
   }, [smoothScroll])
 
   /**
@@ -165,16 +166,16 @@ export const TableofContents = ({
                           : marker === 'before'
                           ? 0
                           : undefined,
-                      right: marker === 'after' && 0,
-                      borderLeft: marker === 'before' && `2px solid`,
-                      borderRight: marker === 'after' && `2px solid`,
+                      right: marker === 'after' ? 0 : undefined,
+                      borderLeft: marker === 'before' ? `2px solid` : undefined,
+                      borderRight: marker === 'after' ? `2px solid` : undefined,
                       ...(pseudoCss as object),
                     },
                   },
                 }}>
                 <a
                   className={activeNode === index ? 'active' : undefined}
-                  onClick={e => setActiveNode(index)}
+                  onClick={() => setActiveNode(index)}
                   href={`#${id}`}>
                   {text}
                 </a>

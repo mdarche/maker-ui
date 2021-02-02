@@ -2,8 +2,6 @@ import * as React from 'react'
 import { ResponsiveScale } from 'maker-ui'
 import { SpringConfig } from 'react-spring'
 
-const TreeDataContext = React.createContext(null)
-
 interface TreeState extends Omit<TreeContextProps, 'buttons' | 'children'> {
   expand: React.ReactNode
   collapse: React.ReactNode
@@ -22,6 +20,8 @@ export interface TreeContextProps {
   children?: React.ReactNode
 }
 
+const TreeDataContext = React.createContext<Partial<TreeState>>({})
+
 /**
  * The `TreeContext` is a provider component that wraps all the `TreeMenu` and all
  * nested tree branches.
@@ -37,9 +37,9 @@ export const TreeContext = ({
   children,
 }: TreeContextProps) => {
   const [state] = React.useState<TreeState>({
-    expand: buttons.expand,
-    collapse: buttons.collapse,
-    neutral: buttons.neutral,
+    expand: buttons?.expand,
+    collapse: buttons?.collapse,
+    neutral: buttons?.neutral,
     clickableText,
     indentation,
     springConfig,
@@ -60,7 +60,7 @@ TreeContext.displayName = 'TreeContext'
  */
 
 export function useTreeData() {
-  const state: TreeState = React.useContext(TreeDataContext)
+  const state: Partial<TreeState> = React.useContext(TreeDataContext)
 
   if (typeof state === undefined) {
     throw new Error('TreeItem must be used inside a TreeMenu component')

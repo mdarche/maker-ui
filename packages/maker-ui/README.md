@@ -4,7 +4,7 @@
 
 > If you arrived here from the Gatsby Theme Store, Gatsby Theme Elements is no longer supported and has now become a React component library.
 
-Build React apps with a responsive layout system powered by [Theme UI](https://theme-ui.com/).
+Build React apps with a responsive layout system powered by [Emotion](https://emotion.sh/docs/introduction).
 
 Maker UI helps you design accessible, responsive page templates that can be customized in an infinite number of ways. Use it to quickly prototype and deploy a polished application layout so you can focus on developing great content or adding new integrations and features to your project.
 

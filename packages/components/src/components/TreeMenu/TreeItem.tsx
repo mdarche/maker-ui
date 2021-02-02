@@ -69,8 +69,8 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
           aria-label={text}
           aria-expanded={isOpen ? 'true' : 'false'}
           css={{
-            display: !link && 'flex',
-            alignItems: !link && 'center',
+            display: !link ? 'flex' : undefined,
+            alignItems: !link ? 'center' : undefined,
             background: 'none',
             border: 'none',
             padding: 0,
@@ -98,7 +98,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
         {link ? (
           <Link
             href={link}
-            target={newTab && '_blank'}
+            target={newTab ? '_blank' : undefined}
             css={{ ...(css as object) }}>
             {text}
           </Link>

@@ -34,6 +34,7 @@ export const PageTransition = ({
     <Transition
       reset
       items={items}
+      // @ts-ignore
       keys={item => item.id}
       from={{ opacity: 0, transform: getTransition(type, distance) }}
       enter={{ opacity: 1, transform: 'translate3d(0px,0px,0px)' }}
@@ -59,7 +60,7 @@ PageTransition.displayName = 'PageTransition'
  * Utility function to calculate transform string
  */
 
-function getTransition(type, distance) {
+function getTransition(type: string, distance: number) {
   switch (type) {
     case 'fade-right':
     case 'fade-left':

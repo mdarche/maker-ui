@@ -261,16 +261,19 @@ export const Carousel = ({
             className={`slide${active === i ? ' active' : ''}`}
             {...bind()}
             key={i}
-            style={{
-              // @ts-ignore
-              opacity: transition === 'fade' && active === i && 1,
-              x: transition !== 'fade' && x,
-            }}>
+            style={
+              {
+                opacity: transition === 'fade' && active === i && 1,
+                x: transition !== 'fade' && x,
+              } as object
+            }>
             <animated.div
               className="slide-inner"
-              style={{
-                scale: transition === 'scale' && scale,
-              }}>
+              style={
+                {
+                  scale: transition === 'scale' && scale,
+                } as object
+              }>
               {React.cloneElement(template, data[i])}
             </animated.div>
           </animated.div>

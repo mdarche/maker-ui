@@ -12,8 +12,12 @@ import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
 import { setBreakpoint } from '../utils/helper'
 
-// @ts-ignore
-const Container = ({ isHeader, ...props }) =>
+interface ContainerProps {
+  isHeader: boolean
+  [key: string]: any
+}
+
+const Container = ({ isHeader, ...props }: ContainerProps) =>
   isHeader ? <header {...props} /> : <div {...props} />
 
 interface SideNavProps

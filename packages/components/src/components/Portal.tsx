@@ -21,7 +21,7 @@ export const Portal = ({ children, root }: PortalProps) => {
   if (typeof window !== `undefined`) {
     const targetNode = root ? getTarget(root) : document.querySelector('body')
 
-    return createPortal(children, targetNode)
+    return createPortal(children, targetNode as Element)
   }
   return <>children</>
 }

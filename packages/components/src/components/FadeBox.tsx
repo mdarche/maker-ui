@@ -48,6 +48,7 @@ export const FadeBox = ({
 
   useScrollPosition(
     ({ currPos }) => {
+      // @ts-ignore
       if (ref.current && !show && currPos > ref.current.offsetTop - offset) {
         set(true)
       }
@@ -55,7 +56,6 @@ export const FadeBox = ({
     100,
     true
   )
-  // TODO - remove w/ stable React-spring v9
   return (
     <AnimatedDiv
       ref={ref}
@@ -73,7 +73,10 @@ FadeBox.displayName = 'FadeBox'
  * @param {TransitionProps} transitionObject - The transition and distance values
  * @param {boolean} show - The current state of the transition
  */
-const getTransform = ({ transition, distance }: TransitionProps, show) => {
+const getTransform = (
+  { transition, distance }: TransitionProps,
+  show: boolean
+) => {
   switch (transition) {
     case 'fade-up':
     case 'fade-down':

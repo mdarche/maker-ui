@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Div, DivProps, generateId } from 'maker-ui'
 
-import { useTabs } from './TabContext'
+import { useTabs, TabItem } from './TabContext'
 
 export interface TabPanelProps extends Omit<DivProps, 'title'> {
-  title?: string | React.ReactElement
+  title: string | React.ReactElement
   eventKey?: number | string
   open?: boolean
   disabled?: boolean
@@ -27,7 +27,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
       state: { activeKey, renderInactive },
       addToTabGroup,
     } = useTabs()
-    const tabItem = { id, panelId, title, disabled }
+    const tabItem: TabItem = { id, panelId, title, disabled }
 
     React.useEffect(() => {
       addToTabGroup(tabItem, open)

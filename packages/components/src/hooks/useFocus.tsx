@@ -38,17 +38,13 @@ export function useFocus({ containerRef, focusRef, show }: FocusConfig) {
   const [focusable, setFocusable] = useState<FocusState>({
     count: 0,
     container: containerRef?.current,
-    first: null,
-    last: null,
-    next: null,
   })
 
   /**
    * Query DOM for the next focusable element
    */
-
   useEffect(() => {
-    if (focusRef.current) {
+    if (focusRef?.current) {
       const elements = document.querySelectorAll(focusElements)
 
       elements.forEach((i, index) => {
@@ -62,7 +58,6 @@ export function useFocus({ containerRef, focusRef, show }: FocusConfig) {
   /**
    * Query the container for all focusable elements
    */
-
   useEffect(() => {
     if (containerRef.current && focusable.container === null) {
       setFocusable(s => ({ ...s, container: containerRef.current }))
