@@ -8,6 +8,7 @@ type RecursivePartial<T> = {
  * Default Maker UI option configuration.
  *
  * @see `MakerOptions` in src/types.ts for complete list of properties.
+ * @todo - Revisit all of these defaults
  *
  */
 export const defaultOptions: RecursivePartial<MakerOptions> = {
