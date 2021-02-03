@@ -1,9 +1,7 @@
 import * as React from 'react'
-import { Interpolation } from '@maker-ui/css'
+import { Interpolation, ResponsiveScale } from '@maker-ui/css'
 
 import { mobileNavTypes, navTypes, transitionTypes } from './constants'
-
-export type ResponsiveScale = string | number | (string | number)[]
 
 export type ResponsiveString = string | string[]
 
@@ -14,35 +12,55 @@ export interface MakerProps {
 
 type ThemeColors = {
   [key: string]: {
-    text?: string
-    link?: string
-    link_hover?: string
-    primary?: string
-    secondary?: string
-    background?: string
-    bg_topbar?: string
-    bg_header?: string
-    bg_dropdown?: string
-    bg_mobileMenu?: string
-    bg_sideNav?: string
-    bg_footer?: string
-    bg_toolbar?: string
-    bg_panel?: string
+    /** The site's primary text color. */
+    text: string
+    /** The color of all links. */
+    link: string
+    /** The hover color for all links. */
+    link_hover: string
+    /** The site's primary brand or accent color. */
+    primary: string
+    /** The site's secondary brand or accent color. */
+    secondary: string
+    /** The site's background color. */
+    background: string
+    /** The topbar background color. */
+    bg_topbar: string
+    /** The header background color. */
+    bg_header: string
+    /** The navbar's dropdown menu background color. */
+    bg_dropdown: string
+    /** The mobile menu's background color. */
+    bg_mobileMenu: string
+    /** The side navigation background color. */
+    bg_sideNav: string
+    /** The footer background color. */
+    bg_footer: string
+    /** The toolbar background color for workspace layouts. */
+    bg_toolbar: string
+    /** The side panel background color for workspace layouts. */
+    bg_panel: string
   } & {
     [key: string]: string
   }
 }
 
 type ThemeFonts = {
+  /** The document's default font. */
   body?: string
+  /** The default font for all heading tags. */
   heading?: string
+  /** The default font for `pre` and `code` tags. */
   monospace?: string
 } & {
   [key: string]: string
 }
 
 /**
- * Configuration for Maker UI layout system.
+ * Configuration for the Maker UI layout system.
+ *
+ * @link https://maker-ui.com/docs/maker-options
+ *
  */
 export interface MakerOptions {
   /**
@@ -50,12 +68,25 @@ export interface MakerOptions {
    */
   framework?: 'gatsby' | 'next'
   /**
-   * An array of screen sizes from small to large. These breakpoints are used to
-   * set the default responsive sizes for all Maker UI primitives and components.
+   * An array of browser widths that is used as the default breakpoints for
+   * all nested Maker UI components and primitives.
+   *
+   * @default
+   * ['568px', '768px', '1440px']
    */
   breakpoints: (string | number)[]
+  /**
+   * Your site's default fonts that are mapped to CSS variables.
+   */
   fonts: ThemeFonts
+  /**
+   * Your site's default colors that are mapped to CSS variables.
+   */
   colors: ThemeColors
+  /**
+   * A callback function that lets you wrap your framework's local
+   * Link or Route component around all native Maker UI anchor tags.
+   */
   linkFunction?(
     path: string,
     children: string | React.ReactElement,
@@ -70,14 +101,38 @@ export interface MakerOptions {
     breakpoint: number | string
   }
   header: {
+    /**
+     * The Navbar's layout on desktop.
+     */
     navType: typeof navTypes[number]
+    /**
+     * The Navbar's layout on mobile devices.
+     */
     mobileNavType: typeof mobileNavTypes[number]
+    /**
+     * The max-width of the header's content container.
+     */
     maxWidth: ResponsiveScale
+    /**
+     * Determines if the header sticks to the top of the viewport while scrolling.
+     */
     sticky: boolean
+    /**
+     * Determines if the header sticks to the top of the viewport on mobile.
+     */
     stickyOnMobile: boolean
+    /**
+     * Hides the sticky header on down scroll and reveals when scrolling back up.
+     */
     stickyUpScroll: boolean
+    /**
+     * Adds a custom class to the header when the user has scrolled past
+     * a specified point.
+     */
     scrollClass: {
+      /** The scrollTop value that triggers adding or removing a class (in pixels).*/
       scrollTop: number
+      /** The target class selector.*/
       className: string
     }
     showColorButton: boolean

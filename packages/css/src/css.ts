@@ -7,11 +7,11 @@ const format = (value: any) => (isNaN(value) ? value : `${value}px`)
 const defaultBreakpoints = ['768px', '960px', '1440px']
 
 /**
- * Formats a CSS object and generates a style object
- * with media queries for each item in the breakpoint array.
+ * Formats array values in the CSS object as responsive media queries
  *
- * @param styles - an CSS style object
+ * @param styles - a CSS style object
  * @param breakpoints - an array of breakpoints
+ * @returns A CSS style object
  *
  * @internal usage only
  *
@@ -44,11 +44,12 @@ function responsive(styles: Interpolation<any>, breakpoints: Breakpoints) {
 }
 
 /**
- * A recursive function that formats all nested objects into an Interpolation
- * for Emotion's css prop
+ * Formats a user-generated CSS object and generates a returns an Emotion-compatible
+ * version with media queries for each item in the breakpoint array.
  *
  * @param styles - a CSS style object
  * @param breakpoints - an array of breakpoints
+ * @returns An EmotionJS compatible CSSObject
  *
  * @internal usage only
  *

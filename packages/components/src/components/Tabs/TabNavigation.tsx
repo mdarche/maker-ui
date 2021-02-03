@@ -100,7 +100,6 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
           className={`tab-button${
             state.activeKey === item.id ? ' active' : ''
           }${item.disabled ? 'disabled' : ''}`}
-          //@ts-ignore
           disabled={item.disabled}
           title={typeof item.title === 'string' ? item.title : undefined}
           aria-controls={`panel-${item.panelId}`}

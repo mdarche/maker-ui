@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { jsx, MakerProps } from '@maker-ui/css'
+import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { forwardRef } from 'react'
 import * as CSS from 'csstype'
 
-/** -----------------------   Div   ----------------------- */
+type ResponsiveType<T> = T | T[]
+
 /**
  * Alias for `Div` component props that includes all
  * HTML div tag attributes.
@@ -14,9 +15,9 @@ export interface DivProps
     React.HTMLAttributes<HTMLDivElement> {}
 
 /**
- * The basic theme-enabled building block for Maker UI.
+ * A div that supports responsive css values and the breakpoints prop.
  *
- * @see https://maker-ui.com/docs/primitives/#div
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const Div = forwardRef<HTMLDivElement, DivProps>((props, ref) => (
@@ -25,25 +26,31 @@ export const Div = forwardRef<HTMLDivElement, DivProps>((props, ref) => (
 
 Div.displayName = 'Div'
 
-/** -----------------------   FLEX   ----------------------- */
 /**
  * Alias for `Flex` component props that includes all
  * HTML div tag attributes.
  */
 
 export interface FlexProps extends DivProps {
+  align?: ResponsiveType<CSS.Properties['alignItems']>
+  direction?: ResponsiveType<CSS.Properties['flexDirection']>
+  flex?: ResponsiveType<CSS.Properties['flex']>
   inline?: boolean
-  align?: CSS.Properties['alignItems']
-  justify?: CSS.Properties['justifyContent']
-  direction?: CSS.Properties['flexDirection']
-  flex?: CSS.Properties['flex']
+  justify?: ResponsiveType<CSS.Properties['justifyContent']>
   wrap?: boolean
 }
 
 /**
- * A pre-styled `Div` for quick access to CSS Flex properties.
+ * A pre-styled div with quick access to CSS Flex properties.
  *
- * @see https://maker-ui.com/docs/primitives/#flex
+ * @param align - shortcut for responsive `alignItems` property
+ * @param direction - shorthand for responsive `flexDirection` property
+ * @param flex - shorthand for responsive `flex` property
+ * @param inline - a boolean that sets the `display` property to `inline-flex`
+ * @param justify - shorthand for responsive `justifyContent` property
+ * @param wrap - a boolean for that sets the `flex-wrap` property to `wrap`
+ *
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const Flex = forwardRef<HTMLDivElement, FlexProps>(
@@ -66,23 +73,28 @@ export const Flex = forwardRef<HTMLDivElement, FlexProps>(
 
 Flex.displayName = 'Flex'
 
-/** -----------------------   GRID   ----------------------- */
 /**
  * Alias for `Div` component props that includes all
  * HTML div tag attributes.
  */
 export interface GridProps extends MakerProps, DivProps {
-  columns?: string | string[]
-  rows?: string | string[]
-  areas?: string | string[]
-  gap?: number | string | (number | string)[]
+  areas?: ResponsiveType<CSS.Properties['gridTemplateAreas']>
   center?: boolean
+  columns?: ResponsiveType<CSS.Properties['gridTemplateColumns']>
+  gap?: ResponsiveScale
+  rows?: ResponsiveType<CSS.Properties['gridTemplateRows']>
 }
 
 /**
- * A pre-styled `Div` for quick access to CSS Grid properties.
+ * A pre-styled div with quick access to CSS Grid properties.
  *
- * @see https://maker-ui.com/docs/primitives/#grid
+ * @param areas - shorthand for responsive `flexDirection` property
+ * @param center - shortcut for responsive `alignItems` property
+ * @param columns - shorthand for responsive `justifyContent` property
+ * @param gap - shorthand for responsive `flexDirection` property
+ * @param row - shorthand for responsive `flex` property
+ *
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
@@ -105,7 +117,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
 Grid.displayName = 'Grid'
 
-/** -----------------------   SPAN   ----------------------- */
 /**
  * Alias for `Span` component props that includes all
  * HTML span tag attributes.
@@ -115,9 +126,9 @@ export interface SpanProps
     React.HTMLAttributes<HTMLSpanElement> {}
 
 /**
- * A theme-enabled `span` tag.
+ * A span that supports responsive css values and the breakpoints prop.
  *
- * @see https://maker-ui.com/docs/primitives/#span
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const Span = forwardRef<HTMLSpanElement, SpanProps>((props, ref) => (
@@ -126,7 +137,6 @@ export const Span = forwardRef<HTMLSpanElement, SpanProps>((props, ref) => (
 
 Span.displayName = 'Span'
 
-/** -----------------------   OLIST   ----------------------- */
 /**
  * Alias for `OList` component props that includes all
  * ordered list tag attributes.
@@ -136,9 +146,9 @@ export interface OListProps
     React.HTMLAttributes<HTMLOListElement> {}
 
 /**
- * A theme-enabled `ol` tag.
+ * An ordered list that supports responsive css values and the breakpoints prop.
  *
- * @see https://maker-ui.com/docs/primitives/#olist
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const OList = forwardRef<HTMLOListElement, OListProps>((props, ref) => (
@@ -147,7 +157,6 @@ export const OList = forwardRef<HTMLOListElement, OListProps>((props, ref) => (
 
 OList.displayName = 'OList'
 
-/** -----------------------   ULIST   ----------------------- */
 /**
  * Alias for `UList` component props that includes all
  * unordered list tag attributes.
@@ -157,9 +166,9 @@ export interface UListProps
     React.HTMLAttributes<HTMLUListElement> {}
 
 /**
- * A theme-enabled `ul` tag.
+ * An unordered list that supports responsive css values and the breakpoints prop.
  *
- * @see https://maker-ui.com/docs/primitives/#ulist
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const UList = forwardRef<HTMLUListElement, UListProps>((props, ref) => (
@@ -168,7 +177,6 @@ export const UList = forwardRef<HTMLUListElement, UListProps>((props, ref) => (
 
 UList.displayName = 'UList'
 
-/** -----------------------   LISTITEM   ----------------------- */
 /**
  * Alias for `ListItem` component props that includes all
  * list item tag attributes.
@@ -178,9 +186,9 @@ export interface ListItemProps
     React.HTMLAttributes<HTMLLIElement> {}
 
 /**
- * A theme-enabled `li` tag.
+ * A list item that supports responsive css values and the breakpoints prop.
  *
- * @see https://maker-ui.com/docs/primitives/#listItem
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
@@ -189,7 +197,6 @@ export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
 
 ListItem.displayName = 'ListItem'
 
-/** -----------------------   SVG   ----------------------- */
 /**
  * Alias for `SVG` component props that includes all
  * svg attributes.
@@ -197,9 +204,9 @@ ListItem.displayName = 'ListItem'
 export interface SVGProps extends MakerProps, React.SVGAttributes<SVGElement> {}
 
 /**
- * A theme-enabled `svg` tag.
+ * An SVG that supports responsive css values and the breakpoints prop.
  *
- * @see https://maker-ui.com/docs/primitives/#svg
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const SVG = forwardRef<SVGSVGElement, SVGProps>((props, ref) => (
@@ -208,19 +215,20 @@ export const SVG = forwardRef<SVGSVGElement, SVGProps>((props, ref) => (
 
 SVG.displayName = 'SVG'
 
-/** -----------------------   BUTTON   ----------------------- */
 /**
  * Alias for `Button` component props that includes all
  * HTML button attributes.
  */
 export interface ButtonProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLButtonElement> {}
+    React.HTMLAttributes<HTMLButtonElement> {
+  disabled?: boolean
+}
 
 /**
- * A theme-enabled `button` tag.
+ * An button that supports responsive css values and the breakpoints prop.
  *
- * @see https://maker-ui.com/docs/primitives/#button
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -229,7 +237,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'Button'
 
-/** -----------------------   LINK   ----------------------- */
 /**
  * Alias for `Link` component props that includes all
  * anchor tag attributes.
@@ -241,7 +248,7 @@ export interface LinkProps
 /**
  * A theme-enabled `a` tag.
  *
- * @see https://maker-ui.com/docs/primitives/#link
+ * @link https://maker-ui.com/docs/primitives/
  */
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -254,22 +261,24 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 
 Link.displayName = 'Link'
 
-/** -----------------------   IMAGE   ----------------------- */
 /**
  * Alias for `Image` component props that includes all
  * image tag attributes.
  */
 export interface ImageProps
   extends MakerProps,
-    React.AnchorHTMLAttributes<HTMLImageElement> {}
+    React.HTMLAttributes<HTMLImageElement> {
+  src: string
+  alt: string
+}
 
 /**
- * A theme-enabled `img` tag.
+ * An image that supports responsive css values and the breakpoints prop.
  *
- * @see https://maker-ui.com/docs/primitives/#image
+ * @link https://maker-ui.com/docs/primitives/
  */
 
-export const Image = forwardRef<HTMLImageElement, any>(
+export const Image = forwardRef<HTMLImageElement, ImageProps>(
   ({ src, alt, ...props }, ref) => (
     <img ref={ref} alt={alt} src={src} {...props} />
   )

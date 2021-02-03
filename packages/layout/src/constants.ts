@@ -1,4 +1,6 @@
-// Typescript read-only values for consistent types
+/**
+ * All configurations for `<Content>` layouts.
+ */
 export const contentTypes = [
   'content sidebar',
   'content sidenav',
@@ -12,6 +14,9 @@ export const contentTypes = [
   'page-transition',
 ] as const
 
+/**
+ * All configurations for `<Workspace>` layouts.
+ */
 export const workspaceTypes = [
   'panel canvas panel',
   'panel canvas',
@@ -23,6 +28,9 @@ export const workspaceTypes = [
   'toolbar canvas',
 ] as const
 
+/**
+ * All configurations for `<Navbar>` layouts.
+ */
 export const navTypes = [
   'basic',
   'basic-left',
@@ -35,6 +43,9 @@ export const navTypes = [
   'reverse',
 ] as const
 
+/**
+ * All configurations for mobile `<Navbar>` layouts.
+ */
 export const mobileNavTypes = [
   'basic',
   'basic-menu-left',
@@ -42,10 +53,14 @@ export const mobileNavTypes = [
   'logo-center-alt',
 ] as const
 
+/**
+ * All configurations for `<MobileMenu>` transitions.
+ */
 export const transitionTypes = [
   'fade',
   'fade-up',
   'fade-down',
   'slide-left',
   'slide-right',
+  'zoom', // TODO
 ] as const

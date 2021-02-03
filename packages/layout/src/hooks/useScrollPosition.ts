@@ -1,5 +1,5 @@
 /**
- * Loosely based on n8tb1t's https://github.com/n8tb1t/use-scroll-position
+ * Inspired by n8tb1t's https://github.com/n8tb1t/use-scroll-position
  */
 
 import { useRef, useEffect } from 'react'
@@ -20,7 +20,7 @@ function getScrollPosition(): number {
  * @param wait - The timeout delay for obtaining new position values
  * @param active - A boolean that determines if the effect should be run
  *
- * @see https://maker-ui.com/docs/hooks/#useScrollPosition
+ * @link https://maker-ui.com/docs/hooks/#useScrollPosition
  *
  */
 export function useScrollPosition(
@@ -31,7 +31,9 @@ export function useScrollPosition(
   const position = useRef(getScrollPosition())
 
   useEffect(() => {
-    /** Exit if run on server or if the effect is not active */
+    /**
+     * Exit if run on server or if the effect is not active
+     * */
     if (!active || !isBrowser) return
 
     let throttleTimeout: any

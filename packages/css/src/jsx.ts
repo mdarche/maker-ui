@@ -7,6 +7,7 @@ import { formatCSS } from './css'
  * Scans JSX props for `breakpoints` and `css` to format responsive arrays
  *
  * @param props - all of the element's props
+ * @returns All original props + a formatted responsive style object
  *
  * @internal usage only
  *
@@ -27,6 +28,9 @@ function parseProps(props: any) {
 
 /**
  * JSX that supports responsive arrays and the `breakpoints` props
+ *
+ * @remarks
+ * This is just a prop-formatting wrapper for Emotion's jsx export
  *
  * @see https://maker-ui.com/docs/jsx
  *
