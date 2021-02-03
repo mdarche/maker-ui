@@ -74,6 +74,10 @@ export function useLayoutStyles(layout: string): object {
     //   return `translateX(${format(shift)})`
     // }
 
+    const direction =
+      layout === 'sidenav content'
+        ? 'calc(-1 * var(--width_sideNav))'
+        : 'var(--width_sideNav)'
     /**
      * Check for measurements to complete before adding transition style
      * @todo Find a mobile `sidenav-content` solution for when <Header> does not exist
@@ -99,7 +103,7 @@ export function useLayoutStyles(layout: string): object {
         transform: 'translateX(0)',
         transition: getTransition(),
         '&.hide': {
-          transform: ['var(--width_sidenav)', 'none'],
+          transform: [`translateX(${direction})`, 'none'],
         },
         '> .container': {
           position: 'sticky',
