@@ -61,7 +61,7 @@ export const defaultOptions: RecursivePartial<MakerOptions> = {
   mobileMenu: {
     width: '60vw',
     transition: 'slide-left',
-    easingCurve: 'all ease .3s',
+    cssTransition: 'all ease .3s',
     visibleOnDesktop: false,
     showCloseButton: true,
     closeOnBlur: true,
@@ -75,7 +75,7 @@ export const defaultOptions: RecursivePartial<MakerOptions> = {
     toggleButton: 'default',
     closeOnBlur: true,
     closeOnRouteChange: true,
-    easingCurve: 'transform ease .3s',
+    cssTransition: 'transform ease .3s',
     breakpoint: 0,
   },
   content: {

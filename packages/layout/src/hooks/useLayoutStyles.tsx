@@ -68,25 +68,20 @@ export function useLayoutStyles(layout: string): object {
     }
 
     /**Determine the transform direction for toggling on mobile */
-    // const getTransform = width => {
-    //   const w = Array.isArray(width) ? width[sideNav.bpIndex] : width
-    //   const shift = layout === 'sidenav content' ? `-${w}` : w
-    //   return `translateX(${format(shift)})`
-    // }
-
     const direction =
       layout === 'sidenav content'
         ? 'calc(-1 * var(--width_sideNav))'
         : 'var(--width_sideNav)'
+
     /**
      * Check for measurements to complete before adding transition style
      * @todo Find a mobile `sidenav-content` solution for when <Header> does not exist
      */
     const getTransition = () => {
       if (!sideNav.isHeader) {
-        return measurements.height_header !== 0 ? sideNav.easingCurve : null
+        return measurements.height_header !== 0 ? sideNav.cssTransition : null
       }
-      return sideNav.easingCurve
+      return sideNav.cssTransition
     }
 
     return {

@@ -6,6 +6,7 @@ import { ErrorBoundary } from './Errors'
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: ResponsiveScale
   background?: string | string[]
+  _css?: MakerProps['css']
 }
 
 /**
@@ -18,12 +19,17 @@ interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 export const Footer = ({
   maxWidth = 'var(--maxWidth_footer)',
   background = 'var(--color-bg_footer)',
+  _css,
   css,
   children,
   ...props
 }: FooterProps) => {
   return (
-    <footer id="footer" role="contentinfo" css={{ background }} {...props}>
+    <footer
+      id="footer"
+      role="contentinfo"
+      css={{ background, ...(_css as object) }}
+      {...props}>
       <div
         className="container"
         css={{

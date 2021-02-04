@@ -29,19 +29,27 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
       container = true,
       id,
       className,
-      _css, // root styles
-      css, // container styles (direct parent)
+      _css,
+      css,
       children,
       ...props
     },
     ref
   ) => {
+    const rootCss = container
+      ? _css
+      : { ...(_css as object), ...(css as object) }
     return (
       <section
         ref={ref}
         id={id}
         className={className}
-        css={{ background, color, width: '100%', ...(_css as object) }}>
+        css={{
+          background,
+          color,
+          width: '100%',
+          ...(rootCss as object),
+        }}>
         <ErrorBoundary errorKey="section">
           {container ? (
             <div

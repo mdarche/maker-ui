@@ -24,6 +24,7 @@ interface SideNavProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
+  _css?: MakerProps['css']
   toggleButton?: MakerOptions['sideNav']['toggleButton']
   menu?: MenuProps[]
   pathname?: string
@@ -46,6 +47,7 @@ export const SideNav = ({
   pathname,
   header,
   footer,
+  _css,
   css,
   children,
   ...props
@@ -74,10 +76,10 @@ export const SideNav = ({
         className={!active ? 'hide' : null}
         css={{
           background,
-          ...(css as object),
+          ...(_css as object),
         }}
         {...props}>
-        <div className="container">
+        <div className="container" css={css}>
           {header ? header : null}
           {children ? children : null}
           {menu ? (

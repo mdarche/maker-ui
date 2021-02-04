@@ -7,6 +7,7 @@ export interface CanvasProps
   extends MakerProps,
     Omit<React.HTMLAttributes<HTMLDivElement>, 'css'> {
   background?: string | string[]
+  _css?: MakerProps['css']
 }
 
 /**
@@ -17,6 +18,7 @@ export interface CanvasProps
 
 export const Canvas = ({
   background = 'var(--color-background)',
+  _css,
   css,
   children,
   ...props
@@ -27,11 +29,13 @@ export const Canvas = ({
       css={{
         background,
         gridArea: 'canvas',
-        ...(css as object),
+        ...(_css as object),
       }}
       {...props}>
       <ErrorBoundary errorKey="canvas">
-        <div className="container">{children}</div>
+        <div className="container" css={css}>
+          {children}
+        </div>
       </ErrorBoundary>
     </div>
   )

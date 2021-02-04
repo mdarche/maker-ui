@@ -64,7 +64,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
             bottom: 0,
             zIndex: 100,
             willChange: 'transform, opacity',
-            transition: mobileMenu.easingCurve,
+            transition: mobileMenu.cssTransition,
             ...getTransition(show, transition, width),
             ...(css as object),
           }}

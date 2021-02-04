@@ -17,6 +17,7 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   scrollOverflow?: boolean
   sticky?: MakerOptions['topbar']['sticky']
   stickyOnMobile?: MakerOptions['topbar']['stickyOnMobile']
+  _css: MakerProps['css']
 }
 
 /**
@@ -50,6 +51,7 @@ export const Topbar = (props: TopbarProps) => {
     stickyOnMobile = topbar.stickyOnMobile,
     scrollOverflow = false,
     children,
+    _css,
     css,
     ...rest
   } = props
@@ -73,6 +75,7 @@ export const Topbar = (props: TopbarProps) => {
         zIndex: 100,
         position: stickyPartial,
         display: topbar.hideOnMobile ? ['none', 'block'] : ['block'],
+        ...(_css as object),
       }}>
       <div
         className="container"

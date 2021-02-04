@@ -244,7 +244,7 @@ export interface MakerOptions {
      * The CSS `transition` property that controls how the mobile menu enters and exits
      * the viewport.
      */
-    easingCurve?: string
+    cssTransition?: string
     /**
      * Displays the header's mobile menu button at all times.
      */
@@ -286,7 +286,7 @@ export interface MakerOptions {
      * The CSS `transition` property that controls how the side nav enters and exits
      * the viewport on mobile.
      */
-    easingCurve: string
+    cssTransition: string
     /**
      * Determines if the side nav should be rendered as a <header> tag. Don't use this if
      * you also use a <Header> component in your layout.

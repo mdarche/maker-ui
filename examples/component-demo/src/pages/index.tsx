@@ -15,12 +15,15 @@ const IndexPage = () => {
         <a href="/">Google</a>
       </div>
       <Section
-      // bg={() => {
-      //   console.log(setBreakpoint(1, ['blue', 'green', 'red', 'purple']))
-      //   return setBreakpoint(1, ['blue', 'green', 'red', 'purple'])
-      // }}
+        // container={false}
+        _css={{ background: 'blue' }}
+
+        // bg={() => {
+        //   console.log(setBreakpoint(1, ['blue', 'green', 'red', 'purple']))
+        //   return setBreakpoint(1, ['blue', 'green', 'red', 'purple'])
+        // }}
       >
-        <h2>Test</h2>
+        <h2>This is the section</h2>
         <ColorButton />
         <Flex>Test</Flex>
       </Section>
