@@ -17,7 +17,7 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   scrollOverflow?: boolean
   sticky?: MakerOptions['topbar']['sticky']
   stickyOnMobile?: MakerOptions['topbar']['stickyOnMobile']
-  _css: MakerProps['css']
+  _css?: MakerProps['css']
 }
 
 /**

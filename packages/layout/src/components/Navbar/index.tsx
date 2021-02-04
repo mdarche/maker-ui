@@ -15,11 +15,13 @@ import { setBreakpoint } from '../../utils/helper'
 export interface NavProps extends MakerProps {
   type?: MakerOptions['header']['navType']
   mobileType?: MakerOptions['header']['mobileNavType']
-  logo?: React.ReactElement
+  logo?: React.ReactElement | string
   menu?: MenuProps[]
   colorButton?: MakerOptions['header']['colorButton']
   menuButton?: MakerOptions['header']['menuButton']
+  logoArea?: React.ReactNode
   navArea?: React.ReactNode
+  menuArea?: React.ReactNode
   pathname?: string
   maxWidth?: ResponsiveScale
 }
@@ -47,7 +49,9 @@ export const Navbar = (props: NavProps) => {
     mobileType,
     logo = 'Logo',
     menu,
+    logoArea,
     navArea,
+    menuArea,
     menuButton,
     colorButton,
     maxWidth = 'var(--maxWidth_header)',
@@ -109,11 +113,11 @@ export const Navbar = (props: NavProps) => {
             gridArea: 'menu-split',
             display: ['none', 'flex'],
           }}>
-          <NavMenu menuItems={menu?.slice(0, mid)} />
+          {menuArea ? null : <NavMenu menuItems={menu?.slice(0, mid)} />}
         </Flex>
       ) : null}
       <Flex align="center" className="logo-area" css={{ gridArea: 'logo' }}>
-        <Logo>{logo}</Logo>
+        {logoArea ? logoArea : <Logo>{logo}</Logo>}
       </Flex>
       <Flex
         align="center"
@@ -123,7 +127,11 @@ export const Navbar = (props: NavProps) => {
           gridArea: 'menu',
           display: ['none', 'flex'],
         }}>
-        <NavMenu menuItems={layout === 'split' ? menu?.slice(mid) : menu} />
+        {menuArea ? (
+          menuArea
+        ) : (
+          <NavMenu menuItems={layout === 'split' ? menu?.slice(mid) : menu} />
+        )}
       </Flex>
       <Flex align="center" className="nav-area" css={{ gridArea: 'nav' }}>
         <WidgetArea content={navArea} />

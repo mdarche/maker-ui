@@ -22,7 +22,7 @@ export const options: Partial<MakerOptions> = {
       border: '#e6e6e6',
       bg_topbar: '#355cac',
       bg_header: '#fff',
-      bg_mobileMenu: 'black',
+      bg_mobileMenu: 'gainsboro',
       bg_sideNav: '#eee',
       bg_footer: 'gainsboro',
       bg_toolbar: '#fbfbfb',
