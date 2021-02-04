@@ -27,7 +27,7 @@ function parseProps(props: any) {
 }
 
 /**
- * JSX that supports responsive arrays and the `breakpoints` props
+ * JSX that supports responsive arrays and the `breakpoints` prop
  *
  * @remarks
  * This is just a prop-formatting wrapper for Emotion's jsx export

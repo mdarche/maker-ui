@@ -58,7 +58,7 @@ export const options: Partial<MakerOptions> = {
     sticky: true,
     // stickyUpScroll: true,
     stickyOnMobile: true,
-    showColorButton: true,
+    showColorButton: false,
     // menuOverflow: 'scroll',
     scrollClass: {
       className: 'scroll-test',

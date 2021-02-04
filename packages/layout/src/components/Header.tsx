@@ -10,6 +10,7 @@ import { useLayout, useMeasurements } from '../context/LayoutContext'
 import { setBreakpoint } from '../utils/helper'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
+  absolute?: boolean
   background?: string | string[]
   sticky?: boolean
   stickyOnMobile?: boolean
@@ -48,6 +49,7 @@ export const Header = (props: HeaderProps) => {
   }, [])
 
   const {
+    absolute = header.absolute,
     background = 'var(--color-bg_header)',
     sticky = header.sticky,
     stickyOnMobile = header.stickyOnMobile,
@@ -82,7 +84,7 @@ export const Header = (props: HeaderProps) => {
   )
 
   /**
-   * Fire hook effect if header.scroll.toggleClass === true
+   * Fire hook effect if header.scrollClass !== undefined
    */
   useScrollPosition(
     ({ currPos }) => {
@@ -122,10 +124,13 @@ export const Header = (props: HeaderProps) => {
    * Calculate responsive header styles for header.sticky configurations
    */
 
+  const stickyPos = absolute ? 'fixed' : 'sticky'
+  const initialPos = absolute ? 'absolute' : 'initial'
+
   const stickyPartial = (): object => {
     if (stickyUpScroll) {
       return {
-        position: 'sticky',
+        position: stickyPos,
         top: calculateTop(),
         transition: 'transform .3s ease-in',
         '&.scroll-active': {
@@ -137,18 +142,18 @@ export const Header = (props: HeaderProps) => {
     if (sticky) {
       return {
         top: calculateTop(),
-        position: stickyOnMobile ? ['sticky'] : ['initial', 'sticky'],
+        position: stickyOnMobile ? [stickyPos] : [initialPos, stickyPos],
       }
     }
 
     if (!sticky && stickyOnMobile) {
       return {
         top: calculateTop(),
-        position: ['sticky', 'initial'],
+        position: [stickyPos, initialPos],
       }
     }
 
-    return { position: 'relative' }
+    return { position: initialPos }
   }
 
   return (
@@ -163,6 +168,7 @@ export const Header = (props: HeaderProps) => {
       css={{
         background,
         zIndex: 100,
+        width: absolute ? '100%' : undefined,
         visibility:
           framework === 'gatsby' && initialRender ? ['hidden'] : undefined,
         ...stickyPartial(),

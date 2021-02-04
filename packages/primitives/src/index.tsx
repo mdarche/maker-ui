@@ -88,11 +88,11 @@ export interface GridProps extends MakerProps, DivProps {
 /**
  * A pre-styled div with quick access to CSS Grid properties.
  *
- * @param areas - shorthand for responsive `flexDirection` property
- * @param center - shortcut for responsive `alignItems` property
- * @param columns - shorthand for responsive `justifyContent` property
- * @param gap - shorthand for responsive `flexDirection` property
- * @param row - shorthand for responsive `flex` property
+ * @param areas - shortcut for responsive `gridTemplateAreas` property
+ * @param center - centers all grid item content
+ * @param columns - shortcut for responsive `gridTemplateColumns` property
+ * @param gap - shortcut for responsive `gap` property
+ * @param row - shortcut for responsive `gridTemplateRow` property
  *
  * @link https://maker-ui.com/docs/primitives/
  */

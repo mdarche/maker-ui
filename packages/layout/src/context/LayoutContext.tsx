@@ -64,6 +64,16 @@ const LayoutProvider = ({ styles, children }: LayoutProviderProps) => {
     height_toolbar: 0,
   })
 
+  /**
+   * Set the initial color theme
+   *
+   * @todo save to local storage and check for preferred color scheme
+   * */
+  React.useEffect(() => {
+    document.body.dataset.theme = Object.keys(options.colors)[0] || 'light'
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const cssVariables = merge(
     colorVars(options.colors) as object,
     themeVars(options) as object

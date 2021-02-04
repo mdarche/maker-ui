@@ -85,7 +85,6 @@ const mobile = {
 /**
  * Calculate grid-template-area, grid-template-columns, and grid-template-rows
  */
-
 export function gridStyles(
   layout: typeof navTypes[number],
   mobileLayout: typeof mobileNavTypes[number]

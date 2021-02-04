@@ -1,12 +1,7 @@
 import * as React from 'react'
-import { Interpolation, ResponsiveScale } from '@maker-ui/css'
+import { ResponsiveScale } from '@maker-ui/css'
 
 import { mobileNavTypes, navTypes, transitionTypes } from './constants'
-
-export interface MakerProps {
-  css?: Interpolation<any>
-  breakpoints?: (string | number)[]
-}
 
 type ThemeColors = {
   [key: string]: {
@@ -146,6 +141,18 @@ export interface MakerOptions {
      * The max-width of the header's content container. Can be a responsive array.
      */
     maxWidth: ResponsiveScale
+    /**
+     * Determines if the header should be absolutely positioned so site content
+     * begins at the top of the viewport.
+     *
+     * @remark
+     * - This is helpful for transparent headers.
+     * - If you only want this effect on certain pages, conditionally set it via
+     * the Header component's `absolute` prop in your Layout.
+     * - When true, all of the sticky settings will use absolute / fixed positioning instead of
+     * sticky / relative positioning.
+     */
+    absolute: boolean
     /**
      * Determines if the header sticks to the top of the viewport while scrolling.
      */
