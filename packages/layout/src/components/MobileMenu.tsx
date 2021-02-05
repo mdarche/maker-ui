@@ -17,8 +17,14 @@ interface MobileMenuProps
   background?: string | string[]
   width?: ResponsiveScale
   menu?: MenuProps[]
+  center?: boolean
   pathname?: string
   closeButton?: MakerOptions['mobileMenu']['closeButton']
+  closeButtonPosition?:
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-right'
   header?: React.ReactElement
   footer?: React.ReactElement
 }
@@ -36,7 +42,9 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
 
     const {
       background = 'var(--color-bg_mobileMenu)',
+      center,
       closeButton,
+      closeButtonPosition = 'top-right',
       width = 'var(--width_mobileMenu)',
       transition = mobileMenu.transition,
       menu = [],
@@ -47,6 +55,24 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       css,
       ...rest
     } = props
+
+    const centerStyles: object | undefined = center
+      ? {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+        }
+      : undefined
+
+    const buttonX = closeButtonPosition.includes('right')
+      ? { right: 0 }
+      : { left: 0 }
+    const buttonY = closeButtonPosition.includes('top')
+      ? { top: 0 }
+      : { bottom: 0 }
+
+    console.log('center styles are', centerStyles)
 
     return (
       <Fragment>
@@ -66,12 +92,17 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
             willChange: 'transform, opacity',
             transition: mobileMenu.cssTransition,
             ...getTransition(show, transition, width),
+            ...centerStyles,
             ...(css as object),
           }}
           {...rest}>
           <ErrorBoundary errorKey="mobileMenu">
             {mobileMenu.showCloseButton || closeButton ? (
-              <MenuButton customButton={closeButton} isCloseButton />
+              <MenuButton
+                customButton={closeButton}
+                isCloseButton
+                css={{ position: 'absolute', ...buttonY, ...buttonX }}
+              />
             ) : null}
             {header ? header : null}
             {children || (

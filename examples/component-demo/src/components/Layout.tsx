@@ -56,7 +56,7 @@ export default ({ children, location }) => (
     <Topbar>Topbar content</Topbar>
     <Header absolute={location.pathname === '/accordion' ? true : false}>
       <Navbar logo={'Components Demo'} menu={menu} />
-      <MobileMenu menu={menu} closeButton="test" />
+      <MobileMenu center menu={menu} />
     </Header>
     {location.pathname !== '/workspace' ? (
       <>

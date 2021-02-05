@@ -12,7 +12,6 @@ interface MenuButtonProps extends ButtonProps {
     | React.ReactNode
     | ((isOpen?: string, attributes?: object) => React.ReactNode)
   visibleOnDesktop?: boolean
-  'aria-expanded'?: boolean
 }
 
 /**
@@ -27,6 +26,7 @@ export const MenuButton = ({
   visibleOnDesktop,
   isCloseButton,
   css,
+  ...props
 }: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()
@@ -35,7 +35,7 @@ export const MenuButton = ({
   /** Use custom button from props or check header / mobileMenu options */
   const menuButton = customButton || header.menuButton
 
-  const visibility = visibleOnDesktop
+  const getDisplay = visibleOnDesktop
     ? !sideNav.isPrimaryMobileNav
       ? 'block'
       : 'none'
@@ -59,19 +59,19 @@ export const MenuButton = ({
       {...attributes}
       breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
       css={{
-        display: visibility,
+        display: getDisplay,
         margin: 0,
         border: 'none',
+        ...(css as object),
         background: 'none',
         svg: { margin: '0 auto' },
-        ...(css as object),
-      }}>
+      }}
+      {...props}>
       {menuButton || (
         <SVG
           viewBox="0 0 24 24"
           css={{
             display: 'block',
-            margin: 0,
             height: isCloseButton ? 35 : 27,
           }}>
           {isCloseButton ? (

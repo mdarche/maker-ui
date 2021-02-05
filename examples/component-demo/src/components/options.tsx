@@ -58,7 +58,7 @@ export const options: Partial<MakerOptions> = {
     sticky: true,
     // stickyUpScroll: true,
     stickyOnMobile: true,
-    showColorButton: false,
+    showColorButton: true,
     // menuOverflow: 'scroll',
     scrollClass: {
       className: 'scroll-test',
@@ -71,9 +71,9 @@ export const options: Partial<MakerOptions> = {
   },
   mobileMenu: {
     width: '60vw',
-    transition: 'fade',
+    transition: 'slide-left',
     closeOnBlur: true,
-    // visibleOnDesktop: true,
+    visibleOnDesktop: true,
     closeOnRouteChange: true,
   },
   sideNav: {
