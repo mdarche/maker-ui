@@ -38,7 +38,16 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
       }
 
       if (menuType === 'sideNav' && sideNav.closeOnRouteChange) {
-        return { onClick: () => toggleSideNav() }
+        const el = document.getElementById('sidenav')
+        // Only run if on mobile (sideNav is fixed)
+        if (!window || !el) return undefined
+
+        return {
+          onClick:
+            window.getComputedStyle(el, '').position === 'fixed'
+              ? () => toggleSideNav()
+              : undefined,
+        }
       }
 
       return undefined
