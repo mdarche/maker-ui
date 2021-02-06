@@ -3,7 +3,7 @@ import { SVG, Button, ButtonProps } from '@maker-ui/primitives'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { setBreakpoint } from '../../utils/helper'
+import { setBreakpoint, setClassName } from '../../utils/helper'
 
 interface MenuButtonProps extends ButtonProps {
   isCloseButton?: boolean
@@ -25,6 +25,7 @@ export const MenuButton = ({
   customButton,
   visibleOnDesktop,
   isCloseButton,
+  className,
   css,
   ...props
 }: MenuButtonProps) => {
@@ -47,7 +48,7 @@ export const MenuButton = ({
 
   const attributes = {
     title: 'Menu',
-    className: 'menu-button',
+    className: setClassName('menu-button', className),
     'aria-label': 'Toggle Menu',
     ...conditionalAttributes,
   }
@@ -62,9 +63,9 @@ export const MenuButton = ({
         display: getDisplay,
         margin: 0,
         border: 'none',
-        ...(css as object),
         background: 'none',
         svg: { margin: '0 auto' },
+        ...(css as object),
       }}
       {...props}>
       {menuButton || (

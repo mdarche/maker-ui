@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, DivProps, generateId } from 'maker-ui'
+import { Div, DivProps, generateId, setClassName } from 'maker-ui'
 
 import { useTabs, TabItem } from './TabContext'
 
@@ -17,7 +17,18 @@ export interface TabPanelProps extends Omit<DivProps, 'title'> {
  */
 
 export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
-  ({ title, eventKey, open = false, disabled = false, css, ...props }, ref) => {
+  (
+    {
+      title,
+      eventKey,
+      className,
+      open = false,
+      disabled = false,
+      css,
+      ...props
+    },
+    ref
+  ) => {
     const [id] = React.useState(() =>
       eventKey ? eventKey.toString() : generateId()
     )
@@ -39,7 +50,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
         role="tabpanel"
         id={`panel-${panelId}`}
         aria-labelledby={`control-${panelId}`}
-        className="tab-panel"
+        className={setClassName('tab-panel', className)}
         css={{
           flex: 1,
           order: 1,

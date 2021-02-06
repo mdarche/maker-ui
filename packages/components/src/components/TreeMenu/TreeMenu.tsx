@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, DivProps } from 'maker-ui'
+import { Div, DivProps, setClassName } from 'maker-ui'
 import { MinusIcon, PlusIcon, ExIcon } from '../icons'
 
 import { TreeContext, TreeContextProps } from './TreeContext'
@@ -22,6 +22,7 @@ export const TreeMenu = ({
   },
   indentation = '20px',
   clickableText = false,
+  className,
   css,
   ...props
 }: TreeMenuProps) => {
@@ -30,7 +31,11 @@ export const TreeMenu = ({
       buttons={buttons}
       indentation={indentation}
       clickableText={clickableText}>
-      <Div css={{ ...(css as object) }} {...props} />
+      <Div
+        className={setClassName('tree-menu', className)}
+        css={{ ...(css as object) }}
+        {...props}
+      />
     </TreeContext>
   )
 }

@@ -20,7 +20,6 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       springConfig,
       closeButton = 'Got it!',
       top = false,
-      css,
       children,
       ...props
     },
@@ -37,7 +36,6 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         storageKey={storageKey}
         closeButton={closeButton}
         springConfig={springConfig}
-        css={{ ...(css as object) }}
         {...props}>
         {children ||
           'We use cookies to ensure you get the best experience on our site.'}

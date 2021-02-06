@@ -62,7 +62,7 @@ export const options: Partial<MakerOptions> = {
     // menuOverflow: 'scroll',
     scrollClass: {
       className: 'scroll-test',
-      scrollTop: 2000,
+      scrollTop: 200,
     },
     dropdown: {
       transition: 'fade-down',

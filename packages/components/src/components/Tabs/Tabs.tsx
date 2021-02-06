@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, DivProps } from 'maker-ui'
+import { Div, DivProps, setClassName } from 'maker-ui'
 
 import { TabContext } from './TabContext'
 import { TabNavigation } from './TabNavigation'
@@ -30,6 +30,7 @@ export const Tabs = ({
   overflow = 'stack',
   breakpoints,
   renderInactive = true,
+  className,
   css,
   children,
   ...props
@@ -39,7 +40,7 @@ export const Tabs = ({
   return (
     <TabContext activeKey={activeKey} renderInactive={renderInactive}>
       <Div
-        className="tabs-container"
+        className={setClassName('tabs-container', className)}
         breakpoints={breakpoints}
         css={{
           display: ['block', 'flex'],

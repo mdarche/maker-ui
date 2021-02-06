@@ -1,5 +1,11 @@
 import * as React from 'react'
-import { Div, MakerProps, ResponsiveScale, useMeasure } from 'maker-ui'
+import {
+  Div,
+  MakerProps,
+  ResponsiveScale,
+  setClassName,
+  useMeasure,
+} from 'maker-ui'
 import { animated, useSprings, SpringConfig } from 'react-spring'
 import { useDrag } from 'react-use-gesture'
 import merge from 'deepmerge'
@@ -13,6 +19,7 @@ export interface CarouselProps extends MakerProps {
   data: Object[]
   template: React.ReactElement
   height?: ResponsiveScale
+  className?: string
   settings?: {
     autoPlay?: boolean
     showNav?: boolean
@@ -45,6 +52,7 @@ export const Carousel = ({
   template,
   settings = {},
   height = 500,
+  className,
   css,
   ...rest
 }: CarouselProps) => {
@@ -224,7 +232,7 @@ export const Carousel = ({
       ref={carouselRef}
       onMouseEnter={autoPlay ? pause : undefined}
       onMouseLeave={autoPlay ? resume : undefined}
-      className="carousel"
+      className={setClassName('carousel', className)}
       css={{
         overflow: 'hidden',
         position: 'relative',

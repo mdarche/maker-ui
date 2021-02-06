@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div } from 'maker-ui'
+import { Div, setClassName } from 'maker-ui'
 import { animated, Transition } from 'react-spring'
 
 import { getSign } from './helper'
@@ -11,6 +11,7 @@ export interface PageTransitionProps {
   distance?: number
   springConfig?: any
   id?: string | number
+  className?: string
   children: React.ReactNode
 }
 
@@ -25,6 +26,7 @@ export const PageTransition = ({
   type = 'fade-up',
   distance = 20,
   id,
+  className,
   springConfig,
   ...props
 }: PageTransitionProps) => {
@@ -44,7 +46,7 @@ export const PageTransition = ({
       config={springConfig}>
       {(styles, { props }) => (
         <AnimatedDiv
-          className="page-transition"
+          className={setClassName('page-transition', className)}
           style={{ ...styles, width: '100%' }}>
           <div {...props} />
         </AnimatedDiv>

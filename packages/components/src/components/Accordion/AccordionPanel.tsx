@@ -1,5 +1,12 @@
 import * as React from 'react'
-import { Div, DivProps, Button, generateId, useMeasure } from 'maker-ui'
+import {
+  Div,
+  DivProps,
+  Button,
+  generateId,
+  useMeasure,
+  setClassName,
+} from 'maker-ui'
 import { useSpring, animated } from 'react-spring'
 
 import { useAccordion } from './AccordionContext'
@@ -72,7 +79,10 @@ export const AccordionPanel = React.forwardRef<
     return (
       <Div
         ref={ref}
-        className={`${show ? 'expanded ' : ''}accordion ${className}`}
+        className={setClassName(
+          `${show ? 'expanded ' : ''}accordion`,
+          className
+        )}
         css={{ border: '1px solid', ...(css as object) }}
         {...props}>
         <Button
@@ -94,7 +104,7 @@ export const AccordionPanel = React.forwardRef<
           {React.isValidElement(title) ? title : <span>{title}</span>}
           {state.icon ? (
             <span>
-              {state.customIcons?.expand !== null ? (
+              {state.customIcons?.expand !== undefined ? (
                 show ? (
                   state.customIcons?.collapse
                 ) : (
@@ -129,15 +139,14 @@ export const AccordionPanel = React.forwardRef<
             overflow: 'hidden',
             height,
           }}>
-          <div {...bind}>
-            <Div
-              className="accordion-panel"
-              css={{
-                borderTop: `1px solid ${borderColor}`,
-              }}>
-              {children}
-            </Div>
-          </div>
+          <Div
+            {...bind}
+            className="accordion-panel"
+            css={{
+              borderTop: `1px solid ${borderColor}`,
+            }}>
+            {children}
+          </Div>
         </AnimatedDiv>
       </Div>
     )

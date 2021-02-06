@@ -8,7 +8,7 @@ import { ErrorBoundary } from './Errors'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
-import { getTransition, fullWidth } from '../utils/helper'
+import { getTransition, fullWidth, setClassName } from '../utils/helper'
 
 interface MobileMenuProps
   extends MakerProps,
@@ -27,6 +27,7 @@ interface MobileMenuProps
     | 'bottom-right'
   header?: React.ReactElement
   footer?: React.ReactElement
+  className?: string
 }
 
 /**
@@ -51,8 +52,9 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       pathname,
       header,
       footer,
-      children,
+      className,
       css,
+      children,
       ...rest
     } = props
 
@@ -68,11 +70,10 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
     const buttonX = closeButtonPosition.includes('right')
       ? { right: 0 }
       : { left: 0 }
+
     const buttonY = closeButtonPosition.includes('top')
       ? { top: 0 }
       : { bottom: 0 }
-
-    console.log('center styles are', centerStyles)
 
     return (
       <Fragment>
@@ -82,7 +83,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
         <div
           ref={ref}
           id="mobile-menu"
-          className={show ? 'active' : undefined}
+          className={setClassName(show ? 'active' : '', className)}
           css={{
             position: 'fixed',
             background,

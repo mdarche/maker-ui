@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, MakerProps } from '@maker-ui/css'
+import { setClassName } from '../utils/helper'
 
 import { ErrorBoundary } from './Errors'
 
@@ -17,13 +18,14 @@ interface SidebarProps
 
 export const Sidebar = ({
   background,
-  children,
+  className,
   css,
+  children,
   ...props
 }: SidebarProps) => {
   return (
     <div
-      className="sidebar"
+      className={setClassName('sidebar', className)}
       role="complementary"
       css={{ background, ...(css as object) }}
       {...props}>

@@ -84,8 +84,33 @@ export function generateId(length: number = 5): string {
 
 /**
  * Check to see if value is an object else return an empty object
+ *
+ * @param obj - any value to be evaluated
  */
 
 export function validate(obj: any) {
   return obj !== undefined && typeof obj === 'object' ? obj : {}
+}
+
+/**
+ * Returns a formatted className string that merges user generated classNames with
+ * MakerUI defaults
+ *
+ * @param libClass - the MakerUI library className
+ * @param className - the className supplied by props
+ */
+
+export function setClassName(
+  libClass: string,
+  className?: string
+): string | undefined {
+  if (libClass.length > 1) {
+    return className
+      ? [libClass, className]
+          .join(' ')
+          .replace(/ +(?= )/g, '')
+          .trim()
+      : libClass
+  }
+  return className ? className : undefined
 }

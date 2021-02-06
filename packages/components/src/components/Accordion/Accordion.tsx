@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, DivProps } from 'maker-ui'
+import { Div, DivProps, setClassName } from 'maker-ui'
 
 import { AccordionContext } from './AccordionContext'
 import { AccordionPanel } from './AccordionPanel'
@@ -28,6 +28,7 @@ export const Accordion = ({
   customIcons,
   activeKey = 0,
   showSingle = false,
+  className,
   css,
   children,
   ...props
@@ -38,7 +39,10 @@ export const Accordion = ({
       customIcons={customIcons}
       activeKey={activeKey}
       showSingle={showSingle}>
-      <Div css={{ ...(css as object) }} {...props}>
+      <Div
+        className={setClassName('accordion-container', className)}
+        css={{ ...(css as object) }}
+        {...props}>
         {children}
       </Div>
     </AccordionContext>

@@ -7,7 +7,7 @@ import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
 import { useMeasure } from '../hooks/useMeasure'
 import { useLayout, useMeasurements } from '../context/LayoutContext'
-import { setBreakpoint } from '../utils/helper'
+import { setBreakpoint, setClassName } from '../utils/helper'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
   absolute?: boolean
@@ -54,8 +54,9 @@ export const Header = (props: HeaderProps) => {
     sticky = header.sticky,
     stickyOnMobile = header.stickyOnMobile,
     stickyUpScroll = header.stickyUpScroll,
-    children,
+    className,
     css,
+    children,
     ...rest
   } = props
 
@@ -122,6 +123,9 @@ export const Header = (props: HeaderProps) => {
 
   /**
    * Calculate responsive header styles for header.sticky configurations
+   *
+   * @todo - Calculate the correct 'scroll-active' transform so it accounts for the
+   * topbar (sticky or static)
    */
 
   const stickyPos = absolute ? 'fixed' : 'sticky'
@@ -134,7 +138,7 @@ export const Header = (props: HeaderProps) => {
         top: calculateTop(),
         transition: 'transform .3s ease-in',
         '&.scroll-active': {
-          transform: 'translateY(-100%)',
+          transform: `translateY(-100%)`,
         },
       }
     }
@@ -156,13 +160,18 @@ export const Header = (props: HeaderProps) => {
     return { position: initialPos }
   }
 
+  /**
+   * Format MakerUI scroll classes to merge with user-generated ones
+   */
+  let libClasses = [
+    scrollClass,
+    `${stickyUpScroll && !show ? 'scroll-active' : ''}`,
+  ].join(' ')
+
   return (
     <header
       {...bind}
-      id="site-header"
-      className={`${scrollClass}${
-        stickyUpScroll && !show ? ' scroll-active' : ''
-      }`}
+      className={setClassName(libClasses, className)}
       role="banner"
       breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
       css={{

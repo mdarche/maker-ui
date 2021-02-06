@@ -5,6 +5,7 @@ import { forwardRef } from 'react'
 import { MenuItem, MenuProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
+import { setClassName } from '../../utils/helper'
 
 interface CollapsibleProps
   extends MakerProps,
@@ -26,7 +27,7 @@ interface CollapsibleProps
  */
 
 export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
-  ({ menu = [], menuType, pathname, css, ...props }, ref) => {
+  ({ menu = [], menuType, pathname, className, css, ...props }, ref) => {
     const { mobileMenu, sideNav, linkFunction } = useOptions()
     const [, toggleMenu] = useMenu()
     const [, toggleSideNav] = useSideNav()
@@ -46,7 +47,7 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
     return (
       <ul
         ref={ref}
-        className="accordion-menu"
+        className={setClassName('collapse-menu', className)}
         role="navigation"
         css={{ ...(css as object) }}
         {...props}>

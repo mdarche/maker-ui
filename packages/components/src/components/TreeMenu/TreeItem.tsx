@@ -1,5 +1,13 @@
 import * as React from 'react'
-import { Button, Span, Link, Div, DivProps, useMeasure } from 'maker-ui'
+import {
+  Button,
+  Span,
+  Link,
+  Div,
+  DivProps,
+  useMeasure,
+  setClassName,
+} from 'maker-ui'
 import { useSpring, animated } from 'react-spring'
 
 import { useTreeData } from './TreeContext'
@@ -25,7 +33,10 @@ export interface TreeItemProps extends DivProps {
  */
 
 export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
-  ({ text, link, newTab, open = false, css, children, ...props }, ref) => {
+  (
+    { className, text, link, newTab, open = false, css, children, ...props },
+    ref
+  ) => {
     const [isOpen, setOpen] = React.useState(open)
     const {
       clickableText,
@@ -51,7 +62,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
       <Div
         ref={ref}
         aria-expanded={isOpen}
-        className="tree-item"
+        className={setClassName('tree-item', className)}
         css={{
           display: link && 'flex',
           alignItems: link && 'center',
@@ -60,7 +71,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           verticalAlign: 'middle',
-          '.tree-branch-inner': {
+          '.tree-item-container': {
             paddingLeft: indentation,
           },
         }}>
@@ -108,7 +119,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
           </Span>
         )}
         <animated.div
-          className="tree-branch-inner"
+          className="tree-item-container"
           style={{
             overflow: 'hidden',
             height: isOpen && previous === isOpen ? 'auto' : height,

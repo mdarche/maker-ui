@@ -36,6 +36,9 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
     },
     ref
   ) => {
+    /**
+     * If container is false, apply `css` prop to the root element
+     */
     const rootCss = container
       ? _css
       : { ...(_css as object), ...(css as object) }

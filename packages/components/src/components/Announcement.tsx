@@ -1,5 +1,12 @@
 import * as React from 'react'
-import { Flex, Button, DivProps, useMeasure } from 'maker-ui'
+import {
+  Flex,
+  Button,
+  DivProps,
+  useMeasure,
+  MakerProps,
+  setClassName,
+} from 'maker-ui'
 import { useSpring, animated, SpringConfig } from 'react-spring'
 
 import { useTracker } from '../hooks'
@@ -30,6 +37,7 @@ export interface AnnouncementProps extends DivProps {
   bottom?: boolean
   top?: boolean
   springConfig?: SpringConfig
+  _css?: MakerProps['css']
 }
 
 /**
@@ -44,6 +52,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     {
       storageKey = 'mui_dismiss_announce',
       background = 'var(--color-primary)',
+      className,
       color = '#fff',
       fixed = false,
       type = 'session',
@@ -52,6 +61,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       closeButton = <CloseIcon />,
       bottom = false,
       springConfig,
+      _css,
       css,
       children,
       ...props
@@ -76,7 +86,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     return active ? (
       <AnimatedDiv
         ref={ref}
-        className="announcement"
+        className={setClassName('announcement', className)}
         style={spring as any}
         css={{
           display: 'flex',
@@ -85,8 +95,12 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
           color,
           willChange: !fixed ? 'height' : undefined,
           ...fixedPartial(fixed, bottom),
+          ...(_css as object),
         }}>
-        <Flex {...bind} css={{ width: '100%', alignItems: 'center' }}>
+        <Flex
+          className="announcement-container"
+          {...bind}
+          css={{ width: '100%', alignItems: 'center' }}>
           <Flex
             className="announcement-text"
             css={{

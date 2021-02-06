@@ -17,7 +17,9 @@ const AccordionPage = () => {
         ))}
       </div>
       <Accordion
+        className="example-accordion"
         activeKey={key}
+        showSingle
         css={{
           margin: 50,
           '.accordion': { borderColor: 'gainsboro' },

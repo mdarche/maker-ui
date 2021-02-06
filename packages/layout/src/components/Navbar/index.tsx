@@ -10,7 +10,7 @@ import { ColorButton } from './ColorButton'
 import { NavMenu, MenuButton, MenuProps } from '../Menu'
 import { WidgetArea } from './WidgetArea'
 import { gridStyles } from './styles'
-import { setBreakpoint } from '../../utils/helper'
+import { setBreakpoint, setClassName } from '../../utils/helper'
 
 export interface NavProps extends MakerProps {
   type?: MakerOptions['header']['navType']
@@ -24,6 +24,7 @@ export interface NavProps extends MakerProps {
   menuArea?: React.ReactNode
   pathname?: string
   maxWidth?: ResponsiveScale
+  className?: string
 }
 
 /** Special cases */
@@ -55,6 +56,7 @@ export const Navbar = (props: NavProps) => {
     menuButton,
     colorButton,
     maxWidth = 'var(--maxWidth_header)',
+    className,
     css,
   } = props
 
@@ -79,7 +81,10 @@ export const Navbar = (props: NavProps) => {
 
   return (
     <Grid
-      className={`nav-grid layout-${layout} m-layout-${mobileLayout}`}
+      className={setClassName(
+        `nav-grid layout-${layout} m-layout-${mobileLayout}`,
+        className
+      )}
       breakpoints={bpArray}
       css={{
         maxWidth,

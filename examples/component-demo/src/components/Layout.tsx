@@ -54,7 +54,7 @@ const menu = [
 export default ({ children, location }) => (
   <Layout styles={styles} options={options}>
     <Topbar>Topbar content</Topbar>
-    <Header absolute={location.pathname === '/accordion' ? true : false}>
+    <Header className="test-header">
       <Navbar logo={'Components Demo'} menu={menu} />
       <MobileMenu center menu={menu} />
     </Header>

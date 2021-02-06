@@ -6,6 +6,7 @@ import {
   DivProps,
   useScrollPosition,
   MakerProps,
+  setClassName,
 } from 'maker-ui'
 
 interface MenuItem {
@@ -42,6 +43,7 @@ export const TableofContents = ({
   indentSize = 10,
   pseudoCss,
   smoothScroll = false,
+  className,
   css,
 }: TocProps) => {
   const [menuItems, setMenu] = React.useState<MenuItem[]>([])
@@ -144,9 +146,11 @@ export const TableofContents = ({
   )
 
   return (
-    <Div css={{ ...(css as object) }}>
+    <Div
+      className={setClassName('toc', className)}
+      css={{ ...(css as object) }}>
       <Div>{title}</Div>
-      <UList css={{ p: 0 }}>
+      <UList className="toc-headings" css={{ p: 0 }}>
         {menuItems.length
           ? menuItems.map(({ id, text, level }: MenuItem, index) => (
               <ListItem

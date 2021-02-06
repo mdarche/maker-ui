@@ -10,7 +10,7 @@ import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
-import { setBreakpoint } from '../utils/helper'
+import { setBreakpoint, setClassName } from '../utils/helper'
 
 interface ContainerProps {
   isHeader: boolean
@@ -47,6 +47,7 @@ export const SideNav = ({
   pathname,
   header,
   footer,
+  className,
   _css,
   css,
   children,
@@ -73,7 +74,7 @@ export const SideNav = ({
       <Container
         isHeader={sideNav.isHeader}
         id="sidenav"
-        className={!active ? 'hide' : null}
+        className={setClassName(!active ? 'hide' : '', className)}
         css={{
           background,
           ...(_css as object),

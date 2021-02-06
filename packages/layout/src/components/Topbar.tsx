@@ -50,9 +50,10 @@ export const Topbar = (props: TopbarProps) => {
     sticky = topbar.sticky,
     stickyOnMobile = topbar.stickyOnMobile,
     scrollOverflow = false,
-    children,
+    className,
     _css,
     css,
+    children,
     ...rest
   } = props
 
@@ -68,6 +69,7 @@ export const Topbar = (props: TopbarProps) => {
     <aside
       {...bind}
       id="topbar"
+      className={className}
       breakpoints={setBreakpoint(topbar.breakpoint, breakpoints)}
       css={{
         background,
