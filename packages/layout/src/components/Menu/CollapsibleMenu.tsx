@@ -23,7 +23,7 @@ interface CollapsibleProps
  * Used as a default menu for `SideNav` and `MobileMenu` when child components
  * are not included and you supply a menu prop.
  *
- * @see https://maker-ui.com/docs/layout/collapsible-menu
+ * @link https://maker-ui.com/docs/layout/collapsible-menu
  */
 
 export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(

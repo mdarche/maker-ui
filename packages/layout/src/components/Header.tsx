@@ -21,7 +21,7 @@ interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
  * The `Header` component stores your site logo, primary menu, mobile menu,
  * and any necessary navigation elements.
  *
- * @see https://maker-ui.com/docs/layout/header
+ * @link https://maker-ui.com/docs/layout/header
  */
 
 export const Header = (props: HeaderProps) => {

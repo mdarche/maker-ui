@@ -10,7 +10,7 @@ interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 /**
  * The `Main` component wraps your layout's main content.
  *
- * @see https://maker-ui.com/docs/layout/main
+ * @link https://maker-ui.com/docs/layout/main
  */
 
 export const Main = ({ background, css, children, ...props }: MainProps) => (

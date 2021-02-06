@@ -14,7 +14,7 @@ export interface GlobalProps {
  * @param styles - a CSS style object
  * @param breakpoints - an array of breakpoints
  *
- * @see https://maker-ui.com/docs/components/global
+ * @link https://maker-ui.com/docs/components/global
  *
  */
 export const Global = ({ styles, breakpoints }: GlobalProps) => {

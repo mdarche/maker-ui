@@ -26,7 +26,7 @@ interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
  * @todo add useTransition to this component for smooth entry and exit
  * @todo refactor and remove the css repetition
  *
- * @see https://maker-ui.com/docs/components/spinner
+ * @link https://maker-ui.com/docs/components/spinner
  */
 
 export const Spinner = ({

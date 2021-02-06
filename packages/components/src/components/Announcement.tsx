@@ -44,7 +44,7 @@ export interface AnnouncementProps extends DivProps {
  * The `Announcement` component renders a dismissable message to the top or bottom of the web page.
  * You can choose the user's session or attach a cookie to determine when it appears / re-appears.
  *
- * @see https://maker-ui.com/docs/components/announcement
+ * @link https://maker-ui.com/docs/components/announcement
  */
 
 export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(

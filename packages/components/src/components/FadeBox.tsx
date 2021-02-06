@@ -23,7 +23,7 @@ export interface FadeBoxProps extends DivProps {
 /**
  * The `FadeBox` component lets you reveal components on scroll.
  *
- * @see https://maker-ui.com/docs/components/fade-box
+ * @link https://maker-ui.com/docs/components/fade-box
  */
 
 export const FadeBox = ({

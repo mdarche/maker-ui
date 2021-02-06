@@ -19,7 +19,7 @@ interface DropdownProps {
  * The `Dropdown` component is a pre-built popover for revealing a menu or supplemental
  * content. It returns a customizable button and the corresponding dropdown content.
  *
- * @see https://maker-ui.com/docs/components/popovers
+ * @link https://maker-ui.com/docs/components/popovers
  */
 
 export const Dropdown = ({

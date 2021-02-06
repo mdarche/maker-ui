@@ -7,7 +7,7 @@ type RecursivePartial<T> = {
 /**
  * Default Maker UI option configuration.
  *
- * @see `MakerOptions` in src/types.ts for complete list of properties.
+ * @link `MakerOptions` in src/types.ts for complete list of properties.
  * @todo - Revisit all of these defaults
  *
  */

@@ -26,7 +26,7 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  *
  * @TODO - revisit hide on mobile / sticky style conflict
  *
- * @see https://maker-ui.com/docs/layout/topbar
+ * @link https://maker-ui.com/docs/layout/topbar
  */
 
 export const Topbar = (props: TopbarProps) => {

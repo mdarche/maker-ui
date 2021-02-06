@@ -44,7 +44,7 @@ export interface CarouselProps extends MakerProps {
  * Use the `Carousel` component to iterate over an array of data objects or React components
  * to show an animated carousel.
  *
- * @see https://maker-ui.com/docs/components/carousel
+ * @link https://maker-ui.com/docs/components/carousel
  */
 
 export const Carousel = ({

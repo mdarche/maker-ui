@@ -17,7 +17,7 @@ interface SectionProps
  * The `Section` component creates new content sections that support full-width
  * backgrounds with custom max-width inner content.
  *
- * @see https://maker-ui.com/docs/layout/section
+ * @link https://maker-ui.com/docs/layout/section
  */
 
 export const Section = forwardRef<HTMLElement, SectionProps>(

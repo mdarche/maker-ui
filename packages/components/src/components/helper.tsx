@@ -101,7 +101,7 @@ export function generateSrc(options: RandomImage[] = []) {
  *
  * @returns {number} Returns the clamped number.
  *
- * @see https://github.com/lodash/lodash/blob/master/clamp.js
+ * @link https://github.com/lodash/lodash/blob/master/clamp.js
  */
 export function clamp(number: number, lower: number, upper: number): number {
   number = +number

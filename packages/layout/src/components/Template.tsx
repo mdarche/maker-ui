@@ -112,7 +112,7 @@ const SiteInner = ({
  * Use the `Template` component to quickly build layouts. You can supply an assortment
  * of React elements as props and customize with your `theme` and `options` objects.
  *
- * @see https://maker-ui.com/docs/layout/template
+ * @link https://maker-ui.com/docs/layout/template
  */
 
 export const Template = ({

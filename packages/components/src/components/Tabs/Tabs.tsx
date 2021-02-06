@@ -21,7 +21,7 @@ export interface TabGroupProps extends DivProps {
  *
  * @todo add preset styles
  *
- * @see https://maker-ui.com/docs/components/tabs
+ * @link https://maker-ui.com/docs/components/tabs
  */
 
 export const Tabs = ({

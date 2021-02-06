@@ -23,7 +23,7 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
  * additional information on hover. It includes a wrapper element as well as semantically
  * correct button toggle.
  *
- * @see https://maker-ui.com/docs/components/popovers
+ * @link https://maker-ui.com/docs/components/popovers
  */
 
 export const Tooltip = ({

@@ -32,7 +32,7 @@ function parseProps(props: any) {
  * @remarks
  * This is just a prop-formatting wrapper for Emotion's jsx export
  *
- * @see https://maker-ui.com/docs/jsx
+ * @link https://maker-ui.com/docs/jsx
  *
  */
 

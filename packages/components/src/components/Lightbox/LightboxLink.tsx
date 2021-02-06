@@ -12,7 +12,7 @@ export interface LightboxLinkProps extends MakerProps, LightboxData {
  * The `LightboxLink` renders clickable elements that toggle the Lightbox detail view.
  * Must be wrapped inside a `Lightbox` component.
  *
- * @see https://maker-ui.com/docs/components/lightbox
+ * @link https://maker-ui.com/docs/components/lightbox
  */
 
 export const LightboxLink = React.forwardRef<

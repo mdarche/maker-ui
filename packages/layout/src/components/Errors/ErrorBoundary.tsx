@@ -21,7 +21,7 @@ export interface ErrorProps {
  * Use the `ErrorBoundary` to wrap your component with a fallback UI for
  * errors in production. You can use a custom logFunction or supply one to MakerOptions.
  *
- * @see https://maker-ui.com/docs/error-boundary
+ * @link https://maker-ui.com/docs/error-boundary
  */
 
 export class ErrorBoundary extends React.Component<ErrorProps, ErrorState> {

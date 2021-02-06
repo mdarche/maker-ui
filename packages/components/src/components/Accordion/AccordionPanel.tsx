@@ -23,7 +23,7 @@ export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
 /**
  * The `AccordionPanel` component wraps all collapsible accordion content.
  *
- * @see https://maker-ui.com/docs/components/accordion-panel
+ * @link https://maker-ui.com/docs/components/accordion-panel
  */
 
 export const AccordionPanel = React.forwardRef<

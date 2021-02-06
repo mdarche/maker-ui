@@ -18,7 +18,7 @@ interface ContentProps
  *
  * Use it to wrap everything between your `Header` and `Footer` components.
  *
- * @see https://maker-ui.com/docs/layout/content
+ * @link https://maker-ui.com/docs/layout/content
  */
 
 export const Content = ({ children, css, ...props }: ContentProps) => {

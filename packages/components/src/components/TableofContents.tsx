@@ -31,7 +31,7 @@ interface TocProps extends Omit<DivProps, 'title'> {
  * The `TableofContents` component queries the DOM for all heading tags that
  * have an ID. It then creates an indented / scroll activated list of heading links.
  *
- * @see https://maker-ui.com/docs/components/tableofcontents
+ * @link https://maker-ui.com/docs/components/tableofcontents
  */
 
 export const TableofContents = ({

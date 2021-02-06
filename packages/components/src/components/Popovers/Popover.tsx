@@ -45,7 +45,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
  * Use the `Popover` to customize your own components, otherwise try out the pre-configured
  * `Tooltip` or `Dropdown` components.
  *
- * @see https://maker-ui.com/docs/components/popovers
+ * @link https://maker-ui.com/docs/components/popovers
  */
 
 export const Popover = ({

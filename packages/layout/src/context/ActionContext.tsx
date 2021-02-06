@@ -68,7 +68,7 @@ const ActionProvider = ({ children }: ActionProviderProps) => {
 /**
  * Returns the current state and a toggle function for the `MobileMenu`
  *
- * @see https://maker-ui.com/hooks/#useMenu
+ * @link https://maker-ui.com/hooks/#useMenu
  */
 
 function useMenu(): [boolean, () => void] {
@@ -89,7 +89,7 @@ function useMenu(): [boolean, () => void] {
 /**
  * Returns the current state and a toggle function for the `SideNav`
  *
- * @see https://maker-ui.com/hooks/#useSideNav
+ * @link https://maker-ui.com/hooks/#useSideNav
  */
 
 function useSideNav(): [boolean, () => void] {
@@ -112,7 +112,7 @@ function useSideNav(): [boolean, () => void] {
 /**
  * Returns the current state and a toggle function for the left or right `Workspace.Panel`
  *
- * @see https://maker-ui.com/hooks/#usePanel
+ * @link https://maker-ui.com/hooks/#usePanel
  */
 
 function usePanel(panel: 'left' | 'right'): [boolean, () => void] {

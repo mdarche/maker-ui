@@ -17,7 +17,7 @@ interface ColorButtonProps extends ButtonProps {
  * @todo - Find a way to efficiently sync multiple instances of ColorButton without using
  * an app provider
  *
- * @see https://maker-ui.com/docs/layout/buttons/#colorButton
+ * @link https://maker-ui.com/docs/layout/buttons/#colorButton
  */
 
 export const ColorButton = ({

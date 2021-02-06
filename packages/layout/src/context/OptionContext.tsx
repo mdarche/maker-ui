@@ -40,7 +40,7 @@ const OptionProvider = ({ options, children }: OptionProviderProps) => {
 /**
  * Retrieves the current Maker UI options configuration.
  *
- * @see https://maker-ui.com/hooks/#useOptions
+ * @link https://maker-ui.com/hooks/#useOptions
  */
 
 function useOptions(): MakerOptions {
@@ -58,7 +58,7 @@ function useOptions(): MakerOptions {
 /**
  * Allows you to update the current Maker UI options configuration.
  *
- * @see https://maker-ui.com/hooks/#useOptionsUpdater
+ * @link https://maker-ui.com/hooks/#useOptionsUpdater
  */
 
 function useOptionsUpdater() {

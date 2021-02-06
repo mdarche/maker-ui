@@ -18,7 +18,7 @@ interface MenuButtonProps extends ButtonProps {
  * The `MenuButton` controls opening / closing the `MobileMenu`. It is included
  * inside the Navbar component but can be used anywhere inside your layout.
  *
- * @see https://maker-ui.com/docs/layout/buttons/#menuButton
+ * @link https://maker-ui.com/docs/layout/buttons/#menuButton
  */
 
 export const MenuButton = ({

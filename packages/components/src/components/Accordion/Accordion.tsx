@@ -20,7 +20,7 @@ export interface AccordionProps extends DivProps {
  * The `Accordion` shows collapsible panel content that can be toggled via
  * `activeKey` prop or the panel title buttle.
  *
- * @see https://maker-ui.com/docs/components/accordion
+ * @link https://maker-ui.com/docs/components/accordion
  */
 
 export const Accordion = ({

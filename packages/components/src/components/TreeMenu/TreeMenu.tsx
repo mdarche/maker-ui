@@ -11,7 +11,7 @@ interface TreeMenuProps extends TreeContextProps, DivProps {}
  * The `TreeMenu` wraps all child `TreeItem` components to control the styles
  * and behaviors for all nested expanded or collapsed states.
  *
- * @see https://maker-ui.com/docs/components/tree-menu
+ * @link https://maker-ui.com/docs/components/tree-menu
  */
 
 export const TreeMenu = ({

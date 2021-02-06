@@ -37,7 +37,7 @@ interface SideNavProps
  * content. It can be toggled open or closed on mobile or it can serve as the page's
  * primary <header> tag.
  *
- * @see https://maker-ui.com/docs/layout/sidenav
+ * @link https://maker-ui.com/docs/layout/sidenav
  */
 
 export const SideNav = ({

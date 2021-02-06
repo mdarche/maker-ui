@@ -33,7 +33,7 @@ interface MobileMenuProps
 /**
  * The `MobileMenu` component lets you customize a responsive overlay menu for mobile navigation.
  *
- * @see https://maker-ui.com/docs/layout/mobile-menu
+ * @link https://maker-ui.com/docs/layout/mobile-menu
  */
 
 export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(

@@ -13,7 +13,7 @@ interface SidebarProps
 /**
  * The `Sidebar` component shows complementary content alongside the `Main` component..
  *
- * @see https://maker-ui.com/docs/layout/sidebar
+ * @link https://maker-ui.com/docs/layout/sidebar
  */
 
 export const Sidebar = ({

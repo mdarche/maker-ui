@@ -38,7 +38,7 @@ const SEOContext = React.createContext<SEOContextType>({
  * The `SEOProvider` wraps your application's page content and supplies default
  * values to all nested `SEO` components.
  *
- * @see https://maker-ui.com/docs/components/seo
+ * @link https://maker-ui.com/docs/components/seo
  */
 
 const SEOProvider = (props: SEOProviderProps) => {
@@ -55,7 +55,7 @@ const SEOProvider = (props: SEOProviderProps) => {
  * You can use an `SEO` component anywhere in a page or post layout to inject
  * SEO tags into the document `<head>`. Powered by React Helmet.
  *
- * @see https://maker-ui.com/docs/components/seo
+ * @link https://maker-ui.com/docs/components/seo
  */
 
 const SEO = (props: SEOProps) => {

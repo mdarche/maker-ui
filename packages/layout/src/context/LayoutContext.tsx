@@ -92,7 +92,7 @@ const LayoutProvider = ({ styles, children }: LayoutProviderProps) => {
 /**
  * Retrieves and allows you to edit the current nav, content, and workspace layout
  *
- * @see https://maker-ui.com/hooks/#useLayout
+ * @link https://maker-ui.com/hooks/#useLayout
  */
 
 function useLayout<T extends 'content' | 'workspace' | 'nav' | 'mobileNav'>(

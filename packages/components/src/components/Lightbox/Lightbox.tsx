@@ -28,7 +28,7 @@ export interface LightboxProps
 /**
  * The `Lightbox` component displays a modal lightbox gallery or detail view.
  *
- * @see https://maker-ui.com/docs/components/lightbox
+ * @link https://maker-ui.com/docs/components/lightbox
  */
 
 export const Lightbox = ({
