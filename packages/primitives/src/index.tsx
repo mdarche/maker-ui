@@ -44,10 +44,10 @@ export interface FlexProps extends DivProps {
  * A pre-styled div with quick access to CSS Flex properties.
  *
  * @param align - shortcut for responsive `alignItems` property
- * @param direction - shorthand for responsive `flexDirection` property
- * @param flex - shorthand for responsive `flex` property
+ * @param direction - shortcut for responsive `flexDirection` property
+ * @param flex - shotcut for responsive `flex` property
  * @param inline - a boolean that sets the `display` property to `inline-flex`
- * @param justify - shorthand for responsive `justifyContent` property
+ * @param justify - shortcut for responsive `justifyContent` property
  * @param wrap - a boolean for that sets the `flex-wrap` property to `wrap`
  *
  * @link https://maker-ui.com/docs/primitives/
@@ -246,7 +246,7 @@ export interface LinkProps
     React.AnchorHTMLAttributes<HTMLAnchorElement> {}
 
 /**
- * A theme-enabled `a` tag.
+ * An anchor tag that supports responsive css values and the breakpoints prop.
  *
  * @link https://maker-ui.com/docs/primitives/
  */

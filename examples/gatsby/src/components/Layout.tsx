@@ -26,6 +26,4 @@ const App = ({ children }) => {
   )
 }
 
-// TODO - Add heading and image tags to primitive
-
 export default App

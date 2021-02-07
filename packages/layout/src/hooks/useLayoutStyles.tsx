@@ -75,7 +75,9 @@ export function useLayoutStyles(layout: string): object {
 
     /**
      * Check for measurements to complete before adding transition style
+     *
      * @todo Find a mobile `sidenav-content` solution for when <Header> does not exist
+     *
      */
     const getTransition = () => {
       if (!sideNav.isHeader) {

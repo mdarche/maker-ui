@@ -23,6 +23,8 @@ export interface FadeBoxProps extends DivProps {
 /**
  * The `FadeBox` component lets you reveal components on scroll.
  *
+ * @todo make this a more general 'AnimateBox' that is triggered by scroll
+ *
  * @link https://maker-ui.com/docs/components/fade-box
  */
 

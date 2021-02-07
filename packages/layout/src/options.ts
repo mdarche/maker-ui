@@ -74,7 +74,7 @@ export const defaultOptions: RecursivePartial<MakerOptions> = {
     showToggleOnMobile: true,
     toggleButton: 'default',
     closeOnBlur: true,
-    closeOnRouteChange: true, // TODO mobile only
+    closeOnRouteChange: true,
     cssTransition: 'transform ease .3s',
     breakpoint: 0,
   },

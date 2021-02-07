@@ -1,6 +1,6 @@
 import * as React from 'react'
 import merge from 'deepmerge'
-import { ThemeProvider } from '@emotion/react'
+import { ThemeProvider, Theme } from '@emotion/react'
 
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
@@ -9,12 +9,11 @@ import { Skiplinks, LinkItem } from './Skiplinks'
 import { ErrorBoundary } from './Errors'
 import { MakerOptions } from '../types'
 
-/** @todo add type to styles and theme */
 interface LayoutProps {
   children: React.ReactNode
   options: Partial<MakerOptions>
   styles?: object
-  theme?: object
+  theme?: Theme
   skiplinks?: LinkItem[]
 }
 

@@ -13,7 +13,7 @@ import merge from 'deepmerge'
 import { clamp } from '../helper'
 
 import { Navigation } from './Navigation'
-import { Pagination } from './Pagination'
+import { Pagination, Position } from './Pagination'
 
 export interface CarouselProps extends MakerProps {
   data: Object[]
@@ -22,12 +22,15 @@ export interface CarouselProps extends MakerProps {
   className?: string
   settings?: {
     autoPlay?: boolean
-    showNav?: boolean
-    pageIndicator?: boolean
+    arrows?: boolean
+    arrowPadding?: ResponsiveScale
+    dots?: boolean
+    dotPosition?: Position
+    dotPadding?: ResponsiveScale
+    dotSpacing?: ResponsiveScale
+    dotColorActive?: string
+    dotColorMuted?: string
     infiniteScroll?: boolean
-    hideControlsDelay?: number // TODO
-    hideControlsOnMobile?: boolean // TODO
-    showControlsOnHover?: boolean // TODO
     duration?: number // milliseconds
     spinner?: React.ReactElement
     arrow?:
@@ -36,9 +39,10 @@ export interface CarouselProps extends MakerProps {
     transition?: 'fade' | 'slide' | 'scale'
     fadeDuration?: number // seconds
     springConfig?: SpringConfig
-    breakIndex?: boolean
   }
 }
+
+const AnimatedDiv = animated(Div)
 
 /**
  * Use the `Carousel` component to iterate over an array of data objects or React components
@@ -60,7 +64,7 @@ export const Carousel = ({
   const carouselRef = React.useRef<any>(null)
   const [active, setActive] = React.useState(0)
   const [isPaused, setPause] = React.useState(false)
-  const [, { width }] = useMeasure({ externalRef: carouselRef })
+  const [, { width }] = useMeasure({ ref: carouselRef })
 
   /**
    * Merge user settings with defaults (bottom of file)
@@ -69,9 +73,14 @@ export const Carousel = ({
     infiniteScroll,
     autoPlay,
     duration,
-    showNav,
+    arrows,
     arrow,
-    pageIndicator,
+    dots,
+    dotPosition,
+    dotPadding,
+    dotSpacing,
+    dotColorMuted,
+    dotColorActive,
     transition,
     fadeDuration,
     springConfig,
@@ -238,28 +247,9 @@ export const Carousel = ({
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
+        zIndex: 0,
         height,
         ...(css as object),
-        '.slide-container': {},
-        '.slide': {
-          position: 'absolute',
-          display: 'block',
-          top: 0,
-          left: 0,
-          height: '100%',
-          width: '100%',
-          willChange: 'transform',
-          opacity: transition === 'fade' ? 0 : undefined,
-          transition:
-            transition === 'fade'
-              ? `opacity ${fadeDuration}s ease-in-out`
-              : undefined,
-        },
-        '.slide-inner': {
-          height: '100%',
-          width: '100%',
-          willChange: 'transform',
-        },
         button: {
           zIndex: 100,
         },
@@ -267,7 +257,7 @@ export const Carousel = ({
       {...rest}>
       <Div className="slide-container">
         {props.map(({ x, scale }, i) => (
-          <animated.div
+          <AnimatedDiv
             className={`slide${active === i ? ' active' : ''}`}
             {...bind()}
             key={i}
@@ -276,23 +266,53 @@ export const Carousel = ({
                 opacity: transition === 'fade' && active === i && 1,
                 x: transition !== 'fade' && x,
               } as object
-            }>
-            <animated.div
+            }
+            css={{
+              position: 'absolute',
+              display: 'block',
+              top: 0,
+              left: 0,
+              height: '100%',
+              width: '100%',
+              willChange: 'transform',
+              opacity: transition === 'fade' ? 0 : undefined,
+              transition:
+                transition === 'fade'
+                  ? `opacity ${fadeDuration}s ease-in-out`
+                  : undefined,
+            }}>
+            <AnimatedDiv
               className="slide-inner"
               style={
                 {
                   scale: transition === 'scale' && scale,
                 } as object
-              }>
+              }
+              css={{
+                height: '100%',
+                width: '100%',
+                willChange: 'transform',
+              }}>
               {React.cloneElement(template, data[i])}
-            </animated.div>
-          </animated.div>
+            </AnimatedDiv>
+          </AnimatedDiv>
         ))}
       </Div>
 
-      {showNav ? <Navigation navigate={navigate} arrow={arrow} /> : null}
-      {pageIndicator ? (
-        <Pagination navigate={navigate} current={active} count={data.length} />
+      {arrows ? <Navigation navigate={navigate} arrow={arrow} /> : null}
+      {dots ? (
+        <Pagination
+          navigate={navigate}
+          current={active}
+          count={data.length}
+          settings={{
+            dotPadding,
+            dotSpacing,
+            dotPosition: dotPosition as Position,
+            mutedColor: dotColorMuted,
+            activeColor: dotColorActive,
+          }}
+        />
       ) : null}
     </Div>
   )
@@ -308,8 +328,14 @@ function mergeSettings(settings: CarouselProps['settings']) {
   return merge(
     {
       autoPlay: false,
-      showNav: true,
-      pageIndicator: true,
+      arrows: true,
+      arrowPadding: 30,
+      dots: true,
+      dotPosition: 'bottom',
+      dotPadding: 30,
+      dotSpacing: 10,
+      dotColorMuted: 'rgba(0, 0, 0, 0.25)',
+      dotColorActive: 'red',
       infiniteScroll: false,
       hideControls: false,
       arrow: undefined,

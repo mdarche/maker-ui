@@ -4,7 +4,7 @@ import ResizeObserver from 'resize-observer-polyfill'
 export interface MeasureProps {
   observe?: boolean
   contentRect?: boolean
-  externalRef?: React.MutableRefObject<any>
+  ref?: React.MutableRefObject<any>
   documentResize?: boolean
   timeout?: number
 }
@@ -26,14 +26,12 @@ export interface MeasureState {
  * @param observe - Boolean that determines whether the hook should connect the Resize Observer
  * @param contentRect - Boolean that returns the node's content rect if true, otherwise it will
  * calculate getClientBoundingRect()
- * @param externalRef - If you can't bind the output ref to your component, you can also supply
+ * @param ref - If you can't bind the output ref to your component, you can also supply
  * another React ref object to make the size calculations.
  * @param documentResize - Boolean that recalculates the measurements of a ref when the document
  * body (window) is resized
  * @param timeout - Number in milliseconds that defers the initial ref measurement.
  * Useful if a parent container has a mounting animation like the `PageTransition`.
- *
- * @todo rename `externalRef` to ref --> less confusing
  *
  * @link https://maker-ui.com/docs/hooks/#useMeasure
  *
@@ -43,12 +41,12 @@ export function useMeasure(
 ): [{ ref: React.MutableRefObject<any> }, MeasureState] {
   const observe = props?.observe || true
   const contentRect = props?.contentRect || false
-  const externalRef = props?.externalRef
+  const ref = props?.ref
   const documentResize = props?.documentResize
   const timeout = props?.timeout || 0
 
   const localRef = useRef(null)
-  const ref = externalRef || localRef
+  const hookRef = ref || localRef
 
   const [bounds, set] = useState<MeasureState>({
     top: 0,
@@ -64,7 +62,7 @@ export function useMeasure(
     () =>
       new ResizeObserver(([entry]) => {
         const { top, bottom, left, right, width, height } = documentResize
-          ? ref.current.getBoundingClientRect()
+          ? hookRef.current.getBoundingClientRect()
           : contentRect
           ? entry.contentRect
           : entry.target.getBoundingClientRect()
@@ -75,15 +73,15 @@ export function useMeasure(
 
   useEffect(() => {
     if (observe) {
-      if (ref.current) {
+      if (hookRef.current) {
         setTimeout(() => {
           ro.observe(
-            documentResize ? document.querySelector('body') : ref.current
+            documentResize ? document.querySelector('body') : hookRef.current
           )
         }, timeout)
       }
       return () => ro.disconnect()
     }
-  }, [observe, ref, ro, documentResize, timeout])
-  return [{ ref }, bounds]
+  }, [observe, hookRef, ro, documentResize, timeout])
+  return [{ ref: hookRef }, bounds]
 }

@@ -14,7 +14,7 @@ interface ColorButtonProps extends ButtonProps {
  * The `ColorButton` is used by `Navbar` to show the current color mode and let you toggle
  * to other color presets. You can also use this button anywhere within your layout.
  *
- * @todo - Find a way to efficiently sync multiple instances of ColorButton without using
+ * @todo - Find a way to (efficiently) sync multiple instances of ColorButton without using
  * an app provider
  *
  * @link https://maker-ui.com/docs/layout/buttons/#colorButton

@@ -75,7 +75,7 @@ export const Popover = ({
   const [initialRender, setInitialRender] = React.useState(true)
   const { options } = useMakerUI()
   const [, box] = useMeasure({
-    externalRef: anchorRef,
+    ref: anchorRef,
     documentResize: true,
     timeout: defer || options.content.deferMeasurements,
   })
