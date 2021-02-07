@@ -11,6 +11,7 @@ import {
   getStyles,
 } from '../../utils/styles-submenu'
 import { MakerOptions } from '../../types'
+import { setClassName } from '../../utils/helper'
 
 export interface MenuProps {
   label: string
@@ -74,30 +75,40 @@ export const MenuItem = memo(
 
     return (
       <li
-        className={`menu-item${classes && ' ' + classes}`}
+        className={setClassName('menu-item', classes)}
         css={
-          isHeader && {
-            position: 'relative',
-            display: 'inline-flex',
-            '&:focus-within > .submenu, &:hover > .submenu': {
-              ...dropdownStyles(header.dropdown.transition),
-            },
-            '> a .menu-text:after':
-              submenu && caret === 'default' && caretStyles,
-          }
+          isHeader
+            ? {
+                position: 'relative',
+                display: 'inline-flex',
+                '&:focus-within > .submenu, &:hover > .submenu': {
+                  ...dropdownStyles(header.dropdown.transition),
+                },
+                '> a .menu-text:after':
+                  submenu && caret === 'default' && caretStyles,
+              }
+            : undefined
         }>
-        {linkFunction ? (
-          linkFunction(path, label, attributes, icon)
-        ) : (
-          <Link href={path} {...attributes}>
-            {icon ? <span className="menu-icon">{icon}</span> : undefined}
-            <span className="menu-text">{label}</span>
-            {submenu && caret && isValidElement(caret) ? caret : null}
-          </Link>
-        )}
+        <ConditionalWrapper
+          condition={!isHeader && submenu ? true : false}
+          wrapper={children => <div css={{ display: 'flex' }}>{children}</div>}>
+          <Fragment>
+            {linkFunction ? (
+              linkFunction(path, label, attributes, icon)
+            ) : (
+              <Link href={path} {...attributes}>
+                {icon ? <span className="menu-icon">{icon}</span> : undefined}
+                <span className="menu-text">{label}</span>
+                {submenu && caret && isValidElement(caret) ? caret : null}
+              </Link>
+            )}
+            {!isHeader && submenu ? (
+              <ExpandButton set={setNested} show={showNested} />
+            ) : null}
+          </Fragment>
+        </ConditionalWrapper>
         {submenu && (
           <Fragment>
-            {!isHeader && <ExpandButton set={setNested} show={showNested} />}
             {isHeader || (!isHeader && showNested) ? (
               <ul
                 className={submenuClass}
@@ -127,3 +138,15 @@ export const MenuItem = memo(
 )
 
 MenuItem.displayName = 'MenuItem'
+
+interface ConditionalProps {
+  condition: boolean
+  wrapper: (children: React.ReactNode) => React.ReactElement
+  children: React.ReactElement
+}
+const ConditionalWrapper = ({
+  condition,
+  wrapper,
+  children,
+}: ConditionalProps): React.ReactElement =>
+  condition ? wrapper(children) : children
