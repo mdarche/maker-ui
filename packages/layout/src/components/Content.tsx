@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, MakerProps } from '@maker-ui/css'
+import { useState, useEffect } from 'react'
 
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { ContentError } from './Errors/Errors'
@@ -22,11 +23,14 @@ interface ContentProps
  */
 
 export const Content = ({ children, css, ...props }: ContentProps) => {
+  const [initialRender, setInitialRender] = useState(true)
   const { framework, content, sideNav, breakpoints } = useOptions()
-  const { layout, showError, initialRender } = useLayoutDetector(
-    'content',
-    children
-  )
+  const { layout, showError } = useLayoutDetector('content', children)
+
+  useEffect(() => {
+    setInitialRender(false)
+  }, [])
+
   const layoutStyles = useLayoutStyles(layout)
   const bp = layout.includes('sidenav')
     ? sideNav.breakpoint
@@ -39,7 +43,7 @@ export const Content = ({ children, css, ...props }: ContentProps) => {
       css={{
         position: 'relative',
         visibility:
-          framework === 'gatsby' && initialRender ? ['hidden'] : undefined,
+          framework === 'gatsby' && initialRender ? 'hidden' : undefined,
         ...layoutStyles,
         ...(css as object),
       }}

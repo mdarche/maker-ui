@@ -21,7 +21,7 @@ const OptionUpdateContext = React.createContext<
  * @internal usage only
  */
 
-const OptionProvider = ({ options, children }: OptionProviderProps) => {
+const OptionProvider = ({ options = {}, children }: OptionProviderProps) => {
   const [state, setState] = React.useState<MakerOptions>(
     merge(defaultOptions, options, {
       arrayMerge: (_, source, __) => source,

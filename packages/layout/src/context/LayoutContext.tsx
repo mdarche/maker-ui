@@ -52,7 +52,7 @@ export const LayoutContext = React.createContext<LayoutContextType>({
  * @internal usage only
  */
 
-const LayoutProvider = ({ styles, children }: LayoutProviderProps) => {
+const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
   const options = useOptions()
   const [state, setState] = React.useState<LayoutState>({
     layout_nav: options.header.navType,
@@ -199,7 +199,6 @@ function useLayoutDetector<
 >(type: T, children: K) {
   const [layout, setLayout] = useLayout(type)
   const [showError, setShowError] = React.useState(false)
-  const [initialRender, setInitialRender] = React.useState(true)
 
   React.useEffect(() => {
     if (children) {
@@ -212,16 +211,14 @@ function useLayoutDetector<
       if (isValidLayout) {
         if (layout !== currentLayout) {
           setLayout(currentLayout as LayoutString<T>)
-          if (initialRender) setInitialRender(false)
         }
       } else {
         setShowError(true)
-        if (initialRender) setInitialRender(false)
       }
     }
-  }, [layout, setLayout, type, initialRender, children])
+  }, [layout, setLayout, type, children])
 
-  return { layout, showError, initialRender }
+  return { layout, showError }
 }
 
 export { LayoutProvider, useMeasurements, useLayout, useLayoutDetector }

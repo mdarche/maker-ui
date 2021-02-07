@@ -24,8 +24,8 @@ interface LayoutProps {
  */
 
 export const Layout = ({
-  options = {},
-  styles = {},
+  options,
+  styles,
   theme = {},
   skiplinks,
   children,

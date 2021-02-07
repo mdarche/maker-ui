@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { MakerOptions } from 'maker-ui'
+import { MakerUIOptions } from 'maker-ui'
 
-export const options: Partial<MakerOptions> = {
+export const options: MakerUIOptions = {
   framework: 'gatsby',
   breakpoints: ['510px', '730px', '1280px'],
   fonts: {
@@ -52,7 +52,7 @@ export const options: Partial<MakerOptions> = {
     breakpoint: 0,
   },
   header: {
-    navType: 'basic',
+    navType: 'center',
     mobileNavType: 'basic',
     maxWidth: [500, '100%'],
     sticky: true,

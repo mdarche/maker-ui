@@ -3,6 +3,19 @@ import { ResponsiveScale } from '@maker-ui/css'
 
 import { mobileNavTypes, navTypes, transitionTypes } from './constants'
 
+type NestedPartial<T> = {
+  [P in keyof T]?: NestedPartial<T[P]>
+}
+
+/**
+ * Configuration for the Maker UI layout system.
+ *
+ * @link https://maker-ui.com/docs/maker-options
+ *
+ */
+
+export type MakerUIOptions = NestedPartial<MakerOptions>
+
 type ThemeColors = {
   [key: string]: {
     /** The site's primary text color. */

@@ -139,7 +139,7 @@ export const MenuItem = memo(
 
 MenuItem.displayName = 'MenuItem'
 
-interface ConditionalProps {
+interface ConditionalWrapperProps {
   condition: boolean
   wrapper: (children: React.ReactNode) => React.ReactElement
   children: React.ReactElement
@@ -148,5 +148,5 @@ const ConditionalWrapper = ({
   condition,
   wrapper,
   children,
-}: ConditionalProps): React.ReactElement =>
+}: ConditionalWrapperProps): React.ReactElement =>
   condition ? wrapper(children) : children
