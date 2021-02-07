@@ -192,7 +192,7 @@ export const Popover = ({
   }, [handleKeyDown])
 
   /**
-   * Configure the React-spring useTransition animation
+   * Configure the React-spring useTransition hook
    */
 
   const animate = useTransition(show ? [1] : [], {
@@ -288,7 +288,7 @@ export const Popover = ({
 Popover.displayName = 'Popover'
 
 /**
- * Helper function that returns a CSS transform string
+ * Returns a CSS transform string
  */
 
 const getTransform = (type: string) => {

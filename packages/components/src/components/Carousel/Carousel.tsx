@@ -12,7 +12,7 @@ import merge from 'deepmerge'
 
 import { clamp } from '../helper'
 
-import { Navigation } from './Navigation'
+import { NavArrows } from './NavArrows'
 import { Pagination, Position } from './Pagination'
 
 export interface CarouselProps extends MakerProps {
@@ -75,6 +75,7 @@ export const Carousel = ({
     duration,
     arrows,
     arrow,
+    arrowPadding,
     dots,
     dotPosition,
     dotPadding,
@@ -299,7 +300,13 @@ export const Carousel = ({
         ))}
       </Div>
 
-      {arrows ? <Navigation navigate={navigate} arrow={arrow} /> : null}
+      {arrows ? (
+        <NavArrows
+          navigate={navigate}
+          arrow={arrow}
+          arrowPadding={arrowPadding}
+        />
+      ) : null}
       {dots ? (
         <Pagination
           navigate={navigate}

@@ -90,7 +90,7 @@ const CarouselPage = () => (
       template={<BasicSlide />}
       settings={{
         autoPlay: true,
-        dotPosition: 'right',
+        dotPosition: 'bottom',
         dotColorMuted: 'blue',
         // progressBar: true,
         // transition: 'fade',
