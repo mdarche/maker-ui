@@ -52,16 +52,11 @@ export const NavButton = ({ type }: NavButtonProps) => {
 
 NavButton.displayName = 'LightboxNavButton'
 
-/**
- * Utility for calculating absolute positioning
- */
-
+/** Calculate absolute position X */
 const position = (isNext: boolean) =>
   isNext ? { right: '10px' } : { left: '10px' }
 
-/**
- * Utility for reflecting the arrow icon
- */
+/** Reflect the arrow icon */
 
 const transform = (isNext: boolean) =>
   isNext

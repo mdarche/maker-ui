@@ -33,7 +33,7 @@ export interface LightboxProps
 
 export const Lightbox = ({
   data,
-  toggle,
+  set,
   show,
   settings,
   css,
@@ -41,11 +41,7 @@ export const Lightbox = ({
   ...props
 }: LightboxProps) => {
   return (
-    <LightboxContext
-      data={data}
-      show={show}
-      settings={settings}
-      toggle={toggle}>
+    <LightboxContext data={data} settings={settings} show={show} set={set}>
       <LightboxModal css={{ ...(css as object) }} {...props}>
         {children}
       </LightboxModal>

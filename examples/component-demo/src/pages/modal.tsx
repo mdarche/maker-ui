@@ -39,7 +39,7 @@ const ModalPage = () => {
       <Modal
         id="modal-root"
         show={show}
-        toggle={set}
+        set={set}
         focusRef={ref}
         closeOnBlur
         center>

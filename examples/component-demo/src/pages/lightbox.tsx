@@ -51,7 +51,7 @@ const LightboxPage = () => {
         </Lightbox.Link>
       </Lightbox>
       {/* Test with data array */}
-      <Lightbox show={show} toggle={set} data={galleryData} focusRef={ref} />
+      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} />
     </div>
   )
 }

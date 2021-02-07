@@ -19,8 +19,8 @@ export interface LightboxData {
 interface LightboxContextProps {
   data?: LightboxData[]
   settings: LightboxProps['settings']
-  show: boolean
-  toggle: LightboxProps['toggle']
+  show?: boolean
+  set?: LightboxProps['set']
   children: React.ReactNode
 }
 
@@ -29,7 +29,7 @@ interface LightboxState {
   active: boolean
   data: LightboxData[]
   settings: LightboxProps['settings']
-  toggle: LightboxProps['toggle']
+  set: LightboxProps['set']
 }
 
 const videoFormats = ['.mp4', '.ogg', '.webm']
@@ -50,7 +50,7 @@ export const LightboxContext = ({
   data = [],
   settings = {},
   show,
-  toggle,
+  set,
   children,
 }: LightboxContextProps) => {
   const [state, setState] = React.useState<LightboxState>({
@@ -58,11 +58,13 @@ export const LightboxContext = ({
     active: false,
     data: data.map(i => formatData(i)),
     settings: mergeSettings(settings),
-    toggle,
+    set,
   })
 
   React.useEffect(() => {
-    setState(s => ({ ...s, active: show }))
+    if (show) {
+      setState(s => ({ ...s, active: show }))
+    }
   }, [show])
 
   return (
@@ -84,7 +86,7 @@ LightboxContext.displayName = 'LightboxContext'
  */
 
 export function useLightbox(): any {
-  const { active, index, data, settings, toggle } = React.useContext(
+  const { active, index, data, settings, set } = React.useContext(
     LightboxDataContext
   )
   const setState = React.useContext(LightboxUpdateContext)
@@ -102,11 +104,11 @@ export function useLightbox(): any {
       const current = data.findIndex(i => i.id === id)
       return setState(s => ({ ...s, active: !s.active, index: current }))
     }
-    return toggle ? toggle(false) : setState(s => ({ ...s, active: false }))
+    return set ? set(false) : setState(s => ({ ...s, active: false }))
   }
 
   /**
-   * Registers and formats a `LightboxData` object to the Lightbox context
+   * Registers a `LightboxData` object to the Lightbox context
    */
 
   function addToGallery(item: LightboxData) {

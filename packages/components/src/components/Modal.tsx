@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTransition, animated, SpringConfig } from 'react-spring'
-import { Div, DivProps } from 'maker-ui'
+import { Div, DivProps, setClassName } from 'maker-ui'
 
 import { Portal } from './Portal'
 import { useFocus } from '../hooks'
@@ -8,13 +8,13 @@ import { useFocus } from '../hooks'
 const AnimatedDiv = animated(Div)
 
 export interface ModalProps extends DivProps {
-  show: boolean
-  toggle: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
+  show?: boolean
+  set?: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
   background?: string | string
   appendTo?: string
   title?: string
   closeOnBlur?: boolean
-  focusRef: React.MutableRefObject<any> | any
+  focusRef?: React.MutableRefObject<any> | any
   style?: any
   center?: boolean
   springConfig?: SpringConfig
@@ -32,21 +32,25 @@ export const Modal = ({
   title = 'Modal Dialog',
   closeOnBlur = false,
   show,
-  toggle,
+  set,
   focusRef,
   center = false,
   background = 'rgba(0, 0, 0, 0.66)',
   style = {},
-  children,
   springConfig,
+  className,
   css,
+  children,
   ...rest
 }: ModalProps) => {
   const modalRef = React.useRef<any>(null)
+
   const closeModal = React.useCallback(() => {
-    toggle(false)
+    if (set) {
+      set(false)
+    }
     focusRef?.current.focus()
-  }, [toggle, focusRef])
+  }, [set, focusRef])
 
   /**
    * Get important focusable elements.
@@ -126,6 +130,7 @@ export const Modal = ({
             <AnimatedDiv
               ref={modalRef}
               role="dialog"
+              className={setClassName('modal', className)}
               aria-label={title}
               aria-modal="true"
               style={{ ...style, ...props }}

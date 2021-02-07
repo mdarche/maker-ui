@@ -96,8 +96,8 @@ export function validate(obj: any) {
  * Returns a formatted className string that merges user generated classNames with
  * MakerUI defaults
  *
- * @param libClass - the MakerUI library className
- * @param className - the className supplied by props
+ * @param libClass - the MakerUI library className (can be dynamic)
+ * @param className - the className supplied by component props
  */
 
 export function setClassName(

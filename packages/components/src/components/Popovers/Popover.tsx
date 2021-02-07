@@ -15,7 +15,7 @@ export interface Position {
 
 export interface PopoverProps extends Omit<DivProps, 'children'> {
   show: boolean
-  toggle: React.Dispatch<React.SetStateAction<boolean>>
+  set: React.Dispatch<React.SetStateAction<boolean>>
   anchorRef: React.MutableRefObject<any>
   anchorWidth?: boolean
   position?: Position
@@ -25,7 +25,6 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   closeOnBlur?: boolean
   containerCss?: MakerProps['css']
   springConfig?: SpringConfig
-  _type?: 'popover' | 'dropdown' | 'tooltip' // internal usage only
   transition?:
     | 'fade'
     | 'fade-down'
@@ -36,6 +35,8 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'none' // TODO
   defer?: number
   children: React.ReactNode
+  /** @internal usage only */
+  _type?: 'popover' | 'dropdown' | 'tooltip'
 }
 
 /**
@@ -50,7 +51,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
 
 export const Popover = ({
   show,
-  toggle,
+  set,
   id,
   anchorRef,
   anchorWidth,
@@ -112,9 +113,9 @@ export const Popover = ({
   React.useEffect(() => {
     if (transition === 'scale' && setInitialRender) {
       setInitialRender(false)
-      toggle(false)
+      set(false)
     }
-  }, [transition, toggle])
+  }, [transition, set])
 
   /**
    * Set anchor width measurement
@@ -138,7 +139,7 @@ export const Popover = ({
         focus?: 'anchor' | 'nextEl' | 'first' | 'last',
         preventDefault?: boolean
       ) => {
-        if (close) toggle(false)
+        if (close) set(false)
         if (preventDefault) e.preventDefault()
 
         return focus === 'anchor'
@@ -180,7 +181,7 @@ export const Popover = ({
           return
       }
     },
-    [anchorRef, closeOnBlur, focusable, toggle, trapFocus, _type]
+    [anchorRef, closeOnBlur, focusable, set, trapFocus, _type]
   )
 
   React.useEffect(() => {

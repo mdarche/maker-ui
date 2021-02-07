@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Div, MakerProps } from 'maker-ui'
+import { Button, Div, MakerProps, setClassName } from 'maker-ui'
 
 import { Popover, PopoverProps } from './Popover'
 
@@ -12,6 +12,8 @@ interface DropdownProps {
   transition?: PopoverProps['transition']
   springConfig?: PopoverProps['springConfig']
   css?: MakerProps['css']
+  className?: string
+  id?: string
   children: React.ReactNode
 }
 
@@ -28,21 +30,26 @@ export const Dropdown = ({
   trapFocus = false,
   closeOnBlur = true,
   transition = 'scale',
+  id,
+  className,
   css,
   children,
 }: DropdownProps) => {
   const buttonRef = React.useRef(null)
   const dropdownRef = React.useRef(null)
-  const [show, toggle] = React.useState(transition === 'scale' ? true : false)
+  const [show, set] = React.useState(transition === 'scale' ? true : false)
 
   return (
-    <Div css={{ display: 'inline-block' }}>
+    <Div
+      id={id}
+      className={setClassName('dropdown', className)}
+      css={{ display: 'inline-block' }}>
       <Button
         ref={buttonRef}
-        className="dropdown-button"
+        className="dropdown-btn"
         aria-haspopup="listbox"
         aria-expanded={show}
-        onClick={() => toggle(!show)}
+        onClick={() => set(!show)}
         css={{ ...(css as object) }}>
         {buttonInner}
       </Button>
@@ -51,7 +58,7 @@ export const Dropdown = ({
           appendTo={dropdownRef.current}
           role="listbox"
           show={show}
-          toggle={toggle}
+          set={set}
           trapFocus={trapFocus}
           anchorRef={buttonRef}
           anchorWidth={matchWidth}

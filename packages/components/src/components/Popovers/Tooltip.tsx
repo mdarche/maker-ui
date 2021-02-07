@@ -40,7 +40,7 @@ export const Tooltip = ({
   children,
 }: TooltipProps) => {
   const buttonRef = React.useRef(null)
-  const [show, toggle] = React.useState(false)
+  const [show, set] = React.useState(false)
   const [tooltipId] = React.useState(generateId())
 
   const positionData = convertPosition(position, background, gap)
@@ -63,13 +63,13 @@ export const Tooltip = ({
   return (
     <Div
       css={{ display: 'inline-block' }}
-      onMouseOver={() => toggle(true)}
-      onMouseOut={() => toggle(false)}>
+      onMouseOver={() => set(true)}
+      onMouseOut={() => set(false)}>
       <Button
         ref={buttonRef}
-        onFocus={() => toggle(true)}
-        onBlur={() => typeof label === 'string' && toggle(false)}
-        onClick={() => toggle(!show)}
+        onFocus={() => set(true)}
+        onBlur={() => typeof label === 'string' && set(false)}
+        onClick={() => set(!show)}
         css={buttonCss}
         aria-describedby={tooltipId}>
         {children}
@@ -82,7 +82,7 @@ export const Tooltip = ({
         gap={positionData.gap}
         show={show}
         defer={defer}
-        toggle={toggle}
+        set={set}
         containerCss={{ ...styles }}
         springConfig={springConfig}>
         {label}

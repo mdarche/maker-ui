@@ -126,7 +126,7 @@ export const LightboxModal = ({
       <Modal
         id={id}
         show={active}
-        toggle={toggleLightbox}
+        set={toggleLightbox}
         focusRef={focusRef}
         background={background}
         closeOnBlur={settings.closeOnBlur}
