@@ -55,6 +55,7 @@ describe('CSS object parser', () => {
         color: 'red',
         '.my-class': {
           fontSize: 34,
+          padding: [10, 20],
           h2: {
             color: colors,
           },
@@ -67,6 +68,10 @@ describe('CSS object parser', () => {
       color: 'red',
       '.my-class': {
         fontSize: 34,
+        padding: 10,
+        '@media screen and (min-width: 500px)': {
+          padding: 20,
+        },
         h2: {
           color: 'red',
           '@media screen and (min-width: 500px)': {
