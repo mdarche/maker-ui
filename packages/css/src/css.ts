@@ -17,7 +17,10 @@ const defaultBreakpoints = ['768px', '960px', '1440px']
  *
  */
 
-function responsive(styles: Interpolation<any>, breakpoints: Breakpoints) {
+export function responsive(
+  styles: Interpolation<any>,
+  breakpoints: Breakpoints
+) {
   let next: Interpolation<any> = {}
   for (const [key, value] of Object.entries(styles as object)) {
     if (value === null) continue
@@ -61,7 +64,7 @@ export const formatCSS = (
 ) => (theme: any) => {
   let result: Interpolation<any> = {}
 
-  const bp = breakpoints || theme.breakpoints || defaultBreakpoints
+  const bp = breakpoints || theme?.breakpoints || defaultBreakpoints
   const styles = responsive(css, bp)
 
   for (const [key, value] of Object.entries(styles)) {
