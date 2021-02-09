@@ -10,12 +10,11 @@ const Button = (props: any) => <button {...props} />
 
 /**
  * It's difficult to test for media queries. Snapshot testing isn't ideal
- * but Emotion recommends this approach with their @emotion/jest library
+ * but Emotion recommends this approach with their @emotion/jest library.
  *
  * @remarks
- * - This test suite is designed for JSX pragma only.
+ * - This test suite is for testing responsive JSX pragma only.
  * - @maker-ui/layout tests for media query / responsive accuracy with Cypress
- *  in an actual browser window
  * - @maker/primitives package doesn't test for media queries
  */
 
@@ -26,7 +25,7 @@ describe('Custom jsx function', () => {
     expect(json).toMatchSnapshot()
   })
 
-  test('identifies and parses the custom css prop', () => {
+  test('identifies and parses the css prop', () => {
     const json = renderer
       .create(<Button css={{ color: 'hotpink' }}>Test button</Button>)
       .toJSON()
@@ -62,7 +61,7 @@ describe('Custom jsx function', () => {
     expect(json).toMatchSnapshot()
   })
 
-  test('uses package default breakpoints if no theme or breakpoints prop', () => {
+  test('uses package default breakpoints if no theme or breakpoints are specified', () => {
     const json = renderer
       .create(
         <Button css={{ color: ['hotpink', 'red', 'black'] }}>
