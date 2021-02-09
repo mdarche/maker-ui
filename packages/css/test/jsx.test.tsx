@@ -19,7 +19,7 @@ const Button = (props: any) => <button {...props} />
  */
 
 describe('Custom jsx function', () => {
-  test('jsx correctly renders an Emotion component', () => {
+  test('jsx renders an Emotion component', () => {
     const json = renderer.create(<Button>Test button</Button>).toJSON()
 
     expect(json).toMatchSnapshot()
@@ -61,7 +61,7 @@ describe('Custom jsx function', () => {
     expect(json).toMatchSnapshot()
   })
 
-  test('uses package default breakpoints if no theme or breakpoints are specified', () => {
+  test('uses default breakpoints if no theme or breakpoints are specified', () => {
     const json = renderer
       .create(
         <Button css={{ color: ['hotpink', 'red', 'black'] }}>
