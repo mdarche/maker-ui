@@ -7,11 +7,11 @@ import { ActionProvider } from '../context/ActionContext'
 import { LayoutProvider } from '../context/LayoutContext'
 import { Skiplinks, LinkItem } from './Skiplinks'
 import { ErrorBoundary } from './Errors'
-import { MakerOptions } from '../types'
+import { MakerUIOptions, MakerOptions } from '../types'
 
 interface LayoutProps {
   children: React.ReactNode
-  options: Partial<MakerOptions>
+  options: MakerUIOptions
   styles?: object
   theme?: Theme
   skiplinks?: LinkItem[]
@@ -37,7 +37,7 @@ export const Layout = ({
           ? merge(theme, { breakpoints: options.breakpoints })
           : theme
       }>
-      <OptionProvider options={options}>
+      <OptionProvider options={options as MakerOptions}>
         <LayoutProvider styles={styles}>
           <ActionProvider>
             <Skiplinks links={skiplinks} />
