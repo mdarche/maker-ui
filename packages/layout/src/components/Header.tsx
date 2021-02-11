@@ -129,7 +129,7 @@ export const Header = (props: HeaderProps) => {
    */
 
   const stickyPos = absolute ? 'fixed' : 'sticky'
-  const initialPos = absolute ? 'absolute' : 'initial'
+  const initialPos = absolute ? 'absolute' : 'relative'
 
   const stickyPartial = (): object => {
     if (stickyUpScroll) {

@@ -74,7 +74,7 @@ export const Topbar = (props: TopbarProps) => {
       css={{
         background,
         top: 0,
-        zIndex: 100,
+        zIndex: 101,
         position: stickyPartial,
         display: topbar.hideOnMobile ? ['none', 'block'] : ['block'],
         ...(_css as object),
