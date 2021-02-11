@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { waitFor, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 // import { defaultOptions } from '../src/options'
 import { Wrapper } from './setup'
 import { Topbar } from '../src'
 
-test('renders the Topbar with default props', async () => {
+test('renders the Topbar with default props', () => {
   render(
     <Wrapper content footer>
       <Topbar data-testid="topbar">topbar</Topbar>
