@@ -24,6 +24,7 @@
     "docs"
   ],
   "devDependencies": {
+    "@cypress/react": "^4.16.4",
     "@testing-library/dom": "^7.26.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^9.4.0",
