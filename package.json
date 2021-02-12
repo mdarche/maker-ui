@@ -21,10 +21,12 @@
   "workspaces": [
     "examples/*",
     "packages/*",
-    "docs"
+    "docs",
+    "app"
   ],
   "devDependencies": {
     "@cypress/react": "^4.16.4",
+    "@testing-library/cypress": "^7.0.3",
     "@testing-library/dom": "^7.26.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^9.4.0",

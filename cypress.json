@@ -1,1 +1,5 @@
-{"defaultCommandTimeout": 6000}
+{
+  "$schema": "https://on.cypress.io/cypress.schema.json",
+  "experimentalComponentTesting": true,
+  "componentFolder": "cypress/unit",
+  "testFiles": "**/*.spec.*"}

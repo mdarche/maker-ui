@@ -29,7 +29,7 @@ export const defaultOptions: MakerUIOptions = {
       bg_header: '#ffffff',
       bg_mobileMenu: 'black',
       bg_sideNav: '#eee',
-      bg_footer: 'blue',
+      bg_footer: '#d3d3d3',
       bg_toolbar: '#fbfbfb',
     },
   },
