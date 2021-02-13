@@ -5,7 +5,6 @@ import { Layout } from 'maker-ui'
 import { mount } from '@cypress/react'
 
 describe('Layout component', () => {
-  // Exists
   it('mounts the Layout component', () => {
     mount(<Layout options={{}}>content</Layout>)
     cy.contains('content').should('exist')
@@ -34,7 +33,6 @@ describe('Layout component', () => {
     cy.contains('Skip to test content').should('exist')
   })
 
-  // Styles prop
   it('adds user styles to the document head', () => {
     mount(
       <Layout
