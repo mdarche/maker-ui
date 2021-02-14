@@ -23,13 +23,30 @@ describe('Section component', () => {
     )
   })
 
-  it('accomodates user-generated options', () => {
+  it('renders with user-generated options', () => {
     mount(
       <Wrapper header isContent options={{ content: { maxWidthSection: 300 } }}>
         <Section className="section">inner</Section>
       </Wrapper>
     )
     cy.get('.section .container').should('have.css', 'max-width', '300px')
+  })
+
+  it('prioritizes prop values', () => {
+    mount(
+      <Wrapper header isContent>
+        <Section
+          className="section"
+          maxWidth={700}
+          background="#000"
+          color="#333">
+          inner
+        </Section>
+      </Wrapper>
+    )
+    cy.get('.section').should('have.backgroundColor', '#000')
+    cy.get('.section').should('have.color', '#333')
+    cy.get('.section .container').should('have.css', 'max-width', '700px')
   })
 
   it('applies _css to root and css to the container', () => {

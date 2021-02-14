@@ -23,7 +23,7 @@ interface SectionProps
 export const Section = forwardRef<HTMLElement, SectionProps>(
   (
     {
-      maxWidth,
+      maxWidth = 'var(--maxWidth_section)',
       background,
       color,
       container = true,
@@ -58,7 +58,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
             <div
               className="container"
               css={{
-                maxWidth: 'var(--maxWidth_section)',
+                maxWidth,
                 margin: '0 auto',
                 ...(css as object),
               }}

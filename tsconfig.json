@@ -9,6 +9,6 @@
       "@maker-ui/*": ["packages/*/src"],
       "tslib": ["node_modules/tslib/tslib.d.ts"],
       "$test/*": ["test/*"]
-    }
+    }, 
   }
 }

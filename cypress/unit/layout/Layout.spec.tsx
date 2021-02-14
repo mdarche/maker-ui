@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import * as React from 'react'
 import { Layout } from 'maker-ui'
 import { mount } from '@cypress/react'
@@ -7,7 +5,7 @@ import { mount } from '@cypress/react'
 describe('Layout component', () => {
   it('mounts the Layout component', () => {
     mount(<Layout options={{}}>content</Layout>)
-    cy.contains('content').should('exist')
+    cy.get('content')
   })
 
   // Skiplinks

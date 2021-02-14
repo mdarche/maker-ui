@@ -8,6 +8,7 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //
+import '@testing-library/cypress/add-commands'
 
 //@ts-ignore
 const compareColor = (color, property) => targetElement => {

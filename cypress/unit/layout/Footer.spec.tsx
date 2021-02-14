@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import * as React from 'react'
 import { Footer } from 'maker-ui'
 import { mount } from '@cypress/react'
@@ -14,7 +12,6 @@ describe('Footer component', () => {
       </Wrapper>
     )
 
-    cy.get('footer').should('exist')
     cy.get('footer').should('have.backgroundColor', 'var(--color-bg_footer)')
     cy.get('footer .container').should(
       'have.css',
@@ -23,7 +20,7 @@ describe('Footer component', () => {
     )
   })
 
-  it('accomodates user generated options', () => {
+  it('renders with user-generated options', () => {
     mount(
       <Wrapper
         header
@@ -38,6 +35,18 @@ describe('Footer component', () => {
     )
     cy.get('footer').should('have.backgroundColor', '#e6e6e6')
     cy.get('footer .container').should('have.css', 'max-width', '500px')
+  })
+
+  it('prioritizes prop values', () => {
+    mount(
+      <Wrapper header content isFooter>
+        <Footer maxWidth={650} background="#333">
+          inner
+        </Footer>
+      </Wrapper>
+    )
+    cy.get('footer').should('have.backgroundColor', '#333')
+    cy.get('footer .container').should('have.css', 'max-width', '650px')
   })
 
   it('applies _css to root and css to the container', () => {

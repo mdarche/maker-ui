@@ -179,7 +179,7 @@ export const Header = (props: HeaderProps) => {
         zIndex: 100,
         width: absolute ? '100%' : undefined,
         visibility:
-          framework === 'gatsby' && initialRender ? ['hidden'] : undefined,
+          framework === 'gatsby' && initialRender ? 'hidden' : undefined,
         ...stickyPartial(),
         ...(css as object),
       }}
