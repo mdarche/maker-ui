@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Div, MakerProps, setClassName } from 'maker-ui'
+import { Button, Div, MakerProps, mergeSelector } from 'maker-ui'
 
 import { Popover, PopoverProps } from './Popover'
 
@@ -42,7 +42,7 @@ export const Dropdown = ({
   return (
     <Div
       id={id}
-      className={setClassName('dropdown', className)}
+      className={mergeSelector('dropdown', className)}
       css={{ display: 'inline-block' }}>
       <Button
         ref={buttonRef}

@@ -5,7 +5,7 @@ import { forwardRef } from 'react'
 import { MenuItem, MenuProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { setClassName } from '../../utils/helper'
+import { mergeSelector } from '../../utils/helper'
 
 interface CollapsibleProps
   extends MakerProps,
@@ -56,7 +56,7 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
     return (
       <ul
         ref={ref}
-        className={setClassName('collapse-menu', className)}
+        className={mergeSelector('collapse-menu', className)}
         role="navigation"
         css={{ ...(css as object) }}
         {...props}>

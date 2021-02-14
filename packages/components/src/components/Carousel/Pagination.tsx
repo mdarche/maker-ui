@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Flex, Button, ResponsiveScale, setClassName } from 'maker-ui'
+import { Flex, Button, ResponsiveScale, mergeSelector } from 'maker-ui'
 
 export type Position = 'top' | 'bottom' | 'right' | 'left'
 
@@ -60,7 +60,7 @@ export const Pagination = ({
       <Button
         key={i}
         role="tab"
-        className={setClassName(
+        className={mergeSelector(
           'carousel-dot',
           `${current === i ? 'active' : ''}`
         )}

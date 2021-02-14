@@ -1,19 +1,16 @@
 import * as React from 'react'
-import { Layout } from 'maker-ui'
+import { Layout, Div } from 'maker-ui'
 import { mount } from '@cypress/react'
 
 describe('Layout component', () => {
   it('mounts the Layout component', () => {
     mount(<Layout options={{}}>content</Layout>)
-    cy.get('content')
+    cy.contains('content')
   })
 
-  // Skiplinks
   it('renders skiplinks according to MakerUIOptions', () => {
-    // Default option
     mount(<Layout options={{}}>First layout</Layout>)
-    cy.get('.skiplinks').should('exist')
-    // Set skiplinks to false
+    cy.get('.skiplinks')
     mount(
       <Layout options={{ a11y: { skiplinks: false } }}>Second layout</Layout>
     )
@@ -28,7 +25,7 @@ describe('Layout component', () => {
         First layout
       </Layout>
     )
-    cy.contains('Skip to test content').should('exist')
+    cy.contains('Skip to test content')
   })
 
   it('adds user styles to the document head', () => {
@@ -40,5 +37,14 @@ describe('Layout component', () => {
       </Layout>
     )
     cy.get('.my-div').should('have.css', 'color', 'rgb(251, 251, 251)')
+  })
+
+  it('adds an Emotion theme provider to the layout', () => {
+    mount(
+      <Layout options={{}} theme={{ width: 100 }}>
+        <Div css={{ ...({ width: t => t.width } as object) }}>test</Div>
+      </Layout>
+    )
+    cy.contains('test').should('have.css', 'width', '100px')
   })
 })

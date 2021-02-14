@@ -5,7 +5,7 @@ import {
   Button,
   generateId,
   useMeasure,
-  setClassName,
+  mergeSelector,
 } from 'maker-ui'
 import { useSpring, animated } from 'react-spring'
 
@@ -79,7 +79,7 @@ export const AccordionPanel = React.forwardRef<
     return (
       <Div
         ref={ref}
-        className={setClassName(
+        className={mergeSelector(
           `${show ? 'expanded ' : ''}accordion`,
           className
         )}

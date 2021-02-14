@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import * as React from 'react'
 import { Sidebar } from 'maker-ui'
 import { mount } from '@cypress/react'
@@ -13,8 +11,7 @@ describe('Sidebar component', () => {
         <Sidebar>content</Sidebar>
       </Wrapper>
     )
-
-    cy.get('.sidebar').should('exist')
+    cy.get('.sidebar')
   })
 
   it('renders with prop values', () => {

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
+import { mergeSelector } from '../utils/helper'
 
 import { ErrorBoundary } from './Errors'
 
@@ -17,6 +18,7 @@ interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  */
 
 export const Footer = ({
+  id,
   maxWidth = 'var(--maxWidth_footer)',
   background = 'var(--color-bg_footer)',
   _css,
@@ -26,7 +28,7 @@ export const Footer = ({
 }: FooterProps) => {
   return (
     <footer
-      id="footer"
+      id={mergeSelector('footer', id)}
       role="contentinfo"
       css={{ background, ...(_css as object) }}
       {...props}>

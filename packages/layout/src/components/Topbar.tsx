@@ -7,7 +7,7 @@ import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
 import { useMeasure } from '../hooks/useMeasure'
 import { useLayout, useMeasurements } from '../context/LayoutContext'
-import { setBreakpoint } from '../utils/helper'
+import { mergeSelector, setBreakpoint } from '../utils/helper'
 
 type StickyType = 'sticky' | ('sticky' | 'relative')[] | undefined
 
@@ -45,6 +45,7 @@ export const Topbar = (props: TopbarProps) => {
   }, [height])
 
   const {
+    id,
     background = 'var(--color-bg_topbar)',
     maxWidth = 'var(--maxWidth_topbar)',
     sticky = topbar.sticky,
@@ -68,7 +69,7 @@ export const Topbar = (props: TopbarProps) => {
   return (
     <aside
       {...bind}
-      id="topbar"
+      id={mergeSelector('topbar', id)}
       className={className}
       breakpoints={setBreakpoint(topbar.breakpoint, breakpoints)}
       css={{

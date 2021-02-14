@@ -6,7 +6,7 @@ import {
   Div,
   DivProps,
   useMeasure,
-  setClassName,
+  mergeSelector,
 } from 'maker-ui'
 import { useSpring, animated } from 'react-spring'
 
@@ -62,7 +62,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
       <Div
         ref={ref}
         aria-expanded={isOpen}
-        className={setClassName('tree-item', className)}
+        className={mergeSelector('tree-item', className)}
         css={{
           display: link && 'flex',
           alignItems: link && 'center',

@@ -2,8 +2,10 @@ import { transitionTypes } from '../constants'
 
 /**
  * Evaluates a MakerOptions breakpoint and formats the `breakpoints` prop array
+ *
  * @param bp - a breakpoint value
  * @param bpArray - the MakerOptions breakpoints array
+ *
  */
 
 export const setBreakpoint = (
@@ -86,6 +88,7 @@ export function generateId(length: number = 5): string {
  * Check to see if value is an object else return an empty object
  *
  * @param obj - any value to be evaluated
+ *
  */
 
 export function validate(obj: any) {
@@ -93,24 +96,25 @@ export function validate(obj: any) {
 }
 
 /**
- * Returns a formatted className string that merges user generated classNames with
- * MakerUI defaults
+ * Returns a formatted selector string for `id` or `className` attributes that
+ * merges user generated classNames with MakerUI defaults.
  *
- * @param libClass - the MakerUI library className (can be dynamic)
- * @param className - the className supplied by component props
+ * @param libSelector - the MakerUI library selector (can be dynamic)
+ * @param selector - the className or id supplied by component props
+ *
  */
 
-export function setClassName(
-  libClass: string,
-  className?: string
+export function mergeSelector(
+  libSelector: string,
+  selector?: string
 ): string | undefined {
-  if (libClass.length > 1) {
-    return className
-      ? [libClass, className]
+  if (libSelector.length > 1) {
+    return selector
+      ? [libSelector, selector]
           .join(' ')
           .replace(/ +(?= )/g, '')
           .trim()
-      : libClass
+      : libSelector
   }
-  return className ? className : undefined
+  return selector ? selector : undefined
 }

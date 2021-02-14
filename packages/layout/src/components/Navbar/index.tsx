@@ -10,7 +10,7 @@ import { ColorButton } from './ColorButton'
 import { NavMenu, MenuButton, MenuProps } from '../Menu'
 import { WidgetArea } from './WidgetArea'
 import { gridStyles } from './styles'
-import { setBreakpoint, setClassName } from '../../utils/helper'
+import { setBreakpoint, mergeSelector } from '../../utils/helper'
 
 export interface NavProps extends MakerProps {
   type?: MakerOptions['header']['navType']
@@ -81,7 +81,7 @@ export const Navbar = (props: NavProps) => {
 
   return (
     <Grid
-      className={setClassName(
+      className={mergeSelector(
         `nav-grid layout-${layout} m-layout-${mobileLayout}`,
         className
       )}

@@ -10,6 +10,6 @@
   },
   "include": [
     "**/*.ts",
-    "../node_modules/cypress",
+    "../node_modules/cypress", "support/commands.js",
   ]
 }

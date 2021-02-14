@@ -11,9 +11,7 @@ describe('Main component', () => {
         <Main>content</Main>
       </Wrapper>
     )
-
-    cy.get('main').should('exist')
-    cy.get('main').should('have.css', 'flex', '1 1 0%')
+    cy.get('main')
   })
 
   it('renders with prop values', () => {

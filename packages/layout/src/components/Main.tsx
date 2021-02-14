@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, MakerProps } from '@maker-ui/css'
+import { mergeSelector } from '../utils/helper'
 
 import { ErrorBoundary } from './Errors'
 
@@ -13,9 +14,15 @@ interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  * @link https://maker-ui.com/docs/layout/main
  */
 
-export const Main = ({ background, css, children, ...props }: MainProps) => (
+export const Main = ({
+  id,
+  background,
+  css,
+  children,
+  ...props
+}: MainProps) => (
   <main
-    id="content"
+    id={mergeSelector('content', id)}
     role="main"
     css={{ background, position: 'relative', flex: 1, ...(css as object) }}
     {...props}>

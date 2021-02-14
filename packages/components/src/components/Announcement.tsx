@@ -5,7 +5,7 @@ import {
   DivProps,
   useMeasure,
   MakerProps,
-  setClassName,
+  mergeSelector,
 } from 'maker-ui'
 import { useSpring, animated, SpringConfig } from 'react-spring'
 
@@ -86,7 +86,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     return active ? (
       <AnimatedDiv
         ref={ref}
-        className={setClassName('announcement', className)}
+        className={mergeSelector('announcement', className)}
         style={spring as any}
         css={{
           display: 'flex',

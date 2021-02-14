@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, DivProps, generateId, setClassName } from 'maker-ui'
+import { Div, DivProps, generateId, mergeSelector } from 'maker-ui'
 
 import { useTabs, TabItem } from './TabContext'
 
@@ -50,7 +50,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
         role="tabpanel"
         id={`panel-${panelId}`}
         aria-labelledby={`control-${panelId}`}
-        className={setClassName('tab-panel', className)}
+        className={mergeSelector('tab-panel', className)}
         css={{
           flex: 1,
           order: 1,

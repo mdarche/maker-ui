@@ -10,7 +10,7 @@ import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav } from '../context/ActionContext'
-import { setBreakpoint, setClassName } from '../utils/helper'
+import { setBreakpoint, mergeSelector } from '../utils/helper'
 
 interface ContainerProps {
   isHeader: boolean
@@ -41,6 +41,7 @@ interface SideNavProps
  */
 
 export const SideNav = ({
+  id,
   background = 'var(--color-bg_sideNav)',
   toggleButton,
   menu,
@@ -73,8 +74,8 @@ export const SideNav = ({
       ) : null}
       <Container
         isHeader={sideNav.isHeader}
-        id="sidenav"
-        className={setClassName(!active ? 'hide' : '', className)}
+        id={mergeSelector('sidenav', id)}
+        className={mergeSelector(!active ? 'hide' : '', className)}
         css={{
           background,
           ...(_css as object),

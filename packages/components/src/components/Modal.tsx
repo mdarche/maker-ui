@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTransition, animated, SpringConfig } from 'react-spring'
-import { Div, DivProps, setClassName } from 'maker-ui'
+import { Div, DivProps, mergeSelector } from 'maker-ui'
 
 import { Portal } from './Portal'
 import { useFocus } from '../hooks'
@@ -130,7 +130,7 @@ export const Modal = ({
             <AnimatedDiv
               ref={modalRef}
               role="dialog"
-              className={setClassName('modal', className)}
+              className={mergeSelector('modal', className)}
               aria-label={title}
               aria-modal="true"
               style={{ ...style, ...props }}

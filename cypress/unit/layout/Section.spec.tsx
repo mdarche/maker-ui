@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import * as React from 'react'
 import { Section } from 'maker-ui'
 import { mount } from '@cypress/react'
@@ -13,8 +11,6 @@ describe('Section component', () => {
         <Section className="section">inner</Section>
       </Wrapper>
     )
-
-    cy.get('.section').should('exist')
     cy.get('.section .container').should('exist')
     cy.get('.section .container').should(
       'have.css',
@@ -32,7 +28,7 @@ describe('Section component', () => {
     cy.get('.section .container').should('have.css', 'max-width', '300px')
   })
 
-  it('prioritizes prop values', () => {
+  it('renders with prop values', () => {
     mount(
       <Wrapper header isContent>
         <Section
@@ -60,7 +56,6 @@ describe('Section component', () => {
         </Section>
       </Wrapper>
     )
-
     cy.get('.section').should('have.css', 'margin', '20px')
     cy.get('.section .container').should('have.css', 'padding', '10px')
   })
@@ -77,7 +72,6 @@ describe('Section component', () => {
         </Section>
       </Wrapper>
     )
-
     cy.get('.section .container').should('not.exist')
     cy.get('.section').should('have.css', 'margin', '20px')
     cy.get('.section').should('have.css', 'padding', '10px')

@@ -6,7 +6,7 @@ import {
   DivProps,
   useScrollPosition,
   MakerProps,
-  setClassName,
+  mergeSelector,
 } from 'maker-ui'
 
 interface MenuItem {
@@ -147,7 +147,7 @@ export const TableofContents = ({
 
   return (
     <Div
-      className={setClassName('toc', className)}
+      className={mergeSelector('toc', className)}
       css={{ ...(css as object) }}>
       <Div>{title}</Div>
       <UList className="toc-headings" css={{ p: 0 }}>

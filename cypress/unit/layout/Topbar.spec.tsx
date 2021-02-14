@@ -13,14 +13,26 @@ describe('Topbar component', () => {
         <Topbar>inner</Topbar>
       </Wrapper>
     )
-
-    cy.get('#topbar').should('exist')
     cy.get('#topbar').should('have.backgroundColor', 'var(--color-bg_topbar)')
     cy.get('#topbar .container').should(
       'have.css',
       'max-width',
       format(defaults.topbar.maxWidth)
     )
+  })
+
+  it('renders with user-generated options', () => {
+    mount(
+      <Wrapper
+        options={{
+          colors: { light: { bg_topbar: '#e5e1e8' } },
+          topbar: { maxWidth: 600 },
+        }}>
+        <Topbar>inner</Topbar>
+      </Wrapper>
+    )
+    cy.get('#topbar').should('have.backgroundColor', '#e5e1e8')
+    cy.get('#topbar .container').should('have.css', 'max-width', '600px')
   })
 
   it('applies sticky styles according to options', () => {

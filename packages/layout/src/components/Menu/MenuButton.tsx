@@ -3,7 +3,7 @@ import { SVG, Button, ButtonProps } from '@maker-ui/primitives'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { setBreakpoint, setClassName } from '../../utils/helper'
+import { setBreakpoint, mergeSelector } from '../../utils/helper'
 
 interface MenuButtonProps extends ButtonProps {
   isCloseButton?: boolean
@@ -48,9 +48,10 @@ export const MenuButton = ({
 
   const attributes = {
     title: 'Menu',
-    className: setClassName('menu-button', className),
+    className: mergeSelector('menu-button', className),
     'aria-label': 'Toggle Menu',
     ...conditionalAttributes,
+    ...props,
   }
 
   return typeof menuButton === 'function' ? (
@@ -66,8 +67,7 @@ export const MenuButton = ({
         background: 'none',
         svg: { margin: '0 auto' },
         ...(css as object),
-      }}
-      {...props}>
+      }}>
       {menuButton || (
         <SVG
           viewBox="0 0 24 24"

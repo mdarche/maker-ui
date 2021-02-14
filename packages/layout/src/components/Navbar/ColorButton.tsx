@@ -3,7 +3,7 @@ import { Button, ButtonProps } from '@maker-ui/primitives'
 
 import { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
-import { setBreakpoint, setClassName } from '../../utils/helper'
+import { setBreakpoint, mergeSelector } from '../../utils/helper'
 
 interface ColorButtonProps extends ButtonProps {
   isHeaderButton?: boolean
@@ -26,6 +26,7 @@ export const ColorButton = ({
   breakpoints,
   className,
   css,
+  ...props
 }: ColorButtonProps) => {
   const { header, colors, breakpoints: bps } = useOptions()
   const [theme, setTheme] = React.useState(Object.keys(colors)[0] || 'light')
@@ -45,12 +46,13 @@ export const ColorButton = ({
 
   const attributes = {
     title: 'Color Mode',
-    className: setClassName('color-button', className),
+    className: mergeSelector('color-button', className),
     'aria-label': 'Toggle Color Mode',
     onClick: cycleMode,
     breakpoints: isHeaderButton
       ? setBreakpoint(header.breakpoint, bps)
       : breakpoints,
+    ...props,
   }
 
   // Use custom button from props or check header options

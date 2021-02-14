@@ -11,7 +11,7 @@ import {
   getStyles,
 } from '../../utils/styles-submenu'
 import { MakerOptions } from '../../types'
-import { setClassName } from '../../utils/helper'
+import { mergeSelector } from '../../utils/helper'
 
 export interface MenuProps {
   label: string
@@ -75,7 +75,7 @@ export const MenuItem = memo(
 
     return (
       <li
-        className={setClassName('menu-item', classes)}
+        className={mergeSelector('menu-item', classes)}
         css={
           isHeader
             ? {

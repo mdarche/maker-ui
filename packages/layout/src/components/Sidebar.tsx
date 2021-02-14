@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, MakerProps } from '@maker-ui/css'
-import { setClassName } from '../utils/helper'
+import { mergeSelector } from '../utils/helper'
 
 import { ErrorBoundary } from './Errors'
 
@@ -25,7 +25,7 @@ export const Sidebar = ({
 }: SidebarProps) => {
   return (
     <div
-      className={setClassName('sidebar', className)}
+      className={mergeSelector('sidebar', className)}
       role="complementary"
       css={{ background, ...(css as object) }}
       {...props}>
