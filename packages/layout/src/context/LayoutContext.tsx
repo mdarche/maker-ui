@@ -156,6 +156,8 @@ function getLayoutType(
   type: 'content' | 'workspace',
   children: React.ReactNode
 ): string {
+  if (typeof children === 'string') return 'unknown'
+
   let nodes: any[] = React.Children.toArray(children)
   let currentLayout: string
 

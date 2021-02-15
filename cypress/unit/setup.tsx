@@ -12,12 +12,12 @@ import {
 } from 'maker-ui'
 export { defaultOptions as defaults } from '../../packages/layout/src/options'
 
-export function format(value: any): string {
-  const val = Array.isArray(value) ? value[0] : value
+export function format(value: any, index: number = 0): string {
+  const val = Array.isArray(value) ? value[index] : value
   return isNaN(val) ? val : `${val}px`
 }
 
-const testMenu: MenuProps[] = [
+export const testMenu: MenuProps[] = [
   { label: 'Home', path: '/' },
   { label: 'Page 1', path: '/page-1' },
   { label: 'Page 2', path: '/page-2' },

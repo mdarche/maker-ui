@@ -20,7 +20,7 @@ interface ContainerProps {
 const Container = ({ isHeader, ...props }: ContainerProps) =>
   isHeader ? <header {...props} /> : <div {...props} />
 
-interface SideNavProps
+export interface SideNavProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]

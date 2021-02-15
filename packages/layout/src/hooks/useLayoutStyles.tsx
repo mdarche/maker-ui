@@ -26,16 +26,19 @@ export function useLayoutStyles(layout: string): object {
       return null
     }
 
-    /**  Set grid column widths */
+    /**
+     * Set grid column widths
+     */
     const getSidebarColumns = (): string | null => {
-      const width = 'var(--width_sidebar)'
+      const w1 = 'var(--width_sidebar)'
+      const w2 = 'var(--width_second_sidebar)'
       const grid =
         layout === 'sidebar content'
-          ? `${width} 1fr`
+          ? `${w1} 1fr`
           : layout === 'sidebar content sidebar'
-          ? `${width} 1fr ${width}`
+          ? `${w1} 1fr ${w2}`
           : layout === 'content sidebar'
-          ? `1fr ${width}`
+          ? `1fr ${w1}`
           : null
 
       return grid
@@ -47,7 +50,7 @@ export function useLayoutStyles(layout: string): object {
       maxWidth: 'var(--maxWidth_content)',
       margin: '0 auto',
       minHeight: '80vh',
-      ...sidebarOrder,
+      ...sidebarOrder(),
       gridTemplateColumns: ['1fr', getSidebarColumns()],
     }
   }
@@ -67,7 +70,9 @@ export function useLayoutStyles(layout: string): object {
       return top
     }
 
-    /**Determine the transform direction for toggling on mobile */
+    /**
+     * Determine the transform direction for toggling on mobile
+     */
     const direction =
       layout === 'sidenav content'
         ? 'calc(-1 * var(--width_sideNav))'

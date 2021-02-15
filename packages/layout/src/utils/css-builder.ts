@@ -78,6 +78,7 @@ export const themeVars = (
     '--maxWidth_workspace': workspace?.canvasMaxWidth,
     '--width_mobileMenu': mobileMenu.width,
     '--width_sidebar': sidebar.width,
+    '--width_second_sidebar': sidebar.secondWidth,
     '--width_sideNav': sideNav.width,
     '--width_dock': workspace.dock?.width,
     '--width_panel_left': workspace.panelLeft?.width,

@@ -9,9 +9,15 @@ import {
   MenuProps,
   Content,
   Main,
-} from '../src'
+} from 'maker-ui'
+export { defaultOptions as defaults } from '../src/options'
 
-const testMenu: MenuProps[] = [
+export function format(value: any, index: number = 0): string {
+  const val = Array.isArray(value) ? value[index] : value
+  return isNaN(val) ? val : `${val}px`
+}
+
+export const testMenu: MenuProps[] = [
   { label: 'Home', path: '/' },
   { label: 'Page 1', path: '/page-1' },
   { label: 'Page 2', path: '/page-2' },
@@ -23,6 +29,8 @@ interface WrapperProps {
   header?: boolean
   footer?: boolean
   content?: boolean
+  isFooter?: boolean
+  isContent?: boolean
   children: React.ReactNode
 }
 
@@ -34,14 +42,18 @@ export const Wrapper = ({
   header,
   footer,
   content,
+  isFooter,
+  isContent,
   children,
 }: WrapperProps) => {
   return (
     <Layout options={options} styles={styles}>
       {header ? <TestHeader /> : null}
-      {children}
+      {!isFooter && !isContent ? children : null}
+      {isContent ? <InnerContent>{children}</InnerContent> : null}
       {content ? <TestContent /> : null}
       {footer ? <Footer>Footer</Footer> : null}
+      {isFooter ? children : null}
     </Layout>
   )
 }
@@ -56,5 +68,12 @@ const TestHeader = () => (
 const TestContent = () => (
   <Content>
     <Main>Page Content</Main>
+  </Content>
+)
+
+// @ts-ignore
+const InnerContent = ({ children }) => (
+  <Content>
+    <Main>{children}</Main>
   </Content>
 )
