@@ -45,7 +45,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       id,
       background = 'var(--color-bg_mobileMenu)',
       center,
-      closeButton,
+      closeButton = mobileMenu.closeButton,
       closeButtonPosition = 'top-right',
       width = 'var(--width_mobileMenu)',
       transition = mobileMenu.transition,

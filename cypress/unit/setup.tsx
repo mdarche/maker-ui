@@ -17,10 +17,11 @@ export function format(value: any, index: number = 0): string {
   return isNaN(val) ? val : `${val}px`
 }
 
+// Don't link to other routes in unit tests -- @cypress/react doesn't support this
 export const testMenu: MenuProps[] = [
-  { label: 'Home', path: '/' },
-  { label: 'Page 1', path: '/page-1' },
-  { label: 'Page 2', path: '/page-2' },
+  { label: 'Home', path: '#' },
+  { label: 'Page 1', path: '#' },
+  { label: 'Page 2', path: '#' },
 ]
 
 interface WrapperProps {

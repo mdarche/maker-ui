@@ -81,7 +81,7 @@ describe('Content component', () => {
  *
  */
 
-describe('Content layout builder', () => {
+describe('Content - Layout Builder', () => {
   it('identifies a `content` layout', () => {
     mount(
       <Wrapper>

@@ -1,6 +1,8 @@
 import { navTypes, mobileNavTypes } from '../../constants'
 
-/**  Grid & flex justification styles for desktop */
+/**
+ * Grid & flex justification styles for desktop
+ */
 const desktop = {
   basic: {
     areas: '"logo menu nav"',
@@ -58,7 +60,9 @@ const desktop = {
   },
 }
 
-/**  Grid & flex justification styles for mobile */
+/**
+ * Grid & flex justification styles for mobile
+ */
 const mobile = {
   basic: {
     areas: '"logo nav"',
@@ -121,7 +125,6 @@ export function gridStyles(
     '&.m-layout-logo-center-alt .button-area': {
       justifyContent: ['flex-end', 'flex-start'],
     },
-    // overflow flex-wrap vs scroll
   }
 }
 

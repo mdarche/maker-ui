@@ -2,15 +2,15 @@ import * as React from 'react'
 import { SideNav, Content, Main, MakerUIOptions } from 'maker-ui'
 import { mount } from '@cypress/react'
 
-import { Wrapper, defaults, format } from '../setup'
+import { Wrapper, defaults, format, testMenu } from '../setup'
 
 interface TestSideNavProps {
   options?: MakerUIOptions
   children?: React.ReactNode
   useHeader?: boolean
-  // temporary TS workaround because SideNavProps are not exported
   [key: string]: any
 }
+
 const TestSideNav = ({
   useHeader = true,
   options,
@@ -39,6 +39,18 @@ describe('SideNav component', () => {
       .should('have.css', 'width', format(defaults.sideNav.width, 0))
   })
 
+  it('renders the SideNav with user-generated options', () => {
+    mount(
+      <TestSideNav
+        options={{
+          sideNav: { width: 500, cssTransition: 'transform 0.8s ease 0s' },
+        }}
+      />
+    )
+    cy.get('#sidenav').should('have.css', 'width', '500px')
+    cy.should('have.css', 'transition', 'transform 0.8s ease 0s')
+  })
+
   it('renders as a header element if isHeader === true', () => {
     mount(
       <TestSideNav
@@ -65,13 +77,30 @@ describe('SideNav component', () => {
       .should('not.exist')
   })
 
-  it('can be closed `onBlur` by clicking the overlay', () => {
-    mount(<TestSideNav _css={{ margin: 20 }} css={{ padding: 10 }} />)
+  it('can be closed `onBlur` by clicking the overlay (mobile)', () => {
+    mount(<TestSideNav />)
     cy.viewport('iphone-x')
       .get('#toggle-sidenav')
       .click()
     cy.get('#sidenav').should('not.have.class', 'hide')
     cy.get('#site-inner .menu-overlay').click()
+    cy.get('#sidenav').should('have.class', 'hide')
+  })
+
+  it('can be closed `onRouteChange` by clicking a menu link (mobile)', () => {
+    mount(
+      <TestSideNav
+        menu={testMenu}
+        options={{ sideNav: { closeOnRouteChange: true } }}
+      />
+    )
+    cy.viewport('iphone-x')
+      .get('#toggle-sidenav')
+      .click()
+    cy.get('#sidenav .collapse-menu li')
+      .eq(0)
+      .find('a')
+      .click()
     cy.get('#sidenav').should('have.class', 'hide')
   })
 
@@ -124,7 +153,7 @@ describe('SideNav component', () => {
       .contains('Test Open')
   })
 
-  it('renders a custom toggle button for mobile', () => {
+  it('renders a custom toggle button for mobile via options', () => {
     mount(
       <TestSideNav
         options={{
@@ -139,6 +168,25 @@ describe('SideNav component', () => {
             ),
           },
         }}
+      />
+    )
+    cy.viewport('iphone-x')
+      .get('.custom-btn')
+      .click()
+    cy.get('#sidenav').should('not.have.class', 'hide')
+  })
+
+  it('renders a custom toggle button for mobile via props', () => {
+    mount(
+      <TestSideNav
+        toggleButton={(isOpen, atts) => (
+          <button
+            className="custom-btn"
+            css={{ display: ['flex', 'none'] }}
+            {...atts}>
+            {isOpen ? 'close' : 'open'}
+          </button>
+        )}
       />
     )
     cy.viewport('iphone-x')
