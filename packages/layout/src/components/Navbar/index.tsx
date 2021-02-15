@@ -27,7 +27,7 @@ export interface NavProps extends MakerProps {
   className?: string
 }
 
-/** Special cases */
+/** Special (edge) cases */
 const edge = ['minimal-left', 'minimal-center']
 const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
 

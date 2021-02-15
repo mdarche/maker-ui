@@ -1,12 +1,14 @@
 /**
- * Component Unit Tests
  *
+ * Component unit tests have moved.
+ *
+ * Cypress makes testing component libraries and critical CSS rules much easier than
+ * the previous RTL implementation. Visit the root /cypress directory for unit tests.
+ *
+ * Unit Tests
  * @see - cypress/unit/layout
  *
- */
-
-/**
- * Layout Integration Tests
- *
+ * Integration Tests
  * @see - cypress/integration/layout
+ *
  */
