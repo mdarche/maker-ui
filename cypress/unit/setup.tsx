@@ -24,6 +24,20 @@ export const testMenu: MenuProps[] = [
   { label: 'Page 2', path: '#' },
 ]
 
+export const nestedMenu: MenuProps[] = [
+  { label: 'One', path: '/' },
+  { label: 'Two', path: '/two' },
+  {
+    label: 'Three',
+    path: '#',
+    submenu: [
+      { label: 'Five', path: '/five' },
+      { label: 'Six', path: '/six' },
+    ],
+  },
+  { label: 'Four', path: '/four' },
+]
+
 interface WrapperProps {
   options?: MakerUIOptions
   styles?: object

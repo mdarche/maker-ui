@@ -11,7 +11,7 @@ interface CollapsibleProps
   extends MakerProps,
     React.HTMLAttributes<HTMLUListElement> {
   menu: MenuProps[]
-  menuType: string
+  menuType?: 'mobile' | 'sideNav' | string
   pathname?: string
   children?: React.ReactElement
 }

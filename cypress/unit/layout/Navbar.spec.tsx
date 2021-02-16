@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Navbar, Header, MobileMenu, MakerUIOptions } from 'maker-ui'
 import { mount } from '@cypress/react'
 
-import { Wrapper, testMenu, format, defaults } from '../setup'
+import { Wrapper, testMenu, nestedMenu, format, defaults } from '../setup'
 
 interface NavWrapperProps {
   children: React.ReactNode
@@ -42,6 +42,24 @@ describe('Navbar component', () => {
     cy.get('.nav-grid').contains('Custom')
   })
 
+  it('renders a logo that supports a custom `linkFunction`', () => {
+    mount(
+      <NavWrapper
+        options={{
+          linkFunction: (path, children, attributes) => (
+            <div className="custom-link-wrapper">
+              <a href={path} {...attributes}>
+                {children}
+              </a>
+            </div>
+          ),
+        }}>
+        <Navbar logo={<div>Custom</div>} />
+      </NavWrapper>
+    )
+    cy.get('.custom-link-wrapper').contains('Custom')
+  })
+
   it('supports custom grid area components', () => {
     mount(
       <NavWrapper>
@@ -58,19 +76,6 @@ describe('Navbar component', () => {
   })
 
   it('renders a nav menu that supports nested drop downs', () => {
-    const nestedMenu = [
-      { label: 'One', path: '/' },
-      { label: 'Two', path: '/two' },
-      {
-        label: 'Three',
-        path: '#',
-        submenu: [
-          { label: 'Five', path: '/five' },
-          { label: 'Six', path: '/six' },
-        ],
-      },
-      { label: 'Four', path: '/four' },
-    ]
     mount(
       <NavWrapper>
         <Navbar menu={nestedMenu} />
@@ -80,6 +85,26 @@ describe('Navbar component', () => {
       .contains('Three')
       .should('have.css', 'content')
     cy.get('.menu-area').contains('Five')
+  })
+
+  it('renders a menu that supports a custom `linkFunction`', () => {
+    mount(
+      <NavWrapper
+        options={{
+          linkFunction: (path, children, attributes) => (
+            <div className="custom-menu-link">
+              <a href={path} {...attributes}>
+                {children}
+              </a>
+            </div>
+          ),
+        }}>
+        <Navbar menu={nestedMenu} />
+      </NavWrapper>
+    )
+    cy.get('.menu-area .menu-primary li')
+      .eq(0)
+      .get('.custom-menu-link')
   })
 
   it('hides the nav menu on mobile', () => {
