@@ -34,7 +34,7 @@ export const MenuButton = ({
   const { header, sideNav, breakpoints } = useOptions()
 
   /** Use custom button from props or check header / mobileMenu options */
-  const menuButton = customButton || header.menuButton
+  const menuButton = customButton || header?.menuButton
 
   const getDisplay = visibleOnDesktop
     ? !sideNav.isPrimaryMobileNav
@@ -42,7 +42,7 @@ export const MenuButton = ({
       : 'none'
     : ['block', 'none']
 
-  const conditionalAttributes = sideNav.isPrimaryMobileNav
+  const conditionalAttributes = sideNav?.isPrimaryMobileNav
     ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
     : { 'aria-expanded': menu ? true : false, onClick: toggleMenu }
 
@@ -59,7 +59,7 @@ export const MenuButton = ({
   ) : (
     <Button
       {...attributes}
-      breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
+      breakpoints={setBreakpoint(header?.breakpoint, breakpoints)}
       css={{
         display: getDisplay,
         margin: 0,

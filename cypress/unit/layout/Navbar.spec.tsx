@@ -146,7 +146,7 @@ describe('Navbar component', () => {
       .should('have.css', 'display', 'none')
   })
 
-  it('renders a custom menu button', () => {
+  it('renders a custom menu button via options', () => {
     mount(
       <NavWrapper
         options={{
@@ -163,11 +163,26 @@ describe('Navbar component', () => {
     cy.viewport('iphone-x')
       .get('.nav-area .menu-button')
       .click()
-
     cy.get('#mobile-menu').should('have.class', 'active')
   })
 
-  it('renders a custom color button', () => {
+  it('renders a custom menu button via props', () => {
+    mount(
+      <NavWrapper>
+        <Navbar
+          menu={testMenu}
+          menuButton={(isOpen, atts) => <button {...atts}>Custom-Btn!</button>}
+        />
+      </NavWrapper>
+    )
+    cy.contains('Custom-Btn!')
+    cy.viewport('iphone-x')
+      .get('.nav-area .menu-button')
+      .click()
+    cy.get('#mobile-menu').should('have.class', 'active')
+  })
+
+  it('renders a custom color button via options', () => {
     mount(
       <NavWrapper
         options={{
@@ -187,6 +202,34 @@ describe('Navbar component', () => {
           },
         }}>
         <Navbar menu={testMenu} />
+      </NavWrapper>
+    )
+    cy.contains('test-light')
+    cy.get('.color-button').click()
+  })
+
+  it('renders a custom color button via props', () => {
+    mount(
+      <NavWrapper
+        options={{
+          header: {
+            showColorButton: true,
+          },
+          colors: {
+            light: {
+              text: 'red',
+            },
+            dark: {
+              text: '#000',
+            },
+          },
+        }}>
+        <Navbar
+          menu={testMenu}
+          colorButton={(currentMode, atts) => (
+            <button {...atts}>test-{currentMode}</button>
+          )}
+        />
       </NavWrapper>
     )
     cy.contains('test-light')

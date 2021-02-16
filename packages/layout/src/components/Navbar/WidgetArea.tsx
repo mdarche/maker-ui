@@ -21,9 +21,11 @@ export const WidgetArea = ({ content }: WidgetProps) => {
   return content ? (
     <div
       className="widget-area"
-      breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
+      breakpoints={
+        header ? setBreakpoint(header.breakpoint, breakpoints) : undefined
+      }
       css={{
-        display: header.hideWidgetsOnMobile ? ['none', 'flex'] : ['flex'],
+        display: header?.hideWidgetsOnMobile ? ['none', 'flex'] : 'flex',
       }}>
       {content}
     </div>

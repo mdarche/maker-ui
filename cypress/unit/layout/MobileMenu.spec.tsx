@@ -133,7 +133,7 @@ describe('MobileMenu component', () => {
             ),
           },
         }}>
-        s-inner
+        inner
       </TestMobileMenu>
     )
     cy.viewport('iphone-x')

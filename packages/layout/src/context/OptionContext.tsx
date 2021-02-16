@@ -28,6 +28,14 @@ const OptionProvider = ({ options = {}, children }: OptionProviderProps) => {
     })
   )
 
+  React.useEffect(() => {
+    setState(s =>
+      merge(s, options, {
+        arrayMerge: (_, source, __) => source,
+      })
+    )
+  }, [options])
+
   return (
     <OptionContext.Provider value={state}>
       <OptionUpdateContext.Provider value={setState}>
