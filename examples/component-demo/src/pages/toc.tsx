@@ -28,8 +28,6 @@ const TocPage = () => {
           activeColor="blue"
           marker="before"
           css={{
-            display: ['none', 'block'],
-            position: 'sticky',
             top: 80,
             ul: {
               lineHeight: 2,

@@ -1,3 +1,4 @@
+import { mergeSelector } from 'maker-ui'
 import * as React from 'react'
 
 import { Announcement, AnnouncementProps } from './Announcement'
@@ -20,6 +21,7 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       springConfig,
       closeButton = 'Got it!',
       top = false,
+      className,
       children,
       ...props
     },
@@ -28,6 +30,7 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     return (
       <Announcement
         ref={ref}
+        className={mergeSelector('cookie-notice', className)}
         fixed
         bottom={!top ? true : false}
         background={background}

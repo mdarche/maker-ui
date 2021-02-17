@@ -14,18 +14,6 @@ import { CloseIcon } from './icons'
 
 const AnimatedDiv = animated(Flex)
 
-const fixedPartial = (fixed: boolean, bottom: boolean): object | undefined =>
-  fixed
-    ? {
-        position: 'fixed',
-        left: 0,
-        right: 0,
-        top: !bottom && 0,
-        bottom: bottom && 0,
-        zIndex: 1000,
-      }
-    : undefined
-
 export interface AnnouncementProps extends DivProps {
   storageKey?: string
   fixed?: boolean
@@ -33,7 +21,7 @@ export interface AnnouncementProps extends DivProps {
   type?: 'session' | 'cookie'
   expiration?: number
   allowClose?: boolean
-  closeButton?: React.ReactNode
+  closeButton?: React.ReactNode | ((attributes?: object) => React.ReactNode)
   bottom?: boolean
   top?: boolean
   springConfig?: SpringConfig
@@ -69,19 +57,39 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     ref
   ) => {
     const [show, set] = React.useState(true)
+    const [initialRender, setInitialRender] = React.useState(false)
     const [bind, { height: viewHeight }] = useMeasure()
     const active = useTracker({ type, storageKey, show, expiration })
 
+    React.useEffect(() => {
+      setInitialRender(true)
+    }, [])
+
     const spring = useSpring({
       transform: fixed
-        ? show
+        ? show && initialRender
           ? 'translateY(0%)'
           : `translateY(${!bottom && '-'}100%)`
         : undefined,
-      height: !fixed ? (show ? viewHeight : 0) : undefined,
+      height: !fixed && initialRender ? (show ? viewHeight : 0) : undefined,
       opacity: show ? 1 : 0,
       config: springConfig,
     })
+
+    const btnAttributes = {
+      className: 'announcement-close',
+      title: 'Dismiss',
+      'aria-label': 'Dismiss',
+      onClick: () => set(false),
+      css: {
+        cursor: 'pointer',
+        border: 'none',
+        background: 'none',
+        padding: '0 15px',
+        color,
+        svg: { height: 27, fill: color },
+      },
+    }
 
     return active ? (
       <AnimatedDiv
@@ -98,36 +106,25 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
           ...(_css as object),
         }}>
         <Flex
-          className="announcement-container"
+          className="container"
           {...bind}
-          css={{ width: '100%', alignItems: 'center' }}>
+          css={{ width: '100%', alignItems: 'center', ...(css as object) }}>
           <Flex
             className="announcement-text"
             css={{
               flex: 1,
               flexWrap: 'wrap',
-              ...(css as object),
             }}
             {...props}>
             {children}
           </Flex>
-          {allowClose && (
-            <Button
-              className="announcement-close"
-              title="Dismiss"
-              aria-label="Dismiss"
-              onClick={() => set(false)}
-              css={{
-                cursor: 'pointer',
-                border: 'none',
-                background: 'none',
-                padding: '0 15px',
-                color,
-                svg: { height: 27, fill: color },
-              }}>
-              {closeButton}
-            </Button>
-          )}
+          {allowClose && !closeButton ? (
+            typeof closeButton === 'function' ? (
+              closeButton(btnAttributes)
+            ) : (
+              <Button {...btnAttributes}>{closeButton}</Button>
+            )
+          ) : null}
         </Flex>
       </AnimatedDiv>
     ) : null
@@ -135,3 +132,22 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 )
 
 Announcement.displayName = 'Announcement'
+
+/**
+ * Returns a CSS object that positions the announcement bar
+ *
+ * @param fixed - boolean that determines fixed position
+ * @param bottom - boolean that indicates bottom position
+ *
+ */
+const fixedPartial = (fixed: boolean, bottom: boolean): object | undefined =>
+  fixed
+    ? {
+        position: 'fixed',
+        left: 0,
+        right: 0,
+        top: !bottom && 0,
+        bottom: bottom && 0,
+        zIndex: 1000,
+      }
+    : undefined

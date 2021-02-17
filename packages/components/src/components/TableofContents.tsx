@@ -18,13 +18,15 @@ interface MenuItem {
 
 interface TocProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
-  headings?: number[]
+  headings?: number[] // currently supports h2, h3, and h4 tags
   indent?: boolean
   marker?: 'before' | 'after'
   indentSize?: number
   activeColor?: string | string[]
   pseudoCss?: MakerProps['css']
   smoothScroll?: boolean
+  sticky?: boolean
+  hideOnMobile?: boolean
 }
 
 /**
@@ -44,6 +46,8 @@ export const TableofContents = ({
   pseudoCss,
   smoothScroll = false,
   className,
+  sticky = true,
+  hideOnMobile = true,
   css,
 }: TocProps) => {
   const [menuItems, setMenu] = React.useState<MenuItem[]>([])
@@ -148,7 +152,12 @@ export const TableofContents = ({
   return (
     <Div
       className={mergeSelector('toc', className)}
-      css={{ ...(css as object) }}>
+      css={{
+        display: hideOnMobile ? ['none', 'block'] : 'block',
+        position: sticky ? 'sticky' : undefined,
+        top: sticky ? 0 : undefined,
+        ...(css as object),
+      }}>
       <Div>{title}</Div>
       <UList className="toc-headings" css={{ p: 0 }}>
         {menuItems.length

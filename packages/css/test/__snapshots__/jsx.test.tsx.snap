@@ -24,6 +24,18 @@ exports[`Custom jsx function identifies and parses the breakpoints prop 1`] = `
 </button>
 `;
 
+exports[`Custom jsx function identifies and parses the css prop 1`] = `
+.emotion-0 {
+  color: hotpink;
+}
+
+<button
+  className="emotion-0"
+>
+  Test button
+</button>
+`;
+
 exports[`Custom jsx function identifies and parses the custom css prop 1`] = `
 .emotion-0 {
   color: hotpink;
@@ -38,6 +50,36 @@ exports[`Custom jsx function identifies and parses the custom css prop 1`] = `
 
 exports[`Custom jsx function jsx correctly renders an Emotion component 1`] = `
 <button>
+  Test button
+</button>
+`;
+
+exports[`Custom jsx function jsx renders an Emotion component 1`] = `
+<button>
+  Test button
+</button>
+`;
+
+exports[`Custom jsx function uses default breakpoints if no theme or breakpoints are specified 1`] = `
+.emotion-0 {
+  color: hotpink;
+}
+
+@media screen and (min-width: 768px) {
+  .emotion-0 {
+    color: red;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .emotion-0 {
+    color: black;
+  }
+}
+
+<button
+  className="emotion-0"
+>
   Test button
 </button>
 `;

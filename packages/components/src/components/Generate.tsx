@@ -29,9 +29,15 @@ export const Generate = ({ data, count, children }: GenerateProps) => {
   if (!children && React.isValidElement(data[0])) {
     return (
       <React.Fragment>
-        {random.map((item, index) => (
-          <React.Fragment key={index}>{item}</React.Fragment>
-        ))}
+        {count
+          ? random
+              .slice(0, count)
+              .map((item, index) => (
+                <React.Fragment key={index}>{item}</React.Fragment>
+              ))
+          : random.map((item, index) => (
+              <React.Fragment key={index}>{item}</React.Fragment>
+            ))}
       </React.Fragment>
     )
   }
