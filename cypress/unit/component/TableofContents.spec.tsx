@@ -18,7 +18,7 @@ const TestLayout = ({
     <Content>
       <Main>
         <h2 id="heading-1">Heading 1</h2>
-        <div className="test-div" style={{ height: 500 }}>
+        <div id="test-div" style={{ height: 500 }}>
           content
         </div>
         <h3 id="sub-1">Subheading 1</h3>
@@ -73,7 +73,9 @@ describe('TableofContents component', () => {
         <TableofContents activeColor="#3efd83" />
       </TestLayout>
     )
-    cy.get('.test-div').scrollTo('center')
+    cy.scrollTo('bottom')
+    cy.scrollTo('top').wait(200)
+    cy.get('#test-div').scrollIntoView()
     cy.get('.toc-headings li')
       .eq(0)
       .find('a')
@@ -100,9 +102,39 @@ describe('TableofContents component', () => {
     cy.get('.level-2').should('have.css', 'padding-left', '10px')
   })
 
-  // it('renders a marker before', () => {})
+  it('renders a marker `before` the ToC link', () => {
+    mount(
+      <TestLayout>
+        <TableofContents marker="before" />
+      </TestLayout>
+    )
+    cy.scrollTo('bottom')
+    cy.scrollTo('top').wait(200)
+    cy.get('#heading-2').scrollIntoView()
+    cy.get('.active').then(el => {
+      const win = el[0].ownerDocument.defaultView
+      const before = win.getComputedStyle(el[0], 'before')
+      const left = before.getPropertyValue('left')
+      expect(left).to.eq('0px')
+    })
+  })
 
-  // it('renders a marker after', () => {})
+  it('renders a marker `after` the ToC link', () => {
+    mount(
+      <TestLayout>
+        <TableofContents marker="after" />
+      </TestLayout>
+    )
+    cy.scrollTo('bottom')
+    cy.scrollTo('top').wait(200)
+    cy.get('#heading-2').scrollIntoView()
+    cy.get('.active').then(el => {
+      const win = el[0].ownerDocument.defaultView
+      const before = win.getComputedStyle(el[0], 'before')
+      const right = before.getPropertyValue('right')
+      expect(right).to.eq('0px')
+    })
+  })
 
   it('adds the correct ID destination to each ToC link', () => {
     mount(
@@ -116,6 +148,7 @@ describe('TableofContents component', () => {
       .should('have.attr', 'href', '#heading-1')
     cy.get('.level-1 a').should('have.attr', 'href', '#sub-1')
     cy.get('.level-1 a').click()
+    cy.url().should('include', '#sub-1')
   })
 
   it('adds smooth scroll to document when `smoothScroll` is true', () => {
@@ -141,5 +174,3 @@ describe('TableofContents component', () => {
     cy.get('.toc li a').should('have.css', 'content')
   })
 })
-
-// Figure out how to test pseudo selectors
