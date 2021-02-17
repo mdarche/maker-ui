@@ -107,7 +107,6 @@ Maker UI also has an optional package `@maker-ui/components` that exports a vari
 - Tabs
 - Announcement
 - TreeMenu
-- FadeBox (scroll reveal)
 - Popover, Tooltip, and Dropdown
 - Spinner
 - CookieNotice

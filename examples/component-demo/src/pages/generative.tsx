@@ -1,11 +1,6 @@
 import * as React from 'react'
 import { Flex, Div, Grid, Image } from 'maker-ui'
-import {
-  FadeBox,
-  Generate,
-  generateStyles,
-  generateSrc,
-} from '@maker-ui/components'
+import { Generate, generateStyles, generateSrc } from '@maker-ui/components'
 
 // Example 1 - Random grid items
 
@@ -96,12 +91,6 @@ const GenerativePage = () => {
       </Grid>
       <h2>Example 3</h2>
       <Image {...generateSrc(imageData)} />
-      <FadeBox
-        transition="fade-left"
-        distance={100}
-        css={{ bg: 'gainsboro', margin: '100px 0' }}>
-        Test
-      </FadeBox>
       <h2>Example 4</h2>
       <Flex
         inline
