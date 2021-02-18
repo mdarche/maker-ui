@@ -6,10 +6,12 @@ import {
   generateId,
   useMeasure,
   mergeSelector,
+  MakerProps,
 } from 'maker-ui'
 import { useSpring, animated } from 'react-spring'
 
 import { useAccordion } from './AccordionContext'
+import { CaretIcon } from '../icons'
 
 const AnimatedDiv = animated(Div)
 
@@ -17,7 +19,7 @@ export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
   open?: boolean
   eventKey?: string
-  borderColor?: string | string[]
+  _css?: MakerProps['css']
 }
 
 /**
@@ -35,9 +37,9 @@ export const AccordionPanel = React.forwardRef<
       title,
       open = false,
       eventKey,
-      borderColor = '#dedede',
       children,
       className = '',
+      _css,
       css,
       ...props
     },
@@ -49,6 +51,12 @@ export const AccordionPanel = React.forwardRef<
       eventKey ? eventKey : generateId()
     )
     const { state, registerPanel, setActivePanel } = useAccordion()
+
+    /**
+     * @todo - Add default support for an initial `open` when showSingle is active too
+     * @todo - Support `eventKey` in any scenario, not just showSingle
+     */
+
     const [show, set] = React.useState(
       state.showSingle && state.activeKey === eventKey ? true : open
     )
@@ -70,11 +78,30 @@ export const AccordionPanel = React.forwardRef<
       to: {
         height: show ? viewHeight : 0,
       },
-      config: state.springConfig,
+      config: state.spring,
     })
 
     const setActive = () =>
       !show && state.showSingle ? setActivePanel(panelKey) : set(!show)
+
+    function renderIcon() {
+      if (state.icon) {
+        if (React.isValidElement(state.customIcon)) {
+          return state.customIcon
+        }
+
+        if (typeof state.customIcon === 'object') {
+          return show ? state.customIcon?.collapse : state.customIcon?.expand
+        }
+
+        if (typeof state.customIcon === 'function') {
+          return state.customIcon(show)
+        }
+
+        return <CaretIcon show={show} />
+      }
+      return null
+    }
 
     return (
       <Div
@@ -86,11 +113,11 @@ export const AccordionPanel = React.forwardRef<
         css={{ border: '1px solid', ...(css as object) }}
         {...props}>
         <Button
+          className={`${show ? 'active ' : ''}accordion-toggle`}
           title={`${show ? 'Collapse' : 'Expand'} content`}
           id={buttonId}
           aria-expanded={show ? 'true' : 'false'}
           aria-controls={panelId}
-          className={`${show ? 'active ' : ''}accordion-toggle`}
           onClick={setActive}
           css={{
             display: 'flex',
@@ -100,36 +127,12 @@ export const AccordionPanel = React.forwardRef<
             border: 'none',
             padding: '15px',
             cursor: 'pointer',
+            ...(_css as object),
           }}>
-          {React.isValidElement(title) ? title : <span>{title}</span>}
-          {state.icon ? (
-            <span>
-              {state.customIcons?.expand !== undefined ? (
-                show ? (
-                  state.customIcons?.collapse
-                ) : (
-                  state?.customIcons?.expand
-                )
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  style={{
-                    width: 15,
-                    transition: 'all ease .3s',
-                    transform: !show ? 'rotate(0)' : 'rotate(180deg)',
-                  }}>
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    strokeMiterlimit="10"
-                    strokeWidth="2"
-                    d="M21 8.5l-9 9-9-9"
-                  />
-                </svg>
-              )}
-            </span>
-          ) : null}
+          <div>
+            {React.isValidElement(title) ? title : <span>{title}</span>}
+          </div>
+          {renderIcon()}
         </Button>
         <AnimatedDiv
           id={panelId}
@@ -143,7 +146,7 @@ export const AccordionPanel = React.forwardRef<
             {...bind}
             className="accordion-panel"
             css={{
-              borderTop: `1px solid ${borderColor}`,
+              borderTop: `1px solid`,
             }}>
             {children}
           </Div>

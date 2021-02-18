@@ -27,6 +27,8 @@ const TestLayout = ({
         <div style={{ height: 500 }}>content</div>
         <h2 id="heading-3">Heading 3</h2>
         <h4 id="sub-2">Subheading 2</h4>
+        <h5 id="sub-3">Subheading 2</h5>
+        <h6 id="sub-4">Subheading 2</h6>
         <div style={{ height: 900 }}>content</div>
       </Main>
       <Sidebar>{children}</Sidebar>
@@ -61,10 +63,19 @@ describe('TableofContents component', () => {
   it('searches for specific heading tags', () => {
     mount(
       <TestLayout>
-        <TableofContents headings={[2]} />
+        <TableofContents headings={['h2']} />
       </TestLayout>
     )
     cy.get('.toc-headings li').should('have.length', 3)
+  })
+
+  it('searches for all heading tags', () => {
+    mount(
+      <TestLayout>
+        <TableofContents headings="all" />
+      </TestLayout>
+    )
+    cy.get('.toc-headings li').should('have.length', 7)
   })
 
   it("highlights the viewport's active section heading", () => {

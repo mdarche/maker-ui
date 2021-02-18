@@ -22,19 +22,19 @@ const AccordionUpdateContext = React.createContext<
 
 export const AccordionContext = ({
   icon,
-  customIcons,
+  customIcon,
   activeKey,
   showSingle,
-  springConfig,
+  spring,
   children,
 }: AccordionContextProps) => {
   const [state, setState] = React.useState<AccordionState>({
     activeKey,
     panelKeys: [],
     icon,
-    customIcons,
+    customIcon,
     showSingle,
-    springConfig,
+    spring,
   })
 
   React.useEffect(() => {

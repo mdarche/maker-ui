@@ -7,13 +7,16 @@ import { SpringConfig } from 'react-spring'
 
 export interface AccordionProps extends DivProps {
   icon?: boolean
-  customIcons?: {
-    expand?: React.ReactElement
-    collapse?: React.ReactElement
-  }
+  customIcon?:
+    | React.ReactElement
+    | {
+        expand: React.ReactElement
+        collapse: React.ReactElement
+      }
+    | ((isExpanded: boolean) => React.ReactNode)
   activeKey?: number | string
   showSingle?: boolean
-  springConfig?: SpringConfig
+  spring?: SpringConfig
 }
 
 /**
@@ -25,9 +28,10 @@ export interface AccordionProps extends DivProps {
 
 export const Accordion = ({
   icon = true,
-  customIcons,
+  customIcon,
   activeKey = 0,
   showSingle = false,
+  spring,
   className,
   css,
   children,
@@ -36,9 +40,10 @@ export const Accordion = ({
   return (
     <AccordionContext
       icon={icon}
-      customIcons={customIcons}
+      customIcon={customIcon}
       activeKey={activeKey}
-      showSingle={showSingle}>
+      showSingle={showSingle}
+      spring={spring}>
       <Div
         className={mergeSelector('accordion-container', className)}
         css={{ ...(css as object) }}

@@ -18,7 +18,7 @@ interface MenuItem {
 
 interface TocProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
-  headings?: number[] // currently supports h2, h3, and h4 tags
+  headings?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6')[] | 'all'
   indent?: boolean
   marker?: 'before' | 'after'
   indentSize?: number
@@ -38,7 +38,7 @@ interface TocProps extends Omit<DivProps, 'title'> {
 
 export const TableofContents = ({
   title = 'Contents',
-  headings = [2, 3, 4],
+  headings = ['h2', 'h3', 'h4'],
   activeColor,
   marker,
   indent = true,
@@ -54,7 +54,7 @@ export const TableofContents = ({
   const [activeNode, setActiveNode] = React.useState<number | null>(null)
 
   /**
-   * Add smooth scroll to document if required
+   * Add smooth scroll to document if specified
    */
   React.useEffect(() => {
     const html = document.querySelector('html') as HTMLElement
@@ -69,7 +69,8 @@ export const TableofContents = ({
    * Query DOM for applicable heading elements
    */
   React.useEffect(() => {
-    const selectors = headings.map(h => `main h${h}`).join(', ')
+    const activeHeadings = headings !== 'all' ? headings : allHeadings
+    const selectors = activeHeadings.map(h => `main ${h}`).join(', ')
     const nodes: HTMLElement[] = Array.from(
       document.querySelectorAll(selectors)
     )
@@ -81,7 +82,7 @@ export const TableofContents = ({
             filtered.push({
               text: innerHTML,
               id,
-              level: tagName === 'H3' ? 1 : tagName === 'H4' ? 2 : 0,
+              level: getLevel(tagName),
               offset: offsetTop,
             })
           }
@@ -196,10 +197,28 @@ export const TableofContents = ({
                 </a>
               </ListItem>
             ))
-          : undefined}
+          : null}
       </UList>
     </Div>
   )
 }
 
 TableofContents.displayName = 'TableofContents'
+
+const allHeadings = ['h2', 'h3', 'h4', 'h5', 'h6']
+
+function getLevel(lvl: string) {
+  switch (lvl) {
+    case 'H3':
+      return 1
+    case 'H4':
+      return 2
+    case 'H5':
+      return 3
+    case 'H6':
+      return 4
+    case 'H2':
+    default:
+      return 0
+  }
+}

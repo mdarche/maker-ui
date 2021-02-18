@@ -20,7 +20,7 @@ https://maker-ui.com
 ## Templating Features
 
 - 9 customizable desktop header layouts
-- 4 customizeable mobile header layouts
+- 4 customizable mobile header layouts
 - 10+ content layouts
 - Responsive header and side navigation
 - Accessible dropdown menus
