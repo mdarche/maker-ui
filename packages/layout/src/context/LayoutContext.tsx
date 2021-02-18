@@ -64,6 +64,14 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
     height_toolbar: 0,
   })
 
+  React.useEffect(() => {
+    setState(s => ({
+      ...s,
+      layout_nav: options.header.navType,
+      layout_navMobile: options.header.mobileNavType,
+    }))
+  }, [options])
+
   /**
    * Set the initial color theme
    *

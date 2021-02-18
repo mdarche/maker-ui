@@ -1,7 +1,7 @@
 import * as React from 'react'
 import merge from 'deepmerge'
 
-import { MakerOptions } from '../types'
+import { MakerOptions, MakerUIOptions } from '../types'
 import { defaultOptions } from '../options'
 
 interface OptionProviderProps {
@@ -14,6 +14,12 @@ const OptionUpdateContext = React.createContext<
   React.Dispatch<React.SetStateAction<MakerOptions>>
 >(() => {})
 
+function mergeOptions(initial: MakerUIOptions, options: MakerUIOptions) {
+  return merge(initial, options, {
+    arrayMerge: (_, source, __) => source,
+  }) as MakerOptions
+}
+
 /**
  * The `OptionProvider` stores all of Maker UI's client-facing
  * configurations.
@@ -23,17 +29,11 @@ const OptionUpdateContext = React.createContext<
 
 const OptionProvider = ({ options = {}, children }: OptionProviderProps) => {
   const [state, setState] = React.useState<MakerOptions>(
-    merge(defaultOptions, options, {
-      arrayMerge: (_, source, __) => source,
-    })
+    mergeOptions(defaultOptions, options)
   )
 
   React.useEffect(() => {
-    setState(s =>
-      merge(s, options, {
-        arrayMerge: (_, source, __) => source,
-      })
-    )
+    setState(s => mergeOptions(s, options))
   }, [options])
 
   return (

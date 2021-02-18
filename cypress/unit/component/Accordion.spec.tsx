@@ -111,7 +111,7 @@ describe('Accordion component', () => {
     cy.get('.accordion').should('have.class', 'expanded')
   })
 
-  it.only('lets outside components control the accordion panels via `eventKey`', () => {
+  it('lets outside components control the accordion panels via `eventKey`', () => {
     const EventKeyTest = () => {
       const [key, setKey] = React.useState('1')
 
