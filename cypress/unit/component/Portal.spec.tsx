@@ -18,7 +18,7 @@ describe('Partal component (internal)', () => {
       .contains('Portal Content')
   })
 
-  it.only('attaches to a specified DOM node using ID selector', () => {
+  it('attaches to a specified DOM node using ID selector', () => {
     mount(
       <div>
         <div>

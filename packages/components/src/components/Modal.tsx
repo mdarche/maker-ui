@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTransition, animated, SpringConfig } from 'react-spring'
-import { Div, DivProps, mergeSelector } from 'maker-ui'
+import { Div, DivProps, mergeSelector, MakerProps } from 'maker-ui'
 
 import { Portal } from './Portal'
 import { useFocus } from '../hooks'
@@ -15,9 +15,9 @@ export interface ModalProps extends DivProps {
   title?: string
   closeOnBlur?: boolean
   focusRef?: React.MutableRefObject<any> | any
-  style?: any
+  _css?: MakerProps['css']
   center?: boolean
-  springConfig?: SpringConfig
+  spring?: SpringConfig
 }
 
 /**
@@ -36,9 +36,9 @@ export const Modal = ({
   focusRef,
   center = false,
   background = 'rgba(0, 0, 0, 0.66)',
-  style = {},
-  springConfig,
+  spring,
   className,
+  _css,
   css,
   children,
   ...rest
@@ -119,7 +119,7 @@ export const Modal = ({
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
-    config: springConfig,
+    config: spring,
   })
 
   return (
@@ -133,12 +133,13 @@ export const Modal = ({
               className={mergeSelector('modal', className)}
               aria-label={title}
               aria-modal="true"
-              style={{ ...style, ...props }}
+              style={props as any}
               tabIndex={focusable.count === 0 ? 0 : undefined}
               css={{
                 ...(position as object),
                 ...(centered(center) as object),
                 zIndex: 101,
+                ...(_css as object),
               }}>
               <Div
                 role="button"
@@ -151,6 +152,7 @@ export const Modal = ({
                 }}
               />
               <Div
+                className="modal-content"
                 css={{ zIndex: 1, overflow: 'scroll', ...(css as object) }}
                 {...rest}>
                 {children}

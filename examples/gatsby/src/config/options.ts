@@ -1,6 +1,6 @@
-import { MakerOptions } from 'maker-ui'
+import { MakerUIOptions } from 'maker-ui'
 
-export const options: Partial<MakerOptions> = {
+export const options: MakerUIOptions = {
   header: {
     mobileNavType: 'basic-menu-left',
   },
