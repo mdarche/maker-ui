@@ -134,7 +134,7 @@ describe('Tabs component', () => {
     cy.get('.tab-navigation').should('have.css', 'order', '2')
   })
 
-  it.only('supports external control with the `activeKey` prop and the TabPanel `eventKey` prop', () => {
+  it('supports external control with the `activeKey` prop and the TabPanel `eventKey` prop', () => {
     const EventKeyTest = () => {
       const [key, setKey] = React.useState(1)
 
