@@ -14,8 +14,8 @@ const OptionUpdateContext = React.createContext<
   React.Dispatch<React.SetStateAction<MakerOptions>>
 >(() => {})
 
-function mergeOptions(initial: MakerUIOptions, options: MakerUIOptions) {
-  return merge(initial, options, {
+function mergeOptions(initial: MakerUIOptions, incoming: MakerUIOptions) {
+  return merge(initial, incoming, {
     arrayMerge: (_, source, __) => source,
   }) as MakerOptions
 }

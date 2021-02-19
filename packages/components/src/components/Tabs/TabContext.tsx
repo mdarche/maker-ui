@@ -41,12 +41,38 @@ export const TabContext = ({
     renderInactive,
   })
 
+  /**
+   * Set the default open tab if none is specified
+   */
+
   React.useEffect(() => {
-    if (activeKey === 0) {
-      setState(state => ({ ...state, activeKey: state.tabs[0].id }))
-    } else {
-      setState(state => ({ ...state, activeKey: activeKey.toString() }))
+    if (state.tabs.length && state.activeKey === 0) {
+      // Get first tab that isn't disabled
+      const tab = state.tabs.find(t => !t.disabled)
+      setState(state => ({
+        ...state,
+        activeKey: tab ? tab.id : state.activeKey,
+      }))
     }
+  }, [state])
+
+  /**
+   * Watch props for a new activeKey (controlled by external variable)
+   */
+
+  React.useEffect(() => {
+    if (state.activeKey !== 0) {
+      // Make sure the tab isn't disabled
+      const tab = state.tabs.find(
+        ({ id, disabled }) => id === activeKey.toString() && !disabled
+      )
+
+      setState(state => ({
+        ...state,
+        activeKey: tab ? activeKey.toString() : state.activeKey,
+      }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeKey])
 
   return (
@@ -81,14 +107,14 @@ export function useTabs() {
     }))
   }
 
-  function addToTabGroup(item: TabItem, isOpen: boolean) {
+  function addToTabGroup(item: TabItem, open: boolean) {
     const exists = state.tabs ? state.tabs.find(t => t.id === item.id) : false
 
     if (!exists) {
       setState(state => ({
         ...state,
         tabs: [...state.tabs, item],
-        activeKey: isOpen ? item.id : state.activeKey,
+        activeKey: open ? item.id : state.activeKey,
       }))
     }
   }

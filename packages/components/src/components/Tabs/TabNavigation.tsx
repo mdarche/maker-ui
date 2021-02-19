@@ -2,12 +2,13 @@ import * as React from 'react'
 import { Flex, Button } from 'maker-ui'
 
 import { useTabs } from './TabContext'
+import { TabGroupProps } from './Tabs'
 
 export interface TabStyleProps {
   settings: {
     isVertical?: boolean
-    overflow?: 'stack' | 'scroll'
-    navPosition?: string
+    overflow?: TabGroupProps['overflow']
+    navPosition?: TabGroupProps['navPosition']
     breakpoints?: (string | number)[]
   }
 }
@@ -97,8 +98,8 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
           role="tab"
           tabIndex={state.activeKey === item.id ? 0 : -1}
           id={`control-${item.id}`}
-          className={`tab-button${
-            state.activeKey === item.id ? ' active' : ''
+          className={`tab-button ${
+            state.activeKey === item.id ? 'active' : ''
           }${item.disabled ? 'disabled' : ''}`}
           disabled={item.disabled}
           title={typeof item.title === 'string' ? item.title : undefined}

@@ -6,10 +6,9 @@ import { TabNavigation } from './TabNavigation'
 import { TabPanel } from './TabPanel'
 
 export interface TabGroupProps extends DivProps {
-  navPosition?: string
+  navPosition?: 'top' | 'bottom' | 'left' | 'right'
   activeKey?: number | string
   overflow?: 'stack' | 'scroll'
-  bpIndex?: number
   renderInactive?: boolean
   children?: React.ReactNode
 }

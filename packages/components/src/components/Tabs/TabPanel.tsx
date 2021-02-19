@@ -42,7 +42,8 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
 
     React.useEffect(() => {
       addToTabGroup(tabItem, open)
-    }, [addToTabGroup, tabItem, open])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tabItem, open])
 
     return renderInactive || activeKey === id ? (
       <Div
@@ -50,11 +51,17 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
         role="tabpanel"
         id={`panel-${panelId}`}
         aria-labelledby={`control-${panelId}`}
-        className={mergeSelector('tab-panel', className)}
+        className={mergeSelector(
+          `tab-panel${activeKey === id ? ' active' : ''}`,
+          className
+        )}
         css={{
           flex: 1,
           order: 1,
-          display: renderInactive && activeKey !== id ? 'none' : undefined,
+          display: 'none',
+          '&.active': {
+            display: 'block',
+          },
           ...(css as object),
         }}
         {...props}

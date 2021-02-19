@@ -156,6 +156,15 @@ describe('Accordion component', () => {
  */
 
 describe('AccordionPanel component', () => {
+  it('supports `Accordion.Panel` dot syntax', () => {
+    mount(
+      <Accordion>
+        <Accordion.Panel title="Dot Syntax">Content 1</Accordion.Panel>
+      </Accordion>
+    )
+    cy.get('.accordion-toggle').contains('Dot Syntax')
+  })
+
   it('uses a custom title component', () => {
     mount(
       <Accordion>
@@ -170,15 +179,6 @@ describe('AccordionPanel component', () => {
       </Accordion>
     )
     cy.get('.custom-title h3')
-  })
-
-  it('supports `Accordion.Panel` dot syntax', () => {
-    mount(
-      <Accordion>
-        <Accordion.Panel title="Dot Syntax">Content 1</Accordion.Panel>
-      </Accordion>
-    )
-    cy.get('.accordion-toggle').contains('Dot Syntax')
   })
 
   it('adapts to child height', () => {
