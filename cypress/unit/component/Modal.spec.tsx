@@ -17,6 +17,9 @@ const TestModal = props => {
     </div>
   )
 }
+/**
+ * @todo - Test all keyboard navigation scenarios
+ */
 
 describe('Modal component', () => {
   it('renders with default props', () => {

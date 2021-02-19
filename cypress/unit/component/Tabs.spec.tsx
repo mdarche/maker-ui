@@ -3,7 +3,7 @@ import { Tabs } from '@maker-ui/components'
 import { mount } from '@cypress/react'
 
 /**
- * @todo - Test keyboard usability... Need a separate Cypress a11y plugin for this
+ *  @todo - Test all keyboard navigation scenarios
  */
 
 describe('Tabs component', () => {

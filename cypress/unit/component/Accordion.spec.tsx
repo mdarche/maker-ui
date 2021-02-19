@@ -4,6 +4,9 @@ import { mount } from '@cypress/react'
 
 /**
  * Accordion
+ *
+ * @todo - Test all keyboard navigation scenarios
+ *
  */
 
 describe('Accordion component', () => {
