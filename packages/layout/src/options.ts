@@ -13,7 +13,7 @@ export const defaultOptions: MakerUIOptions = {
     heading: 'sans-serif',
     monospace: 'monospace',
   },
-  breakpoints: ['568px', '768px', '1440px'],
+  breakpoints: ['768px', '960px', '1440px'],
   colors: {
     light: {
       link: 'red',
@@ -57,7 +57,7 @@ export const defaultOptions: MakerUIOptions = {
   mobileMenu: {
     width: '60vw',
     transition: 'slide-left',
-    cssTransition: 'all ease .3s',
+    cssTransition: 'all ease 0.3s',
     visibleOnDesktop: false,
     showCloseButton: true,
     closeOnBlur: true,
@@ -71,7 +71,7 @@ export const defaultOptions: MakerUIOptions = {
     toggleButton: 'default',
     closeOnBlur: true,
     closeOnRouteChange: true,
-    cssTransition: 'transform ease .3s',
+    cssTransition: 'transform ease 0.3s',
     breakpoint: 0,
   },
   content: {
@@ -93,9 +93,6 @@ export const defaultOptions: MakerUIOptions = {
   },
   errors: {
     showStackTrace: false,
-    errorMessage: {
-      sidebar: 'You must add a child component to <Sidebar />',
-    },
   },
   workspace: {
     canvasMaxWidth: '100%',
@@ -105,7 +102,7 @@ export const defaultOptions: MakerUIOptions = {
       collapseWidth: 0,
     },
     panelRight: {
-      width: 300,
+      width: '.25fr',
       collapseWidth: 0,
     },
     dock: {

@@ -90,8 +90,7 @@ export interface MakerOptions {
    * An array of browser widths that is used as the default breakpoints for
    * all nested Maker UI components and primitives.
    *
-   * @default
-   * ['568px', '768px', '1440px']
+   * @default ['768px', '960px', '1440px']
    */
   breakpoints: (string | number)[]
   /**
@@ -129,25 +128,30 @@ export interface MakerOptions {
   topbar: {
     /**
      * The max-width of the topbar's content container. Can be a responsive array.
+     * @default 1260
      */
     maxWidth: ResponsiveScale
     /**
      * Determines if the topbar sticks to the top of the viewport while scrolling.
+     * @default false
      */
     sticky?: boolean
     /**
      * Determines if the header sticks to the top of the viewport on mobile.
+     * @default false
      */
     stickyOnMobile?: boolean
     /**
      * Determines if the topbar is visible on mobile.
+     * @default false
      */
     hideOnMobile?: boolean
     /**
      * A specific breakpoint that determines when the topbar is visible. You may also use an index
      * to access a specific breakpoint in the `options.breakpoints` array.
+     * @default 0 (breakpoints[0], or 768px)
      *
-     * @remark - This is only helpful if `hideOnMobile` is true.
+     * @remark This is only helpful if `hideOnMobile` is true.
      */
     breakpoint: number | string
   }
@@ -157,19 +161,23 @@ export interface MakerOptions {
   header: {
     /**
      * The Navbar's layout on desktop.
+     * @default 'basic'
      */
     navType: typeof navTypes[number]
     /**
      * The Navbar's layout on mobile devices.
+     * @default 'basic'
      */
     mobileNavType: typeof mobileNavTypes[number]
     /**
      * The max-width of the header's content container. Can be a responsive array.
+     * @default 1460
      */
     maxWidth: ResponsiveScale
     /**
      * Determines if the header should be absolutely positioned so site content
      * begins at the top of the viewport.
+     * @default false
      *
      * @remark
      * - This is helpful for transparent headers.
@@ -181,20 +189,22 @@ export interface MakerOptions {
     absolute: boolean
     /**
      * Determines if the header sticks to the top of the viewport while scrolling.
+     * @default false
      */
     sticky: boolean
     /**
      * Determines if the header sticks to the top of the viewport on mobile.
+     * @default false
      */
     stickyOnMobile: boolean
     /**
      * Hides the sticky header on down scroll and reveals when scrolling back up.
+     * @default false
      */
     stickyUpScroll: boolean
     /**
-     * Adds a custom class to the header when the user has scrolled past
-     * a specified point.
-     */
+     * Adds a custom class to the header when the user has scrolled past a specified point.
+\     */
     scrollClass: {
       /** The scrollTop value that triggers adding or removing a class (in pixels).*/
       scrollTop: number
@@ -203,30 +213,40 @@ export interface MakerOptions {
     }
     /**
      * Determines whether the header nav area displays a color toggle button.
+     * @default true (only appears if multiple color modes are present)
      */
     showColorButton: boolean
     /**
      * Hides the header's color toggle button on mobile.
+     * @default false
      */
     hideColorButtonOnMobile: boolean
     /**
      * Hides the header nav area on mobile (typically containing search, social icons,
      * or other custom components).
+     * @default true
      */
     hideWidgetsOnMobile: boolean
     /**
      * Controls the header's default dropdown menu settings.
      */
     dropdown: {
-      /** A boolean that displays the default caret or a React Element that lets you
-       * use a custom caret component.*/
+      /**
+       * A boolean that displays the default caret or a React Element that lets you
+       * use a custom caret component.
+       * @default 'default'
+       * */
       caret: boolean | 'default' | React.ReactElement
-      /** The transition animation for showing/hiding header dropdown menus on hover or focus.*/
+      /**
+       * The transition animation for showing/hiding header dropdown menus on hover or focus.
+       * @default 'fade'
+       * */
       transition: 'scale' | 'fade' | 'fade-down' | 'fade-up'
     }
     /**
      * Lets you decide if your nav menu should wrap to the next line or scroll horizontally
      * when the menu is larger than its container width.
+     * @default 'wrap'
      */
     menuOverflow: 'wrap' | 'scroll'
     /**
@@ -250,6 +270,7 @@ export interface MakerOptions {
      * A specific breakpoint that controls when the header switches from desktop navigation
      * to mobile navigation. You may also use an index to access a specific breakpoint in
      * the `options.breakpoints` array.
+     * @default 0 (breakpoints[0], or 768px)
      */
     breakpoint: number | string
   }
@@ -259,20 +280,24 @@ export interface MakerOptions {
   mobileMenu: {
     /**
      * The width of the mobile menu when active. This can be a responsive array.
+     * @default '60vw'
      */
     width: ResponsiveScale
     /**
      * The transition style for the mobile menu when a user clicks the header's
      * mobile menu button.
+     * @default 'slide-left'
      */
     transition: typeof transitionTypes[number]
     /**
      * The CSS `transition` property that controls how the mobile menu enters and exits
      * the viewport.
+     * @default 'all ease 0.3s'
      */
     cssTransition?: string
     /**
      * Displays the header's mobile menu button at all times.
+     * @default false
      */
     visibleOnDesktop?: boolean
     /**
@@ -285,18 +310,21 @@ export interface MakerOptions {
       | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
     /**
      * Displays a close button in the mobile menu.
+     * @default true
      */
     showCloseButton: boolean
     /**
      * Closes the mobile menu when the user clicks outside the menu.
+     * @default true
      *
-     * @remarks - Only useful for `slide-left` and `slide-right` transition types when
+     * @remarks Only useful for `slide-left` and `slide-right` transition types when
      * the width is less than 100% or 100vw
      */
     closeOnBlur: boolean
     /**
      * Closes the mobile menu when the user selects a menu item and navigates to a
      * new route.
+     * @default false
      */
     closeOnRouteChange: boolean
   }
@@ -306,41 +334,49 @@ export interface MakerOptions {
   sideNav: {
     /**
      * The width of the side navigation bar.
+     * @default [250, 300]
      */
     width: ResponsiveScale
     /**
      * The CSS `transition` property that controls how the side nav enters and exits
      * the viewport on mobile.
+     * @default 'transform ease 0.3s'
      */
     cssTransition: string
     /**
      * Determines if the side nav should be rendered as a <header> tag. Don't use this if
      * you also use a <Header> component in your layout.
+     * @default false
      */
     isHeader: boolean
     /**
      * Lets you connect the side nav to the header's mobile menu button istead of
      * activating the mobile menu component. This behavior is only for mobile.
+     * @default false
      */
     isPrimaryMobileNav: boolean
     /**
      * Closes the side nav on mobile when the user clicks outside the menu.
+     * @default true
      */
     closeOnBlur: boolean
     /**
      * Closes the side nav when the user selects a menu item and navigates to a
      * new route.
+     * @default true
      */
     closeOnRouteChange: boolean
     /**
      * Adds a floating toggle to the viewport that lets you open / close the side nav
      * on mobile screens.
+     * @default true
      */
     showToggleOnMobile: boolean
     /**
      * Lets you customize the side nav floating toggle button. By default, it displays a button
      * with `open` or `close` inner text, but you can use a custom React component or a JSX
      * callback to animate the button's state.
+     * @default 'default'
      */
     toggleButton?:
       | 'default'
@@ -354,31 +390,36 @@ export interface MakerOptions {
   content: {
     /**
      * The max-width of the <main> tag content. Can be a responsive array.
+     * @default 1020
      */
     maxWidth?: ResponsiveScale
     /**
      * The max-width of all nested <Section /> components. Can be a responsive array.
+     * @default 1020
      *
-     * @remarks - To use sections with full-width backgrounds, make sure `content.maxWidth`
+     * @remarks To use sections with full-width backgrounds, make sure `content.maxWidth`
      * is set to `100%' and use this setting to control the content's max-width.
      */
     maxWidthSection?: ResponsiveScale
     /**
      * The width of the gap between the main content area and optional sidebars.
      * Can be a responsive array.
+     * @default 30
      */
     sidebarGap?: ResponsiveScale
     /**
      * Use this setting to defer the DOM calculations of absolutely positioned components
      * like Popovers or Dropdowns if your layout uses Page Transitions.
+     * @default 0
      *
-     * @remarks - This is a temporary solution in v1.0
+     * @remarks This is a temporary solution in v1.0
      */
     deferMeasurements?: number
     /**
      * A specific breakpoint that controls when the grid for main content, sidebars, and the
      * side nav breaks down for mobile. You may also use an index to access a specific breakpoint
      * in the `options.breakpoints` array.
+     * @default 0 (breakpoints[0], or 768px)
      */
     breakpoint: string | number
   }
@@ -388,13 +429,15 @@ export interface MakerOptions {
   sidebar: {
     /**
      * The width of the primary sidebar.
+     * @default 300
      */
     width?: ResponsiveScale
     /**
      * The width of the secondary sidebar. In `sidebar content sidebar` layouts, this
      * value always determines the second (right-hand) sidebar width.
+     * @default 200
      */
-    secondWidth?: ResponsiveScale // TODO
+    secondWidth?: ResponsiveScale
   }
   /**
    * Configuration object for the Maker UI footer.
@@ -402,6 +445,7 @@ export interface MakerOptions {
   footer: {
     /**
      * The max-width of the layout's footer content. Can be a responsive array.
+     * @default 1020
      */
     maxWidth?: ResponsiveScale
   }
@@ -412,6 +456,7 @@ export interface MakerOptions {
     /**
      * Adds native skiplink support to the root of your layout. Setting this value
      * to false is NOT recommended.
+     * @default true
      */
     skiplinks?: boolean
   }
@@ -427,6 +472,7 @@ export interface MakerOptions {
     /**
      * Renders the error's stack trace in the error message. This is helpful for development
      * but not recommended for production.
+     * @default false
      */
     showStackTrace?: boolean
     /**
@@ -459,6 +505,7 @@ export interface MakerOptions {
   workspace: {
     /**
      * The max-width of the workspace canvas content. Can be a responsive array.
+     * @default '100%'
      */
     canvasMaxWidth?: ResponsiveScale
     /**
@@ -473,12 +520,19 @@ export interface MakerOptions {
      * Configuration object for the workspace dock component.
      */
     dock?: {
-      /** The width of the dock. */
+      /**
+       * The width of the dock.
+       * @default 50
+       */
       width?: ResponsiveScale
-      /** Hides the dock on mobile. */
+      /**
+       * Hides the dock on mobile.
+       * @default true
+       */
       hideOnMobile?: boolean
       /** A specific breakpoint that controls when the dock breaks down for mobile. You may also
        * use an index to access a specific breakpoint in the `options.breakpoints` array.
+       * @default 0 (breakpoints[0], or 768px)
        */
       breakpoint: string | number
     }
@@ -486,6 +540,7 @@ export interface MakerOptions {
      * A specific breakpoint that controls when the workspace panels and toolbar break down on
      * mobile. You may also use an index to access a specific breakpoint in the `options
      * breakpoints` array.
+     * @default 0 (breakpoints[0], or 768px)
      */
     breakpoint: string | number
   }
@@ -494,14 +549,17 @@ export interface MakerOptions {
 type PanelProps = {
   /**
    * The width of the workspace panel.
+   * @default '.25fr'
    */
   width?: ResponsiveScale
   /**
    * Determines if the panel can expand and collapse.
+   * @default false
    */
   collapsible?: boolean
   /**
    * The width of the panel when it is collapsed.
+   * @default 0
    */
   collapseWidth?: ResponsiveScale
   /**
@@ -515,10 +573,7 @@ type PanelProps = {
     | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
   /**
    * Lets you choose if the panel should be open or closed by default.
+   * @default true
    */
   defaultOpen?: boolean
-  /**
-   * The transition type for closing and opening the panel.
-   */
-  transition?: 'slide' | 'scale'
 }
