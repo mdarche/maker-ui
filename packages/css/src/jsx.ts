@@ -7,7 +7,7 @@ import { formatCSS } from './css'
  * Scans JSX props for `breakpoints` and `css` to format responsive arrays
  *
  * @param props - all of the element's props
- * @returns All original props + a formatted responsive style object
+ * @returns All original props + a formatted, responsive EmotionJS `css` prop
  *
  * @internal usage only
  *

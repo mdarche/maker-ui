@@ -4,13 +4,12 @@ import { Button, Div, MakerProps, mergeSelector } from 'maker-ui'
 import { Popover, PopoverProps } from './Popover'
 
 interface DropdownProps {
-  buttonVariant?: string | string[]
   buttonInner?: React.ReactNode
   matchWidth?: boolean
   trapFocus?: boolean
   closeOnBlur?: boolean
   transition?: PopoverProps['transition']
-  springConfig?: PopoverProps['springConfig']
+  spring?: PopoverProps['spring']
   css?: MakerProps['css']
   className?: string
   id?: string

@@ -24,7 +24,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   trapFocus?: boolean
   closeOnBlur?: boolean
   containerCss?: MakerProps['css']
-  springConfig?: SpringConfig
+  spring?: SpringConfig
   transition?:
     | 'fade'
     | 'fade-down'
@@ -61,7 +61,7 @@ export const Popover = ({
   gap = { x: 0, y: 0 },
   closeOnBlur = true,
   transition = 'fade',
-  springConfig,
+  spring,
   containerCss,
   defer,
   _type = 'popover',
@@ -211,7 +211,7 @@ export const Popover = ({
       height: transition === 'scale' ? '0px' : undefined,
       transform: getTransform(transition),
     },
-    config: springConfig,
+    config: spring,
   })
 
   /**

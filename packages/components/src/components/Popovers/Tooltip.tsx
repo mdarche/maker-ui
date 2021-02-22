@@ -14,7 +14,7 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
   noArrow?: boolean
   position?: 'top' | 'bottom' | 'left' | 'right'
   buttonCss?: any
-  springConfig?: PopoverProps['springConfig']
+  spring?: PopoverProps['spring']
   defer?: PopoverProps['defer']
 }
 
@@ -33,7 +33,7 @@ export const Tooltip = ({
   background = '#555',
   color = '#fff',
   gap = 5,
-  springConfig,
+  spring,
   defer,
   buttonCss,
   css,
@@ -84,7 +84,7 @@ export const Tooltip = ({
         defer={defer}
         set={set}
         containerCss={{ ...styles }}
-        springConfig={springConfig}>
+        spring={spring}>
         {label}
       </Popover>
     </Div>
