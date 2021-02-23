@@ -21,6 +21,9 @@ import './commands'
 // Import React unit testing helpers
 import '@cypress/react/support'
 
+// Add tab key support
+import 'cypress-plugin-tab'
+
 // Import Testing library commands
 // import '@testing-library/cypress/add-commands'
 

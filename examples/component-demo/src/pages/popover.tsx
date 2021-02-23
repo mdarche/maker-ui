@@ -19,7 +19,7 @@ const PopoverPage = () => {
         // anchorWidth
         // position={{ x: 'right', y: 'bottom' }}
         show={show}
-        toggle={set}>
+        set={set}>
         <Div
           css={{
             background: 'gainsboro',

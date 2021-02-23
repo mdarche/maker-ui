@@ -10,6 +10,8 @@ interface DropdownProps {
   closeOnBlur?: boolean
   transition?: PopoverProps['transition']
   spring?: PopoverProps['spring']
+  buttonCss?: MakerProps['css']
+  _css?: MakerProps['css']
   css?: MakerProps['css']
   className?: string
   id?: string
@@ -28,9 +30,11 @@ export const Dropdown = ({
   matchWidth = false,
   trapFocus = false,
   closeOnBlur = true,
-  transition = 'scale',
+  transition = 'none',
   id,
   className,
+  buttonCss,
+  _css,
   css,
   children,
 }: DropdownProps) => {
@@ -49,7 +53,7 @@ export const Dropdown = ({
         aria-haspopup="listbox"
         aria-expanded={show}
         onClick={() => set(!show)}
-        css={{ ...(css as object) }}>
+        css={{ ...(buttonCss as object) }}>
         {buttonInner}
       </Button>
       <Div className="dropdown-container" ref={dropdownRef}>
@@ -58,6 +62,8 @@ export const Dropdown = ({
           role="listbox"
           show={show}
           set={set}
+          css={css}
+          _css={_css}
           trapFocus={trapFocus}
           anchorRef={buttonRef}
           anchorWidth={matchWidth}

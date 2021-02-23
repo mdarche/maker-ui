@@ -1,9 +1,16 @@
 import * as React from 'react'
-import { Button, Div, DivProps, ResponsiveScale, generateId } from 'maker-ui'
+import {
+  Button,
+  Div,
+  DivProps,
+  ResponsiveScale,
+  generateId,
+  MakerProps,
+} from 'maker-ui'
 
 import { Popover, PopoverProps, Position } from './Popover'
 
-interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
+interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
   label: React.ReactNode
   children: React.ReactNode
   background?: ResponsiveScale
@@ -13,7 +20,8 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'bg' | 'color'> {
   closeOnBlur?: boolean
   noArrow?: boolean
   position?: 'top' | 'bottom' | 'left' | 'right'
-  buttonCss?: any
+  buttonCss?: MakerProps['css']
+  _css?: MakerProps['css']
   spring?: PopoverProps['spring']
   defer?: PopoverProps['defer']
 }
@@ -38,6 +46,7 @@ export const Tooltip = ({
   buttonCss,
   css,
   children,
+  ...props
 }: TooltipProps) => {
   const buttonRef = React.useRef(null)
   const [show, set] = React.useState(false)
@@ -64,7 +73,8 @@ export const Tooltip = ({
     <Div
       css={{ display: 'inline-block' }}
       onMouseOver={() => set(true)}
-      onMouseOut={() => set(false)}>
+      onMouseOut={() => set(false)}
+      {...props}>
       <Button
         ref={buttonRef}
         onFocus={() => set(true)}
@@ -72,10 +82,11 @@ export const Tooltip = ({
         onClick={() => set(!show)}
         css={buttonCss}
         aria-describedby={tooltipId}>
-        {children}
+        {label}
       </Button>
       <Popover
         id={tooltipId}
+        className="tooltip"
         role="tooltip"
         anchorRef={buttonRef}
         position={positionData.position}
@@ -83,9 +94,9 @@ export const Tooltip = ({
         show={show}
         defer={defer}
         set={set}
-        containerCss={{ ...styles }}
+        _css={{ ...styles }}
         spring={spring}>
-        {label}
+        {children}
       </Popover>
     </Div>
   )

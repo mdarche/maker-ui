@@ -1,6 +1,13 @@
 import * as React from 'react'
 import { useTransition, animated, SpringConfig } from 'react-spring'
-import { Div, DivProps, useMeasure, useMakerUI, MakerProps } from 'maker-ui'
+import {
+  Div,
+  DivProps,
+  useMeasure,
+  useMakerUI,
+  MakerProps,
+  mergeSelector,
+} from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { getSign } from '../helper'
@@ -19,11 +26,11 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
   anchorRef: React.MutableRefObject<any>
   anchorWidth?: boolean
   position?: Position
-  gap?: { x: number; y: number }
+  gap?: { x: number; y: number } | number
   appendTo?: string | Element | null
   trapFocus?: boolean
   closeOnBlur?: boolean
-  containerCss?: MakerProps['css']
+  _css?: MakerProps['css']
   spring?: SpringConfig
   transition?:
     | 'fade'
@@ -32,7 +39,7 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'fade-left'
     | 'fade-right'
     | 'scale'
-    | 'none' // TODO
+    | 'none'
   defer?: number
   children: React.ReactNode
   /** @internal usage only */
@@ -58,13 +65,14 @@ export const Popover = ({
   position = { x: 'origin', y: 'bottom' },
   appendTo,
   trapFocus,
-  gap = { x: 0, y: 0 },
+  gap = 0,
   closeOnBlur = true,
   transition = 'fade',
   spring,
-  containerCss,
   defer,
   _type = 'popover',
+  className,
+  _css,
   css,
   children,
   ...rest
@@ -77,7 +85,7 @@ export const Popover = ({
   const [, box] = useMeasure({
     ref: anchorRef,
     documentResize: true,
-    timeout: defer || options.content.deferMeasurements,
+    timeout: defer || options?.content?.deferMeasurements,
   })
 
   /**
@@ -113,7 +121,7 @@ export const Popover = ({
   React.useEffect(() => {
     if (transition === 'scale' && setInitialRender) {
       setInitialRender(false)
-      set(false)
+      // set(false)
     }
   }, [transition, set])
 
@@ -195,37 +203,75 @@ export const Popover = ({
    * Configure the React-spring useTransition hook
    */
 
-  const animate = useTransition(show ? [1] : [], {
-    from: {
-      opacity: transition.includes('fade') ? 0 : 1,
-      height: transition === 'scale' ? '0px' : undefined,
-      transform: getTransform(transition),
-    },
-    enter: {
-      opacity: 1,
-      transform: `translate3d(0px,0px,0px)`,
-      height: transition === 'scale' ? `${height}px` : undefined,
-    },
-    leave: {
-      opacity: transition.includes('fade') ? 0 : 1,
-      height: transition === 'scale' ? '0px' : undefined,
-      transform: getTransform(transition),
-    },
-    config: spring,
-  })
+  const getTransition = () => {
+    // No transition
+    if (transition === 'none') {
+      return {
+        from: {
+          visibility: 'hidden',
+        },
+        enter: {
+          visibility: 'visible',
+        },
+        leave: {
+          visibility: 'hidden',
+        },
+      }
+    }
+    // Scale transition
+    if (transition === 'scale') {
+      return {
+        from: {
+          height: '0px',
+        },
+        enter: {
+          height: `${height}px`,
+        },
+        leave: {
+          height: '0px',
+        },
+      }
+    }
+    // Fade transition & default
+    return {
+      from: {
+        opacity: 0,
+        transform: getTransform(transition),
+      },
+      enter: {
+        opacity: 1,
+        transform: `translate3d(0px,0px,0px)`,
+      },
+      leave: {
+        opacity: 0,
+        transform: getTransform(transition),
+      },
+    }
+  }
+
+  const animate = useTransition(
+    show || (transition === 'scale' && initialRender) ? [1] : [],
+    {
+      ...getTransition(),
+      config: spring,
+    }
+  )
 
   /**
    * Get the popover's X position by calculating its distance to the anchor ref element.
    */
+
+  const gapX = typeof gap === 'object' ? gap.x : gap
+  const gapY = typeof gap === 'object' ? gap.y : gap
 
   const getX = () => {
     if (!box) return
     return position.x === 'center'
       ? box.left + box.width / 2 - width / 2
       : position.x === 'left'
-      ? box.left - width - gap.x
+      ? box.left - width - gapX
       : position.x === 'right'
-      ? box.right + gap.x
+      ? box.right + gapX
       : box.left
   }
 
@@ -236,9 +282,9 @@ export const Popover = ({
   const getY = () => {
     if (!box) return
     return position.y === 'top'
-      ? box.documentTop - height - gap.y
+      ? box.documentTop - height - gapY
       : position.y === 'bottom'
-      ? box.documentTop + box.height + gap.y
+      ? box.documentTop + box.height + gapY
       : position.y === 'center'
       ? box.documentTop + box.height / 2 - height / 2
       : 0
@@ -252,7 +298,10 @@ export const Popover = ({
             <AnimatedDiv
               id={id}
               ref={popoverRef}
-              // TODO - remove w/ stable React-spring v9
+              className={mergeSelector(
+                `popover${show ? ' active' : ''}`,
+                className
+              )}
               style={props as any}
               css={{
                 position: 'absolute',
@@ -262,19 +311,20 @@ export const Popover = ({
                 top: _type !== 'dropdown' ? getY() : undefined,
                 width: anchorWidth ? width : undefined,
                 overflow: transition.includes('scale') ? 'hidden' : undefined,
-                ...(css as object),
+                ...(_css as object),
               }}
               {...rest}>
               <Div
                 ref={measuredRef}
+                className="container"
                 css={{
-                  ...(containerCss as object),
                   opacity:
                     transition === 'scale' && initialRender ? 0 : undefined,
                   visibility:
                     transition === 'scale' && initialRender
                       ? 'hidden'
                       : undefined,
+                  ...(css as object),
                 }}>
                 {children}
               </Div>
@@ -299,7 +349,6 @@ const getTransform = (type: string) => {
     case 'fade-left':
     case 'fade-right':
       return `translate3d(${getSign(type)}10px, 0, 0)`
-    case 'scale':
     case 'fade':
     default:
       return `translate3d(0px,0px,0px)`
