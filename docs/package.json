@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "component-demo",
+  "version": "0.4.2",
+  "author": "Mike Darche",
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@maker-ui/components": "1.0.0-beta.4",
+    "@maker-ui/seo": "1.0.0-beta.4",
+    "@mdx-js/mdx": "^1.5.5",
+    "@mdx-js/react": "^1.5.5",
+    "gatsby": "^2.23.17",
+    "gatsby-plugin-catch-links": "^2.1.24",
+    "gatsby-plugin-layout": "^1.1.22",
+    "gatsby-plugin-mdx": "^1.2.25",
+    "gatsby-plugin-react-helmet": "^3.0.12",
+    "maker-ui": "1.0.0-beta.4",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  },
+  "devDependencies": {
+    "tslib": "^2.0.3"
+  }
+}
