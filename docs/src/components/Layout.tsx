@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {
-  Layout as MakerUILayout,
+  Layout as MakerLayout,
   Header,
   Navbar,
   Content,
@@ -8,18 +8,20 @@ import {
   Main,
 } from 'maker-ui'
 
+import { Logo } from './Logo'
 import { options } from '../config/options'
+import { sideMenu, navMenu } from '../config/menus'
 
-export const Layout = ({ children, location }) => {
+export default ({ children, location }) => {
   return (
-    <MakerUILayout options={options}>
+    <MakerLayout options={options}>
       <Header>
-        <Navbar />
+        <Navbar logo={<Logo />} menu={navMenu} />
       </Header>
       <Content>
-        <SideNav />
+        <SideNav menu={sideMenu} />
         <Main>{children}</Main>
       </Content>
-    </MakerUILayout>
+    </MakerLayout>
   )
 }
