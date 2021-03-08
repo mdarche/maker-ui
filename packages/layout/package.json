@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/layout",
   "description": "The fastest way to build themeable, responsive layouts in React",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.6",
   "license": "MIT",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -37,6 +37,8 @@
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}"
     ],
-    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
   }
 }
