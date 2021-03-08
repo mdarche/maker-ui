@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.1.4",
-    "@maker-ui/css": "1.0.0-beta.4",
-    "@maker-ui/primitives": "1.0.0-beta.4",
+    "@maker-ui/css": "1.0.0-beta.6",
+    "@maker-ui/primitives": "1.0.0-beta.6",
     "deepmerge": "^4.2.2",
     "resize-observer-polyfill": "^1.5.1",
     "tslib": "^2.0.0"

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "app",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.6",
   "author": "Mike Darche",
   "license": "MIT",
   "scripts": {
@@ -10,8 +10,8 @@
     "next:start": "next start"
   },
   "dependencies": {
-    "@maker-ui/components": "1.0.0-beta.4",
-    "maker-ui": "1.0.0-beta.4",
+    "@maker-ui/components": "1.0.0-beta.6",
+    "maker-ui": "1.0.0-beta.6",
     "next": "^9.5.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
