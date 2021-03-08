@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "../node_modules",
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "@testing-library/cypress",],
+    // "typeRoots": ["./support"]
+  },
+  "include": [
+    "**/*.ts",
+    "../node_modules/cypress", 
+    "../node_modules/cypress-plugin-tab",
+    "support/commands.js",
+  ]
+}

@@ -1,15 +1,15 @@
-import React, { useState, useRef } from 'react'
+import * as React from 'react'
 import { Modal } from '@maker-ui/components'
-import PageSearch from '@maker-ui/page-search'
+// import PageSearch from '@maker-ui/page-search'
 // import { SEO } from '@maker-ui/seo'
 
 const ModalPage = () => {
-  const [show, set] = useState(false)
-  const ref = useRef(null)
+  const [show, set] = React.useState(false)
+  const ref = React.useRef(null)
 
   return (
     <div>
-      <PageSearch sticky />
+      {/* <PageSearch sticky /> */}
       <br />
       <br />
       <br />
@@ -39,12 +39,12 @@ const ModalPage = () => {
       <Modal
         id="modal-root"
         show={show}
-        toggle={set}
+        set={set}
         focusRef={ref}
         closeOnBlur
         center>
         <div>Hello!</div>
-        <button>Test</button>
+        <button className="target-button">Test</button>
         <button>Yo</button>
         <button>Ya</button>
         <a href="https://google.com">Google link</a>

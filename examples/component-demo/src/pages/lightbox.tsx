@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import * as React from 'react'
 import { Lightbox, Spinner } from '@maker-ui/components'
 
 const galleryData = [
@@ -20,8 +20,8 @@ const galleryData = [
 ]
 
 const LightboxPage = () => {
-  const [show, set] = useState(false)
-  const ref = useRef(null)
+  const [show, set] = React.useState(false)
+  const ref = React.useRef(null)
 
   return (
     <div>
@@ -51,7 +51,7 @@ const LightboxPage = () => {
         </Lightbox.Link>
       </Lightbox>
       {/* Test with data array */}
-      <Lightbox show={show} toggle={set} data={galleryData} focusRef={ref} />
+      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} />
     </div>
   )
 }

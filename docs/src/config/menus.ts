@@ -1,71 +1,61 @@
-export const primaryMenu = [
-  {
-    label: 'Docs',
-    path: '/docs/getting-started',
-  },
-  { label: 'Tutorials', path: '/' },
-  {
-    label: 'Demo Site',
-    path: '/demo',
-    submenu: [
-      { label: 'Tutorials', classes: 'special', path: '/tutorials' },
-      { label: 'T', path: '/tutorials1' },
-      { label: 'Test', path: '/tutorials2' },
-      {
-        label: 'Test',
-        path: '/tutorials3',
-        submenu: [
-          { label: 'Tutorials', path: '/tutorials' },
-          { label: 'T', path: '/tutorials1' },
-          {
-            label: 'Test',
-            path: '/tutorials3',
-            submenu: [
-              { label: 'Tutorials', path: '/tutorials' },
-              { label: 'T', path: '/tutorials1' },
-            ],
-          },
-          {
-            label: 'This One',
-            path: '/tutorials3',
-            submenu: [
-              { label: 'Tutorials', path: '/' },
-              { label: 'T', path: '/tutorials1' },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  { label: 'FAQs', path: '/faqs' },
-]
+import { MenuProps } from 'maker-ui'
 
-export const docsMenu = [
-  { label: 'Getting Started', path: '/docs/getting-started' },
-  { label: 'Configure Options', path: '/docs/options' },
-  { label: 'Design a Theme', path: '/docs/theming' },
+export const navMenu: MenuProps[] = []
+
+// Add component for relevant / related components or doc pages
+
+export const sideMenu: MenuProps[] = [
+  { label: 'Getting Started', path: '/docs/getting-started' }, // package overview
+  { label: 'Maker UI Options', path: '/docs/options' },
   {
-    label: 'Build a Layout',
-    path: '/docs/layouts',
-    openNested: true,
+    label: 'Layout Components',
+    path: '/docs/layout',
+    openNested: false,
     submenu: [
-      { label: 'Layout', path: '/docs/layout' },
-      { label: 'Topbar', path: '/docs/topbar' },
-      { label: 'Header', path: '/docs/header' },
-      { label: 'Navbar', path: '/docs/navbar' },
-      { label: 'MobileMenu', path: '/docs/mobile-menu' },
-      { label: 'Content', path: '/docs/content' },
-      { label: 'Main', path: '/docs/main' },
-      { label: 'Section', path: '/docs/section' },
-      { label: 'SideNav', path: '/docs/sidenav' },
-      { label: 'Sidebar', path: '/docs/sidebar' },
-      { label: 'AccordionMenu', path: '/docs/accordion-menu' },
-      { label: 'Footer', path: '/docs/footer' },
+      { label: 'Layout', path: '/docs/layout/layout' },
+      { label: 'Topbar', path: '/docs/layout/topbar' },
+      { label: 'Header', path: '/docs/layout/header' },
+      { label: 'Navbar', path: '/docs/layout/navbar' },
+      { label: 'MobileMenu', path: '/docs/layout/mobile-menu' },
+      { label: 'Content', path: '/docs/layout/content' },
+      { label: 'Main', path: '/docs/layout/main' },
+      { label: 'SideNav', path: '/docs/layout/sidenav' },
+      { label: 'Sidebar', path: '/docs/layout/sidebar' },
+      { label: 'Dock', path: '/docs/layout/dock' },
+      { label: 'Workspace', path: '/docs/layout/workspace' },
+      { label: 'Footer', path: '/docs/layout/footer' },
+      { label: 'Section', path: '/docs/layout/section' },
+      { label: 'CollapsibleMenu', path: '/docs/layout/collapsible-menu' },
+      { label: 'ColorButton', path: '/docs/layout/color-button' },
+      { label: 'PanelButton', path: '/docs/layout/panel-button' },
     ],
   },
-  { label: 'Add Content', path: '/docs/add-content' },
+  {
+    label: 'Maker Components',
+    path: '/docs/components',
+    openNested: false,
+    submenu: [
+      { label: 'Primitives', path: '/docs/components/primitives' },
+      { label: 'Accordion', path: '/docs/components/acccordion' },
+      { label: 'Carousel', path: '/docs/components/carousel' },
+      { label: 'Lightbox', path: '/docs/components/lightbox' },
+      { label: 'Modal', path: '/docs/components/modal' },
+      { label: 'Tabs', path: '/docs/components/tabs' },
+      { label: 'Announcement', path: '/docs/components/announcement' },
+      { label: 'Cookie Notice', path: '/docs/components/cookie-notice' },
+      { label: 'Generate', path: '/docs/components/generate' },
+      { label: 'Spinner', path: '/docs/components/spinner' },
+      { label: 'Popover', path: '/docs/components/popover' },
+      { label: 'Tooltip', path: '/docs/components/tooltip' },
+      { label: 'Dropdown', path: '/docs/components/dropdown' },
+      { label: 'TreeMenu', path: '/docs/components/tree-menu' },
+      { label: 'PageTransition', path: '/docs/components/page-transition' },
+      { label: 'TableofContents', path: '/docs/components/table-of-contents' },
+    ],
+  },
+  { label: 'SEO', path: '/docs/seo' },
+  { label: 'Guides', path: '/docs/guides' },
   { label: 'Conditional Layouts', path: '/docs/conditional-layouts' },
   { label: 'Templates', path: '/docs/templates' },
-  { label: 'Hooks API', path: '/docs/api' },
-  { label: 'Maker Components', path: '/docs/maker-components' },
+  { label: 'Hooks', path: '/docs/hooks' },
 ]

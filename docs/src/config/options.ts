@@ -1,24 +1,14 @@
-export default {
-  navigation: 'basic-left',
-  layout: 'sidenav-content',
+import { MakerUIOptions } from 'maker-ui'
+
+export const options: MakerUIOptions = {
   header: {
-    maxWidth: '100%',
-    stickyScroll: true,
-    colorToggle: false,
-    hideWidgetsOnMobile: false,
-  },
-  mobileMenu: {
-    width: [300, '30vw'],
-    transition: 'slideLeft',
-    visibleOnDesktop: false,
-    closeOnRouteChange: true,
+    sticky: true,
+    stickyOnMobile: true,
+    navType: 'basic',
+    mobileNavType: 'basic-menu-left',
   },
   sideNav: {
-    width: ['60vw', 400],
     isPrimaryMobileNav: true,
-    floatingToggle: false,
-  },
-  content: {
-    maxWidth: 960,
+    showToggleOnMobile: false,
   },
 }

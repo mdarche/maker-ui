@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { TreeMenu, TreeItem } from '@maker-ui/components'
 
 const TabsPage = () => (

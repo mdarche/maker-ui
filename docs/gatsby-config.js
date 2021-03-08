@@ -1,16 +1,16 @@
 module.exports = {
   siteMetadata: {
     title: 'Maker UI',
-    description: 'The official doc site for Maker UI',
+    description: 'An example Gatsby site with Carousel usage',
     siteUrl: 'https://maker-ui.com',
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-catch-links`,
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-layout`,
       options: {
-        component: require.resolve(`./src/components/Layout.js`),
+        component: require.resolve(`./src/components/Layout.tsx`),
       },
     },
     {
@@ -21,5 +21,3 @@ module.exports = {
     },
   ],
 }
-
-// Yarn version 1.17.3

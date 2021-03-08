@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {
   Layout,
   Header,
@@ -7,17 +7,21 @@ import {
   Content,
   Main,
   Footer,
+  Sidebar,
   SideNav,
+  Topbar,
+  Workspace,
+  Div,
 } from 'maker-ui'
-// import {
-//   Announcement,
-//   // PageTransition,
-//   CookieNotice,
-// } from '@maker-ui/components'
+import {
+  // Announcement,
+  PageTransition,
+  // CookieNotice,
+} from '@maker-ui/components'
 // import { SEOProvider } from '@maker-ui/seo'
-
+// import { Fixed } from './Fixed'
 import { options } from './options'
-import { theme } from './theme'
+import { styles } from './styles'
 
 const menu = [
   {
@@ -40,39 +44,51 @@ const menu = [
   { label: 'Generative', path: '/generative' },
   { label: 'Tree Menu', path: '/tree-menu' },
   { label: 'Modal', path: '/modal' },
+  // { label: 'JSX', path: '/jsx' },
   { label: 'Lightbox', path: '/lightbox' },
   { label: 'Popover', path: '/popover' },
-  { label: 'SmartTable', path: '/smart-table' },
+  { label: 'TableofContents', path: '/toc' },
+  { label: 'Workspace', path: '/workspace' },
 ]
 
-// const seo = {
-//   title: 'Components',
-//   description: 'Check out the Maker UI component showcase.',
-//   twitter: 'mkdarshay',
-//   titleTemplate: ' | Maker UI',
-//   siteUrl: 'http://localhost:8000',
-// }
-
 export default ({ children, location }) => (
-  <Layout theme={theme} options={options}>
-    {/* <Topbar>Topbar content</Topbar> */}
-    {/* <Announcement sx={{ p: 30 }}>This is an announcement</Announcement> */}
-    <Header>
-      <Navbar
-        logo={'Components Demo'}
-        menu={menu}
-        widgetArea="test widget area"
-      />
-      <MobileMenu menu={menu} />
+  <Layout styles={styles} options={options}>
+    <Topbar>Topbar content</Topbar>
+    <Header className="test-header">
+      <Navbar logo={'Components Demo'} menu={menu} />
+      <MobileMenu center menu={menu} />
     </Header>
-    <Content>
-      <Main>
-        {children}
-        {/* <PageTransition>{children}</PageTransition> */}
-      </Main>
-      <SideNav menu={menu} />
-    </Content>
-    <Footer>Footer</Footer>
+    {location.pathname !== '/workspace' ? (
+      <>
+        <Content>
+          <SideNav menu={menu} />
+          {/* <Sidebar>test</Sidebar> */}
+          <Main>
+            {/* <PageTransition id={location.pathname} type="fade-up" distance={50}>
+              <> */}
+            {children}
+            <div style={{ height: 2000 }} />
+            {/* </>
+            </PageTransition> */}
+          </Main>
+          {/* <Sidebar>test</Sidebar> */}
+        </Content>
+        <Footer>Test</Footer>
+      </>
+    ) : (
+      <Content>
+        <Workspace>
+          <Workspace.Toolbar>Toolbar</Workspace.Toolbar>
+          {/* <Workspace.Panel>
+            <Div css={{ height: 1000 }}>test</Div>
+          </Workspace.Panel> */}
+          <Workspace.Canvas>{children}</Workspace.Canvas>
+          <Workspace.Panel>
+            <Div css={{ height: 1000 }}>test</Div>
+          </Workspace.Panel>
+        </Workspace>
+      </Content>
+    )}
     {/* <CookieNotice /> */}
   </Layout>
 )

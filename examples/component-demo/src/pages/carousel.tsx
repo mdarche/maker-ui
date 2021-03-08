@@ -1,7 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 import { Div } from 'maker-ui'
 import { Carousel } from '@maker-ui/components'
-import { Global, css } from '@emotion/core'
 
 // Example 1 - Basic
 interface BasicSlideProps {
@@ -18,17 +17,13 @@ const basicData: BasicSlideProps[] = [
 
 const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
   <Div
-    sx={{
+    css={{
       background: bg,
       height: '100%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: 36,
-      p: {
-        opacity: 0,
-        animation: 'fadeInUp ease .6s forwards .8s',
-      },
     }}>
     <p>{greeting}</p>
   </Div>
@@ -58,16 +53,25 @@ const imageData: ImageSlideProps[] = [
 ]
 
 const ImageSlide = ({ url, alt }: ImageSlideProps) => (
-  <img
-    src={url}
-    alt={alt}
-    style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+  <div
+    style={{
+      backgroundImage: `url(${url})`,
+      height: '100%',
+      width: '100%',
+      objectFit: 'cover',
+    }}
   />
 )
 
 const CarouselPage = () => (
-  <>
-    <Global
+  <Div
+    css={{
+      '.active p': {
+        opacity: 0,
+        animation: 'fadeInUp ease .6s forwards .8s',
+      },
+    }}>
+    {/* <Global
       styles={css`
         @keyframes fadeInUp {
           from {
@@ -80,33 +84,30 @@ const CarouselPage = () => (
           }
         }
       `}
-    />
+    /> */}
     <Carousel
       data={basicData}
       template={<BasicSlide />}
-      pageIndicator
-      autoPlay
-      progressBar
-    />
-    <Carousel
-      data={imageData}
-      template={<ImageSlide />}
-      transition="fade"
-      sx={{
-        my: 80,
-        button: {
-          px: 20,
-          height: '100%',
-          bg: 'rgba(0, 0, 0, 0.15)',
-          transition: 'all ease .3s',
-          '&:hover': {
-            bg: 'rgba(0,0,0, .5)',
-          },
-          svg: { fill: '#fff' },
-        },
+      settings={{
+        autoPlay: true,
+        dotPosition: 'bottom',
+        dotColorMuted: 'blue',
+        // progressBar: true,
+        // transition: 'fade',
+        // infiniteScroll: true,
+        // arrow: <div>Cmoon!</div>,
+        // arrow: {
+        //   prev: <div>Prev</div>,
+        //   next: <div>Next</div>,
+        // },
       }}
     />
-  </>
+    {/* <Carousel
+      data={imageData}
+      template={<ImageSlide />}
+      settings={{ autoPlay: false }}
+    /> */}
+  </Div>
 )
 
 export default CarouselPage

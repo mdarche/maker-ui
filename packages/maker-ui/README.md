@@ -1,14 +1,12 @@
 # Maker UI
 
-> This project is currently under development.
+> This project is currently in active development and the API is subject to change.
 
 > If you arrived here from the Gatsby Theme Store, Gatsby Theme Elements is no longer supported and has now become a React component library.
 
-Build React apps with a responsive layout system powered by [Theme UI](https://theme-ui.com/).
+Build React apps with a responsive layout system powered by [Emotion](https://emotion.sh/docs/introduction).
 
-Maker UI helps you design accessible, responsive page templates that can be customized in an infinite number of ways. Use it to quickly prototype and deploy a polished application layout so you can focus on developing great content or adding new integrations and features to your project.
-
-Maker UI extends all of Theme UI's core features so you can easily migrate your existing theme.
+Maker UI helps you design accessible, responsive apps that can be customized in an infinite number of ways. Use it to quickly prototype and deploy a polished layout so you can focus on developing great content or adding new features to your project.
 
 [![Version][version]][npm]
 ![MIT License][license]
@@ -21,20 +19,16 @@ https://maker-ui.com
 
 ## Templating Features
 
-- 8 customizable header layouts
-- 6 common page layouts
-- Responsive header navigation
-- Responsive side navigation
+- 9 customizable desktop header layouts
+- 4 customizable mobile header layouts
+- 10+ content layouts
+- Responsive header and side navigation
 - Accessible dropdown menus
 - Automatic skiplink and keyboard focus management
-- Template component for plug-and-play layouts
-- Multi-layout support
-- Full Theme UI capabilities
-  - Unlimited color modes
-  - Responsive scales
-  - Variant and `sx` prop support
-  - MDX theming
-  - Compatibility with any Theme UI component library
+- Conditial or multi-layout support
+- Unlimited color modes
+- Error boundaries, logging support, and custom error reporting hooks
+- JSX primitives that support responsive `css` arrays
 
 ## Getting Started
 
@@ -42,30 +36,9 @@ https://maker-ui.com
 npm i maker-ui
 ```
 
-Maker UI uses two configuration objects and optional custom components to build your layouts. Your custom theme and options configurations determine how each layout should behave and appear.
+Maker UI uses a configuration object and optional custom components to build complex layouts in seconds. Your custom options configuration determines how each layout should behave and appear.
 
-See the documentation on how to build a theme and configure your layout options.
-
-### Template Component
-
-To get a site up and running in less than 5 minutes, you can use the `Template` component. Simply import and supply your theme object, options object, menu array, and logo as props:
-
-```jsx
-// basic template usage
-import React from 'react'
-import { Template } from 'maker-ui'
-
-import { theme, options, menu } from './config'
-import Logo from './Logo'
-
-export default props => (
-  <Template theme={theme} options={options} menu={menu} logo={<Logo />}>
-    {props.children}
-  </Template>
-)
-```
-
-The `Template` component accepts a variety of props for custom components like a sidebar, side nav, header widgets (ie. search or social media links), footer content, and much more. Check out the [Template docs](https://maker-ui.com/docs/template) for details.
+See the documentation for more details on setting up your project.
 
 ### Layout Components
 
@@ -85,11 +58,11 @@ import {
   Footer,
 } from 'maker-ui'
 
-import { theme, options, menu } from './config'
+import { options, menu } from './config'
 import Logo from './Logo'
 
 const MyLayout = props => (
-  <Layout theme={theme} options={options}>
+  <Layout options={options}>
     <Header>
       <Navbar logo={<Logo />} menu={menu} />
       <MobileMenu menu={menu} />
@@ -105,7 +78,23 @@ const MyLayout = props => (
 export default MyLayout
 ```
 
-All layout components can be styled with custom variants and the `sx` prop.
+### Responsive Styles
+
+All layout components and JSX primitives can be styled with the responsive `css` and `breakpoints` props.
+
+```jsx
+import { Div } from 'maker-ui'
+
+const MyPage = props => (
+  <Div
+    breakpoints={['768px', '960px',]}
+    css={{ color: ['red', 'blue', 'green']}}
+  />
+  ...
+  )
+```
+
+This example would set the Div's default color to `red` and generate `min-width` media queries so the color is `blue` at `768px` and `green` at `960px`. Never write a media query again!
 
 ## Maker Components
 
@@ -113,27 +102,22 @@ Maker UI also has an optional package `@maker-ui/components` that exports a vari
 
 - Carousel
 - Accordion
-- SEO and SEOProvider
 - Modal
 - Lightbox
 - Tabs
 - Announcement
 - TreeMenu
-- FadeBox (scroll reveal)
-- Popover and Dropdown
+- Popover, Tooltip, and Dropdown
 - Spinner
 - CookieNotice
 - Toast and ToastProvider
-- On-page search
 
 ## Documentation
 
-- [Design a Theme](https://maker-ui.com/docs/theming)
-- [Configure Options](https://maker-ui.com/docs/options)
-- [Layout Components](https://maker-ui.com/docs/layout-components)
-- [Template Component](https://maker-ui.com/docs/template)
+- [MakerUI Options](https://maker-ui.com/docs/options)
+- [Layout Components](https://maker-ui.com/docs/layout)
 - [Adding Content](https://maker-ui.com/docs/adding-content)
-- [Hooks API](https://maker-ui.com/docs/hooks-api)
+- [Hooks API](https://maker-ui.com/docs/hooks)
 - [Tutorials](https://maker-ui.com/tutorials)
 
 ## Upcoming Packages/Modules
@@ -142,14 +126,13 @@ Maker UI also has an optional package `@maker-ui/components` that exports a vari
   - Search (Algolia)
   - SmartTable
   - SmartGrid
-  - SubscribeForm
+  - Subscribe Form
   - Share buttons
   - Mega dropdown menus
   - Speech Synthesis
   - PricingTable
   - ParallaxBox
   - Subheader
-- Workspace layout
 - i18n Provider
 - Pre-built themes
 - Ecommerce & payment templates
