@@ -35,12 +35,7 @@ export const MenuButton = ({
 
   /** Use custom button from props or check header / mobileMenu options */
   const menuButton = customButton || header?.menuButton
-
-  const getDisplay = visibleOnDesktop
-    ? !sideNav.isPrimaryMobileNav
-      ? 'block'
-      : 'none'
-    : ['block', 'none']
+  const getDisplay = visibleOnDesktop ? 'block' : ['block', 'none']
 
   const conditionalAttributes = sideNav?.isPrimaryMobileNav
     ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }

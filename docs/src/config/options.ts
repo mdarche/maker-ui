@@ -8,7 +8,7 @@ export const options: MakerUIOptions = {
     mobileNavType: 'basic-menu-left',
   },
   sideNav: {
-    // isPrimaryMobileNav: true,
-    // showToggleOnMobile: false,
+    isPrimaryMobileNav: true,
+    showToggleOnMobile: false,
   },
 }

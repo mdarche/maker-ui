@@ -5,6 +5,7 @@ import {
   Navbar,
   Content,
   SideNav,
+  MobileMenu,
   Main,
 } from 'maker-ui'
 
@@ -17,6 +18,7 @@ export default ({ children, location }) => {
     <MakerLayout options={options}>
       <Header>
         <Navbar logo={<Logo />} menu={navMenu} />
+        {/* <MobileMenu menu={navMenu} /> */}
       </Header>
       <Content>
         <SideNav menu={sideMenu} />

@@ -106,7 +106,11 @@ export const Navbar = (props: NavProps) => {
               edge.includes(layout) ? 'flex' : 'none',
             ],
           }}>
-          <MenuButton customButton={menuButton} visibleOnDesktop />
+          <MenuButton
+            breakpoints={bpArray}
+            customButton={menuButton}
+            visibleOnDesktop
+          />
         </Flex>
       ) : null}
       {layout === 'split' ? (
