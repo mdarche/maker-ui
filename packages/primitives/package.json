@@ -1,6 +1,6 @@
 {
   "name": "@maker-ui/primitives",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "author": "Mike Darche <mike@newcreative.io>",
   "license": "MIT",
   "main": "dist/index.js",
