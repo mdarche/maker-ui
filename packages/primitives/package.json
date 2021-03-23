@@ -1,6 +1,6 @@
 {
   "name": "@maker-ui/primitives",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.9",
   "author": "Mike Darche <mike@newcreative.io>",
   "license": "MIT",
   "main": "dist/index.js",
@@ -14,7 +14,7 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@maker-ui/css": "1.0.0-beta.8",
+    "@maker-ui/css": "1.0.0-beta.9",
     "csstype": "^3.0.6"
   },
   "peerDependencies": {
