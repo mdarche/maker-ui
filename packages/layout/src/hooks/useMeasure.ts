@@ -60,13 +60,16 @@ export function useMeasure(
 
   const [ro] = useState(
     () =>
-      new ResizeObserver(([entry]) => {
+      new ResizeObserver(([entry]: any) => {
         const { top, bottom, left, right, width, height } = documentResize
           ? hookRef.current.getBoundingClientRect()
           : contentRect
           ? entry.contentRect
           : entry.target.getBoundingClientRect()
-        const documentTop = top + document.documentElement.scrollTop
+        const documentTop =
+          typeof window !== 'undefined'
+            ? top + document.documentElement.scrollTop
+            : 0
         set({ top, bottom, left, right, width, height, documentTop })
       })
   )
