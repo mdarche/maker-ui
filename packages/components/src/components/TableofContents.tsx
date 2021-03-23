@@ -93,6 +93,8 @@ export const TableofContents = ({
         []
       )
       setMenu(menu)
+    } else {
+      setMenu([])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])

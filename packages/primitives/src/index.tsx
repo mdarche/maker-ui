@@ -33,7 +33,7 @@ Div.displayName = 'Div'
 
 export interface FlexProps extends DivProps {
   align?: ResponsiveType<CSS.Properties['alignItems']>
-  direction?: ResponsiveType<CSS.Properties['flexDirection']>
+  column?: boolean
   flex?: ResponsiveType<CSS.Properties['flex']>
   inline?: boolean
   justify?: ResponsiveType<CSS.Properties['justifyContent']>
@@ -54,14 +54,14 @@ export interface FlexProps extends DivProps {
  */
 
 export const Flex = forwardRef<HTMLDivElement, FlexProps>(
-  ({ inline, align, justify, direction, flex, wrap, css, ...props }, ref) => (
+  ({ inline, align, justify, column, flex, wrap, css, ...props }, ref) => (
     <div
       ref={ref}
       css={{
         display: inline ? 'inline-flex' : 'flex',
         alignItems: align,
         justifyContent: justify,
-        flexDirection: direction,
+        flexDirection: column ? 'column' : undefined,
         flexWrap: wrap ? 'wrap' : undefined,
         flex,
         ...(css as object),
@@ -221,8 +221,9 @@ SVG.displayName = 'SVG'
  */
 export interface ButtonProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLButtonElement> {
+    Omit<React.HTMLAttributes<HTMLButtonElement>, 'type'> {
   disabled?: boolean
+  type?: 'button' | 'submit' | 'reset' | undefined
 }
 
 /**

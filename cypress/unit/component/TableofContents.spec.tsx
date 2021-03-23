@@ -10,6 +10,10 @@ interface TestLayoutProps {
   options?: MakerUIOptions
 }
 
+/**
+ * @todo - add `pathname` prop test to Integration test suite
+ */
+
 const TestLayout = ({
   children,
   options = { sidebar: { width: 300 } },
