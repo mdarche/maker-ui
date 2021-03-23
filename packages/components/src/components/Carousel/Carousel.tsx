@@ -90,10 +90,12 @@ export const Carousel = ({
   /**
    * React-spring slide animation
    */
+  const isBrowser = typeof window !== 'undefined'
+
   const [props, set] = useSprings(
     data.length,
     i => ({
-      x: i * (width === 0 ? window.innerWidth : width),
+      x: i * (width === 0 && isBrowser ? window.innerWidth : width),
       scale: 1,
       config: springConfig,
     }),

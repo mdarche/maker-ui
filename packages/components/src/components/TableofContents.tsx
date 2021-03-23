@@ -27,6 +27,7 @@ interface TocProps extends Omit<DivProps, 'title'> {
   smoothScroll?: boolean
   sticky?: boolean
   hideOnMobile?: boolean
+  pathname?: string
 }
 
 /**
@@ -49,6 +50,7 @@ export const TableofContents = ({
   sticky = true,
   hideOnMobile = true,
   css,
+  pathname,
 }: TocProps) => {
   const [menuItems, setMenu] = React.useState<MenuItem[]>([])
   const [activeNode, setActiveNode] = React.useState<number | null>(null)
@@ -93,7 +95,7 @@ export const TableofContents = ({
       setMenu(menu)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [pathname])
 
   useScrollPosition(
     ({ currPos, prevPos }) => {
@@ -160,7 +162,7 @@ export const TableofContents = ({
         ...(css as object),
       }}>
       <Div>{title}</Div>
-      <UList className="toc-headings" css={{ p: 0 }}>
+      <UList className="toc-headings" css={{ padding: 0 }}>
         {menuItems.length
           ? menuItems.map(({ id, text, level }: MenuItem, index) => (
               <ListItem

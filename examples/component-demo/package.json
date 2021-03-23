@@ -10,13 +10,13 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@maker-ui/components": "1.0.0-beta.6",
-    "@maker-ui/css": "1.0.0-beta.6",
+    "@maker-ui/components": "1.0.0-beta.8",
+    "@maker-ui/css": "1.0.0-beta.8",
     "gatsby": "^2.23.17",
     "gatsby-plugin-catch-links": "^2.1.24",
     "gatsby-plugin-layout": "^1.1.22",
     "gatsby-plugin-react-helmet": "^3.0.12",
-    "maker-ui": "1.0.0-beta.6",
+    "maker-ui": "1.0.0-beta.8",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   },

@@ -12,6 +12,6 @@
     "**/*.ts",
     "../node_modules/cypress", 
     "../node_modules/cypress-plugin-tab",
-    "support/commands.js",
+    "support/commands.ts",
   ]
 }
