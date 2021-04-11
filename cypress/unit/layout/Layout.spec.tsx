@@ -50,6 +50,17 @@ describe('Layout component', () => {
     cy.contains('test').should('have.css', 'width', '100px')
   })
 
+  it.only('supports custom css variables via `options.variables`', () => {
+    mount(
+      <Layout options={{ variables: { height: 200 } }} theme={{ width: 100 }}>
+        <Div id="test-div" css={{ height: 'var(--height)' }}>
+          test
+        </Div>
+      </Layout>
+    )
+    cy.contains('test').should('have.css', 'height', '200px')
+  })
+
   it('updates Layout and Options context when `options` prop changes', () => {
     const DynamicLayout = () => {
       const [opts, setOpts] = React.useState({})

@@ -56,6 +56,7 @@ export const themeVars = (
     topbar,
     header,
     mobileMenu,
+    variables,
     content,
     sidebar,
     sideNav,
@@ -108,6 +109,18 @@ export const themeVars = (
   /** Assign font family declarations */
   for (const [key, value] of Object.entries(fonts)) {
     css[`--font-${key}`] = value
+  }
+
+  /** Assign custom css variables */
+  for (const [key, value] of Object.entries(variables)) {
+    css[`--${key}`] = format(value)
+    // let obj: { [key: string]: string } = {}
+    // if (value) {
+    //   for (const [k, v] of Object.entries(value)) {
+    //     obj[`--${key}-${k}`] = format(v)
+    //   }
+    // }
+    // css = { css, ...obj }
   }
 
   /** Add breakpoints to variable string for external usage */

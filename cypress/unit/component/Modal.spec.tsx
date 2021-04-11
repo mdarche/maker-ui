@@ -19,6 +19,7 @@ const TestModal = props => {
 }
 /**
  * @todo - Test all keyboard navigation scenarios
+ * @see - Dropdown / Popover for trapping focus implementation
  */
 
 describe('Modal component', () => {

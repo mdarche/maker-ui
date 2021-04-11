@@ -18,7 +18,8 @@ interface DropdownProps {
   className?: string
   id?: string
   children: React.ReactNode
-  controls: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+  /** Allows you to control the dropdown from an external React.useState hook*/
+  controls?: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 }
 
 /**

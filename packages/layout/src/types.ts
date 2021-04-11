@@ -113,6 +113,12 @@ export interface MakerOptions {
    */
   colors: ThemeColors
   /**
+   * A dictionary of custom CSS variable objects
+   */
+  variables: {
+    [key: string]: ResponsiveScale
+  }
+  /**
    * A JSX callback function that lets you wrap your framework's local
    * Link or Route component around all native Maker UI anchor tags.
    */

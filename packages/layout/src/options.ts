@@ -33,6 +33,7 @@ export const defaultOptions: MakerUIOptions = {
       bg_toolbar: '#fbfbfb',
     },
   },
+  variables: {},
   topbar: {
     maxWidth: 1260,
     hideOnMobile: false,
