@@ -4,7 +4,9 @@ import { Button, Div, MakerProps, mergeSelector } from 'maker-ui'
 import { Popover, PopoverProps } from './Popover'
 
 interface DropdownProps {
-  buttonInner?: React.ReactNode
+  button?:
+    | React.ReactNode
+    | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
   matchWidth?: boolean
   trapFocus?: boolean
   closeOnBlur?: boolean
@@ -16,17 +18,20 @@ interface DropdownProps {
   className?: string
   id?: string
   children: React.ReactNode
+  controls: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 }
 
 /**
  * The `Dropdown` component is a pre-built popover for revealing a menu or supplemental
  * content. It returns a customizable button and the corresponding dropdown content.
  *
+ * @todo - clean up external `controls` implementation
+ *
  * @link https://maker-ui.com/docs/components/popovers
  */
 
 export const Dropdown = ({
-  buttonInner = 'Dropdown',
+  button = 'Dropdown',
   matchWidth = false,
   trapFocus = false,
   closeOnBlur = true,
@@ -34,6 +39,7 @@ export const Dropdown = ({
   id,
   className,
   buttonCss,
+  controls,
   _css,
   css,
   children,
@@ -42,28 +48,36 @@ export const Dropdown = ({
   const dropdownRef = React.useRef(null)
   const [show, set] = React.useState(transition === 'scale' ? true : false)
 
+  const buttonAttributes = {
+    ref: buttonRef,
+    className: mergeSelector(
+      'dropdown-btn',
+      (controls ? controls[0] : show) ? 'active' : ''
+    ),
+    'aria-haspopup': 'listbox' as 'listbox',
+    'aria-expanded': controls ? controls[0] : show,
+    onClick: () => (controls ? controls[1](!controls[0]) : set(!show)),
+  }
+
   return (
     <Div
       id={id}
       className={mergeSelector('dropdown', className)}
-      css={{ display: 'inline-block' }}>
-      <Button
-        ref={buttonRef}
-        className="dropdown-btn"
-        aria-haspopup="listbox"
-        aria-expanded={show}
-        onClick={() => set(!show)}
-        css={{ ...(buttonCss as object) }}>
-        {buttonInner}
-      </Button>
+      css={{ display: 'inline-block', ...(_css as object) }}>
+      {typeof button === 'function' ? (
+        button(controls ? controls[0] : show, buttonAttributes)
+      ) : (
+        <Button {...buttonAttributes} css={{ ...(buttonCss as object) }}>
+          {button}
+        </Button>
+      )}
       <Div className="dropdown-container" ref={dropdownRef}>
         <Popover
           appendTo={dropdownRef.current}
           role="listbox"
-          show={show}
-          set={set}
+          show={controls ? controls[0] : show}
+          set={controls ? controls[1] : set}
           css={css}
-          _css={_css}
           trapFocus={trapFocus}
           anchorRef={buttonRef}
           anchorWidth={matchWidth}

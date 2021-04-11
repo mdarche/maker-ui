@@ -22,7 +22,7 @@ const BasicPopover = ({ children, btnStyle, ...props }: TestProps) => {
     <Flex
       align="center"
       justify="center"
-      css={{ height: '100vh', width: '100vw ' }}>
+      css={{ height: '100vh', width: '100vw' }}>
       <button
         className="test-btn"
         ref={buttonRef}
@@ -222,7 +222,7 @@ describe('Popover component', () => {
   })
 
   // VISUAL TEST - position
-  it.only('uses the `position` prop -- center, center (visual)', () => {
+  it('uses the `position` prop -- center, center (visual)', () => {
     mount(
       <BasicPopover
         css={{ background: '#d3d3d3', height: 300 }}

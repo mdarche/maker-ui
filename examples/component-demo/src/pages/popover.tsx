@@ -46,7 +46,7 @@ const PopoverPage = () => {
           </ul>
         </Div>
       </Popover>
-      <Dropdown buttonInner="Click here" transition="scale" trapFocus>
+      <Dropdown button="Click here" transition="scale" trapFocus>
         <Div
           css={{
             background: 'gainsboro',

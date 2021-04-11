@@ -31,6 +31,8 @@ export const ColorButton = ({
   const { header, colors, breakpoints: bps } = useOptions()
   const [theme, setTheme] = React.useState(Object.keys(colors)[0] || 'light')
 
+  // TODO start as undefined or empty string... check for this before rendering... parse the data attribute and set initial state (async)
+
   const modes = colors ? Object.keys(colors) : ['light']
 
   React.useEffect(() => {

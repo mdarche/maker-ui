@@ -106,7 +106,7 @@ export const TableofContents = ({
       /**
        * Reset activeNode if scroll position is above first selector
        */
-      if (activeNode !== undefined && currPos < menuItems[0].offset) {
+      if (activeNode !== undefined && currPos < menuItems[0]?.offset) {
         return setActiveNode(null)
       }
 
@@ -115,7 +115,7 @@ export const TableofContents = ({
           /**
            * Check if scroll is between first 2 heading nodes
            */
-          if (menuItems.length > 1 && currPos <= menuItems[1].offset) {
+          if (menuItems.length > 1 && currPos <= menuItems[1]?.offset) {
             return setActiveNode(0)
           } else {
             /**
@@ -144,7 +144,7 @@ export const TableofContents = ({
           /**
            * If scrolling up, compare current node offset with previous offset
            */
-          if (currPos <= menuItems[activeNode].offset) {
+          if (currPos <= menuItems[activeNode]?.offset) {
             return setActiveNode(activeNode - 1)
           }
         }
