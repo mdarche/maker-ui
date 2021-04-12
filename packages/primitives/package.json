@@ -14,10 +14,10 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@maker-ui/css": "1.0.0-beta.9",
+    "@maker-ui/css": "1.0.0-beta.10",
     "csstype": "^3.0.6"
   },
   "peerDependencies": {
-    "react": "^16.x"
+    "react": "^16.x || ^17.x"
   }
 }
