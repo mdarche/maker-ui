@@ -118,6 +118,46 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 Grid.displayName = 'Grid'
 
 /**
+ * Alias for `Table` component props that includes all
+ * HTML table tag attributes.
+ */
+export interface TableProps
+  extends MakerProps,
+    React.HTMLAttributes<HTMLTableElement> {}
+
+/**
+ * A table that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const Table = forwardRef<HTMLTableElement, TableProps>((props, ref) => (
+  <table ref={ref} {...props} />
+))
+
+Table.displayName = 'Table'
+
+/**
+ * Alias for `Form` component props that includes all
+ * HTML form tag attributes.
+ */
+export interface FormProps
+  extends MakerProps,
+    React.HTMLAttributes<HTMLFormElement> {}
+
+/**
+ * A form that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => (
+  <form ref={ref} {...props} />
+))
+
+Form.displayName = 'Form'
+
+/**
  * Alias for `Span` component props that includes all
  * HTML span tag attributes.
  */
@@ -286,3 +326,130 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
 )
 
 Image.displayName = 'Image'
+
+/**
+ * Alias for an the Paragraph component that includes all p tag attributes.
+ */
+export interface ParagraphProps
+  extends MakerProps,
+    React.HTMLAttributes<HTMLParagraphElement> {}
+
+/**
+ * A p tag that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const P = forwardRef<HTMLParagraphElement, HeadingProps>(
+  ({ children, ...props }, ref) => (
+    <p ref={ref} {...props}>
+      {children}
+    </p>
+  )
+)
+
+P.displayName = 'P'
+
+/**
+ * Alias for an H component that includes all
+ * h1 - h6 tag attributes.
+ */
+export interface HeadingProps
+  extends MakerProps,
+    React.HTMLAttributes<HTMLHeadingElement> {}
+
+/**
+ * An h1 that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const H1 = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ children, ...props }, ref) => (
+    <h1 ref={ref} {...props}>
+      {children}
+    </h1>
+  )
+)
+
+H1.displayName = 'H1'
+
+/**
+ * An h2 that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const H2 = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ children, ...props }, ref) => (
+    <h2 ref={ref} {...props}>
+      {children}
+    </h2>
+  )
+)
+
+H2.displayName = 'H2'
+
+/**
+ * An h3 that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const H3 = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ children, ...props }, ref) => (
+    <h3 ref={ref} {...props}>
+      {children}
+    </h3>
+  )
+)
+
+H3.displayName = 'H3'
+
+/**
+ * An h4 that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const H4 = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ children, ...props }, ref) => (
+    <h4 ref={ref} {...props}>
+      {children}
+    </h4>
+  )
+)
+
+H4.displayName = 'H4'
+
+/**
+ * An h5 that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const H5 = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ children, ...props }, ref) => (
+    <h5 ref={ref} {...props}>
+      {children}
+    </h5>
+  )
+)
+
+H5.displayName = 'H5'
+
+/**
+ * An h6 that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const H6 = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ children, ...props }, ref) => (
+    <h6 ref={ref} {...props}>
+      {children}
+    </h6>
+  )
+)
+
+H6.displayName = 'H6'
