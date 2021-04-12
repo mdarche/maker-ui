@@ -8,7 +8,7 @@ import {
   mergeSelector,
   MakerProps,
 } from 'maker-ui'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 
 import { useAccordion } from './AccordionContext'
 import { CaretIcon } from '../icons'

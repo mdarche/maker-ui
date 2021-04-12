@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, mergeSelector } from 'maker-ui'
-import { animated, Transition } from 'react-spring'
+import { animated, Transition } from '@react-spring/web'
 
 import { getSign } from './helper'
 

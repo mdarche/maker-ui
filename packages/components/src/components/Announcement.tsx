@@ -7,7 +7,7 @@ import {
   MakerProps,
   mergeSelector,
 } from 'maker-ui'
-import { useSpring, animated, SpringConfig } from 'react-spring'
+import { useSpring, animated, SpringConfig } from '@react-spring/web'
 
 import { useTracker } from '../hooks'
 import { CloseIcon } from './icons'

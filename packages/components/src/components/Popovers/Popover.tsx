@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useTransition, animated, SpringConfig } from 'react-spring'
+import { useTransition, animated, SpringConfig } from '@react-spring/web'
 import {
   Div,
   DivProps,

@@ -8,7 +8,7 @@ import {
   useMeasure,
   mergeSelector,
 } from 'maker-ui'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 
 import { useTreeData } from './TreeContext'
 

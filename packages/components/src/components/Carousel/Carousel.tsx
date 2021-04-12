@@ -6,7 +6,7 @@ import {
   mergeSelector,
   useMeasure,
 } from 'maker-ui'
-import { animated, useSprings, SpringConfig } from 'react-spring'
+import { animated, useSprings, SpringConfig } from '@react-spring/web'
 import { useDrag } from 'react-use-gesture'
 import merge from 'deepmerge'
 
