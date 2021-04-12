@@ -113,6 +113,14 @@ export interface MakerOptions {
    */
   colors: ThemeColors
   /**
+   * A boolean that lets you turn off Maker UI's default color CSS variables.
+   */
+  useColorDefaults: boolean
+  /**
+   * A boolean that lets you turn off Maker UI's default measurement CSS variables.
+   */
+  useMeasurementDefaults: boolean
+  /**
    * A dictionary of custom CSS variable objects
    */
   variables: {
