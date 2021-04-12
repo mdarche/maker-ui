@@ -1,7 +1,7 @@
 {
   "name": "maker-ui",
   "description": "The fastest way to build themeable, responsive layouts in React",
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0-beta.10",
   "license": "MIT",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
