@@ -24,6 +24,7 @@ export interface CarouselProps extends MakerProps {
     autoPlay?: boolean
     arrows?: boolean
     arrowPadding?: ResponsiveScale
+    arrowMargin?: ResponsiveScale
     dots?: boolean
     dotPosition?: Position
     dotPadding?: ResponsiveScale
@@ -40,6 +41,7 @@ export interface CarouselProps extends MakerProps {
     fadeDuration?: number // seconds
     springConfig?: SpringConfig
   }
+  controls?: [number, React.Dispatch<React.SetStateAction<number>>]
 }
 
 const AnimatedDiv = animated(Div)
@@ -56,6 +58,7 @@ export const Carousel = ({
   template,
   settings = {},
   height = 500,
+  controls,
   className,
   css,
   ...rest
@@ -65,6 +68,10 @@ export const Carousel = ({
   const [active, setActive] = React.useState(0)
   const [isPaused, setPause] = React.useState(false)
   const [, { width }] = useMeasure({ ref: carouselRef })
+
+  const _active = controls ? controls[0] : active
+  const _setActive = (val: number) =>
+    controls ? controls[1](val) : setActive(val)
 
   /**
    * Merge user settings with defaults (bottom of file)
@@ -76,6 +83,7 @@ export const Carousel = ({
     arrows,
     arrow,
     arrowPadding,
+    arrowMargin,
     dots,
     dotPosition,
     dotPadding,
@@ -119,11 +127,11 @@ export const Carousel = ({
       }
 
       if (index.current > data.length - 1) {
-        setActive(index.current % data.length)
+        _setActive(index.current % data.length)
       } else if (index.current < 0) {
-        setActive(data.length + (index.current % data.length))
+        _setActive(data.length + (index.current % data.length))
       } else {
-        setActive(index.current)
+        _setActive(index.current)
       }
 
       set(i => {
@@ -157,9 +165,9 @@ export const Carousel = ({
       /**
        * Handle page indicator buttons that select a specific slide index
        */
-      if (type === 'index' && idx) {
+      if (type === 'index' && idx !== undefined) {
         index.current = idx
-        setActive(idx)
+        _setActive(idx)
         update()
         return
       }
@@ -170,13 +178,13 @@ export const Carousel = ({
       if (infiniteScroll) {
         if (type === 'next' && isLast) {
           index.current = 0
-          setActive(0)
+          _setActive(0)
           return update()
         }
 
         if (type === 'previous' && isFirst) {
           index.current = data.length - 1
-          setActive(data.length - 1)
+          _setActive(data.length - 1)
           return update()
         }
       } else {
@@ -193,11 +201,22 @@ export const Carousel = ({
       }
 
       index.current = nextIndex
-      setActive(nextIndex)
+      _setActive(nextIndex)
       update()
     },
-    [data.length, set, infiniteScroll, width]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [data.length, infiniteScroll, set, width]
   )
+
+  /**
+   * Handle external navigation from `controls prop`
+   */
+  React.useEffect(() => {
+    if (controls && controls[0] !== index.current) {
+      navigate('index', controls[0])
+    }
+    // @ts-ignore
+  }, [navigate, controls, index])
 
   /**
    * Pause the autoPlay slide transition
@@ -210,7 +229,7 @@ export const Carousel = ({
 
       return () => clearTimeout(auto)
     }
-  }, [isPaused, navigate, active, autoPlay, duration])
+  }, [isPaused, navigate, active, autoPlay, duration, controls])
 
   /**
    * Pause the autoPlay slide transition
@@ -261,12 +280,12 @@ export const Carousel = ({
       <Div className="slide-container">
         {props.map(({ x, scale }, i) => (
           <AnimatedDiv
-            className={`slide${active === i ? ' active' : ''}`}
+            className={`slide${_active === i ? ' active' : ''}`}
             {...bind()}
             key={i}
             style={
               {
-                opacity: transition === 'fade' && active === i && 1,
+                opacity: transition === 'fade' && _active === i && 1,
                 x: transition !== 'fade' && x,
               } as object
             }
@@ -307,12 +326,13 @@ export const Carousel = ({
           navigate={navigate}
           arrow={arrow}
           arrowPadding={arrowPadding}
+          arrowMargin={arrowMargin}
         />
       ) : null}
       {dots ? (
         <Pagination
           navigate={navigate}
-          current={active}
+          current={_active}
           count={data.length}
           settings={{
             dotPadding,
@@ -338,7 +358,8 @@ function mergeSettings(settings: CarouselProps['settings']) {
     {
       autoPlay: false,
       arrows: true,
-      arrowPadding: 30,
+      arrowPadding: 20,
+      arrowMargin: 0,
       dots: true,
       dotPosition: 'bottom',
       dotPadding: 30,

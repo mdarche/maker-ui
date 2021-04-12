@@ -62,7 +62,7 @@ describe('Layout component', () => {
     cy.get('#test-div').should('have.css', 'height', '200px')
   })
 
-  it.only('removes the default Maker UI css colors via `options.useDefaultColors`', () => {
+  it('removes the default Maker UI css colors via `options.useDefaultColors`', () => {
     // Default behavior
     mount(
       <Layout options={{}}>

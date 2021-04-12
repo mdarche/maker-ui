@@ -6,6 +6,7 @@ import { CarouselArrowIcon } from '../icons'
 interface NavArrowProps {
   arrow?: any
   arrowPadding?: ResponsiveScale
+  arrowMargin?: ResponsiveScale
   navigate?(type: 'next' | 'previous' | 'index', index?: number): void
 }
 
@@ -25,6 +26,7 @@ const NavButton = ({
   isNext = false,
   arrow,
   arrowPadding,
+  arrowMargin,
   onClick,
 }: NavButtonProps) => (
   <Button
@@ -39,6 +41,7 @@ const NavButton = ({
       position: 'absolute',
       top: '50%',
       padding: arrowPadding,
+      margin: arrowMargin,
       zIndex: 1,
       ...transform(isNext, arrow),
       ...position(isNext),
