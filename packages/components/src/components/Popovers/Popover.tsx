@@ -20,7 +20,7 @@ export interface Position {
   y: 'top' | 'center' | 'bottom'
 }
 
-export interface PopoverProps extends Omit<DivProps, 'children'> {
+export interface PopoverProps extends DivProps {
   show: boolean
   set: React.Dispatch<React.SetStateAction<boolean>>
   anchorRef: React.MutableRefObject<any>
@@ -41,7 +41,6 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'scale'
     | 'none'
   defer?: number
-  children: React.ReactNode
   /** @internal usage only */
   _type?: 'popover' | 'dropdown' | 'tooltip'
 }

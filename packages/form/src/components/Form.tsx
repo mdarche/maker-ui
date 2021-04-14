@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Grid } from 'maker-ui'
-import { Form as FormikForm } from 'formik'
+// import { Grid } from 'maker-ui'
+// import { Form as FormikForm } from 'formik'
 
 interface FormProps {
   children: React.ReactNode
@@ -16,8 +16,9 @@ interface FormProps {
 
 export const Form = ({ children }: FormProps) => {
   return (
-    <FormikForm>
-      <Grid>{children}</Grid>
-    </FormikForm>
+    <div>{children}</div>
+    // <FormikForm>
+    //   <Grid>{children}</Grid>
+    // </FormikForm>
   )
 }

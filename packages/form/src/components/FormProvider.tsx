@@ -6,17 +6,17 @@ type FormValues = any
 interface FormProviderProps {
   children: React.ReactNode
   initialValues: FormValues
+  validationSchema?: any // use Yup
   onSubmit: ((
     values: FormValues,
     formikHelpers: FormikHelpers<FormValues>
   ) => void | Promise<any>) &
     ((values: FormValues) => void)
-  settings: {
+  settings?: {
     pagination: boolean
     pageAnimation: boolean
     validateOnBlur: boolean
     validateOnChange: boolean
-    validationSchema: any // use Yup
   }
 }
 
@@ -31,11 +31,15 @@ interface FormProviderProps {
 export const FormProvider = ({
   initialValues,
   onSubmit,
-  settings,
+  validationSchema,
   children,
 }: FormProviderProps) => {
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    // <div>{children}</div>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}>
       {children}
     </Formik>
   )

@@ -25,6 +25,7 @@ export interface NavProps extends MakerProps {
   pathname?: string
   maxWidth?: ResponsiveScale
   className?: string
+  id?: string
 }
 
 /** Special (edge) cases */
@@ -57,6 +58,7 @@ export const Navbar = (props: NavProps) => {
     colorButton,
     maxWidth = 'var(--maxWidth_header)',
     className,
+    id,
     css,
   } = props
 
@@ -81,6 +83,7 @@ export const Navbar = (props: NavProps) => {
 
   return (
     <Grid
+      id={id}
       className={mergeSelector(
         `nav-grid layout-${layout} m-layout-${mobileLayout}`,
         className
