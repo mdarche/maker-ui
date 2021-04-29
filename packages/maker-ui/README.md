@@ -44,7 +44,7 @@ If your design requires more customization or if you need conditional layouts de
 
 ```jsx
 // basic layout component usage
-import React from 'react'
+import * as React from 'react';
 import {
   Layout,
   Header,
@@ -54,10 +54,10 @@ import {
   Main,
   Sidebar,
   Footer,
-} from 'maker-ui'
+} from 'maker-ui';
 
-import { options, menu } from './config'
-import Logo from './Logo'
+import { options, menu } from './config'; // your custom configurations
+import Logo from './Logo'; // your logo component
 
 const MyLayout = props => (
   <Layout options={options}>
@@ -71,9 +71,9 @@ const MyLayout = props => (
     </Content>
     <Footer>Your custom footer</Footer>
   </Layout>
-)
+);
 
-export default MyLayout
+export default MyLayout;
 ```
 
 ### Responsive Styles
@@ -81,18 +81,18 @@ export default MyLayout
 All layout components and JSX primitives can be styled with the responsive `css` and `breakpoints` props.
 
 ```jsx
-import { Div } from 'maker-ui'
+import { Div } from 'maker-ui';
 
 const MyPage = props => (
   <Div
-    breakpoints={['768px', '960px',]}
+    breakpoints={['768px', '960px']}
     css={{ color: ['red', 'blue', 'green']}}
   />
   ...
-  )
+  );
 ```
 
-This example would set the Div's default color to `red` and generate `min-width` media queries so the color is `blue` at `768px` and `green` at `960px`. Never write a media query again!
+This example would set the div's default color to `red` and generate `min-width` media queries so the color is `blue` at `768px` and `green` at `960px`. Never write a media query again!
 
 ## Maker Components
 
@@ -108,6 +108,7 @@ Maker UI also has an optional package `@maker-ui/components` that exports a vari
 - Popover, Tooltip, and Dropdown
 - Spinner
 - CookieNotice
+- TableOfContents
 
 ## License
 
