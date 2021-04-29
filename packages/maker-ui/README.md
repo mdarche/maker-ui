@@ -15,8 +15,6 @@ Maker UI helps you design accessible, responsive apps that can be customized in 
 [npm]: https://npmjs.com/package/maker-ui
 [license]: https://flat.badgen.net/badge/license/MIT/blue
 
-https://maker-ui.com
-
 ## Templating Features
 
 - 9 customizable desktop header layouts
@@ -25,7 +23,7 @@ https://maker-ui.com
 - Responsive header and side navigation
 - Accessible dropdown menus
 - Automatic skiplink and keyboard focus management
-- Conditial or multi-layout support
+- Conditional or multi-layout support
 - Unlimited color modes
 - Error boundaries, logging support, and custom error reporting hooks
 - JSX primitives that support responsive `css` arrays
@@ -110,33 +108,6 @@ Maker UI also has an optional package `@maker-ui/components` that exports a vari
 - Popover, Tooltip, and Dropdown
 - Spinner
 - CookieNotice
-- Toast and ToastProvider
-
-## Documentation
-
-- [MakerUI Options](https://maker-ui.com/docs/options)
-- [Layout Components](https://maker-ui.com/docs/layout)
-- [Adding Content](https://maker-ui.com/docs/adding-content)
-- [Hooks API](https://maker-ui.com/docs/hooks)
-- [Tutorials](https://maker-ui.com/tutorials)
-
-## Upcoming Packages/Modules
-
-- Components
-  - Search (Algolia)
-  - SmartTable
-  - SmartGrid
-  - Subscribe Form
-  - Share buttons
-  - Mega dropdown menus
-  - Speech Synthesis
-  - PricingTable
-  - ParallaxBox
-  - Subheader
-- i18n Provider
-- Pre-built themes
-- Ecommerce & payment templates
-- Authentication templates
 
 ## License
 
