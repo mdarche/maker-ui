@@ -58,6 +58,8 @@ export function useMeasure(
     documentTop: 0,
   })
 
+  // TODO something wrong in here with occasional `top = undefined`... Add unit test for both possible ref instances
+
   const [ro] = useState(
     () =>
       new ResizeObserver(([entry]: any) => {
