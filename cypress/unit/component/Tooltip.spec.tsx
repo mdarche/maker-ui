@@ -65,7 +65,7 @@ describe('Tooltip component', () => {
   })
 
   // VISUAL TEST - position top
-  it.only('positions the tooltip to the top of the label', () => {
+  it('positions the tooltip to the top of the label', () => {
     mount(
       <TestTooltip
         label="label"

@@ -100,7 +100,7 @@ export const Carousel = ({
    */
   const isBrowser = typeof window !== 'undefined'
 
-  const [props, set] = useSprings(
+  const [props, api] = useSprings(
     data.length,
     i => ({
       x: i * (width === 0 && isBrowser ? window.innerWidth : width),
@@ -134,7 +134,7 @@ export const Carousel = ({
         _setActive(index.current)
       }
 
-      set(i => {
+      api.start(i => {
         if (i < index.current - 1 || i > index.current + 1) {
           return { display: 'none' }
         }
@@ -156,7 +156,7 @@ export const Carousel = ({
       const nextIndex = type === 'next' ? index.current + 1 : index.current - 1
 
       function update() {
-        set(i => ({
+        api.start(i => ({
           x: (i - index.current) * width,
           scale: 1,
         }))
@@ -192,7 +192,7 @@ export const Carousel = ({
          * Simulate a bouncing / deflection drag gesture
          */
         if ((type === 'next' && isLast) || (type === 'previous' && isFirst)) {
-          set(i => ({
+          api.start(i => ({
             x: (i - index.current) * width - (type === 'next' ? 100 : -100),
           }))
           setTimeout(() => update(), 200)
@@ -205,7 +205,7 @@ export const Carousel = ({
       update()
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data.length, infiniteScroll, set, width]
+    [data.length, infiniteScroll, width]
   )
 
   /**

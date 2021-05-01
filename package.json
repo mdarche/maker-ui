@@ -53,5 +53,8 @@
       "npm run format",
       "tsdx lint"
     ]
+  },
+  "dependencies": {
+    "cypress-react-selector": "^2.3.6"
   }
 }

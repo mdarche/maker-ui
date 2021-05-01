@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Portal } from '@maker-ui/components/src/components/Portal'
 import { mount } from '@cypress/react'
 
-describe('Partal component (internal)', () => {
+describe('Portal component (internal)', () => {
   it('attaches to the body element by default', () => {
     mount(
       <div>

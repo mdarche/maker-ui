@@ -6,7 +6,7 @@ import { ErrorBoundary } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
 import { useMeasure } from '../hooks/useMeasure'
-import { useLayout, useMeasurements } from '../context/LayoutContext'
+import { useMeasurements } from '../context/LayoutContext'
 import { setBreakpoint, mergeSelector } from '../utils/helper'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
@@ -28,14 +28,11 @@ export const Header = (props: HeaderProps) => {
   const [scrollClass, setScrollClass] = useState('')
   const [initialRender, setInitialRender] = useState(true)
   const [show, setShow] = useState(true)
-  const [layout] = useLayout('content')
   const { measurements, setMeasurement } = useMeasurements()
   const { framework, header, topbar, breakpoints } = useOptions()
   const activateScrollClass = header.scrollClass ? true : false
 
-  const [bind, { height }] = useMeasure({
-    observe: layout.includes('workspace'),
-  })
+  const [bind, { height }] = useMeasure()
 
   useEffect(() => {
     if (height !== 0) {

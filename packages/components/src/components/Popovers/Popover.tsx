@@ -43,6 +43,7 @@ export interface PopoverProps extends DivProps {
   defer?: number
   /** @internal usage only */
   _type?: 'popover' | 'dropdown' | 'tooltip'
+  children: React.ReactNode
 }
 
 /**
@@ -81,6 +82,8 @@ export const Popover = ({
   const [height, setHeight] = React.useState(0)
   const [initialRender, setInitialRender] = React.useState(true)
   const { options } = useMakerUI()
+
+  // TODO replace this with a new function that measures the anchorRef
   const [, box] = useMeasure({
     ref: anchorRef,
     documentResize: true,

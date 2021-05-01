@@ -6,7 +6,7 @@ import { MakerOptions } from '../types'
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
 import { useMeasure } from '../hooks/useMeasure'
-import { useLayout, useMeasurements } from '../context/LayoutContext'
+import { useMeasurements } from '../context/LayoutContext'
 import { mergeSelector, setBreakpoint } from '../utils/helper'
 
 type StickyType = 'sticky' | ('sticky' | 'relative')[] | undefined
@@ -31,10 +31,7 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 
 export const Topbar = (props: TopbarProps) => {
   const { topbar, breakpoints } = useOptions()
-  const [layout] = useLayout('content')
-  const [bind, { height }] = useMeasure({
-    observe: layout.includes('workspace'),
-  })
+  const [bind, { height }] = useMeasure()
   const { setMeasurement } = useMeasurements()
 
   useEffect(() => {
