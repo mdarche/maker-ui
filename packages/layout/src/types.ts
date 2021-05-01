@@ -44,10 +44,6 @@ type ThemeColors = {
     bg_sideNav: string
     /** The footer background color. */
     bg_footer: string
-    /** The toolbar background color for workspace layouts. */
-    bg_toolbar: string
-    /** The side panel background color for workspace layouts. */
-    bg_panel: string
   } & {
     [key: string]: string
   }
@@ -513,81 +509,4 @@ export interface MakerOptions {
       section?: React.ReactNode
     }
   }
-  /**
-   * Configuration object for the Maker UI workspace layout.
-   */
-  workspace: {
-    /**
-     * The max-width of the workspace canvas content. Can be a responsive array.
-     * @default '100%'
-     */
-    canvasMaxWidth?: ResponsiveScale
-    /**
-     * Configuration object for the left workspace panel.
-     */
-    panelLeft?: PanelProps
-    /**
-     * Configuration object for the right workspace panel.
-     */
-    panelRight?: PanelProps
-    /**
-     * Configuration object for the workspace dock component.
-     */
-    dock?: {
-      /**
-       * The width of the dock.
-       * @default 50
-       */
-      width?: ResponsiveScale
-      /**
-       * Hides the dock on mobile.
-       * @default true
-       */
-      hideOnMobile?: boolean
-      /** A specific breakpoint that controls when the dock breaks down for mobile. You may also
-       * use an index to access a specific breakpoint in the `options.breakpoints` array.
-       * @default 0 (breakpoints[0], or 768px)
-       */
-      breakpoint: string | number
-    }
-    /**
-     * A specific breakpoint that controls when the workspace panels and toolbar break down on
-     * mobile. You may also use an index to access a specific breakpoint in the `options
-     * breakpoints` array.
-     * @default 0 (breakpoints[0], or 768px)
-     */
-    breakpoint: string | number
-  }
-}
-
-type PanelProps = {
-  /**
-   * The width of the workspace panel.
-   * @default '.25fr'
-   */
-  width?: ResponsiveScale
-  /**
-   * Determines if the panel can expand and collapse.
-   * @default false
-   */
-  collapsible?: boolean
-  /**
-   * The width of the panel when it is collapsed.
-   * @default 0
-   */
-  collapseWidth?: ResponsiveScale
-  /**
-   * Lets you customize the panel collapse / expand button. By default, it displays a button
-   * with `open` or `close` inner text, but you can use a custom React component or a JSX
-   * callback to animate the button's state.
-   */
-  collapseButton?:
-    | 'default'
-    | React.ReactNode
-    | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
-  /**
-   * Lets you choose if the panel should be open or closed by default.
-   * @default true
-   */
-  defaultOpen?: boolean
 }

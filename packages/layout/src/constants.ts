@@ -8,24 +8,7 @@ export const contentTypes = [
   'sidebar content',
   'sidebar content sidebar',
   'sidenav content',
-  'dock workspace',
-  'workspace',
-  'workspace dock',
   'page-transition',
-] as const
-
-/**
- * All configurations for `<Workspace>` layouts.
- */
-export const workspaceTypes = [
-  'panel canvas panel',
-  'panel canvas',
-  'canvas panel',
-  'canvas',
-  'toolbar panel canvas panel',
-  'toolbar panel canvas',
-  'toolbar canvas panel',
-  'toolbar canvas',
 ] as const
 
 /**

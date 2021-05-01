@@ -10,7 +10,6 @@ import {
   Sidebar,
   SideNav,
   Topbar,
-  Workspace,
   Div,
 } from 'maker-ui'
 import {
@@ -48,7 +47,6 @@ const menu = [
   { label: 'Lightbox', path: '/lightbox' },
   { label: 'Popover', path: '/popover' },
   { label: 'TableofContents', path: '/toc' },
-  { label: 'Workspace', path: '/workspace' },
 ]
 
 export default ({ children, location }) => (
@@ -58,37 +56,21 @@ export default ({ children, location }) => (
       <Navbar logo={'Components Demo'} menu={menu} />
       <MobileMenu center menu={menu} />
     </Header>
-    {location.pathname !== '/workspace' ? (
-      <>
-        <Content>
-          <SideNav menu={menu} />
-          {/* <Sidebar>test</Sidebar> */}
-          <Main>
-            {/* <PageTransition id={location.pathname} type="fade-up" distance={50}>
+    <Content>
+      <SideNav menu={menu} />
+      {/* <Sidebar>test</Sidebar> */}
+      <Main>
+        {/* <PageTransition id={location.pathname} type="fade-up" distance={50}>
               <> */}
-            {children}
-            <div style={{ height: 2000 }} />
-            {/* </>
+        {children}
+        <div style={{ height: 2000 }} />
+        {/* </>
             </PageTransition> */}
-          </Main>
-          {/* <Sidebar>test</Sidebar> */}
-        </Content>
-        <Footer>Test</Footer>
-      </>
-    ) : (
-      <Content>
-        <Workspace>
-          <Workspace.Toolbar>Toolbar</Workspace.Toolbar>
-          {/* <Workspace.Panel>
-            <Div css={{ height: 1000 }}>test</Div>
-          </Workspace.Panel> */}
-          <Workspace.Canvas>{children}</Workspace.Canvas>
-          <Workspace.Panel>
-            <Div css={{ height: 1000 }}>test</Div>
-          </Workspace.Panel>
-        </Workspace>
-      </Content>
-    )}
+      </Main>
+      {/* <Sidebar>test</Sidebar> */}
+    </Content>
+    <Footer>Test</Footer>
+
     {/* <CookieNotice /> */}
   </Layout>
 )

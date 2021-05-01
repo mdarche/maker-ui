@@ -49,14 +49,7 @@ export const DefaultError = ({
   )
 }
 
-const acceptable = [
-  'Main',
-  'SideNav',
-  'Sidebar',
-  'Workspace',
-  'Dock',
-  'PageTransition',
-]
+const acceptable = ['Main', 'SideNav', 'Sidebar', 'PageTransition']
 
 export const ContentError = () => {
   return (

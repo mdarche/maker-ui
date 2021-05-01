@@ -30,11 +30,11 @@ const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
 )
 
 describe('Carousel component', () => {
-  it.only('renders with default props', () => {
+  it('renders with default props', () => {
     mount(<Carousel data={basicData} template={<BasicSlide />} />)
   })
 
-  it.only('can be controlled with an external React.useState hook', () => {
+  it('can be controlled with an external React.useState hook', () => {
     mount(<ExternalDemo />)
   })
 })

@@ -3,7 +3,7 @@ import { useMeasurements } from '../context/LayoutContext'
 
 export function useLayoutStyles(layout: string): object {
   const { measurements } = useMeasurements()
-  const { topbar, header, sideNav, workspace } = useOptions()
+  const { topbar, header, sideNav } = useOptions()
 
   /**
    * -------- Sidebar Styles --------
@@ -121,20 +121,6 @@ export function useLayoutStyles(layout: string): object {
       '#toggle-sidenav': {
         right: layout === 'sidenav content' && 30,
         left: layout === 'content sidenav' && 30,
-      },
-    }
-  }
-
-  /**
-   * -------- Workspace / Dock Styles --------
-   */
-  if (layout && layout.includes('workspace')) {
-    return {
-      display: 'flex',
-      '#workspace': { flex: 1 },
-      '#dock': {
-        width: 'var(--width_dock)',
-        display: workspace.dock?.hideOnMobile ? ['none', 'block'] : ['block'],
       },
     }
   }

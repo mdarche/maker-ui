@@ -5,17 +5,10 @@ import { Global, Interpolation } from '@maker-ui/css'
 import { colorVars, themeVars } from '../utils/css-builder'
 import { globalStyles } from '../utils/styles'
 import { useOptions } from './OptionContext'
-import {
-  contentTypes,
-  workspaceTypes,
-  navTypes,
-  mobileNavTypes,
-} from '../constants'
+import { contentTypes, navTypes, mobileNavTypes } from '../constants'
 
 export type LayoutString<T> = T extends 'content'
   ? typeof contentTypes[number]
-  : T extends 'workspace'
-  ? typeof workspaceTypes[number]
   : T extends 'nav'
   ? typeof navTypes[number]
   : typeof mobileNavTypes[number]
@@ -24,7 +17,6 @@ export interface LayoutState {
   layout_nav: typeof navTypes[number]
   layout_navMobile: typeof mobileNavTypes[number]
   layout_content: typeof contentTypes[number]
-  layout_workspace: typeof workspaceTypes[number]
   height_header: number
   height_topbar: number
   height_toolbar: number
@@ -58,7 +50,6 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
     layout_nav: options.header.navType,
     layout_navMobile: options.header.mobileNavType,
     layout_content: 'content',
-    layout_workspace: 'canvas',
     height_header: 0,
     height_topbar: 0,
     height_toolbar: 0,
@@ -98,12 +89,12 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
 }
 
 /**
- * Retrieves and allows you to edit the current nav, content, and workspace layout
+ * Retrieves and allows you to edit the current nav, and content layout
  *
  * @link https://maker-ui.com/hooks/#useLayout
  */
 
-function useLayout<T extends 'content' | 'workspace' | 'nav' | 'mobileNav'>(
+function useLayout<T extends 'content' | 'nav' | 'mobileNav'>(
   type: T
 ): [LayoutString<T>, (layout: LayoutString<T>) => void] {
   const { state, setState } = React.useContext(LayoutContext)
@@ -120,9 +111,7 @@ function useLayout<T extends 'content' | 'workspace' | 'nav' | 'mobileNav'>(
   }
 
   // @ts-ignore
-  return type === 'workspace'
-    ? [state.layout_workspace, setLayout]
-    : type === 'nav'
+  return type === 'nav'
     ? [state.layout_nav, setLayout]
     : type === 'mobileNav'
     ? [state.layout_navMobile, setLayout]
@@ -160,10 +149,7 @@ function useMeasurements() {
  * @internal usage only
  */
 
-function getLayoutType(
-  type: 'content' | 'workspace',
-  children: React.ReactNode
-): string {
+function getLayoutType(type: 'content', children: React.ReactNode): string {
   if (typeof children === 'string') return 'unknown'
 
   let nodes: any[] = React.Children.toArray(children)
@@ -198,25 +184,22 @@ function getLayoutType(
  * Checks the current layout is compatible and updates the LayoutProvider and returns an
  * error flag
  *
- * Currently used in the `Workspace` and `Content` wrapper components
+ * Currently used in the `Content` wrapper components
  *
  * @internal usage only
  */
 
-function useLayoutDetector<
-  T extends 'content' | 'workspace',
-  K extends React.ReactNode
->(type: T, children: K) {
+function useLayoutDetector<T extends 'content', K extends React.ReactNode>(
+  type: T,
+  children: K
+) {
   const [layout, setLayout] = useLayout(type)
   const [showError, setShowError] = React.useState(false)
 
   React.useEffect(() => {
     if (children) {
       const currentLayout = getLayoutType(type, children)
-      const isValidLayout =
-        type === 'content'
-          ? contentTypes.find(v => v === currentLayout)
-          : workspaceTypes.find(v => v === currentLayout)
+      const isValidLayout = contentTypes.find(v => v === currentLayout)
 
       if (isValidLayout) {
         if (layout !== currentLayout) {

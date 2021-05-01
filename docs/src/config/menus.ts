@@ -21,8 +21,6 @@ export const sideMenu: MenuProps[] = [
       { label: 'Main', path: '/docs/layout/main' },
       { label: 'SideNav', path: '/docs/layout/sidenav' },
       { label: 'Sidebar', path: '/docs/layout/sidebar' },
-      { label: 'Dock', path: '/docs/layout/dock' },
-      { label: 'Workspace', path: '/docs/layout/workspace' },
       { label: 'Footer', path: '/docs/layout/footer' },
       { label: 'Section', path: '/docs/layout/section' },
       { label: 'CollapsibleMenu', path: '/docs/layout/collapsible-menu' },

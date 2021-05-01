@@ -97,21 +97,4 @@ export const defaultOptions: MakerUIOptions = {
   errors: {
     showStackTrace: false,
   },
-  workspace: {
-    canvasMaxWidth: '100%',
-    breakpoint: 0,
-    panelLeft: {
-      width: '.25fr',
-      collapseWidth: 0,
-    },
-    panelRight: {
-      width: '.25fr',
-      collapseWidth: 0,
-    },
-    dock: {
-      width: 50,
-      hideOnMobile: true,
-      breakpoint: 0,
-    },
-  },
 }

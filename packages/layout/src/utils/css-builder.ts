@@ -61,7 +61,6 @@ export const themeVars = (
     sidebar,
     sideNav,
     footer,
-    workspace,
   } = merge(defaultOptions, options, {
     arrayMerge: (_, source, __) => source,
   })
@@ -84,16 +83,10 @@ export const themeVars = (
     '--maxWidth_content': content?.maxWidth,
     '--maxWidth_section': content?.maxWidthSection,
     '--maxWidth_footer': footer?.maxWidth,
-    '--maxWidth_workspace': workspace?.canvasMaxWidth,
     '--width_mobileMenu': mobileMenu?.width,
     '--width_sidebar': sidebar?.width,
     '--width_second_sidebar': sidebar?.secondWidth,
     '--width_sideNav': sideNav?.width,
-    '--width_dock': workspace.dock?.width,
-    '--width_panel_left': workspace.panelLeft?.width,
-    '--width_panel_left_collapse': workspace.panelLeft?.collapseWidth,
-    '--width_panel_right': workspace.panelRight?.width,
-    '--width_panel_right_collapse': workspace.panelRight?.collapseWidth,
     '--gap_content': content?.sidebarGap,
   }
 
