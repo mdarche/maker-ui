@@ -1,28 +1,24 @@
 {
   "private": true,
-  "name": "docs",
-  "version": "0.4.2",
+  "name": "app",
+  "version": "1.0.0-beta.8",
   "author": "Mike Darche",
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "clean": "gatsby clean"
+    "dev": "next dev",
+    "build": "next build",
+    "next:start": "next start"
   },
   "dependencies": {
     "@maker-ui/components": "1.0.0-beta.8",
-    "@mdx-js/mdx": "^1.5.5",
-    "@mdx-js/react": "^1.5.5",
-    "gatsby": "^2.23.17",
-    "gatsby-plugin-catch-links": "^2.1.24",
-    "gatsby-plugin-layout": "^1.1.22",
-    "gatsby-plugin-mdx": "^1.2.25",
-    "gatsby-plugin-react-helmet": "^3.0.12",
     "maker-ui": "1.0.0-beta.8",
+    "next": "^9.5.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   },
   "devDependencies": {
-    "tslib": "^2.0.3"
+    "@types/node": "^14.11.10",
+    "@types/react": "^16.9.53",
+    "typescript": "^4.0.3"
   }
 }

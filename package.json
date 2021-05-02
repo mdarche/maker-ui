@@ -9,10 +9,10 @@
     "test": "lerna run test --",
     "lint": "lerna run lint -- --fix",
     "build": "lerna run build",
-    "prepublish": "lerna run prepublish",
     "start:app": "yarn run build && yarn --cwd example && yarn --cwd example start",
     "cypress": "cypress run",
     "cypress:open": "cypress open",
+    "cypress:unit": "cypress open-ct",
     "changeset": "changeset",
     "release": "changeset publish",
     "version:canary": "changeset version --snapshot canary",
@@ -25,8 +25,9 @@
     "app"
   ],
   "devDependencies": {
-    "@cypress/react": "^4.16.4",
-    "@testing-library/cypress": "^7.0.3",
+    "@cypress/code-coverage": "^3.9.5",
+    "@cypress/react": "^5.4.2",
+    "@cypress/webpack-dev-server": "^1.1.6",
     "@testing-library/dom": "^7.29.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.2.5",
@@ -35,8 +36,11 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-helmet": "^6.1.0",
     "@types/react-test-renderer": "^17.0.0",
-    "cypress": "^6.4.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "cypress": "^7.2.0",
     "cypress-plugin-tab": "^1.0.5",
+    "cypress-react-selector": "^2.3.6",
+    "html-webpack-plugin": "4",
     "husky": "^4.0.10",
     "jest": "^26.6.3",
     "jest-emotion": "^10.0.27",
@@ -45,6 +49,7 @@
     "prettier": "^1.19.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3",
     "tsdx": "^0.13.2",
     "typescript": "^3.9.6"
   },
@@ -53,8 +58,5 @@
       "npm run format",
       "tsdx lint"
     ]
-  },
-  "dependencies": {
-    "cypress-react-selector": "^2.3.6"
   }
 }

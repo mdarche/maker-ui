@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx, MakerProps } from '@maker-ui/css'
 import { useEffect, useState } from 'react'
+import useMeasure from 'react-use-measure'
 
 import { ErrorBoundary } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
-import { useMeasure } from '../hooks/useMeasure'
+// import { useMeasure } from '../hooks/useMeasure'
 import { useMeasurements } from '../context/LayoutContext'
 import { setBreakpoint, mergeSelector } from '../utils/helper'
 
@@ -32,7 +33,7 @@ export const Header = (props: HeaderProps) => {
   const { framework, header, topbar, breakpoints } = useOptions()
   const activateScrollClass = header.scrollClass ? true : false
 
-  const [bind, { height }] = useMeasure()
+  const [ref, { height }] = useMeasure()
 
   useEffect(() => {
     if (height !== 0) {
@@ -167,7 +168,7 @@ export const Header = (props: HeaderProps) => {
 
   return (
     <header
-      {...bind}
+      ref={ref}
       className={mergeSelector(libClasses, className)}
       role="banner"
       breakpoints={setBreakpoint(header.breakpoint, breakpoints)}

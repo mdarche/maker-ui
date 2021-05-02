@@ -10,7 +10,7 @@ import {
   Content,
   Main,
 } from 'maker-ui'
-export { defaultOptions as defaults } from '../../packages/layout/src/options'
+export { defaultOptions as defaults } from './options'
 
 export function format(value: any, index: number = 0): string {
   const val = Array.isArray(value) ? value[index] : value
@@ -61,6 +61,7 @@ export const Wrapper = ({
   isContent,
   children,
 }: WrapperProps) => {
+  console.log('Options are ', options)
   return (
     <Layout options={options} styles={styles}>
       {header ? <TestHeader /> : null}

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Layout, Div, MakerUIOptions } from 'maker-ui'
-import { defaultOptions } from '../../../packages/layout/src/options'
 import { mount } from '@cypress/react'
 
+import { defaultOptions } from '../options'
 import { Wrapper } from '../setup'
 
 describe('Layout component', () => {

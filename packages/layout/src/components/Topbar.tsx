@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { useEffect } from 'react'
+import useMeasure from 'react-use-measure'
 
 import { MakerOptions } from '../types'
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
-import { useMeasure } from '../hooks/useMeasure'
 import { useMeasurements } from '../context/LayoutContext'
 import { mergeSelector, setBreakpoint } from '../utils/helper'
 
@@ -31,7 +31,7 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 
 export const Topbar = (props: TopbarProps) => {
   const { topbar, breakpoints } = useOptions()
-  const [bind, { height }] = useMeasure()
+  const [ref, { height }] = useMeasure()
   const { setMeasurement } = useMeasurements()
 
   useEffect(() => {
@@ -63,9 +63,11 @@ export const Topbar = (props: TopbarProps) => {
     ? ['sticky', 'relative']
     : undefined
 
+  console.log('stickyPartial is', stickyPartial)
+
   return (
     <aside
-      {...bind}
+      ref={ref}
       id={mergeSelector('topbar', id)}
       className={className}
       breakpoints={setBreakpoint(topbar.breakpoint, breakpoints)}
