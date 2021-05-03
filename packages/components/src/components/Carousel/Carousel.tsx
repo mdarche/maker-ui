@@ -10,7 +10,7 @@ import { animated, useSprings, SpringConfig } from '@react-spring/web'
 import { useDrag } from 'react-use-gesture'
 import merge from 'deepmerge'
 
-import { clamp } from '../helper'
+import { clamp, mergeRefs } from '../helper'
 
 import { NavArrows } from './NavArrows'
 import { Pagination, Position } from './Pagination'
@@ -63,11 +63,11 @@ export const Carousel = ({
   css,
   ...rest
 }: CarouselProps) => {
-  const index = React.useRef(0)
   const carouselRef = React.useRef<any>(null)
+  const index = React.useRef(0)
   const [active, setActive] = React.useState(0)
   const [isPaused, setPause] = React.useState(false)
-  const [, { width }] = useMeasure({ ref: carouselRef })
+  const [ref, { width }] = useMeasure()
 
   const _active = controls ? controls[0] : active
   const _setActive = (val: number) =>
@@ -204,7 +204,6 @@ export const Carousel = ({
       _setActive(nextIndex)
       update()
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [data.length, infiniteScroll, width]
   )
 
@@ -215,7 +214,6 @@ export const Carousel = ({
     if (controls && controls[0] !== index.current) {
       navigate('index', controls[0])
     }
-    // @ts-ignore
   }, [navigate, controls, index])
 
   /**
@@ -243,24 +241,25 @@ export const Carousel = ({
 
   /**
    * Handle pause on focus
+   * @todo - test this
    */
   React.useEffect(() => {
-    const ref = carouselRef.current
+    const current = carouselRef.current
 
     if (autoPlay) {
-      ref?.addEventListener(`focusin`, pause)
-      ref?.addEventListener(`focusout`, resume)
+      current?.addEventListener(`focusin`, pause)
+      current?.addEventListener(`focusout`, resume)
     }
 
     return () => {
-      ref?.removeEventListener(`focusin`, pause)
-      ref?.removeEventListener(`focusout`, resume)
+      current?.removeEventListener(`focusin`, pause)
+      current?.removeEventListener(`focusout`, resume)
     }
   }, [pause, resume, autoPlay])
 
   return (
     <Div
-      ref={carouselRef}
+      ref={mergeRefs([carouselRef, ref])}
       onMouseEnter={autoPlay ? pause : undefined}
       onMouseLeave={autoPlay ? resume : undefined}
       className={mergeSelector('carousel', className)}

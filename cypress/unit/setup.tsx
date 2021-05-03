@@ -61,7 +61,6 @@ export const Wrapper = ({
   isContent,
   children,
 }: WrapperProps) => {
-  console.log('Options are ', options)
   return (
     <Layout options={options} styles={styles}>
       {header ? <TestHeader /> : null}

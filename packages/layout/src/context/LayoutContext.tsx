@@ -70,7 +70,6 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
    * */
   React.useEffect(() => {
     document.body.dataset.theme = Object.keys(options.colors)[0] || 'light'
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const cssVariables = merge(

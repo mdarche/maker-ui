@@ -60,7 +60,7 @@ export const AccordionPanel = React.forwardRef<
     const [show, set] = React.useState(
       state.showSingle && state.activeKey === eventKey ? true : open
     )
-    const [bind, { height: viewHeight }] = useMeasure()
+    const [measureRef, { height: viewHeight }] = useMeasure()
 
     React.useEffect(() => {
       registerPanel(panelKey)
@@ -143,7 +143,7 @@ export const AccordionPanel = React.forwardRef<
             height,
           }}>
           <Div
-            {...bind}
+            ref={measureRef}
             className="accordion-panel"
             css={{
               borderTop: `1px solid`,

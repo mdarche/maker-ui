@@ -48,7 +48,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
     } = useTreeData()
 
     const previous = usePrevious(isOpen)
-    const [bind, { height: viewHeight }] = useMeasure()
+    const [measureRef, { height: viewHeight }] = useMeasure()
 
     const { height } = useSpring({
       from: { height: 0 },
@@ -124,7 +124,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
             overflow: 'hidden',
             height: isOpen && previous === isOpen ? 'auto' : height,
           }}>
-          <div {...bind}>{children}</div>
+          <div ref={measureRef}>{children}</div>
         </animated.div>
       </Div>
     )

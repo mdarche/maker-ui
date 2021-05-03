@@ -74,7 +74,7 @@ export const Navbar = (props: NavProps) => {
     if (mobileType !== undefined && mobileType !== mobileLayout) {
       setMobileLayout(mobileType)
     }
-  }, [type, mobileType, layout, mobileLayout, setLayout, setMobileLayout])
+  }, [type, mobileType, layout, mobileLayout])
 
   const wrapPartial: object | undefined =
     header.menuOverflow === 'scroll'

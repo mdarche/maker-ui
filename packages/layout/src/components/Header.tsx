@@ -6,7 +6,6 @@ import useMeasure from 'react-use-measure'
 import { ErrorBoundary } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
-// import { useMeasure } from '../hooks/useMeasure'
 import { useMeasurements } from '../context/LayoutContext'
 import { setBreakpoint, mergeSelector } from '../utils/helper'
 
@@ -39,7 +38,6 @@ export const Header = (props: HeaderProps) => {
     if (height !== 0) {
       setMeasurement('header', height)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height])
 
   useEffect(() => {

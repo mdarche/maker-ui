@@ -58,7 +58,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   ) => {
     const [show, set] = React.useState(true)
     const [initialRender, setInitialRender] = React.useState(false)
-    const [bind, { height: viewHeight }] = useMeasure()
+    const [measureRef, { height: viewHeight }] = useMeasure()
     const active = useTracker({ type, storageKey, show, expiration })
 
     React.useEffect(() => {
@@ -107,7 +107,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         }}>
         <Flex
           className="container"
-          {...bind}
+          ref={measureRef}
           css={{ width: '100%', alignItems: 'center', ...(css as object) }}>
           <Flex
             className="announcement-text"

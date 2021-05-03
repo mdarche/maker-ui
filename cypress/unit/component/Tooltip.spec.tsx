@@ -7,14 +7,15 @@ import { mount } from '@cypress/react'
  * @see Popover.spec.tsx for gap, defer, trapFocus, and closeOnBlur unit tests
  */
 
-const TestTooltip = ({ children, ...props }) => {
+const TestTooltip = ({ children, label, ...props }) => {
   return (
     <Flex
       align="center"
       justify="center"
       css={{ height: '100vh', width: '100vw' }}>
-      {/* @ts-ignore */}
-      <Tooltip {...props}>{children}</Tooltip>
+      <Tooltip label={label} {...props}>
+        {children}
+      </Tooltip>
     </Flex>
   )
 }
