@@ -306,7 +306,7 @@ export const Carousel = ({
               className="slide-inner"
               style={
                 {
-                  scale: transition === 'scale' && scale,
+                  scale: transition === 'scale' ? scale : undefined,
                 } as object
               }
               css={{

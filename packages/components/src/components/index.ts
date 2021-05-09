@@ -1,6 +1,6 @@
 export { Accordion, AccordionPanel } from './Accordion'
 export { Announcement } from './Announcement'
-export { Carousel } from './Carousel'
+export { Carousel, CarouselProps } from './Carousel'
 export { CookieNotice } from './CookieNotice'
 export { Lightbox, LightboxLink } from './Lightbox'
 export { Modal } from './Modal'
