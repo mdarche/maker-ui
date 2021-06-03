@@ -85,6 +85,7 @@ export const Popover = ({
 
   // TODO replace this with a new function that measures the anchorRef
   const [, box] = useMeasure({
+    // @ts-ignore
     ref: anchorRef,
     documentResize: true,
     timeout: defer || options?.content?.deferMeasurements,
@@ -293,6 +294,7 @@ export const Popover = ({
   }
 
   return (
+    // @ts-ignore
     <Portal root={appendTo}>
       {animate(
         (props, item) =>

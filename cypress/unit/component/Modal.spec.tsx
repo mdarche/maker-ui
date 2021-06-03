@@ -30,9 +30,9 @@ describe('Modal component', () => {
   })
 
   it('attaches to a specified DOM node using ID selector with the `appendTo` prop', () => {
-    mount(<TestModal appendTo="cypress-root">Modal content</TestModal>)
+    mount(<TestModal appendTo="__cy_root">Modal content</TestModal>)
     cy.get('button').click()
-    cy.get('#cypress-root div')
+    cy.get('#__cy_root div')
       .last()
       .contains('Modal content')
   })
