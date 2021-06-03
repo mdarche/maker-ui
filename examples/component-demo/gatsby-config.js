@@ -1,11 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: 'Maker UI Carousel Example',
-    description: 'An example Gatsby site with Carousel usage',
+    title: 'Maker UI Component Demo Example',
   },
   plugins: [
     `gatsby-plugin-catch-links`,
-    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-layout`,
       options: {

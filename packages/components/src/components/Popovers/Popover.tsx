@@ -3,8 +3,8 @@ import { useTransition, animated, SpringConfig } from '@react-spring/web'
 import {
   Div,
   DivProps,
-  useMeasure,
-  useMakerUI,
+  // useMeasure,
+  // useMakerUI,
   MakerProps,
   mergeSelector,
 } from 'maker-ui'
@@ -81,15 +81,62 @@ export const Popover = ({
   const [width, setWidth] = React.useState(0)
   const [height, setHeight] = React.useState(0)
   const [initialRender, setInitialRender] = React.useState(true)
-  const { options } = useMakerUI()
-
-  // TODO replace this with a new function that measures the anchorRef
-  const [, box] = useMeasure({
-    // @ts-ignore
-    ref: anchorRef,
-    documentResize: true,
-    timeout: defer || options?.content?.deferMeasurements,
+  const [box, setBox] = React.useState({
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    documentTop: 0,
+    measured: false,
   })
+
+  function resize() {
+    const {
+      top,
+      bottom,
+      left,
+      right,
+      x,
+      y,
+      height,
+      width,
+    } = anchorRef.current.getBoundingClientRect()
+    setBox({
+      top,
+      bottom,
+      left,
+      right,
+      x,
+      y,
+      height,
+      width,
+      documentTop: top + document.documentElement.scrollTop,
+      measured: true,
+    })
+  }
+
+  // Initial Size
+
+  React.useEffect(() => {
+    if (anchorRef.current) {
+      resize()
+    }
+    console.log('Anchor ref.current is', anchorRef.current)
+    console.log('box is', box)
+  }, [anchorRef])
+
+  // Browser resize
+
+  React.useEffect(() => {
+    window.addEventListener('resize', resize)
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
 
   /**
    * Measure the popover's child container to calculate its height and width for
@@ -133,7 +180,7 @@ export const Popover = ({
    */
 
   React.useEffect(() => {
-    if (!box) return
+    if (!box.measured) return
     if (anchorWidth) {
       setWidth(box.width)
     }
@@ -268,7 +315,7 @@ export const Popover = ({
   const gapY = typeof gap === 'object' ? gap.y : gap
 
   const getX = () => {
-    if (!box) return
+    if (!box.measured) return
     return position.x === 'center'
       ? box.left + box.width / 2 - width / 2
       : position.x === 'left'
@@ -283,7 +330,7 @@ export const Popover = ({
    */
 
   const getY = () => {
-    if (!box) return
+    if (!box.measured) return
     return position.y === 'top'
       ? box.documentTop - height - gapY
       : position.y === 'bottom'
@@ -293,7 +340,7 @@ export const Popover = ({
       : 0
   }
 
-  return (
+  return typeof window !== 'undefined' && box.measured ? (
     // @ts-ignore
     <Portal root={appendTo}>
       {animate(
@@ -336,7 +383,7 @@ export const Popover = ({
           )
       )}
     </Portal>
-  )
+  ) : null
 }
 
 Popover.displayName = 'Popover'

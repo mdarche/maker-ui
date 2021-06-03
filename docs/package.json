@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "app",
-  "version": "1.0.0-beta.8",
+  "name": "docs",
+  "version": "1.0.0-beta.10",
   "author": "Mike Darche",
   "license": "MIT",
   "scripts": {
@@ -10,11 +10,11 @@
     "next:start": "next start"
   },
   "dependencies": {
-    "@maker-ui/components": "1.0.0-beta.8",
-    "maker-ui": "1.0.0-beta.8",
-    "next": "^9.5.5",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "@maker-ui/components": "1.0.0-beta.10",
+    "maker-ui": "1.0.0-beta.10",
+    "next": "^10.2.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@types/node": "^14.11.10",

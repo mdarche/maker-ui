@@ -19,6 +19,7 @@ describe('Portal component (internal)', () => {
       .contains('Portal Content')
   })
 
+  // If this ever breaks, check to see if the root ID for Cypress has changed
   it('attaches to a specified DOM node using ID selector', () => {
     mount(
       <div>
