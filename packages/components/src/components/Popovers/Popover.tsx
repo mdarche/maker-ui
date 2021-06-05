@@ -69,7 +69,7 @@ export const Popover = ({
   closeOnBlur = true,
   transition = 'fade',
   spring,
-  defer,
+  defer = 100,
   _type = 'popover',
   className,
   _css,
@@ -119,17 +119,17 @@ export const Popover = ({
     })
   }
 
-  // Initial Size
+  // Initial Measurement or changing Anchor Ref
 
   React.useEffect(() => {
     if (anchorRef.current) {
-      resize()
+      setTimeout(() => {
+        resize()
+      }, defer)
     }
-    console.log('Anchor ref.current is', anchorRef.current)
-    console.log('box is', box)
   }, [anchorRef])
 
-  // Browser resize
+  // Browser Resize
 
   React.useEffect(() => {
     window.addEventListener('resize', resize)
@@ -169,7 +169,7 @@ export const Popover = ({
    */
 
   React.useEffect(() => {
-    if (transition === 'scale' && setInitialRender) {
+    if (transition === 'scale' && initialRender) {
       setInitialRender(false)
       // set(false)
     }

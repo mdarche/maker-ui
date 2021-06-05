@@ -29,7 +29,7 @@ export const Header = (props: HeaderProps) => {
   const [initialRender, setInitialRender] = useState(true)
   const [show, setShow] = useState(true)
   const { measurements, setMeasurement } = useMeasurements()
-  const { framework, header, topbar, breakpoints } = useOptions()
+  const { header, topbar, breakpoints } = useOptions()
   const activateScrollClass = header.scrollClass ? true : false
 
   const [ref, { height }] = useMeasure()
@@ -174,8 +174,7 @@ export const Header = (props: HeaderProps) => {
         background,
         zIndex: 100,
         width: absolute ? '100%' : undefined,
-        visibility:
-          framework === 'gatsby' && initialRender ? 'hidden' : undefined,
+        visibility: initialRender ? 'hidden' : undefined,
         ...stickyPartial(),
         ...(css as object),
       }}
