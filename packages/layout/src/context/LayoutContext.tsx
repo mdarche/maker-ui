@@ -20,6 +20,7 @@ export interface LayoutState {
   height_header: number
   height_topbar: number
   height_toolbar: number
+  colorTheme: string
 }
 
 interface LayoutProviderProps {
@@ -53,6 +54,7 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
     height_header: 0,
     height_topbar: 0,
     height_toolbar: 0,
+    colorTheme: Object.keys(options.colors)[0] || 'light',
   })
 
   React.useEffect(() => {
@@ -69,7 +71,7 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
    * @todo save to local storage and check for preferred color scheme
    * */
   React.useEffect(() => {
-    document.body.dataset.theme = Object.keys(options.colors)[0] || 'light'
+    document.body.dataset.theme = state.colorTheme
   }, [])
 
   const cssVariables = merge(
@@ -213,4 +215,27 @@ function useLayoutDetector<T extends 'content', K extends React.ReactNode>(
   return { layout, showError }
 }
 
-export { LayoutProvider, useMeasurements, useLayout, useLayoutDetector }
+function useColorTheme() {
+  const options = useOptions()
+  const {
+    state: { colorTheme },
+    setState,
+  } = React.useContext(LayoutContext)
+
+  const colors = options.colors ? Object.keys(options.colors) : ['light']
+
+  function setColorTheme(theme: string) {
+    document.body.dataset.theme = theme
+    setState(s => ({ ...s, colorTheme: theme }))
+  }
+
+  return { colorTheme, setColorTheme, colors }
+}
+
+export {
+  LayoutProvider,
+  useMeasurements,
+  useLayout,
+  useColorTheme,
+  useLayoutDetector,
+}

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Section, Div, Button } from 'maker-ui'
+import { Section, Div, Button, ColorButton } from 'maker-ui'
 import { Popover, Dropdown, Tooltip } from '@maker-ui/components'
 
 const PopoverPage = () => {
@@ -8,6 +8,7 @@ const PopoverPage = () => {
 
   return (
     <Section css={{ paddingTop: 50 }}>
+      <ColorButton />
       <Button
         ref={buttonRef}
         onClick={e => set(!show)}

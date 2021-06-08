@@ -8,7 +8,6 @@ import {
   Content,
   Main,
   Footer,
-  // Sidebar,
 } from 'maker-ui'
 
 import { options } from '../config/options'

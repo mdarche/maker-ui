@@ -48,6 +48,7 @@ export const defaultOptions: MakerUIOptions = {
     sticky: false,
     stickyOnMobile: false,
     stickyUpScroll: false,
+    showColorButton: true,
     hideColorButtonOnMobile: false,
     hideWidgetsOnMobile: true,
     menuOverflow: 'wrap',

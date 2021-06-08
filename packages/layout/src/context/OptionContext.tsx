@@ -65,7 +65,7 @@ function useOptions(): MakerOptions {
 
   if (options === undefined) {
     throw new Error(
-      'useOptions must be used within an Maker UI Layout component'
+      'useOptions must be used within a Maker UI Layout component'
     )
   }
 
