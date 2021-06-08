@@ -68,10 +68,37 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
   /**
    * Set the initial color theme
    *
-   * @todo save to local storage and check for preferred color scheme
+   * @todo check for preferred color scheme and handle expiration
    * */
   React.useEffect(() => {
-    document.body.dataset.theme = state.colorTheme
+    const isObject =
+      typeof options.persistentColorMode === 'object' &&
+      options.persistentColorMode !== null
+
+    if (isObject || options.persistentColorMode) {
+      const storageKey = isObject
+        ? //@ts-ignore
+          options.persistentColorMode.key
+        : 'color-theme'
+
+      const sessionCheck = localStorage.getItem(storageKey)
+
+      if (sessionCheck) {
+        //@ts-ignore
+        const { theme } = JSON.parse(localStorage.getItem(storageKey))
+        document.body.dataset.theme = theme
+        setState(s => ({ ...s, colorTheme: theme }))
+      } else {
+        const defaultTheme = Object.keys(options.colors)[0] || 'light'
+        localStorage.setItem(
+          storageKey,
+          JSON.stringify({ theme: defaultTheme })
+        )
+        document.body.dataset.theme = defaultTheme
+
+        setState(s => ({ ...s, colorTheme: defaultTheme }))
+      }
+    }
   }, [])
 
   const cssVariables = merge(
@@ -225,6 +252,9 @@ function useColorTheme() {
   const colors = options.colors ? Object.keys(options.colors) : ['light']
 
   function setColorTheme(theme: string) {
+    if (options.persistentColorMode) {
+      localStorage.setItem('color-theme', JSON.stringify({ theme }))
+    }
     document.body.dataset.theme = theme
     setState(s => ({ ...s, colorTheme: theme }))
   }

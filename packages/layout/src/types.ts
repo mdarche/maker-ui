@@ -111,7 +111,7 @@ export interface MakerOptions {
   /**
    * An option that lets you save the user's color mode preference to the browser's local storage.
    */
-  persistentColorMode: boolean | { key: 'string'; expiration: number }
+  persistentColorMode: boolean | { key: string; expiration: number }
   /**
    * A boolean that lets you turn off Maker UI's default color CSS variables.
    */

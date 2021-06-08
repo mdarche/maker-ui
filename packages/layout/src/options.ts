@@ -33,6 +33,7 @@ export const defaultOptions: MakerUIOptions = {
       bg_toolbar: '#fbfbfb',
     },
   },
+  persistentColorMode: true,
   useColorDefaults: true,
   useMeasurementDefaults: true,
   variables: {},
