@@ -3,7 +3,7 @@ import { Button, ButtonProps } from '@maker-ui/primitives'
 
 import { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
-import { setBreakpoint, mergeSelector } from '../../utils/helper'
+import { setBreakpoint, mergeSelectors } from '../../utils/helper'
 import { useColorTheme } from '../../context/LayoutContext'
 
 interface ColorButtonProps extends ButtonProps {
@@ -14,9 +14,6 @@ interface ColorButtonProps extends ButtonProps {
 /**
  * The `ColorButton` is used by `Navbar` to show the current color mode and let you toggle
  * to other color presets. You can also use this button anywhere within your layout.
- *
- * @todo - Find a way to (efficiently) sync multiple instances of ColorButton without using
- * an app provider
  *
  * @link https://maker-ui.com/docs/layout/buttons/#colorButton
  */
@@ -41,7 +38,7 @@ export const ColorButton = ({
 
   const attributes = {
     title: 'Color Theme',
-    className: mergeSelector('color-button', className),
+    className: mergeSelectors(['color-button', className]),
     'aria-label': 'Toggle Color Mode',
     onClick: cycleMode,
     breakpoints: isHeaderButton

@@ -3,10 +3,6 @@ import { Interpolation } from '@emotion/react'
 export type Breakpoints = (string | number)[]
 
 /**
- * @todo custom build the css attribute for responsive scales and theme functions
- * */
-
-/**
  * Support for the breakpoints prop and responsive CSS scales.
  *
  * @param breakpoints - An array of breakpoints that determines the css prop media queries

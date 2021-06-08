@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Div, MakerProps, mergeSelector } from 'maker-ui'
+import { Button, Div, MakerProps, mergeSelectors } from 'maker-ui'
 
 import { Popover, PopoverProps } from './Popover'
 
@@ -51,10 +51,10 @@ export const Dropdown = ({
 
   const buttonAttributes = {
     ref: buttonRef,
-    className: mergeSelector(
+    className: mergeSelectors([
       'dropdown-btn',
-      (controls ? controls[0] : show) ? 'active' : ''
-    ),
+      (controls ? controls[0] : show) ? 'active' : '',
+    ]),
     'aria-haspopup': 'listbox' as 'listbox',
     'aria-expanded': controls ? controls[0] : show,
     onClick: () => (controls ? controls[1](!controls[0]) : set(!show)),
@@ -63,7 +63,7 @@ export const Dropdown = ({
   return (
     <Div
       id={id}
-      className={mergeSelector('dropdown', className)}
+      className={mergeSelectors(['dropdown', className])}
       css={{ display: 'inline-block', ...(_css as object) }}>
       {typeof button === 'function' ? (
         button(controls ? controls[0] : show, buttonAttributes)

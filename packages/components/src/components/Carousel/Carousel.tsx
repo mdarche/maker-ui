@@ -3,7 +3,7 @@ import {
   Div,
   MakerProps,
   ResponsiveScale,
-  mergeSelector,
+  mergeSelectors,
   useMeasure,
 } from 'maker-ui'
 import { animated, useSprings, SpringConfig } from '@react-spring/web'
@@ -262,7 +262,7 @@ export const Carousel = ({
       ref={mergeRefs([carouselRef, ref])}
       onMouseEnter={autoPlay ? pause : undefined}
       onMouseLeave={autoPlay ? resume : undefined}
-      className={mergeSelector('carousel', className)}
+      className={mergeSelectors(['carousel', className])}
       css={{
         overflow: 'hidden',
         position: 'relative',

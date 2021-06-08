@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
-import { mergeSelector } from '../utils/helper'
+import { mergeSelectors } from '../utils/helper'
 
 import { ErrorBoundary } from './Errors'
 
@@ -28,7 +28,7 @@ export const Footer = ({
 }: FooterProps) => {
   return (
     <footer
-      id={mergeSelector('footer', id)}
+      id={mergeSelectors(['footer', id])}
       role="contentinfo"
       css={{ background, ...(_css as object) }}
       {...props}>

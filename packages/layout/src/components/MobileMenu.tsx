@@ -8,7 +8,7 @@ import { ErrorBoundary } from './Errors'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
-import { getTransition, fullWidth, mergeSelector } from '../utils/helper'
+import { getTransition, fullWidth, mergeSelectors } from '../utils/helper'
 
 interface MobileMenuProps
   extends MakerProps,
@@ -83,8 +83,8 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
         ) : null}
         <div
           ref={ref}
-          id={mergeSelector('mobile-menu', id)}
-          className={mergeSelector(show ? 'active' : '', className)}
+          id={mergeSelectors(['mobile-menu', id])}
+          className={mergeSelectors([show ? 'active' : '', className])}
           css={{
             position: 'fixed',
             background,

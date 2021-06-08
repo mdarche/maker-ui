@@ -121,7 +121,9 @@ export function mergeSelector(
 
 // TODO - This would change the API for all usage across packages
 
-export function mergeSelectors(selectors: string[]): string | undefined {
+export function mergeSelectors(
+  selectors: (string | undefined)[]
+): string | undefined {
   return selectors
     ? selectors
         .join(' ')

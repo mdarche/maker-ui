@@ -7,7 +7,7 @@ import { MakerOptions } from '../types'
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
 import { useMeasurements } from '../context/LayoutContext'
-import { mergeSelector, setBreakpoint } from '../utils/helper'
+import { mergeSelectors, setBreakpoint } from '../utils/helper'
 
 type StickyType = 'sticky' | ('sticky' | 'relative')[] | undefined
 
@@ -65,7 +65,7 @@ export const Topbar = (props: TopbarProps) => {
   return (
     <aside
       ref={ref}
-      id={mergeSelector('topbar', id)}
+      id={mergeSelectors(['topbar', id])}
       className={className}
       breakpoints={setBreakpoint(topbar.breakpoint, breakpoints)}
       css={{

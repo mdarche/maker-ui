@@ -6,7 +6,7 @@ import {
   DivProps,
   useScrollPosition,
   MakerProps,
-  mergeSelector,
+  mergeSelectors,
 } from 'maker-ui'
 
 interface MenuItem {
@@ -155,7 +155,7 @@ export const TableofContents = ({
 
   return (
     <Div
-      className={mergeSelector('toc', className)}
+      className={mergeSelectors(['toc', className])}
       css={{
         display: hideOnMobile ? ['none', 'block'] : 'block',
         position: sticky ? 'sticky' : undefined,

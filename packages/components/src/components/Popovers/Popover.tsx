@@ -3,10 +3,9 @@ import { useTransition, animated, SpringConfig } from '@react-spring/web'
 import {
   Div,
   DivProps,
-  // useMeasure,
   // useMakerUI,
   MakerProps,
-  mergeSelector,
+  mergeSelectors,
 } from 'maker-ui'
 
 import { Portal } from '../Portal'
@@ -349,10 +348,10 @@ export const Popover = ({
             <AnimatedDiv
               id={id}
               ref={popoverRef}
-              className={mergeSelector(
+              className={mergeSelectors([
                 `popover${show ? ' active' : ''}`,
-                className
-              )}
+                className,
+              ])}
               style={props as any}
               css={{
                 position: 'absolute',

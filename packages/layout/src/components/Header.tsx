@@ -7,7 +7,7 @@ import { ErrorBoundary } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
 import { useMeasurements } from '../context/LayoutContext'
-import { setBreakpoint, mergeSelector } from '../utils/helper'
+import { setBreakpoint, mergeSelectors } from '../utils/helper'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
   absolute?: boolean
@@ -167,7 +167,7 @@ export const Header = (props: HeaderProps) => {
   return (
     <header
       ref={ref}
-      className={mergeSelector(libClasses, className)}
+      className={mergeSelectors([libClasses, className])}
       role="banner"
       breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
       css={{

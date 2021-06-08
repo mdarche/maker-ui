@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, MakerProps } from '@maker-ui/css'
-import { mergeSelector } from '../utils/helper'
+import { mergeSelectors } from '../utils/helper'
 
 import { ErrorBoundary } from './Errors'
 
@@ -22,7 +22,7 @@ export const Main = ({
   ...props
 }: MainProps) => (
   <main
-    id={mergeSelector('content', id)}
+    id={mergeSelectors(['content', id])}
     role="main"
     css={{ background, position: 'relative', flex: 1, ...(css as object) }}
     {...props}>

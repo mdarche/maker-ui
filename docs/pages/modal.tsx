@@ -1,7 +1,5 @@
 import * as React from 'react'
 import { Modal } from '@maker-ui/components'
-// import PageSearch from '@maker-ui/page-search'
-// import { SEO } from '@maker-ui/seo'
 
 const ModalPage = () => {
   const [show, set] = React.useState(false)
@@ -9,7 +7,6 @@ const ModalPage = () => {
 
   return (
     <div>
-      {/* <PageSearch sticky /> */}
       <br />
       <br />
       <br />

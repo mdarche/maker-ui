@@ -7,7 +7,7 @@ import { ContentError } from './Errors/Errors'
 import { useOptions } from '../context/OptionContext'
 import { useLayoutDetector } from '../context/LayoutContext'
 import { useLayoutStyles } from '../hooks/useLayoutStyles'
-import { mergeSelector, setBreakpoint } from '../utils/helper'
+import { mergeSelectors, setBreakpoint } from '../utils/helper'
 
 interface ContentProps
   extends MakerProps,
@@ -38,7 +38,7 @@ export const Content = ({ id, children, css, ...props }: ContentProps) => {
 
   return (
     <div
-      id={mergeSelector('site-inner', id)}
+      id={mergeSelectors(['site-inner', id])}
       breakpoints={setBreakpoint(bp, breakpoints)}
       css={{
         position: 'relative',

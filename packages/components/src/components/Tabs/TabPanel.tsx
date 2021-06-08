@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, DivProps, generateId, mergeSelector } from 'maker-ui'
+import { Div, DivProps, generateId, mergeSelectors } from 'maker-ui'
 
 import { useTabs, TabItem } from './TabContext'
 
@@ -50,10 +50,10 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
         role="tabpanel"
         id={`panel-${panelId}`}
         aria-labelledby={`control-${panelId}`}
-        className={mergeSelector(
+        className={mergeSelectors([
           `tab-panel${activeKey === id ? ' active' : ''}`,
-          className
-        )}
+          className,
+        ])}
         css={{
           flex: 1,
           order: 1,

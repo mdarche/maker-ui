@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, mergeSelector } from 'maker-ui'
+import { Div, mergeSelectors } from 'maker-ui'
 import { animated, Transition } from '@react-spring/web'
 
 import { getSign } from './helper'
@@ -46,7 +46,7 @@ export const PageTransition = ({
       config={springConfig}>
       {(styles, { props }) => (
         <AnimatedDiv
-          className={mergeSelector('page-transition', className)}
+          className={mergeSelectors(['page-transition', className])}
           style={{ ...styles, width: '100%' }}>
           <div {...props} />
         </AnimatedDiv>
