@@ -2,7 +2,6 @@ import * as React from 'react'
 import { MakerUIOptions } from 'maker-ui'
 
 export const options: MakerUIOptions = {
-  framework: 'gatsby',
   breakpoints: ['510px', '730px', '1280px'],
   fonts: {
     body: 'system-ui, sans-serif',
@@ -77,12 +76,11 @@ export const options: MakerUIOptions = {
     closeOnRouteChange: true,
   },
   sideNav: {
-    // toggleButton: (isActive, atts) => <button {...atts}>Whaaat</button>,
+    // toggleButton: (isActive, atts) => <button {...atts}>Test</button>,
   },
   content: {
     maxWidth: '1260px',
     maxWidthSection: 960,
-    deferMeasurements: 500,
     breakpoint: 1,
   },
   footer: {

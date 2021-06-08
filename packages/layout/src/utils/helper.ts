@@ -99,27 +99,10 @@ export function validate(obj: any) {
  * Returns a formatted selector string for `id` or `className` attributes that
  * merges user generated classNames with MakerUI defaults.
  *
- * @param libSelector - the MakerUI library selector (can be dynamic)
- * @param selector - the className or id supplied by component props
+ * @param selectors - an array of classNames or ids supplied by component props.
+ * Can be dynamically generated
  *
  */
-
-export function mergeSelector(
-  libSelector: string,
-  selector?: string
-): string | undefined {
-  if (libSelector.length > 1) {
-    return selector
-      ? [libSelector, selector]
-          .join(' ')
-          .replace(/ +(?= )/g, '')
-          .trim()
-      : libSelector
-  }
-  return selector ? selector : undefined
-}
-
-// TODO - This would change the API for all usage across packages
 
 export function mergeSelectors(
   selectors: (string | undefined)[]

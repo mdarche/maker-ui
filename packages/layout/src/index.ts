@@ -4,6 +4,6 @@ export { useMakerUI } from './hooks/useMakerUI'
 export { useScrollPosition } from './hooks/useScrollPosition'
 
 // Utility functions for internal usage only
-export { generateId, mergeSelector, mergeSelectors } from './utils/helper'
+export { generateId, mergeSelectors } from './utils/helper'
 export * from './types'
 export { useMeasure }

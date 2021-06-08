@@ -82,7 +82,6 @@ export const defaultOptions: MakerUIOptions = {
     maxWidth: 1020,
     maxWidthSection: 1020,
     sidebarGap: 30,
-    deferMeasurements: 0,
     breakpoint: 0,
   },
   sidebar: {

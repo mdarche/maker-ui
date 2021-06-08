@@ -109,6 +109,10 @@ export interface MakerOptions {
    */
   colors: ThemeColors
   /**
+   * An option that lets you save the user's color mode preference to the browser's local storage.
+   */
+  persistentColorMode: boolean | { key: 'string'; expiration: number }
+  /**
    * A boolean that lets you turn off Maker UI's default color CSS variables.
    */
   useColorDefaults: boolean
@@ -417,14 +421,6 @@ export interface MakerOptions {
      * @default 30
      */
     sidebarGap?: ResponsiveScale
-    /**
-     * Use this setting to defer the DOM calculations of absolutely positioned components
-     * like Popovers or Dropdowns if your layout uses Page Transitions.
-     * @default 0
-     *
-     * @remarks This is a temporary solution in v1.0
-     */
-    deferMeasurements?: number
     /**
      * A specific breakpoint that controls when the grid for main content, sidebars, and the
      * side nav breaks down for mobile. You may also use an index to access a specific breakpoint
