@@ -10,11 +10,12 @@ export const options: MakerUIOptions = {
       link_hover: 'green',
       primary: 'blue',
       background: '#fff',
+      border: 'gainsboro',
       bg_topbar: 'blue',
       bg_header: '#fff',
       bg_dropdown: '#fff',
       bg_mobileMenu: '#000',
-      bg_sideNav: '#fff',
+      bg_sideNav: '#F8F9FA',
       bg_footer: '#ddd',
     },
     dark: {
@@ -32,12 +33,9 @@ export const options: MakerUIOptions = {
     },
   },
   header: {
-    navType: 'basic',
+    navType: 'basic-left',
     sticky: true,
     stickyOnMobile: true,
-    dropdown: {
-      transition: 'fade-down',
-    },
     breakpoint: 0,
   },
   linkFunction: (path, children, attributes) => (

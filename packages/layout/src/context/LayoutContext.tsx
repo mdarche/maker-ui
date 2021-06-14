@@ -95,7 +95,6 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
           JSON.stringify({ theme: defaultTheme })
         )
         document.body.dataset.theme = defaultTheme
-
         setState(s => ({ ...s, colorTheme: defaultTheme }))
       }
     }

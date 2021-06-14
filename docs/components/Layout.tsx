@@ -7,24 +7,25 @@ import {
   MobileMenu,
   Content,
   Main,
-  Footer,
 } from 'maker-ui'
 
 import { options } from '../config/options'
 import { menu } from '../config/menus'
+import { styles } from '../config/styles'
+import { Search } from './Search'
+import { NavWidgets } from './NavWidgets'
 
 const Layout = ({ children }) => {
   return (
-    <MakerLayout options={options}>
+    <MakerLayout options={options} styles={styles}>
       <Header>
-        <Navbar menu={menu} />
+        <Navbar menuArea={<Search />} navArea={<NavWidgets />} />
         <MobileMenu menu={menu} />
       </Header>
       <Content>
-        <SideNav>Test</SideNav>
+        <SideNav menu={menu} />
         <Main>{children}</Main>
       </Content>
-      <Footer>Footer</Footer>
     </MakerLayout>
   )
 }

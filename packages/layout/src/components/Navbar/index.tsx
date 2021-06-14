@@ -34,7 +34,8 @@ const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
 
 /**
  * The `Navbar` component renders your layout's primary navigation in one of
- * 8 conventional styles or you can fully customize it with the `grid` prop.
+ * 8 common styles or you can fully customize it with the `navArea`, `logoArea`, and
+ * `menuArea` props.
  *
  * @link https://maker-ui.com/components/layout/navbar
  */
