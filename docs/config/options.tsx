@@ -19,7 +19,7 @@ export const options: MakerUIOptions = {
       bg_footer: '#ddd',
     },
     dark: {
-      text: '#000',
+      text: '#fff',
       link: 'red',
       link_hover: 'green',
       primary: 'blue',
@@ -43,4 +43,7 @@ export const options: MakerUIOptions = {
       <a {...attributes}>{children}</a>
     </Link>
   ),
+  sideNav: {
+    isPrimaryMobileNav: true,
+  },
 }

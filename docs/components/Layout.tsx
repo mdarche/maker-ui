@@ -8,6 +8,7 @@ import {
   Content,
   Main,
 } from 'maker-ui'
+// import { MDXProvider } from '@next/mdx'
 
 import { options } from '../config/options'
 import { menu } from '../config/menus'
@@ -24,7 +25,10 @@ const Layout = ({ children }) => {
       </Header>
       <Content>
         <SideNav menu={menu} />
-        <Main>{children}</Main>
+        <Main>
+          {children}
+          {/* <MDXProvider>{children}</MDXProvider> */}
+        </Main>
       </Content>
     </MakerLayout>
   )
