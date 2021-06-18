@@ -1,8 +1,17 @@
 import { MenuProps } from 'maker-ui'
 
 export const menu: MenuProps[] = [
-  { label: 'Home', path: '/' },
-  { label: 'Getting Started', path: '/docs/getting-started' },
+  { label: 'Overview', path: '/' },
+  {
+    label: 'Getting Started',
+    path: '/docs/getting-started',
+    openNested: true,
+    submenu: [
+      { label: 'NextJS', path: '/docs/next-js' },
+      { label: 'Gatsby', path: '/docs/gatsby' },
+      { label: 'Create React App', path: '/docs/create-react-app' },
+    ],
+  },
   { label: 'Maker UI Options', path: '/docs/maker-ui-options' },
   { label: 'Primitives', path: '/docs/primitives' },
   {

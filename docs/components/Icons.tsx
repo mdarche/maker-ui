@@ -43,3 +43,9 @@ export const ContentIcon = (props: SVGProps) => (
     <path d="M0 0h11.2v1.6H0zM0 3.2h11.2v1.6H0zM0 6.4h5.6V8H0z" />
   </SVG>
 )
+
+export const CaretIcon = (props: SVGProps) => (
+  <SVG viewBox="0 0 8 3" {...props}>
+    <path d="M4 3L.536 0h6.928L4 3z" />
+  </SVG>
+)

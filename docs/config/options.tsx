@@ -3,20 +3,25 @@ import { MakerUIOptions } from 'maker-ui'
 import Link from 'next/link'
 
 export const options: MakerUIOptions = {
+  fonts: {
+    heading: 'Inter, Helvetica Neue, Arial, sans-serif',
+    body: 'Inter, Helvetica Neue, Arial, sans-serif',
+    monospace: 'monospace',
+  },
   colors: {
-    light: {
+    classic: {
       text: '#000',
-      link: '#3764b9',
+      link: '#3B67BC',
       link_hover: 'green',
-      primary: 'blue',
+      primary: '#3B67BC',
       background: '#fff',
-      border: 'gainsboro',
-      bg_topbar: 'blue',
+      border: '#F0F2F7',
+      border_dark: '#E4E4E4',
+      header_fill: '#282935',
+      muted: '#AAAAAA',
       bg_header: '#fff',
       bg_dropdown: '#fff',
-      bg_mobileMenu: '#000',
-      bg_sideNav: '#F8F9FA',
-      bg_footer: '#ddd',
+      bg_sideNav: '#FBFCFF',
     },
     dark: {
       text: '#fff',
@@ -24,26 +29,30 @@ export const options: MakerUIOptions = {
       link_hover: 'green',
       primary: 'blue',
       background: '#000',
-      bg_topbar: 'blue',
       bg_header: '#fff',
       bg_dropdown: '#fff',
-      bg_mobileMenu: '#000',
       bg_sideNav: '#fff',
-      bg_footer: '#ddd',
     },
   },
+  useColorDefaults: false,
   header: {
     navType: 'basic-left',
     sticky: true,
     stickyOnMobile: true,
     breakpoint: 0,
+    showColorButton: false,
   },
   linkFunction: (path, children, attributes) => (
     <Link href={path}>
       <a {...attributes}>{children}</a>
     </Link>
   ),
+  content: {
+    maxWidth: 1280,
+  },
   sideNav: {
+    width: 300,
     isPrimaryMobileNav: true,
+    showToggleOnMobile: false,
   },
 }

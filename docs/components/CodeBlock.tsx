@@ -98,9 +98,9 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
                 color: '#fff',
                 borderBottom: '1px solid rgb(255, 255, 255, 0.15)',
               }}>
-              <Div css={{ textTransform: 'capitalize', marginRight: 30 }}>
+              {/* <Div css={{ textTransform: 'capitalize', marginRight: 30 }}>
                 {language}
-              </Div>
+              </Div> */}
               <Button
                 onClick={() => {
                   copyToClipboard(codeString)
@@ -129,7 +129,7 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
                   },
                 }}>
                 <CopyIcon />
-                {isCopied ? 'Copied' : 'Copy'}
+                {isCopied ? 'Copied!' : 'Copy'}
               </Button>
             </Flex>
             <pre className={className} style={style}>

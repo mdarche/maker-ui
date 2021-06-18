@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { preToCodeBlock } from 'mdx-utils'
+import '@fontsource/inter'
 
 import Layout from '../components/Layout'
 import { CodeBlock } from '../components/CodeBlock'
