@@ -303,6 +303,22 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 Link.displayName = 'Link'
 
 /**
+ * An anchor tag that supports responsive css values and the breakpoints prop.
+ *
+ * @link https://maker-ui.com/docs/primitives/
+ */
+
+export const A = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ children, ...props }, ref) => (
+    <a ref={ref} {...props}>
+      {children}
+    </a>
+  )
+)
+
+A.displayName = 'A'
+
+/**
  * Alias for `Image` component props that includes all
  * image tag attributes.
  */
