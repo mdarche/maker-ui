@@ -19,7 +19,6 @@ interface NavButtonState {
 export const PostNavigation = ({ pageTitle = true }) => {
   const [navButtons, setNavButtons] = React.useState<NavButtonState>({})
   const flatMenu = flatten(menu)
-  console.log('navButtons are', navButtons)
 
   const { asPath } = useRouter()
 
@@ -32,7 +31,7 @@ export const PostNavigation = ({ pageTitle = true }) => {
       // If the current menu exists, determine the next / previous pages
       const length = flatMenu.length
       const index = flatMenu.findIndex(i => i.path === asPath)
-      console.log('index is', index)
+
       setNavButtons({
         prev: index !== 0 && {
           title: flatMenu[index - 1]?.label,

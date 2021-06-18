@@ -6,7 +6,7 @@ export const options: MakerUIOptions = {
   colors: {
     light: {
       text: '#000',
-      link: 'red',
+      link: '#3764b9',
       link_hover: 'green',
       primary: 'blue',
       background: '#fff',

@@ -22,7 +22,7 @@ export const Portal = ({ children, root }: PortalProps) => {
 
     return createPortal(children, targetNode)
   }
-  return <>children</>
+  return <>{children}</>
 }
 
 Portal.displayName = 'Portal'

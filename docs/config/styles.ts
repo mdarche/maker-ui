@@ -5,6 +5,7 @@ export const styles = {
   header: {
     borderBottom: '1px solid',
     borderColor: 'var(--color-border)',
+    padding: '5px 20px',
   },
   main: {
     padding: ['0 30px'],
