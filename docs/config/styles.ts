@@ -7,6 +7,13 @@ export const styles = {
     cursor: 'pointer',
     fontFamily: 'var(--font-body)',
   },
+  code: {
+    display: 'inline-block',
+    borderRadius: 2,
+    fontSize: 16,
+    backgroundColor: 'var(--color-bg_code)',
+    padding: '3px 8px',
+  },
   // Header Styles
   header: {
     borderBottom: '1px solid',
@@ -14,6 +21,8 @@ export const styles = {
     padding: '5px 20px',
   },
   main: {
+    fontSize: 17,
+    lineHeight: 1.6,
     padding: ['50px 30px'],
   },
   //SideNav styles

@@ -13,7 +13,7 @@ export const menu: MenuProps[] = [
     ],
   },
   { label: 'Primitives', path: '/docs/primitives' },
-  { label: 'Responsive Styles', path: '/docs/responsive-styles' },
+  { label: 'Styling Components', path: '/docs/styling-components' },
   { label: 'Maker UI Options', path: '/docs/maker-ui-options' },
   {
     label: 'Layout API',

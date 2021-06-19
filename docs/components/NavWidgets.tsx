@@ -1,4 +1,5 @@
 import { Div, Flex, Button } from 'maker-ui'
+import { Dropdown } from '@maker-ui/components'
 import { GithubIcon, PaintIcon, CaretIcon } from './Icons'
 
 export const NavWidgets = () => {

@@ -22,6 +22,7 @@ export const options: MakerUIOptions = {
       bg_header: '#fff',
       bg_dropdown: '#fff',
       bg_sideNav: '#FBFCFF',
+      bg_code: '#f2f3f9',
     },
     dark: {
       text: '#fff',
