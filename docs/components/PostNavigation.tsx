@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Flex, MenuProps, Span, Link } from 'maker-ui'
-// import Link from 'next/link'
+import { Grid, Span } from 'maker-ui'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { flatten } from './utils'
@@ -46,16 +46,41 @@ export const PostNavigation = ({ pageTitle = true }) => {
   }, [asPath])
 
   return asPath.includes('/docs') ? (
-    <Flex
+    <Grid
       className="post-pagination"
-      justify="space-between"
-      align="center"
+      columns={['1fr', '1fr 1fr']}
+      gap={[20, '20%']}
       css={{
         flexWrap: 'wrap',
         a: {
           width: ['100%', 'auto'],
           display: 'flex',
           flexDirection: 'column',
+        },
+        '.pagination': {
+          border: '1px solid',
+          borderColor: 'var(--color-border)',
+          padding: '15px 25px',
+          borderRadius: 3,
+          fontWeight: 700,
+          transition: 'all ease 0.3s',
+          '&:hover': {
+            borderColor: 'var(--color-border_dark)',
+            backgroundColor: 'var(--color-bg_sideNav)',
+            transform: 'translateY(-5px)',
+          },
+        },
+        '.pagination-label': {
+          fontSize: 13,
+          marginBottom: 5,
+          color: 'var(--color-primary)',
+        },
+        '.pagination-title': {
+          fontSize: 19,
+          color: 'var(--color-text)',
+        },
+        '.next': {
+          textAlign: 'right',
         },
       }}>
       {navButtons.prev ? (
@@ -82,6 +107,6 @@ export const PostNavigation = ({ pageTitle = true }) => {
       ) : (
         <div />
       )}
-    </Flex>
+    </Grid>
   ) : null
 }

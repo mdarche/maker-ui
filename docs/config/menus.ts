@@ -12,8 +12,9 @@ export const menu: MenuProps[] = [
       { label: 'Create React App', path: '/docs/create-react-app' },
     ],
   },
-  { label: 'Maker UI Options', path: '/docs/maker-ui-options' },
   { label: 'Primitives', path: '/docs/primitives' },
+  { label: 'Responsive Styles', path: '/docs/responsive-styles' },
+  { label: 'Maker UI Options', path: '/docs/maker-ui-options' },
   {
     label: 'Layout API',
     path: '/docs/layout-api',

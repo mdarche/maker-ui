@@ -18,7 +18,7 @@ export const options: MakerUIOptions = {
       border: '#F0F2F7',
       border_dark: '#E4E4E4',
       header_fill: '#282935',
-      muted: '#AAAAAA',
+      muted: '#a2adbf',
       bg_header: '#fff',
       bg_dropdown: '#fff',
       bg_sideNav: '#FBFCFF',

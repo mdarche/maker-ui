@@ -195,6 +195,8 @@ export const OList = forwardRef<HTMLOListElement, OListProps>((props, ref) => (
   <ol ref={ref} {...props} />
 ))
 
+export { OList as Ol }
+
 OList.displayName = 'OList'
 
 /**
@@ -215,6 +217,8 @@ export const UList = forwardRef<HTMLUListElement, UListProps>((props, ref) => (
   <ul ref={ref} {...props} />
 ))
 
+export { UList as Ul }
+
 UList.displayName = 'UList'
 
 /**
@@ -234,6 +238,8 @@ export interface ListItemProps
 export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
   (props, ref) => <li ref={ref} {...props} />
 )
+
+export { ListItem as Li }
 
 ListItem.displayName = 'ListItem'
 
@@ -300,23 +306,9 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   )
 )
 
+export { Link as A }
+
 Link.displayName = 'Link'
-
-/**
- * An anchor tag that supports responsive css values and the breakpoints prop.
- *
- * @link https://maker-ui.com/docs/primitives/
- */
-
-export const A = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ children, ...props }, ref) => (
-    <a ref={ref} {...props}>
-      {children}
-    </a>
-  )
-)
-
-A.displayName = 'A'
 
 /**
  * Alias for `Image` component props that includes all
@@ -340,6 +332,8 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
     <img ref={ref} alt={alt} src={src} {...props} />
   )
 )
+
+export { Image as Img }
 
 Image.displayName = 'Image'
 

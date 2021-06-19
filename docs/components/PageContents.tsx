@@ -3,6 +3,10 @@ import { TableofContents as MakerToc } from '@maker-ui/components'
 
 import { ContentIcon } from './Icons'
 
+interface PageContentsProps {
+  pathname: string
+}
+
 /**
  * The TableofContents component shows on-page links to all nested headings
  * on the page.
@@ -10,10 +14,10 @@ import { ContentIcon } from './Icons'
  * @param pathname - the app's current location.pathname
  */
 
-export const PageContents = ({ pathname }) => {
+export const PageContents = ({ pathname }: PageContentsProps) => {
   return (
     <MakerToc
-      breakpoints={[900]}
+      breakpoints={[1200]}
       pathname={pathname}
       title={
         <Flex
@@ -22,7 +26,6 @@ export const PageContents = ({ pathname }) => {
             svg: { height: 12, marginRight: 15, fill: 'var(--color-primary)' },
             fontWeight: 700,
             fontSize: 14,
-            letterSpacing: 1,
             textTransform: 'uppercase',
           }}>
           <ContentIcon /> Contents

@@ -115,6 +115,7 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
                   border: 'none',
                   outline: 'none',
                   fontSize: [14, 16],
+                  fontWeight: 700,
                   svg: {
                     height: [17, 20],
                     fill: 'rgb(255, 255, 255, 0.4)',
