@@ -1,12 +1,65 @@
 # Styling Components
 
-If you are familiar with CSS-in-JS Solutions like Styled Components or Emotion, you should feel right at home with Maker UI.
+If you are familiar with CSS-in-JS solutions like Styled Components or Emotion, you should feel right at home with Maker UI.
 
-Under the hood, Maker UI uses a custom JSX factory powered by Emotion to parse each React component for the `breakpoints` and `css` props. This lets you specify your media query breakpoints as an array of values that correspond with CSS rules.
+Under the hood, this library uses a custom JSX factory powered by Emotion to scan each React component for the `breakpoints` and `css` props. This lets you specify your media query breakpoints as an array of values that correspond with CSS rules:
 
-## Inline vs Segmented Styles
+```jsx
+<Div breakpoints={[768, 960]} css={{ color: ['blue', 'red', 'purple'] }}>
+  I'm a div!
+</Div>
+```
 
-When prototyping, it's often easiest to bake your styles directly into your JSX.
+Your breakpoints don't need to be numbers (pixels by default)--you can use any type of unit you'd like. Here's the same example using the helpful `vw` unit:
+
+```jsx
+<Div breakpoints={['40vw', '90vw']} css={{ color: ['blue', 'red', 'purple'] }}>
+  I'm a div!
+</Div>
+```
+
+Using this approach to media queries, you can build extremely flexible component libraries and layout systems using very little code.
+
+## Mobile-First
+
+Maker UI stacks your CSS array values with `min-width` media queries. In the first example above, the div's base color would be `blue`. At `min-width(768px)` the div's color would turn `red`, and finally at `min-width(960px)` the div's color would become `purple`. Another example:
+
+```jsx
+// When the browser's width is >= 1000px, this div will have a height of `auto` and a background of `#f9f9f9`
+<Div 
+  breakpoints={[1000]} 
+  css={{ 
+    height: [100, 'auto'], 
+    background: ['#fff', '#f9f9f9'],
+    color: '#36748d',
+    border: '1px solid gainsboro',
+  }}
+>
+Another div
+</Div>
+```
+
+Just remember that the first index of your CSS array will always serve as the base style for your component.
+
+## Valid CSS Rules
+
+The CSS prop will accept any officially adopted CSS attribute as both a standalone or responsive array value. Because Maker UI is built with TypeScript, your text editor may also try to help you autocomplete CSS values while you develop your component.
+
+If you try to execute a function that returns an 
+
+## Nesting Styles
+
+example for nesting selectors and mention recursion
+
+## Inline vs Imported Styles
+
+When prototyping, it's often easiest to bake your styles directly into your JSX. This makes for a great developer experience and an intuitive file structure for maintaining your apps. However, if you're building something highly custom and you can't easily reuse styles with ID or className selectors, your component may become difficult to read. 
+
+When a component becomes too bloated with styles and it's difficult to identify the actual business logic, you may want to move your styles to a separate object or into a different file all together. 
+
+You have 2 great options for importing styles:
+- Emulate CSS Modules
+- Use 
 
 ## Color Modes
 

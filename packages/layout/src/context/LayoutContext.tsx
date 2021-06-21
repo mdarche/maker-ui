@@ -42,6 +42,8 @@ export const LayoutContext = React.createContext<LayoutContextType>({
  * The `LayoutProvider` tracks the current site layout / key runtime
  * UI measurements and formats the framework's global styles.
  *
+ * @todo clean up / optimize color mode logic. Fix default color mode
+ *
  * @internal usage only
  */
 
@@ -89,7 +91,7 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
         document.body.dataset.theme = theme
         setState(s => ({ ...s, colorTheme: theme }))
       } else {
-        const defaultTheme = Object.keys(options.colors)[0] || 'light'
+        const defaultTheme = Object.keys(options?.colors)[0]
         localStorage.setItem(
           storageKey,
           JSON.stringify({ theme: defaultTheme })
