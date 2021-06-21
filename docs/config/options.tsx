@@ -37,6 +37,7 @@ export const options: MakerUIOptions = {
   },
   useColorDefaults: false,
   header: {
+    maxWidth: '100%',
     navType: 'basic-left',
     sticky: true,
     stickyOnMobile: true,
@@ -49,7 +50,7 @@ export const options: MakerUIOptions = {
     </Link>
   ),
   content: {
-    maxWidth: 1280,
+    maxWidth: 1200,
   },
   sideNav: {
     width: 300,

@@ -18,12 +18,18 @@ export const styles = {
   header: {
     borderBottom: '1px solid',
     borderColor: 'var(--color-border)',
-    padding: '5px 20px',
+    padding: '5px 35px',
   },
   main: {
     fontSize: 17,
     lineHeight: 1.6,
     padding: ['50px 30px'],
+    h2: {
+      borderBottom: '1px solid',
+      borderColor: 'var(--color-border_dark)',
+      paddingBottom: 10,
+      margin: '40px 0 30px',
+    },
   },
   //SideNav styles
   '#sidenav': {

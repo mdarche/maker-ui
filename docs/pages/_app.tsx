@@ -5,6 +5,7 @@ import '@fontsource/inter'
 
 import Layout from '../components/Layout'
 import { CodeBlock } from '../components/CodeBlock'
+import { DocsLink } from '../components/DocsLink'
 
 const components = {
   pre: preProps => {
@@ -20,6 +21,7 @@ const components = {
       <table {...tableProps} />
     </div>
   ),
+  a: anchorProps => <DocsLink {...anchorProps} />,
 }
 
 export default function App({ Component, pageProps }) {

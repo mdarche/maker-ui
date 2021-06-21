@@ -9,7 +9,7 @@ export const Search = () => {
         height: 46,
         margin: '5px 0',
         width: '100%',
-        maxWidth: '40%',
+        maxWidth: '30%',
         minWidth: 330,
         background: 'var(--color-bg_sideNav)',
         border: '1px solid',

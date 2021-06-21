@@ -52,6 +52,7 @@ export const PostNavigation = ({ pageTitle = true }) => {
       gap={[20, '20%']}
       css={{
         flexWrap: 'wrap',
+        marginTop: [60, 100],
         a: {
           width: ['100%', 'auto'],
           display: 'flex',

@@ -1,7 +1,7 @@
 import { MenuProps } from 'maker-ui'
 
 export const menu: MenuProps[] = [
-  { label: 'Overview', path: '/' },
+  { label: 'Overview', path: '/docs/overview' },
   {
     label: 'Getting Started',
     path: '/docs/getting-started',
