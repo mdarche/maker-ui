@@ -13,18 +13,20 @@ import {
 import { MakerOptions } from '../../types'
 import { mergeSelectors } from '../../utils/helper'
 
-export interface MenuProps {
+export interface MenuItemProps {
   label: string
   path: string
   classes?: string
   icon?: React.ReactElement
   newTab?: boolean
-  submenu?: MenuProps[]
+  submenu?: MenuItemProps[]
   openNested?: boolean
 }
 
-interface MenuItemProps {
-  data: MenuProps
+export type MakerMenu = MenuItemProps[]
+
+interface MenuInternalProps {
+  data: MenuItemProps
   caret?: MakerOptions['header']['dropdown']['caret']
   menuControls?: any
   pathname?: string
@@ -58,7 +60,7 @@ export const MenuItem = memo(
     isHeader = false,
     linkFunction,
     depth = 0,
-  }: MenuItemProps) => {
+  }: MenuInternalProps) => {
     const { header } = useOptions()
     const [showNested, setNested] = useState(openNested)
     const submenuClass: string = `submenu depth-${depth}`

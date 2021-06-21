@@ -1,9 +1,262 @@
-import { GithubIcon } from '../../components/Icons'
+# Getting Started
 
-# Test
+To begin using Maker UI in your project, install the `maker-ui` dependency from NPM:
+
+```sh
+npm i maker-ui
+```
+
+Maker UI includes a set of layout components ([Layout API](/docs/layout-api)) as well as basic elements ([Primitives](/docs/primitives)) that you can use as building blocks in your page designs.
+
+<Callout type="alert">
+If you do not want to use the complete Maker UI layout system, you can simply install <span>@maker-ui/primitives</span> and import its components as needed.
+</Callout>
+
+## Create a Basic Layout
+
+Let's create a basic layout with the Layout API. In a new component file, add the following:
 
 ```jsx
-<Div>
-  Test
-</Div>
+import * as React from 'react'
+import { 
+  Layout, 
+  Header, 
+  Navbar, 
+  MobileMenu, 
+  Content, 
+  Main, 
+  Footer
+} from 'maker-ui'
+
+export const MyLayout = ({ children }) => {
+  return (
+    <Layout>
+      <Header>
+        <Navbar />
+        <MobileMenu />
+      </Header>
+      <Content>
+        <Main>{children}</Main>
+      </Content>
+      <Footer>
+        Footer Copyright
+      </Footer>
+    </Layout>
+  )
+}
 ```
+
+The JSX from above outputs a semantically structured DOM tree. This example would create a basic single-column page layout, but you can also use Maker UI to construct a variety of common starting points including sidebars, collapsible side navigation, and much more.
+
+## Customize Maker UI Options
+
+The real magic behind Maker UI is how it supports automatic responsive scaling and accessibility. Let's create an `options` object that will tell our header how it should look and feel on desktop vs mobile:
+
+```jsx {10,13-22,26}
+import * as React from 'react'
+import { 
+  Layout, 
+  Header, 
+  Navbar, 
+  MobileMenu, 
+  Content, 
+  Main, 
+  Footer,
+  MakerUIOptions // For TypeScript users
+} from 'maker-ui'
+
+const options: MakerUIOptions = {
+  header: {
+    breakpoint: 1080,
+    maxWidth: 960,
+    navType: 'center',
+    mobileNavType: 'basic',
+    sticky: true,
+    stickyOnMobile: false,
+  },
+}
+
+export const MyLayout = ({ children }) => {
+  return (
+    <Layout options={options}>
+      <Header>
+        <Navbar />
+        <MobileMenu />
+      </Header>
+      <Content>
+        <Main>{children}</Main>
+      </Content>
+      <Footer>
+        Footer Copyright
+      </Footer>
+    </Layout>
+  )
+}
+```
+
+Let's unpack this! 
+
+Starting on **Line 13**, we create a new `MakerUIOptions` object and add a few settings for the header. 
+
+On **Lines 15 and 16**, we tell our header to switch from desktop mode to its mobile layout at `1080px`. The inner contents of our navbar should never exceed a max-width of `960px`.
+
+On **Lines 17 and 18**, we choose from 12 pre-built CSS grid layouts to dictate how our nav will look on desktop and mobile. We can always customize the exact behavior of these layouts [later on](/docs/navbar).
+
+Lastly, on **Lines 19 and 20**, we specify that we want our header to use sticky positioning on desktop and a relative position on mobile.
+
+With the options configuration object, you can control 50+ settings that tell your layout how to behave. For a complete list of layout settings, check out the [Maker UI Options guide](/docs/maker-ui-options).
+
+## Add a Logo and Menu
+
+What good is a UI if it doesn't match your brand?
+
+Now we can import a custom Logo component and create our header navigation menu.
+
+```jsx {11,14-15,28-34,40-41}
+import * as React from 'react'
+import { 
+  Layout, 
+  Header, 
+  Navbar, 
+  MobileMenu, 
+  Content, 
+  Main, 
+  Footer,
+  MakerUIOptions,
+  MakerMenu, // For TypeScript users
+} from 'maker-ui'
+
+/* Your custom logo component */
+import { Logo } from './Logo'
+
+const options: MakerUIOptions = {
+  header: {
+    breakpoint: 1080,
+    maxWidth: 960,
+    navType: 'center',
+    mobileNavType: 'basic',
+    sticky: true,
+    stickyOnMobile: false,
+  },
+}
+
+/* An array of menu items */
+const menu: MakerMenu = [
+  { label: 'Home', path: '/' },
+  { label: 'About', path: '/about' },
+  { label: 'Contact', path: '/contact' },
+  { label: 'GitHub', path: 'https://github.com', newTab: true }
+]
+
+export const MyLayout = ({ children }) => {
+  return (
+    <Layout options={options}>
+      <Header>
+        <Navbar logo={<Logo />} menu={menu} />
+        <MobileMenu menu={menu} />
+      </Header>
+      <Content>
+        <Main>{children}</Main>
+      </Content>
+      <Footer>
+        Footer Copyright
+      </Footer>
+    </Layout>
+  )
+}
+```
+
+The app is starting to take shape! 
+
+Maker UI will add your custom logo to the navbar and create accessible desktop and mobile menus for you. 
+
+The `MakerMenu` type is used by all Maker UI components that handle navigation menus. It supports a variety of common conventions including nested submenus, custom class selectors, new tab support, and leading icons. 
+
+Learn about Maker UI menus in the [Navbar docs](/docs/navbar).
+
+## Add Custom Styles
+
+Now that we have a responsive layout skeleton, it's time to add some styles to the party. 
+
+All Maker UI layout components accept the `css` and `breakpoints` props ([covered here](/docs/styling-components)). However, adding too many styles directly to your layout tree will quickly turn your files into a hot mess of CSS-in-JS.
+
+To address this, Maker UI's root `<Layout>` component accepts a `styles` prop where you can add global styles that are applied to the document head. 
+
+<Callout type="info">
+The `styles` prop fully supports responsive arrays.
+</Callout>
+
+```jsx {16-30,34}
+import * as React from 'react'
+import { 
+  Layout, 
+  Header, 
+  Navbar, 
+  MobileMenu, 
+  Content, 
+  Main, 
+  Footer,
+  MakerUIOptions,
+  MakerMenu,
+} from 'maker-ui'
+
+...
+
+/* Include global styles in addition to Maker UI layout styles */
+const styles = {
+  a: {
+    textDecoration: 'none',
+  },
+  header: {
+    padding: '10px 30px',
+    borderBottom: '1px solid gainsboro',
+  },
+  footer: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: 30,
+  }
+}
+
+export const MyLayout = ({ children }) => {
+  return (
+    <Layout options={options} styles={styles}>
+      <Header>
+        <Navbar logo={<Logo />} menu={menu} />
+        <MobileMenu menu={menu} />
+      </Header>
+      <Content>
+        <Main>{children}</Main>
+      </Content>
+      <Footer>
+        Footer Copyright
+      </Footer>
+    </Layout>
+  )
+}
+```
+
+In this example, we add a global `textDecoration` rule to all anchor tags while also applying custom styles to Maker UI's header and footer components. 
+
+The easiest way to target a Maker UI layout component (without reading the [Layout API](/docs/layout-api) docs, of course) is to just open DevTools and identify the proper ID or class selector for the job.
+
+## Use Inside a Root Provider
+
+When your new layout is all ready to go, import it into your app's root component and treat it like a top-level application wrapper. 
+
+You can use your router's current location to trigger conditional layouts and you can dynamically change your options config or styles as needed.
+
+```jsx
+// Basic example
+
+```
+
+Checkout the getting started guides for [NextJS](/docs/nextjs), [Gatsby](/docs/gatsby), or [Create React App](/docs/create-react-app) to learn precisely how to handle this step in your framework of choice.
+
+## Final Comments
+
+In a real application, you would typically store your `options`, `styles`, and `menu` objects in separate files or even generate them dynamically via network requests at build time.
+
+Also note that this Getting Started demo doesn't even begin to touch on all of the amazing features and functions of Maker UI's layout system.
+
+You can use `MakerUIOptions` to set color modes, handle error boundaries, configure dropdown menus, and much more. Keep reading through the docs for more examples.

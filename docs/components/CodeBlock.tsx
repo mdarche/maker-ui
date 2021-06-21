@@ -38,6 +38,7 @@ const calculateLinesToHighlight = meta => {
 export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
   const [isCopied, setIsCopied] = React.useState(false)
   const shouldHighlightLine = calculateLinesToHighlight(metastring)
+  const isShell = language === 'sh'
 
   return (
     <Highlight
@@ -54,13 +55,15 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
             position: 'relative',
             fontSize: [12, 15],
             pre: {
-              padding: ['55px 10px 25px', '65px 10px 30px'],
+              padding: isShell
+                ? ['55px 30px 25px', '65px 30px 30px']
+                : ['55px 10px 25px', '65px 0 30px'],
               borderRadius: 5,
               lineHeight: [1.5, 1.5],
               overflowX: 'scroll',
             },
             '.code-wrapper': {
-              margin: '40px auto 60px',
+              margin: '40px auto',
               maxWidth: 'calc(100vw - 40px)',
               position: 'relative',
             },
@@ -81,8 +84,7 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
             },
             '.highlight-line .line-number-style': {
               opacity: 0.5,
-              width: 'calc(1.2em - 4px)',
-              left: -2,
+              left: -4,
             },
           }}>
           <Div className="code-wrapper">
@@ -99,9 +101,6 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
                 borderBottom: '1px solid',
                 borderColor: 'rgba(255,255,255,0.2)',
               }}>
-              {/* <Div css={{ textTransform: 'capitalize', marginRight: 30 }}>
-                {language}
-              </Div> */}
               <Button
                 onClick={() => {
                   copyToClipboard(codeString)
@@ -144,7 +143,9 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
 
                 return (
                   <div {...lineProps}>
-                    <span className="line-number-style">{i + 1}</span>
+                    {!isShell ? (
+                      <span className="line-number-style">{i + 1}</span>
+                    ) : null}
                     {line.map((token, key) => (
                       <span {...getTokenProps({ token, key })} />
                     ))}

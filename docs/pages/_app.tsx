@@ -6,6 +6,7 @@ import '@fontsource/inter'
 import Layout from '../components/Layout'
 import { CodeBlock } from '../components/CodeBlock'
 import { DocsLink } from '../components/DocsLink'
+import { Callout } from '../components/Callout'
 
 const components = {
   pre: preProps => {
@@ -22,6 +23,7 @@ const components = {
     </div>
   ),
   a: anchorProps => <DocsLink {...anchorProps} />,
+  Callout,
 }
 
 export default function App({ Component, pageProps }) {
