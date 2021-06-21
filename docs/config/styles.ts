@@ -12,7 +12,7 @@ export const styles = {
     borderRadius: 2,
     fontSize: 16,
     backgroundColor: 'var(--color-bg_code)',
-    padding: '3px 8px',
+    padding: '0 8px',
   },
   // Header Styles
   header: {

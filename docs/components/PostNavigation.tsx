@@ -83,7 +83,7 @@ export const PostNavigation = ({ pageTitle = true }) => {
           textAlign: 'right',
         },
       }}>
-      {navButtons.prev ? (
+      {navButtons.prev?.path ? (
         <Link href={navButtons.prev.path}>
           <a className="pagination prev">
             <Span className="pagination-label">Previous</Span>
@@ -95,7 +95,7 @@ export const PostNavigation = ({ pageTitle = true }) => {
       ) : (
         <div />
       )}
-      {navButtons.next ? (
+      {navButtons.next?.path ? (
         <Link href={navButtons.next.path}>
           <a className="pagination next">
             <Span className="pagination-label">Next</Span>

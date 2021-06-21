@@ -19,6 +19,7 @@ export const SideButtons = ({ pathname }: SideButtonsProps) => {
           padding: '15px 25px',
           marginBottom: 20,
           borderRadius: 3,
+          fontSize: 16,
           color: 'var(--color-text)',
           transition: 'all ease 0.3s',
           '&:hover': {

@@ -28,6 +28,7 @@ interface TocProps extends Omit<DivProps, 'title'> {
   sticky?: boolean
   hideOnMobile?: boolean
   pathname?: string
+  footerComponent?: React.ReactElement
 }
 
 /**
@@ -51,6 +52,7 @@ export const TableofContents = ({
   hideOnMobile = true,
   css,
   pathname,
+  footerComponent,
 }: TocProps) => {
   const [menuItems, setMenu] = React.useState<MenuItem[]>([])
   const [activeNode, setActiveNode] = React.useState<number | null>(null)
@@ -202,6 +204,7 @@ export const TableofContents = ({
             ))
           : null}
       </UList>
+      {footerComponent}
     </Div>
   )
 }

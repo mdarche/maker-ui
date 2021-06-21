@@ -20,7 +20,6 @@ import { Logo } from './Logo'
 import { NavWidgets } from './NavWidgets'
 import { PostNavigation } from './PostNavigation'
 import { PageContents } from './PageContents'
-import { SideButtons } from './SideButtons'
 
 const Layout = ({ children }) => {
   const { asPath } = useRouter()
@@ -40,14 +39,13 @@ const Layout = ({ children }) => {
         <SideNav pathname={asPath} menu={menu} />
         <Main>
           {isDocs ? (
-            <Grid breakpoints={[1200]} columns={['1fr', '1fr 250px']} gap={50}>
+            <Grid breakpoints={[1200]} columns={['1fr', '1fr 300px']} gap={50}>
               <Div css={{ overflow: 'hidden' }}>
                 {children}
                 <PostNavigation />
               </Div>
               <Div breakpoints={[1200]} css={{ display: ['none', 'block'] }}>
                 <PageContents pathname={asPath} />
-                <SideButtons pathname={asPath} />
               </Div>
             </Grid>
           ) : (

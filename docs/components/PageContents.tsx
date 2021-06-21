@@ -2,6 +2,7 @@ import { Flex } from 'maker-ui'
 import { TableofContents as MakerToc } from '@maker-ui/components'
 
 import { ContentIcon } from './Icons'
+import { SideButtons } from './SideButtons'
 
 interface PageContentsProps {
   pathname: string
@@ -19,6 +20,7 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
     <MakerToc
       breakpoints={[1200]}
       pathname={pathname}
+      footerComponent={<SideButtons pathname={pathname} />}
       title={
         <Flex
           align="center"

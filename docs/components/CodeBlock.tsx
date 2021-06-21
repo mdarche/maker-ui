@@ -52,7 +52,7 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
           data-language={language}
           css={{
             position: 'relative',
-            fontSize: [12, '1.15rem'],
+            fontSize: [12, 15],
             pre: {
               padding: ['55px 10px 25px', '65px 10px 30px'],
               borderRadius: 5,
@@ -65,7 +65,7 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
               position: 'relative',
             },
             '.token': {
-              dislay: 'inline-block',
+              display: 'inline-block',
             },
             '.line-number-style': {
               position: 'relative',
@@ -96,7 +96,8 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
                 top: 0,
                 fontSize: [14, 16],
                 color: '#fff',
-                borderBottom: '1px solid rgb(255, 255, 255, 0.15)',
+                borderBottom: '1px solid',
+                borderColor: 'rgba(255,255,255,0.2)',
               }}>
               {/* <Div css={{ textTransform: 'capitalize', marginRight: 30 }}>
                 {language}
