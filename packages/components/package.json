@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/components",
   "description": "Customizable components for Maker UI themes.",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "license": "MIT",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -18,12 +18,12 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@react-spring/web": "^9.1.2",
+    "@react-spring/web": "^9.2.3",
     "react-use-gesture": "^8.0.1",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "maker-ui": "1.0.0-beta.10",
+    "maker-ui": "1.0.0-beta.11",
     "react": "^16.x || ^17.x",
     "react-dom": "^16.x || ^17.x"
   }
