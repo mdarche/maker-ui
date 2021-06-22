@@ -98,12 +98,13 @@ export const Carousel = ({
   /**
    * React-spring slide animation
    */
-  const isBrowser = typeof window !== 'undefined'
+  // const isBrowser = typeof window !== 'undefined'
 
   const [props, api] = useSprings(
     data.length,
     i => ({
-      x: i * (width === 0 && isBrowser ? window.innerWidth : width),
+      // x: i * (width === 0 && isBrowser ? window.innerWidth : width),
+      x: i * width,
       scale: 1,
       config: springConfig,
     }),
@@ -115,7 +116,7 @@ export const Carousel = ({
    */
   const bind = useDrag(
     ({ down, movement: [mx], direction: [xDir], distance, cancel }) => {
-      if (down && distance > width / 2) {
+      if (down && distance > width / 3.5) {
         cancel(
           // @ts-ignore
           (index.current = clamp(
@@ -282,12 +283,10 @@ export const Carousel = ({
             className={`slide${_active === i ? ' active' : ''}`}
             {...bind()}
             key={i}
-            style={
-              {
-                opacity: transition === 'fade' && _active === i && 1,
-                x: transition !== 'fade' && x,
-              } as object
-            }
+            style={{
+              opacity: transition === 'fade' && _active === i ? 1 : undefined,
+              x: transition !== 'fade' ? x : undefined,
+            }}
             css={{
               position: 'absolute',
               display: 'block',
@@ -297,6 +296,7 @@ export const Carousel = ({
               width: '100%',
               willChange: 'transform',
               opacity: transition === 'fade' ? 0 : undefined,
+              zIndex: i === 0 ? 1 : 0,
               transition:
                 transition === 'fade'
                   ? `opacity ${fadeDuration}s ease-in-out`
@@ -304,11 +304,9 @@ export const Carousel = ({
             }}>
             <AnimatedDiv
               className="slide-inner"
-              style={
-                {
-                  scale: transition === 'scale' ? scale : undefined,
-                } as object
-              }
+              style={{
+                scale: transition === 'scale' ? scale : undefined,
+              }}
               css={{
                 height: '100%',
                 width: '100%',

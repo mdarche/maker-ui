@@ -64,27 +64,7 @@ const ImageSlide = ({ url, alt }: ImageSlideProps) => (
 )
 
 const CarouselPage = () => (
-  <Div
-    css={{
-      '.active p': {
-        opacity: 0,
-        animation: 'fadeInUp ease .6s forwards .8s',
-      },
-    }}>
-    {/* <Global
-      styles={css`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0px);
-          }
-        }
-      `}
-    /> */}
+  <Div>
     <Carousel
       data={basicData}
       template={<BasicSlide />}
@@ -93,7 +73,7 @@ const CarouselPage = () => (
         dotPosition: 'bottom',
         dotColorMuted: 'blue',
         // progressBar: true,
-        // transition: 'fade',
+        transition: 'slide',
         // infiniteScroll: true,
         // arrow: <div>Cmoon!</div>,
         // arrow: {
