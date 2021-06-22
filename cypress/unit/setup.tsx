@@ -6,7 +6,7 @@ import {
   MobileMenu,
   Footer,
   MakerUIOptions,
-  MenuProps,
+  MakerMenu,
   Content,
   Main,
 } from 'maker-ui'
@@ -18,13 +18,13 @@ export function format(value: any, index: number = 0): string {
 }
 
 // Don't link to other routes in unit tests -- @cypress/react doesn't support this
-export const testMenu: MenuProps[] = [
+export const testMenu: MakerMenu = [
   { label: 'Home', path: '#' },
   { label: 'Page 1', path: '#' },
   { label: 'Page 2', path: '#' },
 ]
 
-export const nestedMenu: MenuProps[] = [
+export const nestedMenu: MakerMenu = [
   { label: 'One', path: '/' },
   { label: 'Two', path: '/two' },
   {

@@ -2,7 +2,7 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { forwardRef } from 'react'
 
-import { MenuItem, MenuProps } from './MenuItem'
+import { MenuItem, MenuItemProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
 import { mergeSelectors } from '../../utils/helper'
@@ -10,7 +10,7 @@ import { mergeSelectors } from '../../utils/helper'
 interface CollapsibleProps
   extends MakerProps,
     React.HTMLAttributes<HTMLUListElement> {
-  menu: MenuProps[]
+  menu: MenuItemProps[]
   menuType?: 'mobile' | 'sideNav' | string
   pathname?: string
   children?: React.ReactElement

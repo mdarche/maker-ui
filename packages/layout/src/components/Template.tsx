@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { MakerOptions } from '../types'
-import { MenuProps } from './Menu'
+import { MakerMenu } from './Menu'
 import { Layout } from './Layout'
 import { Topbar } from './Topbar'
 import { Header } from './Header'
@@ -24,7 +24,7 @@ interface TemplateProps {
   menuButton?: MakerOptions['header']['menuButton']
   colorButton?: MakerOptions['header']['colorButton']
   logo?: React.ReactElement
-  menu: MenuProps[]
+  menu: MakerMenu
   mobileMenu?: string
   navType?: typeof navTypes[number]
   layoutType?: typeof contentTypes[number]
@@ -141,7 +141,6 @@ export const Template = ({
           type={navType}
           logo={logo}
           menu={menu}
-          // widgetArea={headerWidgets}
           menuButton={menuButton}
           colorButton={colorButton}
           pathname={pathname}

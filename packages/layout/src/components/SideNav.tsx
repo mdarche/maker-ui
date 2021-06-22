@@ -4,7 +4,7 @@ import { Button } from '@maker-ui/primitives'
 
 import { MakerOptions } from '../types'
 import { ErrorBoundary } from './Errors/ErrorBoundary'
-import { MenuProps } from './Menu'
+import { MenuItemProps } from './Menu'
 
 import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
@@ -26,7 +26,7 @@ export interface SideNavProps
   background?: string | string[]
   _css?: MakerProps['css']
   toggleButton?: MakerOptions['sideNav']['toggleButton']
-  menu?: MenuProps[]
+  menu?: MenuItemProps[]
   pathname?: string
   header?: React.ReactElement
   footer?: React.ReactElement

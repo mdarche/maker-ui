@@ -3,7 +3,7 @@ import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { forwardRef, Fragment } from 'react'
 
 import { MakerOptions } from '../types'
-import { CollapsibleMenu, MenuButton, MenuProps } from './Menu'
+import { CollapsibleMenu, MenuButton, MenuItemProps } from './Menu'
 import { ErrorBoundary } from './Errors'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
@@ -16,7 +16,7 @@ interface MobileMenuProps
   transition?: MakerOptions['mobileMenu']['transition']
   background?: string | string[]
   width?: ResponsiveScale
-  menu?: MenuProps[]
+  menu?: MenuItemProps[]
   center?: boolean
   pathname?: string
   closeButton?: MakerOptions['mobileMenu']['closeButton']

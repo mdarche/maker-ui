@@ -1,6 +1,6 @@
-import { MenuProps } from 'maker-ui'
+import type { MakerMenu } from 'maker-ui'
 
-export const menu: MenuProps[] = [
+export const menu: MakerMenu = [
   { label: 'Overview', path: '/docs/overview' },
   {
     label: 'Getting Started',

@@ -7,7 +7,7 @@ import { useOptions } from '../../context/OptionContext'
 import { useLayout } from '../../context/LayoutContext'
 import { Logo } from './Logo'
 import { ColorButton } from './ColorButton'
-import { NavMenu, MenuButton, MenuProps } from '../Menu'
+import { NavMenu, MenuButton, MenuItemProps } from '../Menu'
 import { WidgetArea } from './WidgetArea'
 import { gridStyles } from './styles'
 import { setBreakpoint, mergeSelectors } from '../../utils/helper'
@@ -16,7 +16,7 @@ export interface NavProps extends MakerProps {
   type?: MakerOptions['header']['navType']
   mobileType?: MakerOptions['header']['mobileNavType']
   logo?: React.ReactElement | string
-  menu?: MenuProps[]
+  menu?: MenuItemProps[]
   colorButton?: MakerOptions['header']['colorButton']
   menuButton?: MakerOptions['header']['menuButton']
   logoArea?: React.ReactNode

@@ -6,15 +6,15 @@ To begin using Maker UI in your project, install the `maker-ui` dependency from 
 npm i maker-ui
 ```
 
-Maker UI includes a set of layout components ([Layout API](/docs/layout-api)) as well as basic elements ([Primitives](/docs/primitives)) that you can use as building blocks in your page designs.
+The core Maker UI library includes layout components ([Layout API](/docs/layout-api)) as well as basic elements ([Primitives](/docs/primitives)) that you can use as building blocks in your page designs.
 
 <Callout type="alert">
-If you do not want to use the complete Maker UI layout system, you can simply install <span>@maker-ui/primitives</span> and import its components as needed.
+If you don't want to use the complete Maker UI layout system, you can simply install <span>@maker-ui/primitives</span> and import its components as needed.
 </Callout>
 
 ## Create a Basic Layout
 
-Let's create a basic layout with the Layout API. In a new component file, add the following:
+Let's create a basic app layout with the Layout API. In a new component file, add the following:
 
 ```jsx
 import * as React from 'react'
@@ -50,7 +50,7 @@ The JSX from above outputs a semantically structured DOM tree. This example woul
 
 ## Customize Maker UI Options
 
-The real magic behind Maker UI is how it supports automatic responsive scaling and accessibility. Let's create an `options` object that will tell our header how it should look and feel on desktop vs mobile:
+The real magic behind Maker UI's layout system is how it supports automatic responsive scaling and accessibility. Let's create an `options` object that will tell our header how it should look and feel on desktop vs mobile:
 
 ```jsx {10,13-22,26}
 import * as React from 'react'
@@ -242,7 +242,7 @@ The easiest way to target a Maker UI layout component (without reading the [Layo
 
 ## Use Inside a Root Provider
 
-When your new layout is all ready to go, import it into your app's root component and treat it like a top-level application wrapper. 
+When your new layout is ready to go, import it into your app's root component and treat it like a top-level application provider. 
 
 You can use your router's current location to trigger conditional layouts and you can dynamically change your options config or styles as needed.
 
@@ -253,10 +253,10 @@ You can use your router's current location to trigger conditional layouts and yo
 
 Checkout the getting started guides for [NextJS](/docs/nextjs), [Gatsby](/docs/gatsby), or [Create React App](/docs/create-react-app) to learn precisely how to handle this step in your framework of choice.
 
-## Final Comments
+## Disclaimers
 
 In a real application, you would typically store your `options`, `styles`, and `menu` objects in separate files or even generate them dynamically via network requests at build time.
 
-Also note that this Getting Started demo doesn't even begin to touch on all of the amazing features and functions of Maker UI's layout system.
+Also note that this demo doesn't even begin to touch on all of the amazing features and functions of Maker UI's layout system.
 
 You can use `MakerUIOptions` to set color modes, handle error boundaries, configure dropdown menus, and much more. Keep reading through the docs for more examples.
