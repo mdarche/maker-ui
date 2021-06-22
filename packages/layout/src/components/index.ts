@@ -10,10 +10,8 @@ export { Sidebar } from './Sidebar'
 export { Footer } from './Footer'
 export { Section } from './Section'
 export { ColorButton } from './Navbar/ColorButton'
-export { CollapsibleMenu, MenuProps } from './Menu'
+export { CollapsibleMenu, MenuItemProps, MakerMenu } from './Menu'
 export { ErrorBoundary } from './Errors/ErrorBoundary'
-export { Workspace, PanelButton, useWorkspace } from './Workspace'
-export { Dock } from './Dock'
 
 export { Template } from './Template'
 

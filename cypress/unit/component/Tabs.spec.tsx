@@ -196,6 +196,17 @@ describe('Tabs component', () => {
     cy.contains('Non Panel 1')
     cy.contains('Non Panel 2')
   })
+  it('adds buttonType to tab button', () => {
+    mount(
+      <Tabs buttonType="button">
+        <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
+        <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
+      </Tabs>
+    )
+    cy.get('.tab-button')
+      .first()
+      .should('have.attr', 'type', 'button')
+  })
 })
 
 describe('TabPanel component', () => {

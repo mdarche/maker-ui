@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Layout, Div, MakerUIOptions } from 'maker-ui'
 import { mount } from '@cypress/react'
 
+import { defaultOptions } from '../options'
 import { Wrapper } from '../setup'
 
 describe('Layout component', () => {
@@ -48,6 +49,45 @@ describe('Layout component', () => {
       </Layout>
     )
     cy.contains('test').should('have.css', 'width', '100px')
+  })
+
+  it('supports custom css variables via `options.variables`', () => {
+    mount(
+      <Layout options={{ variables: { height: 200 } }}>
+        <Div id="test-div" css={{ height: 'var(--height)' }}>
+          test
+        </Div>
+      </Layout>
+    )
+    cy.get('#test-div').should('have.css', 'height', '200px')
+  })
+
+  it('removes the default Maker UI css colors via `options.useDefaultColors`', () => {
+    // Default behavior
+    mount(
+      <Layout options={{}}>
+        <Div id="test-div" css={{ backgroundColor: 'var(--color-text)' }}>
+          test
+        </Div>
+      </Layout>
+    )
+    cy.get('#test-div').should(
+      'have.backgroundColor',
+      defaultOptions.colors.light.text
+    )
+    // Modified behavior with useDefaultColors
+    mount(
+      <Layout options={{ useColorDefaults: false }}>
+        <Div id="next-div" css={{ backgroundColor: 'var(--color-text)' }}>
+          test
+        </Div>
+      </Layout>
+    )
+    cy.get('#next-div').should(
+      'not.have.css',
+      'backgroundColor',
+      defaultOptions.colors.light.text
+    )
   })
 
   it('updates Layout and Options context when `options` prop changes', () => {

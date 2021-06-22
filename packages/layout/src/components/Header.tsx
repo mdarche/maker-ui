@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx, MakerProps } from '@maker-ui/css'
 import { useEffect, useState } from 'react'
+import useMeasure from 'react-use-measure'
 
 import { ErrorBoundary } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
-import { useMeasure } from '../hooks/useMeasure'
-import { useLayout, useMeasurements } from '../context/LayoutContext'
-import { setBreakpoint, mergeSelector } from '../utils/helper'
+import { useMeasurements } from '../context/LayoutContext'
+import { setBreakpoint, mergeSelectors } from '../utils/helper'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
   absolute?: boolean
@@ -28,20 +28,16 @@ export const Header = (props: HeaderProps) => {
   const [scrollClass, setScrollClass] = useState('')
   const [initialRender, setInitialRender] = useState(true)
   const [show, setShow] = useState(true)
-  const [layout] = useLayout('content')
   const { measurements, setMeasurement } = useMeasurements()
-  const { framework, header, topbar, breakpoints } = useOptions()
+  const { header, topbar, breakpoints } = useOptions()
   const activateScrollClass = header.scrollClass ? true : false
 
-  const [bind, { height }] = useMeasure({
-    observe: layout.includes('workspace'),
-  })
+  const [ref, { height }] = useMeasure()
 
   useEffect(() => {
     if (height !== 0) {
       setMeasurement('header', height)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height])
 
   useEffect(() => {
@@ -170,16 +166,15 @@ export const Header = (props: HeaderProps) => {
 
   return (
     <header
-      {...bind}
-      className={mergeSelector(libClasses, className)}
+      ref={ref}
+      className={mergeSelectors([libClasses, className])}
       role="banner"
       breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
       css={{
         background,
         zIndex: 100,
         width: absolute ? '100%' : undefined,
-        visibility:
-          framework === 'gatsby' && initialRender ? 'hidden' : undefined,
+        visibility: initialRender ? 'hidden' : undefined,
         ...stickyPartial(),
         ...(css as object),
       }}

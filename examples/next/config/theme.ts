@@ -1,5 +1,4 @@
 export const theme = {
-  initialColorModeName: 'light',
   colors: {
     text: '#333',
     background: '#fff',

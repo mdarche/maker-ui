@@ -5,10 +5,10 @@ import {
   Button,
   generateId,
   useMeasure,
-  mergeSelector,
+  mergeSelectors,
   MakerProps,
 } from 'maker-ui'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 
 import { useAccordion } from './AccordionContext'
 import { CaretIcon } from '../icons'
@@ -60,7 +60,7 @@ export const AccordionPanel = React.forwardRef<
     const [show, set] = React.useState(
       state.showSingle && state.activeKey === eventKey ? true : open
     )
-    const [bind, { height: viewHeight }] = useMeasure()
+    const [measureRef, { height: viewHeight }] = useMeasure()
 
     React.useEffect(() => {
       registerPanel(panelKey)
@@ -106,10 +106,10 @@ export const AccordionPanel = React.forwardRef<
     return (
       <Div
         ref={ref}
-        className={mergeSelector(
+        className={mergeSelectors([
           `${show ? 'expanded ' : ''}accordion`,
-          className
-        )}
+          className,
+        ])}
         css={{ border: '1px solid', ...(css as object) }}
         {...props}>
         <Button
@@ -143,7 +143,7 @@ export const AccordionPanel = React.forwardRef<
             height,
           }}>
           <Div
-            {...bind}
+            ref={measureRef}
             className="accordion-panel"
             css={{
               borderTop: `1px solid`,

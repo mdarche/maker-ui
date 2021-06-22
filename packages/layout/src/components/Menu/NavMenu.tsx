@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@maker-ui/css'
 
-import { MenuProps } from './MenuItem'
+import { MenuItemProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { MenuItem } from './MenuItem'
 import { setBreakpoint } from '../../utils/helper'
 
 interface NavMenuProps {
-  menuItems?: MenuProps[]
+  menuItems?: MenuItemProps[]
   pathname?: string
 }
 

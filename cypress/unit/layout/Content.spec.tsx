@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Content, Main, SideNav, Sidebar, Workspace, Dock } from 'maker-ui'
+import { Content, Main, SideNav, Sidebar } from 'maker-ui'
 import { mount } from '@cypress/react'
 
 import { Wrapper, defaults, format } from '../setup'
@@ -185,40 +185,5 @@ describe('Content - Layout Builder', () => {
     cy.get('#sidenav').should('have.css', 'left', '0px')
     cy.get('#sidenav .container').should('have.css', 'top', '0px')
     cy.get('#sidenav .container').should('have.css', 'height')
-  })
-
-  it('identifies a `workspace` layout', () => {
-    mount(
-      <Wrapper>
-        <Content>
-          <Workspace />
-        </Content>
-      </Wrapper>
-    )
-    cy.get('#workspace')
-  })
-
-  it('identifies a `workspace-dock` layout', () => {
-    mount(
-      <Wrapper>
-        <Content>
-          <Workspace />
-          <Dock />
-        </Content>
-      </Wrapper>
-    )
-    cy.get('#workspace').next('#dock')
-  })
-
-  it('identifies a `dock-workspace` layout', () => {
-    mount(
-      <Wrapper>
-        <Content>
-          <Dock />
-          <Workspace />
-        </Content>
-      </Wrapper>
-    )
-    cy.get('#dock').next('#workspace')
   })
 })

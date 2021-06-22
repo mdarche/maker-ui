@@ -1,28 +1,30 @@
 {
   "private": true,
   "name": "docs",
-  "version": "0.4.2",
+  "version": "1.0.0-beta.10",
   "author": "Mike Darche",
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "clean": "gatsby clean"
+    "dev": "next dev",
+    "build": "next build",
+    "next:start": "next start"
   },
   "dependencies": {
-    "@maker-ui/components": "1.0.0-beta.4",
-    "@mdx-js/mdx": "^1.5.5",
-    "@mdx-js/react": "^1.5.5",
-    "gatsby": "^2.23.17",
-    "gatsby-plugin-catch-links": "^2.1.24",
-    "gatsby-plugin-layout": "^1.1.22",
-    "gatsby-plugin-mdx": "^1.2.25",
-    "gatsby-plugin-react-helmet": "^3.0.12",
-    "maker-ui": "1.0.0-beta.4",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "@fontsource/inter": "^4.4.5",
+    "@maker-ui/components": "1.0.0-beta.10",
+    "@mdx-js/loader": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
+    "@next/mdx": "^10.2.3",
+    "maker-ui": "1.0.0-beta.10",
+    "mdx-utils": "^0.2.0",
+    "next": "^11.0.0",
+    "prism-react-renderer": "^1.2.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rehype-slug": "^4.0.1"
   },
   "devDependencies": {
-    "tslib": "^2.0.3"
+    "@types/node": "^14.11.10",
+    "@types/react": "^16.9.53"
   }
 }

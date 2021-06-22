@@ -10,31 +10,37 @@ interface TestLayoutProps {
   options?: MakerUIOptions
 }
 
+/**
+ * @todo - add `pathname` prop test to Integration test suite
+ */
+
 const TestLayout = ({
   children,
   options = { sidebar: { width: 300 } },
-}: TestLayoutProps) => (
-  <Wrapper options={options} header footer>
-    <Content>
-      <Main>
-        <h2 id="heading-1">Heading 1</h2>
-        <div id="test-div" style={{ height: 500 }}>
-          content
-        </div>
-        <h3 id="sub-1">Subheading 1</h3>
-        <div style={{ height: 300 }}>content</div>
-        <h2 id="heading-2">Heading 2</h2>
-        <div style={{ height: 500 }}>content</div>
-        <h2 id="heading-3">Heading 3</h2>
-        <h4 id="sub-2">Subheading 2</h4>
-        <h5 id="sub-3">Subheading 2</h5>
-        <h6 id="sub-4">Subheading 2</h6>
-        <div style={{ height: 900 }}>content</div>
-      </Main>
-      <Sidebar>{children}</Sidebar>
-    </Content>
-  </Wrapper>
-)
+}: TestLayoutProps) => {
+  return (
+    <Wrapper options={options} header footer>
+      <Content>
+        <Main>
+          <h2 id="heading-1">Heading 1</h2>
+          <div id="test-div" style={{ height: 500 }}>
+            content
+          </div>
+          <h3 id="sub-1">Subheading 1</h3>
+          <div style={{ height: 300 }}>content</div>
+          <h2 id="heading-2">Heading 2</h2>
+          <div style={{ height: 500 }}>content</div>
+          <h2 id="heading-3">Heading 3</h2>
+          <h4 id="sub-2">Subheading 2</h4>
+          <h5 id="sub-3">Subheading 2</h5>
+          <h6 id="sub-4">Subheading 2</h6>
+          <div style={{ height: 900 }}>content</div>
+        </Main>
+        <Sidebar>{children}</Sidebar>
+      </Content>
+    </Wrapper>
+  )
+}
 
 describe('TableofContents component', () => {
   it('renders with default props', () => {
@@ -172,6 +178,20 @@ describe('TableofContents component', () => {
   })
 
   it('supports `css` and `pseudoCss` props with default props', () => {
+    mount(
+      <TestLayout>
+        <TableofContents
+          marker="before"
+          css={{ top: 80, li: { listStyleType: 'none' } }}
+          pseudoCss={{ borderColor: '#c53030' }}
+        />
+      </TestLayout>
+    )
+    cy.get('.toc').should('have.css', 'top', '80px')
+    cy.get('.toc li a').should('have.css', 'content')
+  })
+
+  it('rescans DOM on route change with the `pathname` prop', () => {
     mount(
       <TestLayout>
         <TableofContents

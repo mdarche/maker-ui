@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Div, DivProps, mergeSelector } from 'maker-ui'
+import { Div, DivProps, mergeSelectors } from 'maker-ui'
 
 import { AccordionContext } from './AccordionContext'
 import { AccordionPanel } from './AccordionPanel'
-import { SpringConfig } from 'react-spring'
+import { SpringConfig } from '@react-spring/web'
 
 export interface AccordionProps extends DivProps {
   icon?: boolean
@@ -45,7 +45,7 @@ export const Accordion = ({
       showSingle={showSingle}
       spring={spring}>
       <Div
-        className={mergeSelector('accordion-container', className)}
+        className={mergeSelectors(['accordion-container', className])}
         css={{ ...(css as object) }}
         {...props}>
         {children}

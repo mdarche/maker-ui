@@ -6,7 +6,7 @@ import {
   DivProps,
   useScrollPosition,
   MakerProps,
-  mergeSelector,
+  mergeSelectors,
 } from 'maker-ui'
 
 interface MenuItem {
@@ -27,6 +27,8 @@ interface TocProps extends Omit<DivProps, 'title'> {
   smoothScroll?: boolean
   sticky?: boolean
   hideOnMobile?: boolean
+  pathname?: string
+  footerComponent?: React.ReactElement
 }
 
 /**
@@ -49,6 +51,8 @@ export const TableofContents = ({
   sticky = true,
   hideOnMobile = true,
   css,
+  pathname,
+  footerComponent,
 }: TocProps) => {
   const [menuItems, setMenu] = React.useState<MenuItem[]>([])
   const [activeNode, setActiveNode] = React.useState<number | null>(null)
@@ -91,9 +95,10 @@ export const TableofContents = ({
         []
       )
       setMenu(menu)
+    } else {
+      setMenu([])
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [pathname])
 
   useScrollPosition(
     ({ currPos, prevPos }) => {
@@ -102,7 +107,7 @@ export const TableofContents = ({
       /**
        * Reset activeNode if scroll position is above first selector
        */
-      if (activeNode !== undefined && currPos < menuItems[0].offset) {
+      if (activeNode !== undefined && currPos < menuItems[0]?.offset) {
         return setActiveNode(null)
       }
 
@@ -111,7 +116,7 @@ export const TableofContents = ({
           /**
            * Check if scroll is between first 2 heading nodes
            */
-          if (menuItems.length > 1 && currPos <= menuItems[1].offset) {
+          if (menuItems.length > 1 && currPos <= menuItems[1]?.offset) {
             return setActiveNode(0)
           } else {
             /**
@@ -140,7 +145,7 @@ export const TableofContents = ({
           /**
            * If scrolling up, compare current node offset with previous offset
            */
-          if (currPos <= menuItems[activeNode].offset) {
+          if (currPos <= menuItems[activeNode]?.offset) {
             return setActiveNode(activeNode - 1)
           }
         }
@@ -152,7 +157,7 @@ export const TableofContents = ({
 
   return (
     <Div
-      className={mergeSelector('toc', className)}
+      className={mergeSelectors(['toc', className])}
       css={{
         display: hideOnMobile ? ['none', 'block'] : 'block',
         position: sticky ? 'sticky' : undefined,
@@ -160,7 +165,7 @@ export const TableofContents = ({
         ...(css as object),
       }}>
       <Div>{title}</Div>
-      <UList className="toc-headings" css={{ p: 0 }}>
+      <UList className="toc-headings" css={{ padding: 0 }}>
         {menuItems.length
           ? menuItems.map(({ id, text, level }: MenuItem, index) => (
               <ListItem
@@ -199,6 +204,7 @@ export const TableofContents = ({
             ))
           : null}
       </UList>
+      {footerComponent}
     </Div>
   )
 }

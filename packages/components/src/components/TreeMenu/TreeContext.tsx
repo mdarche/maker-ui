@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ResponsiveScale } from 'maker-ui'
-import { SpringConfig } from 'react-spring'
+import { SpringConfig } from '@react-spring/web'
 
 interface TreeState extends Omit<TreeContextProps, 'buttons' | 'children'> {
   expand: React.ReactNode

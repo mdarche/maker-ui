@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, Image } from 'maker-ui'
-import { animated, useTransition } from 'react-spring'
+import { animated, useTransition } from '@react-spring/web'
 
 import { useLightbox, LightboxData } from './LightboxContext'
 

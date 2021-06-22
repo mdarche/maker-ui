@@ -71,8 +71,7 @@ const TestContent = () => (
   </Content>
 )
 
-// @ts-ignore
-const InnerContent = ({ children }) => (
+const InnerContent = ({ children }: { children: React.ReactNode }) => (
   <Content>
     <Main>{children}</Main>
   </Content>

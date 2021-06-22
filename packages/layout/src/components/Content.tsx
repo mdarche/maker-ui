@@ -7,7 +7,7 @@ import { ContentError } from './Errors/Errors'
 import { useOptions } from '../context/OptionContext'
 import { useLayoutDetector } from '../context/LayoutContext'
 import { useLayoutStyles } from '../hooks/useLayoutStyles'
-import { mergeSelector, setBreakpoint } from '../utils/helper'
+import { mergeSelectors, setBreakpoint } from '../utils/helper'
 
 interface ContentProps
   extends MakerProps,
@@ -24,7 +24,7 @@ interface ContentProps
 
 export const Content = ({ id, children, css, ...props }: ContentProps) => {
   const [initialRender, setInitialRender] = useState(true)
-  const { framework, content, sideNav, breakpoints } = useOptions()
+  const { content, sideNav, breakpoints } = useOptions()
   const { layout, showError } = useLayoutDetector('content', children)
 
   useEffect(() => {
@@ -38,12 +38,11 @@ export const Content = ({ id, children, css, ...props }: ContentProps) => {
 
   return (
     <div
-      id={mergeSelector('site-inner', id)}
+      id={mergeSelectors(['site-inner', id])}
       breakpoints={setBreakpoint(bp, breakpoints)}
       css={{
         position: 'relative',
-        visibility:
-          framework === 'gatsby' && initialRender ? 'hidden' : undefined,
+        visibility: initialRender ? 'hidden' : undefined,
         ...layoutStyles,
         ...(css as object),
       }}

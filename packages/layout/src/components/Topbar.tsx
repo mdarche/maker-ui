@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { useEffect } from 'react'
+import useMeasure from 'react-use-measure'
 
 import { MakerOptions } from '../types'
 import { ErrorBoundary } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
-import { useMeasure } from '../hooks/useMeasure'
-import { useLayout, useMeasurements } from '../context/LayoutContext'
-import { mergeSelector, setBreakpoint } from '../utils/helper'
+import { useMeasurements } from '../context/LayoutContext'
+import { mergeSelectors, setBreakpoint } from '../utils/helper'
 
 type StickyType = 'sticky' | ('sticky' | 'relative')[] | undefined
 
@@ -31,17 +31,13 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 
 export const Topbar = (props: TopbarProps) => {
   const { topbar, breakpoints } = useOptions()
-  const [layout] = useLayout('content')
-  const [bind, { height }] = useMeasure({
-    observe: layout.includes('workspace'),
-  })
+  const [ref, { height }] = useMeasure()
   const { setMeasurement } = useMeasurements()
 
   useEffect(() => {
     if (height !== 0) {
       setMeasurement('topbar', height)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height])
 
   const {
@@ -68,8 +64,8 @@ export const Topbar = (props: TopbarProps) => {
 
   return (
     <aside
-      {...bind}
-      id={mergeSelector('topbar', id)}
+      ref={ref}
+      id={mergeSelectors(['topbar', id])}
       className={className}
       breakpoints={setBreakpoint(topbar.breakpoint, breakpoints)}
       css={{

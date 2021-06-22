@@ -1,5 +1,11 @@
 import * as React from 'react'
-import { MobileMenu, Header, Navbar, MakerUIOptions, MenuProps } from 'maker-ui'
+import {
+  MobileMenu,
+  Header,
+  Navbar,
+  MakerUIOptions,
+  MenuItemProps,
+} from 'maker-ui'
 import { mount } from '@cypress/react'
 
 import { Wrapper, testMenu } from '../setup'
@@ -7,7 +13,7 @@ import { Wrapper, testMenu } from '../setup'
 interface TestMobileMenuProps {
   options?: MakerUIOptions
   children?: React.ReactNode
-  menu?: MenuProps[]
+  menu?: MenuItemProps[]
   [key: string]: any
 }
 

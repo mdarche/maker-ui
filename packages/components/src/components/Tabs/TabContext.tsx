@@ -72,7 +72,6 @@ export const TabContext = ({
         activeKey: tab ? activeKey.toString() : state.activeKey,
       }))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeKey])
 
   return (

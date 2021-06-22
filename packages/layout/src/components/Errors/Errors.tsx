@@ -29,7 +29,7 @@ export const DefaultError = ({
             cursor: 'pointer',
             color: 'var(--color-primary)',
           }}
-          onClick={() => window.location.reload()}>
+          onClick={() => window?.location.reload()}>
           Try reloading the page.
         </Span>
       </div>
@@ -49,14 +49,7 @@ export const DefaultError = ({
   )
 }
 
-const acceptable = [
-  'Main',
-  'SideNav',
-  'Sidebar',
-  'Workspace',
-  'Dock',
-  'PageTransition',
-]
+const acceptable = ['Main', 'SideNav', 'Sidebar', 'PageTransition']
 
 export const ContentError = () => {
   return (

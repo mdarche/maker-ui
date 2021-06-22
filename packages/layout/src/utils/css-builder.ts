@@ -1,4 +1,4 @@
-import { GlobalProps } from '@maker-ui/css'
+import { GlobalProps, ResponsiveScale } from '@maker-ui/css'
 import merge from 'deepmerge'
 
 import { defaultOptions } from '../options'
@@ -56,54 +56,63 @@ export const themeVars = (
     topbar,
     header,
     mobileMenu,
+    variables,
     content,
     sidebar,
     sideNav,
     footer,
-    workspace,
-  } = merge(defaultOptions, options, { arrayMerge: (_, source, __) => source })
+  } = merge(defaultOptions, options, {
+    arrayMerge: (_, source, __) => source,
+  })
 
   const mq: string[] = breakpoints.map(
     (bp: string | number) => `@media(min-width: ${format(bp)})`
   )
   let css: Dictionary<any> = {}
+  let vars: { [key: string]: ResponsiveScale } = {}
+
+  /** Assign custom css variables */
+  for (const [key, value] of Object.entries(variables)) {
+    vars[`--${key}`] = value
+  }
 
   /** Assign width and max-width layout values */
   const measurements = {
-    '--maxWidth_header': header.maxWidth,
-    '--maxWidth_topbar': topbar.maxWidth,
-    '--maxWidth_content': content.maxWidth,
-    '--maxWidth_section': content.maxWidthSection,
-    '--maxWidth_footer': footer.maxWidth,
-    '--maxWidth_workspace': workspace?.canvasMaxWidth,
-    '--width_mobileMenu': mobileMenu.width,
-    '--width_sidebar': sidebar.width,
-    '--width_second_sidebar': sidebar.secondWidth,
-    '--width_sideNav': sideNav.width,
-    '--width_dock': workspace.dock?.width,
-    '--width_panel_left': workspace.panelLeft?.width,
-    '--width_panel_left_collapse': workspace.panelLeft?.collapseWidth,
-    '--width_panel_right': workspace.panelRight?.width,
-    '--width_panel_right_collapse': workspace.panelRight?.collapseWidth,
-    '--gap_content': content.sidebarGap,
+    '--maxWidth_header': header?.maxWidth,
+    '--maxWidth_topbar': topbar?.maxWidth,
+    '--maxWidth_content': content?.maxWidth,
+    '--maxWidth_section': content?.maxWidthSection,
+    '--maxWidth_footer': footer?.maxWidth,
+    '--width_mobileMenu': mobileMenu?.width,
+    '--width_sidebar': sidebar?.width,
+    '--width_second_sidebar': sidebar?.secondWidth,
+    '--width_sideNav': sideNav?.width,
+    '--gap_content': content?.sidebarGap,
   }
 
-  for (const [key, value] of Object.entries(measurements)) {
-    if (Array.isArray(value)) {
-      let styles: Dictionary<any> = {}
+  function formatCssVars(obj: object) {
+    for (const [key, value] of Object.entries(obj)) {
+      if (value) {
+        if (Array.isArray(value)) {
+          let styles: Dictionary<any> = {}
 
-      styles[key] = format(value[0])
+          styles[key] = format(value[0])
 
-      value.forEach((v, index) => {
-        if (index !== 0) {
-          styles[mq[index]] = { [key]: format(v) }
+          value.forEach((v, index) => {
+            if (index !== 0) {
+              styles[mq[index]] = { [key]: format(v) }
+            }
+          })
+          css = merge(css, styles)
+        } else {
+          css[key] = format(value)
         }
-      })
-      css = merge(css, styles)
-    } else {
-      css[key] = format(value)
+      }
     }
   }
+
+  formatCssVars(measurements)
+  formatCssVars(vars)
 
   /** Assign font family declarations */
   for (const [key, value] of Object.entries(fonts)) {

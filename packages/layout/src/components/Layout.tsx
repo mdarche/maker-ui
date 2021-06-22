@@ -6,7 +6,6 @@ import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
 import { LayoutProvider } from '../context/LayoutContext'
 import { Skiplinks, LinkItem } from './Skiplinks'
-import { ErrorBoundary } from './Errors'
 import { MakerUIOptions, MakerOptions } from '../types'
 
 interface LayoutProps {
@@ -41,7 +40,7 @@ export const Layout = ({
         <LayoutProvider styles={styles}>
           <ActionProvider>
             <Skiplinks links={skiplinks} />
-            <ErrorBoundary errorKey="layout">{children}</ErrorBoundary>
+            {children}
           </ActionProvider>
         </LayoutProvider>
       </OptionProvider>

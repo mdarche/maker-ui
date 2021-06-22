@@ -11,6 +11,7 @@ export interface TabStyleProps {
     navPosition?: TabGroupProps['navPosition']
     breakpoints?: (string | number)[]
   }
+  buttonType?: TabGroupProps['buttonType']
 }
 
 /**
@@ -20,7 +21,7 @@ export interface TabStyleProps {
  * @internal usage only
  */
 
-export const TabNavigation = ({ settings }: TabStyleProps) => {
+export const TabNavigation = ({ settings, buttonType }: TabStyleProps) => {
   const ref = React.useRef(null)
   const { state, setActive } = useTabs()
   const [tabIds, setTabIds] = React.useState<string[]>([])
@@ -96,6 +97,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
         <Button
           key={item.id}
           role="tab"
+          type={buttonType}
           tabIndex={state.activeKey === item.id ? 0 : -1}
           id={`control-${item.id}`}
           className={`tab-button ${

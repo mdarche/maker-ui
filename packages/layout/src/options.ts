@@ -33,6 +33,10 @@ export const defaultOptions: MakerUIOptions = {
       bg_toolbar: '#fbfbfb',
     },
   },
+  persistentColorMode: true,
+  useColorDefaults: true,
+  useMeasurementDefaults: true,
+  variables: {},
   topbar: {
     maxWidth: 1260,
     hideOnMobile: false,
@@ -45,6 +49,7 @@ export const defaultOptions: MakerUIOptions = {
     sticky: false,
     stickyOnMobile: false,
     stickyUpScroll: false,
+    showColorButton: true,
     hideColorButtonOnMobile: false,
     hideWidgetsOnMobile: true,
     menuOverflow: 'wrap',
@@ -78,7 +83,6 @@ export const defaultOptions: MakerUIOptions = {
     maxWidth: 1020,
     maxWidthSection: 1020,
     sidebarGap: 30,
-    deferMeasurements: 0,
     breakpoint: 0,
   },
   sidebar: {
@@ -93,22 +97,5 @@ export const defaultOptions: MakerUIOptions = {
   },
   errors: {
     showStackTrace: false,
-  },
-  workspace: {
-    canvasMaxWidth: '100%',
-    breakpoint: 0,
-    panelLeft: {
-      width: '.25fr',
-      collapseWidth: 0,
-    },
-    panelRight: {
-      width: '.25fr',
-      collapseWidth: 0,
-    },
-    dock: {
-      width: 50,
-      hideOnMobile: true,
-      breakpoint: 0,
-    },
   },
 }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SpringConfig } from 'react-spring'
+import { SpringConfig } from '@react-spring/web'
 
 import { LightboxContext, LightboxData } from './LightboxContext'
 import { LightboxModal } from './LightboxModal'

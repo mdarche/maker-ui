@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Flex, Button, ResponsiveScale, mergeSelector } from 'maker-ui'
+import { Flex, Button, ResponsiveScale, mergeSelectors } from 'maker-ui'
 
 export type Position = 'top' | 'bottom' | 'right' | 'left'
 
@@ -60,10 +60,10 @@ export const Pagination = ({
       <Button
         key={i}
         role="tab"
-        className={mergeSelector(
+        className={mergeSelectors([
           'carousel-dot',
-          `${current === i ? 'active' : ''}`
-        )}
+          `${current === i ? 'active' : ''}`,
+        ])}
         onClick={() => navigate && navigate('index', i)}
         aria-label={`Show slide ${i + 1}`}
         aria-selected={i === current ? 'true' : 'false'}

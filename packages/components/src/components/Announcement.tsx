@@ -5,9 +5,9 @@ import {
   DivProps,
   useMeasure,
   MakerProps,
-  mergeSelector,
+  mergeSelectors,
 } from 'maker-ui'
-import { useSpring, animated, SpringConfig } from 'react-spring'
+import { useSpring, animated, SpringConfig } from '@react-spring/web'
 
 import { useTracker } from '../hooks'
 import { CloseIcon } from './icons'
@@ -58,7 +58,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   ) => {
     const [show, set] = React.useState(true)
     const [initialRender, setInitialRender] = React.useState(false)
-    const [bind, { height: viewHeight }] = useMeasure()
+    const [measureRef, { height: viewHeight }] = useMeasure()
     const active = useTracker({ type, storageKey, show, expiration })
 
     React.useEffect(() => {
@@ -94,7 +94,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     return active ? (
       <AnimatedDiv
         ref={ref}
-        className={mergeSelector('announcement', className)}
+        className={mergeSelectors(['announcement', className])}
         style={spring as any}
         css={{
           display: 'flex',
@@ -107,7 +107,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         }}>
         <Flex
           className="container"
-          {...bind}
+          ref={measureRef}
           css={{ width: '100%', alignItems: 'center', ...(css as object) }}>
           <Flex
             className="announcement-text"

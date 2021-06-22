@@ -14,6 +14,15 @@ import {
   Button,
   Link,
   Image,
+  Form,
+  Table,
+  P,
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
 } from '../src'
 
 afterEach(cleanup)
@@ -59,6 +68,59 @@ describe('Primitive components', () => {
     expect(screen.getByAltText('test')).toBeInTheDocument()
   })
 
+  test('Table renders', () => {
+    render(
+      <Table>
+        <tbody>
+          <tr>
+            <td>test</td>
+          </tr>
+        </tbody>
+      </Table>
+    )
+    expect(screen.getByText('test')).toBeInTheDocument()
+  })
+
+  test('Form renders', () => {
+    render(<Form>test</Form>)
+    expect(screen.getByText('test')).toBeInTheDocument()
+  })
+
+  test('Paragraph renders', () => {
+    render(<P>test</P>)
+    expect(screen.getByText('test')).toBeInTheDocument()
+  })
+
+  test('H1 renders', () => {
+    render(<H1>test</H1>)
+    expect(screen.getByText('test')).toBeInTheDocument()
+  })
+
+  test('H2 renders', () => {
+    render(<H2>test</H2>)
+    expect(screen.getByText('test')).toBeInTheDocument()
+  })
+
+  test('H3 renders', () => {
+    render(<H3>test</H3>)
+    expect(screen.getByText('test')).toBeInTheDocument()
+  })
+
+  test('H4 renders', () => {
+    render(<H4>test</H4>)
+    expect(screen.getByText('test')).toBeInTheDocument()
+  })
+
+  test('H5 renders', () => {
+    render(<H5>test</H5>)
+    expect(screen.getByText('test')).toBeInTheDocument()
+  })
+
+  test('H6 renders', () => {
+    render(<H6>test</H6>)
+    expect(screen.getByText('test')).toBeInTheDocument()
+  })
+
   test('SVG renders', () => {
     render(
       <SVG>
@@ -81,13 +143,7 @@ describe('Pre-styled primitive components', () => {
 
   test('Flex accepts shortcut props', () => {
     render(
-      <Flex
-        inline
-        justify="center"
-        align="center"
-        direction="column"
-        wrap
-        flex={1}>
+      <Flex inline justify="center" align="center" column wrap flex={1}>
         flex
       </Flex>
     )

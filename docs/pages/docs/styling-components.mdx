@@ -1,0 +1,216 @@
+# Styling Components
+
+If you are familiar with CSS-in-JS solutions like Styled Components or Emotion, you should feel right at home with Maker UI's approach to component styles.
+
+Under the hood, all Maker UI components use a custom JSX factory powered by Emotion to scan for the `breakpoints` and `css` props. These props let you specify media query breakpoints as an array of values that correspond with CSS rules. 
+
+For more details on the components you can use in your project, see [Primitives](/docs/primitives), [Layout API](/docs/layout-api), and [Component API](/docs/component-api). 
+
+Here's how the syntax looks in action:
+
+```jsx
+/* Set breakpoints of 768px and 960px */
+
+<Div 
+  breakpoints={[768, 960]} 
+  css={{ 
+    color: ['blue', 'red', 'purple'] 
+  }}>
+  Hello world
+</Div>
+```
+
+## Mobile-First Design
+
+Maker UI stacks your CSS array values with **min-width** media queries. In the example above, the div's base color would be `blue`. At `min-width(768px)` the div's color would turn `red`, and finally at `min-width(960px)` the div's color would become `purple`.
+
+Just remember that the first index of your CSS array will always serve as the base style for your component. Here's another example:
+
+```jsx
+/* When the browser's width is >= 1000px, this div will have a height of `auto`
+ and a background of `#f9f9f9` */
+
+<Div 
+  breakpoints={[1000]} 
+  css={{ 
+    height: [100, 'auto'], 
+    background: ['#fff', '#f9f9f9'],
+    color: '#36748d',
+    border: '1px solid gainsboro',
+  }}>
+  Another div
+</Div>
+```
+
+## Valid CSS Rules
+
+The CSS prop will accept any officially adopted CSS attribute as both a single value or an array of values. Maker UI is built with TypeScript, so your text editor may even try to help you autocomplete CSS values while you develop your component.
+
+If you need to execute a function that returns an object (ie. computed styles) inside of the `css` prop, just cast your function as an object:
+
+```jsx
+
+function getDynamicStyles() {
+  return {
+    height: isMobile ? 50 : 100,
+    ...
+   }
+}
+
+/* Type casting as an `object` will eliminate TypeScript errors */
+
+<Div 
+  breakpoints={[960]} 
+  css={{
+    color: 'red',
+    ...(getDynamicStyles() as object)
+  }}>
+  Hello world
+</Div>
+```
+
+## Nesting Styles
+
+You can use the CSS prop just as you would a Sass stylesheet-- nest styles for as many child elements as you'd like! You would simply use the name of the component or a CSS selector as the key for an element's style rules:
+
+```jsx
+/* Style nested elements by specifying the name of the HTML element
+ or by using an ID or className selector */
+
+<Div
+  css={{
+    '.red': { /* className selector */
+      color: 'red',
+    },
+    section: { /* element name selector */
+      background: '#e6e6e6',
+      color: 'blue',
+      '#orange': { /* ID selector */
+        color: 'orange'
+      }
+    }
+  }}>
+  <p className="red">Red text</p>
+  <section>
+    <p>Blue text</p>
+    <p id="orange">Orange text</p>
+  </section>
+</Div>
+```
+
+### Pseudo Selectors
+
+You can style pseudo elements like `:before` and `:after` or state like hover, focus, active, etc. with the same nested approach. Preface your rule with the `&` symbol, just like you do in Sass:
+
+```jsx
+<Button 
+  css={{ 
+    background: '#333', 
+    '&:hover': { 
+      background: '#000' 
+    }
+  }}>
+  Hover over me
+</Button>
+```
+
+
+## Inline vs Imported Styles
+
+When prototyping, it's often easiest to bake your styles directly into your JSX. This makes for a great developer experience and an intuitive codebase. However, if you are building something highly custom, you may have a hard time identifying your component's actual business logic if it becomes too bloated with styles. In this case, you should move your styles to a separate object or into a different file all together. 
+
+There are 2 common patterns for importing styles:
+- Scoped styles
+- Individual styles
+
+### Scoped Styles
+
+With this pattern, you add a nested style declaration to a top level component or JSX element. In this case, all nested element styles can be derived from the parent. This pattern also encourages you to use CSS selectors and regular HTML in your React components.
+
+This is the recommended way to handle complex styles.
+
+```jsx
+import { Div } from 'maker-ui'
+
+const styles = {
+  background: '#fff',
+  padding: '10px 20px',
+  '.card': {
+    color: 'tomato',
+    border: '1px solid gainsboro',
+    margin: [30, 50],
+  }
+  '.card-title': {
+    fontWeight: 700,
+    fontSize: [20, 28]
+  }
+}
+
+/* The styles object is applied to the root <Div /> and all nested elements 
+are locally scoped */
+
+const TestComponent = () => (
+  <Div css={styles}>
+    <div className="card">
+      <h2 className="card-title">Title</h2>
+    </div>
+  </Div>
+)
+
+```
+
+
+### Individual Styles
+
+This pattern is commonly used in React applications that leverage CSS Modules. Instead of using a CSS file, you would use an object with keys:
+
+```jsx
+import { Div, H2 } from 'maker-ui'
+
+const styles = {
+  root: {
+    background: '#fff',
+    padding: '10px 20px',
+  },
+  card: {
+    color: 'tomato',
+    border: '1px solid gainsboro',
+    margin: [30, 50],
+  },
+  title: {
+    fontWeight: 700,
+    fontSize: [20, 28]
+  }
+}
+
+/* NOTE - You **must** use Maker UI primitives or components to use the CSS prop */
+
+const TestComponent = () => (
+  <Div css={styles.root}>
+    <Div css={styles.card}>
+      <H2 css={styles.title}>Title</H2>
+    </Div>
+  </Div>
+)
+
+```
+
+## Usage with Layout API
+
+### Global Breakpoints
+
+If you decide to use the Layout API in your project, you may never need to add a `breakpoints` prop to any of your components. The `MakerUIOptions` configuration lets you set a global breakpoints array so that all nested components obey the same media queries by default.
+
+When you need a custom media query that is different from the array you specified in your `MakerUIOptions` config, the `breakpoints` prop will always take precedence.
+
+See Maker UI Options for details.
+
+### Color Modes
+
+Unlike other CSS-in-JS libraries, Maker UI relies on CSS variables instead of React Context for theming. You can configure Maker UI Options to specify a `colors` object that will map each value to a CSS variable. Then if you want to use themeable color values, you can use the normal CSS variable syntax:
+
+```jsx
+<Div css={{ color: 'var(--color-primary)'}}>
+  Hello world
+</Div>
+```

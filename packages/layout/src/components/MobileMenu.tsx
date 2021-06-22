@@ -3,12 +3,12 @@ import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { forwardRef, Fragment } from 'react'
 
 import { MakerOptions } from '../types'
-import { CollapsibleMenu, MenuButton, MenuProps } from './Menu'
+import { CollapsibleMenu, MenuButton, MenuItemProps } from './Menu'
 import { ErrorBoundary } from './Errors'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
-import { getTransition, fullWidth, mergeSelector } from '../utils/helper'
+import { getTransition, fullWidth, mergeSelectors } from '../utils/helper'
 
 interface MobileMenuProps
   extends MakerProps,
@@ -16,7 +16,7 @@ interface MobileMenuProps
   transition?: MakerOptions['mobileMenu']['transition']
   background?: string | string[]
   width?: ResponsiveScale
-  menu?: MenuProps[]
+  menu?: MenuItemProps[]
   center?: boolean
   pathname?: string
   closeButton?: MakerOptions['mobileMenu']['closeButton']
@@ -83,8 +83,8 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
         ) : null}
         <div
           ref={ref}
-          id={mergeSelector('mobile-menu', id)}
-          className={mergeSelector(show ? 'active' : '', className)}
+          id={mergeSelectors(['mobile-menu', id])}
+          className={mergeSelectors([show ? 'active' : '', className])}
           css={{
             position: 'fixed',
             background,

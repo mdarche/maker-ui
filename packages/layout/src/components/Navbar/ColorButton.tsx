@@ -3,7 +3,8 @@ import { Button, ButtonProps } from '@maker-ui/primitives'
 
 import { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
-import { setBreakpoint, mergeSelector } from '../../utils/helper'
+import { setBreakpoint, mergeSelectors } from '../../utils/helper'
+import { useColorTheme } from '../../context/LayoutContext'
 
 interface ColorButtonProps extends ButtonProps {
   isHeaderButton?: boolean
@@ -13,9 +14,6 @@ interface ColorButtonProps extends ButtonProps {
 /**
  * The `ColorButton` is used by `Navbar` to show the current color mode and let you toggle
  * to other color presets. You can also use this button anywhere within your layout.
- *
- * @todo - Find a way to (efficiently) sync multiple instances of ColorButton without using
- * an app provider
  *
  * @link https://maker-ui.com/docs/layout/buttons/#colorButton
  */
@@ -28,25 +26,19 @@ export const ColorButton = ({
   css,
   ...props
 }: ColorButtonProps) => {
-  const { header, colors, breakpoints: bps } = useOptions()
-  const [theme, setTheme] = React.useState(Object.keys(colors)[0] || 'light')
-
-  const modes = colors ? Object.keys(colors) : ['light']
-
-  React.useEffect(() => {
-    document.body.dataset.theme = theme
-  }, [theme])
+  const { header, breakpoints: bps } = useOptions()
+  const { colorTheme, setColorTheme, colors } = useColorTheme()
 
   const cycleMode = () => {
-    const i = modes.indexOf(theme)
-    const next = modes[(i + 1) % modes.length]
+    const i = colors.indexOf(colorTheme as string)
+    const next = colors[(i + 1) % colors.length]
 
-    setTheme(next)
+    setColorTheme(next)
   }
 
   const attributes = {
-    title: 'Color Mode',
-    className: mergeSelector('color-button', className),
+    title: 'Color Theme',
+    className: mergeSelectors(['color-button', className]),
     'aria-label': 'Toggle Color Mode',
     onClick: cycleMode,
     breakpoints: isHeaderButton
@@ -58,7 +50,7 @@ export const ColorButton = ({
   // Use custom button from props or check header options
   const colorButton = customButton || header.colorButton
 
-  if (modes.length === 1) {
+  if (colors.length === 1) {
     return null
   }
 
@@ -66,7 +58,7 @@ export const ColorButton = ({
 
   if ((isHeaderButton && header.showColorButton) || !isHeaderButton) {
     return typeof colorButton === 'function' ? (
-      colorButton(theme, attributes)
+      colorButton(colorTheme, attributes)
     ) : (
       <Button
         {...attributes}
@@ -77,7 +69,7 @@ export const ColorButton = ({
               : ['block'],
           ...(css as object),
         }}>
-        {colorButton || theme}
+        {colorButton || colorTheme}
       </Button>
     )
   }

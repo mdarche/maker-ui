@@ -109,24 +109,4 @@ function useSideNav(): [boolean, () => void] {
   return [sideNavActive as boolean, setSideNav]
 }
 
-/**
- * Returns the current state and a toggle function for the left or right `Workspace.Panel`
- *
- * @link https://maker-ui.com/hooks/#usePanel
- */
-
-function usePanel(panel: 'left' | 'right'): [boolean, () => void] {
-  const {
-    leftPanelActive,
-    rightPanelActive,
-  }: Partial<ActionState> = React.useContext(ActionContext)
-  const type = 'left' ? 'PANEL-LEFT' : 'PANEL-RIGHT'
-  const dispatch = React.useContext(ActionUpdateContext)
-  const togglePanel = () => dispatch({ type })
-
-  return panel === 'left'
-    ? [leftPanelActive as boolean, togglePanel]
-    : [rightPanelActive as boolean, togglePanel]
-}
-
-export { ActionProvider, useMenu, useSideNav, usePanel }
+export { ActionProvider, useMenu, useSideNav }

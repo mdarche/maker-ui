@@ -47,7 +47,7 @@ describe('Topbar component', () => {
       .should('have.css', 'position', 'relative')
   })
 
-  it('applies sticky styles according to props', () => {
+  it.only('applies sticky styles according to props', () => {
     mount(
       <Wrapper>
         <Topbar stickyOnMobile>inner</Topbar>
@@ -59,7 +59,7 @@ describe('Topbar component', () => {
       .should('have.css', 'position', 'sticky')
   })
 
-  it('sets the scrollOverlow prop', () => {
+  it('sets the scrollOverflow prop', () => {
     mount(
       <Wrapper>
         <Topbar scrollOverflow>inner</Topbar>

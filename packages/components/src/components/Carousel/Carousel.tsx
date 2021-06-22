@@ -3,14 +3,14 @@ import {
   Div,
   MakerProps,
   ResponsiveScale,
-  mergeSelector,
+  mergeSelectors,
   useMeasure,
 } from 'maker-ui'
-import { animated, useSprings, SpringConfig } from 'react-spring'
+import { animated, useSprings, SpringConfig } from '@react-spring/web'
 import { useDrag } from 'react-use-gesture'
 import merge from 'deepmerge'
 
-import { clamp } from '../helper'
+import { clamp, mergeRefs } from '../helper'
 
 import { NavArrows } from './NavArrows'
 import { Pagination, Position } from './Pagination'
@@ -24,6 +24,7 @@ export interface CarouselProps extends MakerProps {
     autoPlay?: boolean
     arrows?: boolean
     arrowPadding?: ResponsiveScale
+    arrowMargin?: ResponsiveScale
     dots?: boolean
     dotPosition?: Position
     dotPadding?: ResponsiveScale
@@ -40,6 +41,7 @@ export interface CarouselProps extends MakerProps {
     fadeDuration?: number // seconds
     springConfig?: SpringConfig
   }
+  controls?: [number, React.Dispatch<React.SetStateAction<number>>]
 }
 
 const AnimatedDiv = animated(Div)
@@ -56,15 +58,20 @@ export const Carousel = ({
   template,
   settings = {},
   height = 500,
+  controls,
   className,
   css,
   ...rest
 }: CarouselProps) => {
-  const index = React.useRef(0)
   const carouselRef = React.useRef<any>(null)
+  const index = React.useRef(0)
   const [active, setActive] = React.useState(0)
   const [isPaused, setPause] = React.useState(false)
-  const [, { width }] = useMeasure({ ref: carouselRef })
+  const [ref, { width }] = useMeasure()
+
+  const _active = controls ? controls[0] : active
+  const _setActive = (val: number) =>
+    controls ? controls[1](val) : setActive(val)
 
   /**
    * Merge user settings with defaults (bottom of file)
@@ -76,6 +83,7 @@ export const Carousel = ({
     arrows,
     arrow,
     arrowPadding,
+    arrowMargin,
     dots,
     dotPosition,
     dotPadding,
@@ -90,10 +98,13 @@ export const Carousel = ({
   /**
    * React-spring slide animation
    */
-  const [props, set] = useSprings(
+  // const isBrowser = typeof window !== 'undefined'
+
+  const [props, api] = useSprings(
     data.length,
     i => ({
-      x: i * (width === 0 ? window.innerWidth : width),
+      // x: i * (width === 0 && isBrowser ? window.innerWidth : width),
+      x: i * width,
       scale: 1,
       config: springConfig,
     }),
@@ -105,7 +116,7 @@ export const Carousel = ({
    */
   const bind = useDrag(
     ({ down, movement: [mx], direction: [xDir], distance, cancel }) => {
-      if (down && distance > width / 2) {
+      if (down && distance > width / 3.5) {
         cancel(
           // @ts-ignore
           (index.current = clamp(
@@ -117,14 +128,14 @@ export const Carousel = ({
       }
 
       if (index.current > data.length - 1) {
-        setActive(index.current % data.length)
+        _setActive(index.current % data.length)
       } else if (index.current < 0) {
-        setActive(data.length + (index.current % data.length))
+        _setActive(data.length + (index.current % data.length))
       } else {
-        setActive(index.current)
+        _setActive(index.current)
       }
 
-      set(i => {
+      api.start(i => {
         if (i < index.current - 1 || i > index.current + 1) {
           return { display: 'none' }
         }
@@ -146,7 +157,7 @@ export const Carousel = ({
       const nextIndex = type === 'next' ? index.current + 1 : index.current - 1
 
       function update() {
-        set(i => ({
+        api.start(i => ({
           x: (i - index.current) * width,
           scale: 1,
         }))
@@ -155,9 +166,9 @@ export const Carousel = ({
       /**
        * Handle page indicator buttons that select a specific slide index
        */
-      if (type === 'index' && idx) {
+      if (type === 'index' && idx !== undefined) {
         index.current = idx
-        setActive(idx)
+        _setActive(idx)
         update()
         return
       }
@@ -168,13 +179,13 @@ export const Carousel = ({
       if (infiniteScroll) {
         if (type === 'next' && isLast) {
           index.current = 0
-          setActive(0)
+          _setActive(0)
           return update()
         }
 
         if (type === 'previous' && isFirst) {
           index.current = data.length - 1
-          setActive(data.length - 1)
+          _setActive(data.length - 1)
           return update()
         }
       } else {
@@ -182,7 +193,7 @@ export const Carousel = ({
          * Simulate a bouncing / deflection drag gesture
          */
         if ((type === 'next' && isLast) || (type === 'previous' && isFirst)) {
-          set(i => ({
+          api.start(i => ({
             x: (i - index.current) * width - (type === 'next' ? 100 : -100),
           }))
           setTimeout(() => update(), 200)
@@ -191,11 +202,20 @@ export const Carousel = ({
       }
 
       index.current = nextIndex
-      setActive(nextIndex)
+      _setActive(nextIndex)
       update()
     },
-    [data.length, set, infiniteScroll, width]
+    [data.length, infiniteScroll, width]
   )
+
+  /**
+   * Handle external navigation from `controls prop`
+   */
+  React.useEffect(() => {
+    if (controls && controls[0] !== index.current) {
+      navigate('index', controls[0])
+    }
+  }, [navigate, controls, index])
 
   /**
    * Pause the autoPlay slide transition
@@ -208,7 +228,7 @@ export const Carousel = ({
 
       return () => clearTimeout(auto)
     }
-  }, [isPaused, navigate, active, autoPlay, duration])
+  }, [isPaused, navigate, active, autoPlay, duration, controls])
 
   /**
    * Pause the autoPlay slide transition
@@ -222,27 +242,28 @@ export const Carousel = ({
 
   /**
    * Handle pause on focus
+   * @todo - test this
    */
   React.useEffect(() => {
-    const ref = carouselRef.current
+    const current = carouselRef.current
 
     if (autoPlay) {
-      ref?.addEventListener(`focusin`, pause)
-      ref?.addEventListener(`focusout`, resume)
+      current?.addEventListener(`focusin`, pause)
+      current?.addEventListener(`focusout`, resume)
     }
 
     return () => {
-      ref?.removeEventListener(`focusin`, pause)
-      ref?.removeEventListener(`focusout`, resume)
+      current?.removeEventListener(`focusin`, pause)
+      current?.removeEventListener(`focusout`, resume)
     }
   }, [pause, resume, autoPlay])
 
   return (
     <Div
-      ref={carouselRef}
+      ref={mergeRefs([carouselRef, ref])}
       onMouseEnter={autoPlay ? pause : undefined}
       onMouseLeave={autoPlay ? resume : undefined}
-      className={mergeSelector('carousel', className)}
+      className={mergeSelectors(['carousel', className])}
       css={{
         overflow: 'hidden',
         position: 'relative',
@@ -259,15 +280,13 @@ export const Carousel = ({
       <Div className="slide-container">
         {props.map(({ x, scale }, i) => (
           <AnimatedDiv
-            className={`slide${active === i ? ' active' : ''}`}
+            className={`slide${_active === i ? ' active' : ''}`}
             {...bind()}
             key={i}
-            style={
-              {
-                opacity: transition === 'fade' && active === i && 1,
-                x: transition !== 'fade' && x,
-              } as object
-            }
+            style={{
+              opacity: transition === 'fade' && _active === i ? 1 : undefined,
+              x: transition !== 'fade' ? x : undefined,
+            }}
             css={{
               position: 'absolute',
               display: 'block',
@@ -277,6 +296,7 @@ export const Carousel = ({
               width: '100%',
               willChange: 'transform',
               opacity: transition === 'fade' ? 0 : undefined,
+              zIndex: i === 0 ? 1 : 0,
               transition:
                 transition === 'fade'
                   ? `opacity ${fadeDuration}s ease-in-out`
@@ -284,11 +304,9 @@ export const Carousel = ({
             }}>
             <AnimatedDiv
               className="slide-inner"
-              style={
-                {
-                  scale: transition === 'scale' && scale,
-                } as object
-              }
+              style={{
+                scale: transition === 'scale' ? scale : undefined,
+              }}
               css={{
                 height: '100%',
                 width: '100%',
@@ -305,12 +323,13 @@ export const Carousel = ({
           navigate={navigate}
           arrow={arrow}
           arrowPadding={arrowPadding}
+          arrowMargin={arrowMargin}
         />
       ) : null}
       {dots ? (
         <Pagination
           navigate={navigate}
-          current={active}
+          current={_active}
           count={data.length}
           settings={{
             dotPadding,
@@ -336,7 +355,8 @@ function mergeSettings(settings: CarouselProps['settings']) {
     {
       autoPlay: false,
       arrows: true,
-      arrowPadding: 30,
+      arrowPadding: 20,
+      arrowMargin: 0,
       dots: true,
       dotPosition: 'bottom',
       dotPadding: 30,

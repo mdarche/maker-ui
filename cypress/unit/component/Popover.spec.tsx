@@ -22,7 +22,7 @@ const BasicPopover = ({ children, btnStyle, ...props }: TestProps) => {
     <Flex
       align="center"
       justify="center"
-      css={{ height: '100vh', width: '100vw ' }}>
+      css={{ height: '100vh', width: '100vw' }}>
       <button
         className="test-btn"
         ref={buttonRef}
@@ -44,7 +44,7 @@ describe('Popover component', () => {
     cy.get('button').click()
     cy.get('.popover').contains('Popover-content')
     // Confirm it attaches popover to body element
-    cy.get('#cypress-root').should('not.contain', 'Popover-content')
+    cy.get('#__cy_root').should('not.contain', 'Popover-content')
   })
 
   it('applies `_css` to the popover root and `css` to the popover content', () => {
@@ -136,9 +136,9 @@ describe('Popover component', () => {
   })
 
   it('adds the popover to a specified DOM node with the `appendTo` prop', () => {
-    mount(<BasicPopover appendTo="cypress-root">Popover-content</BasicPopover>)
+    mount(<BasicPopover appendTo="__cy_root">Popover-content</BasicPopover>)
     cy.get('button').click()
-    cy.get('#cypress-root').contains('Popover-content')
+    cy.get('#__cy_root').contains('Popover-content')
   })
 
   it('matches the width of the anchor element with the `anchorWidth` prop', () => {
@@ -222,7 +222,7 @@ describe('Popover component', () => {
   })
 
   // VISUAL TEST - position
-  it.only('uses the `position` prop -- center, center (visual)', () => {
+  it('uses the `position` prop -- center, center (visual)', () => {
     mount(
       <BasicPopover
         css={{ background: '#d3d3d3', height: 300 }}

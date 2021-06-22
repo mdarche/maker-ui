@@ -6,9 +6,9 @@ import {
   Div,
   DivProps,
   useMeasure,
-  mergeSelector,
+  mergeSelectors,
 } from 'maker-ui'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 
 import { useTreeData } from './TreeContext'
 
@@ -48,7 +48,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
     } = useTreeData()
 
     const previous = usePrevious(isOpen)
-    const [bind, { height: viewHeight }] = useMeasure()
+    const [measureRef, { height: viewHeight }] = useMeasure()
 
     const { height } = useSpring({
       from: { height: 0 },
@@ -62,7 +62,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
       <Div
         ref={ref}
         aria-expanded={isOpen}
-        className={mergeSelector('tree-item', className)}
+        className={mergeSelectors(['tree-item', className])}
         css={{
           display: link && 'flex',
           alignItems: link && 'center',
@@ -124,7 +124,7 @@ export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(
             overflow: 'hidden',
             height: isOpen && previous === isOpen ? 'auto' : height,
           }}>
-          <div {...bind}>{children}</div>
+          <div ref={measureRef}>{children}</div>
         </animated.div>
       </Div>
     )

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, DivProps, mergeSelector } from 'maker-ui'
+import { Div, DivProps, ButtonProps, mergeSelectors } from 'maker-ui'
 
 import { TabContext } from './TabContext'
 import { TabNavigation } from './TabNavigation'
@@ -10,6 +10,7 @@ export interface TabGroupProps extends DivProps {
   activeKey?: number | string
   overflow?: 'stack' | 'scroll'
   renderInactive?: boolean
+  buttonType?: ButtonProps['type']
   children?: React.ReactNode
 }
 
@@ -29,6 +30,7 @@ export const Tabs = ({
   overflow = 'stack',
   breakpoints,
   renderInactive = true,
+  buttonType,
   className,
   css,
   children,
@@ -39,7 +41,7 @@ export const Tabs = ({
   return (
     <TabContext activeKey={activeKey} renderInactive={renderInactive}>
       <Div
-        className={mergeSelector('tabs-container', className)}
+        className={mergeSelectors(['tabs-container', className])}
         breakpoints={breakpoints}
         css={{
           display: ['block', 'flex'],
@@ -49,6 +51,7 @@ export const Tabs = ({
         }}
         {...props}>
         <TabNavigation
+          buttonType={buttonType}
           settings={{
             isVertical,
             navPosition,

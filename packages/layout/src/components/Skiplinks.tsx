@@ -56,7 +56,7 @@ export const Skiplinks = (props: SkipLinkProps) => {
           background: 'var(--color-bg_header)',
           display: 'block',
           position: 'absolute',
-          fontFamily: 'body',
+          fontFamily: 'var(--font-body)',
           left: -9999,
           padding: '1em',
           '&:focus': {

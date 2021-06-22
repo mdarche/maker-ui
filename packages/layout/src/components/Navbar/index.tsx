@@ -7,16 +7,16 @@ import { useOptions } from '../../context/OptionContext'
 import { useLayout } from '../../context/LayoutContext'
 import { Logo } from './Logo'
 import { ColorButton } from './ColorButton'
-import { NavMenu, MenuButton, MenuProps } from '../Menu'
+import { NavMenu, MenuButton, MenuItemProps } from '../Menu'
 import { WidgetArea } from './WidgetArea'
 import { gridStyles } from './styles'
-import { setBreakpoint, mergeSelector } from '../../utils/helper'
+import { setBreakpoint, mergeSelectors } from '../../utils/helper'
 
 export interface NavProps extends MakerProps {
   type?: MakerOptions['header']['navType']
   mobileType?: MakerOptions['header']['mobileNavType']
   logo?: React.ReactElement | string
-  menu?: MenuProps[]
+  menu?: MenuItemProps[]
   colorButton?: MakerOptions['header']['colorButton']
   menuButton?: MakerOptions['header']['menuButton']
   logoArea?: React.ReactNode
@@ -25,6 +25,7 @@ export interface NavProps extends MakerProps {
   pathname?: string
   maxWidth?: ResponsiveScale
   className?: string
+  id?: string
 }
 
 /** Special (edge) cases */
@@ -33,7 +34,8 @@ const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
 
 /**
  * The `Navbar` component renders your layout's primary navigation in one of
- * 8 conventional styles or you can fully customize it with the `grid` prop.
+ * 8 common styles or you can fully customize it with the `navArea`, `logoArea`, and
+ * `menuArea` props.
  *
  * @link https://maker-ui.com/components/layout/navbar
  */
@@ -57,6 +59,7 @@ export const Navbar = (props: NavProps) => {
     colorButton,
     maxWidth = 'var(--maxWidth_header)',
     className,
+    id,
     css,
   } = props
 
@@ -72,7 +75,7 @@ export const Navbar = (props: NavProps) => {
     if (mobileType !== undefined && mobileType !== mobileLayout) {
       setMobileLayout(mobileType)
     }
-  }, [type, mobileType, layout, mobileLayout, setLayout, setMobileLayout])
+  }, [type, mobileType, layout, mobileLayout])
 
   const wrapPartial: object | undefined =
     header.menuOverflow === 'scroll'
@@ -81,10 +84,12 @@ export const Navbar = (props: NavProps) => {
 
   return (
     <Grid
-      className={mergeSelector(
-        `nav-grid layout-${layout} m-layout-${mobileLayout}`,
-        className
-      )}
+      id={id}
+      className={mergeSelectors([
+        `nav-grid layout-${layout}`,
+        `m-layout-${mobileLayout}`,
+        className,
+      ])}
       breakpoints={bpArray}
       css={{
         maxWidth,

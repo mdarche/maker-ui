@@ -26,7 +26,7 @@ function getScrollPosition(): number {
 export function useScrollPosition(
   effect: (props: { prevPos: number; currPos: number }) => void,
   wait: number,
-  active: boolean
+  active: boolean = true
 ): void {
   const position = useRef(getScrollPosition())
 

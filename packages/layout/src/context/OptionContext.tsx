@@ -20,6 +20,14 @@ function mergeOptions(initial: MakerUIOptions, incoming: MakerUIOptions) {
   }) as MakerOptions
 }
 
+function getDefaultOptions(defaultColors?: boolean) {
+  let options = defaultOptions
+  if (!defaultColors) {
+    options.colors = {}
+  }
+  return options
+}
+
 /**
  * The `OptionProvider` stores all of Maker UI's client-facing
  * configurations.
@@ -27,9 +35,10 @@ function mergeOptions(initial: MakerUIOptions, incoming: MakerUIOptions) {
  * @internal usage only
  */
 
-const OptionProvider = ({ options = {}, children }: OptionProviderProps) => {
+const OptionProvider = ({ options, children }: OptionProviderProps) => {
+  const colorDefaults = options?.useColorDefaults === false ? false : true
   const [state, setState] = React.useState<MakerOptions>(
-    mergeOptions(defaultOptions, options)
+    mergeOptions(getDefaultOptions(colorDefaults), options)
   )
 
   React.useEffect(() => {
@@ -56,7 +65,7 @@ function useOptions(): MakerOptions {
 
   if (options === undefined) {
     throw new Error(
-      'useOptions must be used within an Maker UI Layout component'
+      'useOptions must be used within a Maker UI Layout component'
     )
   }
 

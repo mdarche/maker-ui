@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { useTransition, animated, SpringConfig } from 'react-spring'
+import { useTransition, animated, SpringConfig } from '@react-spring/web'
 import {
   Div,
   DivProps,
-  useMeasure,
-  useMakerUI,
+  // useMakerUI,
   MakerProps,
-  mergeSelector,
+  mergeSelectors,
 } from 'maker-ui'
 
 import { Portal } from '../Portal'
@@ -20,7 +19,7 @@ export interface Position {
   y: 'top' | 'center' | 'bottom'
 }
 
-export interface PopoverProps extends Omit<DivProps, 'children'> {
+export interface PopoverProps extends DivProps {
   show: boolean
   set: React.Dispatch<React.SetStateAction<boolean>>
   anchorRef: React.MutableRefObject<any>
@@ -41,9 +40,9 @@ export interface PopoverProps extends Omit<DivProps, 'children'> {
     | 'scale'
     | 'none'
   defer?: number
-  children: React.ReactNode
   /** @internal usage only */
   _type?: 'popover' | 'dropdown' | 'tooltip'
+  children: React.ReactNode
 }
 
 /**
@@ -69,7 +68,7 @@ export const Popover = ({
   closeOnBlur = true,
   transition = 'fade',
   spring,
-  defer,
+  defer = 100,
   _type = 'popover',
   className,
   _css,
@@ -81,12 +80,62 @@ export const Popover = ({
   const [width, setWidth] = React.useState(0)
   const [height, setHeight] = React.useState(0)
   const [initialRender, setInitialRender] = React.useState(true)
-  const { options } = useMakerUI()
-  const [, box] = useMeasure({
-    ref: anchorRef,
-    documentResize: true,
-    timeout: defer || options?.content?.deferMeasurements,
+  const [box, setBox] = React.useState({
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    documentTop: 0,
+    measured: false,
   })
+
+  function resize() {
+    const {
+      top,
+      bottom,
+      left,
+      right,
+      x,
+      y,
+      height,
+      width,
+    } = anchorRef.current.getBoundingClientRect()
+    setBox({
+      top,
+      bottom,
+      left,
+      right,
+      x,
+      y,
+      height,
+      width,
+      documentTop: top + document.documentElement.scrollTop,
+      measured: true,
+    })
+  }
+
+  // Initial Measurement or changing Anchor Ref
+
+  React.useEffect(() => {
+    if (anchorRef.current) {
+      setTimeout(() => {
+        resize()
+      }, defer)
+    }
+  }, [anchorRef])
+
+  // Browser Resize
+
+  React.useEffect(() => {
+    window.addEventListener('resize', resize)
+    return () => {
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
 
   /**
    * Measure the popover's child container to calculate its height and width for
@@ -119,7 +168,7 @@ export const Popover = ({
    */
 
   React.useEffect(() => {
-    if (transition === 'scale' && setInitialRender) {
+    if (transition === 'scale' && initialRender) {
       setInitialRender(false)
       // set(false)
     }
@@ -130,7 +179,7 @@ export const Popover = ({
    */
 
   React.useEffect(() => {
-    if (!box) return
+    if (!box.measured) return
     if (anchorWidth) {
       setWidth(box.width)
     }
@@ -265,7 +314,7 @@ export const Popover = ({
   const gapY = typeof gap === 'object' ? gap.y : gap
 
   const getX = () => {
-    if (!box) return
+    if (!box.measured) return
     return position.x === 'center'
       ? box.left + box.width / 2 - width / 2
       : position.x === 'left'
@@ -280,7 +329,7 @@ export const Popover = ({
    */
 
   const getY = () => {
-    if (!box) return
+    if (!box.measured) return
     return position.y === 'top'
       ? box.documentTop - height - gapY
       : position.y === 'bottom'
@@ -290,7 +339,8 @@ export const Popover = ({
       : 0
   }
 
-  return (
+  return typeof window !== 'undefined' && box.measured ? (
+    // @ts-ignore
     <Portal root={appendTo}>
       {animate(
         (props, item) =>
@@ -298,10 +348,10 @@ export const Popover = ({
             <AnimatedDiv
               id={id}
               ref={popoverRef}
-              className={mergeSelector(
+              className={mergeSelectors([
                 `popover${show ? ' active' : ''}`,
-                className
-              )}
+                className,
+              ])}
               style={props as any}
               css={{
                 position: 'absolute',
@@ -332,7 +382,7 @@ export const Popover = ({
           )
       )}
     </Portal>
-  )
+  ) : null
 }
 
 Popover.displayName = 'Popover'
