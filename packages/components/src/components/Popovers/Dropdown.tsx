@@ -28,6 +28,8 @@ interface DropdownProps {
  *
  * @todo - clean up external `controls` implementation
  *
+ * @todo - known issue with scale transition and height measurements
+ *
  * @link https://maker-ui.com/docs/components/popovers
  */
 

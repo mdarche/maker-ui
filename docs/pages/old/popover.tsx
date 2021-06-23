@@ -50,8 +50,7 @@ const PopoverPage = () => {
           </ul>
         </Div>
       </Popover>
-      {/*
-      <Dropdown button="Click here" transition="scale" trapFocus>
+      <Dropdown button="Click here" transition="fade-down" trapFocus>
         <Div
           css={{
             background: 'gainsboro',
@@ -77,7 +76,7 @@ const PopoverPage = () => {
             </li>
           </ul>
         </Div>
-      </Dropdown> */}
+      </Dropdown>
       <Div css={{ height: 500 }}>{/* <a href="/">Test</a> */}</Div>
     </Section>
   )

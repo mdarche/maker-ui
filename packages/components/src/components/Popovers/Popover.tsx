@@ -1,12 +1,6 @@
 import * as React from 'react'
 import { useTransition, animated, SpringConfig } from '@react-spring/web'
-import {
-  Div,
-  DivProps,
-  // useMakerUI,
-  MakerProps,
-  mergeSelectors,
-} from 'maker-ui'
+import { Div, DivProps, MakerProps, mergeSelectors } from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { getSign } from '../helper'

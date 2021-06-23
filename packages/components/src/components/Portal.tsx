@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 
 interface PortalProps {
   children: React.ReactNode
-  root?: string
+  root?: string | Element
 }
 
 /**
@@ -16,10 +16,16 @@ interface PortalProps {
 
 export const Portal = ({ children, root }: PortalProps) => {
   if (typeof window !== 'undefined') {
-    const idTarget = root ? (document.getElementById(root) as Element) : null
+    const idTarget =
+      root && typeof root === 'string'
+        ? (document.getElementById(root) as Element)
+        : root
+        ? root
+        : null
     const targetNode =
       root && idTarget ? idTarget : (document.querySelector('body') as Element)
 
+    // @ts-ignore
     return createPortal(children, targetNode)
   }
   return <>{children}</>
