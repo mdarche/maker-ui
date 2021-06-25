@@ -79,10 +79,6 @@ export type MakerUIOptions = Partial<MakerOptions>
  */
 export interface MakerOptions {
   /**
-   * SSG framework optimizations for Gatsby and NextJS.
-   */
-  framework?: 'gatsby' | 'next'
-  /**
    * An array of browser widths that is used as the default breakpoints for
    * all nested Maker UI components and primitives.
    *

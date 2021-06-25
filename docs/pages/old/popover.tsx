@@ -15,7 +15,7 @@ const PopoverPage = () => {
         css={{ marginRight: 10 }}>
         Popover toggle
       </Button>
-      <Tooltip background="purple" label="test" position="right">
+      <Tooltip background="purple" label="test" position="bottom" gap={10}>
         Hover here!
       </Tooltip>
       <Popover

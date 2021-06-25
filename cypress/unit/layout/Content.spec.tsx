@@ -59,17 +59,6 @@ describe('Content component', () => {
     )
     cy.contains('Invalid layout configuration')
   })
-
-  it('removes hidden visibility when using Gatsby', () => {
-    mount(
-      <Wrapper options={{ framework: 'gatsby' }}>
-        <Content>
-          <Main>content</Main>
-        </Content>
-      </Wrapper>
-    )
-    cy.get('#site-inner').should('not.have.css', 'visibility', 'hidden')
-  })
 })
 
 /**

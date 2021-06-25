@@ -7,7 +7,7 @@ import { getSign } from './helper'
 const AnimatedDiv = animated(Div)
 
 export interface PageTransitionProps {
-  type?: string
+  type?: 'fade-up' | 'fade-right' | 'fade-left' | 'fade-down'
   distance?: number
   springConfig?: any
   id?: string | number
