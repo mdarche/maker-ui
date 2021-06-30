@@ -104,7 +104,7 @@ export function useLayoutStyles(layout: string): object {
         willChange: 'transform',
         transform: 'translateX(0)',
         transition: getTransition(),
-        '&.hide': {
+        '&.hide-sidenav': {
           transform: [`translateX(${direction})`, 'none'],
         },
         '> .container': {

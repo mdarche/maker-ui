@@ -75,7 +75,7 @@ export const SideNav = ({
       <Container
         isHeader={sideNav.isHeader}
         id={mergeSelectors(['sidenav', id])}
-        className={mergeSelectors([!active ? 'hide' : '', className])}
+        className={mergeSelectors([!active ? 'hide-sidenav' : '', className])}
         css={{
           background,
           ...(_css as object),

@@ -20,6 +20,7 @@ const PopoverPage = () => {
       </Tooltip>
       <Popover
         anchorRef={buttonRef}
+        trapFocus
         // anchorWidth
         // position={{ x: 'right', y: 'bottom' }}
         show={show}
