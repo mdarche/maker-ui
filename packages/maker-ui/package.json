@@ -1,7 +1,7 @@
 {
   "name": "maker-ui",
   "description": "The fastest way to build themeable, responsive layouts in React",
-  "version": "1.0.0-beta.11",
+  "version": "1.0.0-beta.12",
   "license": "MIT",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -19,9 +19,9 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@maker-ui/css": "1.0.0-beta.11",
-    "@maker-ui/layout": "1.0.0-beta.11",
-    "@maker-ui/primitives": "1.0.0-beta.11",
+    "@maker-ui/css": "1.0.0-beta.12",
+    "@maker-ui/layout": "1.0.0-beta.12",
+    "@maker-ui/primitives": "1.0.0-beta.12",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
