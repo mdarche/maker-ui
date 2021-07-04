@@ -72,12 +72,12 @@ export const PostNavigation = ({ pageTitle = true }) => {
           },
         },
         '.pagination-label': {
-          fontSize: 13,
-          marginBottom: 5,
+          fontSize: 12,
+          marginBottom: 0,
           color: 'var(--color-primary)',
         },
         '.pagination-title': {
-          fontSize: 19,
+          fontSize: 16,
           color: 'var(--color-text)',
         },
         '.next': {

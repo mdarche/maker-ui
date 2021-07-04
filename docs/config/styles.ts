@@ -37,7 +37,8 @@ export const styles = {
     borderColor: 'var(--color-border)',
     'li a': {
       color: 'var(--color-text)',
-      fontWeight: 700,
+      fontWeight: 500,
+      fontSize: 15,
       transition: 'color ease 0.3s',
       '&.current, &:hover': {
         color: 'var(--color-link)',
@@ -52,7 +53,7 @@ export const styles = {
     'ul ul': {
       borderLeft: '1px solid',
       borderColor: 'var(--color-border_dark)',
-      margin: '5px 0 5px 36px',
+      margin: '0 0 0 35px',
       padding: 0,
     },
     'li div': {

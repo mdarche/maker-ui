@@ -25,9 +25,10 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
         <Flex
           align="center"
           css={{
-            svg: { height: 12, marginRight: 15, fill: 'var(--color-primary)' },
+            svg: { height: 10, marginRight: 15, fill: 'var(--color-primary)' },
             fontWeight: 700,
-            fontSize: 14,
+            fontSize: 11,
+            letterSpacing: '0.1em',
             textTransform: 'uppercase',
           }}>
           <ContentIcon /> Contents
