@@ -29,7 +29,7 @@ export const SideButtons = ({ pathname }: SideButtonsProps) => {
             transform: 'translateX(5px)',
           },
           svg: {
-            height: 17,
+            height: 16,
             fill: 'var(--color-primary)',
             marginRight: 15,
           },

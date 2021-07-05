@@ -101,11 +101,9 @@ On **Lines 17 and 18**, we choose from 12 pre-built CSS grid layouts to dictate 
 
 Lastly, on **Lines 19 and 20**, we specify that we want our header to use sticky positioning on desktop and a relative position on mobile.
 
-With the options configuration object, you can control 50+ settings that tell your layout how to behave. For a complete list of layout settings, check out the [Maker UI Options guide](/docs/maker-ui-options).
+With the options configuration object, you can control 50+ settings that tell your layout how to behave. You can use `MakerUIOptions` to set color modes, handle error boundaries, configure dropdown menus, and much more. Keep reading through the docs for more examples. For a complete list of layout settings, check out the [Maker UI Options guide](/docs/maker-ui-options).
 
 ## Add a Logo and Menu
-
-What good is a UI if it doesn't match your brand?
 
 Now we can import a custom Logo component and create our header navigation menu.
 
@@ -177,9 +175,7 @@ All Maker UI layout components accept the `css` and `breakpoints` props ([covere
 
 To address this, Maker UI's root `<Layout>` component accepts a `styles` prop where you can add global styles that are applied to the document head.
 
-<Callout type="info">
-  The `styles` prop fully supports responsive arrays.
-</Callout>
+<Callout type="info">The styles prop fully supports responsive arrays.</Callout>
 
 ```jsx {16-30,34}
 import * as React from 'react'
@@ -247,10 +243,8 @@ You can use your router's current location to trigger conditional layouts and yo
 
 Checkout the getting started guides for [NextJS](/docs/nextjs), [Gatsby](/docs/gatsby), or [Create React App](/docs/create-react-app) to learn precisely how to handle this step in your framework of choice.
 
-## Disclaimers
+## Best Practices
 
-In a real application, you would typically store your `options`, `styles`, and `menu` objects in separate files or even generate them dynamically via network requests at build time.
+In a real application, you would typically store your `options`, `styles`, and `menu` objects in separate files or even generate them dynamically via network requests at build or runtime.
 
-Also note that this demo doesn't even begin to touch on all of the amazing features and functions of Maker UI's layout system.
-
-You can use `MakerUIOptions` to set color modes, handle error boundaries, configure dropdown menus, and much more. Keep reading through the docs for more examples.
+See [Best Practices](/docs/best-practices) for a complete list of helpful tips and common issues.

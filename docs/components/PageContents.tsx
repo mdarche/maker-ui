@@ -54,6 +54,11 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
           padding: 5,
           color: '#555',
         },
+        '.level-1, .level-2': {
+          borderLeft: '1px solid',
+          borderColor: 'var(--color-border)',
+          marginLeft: 7,
+        },
       }}
     />
   )

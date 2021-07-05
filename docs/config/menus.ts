@@ -12,10 +12,10 @@ export const menu: MakerMenu = [
       { label: 'Create React App', path: '/docs/create-react-app' },
     ],
   },
-  // { label: 'Best Practices', path: '/docs/best-practices' },
   { label: 'Primitives', path: '/docs/primitives' },
   { label: 'Styling Components', path: '/docs/styling-components' },
   { label: 'Maker UI Options', path: '/docs/maker-ui-options' },
+  { label: 'Best Practices', path: '/docs/best-practices' },
   {
     label: 'Layout API',
     path: '/docs/layout-api',

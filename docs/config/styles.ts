@@ -23,7 +23,7 @@ export const styles = {
   main: {
     fontSize: 17,
     lineHeight: 1.6,
-    padding: ['50px 30px'],
+    padding: ['20px 30px 50px'],
     h2: {
       borderBottom: '1px solid',
       borderColor: 'var(--color-border_dark)',
@@ -65,7 +65,7 @@ export const styles = {
     },
     a: {
       display: 'block',
-      padding: '8px 35px',
+      padding: '8px 30px',
     },
   },
 }
