@@ -51,13 +51,13 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
         a: {
           display: 'block',
           fontSize: 13,
-          padding: 5,
+          padding: '5px 0',
           color: '#555',
         },
         '.level-1, .level-2': {
           borderLeft: '1px solid',
           borderColor: 'var(--color-border)',
-          marginLeft: 7,
+          marginLeft: 5,
         },
       }}
     />

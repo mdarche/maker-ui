@@ -49,7 +49,7 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
       {...props}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <Div
-          className="gatsby-highlight"
+          className="highlight"
           data-language={language}
           css={{
             position: 'relative',

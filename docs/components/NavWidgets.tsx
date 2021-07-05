@@ -40,8 +40,8 @@ export const NavWidgets = ({ pathname }: NavWidgetProps) => {
         <GithubIcon css={{ height: 23 }} />
       </a>
       <Dropdown
+        _css={{ marginLeft: 50 }}
         buttonCss={{
-          marginLeft: 50,
           display: 'flex',
           alignItems: 'center',
           background: 'none',

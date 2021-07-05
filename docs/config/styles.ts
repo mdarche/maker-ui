@@ -28,7 +28,7 @@ export const styles = {
       borderBottom: '1px solid',
       borderColor: 'var(--color-border_dark)',
       paddingBottom: 10,
-      margin: '40px 0 30px',
+      margin: '60px 0 30px',
     },
   },
   //SideNav styles

@@ -12,8 +12,8 @@ export const menu: MakerMenu = [
       { label: 'Create React App', path: '/docs/create-react-app' },
     ],
   },
-  { label: 'Primitives', path: '/docs/primitives' },
   { label: 'Styling Components', path: '/docs/styling-components' },
+  { label: 'Primitives', path: '/docs/primitives' },
   { label: 'Maker UI Options', path: '/docs/maker-ui-options' },
   { label: 'Best Practices', path: '/docs/best-practices' },
   {

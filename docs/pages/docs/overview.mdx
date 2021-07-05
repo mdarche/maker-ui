@@ -1,12 +1,12 @@
 # Overview
 
-Maker UI is a CSS-in-JS design system that helps you build responsive React apps. Build accessible, production ready layouts in just a few lines of code, or use Maker UI primitives to effortless construct responsive components.
+Maker UI is a CSS-in-JS design system that helps you build responsive React apps. Build accessible, production ready layouts in just a few lines of code, or use Maker UI primitives to effortlessly construct responsive components.
 
-## How to use Maker UI
+## How to Use Maker UI
 
 There are 2 ways to use Maker UI:
 
-- With a Layout provider
+- With a Layout Provider
 - With CSS-in-JS Primitives
 
 ### With a Layout Provider
@@ -28,30 +28,30 @@ Whenever you want to build responsive styles, just import any of the components 
 
 ## TypeScript
 
-Maker UI is built with TypeScript and includes type definitions as well as [TSDocs](https://tsdoc.org/) compatible comments for all types, hooks, and component exports.
+Maker UI is 100% written in TypeScript and includes type definitions as well as [TSDocs](https://tsdoc.org/) compatible comments for all exported types, hooks, and components.
 
 ## Motivation
 
-This library is intended to help React Developers quickly prototype high quality applications apps with a flexible, strong typed layout system. Maker UI lets move from static Figma or Sketch designs to production-grade layouts without the all of the setup headaches.
+This library is intended to help React Developers quickly prototype high quality applications apps with a flexible, strong typed layout system. Move from static Figma or Sketch designs to production-grade layouts without the all of the setup headaches.
 
 - No more bloated UI libraries
 - Array-based CSS-in-JS media queries
-- Built on top of CSS variables, grid, and flex
+- Build with CSS variables, grid, and flex
 
 The API is simple yet infinitely customizable, allowing you to recreate any app layout you might encounter on the web.
 
 ## Shoutouts
 
-Credit is due to 3 incredible open source projects in the React ecosystem:
+Credit is due to 3 awesome projects in the React ecosystem:
 
-### Emotion
+#### Emotion
 
-Maker UI has only one critical dependency: [@emotion/react](https://github.com/emotion-js/emotion). We build on top of Emotion's `jsx` prop for our custom JSX factory. Emotion is a performant and flexible CSS-in-JS library that can be used safely with SSR.
+Maker UI has only one critical dependency: [@emotion/react](https://github.com/emotion-js/emotion). We build on top of Emotion's `jsx` prop to power our custom JSX factory. Emotion is a performant and flexible CSS-in-JS library that fully supports SSR in addition to runtime styles.
 
-### React Spring
+#### React Spring
 
-Although Maker UI uses pure CSS for almost every transition state, in some cases we must gracefully mount and unmount components. The Popover, Modal, Lightbox, and Carousel components from `@maker-ui/components` use Paul Henschel / Poinmandres' amazing [React Spring](https://github.com/pmndrs/react-spring) library.
+This library uses pure CSS for almost every transition state, but in some cases we must gracefully mount and unmount components. The optional Popover, Modal, Lightbox, and Carousel components from `@maker-ui/components` all use the amazing [React Spring](https://github.com/pmndrs/react-spring) library.
 
-### Theme UI
+#### Theme UI
 
 Maker UI is partly inspired by the innovations of Brent Jackson’s [Theme UI](https://github.com/system-ui/theme-ui). Theme UI introduced a responsive `sx` prop with array-based media queries that dramatically improves UI developer experience. Not having to write Sass mixins or a million `@media screen and (min-width: ...)` rules is an incredible boost to responsive website development.
