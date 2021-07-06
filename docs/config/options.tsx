@@ -56,7 +56,7 @@ export const options: MakerUIOptions = {
     </Link>
   ),
   content: {
-    maxWidth: 1000,
+    maxWidth: 1050,
   },
   sideNav: {
     width: 280,

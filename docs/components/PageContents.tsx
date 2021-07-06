@@ -21,6 +21,7 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
       breakpoints={[1200]}
       pathname={pathname}
       footerComponent={<SideButtons pathname={pathname} />}
+      indentSize={12}
       title={
         <Flex
           align="center"
@@ -40,9 +41,7 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
       css={{
         display: ['none', 'block'],
         top: 120,
-        borderLeft: '1px solid',
         paddingLeft: 20,
-        borderColor: 'var(--color-border)',
         ul: {
           lineHeight: 1.5,
           listStyleType: 'none',
@@ -57,7 +56,7 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
         '.level-1, .level-2': {
           borderLeft: '1px solid',
           borderColor: 'var(--color-border)',
-          marginLeft: 5,
+          marginLeft: 3,
         },
       }}
     />

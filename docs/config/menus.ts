@@ -19,6 +19,7 @@ export const menu: MakerMenu = [
   {
     label: 'Layout API',
     path: '/docs/layout-api',
+    className: 'api-btn',
     openNested: true,
     submenu: [
       { label: 'Layout', path: '/docs/layout' },
@@ -37,6 +38,7 @@ export const menu: MakerMenu = [
   {
     label: 'Components API',
     path: '/docs/components-api',
+    className: 'api-btn',
     openNested: true,
     submenu: [
       { label: 'ColorButton', path: '/docs/color-button' },

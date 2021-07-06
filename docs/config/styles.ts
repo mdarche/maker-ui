@@ -20,6 +20,14 @@ export const styles = {
     borderColor: 'var(--color-border)',
     padding: '5px 35px',
   },
+  '.api-btn > div > a': {
+    border: '1px solid',
+    background: 'var(--color-bg_header)',
+    borderColor: 'var(--color-border_dark)',
+    width: '100%',
+    margin: '5px 0 0',
+    padding: '10px',
+  },
   main: {
     fontSize: 17,
     lineHeight: 1.6,
