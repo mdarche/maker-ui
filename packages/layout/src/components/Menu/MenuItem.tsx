@@ -16,12 +16,14 @@ import { mergeSelectors } from '../../utils/helper'
 export interface MenuItemProps {
   label: string
   path: string
-  classes?: string
+  className?: string
   icon?: React.ReactElement
   newTab?: boolean
   submenu?: MenuItemProps[]
   openNested?: boolean
 }
+
+
 
 export type MakerMenu = MenuItemProps[]
 
@@ -51,7 +53,7 @@ export const MenuItem = memo(
       newTab,
       submenu,
       openNested = false,
-      classes = '',
+      className = '',
       icon,
     },
     caret = false,
@@ -77,7 +79,7 @@ export const MenuItem = memo(
 
     return (
       <li
-        className={mergeSelectors(['menu-item', classes])}
+        className={mergeSelectors(['menu-item', className])}
         css={
           isHeader
             ? {

@@ -4,8 +4,8 @@ import Link from 'next/link'
 
 export const options: MakerUIOptions = {
   fonts: {
-    heading: 'Inter, Helvetica Neue, Arial, sans-serif',
-    body: 'Inter, Helvetica Neue, Arial, sans-serif',
+    heading: 'Helvetica Neue, Arial, sans-serif',
+    body: 'Helvetica Neue, Arial, sans-serif',
     monospace: 'monospace',
   },
   colors: {
@@ -18,7 +18,7 @@ export const options: MakerUIOptions = {
       border: '#F0F2F7',
       border_dark: '#E4E4E4',
       header_fill: '#282935',
-      callout_suggestion: '#dcffdc',
+      callout_suggestion: '#e6fde6',
       callout_suggestion_border: '#0ddf0d',
       callout_alert: '#feebeb',
       callout_alert_border: 'red',
@@ -50,16 +50,20 @@ export const options: MakerUIOptions = {
     breakpoint: 0,
     showColorButton: false,
   },
-  linkFunction: (path, children, attributes) => (
+  linkFunction: (
+    path: string,
+    children: React.ReactNode,
+    attributes: object
+  ) => (
     <Link href={path}>
       <a {...attributes}>{children}</a>
     </Link>
   ),
   content: {
-    maxWidth: 1200,
+    maxWidth: 1050,
   },
   sideNav: {
-    width: 300,
+    width: 280,
     isPrimaryMobileNav: true,
     showToggleOnMobile: false,
   },

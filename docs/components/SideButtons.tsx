@@ -16,10 +16,10 @@ export const SideButtons = ({ pathname }: SideButtonsProps) => {
           alignItems: 'center',
           border: '1px solid',
           borderColor: 'var(--color-border)',
-          padding: '15px 25px',
+          padding: '12px 25px',
           marginBottom: 20,
           borderRadius: 3,
-          fontSize: 16,
+          fontSize: 14,
           color: 'var(--color-text)',
           transition: 'all ease 0.3s',
           '&:hover': {
@@ -29,7 +29,7 @@ export const SideButtons = ({ pathname }: SideButtonsProps) => {
             transform: 'translateX(5px)',
           },
           svg: {
-            height: 18,
+            height: 16,
             fill: 'var(--color-primary)',
             marginRight: 15,
           },

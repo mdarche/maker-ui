@@ -1,7 +1,6 @@
 import * as React from 'react'
 import {
   Div,
-  UList,
   ListItem,
   DivProps,
   useScrollPosition,
@@ -16,7 +15,7 @@ interface MenuItem {
   offset: number
 }
 
-interface TocProps extends Omit<DivProps, 'title'> {
+interface ToCProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
   headings?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6')[] | 'all'
   indent?: boolean
@@ -53,7 +52,7 @@ export const TableofContents = ({
   css,
   pathname,
   footerComponent,
-}: TocProps) => {
+}: ToCProps) => {
   const [menuItems, setMenu] = React.useState<MenuItem[]>([])
   const [activeNode, setActiveNode] = React.useState<number | null>(null)
 
@@ -79,12 +78,14 @@ export const TableofContents = ({
       document.querySelectorAll(selectors)
     )
 
+    console.log('Nodes are', nodes)
+
     if (nodes.length) {
       const menu = nodes.reduce<any>(
-        (filtered, { id, innerHTML, offsetTop, tagName }) => {
+        (filtered, { id, innerHTML, innerText, offsetTop, tagName }) => {
           if (id) {
             filtered.push({
-              text: innerHTML,
+              text: !innerHTML.includes('<!--') ? innerHTML : innerText,
               id,
               level: getLevel(tagName),
               offset: offsetTop,
@@ -163,16 +164,20 @@ export const TableofContents = ({
         position: sticky ? 'sticky' : undefined,
         top: sticky ? 0 : undefined,
         ...(css as object),
+        ul: {
+          padding: 0,
+          listStyle: 'none',
+        },
       }}>
-      <Div>{title}</Div>
-      <UList className="toc-headings" css={{ padding: 0 }}>
+      <div>{title}</div>
+      <ul className="toc-headings">
         {menuItems.length
           ? menuItems.map(({ id, text, level }: MenuItem, index) => (
               <ListItem
                 key={index}
                 className={`level-${level}`}
                 css={{
-                  paddingLeft: indent ? `${indentSize * level}px` : undefined,
+                  paddingLeft: indent ? indentSize * level : undefined,
                   a: { position: 'relative' },
                   'a.active, a:hover': { color: activeColor || undefined },
                   'a.active': marker && {
@@ -203,7 +208,7 @@ export const TableofContents = ({
               </ListItem>
             ))
           : null}
-      </UList>
+      </ul>
       {footerComponent}
     </Div>
   )

@@ -260,7 +260,7 @@ function useColorTheme() {
     setState,
   } = React.useContext(LayoutContext)
 
-  const colors = options.colors ? Object.keys(options.colors) : ['light']
+  const themes = options.colors ? Object.keys(options.colors) : ['light']
 
   function setColorTheme(theme: string) {
     if (options.persistentColorMode) {
@@ -270,7 +270,7 @@ function useColorTheme() {
     setState(s => ({ ...s, colorTheme: theme }))
   }
 
-  return { colorTheme, setColorTheme, colors }
+  return { colorTheme, setColorTheme, themes }
 }
 
 export {

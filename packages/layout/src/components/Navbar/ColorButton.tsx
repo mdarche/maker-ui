@@ -27,11 +27,11 @@ export const ColorButton = ({
   ...props
 }: ColorButtonProps) => {
   const { header, breakpoints: bps } = useOptions()
-  const { colorTheme, setColorTheme, colors } = useColorTheme()
+  const { colorTheme, setColorTheme, themes } = useColorTheme()
 
   const cycleMode = () => {
-    const i = colors.indexOf(colorTheme as string)
-    const next = colors[(i + 1) % colors.length]
+    const i = themes.indexOf(colorTheme as string)
+    const next = themes[(i + 1) % themes.length]
 
     setColorTheme(next)
   }
@@ -50,7 +50,7 @@ export const ColorButton = ({
   // Use custom button from props or check header options
   const colorButton = customButton || header.colorButton
 
-  if (colors.length === 1) {
+  if (themes.length === 1) {
     return null
   }
 

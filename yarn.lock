@@ -1765,11 +1765,6 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@fontsource/inter@^4.4.5":
-  version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/inter/-/inter-4.4.5.tgz#bce26ff9dd83898bd610924cff1342cc30d0e89a"
-  integrity sha512-eRUmB54CbyC3MhAuw2VvTPEc3wy8sFi0/1mVHaC7ZXglXcrSWXY+p8Xad/Zy8AcmS9BuqCCEH2qJbOt9XdX65Q==
-
 "@graphql-tools/batch-execute@^7.1.2":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@graphql-tools/batch-execute/-/batch-execute-7.1.2.tgz#35ba09a1e0f80f34f1ce111d23c40f039d4403a0"
@@ -2989,6 +2984,62 @@
   dependencies:
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
+
+"@maker-ui/css@1.0.0-beta.10":
+  version "1.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@maker-ui/css/-/css-1.0.0-beta.10.tgz#e970c843af0c140044d1244ccda7ff4ca1ddf656"
+  integrity sha512-5dAZOWfyFFjy+EmtTNh+Om+6sYZmToEMtwLhYS9kxUgZDkPUXcY5UcSNSagSUW//frzeK67qpR0j9wL6Ns93kg==
+  dependencies:
+    "@emotion/react" "^11.1.4"
+    deepmerge "^4.2.2"
+
+"@maker-ui/css@1.0.0-beta.11":
+  version "1.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/@maker-ui/css/-/css-1.0.0-beta.11.tgz#f83ac57540cc620106f1558c69d125bef9c0939e"
+  integrity sha512-oz5ciMRdWi9xBvbgz70y5blpeBEHsP/KqN8eSFwaOg5QQIVjOyy3Eng8GIUuNzIVUfKepSJHv9B1CEoRvuMv6g==
+  dependencies:
+    "@emotion/react" "^11.1.4"
+    deepmerge "^4.2.2"
+
+"@maker-ui/layout@1.0.0-beta.10":
+  version "1.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@maker-ui/layout/-/layout-1.0.0-beta.10.tgz#0f3370047eedacceb06df3f45c996fc32b624a41"
+  integrity sha512-e20ZrESZrdZAew3uTdrVQC1XuZiQnClwXoJ/M5GYDSceXgQdhUY+eABRyb2QzdMe3R2z/XeQLoRds51GAi+tCA==
+  dependencies:
+    "@emotion/react" "^11.1.4"
+    "@maker-ui/css" "1.0.0-beta.10"
+    "@maker-ui/primitives" "1.0.0-beta.10"
+    deepmerge "^4.2.2"
+    resize-observer-polyfill "^1.5.1"
+    tslib "^2.0.0"
+
+"@maker-ui/layout@1.0.0-beta.11":
+  version "1.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/@maker-ui/layout/-/layout-1.0.0-beta.11.tgz#219bcf49a6e9fcf2a79d4b808314b5b7c14015d0"
+  integrity sha512-qSjIqPv6Q+h1wIGRBGJLKHf62m67Uuo93tRftkF5u0Ht6S/kzaQWlQ0WdwSQ97PHqgdhgn8cjXNtzGZO7Pvy+w==
+  dependencies:
+    "@emotion/react" "^11.1.4"
+    "@maker-ui/css" "1.0.0-beta.11"
+    "@maker-ui/primitives" "1.0.0-beta.11"
+    deepmerge "^4.2.2"
+    react-use-measure "^2.0.4"
+    tslib "^2.0.0"
+
+"@maker-ui/primitives@1.0.0-beta.10":
+  version "1.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@maker-ui/primitives/-/primitives-1.0.0-beta.10.tgz#b1255fde9c5e0753692c7f7432fb7567e4e4ec35"
+  integrity sha512-bmn61ZbsOJFpHiSp+Oijel6fDqdE6/wJSZy6EiPQCJIos63WZP98SefrQxveyNHHMfXH+TdDUi6asVI0mZmpiw==
+  dependencies:
+    "@maker-ui/css" "1.0.0-beta.10"
+    csstype "^3.0.6"
+
+"@maker-ui/primitives@1.0.0-beta.11":
+  version "1.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/@maker-ui/primitives/-/primitives-1.0.0-beta.11.tgz#de7d08155c5a1c41ac4d272c7238ec00c8fd2994"
+  integrity sha512-hcqXqON133M0GpQoauQOof23Y4zJsKy8tkXfhER/mp4wy2cwf3njh6yDXeAVWdmS50PdV1g7JOYuuoGwQMN1FQ==
+  dependencies:
+    "@maker-ui/css" "1.0.0-beta.11"
+    csstype "^3.0.6"
 
 "@mdx-js/loader@^1.6.22":
   version "1.6.22"
@@ -14291,6 +14342,26 @@ makeerror@1.0.x:
   dependencies:
     tmpl "1.0.x"
 
+maker-ui@1.0.0-beta.10:
+  version "1.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/maker-ui/-/maker-ui-1.0.0-beta.10.tgz#a1eae3940d5afa88ec45a4853c35d43acdce5cb8"
+  integrity sha512-8lsBVevavwtfjluFN3I+Z7Hlhgp2UGQBtRYeM5Wf4BEmkKddyRzEvo9cxTPGpbev9xB3feZxkGK6y9WNKUb8aQ==
+  dependencies:
+    "@maker-ui/css" "1.0.0-beta.10"
+    "@maker-ui/layout" "1.0.0-beta.10"
+    "@maker-ui/primitives" "1.0.0-beta.10"
+    tslib "^2.0.0"
+
+maker-ui@1.0.0-beta.11:
+  version "1.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/maker-ui/-/maker-ui-1.0.0-beta.11.tgz#b995bd2c528ac7b4bbbd3d5cb567c0e81256d6ce"
+  integrity sha512-HVaj84+1J5+XxwL6mIcNh/eIxk798xCarwDlK/RS9x5ZmyXKDmmiRIhvgPg24nhXWg5hD9MiYRjhIdRDQJOUQw==
+  dependencies:
+    "@maker-ui/css" "1.0.0-beta.11"
+    "@maker-ui/layout" "1.0.0-beta.11"
+    "@maker-ui/primitives" "1.0.0-beta.11"
+    tslib "^2.0.0"
+
 map-cache@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
@@ -18568,6 +18639,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
