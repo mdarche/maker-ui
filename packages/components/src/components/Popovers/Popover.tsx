@@ -88,28 +88,30 @@ export const Popover = ({
   })
 
   function resize() {
-    const {
-      top,
-      bottom,
-      left,
-      right,
-      x,
-      y,
-      height,
-      width,
-    } = anchorRef.current.getBoundingClientRect()
-    setBox({
-      top,
-      bottom,
-      left,
-      right,
-      x,
-      y,
-      height,
-      width,
-      documentTop: top + document.documentElement.scrollTop,
-      measured: true,
-    })
+    if (anchorRef.current) {
+      const {
+        top,
+        bottom,
+        left,
+        right,
+        x,
+        y,
+        height,
+        width,
+      } = anchorRef.current.getBoundingClientRect()
+      setBox({
+        top,
+        bottom,
+        left,
+        right,
+        x,
+        y,
+        height,
+        width,
+        documentTop: top + document.documentElement.scrollTop,
+        measured: true,
+      })
+    }
   }
 
   // Initial Measurement or changing Anchor Ref
