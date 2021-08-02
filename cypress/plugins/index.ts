@@ -15,11 +15,10 @@ const { startDevServer } = require('@cypress/webpack-dev-server')
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-/**
- * @type {Cypress.PluginConfig}
- */
-// @ts-ignore
-module.exports = (on, config) => {
+module.exports = (
+  on: Cypress.PluginEvents,
+  config: Cypress.PluginConfigOptions
+) => {
   // require('@cypress/code-coverage/task')(on, config)
   const webpackConfig = findReactScriptsWebpackConfig(config)
 

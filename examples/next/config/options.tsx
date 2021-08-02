@@ -12,7 +12,11 @@ export const options: MakerUIOptions = {
     },
     breakpoint: 0,
   },
-  linkFunction: (path, children, attributes) => (
+  linkFunction: (
+    path: string,
+    children: React.ReactNode,
+    attributes: object
+  ) => (
     <Link href={path}>
       <a {...attributes}>{children}</a>
     </Link>

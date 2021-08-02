@@ -4,7 +4,7 @@
     "clean": "lerna run clean",
     "git-clean": "git clean -fXd -e \\!node_modules -e \\!node_modules/**/*",
     "git-reset": "git reset --hard HEAD",
-    "lerna": "lerna",
+    "docs-start": "yarn workspace docs dev",
     "start": "lerna run start --stream --parallel",
     "test": "lerna run test --",
     "lint": "lerna run lint -- --fix",

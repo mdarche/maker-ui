@@ -14,6 +14,29 @@ export const styles = {
     backgroundColor: 'var(--color-bg_code)',
     padding: '0 8px',
   },
+  // MDX Headings
+  '.markdown>h2:before, .markdown>h3:before, .markdown>h4:before': {
+    display: 'block',
+    height: '6rem',
+    marginTop: '-6rem',
+    visibility: 'hidden',
+    content: '""',
+  },
+  // Heading Links
+  '.anchor-link': {
+    display: 'inline-block',
+    marginLeft: 8,
+    textDecoration: 'underline',
+    opacity: 0,
+    '&:focus': {
+      opacity: 1,
+    },
+  },
+  'h2:hover, h3:hover, h4:hover': {
+    '.anchor-link': {
+      opacity: 1,
+    },
+  },
   // Header Styles
   header: {
     borderBottom: '1px solid',

@@ -12,6 +12,12 @@ export type Partial<T> = {
 }
 
 /**
+ * Utility type for responsive css strings
+ */
+
+type ResponsiveString = string | string[]
+
+/**
  * Configuration for the Maker UI layout system.
  *
  * @link https://maker-ui.com/docs/maker-options
@@ -21,31 +27,31 @@ export type Partial<T> = {
 type ThemeColors = {
   [key: string]: {
     /** The site's primary text color. */
-    text: string
+    text: ResponsiveString
     /** The default color for all anchor tags. */
-    link: string
+    link: ResponsiveString
     /** The default hover color for all anchor tags. */
-    link_hover: string
+    link_hover: ResponsiveString
     /** The site's primary brand or accent color. */
-    primary: string
+    primary: ResponsiveString
     /** The site's secondary brand or accent color. */
-    secondary: string
+    secondary: ResponsiveString
     /** The site's background color. */
-    background: string
+    background: ResponsiveString
     /** The topbar background color. */
-    bg_topbar: string
+    bg_topbar: ResponsiveString
     /** The header background color. */
-    bg_header: string
+    bg_header: ResponsiveString
     /** The navbar's dropdown menu background color. */
-    bg_dropdown: string
+    bg_dropdown: ResponsiveString
     /** The mobile menu's background color. */
-    bg_mobileMenu: string
+    bg_mobileMenu: ResponsiveString
     /** The side navigation background color. */
-    bg_sideNav: string
+    bg_sideNav: ResponsiveString
     /** The footer background color. */
-    bg_footer: string
+    bg_footer: ResponsiveString
   } & {
-    [key: string]: string
+    [key: string]: ResponsiveString
   }
 }
 

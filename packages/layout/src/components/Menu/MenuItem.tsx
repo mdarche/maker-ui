@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@maker-ui/css'
 import { Link } from '@maker-ui/primitives'
-import { Fragment, useState, memo, isValidElement } from 'react'
+import React, { Fragment, useState, memo, isValidElement } from 'react'
 
 import { useOptions } from '../../context/OptionContext'
 import { ExpandButton } from './ExpandButton'
@@ -23,7 +23,29 @@ export interface MenuItemProps {
   openNested?: boolean
 }
 
-
+/**
+ * `MakerMenu` is the menu structure for all menu-compatible Maker UI components. Create a
+ * deeply nested array of menu items that include:
+ *
+ * @param {string} label The menu item label
+ * @param {string} path The relative path or off-site URL
+ * @param {string?} className Custom class selectors for the menu item
+ * @param {React.ReactElement?} icon A React element to be rendered before the label
+ * @param {boolean} newTab A boolean that specifies whether the link should open in a new tab
+ * @param {MenuItem[]} submenu A nested array of additional MenuItems
+ * @param {boolean} openNested A boolean that hides or displays the nested submenu
+ *
+ * @example
+ * const menu: MakerMenu = [
+ *  { label: 'Home', path: '/' },
+ *  { label: 'About', path: '/about', submenu:
+ *    [
+ *      { label: 'Team', path: '/about/team' },
+ *      { label: 'History', path: '/about/history' },
+ *    ]
+ *  },
+ * ]
+ */
 
 export type MakerMenu = MenuItemProps[]
 

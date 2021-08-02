@@ -133,11 +133,11 @@ export const Modal = ({
               className={mergeSelectors(['modal', className])}
               aria-label={title}
               aria-modal="true"
-              style={props as any}
+              style={props}
               tabIndex={focusable.count === 0 ? 0 : undefined}
               css={{
-                ...(position as object),
-                ...(centered(center) as object),
+                ...position,
+                ...centered(center),
                 zIndex: 101,
                 ...(_css as object),
               }}>
@@ -146,7 +146,7 @@ export const Modal = ({
                 onClick={() => (closeOnBlur ? closeModal() : undefined)}
                 className="modal-overlay"
                 css={{
-                  ...(position as object),
+                  ...position,
                   zIndex: -1,
                   background,
                 }}
@@ -167,7 +167,7 @@ export const Modal = ({
 Modal.displayName = 'Modal'
 
 /**
- * Helper positioning function
+ * Helper positioning object
  */
 const position = {
   position: 'fixed',

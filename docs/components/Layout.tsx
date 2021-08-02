@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
         <Main>
           {isDocs ? (
             <Grid breakpoints={[1200]} columns={['1fr', '1fr 260px']} gap={50}>
-              <Div css={{ overflow: 'hidden' }}>
+              <Div className="markdown" css={{ overflow: 'hidden' }}>
                 {children}
                 <PostNavigation />
               </Div>

@@ -76,7 +76,7 @@ export const defaultOptions: MakerUIOptions = {
     toggleButton: 'default',
     closeOnBlur: true,
     closeOnRouteChange: true,
-    cssTransition: 'transform ease 0.3s',
+    cssTransition: 'transform ease 0.3s, margin ease 0.3s',
     breakpoint: 0,
   },
   content: {

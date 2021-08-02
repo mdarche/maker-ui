@@ -73,7 +73,7 @@ export const NavWidgets = () => {
           }}>
           <ul>
             {themes.map(t => (
-              <li>
+              <li key={t}>
                 <button onClick={() => setColorTheme(t)}>{t}</button>
               </li>
             ))}

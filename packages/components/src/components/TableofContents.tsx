@@ -30,6 +30,10 @@ interface ToCProps extends Omit<DivProps, 'title'> {
   footerComponent?: React.ReactElement
 }
 
+function sanitize(text: string) {
+  return text.split('<')[0]
+}
+
 /**
  * The `TableofContents` component queries the DOM for all heading tags that
  * have an ID. It then creates an indented / scroll activated list of heading links.
@@ -78,14 +82,14 @@ export const TableofContents = ({
       document.querySelectorAll(selectors)
     )
 
-    console.log('Nodes are', nodes)
-
     if (nodes.length) {
       const menu = nodes.reduce<any>(
         (filtered, { id, innerHTML, innerText, offsetTop, tagName }) => {
           if (id) {
             filtered.push({
-              text: !innerHTML.includes('<!--') ? innerHTML : innerText,
+              text: sanitize(
+                !innerHTML.includes('<!--') ? innerHTML : innerText
+              ),
               id,
               level: getLevel(tagName),
               offset: offsetTop,
@@ -101,6 +105,7 @@ export const TableofContents = ({
     }
   }, [pathname])
 
+  // Handle Scroll position
   useScrollPosition(
     ({ currPos, prevPos }) => {
       const isDownScroll = currPos > prevPos
@@ -109,6 +114,7 @@ export const TableofContents = ({
        * Reset activeNode if scroll position is above first selector
        */
       if (activeNode !== undefined && currPos < menuItems[0]?.offset) {
+        window.history.pushState({}, '', pathname)
         return setActiveNode(null)
       }
 
@@ -118,6 +124,7 @@ export const TableofContents = ({
            * Check if scroll is between first 2 heading nodes
            */
           if (menuItems.length > 1 && currPos <= menuItems[1]?.offset) {
+            window.history.pushState({}, '', `#${menuItems[0].id}`)
             return setActiveNode(0)
           } else {
             /**
@@ -140,6 +147,7 @@ export const TableofContents = ({
             activeNode !== menuItems.length - 1 &&
             currPos >= menuItems[activeNode + 1].offset
           ) {
+            window.history.pushState({}, '', `#${menuItems[activeNode + 1].id}`)
             return setActiveNode(activeNode + 1)
           }
         } else {
@@ -147,6 +155,7 @@ export const TableofContents = ({
            * If scrolling up, compare current node offset with previous offset
            */
           if (currPos <= menuItems[activeNode]?.offset) {
+            window.history.pushState({}, '', `#${menuItems[activeNode - 1].id}`)
             return setActiveNode(activeNode - 1)
           }
         }
