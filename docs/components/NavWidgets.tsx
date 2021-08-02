@@ -1,4 +1,4 @@
-import { Div, Flex, Button, mergeSelectors, useColorTheme } from 'maker-ui'
+import { Div, Flex, useColorTheme } from 'maker-ui'
 import { Dropdown } from '@maker-ui/components'
 import { GithubIcon, PaintIcon, CaretIcon } from './Icons'
 
@@ -54,7 +54,6 @@ export const NavWidgets = () => {
             borderColor: 'var(--color-border_dark)',
             width: 150,
             padding: '5px 0',
-            // boxShadow: '1px 1px 1px black',
             button: {
               border: 'none',
               outline: 'none',
