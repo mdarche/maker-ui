@@ -1,3 +1,3 @@
-# @maker-ui/components
+# @maker-ui/forms
 
 Coming soon
