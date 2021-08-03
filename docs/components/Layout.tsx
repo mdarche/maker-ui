@@ -30,7 +30,7 @@ const Layout = ({ children }) => {
       <Header>
         <Navbar
           logo={<Logo />}
-          menuArea={<Search pathname={asPath} />}
+          menuArea={<Search />}
           navArea={<NavWidgets />}
         />
         <MobileMenu menu={menu} />

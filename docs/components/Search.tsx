@@ -1,45 +1,10 @@
-import { Flex, Button, Span, mergeSelectors } from 'maker-ui'
-import Link from 'next/link'
+import { Flex, Button, Span } from 'maker-ui'
 
 import { SearchIcon } from './Icons'
 
-interface SearchProps {
-  pathname: string
-}
-
-export const Search = ({ pathname }: SearchProps) => {
-  function getClass(key: string) {
-    return mergeSelectors(['nav-link', pathname.includes(key) ? 'active' : ''])
-  }
+export const Search = () => {
   return (
-    <Flex
-      align="center"
-      css={{
-        '.nav-link': {
-          fontWeight: 500,
-          padding: '0 18px',
-          position: 'relative',
-          '&.active:after': {
-            content: '""',
-            position: 'absolute',
-            left: '50%',
-            right: 0,
-            bottom: -25,
-            height: 2,
-            width: 50,
-            transform: 'translateX(-50%)',
-            background: 'var(--color-primary)',
-          },
-        },
-      }}>
-      <div>
-        <Link href="/docs/overview/">
-          <a className={getClass('docs')}>Docs</a>
-        </Link>
-        <Link href="/guides/">
-          <a className={getClass('guides')}>Guides</a>
-        </Link>
-      </div>
+    <Flex align="center">
       <Button
         css={{
           height: 46,

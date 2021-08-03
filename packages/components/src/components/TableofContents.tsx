@@ -30,8 +30,11 @@ interface ToCProps extends Omit<DivProps, 'title'> {
   footerComponent?: React.ReactElement
 }
 
+/**
+ * Utility component to remove any leading or trailing HTML tags
+ */
 function sanitize(text: string) {
-  return text.split('<')[0]
+  return text.split('<').find(i => !i.startsWith('<'))
 }
 
 /**

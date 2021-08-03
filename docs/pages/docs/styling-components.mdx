@@ -1,11 +1,11 @@
 # Styling Components
 
-All Maker UI components and primitives have the special `breakpoints` and `css` props. These props let you specify media query breakpoints as an array of values that correspond with CSS rules.
+All Maker UI components and primitives have special `breakpoints` and `css` props. These props let you specify media query breakpoints as an array of values that correspond with CSS rules.
 
 Here's how the syntax looks in action:
 
 ```jsx
-/* Set breakpoints of 768px and 960px */
+/* Set breakpoints to 768px and 960px */
 
 <Div
   breakpoints={[768, 960]}
@@ -84,15 +84,15 @@ You can use the CSS prop just like a Sass stylesheet-- nest styles for as many c
 
 <Div
   css={{
-    /* className selector */
+    // className selector
     '.red': {
       color: 'red',
     },
-    /* HTML tag selector */
+    // <section> tag selector
     section: {
       background: '#e6e6e6',
       color: 'blue',
-      /* ID selector */
+      // ID selector
       '#orange': {
         color: 'orange',
       },
@@ -143,9 +143,8 @@ There are 2 patterns for importing styles:
 With this pattern, you add a nested style declaration to a parent component or JSX element. All child element styles will be derived from the parent's `css` prop. This pattern encourages you to rely more on CSS selectors and natural HTML in your React components.
 
 <Callout>
-  This is the recommended way to handle complex component styles because it
-  generates fewer style tags in your document head and will make your component
-  easier to maintain.
+  This is the recommended way to handle complex component styles because it will
+  make your component easier to maintain.
 </Callout>
 
 ```jsx

@@ -4,10 +4,11 @@ export interface HeadingProps {
   children: string
 }
 
-export function getAnchor(text: string) {
-  return text
+export function getAnchor(text: string | string[]): string {
+  let t = Array.isArray(text) ? text[1] : text
+  return t
     .toLowerCase()
-    .replace(/[^a-z0-9 ]/g, '')
+    .replace(/[^-a-z0-9 ]/g, '')
     .replace(/[ ]/g, '-')
 }
 

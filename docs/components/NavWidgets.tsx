@@ -1,9 +1,11 @@
 import { Div, Flex, useColorTheme } from 'maker-ui'
 import { Dropdown } from '@maker-ui/components'
+import Link from 'next/link'
+
 import { GithubIcon, PaintIcon, CaretIcon } from './Icons'
 
 export const NavWidgets = () => {
-  const { themes, setColorTheme, colorTheme } = useColorTheme()
+  const { themes, setColorTheme } = useColorTheme()
 
   return (
     <Flex
@@ -12,13 +14,24 @@ export const NavWidgets = () => {
       css={{
         svg: { fill: 'var(--color-header_fill)' },
         '.github-link': {
-          marginLeft: 30,
+          marginLeft: 60,
         },
         '.popover': {
           right: 0,
-          top: 55,
+          top: 58,
+        },
+        '.nav-link': {
+          fontWeight: 500,
+          padding: '0 18px',
+          position: 'relative',
         },
       }}>
+      <Link href="/docs/overview/">
+        <a className="nav-link docs">Docs</a>
+      </Link>
+      <Link href="/guides/">
+        <a className="nav-link guides">Guides</a>
+      </Link>
       <a
         className="github-link"
         href="https://github.com/mdarche/maker-ui"
@@ -28,7 +41,7 @@ export const NavWidgets = () => {
       </a>
       <Dropdown
         _css={{ marginLeft: 50 }}
-        transition="fade-down"
+        transition="none"
         buttonCss={{
           display: 'flex',
           alignItems: 'center',
@@ -38,13 +51,11 @@ export const NavWidgets = () => {
           textTransform: 'capitalize',
           fontSize: 16,
           fontWeight: 500,
-          width: 150,
         }}
         button={
           <>
             <PaintIcon css={{ height: 20, marginRight: 10 }} />
-            {colorTheme}
-            <CaretIcon css={{ height: 3, marginLeft: 5, marginTop: 4 }} />
+            <CaretIcon css={{ height: 3, marginTop: 4 }} />
           </>
         }>
         <Div
