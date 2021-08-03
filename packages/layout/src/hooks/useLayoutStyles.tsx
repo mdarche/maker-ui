@@ -107,10 +107,20 @@ export function useLayoutStyles(layout: string): object {
         '&.hide-sidenav': {
           transform: [`translateX(${direction})`, 'none'],
         },
+        '&.collapse-sidenav': {
+          marginLeft:
+            layout === 'sidenav content'
+              ? [0, 'calc(-1 * var(--width_sideNav))']
+              : undefined,
+          marginRight:
+            layout === 'content sidenav'
+              ? [0, 'calc(-1 * var(--width_sideNav))']
+              : undefined,
+        },
         '> .container': {
           position: 'sticky',
           top: [0, calculateTop()],
-          height: `calc(100vh - ${calculateTop()}px)`,
+          height: ['100vh', `calc(100vh - ${calculateTop()}px)`],
           overflowY: 'auto',
         },
       },

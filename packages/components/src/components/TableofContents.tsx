@@ -117,7 +117,7 @@ export const TableofContents = ({
        * Reset activeNode if scroll position is above first selector
        */
       if (activeNode !== undefined && currPos < menuItems[0]?.offset) {
-        window.history.pushState({}, '', pathname)
+        window.history.pushState({}, '', pathname?.split('#')[0])
         return setActiveNode(null)
       }
 

@@ -95,7 +95,7 @@ export const MenuItem = memo(
       rel: newTab && 'noopener noreferrer',
       'aria-label': icon && label,
       'aria-haspopup': submenu && 'true',
-      'aria-current': pathname === path && 'page',
+      'aria-current': pathname === path ? 'page' : undefined,
       ...menuControls,
     }
 

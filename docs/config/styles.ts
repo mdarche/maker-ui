@@ -17,8 +17,8 @@ export const styles = {
   // MDX Headings
   '.markdown>h2:before, .markdown>h3:before, .markdown>h4:before': {
     display: 'block',
-    height: '6rem',
-    marginTop: '-6rem',
+    height: '5rem',
+    marginTop: '-5rem',
     visibility: 'hidden',
     content: '""',
   },

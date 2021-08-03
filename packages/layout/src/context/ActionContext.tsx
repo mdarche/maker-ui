@@ -3,6 +3,7 @@ import * as React from 'react'
 export interface ActionState {
   menuActive: boolean
   sideNavActive: boolean
+  sideNavCollapse: boolean
   leftPanelActive: boolean
   rightPanelActive: boolean
   toolbarActive: boolean
@@ -10,6 +11,7 @@ export interface ActionState {
 type Action =
   | { type: 'MENU' }
   | { type: 'SIDENAV' }
+  | { type: 'SIDENAV-COLLAPSE' }
   | { type: 'PANEL-LEFT' }
   | { type: 'PANEL-RIGHT' }
 
@@ -26,6 +28,9 @@ function reducer(state: ActionState, action: Action): ActionState {
     }
     case 'SIDENAV': {
       return { ...state, sideNavActive: !state.sideNavActive }
+    }
+    case 'SIDENAV-COLLAPSE': {
+      return { ...state, sideNavCollapse: !state.sideNavCollapse }
     }
     case 'PANEL-LEFT':
       return { ...state, leftPanelActive: !state.leftPanelActive }
@@ -51,6 +56,7 @@ const ActionProvider = ({ children }: ActionProviderProps) => {
   const [state, dispatch]: [ActionState, any] = React.useReducer(reducer, {
     menuActive: false,
     sideNavActive: false,
+    sideNavCollapse: false,
     leftPanelActive: true,
     rightPanelActive: true,
     toolbarActive: true,
@@ -109,4 +115,27 @@ function useSideNav(): [boolean, () => void] {
   return [sideNavActive as boolean, setSideNav]
 }
 
-export { ActionProvider, useMenu, useSideNav }
+/**
+ * Returns the current state and a toggle function for the `SideNav`
+ *
+ * @link https://maker-ui.com/hooks/#useSideNav
+ */
+
+function useCollapseSideNav(): [boolean, () => void] {
+  const { sideNavCollapse }: Partial<ActionState> = React.useContext(
+    ActionContext
+  )
+  const dispatch = React.useContext(ActionUpdateContext)
+
+  if (typeof sideNavCollapse === undefined) {
+    throw new Error('useSideNav must be used within an Maker UI layout')
+  }
+
+  function setSideNavCollapse() {
+    dispatch({ type: 'SIDENAV-COLLAPSE' })
+  }
+
+  return [sideNavCollapse as boolean, setSideNavCollapse]
+}
+
+export { ActionProvider, useMenu, useSideNav, useCollapseSideNav }

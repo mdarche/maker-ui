@@ -78,6 +78,8 @@ export const defaultOptions: MakerUIOptions = {
     closeOnRouteChange: true,
     cssTransition: 'transform ease 0.3s, margin ease 0.3s',
     breakpoint: 0,
+    collapse: false,
+    collapseButton: 'default',
   },
   content: {
     maxWidth: 1020,

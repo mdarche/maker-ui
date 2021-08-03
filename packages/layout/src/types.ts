@@ -389,15 +389,41 @@ export interface MakerOptions {
      */
     showToggleOnMobile: boolean
     /**
-     * Lets you customize the side nav floating toggle button. By default, it displays a button
-     * with `open` or `close` inner text, but you can use a custom React component or a JSX
-     * callback to animate the button's state.
+     * Lets you customize the side nav floating toggle button. By default,
+     * it displays a button with `open` or `close` inner text, but you can use a custom React
+     * component or a JSX callback to animate the button's state.
      * @default 'default'
      */
     toggleButton?:
       | 'default'
       | React.ReactNode
       | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+    /**
+     * A boolean that lets you collapse Maker UI's SideNav.
+     *
+     * @remark Please note that this option does not currently use a performant
+     * `transform` transition. It transitions the `margin-left` and `margin-right`
+     * CSS attributes to maintain the content area's width.
+     * @default false
+     */
+    collapse: boolean
+    /**
+     * Lets you customize the side nav collapse toggle button. By default, it displays a button
+     * with `open` or `close` inner text, but you can use a custom React component or a JSX
+     * callback to animate the button's state.
+     * @remark You can also customize this component as a prop on `<SideNav />`
+     * @default 'default'
+     */
+    collapseButton?:
+      | 'default'
+      | React.ReactNode
+      | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+    /**
+     * A specific breakpoint that controls when the grid for main content, sidebars, and the
+     * side nav breaks down for mobile. You may also use an index to access a specific breakpoint
+     * in the `options.breakpoints` array.
+     * @default 0 (breakpoints[0], or 768px)
+     */
     breakpoint: string | number
   }
   /**

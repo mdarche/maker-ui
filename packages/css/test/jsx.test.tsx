@@ -15,7 +15,7 @@ const Button = (props: any) => <button {...props} />
  * @remarks
  * - This test suite is for testing responsive JSX pragma only.
  * - @maker-ui/layout tests for media query / responsive accuracy with Cypress
- * - @maker/primitives package doesn't test for media queries
+ * - @maker-ui/primitives package doesn't test for media queries
  */
 
 describe('Custom jsx function', () => {
