@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Flex, Div, Grid, Image } from 'maker-ui'
-import { Generate, generateStyles, generateSrc } from '@maker-ui/components'
+import { Generate, generateStyles, generateSrc } from '@maker-ui/elements'
 
 // Example 1 - Random grid items
 

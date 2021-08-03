@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Tabs } from '@maker-ui/components'
+import { Tabs } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
 /**

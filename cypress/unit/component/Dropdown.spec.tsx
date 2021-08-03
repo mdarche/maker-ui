@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Dropdown } from '@maker-ui/components'
+import { Dropdown } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 import { Div } from 'maker-ui'
 

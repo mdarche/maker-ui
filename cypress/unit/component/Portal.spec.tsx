@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Portal } from '@maker-ui/components'
+import { Portal } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
 describe('Portal component (internal)', () => {

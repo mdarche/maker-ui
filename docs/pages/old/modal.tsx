@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Modal } from '@maker-ui/components'
+import { Modal } from '@maker-ui/elements'
 
 const ModalPage = () => {
   const [show, set] = React.useState(false)

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Grid, Div } from 'maker-ui'
-import { TableofContents } from '@maker-ui/components'
+import { TableofContents } from '@maker-ui/elements'
 
 const TocPage = () => {
   return (
