@@ -21,8 +21,8 @@ export const SubmitButton = ({
   // Todo get required fields array from form context
   const {
     errors,
-    touched,
-    values,
+    // touched,
+    // values,
     isSubmitting,
   }: {
     errors: FormikErrors<any>

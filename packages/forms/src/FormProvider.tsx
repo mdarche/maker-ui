@@ -102,7 +102,7 @@ const FormSettingsProvider = ({
 
 export function useFormSettings() {
   const settings = React.useContext(FormSettingsContext)
-  const setState = React.useContext(FormSettingsUpdateContext)
+  // const setState = React.useContext(FormSettingsUpdateContext)
 
   // function updatePage(page: 'next' | 'prev' | number) {
   //   if (settings.currentPage > 0 && page === 'prev') {
