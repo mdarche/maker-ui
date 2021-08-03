@@ -10,8 +10,8 @@ export const Callout = ({ children, type = 'suggestion' }: CalloutProps) => {
     <Div
       css={{
         background: `var(--color-callout_${type})`,
-        padding: 20,
-        borderLeft: '10px solid',
+        padding: '25px 20px',
+        borderLeft: '5px solid',
         borderColor: `var(--color-callout_${type}_border)`,
         margin: '30px 0',
         borderRadius: 3,

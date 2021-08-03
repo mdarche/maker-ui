@@ -9,8 +9,7 @@
 // ***********************************************
 //
 
-//@ts-ignore
-const compareColor = (color, property) => targetElement => {
+const compareColor = (color: string, property: any) => (targetElement: any) => {
   const tempElement = document.createElement('div')
   tempElement.style.color = color
   tempElement.style.display = 'none' // make sure it doesn't actually render

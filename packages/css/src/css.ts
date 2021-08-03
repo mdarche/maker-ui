@@ -47,7 +47,7 @@ export function responsive(
 }
 
 /**
- * Formats a user-generated CSS object and generates a returns an Emotion-compatible
+ * Formats a user-generated CSS object and generates an Emotion-compatible
  * version with media queries for each item in the breakpoint array.
  *
  * @param styles - a CSS style object

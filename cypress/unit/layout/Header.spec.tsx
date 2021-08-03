@@ -111,13 +111,4 @@ describe('Header component - unit tests', () => {
     )
     cy.get('header').should('have.css', 'top', '60px')
   })
-
-  it('removes hidden visibility when using Gatsby', () => {
-    mount(
-      <Wrapper options={{ framework: 'gatsby' }}>
-        <Header>inner</Header>
-      </Wrapper>
-    )
-    cy.get('header').should('not.have.css', 'visibility', 'hidden')
-  })
 })

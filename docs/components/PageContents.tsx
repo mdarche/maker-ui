@@ -21,13 +21,15 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
       breakpoints={[1200]}
       pathname={pathname}
       footerComponent={<SideButtons pathname={pathname} />}
+      indentSize={12}
       title={
         <Flex
           align="center"
           css={{
-            svg: { height: 12, marginRight: 15, fill: 'var(--color-primary)' },
+            svg: { height: 10, marginRight: 15, fill: 'var(--color-primary)' },
             fontWeight: 700,
-            fontSize: 14,
+            fontSize: 11,
+            letterSpacing: '0.1em',
             textTransform: 'uppercase',
           }}>
           <ContentIcon /> Contents
@@ -39,9 +41,7 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
       css={{
         display: ['none', 'block'],
         top: 120,
-        borderLeft: '1px solid',
         paddingLeft: 20,
-        borderColor: 'var(--color-border)',
         ul: {
           lineHeight: 1.5,
           listStyleType: 'none',
@@ -50,8 +50,13 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
         a: {
           display: 'block',
           fontSize: 13,
-          padding: 5,
+          padding: '5px 0',
           color: '#555',
+        },
+        '.level-1, .level-2': {
+          borderLeft: '1px solid',
+          borderColor: 'var(--color-border)',
+          marginLeft: 3,
         },
       }}
     />

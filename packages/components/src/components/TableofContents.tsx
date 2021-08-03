@@ -1,7 +1,6 @@
 import * as React from 'react'
 import {
   Div,
-  UList,
   ListItem,
   DivProps,
   useScrollPosition,
@@ -16,7 +15,7 @@ interface MenuItem {
   offset: number
 }
 
-interface TocProps extends Omit<DivProps, 'title'> {
+interface ToCProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
   headings?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6')[] | 'all'
   indent?: boolean
@@ -29,6 +28,13 @@ interface TocProps extends Omit<DivProps, 'title'> {
   hideOnMobile?: boolean
   pathname?: string
   footerComponent?: React.ReactElement
+}
+
+/**
+ * Utility component to remove any leading or trailing HTML tags
+ */
+function sanitize(text: string) {
+  return text.split('<').find(i => !i.startsWith('<'))
 }
 
 /**
@@ -53,7 +59,7 @@ export const TableofContents = ({
   css,
   pathname,
   footerComponent,
-}: TocProps) => {
+}: ToCProps) => {
   const [menuItems, setMenu] = React.useState<MenuItem[]>([])
   const [activeNode, setActiveNode] = React.useState<number | null>(null)
 
@@ -81,10 +87,12 @@ export const TableofContents = ({
 
     if (nodes.length) {
       const menu = nodes.reduce<any>(
-        (filtered, { id, innerHTML, offsetTop, tagName }) => {
+        (filtered, { id, innerHTML, innerText, offsetTop, tagName }) => {
           if (id) {
             filtered.push({
-              text: innerHTML,
+              text: sanitize(
+                !innerHTML.includes('<!--') ? innerHTML : innerText
+              ),
               id,
               level: getLevel(tagName),
               offset: offsetTop,
@@ -100,6 +108,7 @@ export const TableofContents = ({
     }
   }, [pathname])
 
+  // Handle Scroll position
   useScrollPosition(
     ({ currPos, prevPos }) => {
       const isDownScroll = currPos > prevPos
@@ -108,6 +117,7 @@ export const TableofContents = ({
        * Reset activeNode if scroll position is above first selector
        */
       if (activeNode !== undefined && currPos < menuItems[0]?.offset) {
+        window.history.pushState({}, '', pathname?.split('#')[0])
         return setActiveNode(null)
       }
 
@@ -117,6 +127,7 @@ export const TableofContents = ({
            * Check if scroll is between first 2 heading nodes
            */
           if (menuItems.length > 1 && currPos <= menuItems[1]?.offset) {
+            window.history.pushState({}, '', `#${menuItems[0].id}`)
             return setActiveNode(0)
           } else {
             /**
@@ -139,6 +150,7 @@ export const TableofContents = ({
             activeNode !== menuItems.length - 1 &&
             currPos >= menuItems[activeNode + 1].offset
           ) {
+            window.history.pushState({}, '', `#${menuItems[activeNode + 1].id}`)
             return setActiveNode(activeNode + 1)
           }
         } else {
@@ -146,6 +158,7 @@ export const TableofContents = ({
            * If scrolling up, compare current node offset with previous offset
            */
           if (currPos <= menuItems[activeNode]?.offset) {
+            window.history.pushState({}, '', `#${menuItems[activeNode - 1].id}`)
             return setActiveNode(activeNode - 1)
           }
         }
@@ -163,16 +176,20 @@ export const TableofContents = ({
         position: sticky ? 'sticky' : undefined,
         top: sticky ? 0 : undefined,
         ...(css as object),
+        ul: {
+          padding: 0,
+          listStyle: 'none',
+        },
       }}>
-      <Div>{title}</Div>
-      <UList className="toc-headings" css={{ padding: 0 }}>
+      <div>{title}</div>
+      <ul className="toc-headings">
         {menuItems.length
           ? menuItems.map(({ id, text, level }: MenuItem, index) => (
               <ListItem
                 key={index}
                 className={`level-${level}`}
                 css={{
-                  paddingLeft: indent ? `${indentSize * level}px` : undefined,
+                  paddingLeft: indent ? indentSize * level : undefined,
                   a: { position: 'relative' },
                   'a.active, a:hover': { color: activeColor || undefined },
                   'a.active': marker && {
@@ -203,7 +220,7 @@ export const TableofContents = ({
               </ListItem>
             ))
           : null}
-      </UList>
+      </ul>
       {footerComponent}
     </Div>
   )

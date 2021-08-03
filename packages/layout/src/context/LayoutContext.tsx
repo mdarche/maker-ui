@@ -79,18 +79,13 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
 
     if (isObject || options.persistentColorMode) {
       const storageKey = isObject
-        ? //@ts-ignore
+        ? // @ts-ignore
           options.persistentColorMode.key
         : 'color-theme'
 
       const sessionCheck = localStorage.getItem(storageKey)
 
-      if (sessionCheck) {
-        //@ts-ignore
-        const { theme } = JSON.parse(localStorage.getItem(storageKey))
-        document.body.dataset.theme = theme
-        setState(s => ({ ...s, colorTheme: theme }))
-      } else {
+      const setDefaultTheme = () => {
         const defaultTheme = Object.keys(options?.colors)[0]
         localStorage.setItem(
           storageKey,
@@ -98,6 +93,21 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
         )
         document.body.dataset.theme = defaultTheme
         setState(s => ({ ...s, colorTheme: defaultTheme }))
+      }
+
+      if (sessionCheck) {
+        // @ts-ignore
+        const { theme } = JSON.parse(localStorage.getItem(storageKey))
+        const colors = options.colors ? Object.keys(options.colors) : []
+
+        if (colors.includes(theme)) {
+          document.body.dataset.theme = theme
+          setState(s => ({ ...s, colorTheme: theme }))
+        } else {
+          setDefaultTheme()
+        }
+      } else {
+        setDefaultTheme()
       }
     }
   }, [])
@@ -250,7 +260,7 @@ function useColorTheme() {
     setState,
   } = React.useContext(LayoutContext)
 
-  const colors = options.colors ? Object.keys(options.colors) : ['light']
+  const themes = options.colors ? Object.keys(options.colors) : ['light']
 
   function setColorTheme(theme: string) {
     if (options.persistentColorMode) {
@@ -260,7 +270,7 @@ function useColorTheme() {
     setState(s => ({ ...s, colorTheme: theme }))
   }
 
-  return { colorTheme, setColorTheme, colors }
+  return { colorTheme, setColorTheme, themes }
 }
 
 export {

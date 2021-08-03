@@ -1,12 +1,6 @@
 import * as React from 'react'
 import { useTransition, animated, SpringConfig } from '@react-spring/web'
-import {
-  Div,
-  DivProps,
-  // useMakerUI,
-  MakerProps,
-  mergeSelectors,
-} from 'maker-ui'
+import { Div, DivProps, MakerProps, mergeSelectors } from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { getSign } from '../helper'
@@ -94,28 +88,30 @@ export const Popover = ({
   })
 
   function resize() {
-    const {
-      top,
-      bottom,
-      left,
-      right,
-      x,
-      y,
-      height,
-      width,
-    } = anchorRef.current.getBoundingClientRect()
-    setBox({
-      top,
-      bottom,
-      left,
-      right,
-      x,
-      y,
-      height,
-      width,
-      documentTop: top + document.documentElement.scrollTop,
-      measured: true,
-    })
+    if (anchorRef.current) {
+      const {
+        top,
+        bottom,
+        left,
+        right,
+        x,
+        y,
+        height,
+        width,
+      } = anchorRef.current.getBoundingClientRect()
+      setBox({
+        top,
+        bottom,
+        left,
+        right,
+        x,
+        y,
+        height,
+        width,
+        documentTop: top + document.documentElement.scrollTop,
+        measured: true,
+      })
+    }
   }
 
   // Initial Measurement or changing Anchor Ref
@@ -357,8 +353,8 @@ export const Popover = ({
                 position: 'absolute',
                 display: 'block',
                 zIndex: 99,
-                left: _type !== 'dropdown' ? getX() : undefined,
-                top: _type !== 'dropdown' ? getY() : undefined,
+                left: !appendTo ? getX() : undefined,
+                top: !appendTo ? getY() : undefined,
                 width: anchorWidth ? width : undefined,
                 overflow: transition.includes('scale') ? 'hidden' : undefined,
                 ...(_css as object),

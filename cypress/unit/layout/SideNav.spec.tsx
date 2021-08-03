@@ -63,11 +63,11 @@ describe('SideNav component', () => {
 
   it('can be controlled by side nav toggle on mobile', () => {
     mount(<TestSideNav />)
-    cy.get('#sidenav').should('have.class', 'hide')
+    cy.get('#sidenav').should('have.class', 'hide-sidenav')
     cy.viewport('iphone-x')
       .get('#toggle-sidenav')
       .click()
-    cy.get('#sidenav').should('not.have.class', 'hide')
+    cy.get('#sidenav').should('not.have.class', 'hide-sidenav')
   })
 
   it('can hide the toggle button on mobile', () => {
@@ -82,9 +82,9 @@ describe('SideNav component', () => {
     cy.viewport('iphone-x')
       .get('#toggle-sidenav')
       .click()
-    cy.get('#sidenav').should('not.have.class', 'hide')
+    cy.get('#sidenav').should('not.have.class', 'hide-sidenav')
     cy.get('#site-inner .menu-overlay').click()
-    cy.get('#sidenav').should('have.class', 'hide')
+    cy.get('#sidenav').should('have.class', 'hide-sidenav')
   })
 
   it('can be closed `onRouteChange` by clicking a menu link (mobile)', () => {
@@ -101,7 +101,7 @@ describe('SideNav component', () => {
       .eq(0)
       .find('a')
       .click()
-    cy.get('#sidenav').should('have.class', 'hide')
+    cy.get('#sidenav').should('have.class', 'hide-sidenav')
   })
 
   it('can be controlled by mobile nav button on mobile browsers', () => {
@@ -109,9 +109,9 @@ describe('SideNav component', () => {
     cy.viewport('iphone-x')
       .get('header .nav-area .menu-button')
       .click()
-    cy.get('#sidenav').should('not.have.class', 'hide')
+    cy.get('#sidenav').should('not.have.class', 'hide-sidenav')
     cy.get('#site-inner .menu-overlay').click()
-    cy.get('#sidenav').should('have.class', 'hide')
+    cy.get('#sidenav').should('have.class', 'hide-sidenav')
   })
 
   it('applies _css to root and css to the container', () => {
@@ -173,7 +173,7 @@ describe('SideNav component', () => {
     cy.viewport('iphone-x')
       .get('.custom-btn')
       .click()
-    cy.get('#sidenav').should('not.have.class', 'hide')
+    cy.get('#sidenav').should('not.have.class', 'hide-sidenav')
   })
 
   it('renders a custom toggle button for mobile via props', () => {
@@ -192,6 +192,6 @@ describe('SideNav component', () => {
     cy.viewport('iphone-x')
       .get('.custom-btn')
       .click()
-    cy.get('#sidenav').should('not.have.class', 'hide')
+    cy.get('#sidenav').should('not.have.class', 'hide-sidenav')
   })
 })

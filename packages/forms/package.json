@@ -1,11 +1,15 @@
 {
-  "name": "@maker-ui/css",
+  "name": "@maker-ui/forms",
+  "description": "Customizable forms for Maker UI",
   "version": "1.0.0-beta.13",
-  "author": "Mike Darche <mike@newcreative.io>",
   "license": "MIT",
+  "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
-  "module": "dist/css.esm.js",
+  "module": "dist/forms.esm.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
     "build": "tsdx build --tsconfig tsconfig.build.json",
@@ -14,14 +18,12 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@emotion/react": "^11.1.4",
-    "deepmerge": "^4.2.2"
+    "formik": "^2.2.9",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "react": "^16.x || ^17.x"
-  },
-  "devDependencies": {
-    "@emotion/jest": "^11.1.0",
-    "react-test-renderer": "^17.0.1"
+    "maker-ui": "1.0.0-beta.13",
+    "react": "^16.x || ^17.x",
+    "react-dom": "^16.x || ^17.x"
   }
 }

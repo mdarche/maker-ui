@@ -15,11 +15,12 @@ const PopoverPage = () => {
         css={{ marginRight: 10 }}>
         Popover toggle
       </Button>
-      <Tooltip background="purple" label="test" position="right">
+      <Tooltip background="purple" label="test" position="bottom" gap={10}>
         Hover here!
       </Tooltip>
       <Popover
         anchorRef={buttonRef}
+        trapFocus
         // anchorWidth
         // position={{ x: 'right', y: 'bottom' }}
         show={show}
@@ -50,8 +51,7 @@ const PopoverPage = () => {
           </ul>
         </Div>
       </Popover>
-      {/*
-      <Dropdown button="Click here" transition="scale" trapFocus>
+      <Dropdown button="Click here" transition="fade-down" trapFocus>
         <Div
           css={{
             background: 'gainsboro',
@@ -77,7 +77,7 @@ const PopoverPage = () => {
             </li>
           </ul>
         </Div>
-      </Dropdown> */}
+      </Dropdown>
       <Div css={{ height: 500 }}>{/* <a href="/">Test</a> */}</Div>
     </Section>
   )

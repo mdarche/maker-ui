@@ -39,8 +39,8 @@ const Layout = ({ children }) => {
         <SideNav pathname={asPath} menu={menu} />
         <Main>
           {isDocs ? (
-            <Grid breakpoints={[1200]} columns={['1fr', '1fr 300px']} gap={60}>
-              <Div css={{ overflow: 'hidden' }}>
+            <Grid breakpoints={[1200]} columns={['1fr', '1fr 260px']} gap={50}>
+              <Div className="markdown" css={{ overflow: 'hidden' }}>
                 {children}
                 <PostNavigation />
               </Div>

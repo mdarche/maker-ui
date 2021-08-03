@@ -91,7 +91,7 @@ export const Canvas = () => {
       item && (
         <AnimatedDiv
           className="lb-canvas"
-          style={props as object}
+          style={props}
           css={{
             position: 'absolute',
             top: '50%',

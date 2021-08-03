@@ -13,7 +13,7 @@ export type Breakpoints = (string | number)[]
  *
  */
 export interface MakerProps {
-  css?: Interpolation<any>
+  css?: Interpolation<any> | object
   breakpoints?: Breakpoints
 }
 

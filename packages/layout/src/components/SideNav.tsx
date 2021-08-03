@@ -9,7 +9,7 @@ import { MenuItemProps } from './Menu'
 import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
-import { useSideNav } from '../context/ActionContext'
+import { useSideNav, useCollapseSideNav } from '../context/ActionContext'
 import { setBreakpoint, mergeSelectors } from '../utils/helper'
 
 interface ContainerProps {
@@ -26,6 +26,7 @@ export interface SideNavProps
   background?: string | string[]
   _css?: MakerProps['css']
   toggleButton?: MakerOptions['sideNav']['toggleButton']
+  collapseButton?: MakerOptions['sideNav']['collapseButton']
   menu?: MenuItemProps[]
   pathname?: string
   header?: React.ReactElement
@@ -44,6 +45,7 @@ export const SideNav = ({
   id,
   background = 'var(--color-bg_sideNav)',
   toggleButton,
+  collapseButton,
   menu,
   pathname,
   header,
@@ -54,18 +56,22 @@ export const SideNav = ({
   children,
   ...props
 }: SideNavProps) => {
+  // For fixed mobile version of SideNav
   const [active, setActive] = useSideNav()
+  // For desktop collapsible version of SideNav
+  const [collapse, setCollapse] = useCollapseSideNav()
   const { sideNav, breakpoints } = useOptions()
 
-  const customButton = toggleButton || sideNav.toggleButton
+  const customToggle = toggleButton || sideNav.toggleButton
+  const customCollapse = collapseButton || sideNav.collapseButton
 
-  const toggleAttributes = {
-    id: 'toggle-sidenav',
-    title: 'Toggle side navigation',
-    'aria-label': 'Toggle side navigation',
-    onClick: setActive,
+  const attributes = (type: 'collapse' | 'toggle') => ({
+    id: `${type}-sidenav`,
+    title: `${type} side navigation`,
+    'aria-label': `${type} side navigation`,
+    onClick: type === 'collapse' ? setCollapse : setActive,
     breakpoints: setBreakpoint(sideNav.breakpoint, breakpoints),
-  }
+  })
 
   return (
     <ErrorBoundary errorKey="sideNav">
@@ -75,7 +81,11 @@ export const SideNav = ({
       <Container
         isHeader={sideNav.isHeader}
         id={mergeSelectors(['sidenav', id])}
-        className={mergeSelectors([!active ? 'hide' : '', className])}
+        className={mergeSelectors([
+          !active ? 'hide-sidenav' : '',
+          collapse ? 'collapse-sidenav' : '',
+          className,
+        ])}
         css={{
           background,
           ...(_css as object),
@@ -94,22 +104,47 @@ export const SideNav = ({
           {footer ? footer : null}
         </div>
       </Container>
-      {typeof customButton === 'function' ? (
-        customButton(active, toggleAttributes)
+      {typeof customToggle === 'function' ? (
+        customToggle(active, attributes('toggle'))
       ) : sideNav.showToggleOnMobile ? (
         <Button
-          {...toggleAttributes}
+          {...attributes('toggle')}
           css={{
             position: 'fixed',
             display: ['inline-block', 'none'],
             bottom: 30,
             zIndex: 100,
           }}>
-          {customButton === 'default'
+          {customToggle === 'default'
             ? active
               ? 'close'
               : 'open'
-            : customButton}
+            : customToggle}
+        </Button>
+      ) : null}
+      {typeof customCollapse === 'function' ? (
+        customCollapse(collapse, attributes('collapse'))
+      ) : sideNav.collapse ? (
+        <Button
+          {...attributes('collapse')}
+          css={{
+            position: 'sticky',
+            display: ['none', 'inline-block'],
+            zIndex: 100,
+          }}>
+          {customCollapse === 'default' ? (
+            <svg
+              className={mergeSelectors([
+                'default-collapse',
+                !collapse ? 'rotate' : '',
+              ])}
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 19a1 1 0 01-.71-1.71l5.3-5.29-5.3-5.29a1 1 0 011.42-1.42l6 6a1 1 0 010 1.41l-6 6A1 1 0 019 19z" />
+            </svg>
+          ) : (
+            customCollapse
+          )}
         </Button>
       ) : null}
     </ErrorBoundary>

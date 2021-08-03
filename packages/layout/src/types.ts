@@ -12,6 +12,12 @@ export type Partial<T> = {
 }
 
 /**
+ * Utility type for responsive css strings
+ */
+
+type ResponsiveString = string | string[]
+
+/**
  * Configuration for the Maker UI layout system.
  *
  * @link https://maker-ui.com/docs/maker-options
@@ -21,31 +27,31 @@ export type Partial<T> = {
 type ThemeColors = {
   [key: string]: {
     /** The site's primary text color. */
-    text: string
+    text: ResponsiveString
     /** The default color for all anchor tags. */
-    link: string
+    link: ResponsiveString
     /** The default hover color for all anchor tags. */
-    link_hover: string
+    link_hover: ResponsiveString
     /** The site's primary brand or accent color. */
-    primary: string
+    primary: ResponsiveString
     /** The site's secondary brand or accent color. */
-    secondary: string
+    secondary: ResponsiveString
     /** The site's background color. */
-    background: string
+    background: ResponsiveString
     /** The topbar background color. */
-    bg_topbar: string
+    bg_topbar: ResponsiveString
     /** The header background color. */
-    bg_header: string
+    bg_header: ResponsiveString
     /** The navbar's dropdown menu background color. */
-    bg_dropdown: string
+    bg_dropdown: ResponsiveString
     /** The mobile menu's background color. */
-    bg_mobileMenu: string
+    bg_mobileMenu: ResponsiveString
     /** The side navigation background color. */
-    bg_sideNav: string
+    bg_sideNav: ResponsiveString
     /** The footer background color. */
-    bg_footer: string
+    bg_footer: ResponsiveString
   } & {
-    [key: string]: string
+    [key: string]: ResponsiveString
   }
 }
 
@@ -78,10 +84,6 @@ export type MakerUIOptions = Partial<MakerOptions>
  *
  */
 export interface MakerOptions {
-  /**
-   * SSG framework optimizations for Gatsby and NextJS.
-   */
-  framework?: 'gatsby' | 'next'
   /**
    * An array of browser widths that is used as the default breakpoints for
    * all nested Maker UI components and primitives.
@@ -387,15 +389,41 @@ export interface MakerOptions {
      */
     showToggleOnMobile: boolean
     /**
-     * Lets you customize the side nav floating toggle button. By default, it displays a button
-     * with `open` or `close` inner text, but you can use a custom React component or a JSX
-     * callback to animate the button's state.
+     * Lets you customize the side nav floating toggle button. By default,
+     * it displays a button with `open` or `close` inner text, but you can use a custom React
+     * component or a JSX callback to animate the button's state.
      * @default 'default'
      */
     toggleButton?:
       | 'default'
       | React.ReactNode
       | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+    /**
+     * A boolean that lets you collapse Maker UI's SideNav.
+     *
+     * @remark Please note that this option does not currently use a performant
+     * `transform` transition. It transitions the `margin-left` and `margin-right`
+     * CSS attributes to maintain the content area's width.
+     * @default false
+     */
+    collapse: boolean
+    /**
+     * Lets you customize the side nav collapse toggle button. By default, it displays a button
+     * with `open` or `close` inner text, but you can use a custom React component or a JSX
+     * callback to animate the button's state.
+     * @remark You can also customize this component as a prop on `<SideNav />`
+     * @default 'default'
+     */
+    collapseButton?:
+      | 'default'
+      | React.ReactNode
+      | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+    /**
+     * A specific breakpoint that controls when the grid for main content, sidebars, and the
+     * side nav breaks down for mobile. You may also use an index to access a specific breakpoint
+     * in the `options.breakpoints` array.
+     * @default 0 (breakpoints[0], or 768px)
+     */
     breakpoint: string | number
   }
   /**
