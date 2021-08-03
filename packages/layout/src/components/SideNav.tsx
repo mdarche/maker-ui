@@ -128,16 +128,23 @@ export const SideNav = ({
         <Button
           {...attributes('collapse')}
           css={{
-            position: 'fixed',
+            position: 'sticky',
             display: ['none', 'inline-block'],
-            bottom: 30,
             zIndex: 100,
           }}>
-          {customCollapse === 'default'
-            ? collapse
-              ? 'open'
-              : 'collapse'
-            : customCollapse}
+          {customCollapse === 'default' ? (
+            <svg
+              className={mergeSelectors([
+                'default-collapse',
+                !collapse ? 'rotate' : '',
+              ])}
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 19a1 1 0 01-.71-1.71l5.3-5.29-5.3-5.29a1 1 0 011.42-1.42l6 6a1 1 0 010 1.41l-6 6A1 1 0 019 19z" />
+            </svg>
+          ) : (
+            customCollapse
+          )}
         </Button>
       ) : null}
     </ErrorBoundary>

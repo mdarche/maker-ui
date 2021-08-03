@@ -129,8 +129,22 @@ export function useLayoutStyles(layout: string): object {
         margin: '0 auto',
       },
       '#toggle-sidenav': {
-        right: layout === 'sidenav content' && 30,
-        left: layout === 'content sidenav' && 30,
+        right: layout === 'sidenav content' ? 30 : undefined,
+        left: layout === 'content sidenav' ? 30 : undefined,
+      },
+      '#collapse-sidenav': {
+        top: 80,
+        height: 50,
+        right: layout === 'sidenav content' ? -40 : undefined,
+        left: layout === 'content sidenav' ? -40 : undefined,
+      },
+      '.default-collapse': {
+        height: 24,
+        transform: layout === 'content sidenav' ? 'rotate(180deg)' : undefined,
+        '&.rotate': {
+          transform:
+            layout === 'sidenav content' ? 'rotate(180deg)' : undefined,
+        },
       },
     }
   }
