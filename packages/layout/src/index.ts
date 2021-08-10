@@ -1,4 +1,6 @@
 import useMeasure from 'react-use-measure'
+import merge from 'deepmerge'
+
 export * from './components'
 export { useMakerUI } from './hooks/useMakerUI'
 export { useScrollPosition } from './hooks/useScrollPosition'
@@ -9,4 +11,4 @@ export { useColorTheme } from './context/LayoutContext'
 
 export { generateId, mergeSelectors } from './utils/helper'
 export * from './types'
-export { useMeasure }
+export { useMeasure, merge }
