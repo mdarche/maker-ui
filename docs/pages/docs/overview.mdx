@@ -24,7 +24,7 @@ The Layout provider also gives you granular control over the way certain section
 
 If you want to incrementally introduce Maker UI into your app, or if you just hate media queries and want to use the responsive `css` or `breakpoints` props, you don’t actually need any of the layout components. They will certainly make your life easier, but you might already have a great layout system in place… Don’t fix what’s not broken, right?
 
-Whenever you want to build responsive styles, just import any of the components from `@maker-ui/primitives` or `@maker-ui/components`. They can be used independently of the layout system.
+Whenever you want to build responsive styles, just import any of the components from `@maker-ui/primitives` or `@maker-ui/elements`. They can be used independently of the layout system.
 
 ## TypeScript
 
@@ -50,7 +50,7 @@ Maker UI has only one critical dependency: [@emotion/react](https://github.com/e
 
 #### React Spring
 
-This library uses pure CSS for almost every transition state, but in some cases we must gracefully mount and unmount components. The optional Popover, Modal, Lightbox, and Carousel components from `@maker-ui/components` all use the amazing [React Spring](https://github.com/pmndrs/react-spring) library.
+This library uses pure CSS for almost every transition state, but in some cases we must gracefully mount and unmount components. The optional Popover, Modal, Lightbox, and Carousel components from `@maker-ui/elements` all use the amazing [React Spring](https://github.com/pmndrs/react-spring) library.
 
 #### Theme UI
 

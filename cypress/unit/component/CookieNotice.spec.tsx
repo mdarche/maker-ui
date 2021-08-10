@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { CookieNotice } from '@maker-ui/components'
+import { CookieNotice } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
 import { Wrapper } from '../setup'

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Flex } from 'maker-ui'
-import { Popover } from '@maker-ui/components'
+import { Popover } from '@maker-ui/elements'
 import { mount, unmount } from '@cypress/react'
 
 /**

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Flex } from 'maker-ui'
-import { Tooltip } from '@maker-ui/components'
+import { Tooltip } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
 /**

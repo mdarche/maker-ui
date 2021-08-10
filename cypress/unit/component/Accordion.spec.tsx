@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Accordion, AccordionPanel } from '@maker-ui/components'
+import { Accordion, AccordionPanel } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
 /**

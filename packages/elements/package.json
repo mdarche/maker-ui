@@ -1,11 +1,11 @@
 {
-  "name": "@maker-ui/components",
+  "name": "@maker-ui/elements",
   "description": "Customizable components for Maker UI themes.",
   "version": "1.0.0-beta.13",
   "license": "MIT",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
-  "module": "dist/components.esm.js",
+  "module": "dist/elements.esm.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"

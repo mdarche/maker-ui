@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { Div } from 'maker-ui'
-import { Tabs } from '@maker-ui/components'
+import { Tabs } from '@maker-ui/elements'
 
 const TabsPage = () => {
   const [key, setKey] = React.useState('1')

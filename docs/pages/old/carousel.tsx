@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div } from 'maker-ui'
-import { Carousel } from '@maker-ui/components'
+import { Carousel } from '@maker-ui/elements'
 
 // Example 1 - Basic
 interface BasicSlideProps {

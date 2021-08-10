@@ -98,7 +98,7 @@ This example would set the Div's default color to `red` and generate `min-width`
 
 ## Maker Components
 
-Maker UI also has an optional package `@maker-ui/components` that exports a variety of common components you might need for your site:
+Maker UI also has an optional package `@maker-ui/elements` that exports a variety of common components you might need for your site:
 
 - Carousel
 - Accordion

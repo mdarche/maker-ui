@@ -36,8 +36,8 @@ export const menu: MakerMenu = [
     ],
   },
   {
-    label: 'Components API',
-    path: '/docs/components-api',
+    label: 'Elements API',
+    path: '/docs/elements-api',
     className: 'api-btn',
     openNested: false,
     submenu: [

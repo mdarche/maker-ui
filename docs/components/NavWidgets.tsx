@@ -1,5 +1,5 @@
 import { Div, Flex, useColorTheme } from 'maker-ui'
-import { Dropdown } from '@maker-ui/components'
+import { Dropdown } from '@maker-ui/elements'
 import Link from 'next/link'
 
 import { GithubIcon, PaintIcon, CaretIcon } from './Icons'

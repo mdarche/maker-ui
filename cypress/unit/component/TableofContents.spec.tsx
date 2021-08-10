@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TableofContents } from '@maker-ui/components'
+import { TableofContents } from '@maker-ui/elements'
 import { Content, Main, MakerUIOptions, Sidebar } from 'maker-ui'
 import { mount } from '@cypress/react'
 

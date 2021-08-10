@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Generate } from '@maker-ui/components'
+import { Generate } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
 const Card = ({ title }: { title?: string }) => (

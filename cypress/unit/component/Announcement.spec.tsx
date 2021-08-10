@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Announcement } from '@maker-ui/components'
+import { Announcement } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
 import { Wrapper } from '../setup'

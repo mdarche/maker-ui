@@ -44,7 +44,7 @@ If your design requires more customization or if you need conditional layouts de
 
 ```jsx
 // basic layout component usage
-import * as React from 'react';
+import * as React from 'react'
 import {
   Layout,
   Header,
@@ -54,10 +54,10 @@ import {
   Main,
   Sidebar,
   Footer,
-} from 'maker-ui';
+} from 'maker-ui'
 
-import { options, menu } from './config'; // your custom configurations
-import Logo from './Logo'; // your logo component
+import { options, menu } from './config' // your custom configurations
+import Logo from './Logo' // your logo component
 
 const MyLayout = props => (
   <Layout options={options}>
@@ -71,9 +71,9 @@ const MyLayout = props => (
     </Content>
     <Footer>Your custom footer</Footer>
   </Layout>
-);
+)
 
-export default MyLayout;
+export default MyLayout
 ```
 
 ### Responsive Styles
@@ -96,7 +96,7 @@ This example would set the div's default color to `red` and generate `min-width`
 
 ## Maker Components
 
-Maker UI also has an optional package `@maker-ui/components` that exports a variety of common components you might need for your site:
+Maker UI also has an optional package `@maker-ui/elements` that exports a variety of common components you might need for your site:
 
 - Carousel
 - Accordion

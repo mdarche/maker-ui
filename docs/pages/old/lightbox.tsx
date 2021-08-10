@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Lightbox, Spinner } from '@maker-ui/components'
+import { Lightbox, Spinner } from '@maker-ui/elements'
 
 const galleryData = [
   {
