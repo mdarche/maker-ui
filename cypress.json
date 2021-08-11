@@ -4,7 +4,7 @@
   "testFiles": ["**/*.spec.{ts,tsx}"],
   "component": {
     "testFiles": "**/*.spec.{ts,tsx}",
-    "componentFolder": "packages"
+    "componentFolder": "cypress/unit"
   },
   "viewportWidth": 1280,
   "viewportHeight": 800,

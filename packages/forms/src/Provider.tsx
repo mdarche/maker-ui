@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { Formik, FormikHelpers } from 'formik'
+import { Formik } from 'formik'
 import { Div, merge } from 'maker-ui'
 
 import { ValidateIcon } from './Icons'
-import { FieldProps } from './types'
-import { FormValues } from '../dist'
+import { FieldProps, FormValues, FormHelpers } from './types'
 
 interface Settings {
   validateOnBlur: boolean
@@ -12,7 +11,7 @@ interface Settings {
   validateIcon: React.ReactNode
   columns: string | string[]
   pages: number
-  pageTransition: 'none' | 'fade' | 'fade-down' | 'fade-up' // TODO
+  pageTransition: 'none' | 'fade' | 'fade-down' | 'fade-up'
   placeholderColor: string
   labelStyle: 'top' | 'bottom' | 'left' | 'right' | 'center'
 }
@@ -26,19 +25,25 @@ interface FormState {
 export interface FormProviderProps {
   children: React.ReactNode
   validationSchema?: any // use Yup
-  /**A single depth array of field values that covers all pages. */
+  /**A single depth array of `FieldProp` objects that includes all form fields.
+   *
+   * @example If you use form pages, you should combine all separate `fields` props
+   * into a single array:
+   * const firstPageFields = [...]
+   * const secondPageFields = [...]
+   *
+   * // Use `allFields` as the FormProvider `fields` prop
+   * const allFields = [...firstPageFields, ...secondPageFields]
+   */
   fields: FieldProps[]
-  onSubmit: (<T>(
-    values: T,
-    helpers?: FormikHelpers<T>
-  ) => void | Promise<any>) &
-    (<T>(values: T) => void)
+  // onSubmit: <T>(values: T, actions: FormikHelpers<T>) => void | Promise<any>
+  onSubmit: (values: any, actions: FormHelpers) => void | Promise<any>
   settings?: Partial<Settings>
 }
 
 /**
- * The `Form` component lets you generate a highly customized form from a
- * configuration object and field array. Based on Formik.
+ * The `Form` component lets you generate a highly customizable form from a
+ * configuration object and field array. Built on top of Formik.
  * .
  *
  * @link https://maker-ui.com/docs/form

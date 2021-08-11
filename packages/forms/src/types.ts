@@ -1,7 +1,7 @@
 import { FormikHelpers, FormikValues } from 'formik'
 
 export interface FormValues extends FormikValues {}
-export interface FormHelpers extends FormikHelpers<FormValues> {}
+export interface FormHelpers extends FormikHelpers<any> {}
 
 export interface FieldProps {
   name: string

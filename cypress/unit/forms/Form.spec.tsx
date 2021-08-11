@@ -40,15 +40,16 @@ describe('Form component', () => {
       <Form.Provider
         fields={formFields}
         validationSchema={FormSchema}
-        onSubmit={(values: FormValues) => {
+        onSubmit={(values: FormValues, actions: FormHelpers) => {
+          console.log('Actions are', actions)
           console.log('Submitted', values)
         }}>
-        <Form id="" data-cy="form">
-          <Form.Submit />
+        <Form id="form-1" data-cy="form">
+          <Form.Submit>Submit</Form.Submit>
         </Form>
       </Form.Provider>
     )
-    cy.get('.announcement')
+    cy.get('[data-cy=form]')
   })
 
   // it('renders a paginated form', () => {

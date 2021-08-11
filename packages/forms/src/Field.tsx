@@ -112,10 +112,8 @@ const position_absolute = {
   right: 15,
 }
 
-function position_label(pos: FieldProps['labelPosition']): object {
-  // TODO
-  console.log('Pos is', pos)
-  return {}
+function position_label(pos?: FieldProps['labelPosition']): object {
+  return pos === 'top' ? {} : {}
 }
 
 function position_error(pos: FieldProps['errorPosition']): object {

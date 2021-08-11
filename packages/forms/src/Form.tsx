@@ -8,10 +8,7 @@ import { Provider, useForm } from './Provider'
 import { SubmitButton } from './SubmitButton'
 import { Progress } from './Progress'
 
-export interface FormProps {
-  children: React.ReactNode
-  className?: string
-  id?: string
+export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
   columns?: string | string[]
   gap?: ResponsiveScale
 }
@@ -41,12 +38,13 @@ export const Form = ({
   children,
   columns = '1fr',
   gap = 30,
+  ...props
 }: FormProps) => {
-  const { fields, settings } = useForm()
+  const { fields } = useForm()
 
   return (
-    <FormikForm id={id} className={className}>
-      {settings.pages === 1 && fields ? (
+    <FormikForm id={id} className={className} {...props}>
+      {fields ? (
         <Grid className="form-grid" columns={columns} gap={gap}>
           {renderFields(fields)}
         </Grid>
