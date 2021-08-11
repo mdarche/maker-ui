@@ -1,7 +1,11 @@
 {
   "$schema": "https://on.cypress.io/cypress.schema.json",
-  "componentFolder": "cypress/unit",
-  "testFiles": ["**/*.spec.{ts, tsx}"],
+  "baseUrl": "http://localhost:3000",
+  "testFiles": ["**/*.spec.{ts,tsx}"],
+  "component": {
+    "testFiles": "**/*.spec.{ts,tsx}",
+    "componentFolder": "cypress/unit"
+  },
   "viewportWidth": 1280,
   "viewportHeight": 800,
   "video": false,

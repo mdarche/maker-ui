@@ -14,7 +14,7 @@ export const TextField = ({
   errorPosition,
   label,
   description,
-  // containerClass,
+  containerClass,
   validationIcon,
   selectOptions,
   initialOption,
@@ -38,6 +38,7 @@ export const TextField = ({
       key={id}
       className={mergeSelectors([
         'field-container',
+        containerClass,
         hasError ? 'error' : undefined,
         firstTouch ? 'touched' : undefined,
       ])}

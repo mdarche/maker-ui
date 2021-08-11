@@ -19,7 +19,6 @@ module.exports = (
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions
 ) => {
-  // require('@cypress/code-coverage/task')(on, config)
   const webpackConfig = findReactScriptsWebpackConfig(config)
 
   const rules = webpackConfig.module.rules.find((rule: any) => !!rule.oneOf)
@@ -32,7 +31,5 @@ module.exports = (
     return startDevServer({ options, webpackConfig })
   })
 
-  // IMPORTANT to return the config object
-  // with the any changed environment variables
   return config
 }
