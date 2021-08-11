@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/forms",
   "description": "Customizable forms for Maker UI",
-  "version": "1.0.0-beta.13",
+  "version": "1.0.0",
   "license": "MIT",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
     "yup": "^0.32.9"
   },
   "peerDependencies": {
-    "maker-ui": "1.0.0-beta.13",
+    "maker-ui": "1.0.0",
     "react": "^16.x || ^17.x",
     "react-dom": "^16.x || ^17.x"
   }
