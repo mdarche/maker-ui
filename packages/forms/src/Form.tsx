@@ -1,42 +1,30 @@
 import * as React from 'react'
-import { Grid, Div, DivProps } from 'maker-ui'
+import { Grid, Div, DivProps, ResponsiveScale, mergeSelectors } from 'maker-ui'
 import { Form as FormikForm } from 'formik'
 
+import { renderFields } from './render'
 import { Page } from './Page'
-import { Provider } from './Provider'
-import { Field } from './Field'
-import { DatePickerField } from './Datepicker'
+import { Provider, useForm } from './Provider'
 import { SubmitButton } from './SubmitButton'
 import { Progress } from './Progress'
-import { FieldProps } from './types'
 
-interface FormProps {
+export interface FormProps {
   children: React.ReactNode
-  fields?: FieldProps[]
   className?: string
   id?: string
-  settings?: {
-    columns?: any // TODO fix this
-    gap?: number
-    pages?: number
-    pageTransition?: boolean
-    labelStyle?: string
-    placeholderColor?: string
-    progressBar?:
-      | boolean
-      | ((
-          currentStep: number,
-          setStep: () => void,
-          totalSteps: number
-        ) => React.ReactNode)
-  }
+  columns?: string | string[]
+  gap?: ResponsiveScale
 }
 
-const Header = ({ children, ...props }: DivProps) => (
-  <Div {...props}>{children}</Div>
+const Header = ({ className, children, ...props }: DivProps) => (
+  <Div className={mergeSelectors(['form-header', className])} {...props}>
+    {children}
+  </Div>
 )
-const Footer = ({ children, ...props }: DivProps) => (
-  <Div {...props}>{children}</Div>
+const Footer = ({ className, children, ...props }: DivProps) => (
+  <Div className={mergeSelectors(['form-footer', className])} {...props}>
+    {children}
+  </Div>
 )
 
 /**
@@ -50,59 +38,22 @@ const Footer = ({ children, ...props }: DivProps) => (
 export const Form = ({
   id,
   className,
-  fields,
-  settings,
   children,
+  columns = '1fr',
+  gap = 30,
 }: FormProps) => {
-  // Register fields with Form component context
-  // Get settings and add CSS to grid - (grid columns, placeholder text, label type, pages, page transition, stepper (style), stepper callback component)
-  // Current page and total pages
+  const { fields, settings } = useForm()
 
   return (
     <FormikForm id={id} className={className}>
-      {fields ? (
-        <Grid
-          columns={settings?.columns || '1fr'}
-          css={{
-            columnGap: settings?.gap || 30,
-            'input::placeholder, input:-ms-input-placeholder, ::-ms-input-placeholder': {
-              opacity: 1,
-              color: settings?.placeholderColor || '#b7b7b7',
-            },
-          }}>
+      {settings.pages === 1 && fields ? (
+        <Grid className="form-grid" columns={columns} gap={gap}>
           {renderFields(fields)}
         </Grid>
       ) : null}
       {children}
     </FormikForm>
   )
-}
-
-export function renderFields(fields: FieldProps[]) {
-  const textInputs = [
-    'text',
-    'email',
-    'tel',
-    'email',
-    'password',
-    'url',
-    'select',
-    'select-datalist',
-    'date',
-    'file',
-    'color',
-    'textarea',
-  ]
-
-  return fields.map((props: FieldProps) => {
-    if (textInputs.includes(props.type)) {
-      return <Field key={props.id} {...props} />
-    }
-    if (props.type === 'datepicker') {
-      return <DatePickerField key={props.id} />
-    }
-    return null
-  })
 }
 
 Form.displayName = 'Form'

@@ -151,6 +151,7 @@ const OptionWrapper = ({ wrapper, id, children }: OptionWrapperProps) =>
   wrapper ? <datalist id={`list-${id}`}>{children}</datalist> : <>{children}</>
 
 const OptionList = ({ options, id, initial, datalist }: OptionProps) => {
+  // TODO conditional check the options for object vs array of strings
   return (
     <OptionWrapper id={id} wrapper={datalist}>
       {initial ? <option>{initial}</option> : null}

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Formik, FormikHelpers } from 'formik'
+import { Div, merge } from 'maker-ui'
 
 import { ValidateIcon } from './Icons'
 import { FieldProps } from './types'
@@ -11,7 +12,7 @@ interface Settings {
   validateIcon: React.ReactNode
   columns: string | string[]
   pages: number
-  pageTransition: boolean // TODO
+  pageTransition: 'none' | 'fade' | 'fade-down' | 'fade-up' // TODO
   placeholderColor: string
   labelStyle: 'top' | 'bottom' | 'left' | 'right' | 'center'
 }
@@ -19,18 +20,19 @@ interface Settings {
 interface FormState {
   currentPage: number
   settings: Partial<Settings>
-  fields: FieldProps[]
+  fields?: FieldProps[]
 }
 
 export interface FormProviderProps {
   children: React.ReactNode
   validationSchema?: any // use Yup
+  /**A single depth array of field values that covers all pages. */
   fields: FieldProps[]
-  onSubmit: (<Values>(
-    values: Values,
-    helpers: FormikHelpers<Values>
+  onSubmit: (<T>(
+    values: T,
+    helpers?: FormikHelpers<T>
   ) => void | Promise<any>) &
-    (<Values>(values: Values) => void)
+    (<T>(values: T) => void)
   settings?: Partial<Settings>
 }
 
@@ -53,75 +55,101 @@ export const Provider = ({
   let values: Partial<FormValues> = {}
   fields.forEach(({ name, initialValue }) => (values[name] = initialValue))
 
+  // TODO - Add form style classes to Div or Global
+
   return (
-    <FormSettingsProvider fields={fields} settings={settings}>
+    //@ts-ignore
+    <MakerForm fields={fields} settings={settings}>
       <Formik
         initialValues={values}
         onSubmit={onSubmit}
         validationSchema={validationSchema}>
-        {children}
+        <Div
+          className="form-wrapper"
+          css={{
+            'input::placeholder, input:-ms-input-placeholder, ::-ms-input-placeholder': {
+              opacity: 1,
+              color: settings?.placeholderColor || '#b7b7b7',
+            },
+          }}>
+          {children}
+        </Div>
       </Formik>
-    </FormSettingsProvider>
+    </MakerForm>
   )
 }
 
 /**
- * The `FormSettings` provider stores all form settings that are not part of
+ * The `MakerForm` provider stores all form settings that are not part of
  * Formik's scope.
  * .
  *
  * @internal - usage only
  */
-
-const FormSettingsContext = React.createContext<Partial<FormState>>({})
-const FormSettingsUpdateContext = React.createContext<
-  React.Dispatch<React.SetStateAction<Partial<FormState>>>
+const initialState: FormState = {
+  currentPage: 1,
+  settings: {
+    columns: '1fr',
+    pages: 1,
+    pageTransition: 'none',
+    placeholderColor: '#b7b7b7',
+    labelStyle: 'top',
+    validateIcon: <ValidateIcon />,
+  },
+}
+const FormContext = React.createContext<FormState>(initialState)
+const FormUpdateContext = React.createContext<
+  React.Dispatch<React.SetStateAction<FormState>>
 >(() => {})
 
-const FormSettingsProvider = ({
+const MakerForm = ({
   children,
   fields,
   settings,
 }: {
   children: React.ReactNode
   fields: FieldProps[]
-  settings?: Partial<FormState['settings']>
+  settings?: Settings
 }) => {
-  const [state, setState] = React.useState<Partial<FormState>>({
-    currentPage: 0,
-    settings: {
-      columns: '1fr',
-      pages: 0,
-      pageTransition: true,
-      placeholderColor: '#b7b7b7',
-      labelStyle: 'top',
-      validateIcon: <ValidateIcon />,
-    },
+  const [state, setState] = React.useState<FormState>({
+    ...initialState,
     fields,
   })
 
   React.useEffect(() => {
+    //@ts-ignore
     setState(s => ({ ...s, settings, fields }))
   }, [settings, fields])
 
   return (
-    <FormSettingsContext.Provider value={state}>
-      <FormSettingsUpdateContext.Provider value={setState}>
+    <FormContext.Provider value={state}>
+      <FormUpdateContext.Provider value={setState}>
         {children}
-      </FormSettingsUpdateContext.Provider>
-    </FormSettingsContext.Provider>
+      </FormUpdateContext.Provider>
+    </FormContext.Provider>
   )
 }
 
 export function useForm() {
-  const { fields, settings } = React.useContext(FormSettingsContext)
-  // const setState = React.useContext(FormSettingsUpdateContext)
+  const { fields, settings, currentPage } = React.useContext(FormContext)
+  const setState = React.useContext(FormUpdateContext)
 
-  // function updatePage(page: 'next' | 'prev' | number) {
-  //   if (settings.currentPage > 0 && page === 'prev') {
-  //     setState((s) => ({ ...s, currentPage: s.currentPage - 1 }))
-  //   }
-  // }
+  function setPage(page: 'next' | 'prev' | number) {
+    // Todo add pagination logic
+    if (currentPage > 0 && page === 'prev') {
+      setState(s => ({ ...s, currentPage: s.currentPage - 1 }))
+    }
+  }
 
-  return { settings, fields }
+  function updateSettings(
+    newSettings: Partial<Settings>,
+    mergeSettings = true
+  ) {
+    setState(s => ({
+      ...s,
+      settings: mergeSettings ? merge(s.settings, newSettings) : newSettings,
+    }))
+  }
+
+  return { settings, fields, currentPage, setPage, updateSettings }
 }
