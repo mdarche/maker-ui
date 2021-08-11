@@ -1,5 +1,6 @@
 export { Form } from './Form'
-export { FormProvider } from './FormProvider'
+export { Provider } from './Provider'
 export { SubmitButton } from './SubmitButton'
+export * as Validate from 'yup'
 
 export * from './types'

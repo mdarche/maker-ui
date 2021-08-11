@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "formik": "^2.2.9",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "yup": "^0.32.9"
   },
   "peerDependencies": {
     "maker-ui": "1.0.0-beta.13",

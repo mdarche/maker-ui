@@ -1,27 +1,33 @@
 import * as React from 'react'
 import { Div, Flex, mergeSelectors } from 'maker-ui'
-import { Field, FormikErrors, FormikTouched, useFormikContext } from 'formik'
+import {
+  Field as FormikField,
+  FormikErrors,
+  FormikTouched,
+  useFormikContext,
+} from 'formik'
 
 import { FieldProps } from './types'
-import { useFormSettings } from './FormProvider'
+import { useForm } from './Provider'
 
-export const TextField = ({
+export const Field = ({
   name,
   id,
   colSpan,
   placeholder,
   type,
+  labelPosition,
   errorPosition,
   label,
   description,
   containerClass,
-  validationIcon,
+  validateIcon,
   selectOptions,
   initialOption,
 }: FieldProps) => {
   const [firstTouch, setFirstTouch] = React.useState(false)
   // TODO - <any> should be dynamic <FormValues>
-  const { settings } = useFormSettings()
+  const { settings } = useForm()
   const {
     errors,
     touched,
@@ -44,10 +50,12 @@ export const TextField = ({
       ])}
       css={{
         gridColumn: colSpan !== undefined ? `span ${colSpan}` : undefined,
+        ...position_label(labelPosition),
+        ...position_error(errorPosition),
       }}>
       {description ? <div className="description">{description}</div> : null}
       <label htmlFor={id}>{label}</label>
-      <Field
+      <FormikField
         id={id}
         onFocus={() => (!firstTouch ? setFirstTouch(true) : undefined)}
         onClick={() => (!firstTouch ? setFirstTouch(true) : undefined)}
@@ -66,7 +74,7 @@ export const TextField = ({
         {type === 'select' ? (
           <OptionList options={selectOptions} initial={initialOption} />
         ) : null}
-      </Field>
+      </FormikField>
       {type === 'select-datalist' ? (
         <OptionList
           id={id}
@@ -75,12 +83,12 @@ export const TextField = ({
           datalist
         />
       ) : null}
-      {validationIcon && (
+      {validateIcon ? (
         <Flex
           align="center"
           className={isComplete ? 'valid validation-icon' : 'validation-icon'}
           css={{
-            ...(absolutePosition as object),
+            ...position_absolute,
             opacity: 0,
             visibility: 'hidden',
             transition: 'all ease 0.2s',
@@ -89,31 +97,28 @@ export const TextField = ({
               visibility: 'visible',
             },
           }}>
-          {settings.validationIcon}
+          {settings?.validateIcon}
         </Flex>
-      )}
-      {hasError && (
-        <Div
-          className="form-error"
-          css={{
-            position: 'absolute',
-            ...getErrorPosition(errorPosition),
-          }}>
-          {errors[name]}
-        </Div>
-      )}
+      ) : null}
+      {hasError && <Div className="form-error">{errors[name]}</Div>}
     </Div>
   )
 }
 
-const absolutePosition = {
+const position_absolute = {
   position: 'absolute',
   top: 0,
   bottom: 0,
   right: 15,
 }
 
-function getErrorPosition(pos: FieldProps['errorPosition']): object {
+function position_label(pos: FieldProps['labelPosition']): object {
+  // TODO
+  console.log('Pos is', pos)
+  return {}
+}
+
+function position_error(pos: FieldProps['errorPosition']): object {
   let styles: any = {}
   if (pos?.includes('top')) {
     styles.top = 0
@@ -130,7 +135,7 @@ function getErrorPosition(pos: FieldProps['errorPosition']): object {
 }
 
 interface OptionProps {
-  options?: string[]
+  options?: FieldProps['selectOptions']
   initial?: string
   datalist?: boolean
   id?: string
@@ -149,8 +154,9 @@ const OptionList = ({ options, id, initial, datalist }: OptionProps) => {
   return (
     <OptionWrapper id={id} wrapper={datalist}>
       {initial ? <option>{initial}</option> : null}
-      {options?.map(i => (
-        <option key={i}>{i}</option>
+      {/* @ts-ignore */}
+      {options?.map((i, index) => (
+        <option key={index}>{i}</option>
       ))}
     </OptionWrapper>
   )

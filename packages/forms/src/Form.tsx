@@ -1,8 +1,13 @@
 import * as React from 'react'
-import { Grid } from 'maker-ui'
+import { Grid, Div, DivProps } from 'maker-ui'
 import { Form as FormikForm } from 'formik'
 
-import { TextField } from './Field'
+import { Page } from './Page'
+import { Provider } from './Provider'
+import { Field } from './Field'
+import { DatePickerField } from './Datepicker'
+import { SubmitButton } from './SubmitButton'
+import { Progress } from './Progress'
 import { FieldProps } from './types'
 
 interface FormProps {
@@ -26,6 +31,13 @@ interface FormProps {
         ) => React.ReactNode)
   }
 }
+
+const Header = ({ children, ...props }: DivProps) => (
+  <Div {...props}>{children}</Div>
+)
+const Footer = ({ children, ...props }: DivProps) => (
+  <Div {...props}>{children}</Div>
+)
 
 /**
  * The `Form` component lets you generate a highly customized form from a
@@ -84,7 +96,20 @@ export function renderFields(fields: FieldProps[]) {
 
   return fields.map((props: FieldProps) => {
     if (textInputs.includes(props.type)) {
-      return <TextField key={props.id} {...props} />
+      return <Field key={props.id} {...props} />
     }
+    if (props.type === 'datepicker') {
+      return <DatePickerField key={props.id} />
+    }
+    return null
   })
 }
+
+Form.displayName = 'Form'
+
+Form.Page = Page
+Form.Provider = Provider
+Form.Header = Header
+Form.Footer = Footer
+Form.Progress = Progress
+Form.Submit = SubmitButton

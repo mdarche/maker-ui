@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useFormikContext, FormikErrors, FormikTouched } from 'formik'
 import { Button, ButtonProps } from 'maker-ui'
 
-interface SubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
+export interface SubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
   children?: React.ReactNode
   onClick?: (e: any, isSubmitting: boolean) => void
   lifecycle?: {
@@ -48,7 +48,6 @@ export const SubmitButton = ({
       type="submit"
       onClick={onClick ? event => onClick(event, isSubmitting) : undefined}
       disabled={isValidated}
-      css={{ ...(css as object) }}
       {...props}>
       {renderLifecycle()}
     </Button>

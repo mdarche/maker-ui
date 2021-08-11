@@ -1,11 +1,12 @@
 import { FormikHelpers, FormikValues } from 'formik'
 
 export interface FormValues extends FormikValues {}
-export interface FormHelpers extends FormikHelpers<FormikValues> {}
+export interface FormHelpers extends FormikHelpers<FormValues> {}
 
 export interface FieldProps {
   name: string
   id: string
+  initialValue: any
   containerClass?: string
   label?: string
   description?: string
@@ -29,13 +30,16 @@ export interface FieldProps {
     | 'color'
     | 'file'
     | 'custom'
-  mask?: boolean
+  mask?: 'phone' | 'zipcode' | 'credit-card'
   required?: boolean
   errorPosition?: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right'
+  labelPosition?: 'top' | 'left' | 'right' | 'bottom' | 'center'
   colSpan?: number | 'full'
-  validationIcon?: boolean
-  togglePassword?: boolean
-  selectOptions?: string[]
+  validateIcon?: boolean
+  passwordToggle?: boolean
+  selectOptions?:
+    | string[]
+    | { label: string; initial?: boolean; className?: string; id?: string }[]
   initialOption?: string
   datePickerProps?: object
   validation?: object
