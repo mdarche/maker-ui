@@ -1,55 +1,44 @@
 import * as React from 'react'
 import { mount } from '@cypress/react'
 
-import { Form, Yup, FieldProps, FormHelpers } from '@maker-ui/forms'
+import { BasicForm } from './setup'
 
-export interface FormValues {
-  username: string
-  password: string
-}
+/**
+ * @remark
+ * These tests are not designed to cover Formik or Yup functionality. These libraries
+ * are covered extensively by their authors. We test for @maker-ui/forms-specific
+ * features and the integration with Formik/Yup.
+ */
 
-export const formFields: FieldProps[] = [
-  {
-    name: 'username',
-    id: 'username',
-    label: 'Username',
-    placeholder: 'Enter your username',
-    type: 'text',
-    errorPosition: 'bottom-right',
-    initialValue: '',
-  },
-  {
-    name: 'password',
-    id: 'password',
-    label: 'Password',
-    placeholder: 'Enter your password',
-    type: 'password',
-    errorPosition: 'bottom-right',
-    initialValue: '',
-  },
-]
+// Test grid
 
-export const FormSchema = Yup.object().shape({
-  username: Yup.string().required('Required'),
-  password: Yup.string().required('Required'),
-})
+// Test submit
+
+// Test validation
 
 describe('Form component', () => {
-  it('renders a single page form', () => {
-    mount(
-      <Form.Provider
-        fields={formFields}
-        validationSchema={FormSchema}
-        onSubmit={(values: FormValues, actions: FormHelpers) => {
-          console.log('Actions are', actions)
-          console.log('Submitted', values)
-        }}>
-        <Form id="form-1" data-cy="form">
-          <Form.Submit>Submit</Form.Submit>
-        </Form>
-      </Form.Provider>
-    )
-    cy.get('[data-cy=form]')
+  it('renders a basic form with test fields', () => {
+    mount(<BasicForm />)
+    cy.get('[data-cy=wrapper]')
+    cy.get('[data-cy=submit]')
+    // cy.get('[data-cy=form]')
+    //   .find('.field-container')
+    //   .should('have.length', 2)
+  })
+
+  it('renders basic field elements', () => {
+    // Check for name, id, containerClass, label, description, placeholder,
+    mount(<BasicForm />)
+    cy.get('[data-cy=submit]')
+    // cy.get('[data-cy=form]')
+    //   .find('.field-container')
+    //   .should('have.length', 2)
+  })
+
+  it('enforces field validation', () => {
+    mount(<BasicForm />)
+    cy.get('#username').type('mikedarche')
+    cy.get('[data-cy=submit]').click()
   })
 
   // it('renders a paginated form', () => {

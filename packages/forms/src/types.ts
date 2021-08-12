@@ -13,6 +13,7 @@ export interface FieldProps {
   placeholder?: string
   type:
     | 'text'
+    | 'textarea'
     | 'tel'
     | 'email'
     | 'password'
@@ -22,18 +23,23 @@ export interface FieldProps {
     | 'date'
     | 'datepicker'
     | 'toggle'
-    | 'textarea'
     | 'radio'
     | 'checkbox'
     | 'slider'
     | 'repeater'
     | 'color'
+    | 'range' // TODO
     | 'file'
-    | 'custom'
-  mask?: 'phone' | 'zipcode' | 'credit-card'
+    | 'custom' // TODO
+  mask?: 'phone' | 'zipcode' | 'credit-card' // TODO
   required?: boolean
-  errorPosition?: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right'
-  labelPosition?: 'top' | 'left' | 'right' | 'bottom' | 'center'
+  errorStyle?:
+    | 'top-right'
+    | 'top-left'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'bottom-center'
+  labelStyle?: 'top' | 'bottom' | 'left' | 'right' | 'center' | 'floating'
   colSpan?: number | 'full'
   validateIcon?: boolean
   passwordToggle?: boolean
@@ -42,5 +48,6 @@ export interface FieldProps {
     | { label: string; initial?: boolean; className?: string; id?: string }[]
   initialOption?: string
   datePickerProps?: object
-  validation?: object
+  /* Yup Validation rule */
+  validation?: any
 }

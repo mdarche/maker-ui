@@ -18,11 +18,11 @@ export const Page = ({
   title,
   fields,
   className,
-  columns = '1fr',
-  gap = 30,
+  columns,
+  gap,
   children,
 }: FormPageProps) => {
-  const { currentPage, setPageFields } = useForm()
+  const { currentPage, setPageFields, settings } = useForm()
 
   React.useEffect(() => {
     /* Register current page fields in Form State */
@@ -35,7 +35,7 @@ export const Page = ({
     <Div id={id} className={mergeSelectors(['form-page', className])}>
       {typeof title === 'function' ? title(currentPage) : title}
       FormPage
-      <Grid className="form-grid" columns={columns} gap={gap}>
+      <Grid className="form-grid" columns={columns || settings.columns} gap={gap || settings.gap}>
         {renderFields(fields)}
       </Grid>
       {children}

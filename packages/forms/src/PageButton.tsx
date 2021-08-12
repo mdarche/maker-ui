@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Button, ButtonProps } from 'maker-ui'
 
 import { useForm } from './Provider'
+import { FieldProps } from './types'
+import { getRequired } from './render'
 
 export interface PageButtonProps extends ButtonProps {
   pageId: string
@@ -16,8 +18,10 @@ export const PageButton = ({
   const { currentPage, pageFields, setPage } = useForm()
 
   const fields = pageFields[pageId]
+  const required = getRequired(fields as FieldProps[])
 
   console.log('fields are', fields)
+  console.log('Required fields are', required)
 
   return (
     <Button

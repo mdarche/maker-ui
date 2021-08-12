@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { useFormikContext, FormikErrors, FormikTouched } from 'formik'
 import { Button, ButtonProps } from 'maker-ui'
+import { useForm } from './Provider'
+import { getRequired } from './render'
 
 export interface SubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
   children?: React.ReactNode
@@ -18,11 +20,11 @@ export const SubmitButton = ({
   children,
   ...props
 }: SubmitButtonProps) => {
-  // Todo get required fields array from form context
+  const { fields } = useForm()
   const {
     errors,
     // touched,
-    // values,
+    values,
     isSubmitting,
   }: {
     errors: FormikErrors<any>
@@ -30,6 +32,11 @@ export const SubmitButton = ({
     values: any
     isSubmitting: boolean
   } = useFormikContext()
+
+  const required = getRequired(fields)
+  console.log('Required fields are', required)
+  console.log('Errors are', errors)
+  console.log('Values are', values)
 
   // TODO check if required fields all have values
   const isValidated = errors === {} ? true : false

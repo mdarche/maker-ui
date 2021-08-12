@@ -1,19 +1,22 @@
 import * as React from 'react'
 import { Formik } from 'formik'
-import { Div, MakerProps, merge } from 'maker-ui'
+import { Div, MakerProps, merge, ResponsiveScale } from 'maker-ui'
+import * as Yup from 'yup'
 
 import { ValidateIcon } from './Icons'
 import { FieldProps, FormValues, FormHelpers } from './types'
 
 interface Settings {
   validateOnBlur: boolean
-  validateOnChange: boolean // Bad UX
+  validateOnChange: boolean
   validateIcon: React.ReactNode
   columns: string | string[]
+  gap: ResponsiveScale
   pages: number
   pageTransition: 'none' | 'fade' | 'fade-down' | 'fade-up'
-  placeholderColor: string
-  labelStyle: 'top' | 'bottom' | 'left' | 'right' | 'center' // Global
+  placeholderColor: string | string[]
+  labelStyle: FieldProps['labelStyle']
+  errorStyle: FieldProps['errorStyle']
 }
 
 export interface FormState {
@@ -58,10 +61,20 @@ export const Provider = ({
   children,
   css,
   breakpoints,
+  ...props
 }: FormProviderProps) => {
-  // Calculate initial values via fields
+  /* Calculate initial values via fields */
   let values: Partial<FormValues> = {}
   fields.forEach(({ name, initialValue }) => (values[name] = initialValue))
+
+  /* Calculate form validation schema via fields */
+  let schema: { [key: string]: any } = {}
+  fields.forEach(({ name, validation }) =>
+    validation ? (schema[name] = validation) : undefined
+  )
+
+  const FormSchema =
+    Object.keys(schema).length !== 0 ? Yup.object().shape(schema) : undefined
 
   // TODO - Add form style classes to Div or Global
 
@@ -70,7 +83,9 @@ export const Provider = ({
       <Formik
         initialValues={values}
         onSubmit={onSubmit}
-        validationSchema={validationSchema}>
+        validationSchema={validationSchema || FormSchema}
+        validateOnBlur={settings?.validateOnBlur}
+        validateOnChange={settings?.validateOnChange}>
         <Div
           className="form-wrapper"
           breakpoints={breakpoints}
@@ -80,7 +95,8 @@ export const Provider = ({
               color: settings?.placeholderColor || '#b7b7b7',
             },
             ...(css as object),
-          }}>
+          }}
+          {...props}>
           {children}
         </Div>
       </Formik>
@@ -100,6 +116,7 @@ const initialState: FormState = {
   pageFields: {},
   settings: {
     columns: '1fr',
+    gap: 30,
     pages: 1,
     pageTransition: 'none',
     placeholderColor: '#b7b7b7',
@@ -127,7 +144,7 @@ const MakerForm = ({
   })
 
   React.useEffect(() => {
-    setState(s => ({ ...s, settings: merge(s.settings, settings), fields }))
+    setState(s => ({ ...s, settings, fields }))
   }, [settings, fields])
 
   return (
