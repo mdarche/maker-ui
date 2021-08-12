@@ -12,8 +12,10 @@ export interface ProgressProps {
   transition?: string
   clickable?: boolean
 }
-// Title prop that accepts a react component and is page aware
+// TODO
 export const Progress = ({ style = 'bar', stepper }: ProgressProps) => {
   console.log(style, stepper)
   return <div>FormPage</div>
 }
+
+Progress.displayName = 'FormProgress'

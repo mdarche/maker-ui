@@ -9,6 +9,7 @@ import {
 
 import { FieldProps } from './types'
 import { useForm } from './Provider'
+import { OptionList } from './Select'
 
 export const Field = ({
   name,
@@ -26,7 +27,6 @@ export const Field = ({
   initialOption,
 }: FieldProps) => {
   const [firstTouch, setFirstTouch] = React.useState(false)
-  // TODO - <any> should be dynamic <FormValues>
   const { settings } = useForm()
   const {
     errors,
@@ -105,6 +105,8 @@ export const Field = ({
   )
 }
 
+Field.displayName = 'Field'
+
 const position_absolute = {
   position: 'absolute',
   top: 0,
@@ -130,33 +132,4 @@ function position_error(pos: FieldProps['errorPosition']): object {
     styles.left = 0
   }
   return styles
-}
-
-interface OptionProps {
-  options?: FieldProps['selectOptions']
-  initial?: string
-  datalist?: boolean
-  id?: string
-}
-
-interface OptionWrapperProps {
-  children: React.ReactNode
-  wrapper?: boolean
-  id?: string
-}
-
-const OptionWrapper = ({ wrapper, id, children }: OptionWrapperProps) =>
-  wrapper ? <datalist id={`list-${id}`}>{children}</datalist> : <>{children}</>
-
-const OptionList = ({ options, id, initial, datalist }: OptionProps) => {
-  // TODO conditional check the options for object vs array of strings
-  return (
-    <OptionWrapper id={id} wrapper={datalist}>
-      {initial ? <option>{initial}</option> : null}
-      {/* @ts-ignore */}
-      {options?.map((i, index) => (
-        <option key={index}>{i}</option>
-      ))}
-    </OptionWrapper>
-  )
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Formik } from 'formik'
-import { Div, merge } from 'maker-ui'
+import { Div, MakerProps, merge } from 'maker-ui'
 
 import { ValidateIcon } from './Icons'
 import { FieldProps, FormValues, FormHelpers } from './types'
@@ -13,16 +13,17 @@ interface Settings {
   pages: number
   pageTransition: 'none' | 'fade' | 'fade-down' | 'fade-up'
   placeholderColor: string
-  labelStyle: 'top' | 'bottom' | 'left' | 'right' | 'center'
+  labelStyle: 'top' | 'bottom' | 'left' | 'right' | 'center' // Global
 }
 
-interface FormState {
+export interface FormState {
   currentPage: number
   settings: Partial<Settings>
   fields?: FieldProps[]
+  pageFields: { [key: string]: { name: string; required?: boolean }[] }
 }
 
-export interface FormProviderProps {
+export interface FormProviderProps extends MakerProps {
   children: React.ReactNode
   validationSchema?: any // use Yup
   /**A single depth array of `FieldProp` objects that includes all form fields.
@@ -55,6 +56,8 @@ export const Provider = ({
   settings,
   fields,
   children,
+  css,
+  breakpoints,
 }: FormProviderProps) => {
   // Calculate initial values via fields
   let values: Partial<FormValues> = {}
@@ -63,19 +66,20 @@ export const Provider = ({
   // TODO - Add form style classes to Div or Global
 
   return (
-    //@ts-ignore
-    <MakerForm fields={fields} settings={settings}>
+    <MakerForm fields={fields} settings={settings as Settings}>
       <Formik
         initialValues={values}
         onSubmit={onSubmit}
         validationSchema={validationSchema}>
         <Div
           className="form-wrapper"
+          breakpoints={breakpoints}
           css={{
             'input::placeholder, input:-ms-input-placeholder, ::-ms-input-placeholder': {
               opacity: 1,
               color: settings?.placeholderColor || '#b7b7b7',
             },
+            ...(css as object),
           }}>
           {children}
         </Div>
@@ -93,6 +97,7 @@ export const Provider = ({
  */
 const initialState: FormState = {
   currentPage: 1,
+  pageFields: {},
   settings: {
     columns: '1fr',
     pages: 1,
@@ -114,7 +119,7 @@ const MakerForm = ({
 }: {
   children: React.ReactNode
   fields: FieldProps[]
-  settings?: Settings
+  settings: Settings
 }) => {
   const [state, setState] = React.useState<FormState>({
     ...initialState,
@@ -122,8 +127,7 @@ const MakerForm = ({
   })
 
   React.useEffect(() => {
-    //@ts-ignore
-    setState(s => ({ ...s, settings, fields }))
+    setState(s => ({ ...s, settings: merge(s.settings, settings), fields }))
   }, [settings, fields])
 
   return (
@@ -136,7 +140,9 @@ const MakerForm = ({
 }
 
 export function useForm() {
-  const { fields, settings, currentPage } = React.useContext(FormContext)
+  const { fields, settings, currentPage, pageFields } = React.useContext(
+    FormContext
+  )
   const setState = React.useContext(FormUpdateContext)
 
   function setPage(page: 'next' | 'prev' | number) {
@@ -156,5 +162,22 @@ export function useForm() {
     }))
   }
 
-  return { settings, fields, currentPage, setPage, updateSettings }
+  function setPageFields(pageObject: FormState['pageFields']) {
+    setState(s => ({
+      ...s,
+      pageFields: merge(s.pageFields, pageObject),
+    }))
+  }
+
+  return {
+    settings,
+    fields,
+    currentPage,
+    setPage,
+    pageFields,
+    setPageFields,
+    updateSettings,
+  }
 }
+
+Provider.displayName = 'FormProvider'

@@ -46,10 +46,13 @@ export const SubmitButton = ({
   return (
     <Button
       type="submit"
-      onClick={onClick ? event => onClick(event, isSubmitting) : undefined}
+      className="form-submit-btn"
+      onClick={onClick ? e => onClick(e, isSubmitting) : undefined}
       disabled={isValidated}
       {...props}>
       {renderLifecycle()}
     </Button>
   )
 }
+
+SubmitButton.displayName = 'FormSubmit'

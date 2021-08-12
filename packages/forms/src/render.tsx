@@ -24,7 +24,7 @@ export function renderFields(fields: FieldProps[]) {
       return <Field key={props.id} {...props} />
     }
     if (props.type === 'datepicker') {
-      return <DatePickerField key={props.id} />
+      return <DatePickerField key={props.id} {...props} />
     }
     return null
   })
