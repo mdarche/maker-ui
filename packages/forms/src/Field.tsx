@@ -17,8 +17,8 @@ export const Field = ({
   colSpan,
   placeholder,
   type,
-  labelPosition,
-  errorPosition,
+  labelStyle,
+  errorStyle,
   label,
   description,
   containerClass,
@@ -50,11 +50,11 @@ export const Field = ({
       ])}
       css={{
         gridColumn: colSpan !== undefined ? `span ${colSpan}` : undefined,
-        ...position_label(labelPosition),
-        ...position_error(errorPosition),
+        ...position_label(labelStyle),
+        ...position_error(errorStyle),
       }}>
       {description ? <div className="description">{description}</div> : null}
-      <label htmlFor={id}>{label}</label>
+      {label ? <label htmlFor={id}>{label}</label> : undefined}
       <FormikField
         id={id}
         onFocus={() => (!firstTouch ? setFirstTouch(true) : undefined)}
@@ -67,7 +67,7 @@ export const Field = ({
             : 'input'
         }
         name={name}
-        className={hasError ? 'error' : ''}
+        className={hasError ? 'error' : undefined}
         placeholder={placeholder}
         list={type === 'select-datalist' ? `list-${id}` : undefined}
         type={type !== 'select-datalist' ? type : undefined}>
@@ -114,11 +114,11 @@ const position_absolute = {
   right: 15,
 }
 
-function position_label(pos?: FieldProps['labelPosition']): object {
+function position_label(pos?: FieldProps['labelStyle']): object {
   return pos === 'top' ? {} : {}
 }
 
-function position_error(pos: FieldProps['errorPosition']): object {
+function position_error(pos: FieldProps['errorStyle']): object {
   let styles: any = {}
   if (pos?.includes('top')) {
     styles.top = 0

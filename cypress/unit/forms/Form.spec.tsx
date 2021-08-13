@@ -21,9 +21,9 @@ describe('Form component', () => {
     mount(<BasicForm />)
     cy.get('[data-cy=wrapper]')
     cy.get('[data-cy=submit]')
-    // cy.get('[data-cy=form]')
-    //   .find('.field-container')
-    //   .should('have.length', 2)
+    cy.get('[data-cy=form]')
+      .find('.field-container')
+      .should('have.length', 2)
   })
 
   it('renders basic field elements', () => {
@@ -40,20 +40,4 @@ describe('Form component', () => {
     cy.get('#username').type('mikedarche')
     cy.get('[data-cy=submit]').click()
   })
-
-  // it('renders a paginated form', () => {
-  //   mount(
-  //     <Form.Provider fields={formFields} validationSchema={} onSubmit={}>
-  //       <Form.Header />
-  //       <Form id="" data-cy="form" columns={} gap={}>
-  //         <Form.Progress />
-  //         <Form.Page id="" title="" columns={} gap={} fields={}></Form.Page>
-  //         <Form.Page id="" title="" columns={} gap={} fields={}></Form.Page>
-  //         <Form.Submit />
-  //       </Form>
-  //       <Form.Footer />
-  //     </Form.Provider>
-  //   )
-  //   cy.get('.announcement')
-  // })
 })

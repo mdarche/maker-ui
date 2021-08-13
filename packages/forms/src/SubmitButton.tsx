@@ -24,7 +24,7 @@ export const SubmitButton = ({
   const {
     errors,
     // touched,
-    values,
+    // values,
     isSubmitting,
   }: {
     errors: FormikErrors<any>
@@ -33,10 +33,11 @@ export const SubmitButton = ({
     isSubmitting: boolean
   } = useFormikContext()
 
+  //@ts-ignore
   const required = getRequired(fields)
-  console.log('Required fields are', required)
-  console.log('Errors are', errors)
-  console.log('Values are', values)
+  // console.log('Required fields are', required)
+  // console.log('Errors are', errors)
+  // console.log('Values are', values)
 
   // TODO check if required fields all have values
   const isValidated = errors === {} ? true : false

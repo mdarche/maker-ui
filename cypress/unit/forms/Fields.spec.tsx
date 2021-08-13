@@ -1,39 +1,201 @@
+import * as React from 'react'
+import { mount } from '@cypress/react'
+import { FieldProps, Form } from '@maker-ui/forms'
+
+const TestForm = ({ fields }: { fields: FieldProps[] }) => {
+  const [submitted, setSubmitted] = React.useState(false)
+  return (
+    <>
+      {submitted ? <div data-cy="success">Success</div> : null}
+      <Form.Provider fields={fields} onSubmit={values => setSubmitted(true)}>
+        <Form>
+          <Form.Submit data-cy="submit">Submit</Form.Submit>
+        </Form>
+      </Form.Provider>
+    </>
+  )
+}
+
 describe('Field components', () => {
-  it('renders a text field', () => {})
+  // Check form state assertion
+  beforeEach(() => {
+    cy.get('[data-cy=success]').should('not.exist')
+  })
+  // Submit form assertion
+  afterEach(() => {
+    cy.get('[data-cy=submit]').click()
+    cy.get('[data-cy=success]').should('exist')
+  })
 
-  it('renders a textarea field', () => {})
+  // Text Field
+  it('renders a text field', () => {
+    mount(
+      <TestForm
+        fields={[{ name: 'text', id: 'text', initialValue: '', type: 'text' }]}
+      />
+    )
+    cy.get('input[type=text]').type('mike')
+  })
 
-  it('renders a tel field', () => {})
+  // Textarea
+  it('renders a textarea field', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'textarea',
+            id: 'textarea',
+            initialValue: '',
+            type: 'textarea',
+          },
+        ]}
+      />
+    )
+    cy.get('textarea').type('mike')
+  })
 
-  it('renders an email field', () => {})
+  // Tel Field
+  it('renders a tel field', () => {
+    mount(
+      <TestForm
+        fields={[{ name: 'tel', id: 'tel', initialValue: '', type: 'tel' }]}
+      />
+    )
+    cy.get('input[type=tel]').type('8675309')
+  })
 
-  it('renders a password field', () => {})
+  // Email Field
+  it('renders an email field', () => {
+    mount(
+      <TestForm
+        fields={[
+          { name: 'email', id: 'email', initialValue: '', type: 'email' },
+        ]}
+      />
+    )
+    cy.get('input[type=email]').type('mike@test.com')
+  })
 
-  it('renders a url field', () => {})
+  // Password Field
+  it('renders a password field', () => {
+    mount(
+      <TestForm
+        fields={[
+          { name: 'pass', id: 'pass', initialValue: '', type: 'password' },
+        ]}
+      />
+    )
+    cy.get('input[type=password]').type('12345')
+  })
 
-  it('renders a select field', () => {})
+  // URL Field
+  it('renders a url field', () => {
+    mount(
+      <TestForm
+        fields={[{ name: 'url', id: 'url', initialValue: '', type: 'url' }]}
+      />
+    )
+    cy.get('input[type=url]').type('https://gmail.com')
+  })
 
-  it('renders a select-datalist field', () => {})
+  // Select Field
+  it('renders a select field', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'select',
+            id: 'select',
+            initialValue: '',
+            type: 'select',
+            selectOptions: ['option-1', 'option-2', 'option-3'],
+          },
+        ]}
+      />
+    )
+    cy.get('select').select('option-1')
+  })
 
-  it('renders a date field', () => {})
+  // Select Datalist Field
+  it.only('renders a select-datalist field', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'select',
+            id: 'select',
+            initialValue: '',
+            type: 'select-datalist',
+            selectOptions: ['option-1', 'option-2', 'option-3'],
+          },
+        ]}
+      />
+    )
+    cy.get('input[list=list-select]').type('option-1')
+  })
+
+  // Date Field
+  it('renders a date field', () => {
+    mount(
+      <TestForm
+        fields={[{ name: 'date', id: 'date', initialValue: '', type: 'date' }]}
+      />
+    )
+    cy.get('input[type=date]').type('1991-08-08')
+  })
 
   it('renders a datepicker field', () => {})
 
   it('renders a toggle field', () => {})
 
-  it('renders a radio field', () => {})
+  it('renders a radio field', () => {
+    mount(
+      <TestForm
+        fields={[
+          { name: 'radio', id: 'radio', initialValue: '', type: 'radio' },
+        ]}
+      />
+    )
+    cy.get('input[type=radio]')
+  })
 
   it('renders a checkbox field', () => {})
 
-  it('renders a slider field', () => {})
+  // Color Field
+  it('renders a color field', () => {
+    mount(
+      <TestForm
+        fields={[
+          { name: 'color', id: 'color', initialValue: '', type: 'color' },
+        ]}
+      />
+    )
+    cy.get('input[type=color]')
+      .click()
+      .invoke('val', '#ff0000')
+      .trigger('change')
+  })
 
-  it('renders a color field', () => {})
-
-  it('renders a file upload field', () => {})
+  // File Field
+  it.only('renders a file upload field', () => {
+    mount(
+      <TestForm
+        fields={[{ name: 'file', id: 'file', initialValue: '', type: 'file' }]}
+      />
+    )
+    cy.get('input[type=file]')
+  })
 
   it('renders a repeater field', () => {})
 
-  it('renders a range field', () => {})
+  it('renders a range field', () => {
+    mount(
+      <TestForm
+        fields={[{ name: 'file', id: 'file', initialValue: '', type: 'file' }]}
+      />
+    )
+    cy.get('input[type=file]')
+  })
 })
 
 describe('Field settings', () => {

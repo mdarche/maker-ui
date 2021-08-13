@@ -1,13 +1,11 @@
-// Test validateOnBlur
-
-// Test validateOnChange
-
-// Test custom validateIcon
-
-// Test Field vs validationSchema override
-
-// Test placeholderColor
-
-// Test Field vs global labelStyle
-
-// Test field vs global errorStyle
+describe('FormProvider', () => {
+  it('accepts the validateOnBlur setting via Formik', () => {})
+  it('accepts the validateOnChange setting via Formik', () => {})
+  it('renders a custom field validate icon', () => {})
+  it('renders a custom placeholder input text color', () => {})
+  it('formats the default grid columns', () => {})
+  it('formats the default grid gap', () => {})
+  it('renders the default labelStyle', () => {})
+  it('renders the default errorStyle', () => {})
+  it('configures field schema validation via validationSchema prop', () => {})
+})

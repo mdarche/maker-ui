@@ -1,3 +1,34 @@
+// Test Setup
+
+// export const PaginatedForm = ({
+//   providerProps,
+//   formProps,
+//   submitProps,
+// }: TestFormProps) => (
+//   <Form.Provider
+//     data-cy="wrapper"
+//     fields={formFields}
+//     onSubmit={(values: FormValues) => {
+//       console.log('Submitted', values)
+//     }}
+//     {...providerProps}>
+//     <Form id="form-1" data-cy="form" {...formProps}>
+//       <Form.Page id="">
+//         <Form.PageButton></Form.PageButton>
+//       </Form.Page>
+//       <Form.Page id="">
+//         <Form.PageButton></Form.PageButton>
+//       </Form.Page>
+//       <Form.Page id="">
+//         <Form.PageButton></Form.PageButton>
+//       </Form.Page>
+//       <Form.Submit data-cy="submit" {...submitProps}>
+//         Submit
+//       </Form.Submit>
+//     </Form>
+//   </Form.Provider>
+// )
+
 describe('FormPage', () => {
   it('accepts a custom title string', () => {})
   it('accepts a custom title component', () => {})
