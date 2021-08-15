@@ -4,7 +4,7 @@ import { useField, useFormikContext } from 'formik'
 
 //@ts-ignore
 import DatePicker from 'react-datepicker'
-// import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker.css'
 
 /**
  * The `DatePicker` component lets users select a weekday pickup date.

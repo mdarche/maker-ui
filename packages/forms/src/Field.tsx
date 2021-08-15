@@ -9,7 +9,7 @@ import {
 
 import { FieldProps } from './types'
 import { useForm } from './Provider'
-import { OptionList } from './Select'
+import { OptionList } from './Fields/Select'
 
 export const Field = ({
   name,
@@ -22,7 +22,7 @@ export const Field = ({
   label,
   description,
   containerClass,
-  validateIcon,
+  showValidation,
   selectOptions,
   initialOption,
 }: FieldProps) => {
