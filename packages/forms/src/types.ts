@@ -41,8 +41,11 @@ export interface FieldProps {
     | 'bottom-center'
   labelStyle?: 'top' | 'bottom' | 'left' | 'right' | 'center' | 'floating'
   colSpan?: number | 'full'
-  validateIcon?: boolean
+  showValidation?: boolean
   passwordToggle?: boolean
+  options?:
+    | string[]
+    | { label: string; initial?: boolean; className?: string; id?: string }[]
   selectOptions?:
     | string[]
     | { label: string; initial?: boolean; className?: string; id?: string }[]

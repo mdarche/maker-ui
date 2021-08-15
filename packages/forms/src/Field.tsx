@@ -38,6 +38,10 @@ export const Field = ({
 
   const hasError = errors[name] && touched[name] ? true : false
   const isComplete = !errors[name] && touched[name] ? true : false
+  const labelPosition = labelStyle || (settings.labelStyle as string)
+
+  const labelAbove = ['']
+  // const labelBelow = ['']
 
   return (
     <Div
@@ -53,8 +57,12 @@ export const Field = ({
         ...position_label(labelStyle),
         ...position_error(errorStyle),
       }}>
+      {label && labelAbove.includes(labelPosition) ? (
+        <label htmlFor={id}>{label}</label>
+      ) : (
+        undefined
+      )}
       {description ? <div className="description">{description}</div> : null}
-      {label ? <label htmlFor={id}>{label}</label> : undefined}
       <FormikField
         id={id}
         onFocus={() => (!firstTouch ? setFirstTouch(true) : undefined)}
