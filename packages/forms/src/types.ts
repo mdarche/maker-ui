@@ -54,3 +54,9 @@ export interface FieldProps {
   /* Yup Validation rule */
   validation?: any
 }
+
+export interface InputProps extends FieldProps {
+  hasError: boolean
+  firstTouch: boolean
+  setFirstTouch: (b: boolean) => void
+}

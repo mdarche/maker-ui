@@ -8,8 +8,8 @@ import {
 } from 'formik'
 
 import { Label } from './Label'
-import { FieldProps } from './types'
-import { useForm } from './Provider'
+import { FieldProps } from '../types'
+import { useForm } from '../Provider'
 import { OptionList } from './Select'
 
 function labelClass(s: string) {

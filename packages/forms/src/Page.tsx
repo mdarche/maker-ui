@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ResponsiveScale, Div, DivProps, Grid, mergeSelectors } from 'maker-ui'
 
-import { renderFields } from './render'
+import { renderFields } from './Fields/render'
 import { FormState, useForm } from './Provider'
 import type { FieldProps } from './types'
 

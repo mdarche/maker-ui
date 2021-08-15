@@ -3,7 +3,7 @@ import { Button, ButtonProps } from 'maker-ui'
 
 import { useForm } from './Provider'
 import { FieldProps } from './types'
-import { getRequired } from './render'
+import { getRequired } from './Fields/render'
 
 export interface PageButtonProps extends ButtonProps {
   pageId: string

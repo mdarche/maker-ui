@@ -9,7 +9,7 @@ import {
 } from 'maker-ui'
 import { Form as FormikForm } from 'formik'
 
-import { renderFields } from './render'
+import { renderFields } from './Fields/render'
 import { Page } from './Page'
 import { Provider, useForm } from './Provider'
 import { SubmitButton } from './SubmitButton'

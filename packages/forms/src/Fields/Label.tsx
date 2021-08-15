@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FieldProps } from './types'
+import { FieldProps } from '../types'
 
 interface LabelProps {
   id: FieldProps['id']
@@ -9,6 +9,10 @@ interface LabelProps {
   top?: boolean
 }
 
+const nonLabelFields = ['radio', 'checkbox']
+const topPosition = ['top', 'center', 'left', 'floating']
+const bottomPosition = ['bottom', 'right']
+
 export const Label = ({
   id,
   children,
@@ -16,10 +20,12 @@ export const Label = ({
   position = 'top',
   top = false,
 }: LabelProps) => {
-  const isTop = top && ['top', 'center', 'left', 'floating'].includes(position)
-  const isBottom = isTop && ['bottom', 'right'].includes(position)
+  const isTop = top && topPosition.includes(position)
+  const isBottom = !top && bottomPosition.includes(position)
 
-  // TODO make sure type is supported
+  if (nonLabelFields.includes(type)) {
+    return null
+  }
 
   return isTop || isBottom ? (
     <label htmlFor={id} className="form-label">

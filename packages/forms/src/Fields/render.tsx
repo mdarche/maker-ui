@@ -1,18 +1,17 @@
 import * as React from 'react'
 
-import { FieldProps } from './types'
-import { Field } from './Field'
+import { FieldProps } from '../types'
+import { Field } from '../Field'
 import { DatePickerField } from './Datepicker'
+import { Select } from './Select'
 
 export function renderFields(fields: FieldProps[]) {
-  const fieldInputs = [
+  const basicInputs = [
     'text',
     'email',
     'tel',
     'password',
     'url',
-    'select',
-    'select-datalist',
     'date',
     'file',
     'color',
@@ -20,11 +19,14 @@ export function renderFields(fields: FieldProps[]) {
   ]
 
   return fields.map((props: FieldProps) => {
-    if (fieldInputs.includes(props.type)) {
+    if (basicInputs.includes(props.type)) {
       return <Field key={props.id} {...props} />
     }
     if (props.type === 'datepicker') {
       return <DatePickerField key={props.id} {...props} />
+    }
+    if (props.type === 'select' || props.type == 'select-datalist') {
+      return <Select key={props.id} {...props} />
     }
     return null
   })
