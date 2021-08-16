@@ -10,15 +10,18 @@ const TestForm = ({ fields, id }: { fields: FieldProps[]; id?: string }) => {
   return (
     <>
       {submitted.complete ? (
-        <div data-cy="success">{submitted.value}</div>
+        <div data-cy="success">
+          {id === 'switch' ? 'True' : submitted.value}
+        </div>
       ) : null}
       {submitted.value}
       <Form.Provider
         fields={fields}
         // onSubmit={values => setSubmitted({ values, complete: true })}
-        onSubmit={values =>
+        onSubmit={values => {
+          console.log('Values are', values)
           setSubmitted({ value: values[id], complete: true })
-        }>
+        }}>
         <Form>
           <Form.Submit data-cy="submit">Submit</Form.Submit>
         </Form>
@@ -166,12 +169,18 @@ describe('Field components', () => {
 
   it('renders a datepicker field', () => {})
 
-  it.only('renders a toggle field', () => {
+  it.only('renders a switch field', () => {
     mount(
       <TestForm
         id="switch"
         fields={[
-          { name: 'switch', id: 'switch', initialValue: false, type: 'switch' },
+          {
+            name: 'switch',
+            id: 'switch',
+            initialValue: false,
+            type: 'switch',
+            settings_switch: { innerLabel: false, height: 30, padding: 10 },
+          },
         ]}
       />
     )

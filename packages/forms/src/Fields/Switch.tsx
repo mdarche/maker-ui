@@ -1,16 +1,21 @@
 import * as React from 'react'
-import { Div, mergeSelectors } from 'maker-ui'
+import { Div, mergeSelectors, merge } from 'maker-ui'
 import { useField } from 'formik'
 import { InputProps } from '../types'
 
 interface SwitchProps extends InputProps {}
 
-const initialProps = {
-  innerLabel: false,
-  labels: ['Yes', 'No'],
+const defaultSettings: SwitchProps['settings_switch'] = {
+  innerLabel: true,
+  labelOn: 'Yes',
+  labelOff: 'No',
   activeColor: 'blue',
   inactiveColor: '#adadad',
   disabled: false,
+  height: 40,
+  padding: 4,
+  borderRadius: 3,
+  style: 'box',
 }
 
 /**
@@ -21,10 +26,14 @@ const initialProps = {
 export const Switch = ({
   id,
   type,
-  settings_switch = initialProps,
+  settings_switch = {},
   ...props
 }: SwitchProps) => {
   const [field, meta] = useField({ ...props, type: 'checkbox' })
+  const settings = merge(defaultSettings, settings_switch)
+
+  const padding = settings.padding as number
+  const minWidth = (settings.height as number) * 4
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLLabelElement>) {
     //@ts-ignore
@@ -37,66 +46,85 @@ export const Switch = ({
       className={mergeSelectors(['switch', meta.value ? 'active' : ''])}
       css={{
         position: 'relative',
-        width: 75,
-        input: { opacity: 0 },
+        display: 'inline-block',
+        input: {
+          position: 'absolute',
+          top: -5,
+          left: -5,
+          opacity: 0,
+          outline: 0,
+        },
         label: {
+          position: 'relative',
+          height: settings.height,
+          width: minWidth,
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'space-between',
           overflow: 'hidden',
           cursor: 'pointer',
-          borderRadius: 30,
-          margin: 0,
-          minWidth: 75,
-          minHeight: 40,
+          borderRadius:
+            settings.style === 'box' ? settings.borderRadius : settings.height,
           padding: '1px 5px',
           transition: 'all ease .3s',
-          background: settings_switch.inactiveColor,
-          outline: 'none',
+          background: settings.inactiveColor,
+          outline: 0,
         },
-        '.switch-inner': {
+        '.switch-slider': {
           display: 'block',
+          position: 'absolute',
+          bottom: padding,
+          top: padding,
           background: '#fff',
-          height: 30,
-          width: 30,
-          borderRadius: '50%',
-          outline: 'none',
-          transition: 'transform ease 0.3s',
+          zIndex: 1,
+          height: `calc(100% - ${padding * 2}px)`,
+          width:
+            settings.style === 'circle'
+              ? (settings.height as number) - padding * 2
+              : undefined,
+          borderRadius:
+            settings.style === 'circle' ? '50%' : settings.borderRadius,
+          left: padding,
+          right: '50%',
+          transition: 'all ease 0.3s',
+          transitionProperty: 'left, right',
+          '&.on': {
+            left: '50%',
+            right: padding,
+          },
         },
         '&.active': {
           label: {
-            background: settings_switch.activeColor,
-          },
-          '.switch-inner': {
-            transform: 'translateX(calc(5px + 100%))',
+            background: settings.activeColor,
           },
         },
       }}>
-      <input
-        type="checkbox"
-        {...field}
-        id={id}
-        disabled={settings_switch.disabled}
-      />
       {id ? (
         <label
           className="switch-label"
           htmlFor={id}
-          tabIndex={settings_switch.disabled ? -1 : 1}
+          tabIndex={settings.disabled ? -1 : 1}
           onKeyDown={e => {
             handleKeyPress(e)
           }}>
-          <span
-            className={mergeSelectors([
-              settings_switch.disabled ? 'switch-disabled' : '',
-              'switch-inner',
-            ])}
-            data-yes={
-              settings_switch.labels ? settings_switch.labels[0] : 'Yes'
-            }
-            data-no={settings_switch.labels ? settings_switch.labels[1] : 'No'}
-            tabIndex={-1}
+          <input
+            type="checkbox"
+            {...field}
+            id={id}
+            disabled={settings.disabled}
           />
-          <span className="switch" tabIndex={-1} />
+          {settings.innerLabel ? (
+            <>
+              <span className="switch-on">{settings?.labelOn}</span>
+              <span className="switch-off">{settings?.labelOff}</span>
+            </>
+          ) : null}
+          <div
+            className={mergeSelectors([
+              'switch-slider',
+              meta.value ? 'on' : 'off',
+            ])}
+          />
         </label>
       ) : null}
     </Div>

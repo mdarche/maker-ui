@@ -1,5 +1,5 @@
+import * as React from 'react'
 import { FormikHelpers, FormikValues } from 'formik'
-import React from 'react'
 
 export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
@@ -11,12 +11,15 @@ export type PaginationElement =
 
 export interface SwitchSettings {
   innerLabel?: boolean
-  labels?: string[]
-  labelTrue?: string | React.ReactNode
-  labelFalse?: string | React.ReactNode
+  labelOn?: string | React.ReactNode
+  labelOff?: string | React.ReactNode
   activeColor?: string
   inactiveColor?: string
   disabled?: boolean
+  height?: number
+  padding?: number
+  borderRadius?: number
+  style?: 'circle' | 'box'
 }
 
 export interface SelectSettings {
