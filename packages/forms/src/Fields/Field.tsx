@@ -9,6 +9,7 @@ import { Label } from './Label'
 import { FieldProps } from '../types'
 import { useForm } from '../Provider'
 import { Switch } from './Switch'
+import { Checkbox } from './Checkbox'
 
 function labelClass(s: string) {
   return s
@@ -63,7 +64,7 @@ export const Field = (props: FieldProps) => {
   }
 
   function renderInputs() {
-    /* Uniform HTML Inputs */
+    /* Basic HTML Inputs */
     if (basicInputs.includes(type)) {
       return <Input {...attributes} {...props} />
     }
@@ -77,10 +78,12 @@ export const Field = (props: FieldProps) => {
     }
     /* Radio group input*/
     /* Checkbox group input*/
+    if (props.type === 'checkbox') {
+      return <Checkbox {...attributes} {...props} />
+    }
     /* Toggle input*/
     if (props.type === 'switch') {
-      //@ts-ignore
-      return <Switch {...props} />
+      return <Switch {...attributes} {...props} />
     }
     /* Range input*/
     /* Image & Gallery input*/
@@ -102,12 +105,12 @@ export const Field = (props: FieldProps) => {
       css={{
         gridColumn: colSpan !== undefined ? `span ${colSpan}` : undefined,
       }}>
-      <Label id={id} type={type} position={labelStyle} top>
+      <Label id={id} name={name} type={type} position={labelStyle} top>
         {label}
       </Label>
       {description ? <div className="description">{description}</div> : null}
       {renderInputs()}
-      <Label id={id} type={type} position={labelStyle}>
+      <Label id={id} name={name} type={type} position={labelStyle}>
         {label}
       </Label>
       {showValidation ? (

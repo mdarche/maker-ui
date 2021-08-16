@@ -9,6 +9,16 @@ export type PaginationElement =
   | React.ReactNode
   | ((currentPage: number) => React.ReactNode)
 
+type InputOption =
+  | string[]
+  | {
+      label: string | React.ReactNode
+      value?: string
+      initial?: boolean
+      className?: string
+      id?: string
+    }[]
+
 export interface SwitchSettings {
   innerLabel?: boolean
   labelOn?: string | React.ReactNode
@@ -23,9 +33,7 @@ export interface SwitchSettings {
 }
 
 export interface SelectSettings {
-  options?:
-    | string[]
-    | { label: string; initial?: boolean; className?: string; id?: string }[]
+  options?: InputOption
   initialOption?: string
 }
 
@@ -67,16 +75,21 @@ export interface FieldProps {
   labelStyle?: 'top' | 'bottom' | 'left' | 'right' | 'center' | 'floating'
   colSpan?: number | 'full'
   showValidation?: boolean
-  options?:
-    | string[]
-    | { label: string; initial?: boolean; className?: string; id?: string }[]
-  selectOptions?:
-    | string[]
-    | { label: string; initial?: boolean; className?: string; id?: string }[]
+  options?: InputOption
+  selectOptions?: InputOption
   initialOption?: string
-  settings_select?: SelectSettings
+  settings_select?: {
+    options?: InputOption
+    initial?: string
+  }
   settings_switch?: SwitchSettings
   settings_datepicker?: object
+  settings_checkbox?: {
+    options?: {
+      label: string | React.ReactNode
+      value: string
+    }[]
+  }
   settings_password?: {
     toggleCharacters?: boolean
   }

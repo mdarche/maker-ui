@@ -3,18 +3,20 @@ import { FieldProps } from '../types'
 
 interface LabelProps {
   id: FieldProps['id']
+  name: FieldProps['name']
   children: FieldProps['label']
   type: FieldProps['type']
   position: FieldProps['labelStyle']
   top?: boolean
 }
 
-const nonLabelFields = ['radio', 'checkbox', 'toggle']
+const nonLabelFields = ['radio', 'toggle']
 const topPosition = ['top', 'center', 'left', 'floating']
 const bottomPosition = ['bottom', 'right']
 
 export const Label = ({
   id,
+  name,
   children,
   type,
   position = 'top',
@@ -25,6 +27,12 @@ export const Label = ({
 
   if (nonLabelFields.includes(type)) {
     return null
+  }
+
+  if (type === 'checkbox') {
+    return isTop || isBottom ? (
+      <div id={`"${name}-group"`}>{children}</div>
+    ) : null
   }
 
   return isTop || isBottom ? (

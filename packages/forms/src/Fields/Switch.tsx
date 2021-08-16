@@ -108,9 +108,9 @@ export const Switch = ({
             handleKeyPress(e)
           }}>
           <input
+            id={id}
             type="checkbox"
             {...field}
-            id={id}
             disabled={settings.disabled}
           />
           {settings.innerLabel ? (

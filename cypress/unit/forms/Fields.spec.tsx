@@ -7,6 +7,8 @@ const TestForm = ({ fields, id }: { fields: FieldProps[]; id?: string }) => {
     value: undefined,
     complete: false,
   })
+
+  console.log('Submitted.value is', submitted.value)
   return (
     <>
       {submitted.complete ? (
@@ -14,12 +16,11 @@ const TestForm = ({ fields, id }: { fields: FieldProps[]; id?: string }) => {
           {id === 'switch' ? 'True' : submitted.value}
         </div>
       ) : null}
-      {submitted.value}
       <Form.Provider
         fields={fields}
         // onSubmit={values => setSubmitted({ values, complete: true })}
         onSubmit={values => {
-          console.log('Values are', values)
+          console.log('Values are', values[id])
           setSubmitted({ value: values[id], complete: true })
         }}>
         <Form>
@@ -157,7 +158,7 @@ describe('Field components', () => {
   })
 
   // Date Field
-  it.only('renders a date field', () => {
+  it('renders a date field', () => {
     mount(
       <TestForm
         id="date"
@@ -169,7 +170,7 @@ describe('Field components', () => {
 
   it('renders a datepicker field', () => {})
 
-  it.only('renders a switch field', () => {
+  it('renders a switch field', () => {
     mount(
       <TestForm
         id="switch"
@@ -198,7 +199,32 @@ describe('Field components', () => {
     cy.get('input[type=radio]')
   })
 
-  it('renders a checkbox field', () => {})
+  it.only('renders a checkbox field', () => {
+    mount(
+      <TestForm
+        id="checkbox"
+        fields={[
+          {
+            name: 'checkbox',
+            id: 'checkbox',
+            initialValue: [], // Must be an empty array for checkbox group
+            type: 'checkbox',
+            label: 'Checkbox Group',
+            settings_checkbox: {
+              options: [
+                { label: 'Option 1', value: 'one' },
+                { label: 'Option 2', value: 'two' },
+                { label: 'Option 3', value: 'three' },
+              ],
+            },
+          },
+        ]}
+      />
+    )
+    cy.get('input[type=checkbox]')
+      .first()
+      .check()
+  })
 
   // Color Field
   it('renders a color field', () => {
