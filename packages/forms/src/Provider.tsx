@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { Formik } from 'formik'
-import { Div, MakerProps, merge, ResponsiveScale } from 'maker-ui'
+import { Div, MakerProps, merge, ResponsiveScale, Global } from 'maker-ui'
 import * as Yup from 'yup'
 
 import { ValidateIcon } from './Icons'
 import { FieldProps, FormValues, FormHelpers } from './types'
+import styles from './styles/position'
 
 interface Settings {
   validateOnBlur: boolean
@@ -28,7 +29,10 @@ export interface FormState {
 
 export interface FormProviderProps extends MakerProps {
   children: React.ReactNode
-  validationSchema?: any // use Yup
+  /** Forwards access to the Formik `validationSchema` prop for Yup validation. See for details:
+   * @link https://formik.org/docs/guides/validation
+   */
+  validationSchema?: any
   /**A single depth array of `FieldProp` objects that includes all form fields.
    *
    * @example If you use form pages, you should combine all separate `fields` props
@@ -40,8 +44,11 @@ export interface FormProviderProps extends MakerProps {
    * const allFields = [...firstPageFields, ...secondPageFields]
    */
   fields: FieldProps[]
-  // onSubmit: <T>(values: T, actions: FormikHelpers<T>) => void | Promise<any>
+  /** Forwards access to the Formik `validationSchema` prop for Yup validation. See for details:
+   * @link https://formik.org/docs/guides/validation
+   */
   onSubmit: (values: any, actions: FormHelpers) => void | Promise<any>
+  /** A settings configuration object for global form settings*/
   settings?: Partial<Settings>
 }
 
@@ -63,9 +70,15 @@ export const Provider = ({
   breakpoints,
   ...props
 }: FormProviderProps) => {
+  let datepicker = false
   /* Calculate initial values via fields */
   let values: Partial<FormValues> = {}
-  fields.forEach(({ name, initialValue }) => (values[name] = initialValue))
+  fields.forEach(({ name, type, initialValue }) => {
+    if (type === 'datepicker') {
+      datepicker = true
+    }
+    return (values[name] = initialValue)
+  })
 
   /* Calculate form validation schema via fields */
   let schema: { [key: string]: any } = {}
@@ -81,6 +94,8 @@ export const Provider = ({
 
   return (
     <MakerForm fields={fields} settings={settings as Settings}>
+      {datepicker ? <Global styles={{}} /> : null}
+      <Global styles={styles} />
       <Formik
         initialValues={values}
         onSubmit={onSubmit}
@@ -122,6 +137,7 @@ const initialState: FormState = {
     pageTransition: 'none',
     placeholderColor: '#b7b7b7',
     labelStyle: 'top',
+    errorStyle: 'bottom-right',
     validateIcon: <ValidateIcon />,
   },
 }
@@ -164,9 +180,12 @@ export function useForm() {
   const setState = React.useContext(FormUpdateContext)
 
   function setPage(page: 'next' | 'prev' | number) {
-    // Todo add pagination logic
     if (currentPage > 0 && page === 'prev') {
       setState(s => ({ ...s, currentPage: s.currentPage - 1 }))
+    }
+
+    if (currentPage < (settings.pages as number) - 1 && page === 'prev') {
+      setState(s => ({ ...s, currentPage: s.currentPage + 1 }))
     }
   }
 

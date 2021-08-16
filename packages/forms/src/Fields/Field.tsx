@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, mergeSelectors } from 'maker-ui'
+import { Flex, mergeSelectors } from 'maker-ui'
 import { FormikErrors, FormikTouched, useFormikContext } from 'formik'
 
 import { Input } from './Input'
@@ -12,14 +12,6 @@ import { Switch } from './Switch'
 import { Checkbox } from './Checkbox'
 import { Radio } from './Radio'
 import { Range } from './Range'
-
-function labelClass(s: string) {
-  return s
-}
-
-function errorClass(s: string) {
-  return s
-}
 
 const basicInputs = [
   'text',
@@ -94,21 +86,19 @@ export const Field = (props: FieldProps) => {
     if (props.type === 'range') {
       return <Range {...attributes} {...props} />
     }
-    /* Image & Gallery input*/
-    /* Custom component */
     return null
   }
 
   return (
-    <Div
+    <Flex
       key={id}
       className={mergeSelectors([
         'field-container',
         containerClass,
         hasError ? 'error' : undefined,
         firstTouch ? 'touched' : undefined,
-        labelClass(labelStyle as string),
-        errorClass(errorStyle as string),
+        `label-${labelStyle}`,
+        `error-${errorStyle}`,
       ])}
       css={{
         gridColumn: colSpan !== undefined ? `span ${colSpan}` : undefined,
@@ -133,15 +123,8 @@ export const Field = (props: FieldProps) => {
         </div>
       ) : null}
       {hasError ? <div className="form-error">{errors[name]}</div> : null}
-    </Div>
+    </Flex>
   )
 }
 
 Field.displayName = 'Field'
-
-/**
- * @todo
- * - create error position classes
- * - create label position classes
- * - create partials: Text, Select, Radio, Checkbox
- */

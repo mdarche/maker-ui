@@ -65,7 +65,7 @@ export interface FieldProps {
     | 'bottom-right'
     | 'bottom-center'
   /** The location of the field label */
-  labelStyle?: 'top' | 'bottom' | 'left' | 'right' | 'center' | 'floating'
+  labelStyle?: 'top' | 'bottom' | 'left' | 'right' | 'floating'
   /** The number of columns that the field should span */
   colSpan?: number | 'full'
   /** If true, the field will render a validation icon after onTouch validation */

@@ -31,11 +31,19 @@ export const Label = ({
   }
 
   if (type === 'checkbox') {
-    return show ? <div id={`${name}-group`}>{children}</div> : null
+    return show ? (
+      <div id={`${name}-group`} className="form-label">
+        {children}
+      </div>
+    ) : null
   }
 
   if (type === 'switch') {
-    return show ? <div id={`${name}-label`}>{children}</div> : null
+    return show ? (
+      <div id={`${name}-label`} className="form-label">
+        {children}
+      </div>
+    ) : null
   }
 
   return show ? (

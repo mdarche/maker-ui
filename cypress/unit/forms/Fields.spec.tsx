@@ -3,6 +3,16 @@ import { mount } from '@cypress/react'
 import { FieldProps, Form, Yup } from '@maker-ui/forms'
 import { FormProviderProps } from '@maker-ui/forms/dist/Provider'
 
+const fieldSettings: {
+  name: string
+  initialValue: any
+  type: FieldProps['type']
+} = {
+  name: 'text',
+  initialValue: '',
+  type: 'text',
+}
+
 const TestForm = ({
   fields,
   id,
@@ -630,9 +640,7 @@ describe('Shared field settings', () => {
       <TestForm
         fields={[
           {
-            name: 'text',
-            initialValue: '',
-            type: 'text',
+            ...fieldSettings,
             id: 'test-id',
           },
         ]}
@@ -646,9 +654,7 @@ describe('Shared field settings', () => {
       <TestForm
         fields={[
           {
-            name: 'text',
-            initialValue: '',
-            type: 'text',
+            ...fieldSettings,
             containerClass: 'custom-container',
           },
         ]}
@@ -662,9 +668,7 @@ describe('Shared field settings', () => {
       <TestForm
         fields={[
           {
-            name: 'text',
-            initialValue: '',
-            type: 'text',
+            ...fieldSettings,
             label: 'Label string',
           },
         ]}
@@ -678,9 +682,7 @@ describe('Shared field settings', () => {
       <TestForm
         fields={[
           {
-            name: 'text',
-            initialValue: '',
-            type: 'text',
+            ...fieldSettings,
             label: <h4 id="custom-label">Label</h4>,
           },
         ]}
@@ -696,9 +698,7 @@ describe('Shared field settings', () => {
       <TestForm
         fields={[
           {
-            name: 'text',
-            initialValue: '',
-            type: 'text',
+            ...fieldSettings,
             label: 'Username',
             description: 'Add a unique username',
           },
@@ -708,14 +708,12 @@ describe('Shared field settings', () => {
     cy.get('.field-description').contains('Add a unique username')
   })
 
-  it.only('shows the validation icon', () => {
+  it('shows the validation icon', () => {
     mount(
       <TestForm
         fields={[
           {
-            name: 'text',
-            initialValue: '',
-            type: 'text',
+            ...fieldSettings,
             label: 'Username',
             validation: Yup.string().required(),
             showValidation: true,
@@ -730,15 +728,13 @@ describe('Shared field settings', () => {
     cy.get('.validate-icon').should('have.class', 'valid')
   })
 
-  it.only('renders the field width according to its colSpan', () => {
+  it('renders the field width according to its colSpan', () => {
     mount(
       <TestForm
         settings={{ columns: 'repeat(4, 1fr)' }}
         fields={[
           {
-            name: 'text',
-            initialValue: '',
-            type: 'text',
+            ...fieldSettings,
             colSpan: 2,
             containerClass: 'container',
           },
@@ -749,13 +745,72 @@ describe('Shared field settings', () => {
   })
 })
 
-describe('Field label position', () => {
-  it('renders a "top" label', () => {})
-  it('renders a "bottom" label', () => {})
-  it('renders a "left" label', () => {})
-  it('renders a "right" label', () => {})
-  it('renders a "center" label', () => {})
-  it('renders a "floating" label', () => {})
+describe.only('Field label position', () => {
+  it('renders a "top" label', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            ...fieldSettings,
+            label: 'Top Label',
+            labelStyle: 'top',
+          },
+        ]}
+      />
+    )
+  })
+  it('renders a "bottom" label', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            ...fieldSettings,
+            label: 'Bottom Label',
+            labelStyle: 'bottom',
+          },
+        ]}
+      />
+    )
+  })
+  it('renders a "left" label', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            ...fieldSettings,
+            label: 'Left Label',
+            labelStyle: 'left',
+          },
+        ]}
+      />
+    )
+  })
+  it('renders a "right" label', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            ...fieldSettings,
+            label: 'Right Label',
+            labelStyle: 'right',
+          },
+        ]}
+      />
+    )
+  })
+  it('renders a "floating" label', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            ...fieldSettings,
+            label: 'Floating Label',
+            labelStyle: 'floating',
+          },
+        ]}
+      />
+    )
+  })
 })
 
 describe('Field error position', () => {

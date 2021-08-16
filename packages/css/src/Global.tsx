@@ -4,7 +4,7 @@ import { Global as EmotionGlobal, Interpolation } from '@emotion/react'
 import { formatCSS } from './css'
 
 export interface GlobalProps {
-  styles: Interpolation<any>
+  styles: Interpolation<any> | object
   breakpoints?: (string | number)[]
 }
 
@@ -20,7 +20,11 @@ export interface GlobalProps {
 export const Global = ({ styles, breakpoints }: GlobalProps) => {
   return (
     <EmotionGlobal
-      styles={formatCSS(styles, breakpoints) as Interpolation<any>}
+      styles={
+        formatCSS(styles as Interpolation<any>, breakpoints) as Interpolation<
+          any
+        >
+      }
     />
   )
 }
