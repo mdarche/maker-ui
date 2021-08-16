@@ -116,7 +116,9 @@ export const Field = (props: FieldProps) => {
       <Label id={id} name={name} type={type} position={labelStyle} top>
         {label}
       </Label>
-      {description ? <div className="description">{description}</div> : null}
+      {description ? (
+        <div className="field-description">{description}</div>
+      ) : null}
       {renderInputs()}
       <Label id={id} name={name} type={type} position={labelStyle}>
         {label}

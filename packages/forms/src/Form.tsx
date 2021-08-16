@@ -46,21 +46,21 @@ export const Form = ({
   id,
   className,
   children,
-  columns = '1fr',
-  gap = 30,
+  columns,
+  gap,
   css,
   breakpoints,
   ...props
 }: FormProps) => {
-  const { fields } = useForm()
+  const { fields, settings } = useForm()
 
   return (
     <FormikForm id={id} className={className} {...props}>
       {fields ? (
         <Grid
           className="form-grid"
-          columns={columns}
-          gap={gap}
+          columns={columns || settings?.columns}
+          gap={gap || settings?.gap}
           breakpoints={breakpoints}
           css={css}>
           {fields.map((p, index) => (

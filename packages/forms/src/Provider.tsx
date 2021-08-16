@@ -56,7 +56,7 @@ export interface FormProviderProps extends MakerProps {
 export const Provider = ({
   onSubmit,
   validationSchema,
-  settings,
+  settings = {},
   fields,
   children,
   css,
@@ -145,7 +145,7 @@ const MakerForm = ({
   })
 
   React.useEffect(() => {
-    setState(s => ({ ...s, settings, fields }))
+    setState(s => ({ ...s, settings: merge(s.settings, settings), fields }))
   }, [settings, fields])
 
   return (

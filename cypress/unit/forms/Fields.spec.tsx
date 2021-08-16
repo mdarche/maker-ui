@@ -1,8 +1,17 @@
 import * as React from 'react'
 import { mount } from '@cypress/react'
 import { FieldProps, Form, Yup } from '@maker-ui/forms'
+import { FormProviderProps } from '@maker-ui/forms/dist/Provider'
 
-const TestForm = ({ fields, id }: { fields: FieldProps[]; id?: string }) => {
+const TestForm = ({
+  fields,
+  id,
+  settings,
+}: {
+  fields: FieldProps[]
+  id?: string
+  settings?: FormProviderProps['settings']
+}) => {
   const [submitted, setSubmitted] = React.useState({
     value: undefined,
     complete: false,
@@ -16,6 +25,7 @@ const TestForm = ({ fields, id }: { fields: FieldProps[]; id?: string }) => {
         </div>
       ) : null}
       <Form.Provider
+        settings={settings}
         fields={fields}
         onSubmit={values => {
           console.log('Values are', values[id])
@@ -558,7 +568,7 @@ describe('Radio field', () => {
 })
 
 describe('Switch field', () => {
-  it.only('renders a switch field', () => {
+  it('renders a switch field', () => {
     mount(
       <TestForm
         id="switch"
@@ -577,7 +587,7 @@ describe('Switch field', () => {
     cy.get('[data-cy=success]').contains('true')
   })
 
-  it.only('renders a switch field with advanced settings', () => {
+  it('renders a switch field with advanced settings', () => {
     mount(
       <TestForm
         id="switch"
@@ -615,14 +625,128 @@ describe('Switch field', () => {
 })
 
 describe('Shared field settings', () => {
-  it('adds a custom input id', () => {})
-  it('adds a custom field container class', () => {})
-  it('renders a label string', () => {})
-  it('renders a label component', () => {})
-  it('renders a description', () => {})
-  it('hides the validate icon', () => {})
-  it('shows the validate icon', () => {})
-  it('renders the field width according to its colSpan')
+  it('adds a custom input id selector', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'text',
+            initialValue: '',
+            type: 'text',
+            id: 'test-id',
+          },
+        ]}
+      />
+    )
+    cy.get('[type=text]').should('have.id', 'test-id')
+  })
+
+  it('adds a custom field container class selector', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'text',
+            initialValue: '',
+            type: 'text',
+            containerClass: 'custom-container',
+          },
+        ]}
+      />
+    )
+    cy.get('.custom-container').find('input')
+  })
+
+  it('renders a label string', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'text',
+            initialValue: '',
+            type: 'text',
+            label: 'Label string',
+          },
+        ]}
+      />
+    )
+    cy.get('label').contains('Label string')
+  })
+
+  it('renders a label component', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'text',
+            initialValue: '',
+            type: 'text',
+            label: <h4 id="custom-label">Label</h4>,
+          },
+        ]}
+      />
+    )
+    cy.get('label')
+      .find('h4')
+      .should('have.id', 'custom-label')
+  })
+
+  it('renders a field description', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'text',
+            initialValue: '',
+            type: 'text',
+            label: 'Username',
+            description: 'Add a unique username',
+          },
+        ]}
+      />
+    )
+    cy.get('.field-description').contains('Add a unique username')
+  })
+
+  it.only('shows the validation icon', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'text',
+            initialValue: '',
+            type: 'text',
+            label: 'Username',
+            validation: Yup.string().required(),
+            showValidation: true,
+          },
+        ]}
+      />
+    )
+    cy.get('.validate-icon').should('not.have.class', 'valid')
+    cy.get('[type=text]')
+      .type('mike')
+      .blur()
+    cy.get('.validate-icon').should('have.class', 'valid')
+  })
+
+  it.only('renders the field width according to its colSpan', () => {
+    mount(
+      <TestForm
+        settings={{ columns: 'repeat(4, 1fr)' }}
+        fields={[
+          {
+            name: 'text',
+            initialValue: '',
+            type: 'text',
+            colSpan: 2,
+            containerClass: 'container',
+          },
+        ]}
+      />
+    )
+    cy.get('.container').should('have.css', 'grid-column', 'span 2 / auto')
+  })
 })
 
 describe('Field label position', () => {
