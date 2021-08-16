@@ -271,11 +271,15 @@ describe('Field components', () => {
 
   // it('renders a repeater field', () => {})
 
-  it('renders a range field', () => {
+  // Range Field
+  it.only('renders a range field', () => {
     mount(
-      <TestForm fields={[{ name: 'file', initialValue: '', type: 'file' }]} />
+      <TestForm
+        id="range"
+        fields={[{ name: 'range', initialValue: '2', type: 'range' }]}
+      />
     )
-    cy.get('input[type=file]')
+    cy.get('input[type=range]')
   })
 })
 

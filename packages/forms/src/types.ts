@@ -115,6 +115,11 @@ export interface FieldProps {
     /** When true, the user can toggle the field between text and password to see the characters */
     toggleCharacters?: boolean // TODO
   }
+  /** Settings for the range field */
+  settings_range?: {
+    min?: number
+    max?: number
+  }
   /** Settings for the text field */
   settings_text?: {
     /** An optional formatting mask for the text field*/

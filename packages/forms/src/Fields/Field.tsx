@@ -11,6 +11,7 @@ import { useForm } from '../Provider'
 import { Switch } from './Switch'
 import { Checkbox } from './Checkbox'
 import { Radio } from './Radio'
+import { Range } from './Range'
 
 function labelClass(s: string) {
   return s
@@ -90,6 +91,9 @@ export const Field = (props: FieldProps) => {
       return <Switch {...attributes} {...props} />
     }
     /* Range input*/
+    if (props.type === 'range') {
+      return <Range {...attributes} {...props} />
+    }
     /* Image & Gallery input*/
     /* Custom component */
     return null
