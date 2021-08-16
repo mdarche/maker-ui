@@ -10,6 +10,7 @@ import { FieldProps } from '../types'
 import { useForm } from '../Provider'
 import { Switch } from './Switch'
 import { Checkbox } from './Checkbox'
+import { Radio } from './Radio'
 
 function labelClass(s: string) {
   return s
@@ -77,6 +78,9 @@ export const Field = (props: FieldProps) => {
       return <Select {...attributes} {...props} />
     }
     /* Radio group input*/
+    if (props.type === 'radio') {
+      return <Radio {...attributes} {...props} />
+    }
     /* Checkbox group input*/
     if (props.type === 'checkbox') {
       return <Checkbox {...attributes} {...props} />

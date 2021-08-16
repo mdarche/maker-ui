@@ -63,8 +63,8 @@ export const Form = ({
           gap={gap}
           breakpoints={breakpoints}
           css={css}>
-          {fields.map(p => (
-            <Field key={p.id} {...p} />
+          {fields.map((p, index) => (
+            <Field key={index} {...p} />
           ))}
         </Grid>
       ) : null}

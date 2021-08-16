@@ -2,18 +2,18 @@ import * as React from 'react'
 import { Field as FormikField } from 'formik'
 import { InputProps } from '../types'
 
-interface CheckboxProps extends InputProps {}
+interface RadioProps extends InputProps {}
 
-export const Checkbox = ({ name, settings_checkbox }: CheckboxProps) => {
+export const Radio = ({ name, settings_radio }: RadioProps) => {
   return (
     <div role="group" aria-labelledby={`${name}-group`}>
-      {settings_checkbox?.options?.map(
+      {settings_radio?.options?.map(
         ({ id, className, label, value }, index) => (
           <label key={index}>
             <FormikField
               id={id}
               className={className}
-              type="checkbox"
+              type="radio"
               name={name}
               value={value}
             />

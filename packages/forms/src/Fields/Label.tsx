@@ -10,7 +10,7 @@ interface LabelProps {
   top?: boolean
 }
 
-const nonLabelFields = ['radio', 'toggle']
+const nonLabelFields = ['radio']
 const topPosition = ['top', 'center', 'left', 'floating']
 const bottomPosition = ['bottom', 'right']
 
@@ -24,18 +24,21 @@ export const Label = ({
 }: LabelProps) => {
   const isTop = top && topPosition.includes(position)
   const isBottom = !top && bottomPosition.includes(position)
+  const show = isTop || isBottom
 
   if (nonLabelFields.includes(type)) {
     return null
   }
 
   if (type === 'checkbox') {
-    return isTop || isBottom ? (
-      <div id={`"${name}-group"`}>{children}</div>
-    ) : null
+    return show ? <div id={`${name}-group`}>{children}</div> : null
   }
 
-  return isTop || isBottom ? (
+  if (type === 'switch') {
+    return show ? <div id={`${name}-label`}>{children}</div> : null
+  }
+
+  return show ? (
     <label htmlFor={id} className="form-label">
       {children}
     </label>

@@ -9,15 +9,12 @@ export type PaginationElement =
   | React.ReactNode
   | ((currentPage: number) => React.ReactNode)
 
-type InputOption =
-  | string[]
-  | {
-      label: string | React.ReactNode
-      value?: string
-      initial?: boolean
-      className?: string
-      id?: string
-    }[]
+type InputOption = {
+  label: string | React.ReactNode
+  value?: string
+  className?: string
+  id?: string
+}
 
 export interface SwitchSettings {
   innerLabel?: boolean
@@ -38,13 +35,11 @@ export interface SelectSettings {
 }
 
 export interface FieldProps {
+  /** Unique identifier for the field */
   name: string
-  id: string
+  /** The inputs initial value */
   initialValue: any
-  containerClass?: string
-  label?: string
-  description?: string
-  placeholder?: string
+  /** The field type */
   type:
     | 'text'
     | 'textarea'
@@ -60,35 +55,49 @@ export interface FieldProps {
     | 'radio'
     | 'checkbox'
     | 'slider'
-    | 'repeater'
+    | 'repeater' // TODO
     | 'color'
     | 'range' // TODO
     | 'file'
     | 'custom' // TODO
+  /* Yup Validation rule */
+  validation?: any
+  /** A custom id selector for the input field */
+  id?: string
+  /** A custom class selector for the field container*/
+  containerClass?: string
+  /** The field's label string or React component */
+  label?: string | React.ReactNode
+  /** Additional helper text that will be rendered alongside the field */
+  description?: string
+  /** Placeholder text for all text-based inputs */
+  placeholder?: string
+  /** A boolean that helps the form identify required fields */
   required?: boolean
+  /** The location of any field validation error messages */
   errorStyle?:
     | 'top-right'
     | 'top-left'
     | 'bottom-left'
     | 'bottom-right'
     | 'bottom-center'
+  /** The location of the field label */
   labelStyle?: 'top' | 'bottom' | 'left' | 'right' | 'center' | 'floating'
+  /** The number of columns that the field should span */
   colSpan?: number | 'full'
+  /** If true, the field will render a validation icon after onTouch validation */
   showValidation?: boolean
-  options?: InputOption
-  selectOptions?: InputOption
-  initialOption?: string
   settings_select?: {
-    options?: InputOption
+    options: InputOption[]
     initial?: string
   }
   settings_switch?: SwitchSettings
   settings_datepicker?: object
   settings_checkbox?: {
-    options?: {
-      label: string | React.ReactNode
-      value: string
-    }[]
+    options: InputOption[]
+  }
+  settings_radio?: {
+    options: InputOption[]
   }
   settings_password?: {
     toggleCharacters?: boolean
@@ -96,9 +105,7 @@ export interface FieldProps {
   settings_text?: {
     mask?: 'phone' | 'zipcode' | 'credit-card'
   }
-  settings_repeat?: object
-  /* Yup Validation rule */
-  validation?: any
+  settings_repeater?: object
 }
 
 export interface InputProps extends FieldProps {

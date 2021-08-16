@@ -26,10 +26,11 @@ const defaultSettings: SwitchProps['settings_switch'] = {
 export const Switch = ({
   id,
   type,
+  name,
   settings_switch = {},
   ...props
 }: SwitchProps) => {
-  const [field, meta] = useField({ ...props, type: 'checkbox' })
+  const [field, meta] = useField({ ...props, name, type: 'checkbox' })
   const settings = merge(defaultSettings, settings_switch)
 
   const padding = settings.padding as number
@@ -44,6 +45,7 @@ export const Switch = ({
   return (
     <Div
       className={mergeSelectors(['switch', meta.value ? 'active' : ''])}
+      aria-labelledby={`${name}-label`}
       css={{
         position: 'relative',
         display: 'inline-block',
@@ -99,34 +101,32 @@ export const Switch = ({
           },
         },
       }}>
-      {id ? (
-        <label
-          className="switch-label"
-          htmlFor={id}
-          tabIndex={settings.disabled ? -1 : 1}
-          onKeyDown={e => {
-            handleKeyPress(e)
-          }}>
-          <input
-            id={id}
-            type="checkbox"
-            {...field}
-            disabled={settings.disabled}
-          />
-          {settings.innerLabel ? (
-            <>
-              <span className="switch-on">{settings?.labelOn}</span>
-              <span className="switch-off">{settings?.labelOff}</span>
-            </>
-          ) : null}
-          <div
-            className={mergeSelectors([
-              'switch-slider',
-              meta.value ? 'on' : 'off',
-            ])}
-          />
-        </label>
-      ) : null}
+      <label
+        className="switch-label"
+        htmlFor={id || name}
+        tabIndex={settings.disabled ? -1 : 1}
+        onKeyDown={e => {
+          handleKeyPress(e)
+        }}>
+        <input
+          id={id || name}
+          type="checkbox"
+          {...field}
+          disabled={settings.disabled}
+        />
+        {settings.innerLabel ? (
+          <>
+            <span className="switch-on">{settings?.labelOn}</span>
+            <span className="switch-off">{settings?.labelOff}</span>
+          </>
+        ) : null}
+        <div
+          className={mergeSelectors([
+            'switch-slider',
+            meta.value ? 'on' : 'off',
+          ])}
+        />
+      </label>
     </Div>
   )
 }

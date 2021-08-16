@@ -8,12 +8,11 @@ const TestForm = ({ fields, id }: { fields: FieldProps[]; id?: string }) => {
     complete: false,
   })
 
-  console.log('Submitted.value is', submitted.value)
   return (
     <>
       {submitted.complete ? (
         <div data-cy="success">
-          {id === 'switch' ? 'True' : submitted.value}
+          {id === 'switch' ? submitted.value.toString() : submitted.value}
         </div>
       ) : null}
       <Form.Provider
@@ -47,7 +46,7 @@ describe('Field components', () => {
     mount(
       <TestForm
         id="text"
-        fields={[{ name: 'text', id: 'text', initialValue: '', type: 'text' }]}
+        fields={[{ name: 'text', initialValue: '', type: 'text' }]}
       />
     )
     cy.get('input[type=text]').type('mike')
@@ -61,7 +60,6 @@ describe('Field components', () => {
         fields={[
           {
             name: 'textarea',
-            id: 'textarea',
             initialValue: '',
             type: 'textarea',
           },
@@ -76,7 +74,7 @@ describe('Field components', () => {
     mount(
       <TestForm
         id="tel"
-        fields={[{ name: 'tel', id: 'tel', initialValue: '', type: 'tel' }]}
+        fields={[{ name: 'tel', initialValue: '', type: 'tel' }]}
       />
     )
     cy.get('input[type=tel]').type('8675309')
@@ -87,9 +85,7 @@ describe('Field components', () => {
     mount(
       <TestForm
         id="email"
-        fields={[
-          { name: 'email', id: 'email', initialValue: '', type: 'email' },
-        ]}
+        fields={[{ name: 'email', initialValue: '', type: 'email' }]}
       />
     )
     cy.get('input[type=email]').type('mike@test.com')
@@ -100,9 +96,7 @@ describe('Field components', () => {
     mount(
       <TestForm
         id="pass"
-        fields={[
-          { name: 'pass', id: 'pass', initialValue: '', type: 'password' },
-        ]}
+        fields={[{ name: 'pass', initialValue: '', type: 'password' }]}
       />
     )
     cy.get('input[type=password]').type('12345')
@@ -113,24 +107,29 @@ describe('Field components', () => {
     mount(
       <TestForm
         id="url"
-        fields={[{ name: 'url', id: 'url', initialValue: '', type: 'url' }]}
+        fields={[{ name: 'url', initialValue: '', type: 'url' }]}
       />
     )
     cy.get('input[type=url]').type('https://gmail.com')
   })
 
   // Select Field
-  it('renders a select field', () => {
+  it.only('renders a select field', () => {
     mount(
       <TestForm
         id="select"
         fields={[
           {
             name: 'select',
-            id: 'select',
             initialValue: '',
             type: 'select',
-            selectOptions: ['option-1', 'option-2', 'option-3'],
+            settings_select: {
+              options: [
+                { label: 'option-1' },
+                { label: 'option-2' },
+                { label: 'option-3' },
+              ],
+            },
           },
         ]}
       />
@@ -146,7 +145,6 @@ describe('Field components', () => {
         fields={[
           {
             name: 'select',
-            id: 'select',
             initialValue: '',
             type: 'select-datalist',
             selectOptions: ['option-1', 'option-2', 'option-3'],
@@ -162,7 +160,7 @@ describe('Field components', () => {
     mount(
       <TestForm
         id="date"
-        fields={[{ name: 'date', id: 'date', initialValue: '', type: 'date' }]}
+        fields={[{ name: 'date', initialValue: '', type: 'date' }]}
       />
     )
     cy.get('input[type=date]').type('1991-08-08')
@@ -191,25 +189,37 @@ describe('Field components', () => {
   it('renders a radio field', () => {
     mount(
       <TestForm
+        id="radio"
         fields={[
-          { name: 'radio', id: 'radio', initialValue: '', type: 'radio' },
+          {
+            name: 'radio',
+            initialValue: 'three',
+            type: 'radio',
+            settings_radio: {
+              options: [
+                { label: 'Option 1', value: 'one' },
+                { label: 'Option 2', value: 'two' },
+                { label: 'Option 3', value: 'three' },
+              ],
+            },
+          },
         ]}
       />
     )
     cy.get('input[type=radio]')
+      .first()
+      .check()
   })
 
-  it.only('renders a checkbox field', () => {
+  it('renders a checkbox field', () => {
     mount(
       <TestForm
         id="checkbox"
         fields={[
           {
             name: 'checkbox',
-            id: 'checkbox',
             initialValue: [], // Must be an empty array for checkbox group
             type: 'checkbox',
-            label: 'Checkbox Group',
             settings_checkbox: {
               options: [
                 { label: 'Option 1', value: 'one' },
@@ -234,7 +244,6 @@ describe('Field components', () => {
         fields={[
           {
             name: 'color',
-            id: 'color',
             initialValue: '#000000',
             type: 'color',
           },
@@ -249,9 +258,7 @@ describe('Field components', () => {
   // File Field
   it('renders a file upload field', () => {
     mount(
-      <TestForm
-        fields={[{ name: 'file', id: 'file', initialValue: '', type: 'file' }]}
-      />
+      <TestForm fields={[{ name: 'file', initialValue: '', type: 'file' }]} />
     )
     cy.get('input[type=file]')
   })
@@ -260,9 +267,7 @@ describe('Field components', () => {
 
   it('renders a range field', () => {
     mount(
-      <TestForm
-        fields={[{ name: 'file', id: 'file', initialValue: '', type: 'file' }]}
-      />
+      <TestForm fields={[{ name: 'file', initialValue: '', type: 'file' }]} />
     )
     cy.get('input[type=file]')
   })
@@ -272,7 +277,7 @@ describe('Field settings', () => {
   it('renders placeholder on text fields', () => {})
   it('sets an initial option for select fields', () => {})
   it('renders an array of strings for select options', () => {})
-  it('renders a array of objects with custom selectors for select options', () => {})
+  it('renders an array of objects with custom selectors for select options', () => {})
   it('renders a custom field container class', () => {})
   it('renders a label string', () => {})
   it('renders a label component', () => {})

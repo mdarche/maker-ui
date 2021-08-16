@@ -3,8 +3,7 @@ import { Field as FormikField } from 'formik'
 import { InputProps } from '../types'
 
 interface OptionProps {
-  options?: InputProps['selectOptions']
-  initial?: string
+  settings: InputProps['settings_select']
   datalist?: boolean
   id?: string
 }
@@ -18,17 +17,23 @@ interface OptionWrapperProps {
 const OptionWrapper = ({ wrapper, id, children }: OptionWrapperProps) =>
   wrapper ? <datalist id={`list-${id}`}>{children}</datalist> : <>{children}</>
 
-export const OptionList = ({ options, id, initial, datalist }: OptionProps) => {
-  // TODO conditional check the options for object vs array of strings
-  return (
+export const OptionList = ({ settings, id, datalist = false }: OptionProps) => {
+  // const isObject =
+  //   typeof settings?.options === 'object' && settings?.options !== null
+  // const isObject = false
+
+  console.log('Settings.options are', settings?.options)
+
+  return settings ? (
     <OptionWrapper id={id} wrapper={datalist}>
-      {initial ? <option>{initial}</option> : null}
-      {/* @ts-ignore */}
-      {options?.map((i, index) => (
-        <option key={index}>{i}</option>
+      {settings.initial ? <option>{settings.initial}</option> : null}
+      {settings.options.map(({ id, className, label, value }, index) => (
+        <option key={index} id={id} className={className} value={value}>
+          {label}
+        </option>
       ))}
     </OptionWrapper>
-  )
+  ) : null
 }
 
 interface SelectProps extends InputProps {}
@@ -38,8 +43,7 @@ export const Select = ({
   type,
   name,
   hasError,
-  selectOptions,
-  initialOption,
+  settings_select,
   firstTouch,
   setFirstTouch,
 }: SelectProps) => {
@@ -55,16 +59,11 @@ export const Select = ({
         list={type === 'select-datalist' ? `list-${id}` : undefined}
         type={type !== 'select-datalist' ? 'select' : undefined}>
         {type === 'select' ? (
-          <OptionList options={selectOptions} initial={initialOption} />
+          <OptionList id={name} settings={settings_select} />
         ) : null}
       </FormikField>
       {type === 'select-datalist' ? (
-        <OptionList
-          id={id}
-          options={selectOptions}
-          initial={initialOption}
-          datalist
-        />
+        <OptionList id={name} settings={settings_select} datalist />
       ) : null}
     </>
   )
