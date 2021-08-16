@@ -49,7 +49,7 @@ export const Select = ({
         id={id}
         onFocus={() => (!firstTouch ? setFirstTouch(true) : undefined)}
         onClick={() => (!firstTouch ? setFirstTouch(true) : undefined)}
-        as="select" // TODO check how this renders
+        as={type === 'select' ? 'select' : undefined}
         name={name}
         className={hasError ? 'error' : undefined}
         list={type === 'select-datalist' ? `list-${id}` : undefined}

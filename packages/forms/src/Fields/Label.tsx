@@ -9,7 +9,7 @@ interface LabelProps {
   top?: boolean
 }
 
-const nonLabelFields = ['radio', 'checkbox']
+const nonLabelFields = ['radio', 'checkbox', 'toggle']
 const topPosition = ['top', 'center', 'left', 'floating']
 const bottomPosition = ['bottom', 'right']
 

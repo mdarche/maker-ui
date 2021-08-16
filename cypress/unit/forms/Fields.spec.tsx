@@ -2,12 +2,23 @@ import * as React from 'react'
 import { mount } from '@cypress/react'
 import { FieldProps, Form } from '@maker-ui/forms'
 
-const TestForm = ({ fields }: { fields: FieldProps[] }) => {
-  const [submitted, setSubmitted] = React.useState(false)
+const TestForm = ({ fields, id }: { fields: FieldProps[]; id?: string }) => {
+  const [submitted, setSubmitted] = React.useState({
+    value: undefined,
+    complete: false,
+  })
   return (
     <>
-      {submitted ? <div data-cy="success">Success</div> : null}
-      <Form.Provider fields={fields} onSubmit={values => setSubmitted(true)}>
+      {submitted.complete ? (
+        <div data-cy="success">{submitted.value}</div>
+      ) : null}
+      {submitted.value}
+      <Form.Provider
+        fields={fields}
+        // onSubmit={values => setSubmitted({ values, complete: true })}
+        onSubmit={values =>
+          setSubmitted({ value: values[id], complete: true })
+        }>
         <Form>
           <Form.Submit data-cy="submit">Submit</Form.Submit>
         </Form>
@@ -31,6 +42,7 @@ describe('Field components', () => {
   it('renders a text field', () => {
     mount(
       <TestForm
+        id="text"
         fields={[{ name: 'text', id: 'text', initialValue: '', type: 'text' }]}
       />
     )
@@ -41,6 +53,7 @@ describe('Field components', () => {
   it('renders a textarea field', () => {
     mount(
       <TestForm
+        id="textarea"
         fields={[
           {
             name: 'textarea',
@@ -58,6 +71,7 @@ describe('Field components', () => {
   it('renders a tel field', () => {
     mount(
       <TestForm
+        id="tel"
         fields={[{ name: 'tel', id: 'tel', initialValue: '', type: 'tel' }]}
       />
     )
@@ -68,6 +82,7 @@ describe('Field components', () => {
   it('renders an email field', () => {
     mount(
       <TestForm
+        id="email"
         fields={[
           { name: 'email', id: 'email', initialValue: '', type: 'email' },
         ]}
@@ -80,6 +95,7 @@ describe('Field components', () => {
   it('renders a password field', () => {
     mount(
       <TestForm
+        id="pass"
         fields={[
           { name: 'pass', id: 'pass', initialValue: '', type: 'password' },
         ]}
@@ -92,6 +108,7 @@ describe('Field components', () => {
   it('renders a url field', () => {
     mount(
       <TestForm
+        id="url"
         fields={[{ name: 'url', id: 'url', initialValue: '', type: 'url' }]}
       />
     )
@@ -102,6 +119,7 @@ describe('Field components', () => {
   it('renders a select field', () => {
     mount(
       <TestForm
+        id="select"
         fields={[
           {
             name: 'select',
@@ -117,9 +135,10 @@ describe('Field components', () => {
   })
 
   // Select Datalist Field
-  it.only('renders a select-datalist field', () => {
+  it('renders a select-datalist field', () => {
     mount(
       <TestForm
+        id="select"
         fields={[
           {
             name: 'select',
@@ -135,9 +154,10 @@ describe('Field components', () => {
   })
 
   // Date Field
-  it('renders a date field', () => {
+  it.only('renders a date field', () => {
     mount(
       <TestForm
+        id="date"
         fields={[{ name: 'date', id: 'date', initialValue: '', type: 'date' }]}
       />
     )
@@ -146,7 +166,17 @@ describe('Field components', () => {
 
   it('renders a datepicker field', () => {})
 
-  it('renders a toggle field', () => {})
+  it.only('renders a toggle field', () => {
+    mount(
+      <TestForm
+        id="switch"
+        fields={[
+          { name: 'switch', id: 'switch', initialValue: false, type: 'switch' },
+        ]}
+      />
+    )
+    cy.get('[type=checkbox]').check()
+  })
 
   it('renders a radio field', () => {
     mount(
@@ -165,19 +195,24 @@ describe('Field components', () => {
   it('renders a color field', () => {
     mount(
       <TestForm
+        id="color"
         fields={[
-          { name: 'color', id: 'color', initialValue: '', type: 'color' },
+          {
+            name: 'color',
+            id: 'color',
+            initialValue: '#000000',
+            type: 'color',
+          },
         ]}
       />
     )
     cy.get('input[type=color]')
-      .click()
       .invoke('val', '#ff0000')
       .trigger('change')
   })
 
   // File Field
-  it.only('renders a file upload field', () => {
+  it('renders a file upload field', () => {
     mount(
       <TestForm
         fields={[{ name: 'file', id: 'file', initialValue: '', type: 'file' }]}

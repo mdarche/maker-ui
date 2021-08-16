@@ -2,12 +2,10 @@ import * as React from 'react'
 import { Button, ButtonProps, mergeSelectors } from 'maker-ui'
 
 import { useForm } from './Provider'
+import { PaginationElement } from './types'
 
 export interface BackButtonProps extends ButtonProps {
-  children?:
-    | string
-    | React.ReactNode
-    | ((currentPage: number) => React.ReactNode)
+  children?: PaginationElement
 }
 
 export const BackButton = ({ children, ...props }: BackButtonProps) => {

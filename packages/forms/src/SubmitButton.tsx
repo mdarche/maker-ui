@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useFormikContext, FormikErrors, FormikTouched } from 'formik'
 import { Button, ButtonProps } from 'maker-ui'
 import { useForm } from './Provider'
-import { getRequired } from './Fields/render'
+import { getRequired } from './helper'
 
 export interface SubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
   children?: React.ReactNode

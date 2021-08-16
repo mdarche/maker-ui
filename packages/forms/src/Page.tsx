@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ResponsiveScale, Div, DivProps, Grid, mergeSelectors } from 'maker-ui'
 
-import { renderFields } from './Fields/render'
+import { Field } from './Fields'
 import { FormState, useForm } from './Provider'
 import type { FieldProps } from './types'
 
@@ -36,7 +36,9 @@ export const Page = ({
       {typeof title === 'function' ? title(currentPage) : title}
       FormPage
       <Grid className="form-grid" columns={columns || settings.columns} gap={gap || settings.gap}>
-        {renderFields(fields)}
+      {fields.map(props => (
+          <Field key={props.id} {...props} />
+      ))}
       </Grid>
       {children}
     </Div>

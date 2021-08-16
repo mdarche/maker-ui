@@ -1,16 +1,14 @@
 import * as React from 'react'
 import { Div, mergeSelectors } from 'maker-ui'
-import {
-  Field as FormikField,
-  FormikErrors,
-  FormikTouched,
-  useFormikContext,
-} from 'formik'
+import { FormikErrors, FormikTouched, useFormikContext } from 'formik'
 
+import { Input } from './Input'
+import { Select } from './Select'
+import { DatePicker } from './Datepicker'
 import { Label } from './Label'
 import { FieldProps } from '../types'
 import { useForm } from '../Provider'
-import { OptionList } from './Select'
+import { Switch } from './Switch'
 
 function labelClass(s: string) {
   return s
@@ -19,6 +17,18 @@ function labelClass(s: string) {
 function errorClass(s: string) {
   return s
 }
+
+const basicInputs = [
+  'text',
+  'textarea',
+  'email',
+  'tel',
+  'password',
+  'url',
+  'date',
+  'file',
+  'color',
+]
 
 export const Field = (props: FieldProps) => {
   const [firstTouch, setFirstTouch] = React.useState(false)
@@ -34,20 +44,49 @@ export const Field = (props: FieldProps) => {
     name,
     id,
     colSpan,
-    placeholder,
     type,
-    labelStyle = settings.labelStyle,
-    errorStyle = settings.errorStyle,
+    labelStyle = settings?.labelStyle,
+    errorStyle = settings?.errorStyle,
     label,
     description,
     containerClass,
     showValidation,
-    selectOptions,
-    initialOption,
   } = props
 
   const hasError = errors[name] && touched[name] ? true : false
   const isComplete = !errors[name] && touched[name] ? true : false
+
+  const attributes = {
+    hasError,
+    firstTouch,
+    setFirstTouch,
+  }
+
+  function renderInputs() {
+    /* Uniform HTML Inputs */
+    if (basicInputs.includes(type)) {
+      return <Input {...attributes} {...props} />
+    }
+    /* Datepicker that supports ranges */
+    if (props.type === 'datepicker') {
+      return <DatePicker {...attributes} {...props} />
+    }
+    /* Select and Datalist inputs */
+    if (props.type === 'select' || props.type == 'select-datalist') {
+      return <Select {...attributes} {...props} />
+    }
+    /* Radio group input*/
+    /* Checkbox group input*/
+    /* Toggle input*/
+    if (props.type === 'switch') {
+      //@ts-ignore
+      return <Switch {...props} />
+    }
+    /* Range input*/
+    /* Image & Gallery input*/
+    /* Custom component */
+    return null
+  }
 
   return (
     <Div
@@ -67,34 +106,7 @@ export const Field = (props: FieldProps) => {
         {label}
       </Label>
       {description ? <div className="description">{description}</div> : null}
-      <FormikField
-        id={id}
-        onFocus={() => (!firstTouch ? setFirstTouch(true) : undefined)}
-        onClick={() => (!firstTouch ? setFirstTouch(true) : undefined)}
-        as={
-          type === 'textarea'
-            ? 'textarea'
-            : type === 'select'
-            ? 'select'
-            : 'input'
-        }
-        name={name}
-        className={hasError ? 'error' : undefined}
-        placeholder={placeholder}
-        list={type === 'select-datalist' ? `list-${id}` : undefined}
-        type={type !== 'select-datalist' ? type : undefined}>
-        {type === 'select' ? (
-          <OptionList options={selectOptions} initial={initialOption} />
-        ) : null}
-      </FormikField>
-      {type === 'select-datalist' ? (
-        <OptionList
-          id={id}
-          options={selectOptions}
-          initial={initialOption}
-          datalist
-        />
-      ) : null}
+      {renderInputs()}
       <Label id={id} type={type} position={labelStyle}>
         {label}
       </Label>

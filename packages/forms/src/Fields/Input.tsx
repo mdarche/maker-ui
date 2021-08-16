@@ -4,7 +4,7 @@ import { InputProps } from '../types'
 
 interface TextProps extends InputProps {}
 
-export const TextField = ({
+export const Input = ({
   id,
   type,
   name,

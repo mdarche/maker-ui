@@ -2,12 +2,12 @@ import * as React from 'react'
 import { Button, ButtonProps } from 'maker-ui'
 
 import { useForm } from './Provider'
-import { FieldProps } from './types'
-import { getRequired } from './Fields/render'
+import { FieldProps, PaginationElement } from './types'
+import { getRequired } from './helper'
 
 export interface PageButtonProps extends ButtonProps {
   pageId: string
-  label?: string | React.ReactNode | ((currentPage: number) => React.ReactNode)
+  label?: PaginationElement
 }
 
 export const PageButton = ({

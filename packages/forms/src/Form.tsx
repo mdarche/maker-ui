@@ -9,8 +9,8 @@ import {
 } from 'maker-ui'
 import { Form as FormikForm } from 'formik'
 
-import { renderFields } from './Fields/render'
 import { Page } from './Page'
+import { Field } from './Fields'
 import { Provider, useForm } from './Provider'
 import { SubmitButton } from './SubmitButton'
 import { Progress } from './Progress'
@@ -63,7 +63,9 @@ export const Form = ({
           gap={gap}
           breakpoints={breakpoints}
           css={css}>
-          {renderFields(fields)}
+          {fields.map(p => (
+            <Field key={p.id} {...p} />
+          ))}
         </Grid>
       ) : null}
       {children}

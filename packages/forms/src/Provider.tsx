@@ -76,7 +76,8 @@ export const Provider = ({
   const FormSchema =
     Object.keys(schema).length !== 0 ? Yup.object().shape(schema) : undefined
 
-  // TODO - Add form style classes to Div or Global
+  // TODO - Add form style classes to Global
+  // - Check for datepicker
 
   return (
     <MakerForm fields={fields} settings={settings as Settings}>

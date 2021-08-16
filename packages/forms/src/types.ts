@@ -1,7 +1,30 @@
 import { FormikHelpers, FormikValues } from 'formik'
+import React from 'react'
 
 export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
+
+export type PaginationElement =
+  | string
+  | React.ReactNode
+  | ((currentPage: number) => React.ReactNode)
+
+export interface SwitchSettings {
+  innerLabel?: boolean
+  labels?: string[]
+  labelTrue?: string | React.ReactNode
+  labelFalse?: string | React.ReactNode
+  activeColor?: string
+  inactiveColor?: string
+  disabled?: boolean
+}
+
+export interface SelectSettings {
+  options?:
+    | string[]
+    | { label: string; initial?: boolean; className?: string; id?: string }[]
+  initialOption?: string
+}
 
 export interface FieldProps {
   name: string
@@ -22,7 +45,7 @@ export interface FieldProps {
     | 'select-datalist'
     | 'date'
     | 'datepicker'
-    | 'toggle'
+    | 'switch'
     | 'radio'
     | 'checkbox'
     | 'slider'
@@ -31,7 +54,6 @@ export interface FieldProps {
     | 'range' // TODO
     | 'file'
     | 'custom' // TODO
-  mask?: 'phone' | 'zipcode' | 'credit-card' // TODO
   required?: boolean
   errorStyle?:
     | 'top-right'
@@ -42,7 +64,6 @@ export interface FieldProps {
   labelStyle?: 'top' | 'bottom' | 'left' | 'right' | 'center' | 'floating'
   colSpan?: number | 'full'
   showValidation?: boolean
-  passwordToggle?: boolean
   options?:
     | string[]
     | { label: string; initial?: boolean; className?: string; id?: string }[]
@@ -50,7 +71,16 @@ export interface FieldProps {
     | string[]
     | { label: string; initial?: boolean; className?: string; id?: string }[]
   initialOption?: string
-  datePickerProps?: object
+  settings_select?: SelectSettings
+  settings_switch?: SwitchSettings
+  settings_datepicker?: object
+  settings_password?: {
+    toggleCharacters?: boolean
+  }
+  settings_text?: {
+    mask?: 'phone' | 'zipcode' | 'credit-card'
+  }
+  settings_repeat?: object
   /* Yup Validation rule */
   validation?: any
 }
