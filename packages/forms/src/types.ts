@@ -9,37 +9,19 @@ export type PaginationElement =
   | React.ReactNode
   | ((currentPage: number) => React.ReactNode)
 
-type InputOption = {
+export type InputOption = {
   label: string | React.ReactNode
   value?: string
   className?: string
   id?: string
 }
 
-export interface SwitchSettings {
-  innerLabel?: boolean
-  labelOn?: string | React.ReactNode
-  labelOff?: string | React.ReactNode
-  activeColor?: string
-  inactiveColor?: string
-  disabled?: boolean
-  height?: number
-  padding?: number
-  borderRadius?: number
-  style?: 'circle' | 'box'
-}
-
-export interface SelectSettings {
-  options?: InputOption
-  initialOption?: string
-}
-
 export interface FieldProps {
-  /** Unique identifier for the field */
+  /** Unique identifier for the field (required)*/
   name: string
-  /** The inputs initial value */
+  /** The input's initial value (required)*/
   initialValue: any
-  /** The field type */
+  /** The field type (required) */
   type:
     | 'text'
     | 'textarea'
@@ -50,7 +32,7 @@ export interface FieldProps {
     | 'select'
     | 'select-datalist'
     | 'date'
-    | 'datepicker'
+    | 'datepicker' // TODO
     | 'switch'
     | 'radio'
     | 'checkbox'
@@ -59,8 +41,9 @@ export interface FieldProps {
     | 'color'
     | 'range' // TODO
     | 'file'
-    | 'custom' // TODO
-  /* Yup Validation rule */
+  /** Yup Validation rule for this field. See for details:
+   * @link https://github.com/jquense/yup
+   */
   validation?: any
   /** A custom id selector for the input field */
   id?: string
@@ -87,24 +70,57 @@ export interface FieldProps {
   colSpan?: number | 'full'
   /** If true, the field will render a validation icon after onTouch validation */
   showValidation?: boolean
-  settings_select?: {
-    options: InputOption[]
-    initial?: string
+  /** Settings for the switch field */
+  settings_switch?: {
+    /** If true, the switch will show `on` and `off` text values */
+    innerLabel?: boolean
+    /** A custom label for the switch `on` state. Must have `innerLabel` active. */
+    labelOn?: string | React.ReactNode
+    /** A custom label for the switch `off` state. Must have `innerLabel` active. */
+    labelOff?: string | React.ReactNode
+    /** The switch background color for `on` state */
+    activeColor?: string
+    /** The switch background color for `off` state */
+    inactiveColor?: string
+    /** Renders the switch as disabled */
+    disabled?: boolean
+    /** The total height of the switch input */
+    height?: number
+    /** The padding between the switch slider and the edge of the input */
+    padding?: number
+    /** The radius of the switch container and slider. This only applies to the `box` style. */
+    borderRadius?: number
+    /** The switch style can be `circle` or `box` */
+    style?: 'circle' | 'box'
   }
-  settings_switch?: SwitchSettings
+  /** Settings for the datepicker field */
   settings_datepicker?: object
+  /** Settings for the select and select-datalist fields */
+  settings_select?: {
+    /** An array of values for the select options */
+    options: InputOption[]
+  }
+  /** Settings for the checkbox field */
   settings_checkbox?: {
+    /** An array of values for the checkbox options */
     options: InputOption[]
   }
+  /** Settings for the radio field */
   settings_radio?: {
+    /** An array of values for the radio options */
     options: InputOption[]
   }
+  /** Settings for the password field */
   settings_password?: {
-    toggleCharacters?: boolean
+    /** When true, the user can toggle the field between text and password to see the characters */
+    toggleCharacters?: boolean // TODO
   }
+  /** Settings for the text field */
   settings_text?: {
-    mask?: 'phone' | 'zipcode' | 'credit-card'
+    /** An optional formatting mask for the text field*/
+    mask?: 'phone' | 'zipcode' | 'credit-card' // TODO
   }
+  /** Settings for the repeater field */
   settings_repeater?: object
 }
 

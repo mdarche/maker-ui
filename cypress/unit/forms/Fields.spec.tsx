@@ -114,7 +114,7 @@ describe('Field components', () => {
   })
 
   // Select Field
-  it.only('renders a select field', () => {
+  it('renders a select field', () => {
     mount(
       <TestForm
         id="select"
@@ -147,7 +147,13 @@ describe('Field components', () => {
             name: 'select',
             initialValue: '',
             type: 'select-datalist',
-            selectOptions: ['option-1', 'option-2', 'option-3'],
+            settings_select: {
+              options: [
+                { label: 'option-1' },
+                { label: 'option-2' },
+                { label: 'option-3' },
+              ],
+            },
           },
         ]}
       />
@@ -166,7 +172,7 @@ describe('Field components', () => {
     cy.get('input[type=date]').type('1991-08-08')
   })
 
-  it('renders a datepicker field', () => {})
+  // it('renders a datepicker field', () => {})
 
   it('renders a switch field', () => {
     mount(
@@ -263,7 +269,7 @@ describe('Field components', () => {
     cy.get('input[type=file]')
   })
 
-  it('renders a repeater field', () => {})
+  // it('renders a repeater field', () => {})
 
   it('renders a range field', () => {
     mount(

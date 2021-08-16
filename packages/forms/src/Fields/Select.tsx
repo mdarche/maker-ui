@@ -5,28 +5,29 @@ import { InputProps } from '../types'
 interface OptionProps {
   settings: InputProps['settings_select']
   datalist?: boolean
-  id?: string
+  name?: string
 }
 
 interface OptionWrapperProps {
   children: React.ReactNode
   wrapper?: boolean
-  id?: string
+  name?: string
 }
 
-const OptionWrapper = ({ wrapper, id, children }: OptionWrapperProps) =>
-  wrapper ? <datalist id={`list-${id}`}>{children}</datalist> : <>{children}</>
+const OptionWrapper = ({ wrapper, name, children }: OptionWrapperProps) =>
+  wrapper ? (
+    <datalist id={`list-${name}`}>{children}</datalist>
+  ) : (
+    <>{children}</>
+  )
 
-export const OptionList = ({ settings, id, datalist = false }: OptionProps) => {
-  // const isObject =
-  //   typeof settings?.options === 'object' && settings?.options !== null
-  // const isObject = false
-
-  console.log('Settings.options are', settings?.options)
-
+export const OptionList = ({
+  settings,
+  name,
+  datalist = false,
+}: OptionProps) => {
   return settings ? (
-    <OptionWrapper id={id} wrapper={datalist}>
-      {settings.initial ? <option>{settings.initial}</option> : null}
+    <OptionWrapper name={name} wrapper={datalist}>
       {settings.options.map(({ id, className, label, value }, index) => (
         <option key={index} id={id} className={className} value={value}>
           {label}
@@ -53,17 +54,17 @@ export const Select = ({
         id={id}
         onFocus={() => (!firstTouch ? setFirstTouch(true) : undefined)}
         onClick={() => (!firstTouch ? setFirstTouch(true) : undefined)}
-        as={type === 'select' ? 'select' : undefined}
+        as={type === 'select' ? 'select' : 'input'}
         name={name}
         className={hasError ? 'error' : undefined}
-        list={type === 'select-datalist' ? `list-${id}` : undefined}
+        list={type === 'select-datalist' ? `list-${name}` : undefined}
         type={type !== 'select-datalist' ? 'select' : undefined}>
         {type === 'select' ? (
-          <OptionList id={name} settings={settings_select} />
+          <OptionList name={name} settings={settings_select} />
         ) : null}
       </FormikField>
       {type === 'select-datalist' ? (
-        <OptionList id={name} settings={settings_select} datalist />
+        <OptionList name={name} settings={settings_select} datalist />
       ) : null}
     </>
   )

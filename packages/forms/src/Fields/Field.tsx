@@ -74,7 +74,7 @@ export const Field = (props: FieldProps) => {
       return <DatePicker {...attributes} {...props} />
     }
     /* Select and Datalist inputs */
-    if (props.type === 'select' || props.type == 'select-datalist') {
+    if (props.type === 'select' || props.type === 'select-datalist') {
       return <Select {...attributes} {...props} />
     }
     /* Radio group input*/
