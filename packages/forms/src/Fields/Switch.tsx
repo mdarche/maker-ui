@@ -6,7 +6,7 @@ import { InputProps } from '../types'
 interface SwitchProps extends InputProps {}
 
 const defaultSettings: SwitchProps['settings_switch'] = {
-  innerLabel: true,
+  innerLabel: false,
   labelOn: 'Yes',
   labelOff: 'No',
   activeColor: 'blue',
@@ -55,6 +55,7 @@ export const Switch = ({
           left: -5,
           opacity: 0,
           outline: 0,
+          zIndex: 100,
         },
         label: {
           position: 'relative',

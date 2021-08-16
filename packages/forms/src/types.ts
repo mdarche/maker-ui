@@ -10,7 +10,7 @@ export type PaginationElement =
   | ((currentPage: number) => React.ReactNode)
 
 export type InputOption = {
-  label: string | React.ReactNode
+  label: string
   value?: string
   className?: string
   id?: string
@@ -39,7 +39,7 @@ export interface FieldProps {
     | 'slider'
     | 'repeater' // TODO
     | 'color'
-    | 'range' // TODO
+    | 'range'
     | 'file'
   /** Yup Validation rule for this field. See for details:
    * @link https://github.com/jquense/yup

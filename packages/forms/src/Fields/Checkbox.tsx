@@ -15,7 +15,7 @@ export const Checkbox = ({ name, settings_checkbox }: CheckboxProps) => {
               className={className}
               type="checkbox"
               name={name}
-              value={value}
+              value={value || label}
             />
             {label}
           </label>

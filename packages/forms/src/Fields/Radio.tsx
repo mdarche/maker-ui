@@ -15,7 +15,7 @@ export const Radio = ({ name, settings_radio }: RadioProps) => {
               className={className}
               type="radio"
               name={name}
-              value={value}
+              value={value || label}
             />
             {label}
           </label>
