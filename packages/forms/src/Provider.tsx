@@ -11,7 +11,7 @@ interface Settings {
   validateOnBlur: boolean
   validateOnChange: boolean
   validateIcon: React.ReactNode
-  columns: string | string[]
+  columns: string | string[] | number
   gap: ResponsiveScale
   pages: number
   pageTransition: 'none' | 'fade' | 'fade-down' | 'fade-up'
@@ -139,6 +139,8 @@ const initialState: FormState = {
     labelStyle: 'top-left',
     errorStyle: 'bottom-right',
     validateIcon: <ValidateIcon />,
+    validateOnChange: false,
+    validateOnBlur: true,
   },
 }
 const FormContext = React.createContext<FormState>(initialState)

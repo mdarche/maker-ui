@@ -748,6 +748,8 @@ describe('Shared field settings', () => {
   })
 })
 
+// TODO Add visual regression test
+
 describe('Field label position', () => {
   it('renders a "top-left" label', () => {
     mount(
@@ -867,6 +869,8 @@ describe('Field label position', () => {
     )
   })
 })
+
+// TODO add visual regression test
 
 describe('Field error position', () => {
   it('renders a "top-right" error', () => {

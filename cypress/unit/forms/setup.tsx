@@ -1,4 +1,4 @@
-import { Form, Yup, FieldProps, FormHelpers } from '@maker-ui/forms'
+import { Form, Yup, FieldProps } from '@maker-ui/forms'
 import { FormProviderProps } from '@maker-ui/forms/dist/Provider'
 import { FormProps } from '@maker-ui/forms/dist/Form'
 import { SubmitButtonProps } from '@maker-ui/forms/dist/SubmitButton'
@@ -8,17 +8,10 @@ export interface FormValues {
   password: string
 }
 
-export const FormSchema = Yup.object().shape({
-  username: Yup.string().required('Required'),
-  password: Yup.string().required('Required'),
-})
-
-// Cover all field types
 export const formFields: FieldProps[] = [
   {
     name: 'username',
-    id: 'username',
-    label: 'Username',
+    label: 'Your Username',
     placeholder: 'Enter your username',
     type: 'text',
     errorStyle: 'bottom-right',
@@ -28,8 +21,7 @@ export const formFields: FieldProps[] = [
   },
   {
     name: 'telephone',
-    id: 'telephone',
-    label: 'telephone',
+    label: 'Your Telephone',
     placeholder: 'Add a telephone',
     type: 'tel',
     errorStyle: 'bottom-right',
@@ -42,16 +34,18 @@ export interface TestFormProps {
   providerProps?: FormProviderProps
   formProps?: FormProps
   submitProps?: SubmitButtonProps
+  fields?: FieldProps[]
 }
 
 export const BasicForm = ({
   providerProps,
   formProps,
   submitProps,
+  fields = formFields,
 }: TestFormProps) => (
   <Form.Provider
     data-cy="wrapper"
-    fields={formFields}
+    fields={fields}
     onSubmit={(values: FormValues) => {
       console.log('Submitted', values)
     }}

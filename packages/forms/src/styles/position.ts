@@ -1,6 +1,6 @@
 import { MakerProps } from 'maker-ui'
 
-const labelStyle: MakerProps['css'] = {
+const labelStyles: MakerProps['css'] = {
   '.label-top-left': {
     flexDirection: 'column',
   },
@@ -45,7 +45,7 @@ const labelStyle: MakerProps['css'] = {
 
 // TODO - Cover all label / error combinations where there might be a position conflict
 
-const errorStyle: MakerProps['css'] = {
+const errorStyles: MakerProps['css'] = {
   '.form-error': {
     position: 'absolute',
   },
@@ -74,6 +74,28 @@ const errorStyle: MakerProps['css'] = {
   },
 }
 
-const style: MakerProps['css'] = { ...errorStyle, ...labelStyle }
+const validationStyles: MakerProps['css'] = {
+  '.validate-icon': {
+    display: 'flex',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 10,
+    top: 0,
+    bottom: 0,
+    opacity: 0,
+    visibility: 'hidden',
+    transition: 'all ease 0.2',
+    '&.valid': {
+      opacity: 1,
+      visibility: 'visible',
+    },
+  },
+}
+
+const style: MakerProps['css'] = {
+  ...errorStyles,
+  ...labelStyles,
+  ...validationStyles,
+}
 
 export default style

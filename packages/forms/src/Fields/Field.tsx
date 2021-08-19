@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Flex, mergeSelectors } from 'maker-ui'
+import { Flex, mergeSelectors, MakerProps } from 'maker-ui'
 import { FormikErrors, FormikTouched, useFormikContext } from 'formik'
 
 import { Input } from './Input'
@@ -28,7 +28,11 @@ const basicInputs = [
 const labelTop = ['top-right', 'top-left', 'top-center', 'left', 'floating']
 const labelBottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
 
-export const Field = (props: FieldProps) => {
+interface FieldComponentProps extends FieldProps {
+  breakpoints: MakerProps['breakpoints']
+}
+
+export const Field = (props: FieldComponentProps) => {
   const [firstTouch, setFirstTouch] = React.useState(false)
   const { settings } = useForm()
   const {
@@ -49,9 +53,16 @@ export const Field = (props: FieldProps) => {
     description,
     containerClass,
     showValidation,
+    breakpoints,
   } = props
 
-  const hasError = errors[name] && touched[name] ? true : false
+  const hasError = settings.validateOnChange
+    ? errors[name]
+      ? true
+      : false
+    : errors[name] && touched[name]
+    ? true
+    : false
   const isComplete = !errors[name] && touched[name] ? true : false
 
   const attributes = {
@@ -101,6 +112,7 @@ export const Field = (props: FieldProps) => {
   return (
     <Flex
       key={id}
+      breakpoints={breakpoints}
       className={mergeSelectors([
         'field-container',
         containerClass,
@@ -111,7 +123,7 @@ export const Field = (props: FieldProps) => {
       ])}
       css={{
         position: 'relative',
-        gridColumn: colSpan !== undefined ? `span ${colSpan}` : undefined,
+        gridColumn: colSpan ? ['1 / -1', `span ${colSpan}`] : '1 / -1',
       }}>
       {labelTop.includes(labelStyle as string) ? labelComponent : null}
       {description ? (

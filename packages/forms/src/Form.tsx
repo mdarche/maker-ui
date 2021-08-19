@@ -19,7 +19,7 @@ import { PageButton } from './PageButton'
 export interface FormProps
   extends React.HTMLAttributes<HTMLFormElement>,
     MakerProps {
-  columns?: string | string[]
+  columns?: string | string[] | number
   gap?: ResponsiveScale
 }
 
@@ -28,6 +28,7 @@ const Header = ({ className, children, ...props }: DivProps) => (
     {children}
   </Div>
 )
+
 const Footer = ({ className, children, ...props }: DivProps) => (
   <Div className={mergeSelectors(['form-footer', className])} {...props}>
     {children}
@@ -53,18 +54,20 @@ export const Form = ({
   ...props
 }: FormProps) => {
   const { fields, settings } = useForm()
+  const col = columns || settings.columns
+  const gridCol = typeof col === 'number' ? ['1fr', `repeat(${col}, 1fr)`] : col
 
   return (
     <FormikForm id={id} className={className} {...props}>
       {fields ? (
         <Grid
           className="form-grid"
-          columns={columns || settings?.columns}
-          gap={gap || settings?.gap}
           breakpoints={breakpoints}
+          columns={gridCol}
+          gap={gap || settings?.gap}
           css={css}>
           {fields.map((p, index) => (
-            <Field key={index} {...p} />
+            <Field key={index} breakpoints={breakpoints} {...p} />
           ))}
         </Grid>
       ) : null}

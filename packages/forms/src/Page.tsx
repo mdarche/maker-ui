@@ -9,7 +9,7 @@ export interface FormPageProps extends Omit<DivProps, 'title'> {
   id: string
   fields: FieldProps[]
   title?: string | React.ReactNode | ((currentPage: number) => React.ReactNode)
-  columns?: string | string[]
+  columns?: string | string[] | number
   gap?: ResponsiveScale
 }
 
@@ -20,9 +20,13 @@ export const Page = ({
   className,
   columns,
   gap,
+  css,
+  breakpoints,
   children,
 }: FormPageProps) => {
   const { currentPage, setPageFields, settings } = useForm()
+  const col = columns || settings.columns
+  const gridCol = typeof col === 'number' ? ['1fr', `repeat(${col}, 1fr)`] : col
 
   React.useEffect(() => {
     /* Register current page fields in Form State */
@@ -34,11 +38,15 @@ export const Page = ({
   return (
     <Div id={id} className={mergeSelectors(['form-page', className])}>
       {typeof title === 'function' ? title(currentPage) : title}
-      FormPage
-      <Grid className="form-grid" columns={columns || settings.columns} gap={gap || settings.gap}>
-      {fields.map(props => (
-          <Field key={props.id} {...props} />
-      ))}
+      <Grid 
+        className="form-grid" 
+        breakpoints={breakpoints} 
+        columns={gridCol} 
+        gap={gap || settings?.gap}
+        css={css}>
+        {fields.map((props, index) => (
+          <Field key={index} breakpoints={breakpoints} {...props} />
+        ))}
       </Grid>
       {children}
     </Div>

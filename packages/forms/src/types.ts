@@ -4,6 +4,8 @@ import { FormikHelpers, FormikValues } from 'formik'
 export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
 
+export type { FormProviderProps } from './Provider'
+
 export type PaginationElement =
   | string
   | React.ReactNode
@@ -77,7 +79,7 @@ export interface FieldProps {
     | 'bottom-center'
     | 'floating'
   /** The number of columns that the field should span */
-  colSpan?: number | 'full'
+  colSpan?: number
   /** If true, the field will render a validation icon after onTouch validation */
   showValidation?: boolean
   /** Settings for the switch field */

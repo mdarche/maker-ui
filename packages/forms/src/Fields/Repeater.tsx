@@ -46,7 +46,7 @@ export const Repeater = () => {
             <button
               type="button"
               className="form-repeater-btn"
-              onClick={() => push({ name: '', sqft: '' })}>
+              onClick={() => push({})}>
               <PlusIcon /> Add
             </button>
           </Flex>
