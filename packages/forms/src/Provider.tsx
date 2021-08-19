@@ -136,7 +136,7 @@ const initialState: FormState = {
     pages: 1,
     pageTransition: 'none',
     placeholderColor: '#b7b7b7',
-    labelStyle: 'top',
+    labelStyle: 'top-left',
     errorStyle: 'bottom-right',
     validateIcon: <ValidateIcon />,
   },

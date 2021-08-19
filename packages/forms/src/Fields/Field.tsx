@@ -25,6 +25,9 @@ const basicInputs = [
   'color',
 ]
 
+const labelTop = ['top-right', 'top-left', 'top-center', 'left', 'floating']
+const labelBottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
+
 export const Field = (props: FieldProps) => {
   const [firstTouch, setFirstTouch] = React.useState(false)
   const { settings } = useForm()
@@ -89,6 +92,12 @@ export const Field = (props: FieldProps) => {
     return null
   }
 
+  const labelComponent = (
+    <Label id={id} name={name} type={type} position={labelStyle} top>
+      {label}
+    </Label>
+  )
+
   return (
     <Flex
       key={id}
@@ -101,18 +110,15 @@ export const Field = (props: FieldProps) => {
         `error-${errorStyle}`,
       ])}
       css={{
+        position: 'relative',
         gridColumn: colSpan !== undefined ? `span ${colSpan}` : undefined,
       }}>
-      <Label id={id} name={name} type={type} position={labelStyle} top>
-        {label}
-      </Label>
+      {labelTop.includes(labelStyle as string) ? labelComponent : null}
       {description ? (
         <div className="field-description">{description}</div>
       ) : null}
       {renderInputs()}
-      <Label id={id} name={name} type={type} position={labelStyle}>
-        {label}
-      </Label>
+      {labelBottom.includes(labelStyle as string) ? labelComponent : null}
       {showValidation ? (
         <div
           className={mergeSelectors([

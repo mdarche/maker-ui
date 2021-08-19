@@ -1,11 +1,35 @@
 import { MakerProps } from 'maker-ui'
 
 const labelStyle: MakerProps['css'] = {
-  '.label-top': {
+  '.label-top-left': {
     flexDirection: 'column',
   },
-  '.label-bottom': {
+  '.label-top-right': {
     flexDirection: 'column',
+    '.form-label': {
+      textAlign: 'right',
+    },
+  },
+  '.label-top-center': {
+    flexDirection: 'column',
+    '.form-label': {
+      textAlign: 'center',
+    },
+  },
+  '.label-bottom-left': {
+    flexDirection: 'column',
+  },
+  '.label-bottom-center': {
+    flexDirection: 'column',
+    '.form-label': {
+      textAlign: 'center',
+    },
+  },
+  '.label-bottom-right': {
+    flexDirection: 'column',
+    '.form-label': {
+      textAlign: 'right',
+    },
   },
   '.label-left': {
     flex: 'auto',
@@ -19,14 +43,34 @@ const labelStyle: MakerProps['css'] = {
   '.form-label': {},
 }
 
+// TODO - Cover all label / error combinations where there might be a position conflict
+
 const errorStyle: MakerProps['css'] = {
-  '.error-top-right': {},
-  '.error-top-left': {},
-  '.error-bottom-right': {},
-  '.error-bottom-left': {},
-  '.error-bottom-center': {},
   '.form-error': {
     position: 'absolute',
+  },
+  '.error-top-right .form-error': { top: 0, right: 0 },
+  '.error-top-right.label-top-right .form-error': {
+    top: 'initial',
+    bottom: '100%',
+  },
+  '.error-top-left .form-error': { top: 0, left: 0 },
+  '.error-top-left.label-top-left .form-error': {
+    top: 'initial',
+    bottom: '100%',
+  },
+  '.error-top-center .form-error': {
+    top: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+  },
+  '.error-top-center.label-top-center .form-error': { bottom: '100%' },
+  '.error-bottom-right .form-error': { top: '100%', right: 0 },
+  '.error-bottom-left .form-error': { top: '100%', left: 0 },
+  '.error-bottom-center .form-error': {
+    top: '100%',
+    left: '50%',
+    transform: 'translateX(-50%)',
   },
 }
 

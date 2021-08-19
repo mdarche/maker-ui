@@ -11,44 +11,31 @@ interface LabelProps {
 }
 
 const nonLabelFields = ['radio']
-const topPosition = ['top', 'center', 'left', 'floating']
-const bottomPosition = ['bottom', 'right']
 
-export const Label = ({
-  id,
-  name,
-  children,
-  type,
-  position = 'top',
-  top = false,
-}: LabelProps) => {
-  const isTop = top && topPosition.includes(position)
-  const isBottom = !top && bottomPosition.includes(position)
-  const show = isTop || isBottom
-
+export const Label = ({ id, name, children, type }: LabelProps) => {
   if (nonLabelFields.includes(type)) {
     return null
   }
 
   if (type === 'checkbox') {
-    return show ? (
+    return (
       <div id={`${name}-group`} className="form-label">
         {children}
       </div>
-    ) : null
+    )
   }
 
   if (type === 'switch') {
-    return show ? (
+    return (
       <div id={`${name}-label`} className="form-label">
         {children}
       </div>
-    ) : null
+    )
   }
 
-  return show ? (
+  return (
     <label htmlFor={id} className="form-label">
       {children}
     </label>
-  ) : null
+  )
 }

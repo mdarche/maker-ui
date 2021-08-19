@@ -17,10 +17,12 @@ const TestForm = ({
   fields,
   id,
   settings,
+  css,
 }: {
   fields: FieldProps[]
   id?: string
   settings?: FormProviderProps['settings']
+  css?: object
 }) => {
   const [submitted, setSubmitted] = React.useState({
     value: undefined,
@@ -40,7 +42,8 @@ const TestForm = ({
         onSubmit={values => {
           console.log('Values are', values[id])
           setSubmitted({ value: values[id], complete: true })
-        }}>
+        }}
+        css={css}>
         <Form>
           <Form.Submit data-cy="submit">Submit</Form.Submit>
         </Form>
@@ -745,28 +748,80 @@ describe('Shared field settings', () => {
   })
 })
 
-describe.only('Field label position', () => {
-  it('renders a "top" label', () => {
+describe('Field label position', () => {
+  it('renders a "top-left" label', () => {
     mount(
       <TestForm
         fields={[
           {
             ...fieldSettings,
-            label: 'Top Label',
-            labelStyle: 'top',
+            label: 'Top Left Label',
+            labelStyle: 'top-left',
           },
         ]}
       />
     )
   })
-  it('renders a "bottom" label', () => {
+  it('renders a "top-center" label', () => {
     mount(
       <TestForm
         fields={[
           {
             ...fieldSettings,
-            label: 'Bottom Label',
-            labelStyle: 'bottom',
+            label: 'Top Center Label',
+            labelStyle: 'top-center',
+          },
+        ]}
+      />
+    )
+  })
+  it('renders a "top-right" label', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            ...fieldSettings,
+            label: 'Top Right Label',
+            labelStyle: 'top-right',
+          },
+        ]}
+      />
+    )
+  })
+  it('renders a "bottom-left" label', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            ...fieldSettings,
+            label: 'Bottom Left Label',
+            labelStyle: 'bottom-left',
+          },
+        ]}
+      />
+    )
+  })
+  it('renders a "bottom-center" label', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            ...fieldSettings,
+            label: 'Bottom Center Label',
+            labelStyle: 'bottom-center',
+          },
+        ]}
+      />
+    )
+  })
+  it('renders a "bottom-right" label', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            ...fieldSettings,
+            label: 'Bottom Right Label',
+            labelStyle: 'bottom-right',
           },
         ]}
       />
@@ -814,9 +869,96 @@ describe.only('Field label position', () => {
 })
 
 describe('Field error position', () => {
-  it('renders a "top-right" error', () => {})
-  it('renders a "top-left" error', () => {})
-  it('renders a "bottom-left" error', () => {})
-  it('renders a "bottom-right" error', () => {})
-  it('renders a "bottom-center" error', () => {})
+  it('renders a "top-right" error', () => {
+    mount(
+      <TestForm
+        css={{ marginTop: 30 }}
+        fields={[
+          {
+            ...fieldSettings,
+            errorStyle: 'top-right',
+            label: 'Test',
+            labelStyle: 'top-right',
+            validation: Yup.string().required(),
+          },
+        ]}
+      />
+    )
+    cy.get('[data-cy=submit]').click()
+  })
+  it('renders a "top-left" error', () => {
+    mount(
+      <TestForm
+        css={{ marginTop: 30 }}
+        fields={[
+          {
+            ...fieldSettings,
+            errorStyle: 'top-left',
+            validation: Yup.string().required(),
+          },
+        ]}
+      />
+    )
+    cy.get('[data-cy=submit]').click()
+  })
+  it('renders a "top-center" error', () => {
+    mount(
+      <TestForm
+        css={{ marginTop: 30 }}
+        fields={[
+          {
+            ...fieldSettings,
+            errorStyle: 'top-center',
+            validation: Yup.string().required(),
+          },
+        ]}
+      />
+    )
+    cy.get('[data-cy=submit]').click()
+  })
+  it('renders a "bottom-left" error', () => {
+    mount(
+      <TestForm
+        css={{ marginTop: 30 }}
+        fields={[
+          {
+            ...fieldSettings,
+            errorStyle: 'bottom-left',
+            validation: Yup.string().required(),
+          },
+        ]}
+      />
+    )
+    cy.get('[data-cy=submit]').click()
+  })
+  it('renders a "bottom-right" error', () => {
+    mount(
+      <TestForm
+        css={{ marginTop: 30 }}
+        fields={[
+          {
+            ...fieldSettings,
+            errorStyle: 'bottom-right',
+            validation: Yup.string().required(),
+          },
+        ]}
+      />
+    )
+    cy.get('[data-cy=submit]').click()
+  })
+  it('renders a "bottom-center" error', () => {
+    mount(
+      <TestForm
+        css={{ marginTop: 30 }}
+        fields={[
+          {
+            ...fieldSettings,
+            errorStyle: 'bottom-center',
+            validation: Yup.string().required(),
+          },
+        ]}
+      />
+    )
+    cy.get('[data-cy=submit]').click()
+  })
 })
