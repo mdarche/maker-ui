@@ -10,15 +10,14 @@ import {
   Footer,
 } from 'maker-ui'
 
-import { theme } from '../config/theme'
-import { options } from '../config/options'
-import { menu } from '../config/menu'
+import { options } from './options'
+import { menu } from './menu'
 
-const Layout = ({ children }) => {
+export const Layout = ({ children }) => {
   return (
-    <ThemeLayout theme={theme} options={options}>
+    <ThemeLayout options={options}>
       <Header>
-        <Navbar type="basic-left" menu={menu} />
+        <Navbar menu={menu} />
         <MobileMenu menu={menu} />
       </Header>
       <Content>
@@ -29,5 +28,3 @@ const Layout = ({ children }) => {
     </ThemeLayout>
   )
 }
-
-export default Layout

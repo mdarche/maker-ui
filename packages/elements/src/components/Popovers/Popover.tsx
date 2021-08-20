@@ -122,7 +122,8 @@ export const Popover = ({
         resize()
       }, defer)
     }
-  }, [anchorRef])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defer, anchorRef])
 
   // Browser Resize
 
@@ -131,6 +132,7 @@ export const Popover = ({
     return () => {
       window.removeEventListener('resize', resize)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   /**
@@ -168,6 +170,7 @@ export const Popover = ({
       setInitialRender(false)
       // set(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transition, set])
 
   /**

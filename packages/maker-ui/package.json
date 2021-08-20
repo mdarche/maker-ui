@@ -1,8 +1,8 @@
 {
   "name": "maker-ui",
   "description": "The fastest way to build themeable, responsive layouts in React",
-  "version": "1.0.0-beta.13",
-  "license": "MIT",
+  "version": "1.0.1",
+  "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
   "module": "dist/maker-ui.esm.js",
@@ -15,13 +15,13 @@
     "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
     "build": "tsdx build --tsconfig tsconfig.build.json",
     "test": "tsdx test",
-    "lint": "tsdx lint",
+    "lint": "tsdx lint src",
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@maker-ui/css": "1.0.0-beta.13",
-    "@maker-ui/layout": "1.0.0-beta.13",
-    "@maker-ui/primitives": "1.0.0-beta.13",
+    "@maker-ui/css": "1.0.1",
+    "@maker-ui/layout": "1.0.1",
+    "@maker-ui/primitives": "1.0.1",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {

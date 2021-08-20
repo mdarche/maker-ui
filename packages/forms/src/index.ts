@@ -1,5 +1,5 @@
 export { Form } from './Form'
-export { FormProvider } from './FormProvider'
-export { SubmitButton } from './SubmitButton'
+// eslint-disable-next-line prettier/prettier
+export * as Yup from 'yup'
 
 export * from './types'

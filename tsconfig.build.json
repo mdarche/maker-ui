@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    // "noImplicitReturns": false,
     "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",
@@ -16,6 +15,6 @@
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   }
 }

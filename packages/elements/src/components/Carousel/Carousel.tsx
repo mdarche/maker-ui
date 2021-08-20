@@ -205,6 +205,7 @@ export const Carousel = ({
       _setActive(nextIndex)
       update()
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [data.length, infiniteScroll, width]
   )
 

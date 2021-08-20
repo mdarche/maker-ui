@@ -1,31 +1,39 @@
 import * as React from 'react'
-import { Grid } from 'maker-ui'
+import {
+  Grid,
+  Div,
+  DivProps,
+  ResponsiveScale,
+  MakerProps,
+  mergeSelectors,
+} from 'maker-ui'
 import { Form as FormikForm } from 'formik'
 
-import { TextField } from './Field'
-import { FieldProps } from './types'
+import { Page } from './Page'
+import { Field } from './Fields'
+import { Provider, useForm } from './Provider'
+import { SubmitButton } from './SubmitButton'
+import { Progress } from './Progress'
+import { PageButton } from './PageButton'
 
-interface FormProps {
-  children: React.ReactNode
-  fields?: FieldProps[]
-  className?: string
-  id?: string
-  settings?: {
-    columns?: any // TODO fix this
-    gap?: number
-    pages?: number
-    pageTransition?: boolean
-    labelStyle?: string
-    placeholderColor?: string
-    progressBar?:
-      | boolean
-      | ((
-          currentStep: number,
-          setStep: () => void,
-          totalSteps: number
-        ) => React.ReactNode)
-  }
+export interface FormProps
+  extends React.HTMLAttributes<HTMLFormElement>,
+    MakerProps {
+  columns?: string | string[] | number
+  gap?: ResponsiveScale
 }
+
+const Header = ({ className, children, ...props }: DivProps) => (
+  <Div className={mergeSelectors(['form-header', className])} {...props}>
+    {children}
+  </Div>
+)
+
+const Footer = ({ className, children, ...props }: DivProps) => (
+  <Div className={mergeSelectors(['form-footer', className])} {...props}>
+    {children}
+  </Div>
+)
 
 /**
  * The `Form` component lets you generate a highly customized form from a
@@ -38,27 +46,29 @@ interface FormProps {
 export const Form = ({
   id,
   className,
-  fields,
-  settings,
   children,
+  columns,
+  gap,
+  css,
+  breakpoints,
+  ...props
 }: FormProps) => {
-  // Register fields with Form component context
-  // Get settings and add CSS to grid - (grid columns, placeholder text, label type, pages, page transition, stepper (style), stepper callback component)
-  // Current page and total pages
+  const { fields, settings } = useForm()
+  const col = columns || settings.columns
+  const gridCol = typeof col === 'number' ? ['1fr', `repeat(${col}, 1fr)`] : col
 
   return (
-    <FormikForm id={id} className={className}>
+    <FormikForm id={id} className={className} {...props}>
       {fields ? (
         <Grid
-          columns={settings?.columns || '1fr'}
-          css={{
-            columnGap: settings?.gap || 30,
-            'input::placeholder, input:-ms-input-placeholder, ::-ms-input-placeholder': {
-              opacity: 1,
-              color: settings?.placeholderColor || '#b7b7b7',
-            },
-          }}>
-          {renderFields(fields)}
+          className="form-grid"
+          breakpoints={breakpoints}
+          columns={gridCol}
+          gap={gap || settings?.gap}
+          css={css}>
+          {fields.map((p, index) => (
+            <Field key={index} breakpoints={breakpoints} {...p} />
+          ))}
         </Grid>
       ) : null}
       {children}
@@ -66,25 +76,12 @@ export const Form = ({
   )
 }
 
-export function renderFields(fields: FieldProps[]) {
-  const textInputs = [
-    'text',
-    'email',
-    'tel',
-    'email',
-    'password',
-    'url',
-    'select',
-    'select-datalist',
-    'date',
-    'file',
-    'color',
-    'textarea',
-  ]
+Form.displayName = 'Form'
 
-  return fields.map((props: FieldProps) => {
-    if (textInputs.includes(props.type)) {
-      return <TextField key={props.id} {...props} />
-    }
-  })
-}
+Form.Page = Page
+Form.Provider = Provider
+Form.Header = Header
+Form.Footer = Footer
+Form.Progress = Progress
+Form.Submit = SubmitButton
+Form.PageButton = PageButton

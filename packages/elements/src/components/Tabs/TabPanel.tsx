@@ -42,6 +42,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
 
     React.useEffect(() => {
       addToTabGroup(tabItem, open)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tabItem, open])
 
     return renderInactive || activeKey === id ? (

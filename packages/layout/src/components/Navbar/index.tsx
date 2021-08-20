@@ -75,6 +75,7 @@ export const Navbar = (props: NavProps) => {
     if (mobileType !== undefined && mobileType !== mobileLayout) {
       setMobileLayout(mobileType)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, mobileType, layout, mobileLayout])
 
   const wrapPartial: object | undefined =

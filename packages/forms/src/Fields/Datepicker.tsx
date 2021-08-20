@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { Flex } from 'maker-ui'
 import { useField, useFormikContext } from 'formik'
-
 //@ts-ignore
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+import ReactDatePicker from 'react-datepicker'
+
+import { InputProps } from '../types'
+
+interface DatePickerProps extends InputProps {}
 
 /**
  * The `DatePicker` component lets users select a weekday pickup date.
@@ -12,7 +14,7 @@ import 'react-datepicker/dist/react-datepicker.css'
  * @todo - find next weekday filter function
  */
 
-export const DatePickerField = ({ ...props }) => {
+export const DatePicker = ({ ...props }: DatePickerProps) => {
   const { setFieldValue } = useFormikContext()
   //@ts-ignore
   const [field] = useField({ ...props })
@@ -37,7 +39,7 @@ export const DatePickerField = ({ ...props }) => {
           border: '1px solid',
         },
       }}>
-      <DatePicker
+      <ReactDatePicker
         inline
         {...field}
         filterDate={isNotWeekend}

@@ -9,11 +9,10 @@ Build React apps with a responsive layout system powered by [Emotion](https://em
 Maker UI helps you design accessible, responsive apps that can be customized in an infinite number of ways. Use it to quickly prototype and deploy a polished layout so you can focus on developing great content or adding new features to your project.
 
 [![Version][version]][npm]
-![MIT License][license]
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 [version]: https://flat.badgen.net/npm/v/maker-ui
 [npm]: https://npmjs.com/package/maker-ui
-[license]: https://flat.badgen.net/badge/license/MIT/blue
 
 ## Templating Features
 

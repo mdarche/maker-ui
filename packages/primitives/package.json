@@ -1,8 +1,8 @@
 {
   "name": "@maker-ui/primitives",
-  "version": "1.0.0-beta.13",
+  "version": "1.0.1",
   "author": "Mike Darche <mike@newcreative.io>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "module": "dist/primitives.esm.js",
   "types": "dist/index.d.ts",
@@ -10,11 +10,11 @@
     "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
     "build": "tsdx build --tsconfig tsconfig.build.json",
     "test": "tsdx test",
-    "lint": "tsdx lint",
+    "lint": "tsdx lint src",
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@maker-ui/css": "1.0.0-beta.13",
+    "@maker-ui/css": "1.0.1",
     "csstype": "^3.0.6"
   },
   "peerDependencies": {

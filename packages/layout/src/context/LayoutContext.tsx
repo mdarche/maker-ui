@@ -1,6 +1,6 @@
 import * as React from 'react'
 import merge from 'deepmerge'
-import { Global, Interpolation } from '@maker-ui/css'
+import { Global } from '@maker-ui/css'
 
 import { colorVars, themeVars } from '../utils/css-builder'
 import { globalStyles } from '../utils/styles'
@@ -110,18 +110,18 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
         setDefaultTheme()
       }
     }
-  }, [])
+  }, [options.persistentColorMode, options.colors])
 
-  const cssVariables = merge(
+  const cssVariables: object = merge(
     colorVars(options.colors) as object,
     themeVars(options) as object
   )
 
   return (
     <LayoutContext.Provider value={{ state, setState }}>
-      <Global styles={cssVariables as Interpolation<any>} />
+      <Global styles={cssVariables} />
       <Global styles={globalStyles} />
-      <Global styles={styles as Interpolation<any>} />
+      <Global styles={styles} />
       {children}
     </LayoutContext.Provider>
   )

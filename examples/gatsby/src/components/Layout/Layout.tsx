@@ -9,7 +9,7 @@ import {
   Footer,
 } from 'maker-ui'
 
-import { options } from '../config/options'
+import { options } from './options'
 
 const App = ({ children }) => {
   return (
