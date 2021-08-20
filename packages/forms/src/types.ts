@@ -5,6 +5,10 @@ export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
 
 export { FormProviderProps } from './Provider'
+export { FormSubmitButtonProps } from './SubmitButton'
+export { FormPageButtonProps } from './PageButton'
+export { FormPageProps } from './Page'
+export { FormProgressProps } from './Progress'
 
 export type PaginationElement =
   | string

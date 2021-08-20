@@ -2,7 +2,7 @@
   "private": true,
   "name": "gatsby-example",
   "version": "0.4.2",
-  "author": "Mike Darche",
+  "author": "Mike Darche <mike@newcreative.io>",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
@@ -10,8 +10,8 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "gatsby": "^2.24.77",
-    "gatsby-plugin-layout": "^1.3.13",
+    "gatsby": "^3.12.0",
+    "gatsby-plugin-layout": "^2.12.0",
     "maker-ui": "1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
