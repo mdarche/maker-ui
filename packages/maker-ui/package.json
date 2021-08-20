@@ -2,7 +2,7 @@
   "name": "maker-ui",
   "description": "The fastest way to build themeable, responsive layouts in React",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
   "module": "dist/maker-ui.esm.js",

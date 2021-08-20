@@ -4,7 +4,7 @@ import { FormikHelpers, FormikValues } from 'formik'
 export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
 
-export type { FormProviderProps } from './Provider'
+export { FormProviderProps } from './Provider'
 
 export type PaginationElement =
   | string

@@ -2,7 +2,7 @@
   "name": "@maker-ui/elements",
   "description": "Customizable components for Maker UI themes.",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
   "module": "dist/elements.esm.js",
@@ -14,7 +14,7 @@
     "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
     "build": "tsdx build --tsconfig tsconfig.build.json",
     "test": "tsdx test",
-    "lint": "tsdx lint",
+    "lint": "tsdx lint src",
     "prepublish": "npm run build"
   },
   "dependencies": {
@@ -26,5 +26,8 @@
     "maker-ui": "1.0.0",
     "react": "^16.x || ^17.x",
     "react-dom": "^16.x || ^17.x"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^3.4.0"
   }
 }

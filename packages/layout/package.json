@@ -2,7 +2,7 @@
   "name": "@maker-ui/layout",
   "description": "The fastest way to build themeable, responsive layouts in React",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
   "module": "dist/layout.esm.js",
@@ -15,7 +15,7 @@
     "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
     "build": "tsdx build --tsconfig tsconfig.build.json",
     "test": "tsdx test",
-    "lint": "tsdx lint",
+    "lint": "tsdx lint src",
     "prepublish": "npm run build"
   },
   "dependencies": {
@@ -40,5 +40,8 @@
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"
     ]
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^3.4.0"
   }
 }

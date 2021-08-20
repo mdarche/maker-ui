@@ -3,7 +3,7 @@ import { ResponsiveScale, Div, DivProps, Grid, mergeSelectors } from 'maker-ui'
 
 import { Field } from './Fields'
 import { FormState, useForm } from './Provider'
-import type { FieldProps } from './types'
+import { FieldProps } from './types'
 
 export interface FormPageProps extends Omit<DivProps, 'title'> {
   id: string
@@ -31,17 +31,18 @@ export const Page = ({
   React.useEffect(() => {
     /* Register current page fields in Form State */
     let pageFields: FormState['pageFields'] = {}
-    pageFields[id] = fields.map(({name, required}) => ({name, required}))
+    pageFields[id] = fields.map(({ name, required }) => ({ name, required }))
     setPageFields(pageFields)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, fields])
 
   return (
     <Div id={id} className={mergeSelectors(['form-page', className])}>
       {typeof title === 'function' ? title(currentPage) : title}
-      <Grid 
-        className="form-grid" 
-        breakpoints={breakpoints} 
-        columns={gridCol} 
+      <Grid
+        className="form-grid"
+        breakpoints={breakpoints}
+        columns={gridCol}
         gap={gap || settings?.gap}
         css={css}>
         {fields.map((props, index) => (
@@ -52,6 +53,5 @@ export const Page = ({
     </Div>
   )
 }
-
 
 Page.displayName = 'FormPage'
