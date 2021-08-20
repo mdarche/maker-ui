@@ -1,6 +1,6 @@
 {
   "name": "@maker-ui/css",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Mike Darche <mike@newcreative.io>",
   "license": "Apache-2.0",
   "main": "dist/index.js",
