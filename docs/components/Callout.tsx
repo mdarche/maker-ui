@@ -1,13 +1,13 @@
-import { Div } from 'maker-ui'
+import { Div, DivProps } from 'maker-ui'
 
-interface CalloutProps {
-  children: string
+interface CalloutProps extends DivProps {
   type: 'alert' | 'info' | 'suggestion'
 }
 
 export const Callout = ({ children, type = 'suggestion' }: CalloutProps) => {
   return (
     <Div
+      // @ts-ignore
       css={{
         background: `var(--color-callout_${type})`,
         padding: '25px 20px',

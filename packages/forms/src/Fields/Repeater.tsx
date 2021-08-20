@@ -3,16 +3,21 @@ import { Flex } from 'maker-ui'
 import { useFormikContext, Field, FieldArray, FormikErrors } from 'formik'
 
 import { TrashIcon, PlusIcon } from '../Icons'
+import { InputProps } from '../types'
+
+interface RepeaterProps extends InputProps {}
 
 // Todo
-export const Repeater = () => {
+export const Repeater = (props: RepeaterProps) => {
   const {
     errors,
     values,
   }: { errors: FormikErrors<any>; values: any } = useFormikContext()
   const valueKey = 'todo'
+  const subKey = 'todo'
 
   console.log('Errors are', errors)
+  console.log('Props are', props)
 
   return (
     <FieldArray
@@ -26,9 +31,7 @@ export const Repeater = () => {
                 <div key={index}>
                   <Flex className="row">
                     <Field
-                      className="sqft"
-                      name={`products[${index}].sqft`}
-                      placeholder="24"
+                      name={`products[${index}][${subKey}]`}
                       type="number"
                       min="0"
                     />

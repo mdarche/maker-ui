@@ -37,16 +37,19 @@ export const LightboxLink = React.forwardRef<
     const [id] = React.useState(generateId())
     const { addToGallery, toggleLightbox } = useLightbox()
 
-    const config = {
-      id,
-      src,
-      alt,
-      title,
-      description,
-      youtubeId,
-      vimeoId,
-      poster,
-    }
+    const config = React.useMemo(
+      () => ({
+        id,
+        src,
+        alt,
+        title,
+        description,
+        youtubeId,
+        vimeoId,
+        poster,
+      }),
+      [id, src, alt, title, description, youtubeId, vimeoId, poster]
+    )
 
     React.useEffect(() => {
       addToGallery(config)

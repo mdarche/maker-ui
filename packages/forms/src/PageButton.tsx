@@ -5,7 +5,7 @@ import { useForm } from './Provider'
 import { FieldProps, PaginationElement } from './types'
 import { getRequired } from './helper'
 
-export interface PageButtonProps extends ButtonProps {
+export interface FormPageButtonProps extends ButtonProps {
   pageId: string
   label?: PaginationElement
 }
@@ -14,7 +14,7 @@ export const PageButton = ({
   pageId,
   label = 'Next Page',
   ...props
-}: PageButtonProps) => {
+}: FormPageButtonProps) => {
   const { currentPage, pageFields, setPage } = useForm()
 
   const fields = pageFields[pageId]

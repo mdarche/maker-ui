@@ -2,7 +2,7 @@ import * as React from 'react'
 import { mergeSelectors } from 'maker-ui'
 import { useForm } from './Provider'
 
-export interface ProgressProps {
+export interface FormProgressProps {
   id?: string
   className?: string
   style?: 'bar' | 'circle'
@@ -24,7 +24,7 @@ export const Progress = ({
   style = 'bar',
   stepper,
   ...props
-}: ProgressProps) => {
+}: FormProgressProps) => {
   const { currentPage, settings } = useForm()
   const pageCount = settings.pages || 1
 

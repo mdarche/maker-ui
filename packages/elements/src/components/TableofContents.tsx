@@ -106,7 +106,7 @@ export const TableofContents = ({
     } else {
       setMenu([])
     }
-  }, [pathname])
+  }, [headings, pathname])
 
   // Handle Scroll position
   useScrollPosition(

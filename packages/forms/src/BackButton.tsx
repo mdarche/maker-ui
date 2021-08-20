@@ -4,11 +4,11 @@ import { Button, ButtonProps, mergeSelectors } from 'maker-ui'
 import { useForm } from './Provider'
 import { PaginationElement } from './types'
 
-export interface BackButtonProps extends ButtonProps {
+export interface FormBackButtonProps extends ButtonProps {
   children?: PaginationElement
 }
 
-export const BackButton = ({ children, ...props }: BackButtonProps) => {
+export const BackButton = ({ children, ...props }: FormBackButtonProps) => {
   const { currentPage, setPage } = useForm()
 
   return (

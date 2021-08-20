@@ -4,7 +4,7 @@ import { Button, ButtonProps } from 'maker-ui'
 import { useForm } from './Provider'
 import { getRequired } from './helper'
 
-export interface SubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
+export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
   children?: React.ReactNode
   onClick?: (e: any, isSubmitting: boolean) => void
   lifecycle?: {
@@ -19,7 +19,7 @@ export const SubmitButton = ({
   lifecycle,
   children,
   ...props
-}: SubmitButtonProps) => {
+}: FormSubmitButtonProps) => {
   const { fields } = useForm()
   const {
     errors,
@@ -34,6 +34,7 @@ export const SubmitButton = ({
   } = useFormikContext()
 
   //@ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const required = getRequired(fields)
   // console.log('Required fields are', required)
   // console.log('Errors are', errors)
