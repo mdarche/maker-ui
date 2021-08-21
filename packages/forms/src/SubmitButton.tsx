@@ -14,10 +14,10 @@ export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
 }
 
 export const SubmitButton = ({
-  css,
   onClick,
   lifecycle,
   children,
+  className,
   ...props
 }: FormSubmitButtonProps) => {
   const { fields } = useForm()
