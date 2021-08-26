@@ -22,18 +22,18 @@ export type InputOption = {
   id?: string
 }
 
-export interface FieldProps {
+export type FieldProps = {
   /** Unique identifier for the field (required)*/
   name: string
-  /** The input's initial value (required)*/
-  initialValue: any
   /** The field type (required) */
   type:
+    | 'divider'
     | 'text'
     | 'textarea'
     | 'tel'
     | 'email'
     | 'password'
+    | 'number'
     | 'url'
     | 'select'
     | 'select-datalist'
@@ -47,6 +47,8 @@ export interface FieldProps {
     | 'color'
     | 'range'
     | 'file'
+  /** The input's initial value*/
+  initialValue?: any
   /** Yup Validation rule for this field. See for details:
    * @link https://github.com/jquense/yup
    */

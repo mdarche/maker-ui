@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "formik": "^2.2.9",
-    "react-datepicker": "^4.2.0",
     "tslib": "^2.0.0",
     "yup": "^0.32.9"
   },

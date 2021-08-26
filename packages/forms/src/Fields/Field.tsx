@@ -17,6 +17,7 @@ const basicInputs = [
   'text',
   'textarea',
   'email',
+  'number',
   'tel',
   'password',
   'url',
@@ -109,7 +110,11 @@ export const Field = (props: FieldComponentProps) => {
     </Label>
   )
 
-  return (
+  return type === 'divider' ? (
+    <div id={id} className={containerClass}>
+      {label}
+    </div>
+  ) : (
     <Flex
       key={id}
       breakpoints={breakpoints}
