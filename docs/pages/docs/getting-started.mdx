@@ -6,6 +6,12 @@ To begin using Maker UI in your project, install the `maker-ui` library from npm
 npm i maker-ui
 ```
 
+or
+
+```sh
+yarn add maker-ui
+```
+
 The core Maker UI library includes layout components ([Layout API](/docs/layout-api)) as well as basic elements ([Primitives](/docs/primitives)) that you can use as building blocks in your page designs.
 
 <Callout type="alert">
@@ -51,7 +57,7 @@ With the Layout API, you can easily create layout skeletons for sidebars, collap
 
 ## Customize Maker UI Options
 
-The real magic behind Maker UI's layout system is how it automatically supports responsive scaling and accessibility. Let's create a `MakerUIOptions` object that will tell our header how it should look and feel on desktop vs mobile:
+The real magic behind Maker UI's layout system is how it automatically supports responsive scaling and accessibility. We can create a `MakerUIOptions` object that will tell our header how it should look and feel on desktop vs mobile:
 
 ```jsx {10,13-22,26}
 import * as React from 'react'
@@ -101,7 +107,7 @@ On **Lines 17 and 18**, we choose from 12 pre-built CSS grid layouts to dictate 
 
 Lastly, on **Lines 19 and 20**, we specify that we want our header to use sticky positioning on desktop and a relative position on mobile.
 
-With the options configuration object, you can control 50+ settings that tell your layout how to behave. Use `MakerUIOptions` to set color modes, handle error boundaries, configure dropdown menus, and more.
+With the options configuration object, you can control 50+ settings that tell your layout how to behave. Use `MakerUIOptions` to set color modes, handle error boundaries, configure dropdown menus, and much more.
 
 For a complete list of layout settings, check out the [Maker UI Options guide](/docs/maker-ui-options).
 

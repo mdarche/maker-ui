@@ -50,15 +50,17 @@ export const options: MakerUIOptions = {
     breakpoint: 0,
     showColorButton: false,
   },
-  linkFunction: (
+  linkFunction: function nextLink(
     path: string,
     children: React.ReactNode,
     attributes: object
-  ) => (
-    <Link href={path}>
-      <a {...attributes}>{children}</a>
-    </Link>
-  ),
+  ) {
+    return (
+      <Link href={path}>
+        <a {...attributes}>{children}</a>
+      </Link>
+    )
+  },
   content: {
     maxWidth: 1050,
   },

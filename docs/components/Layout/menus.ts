@@ -1,7 +1,6 @@
-import type { MakerMenu } from 'maker-ui'
+import { MakerMenu } from 'maker-ui'
 
 export const menu: MakerMenu = [
-  { label: 'Overview', path: '/docs/overview' },
   {
     label: 'Getting Started',
     path: '/docs/getting-started',

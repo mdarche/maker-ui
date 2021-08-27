@@ -12,14 +12,14 @@ import {
   Div,
 } from 'maker-ui'
 
-import { options } from '../config/options'
-import { menu } from '../config/menus'
-import { styles } from '../config/styles'
-import { Search } from './Search'
-import { Logo } from './Logo'
-import { NavWidgets } from './NavWidgets'
-import { PostNavigation } from './PostNavigation'
-import { PageContents } from './PageContents'
+import { options } from './options'
+import { menu } from './menus'
+import { styles } from '../../config/styles'
+import { Search } from '../Search'
+import { Logo } from '../Logo'
+import { NavWidgets } from '../NavWidgets'
+import { PostNavigation } from '../PostNavigation'
+import { PageContents } from '../PageContents'
 
 const Layout = ({ children }) => {
   const { asPath } = useRouter()

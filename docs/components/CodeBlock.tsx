@@ -14,14 +14,14 @@ const RE = /{([\d,-]+)}/
  * A helper function for highlighting lines in a codeblock
  */
 
-const calculateLinesToHighlight = meta => {
+const calculateLinesToHighlight = (meta) => {
   if (!RE.test(meta)) {
     return () => false
   }
   const lineNumbers = RE.exec(meta)[1]
     .split(`,`)
-    .map(v => v.split(`-`).map(x => parseInt(x, 10)))
-  return index => {
+    .map((v) => v.split(`-`).map((x) => parseInt(x, 10)))
+  return (index) => {
     const lineNumber = index + 1
     const inRange = lineNumbers.some(([start, end]) =>
       end ? lineNumber >= start && lineNumber <= end : lineNumber === start
@@ -142,12 +142,12 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
                 }
 
                 return (
-                  <div {...lineProps}>
+                  <div key={i} {...lineProps}>
                     {!isShell ? (
                       <span className="line-number-style">{i + 1}</span>
                     ) : null}
                     {line.map((token, key) => (
-                      <span {...getTokenProps({ token, key })} />
+                      <span key={i} {...getTokenProps({ token, key })} />
                     ))}
                   </div>
                 )
@@ -165,7 +165,7 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
  * for easy pasting.
  */
 
-const copyToClipboard = str => {
+const copyToClipboard = (str) => {
   if (typeof window !== 'undefined') {
     const el = document.createElement('textarea')
     el.value = str

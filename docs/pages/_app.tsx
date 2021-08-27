@@ -1,15 +1,17 @@
+/* eslint-disable react/display-name */
 import * as React from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { preToCodeBlock } from 'mdx-utils'
 
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/Layout'
 import { CodeBlock } from '../components/CodeBlock'
 import { DocsLink } from '../components/DocsLink'
 import { Callout } from '../components/Callout'
 import { H2, H3, H4, HeadingProps } from '../components/Headings'
 
 const components = {
-  pre: preProps => {
+  // eslint-disable-next-line prettier/prettier
+  pre: (preProps) => {
     const props = preToCodeBlock(preProps)
     if (props) {
       return <CodeBlock {...props} />
@@ -17,12 +19,14 @@ const components = {
       return <pre {...preProps} />
     }
   },
-  table: tableProps => (
+  // eslint-disable-next-line prettier/prettier
+  table: (tableProps) => (
     <div className="table-wrapper">
       <table {...tableProps} />
     </div>
   ),
-  a: anchorProps => <DocsLink {...anchorProps} />,
+  // eslint-disable-next-line prettier/prettier
+  a: (anchorProps) => <DocsLink {...anchorProps} />,
   Callout,
   h2: (h2Props: HeadingProps) => <H2 {...h2Props} />,
   h3: (h3Props: HeadingProps) => <H3 {...h3Props} />,

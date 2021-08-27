@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Grid, Span } from 'maker-ui'
+import { Grid, MenuItemProps, Span } from 'maker-ui'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { flatten } from './utils'
-import { menu } from '../config/menus'
+import { menu } from './Layout/menus'
 
 interface ButtonProps {
   title: string
@@ -30,7 +30,7 @@ export const PostNavigation = ({ pageTitle = true }) => {
     if (flatMenu) {
       // If the current menu exists, determine the next / previous pages
       const length = flatMenu.length
-      const index = flatMenu.findIndex(i => i.path === asPath)
+      const index = flatMenu.findIndex((i: MenuItemProps) => i.path === asPath)
 
       setNavButtons({
         prev: index !== 0 && {
@@ -43,6 +43,7 @@ export const PostNavigation = ({ pageTitle = true }) => {
         },
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath])
 
   return asPath.includes('/docs') ? (
