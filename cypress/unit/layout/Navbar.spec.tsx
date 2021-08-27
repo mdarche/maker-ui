@@ -18,7 +18,7 @@ const NavWrapper = ({ children, options }: NavWrapperProps) => (
   </Wrapper>
 )
 
-describe('Navbar component', () => {
+describe('Navbar', () => {
   it('renders Navbar component with default props', () => {
     mount(
       <NavWrapper>
@@ -81,9 +81,7 @@ describe('Navbar component', () => {
         <Navbar menu={nestedMenu} />
       </NavWrapper>
     )
-    cy.get('.menu-text')
-      .contains('Three')
-      .should('have.css', 'content')
+    cy.get('.menu-text').contains('Three').should('have.css', 'content')
     cy.get('.menu-area').contains('Five')
   })
 
@@ -102,9 +100,7 @@ describe('Navbar component', () => {
         <Navbar menu={nestedMenu} />
       </NavWrapper>
     )
-    cy.get('.menu-area .menu-primary li')
-      .eq(0)
-      .get('.custom-menu-link')
+    cy.get('.menu-area .menu-primary li').eq(0).get('.custom-menu-link')
   })
 
   it('hides the nav menu on mobile', () => {
@@ -185,9 +181,7 @@ describe('Navbar component', () => {
       </NavWrapper>
     )
     cy.contains('Custom-Btn!')
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
     cy.get('#mobile-menu').should('have.class', 'active')
   })
 
@@ -201,9 +195,7 @@ describe('Navbar component', () => {
       </NavWrapper>
     )
     cy.contains('Custom-Btn!')
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
     cy.get('#mobile-menu').should('have.class', 'active')
   })
 

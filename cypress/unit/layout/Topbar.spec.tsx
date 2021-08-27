@@ -1,12 +1,10 @@
-/// <reference types="cypress" />
-
 import * as React from 'react'
 import { Topbar } from 'maker-ui'
 import { mount } from '@cypress/react'
 
 import { Wrapper, defaults, format } from '../setup'
 
-describe('Topbar component', () => {
+describe('Topbar', () => {
   it('renders the Topbar component with default props', () => {
     mount(
       <Wrapper>

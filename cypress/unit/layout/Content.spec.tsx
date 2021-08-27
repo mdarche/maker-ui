@@ -29,7 +29,7 @@ describe('Content component', () => {
   })
 
   it('accepts children with specified display names', () => {
-    const Fixed = props => <div style={{ position: 'fixed' }} {...props} />
+    const Fixed = (props) => <div style={{ position: 'fixed' }} {...props} />
     Fixed.displayName = 'Fixed'
 
     const Provider = () => <></>
@@ -97,9 +97,7 @@ describe('Content - Layout Builder', () => {
       </Wrapper>
     )
     cy.get('#site-inner').should('have.css', 'display', 'grid')
-    cy.get('main')
-      .next('div')
-      .should('have.class', 'sidebar')
+    cy.get('main').next('div').should('have.class', 'sidebar')
   })
 
   it('identifies a `sidebar-content` layout', () => {
@@ -127,10 +125,7 @@ describe('Content - Layout Builder', () => {
         </Content>
       </Wrapper>
     )
-    cy.get('.sidebar')
-      .eq(0)
-      .next('main')
-      .next('.sidebar')
+    cy.get('.sidebar').eq(0).next('main').next('.sidebar')
     cy.viewport('iphone-x')
       .get('.sidebar')
       .eq(0)

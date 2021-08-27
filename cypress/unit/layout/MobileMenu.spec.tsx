@@ -50,9 +50,7 @@ describe('MobileMenu component', () => {
         s-inner
       </TestMobileMenu>
     )
-    cy.viewport('iphone-x')
-      .get('#mobile-menu')
-      .contains('s-header')
+    cy.viewport('iphone-x').get('#mobile-menu').contains('s-header')
     cy.get('#mobile-menu').contains('s-inner')
     cy.get('#mobile-menu').contains('s-footer')
   })
@@ -74,9 +72,7 @@ describe('MobileMenu component', () => {
       { label: 'Accordion', path: '/accordion' },
     ]
     mount(<TestMobileMenu menu={menu} />)
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
     cy.get('#mobile-menu').contains('Carousel')
     cy.get('#mobile-menu .submenu-toggle').click()
     cy.get('#mobile-menu').contains('Root')
@@ -84,9 +80,7 @@ describe('MobileMenu component', () => {
 
   it('can be closed with the close button', () => {
     mount(<TestMobileMenu />)
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
     cy.get('#mobile-menu').should('have.class', 'active')
     cy.get('#mobile-menu .menu-button').click()
     cy.get('#mobile-menu').should('not.have.class', 'active')
@@ -94,9 +88,7 @@ describe('MobileMenu component', () => {
 
   it('can be closed `onBlur` by clicking the overlay (mobile)', () => {
     mount(<TestMobileMenu />)
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
     cy.get('header .menu-overlay').click()
     cy.get('#mobile-menu').should('not.have.class', 'active')
   })
@@ -107,9 +99,7 @@ describe('MobileMenu component', () => {
         s-inner
       </TestMobileMenu>
     )
-    cy.viewport('iphone-x')
-      .get('#mobile-menu .menu-button')
-      .should('not.exist')
+    cy.viewport('iphone-x').get('#mobile-menu .menu-button').should('not.exist')
   })
 
   it('can be closed `onRouteChange` by clicking a menu link', () => {
@@ -119,13 +109,8 @@ describe('MobileMenu component', () => {
         options={{ mobileMenu: { closeOnRouteChange: true } }}
       />
     )
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
-    cy.get('#mobile-menu .collapse-menu li')
-      .eq(0)
-      .find('a')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
+    cy.get('#mobile-menu .collapse-menu li').eq(0).find('a').click()
     cy.get('#mobile-menu').should('not.have.class', 'active')
   })
 
@@ -142,9 +127,7 @@ describe('MobileMenu component', () => {
         inner
       </TestMobileMenu>
     )
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
     cy.contains('Custom-btn').click()
     cy.get('#mobile-menu').should('not.have.class', 'active')
   })
@@ -156,9 +139,7 @@ describe('MobileMenu component', () => {
         inner
       </TestMobileMenu>
     )
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
     cy.contains('Custom-btn').click()
     cy.get('#mobile-menu').should('not.have.class', 'active')
   })
@@ -194,9 +175,7 @@ describe('MobileMenu component', () => {
         inner
       </TestMobileMenu>
     )
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
     cy.get('#mobile-menu').should('have.css', 'opacity', '1')
     cy.get('#mobile-menu').should('have.css', 'width', '375px')
     mount(
@@ -214,9 +193,7 @@ describe('MobileMenu component', () => {
         inner
       </TestMobileMenu>
     )
-    cy.viewport('iphone-x')
-      .get('.nav-area .menu-button')
-      .click()
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
     cy.get('#mobile-menu').should('have.css', 'width', '300px')
     cy.get('#mobile-menu').should('have.css', 'left', '0px')
     mount(

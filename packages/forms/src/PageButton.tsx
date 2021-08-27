@@ -27,7 +27,7 @@ export const PageButton = ({
     <Button
       type="button"
       className="form-page-btn"
-      onClick={e => {
+      onClick={(e) => {
         e.preventDefault()
         // Todo run page-specific validation
         setPage('next')

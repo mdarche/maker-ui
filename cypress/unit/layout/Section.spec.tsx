@@ -4,7 +4,7 @@ import { mount } from '@cypress/react'
 
 import { Wrapper, defaults, format } from '../setup'
 
-describe('Section component', () => {
+describe('Section', () => {
   it('renders a Section with default props', () => {
     mount(
       <Wrapper header isContent>

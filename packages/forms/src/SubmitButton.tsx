@@ -56,7 +56,7 @@ export const SubmitButton = ({
     <Button
       type="submit"
       className="form-submit-btn"
-      onClick={onClick ? e => onClick(e, isSubmitting) : undefined}
+      onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
       disabled={isValidated}
       {...props}>
       {renderLifecycle()}

@@ -4,7 +4,7 @@ import { mount } from '@cypress/react'
 
 import { Wrapper } from '../setup'
 
-describe('Main component', () => {
+describe('Main', () => {
   it('renders the Main component with default props', () => {
     mount(
       <Wrapper>

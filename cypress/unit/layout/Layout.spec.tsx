@@ -5,7 +5,7 @@ import { mount } from '@cypress/react'
 import { defaultOptions } from '../options'
 import { Wrapper } from '../setup'
 
-describe('Layout component', () => {
+describe('Layout', () => {
   it('mounts the Layout component', () => {
     mount(<Layout options={{}}>content</Layout>)
     cy.contains('content')
@@ -45,7 +45,7 @@ describe('Layout component', () => {
   it('adds an Emotion theme provider to the layout', () => {
     mount(
       <Layout options={{}} theme={{ width: 100 }}>
-        <Div css={{ ...({ width: t => t.width } as object) }}>test</Div>
+        <Div css={{ ...({ width: (t) => t.width } as object) }}>test</Div>
       </Layout>
     )
     cy.contains('test').should('have.css', 'width', '100px')

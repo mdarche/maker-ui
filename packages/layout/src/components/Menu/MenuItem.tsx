@@ -117,7 +117,9 @@ export const MenuItem = memo(
         }>
         <ConditionalWrapper
           condition={!isHeader && submenu ? true : false}
-          wrapper={children => <div css={{ display: 'flex' }}>{children}</div>}>
+          wrapper={(children) => (
+            <div css={{ display: 'flex' }}>{children}</div>
+          )}>
           <Fragment>
             {linkFunction ? (
               linkFunction(path, label, attributes, icon)

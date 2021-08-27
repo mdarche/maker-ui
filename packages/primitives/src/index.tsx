@@ -138,26 +138,6 @@ export const Table = forwardRef<HTMLTableElement, TableProps>((props, ref) => (
 Table.displayName = 'Table'
 
 /**
- * Alias for `Form` component props that includes all
- * HTML form tag attributes.
- */
-export interface FormProps
-  extends MakerProps,
-    React.HTMLAttributes<HTMLFormElement> {}
-
-/**
- * A form that supports responsive css values and the breakpoints prop.
- *
- * @link https://maker-ui.com/docs/primitives/
- */
-
-export const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => (
-  <form ref={ref} {...props} />
-))
-
-Form.displayName = 'Form'
-
-/**
  * Alias for `Span` component props that includes all
  * HTML span tag attributes.
  */

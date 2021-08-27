@@ -4,7 +4,7 @@ import { mount } from '@cypress/react'
 
 import { Wrapper } from '../setup'
 
-describe('Sidebar component', () => {
+describe('Sidebar', () => {
   it('renders the Sidebar component with default props', () => {
     mount(
       <Wrapper>
