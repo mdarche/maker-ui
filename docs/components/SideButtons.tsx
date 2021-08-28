@@ -1,6 +1,6 @@
-import { Div, Link } from 'maker-ui'
+import { Div } from 'maker-ui'
 
-import { EditIcon, FeedbackIcon } from './Icons'
+import { EditIcon } from './Icons'
 
 interface SideButtonsProps {
   pathname: string
@@ -35,20 +35,14 @@ export const SideButtons = ({ pathname }: SideButtonsProps) => {
           },
         },
       }}>
-      <Link
+      <a
         href={`https://github.com/mdarche/maker-ui/tree/master/docs/src/pages${pathname}`}
         target="_blank"
+        rel="noopener noreferrer"
         className="side-link">
         <EditIcon />
         Edit on GitHub
-      </Link>
-      <Link
-        href="https://airtable.com/shru56kYph3qTgA0o"
-        target="_blank"
-        className="side-link">
-        <FeedbackIcon />
-        Feedback
-      </Link>
+      </a>
     </Div>
   )
 }

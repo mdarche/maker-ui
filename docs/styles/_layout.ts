@@ -1,55 +1,15 @@
-export const styles = {
-  // Global styles
-  a: {
-    textDecoration: 'none',
-  },
-  button: {
-    cursor: 'pointer',
-    fontFamily: 'var(--font-body)',
-  },
-  code: {
-    display: 'inline-block',
-    borderRadius: 2,
-    fontSize: 16,
-    backgroundColor: 'var(--color-bg_code)',
-    padding: '0 8px',
-  },
-  // MDX Headings
-  '.markdown>h2:before, .markdown>h3:before, .markdown>h4:before': {
-    display: 'block',
-    height: '5rem',
-    marginTop: '-5rem',
-    visibility: 'hidden',
-    content: '""',
-  },
-  // Heading Links
-  '.anchor-link': {
-    display: 'inline-block',
-    marginLeft: 8,
-    textDecoration: 'underline',
-    opacity: 0,
-    '&:focus': {
-      opacity: 1,
-    },
-  },
-  'h2:hover, h3:hover, h4:hover': {
-    '.anchor-link': {
-      opacity: 1,
-    },
-  },
-  // Header Styles
+/**
+ * All Maker UI Layout or semantic element styles
+ */
+
+export const layout_styles = {
   header: {
     borderBottom: '1px solid',
     borderColor: 'var(--color-border)',
     padding: '5px 35px',
   },
   '.api-btn > div > a': {
-    border: '1px solid',
-    background: 'var(--color-bg_header)',
-    borderColor: 'var(--color-border_dark)',
     width: '100%',
-    margin: '5px 0 0',
-    padding: '10px',
   },
   main: {
     fontSize: 17,

@@ -7,11 +7,7 @@ interface DocsLinkProps {
 
 export const DocsLink = ({ children, href }: DocsLinkProps) => {
   if (href.startsWith('/')) {
-    return (
-      <Link href={href}>
-        <a>{children}</a>
-      </Link>
-    )
+    return <Link href={href}>{children}</Link>
   }
 
   const onPage = href.startsWith('#')

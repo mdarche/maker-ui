@@ -14,33 +14,30 @@ export const NavWidgets = () => {
       css={{
         svg: { fill: 'var(--color-header_fill)' },
         '.github-link': {
-          marginLeft: 60,
+          marginLeft: 30,
         },
         '.popover': {
           right: 0,
           top: 58,
         },
-        '.nav-link': {
+        a: {
           fontWeight: 500,
           padding: '0 18px',
           position: 'relative',
         },
       }}>
-      <Link href="/docs/overview/">
-        <a className="nav-link docs">Docs</a>
-      </Link>
-      <Link href="/guides/">
-        <a className="nav-link guides">Guides</a>
-      </Link>
+      <Link href="/docs/getting-started/">Docs</Link>
+      <Link href="/guides/">Guides</Link>
+      <Link href="/builder/">Builder</Link>
       <a
         className="github-link"
         href="https://github.com/mdarche/maker-ui"
         target="_blank"
         rel="noopener noreferrer">
-        <GithubIcon css={{ height: 23 }} />
+        <GithubIcon css={{ height: 22, marginTop: 2 }} />
       </a>
       <Dropdown
-        _css={{ marginLeft: 50 }}
+        _css={{ marginLeft: 20 }}
         transition="none"
         buttonCss={{
           display: 'flex',
@@ -83,7 +80,7 @@ export const NavWidgets = () => {
             },
           }}>
           <ul>
-            {themes.map(t => (
+            {themes.map((t) => (
               <li key={t}>
                 <button onClick={() => setColorTheme(t)}>{t}</button>
               </li>

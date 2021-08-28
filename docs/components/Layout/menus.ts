@@ -19,7 +19,7 @@ export const menu: MakerMenu = [
     label: 'Layout API',
     path: '/docs/layout-api',
     className: 'api-btn',
-    openNested: false,
+    openNested: true,
     submenu: [
       { label: 'Layout', path: '/docs/layout' },
       { label: 'Topbar', path: '/docs/topbar' },
@@ -38,7 +38,7 @@ export const menu: MakerMenu = [
     label: 'Elements API',
     path: '/docs/elements-api',
     className: 'api-btn',
-    openNested: false,
+    openNested: true,
     submenu: [
       { label: 'ColorButton', path: '/docs/color-button' },
       { label: 'CollapsibleMenu', path: '/docs/collapsible-menu' },

@@ -14,7 +14,7 @@ import {
 
 import { options } from './options'
 import { menu } from './menus'
-import { styles } from '../../config/styles'
+import { styles } from '../../styles'
 import { Search } from '../Search'
 import { Logo } from '../Logo'
 import { NavWidgets } from '../NavWidgets'
