@@ -4,7 +4,19 @@ import { mount } from '@cypress/react'
 
 import { Wrapper } from '../setup'
 
+/**
+ * @tests
+ * - Render with defaults
+ * - Prop: `className`, `css`, `background`
+ */
+
+/**
+ * @component - Sidebar
+ */
+
 describe('Sidebar', () => {
+  /* Render with defaults */
+
   it('renders the Sidebar component with default props', () => {
     mount(
       <Wrapper>
@@ -13,6 +25,8 @@ describe('Sidebar', () => {
     )
     cy.get('.sidebar')
   })
+
+  /* Prop: `className`, `css`, `background` */
 
   it('renders with prop values', () => {
     mount(

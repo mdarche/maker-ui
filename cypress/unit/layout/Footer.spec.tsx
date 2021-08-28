@@ -4,7 +4,21 @@ import { mount } from '@cypress/react'
 
 import { Wrapper, defaults, format } from '../setup'
 
+/**
+ * @tests
+ * - Render with defaults
+ * - Option: `footer.maxWidth`, `colors.light.bg_footer`
+ * - Prop: `maxWidth`, `background`
+ * - Prop: `css`, `_css`
+ */
+
+/**
+ * @component - Footer
+ */
+
 describe('Footer component', () => {
+  /* Render with defaults */
+
   it('renders the Footer with default props', () => {
     mount(
       <Wrapper header content isFooter>
@@ -19,6 +33,8 @@ describe('Footer component', () => {
       format(defaults.footer.maxWidth)
     )
   })
+
+  /* Option: `footer.maxWidth`, `colors.light.bg_footer` */
 
   it('renders with user-generated options', () => {
     mount(
@@ -37,6 +53,8 @@ describe('Footer component', () => {
     cy.get('footer .container').should('have.css', 'max-width', '500px')
   })
 
+  /* Prop: `maxWidth`, `background` */
+
   it('prioritizes prop values', () => {
     mount(
       <Wrapper header content isFooter>
@@ -48,6 +66,8 @@ describe('Footer component', () => {
     cy.get('footer').should('have.backgroundColor', '#333')
     cy.get('footer .container').should('have.css', 'max-width', '650px')
   })
+
+  /* Prop: `css`, `_css` */
 
   it('applies _css to root and css to the container', () => {
     mount(

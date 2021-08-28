@@ -4,7 +4,19 @@ import { mount } from '@cypress/react'
 
 import { Wrapper } from '../setup'
 
+/**
+ * @tests
+ * - Render with defaults
+ * - Prop: `className`, `background`, `css`
+ */
+
+/**
+ * @component - Main
+ */
+
 describe('Main', () => {
+  /* Render with defaults */
+
   it('renders the Main component with default props', () => {
     mount(
       <Wrapper>
@@ -13,6 +25,8 @@ describe('Main', () => {
     )
     cy.get('main')
   })
+
+  /* Prop: `className`, `background`, `css` */
 
   it('renders with prop values', () => {
     mount(

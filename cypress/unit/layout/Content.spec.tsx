@@ -4,7 +4,26 @@ import { mount } from '@cypress/react'
 
 import { Wrapper, defaults, format } from '../setup'
 
+/**
+ * @tests
+ * - Render with defaults
+ * - Function: renders error when nested JSX is incompatible
+ * - Function: renders child components that have accepted display names
+ * - Function: renders error when nested child is a string
+ * - Layout: `content`
+ * - Layout: `content-sidebar`
+ * - Layout: `sidebar-content`
+ * - Layout: `sidebar-content-sidebar`
+ * - Layout: `sidenav-content`
+ * - Layout: `content-sidenav`
+ */
+
+/**
+ * @component - Content
+ */
+
 describe('Content component', () => {
+  /* Render with defaults */
   it('renders the Content component', () => {
     mount(
       <Wrapper>
@@ -15,6 +34,8 @@ describe('Content component', () => {
     )
     cy.get('#site-inner')
   })
+
+  /* Function: renders error when nested JSX is incompatible */
 
   it('shows a helpful error when layout child component is unknown', () => {
     mount(
@@ -27,6 +48,8 @@ describe('Content component', () => {
     )
     cy.contains('Invalid layout configuration')
   })
+
+  /* Function: renders child components that have accepted display names */
 
   it('accepts children with specified display names', () => {
     const Fixed = (props) => <div style={{ position: 'fixed' }} {...props} />
@@ -51,6 +74,8 @@ describe('Content component', () => {
     cy.get('main')
   })
 
+  /* Function: renders error when nested child is a string */
+
   it('shows a helpful error when layout is a string', () => {
     mount(
       <Wrapper>
@@ -59,18 +84,9 @@ describe('Content component', () => {
     )
     cy.contains('Invalid layout configuration')
   })
-})
 
-/**
- * Register / accurately style all accepted layouts
- *
- * @remarks
- * - Include mobile layout checks
- * - Test all critical layout CSS here
- *
- */
+  /* Layout: `content` */
 
-describe('Content - Layout Builder', () => {
   it('identifies a `content` layout', () => {
     mount(
       <Wrapper>
@@ -87,6 +103,8 @@ describe('Content - Layout Builder', () => {
     cy.get('main')
   })
 
+  /* Layout: `content-sidebar` */
+
   it('identifies a `content-sidebar` layout', () => {
     mount(
       <Wrapper>
@@ -99,6 +117,8 @@ describe('Content - Layout Builder', () => {
     cy.get('#site-inner').should('have.css', 'display', 'grid')
     cy.get('main').next('div').should('have.class', 'sidebar')
   })
+
+  /* Layout: `sidebar-content` */
 
   it('identifies a `sidebar-content` layout', () => {
     mount(
@@ -114,6 +134,8 @@ describe('Content - Layout Builder', () => {
       .get('.sidebar')
       .should('have.css', 'grid-row', '2 / auto')
   })
+
+  /* Layout: `sidebar-content-sidebar` */
 
   it('identifies a `sidebar-content-sidebar` layout', () => {
     mount(
@@ -131,6 +153,8 @@ describe('Content - Layout Builder', () => {
       .eq(0)
       .should('have.css', 'grid-row', '2 / auto')
   })
+
+  /* Layout: `content-sidenav` */
 
   it('identifies a `content-sidenav` layout', () => {
     mount(
@@ -150,6 +174,8 @@ describe('Content - Layout Builder', () => {
       .get('#sidenav')
       .should('have.css', 'position', 'fixed')
   })
+
+  /* Layout: `sidenav-content` */
 
   it('identifies a `sidenav-content` layout', () => {
     mount(

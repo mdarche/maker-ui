@@ -4,7 +4,26 @@ import { mount } from '@cypress/react'
 
 import { Wrapper } from '../setup'
 
+/**
+ * @tests
+ * - Render with defaults
+ * - Option: `header.sticky`, `colors.light.bg_header`
+ * - Option: `header.stickyOnMobile`
+ * - Option: `header.stickyUpScroll`
+ * - Option: `header.scrollClass`
+ * - Option: `header.absolute`
+ * - Prop: `background`, `absolute`, `stickyOnMobile`
+ * - Function: uses fixed positioning when header is sticky and absolute
+ * - Function: uses Topbar height to calculate top position when sticky
+ */
+
+/**
+ * @component - Header
+ */
+
 describe('Header component - unit tests', () => {
+  /* Render with defaults */
+
   it('renders the Header with default props', () => {
     mount(
       <Wrapper>
@@ -14,6 +33,8 @@ describe('Header component - unit tests', () => {
     cy.get('header').should('have.backgroundColor', 'var(--color-bg_header)')
     cy.get('header').should('have.css', 'position', 'relative')
   })
+
+  /* Option: `header.sticky`, `colors.light.bg_header` */
 
   it('renders with user-generated options', () => {
     mount(
@@ -29,6 +50,8 @@ describe('Header component - unit tests', () => {
     cy.get('header').should('have.css', 'position', 'sticky')
   })
 
+  /* Option: `header.stickyOnMobile` */
+
   it('supports stickyOnMobile option', () => {
     mount(
       <Wrapper options={{ header: { stickyOnMobile: true } }}>
@@ -38,6 +61,8 @@ describe('Header component - unit tests', () => {
     cy.viewport('iphone-x')
     cy.get('header').should('have.css', 'position', 'sticky')
   })
+
+  /* Option: `header.stickyUpScroll` */
 
   it('supports stickyUpScroll option', () => {
     mount(
@@ -51,6 +76,8 @@ describe('Header component - unit tests', () => {
     cy.scrollTo(0, 300)
     cy.get('header').should('not.have.class', 'scroll-active')
   })
+
+  /* Option: `header.scrollClass` */
 
   it('supports scrollClass option', () => {
     mount(
@@ -68,6 +95,8 @@ describe('Header component - unit tests', () => {
     cy.get('header').should('not.have.class', 'test-class')
   })
 
+  /* Option: `header.absolute` */
+
   it('supports the absolute option', () => {
     mount(
       <Wrapper options={{ header: { absolute: true } }}>
@@ -76,6 +105,8 @@ describe('Header component - unit tests', () => {
     )
     cy.get('header').should('have.css', 'position', 'absolute')
   })
+
+  /* Prop: `background`, `absolute`, `stickyOnMobile` */
 
   it('prioritizes prop values', () => {
     mount(
@@ -91,6 +122,8 @@ describe('Header component - unit tests', () => {
     cy.get('header').should('have.css', 'position', 'fixed')
   })
 
+  /* Function: uses fixed positioning when header is sticky and absolute */
+
   it('transforms absolute into fixed positioning when sticky', () => {
     mount(
       <Wrapper>
@@ -101,6 +134,8 @@ describe('Header component - unit tests', () => {
     )
     cy.get('header').should('have.css', 'position', 'fixed')
   })
+
+  /* Function: uses Topbar height to calculate top position when sticky */
 
   it('uses the Topbar height to calculate its top position when Topbar is sticky', () => {
     mount(

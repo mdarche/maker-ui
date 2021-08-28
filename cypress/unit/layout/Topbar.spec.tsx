@@ -4,7 +4,23 @@ import { mount } from '@cypress/react'
 
 import { Wrapper, defaults, format } from '../setup'
 
+/**
+ * @tests
+ * - Render with defaults
+ * - Option: `topbar.maxWidth`, `colors.light.bg_topbar`
+ * - Option: `topbar.sticky`, `topbar.stickyOnMobile`
+ * - Prop: `stickyOnMobile`
+ * - Prop: `scrollOverflow`
+ * - Prop: `css`, `_css`
+ */
+
+/**
+ * @component - Topbar
+ */
+
 describe('Topbar', () => {
+  /* Render with defaults */
+
   it('renders the Topbar component with default props', () => {
     mount(
       <Wrapper>
@@ -18,6 +34,8 @@ describe('Topbar', () => {
       format(defaults.topbar.maxWidth)
     )
   })
+
+  /*  Option: `topbar.maxWidth`, `colors.light.bg_topbar` */
 
   it('renders with user-generated options', () => {
     mount(
@@ -33,6 +51,8 @@ describe('Topbar', () => {
     cy.get('#topbar .container').should('have.css', 'max-width', '600px')
   })
 
+  /* Option: `topbar.sticky`, `topbar.stickyOnMobile` */
+
   it('applies sticky styles according to options', () => {
     mount(
       <Wrapper options={{ topbar: { sticky: true, stickyOnMobile: false } }}>
@@ -44,6 +64,8 @@ describe('Topbar', () => {
       .get('#topbar')
       .should('have.css', 'position', 'relative')
   })
+
+  /* Prop: `stickyOnMobile` */
 
   it.only('applies sticky styles according to props', () => {
     mount(
@@ -57,6 +79,8 @@ describe('Topbar', () => {
       .should('have.css', 'position', 'sticky')
   })
 
+  /* Prop: `scrollOverlow` */
+
   it('sets the scrollOverflow prop', () => {
     mount(
       <Wrapper>
@@ -66,6 +90,8 @@ describe('Topbar', () => {
     cy.get('#topbar .container').should('have.css', 'overflow-x', 'scroll')
     cy.get('#topbar .container').should('have.css', 'white-space', 'nowrap')
   })
+
+  /* Prop: `css`, `_css` */
 
   it('applies _css to root and css to the container', () => {
     mount(
