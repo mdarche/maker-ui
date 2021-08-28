@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { Topbar } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper, defaults, format } from '../setup'
 
 /**
+ * @component
+ * Topbar
+ *
  * @tests
  * - Render with defaults
  * - Option: `topbar.maxWidth`, `colors.light.bg_topbar`
@@ -12,10 +14,6 @@ import { Wrapper, defaults, format } from '../setup'
  * - Prop: `stickyOnMobile`
  * - Prop: `scrollOverflow`
  * - Prop: `css`, `_css`
- */
-
-/**
- * @component - Topbar
  */
 
 describe('Topbar', () => {

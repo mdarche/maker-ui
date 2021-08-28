@@ -7,8 +7,26 @@ import {
   MenuItemProps,
 } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper, testMenu } from '../setup'
+
+/**
+ * @component
+ * MobileMenu
+ *
+ * @tests
+ * - Render with defaults
+ * - Option: `mobileMenu.showCloseButton`
+ * - Option: 'mobileMenu.closeOnRouteChange'
+ * - Option: `mobileMenu.closeButton` (callback)
+ * - Option: `mobileMenu.transition`
+ * - Prop: `header`, `footer`, `children`
+ * - Prop: `center`
+ * - Prop: `menu`
+ * - Prop: `closeButton` (callback)
+ * - Prop: `closeButtonPosition`
+ * - Behavior: closes via default close button
+ * - Behavior: closes via overlay blur button
+ */
 
 interface TestMobileMenuProps {
   options?: MakerUIOptions
@@ -34,6 +52,8 @@ const TestMobileMenu = ({
 )
 
 describe('MobileMenu component', () => {
+  /* Render with defaults */
+
   it('renders the MobileMenu component with default props', () => {
     mount(
       <TestMobileMenu options={{ mobileMenu: { closeOnRouteChange: true } }} />
@@ -44,54 +64,7 @@ describe('MobileMenu component', () => {
     )
   })
 
-  it('accepts children, a custom header, and a custom footer', () => {
-    mount(
-      <TestMobileMenu header={<div>s-header</div>} footer={<div>s-footer</div>}>
-        s-inner
-      </TestMobileMenu>
-    )
-    cy.viewport('iphone-x').get('#mobile-menu').contains('s-header')
-    cy.get('#mobile-menu').contains('s-inner')
-    cy.get('#mobile-menu').contains('s-footer')
-  })
-
-  it('centers the mobile menu content with the center prop', () => {
-    mount(<TestMobileMenu center>s-inner</TestMobileMenu>)
-    cy.viewport('iphone-x')
-      .get('#mobile-menu')
-      .should('have.css', 'align-items', 'center')
-  })
-
-  it('accepts and renders a default collapsible menu', () => {
-    const menu = [
-      {
-        label: 'Carousel',
-        path: '/carousel',
-        submenu: [{ label: 'Root', path: '/root' }],
-      },
-      { label: 'Accordion', path: '/accordion' },
-    ]
-    mount(<TestMobileMenu menu={menu} />)
-    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
-    cy.get('#mobile-menu').contains('Carousel')
-    cy.get('#mobile-menu .submenu-toggle').click()
-    cy.get('#mobile-menu').contains('Root')
-  })
-
-  it('can be closed with the close button', () => {
-    mount(<TestMobileMenu />)
-    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
-    cy.get('#mobile-menu').should('have.class', 'active')
-    cy.get('#mobile-menu .menu-button').click()
-    cy.get('#mobile-menu').should('not.have.class', 'active')
-  })
-
-  it('can be closed `onBlur` by clicking the overlay (mobile)', () => {
-    mount(<TestMobileMenu />)
-    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
-    cy.get('header .menu-overlay').click()
-    cy.get('#mobile-menu').should('not.have.class', 'active')
-  })
+  /* Option: `mobileMenu.showCloseButton` */
 
   it('removes the close button when specified', () => {
     mount(
@@ -101,6 +74,8 @@ describe('MobileMenu component', () => {
     )
     cy.viewport('iphone-x').get('#mobile-menu .menu-button').should('not.exist')
   })
+
+  /* Option: 'mobileMenu.closeOnRouteChange' */
 
   it('can be closed `onRouteChange` by clicking a menu link', () => {
     mount(
@@ -113,6 +88,8 @@ describe('MobileMenu component', () => {
     cy.get('#mobile-menu .collapse-menu li').eq(0).find('a').click()
     cy.get('#mobile-menu').should('not.have.class', 'active')
   })
+
+  /* Option: `mobileMenu.closeButton` (callback) */
 
   it('renders a custom close button via options', () => {
     mount(
@@ -132,41 +109,7 @@ describe('MobileMenu component', () => {
     cy.get('#mobile-menu').should('not.have.class', 'active')
   })
 
-  it('renders a custom close button via props', () => {
-    mount(
-      <TestMobileMenu
-        closeButton={(isOpen, atts) => <button {...atts}>Custom-btn</button>}>
-        inner
-      </TestMobileMenu>
-    )
-    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
-    cy.contains('Custom-btn').click()
-    cy.get('#mobile-menu').should('not.have.class', 'active')
-  })
-
-  it('supports `top-right` position for the close button', () => {
-    mount(<TestMobileMenu>inner</TestMobileMenu>)
-    cy.get('#mobile-menu .menu-button').should('have.css', 'top')
-    cy.get('#mobile-menu .menu-button').should('have.css', 'right')
-  })
-
-  it('supports `top-left` position for the close button', () => {
-    mount(<TestMobileMenu closeButtonPosition="top-left">inner</TestMobileMenu>)
-    cy.get('#mobile-menu .menu-button').should('have.css', 'top')
-    cy.get('#mobile-menu .menu-button').should('have.css', 'left')
-  })
-
-  it('supports `bottom-right` position for the close button', () => {
-    mount(<TestMobileMenu closeButtonPosition="top-left">inner</TestMobileMenu>)
-    cy.get('#mobile-menu .menu-button').should('have.css', 'bottom')
-    cy.get('#mobile-menu .menu-button').should('have.css', 'right')
-  })
-
-  it('supports `bottom-left` position for the close button', () => {
-    mount(<TestMobileMenu closeButtonPosition="top-left">inner</TestMobileMenu>)
-    cy.get('#mobile-menu .menu-button').should('have.css', 'bottom')
-    cy.get('#mobile-menu .menu-button').should('have.css', 'left')
-  })
+  /* Option: `mobileMenu.transition` */
 
   it('supports the `fade`, `fade-up`, and `fade-down` transitions', () => {
     // Check if fade transitions are full width
@@ -204,5 +147,104 @@ describe('MobileMenu component', () => {
     )
     cy.get('#mobile-menu').should('have.css', 'width', '200px')
     cy.get('#mobile-menu').should('have.css', 'right', '0px')
+  })
+
+  /* Prop: `header`, `footer`, `children` */
+
+  it('accepts children, a custom header, and a custom footer', () => {
+    mount(
+      <TestMobileMenu header={<div>s-header</div>} footer={<div>s-footer</div>}>
+        s-inner
+      </TestMobileMenu>
+    )
+    cy.viewport('iphone-x').get('#mobile-menu').contains('s-header')
+    cy.get('#mobile-menu').contains('s-inner')
+    cy.get('#mobile-menu').contains('s-footer')
+  })
+
+  /* Prop: `center` */
+
+  it('centers the mobile menu content with the center prop', () => {
+    mount(<TestMobileMenu center>s-inner</TestMobileMenu>)
+    cy.viewport('iphone-x')
+      .get('#mobile-menu')
+      .should('have.css', 'align-items', 'center')
+  })
+
+  /* Prop: `menu` */
+
+  it('accepts and renders a default collapsible menu', () => {
+    const menu = [
+      {
+        label: 'Carousel',
+        path: '/carousel',
+        submenu: [{ label: 'Root', path: '/root' }],
+      },
+      { label: 'Accordion', path: '/accordion' },
+    ]
+    mount(<TestMobileMenu menu={menu} />)
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
+    cy.get('#mobile-menu').contains('Carousel')
+    cy.get('#mobile-menu .submenu-toggle').click()
+    cy.get('#mobile-menu').contains('Root')
+  })
+
+  /* Prop: `closeButton` (callback) */
+
+  it('renders a custom close button via props', () => {
+    mount(
+      <TestMobileMenu
+        closeButton={(isOpen, atts) => <button {...atts}>Custom-btn</button>}>
+        inner
+      </TestMobileMenu>
+    )
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
+    cy.contains('Custom-btn').click()
+    cy.get('#mobile-menu').should('not.have.class', 'active')
+  })
+
+  /* Prop: `closeButtonPosition` */
+
+  it('supports `top-right` position for the close button', () => {
+    mount(<TestMobileMenu>inner</TestMobileMenu>)
+    cy.get('#mobile-menu .menu-button').should('have.css', 'top')
+    cy.get('#mobile-menu .menu-button').should('have.css', 'right')
+  })
+
+  it('supports `top-left` position for the close button', () => {
+    mount(<TestMobileMenu closeButtonPosition="top-left">inner</TestMobileMenu>)
+    cy.get('#mobile-menu .menu-button').should('have.css', 'top')
+    cy.get('#mobile-menu .menu-button').should('have.css', 'left')
+  })
+
+  it('supports `bottom-right` position for the close button', () => {
+    mount(<TestMobileMenu closeButtonPosition="top-left">inner</TestMobileMenu>)
+    cy.get('#mobile-menu .menu-button').should('have.css', 'bottom')
+    cy.get('#mobile-menu .menu-button').should('have.css', 'right')
+  })
+
+  it('supports `bottom-left` position for the close button', () => {
+    mount(<TestMobileMenu closeButtonPosition="top-left">inner</TestMobileMenu>)
+    cy.get('#mobile-menu .menu-button').should('have.css', 'bottom')
+    cy.get('#mobile-menu .menu-button').should('have.css', 'left')
+  })
+
+  /* Behavior: closes via default close button */
+
+  it('can be closed with the close button', () => {
+    mount(<TestMobileMenu />)
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
+    cy.get('#mobile-menu').should('have.class', 'active')
+    cy.get('#mobile-menu .menu-button').click()
+    cy.get('#mobile-menu').should('not.have.class', 'active')
+  })
+
+  /* Behavior: closes via overlay blur button */
+
+  it('can be closed `onBlur` by clicking the overlay (mobile)', () => {
+    mount(<TestMobileMenu />)
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
+    cy.get('header .menu-overlay').click()
+    cy.get('#mobile-menu').should('not.have.class', 'active')
   })
 })

@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { SideNav, Content, Main, MakerUIOptions } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper, defaults, format, testMenu } from '../setup'
 
 /**
+ * @component
+ * SideNav
+ *
  * @tests
  * - Render with defaults
  * - Option: `sideNav.width`, `sideNav.cssTransition`
@@ -17,14 +19,8 @@ import { Wrapper, defaults, format, testMenu } from '../setup'
  * - Prop: `children`, `header`, `footer`
  * - Prop: `toggleButton`
  * - Prop: `css`, `_css`
- * - Function: toggling with floating side nav toggle on mobile
- * - Function: closes on mobile when user clicks blur overlay
- */
-
-/**
- * @setup
- * Wraps the app in a basic Maker UI Layout and implements the `sidenav-content` layout.
- * Directly exposes all SideNav JSX props as well as Maker UI options.
+ * - Behavior: toggles via floating side nav toggle on mobile
+ * - Behavior: closes on mobile when user clicks blur overlay
  */
 
 interface TestSideNavProps {
@@ -210,7 +206,7 @@ describe('SideNav', () => {
     cy.get('#sidenav .container').should('have.css', 'padding', '10px')
   })
 
-  /* Function: toggling with floating side nav toggle on mobile */
+  /* Behavior: toggling with floating side nav toggle on mobile */
 
   it('can be controlled by SideNavToggle on mobile', () => {
     mount(<TestSideNav />)
@@ -219,7 +215,7 @@ describe('SideNav', () => {
     cy.get('#sidenav').should('not.have.class', 'hide-sidenav')
   })
 
-  /* Function: closes on mobile when user clicks blur overlay */
+  /* Behavior: closes on mobile when user clicks blur overlay */
 
   it('can be closed by clicking the overlay (mobile)', () => {
     mount(<TestSideNav />)

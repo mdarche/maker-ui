@@ -1,8 +1,46 @@
 import * as React from 'react'
 import { Navbar, Header, MobileMenu, MakerUIOptions } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper, testMenu, nestedMenu, format, defaults } from '../setup'
+
+/**
+ * @component
+ * Navbar
+ *
+ * @tests
+ * - Render with defaults
+ * - Option: `linkFunction`
+ * - Option: `header.menuOverflow`
+ * - Option: `mobileMenu.visibleOnDesktop`
+ * - Option: `header.hideWidgetsOnMobile`
+ * - Option: `header.showColorButton`, `header.shideColorButtonOnMobile`
+ * - Option: `header.menuButton` (callback)
+ * - Option: `header.colorButton` (callback)
+ * - Prop: `logo` (component)
+ * - Prop: `logo` (callback)
+ * - Prop: `logoArea`, `navArea`, `menuArea`
+ * - Prop: `menu`
+ * - Prop: `menuButton` (callback)
+ * - Prop: `colorButton` (callback)
+ * - Behavior: automatically hides the nav menu on mobile
+ * - Desktop Layout: `basic`
+ * - Desktop Layout: `basic-left`
+ * - Desktop Layout: `basic-center`
+ * - Desktop Layout: `center`
+ * - Desktop Layout: `split`
+ * - Desktop Layout: `minimal`
+ * - Desktop Layout: `minimal-left`
+ * - Desktop Layout: `minimal-center`
+ * - Desktop Layout: `minimal-reverse`
+ * - Mobile Layout: `basic`
+ * - Mobile Layout: `basic-menu-left`
+ * - Mobile Layout: `logo-center`
+ * - Mobile Layout: `logo-center-alt`
+ *
+ * @todo
+ * The only way to test layouts via code is by comparing the grid-template-area value (not ideal).
+ * Add visual diff tests via `cypress-plugin-snapshots`
+ */
 
 interface NavWrapperProps {
   children: React.ReactNode
@@ -19,6 +57,7 @@ const NavWrapper = ({ children, options }: NavWrapperProps) => (
 )
 
 describe('Navbar', () => {
+  /*  Render with defaults */
   it('renders Navbar component with default props', () => {
     mount(
       <NavWrapper>
@@ -33,57 +72,7 @@ describe('Navbar', () => {
     )
   })
 
-  it('supports a custom logo component', () => {
-    mount(
-      <NavWrapper>
-        <Navbar logo={<div>Custom</div>} />
-      </NavWrapper>
-    )
-    cy.get('.nav-grid').contains('Custom')
-  })
-
-  it('renders a logo that supports a custom `linkFunction`', () => {
-    mount(
-      <NavWrapper
-        options={{
-          linkFunction: (path, children, attributes) => (
-            <div className="custom-link-wrapper">
-              <a href={path} {...attributes}>
-                {children}
-              </a>
-            </div>
-          ),
-        }}>
-        <Navbar logo={<div>Custom</div>} />
-      </NavWrapper>
-    )
-    cy.get('.custom-link-wrapper').contains('Custom')
-  })
-
-  it('supports custom grid area components', () => {
-    mount(
-      <NavWrapper>
-        <Navbar
-          logoArea={<div>logo</div>}
-          navArea={<div>nav</div>}
-          menuArea={<div>menu</div>}
-        />
-      </NavWrapper>
-    )
-    cy.get('.logo-area').contains('logo')
-    cy.get('.nav-area').contains('nav')
-    cy.get('.menu-area').contains('menu')
-  })
-
-  it('renders a nav menu that supports nested drop downs', () => {
-    mount(
-      <NavWrapper>
-        <Navbar menu={nestedMenu} />
-      </NavWrapper>
-    )
-    cy.get('.menu-text').contains('Three').should('have.css', 'content')
-    cy.get('.menu-area').contains('Five')
-  })
+  /*  Option: `linkFunction` */
 
   it('renders a menu that supports a custom `linkFunction`', () => {
     mount(
@@ -103,16 +92,7 @@ describe('Navbar', () => {
     cy.get('.menu-area .menu-primary li').eq(0).get('.custom-menu-link')
   })
 
-  it('hides the nav menu on mobile', () => {
-    mount(
-      <NavWrapper>
-        <Navbar menu={testMenu} />
-      </NavWrapper>
-    )
-    cy.viewport('iphone-x')
-      .get('.menu-area')
-      .should('have.css', 'display', 'none')
-  })
+  /*  Option: `header.menuOverflow` */
 
   it('allows for horizontal scroll overlow', () => {
     mount(
@@ -123,6 +103,8 @@ describe('Navbar', () => {
     cy.get('.menu-area').should('have.css', 'overflow-x', 'scroll')
   })
 
+  /*  Option: `mobileMenu.visibleOnDesktop` */
+
   it('shows the mobile menu button on desktop screens', () => {
     mount(
       <NavWrapper options={{ mobileMenu: { visibleOnDesktop: true } }}>
@@ -131,6 +113,8 @@ describe('Navbar', () => {
     )
     cy.get('.nav-area .menu-button').click()
   })
+
+  /*  Option: `header.hideWidgetsOnMobile` */
 
   it('hides the widget area on mobile when specified', () => {
     mount(
@@ -143,6 +127,8 @@ describe('Navbar', () => {
       .get('.widget-area')
       .should('have.css', 'display', 'none')
   })
+
+  /*  Option: `header.showColorButton`, `header.shideColorButtonOnMobile` */
 
   it('hides the color button when specified', () => {
     mount(
@@ -167,6 +153,8 @@ describe('Navbar', () => {
       .should('have.css', 'display', 'none')
   })
 
+  /*  Option: `header.menuButton` (callback) */
+
   it('renders a custom menu button via options', () => {
     mount(
       <NavWrapper
@@ -185,19 +173,7 @@ describe('Navbar', () => {
     cy.get('#mobile-menu').should('have.class', 'active')
   })
 
-  it('renders a custom menu button via props', () => {
-    mount(
-      <NavWrapper>
-        <Navbar
-          menu={testMenu}
-          menuButton={(isOpen, atts) => <button {...atts}>Custom-Btn!</button>}
-        />
-      </NavWrapper>
-    )
-    cy.contains('Custom-Btn!')
-    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
-    cy.get('#mobile-menu').should('have.class', 'active')
-  })
+  /*  Option: `header.colorButton` (callback) */
 
   it('renders a custom color button via options', () => {
     mount(
@@ -224,6 +200,84 @@ describe('Navbar', () => {
     cy.contains('test-light')
     cy.get('.color-button').click()
   })
+
+  /*  Prop: `logo` (component) */
+
+  it('supports a custom logo component', () => {
+    mount(
+      <NavWrapper>
+        <Navbar logo={<div>Custom</div>} />
+      </NavWrapper>
+    )
+    cy.get('.nav-grid').contains('Custom')
+  })
+
+  /*  Prop: `logo` (callback) */
+
+  it('renders a logo that supports a custom `linkFunction`', () => {
+    mount(
+      <NavWrapper
+        options={{
+          linkFunction: (path, children, attributes) => (
+            <div className="custom-link-wrapper">
+              <a href={path} {...attributes}>
+                {children}
+              </a>
+            </div>
+          ),
+        }}>
+        <Navbar logo={<div>Custom</div>} />
+      </NavWrapper>
+    )
+    cy.get('.custom-link-wrapper').contains('Custom')
+  })
+
+  /*  Prop: `logoArea`, `navArea`, `menuArea` */
+
+  it('supports custom grid area components', () => {
+    mount(
+      <NavWrapper>
+        <Navbar
+          logoArea={<div>logo</div>}
+          navArea={<div>nav</div>}
+          menuArea={<div>menu</div>}
+        />
+      </NavWrapper>
+    )
+    cy.get('.logo-area').contains('logo')
+    cy.get('.nav-area').contains('nav')
+    cy.get('.menu-area').contains('menu')
+  })
+
+  /*  Prop: `menu` */
+
+  it('renders a nav menu that supports nested drop downs', () => {
+    mount(
+      <NavWrapper>
+        <Navbar menu={nestedMenu} />
+      </NavWrapper>
+    )
+    cy.get('.menu-text').contains('Three').should('have.css', 'content')
+    cy.get('.menu-area').contains('Five')
+  })
+
+  /*  Prop: `menuButton` (callback) */
+
+  it('renders a custom menu button via props', () => {
+    mount(
+      <NavWrapper>
+        <Navbar
+          menu={testMenu}
+          menuButton={(isOpen, atts) => <button {...atts}>Custom-Btn!</button>}
+        />
+      </NavWrapper>
+    )
+    cy.contains('Custom-Btn!')
+    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
+    cy.get('#mobile-menu').should('have.class', 'active')
+  })
+
+  /*  Prop: `colorButton` (callback) */
 
   it('renders a custom color button via props', () => {
     mount(
@@ -252,14 +306,24 @@ describe('Navbar', () => {
     cy.contains('test-light')
     cy.get('.color-button').click()
   })
+
+  /*  Behavior: automatically hides the nav menu on mobile */
+
+  it('hides the nav menu on mobile', () => {
+    mount(
+      <NavWrapper>
+        <Navbar menu={testMenu} />
+      </NavWrapper>
+    )
+    cy.viewport('iphone-x')
+      .get('.menu-area')
+      .should('have.css', 'display', 'none')
+  })
 })
 
-/**
- * Only way to test layouts in code is by comparing the grid-template-area value (Not ideal)
- * @todo - Add visual diff tests via `cypress-plugin-snapshots`
- */
-
 describe('Navbar - Desktop Layouts', () => {
+  /*  Desktop Layout: `basic` */
+
   it('renders a `basic` layout', () => {
     mount(
       <NavWrapper>
@@ -267,6 +331,8 @@ describe('Navbar - Desktop Layouts', () => {
       </NavWrapper>
     )
   })
+
+  /*  Desktop Layout: `basic-left` */
 
   it('renders a `basic-left` layout', () => {
     mount(
@@ -276,6 +342,8 @@ describe('Navbar - Desktop Layouts', () => {
     )
   })
 
+  /*  Desktop Layout: `basic-center` */
+
   it('renders a `basic-center` layout', () => {
     mount(
       <NavWrapper>
@@ -284,6 +352,8 @@ describe('Navbar - Desktop Layouts', () => {
     )
   })
 
+  /*  Desktop Layout: `center` */
+
   it('renders a `center` layout', () => {
     mount(
       <NavWrapper>
@@ -291,6 +361,8 @@ describe('Navbar - Desktop Layouts', () => {
       </NavWrapper>
     )
   })
+
+  /*  Desktop Layout: `split` */
 
   it('renders a `split` layout', () => {
     mount(
@@ -301,6 +373,8 @@ describe('Navbar - Desktop Layouts', () => {
     // Check for 2 menus
   })
 
+  /*  Desktop Layout: `minimal` */
+
   it('renders a `minimal` layout', () => {
     mount(
       <NavWrapper>
@@ -308,6 +382,8 @@ describe('Navbar - Desktop Layouts', () => {
       </NavWrapper>
     )
   })
+
+  /*  Desktop Layout: `minimal-left` */
 
   it('renders a `minimal-left` layout', () => {
     mount(
@@ -317,6 +393,8 @@ describe('Navbar - Desktop Layouts', () => {
     )
   })
 
+  /*  Desktop Layout: `minimal-center` */
+
   it('renders a `minimal-center` layout', () => {
     mount(
       <NavWrapper>
@@ -324,6 +402,8 @@ describe('Navbar - Desktop Layouts', () => {
       </NavWrapper>
     )
   })
+
+  /*  Desktop Layout: `minimal-reverse` */
 
   it('renders a `minimal-reverse` layout', () => {
     mount(
@@ -335,6 +415,8 @@ describe('Navbar - Desktop Layouts', () => {
 })
 
 describe('Navbar - Mobile Layouts', () => {
+  /*  Mobile Layout: `basic` */
+
   it('renders a `basic` layout', () => {
     mount(
       <NavWrapper>
@@ -343,6 +425,8 @@ describe('Navbar - Mobile Layouts', () => {
     )
     cy.viewport('iphone-x')
   })
+
+  /*  Mobile Layout: `basic-menu-left` */
 
   it('renders a `basic-menu-left` layout', () => {
     mount(
@@ -353,6 +437,8 @@ describe('Navbar - Mobile Layouts', () => {
     cy.viewport('iphone-x')
   })
 
+  /*  Mobile Layout: `logo-center` */
+
   it('renders a `logo-center` layout', () => {
     mount(
       <NavWrapper>
@@ -361,6 +447,8 @@ describe('Navbar - Mobile Layouts', () => {
     )
     cy.viewport('iphone-x')
   })
+
+  /*  Mobile Layout: `logo-center-alt` */
 
   it('renders a `logo-center-alt` layout', () => {
     mount(

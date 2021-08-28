@@ -1,14 +1,26 @@
 import * as React from 'react'
 import { ColorButton } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper } from '../setup'
 
 /**
- * See Navbar.spec.tsx for integration tests relating to options.header
+ * @component
+ * ColorButton
+ *
+ * @tests
+ * - Renders with defaults
+ * - Prop: `customButton` (string)
+ * - Prop: `customButton` (callback)
+ * - Behavior: cycles through color modes `onClick
+ * - Behavior: does not render unless multiple color modes exist
+ *
+ * @notes
+ * See `Navbar.spec.tsx` for integration tests relating to `options.header`
  */
 
 describe('ColorButton component', () => {
+  /* Renders with defaults */
+
   it('renders with default props', () => {
     mount(
       <Wrapper
@@ -24,27 +36,7 @@ describe('ColorButton component', () => {
     cy.get('.color-button')
   })
 
-  it('cycles through color modes onClick', () => {
-    mount(
-      <Wrapper
-        options={{
-          colors: {
-            light: { background: '#e2e2e2' },
-            dark: { background: '#333' },
-            gray: { background: '#777' },
-          },
-        }}>
-        <ColorButton />
-      </Wrapper>
-    )
-    cy.get('body').should('have.backgroundColor', '#e2e2e2')
-    cy.contains('light').click()
-    cy.get('body').should('have.backgroundColor', '#333')
-    cy.contains('dark').click()
-    cy.get('body').should('have.backgroundColor', '#777')
-    cy.contains('gray').click()
-    cy.get('body').should('have.backgroundColor', '#e2e2e2')
-  })
+  /* Prop: `customButton` (string) */
 
   it('supports a custom button inner via props', () => {
     mount(
@@ -74,6 +66,8 @@ describe('ColorButton component', () => {
     cy.contains('Test-btn')
   })
 
+  /* Prop: `customButton` (callback) */
+
   it('supports a custom button via prop callback', () => {
     mount(
       <Wrapper
@@ -95,6 +89,32 @@ describe('ColorButton component', () => {
     cy.get('body').should('have.backgroundColor', '#333')
     cy.contains('dark-button')
   })
+
+  /* Behavior: cycles through color modes `onClick`*/
+
+  it('cycles through color modes onClick', () => {
+    mount(
+      <Wrapper
+        options={{
+          colors: {
+            light: { background: '#e2e2e2' },
+            dark: { background: '#333' },
+            gray: { background: '#777' },
+          },
+        }}>
+        <ColorButton />
+      </Wrapper>
+    )
+    cy.get('body').should('have.backgroundColor', '#e2e2e2')
+    cy.contains('light').click()
+    cy.get('body').should('have.backgroundColor', '#333')
+    cy.contains('dark').click()
+    cy.get('body').should('have.backgroundColor', '#777')
+    cy.contains('gray').click()
+    cy.get('body').should('have.backgroundColor', '#e2e2e2')
+  })
+
+  /* Behavior: does not render unless multiple color modes exist */
 
   it('does not render when MakerUIOptions only specify one mode or default colors', () => {
     mount(

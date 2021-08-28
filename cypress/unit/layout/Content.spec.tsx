@@ -5,21 +5,20 @@ import { mount } from '@cypress/react'
 import { Wrapper, defaults, format } from '../setup'
 
 /**
+ * @component
+ * Content
+ *
  * @tests
  * - Render with defaults
- * - Function: renders error when nested JSX is incompatible
- * - Function: renders child components that have accepted display names
- * - Function: renders error when nested child is a string
+ * - Behavior: renders error when nested JSX is incompatible
+ * - Behavior: renders child components that have accepted display names
+ * - Behavior: renders error when nested child is a string
  * - Layout: `content`
  * - Layout: `content-sidebar`
  * - Layout: `sidebar-content`
  * - Layout: `sidebar-content-sidebar`
  * - Layout: `sidenav-content`
  * - Layout: `content-sidenav`
- */
-
-/**
- * @component - Content
  */
 
 describe('Content component', () => {
@@ -35,7 +34,7 @@ describe('Content component', () => {
     cy.get('#site-inner')
   })
 
-  /* Function: renders error when nested JSX is incompatible */
+  /* Behavior: renders error when nested JSX is incompatible */
 
   it('shows a helpful error when layout child component is unknown', () => {
     mount(
@@ -49,7 +48,7 @@ describe('Content component', () => {
     cy.contains('Invalid layout configuration')
   })
 
-  /* Function: renders child components that have accepted display names */
+  /* Behavior: renders child components that have accepted display names */
 
   it('accepts children with specified display names', () => {
     const Fixed = (props) => <div style={{ position: 'fixed' }} {...props} />
@@ -74,7 +73,7 @@ describe('Content component', () => {
     cy.get('main')
   })
 
-  /* Function: renders error when nested child is a string */
+  /* Behavior: renders error when nested child is a string */
 
   it('shows a helpful error when layout is a string', () => {
     mount(

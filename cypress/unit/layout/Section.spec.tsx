@@ -1,20 +1,18 @@
 import * as React from 'react'
 import { Section } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper, defaults, format } from '../setup'
 
 /**
+ * @component
+ * Section
+ *
  * @tests
  * - Render with defaults
  * - Option: `content.maxWidthSection`
  * - Prop: `className`, `maxWidth`, `background`, `color`
  * - Prop: `css`, `_css`
- * - Function: applies `css` to root when container = false
- */
-
-/**
- * @component - Section
+ * - Behavior: applies `css` to root when container = false
  */
 
 describe('Section', () => {
@@ -81,7 +79,7 @@ describe('Section', () => {
     cy.get('.section .container').should('have.css', 'padding', '10px')
   })
 
-  /* Function: applies `css` to root when container = false */
+  /* Behavior: applies `css` to root when container = false */
 
   it('applies css to root when container is false', () => {
     mount(

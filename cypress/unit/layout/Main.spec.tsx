@@ -1,17 +1,15 @@
 import * as React from 'react'
 import { Main } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper } from '../setup'
 
 /**
+ * @component
+ * Main
+ *
  * @tests
  * - Render with defaults
  * - Prop: `className`, `background`, `css`
- */
-
-/**
- * @component - Main
  */
 
 describe('Main', () => {

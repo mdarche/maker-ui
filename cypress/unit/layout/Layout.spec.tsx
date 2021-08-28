@@ -1,11 +1,20 @@
 import * as React from 'react'
 import { Layout, Div, MakerUIOptions } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { defaultOptions } from '../options'
 import { Wrapper } from '../setup'
 
+/**
+ * @component
+ * Layout
+ *
+ * @tests
+ * - Renders with defaults
+ */
+
 describe('Layout', () => {
+  /* Renders with defaults */
+
   it('mounts the Layout component', () => {
     mount(<Layout options={{}}>content</Layout>)
     cy.contains('content')

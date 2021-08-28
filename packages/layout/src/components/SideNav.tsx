@@ -34,9 +34,9 @@ export interface SideNavProps
 }
 
 /**
- * The `SideNav` component creates a side navigation panel alongside the page's main
- * content. It can be toggled open or closed on mobile or it can serve as the page's
- * primary <header> tag.
+ * The **SideNav** component creates a side navigation panel as a sibling to the page's main
+ * content. It can be toggled open or closed on both desktop and mobile or it can serve as
+ * the page's primary <header> tag.
  *
  * @link https://maker-ui.com/docs/layout/sidenav
  */

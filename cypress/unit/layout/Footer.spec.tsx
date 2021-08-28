@@ -5,15 +5,14 @@ import { mount } from '@cypress/react'
 import { Wrapper, defaults, format } from '../setup'
 
 /**
+ * @component
+ * Footer
+ *
  * @tests
  * - Render with defaults
  * - Option: `footer.maxWidth`, `colors.light.bg_footer`
  * - Prop: `maxWidth`, `background`
  * - Prop: `css`, `_css`
- */
-
-/**
- * @component - Footer
  */
 
 describe('Footer component', () => {

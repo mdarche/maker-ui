@@ -5,6 +5,9 @@ import { mount } from '@cypress/react'
 import { Wrapper } from '../setup'
 
 /**
+ * @component
+ * Header
+ *
  * @tests
  * - Render with defaults
  * - Option: `header.sticky`, `colors.light.bg_header`
@@ -13,12 +16,8 @@ import { Wrapper } from '../setup'
  * - Option: `header.scrollClass`
  * - Option: `header.absolute`
  * - Prop: `background`, `absolute`, `stickyOnMobile`
- * - Function: uses fixed positioning when header is sticky and absolute
- * - Function: uses Topbar height to calculate top position when sticky
- */
-
-/**
- * @component - Header
+ * - Behavior: uses fixed positioning when header is sticky and absolute
+ * - Behavior: uses Topbar height to calculate top position when sticky
  */
 
 describe('Header component - unit tests', () => {
@@ -122,7 +121,7 @@ describe('Header component - unit tests', () => {
     cy.get('header').should('have.css', 'position', 'fixed')
   })
 
-  /* Function: uses fixed positioning when header is sticky and absolute */
+  /* Behavior: uses fixed positioning when header is sticky and absolute */
 
   it('transforms absolute into fixed positioning when sticky', () => {
     mount(
@@ -135,7 +134,7 @@ describe('Header component - unit tests', () => {
     cy.get('header').should('have.css', 'position', 'fixed')
   })
 
-  /* Function: uses Topbar height to calculate top position when sticky */
+  /* Behavior: uses Topbar height to calculate top position when sticky */
 
   it('uses the Topbar height to calculate its top position when Topbar is sticky', () => {
     mount(

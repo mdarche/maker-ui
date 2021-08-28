@@ -1,17 +1,15 @@
 import * as React from 'react'
 import { Sidebar } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper } from '../setup'
 
 /**
+ * @component
+ * Sidebar
+ *
  * @tests
  * - Render with defaults
  * - Prop: `className`, `css`, `background`
- */
-
-/**
- * @component - Sidebar
  */
 
 describe('Sidebar', () => {
