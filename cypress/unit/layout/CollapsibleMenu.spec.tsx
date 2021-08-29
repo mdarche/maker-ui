@@ -1,39 +1,26 @@
 import * as React from 'react'
 import { CollapsibleMenu } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { nestedMenu, Wrapper } from '../setup'
 
 /**
- * This file also includes integration tests for the `ExpandButton` and `MenuItem` component.
+ * @component
+ * MenuItem
+ * CollapsibleMenu
+ *
+ * @tests
+ * - Prop: `label`, `path`, `classes`, `icon`, `newTab`, `submenu` (MenuItem)
+ * - Prop: `openNested` (MenuItem)
+ * - Renders with defaults (CollapsibleMenu)
+ * - Behavior: opens nested submenus by clicking the ExpandButton (CollapsibleMenu)
+ *
+ * @notes
+ * This file also includes integration tests for the `ExpandButton` and `MenuItem` component
  */
 
-describe('Collapsible Menu component', () => {
-  it('renders with default props', () => {
-    mount(
-      <Wrapper>
-        <CollapsibleMenu menu={nestedMenu} />
-      </Wrapper>
-    )
-    cy.get('.collapse-menu')
-  })
+describe('MenuItem', () => {
+  /* Prop: `label`, `path`, `classes`, `icon`, `newTab`, `submenu` */
 
-  it('opens nested submenu by clicking the ExpandButton', () => {
-    mount(
-      <Wrapper>
-        <CollapsibleMenu menu={nestedMenu} />
-      </Wrapper>
-    )
-    cy.get('.submenu-toggle').click()
-    cy.get('.submenu-toggle').should('have.attr', 'aria-expanded', 'true')
-    cy.get('.submenu-toggle svg').should('have.css', 'transform')
-    cy.get('.submenu li').eq(0).contains('Five')
-    cy.get('.submenu-toggle').click()
-    cy.get('.submenu-toggle').should('have.attr', 'aria-expanded', 'false')
-  })
-})
-
-describe('MenuItem component (internal)', () => {
   it('supports all MenuItem props', () => {
     const menu = [
       {
@@ -67,6 +54,8 @@ describe('MenuItem component (internal)', () => {
     cy.contains('Level 3')
   })
 
+  /* Prop: `openNested` */
+
   it('opens nested submenus with `openNested` prop', () => {
     const menu = [
       {
@@ -82,5 +71,34 @@ describe('MenuItem component (internal)', () => {
       </Wrapper>
     )
     cy.contains('Level 2')
+  })
+})
+
+describe('CollapsibleMenu', () => {
+  /* Renders with defaults */
+
+  it('renders with default props', () => {
+    mount(
+      <Wrapper>
+        <CollapsibleMenu menu={nestedMenu} />
+      </Wrapper>
+    )
+    cy.get('.collapse-menu')
+  })
+
+  /* Behavior: opens nested submenus by clicking the ExpandButton */
+
+  it('opens nested submenu by clicking the ExpandButton', () => {
+    mount(
+      <Wrapper>
+        <CollapsibleMenu menu={nestedMenu} />
+      </Wrapper>
+    )
+    cy.get('.submenu-toggle').click()
+    cy.get('.submenu-toggle').should('have.attr', 'aria-expanded', 'true')
+    cy.get('.submenu-toggle svg').should('have.css', 'transform')
+    cy.get('.submenu li').eq(0).contains('Five')
+    cy.get('.submenu-toggle').click()
+    cy.get('.submenu-toggle').should('have.attr', 'aria-expanded', 'false')
   })
 })

@@ -10,6 +10,13 @@ import { Wrapper } from '../setup'
  *
  * @tests
  * - Renders with defaults
+ * - Option: `a11y.skiplinks`
+ * - Option: `variables`
+ * - Option: `useColorDefaults`
+ * - Prop: `skiplinks`
+ * - Prop: `styles`
+ * - Prop: `theme`
+ * - Behavior: re-renders layout when options prop changes
  */
 
 describe('Layout', () => {
@@ -20,6 +27,8 @@ describe('Layout', () => {
     cy.contains('content')
   })
 
+  /* Option: `a11y.skiplinks` */
+
   it('renders skiplinks according to MakerUIOptions', () => {
     mount(<Layout options={{}}>First layout</Layout>)
     cy.get('.skiplinks')
@@ -29,36 +38,7 @@ describe('Layout', () => {
     cy.get('.skiplinks').should('not.exist')
   })
 
-  it('renders custom skiplinks via `skiplinks` prop', () => {
-    mount(
-      <Layout
-        options={{}}
-        skiplinks={[{ id: 'test', label: 'Skip to test content' }]}>
-        First layout
-      </Layout>
-    )
-    cy.contains('Skip to test content')
-  })
-
-  it('adds user styles to the document head', () => {
-    mount(
-      <Layout
-        options={{}}
-        styles={{ '.my-div': { color: 'rgb(251, 251, 251)' } }}>
-        <div className="my-div">test</div>
-      </Layout>
-    )
-    cy.get('.my-div').should('have.css', 'color', 'rgb(251, 251, 251)')
-  })
-
-  it('adds an Emotion theme provider to the layout', () => {
-    mount(
-      <Layout options={{}} theme={{ width: 100 }}>
-        <Div css={{ ...({ width: (t) => t.width } as object) }}>test</Div>
-      </Layout>
-    )
-    cy.contains('test').should('have.css', 'width', '100px')
-  })
+  /* Option: `variables` */
 
   it('supports custom css variables via `options.variables`', () => {
     mount(
@@ -70,6 +50,8 @@ describe('Layout', () => {
     )
     cy.get('#test-div').should('have.css', 'height', '200px')
   })
+
+  /* Option: `useColorDefaults` */
 
   it('removes the default Maker UI css colors via `options.useDefaultColors`', () => {
     // Default behavior
@@ -98,6 +80,45 @@ describe('Layout', () => {
       defaultOptions.colors.light.text
     )
   })
+
+  /* Prop: `skiplinks` */
+
+  it('renders custom skiplinks via `skiplinks` prop', () => {
+    mount(
+      <Layout
+        options={{}}
+        skiplinks={[{ id: 'test', label: 'Skip to test content' }]}>
+        First layout
+      </Layout>
+    )
+    cy.contains('Skip to test content')
+  })
+
+  /* Prop: `styles` */
+
+  it('adds user styles to the document head', () => {
+    mount(
+      <Layout
+        options={{}}
+        styles={{ '.my-div': { color: 'rgb(251, 251, 251)' } }}>
+        <div className="my-div">test</div>
+      </Layout>
+    )
+    cy.get('.my-div').should('have.css', 'color', 'rgb(251, 251, 251)')
+  })
+
+  /* Prop: `theme` */
+
+  it('adds an Emotion theme provider to the layout', () => {
+    mount(
+      <Layout options={{}} theme={{ width: 100 }}>
+        <Div css={{ ...({ width: (t) => t.width } as object) }}>test</Div>
+      </Layout>
+    )
+    cy.contains('test').should('have.css', 'width', '100px')
+  })
+
+  /* Behavior: re-renders layout when options prop changes */
 
   it('updates Layout and Options context when `options` prop changes', () => {
     const DynamicLayout = () => {
