@@ -29,7 +29,7 @@ export interface TreeItemProps extends DivProps {
  * The `TreeItem` component is a direct child of `TreeMenu` and is used to wrap text, links,
  * or custom React components.
  *
- * @link https://maker-ui.com/docs/components/tree-menu
+ * @link https://maker-ui.com/docs/elements/tree-menu
  */
 
 export const TreeItem = React.forwardRef<HTMLDivElement, TreeItemProps>(

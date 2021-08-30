@@ -3,13 +3,33 @@ import { Accordion, AccordionPanel } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
 /**
+ * @component
  * Accordion
+ * AccordionPanel
  *
- * @todo - Test all keyboard navigation scenarios
+ * @tests
+ * Accordion
+ * - Render with defaults
+ * - Prop: `css`
+ * - Prop: `showSingle`
+ * - Prop: `icon`
+ * - Prop: `customIcon` (component, {expand, collapse}, callback)
+ * - Prop: `spring`
+ * - Prop: `activeKey`, `eventKey`
+ * - Behavior: toggles the accordion via clicking title button
+ * Accordion.Panel
+ * - Prop: `title`
+ * - Prop: `open`
+ * - Prop: `css`, `_css`
+ * - Behavior: correctly measures and uses child height
  *
+ * @todo
+ * Test all keyboard navigation scenarios
  */
 
-describe('Accordion component', () => {
+describe('Accordion', () => {
+  /* Render with defaults */
+
   it('renders with default props', () => {
     mount(
       <Accordion>
@@ -22,6 +42,8 @@ describe('Accordion component', () => {
     cy.get('.expanded').should('not.exist')
   })
 
+  /* Prop: `css` */
+
   it('supports `css` prop', () => {
     mount(
       <Accordion css={{ background: '#e90266' }}>
@@ -30,6 +52,8 @@ describe('Accordion component', () => {
     )
     cy.get('.accordion-container').should('have.backgroundColor', '#e90266')
   })
+
+  /* Prop: `showSingle` */
 
   it('only expands one accordion at a time with `showSingle`', () => {
     mount(
@@ -50,15 +74,7 @@ describe('Accordion component', () => {
     cy.get('#p2').should('have.class', 'expanded')
   })
 
-  it('toggles accordion with by clicking title button', () => {
-    mount(
-      <Accordion>
-        <Accordion.Panel title="Panel 1">Content 1</Accordion.Panel>
-      </Accordion>
-    )
-    cy.get('.accordion-toggle').click()
-    cy.get('.accordion').should('have.class', 'expanded')
-  })
+  /* Prop: `icon` */
 
   it('can hide icon', () => {
     mount(
@@ -69,6 +85,8 @@ describe('Accordion component', () => {
     cy.get('.accordion-toggle svg').should('not.exist')
   })
 
+  /* Prop: `customIcon` (component) */
+
   it('accepts a custom component icon', () => {
     mount(
       <Accordion customIcon={<div id="custom-icon">Custom</div>}>
@@ -77,6 +95,8 @@ describe('Accordion component', () => {
     )
     cy.get('#custom-icon')
   })
+
+  /* Prop: `customIcon` ({expand, collapse}) */
 
   it('accepts distinct open and close icon components', () => {
     mount(
@@ -90,10 +110,12 @@ describe('Accordion component', () => {
     cy.contains('Close!')
   })
 
+  /* Prop: `customIcon` (callback) */
+
   it('accepts a jsx callback component icon', () => {
     mount(
       <Accordion
-        customIcon={isExpanded => (
+        customIcon={(isExpanded) => (
           <div>{isExpanded ? 'Close!' : 'Expand!'} </div>
         )}>
         <Accordion.Panel title="Panel 1">Content 1</Accordion.Panel>
@@ -103,6 +125,8 @@ describe('Accordion component', () => {
     cy.get('.accordion-toggle').click()
     cy.contains('Close!')
   })
+
+  /* Prop: `spring` */
 
   it('changes animation spring with `springConfig` (visual)', () => {
     mount(
@@ -114,6 +138,8 @@ describe('Accordion component', () => {
     cy.get('.accordion').should('have.class', 'expanded')
   })
 
+  /* Prop: `activeKey`, `eventKey` */
+
   it('lets outside components control the accordion panels via `eventKey`', () => {
     const EventKeyTest = () => {
       const [key, setKey] = React.useState('1')
@@ -124,7 +150,7 @@ describe('Accordion component', () => {
       return (
         <>
           <div>
-            {keyValues.map(i => (
+            {keyValues.map((i) => (
               <button key={i} id={`btn-${i}`} onClick={() => handleClick(i)}>
                 Open Panel {i}
               </button>
@@ -152,6 +178,18 @@ describe('Accordion component', () => {
     cy.get('#p3').should('have.class', 'expanded')
     cy.get('.accordion.expanded').should('have.length', 1)
   })
+
+  /* Behavior: toggles the accordion via clicking title button */
+
+  it('toggles accordion with by clicking title button', () => {
+    mount(
+      <Accordion>
+        <Accordion.Panel title="Panel 1">Content 1</Accordion.Panel>
+      </Accordion>
+    )
+    cy.get('.accordion-toggle').click()
+    cy.get('.accordion').should('have.class', 'expanded')
+  })
 })
 
 /**
@@ -159,14 +197,7 @@ describe('Accordion component', () => {
  */
 
 describe('AccordionPanel component', () => {
-  it('supports `Accordion.Panel` dot syntax', () => {
-    mount(
-      <Accordion>
-        <Accordion.Panel title="Dot Syntax">Content 1</Accordion.Panel>
-      </Accordion>
-    )
-    cy.get('.accordion-toggle').contains('Dot Syntax')
-  })
+  /* Prop: `title` */
 
   it('uses a custom title component', () => {
     mount(
@@ -184,19 +215,7 @@ describe('AccordionPanel component', () => {
     cy.get('.custom-title h3')
   })
 
-  it('adapts to child height', () => {
-    mount(
-      <Accordion>
-        <Accordion.Panel title="Dot Syntax">
-          <div style={{ height: 500 }}>Lots of content</div>
-          <div>More text</div>
-        </Accordion.Panel>
-      </Accordion>
-    )
-    cy.get('.accordion-panel')
-      .invoke('height')
-      .should('gte', 500)
-  })
+  /* Prop: `open` */
 
   it('is open by default with the `open` prop', () => {
     mount(
@@ -212,6 +231,8 @@ describe('AccordionPanel component', () => {
       .should('have.class', 'expanded')
   })
 
+  /* Prop: `css`, `_css` */
+
   it('adds `_css` prop to title button and `css` to content wrapper', () => {
     mount(
       <Accordion>
@@ -224,6 +245,18 @@ describe('AccordionPanel component', () => {
       </Accordion>
     )
   })
-})
 
-// Event Key
+  /* Behavior: correctly measures and uses child height */
+
+  it('adapts to child height', () => {
+    mount(
+      <Accordion>
+        <Accordion.Panel title="Dot Syntax">
+          <div style={{ height: 500 }}>Lots of content</div>
+          <div>More text</div>
+        </Accordion.Panel>
+      </Accordion>
+    )
+    cy.get('.accordion-panel').invoke('height').should('gte', 500)
+  })
+})

@@ -1,17 +1,17 @@
 import * as React from 'react'
-import { CollapsibleMenu } from 'maker-ui'
+import { CollapsibleMenu, MakerMenu } from 'maker-ui'
 import { mount } from '@cypress/react'
 import { nestedMenu, Wrapper } from '../setup'
 
 /**
  * @component
- * MenuItem
+ * MenuItem (internal)
  * CollapsibleMenu
  *
  * @tests
  * - Prop: `label`, `path`, `classes`, `icon`, `newTab`, `submenu` (MenuItem)
  * - Prop: `openNested` (MenuItem)
- * - Renders with defaults (CollapsibleMenu)
+ * - Render with defaults (CollapsibleMenu)
  * - Behavior: opens nested submenus by clicking the ExpandButton (CollapsibleMenu)
  *
  * @notes
@@ -19,14 +19,14 @@ import { nestedMenu, Wrapper } from '../setup'
  */
 
 describe('MenuItem', () => {
-  /* Prop: `label`, `path`, `classes`, `icon`, `newTab`, `submenu` */
+  /* Prop: `label`, `path`, `className`, `icon`, `newTab`, `submenu` */
 
   it('supports all MenuItem props', () => {
-    const menu = [
+    const menu: MakerMenu = [
       {
         label: 'Google',
         path: 'https://google.com',
-        classes: 'test-menu-class',
+        className: 'test-menu-class',
         icon: <div>Custom Icon</div>,
         newTab: true,
       },
@@ -75,7 +75,7 @@ describe('MenuItem', () => {
 })
 
 describe('CollapsibleMenu', () => {
-  /* Renders with defaults */
+  /* Render with defaults */
 
   it('renders with default props', () => {
     mount(

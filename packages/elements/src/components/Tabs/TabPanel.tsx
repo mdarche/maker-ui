@@ -13,7 +13,7 @@ export interface TabPanelProps extends Omit<DivProps, 'title'> {
 /**
  * The `Tab` component is a direct child of `TabGroup` and is used to wrap custom tab content.
  *
- * @link https://maker-ui.com/docs/components/tabs
+ * @link https://maker-ui.com/docs/elements/tabs
  */
 
 export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(

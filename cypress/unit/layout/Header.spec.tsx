@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Header, Topbar } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper } from '../setup'
 
 /**

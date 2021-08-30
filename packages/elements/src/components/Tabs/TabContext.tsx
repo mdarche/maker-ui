@@ -24,8 +24,8 @@ const TabUpdateContext = React.createContext<
 >(() => {})
 
 /**
- * The `TabContext` component is a Context Provider handles all of the
- * settings for a `Tabs` component and all of its `TabPanel` children.
+ * The `TabContext` component is a Provider that handles all of the
+ * settings for a `Tabs` component and its `TabPanel` children.
  *
  * @internal usage only
  */
@@ -48,8 +48,8 @@ export const TabContext = ({
   React.useEffect(() => {
     if (state.tabs.length && state.activeKey === 0) {
       // Get first tab that isn't disabled
-      const tab = state.tabs.find(t => !t.disabled)
-      setState(state => ({
+      const tab = state.tabs.find((t) => !t.disabled)
+      setState((state) => ({
         ...state,
         activeKey: tab ? tab.id : state.activeKey,
       }))
@@ -67,7 +67,7 @@ export const TabContext = ({
         ({ id, disabled }) => id === activeKey.toString() && !disabled
       )
 
-      setState(state => ({
+      setState((state) => ({
         ...state,
         activeKey: tab ? activeKey.toString() : state.activeKey,
       }))
@@ -101,17 +101,17 @@ export function useTabs() {
   }
 
   function setActive(id: string) {
-    setState(state => ({
+    setState((state) => ({
       ...state,
       activeKey: id,
     }))
   }
 
   function addToTabGroup(item: TabItem, open: boolean) {
-    const exists = state.tabs ? state.tabs.find(t => t.id === item.id) : false
+    const exists = state.tabs ? state.tabs.find((t) => t.id === item.id) : false
 
     if (!exists) {
-      setState(state => ({
+      setState((state) => ({
         ...state,
         tabs: [...state.tabs, item],
         activeKey: open ? item.id : state.activeKey,

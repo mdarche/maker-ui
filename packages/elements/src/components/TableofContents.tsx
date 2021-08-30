@@ -34,14 +34,14 @@ interface ToCProps extends Omit<DivProps, 'title'> {
  * Utility component to remove any leading or trailing HTML tags
  */
 function sanitize(text: string) {
-  return text.split('<').find(i => !i.startsWith('<'))
+  return text.split('<').find((i) => !i.startsWith('<'))
 }
 
 /**
  * The `TableofContents` component queries the DOM for all heading tags that
  * have an ID. It then creates an indented / scroll activated list of heading links.
  *
- * @link https://maker-ui.com/docs/components/tableofcontents
+ * @link https://maker-ui.com/docs/elements/tableofcontents
  */
 
 export const TableofContents = ({
@@ -80,7 +80,7 @@ export const TableofContents = ({
    */
   React.useEffect(() => {
     const activeHeadings = headings !== 'all' ? headings : allHeadings
-    const selectors = activeHeadings.map(h => `main ${h}`).join(', ')
+    const selectors = activeHeadings.map((h) => `main ${h}`).join(', ')
     const nodes: HTMLElement[] = Array.from(
       document.querySelectorAll(selectors)
     )
@@ -134,11 +134,13 @@ export const TableofContents = ({
              * Else find the nearest offset (expensive)
              * Used for fresh page loads if scroll is not at top of document
              */
-            const offsets = menuItems.map(i => i.offset)
+            const offsets = menuItems.map((i) => i.offset)
             const closest = offsets.reduce((a, b) => {
               return Math.abs(b - currPos) < Math.abs(a - currPos) ? b : a
             })
-            return setActiveNode(menuItems.findIndex(i => i.offset === closest))
+            return setActiveNode(
+              menuItems.findIndex((i) => i.offset === closest)
+            )
           }
         }
 

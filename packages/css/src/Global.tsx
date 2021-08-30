@@ -14,16 +14,17 @@ export interface GlobalProps {
  * @param styles - a CSS style object
  * @param breakpoints - an array of breakpoints
  *
- * @link https://maker-ui.com/docs/components/global
+ * @link https://maker-ui.com/docs/elements/global
  *
  */
 export const Global = ({ styles, breakpoints }: GlobalProps) => {
   return (
     <EmotionGlobal
       styles={
-        formatCSS(styles as Interpolation<any>, breakpoints) as Interpolation<
-          any
-        >
+        formatCSS(
+          styles as Interpolation<any>,
+          breakpoints
+        ) as Interpolation<any>
       }
     />
   )

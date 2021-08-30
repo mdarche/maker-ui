@@ -3,6 +3,15 @@ import { Carousel } from '@maker-ui/elements'
 import { Div } from 'maker-ui'
 import { mount } from '@cypress/react'
 
+/**
+ * @component
+ * Carousel
+ *
+ * @tests
+ * - Render with default props
+ * - Prop: `controls`
+ */
+
 interface BasicSlideProps {
   greeting?: string
   bg?: string
@@ -29,10 +38,13 @@ const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
   </Div>
 )
 
-describe('Carousel component', () => {
+describe('Carousel', () => {
+  /* Render with default props */
   it('renders with default props', () => {
     mount(<Carousel data={basicData} template={<BasicSlide />} />)
   })
+
+  /* Prop: `controls` */
 
   it('can be controlled with an external React.useState hook', () => {
     mount(<ExternalDemo />)

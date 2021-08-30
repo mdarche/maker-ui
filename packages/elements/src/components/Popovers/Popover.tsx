@@ -46,7 +46,7 @@ export interface PopoverProps extends DivProps {
  * Use the `Popover` to customize your own components, otherwise try out the pre-configured
  * `Tooltip` or `Dropdown` components.
  *
- * @link https://maker-ui.com/docs/components/popovers
+ * @link https://maker-ui.com/docs/elements/popovers
  */
 
 export const Popover = ({
@@ -89,16 +89,8 @@ export const Popover = ({
 
   function resize() {
     if (anchorRef.current) {
-      const {
-        top,
-        bottom,
-        left,
-        right,
-        x,
-        y,
-        height,
-        width,
-      } = anchorRef.current.getBoundingClientRect()
+      const { top, bottom, left, right, x, y, height, width } =
+        anchorRef.current.getBoundingClientRect()
       setBox({
         top,
         bottom,
@@ -141,7 +133,7 @@ export const Popover = ({
    */
 
   const measuredRef = React.useCallback(
-    node => {
+    (node) => {
       if (node !== null && height === 0) {
         setHeight(node.offsetHeight)
         setWidth(node.offsetWidth)

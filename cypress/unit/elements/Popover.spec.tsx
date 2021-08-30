@@ -1,11 +1,18 @@
 import * as React from 'react'
 import { Flex } from 'maker-ui'
 import { Popover } from '@maker-ui/elements'
-import { mount, unmount } from '@cypress/react'
+import { mount } from '@cypress/react'
 
 /**
- * @todo - Add test for defer measurements fix. Or remove all together
- * @todo - Add visual snapshot testing for visual tests
+ * @component
+ * Popover
+ *
+ * @tests
+ * -
+ *
+ * @todo
+ * - Add test for defer measurements fix. Or remove all together
+ * - Add visual snapshot testing for visual tests
  */
 
 interface TestProps {
@@ -37,10 +44,12 @@ const BasicPopover = ({ children, btnStyle, ...props }: TestProps) => {
   )
 }
 
-describe('Popover component', () => {
-  afterEach(() => {
-    unmount()
-  })
+describe('Popover', () => {
+  // afterEach(() => {
+  //   unmount()
+  // })
+
+  /* Render with defaults */
 
   it('renders with default props', () => {
     mount(<BasicPopover>Popover-content</BasicPopover>)
@@ -50,6 +59,8 @@ describe('Popover component', () => {
     // Confirm it attaches popover to body element
     cy.get('#__cy_root').should('not.contain', 'Popover-content')
   })
+
+  /* Prop: `css`, `_css` */
 
   it('applies `_css` to the popover root and `css` to the popover content', () => {
     // Also test merged className
@@ -66,7 +77,9 @@ describe('Popover component', () => {
     cy.get('.popover .container').should('have.css', 'padding', '10px')
   })
 
-  it.only('closes the popover when focus leaves its inner contents with `closeOnBlur` (keyboard)', () => {
+  /* Prop: `css`, `_css` */
+
+  it('closes the popover when focus leaves its inner contents with `closeOnBlur` (keyboard)', () => {
     // closeOnBlur = true
     mount(
       <>

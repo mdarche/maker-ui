@@ -24,7 +24,7 @@ export interface ModalProps extends DivProps {
  * The `Modal` component displays content as a dialog box/popup window.
  * You can close the modal with the 'ESC' key or the optional `closeOnBlur` prop.
  *
- * @link https://maker-ui.com/docs/components/modal
+ * @link https://maker-ui.com/docs/elements/modal
  */
 
 export const Modal = ({
