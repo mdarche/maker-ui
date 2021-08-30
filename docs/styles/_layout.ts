@@ -6,7 +6,7 @@ export const layout_styles = {
   header: {
     borderBottom: '1px solid',
     borderColor: 'var(--color-border)',
-    padding: '5px 35px',
+    padding: ['8px 20px', '5px 35px'],
   },
   '.api-btn > div > a': {
     width: '100%',

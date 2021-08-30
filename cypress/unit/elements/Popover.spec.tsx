@@ -8,7 +8,15 @@ import { mount } from '@cypress/react'
  * Popover
  *
  * @tests
- * -
+ * - Render with defaults
+ * - Prop: `css`, `_css`
+ * - Prop: `trapFocus`
+ * - Prop: `appendTo`
+ * - Prop: `anchorWidth`
+ * - Prop: `transition` (visual)
+ * - Prop: `gap` (visual)
+ * - Prop: `position` (visual)
+ * - Behavior: closes on tab when focus leaves the popover
  *
  * @todo
  * - Add test for defer measurements fix. Or remove all together
@@ -77,37 +85,7 @@ describe('Popover', () => {
     cy.get('.popover .container').should('have.css', 'padding', '10px')
   })
 
-  /* Prop: `css`, `_css` */
-
-  it('closes the popover when focus leaves its inner contents with `closeOnBlur` (keyboard)', () => {
-    // closeOnBlur = true
-    mount(
-      <>
-        <BasicPopover>
-          <button>Popover button</button>
-        </BasicPopover>
-        <button id="new-focus">Blur</button>
-      </>
-    )
-    cy.get('.test-btn').click()
-    // @ts-ignore
-    cy.get('.popover button').tab()
-    cy.get('.popover').should('not.exist')
-
-    // closeOnBlur = false
-    // mount(
-    //   <>
-    //     <BasicPopover closeOnBlur={false}>
-    //       <button>Popover button</button>
-    //     </BasicPopover>
-    //     <button id="new-focus">Blur</button>
-    //   </>
-    // )
-    // cy.get('.test-btn').click()
-    // // @ts-ignore
-    // cy.get('.popover button').tab()
-    // cy.get('.popover')
-  })
+  /* Prop: `trapFocus` */
 
   it('traps focus inside the popover with `trapFocus` (keyboard)', () => {
     // trapFocus = true
@@ -152,11 +130,15 @@ describe('Popover', () => {
     cy.get('.popover').should('not.exist')
   })
 
+  /* Prop: `appendTo` */
+
   it('adds the popover to a specified DOM node with the `appendTo` prop', () => {
     mount(<BasicPopover appendTo="__cy_root">Popover-content</BasicPopover>)
     cy.get('button').click()
     cy.get('#__cy_root').contains('Popover-content')
   })
+
+  /* Prop: `anchorWidth` */
 
   it('matches the width of the anchor element with the `anchorWidth` prop', () => {
     mount(
@@ -174,15 +156,7 @@ describe('Popover', () => {
     cy.get('.popover').should('have.css', 'width', '500px')
   })
 
-  // it('supports the scale transition', () => {
-  //   mount(
-  //     <BasicPopover transition="scale" css={{ background: 'red', height: 300 }}>
-  //       Popover-content
-  //     </BasicPopover>
-  //   )
-  //   cy.get('button').click()
-  //   cy.get('.popover').should('have.css', 'height', '300px')
-  // })
+  /* Prop: `transition` (visual) */
 
   it('supports no transition', () => {
     mount(<BasicPopover transition="none">Popover-content</BasicPopover>)
@@ -211,6 +185,8 @@ describe('Popover', () => {
     cy.get('button').click()
   })
 
+  /* Prop: `gap` (visual) */
+
   // VISUAL TEST - gap
   it('adds margin to the popover relative to its anchor with the `gap` prop', () => {
     mount(
@@ -223,6 +199,8 @@ describe('Popover', () => {
     )
     cy.get('button').click()
   })
+
+  /* Prop: `position` (visual) */
 
   // VISUAL TEST - position
   it('uses the `position` prop -- left, center (visual)', () => {
@@ -264,5 +242,23 @@ describe('Popover', () => {
       </BasicPopover>
     )
     cy.get('button').click()
+  })
+
+  /* Behavior: closes on tab when focus leaves the popover */
+
+  it('closes the popover when focus leaves its inner contents with `closeOnBlur` (keyboard)', () => {
+    // closeOnBlur = true
+    mount(
+      <>
+        <BasicPopover>
+          <button>Popover button</button>
+        </BasicPopover>
+        <button id="new-focus">Blur</button>
+      </>
+    )
+    cy.get('.test-btn').click()
+    // @ts-ignore
+    cy.get('.popover button').tab()
+    cy.get('.popover').should('not.exist')
   })
 })

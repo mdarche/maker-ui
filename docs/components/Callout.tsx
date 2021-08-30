@@ -7,7 +7,6 @@ interface CalloutProps extends DivProps {
 export const Callout = ({ children, type = 'suggestion' }: CalloutProps) => {
   return (
     <Div
-      // @ts-ignore
       css={{
         background: `var(--color-callout_${type})`,
         padding: '25px 20px',
