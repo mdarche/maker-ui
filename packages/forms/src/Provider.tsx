@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 import { ValidateIcon } from './Icons'
 import { FieldProps, FormValues, FormHelpers } from './types'
-import styles from './styles/position'
+import { styles } from './styles/position'
 
 interface Settings {
   validateOnBlur: boolean
@@ -81,13 +81,13 @@ export const Provider = ({
   breakpoints,
   ...props
 }: FormProviderProps) => {
-  let datepicker = false
+  // let datepicker = false
   /* Calculate initial values via fields */
   let values: Partial<FormValues> = {}
   fields.forEach(({ type, name, initialValue }) => {
-    if (type === 'datepicker') {
-      datepicker = true
-    }
+    // if (type === 'datepicker') {
+    //   datepicker = true
+    // }
     return type !== 'divider'
       ? (values[name] = initialValue || getInitialValue(type))
       : undefined
@@ -107,8 +107,8 @@ export const Provider = ({
 
   return (
     <MakerForm fields={fields} settings={settings as Settings}>
-      {datepicker ? <Global styles={{}} /> : null}
-      <Global styles={styles} />
+      {/* {datepicker ? <Global styles={{}} /> : null} */}
+      <Global styles={{ ...(styles as object) }} />
       <Formik
         initialValues={values}
         onSubmit={onSubmit}

@@ -92,10 +92,8 @@ const validationStyles: MakerProps['css'] = {
   },
 }
 
-const style: MakerProps['css'] = {
+export const styles: object = {
   ...errorStyles,
   ...labelStyles,
   ...validationStyles,
 }
-
-export default style
