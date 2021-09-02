@@ -6,6 +6,7 @@ export const Search = () => {
   return (
     <Flex align="center">
       <Button
+        id="doc-search"
         css={{
           height: 46,
           margin: '5px 0 5px 60px',

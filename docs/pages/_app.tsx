@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
+import Head from 'next/head'
 import { MDXProvider } from '@mdx-js/react'
 import { preToCodeBlock } from 'mdx-utils'
 
@@ -35,10 +36,38 @@ const components = {
 
 export default function App({ Component, pageProps }) {
   return (
-    <Layout>
-      <MDXProvider components={components}>
-        <Component {...pageProps} />
-      </MDXProvider>
-    </Layout>
+    <>
+      <Head>
+        <title>Maker UI</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta httpEquiv="Content-Type" content="text/html;charset=utf-8" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
+        />
+      </Head>
+      <Layout>
+        <MDXProvider components={components}>
+          <Component {...pageProps} />
+        </MDXProvider>
+      </Layout>
+      <script
+        async
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+      />
+      <script
+        async
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `docsearch({
+apiKey: '375203709e8b66acf3df920a0129ecc4',
+indexName: 'maker-ui',
+inputSelector: '#doc-search',
+debug: false // Set debug to true if you want to inspect the dropdown
+});`,
+        }}
+      />
+    </>
   )
 }

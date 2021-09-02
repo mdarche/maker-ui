@@ -118,7 +118,7 @@ describe('Textarea field', () => {
 
 describe('Number field', () => {
   // NOTE - default empty values don't work for number inputs. The field will always render an initial value
-  it.only('renders a number field', () => {
+  it('renders a number field', () => {
     mount(
       <TestForm
         id="number"
