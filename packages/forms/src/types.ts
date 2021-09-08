@@ -145,6 +145,8 @@ export type FieldProps = {
   }
   /** Settings for the repeater field */
   settings_repeater?: object
+  /** A cypress test selector */
+  cy?: string
 }
 
 export interface InputProps extends FieldProps {

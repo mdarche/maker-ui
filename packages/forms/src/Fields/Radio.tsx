@@ -4,7 +4,7 @@ import { InputProps } from '../types'
 
 interface RadioProps extends InputProps {}
 
-export const Radio = ({ name, settings_radio }: RadioProps) => {
+export const Radio = ({ name, cy, settings_radio }: RadioProps) => {
   return (
     <div role="group" aria-labelledby={`${name}-group`}>
       {settings_radio?.options?.map(
@@ -12,6 +12,7 @@ export const Radio = ({ name, settings_radio }: RadioProps) => {
           <label key={index}>
             <FormikField
               id={id}
+              data-cy={cy}
               className={className}
               type="radio"
               name={name}

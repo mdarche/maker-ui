@@ -47,6 +47,7 @@ export const Select = ({
   settings_select,
   firstTouch,
   setFirstTouch,
+  cy,
 }: SelectProps) => {
   return (
     <>
@@ -56,6 +57,7 @@ export const Select = ({
         onClick={() => (!firstTouch ? setFirstTouch(true) : undefined)}
         as={type === 'select' ? 'select' : 'input'}
         name={name}
+        data-cy={cy}
         className={hasError ? 'error' : undefined}
         list={type === 'select-datalist' ? `list-${name}` : undefined}
         type={type !== 'select-datalist' ? 'select' : undefined}>

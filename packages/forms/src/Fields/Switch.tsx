@@ -28,6 +28,7 @@ export const Switch = ({
   type,
   name,
   settings_switch = {},
+  cy,
   ...props
 }: SwitchProps) => {
   const [field, meta] = useField({ ...props, name, type: 'checkbox' })
@@ -106,12 +107,13 @@ export const Switch = ({
         className="switch-label"
         htmlFor={id || name}
         tabIndex={settings.disabled ? -1 : 1}
-        onKeyDown={e => {
+        onKeyDown={(e) => {
           handleKeyPress(e)
         }}>
         <input
           id={id || name}
           type="checkbox"
+          data-cy={cy}
           {...field}
           disabled={settings.disabled}
         />
