@@ -119,7 +119,7 @@ export const Provider = ({
           className="form-wrapper"
           breakpoints={breakpoints}
           css={{
-            'input::placeholder, input:-ms-input-placeholder, ::-ms-input-placeholder':
+            'input::placeholder, input:-ms-input-placeholder, textarea::placeholder, textarea:-ms-input-placeholder':
               {
                 opacity: 1,
                 color: settings?.placeholderColor || '#b7b7b7',

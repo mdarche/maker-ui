@@ -111,7 +111,7 @@ export const Field = (props: FieldComponentProps) => {
   )
 
   return type === 'divider' ? (
-    <div id={id} className={containerClass}>
+    <div id={id} className={mergeSelectors(['divider', containerClass])}>
       {label}
     </div>
   ) : (
