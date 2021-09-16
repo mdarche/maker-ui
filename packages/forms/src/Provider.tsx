@@ -67,7 +67,7 @@ function getInitialValue(type: FieldProps['type']) {
  * The `Form` component lets you generate a highly customizable form from a
  * configuration object and field array. Built on top of Formik.
  * .
- *
+ * @todo update field state via props
  * @link https://maker-ui.com/docs/form
  */
 

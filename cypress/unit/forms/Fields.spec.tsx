@@ -55,7 +55,7 @@ const TestForm = ({
 // Text Field
 
 describe('Text field', () => {
-  it('renders a text field with validation and placeholder', () => {
+  it.only('renders a text field with validation and placeholder', () => {
     mount(
       <TestForm
         id="text"
@@ -80,6 +80,23 @@ describe('Text field', () => {
     cy.get('input[type=text]').type('mike')
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('mike')
+  })
+  it.only('renders a text field with an initial value', () => {
+    mount(
+      <TestForm
+        id="text"
+        fields={[
+          {
+            name: 'text',
+            initialValue: 'Test',
+            type: 'text',
+            placeholder: 'Your name',
+            validation: Yup.string().required('Required'),
+            required: true,
+          },
+        ]}
+      />
+    )
   })
 })
 
