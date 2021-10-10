@@ -49,6 +49,9 @@ export const options: MakerUIOptions = {
     stickyOnMobile: true,
     breakpoint: 0,
     showColorButton: false,
+    dropdown: {
+      transition: 'fade-down',
+    },
   },
   linkFunction: function nextLink(
     path: string,

@@ -257,7 +257,7 @@ export interface MakerOptions {
        * The transition animation for showing/hiding header dropdown menus on hover or focus.
        * @default 'fade'
        * */
-      transition: 'scale' | 'fade' | 'fade-down' | 'fade-up'
+      transition: 'scale' | 'fade' | 'fade-down' | 'fade-up' | 'none'
     }
     /**
      * Lets you decide if your nav menu should wrap to the next line or scroll horizontally

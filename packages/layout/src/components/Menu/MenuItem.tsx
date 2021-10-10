@@ -1,15 +1,6 @@
-/** @jsx jsx */
-import { jsx } from '@maker-ui/css'
-import { Link } from '@maker-ui/primitives'
-import React, { Fragment, useState, memo, isValidElement } from 'react'
+import React, { useState, memo, isValidElement } from 'react'
 
-import { useOptions } from '../../context/OptionContext'
 import { ExpandButton } from './ExpandButton'
-import {
-  caretStyles,
-  dropdownStyles,
-  getStyles,
-} from '../../utils/styles-submenu'
 import { MakerOptions } from '../../types'
 import { mergeSelectors } from '../../utils/helper'
 
@@ -85,64 +76,51 @@ export const MenuItem = memo(
     linkFunction,
     depth = 0,
   }: MenuInternalProps) => {
-    const { header } = useOptions()
     const [showNested, setNested] = useState(openNested)
-    const submenuClass: string = `submenu depth-${depth}`
 
     const attributes = {
       className: pathname === path ? 'current' : undefined,
-      target: newTab && '_blank',
-      rel: newTab && 'noopener noreferrer',
-      'aria-label': icon && label,
-      'aria-haspopup': submenu && 'true',
+      target: newTab ? '_blank' : undefined,
+      rel: newTab ? 'noopener noreferrer' : undefined,
+      'aria-label': icon ? label : undefined,
+      'aria-haspopup': isHeader && submenu ? 'true' : undefined,
       'aria-current': pathname === path ? 'page' : undefined,
       ...menuControls,
     }
 
     return (
       <li
-        className={mergeSelectors(['menu-item', className])}
-        css={
-          isHeader
-            ? {
-                position: 'relative',
-                display: 'inline-flex',
-                '&:focus-within > .submenu, &:hover > .submenu': {
-                  ...dropdownStyles(header.dropdown.transition),
-                },
-                '> a .menu-text:after':
-                  submenu && caret === 'default' && caretStyles,
-              }
-            : undefined
-        }>
+        className={mergeSelectors([
+          'menu-item',
+          submenu ? 'has-submenu' : undefined,
+          submenu && isHeader && caret === 'default' ? 'caret' : undefined,
+          className,
+        ])}>
         <ConditionalWrapper
           condition={!isHeader && submenu ? true : false}
           wrapper={(children) => <div className="flex">{children}</div>}>
-          <Fragment>
+          <>
             {linkFunction ? (
               linkFunction(path, label, attributes, icon)
             ) : (
-              <Link href={path} {...attributes}>
+              <a href={path} {...attributes}>
                 {icon ? <span className="menu-icon">{icon}</span> : undefined}
                 <span className="menu-text">{label}</span>
                 {submenu && caret && isValidElement(caret) ? caret : null}
-              </Link>
+              </a>
             )}
             {!isHeader && submenu ? (
               <ExpandButton set={setNested} show={showNested} />
             ) : null}
-          </Fragment>
+          </>
         </ConditionalWrapper>
         {submenu && (
-          <Fragment>
+          <>
             {isHeader || (!isHeader && showNested) ? (
               <ul
-                className={submenuClass}
+                className={mergeSelectors(['submenu', `depth-${depth}`])}
                 role="menu"
-                aria-label="submenu"
-                css={{
-                  ...getStyles(isHeader, header.dropdown.transition, depth),
-                }}>
+                aria-label="submenu">
                 {submenu.map((item, index) => (
                   <MenuItem
                     key={index}
@@ -156,7 +134,7 @@ export const MenuItem = memo(
                 ))}
               </ul>
             ) : null}
-          </Fragment>
+          </>
         )}
       </li>
     )
