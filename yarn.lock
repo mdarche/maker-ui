@@ -3104,15 +3104,6 @@
     "@emotion/react" "^11.1.4"
     deepmerge "^4.2.2"
 
-"@maker-ui/elements@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@maker-ui/elements/-/elements-1.0.0.tgz#edba35c141904ce16bcdbee8d450ce1c83e40534"
-  integrity sha512-2iBu+S2MhXI+smBrwHm6NeqIDwUBPBCvh4PI5zGwacaS4OeXlrQ9SbOjU0WGcv5X+8ZHAdw37moW2dYnkx3hEA==
-  dependencies:
-    "@react-spring/web" "^9.2.3"
-    react-use-gesture "^8.0.1"
-    tslib "^2.0.0"
-
 "@maker-ui/layout@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@maker-ui/layout/-/layout-1.0.0.tgz#adab0e8652e72f2cf2cdcf34841cc8d3ac426c37"

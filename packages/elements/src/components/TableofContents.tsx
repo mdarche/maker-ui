@@ -106,7 +106,8 @@ export const TableofContents = ({
     } else {
       setMenu([])
     }
-  }, [headings, pathname])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
 
   // Handle Scroll position
   useScrollPosition(

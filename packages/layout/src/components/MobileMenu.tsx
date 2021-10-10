@@ -84,7 +84,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
         <div
           ref={ref}
           id={mergeSelectors(['mobile-menu', id])}
-          className={mergeSelectors([show ? 'active' : '', className])}
+          className={mergeSelectors([show ? 'active' : undefined, className])}
           css={{
             position: 'fixed',
             background,

@@ -107,10 +107,12 @@ export function validate(obj: any) {
 export function mergeSelectors(
   selectors: (string | undefined)[]
 ): string | undefined {
-  return selectors
+  let s = selectors
     ? selectors
         .join(' ')
         .replace(/ +(?= )/g, '')
         .trim()
     : undefined
+
+  return s === '' ? undefined : s
 }
