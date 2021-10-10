@@ -168,14 +168,16 @@ export const Header = (props: HeaderProps) => {
   return (
     <header
       ref={ref}
-      className={mergeSelectors([libClasses, className])}
+      className={mergeSelectors([
+        libClasses,
+        absolute ? 'width-100' : undefined,
+        className,
+      ])}
       role="banner"
       breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
+      style={{ visibility: initialRender ? 'hidden' : undefined }}
       css={{
         background,
-        zIndex: 100,
-        width: absolute ? '100%' : undefined,
-        visibility: initialRender ? 'hidden' : undefined,
         ...stickyPartial(),
         ...(css as object),
       }}

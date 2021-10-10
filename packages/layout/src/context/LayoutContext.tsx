@@ -3,7 +3,7 @@ import merge from 'deepmerge'
 import { Global } from '@maker-ui/css'
 
 import { colorVars, themeVars } from '../utils/css-builder'
-import { globalStyles } from '../utils/styles'
+import { globalStyles, layoutStyles, utilityStyles } from '../styles'
 import { useOptions } from './OptionContext'
 import { contentTypes, navTypes, mobileNavTypes } from '../constants'
 
@@ -112,16 +112,18 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
     }
   }, [options.persistentColorMode, options.colors])
 
-  const layoutStyles: object = merge.all([
+  const globalCSS: object = merge.all([
     colorVars(options.colors) as object,
     themeVars(options) as object,
     globalStyles as object,
-    styles as object,
+    layoutStyles as object,
+    utilityStyles as object,
   ])
 
   return (
     <LayoutContext.Provider value={{ state, setState }}>
-      <Global styles={layoutStyles} />
+      <Global styles={globalCSS} />
+      {styles ? <Global styles={styles} /> : null}
       {children}
     </LayoutContext.Provider>
   )

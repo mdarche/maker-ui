@@ -80,7 +80,6 @@ export const Topbar = (props: TopbarProps) => {
       <div
         className="container"
         css={{
-          margin: '0 auto',
           overflowX: scrollOverflow ? 'scroll' : undefined,
           whiteSpace: scrollOverflow ? 'nowrap' : undefined,
           maxWidth,

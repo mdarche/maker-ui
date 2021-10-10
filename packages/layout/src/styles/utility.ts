@@ -1,6 +1,10 @@
 import { MakerProps } from '@maker-ui/css'
 
 export const utilityStyles: MakerProps['css'] = {
+  // Positioning
+  grid: {
+    display: 'grid',
+  },
   '.inline-flex': {
     display: 'inline-flex',
   },
@@ -40,6 +44,7 @@ export const utilityStyles: MakerProps['css'] = {
   '.height-100': {
     height: '100%',
   },
+  // Positioning
   '.sticky': {
     position: 'sticky',
   },
@@ -55,10 +60,8 @@ export const utilityStyles: MakerProps['css'] = {
     bottom: 0,
     right: 0,
   },
-  '.bold': {
-    fontWeight: 700,
-  },
   '.container': {
     margin: '0 auto',
   },
+  // Transforms & animations
 }

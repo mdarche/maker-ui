@@ -24,7 +24,7 @@ export const Main = ({
   <main
     id={mergeSelectors(['content', id])}
     role="main"
-    css={{ background, position: 'relative', flex: 1, ...(css as object) }}
+    css={{ background, ...(css as object) }}
     {...props}>
     <ErrorBoundary errorKey="main">{children}</ErrorBoundary>
   </main>

@@ -126,7 +126,6 @@ export function useLayoutStyles(layout: string): object {
       },
       '#content': {
         maxWidth: 'var(--maxWidth_content)',
-        margin: '0 auto',
       },
       '#toggle-sidenav': {
         right: layout === 'sidenav content' ? 30 : undefined,

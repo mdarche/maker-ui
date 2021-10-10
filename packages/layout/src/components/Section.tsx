@@ -48,7 +48,6 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
         css={{
           background,
           color,
-          width: '100%',
           ...(rootCss as object),
         }}>
         {container ? (
@@ -56,7 +55,6 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
             className="container"
             css={{
               maxWidth,
-              margin: '0 auto',
               ...(css as object),
             }}
             {...props}>

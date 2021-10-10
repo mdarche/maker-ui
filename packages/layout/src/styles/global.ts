@@ -16,7 +16,7 @@ export const globalStyles: GlobalProps['styles'] = {
   'code, pre': {
     fontFamily: 'var(--font-monospace)',
   },
-  'b, strong': {
+  'b, strong, .bold': {
     fontWeight: 'bold',
   },
   a: {

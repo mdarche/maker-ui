@@ -33,11 +33,9 @@ export const Footer = ({
       css={{ background, ...(_css as object) }}
       {...props}>
       <div
-        className="container"
+        className="container flex"
         css={{
-          display: 'flex',
           maxWidth: maxWidth,
-          margin: '0 auto',
           ...(css as object),
         }}>
         <ErrorBoundary errorKey="footer">{children}</ErrorBoundary>
