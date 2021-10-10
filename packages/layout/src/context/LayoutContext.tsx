@@ -60,7 +60,7 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
   })
 
   React.useEffect(() => {
-    setState(s => ({
+    setState((s) => ({
       ...s,
       layout_nav: options.header.navType,
       layout_navMobile: options.header.mobileNavType,
@@ -92,7 +92,7 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
           JSON.stringify({ theme: defaultTheme })
         )
         document.body.dataset.theme = defaultTheme
-        setState(s => ({ ...s, colorTheme: defaultTheme }))
+        setState((s) => ({ ...s, colorTheme: defaultTheme }))
       }
 
       if (sessionCheck) {
@@ -102,7 +102,7 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
 
         if (colors.includes(theme)) {
           document.body.dataset.theme = theme
-          setState(s => ({ ...s, colorTheme: theme }))
+          setState((s) => ({ ...s, colorTheme: theme }))
         } else {
           setDefaultTheme()
         }
@@ -112,16 +112,16 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
     }
   }, [options.persistentColorMode, options.colors])
 
-  const cssVariables: object = merge(
+  const layoutStyles: object = merge.all([
     colorVars(options.colors) as object,
-    themeVars(options) as object
-  )
+    themeVars(options) as object,
+    globalStyles as object,
+    styles as object,
+  ])
 
   return (
     <LayoutContext.Provider value={{ state, setState }}>
-      <Global styles={cssVariables} />
-      <Global styles={globalStyles} />
-      <Global styles={styles} />
+      <Global styles={layoutStyles} />
       {children}
     </LayoutContext.Provider>
   )
@@ -176,7 +176,7 @@ function useMeasurements() {
   }
 
   function setMeasurement(key: 'topbar' | 'header' | 'toolbar', value: number) {
-    setState(s => ({ ...s, [`height_${key}`]: value }))
+    setState((s) => ({ ...s, [`height_${key}`]: value }))
   }
 
   return { measurements, setMeasurement }
@@ -205,7 +205,7 @@ function getLayoutType(type: 'content', children: React.ReactNode): string {
   if (nodes) {
     currentLayout = layoutString(
       nodes
-        .map(child =>
+        .map((child) =>
           child.type.displayName
             ? child.type.displayName.toLowerCase()
             : 'unknown'
@@ -238,7 +238,7 @@ function useLayoutDetector<T extends 'content', K extends React.ReactNode>(
   React.useEffect(() => {
     if (children) {
       const currentLayout = getLayoutType(type, children)
-      const isValidLayout = contentTypes.find(v => v === currentLayout)
+      const isValidLayout = contentTypes.find((v) => v === currentLayout)
 
       if (isValidLayout) {
         if (layout !== currentLayout) {
@@ -267,7 +267,7 @@ function useColorTheme() {
       localStorage.setItem('color-theme', JSON.stringify({ theme }))
     }
     document.body.dataset.theme = theme
-    setState(s => ({ ...s, colorTheme: theme }))
+    setState((s) => ({ ...s, colorTheme: theme }))
   }
 
   return { colorTheme, setColorTheme, themes }
