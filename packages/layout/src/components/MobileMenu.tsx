@@ -43,7 +43,6 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
   (props, ref) => {
     const [show, toggleMenu] = useMenu()
     const { mobileMenu } = useOptions()
-
     const {
       id,
       background,
@@ -61,6 +60,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       children,
       ...rest
     } = props
+    const cssValues = background || width || css
 
     return (
       <Fragment>
@@ -78,11 +78,15 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
             transition,
             className,
           ])}
-          css={{
-            background,
-            width,
-            ...(css as object),
-          }}
+          css={
+            typeof cssValues !== 'undefined'
+              ? {
+                  background,
+                  width,
+                  ...(css as object),
+                }
+              : undefined
+          }
           {...rest}>
           <ErrorBoundary errorKey="mobileMenu">
             {mobileMenu.showCloseButton || closeButton ? (

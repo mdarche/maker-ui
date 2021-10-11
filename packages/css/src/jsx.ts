@@ -27,7 +27,8 @@ function parseProps(props: any) {
 }
 
 /**
- * JSX that supports responsive arrays and the `breakpoints` prop
+ * JSX that supports responsive arrays and the `breakpoints` prop. Uses normal
+ * React.createElement if `breakpoints` or `css` do not exist.
  *
  * @remarks
  * This is just a prop-formatting wrapper for Emotion's jsx export
@@ -40,4 +41,7 @@ export const jsx = <P extends {}>(
   type: React.ElementType<P>,
   props: React.Attributes & P,
   ...children: React.ReactNode[]
-) => emotionJsx(type, parseProps(props), ...children)
+) =>
+  typeof props?.css !== 'undefined' || typeof props?.breakpoints !== 'undefined'
+    ? emotionJsx(type, parseProps(props), ...children)
+    : React.createElement(type, props, ...children)
