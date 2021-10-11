@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Link } from '@maker-ui/primitives'
 
 import { useOptions } from '../../context/OptionContext'
 
@@ -24,9 +23,9 @@ export const Logo = ({ children }: LogoProps): React.ReactElement => {
   return linkFunction ? (
     linkFunction('/', children, attributes)
   ) : (
-    <Link href="/" {...attributes} css={{ display: 'inline-flex' }}>
+    <a href="/" {...attributes} css={{ display: 'inline-flex' }}>
       {children}
-    </Link>
+    </a>
   )
 }
 

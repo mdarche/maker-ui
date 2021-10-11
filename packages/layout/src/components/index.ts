@@ -11,6 +11,6 @@ export { Footer } from './Footer'
 export { Section } from './Section'
 export { ColorButton } from './Navbar/ColorButton'
 export { CollapsibleMenu, MenuItemProps, MakerMenu } from './Menu'
-export { ErrorBoundary } from './Errors/ErrorBoundary'
+export { ErrorBoundary } from './Errors'
 
 export * from '../types'

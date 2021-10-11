@@ -2,7 +2,7 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { useState, useEffect } from 'react'
 
-import { ErrorBoundary } from './Errors/ErrorBoundary'
+import { ErrorContainer } from './Errors'
 import { ContentError } from './Errors/Errors'
 import { useOptions } from '../context/OptionContext'
 import { useLayoutDetector } from '../context/LayoutContext'
@@ -50,7 +50,7 @@ export const Content = ({ id, children, css, ...props }: ContentProps) => {
       {showError ? (
         <ContentError />
       ) : (
-        <ErrorBoundary errorKey="content">{children}</ErrorBoundary>
+        <ErrorContainer errorKey="content">{children}</ErrorContainer>
       )}
     </div>
   )

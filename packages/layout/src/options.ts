@@ -41,6 +41,7 @@ export const defaultOptions: MakerUIOptions = {
     maxWidth: 1260,
     hideOnMobile: false,
     breakpoint: 0,
+    errorBoundary: false,
   },
   header: {
     navType: 'basic',
@@ -58,6 +59,7 @@ export const defaultOptions: MakerUIOptions = {
       transition: 'fade',
     },
     breakpoint: 0,
+    errorBoundary: false,
   },
   mobileMenu: {
     width: '60vw',
@@ -66,6 +68,7 @@ export const defaultOptions: MakerUIOptions = {
     showCloseButton: true,
     closeOnBlur: true,
     closeOnRouteChange: false,
+    errorBoundary: false,
   },
   sideNav: {
     width: [250, 300],
@@ -79,19 +82,23 @@ export const defaultOptions: MakerUIOptions = {
     breakpoint: 0,
     collapse: false,
     collapseButton: 'default',
+    errorBoundary: false,
   },
   content: {
     maxWidth: 1020,
     maxWidthSection: 1020,
     sidebarGap: 30,
     breakpoint: 0,
+    errorBoundary: false,
   },
   sidebar: {
     width: 300,
     secondWidth: 200,
+    errorBoundary: false,
   },
   footer: {
     maxWidth: 1020,
+    errorBoundary: false,
   },
   a11y: {
     skiplinks: true,

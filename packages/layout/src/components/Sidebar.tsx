@@ -2,7 +2,7 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { mergeSelectors } from '../utils/helper'
 
-import { ErrorBoundary } from './Errors'
+import { ErrorContainer } from './Errors'
 
 interface SidebarProps
   extends MakerProps,
@@ -25,7 +25,7 @@ export const Sidebar = ({
       className={mergeSelectors(['sidebar', className])}
       role="complementary"
       {...props}>
-      <ErrorBoundary errorKey="sidebar">{children}</ErrorBoundary>
+      <ErrorContainer errorKey="sidebar">{children}</ErrorContainer>
     </div>
   )
 }

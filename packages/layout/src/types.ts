@@ -176,6 +176,11 @@ export interface MakerOptions {
      * @remark This is only helpful if `hideOnMobile` is true.
      */
     breakpoint: number | string
+    /**
+     * An option to add an optional error boundary to the Topbar container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI header.
@@ -295,6 +300,11 @@ export interface MakerOptions {
      * @default 0 (breakpoints[0], or 768px)
      */
     breakpoint: number | string
+    /**
+     * An option to add an optional error boundary to the Header container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI mobile menu.
@@ -343,6 +353,11 @@ export interface MakerOptions {
      * @default false
      */
     closeOnRouteChange: boolean
+    /**
+     * An option to add an optional error boundary to the MobileMenu container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI side navigation bar.
@@ -425,6 +440,11 @@ export interface MakerOptions {
      * @default 0 (breakpoints[0], or 768px)
      */
     breakpoint: string | number
+    /**
+     * An option to add an optional error boundary to the SideNav container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI content area.
@@ -456,6 +476,11 @@ export interface MakerOptions {
      * @default 0 (breakpoints[0], or 768px)
      */
     breakpoint: string | number
+    /**
+     * An option to add an optional error boundary to the main content area
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI sidebar.
@@ -472,6 +497,11 @@ export interface MakerOptions {
      * @default 200
      */
     secondWidth?: ResponsiveScale
+    /**
+     * An option to add an optional error boundary to the Sidebar container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI footer.
@@ -482,6 +512,11 @@ export interface MakerOptions {
      * @default 1020
      */
     maxWidth?: ResponsiveScale
+    /**
+     * An option to add an optional error boundary to the Footer container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for Maker UI accessibility settings.
@@ -521,8 +556,6 @@ export interface MakerOptions {
       mobileMenu?: React.ReactNode
       /** Custom component that displays for any error nested in the Content component. */
       content?: React.ReactNode
-      /** Custom component that displays for any error nested in the Main component. */
-      main?: React.ReactNode
       /** Custom component that displays for any error nested in the SideNav. */
       sideNav?: React.ReactNode
       /** Custom component that displays for any error nested in the Sidebar. */

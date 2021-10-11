@@ -3,7 +3,7 @@ import { jsx, MakerProps } from '@maker-ui/css'
 import { useEffect, useState } from 'react'
 import useMeasure from 'react-use-measure'
 
-import { ErrorBoundary } from './Errors'
+import { ErrorContainer } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
 import { useMeasurements } from '../context/LayoutContext'
@@ -182,7 +182,7 @@ export const Header = (props: HeaderProps) => {
         ...(css as object),
       }}
       {...rest}>
-      <ErrorBoundary errorKey="header">{children}</ErrorBoundary>
+      <ErrorContainer errorKey="header">{children}</ErrorContainer>
     </header>
   )
 }

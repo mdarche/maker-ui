@@ -2,7 +2,7 @@
 import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { mergeSelectors } from '../utils/helper'
 
-import { ErrorBoundary } from './Errors'
+import { ErrorContainer } from './Errors'
 
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: ResponsiveScale
@@ -35,10 +35,10 @@ export const Footer = ({
       <div
         className="container flex"
         css={{
-          maxWidth: maxWidth,
+          maxWidth,
           ...(css as object),
         }}>
-        <ErrorBoundary errorKey="footer">{children}</ErrorBoundary>
+        <ErrorContainer errorKey="footer">{children}</ErrorContainer>
       </div>
     </footer>
   )

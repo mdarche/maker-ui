@@ -4,7 +4,7 @@ import { forwardRef, Fragment } from 'react'
 
 import { MakerOptions } from '../types'
 import { CollapsibleMenu, MenuButton, MenuItemProps } from './Menu'
-import { ErrorBoundary } from './Errors'
+import { ErrorContainer } from './Errors'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
@@ -88,7 +88,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
               : undefined
           }
           {...rest}>
-          <ErrorBoundary errorKey="mobileMenu">
+          <ErrorContainer errorKey="mobileMenu">
             {mobileMenu.showCloseButton || closeButton ? (
               <MenuButton customButton={closeButton} isCloseButton />
             ) : null}
@@ -101,7 +101,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
               />
             )}
             {footer ? footer : null}
-          </ErrorBoundary>
+          </ErrorContainer>
         </div>
       </Fragment>
     )

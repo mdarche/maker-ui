@@ -24,6 +24,9 @@ export const layoutStyles: MakerProps['css'] = {
   header: {
     zIndex: 100,
   },
+  '#site-logo': {
+    display: 'inline-flex',
+  },
   // Mobile Menu
   '#mobile-menu': {
     position: 'fixed',

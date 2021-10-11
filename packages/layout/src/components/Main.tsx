@@ -2,8 +2,6 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { mergeSelectors } from '../utils/helper'
 
-import { ErrorBoundary } from './Errors'
-
 interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
 }
@@ -26,7 +24,7 @@ export const Main = ({
     role="main"
     css={{ background, ...(css as object) }}
     {...props}>
-    <ErrorBoundary errorKey="main">{children}</ErrorBoundary>
+    {children}
   </main>
 )
 

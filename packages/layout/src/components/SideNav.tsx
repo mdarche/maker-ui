@@ -3,7 +3,7 @@ import { jsx, MakerProps } from '@maker-ui/css'
 import { Button } from '@maker-ui/primitives'
 
 import { MakerOptions } from '../types'
-import { ErrorBoundary } from './Errors/ErrorBoundary'
+import { ErrorContainer } from './Errors'
 import { MenuItemProps } from './Menu'
 
 import { CollapsibleMenu } from './Menu'
@@ -74,7 +74,7 @@ export const SideNav = ({
   })
 
   return (
-    <ErrorBoundary errorKey="sideNav">
+    <ErrorContainer errorKey="sideNav">
       {sideNav.closeOnBlur ? (
         <Overlay show={active} toggle={setActive} />
       ) : null}
@@ -147,7 +147,7 @@ export const SideNav = ({
           )}
         </Button>
       ) : null}
-    </ErrorBoundary>
+    </ErrorContainer>
   )
 }
 

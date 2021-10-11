@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import useMeasure from 'react-use-measure'
 
 import { MakerOptions } from '../types'
-import { ErrorBoundary } from './Errors/ErrorBoundary'
+import { ErrorContainer } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
 import { useMeasurements } from '../context/LayoutContext'
 import { mergeSelectors, setBreakpoint } from '../utils/helper'
@@ -86,7 +86,7 @@ export const Topbar = (props: TopbarProps) => {
           ...(css as object),
         }}
         {...rest}>
-        <ErrorBoundary errorKey="topbar">{children}</ErrorBoundary>
+        <ErrorContainer errorKey="topbar">{children}</ErrorContainer>
       </div>
     </aside>
   )
