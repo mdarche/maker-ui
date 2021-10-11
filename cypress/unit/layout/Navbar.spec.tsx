@@ -89,7 +89,7 @@ describe('Navbar', () => {
         <Navbar menu={nestedMenu} />
       </NavWrapper>
     )
-    cy.get('.menu-area .menu-primary li').eq(0).get('.custom-menu-link')
+    cy.get('.menu-slot .menu-primary li').eq(0).get('.custom-menu-link')
   })
 
   /*  Option: `header.menuOverflow` */
@@ -100,7 +100,7 @@ describe('Navbar', () => {
         <Navbar menu={testMenu} />
       </NavWrapper>
     )
-    cy.get('.menu-area').should('have.css', 'overflow-x', 'scroll')
+    cy.get('.menu-slot').should('have.css', 'overflow-x', 'scroll')
   })
 
   /*  Option: `mobileMenu.visibleOnDesktop` */
@@ -111,7 +111,7 @@ describe('Navbar', () => {
         <Navbar menu={testMenu} />
       </NavWrapper>
     )
-    cy.get('.nav-area .menu-button').click()
+    cy.get('.widget-slot .menu-button').click()
   })
 
   /*  Option: `header.hideWidgetsOnMobile` */
@@ -124,7 +124,7 @@ describe('Navbar', () => {
     )
     cy.contains('Widgets')
     cy.viewport('iphone-x')
-      .get('.widget-area')
+      .get('.nav-widgets')
       .should('have.css', 'display', 'none')
   })
 
@@ -147,9 +147,9 @@ describe('Navbar', () => {
         <Navbar menu={testMenu} />
       </NavWrapper>
     )
-    cy.get('.nav-area .color-button')
+    cy.get('.widget-slot .color-button')
     cy.viewport('iphone-x')
-      .get('.nav-area .color-button')
+      .get('.widget-slot .color-button')
       .should('have.css', 'display', 'none')
   })
 
@@ -169,7 +169,7 @@ describe('Navbar', () => {
       </NavWrapper>
     )
     cy.contains('Custom-Btn!')
-    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
+    cy.viewport('iphone-x').get('.widget-slot .menu-button').click()
     cy.get('#mobile-menu').should('have.class', 'active')
   })
 
@@ -244,9 +244,9 @@ describe('Navbar', () => {
         />
       </NavWrapper>
     )
-    cy.get('.logo-area').contains('logo')
-    cy.get('.nav-area').contains('nav')
-    cy.get('.menu-area').contains('menu')
+    cy.get('.logo-slot').contains('logo')
+    cy.get('.widget-slot').contains('nav')
+    cy.get('.menu-slot').contains('menu')
   })
 
   /*  Prop: `menu` */
@@ -258,7 +258,7 @@ describe('Navbar', () => {
       </NavWrapper>
     )
     cy.get('.menu-text').contains('Three').should('have.css', 'content')
-    cy.get('.menu-area').contains('Five')
+    cy.get('.menu-slot').contains('Five')
   })
 
   /*  Prop: `menuButton` (callback) */
@@ -273,7 +273,7 @@ describe('Navbar', () => {
       </NavWrapper>
     )
     cy.contains('Custom-Btn!')
-    cy.viewport('iphone-x').get('.nav-area .menu-button').click()
+    cy.viewport('iphone-x').get('.widget-slot .menu-button').click()
     cy.get('#mobile-menu').should('have.class', 'active')
   })
 
@@ -316,7 +316,7 @@ describe('Navbar', () => {
       </NavWrapper>
     )
     cy.viewport('iphone-x')
-      .get('.menu-area')
+      .get('.menu-slot')
       .should('have.css', 'display', 'none')
   })
 })

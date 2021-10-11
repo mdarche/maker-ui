@@ -20,12 +20,40 @@ export const layoutStyles: MakerProps['css'] = {
       },
     },
   },
-  // Header Grid
+  // Header
   header: {
     zIndex: 100,
   },
   '#site-logo': {
     display: 'inline-flex',
+  },
+  // Nav Grid
+  '.nav-grid': {
+    margin: '0 auto',
+    position: 'relative',
+  },
+  '.nav-area': {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  '.button-slot': {
+    gridArea: 'button',
+  },
+  '.menu-slot': {
+    gridArea: 'menu',
+  },
+  '.menu-slot.split': {
+    gridArea: 'menu-split',
+  },
+  '.logo-slot': {
+    gridArea: 'logo',
+  },
+  '.widget-slot': {
+    gridArea: 'widgets',
+  },
+  '.menu-scroll .menu-slot': {
+    overflowX: 'scroll',
+    whiteSpace: 'nowrap',
   },
   // Mobile Menu
   '#mobile-menu': {

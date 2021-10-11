@@ -25,6 +25,7 @@ export const MenuButton = ({
   customButton,
   visibleOnDesktop,
   isCloseButton,
+  css,
   className,
   ...props
 }: MenuButtonProps) => {
@@ -56,6 +57,7 @@ export const MenuButton = ({
       breakpoints={setBreakpoint(header?.breakpoint, breakpoints)}
       css={{
         display: getDisplay,
+        ...(css as object),
       }}>
       {menuButton || (
         <svg

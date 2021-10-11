@@ -1,6 +1,7 @@
-import * as React from 'react'
-import { Grid, Flex } from '@maker-ui/primitives'
-import { MakerProps, ResponsiveScale } from '@maker-ui/css'
+/** @jsx jsx */
+import { jsx, ResponsiveScale, MakerProps } from '@maker-ui/css'
+import { Grid } from '@maker-ui/primitives'
+import { useEffect } from 'react'
 
 import { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
@@ -8,7 +9,6 @@ import { useLayout } from '../../context/LayoutContext'
 import { Logo } from './Logo'
 import { ColorButton } from './ColorButton'
 import { NavMenu, MenuButton, MenuItemProps } from '../Menu'
-import { WidgetArea } from './WidgetArea'
 import { gridStyles } from './styles'
 import { setBreakpoint, mergeSelectors } from '../../utils/helper'
 
@@ -19,9 +19,9 @@ export interface NavProps extends MakerProps {
   menu?: MenuItemProps[]
   colorButton?: MakerOptions['header']['colorButton']
   menuButton?: MakerOptions['header']['menuButton']
-  logoArea?: React.ReactNode
-  navArea?: React.ReactNode
-  menuArea?: React.ReactNode
+  logoSlot?: React.ReactNode
+  widgetSlot?: React.ReactNode
+  menuSlot?: React.ReactNode
   pathname?: string
   maxWidth?: ResponsiveScale
   className?: string
@@ -52,9 +52,9 @@ export const Navbar = (props: NavProps) => {
     mobileType,
     logo = 'Logo',
     menu,
-    logoArea,
-    navArea,
-    menuArea,
+    logoSlot,
+    widgetSlot,
+    menuSlot,
     menuButton,
     colorButton,
     maxWidth = 'var(--maxWidth_header)',
@@ -65,7 +65,7 @@ export const Navbar = (props: NavProps) => {
 
   const mid = menu && Math.ceil(menu.length / 2)
 
-  React.useEffect(() => {
+  useEffect(() => {
     /** Update layout context if current desktop layout is different */
     if (type !== undefined && type !== layout) {
       setLayout(type)
@@ -78,78 +78,59 @@ export const Navbar = (props: NavProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, mobileType, layout, mobileLayout])
 
-  const wrapPartial: object | undefined =
-    header.menuOverflow === 'scroll'
-      ? { '.menu-area': { overflowX: 'scroll', whiteSpace: 'nowrap' } }
-      : undefined
-
   return (
     <Grid
       id={id}
       className={mergeSelectors([
         `nav-grid layout-${layout}`,
         `m-layout-${mobileLayout}`,
+        header.menuOverflow === 'scroll' ? 'menu-scroll' : undefined,
         className,
       ])}
       breakpoints={bpArray}
       css={{
         maxWidth,
-        margin: '0 auto',
-        position: 'relative',
         ...gridStyles(layout, mobileLayout),
-        ...wrapPartial,
+        '.menu-slot': {
+          display: ['none', 'flex'],
+        },
+        '.button-slot': {
+          display: [
+            mobileEdge.includes(mobileLayout) ? 'flex' : 'none',
+            edge.includes(layout) ? 'flex' : 'none',
+          ],
+        },
+        '.nav-widgets': {
+          display: header.hideWidgetsOnMobile ? ['none', 'flex'] : 'flex',
+        },
         ...(css as object),
       }}>
       {edge.includes(layout) || mobileEdge.includes(mobileLayout) ? (
-        <Flex
-          align="center"
-          className="button-area"
-          breakpoints={bpArray}
-          css={{
-            gridArea: 'button',
-            display: [
-              mobileEdge.includes(mobileLayout) ? 'flex' : 'none',
-              edge.includes(layout) ? 'flex' : 'none',
-            ],
-          }}>
+        <div className="nav-area button-slot">
           <MenuButton
             breakpoints={bpArray}
             customButton={menuButton}
             visibleOnDesktop
           />
-        </Flex>
+        </div>
       ) : null}
       {layout === 'split' ? (
-        <Flex
-          align="center"
-          className="menu-area split"
-          breakpoints={bpArray}
-          css={{
-            gridArea: 'menu-split',
-            display: ['none', 'flex'],
-          }}>
-          {menuArea ? null : <NavMenu menuItems={menu?.slice(0, mid)} />}
-        </Flex>
+        <div className="nav-area menu-slot split">
+          {menuSlot ? null : <NavMenu menuItems={menu?.slice(0, mid)} />}
+        </div>
       ) : null}
-      <Flex align="center" className="logo-area" css={{ gridArea: 'logo' }}>
-        {logoArea ? logoArea : <Logo>{logo}</Logo>}
-      </Flex>
-      <Flex
-        align="center"
-        className="menu-area"
-        breakpoints={bpArray}
-        css={{
-          gridArea: 'menu',
-          display: ['none', 'flex'],
-        }}>
-        {menuArea ? (
-          menuArea
+      <div className="nav-area logo-slot">
+        {logoSlot ? logoSlot : <Logo>{logo}</Logo>}
+      </div>
+      <div className="nav-area menu-slot">
+        {menuSlot ? (
+          menuSlot
         ) : (
           <NavMenu menuItems={layout === 'split' ? menu?.slice(mid) : menu} />
         )}
-      </Flex>
-      <Flex align="center" className="nav-area" css={{ gridArea: 'nav' }}>
-        <WidgetArea content={navArea} />
+      </div>
+      <div className="nav-area widget-slot">
+        <div className="nav-widgets">{widgetSlot}</div>
         <MenuButton
           customButton={menuButton}
           breakpoints={bpArray}
@@ -163,7 +144,7 @@ export const Navbar = (props: NavProps) => {
           }}
         />
         <ColorButton isHeaderButton customButton={colorButton} />
-      </Flex>
+      </div>
     </Grid>
   )
 }

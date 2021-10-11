@@ -115,7 +115,7 @@ describe('SideNav', () => {
 
   it('can be controlled by mobile nav button on mobile browsers', () => {
     mount(<TestSideNav options={{ sideNav: { isPrimaryMobileNav: true } }} />)
-    cy.viewport('iphone-x').get('header .nav-area .menu-button').click()
+    cy.viewport('iphone-x').get('header .widget-slot .menu-button').click()
     cy.get('#sidenav').should('not.have.class', 'hide-sidenav')
     cy.get('#site-inner .menu-overlay').click()
     cy.get('#sidenav').should('have.class', 'hide-sidenav')

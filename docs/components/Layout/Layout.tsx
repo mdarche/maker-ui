@@ -30,8 +30,8 @@ const Layout = ({ children }) => {
       <Header>
         <Navbar
           logo={<Logo />}
-          menuArea={<Search />}
-          navArea={<NavWidgets />}
+          menuSlot={<Search />}
+          widgetSlot={<NavWidgets />}
         />
         <MobileMenu menu={menu} />
       </Header>
