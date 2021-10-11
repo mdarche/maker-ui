@@ -306,12 +306,6 @@ export interface MakerOptions {
      */
     transition: typeof transitionTypes[number]
     /**
-     * The CSS `transition` property that controls how the mobile menu enters and exits
-     * the viewport.
-     * @default 'all ease 0.3s'
-     */
-    cssTransition?: string
-    /**
      * Displays the header's mobile menu button at all times.
      * @default false
      */

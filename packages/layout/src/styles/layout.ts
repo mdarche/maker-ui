@@ -25,19 +25,67 @@ export const layoutStyles: MakerProps['css'] = {
     zIndex: 100,
   },
   // Mobile Menu
-  '.submenu-toggle': {
-    border: 'none',
-    background: 'transparent',
-    svg: {
-      height: 12,
-      width: 12,
-      transition: 'transform ease .2s',
-      transformOrigin: '50% 55%',
-      '&.rotate': {
-        transform: 'rotate(180deg)',
+  '#mobile-menu': {
+    position: 'fixed',
+    top: 0,
+    bottom: 0,
+    zIndex: 100,
+    background: 'var(--color-bg_mobileMenu)',
+    willChange: 'transform, opacity',
+    visibility: 'hidden',
+    transition: 'all ease 0.3s',
+    '.menu-button': {
+      position: 'absolute',
+    },
+    '&.center': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    },
+    '&.full-width': {
+      width: '100%',
+      left: 0,
+    },
+    '&:not(.full-width)': {
+      width: 'var(--width_mobileMenu)',
+    },
+    '&.fade, &.fade-up, &.fade-down': {
+      opacity: 0,
+      '&.active': {
+        opacity: 1,
+        visibility: 'visible',
+        transform: 'translateY(0)',
       },
     },
+    '&.fade-up': { transform: 'translateY(20px)' },
+    '&.fade-down': { transform: 'translateY(-20px)' },
+    '&.slide-right.active, &.slide-left.active': {
+      visibility: 'visible',
+      transform: 'translateX(0)',
+    },
+    '&.slide-right': { right: 0, transform: 'translateX(100%)' },
+    '&.slide-left': { left: 0, transform: 'translateX(-100%)' },
   },
+  '.menu-button': {
+    margin: 0,
+    border: 'none',
+    background: 'none',
+    svg: {
+      display: 'block',
+      margin: '0 auto',
+    },
+  },
+  '.menu-button-icon': {
+    height: 27,
+    '&.close-button-icon': {
+      height: 35,
+    },
+  },
+  '.close-top-left .menu-button': { top: 0, left: 0 },
+  '.close-top-right .menu-button': { top: 0, right: 0 },
+  '.close-bottom-left .menu-button': { bottom: 0, left: 0 },
+  '.close-bottom-right .menu-button': { bottom: 0, right: 0 },
   '.menu-overlay': {
     background: 'rgba(0, 0, 0, 0.15)',
     zIndex: 100,
@@ -79,6 +127,19 @@ export const layoutStyles: MakerProps['css'] = {
       height: '100%',
       left: '100%',
       top: 0,
+    },
+  },
+  '.submenu-toggle': {
+    border: 'none',
+    background: 'transparent',
+    svg: {
+      height: 12,
+      width: 12,
+      transition: 'transform ease .2s',
+      transformOrigin: '50% 55%',
+      '&.rotate': {
+        transform: 'rotate(180deg)',
+      },
     },
   },
   '.dropdown-fade, .dropdown-fade-down, .dropdown-fade-up': {
@@ -133,6 +194,8 @@ export const layoutStyles: MakerProps['css'] = {
     borderRight: '.25em solid transparent',
     borderLeft: '.25em solid transparent',
   },
+  // Header Grid
+
   main: {
     position: 'relative',
     flex: 1,

@@ -28,6 +28,7 @@ export const options: MakerUIOptions = {
       bg_header: '#fff',
       bg_dropdown: '#fff',
       bg_sideNav: '#FBFCFF',
+      bg_mobileMenu: '#000',
       bg_code: '#f2f3f9',
     },
     dark: {
@@ -53,6 +54,9 @@ export const options: MakerUIOptions = {
       transition: 'fade-down',
     },
   },
+  mobileMenu: {
+    transition: 'slide-left',
+  },
   linkFunction: function nextLink(
     path: string,
     children: React.ReactNode,
@@ -69,8 +73,8 @@ export const options: MakerUIOptions = {
   },
   sideNav: {
     width: 280,
-    isPrimaryMobileNav: true,
-    showToggleOnMobile: false,
+    // isPrimaryMobileNav: true,
+    // showToggleOnMobile: false,
     collapse: false,
   },
 }

@@ -53,7 +53,6 @@ export const defaultOptions: MakerUIOptions = {
   mobileMenu: {
     width: '60vw',
     transition: 'slide-left',
-    cssTransition: 'all ease 0.3s',
     visibleOnDesktop: false,
     showCloseButton: true,
     closeOnBlur: true,

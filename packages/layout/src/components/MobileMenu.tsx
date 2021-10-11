@@ -8,7 +8,7 @@ import { ErrorBoundary } from './Errors'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
-import { getTransition, fullWidth, mergeSelectors } from '../utils/helper'
+import { mergeSelectors } from '../utils/helper'
 
 interface MobileMenuProps
   extends MakerProps,
@@ -30,6 +30,9 @@ interface MobileMenuProps
   className?: string
 }
 
+/* Utility for mobile nav transitions that require a full-width window */
+const fullWidth = ['fade', 'fade-up', 'fade-down']
+
 /**
  * The `MobileMenu` component lets you customize a responsive overlay menu for mobile navigation.
  *
@@ -43,11 +46,11 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
 
     const {
       id,
-      background = 'var(--color-bg_mobileMenu)',
+      background,
       center,
       closeButton = mobileMenu.closeButton,
       closeButtonPosition = 'top-right',
-      width = 'var(--width_mobileMenu)',
+      width,
       transition = mobileMenu.transition,
       menu = [],
       pathname,
@@ -59,23 +62,6 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       ...rest
     } = props
 
-    const centerStyles: object | undefined = center
-      ? {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }
-      : undefined
-
-    const buttonX = closeButtonPosition.includes('right')
-      ? { right: 0 }
-      : { left: 0 }
-
-    const buttonY = closeButtonPosition.includes('top')
-      ? { top: 0 }
-      : { bottom: 0 }
-
     return (
       <Fragment>
         {mobileMenu.closeOnBlur && !fullWidth.includes(transition) ? (
@@ -84,27 +70,23 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
         <div
           ref={ref}
           id={mergeSelectors(['mobile-menu', id])}
-          className={mergeSelectors([show ? 'active' : undefined, className])}
+          className={mergeSelectors([
+            show ? 'active' : undefined,
+            center ? 'center' : undefined,
+            fullWidth.includes(transition) ? 'full-width' : undefined,
+            `close-${closeButtonPosition}`,
+            transition,
+            className,
+          ])}
           css={{
-            position: 'fixed',
             background,
-            top: 0,
-            bottom: 0,
-            zIndex: 100,
-            willChange: 'transform, opacity',
-            transition: mobileMenu.cssTransition,
-            ...getTransition(show, transition, width),
-            ...centerStyles,
+            width,
             ...(css as object),
           }}
           {...rest}>
           <ErrorBoundary errorKey="mobileMenu">
             {mobileMenu.showCloseButton || closeButton ? (
-              <MenuButton
-                customButton={closeButton}
-                isCloseButton
-                css={{ position: 'absolute', ...buttonY, ...buttonX }}
-              />
+              <MenuButton customButton={closeButton} isCloseButton />
             ) : null}
             {header ? header : null}
             {children || (

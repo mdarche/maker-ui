@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SVG, Button, ButtonProps } from '@maker-ui/primitives'
+import { Button, ButtonProps } from '@maker-ui/primitives'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
@@ -26,7 +26,6 @@ export const MenuButton = ({
   visibleOnDesktop,
   isCloseButton,
   className,
-  css,
   ...props
 }: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
@@ -57,25 +56,21 @@ export const MenuButton = ({
       breakpoints={setBreakpoint(header?.breakpoint, breakpoints)}
       css={{
         display: getDisplay,
-        margin: 0,
-        border: 'none',
-        background: 'none',
-        svg: { margin: '0 auto' },
-        ...(css as object),
       }}>
       {menuButton || (
-        <SVG
+        <svg
           viewBox="0 0 24 24"
-          style={{ height: isCloseButton ? 35 : 27 }}
-          css={{
-            display: 'block',
-          }}>
+          xmlns="http://www.w3.org/2000/svg"
+          className={mergeSelectors([
+            'menu-button-icon',
+            isCloseButton ? 'close-button-icon' : undefined,
+          ])}>
           {isCloseButton ? (
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
           ) : (
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
           )}
-        </SVG>
+        </svg>
       )}
     </Button>
   )
