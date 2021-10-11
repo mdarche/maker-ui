@@ -4,6 +4,8 @@ import Head from 'next/head'
 import { MDXProvider } from '@mdx-js/react'
 import { preToCodeBlock } from 'mdx-utils'
 
+import '@docsearch/css'
+
 import Layout from '../components/Layout/Layout'
 import { CodeBlock } from '../components/CodeBlock'
 import { DocsLink } from '../components/DocsLink'
@@ -41,10 +43,10 @@ export default function App({ Component, pageProps }) {
         <title>Maker UI</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta httpEquiv="Content-Type" content="text/html;charset=utf-8" />
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
-        />
+        /> */}
       </Head>
       <Layout>
         <MDXProvider components={components}>

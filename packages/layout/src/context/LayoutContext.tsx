@@ -73,8 +73,6 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
    * @remark To conform with `prefers-color-scheme`, make sure you explicitly
    * set color modes with `light` and `dark` keys.
    *
-   * @todo check for preferred color scheme and handle expiration
-   * @todo figure out the type for the object
    * */
 
   React.useEffect(() => {
@@ -103,7 +101,7 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
             document.body.dataset.theme = 'dark'
             setState((s) => ({ ...s, colorTheme: 'dark' }))
           } else {
-            // Else use the first theme key as the default
+            // Use the first theme key as the default
             const defaultTheme = themeKeys[0]
             localStorage.setItem(
               storageKey,
