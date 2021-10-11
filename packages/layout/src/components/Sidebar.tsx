@@ -6,9 +6,7 @@ import { ErrorBoundary } from './Errors'
 
 interface SidebarProps
   extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
-  background?: string | string[]
-}
+    React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * The `Sidebar` component shows complementary content alongside the `Main` component..
@@ -17,7 +15,6 @@ interface SidebarProps
  */
 
 export const Sidebar = ({
-  background,
   className,
   css,
   children,
@@ -27,7 +24,6 @@ export const Sidebar = ({
     <div
       className={mergeSelectors(['sidebar', className])}
       role="complementary"
-      css={{ background, ...(css as object) }}
       {...props}>
       <ErrorBoundary errorKey="sidebar">{children}</ErrorBoundary>
     </div>

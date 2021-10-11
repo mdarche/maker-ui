@@ -29,6 +29,9 @@ export const ColorButton = ({
   const { header, breakpoints: bps } = useOptions()
   const { colorTheme, setColorTheme, themes } = useColorTheme()
 
+  // Never render this component if themes are undefined
+  if (!themes) return null
+
   const cycleMode = () => {
     const i = themes.indexOf(colorTheme as string)
     const next = themes[(i + 1) % themes.length]
@@ -50,7 +53,7 @@ export const ColorButton = ({
   // Use custom button from props or check header options
   const colorButton = customButton || header.colorButton
 
-  if (themes.length === 1) {
+  if (themes?.length === 1) {
     return null
   }
 

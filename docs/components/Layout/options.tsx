@@ -9,7 +9,7 @@ export const options: MakerUIOptions = {
     monospace: 'monospace',
   },
   colors: {
-    classic: {
+    light: {
       text: '#000',
       link: '#3B67BC',
       link_hover: 'green',

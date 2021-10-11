@@ -20,7 +20,7 @@ export interface LayoutState {
   height_header: number
   height_topbar: number
   height_toolbar: number
-  colorTheme: string
+  colorTheme?: string
 }
 
 interface LayoutProviderProps {
@@ -56,7 +56,7 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
     height_header: 0,
     height_topbar: 0,
     height_toolbar: 0,
-    colorTheme: Object.keys(options.colors)[0] || 'light',
+    colorTheme: undefined,
   })
 
   React.useEffect(() => {
@@ -70,47 +70,73 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
   /**
    * Set the initial color theme
    *
+   * @remark To conform with `prefers-color-scheme`, make sure you explicitly
+   * set color modes with `light` and `dark` keys.
+   *
    * @todo check for preferred color scheme and handle expiration
+   * @todo figure out the type for the object
    * */
+
   React.useEffect(() => {
-    const isObject =
-      typeof options.persistentColorMode === 'object' &&
-      options.persistentColorMode !== null
+    const themeKeys = Object.keys(options?.colors)
 
-    if (isObject || options.persistentColorMode) {
-      const storageKey = isObject
-        ? // @ts-ignore
-          options.persistentColorMode.key
-        : 'color-theme'
+    //  If there are multiple color themes, save the active one to local storage
+    if (typeof options?.colors[themeKeys[0]] === 'object') {
+      const colorConfig =
+        typeof options.persistentColorMode === 'object' &&
+        options.persistentColorMode !== null
 
-      const sessionCheck = localStorage.getItem(storageKey)
+      if (colorConfig || options.persistentColorMode) {
+        const storageKey = colorConfig
+          ? // @ts-ignore
+            options.persistentColorMode.key
+          : 'color-theme'
 
-      const setDefaultTheme = () => {
-        const defaultTheme = Object.keys(options?.colors)[0]
-        localStorage.setItem(
-          storageKey,
-          JSON.stringify({ theme: defaultTheme })
-        )
-        document.body.dataset.theme = defaultTheme
-        setState((s) => ({ ...s, colorTheme: defaultTheme }))
-      }
+        const sessionCheck = localStorage.getItem(storageKey)
 
-      if (sessionCheck) {
-        // @ts-ignore
-        const { theme } = JSON.parse(localStorage.getItem(storageKey))
-        const colors = options.colors ? Object.keys(options.colors) : []
+        const setDefaultTheme = () => {
+          // Check for dark theme key and if user prefers dark mode
+          if (
+            themeKeys.includes('dark') &&
+            window?.matchMedia('(prefers-color-scheme: dark)').matches
+          ) {
+            document.body.dataset.theme = 'dark'
+            setState((s) => ({ ...s, colorTheme: 'dark' }))
+          } else {
+            // Else use the first theme key as the default
+            const defaultTheme = themeKeys[0]
+            localStorage.setItem(
+              storageKey,
+              JSON.stringify({ theme: defaultTheme })
+            )
+            document.body.dataset.theme = defaultTheme
+            setState((s) => ({ ...s, colorTheme: defaultTheme }))
+          }
+        }
 
-        if (colors.includes(theme)) {
-          document.body.dataset.theme = theme
-          setState((s) => ({ ...s, colorTheme: theme }))
+        if (sessionCheck) {
+          // @ts-ignore
+          const { theme } = JSON.parse(localStorage.getItem(storageKey))
+          const colors = options.colors ? Object.keys(options.colors) : []
+
+          if (colors.includes(theme)) {
+            document.body.dataset.theme = theme
+            setState((s) => ({ ...s, colorTheme: theme }))
+          } else {
+            setDefaultTheme()
+          }
         } else {
           setDefaultTheme()
         }
-      } else {
-        setDefaultTheme()
       }
+    } else {
+      setState((s) => ({ ...s, colorTheme: undefined }))
     }
   }, [options.persistentColorMode, options.colors])
+
+  /**
+   * Merge all static global styles into one object
+   */
 
   const globalCSS: object = merge.all([
     colorVars(options.colors) as object,
@@ -261,8 +287,9 @@ function useColorTheme() {
     state: { colorTheme },
     setState,
   } = React.useContext(LayoutContext)
+  // const keys = Object.keys(options?.colors)
 
-  const themes = options.colors ? Object.keys(options.colors) : ['light']
+  const themes = colorTheme ? Object.keys(options.colors) : undefined
 
   function setColorTheme(theme: string) {
     if (options.persistentColorMode) {

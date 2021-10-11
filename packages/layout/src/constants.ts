@@ -45,5 +45,4 @@ export const transitionTypes = [
   'fade-down',
   'slide-left',
   'slide-right',
-  'zoom', // TODO
 ] as const

@@ -17,43 +17,49 @@ export type Partial<T> = {
 
 type ResponsiveString = string | string[]
 
+interface ColorKeys {
+  /** The site's primary text color. */
+  text: ResponsiveString
+  /** The default color for all anchor tags. */
+  link: ResponsiveString
+  /** The default hover color for all anchor tags. */
+  link_hover: ResponsiveString
+  /** The site's primary brand or accent color. */
+  primary: ResponsiveString
+  /** The site's secondary brand or accent color. */
+  secondary: ResponsiveString
+  /** The site's background color. */
+  background: ResponsiveString
+  /** The topbar background color. */
+  bg_topbar: ResponsiveString
+  /** The header background color. */
+  bg_header: ResponsiveString
+  /** The navbar's dropdown menu background color. */
+  bg_dropdown: ResponsiveString
+  /** The mobile menu's background color. */
+  bg_mobileMenu: ResponsiveString
+  /** The side navigation background color. */
+  bg_sideNav: ResponsiveString
+  /** The footer background color. */
+  bg_footer: ResponsiveString
+}
+
 /**
- * Configuration for the Maker UI layout system.
+ * Color configuration for the Maker UI layout system.
  *
- * @link https://maker-ui.com/docs/maker-options
+ * @link https://maker-ui.com/docs/maker-ui-options
  *
  */
 
-type ThemeColors = {
-  [key: string]: {
-    /** The site's primary text color. */
-    text: ResponsiveString
-    /** The default color for all anchor tags. */
-    link: ResponsiveString
-    /** The default hover color for all anchor tags. */
-    link_hover: ResponsiveString
-    /** The site's primary brand or accent color. */
-    primary: ResponsiveString
-    /** The site's secondary brand or accent color. */
-    secondary: ResponsiveString
-    /** The site's background color. */
-    background: ResponsiveString
-    /** The topbar background color. */
-    bg_topbar: ResponsiveString
-    /** The header background color. */
-    bg_header: ResponsiveString
-    /** The navbar's dropdown menu background color. */
-    bg_dropdown: ResponsiveString
-    /** The mobile menu's background color. */
-    bg_mobileMenu: ResponsiveString
-    /** The side navigation background color. */
-    bg_sideNav: ResponsiveString
-    /** The footer background color. */
-    bg_footer: ResponsiveString
-  } & {
-    [key: string]: ResponsiveString
-  }
-}
+type ThemeColors =
+  | {
+      [key: string]: ColorKeys & {
+        [key: string]: ResponsiveString
+      }
+    }
+  | (ColorKeys & {
+      [key: string]: ResponsiveString
+    })
 
 type ThemeFonts = {
   /** The document's default font. */

@@ -10,5 +10,5 @@ export { useColorTheme } from './context/LayoutContext'
 // Utility functions for internal libraries
 
 export { generateId, mergeSelectors } from './utils/helper'
-export * from './types'
 export { useMeasure, merge }
+export * from './types'
