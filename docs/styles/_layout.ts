@@ -11,6 +11,11 @@ export const layout_styles = {
   '.api-btn > div > a': {
     width: '100%',
   },
+  '#site-logo svg': {
+    height: 24,
+    marginTop: 2,
+    marginRight: 135,
+  },
   main: {
     fontSize: 17,
     lineHeight: 1.6,

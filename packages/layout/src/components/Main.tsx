@@ -2,9 +2,7 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { mergeSelectors } from '../utils/helper'
 
-interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
-  background?: string | string[]
-}
+interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * The `Main` component wraps your layout's main content.
@@ -12,18 +10,8 @@ interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  * @link https://maker-ui.com/docs/layout/main
  */
 
-export const Main = ({
-  id,
-  background,
-  css,
-  children,
-  ...props
-}: MainProps) => (
-  <main
-    id={mergeSelectors(['content', id])}
-    role="main"
-    css={{ background, ...(css as object) }}
-    {...props}>
+export const Main = ({ id, children, ...props }: MainProps) => (
+  <main id={mergeSelectors(['content', id])} role="main" {...props}>
     {children}
   </main>
 )

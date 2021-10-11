@@ -43,7 +43,7 @@ export interface SideNavProps
 
 export const SideNav = ({
   id,
-  background = 'var(--color-bg_sideNav)',
+  background,
   toggleButton,
   collapseButton,
   menu,
@@ -64,6 +64,7 @@ export const SideNav = ({
 
   const customToggle = toggleButton || sideNav.toggleButton
   const customCollapse = collapseButton || sideNav.collapseButton
+  const hasRootStyles = background || _css
 
   const attributes = (type: 'collapse' | 'toggle') => ({
     id: `${type}-sidenav`,
@@ -86,10 +87,14 @@ export const SideNav = ({
           collapse ? 'collapse-sidenav' : '',
           className,
         ])}
-        css={{
-          background,
-          ...(_css as object),
-        }}
+        css={
+          hasRootStyles
+            ? {
+                background,
+                ...(_css as object),
+              }
+            : undefined
+        }
         {...props}>
         <div className="container" css={css}>
           {header ? header : null}
@@ -110,10 +115,7 @@ export const SideNav = ({
         <Button
           {...attributes('toggle')}
           css={{
-            position: 'fixed',
             display: ['inline-block', 'none'],
-            bottom: 30,
-            zIndex: 100,
           }}>
           {customToggle === 'default'
             ? active
@@ -128,9 +130,7 @@ export const SideNav = ({
         <Button
           {...attributes('collapse')}
           css={{
-            position: 'sticky',
             display: ['none', 'inline-block'],
-            zIndex: 100,
           }}>
           {customCollapse === 'default' ? (
             <svg

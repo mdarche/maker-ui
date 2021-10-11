@@ -31,6 +31,7 @@ export const layoutStyles: MakerProps['css'] = {
   '.nav-grid': {
     margin: '0 auto',
     position: 'relative',
+    maxWidth: 'var(--maxWidth_header)',
   },
   '.nav-area': {
     display: 'flex',
@@ -99,6 +100,7 @@ export const layoutStyles: MakerProps['css'] = {
     '&.slide-left': { left: 0, transform: 'translateX(-100%)' },
   },
   '.menu-button': {
+    display: 'block',
     margin: 0,
     border: 'none',
     background: 'none',
@@ -225,8 +227,22 @@ export const layoutStyles: MakerProps['css'] = {
     borderRight: '.25em solid transparent',
     borderLeft: '.25em solid transparent',
   },
-  // Header Grid
-
+  // Content Area
+  '#site-inner': {
+    position: 'relative',
+  },
+  '#sideNav': {
+    background: 'var(--color-bg_sideNav)',
+  },
+  '#toggle-sidenav': {
+    position: 'fixed',
+    bottom: 30,
+    zIndex: 100,
+  },
+  '#collapse-sidenav': {
+    position: 'sticky',
+    zIndex: 100,
+  },
   main: {
     position: 'relative',
     flex: 1,
@@ -234,5 +250,11 @@ export const layoutStyles: MakerProps['css'] = {
   },
   section: {
     width: '100%',
+  },
+  footer: {
+    background: 'var(--color-bg_footer)',
+  },
+  '.footer-container': {
+    maxWidth: 'var(--maxWidth_footer)',
   },
 }

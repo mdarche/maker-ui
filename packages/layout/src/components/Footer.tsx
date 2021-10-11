@@ -19,25 +19,31 @@ interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 
 export const Footer = ({
   id,
-  maxWidth = 'var(--maxWidth_footer)',
-  background = 'var(--color-bg_footer)',
+  maxWidth,
+  background,
   _css,
   css,
   children,
   ...props
 }: FooterProps) => {
+  const hasRootStyles = maxWidth || _css
+  const hasStyles = background || css
   return (
     <footer
       id={mergeSelectors(['footer', id])}
       role="contentinfo"
-      css={{ background, ...(_css as object) }}
+      css={hasRootStyles ? { background, ...(_css as object) } : undefined}
       {...props}>
       <div
-        className="container flex"
-        css={{
-          maxWidth,
-          ...(css as object),
-        }}>
+        className="footer-container container flex"
+        css={
+          hasStyles
+            ? {
+                maxWidth,
+                ...(css as object),
+              }
+            : undefined
+        }>
         <ErrorContainer errorKey="footer">{children}</ErrorContainer>
       </div>
     </footer>

@@ -128,5 +128,5 @@ export const themeVars = (
   /** Add breakpoints to variable string for external usage */
   css['--breakpoints'] = breakpoints.join(',')
 
-  return { html: css }
+  return { ':root': css }
 }

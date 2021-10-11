@@ -22,7 +22,13 @@ interface ContentProps
  * @link https://maker-ui.com/docs/layout/content
  */
 
-export const Content = ({ id, children, css, ...props }: ContentProps) => {
+export const Content = ({
+  id,
+  className,
+  children,
+  css,
+  ...props
+}: ContentProps) => {
   const [initialRender, setInitialRender] = useState(true)
   const { content, sideNav, breakpoints } = useOptions()
   const { layout, showError } = useLayoutDetector('content', children)
@@ -39,10 +45,10 @@ export const Content = ({ id, children, css, ...props }: ContentProps) => {
   return (
     <div
       id={mergeSelectors(['site-inner', id])}
+      className={mergeSelectors([`layout-${layout}`, className])}
       breakpoints={setBreakpoint(bp, breakpoints)}
+      style={initialRender ? { visibility: 'hidden' } : undefined}
       css={{
-        position: 'relative',
-        visibility: initialRender ? 'hidden' : undefined,
         ...layoutStyles,
         ...(css as object),
       }}

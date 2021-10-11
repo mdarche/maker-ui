@@ -57,7 +57,7 @@ export const Navbar = (props: NavProps) => {
     menuSlot,
     menuButton,
     colorButton,
-    maxWidth = 'var(--maxWidth_header)',
+    maxWidth,
     className,
     id,
     css,
@@ -100,18 +100,25 @@ export const Navbar = (props: NavProps) => {
             edge.includes(layout) ? 'flex' : 'none',
           ],
         },
+        '.widget-slot .menu-button': {
+          display: [
+            mobileEdge.includes(mobileLayout) ? 'none' : 'block',
+            layout === 'minimal' || mobileMenu.visibleOnDesktop
+              ? 'block'
+              : 'none',
+          ],
+        },
         '.nav-widgets': {
           display: header.hideWidgetsOnMobile ? ['none', 'flex'] : 'flex',
+        },
+        '.desktop-visible': {
+          display: ['block', 'none'],
         },
         ...(css as object),
       }}>
       {edge.includes(layout) || mobileEdge.includes(mobileLayout) ? (
         <div className="nav-area button-slot">
-          <MenuButton
-            breakpoints={bpArray}
-            customButton={menuButton}
-            visibleOnDesktop
-          />
+          <MenuButton customButton={menuButton} visibleOnDesktop />
         </div>
       ) : null}
       {layout === 'split' ? (
@@ -131,18 +138,7 @@ export const Navbar = (props: NavProps) => {
       </div>
       <div className="nav-area widget-slot">
         <div className="nav-widgets">{widgetSlot}</div>
-        <MenuButton
-          customButton={menuButton}
-          breakpoints={bpArray}
-          css={{
-            display: [
-              mobileEdge.includes(mobileLayout) ? 'none' : 'block',
-              layout === 'minimal' || mobileMenu.visibleOnDesktop
-                ? 'block'
-                : 'none',
-            ],
-          }}
-        />
+        <MenuButton customButton={menuButton} />
         <ColorButton isHeaderButton customButton={colorButton} />
       </div>
     </Grid>

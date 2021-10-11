@@ -1,11 +1,10 @@
 import * as React from 'react'
-import { Button, ButtonProps } from '@maker-ui/primitives'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { setBreakpoint, mergeSelectors } from '../../utils/helper'
+import { mergeSelectors } from '../../utils/helper'
 
-interface MenuButtonProps extends ButtonProps {
+interface MenuButtonProps {
   isCloseButton?: boolean
   customButton?:
     | 'default'
@@ -25,17 +24,14 @@ export const MenuButton = ({
   customButton,
   visibleOnDesktop,
   isCloseButton,
-  css,
-  className,
   ...props
 }: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()
-  const { header, sideNav, breakpoints } = useOptions()
+  const { header, sideNav } = useOptions()
 
   /** Use custom button from props or check header / mobileMenu options */
   const menuButton = customButton || header?.menuButton
-  const getDisplay = visibleOnDesktop ? 'block' : ['block', 'none']
 
   const conditionalAttributes = sideNav?.isPrimaryMobileNav
     ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
@@ -43,7 +39,10 @@ export const MenuButton = ({
 
   const attributes = {
     title: 'Menu',
-    className: mergeSelectors(['menu-button', className]),
+    className: mergeSelectors([
+      'menu-button',
+      visibleOnDesktop ? 'desktop-visible' : undefined,
+    ]),
     'aria-label': 'Toggle Menu',
     ...conditionalAttributes,
     ...props,
@@ -52,13 +51,7 @@ export const MenuButton = ({
   return typeof menuButton === 'function' ? (
     menuButton(sideNav.isPrimaryMobileNav ? sideMenu : menu, attributes)
   ) : (
-    <Button
-      {...attributes}
-      breakpoints={setBreakpoint(header?.breakpoint, breakpoints)}
-      css={{
-        display: getDisplay,
-        ...(css as object),
-      }}>
+    <button {...attributes}>
       {menuButton || (
         <svg
           viewBox="0 0 24 24"
@@ -74,7 +67,7 @@ export const MenuButton = ({
           )}
         </svg>
       )}
-    </Button>
+    </button>
   )
 }
 

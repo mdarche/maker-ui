@@ -10,6 +10,7 @@ import {
   Main,
   Grid,
   Div,
+  Footer,
 } from 'maker-ui'
 
 import { options } from './options'
@@ -59,7 +60,8 @@ const Layout = ({ children }) => {
       </Header>
       <Content>
         <Main>{children}</Main>
-      </Content> */}
+      </Content>
+      <Footer>test</Footer> */}
     </MakerLayout>
   )
 }
