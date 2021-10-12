@@ -11,19 +11,17 @@ export function useLayoutStyles(layout: string): object {
   if (layout && layout.includes('sidebar')) {
     /** Handle row reversal on mobile so main content always appears first */
     const sidebarOrder = (): object | null => {
-      if (layout === 'sidebar content') {
-        return {
-          '.sidebar': { gridRow: [2, 'auto'] },
-        }
-      }
-      if (layout === 'sidebar content sidebar') {
-        return {
-          '.sidebar:first-of-type': {
-            gridRow: [2, 'auto'],
-          },
-        }
-      }
-      return null
+      return layout === 'sidebar content'
+        ? {
+            '.sidebar': { gridRow: [2, 'auto'] },
+          }
+        : layout === 'sidebar content sidebar'
+        ? {
+            '.sidebar:first-of-type': {
+              gridRow: [2, 'auto'],
+            },
+          }
+        : null
     }
 
     /**
@@ -45,11 +43,6 @@ export function useLayoutStyles(layout: string): object {
     }
 
     return {
-      display: 'grid',
-      gap: 'var(--gap_content)',
-      maxWidth: 'var(--maxWidth_content)',
-      margin: '0 auto',
-      minHeight: '80vh',
       ...sidebarOrder(),
       gridTemplateColumns: ['1fr', getSidebarColumns()],
     }
@@ -62,11 +55,9 @@ export function useLayoutStyles(layout: string): object {
     /** Determine the top value for `sidenav content` and `content sidenav` layouts */
     const calculateTop = () => {
       let top = header.sticky ? measurements.height_header : 0
-
       if (topbar.sticky) {
         top += measurements.height_topbar
       }
-
       return top
     }
 
@@ -92,17 +83,9 @@ export function useLayoutStyles(layout: string): object {
     }
 
     return {
-      display: 'flex',
       '#sidenav': {
         position: ['fixed', 'relative'],
         zIndex: [101, 0],
-        top: 0,
-        bottom: 0,
-        width: 'var(--width_sideNav)',
-        right: layout === 'content sidenav' && 0,
-        left: layout === 'sidenav content' && 0,
-        willChange: 'transform',
-        transform: 'translateX(0)',
         transition: getTransition(),
         '&.hide-sidenav': {
           transform: [`translateX(${direction})`, 'none'],
@@ -118,31 +101,8 @@ export function useLayoutStyles(layout: string): object {
               : undefined,
         },
         '> .container': {
-          position: 'sticky',
           top: [0, calculateTop()],
           height: ['100vh', `calc(100vh - ${calculateTop()}px)`],
-          overflowY: 'auto',
-        },
-      },
-      '#content': {
-        maxWidth: 'var(--maxWidth_content)',
-      },
-      '#toggle-sidenav': {
-        right: layout === 'sidenav content' ? 30 : undefined,
-        left: layout === 'content sidenav' ? 30 : undefined,
-      },
-      '#collapse-sidenav': {
-        top: 80,
-        height: 50,
-        right: layout === 'sidenav content' ? -40 : undefined,
-        left: layout === 'content sidenav' ? -40 : undefined,
-      },
-      '.default-collapse': {
-        height: 24,
-        transform: layout === 'content sidenav' ? 'rotate(180deg)' : undefined,
-        '&.rotate': {
-          transform:
-            layout === 'sidenav content' ? 'rotate(180deg)' : undefined,
         },
       },
     }
@@ -151,9 +111,5 @@ export function useLayoutStyles(layout: string): object {
   /**
    * -------- Content Styles (default) --------
    */
-  return {
-    display: 'block',
-    maxWidth: 'var(--maxWidth_content)',
-    margin: '0 auto',
-  }
+  return {}
 }

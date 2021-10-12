@@ -37,6 +37,7 @@ export const Content = ({
     setInitialRender(false)
   }, [])
 
+  const layoutClass = layout.replace(/\s+/g, '-')
   const layoutStyles = useLayoutStyles(layout)
   const bp = layout.includes('sidenav')
     ? sideNav.breakpoint
@@ -45,7 +46,7 @@ export const Content = ({
   return (
     <div
       id={mergeSelectors(['site-inner', id])}
-      className={mergeSelectors([`layout-${layout}`, className])}
+      className={mergeSelectors([`layout-${layoutClass}`, className])}
       breakpoints={setBreakpoint(bp, breakpoints)}
       style={initialRender ? { visibility: 'hidden' } : undefined}
       css={{

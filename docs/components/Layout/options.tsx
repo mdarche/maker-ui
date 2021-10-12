@@ -73,8 +73,8 @@ export const options: MakerUIOptions = {
   },
   sideNav: {
     width: 280,
-    // isPrimaryMobileNav: true,
-    // showToggleOnMobile: false,
-    collapse: false,
+    isPrimaryMobileNav: true,
+    showToggleOnMobile: false,
+    // collapse: true,
   },
 }

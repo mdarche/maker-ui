@@ -11,6 +11,7 @@ import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav, useCollapseSideNav } from '../context/ActionContext'
 import { setBreakpoint, mergeSelectors } from '../utils/helper'
+import { useLayout } from '../context/LayoutContext'
 
 interface ContainerProps {
   isHeader: boolean
@@ -61,6 +62,7 @@ export const SideNav = ({
   // For desktop collapsible version of SideNav
   const [collapse, setCollapse] = useCollapseSideNav()
   const { sideNav, breakpoints } = useOptions()
+  const [layout] = useLayout('content')
 
   const customToggle = toggleButton || sideNav.toggleButton
   const customCollapse = collapseButton || sideNav.collapseButton
@@ -74,11 +76,38 @@ export const SideNav = ({
     breakpoints: setBreakpoint(sideNav.breakpoint, breakpoints),
   })
 
+  function renderCollapseButton() {
+    return typeof customCollapse === 'function' ? (
+      customCollapse(collapse, attributes('collapse'))
+    ) : sideNav.collapse ? (
+      <Button
+        {...attributes('collapse')}
+        css={{
+          display: ['none', 'inline-block'],
+        }}>
+        {customCollapse === 'default' ? (
+          <svg
+            className={mergeSelectors([
+              'default-collapse',
+              collapse ? 'rotate' : '',
+            ])}
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 19a1 1 0 01-.71-1.71l5.3-5.29-5.3-5.29a1 1 0 011.42-1.42l6 6a1 1 0 010 1.41l-6 6A1 1 0 019 19z" />
+          </svg>
+        ) : (
+          customCollapse
+        )}
+      </Button>
+    ) : null
+  }
+
   return (
     <ErrorContainer errorKey="sideNav">
       {sideNav.closeOnBlur ? (
         <Overlay show={active} toggle={setActive} />
       ) : null}
+      {layout === 'content sidenav' ? renderCollapseButton() : null}
       <Container
         isHeader={sideNav.isHeader}
         id={mergeSelectors(['sidenav', id])}
@@ -124,29 +153,7 @@ export const SideNav = ({
             : customToggle}
         </Button>
       ) : null}
-      {typeof customCollapse === 'function' ? (
-        customCollapse(collapse, attributes('collapse'))
-      ) : sideNav.collapse ? (
-        <Button
-          {...attributes('collapse')}
-          css={{
-            display: ['none', 'inline-block'],
-          }}>
-          {customCollapse === 'default' ? (
-            <svg
-              className={mergeSelectors([
-                'default-collapse',
-                !collapse ? 'rotate' : '',
-              ])}
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 19a1 1 0 01-.71-1.71l5.3-5.29-5.3-5.29a1 1 0 011.42-1.42l6 6a1 1 0 010 1.41l-6 6A1 1 0 019 19z" />
-            </svg>
-          ) : (
-            customCollapse
-          )}
-        </Button>
-      ) : null}
+      {layout === 'sidenav content' ? renderCollapseButton() : null}
     </ErrorContainer>
   )
 }

@@ -231,8 +231,18 @@ export const layoutStyles: MakerProps['css'] = {
   '#site-inner': {
     position: 'relative',
   },
-  '#sideNav': {
+  // SideNav
+  '#sidenav': {
+    top: 0,
+    bottom: 0,
+    width: 'var(--width_sideNav)',
     background: 'var(--color-bg_sideNav)',
+    willChange: 'transform',
+    transform: 'translateX(0)',
+    '> .container': {
+      position: 'sticky',
+      overflowY: 'auto',
+    },
   },
   '#toggle-sidenav': {
     position: 'fixed',
@@ -242,6 +252,45 @@ export const layoutStyles: MakerProps['css'] = {
   '#collapse-sidenav': {
     position: 'sticky',
     zIndex: 100,
+    top: 80,
+    height: 50,
+  },
+  '.default-collapse': {
+    height: 24,
+  },
+  // Layouts
+  '.layout-content': {
+    display: 'block',
+    maxWidth: 'var(--maxWidth_content)',
+    margin: '0 auto',
+  },
+  '.layout-sidebar-content, .layout-content-sidebar, .layout-sidebar-content-sidebar':
+    {
+      display: 'grid',
+      gap: 'var(--gap_content)',
+      maxWidth: 'var(--maxWidth_content)',
+      margin: '0 auto',
+      minHeight: '80vh',
+    },
+  '.layout-sidenav-content, .layout-content-sidenav': {
+    display: 'flex',
+    main: {
+      maxWidth: 'var(--maxWidth_content)',
+    },
+  },
+  '.layout-sidenav-content': {
+    '#sidenav': { left: 0 },
+    '#toggle-sidenav': { right: 30 },
+    '.default-collapse:not(.rotate)': {
+      transform: 'rotate(180deg)',
+    },
+  },
+  '.layout-content-sidenav': {
+    '#sidenav': { right: 0 },
+    '#toggle-sidenav': { left: 30 },
+    '.default-collapse.rotate': {
+      transform: 'rotate(180deg)',
+    },
   },
   main: {
     position: 'relative',
