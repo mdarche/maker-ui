@@ -49,7 +49,7 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
           display: 'block',
           fontSize: 13,
           padding: '5px 0',
-          color: '#555',
+          color: 'var(--color-muted_text)',
         },
         '.level-1, .level-2': {
           borderLeft: '1px solid',

@@ -8,7 +8,7 @@ export interface MenuItemProps {
   label: string
   path: string
   className?: string
-  icon?: React.ReactElement
+  icon?: React.ReactElement | string
   newTab?: boolean
   submenu?: MenuItemProps[]
   openNested?: boolean

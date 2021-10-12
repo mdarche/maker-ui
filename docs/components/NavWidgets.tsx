@@ -58,7 +58,7 @@ export const NavWidgets = () => {
           }>
           <Div
             css={{
-              background: '#fff',
+              background: 'var(--color-bg_header)',
               border: '1px solid',
               borderColor: 'var(--color-border_dark)',
               width: 150,

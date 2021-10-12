@@ -297,7 +297,8 @@ export const layoutStyles: MakerProps['css'] = {
       minHeight: '80vh',
     },
   '.layout-sidenav-content, .layout-content-sidenav': {
-    display: 'flex',
+    display: 'inline-flex',
+    width: '100%',
     main: {
       maxWidth: 'var(--maxWidth_content)',
     },

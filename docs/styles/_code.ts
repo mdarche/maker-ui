@@ -15,6 +15,7 @@ export const code_styles = {
     borderRadius: 5,
     lineHeight: [1.5, 1.5],
     overflowX: 'scroll',
+    boxShadow: 'var(--color-shadow_pre)',
   },
   '.code-header': {
     padding: '8px 10px',
@@ -43,8 +44,8 @@ export const code_styles = {
     textAlign: ['left', 'center'],
   },
   '.highlight-line': {
-    backgroundColor: 'rgb(2, 55, 81)',
-    borderLeft: '4px solid rgb(2, 155, 206)',
+    backgroundColor: '#1b2741',
+    borderLeft: '4px solid #c792ea',
   },
   '.highlight-line .line-number-style': {
     opacity: 0.5,

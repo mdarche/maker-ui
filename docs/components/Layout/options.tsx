@@ -12,19 +12,29 @@ export const options: MakerUIOptions = {
     light: {
       text: '#000',
       link: '#3B67BC',
-      link_hover: 'green',
+      link_hover: '#aa1aae',
       primary: '#3B67BC',
       background: '#fff',
       border: '#F0F2F7',
-      border_dark: '#E4E4E4',
+      border_dark: '#dce5f1',
+      border_theme: '#c2d4f7',
       header_fill: '#282935',
       callout_suggestion: '#e6fde6',
-      callout_suggestion_border: '#0ddf0d',
+      callout_suggestion_accent: '#2cc320',
+      callout_suggestion_code: '#b1f2ab',
       callout_alert: '#feebeb',
-      callout_alert_border: 'red',
-      callout_hint: '',
-      callout_hint_border: '',
+      callout_alert_accent: '#e22624',
+      callout_alert_code: '#ffc8c5',
+      callout_hint: '#f1efff',
+      callout_hint_accent: '#7662d5',
+      callout_hint_code: '#ded8fd',
+      shadow_code: '1px 1px 2px rgba(5, 19, 52, 0.15)',
+      shadow_pre: '1px 5px 15px rgba(3, 10, 27, 0.4)',
+      shadow_suggestion: '0px 10px 13px 1px rgba(38, 67, 38, 0.15)',
+      shadow_alert: '0px 9px 13px -2px rgba(90, 37, 37, 0.2)',
+      shadow_hint: '1px 3px 5px 0px rgba(143, 138, 169, 0.39)',
       muted: '#a2adbf',
+      muted_text: '#555',
       bg_header: '#fff',
       bg_dropdown: '#fff',
       bg_sideNav: '#FBFCFF',
@@ -60,11 +70,15 @@ export const options: MakerUIOptions = {
   linkFunction: function nextLink(
     path: string,
     children: React.ReactNode,
-    attributes: object
+    attributes: object,
+    icon: React.ReactNode
   ) {
     return (
       <Link href={path}>
-        <a {...attributes}>{children}</a>
+        <a {...attributes}>
+          {icon ? <span className="label-icon">{icon}</span> : null}
+          {children}
+        </a>
       </Link>
     )
   },
@@ -73,6 +87,7 @@ export const options: MakerUIOptions = {
   },
   sideNav: {
     width: 280,
+    breakpoint: 1000,
     // isPrimaryMobileNav: true,
     // showToggleOnMobile: false,
     // collapse: true,

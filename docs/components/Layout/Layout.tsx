@@ -53,11 +53,17 @@ const Layout = ({ children }) => {
         <MobileMenu menu={menu} />
       </Header>
       <Content>
-        <SideNav pathname={asPath} menu={menu} />
+        <SideNav
+          header={<div className="doc-header">Documentation</div>}
+          pathname={asPath}
+          menu={menu}
+        />
         <Main>
           {isDocs ? (
             <Grid breakpoints={[1200]} columns={['1fr', '1fr 260px']} gap={50}>
-              <Div className="markdown" css={{ overflow: 'hidden' }}>
+              <Div
+                className="markdown"
+                css={{ overflow: ['hidden', 'initial'] }}>
                 {children}
                 <PostNavigation />
               </Div>

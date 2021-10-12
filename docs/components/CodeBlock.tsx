@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { mergeSelectors } from 'maker-ui'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import Prism from 'prism-react-renderer/prism'
-import theme from 'prism-react-renderer/themes/nightOwl'
+import { codeTheme } from './utils'
 import { CopyIcon } from './Icons'
 
 //@ts-ignore
@@ -45,7 +45,7 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
       {...defaultProps}
       code={codeString}
       language={language}
-      theme={theme}
+      theme={codeTheme}
       {...props}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <div

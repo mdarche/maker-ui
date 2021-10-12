@@ -142,7 +142,7 @@ export interface MakerOptions {
     path: string,
     children: string | React.ReactElement,
     attributes: object,
-    icon?: React.ReactElement
+    icon?: React.ReactElement | string
   ): React.ReactElement
   /**
    * Configuration object for the Maker UI topbar.

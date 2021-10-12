@@ -6,7 +6,7 @@ export const layout_styles = {
   header: {
     borderBottom: '1px solid',
     borderColor: 'var(--color-border)',
-    padding: ['8px 20px', '5px 35px'],
+    padding: ['15px 20px', '5px 35px'],
   },
   '.api-btn > div > a': {
     width: '100%',
@@ -47,9 +47,9 @@ export const layout_styles = {
     },
     'ul ul': {
       borderLeft: '1px solid',
-      borderColor: 'var(--color-border_dark)',
-      margin: '0 0 0 35px',
-      padding: 0,
+      borderColor: 'var(--color-border)',
+      margin: '0 0 0 45px',
+      paddingLeft: 8,
     },
     'li div': {
       justifyContent: 'space-between',
@@ -62,5 +62,28 @@ export const layout_styles = {
       display: 'block',
       padding: '8px 30px',
     },
+  },
+  '.label-icon': {
+    marginRight: '10px',
+    border: '1px solid',
+    padding: '4px 6px',
+    borderColor: 'var(--color-border_theme)',
+    fontSize: 9,
+    fontWeight: 'bold',
+    letterSpacing: '1px',
+    color: 'var(--color-primary)',
+    borderRadius: '2px',
+    background: 'white',
+  },
+  '.has-submenu a': {
+    display: 'flex !important',
+    alignItems: 'center',
+  },
+  '.doc-header': {
+    padding: '20px 30px',
+    borderBottom: '1px solid',
+    borderColor: 'var(--color-border)',
+    fontWeight: 'bold',
+    background: 'white',
   },
 }
