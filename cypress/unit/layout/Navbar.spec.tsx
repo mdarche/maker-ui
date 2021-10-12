@@ -119,7 +119,7 @@ describe('Navbar', () => {
   it('hides the widget area on mobile when specified', () => {
     mount(
       <NavWrapper options={{ header: { hideWidgetsOnMobile: true } }}>
-        <Navbar menu={testMenu} navArea={<div>Widgets</div>} />
+        <Navbar menu={testMenu} widgetSlot={<div>Widgets</div>} />
       </NavWrapper>
     )
     cy.contains('Widgets')
@@ -209,7 +209,7 @@ describe('Navbar', () => {
         <Navbar logo={<div>Custom</div>} />
       </NavWrapper>
     )
-    cy.get('.nav-grid').contains('Custom')
+    cy.get('.logo-slot a').contains('Custom')
   })
 
   /*  Prop: `logo` (callback) */
@@ -238,9 +238,9 @@ describe('Navbar', () => {
     mount(
       <NavWrapper>
         <Navbar
-          logoArea={<div>logo</div>}
-          navArea={<div>nav</div>}
-          menuArea={<div>menu</div>}
+          logoSlot={<div>logo</div>}
+          widgetSlot={<div>nav</div>}
+          menuSlot={<div>menu</div>}
         />
       </NavWrapper>
     )

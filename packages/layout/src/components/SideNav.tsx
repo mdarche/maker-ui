@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx, MakerProps } from '@maker-ui/css'
-import { Button } from '@maker-ui/primitives'
 
 import { MakerOptions } from '../types'
 import { ErrorContainer } from './Errors'
@@ -10,7 +9,7 @@ import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav, useCollapseSideNav } from '../context/ActionContext'
-import { setBreakpoint, mergeSelectors } from '../utils/helper'
+import { mergeSelectors } from '../utils/helper'
 import { useLayout } from '../context/LayoutContext'
 
 interface ContainerProps {
@@ -61,7 +60,7 @@ export const SideNav = ({
   const [active, setActive] = useSideNav()
   // For desktop collapsible version of SideNav
   const [collapse, setCollapse] = useCollapseSideNav()
-  const { sideNav, breakpoints } = useOptions()
+  const { sideNav } = useOptions()
   const [layout] = useLayout('content')
 
   const customToggle = toggleButton || sideNav.toggleButton
@@ -73,18 +72,13 @@ export const SideNav = ({
     title: `${type} side navigation`,
     'aria-label': `${type} side navigation`,
     onClick: type === 'collapse' ? setCollapse : setActive,
-    breakpoints: setBreakpoint(sideNav.breakpoint, breakpoints),
   })
 
   function renderCollapseButton() {
     return typeof customCollapse === 'function' ? (
       customCollapse(collapse, attributes('collapse'))
     ) : sideNav.collapse ? (
-      <Button
-        {...attributes('collapse')}
-        css={{
-          display: ['none', 'inline-block'],
-        }}>
+      <button {...attributes('collapse')}>
         {customCollapse === 'default' ? (
           <svg
             className={mergeSelectors([
@@ -98,7 +92,7 @@ export const SideNav = ({
         ) : (
           customCollapse
         )}
-      </Button>
+      </button>
     ) : null
   }
 
@@ -141,17 +135,13 @@ export const SideNav = ({
       {typeof customToggle === 'function' ? (
         customToggle(active, attributes('toggle'))
       ) : sideNav.showToggleOnMobile ? (
-        <Button
-          {...attributes('toggle')}
-          css={{
-            display: ['inline-block', 'none'],
-          }}>
+        <button {...attributes('toggle')}>
           {customToggle === 'default'
             ? active
               ? 'close'
               : 'open'
             : customToggle}
-        </Button>
+        </button>
       ) : null}
       {layout === 'sidenav content' ? renderCollapseButton() : null}
     </ErrorContainer>

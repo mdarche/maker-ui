@@ -28,7 +28,7 @@ function parseProps(props: any) {
 
 /**
  * JSX that supports responsive arrays and the `breakpoints` prop. Uses normal
- * React.createElement if `breakpoints` or `css` do not exist.
+ * React.createElement if `breakpoints` and `css` are undefined..
  *
  * @remarks
  * This is just a prop-formatting wrapper for Emotion's jsx export

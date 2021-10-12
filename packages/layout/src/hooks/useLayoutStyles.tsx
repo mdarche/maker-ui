@@ -105,6 +105,12 @@ export function useLayoutStyles(layout: string): object {
           height: ['100vh', `calc(100vh - ${calculateTop()}px)`],
         },
       },
+      '#toggle-sidenav': {
+        display: ['inline-block', 'none'],
+      },
+      '#collapse-sidenav': {
+        display: ['none', 'inline-block'],
+      },
     }
   }
 

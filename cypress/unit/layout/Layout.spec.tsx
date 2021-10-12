@@ -64,6 +64,7 @@ describe('Layout', () => {
     )
     cy.get('#test-div').should(
       'have.backgroundColor',
+      // @ts-ignore
       defaultOptions.colors.light.text
     )
     // Modified behavior with useDefaultColors
@@ -77,6 +78,7 @@ describe('Layout', () => {
     cy.get('#next-div').should(
       'not.have.css',
       'backgroundColor',
+      // @ts-ignore
       defaultOptions.colors.light.text
     )
   })
@@ -120,7 +122,7 @@ describe('Layout', () => {
 
   /* Behavior: re-renders layout when options prop changes */
 
-  it('updates Layout and Options context when `options` prop changes', () => {
+  it.only('updates Layout and Options context when `options` prop changes', () => {
     const DynamicLayout = () => {
       const [opts, setOpts] = React.useState({})
 
@@ -145,18 +147,22 @@ describe('Layout', () => {
     cy.get('.nav-grid').should(
       'have.css',
       'grid-template-areas',
-      '"logo menu nav"'
+      '"logo menu widgets"'
     )
     cy.get('#options-2').click()
     cy.get('body').should('have.backgroundColor', '#1fbec7')
     cy.get('.nav-grid').should(
       'have.css',
       'grid-template-areas',
-      '"menu logo nav"'
+      '"menu logo widgets"'
     )
     cy.get('#options-3').click()
     cy.get('body').should('have.backgroundColor', '#611fc7')
-    cy.get('.nav-grid').should('have.css', 'grid-template-areas', '"logo nav"')
+    cy.get('.nav-grid').should(
+      'have.css',
+      'grid-template-areas',
+      '"logo widgets"'
+    )
   })
 })
 

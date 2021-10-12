@@ -24,17 +24,16 @@ describe('Main', () => {
     cy.get('main')
   })
 
-  /* Prop: `className`, `background`, `css` */
+  /* Prop: `className`, `css` */
 
   it('renders with prop values', () => {
     mount(
       <Wrapper>
-        <Main className="main-test" background="#000" css={{ padding: 5 }}>
+        <Main className="main-test" css={{ padding: 5 }}>
           content
         </Main>
       </Wrapper>
     )
-    cy.get('main').should('have.backgroundColor', '#000')
     cy.get('main').should('have.css', 'padding', '5px')
     cy.get('main').should('have.class', 'main-test')
   })
