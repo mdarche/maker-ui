@@ -44,7 +44,7 @@ const Layout = ({ children }) => {
 
   return (
     <MakerLayout options={options} styles={styles}>
-      {/* <Header>
+      <Header>
         <Navbar
           logo={<Logo />}
           menuSlot={<Search />}
@@ -69,8 +69,8 @@ const Layout = ({ children }) => {
             children
           )}
         </Main>
-      </Content> */}
-      <Header>
+      </Content>
+      {/* <Header>
         <Navbar
           logo={<Logo />}
           menu={testMenu}
@@ -82,7 +82,7 @@ const Layout = ({ children }) => {
         <Main>{children}</Main>
         <Sidebar>Content</Sidebar>
       </Content>
-      <Footer>test</Footer>
+      <Footer>test</Footer> */}
     </MakerLayout>
   )
 }

@@ -46,7 +46,7 @@ Here's another example:
 
 The CSS prop will accept any officially adopted CSS attribute as both a single value or an array of values.
 
-If you need computed styles like a function that returns a style object, just cast your function as an object:
+If you use TypeScript and need computed styles from a function that returns a style object, just cast your function as an object:
 
 ```jsx
 
@@ -103,7 +103,7 @@ You can use the CSS prop just like a Sass stylesheet-- nest styles for as many c
 
 ### Pseudo Selectors
 
-Declare styles for pseudo elements (`:before` and `:after`), state (`hover`, `focus`, `active`, etc.), or chained classes by prefacing the rule with the ampersand `&` symbol:
+Declare styles for pseudo elements (`:before` and `:after`), state (`:hover`, `:focus`, `:active`, etc.), or chained classes by prefacing the rule with an ampersand `&` symbol:
 
 ```jsx
 <Button
@@ -209,7 +209,7 @@ const TestComponent = () => (
 
 ## \_css Prop
 
-Several Maker UI components render a container with child elements. This is particularly useful for applying a `maxWidth` rule to the component's inner contents or adding a CSS display of `flex` or `grid` to the container.
+Several Maker UI components render a container element. This is particularly useful for applying a `maxWidth` rule to the component's inner contents or adding a CSS display of `flex` or `grid` to the container.
 
 If you ever need to style a root container element, you can use the `_css` prop.
 

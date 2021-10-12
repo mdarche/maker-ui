@@ -45,7 +45,7 @@ export const options: MakerUIOptions = {
   useColorDefaults: false,
   header: {
     maxWidth: '100%',
-    navType: 'basic',
+    navType: 'basic-left',
     sticky: true,
     stickyOnMobile: true,
     breakpoint: 0,
