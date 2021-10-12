@@ -45,6 +45,7 @@ export const layoutStyles: MakerProps['css'] = {
   },
   '.menu-slot.split': {
     gridArea: 'menu-split',
+    justifyContent: 'flex-end',
   },
   '.logo-slot': {
     gridArea: 'logo',
@@ -55,6 +56,29 @@ export const layoutStyles: MakerProps['css'] = {
   '.menu-scroll .menu-slot': {
     overflowX: 'scroll',
     whiteSpace: 'nowrap',
+  },
+  '.desktop-visible': {
+    display: 'block',
+  },
+  '.layout-basic .menu-slot': {
+    justifyContent: 'flex-end',
+  },
+  '.layout-basic-left .menu-slot': {
+    justifyContent: 'flex-start',
+  },
+  '.layout-basic-center .menu-slot': {
+    justifyContent: 'center',
+  },
+  '.layout-center .menu-slot, .layout-center .logo-slot': {
+    justifyContent: 'center',
+  },
+  '.layout-split .widget-slot, .layout-center .widget-slot': {
+    top: 0,
+    right: 0,
+    height: '100%',
+  },
+  '.layout-minimal-center .button-slot': {
+    justifyContent: 'flex-start',
   },
   // Mobile Menu
   '#mobile-menu': {

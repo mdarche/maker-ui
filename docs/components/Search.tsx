@@ -8,7 +8,7 @@ export const Search = () => {
       css={{
         button: {
           height: 46,
-          margin: '5px 0 5px 40px',
+          margin: '5px 0 5px 150px',
           width: '100%',
           maxWidth: '30%',
           minWidth: 320,

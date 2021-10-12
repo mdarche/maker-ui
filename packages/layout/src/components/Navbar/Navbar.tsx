@@ -91,15 +91,14 @@ export const Navbar = (props: NavProps) => {
       css={{
         maxWidth,
         ...gridStyles(layout, mobileLayout),
+        gridTemplateRows: ['1fr', layout !== 'center' ? '1fr' : '1fr 1fr'],
         '.menu-slot': {
           display: ['none', 'flex'],
         },
-        '.button-slot': {
-          display: [
-            mobileEdge.includes(mobileLayout) ? 'flex' : 'none',
-            edge.includes(layout) ? 'flex' : 'none',
-          ],
-        },
+        '&.layout-minimal .menu-slot, &.layout-minimal-left .menu-slot, &.layout-minimal-center .menu-slot':
+          {
+            display: 'none',
+          },
         '.widget-slot .menu-button': {
           display: [
             mobileEdge.includes(mobileLayout) ? 'none' : 'block',
@@ -111,8 +110,11 @@ export const Navbar = (props: NavProps) => {
         '.nav-widgets': {
           display: header.hideWidgetsOnMobile ? ['none', 'flex'] : 'flex',
         },
-        '.desktop-visible': {
-          display: ['block', 'none'],
+        '&.m-layout-logo-center-alt .button-slot': {
+          justifyContent: ['flex-end', 'flex-start'],
+        },
+        '&.layout-split .widget-slot, &.layout-center .widget-slot': {
+          position: ['relative', 'absolute'],
         },
         ...(css as object),
       }}>

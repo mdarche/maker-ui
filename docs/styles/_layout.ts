@@ -14,7 +14,6 @@ export const layout_styles = {
   '#site-logo svg': {
     height: 24,
     marginTop: 2,
-    marginRight: 135,
   },
   main: {
     fontSize: 17,

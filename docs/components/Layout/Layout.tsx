@@ -5,12 +5,14 @@ import {
   Header,
   Navbar,
   SideNav,
+  Sidebar,
   MobileMenu,
   Content,
   Main,
   Grid,
   Div,
   Footer,
+  MakerMenu,
 } from 'maker-ui'
 
 import { options } from './options'
@@ -22,13 +24,27 @@ import { NavWidgets } from '../NavWidgets'
 import { PostNavigation } from '../PostNavigation'
 import { PageContents } from '../PageContents'
 
+export const testMenu: MakerMenu = [
+  { label: 'One', path: '/' },
+  { label: 'Two', path: '/two' },
+  {
+    label: 'Three',
+    path: '#',
+    submenu: [
+      { label: 'Five', path: '/five' },
+      { label: 'Six', path: '/six' },
+    ],
+  },
+  { label: 'Four', path: '/four' },
+]
+
 const Layout = ({ children }) => {
   const { asPath } = useRouter()
   const isDocs = asPath.includes('docs')
 
   return (
     <MakerLayout options={options} styles={styles}>
-      <Header>
+      {/* <Header>
         <Navbar
           logo={<Logo />}
           menuSlot={<Search />}
@@ -53,15 +69,20 @@ const Layout = ({ children }) => {
             children
           )}
         </Main>
-      </Content>
-      {/* <Header>
-        <Navbar logo={<Logo />} menu={menu} />
+      </Content> */}
+      <Header>
+        <Navbar
+          logo={<Logo />}
+          menu={testMenu}
+          widgetSlot={<div>Widgets</div>}
+        />
         <MobileMenu menu={menu} />
       </Header>
       <Content>
         <Main>{children}</Main>
+        <Sidebar>Content</Sidebar>
       </Content>
-      <Footer>test</Footer> */}
+      <Footer>test</Footer>
     </MakerLayout>
   )
 }
