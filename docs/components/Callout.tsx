@@ -1,24 +1,10 @@
-import { Div, DivProps } from 'maker-ui'
+import { mergeSelectors } from 'maker-ui'
 
-interface CalloutProps extends DivProps {
+interface CalloutProps {
   type: 'alert' | 'info' | 'suggestion'
+  children: React.ReactNode
 }
 
 export const Callout = ({ children, type = 'suggestion' }: CalloutProps) => {
-  return (
-    <Div
-      css={{
-        background: `var(--color-callout_${type})`,
-        padding: '25px 20px',
-        borderLeft: '5px solid',
-        borderColor: `var(--color-callout_${type}_border)`,
-        margin: '30px 0',
-        borderRadius: 3,
-        span: {
-          fontWeight: 700,
-        },
-      }}>
-      {children}
-    </Div>
-  )
+  return <div className={mergeSelectors(['callout', type])}>{children}</div>
 }

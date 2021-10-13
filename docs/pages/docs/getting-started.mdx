@@ -10,9 +10,9 @@ yarn add maker-ui
 
 The core Maker UI library includes layout components ([Layout API](/docs/layout-api)) as well as basic elements ([Primitives](/docs/primitives)) that you can use as building blocks in your page designs.
 
-<Callout type="alert">
-  If you just want to use Primitives, you can simply import{' '}
-  <code>@maker-ui/primitives</code>
+<Callout type="info">
+  If you just want to use <a href="/docs/primitives">Primitives</a>, you can
+  simply import <code>@maker-ui/primitives</code>
 </Callout>
 
 ## Create a Basic Layout
@@ -125,7 +125,7 @@ import {
   MakerMenu, // For TypeScript users
 } from 'maker-ui'
 
-/* Your custom logo component */
+// Your custom logo component
 import { Logo } from './Logo'
 
 const options: MakerUIOptions = {
@@ -139,7 +139,7 @@ const options: MakerUIOptions = {
   },
 }
 
-/* An array of menu items */
+// An array of menu items
 const menu: MakerMenu = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },

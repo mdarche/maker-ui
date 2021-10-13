@@ -29,4 +29,46 @@ export const content_styles = {
   '.markdown a': {
     fontWeight: 700,
   },
+  '.callout': {
+    padding: '25px 20px',
+    borderLeft: '5px solid',
+    margin: '30px 0',
+    borderRadius: 3,
+    span: {
+      fontWeight: 700,
+    },
+    '&.info': {
+      borderColor: 'var(--color-callout_info_accent)',
+      background: 'var(--color-callout_info)',
+      code: {
+        background: 'var(--color-callout_info_code)',
+        color: 'var(--color-callout_info_accent)',
+      },
+      a: {
+        color: 'var(--color-callout_info_accent)',
+      },
+    },
+    '&.suggestion': {
+      background: 'var(--color-callout_suggestion)',
+      borderColor: 'var(--color-callout_suggestion_accent)',
+      code: {
+        background: 'var(--color-callout_suggestion_code)',
+        color: 'var(--color-callout_suggestion_accent)',
+      },
+      a: {
+        color: 'var(--color-callout_suggestion_accent)',
+      },
+    },
+    '&.alert': {
+      background: 'var(--color-callout_alert)',
+      borderColor: 'var(--color-callout_alert_accent)',
+      code: {
+        background: 'var(--color-callout_alert_code)',
+        color: 'var(--color-callout_alert_accent)',
+      },
+      a: {
+        color: 'var(--color-callout_alert_accent)',
+      },
+    },
+  },
 }
