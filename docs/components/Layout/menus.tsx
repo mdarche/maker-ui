@@ -1,18 +1,18 @@
 import { MakerMenu } from 'maker-ui'
 
 export const menu: MakerMenu = [
-  { label: 'Overview', path: '/' },
+  { label: 'Overview', className: 'side-section-header', divider: true },
   { label: 'Getting Started', path: '/docs/getting-started' },
   { label: 'Styling Components', path: '/docs/styling-components' },
   { label: 'Primitives', path: '/docs/primitives' },
   { label: 'Maker UI Options', path: '/docs/maker-ui-options' },
   { label: 'Best Practices', path: '/docs/best-practices' },
+  { label: 'API Reference', className: 'side-section-header', divider: true },
   {
     label: 'Layout',
     path: '/docs/layout',
     className: 'api-btn',
     openNested: true,
-    icon: 'API',
     submenu: [
       { label: 'Layout', path: '/docs/layout/layout' },
       { label: 'Topbar', path: '/docs/layout/topbar' },
@@ -33,8 +33,7 @@ export const menu: MakerMenu = [
     label: 'Elements',
     path: '/docs/elements',
     className: 'api-btn',
-    openNested: true,
-    icon: 'API',
+    openNested: false,
     submenu: [
       { label: 'Accordion', path: '/docs/elements/accordion' },
       { label: 'Announcement', path: '/docs/elements/announcement' },
@@ -57,8 +56,7 @@ export const menu: MakerMenu = [
     label: 'Forms',
     path: '/docs/elements',
     className: 'api-btn',
-    openNested: true,
-    icon: 'API',
+    openNested: false,
     submenu: [
       { label: 'Form', path: '/docs/forms/form' },
       { label: 'Fields', path: '/docs/forms/fields' },
@@ -69,6 +67,7 @@ export const menu: MakerMenu = [
   },
   { label: 'Hooks', path: '/docs/hooks' },
   { label: 'Utilities', path: '/docs/utilities' },
+  { label: 'See Also', className: 'side-section-header', divider: true },
   { label: 'FAQs', path: '/docs/faqs' },
   { label: 'Contribute', path: '/docs/contribute' },
   { label: 'Credits', path: '/docs/credits' },

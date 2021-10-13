@@ -28,7 +28,6 @@ export const options: MakerUIOptions = {
       callout_hint: '#f1efff',
       callout_hint_accent: '#7662d5',
       callout_hint_code: '#ded8fd',
-      shadow_code: '1px 1px 2px rgba(5, 19, 52, 0.15)',
       shadow_pre: '1px 5px 15px rgba(3, 10, 27, 0.4)',
       shadow_suggestion: '0px 10px 13px 1px rgba(38, 67, 38, 0.15)',
       shadow_alert: '0px 9px 13px -2px rgba(90, 37, 37, 0.2)',
@@ -88,8 +87,8 @@ export const options: MakerUIOptions = {
   sideNav: {
     width: 280,
     breakpoint: 1000,
-    // isPrimaryMobileNav: true,
-    // showToggleOnMobile: false,
+    isPrimaryMobileNav: true,
+    showToggleOnMobile: false,
     // collapse: true,
   },
 }

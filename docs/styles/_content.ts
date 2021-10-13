@@ -26,4 +26,7 @@ export const content_styles = {
       opacity: 1,
     },
   },
+  '.markdown a': {
+    fontWeight: 700,
+  },
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Div, Flex, useColorTheme } from 'maker-ui'
 import { Dropdown } from '@maker-ui/elements'
 import Link from 'next/link'
@@ -6,6 +7,7 @@ import { GithubIcon, PaintIcon, CaretIcon } from './Icons'
 
 export const NavWidgets = () => {
   const { themes, setColorTheme } = useColorTheme()
+  const [show, set] = useState(false)
 
   return (
     <Flex
@@ -39,6 +41,7 @@ export const NavWidgets = () => {
       {themes ? (
         <Dropdown
           _css={{ marginLeft: 20 }}
+          controls={[show, set]}
           transition="none"
           buttonCss={{
             display: 'flex',
@@ -83,7 +86,13 @@ export const NavWidgets = () => {
             <ul>
               {themes.map((t) => (
                 <li key={t}>
-                  <button onClick={() => setColorTheme(t)}>{t}</button>
+                  <button
+                    onClick={() => {
+                      setColorTheme(t)
+                      set(false)
+                    }}>
+                    {t}
+                  </button>
                 </li>
               ))}
             </ul>

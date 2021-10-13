@@ -53,11 +53,7 @@ const Layout = ({ children }) => {
         <MobileMenu menu={menu} />
       </Header>
       <Content>
-        <SideNav
-          header={<div className="doc-header">Documentation</div>}
-          pathname={asPath}
-          menu={menu}
-        />
+        <SideNav pathname={asPath} menu={menu} />
         <Main>
           {isDocs ? (
             <Grid breakpoints={[1200]} columns={['1fr', '1fr 260px']} gap={50}>

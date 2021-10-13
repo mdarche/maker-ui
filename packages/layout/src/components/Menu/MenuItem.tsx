@@ -6,12 +6,14 @@ import { mergeSelectors } from '../../utils/helper'
 
 export interface MenuItemProps {
   label: string
-  path: string
+  path?: string
   className?: string
   icon?: React.ReactElement | string
   newTab?: boolean
   submenu?: MenuItemProps[]
   openNested?: boolean
+  divider?: boolean
+  isExpandButton?: boolean
 }
 
 /**
@@ -68,6 +70,8 @@ export const MenuItem = memo(
       openNested = false,
       className = '',
       icon,
+      divider,
+      isExpandButton,
     },
     caret = false,
     menuControls,
@@ -100,8 +104,12 @@ export const MenuItem = memo(
           condition={!isHeader && submenu ? true : false}
           wrapper={(children) => <div className="flex">{children}</div>}>
           <>
-            {linkFunction ? (
+            {linkFunction && path ? (
               linkFunction(path, label, attributes, icon)
+            ) : !isHeader && divider ? (
+              label
+            ) : !isHeader && isExpandButton && submenu ? (
+              <button onClick={() => setNested(!showNested)}>{label}</button>
             ) : (
               <a href={path} {...attributes}>
                 {icon ? <span className="menu-icon">{icon}</span> : undefined}
