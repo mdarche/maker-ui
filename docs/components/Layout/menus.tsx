@@ -1,13 +1,13 @@
 import { MakerMenu } from 'maker-ui'
 
 export const menu: MakerMenu = [
-  { label: 'Overview', className: 'side-section-header', divider: true },
+  { divider: true, label: 'Overview', className: 'side-section-header' },
   { label: 'Getting Started', path: '/docs/getting-started' },
   { label: 'Styling Components', path: '/docs/styling-components' },
   { label: 'Primitives', path: '/docs/primitives' },
   { label: 'Maker UI Options', path: '/docs/maker-ui-options' },
   { label: 'Best Practices', path: '/docs/best-practices' },
-  { label: 'API Reference', className: 'side-section-header', divider: true },
+  { divider: true, label: 'API Reference', className: 'side-section-header' },
   {
     label: 'Layout',
     path: '/docs/layout',
@@ -67,7 +67,7 @@ export const menu: MakerMenu = [
   },
   { label: 'Hooks', path: '/docs/hooks' },
   { label: 'Utilities', path: '/docs/utilities' },
-  { label: 'See Also', className: 'side-section-header', divider: true },
+  { divider: true, label: 'See Also', className: 'side-section-header' },
   { label: 'FAQs', path: '/docs/faqs' },
   { label: 'Contribute', path: '/docs/contribute' },
   { label: 'Credits', path: '/docs/credits' },

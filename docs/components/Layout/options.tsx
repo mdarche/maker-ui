@@ -59,6 +59,7 @@ export const options: MakerUIOptions = {
     stickyOnMobile: true,
     breakpoint: 0,
     showColorButton: false,
+    hideWidgetsOnMobile: false,
     dropdown: {
       transition: 'fade-down',
     },
