@@ -1783,6 +1783,11 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@corex/deepmerge@^2.6.34":
+  version "2.6.34"
+  resolved "https://registry.yarnpkg.com/@corex/deepmerge/-/deepmerge-2.6.34.tgz#8dd084f2bcc9cf54f6b1210a1aebd25206de2a84"
+  integrity sha512-5l3bQRGOoCJ1nYTxEaOW/MRuwNDq32KYatWO5rwOlOzxY4beVCrxDBaDBX5wpDn0PYm0QAul/vAC9GDHShEbTw==
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -14503,6 +14508,13 @@ markdown-table@^2.0.0:
   dependencies:
     repeat-string "^1.0.0"
 
+matcher@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/matcher/-/matcher-4.0.0.tgz#a42a05a09aaed92e2d241eb91fddac689461ea51"
+  integrity sha512-S6x5wmcDmsDRRU/c2dkccDwQPXoFczc5+HpQ2lON8pnvHlnvHAHj5WlLVvw6n6vNyHuVugYrFohYxbS+pvFpKQ==
+  dependencies:
+    escape-string-regexp "^4.0.0"
+
 md5-file@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/md5-file/-/md5-file-5.0.0.tgz#e519f631feca9c39e7f9ea1780b63c4745012e20"
@@ -15274,6 +15286,15 @@ next-pwa@^5.3.1:
     terser-webpack-plugin "^5.1.4"
     workbox-webpack-plugin "^6.2.4"
     workbox-window "^6.2.4"
+
+next-sitemap@^1.6.184:
+  version "1.6.184"
+  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-1.6.184.tgz#1016735c0dd64f75f8acfb54df276ff5c8078e4e"
+  integrity sha512-72a3juoo3V5PDPiVNJd8DxPRm5E76sT+zWcAjiFIPl7D7kAka8OFp1yEHWXyss5SfjT3WfINeXmletmOX8PEkQ==
+  dependencies:
+    "@corex/deepmerge" "^2.6.34"
+    matcher "^4.0.0"
+    minimist "^1.2.5"
 
 next-tick@1, next-tick@^1.1.0:
   version "1.1.0"

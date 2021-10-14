@@ -1,3 +1,9 @@
+# *
 User-agent: *
-Allow: /*
+Allow: /
+
+# Host
+Host: https://maker-ui.com
+
+# Sitemaps
 Sitemap: https://maker-ui.com/sitemap.xml
