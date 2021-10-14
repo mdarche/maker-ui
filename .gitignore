@@ -9,7 +9,6 @@ node_modules/
 dist
 .cache
 .env
-public
 dist
 
 .DS_Store
