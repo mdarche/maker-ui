@@ -13,7 +13,6 @@ import { Callout } from '../components/Callout'
 import { H2, H3, H4, HeadingProps } from '../components/Headings'
 
 const components = {
-  // eslint-disable-next-line prettier/prettier
   pre: (preProps) => {
     const props = preToCodeBlock(preProps)
     if (props) {
@@ -22,13 +21,11 @@ const components = {
       return <pre {...preProps} />
     }
   },
-  // eslint-disable-next-line prettier/prettier
   table: (tableProps) => (
     <div className="table-wrapper">
       <table {...tableProps} />
     </div>
   ),
-  // eslint-disable-next-line prettier/prettier
   a: (anchorProps) => <DocsLink {...anchorProps} />,
   Callout,
   h2: (h2Props: HeadingProps) => <H2 {...h2Props} />,
@@ -56,6 +53,7 @@ export default function App({ Component, pageProps }) {
           sizes="180x180"
           href="/apple-touch-icon.png"
         />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       <Layout>
         <MDXProvider components={components}>
