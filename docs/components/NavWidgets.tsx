@@ -12,7 +12,15 @@ export const NavWidgets = () => {
 
   return (
     <>
-      <Flex css={{ display: ['flex', 'none'], button: { marginRight: 15 } }}>
+      <Flex
+        breakpoints={[1000]}
+        css={{
+          display: ['flex', 'none'],
+          button: { marginRight: 15 },
+          '.DocSearch-Button-Keys, .DocSearch-Button-Placeholder': {
+            display: 'none',
+          },
+        }}>
         <DocSearch
           appId="BH4D9OD16A"
           indexName="maker-ui"
@@ -20,6 +28,7 @@ export const NavWidgets = () => {
         />
       </Flex>
       <Flex
+        breakpoints={[1000]}
         align="center"
         justify="center"
         css={{

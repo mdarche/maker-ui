@@ -178,6 +178,7 @@ export const Header = (props: HeaderProps) => {
       style={{ visibility: initialRender ? 'hidden' : undefined }}
       css={{
         background,
+        '.mobile-overlay': { display: ['block', 'none'] },
         ...stickyPartial(),
         ...(css as object),
       }}

@@ -111,6 +111,9 @@ export function useLayoutStyles(layout: string): object {
       '#collapse-sidenav': {
         display: ['none', 'inline-block'],
       },
+      '.sidenav-overlay': {
+        display: ['block', 'none'],
+      },
     }
   }
 

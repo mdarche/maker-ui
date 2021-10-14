@@ -99,7 +99,7 @@ export const SideNav = ({
   return (
     <ErrorContainer errorKey="sideNav">
       {sideNav.closeOnBlur ? (
-        <Overlay show={active} toggle={setActive} />
+        <Overlay className="sidenav-overlay" show={active} toggle={setActive} />
       ) : null}
       {layout === 'content sidenav' ? renderCollapseButton() : null}
       <Container

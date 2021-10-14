@@ -65,7 +65,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
     return (
       <Fragment>
         {mobileMenu.closeOnBlur && !fullWidth.includes(transition) ? (
-          <Overlay show={show} toggle={toggleMenu} />
+          <Overlay className="mobile-overlay" show={show} toggle={toggleMenu} />
         ) : null}
         <div
           ref={ref}

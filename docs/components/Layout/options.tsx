@@ -55,7 +55,7 @@ export const options: MakerUIOptions = {
     navType: 'basic-left',
     sticky: true,
     stickyOnMobile: true,
-    breakpoint: 0,
+    breakpoint: 1000,
     showColorButton: false,
     hideWidgetsOnMobile: false,
     dropdown: {

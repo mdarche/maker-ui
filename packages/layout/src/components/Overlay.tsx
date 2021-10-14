@@ -6,6 +6,7 @@ interface OverlayProps {
   toggle: any
   bp?: number
   type?: string
+  className?: string
 }
 
 /**
@@ -15,13 +16,14 @@ interface OverlayProps {
  * @internal usage only
  */
 
-export const Overlay = ({ show, toggle }: OverlayProps) => {
+export const Overlay = ({ show, toggle, className }: OverlayProps) => {
   return (
     <div
       className={mergeSelectors([
         'menu-overlay',
         'fixed',
         'cover',
+        className,
         show ? ' active' : undefined,
       ])}
       role="button"
