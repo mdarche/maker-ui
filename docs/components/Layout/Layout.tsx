@@ -50,7 +50,7 @@ const Layout = ({ children }) => {
           menuSlot={<Search />}
           widgetSlot={<NavWidgets />}
         />
-        <MobileMenu menu={menu} />
+        {/* <MobileMenu menu={menu} /> */}
       </Header>
       <Content>
         <SideNav pathname={asPath} menu={menu} />

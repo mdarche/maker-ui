@@ -8,11 +8,11 @@ npm i maker-ui
 yarn add maker-ui
 ```
 
-The core Maker UI library includes layout components ([Layout API](/docs/layout-api)) as well as basic elements ([Primitives](/docs/primitives)) that you can use as building blocks in your page designs.
+The core Maker UI library includes [layout components](/docs/layout-api) as well as basic [primitives](/docs/primitives) that you can use as building blocks in your page designs.
 
 <Callout type="info">
-  If you just want to use <a href="/docs/primitives">Primitives</a>, you can
-  simply import <code>@maker-ui/primitives</code>
+  If you just want to use <a href="/docs/primitives">primitives</a> without the
+  layout system, you can import <code>@maker-ui/primitives</code>
 </Callout>
 
 ## Create a Basic Layout
@@ -177,7 +177,7 @@ All Maker UI layout components accept the `css` and `breakpoints` props ([covere
 
 To address this, Maker UI's root `<Layout>` component accepts a `styles` prop where we can add global styles that are applied to the entire document, just like a regular CSS stylesheet.
 
-<Callout>
+<Callout type="info">
   The <code>styles</code> prop fully supports responsive arrays. This is a great
   place for:
   <ul>
@@ -241,7 +241,7 @@ export const MyLayout = ({ children }) => {
 
 In this example, we add a global `textDecoration` rule to all anchor tags while also applying custom styles to Maker UI's header and footer components.
 
-<Callout>
+<Callout type="info">
   The easiest way to target a Maker UI layout component (without reading the{' '}
   <a href="/docs/layout-api">Layout API docs</a>, of course) is to open DevTools
   and identify the proper ID or class selector for the job.

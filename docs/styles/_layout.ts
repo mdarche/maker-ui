@@ -8,6 +8,12 @@ export const layout_styles = {
     borderColor: 'var(--color-border)',
     padding: ['12px 20px', '5px 35px'],
   },
+  h1: {
+    fontSize: ['1.5em', '2em'],
+  },
+  h2: {
+    fontSize: ['1.3em', '1.5em'],
+  },
   '.api-btn > div > a': {
     width: '100%',
   },
@@ -16,7 +22,7 @@ export const layout_styles = {
     marginTop: 2,
   },
   main: {
-    fontSize: 17,
+    fontSize: ['1em', '1.1em'],
     lineHeight: 1.6,
     padding: ['20px 30px 50px'],
     h2: {

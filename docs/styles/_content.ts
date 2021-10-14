@@ -34,6 +34,7 @@ export const content_styles = {
     borderLeft: '5px solid',
     margin: '30px 0',
     borderRadius: 3,
+    fontSize: ['0.85em', '1em'],
     span: {
       fontWeight: 700,
     },
