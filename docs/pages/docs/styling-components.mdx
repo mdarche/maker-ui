@@ -1,3 +1,8 @@
+<SEO
+  title="Styling Components"
+  description="Use the responsive breakpoints and css props to create media queries in no time at all."
+/>
+
 # Styling Components
 
 All of Maker UI's exported components support special `breakpoints` and `css` props. These props let you specify media query breakpoints as an array of values that correspond with CSS rules.
@@ -128,14 +133,9 @@ Declare styles for pseudo elements (`:before` and `:after`), state (`:hover`, `:
 
 ## When to Inline vs Import
 
-When prototyping, it's often easiest to bake styles directly into your JSX. This strategy works really well when you can keep your files small with a modular component architecture.
+While prototyping, it's often easiest to bake styles directly into your JSX. This strategy works really well when you can keep your files small with a modular component architecture.
 
-However, if you are building something complex, you may have a hard time identifying your component's business logic when the JSX becomes too bloated with styles. In this case, you should move your styles to a separate object or into a different file all together.
-
-There are 2 patterns for importing styles:
-
-- Scoped styles
-- Module styles
+However, as your component grows in complexity, you might have a hard time identifying business logic if the JSX becomes too bloated with styles. It's often cleaner to define several styles in one place as a separate object.
 
 ### Scoped Styles
 

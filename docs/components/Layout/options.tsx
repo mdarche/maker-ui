@@ -58,6 +58,9 @@ export const options: MakerUIOptions = {
     breakpoint: 1000,
     showColorButton: false,
     hideWidgetsOnMobile: false,
+    stickyUpScroll: {
+      delay: 50,
+    },
     dropdown: {
       transition: 'fade-down',
     },

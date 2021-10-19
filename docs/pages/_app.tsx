@@ -11,6 +11,7 @@ import { CodeBlock } from '../components/CodeBlock'
 import { DocsLink } from '../components/DocsLink'
 import { Callout } from '../components/Callout'
 import { H2, H3, H4, HeadingProps } from '../components/Headings'
+import { SEO, SEOProps } from '../components/SEO'
 
 const components = {
   pre: (preProps) => {
@@ -31,6 +32,7 @@ const components = {
   h2: (h2Props: HeadingProps) => <H2 {...h2Props} />,
   h3: (h3Props: HeadingProps) => <H3 {...h3Props} />,
   h4: (h4Props: HeadingProps) => <H4 {...h4Props} />,
+  SEO: (seoProps: SEOProps) => <SEO {...seoProps} />,
 }
 
 export default function App({ Component, pageProps }) {

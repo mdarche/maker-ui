@@ -57,6 +57,9 @@ export const Header = (props: HeaderProps) => {
     ...rest
   } = props
 
+  const hasStickyUpScroll =
+    stickyUpScroll === true || typeof stickyUpScroll === 'object'
+
   /**
    * Fire hook effect if stickyUpScroll === true
    */
@@ -77,8 +80,8 @@ export const Header = (props: HeaderProps) => {
         setShow(true)
       }
     },
-    350,
-    stickyUpScroll
+    typeof stickyUpScroll === 'object' ? stickyUpScroll.delay : 350,
+    hasStickyUpScroll
   )
 
   /**

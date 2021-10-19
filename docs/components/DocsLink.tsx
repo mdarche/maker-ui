@@ -12,7 +12,7 @@ export const DocsLink = ({ children, href }: DocsLinkProps) => {
 
   const onPage = href.startsWith('#')
 
-  const attributes = onPage
+  const attributes = !onPage
     ? {
         target: '_blank',
         rel: 'noopener noreferrer',

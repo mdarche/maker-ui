@@ -338,6 +338,8 @@ export const P = forwardRef<HTMLParagraphElement, HeadingProps>(
   )
 )
 
+export { P as Paragraph }
+
 P.displayName = 'P'
 
 /**

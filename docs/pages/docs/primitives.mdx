@@ -1,1 +1,148 @@
+<SEO
+  title="Primitives"
+  description="Access the breakpoints and css props from this list of helpful primitive elements."
+/>
+
 # Primitives
+
+Maker UI Primitives are `css` and `breakpoints` enabled React elements that help you to quickly prototype your ideas and build responsive designs.
+
+You can use these components just as you would their normal HTML counterparts. You can import the capital letter version of the normal JSX element or use an alias if applicable:
+
+#### Basic Elements
+
+- [Div](#div)
+- [Span](#span)
+- [Ul / UList](#ul-or-ulist)
+- [Ol / OList](#ol-or-olist)
+- [Li / ListItem](#li-or-listitem)
+- [A / Link](#a-or-link)
+- [Button](#button)
+- [P or Paragraph](#p-or-paragraph)
+- [SVG](#svg)
+- [Img or Image](#img-or-image)
+- [H1, H2, H3, H4, H5, H6](#headings)
+
+#### Special Elements
+
+- [Flex](#flex)
+- [Grid](#grid)
+
+## Default Breakpoints
+
+If you are using the full Maker UI layout system, all nested primitive components will use the global breakpoints you specify in your options configuration:
+
+```jsx
+// Example Layout component file
+import {
+  Layout,
+  ...
+} from 'maker-ui`
+
+const options: MakerOptions = { breakpoints: [768, 960, 1200] }
+
+const MyLayout = () => (
+  <Layout options={options}>
+    ...
+  </Layout>
+)
+
+// Page or child component
+
+export default HomePage = () => (
+  <Div css={{ color: ['blue', 'red', 'green' ]}}>
+    <h1>Home page</h1>
+  </Div>
+)
+
+```
+
+In the above example the heading tag color styles would correspond with **min-width** `768px`, `900px`, and `1200px` media queries.
+
+## Components
+
+<Callout type="info">
+  The following examples import from <code>maker-ui</code> but you can also
+  import from
+  <code>@maker-ui/primitives</code> if you don't need the layout engine.
+</Callout>
+
+### Div
+
+Supports all props of the `<div>` tag.
+
+This is most likely the primitive you need for the job. If you use it as the outermost wrapper of your component, you can set all nested, responsive styles. See [Nesting Selectors](/docs/styling-components/#nesting-selectors) for details.
+
+```jsx
+import { Div } from 'maker-ui'
+```
+
+### Flex
+
+### Grid
+
+### Span
+
+Supports all props of the `<span>` tag.
+
+```jsx
+import { Span } from 'maker-ui'
+```
+
+### Ul or UList
+
+Supports all props of the `<ul>` tag.
+
+```jsx
+import { Ul } from 'maker-ui'
+// or
+import { UList } from 'maker-ui'
+```
+
+### Ol or OList
+
+Supports all props of the `<ol>` tag.
+
+```jsx
+import { Ol } from 'maker-ui'
+// or
+import { OList } from 'maker-ui'
+```
+
+### Li or ListItem
+
+Supports all props of the `<li>` tag.
+
+```jsx
+import { Li } from 'maker-ui'
+// or
+import { ListItem } from 'maker-ui'
+```
+
+### A or Link
+
+Supports all props of the `<a>` tag.
+
+```jsx
+import { A } from 'maker-ui'
+// or
+import { Link } from 'maker-ui'
+```
+
+### Button
+
+### P or Paragraph
+
+### Table
+
+### SVG
+
+### Img or Image
+
+### Heading Tags
+
+## JSX
+
+```
+
+```

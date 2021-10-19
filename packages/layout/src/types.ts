@@ -228,7 +228,12 @@ export interface MakerOptions {
      * Hides the sticky header on down scroll and reveals when scrolling back up.
      * @default false
      */
-    stickyUpScroll: boolean
+    stickyUpScroll:
+      | boolean
+      | {
+          /** Determines the number of milliseconds that should pass before the nav is triggered back into view on up-scroll */
+          delay: number
+        }
     /**
      * Adds a custom class to the header when the user has scrolled past a specified point.
 \     */
