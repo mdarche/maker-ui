@@ -57,8 +57,21 @@ export const Header = (props: HeaderProps) => {
     ...rest
   } = props
 
-  const hasStickyUpScroll =
-    stickyUpScroll === true || typeof stickyUpScroll === 'object'
+  const upScroll: {
+    exists: boolean
+    start?: number
+    delay?: number
+  } =
+    typeof stickyUpScroll === 'object'
+      ? {
+          exists: true,
+          start: stickyUpScroll?.start,
+          delay: stickyUpScroll?.delay,
+        }
+      : stickyUpScroll
+      ? { exists: true }
+      : { exists: false }
+  const limit = upScroll?.start || 500
 
   /**
    * Fire hook effect if stickyUpScroll === true
@@ -66,7 +79,7 @@ export const Header = (props: HeaderProps) => {
   useScrollPosition(
     ({ prevPos, currPos }) => {
       const isDownScroll = currPos > prevPos
-      const aboveLimit = currPos > 500
+      const aboveLimit = currPos > limit
 
       if (!aboveLimit && !show) {
         setShow(true)
@@ -80,8 +93,8 @@ export const Header = (props: HeaderProps) => {
         setShow(true)
       }
     },
-    typeof stickyUpScroll === 'object' ? stickyUpScroll.delay : 350,
-    hasStickyUpScroll
+    upScroll.delay || 350,
+    upScroll.exists
   )
 
   /**

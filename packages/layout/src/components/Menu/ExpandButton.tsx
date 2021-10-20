@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { mergeSelectors } from '../../utils/helper'
 
 interface ExpandButtonProps {
   show: boolean
@@ -10,6 +11,7 @@ interface ExpandButtonProps {
  * next group of nested menu items.
  *
  * @internal usage only
+ * @todo add custom button support
  *
  */
 
@@ -17,7 +19,10 @@ export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
   return (
     <button
       title="Expand Section"
-      className="submenu-toggle"
+      className={mergeSelectors([
+        'submenu-toggle',
+        show ? 'expanded' : undefined,
+      ])}
       aria-expanded={show ? 'true' : 'false'}
       aria-label="Expand Section"
       onClick={() => set(!show)}>

@@ -233,6 +233,8 @@ export interface MakerOptions {
       | {
           /** Determines the number of milliseconds that should pass before the nav is triggered back into view on up-scroll */
           delay: number
+          /** The scroll distance (in pixels) from the top of the document where the effect should begin  @default 500*/
+          start: number
         }
     /**
      * Adds a custom class to the header when the user has scrolled past a specified point.

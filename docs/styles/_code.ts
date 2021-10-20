@@ -6,9 +6,11 @@ export const code_styles = {
   code: {
     display: 'inline-block',
     borderRadius: 2,
+    fontSize: ['1.125em'],
     backgroundColor: 'var(--color-bg_code)',
     color: 'var(--color-primary)',
     padding: '0 8px',
+    fontWeight: 700,
   },
   '.highlight': {
     position: 'relative',

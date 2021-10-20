@@ -5,7 +5,7 @@
 
 # Styling Components
 
-All of Maker UI's exported components support special `breakpoints` and `css` props. These props let you specify media query breakpoints as an array of values that correspond with CSS rules.
+All of Maker UI's components support special `breakpoints` and `css` props. These props let you specify media query breakpoints as an array of values that correspond with CSS rules.
 
 Here's how the syntax looks in action:
 
@@ -142,11 +142,6 @@ However, as your component grows in complexity, you might have a hard time ident
 With this approach, you add a nested style declaration to a parent component or outer container. All child element styles will be derived from the parent's `css` prop. Any responsive arrays in your style object will abide by global breakpoints or the local `breakpoints` prop.
 
 This pattern encourages you to rely more on CSS selectors and to write cleaner JSX in your React components.
-
-<Callout>
-  This is the recommended way to handle complex component styles because it will
-  make your component easier to maintain.
-</Callout>
 
 ```jsx
 import { Div } from 'maker-ui'

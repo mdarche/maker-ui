@@ -98,6 +98,7 @@ export const MenuItem = memo(
           'menu-item',
           submenu ? 'has-submenu' : undefined,
           submenu && isHeader && caret === 'default' ? 'caret' : undefined,
+          showNested ? 'expanded' : undefined,
           className,
         ])}>
         <ConditionalWrapper

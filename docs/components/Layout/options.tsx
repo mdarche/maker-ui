@@ -37,6 +37,11 @@ export const options: MakerUIOptions = {
       bg_sideNav: '#FBFCFF',
       bg_mobileMenu: '#000',
       bg_code: '#f2f3f9',
+      diagram_bg: '#f3f6fa',
+      diagram_light: '#dbe4f1',
+      diagram_dark: '#c2cee3',
+      diagram_active: '#729bed',
+      table_th_bg: '#3b4d72',
     },
     dark: {
       text: '#fff',
@@ -60,6 +65,7 @@ export const options: MakerUIOptions = {
     hideWidgetsOnMobile: false,
     stickyUpScroll: {
       delay: 50,
+      start: 1000,
     },
     dropdown: {
       transition: 'fade-down',

@@ -3,7 +3,7 @@ import * as React from 'react'
 import Head from 'next/head'
 import { MDXProvider } from '@mdx-js/react'
 import { preToCodeBlock } from 'mdx-utils'
-
+import { Grid, GridProps } from 'maker-ui'
 import '@docsearch/css'
 
 import Layout from '../components/Layout/Layout'
@@ -12,6 +12,7 @@ import { DocsLink } from '../components/DocsLink'
 import { Callout } from '../components/Callout'
 import { H2, H3, H4, HeadingProps } from '../components/Headings'
 import { SEO, SEOProps } from '../components/SEO'
+import { Diagram, DiagramProps } from '../components/Diagram'
 
 const components = {
   pre: (preProps) => {
@@ -33,6 +34,8 @@ const components = {
   h3: (h3Props: HeadingProps) => <H3 {...h3Props} />,
   h4: (h4Props: HeadingProps) => <H4 {...h4Props} />,
   SEO: (seoProps: SEOProps) => <SEO {...seoProps} />,
+  Grid: (gridProps: GridProps) => <Grid {...gridProps} />,
+  Diagram: (diagramProps: DiagramProps) => <Diagram {...diagramProps} />,
 }
 
 export default function App({ Component, pageProps }) {

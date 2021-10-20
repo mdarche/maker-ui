@@ -72,4 +72,51 @@ export const content_styles = {
       },
     },
   },
+  '.theme-box': {
+    border: '1px solid',
+    height: 'fit-content',
+    borderColor: 'var(--color-border)',
+    background: 'var(--color-bg_sideNav)',
+    padding: '20px',
+    h4: {
+      margin: 0,
+    },
+  },
+  table: {
+    margin: '40px 0',
+    fontSize: ['0.95em', '1em'],
+  },
+  'table .prop': {
+    fontFamily: 'var(--font-monospace)',
+    opacity: 0.6,
+    fontSize: '1.1em',
+  },
+  thead: {
+    background: 'var(--color-table_th_bg)',
+    color: 'var(--color-background)',
+    padding: 20,
+  },
+  th: {
+    padding: '6px 15px',
+    '&:first-of-type': {
+      minWidth: [120, 140],
+    },
+  },
+  td: {
+    padding: '8px 20px',
+  },
+  'tbody tr:nth-child(even)': {
+    background: 'var(--color-bg_code)',
+  },
+  'tr td:first-of-type': {
+    fontWeight: 700,
+  },
+  '#components-list h3': {
+    borderTop: '1px solid',
+    borderColor: 'var(--color-border)',
+    paddingTop: 20,
+    '&:first-of-type': {
+      border: 'none',
+    },
+  },
 }

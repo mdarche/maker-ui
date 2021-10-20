@@ -5,9 +5,15 @@
 
 # Primitives
 
-Maker UI Primitives are `css` and `breakpoints` enabled React elements that help you to quickly prototype your ideas and build responsive designs.
+Maker UI Primitives are basic JSX elements that support `css` and `breakpoints` props.
 
-You can use these components just as you would their normal HTML counterparts. You can import the capital letter version of the normal JSX element or use an alias if applicable:
+You can use these components just as you would their normal HTML counterparts. They also forward any external refs that you might need to assign for measurements or layout effects.
+
+Just import the capital letter version of the normal JSX element or use an alias if applicable:
+
+<Grid columns={['1fr', '1fr 1fr']} gap={50}>
+
+<div className="theme-box">
 
 #### Basic Elements
 
@@ -23,14 +29,24 @@ You can use these components just as you would their normal HTML counterparts. Y
 - [Img or Image](#img-or-image)
 - [H1, H2, H3, H4, H5, H6](#headings)
 
+</div>
+
+<div className="theme-box">
+
 #### Special Elements
 
 - [Flex](#flex)
 - [Grid](#grid)
 
+</div>
+
+</Grid>
+
 ## Default Breakpoints
 
-If you are using the full Maker UI layout system, all nested primitive components will use the global breakpoints you specify in your options configuration:
+If you don't use a Maker UI layout, the default breakpoints are `[768, 960, 1440]` (in pixels).
+
+If you are using the full Maker UI layout system, all nested primitive components will abide by the global breakpoints that you declare in your options configuration:
 
 ```jsx
 // Example Layout component file
@@ -39,7 +55,7 @@ import {
   ...
 } from 'maker-ui`
 
-const options: MakerOptions = { breakpoints: [768, 960, 1200] }
+const options: MakerOptions = { breakpoints: [450, 600, 960] }
 
 const MyLayout = () => (
   <Layout options={options}>
@@ -50,14 +66,16 @@ const MyLayout = () => (
 // Page or child component
 
 export default HomePage = () => (
-  <Div css={{ color: ['blue', 'red', 'green' ]}}>
+  <Div css={{ color: ['blue', 'red', 'green'] }}>
     <h1>Home page</h1>
   </Div>
 )
 
 ```
 
-In the above example the heading tag color styles would correspond with **min-width** `768px`, `900px`, and `1200px` media queries.
+In this example, the heading color would correspond with **min-width** `450px`, `600px`, and `960px` media queries.
+
+You are free to use any unit for your breakpoints array including `vw`, `em`, `pt`, etc. If you use a number type instead of a full string, your value will be converted into pixels.
 
 ## Components
 
@@ -66,6 +84,8 @@ In the above example the heading tag color styles would correspond with **min-wi
   import from
   <code>@maker-ui/primitives</code> if you don't need the layout engine.
 </Callout>
+
+<div id="components-list">
 
 ### Div
 
@@ -79,7 +99,40 @@ import { Div } from 'maker-ui'
 
 ### Flex
 
+Flex is a `<Div>` component with a predefined flex display and a few handy shortcuts.
+
+```jsx
+import { Flex } from 'maker-ui'
+```
+
+You can use the following custom props in lieu of adding your flex settings to the `css` prop:
+
+|  Prop   | Description                                                                                                                        |
+| :-----: | ---------------------------------------------------------------------------------------------------------------------------------- |
+|  align  | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **align-items** CSS property.                     |
+| column  | <div className="prop">boolean</div> When true, this will set **flex-direction** to **column**. This value is **false** by default. |
+|  flex   | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **flex** CSS property.                            |
+| inline  | <div className="prop">boolean</div> When true, this will set **display** to **inline-flex**.                                       |
+| justify | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **justify-content** CSS property.                 |
+|  wrap   | <div className="prop">boolean</div> When true, this will set **flex-wrap** to **wrap**                                             |
+
 ### Grid
+
+Grid is a `<Div>` component with a predefined CSS Grid display and a few handy shortcuts.
+
+```jsx
+import { Grid } from 'maker-ui'
+```
+
+You can use the following custom props in lieu of adding your grid settings to the `css` prop:
+
+|  Prop   | Description                                                                                                                                                                           |
+| :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  areas  | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **grid-template-areas** property.                                                                    |
+| center  | <div className="prop">boolean</div> When true, this will vertically and horizontally center all content in each direct descendent container by setting **place-items** to **center**. |
+| columns | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **grid-template-columns** property.                                                                  |
+|   gap   | <div className="prop">number &#124; string &#124; (number &#124; string)[] </div> A shortcut for the responsive **gap** property.                                                     |
+|  rows   | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **grid-template-row** property.                                                                      |
 
 ### Span
 
@@ -131,18 +184,86 @@ import { Link } from 'maker-ui'
 
 ### Button
 
+Supports all props of the `<button>` tag.
+
+```jsx
+import { Button } from 'maker-ui'
+```
+
 ### P or Paragraph
 
-### Table
+Supports all props of the `<p>` tag.
+
+```jsx
+import { P } from 'maker-ui'
+// or
+import { Paragraph } from 'maker-ui'
+```
 
 ### SVG
 
+Supports all props of the `<svg>` tag. Maker UI automatically appends an `xmlns` attribute so you can omit that prop.
+
+```jsx
+import { SVG } from 'maker-ui'
+```
+
+<Callout type="info">
+  Don't forget to add a <code>viewBox</code> prop.
+</Callout>
+
 ### Img or Image
+
+Supports all props of the `<img>` tag.
+
+```jsx
+import { Img } from 'maker-ui'
+// or
+import { Image } from 'maker-ui'
+```
 
 ### Heading Tags
 
+Supports all props of the `<h1>` through `<h6>` heading tags.
+
+```jsx
+import { H1, H2, H3, H4, H5, H6 } from 'maker-ui'
+```
+
+</div>
+
 ## JSX
 
+If you don't want to import primitives or if you would rather use a JSX runtime that automatically parses elements for `css` and `breakpoints`, you can use Maker UI's JSX pragma instead.
+
+```jsx
+/** @jsx jsx */
+import { jsx } from 'maker-ui`
+
+// This will work the same as importing the <Div> and <H1> primitives
+
+export const MyComponent = () => (
+  <div
+    breakpoints={[500, 960]}
+    css={{ padding: [20, 30, 40] }}
+  >
+    <h1 css={{ color: ['red', 'blue'] }}></h1>
+  </div>
+)
 ```
 
-```
+Remember to add the comment from the above example to the top of your file so
+you don't accidentally use the default React JSX runtime.
+
+<Callout type="info">
+  React 17 introduced a brand new{' '}
+  <a
+    href="https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html"
+    target="_blank"
+    rel="noopener noreferrer">
+    JSX transform
+  </a>{' '}
+  that allows you to automatically set your preferred JSX factory with Babel and
+  TypeScript. Check back for an update on how to implement this technique for
+  Maker UI.
+</Callout>
