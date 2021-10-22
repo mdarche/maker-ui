@@ -86,11 +86,6 @@ export const content_styles = {
     margin: '40px 0',
     fontSize: ['0.95em', '1em'],
   },
-  'table .prop': {
-    fontFamily: 'var(--font-monospace)',
-    opacity: 0.6,
-    fontSize: '1.1em',
-  },
   thead: {
     background: 'var(--color-table_th_bg)',
     color: 'var(--color-background)',
@@ -103,20 +98,54 @@ export const content_styles = {
     },
   },
   td: {
-    padding: '8px 20px',
+    padding: '12px 20px',
   },
-  'tbody tr:nth-child(even)': {
+  'tbody tr:nth-of-type(even)': {
     background: 'var(--color-bg_code)',
+    code: {
+      background: 'var(--color-background)',
+    },
   },
   'tr td:first-of-type': {
     fontWeight: 700,
   },
   '#components-list h3': {
     borderTop: '1px solid',
-    borderColor: 'var(--color-border)',
+    borderColor: 'var(--color-border_dark)',
     paddingTop: 20,
     '&:first-of-type': {
       border: 'none',
     },
+  },
+  '.default-value': {
+    display: 'flex',
+    alignItems: 'center',
+    margin: '20px 0 10px',
+    fontSize: '0.9em',
+    flexWrap: 'wrap',
+    span: {
+      display: 'block',
+      marginRight: 15,
+      fontStyle: 'italic',
+      color: 'var(--color-primary)',
+    },
+  },
+  '.prop-type': {
+    margin: '0 0 10px',
+    display: 'flex',
+    alignItems: 'center',
+    borderBottom: '1px solid var(--color-border_dark)',
+    paddingBottom: 5,
+  },
+  '.type-title': {
+    marginRight: 15,
+    fontSize: '0.85em',
+    color: 'var(--color-table_th_bg)',
+    fontWeight: 700,
+  },
+  '.type-value': {
+    fontFamily: 'var(--font-monospace)',
+    color: 'var(--color-primary)',
+    paddingTop: 1,
   },
 }

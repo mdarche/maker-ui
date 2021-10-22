@@ -11,8 +11,64 @@ import { Topbar } from 'maker-ui'
 
 </Diagram>
 
+The Topbar component sits above your site header and gives you a space to add supplementary content. Use it for recent announcements, new post links, social media icons, etc.
+
+The Topbar is a static layout element that cannot be dismissed. If you want users to be able to close or hide the container, use an [Announcement](/docs/elements/announcement) instead.
+
 ## Props
+
+|      Prop      | Description                                                                                                                                   |
+| :------------: | --------------------------------------------------------------------------------------------------------------------------------------------- |
+|      css       | <Type name="object" /> Styles from the `css` prop will be applied to the Topbar's inner content container.                                    |
+|     \_css      | <Type name="object" /> Styles from the `_css` prop will be applied to the root Topbar element.                                                |
+|   background   | <Type name="ResponsiveString" /> Overrides the Topbar's default `--color-bg_topbar` background value that you can set in Maker UI options.    |
+|    maxWidth    | <Type name="ResponsiveScale" /> Overrides `topbar.maxWidth` that you can set in Maker UI options.                                             |
+| scrollOverflow | <Type name="boolean"/> When true, content overflow will scroll horizontally instead of wrapping to a new line. <DefaultValue value="false" /> |
+|     sticky     | <Type name="boolean"/> Overrides `topbar.sticky` from Maker UI options.                                                                       |
+| stickyOnMobile | <Type name="boolean"/> Overrides `topbar.stickyOnMobile` from Maker UI options.                                                               |
+
+<Callout type="suggestion">
+  The override props are designed for conditional use cases or runtime logic.
+  Whenever possible, use Maker UI options instead.
+</Callout>
 
 ## Maker UI Options
 
+Your options configuration has a `topbar` object with the following properties:
+
+|     Option     | Description                                                                                                                                                                                                                                                                                                                              |
+| :------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   breakpoint   | <Type name="string-number" /> A specific breakpoint that determines when the Topbar is visible. You may also use an index to access a breakpoint from `options.breakpoints`. This setting is only helpful if `topbar.hideOnMobile` is set to **true**. <DefaultValue value="0" note="The first index of your global breakpoints array"/> |
+| errorBoundary  | <Type name="boolean" /> When true, this will wrap the inner contents of the Topbar in an Error Boundary that you can customize with `options.errors`. <DefaultValue value="false" />                                                                                                                                                     |
+|  hideOnMobile  | <Type name="boolean" /> A boolean that determines if the Topbar is visible on mobile.<DefaultValue value="false" />                                                                                                                                                                                                                      |
+|    maxWidth    | <Type name="ResponsiveScale" /> The max-width of the Topbar's content container. Can be a responsive array. <DefaultValue value="1260" />                                                                                                                                                                                                |
+|     sticky     | <Type name="boolean" /> A boolean that determines if the Topbar sticks to the top of the viewport while scrolling. <<DefaultValue value="false" />                                                                                                                                                                                       |
+| stickyOnMobile | <Type name="boolean" /> A boolean that determines if the Topbar is visible on mobile. <DefaultValue value="false" />                                                                                                                                                                                                                     |
+
 ## Usage
+
+Add `Topbar` to the beginning of your layout tree, right before the header:
+
+```jsx {14}
+import {
+  Layout,
+  Topbar,
+  Header,
+  Content,
+  Main,
+  Footer
+} from 'maker-ui'
+
+// This example omits key props like menus, options, etc.
+
+export const MyLayout = ({ children }) => (
+  <Layout>
+    <Topbar>Your custom content<Topbar>
+    <Header />
+    <Content>
+      <Main>{children}</Main>
+    </Content>
+    <Footer />
+  </Layout>
+)
+```

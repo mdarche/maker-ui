@@ -10,7 +10,7 @@ const AnimatedDiv = animated(Div)
 export interface ModalProps extends DivProps {
   show?: boolean
   set?: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
-  background?: string | string
+  background?: string | string[]
   appendTo?: string
   title?: string
   closeOnBlur?: boolean
@@ -153,7 +153,12 @@ export const Modal = ({
               />
               <Div
                 className="modal-content"
-                css={{ zIndex: 1, overflow: 'scroll', ...(css as object) }}
+                css={{
+                  zIndex: 1,
+                  overflow: 'scroll',
+                  height: '100%',
+                  ...(css as object),
+                }}
                 {...rest}>
                 {children}
               </Div>

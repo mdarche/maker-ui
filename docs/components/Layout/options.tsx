@@ -14,6 +14,7 @@ export const options: MakerUIOptions = {
       link: '#3B67BC',
       link_hover: '#aa1aae',
       primary: '#3B67BC',
+      secondary: '#729bed',
       background: '#fff',
       border: '#F0F2F7',
       border_dark: '#dce5f1',

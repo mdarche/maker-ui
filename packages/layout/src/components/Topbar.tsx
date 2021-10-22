@@ -12,11 +12,19 @@ import { mergeSelectors, setBreakpoint } from '../utils/helper'
 type StickyType = 'sticky' | ('sticky' | 'relative')[] | undefined
 
 interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
+  /** Overrides the default `--color-bg_topbar` background that you can set with Maker UI Options. */
   background?: string
+  /** Overrides `topbar.maxWidth` from Maker UI options. */
   maxWidth?: ResponsiveScale
+  /** When true, content overflow will scroll horizontally instead of wrapping to a new line.
+   * @default false
+   */
   scrollOverflow?: boolean
+  /** Overrides `topbar.sticky` from Maker UI options. */
   sticky?: MakerOptions['topbar']['sticky']
+  /** Overrides `topbar.stickyOnMobile` from Maker UI options. */
   stickyOnMobile?: MakerOptions['topbar']['stickyOnMobile']
+  /** Gives you access to the root container styles */
   _css?: MakerProps['css']
 }
 

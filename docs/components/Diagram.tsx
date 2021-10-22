@@ -8,8 +8,6 @@ export interface DiagramProps {
 
 export const Diagram = ({ component, subtitle, children }: DiagramProps) => {
   const selector = `.${component.toLowerCase()} path`
-  console.log('selector is', selector)
-
   const layoutStyle =
     component === 'Layout'
       ? {
@@ -38,12 +36,12 @@ export const Diagram = ({ component, subtitle, children }: DiagramProps) => {
         pre: {
           padding: '50px 0 20px',
         },
-        'line-number-style': {
+        '.line-number-style': {
           opacity: 0,
           width: 30,
         },
         '.mobile-diagram': {
-          maxHeight: 230,
+          maxHeight: 260,
         },
         '.import-guide': {
           display: ['none', 'block'],

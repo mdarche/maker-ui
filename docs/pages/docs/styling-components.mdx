@@ -24,8 +24,8 @@ Here's how the syntax looks in action:
 Maker UI stacks your CSS array values as **min-width** media queries. In the example above, the div's base color would be `blue`. At `min-width(768px)` the div's color would turn `red`, and finally at `min-width(960px)` the div's color would become `purple`.
 
 <Callout type="info">
-  Just remember that the first index of your CSS attribute array will always
-  serve as the base style for your component.
+  The first index of your CSS attribute array will always serve as the base
+  style for your component.
 </Callout>
 
 Here's another example:
@@ -133,7 +133,7 @@ Declare styles for pseudo elements (`:before` and `:after`), state (`:hover`, `:
 
 ## When to Inline vs Import
 
-While prototyping, it's often easiest to bake styles directly into your JSX. This strategy works really well when you can keep your files small with a modular component architecture.
+While prototyping, it's often easiest to bake styles directly into your JSX. This strategy also works really well when you can keep your files small with a modular component architecture.
 
 However, as your component grows in complexity, you might have a hard time identifying business logic if the JSX becomes too bloated with styles. It's often cleaner to define several styles in one place as a separate object.
 
@@ -215,7 +215,7 @@ const TestComponent = () => (
 
 ## \_css Prop
 
-Several Maker UI components render a container element. This is particularly useful for applying a `maxWidth` rule to the component's inner contents or adding a CSS display of `flex` or `grid` to the container.
+Several Maker UI components render a container element. This is useful for applying a `maxWidth` rule to the component's inner contents or adding a CSS display of `flex` or `grid` to the container.
 
 If you ever need to style a root container element, you can use the `_css` prop.
 
@@ -226,7 +226,7 @@ If you ever need to style a root container element, you can use the `_css` prop.
 
 ## Usage with Layout API
 
-If you decide to use the Layout API in your project, you may never need to add a `breakpoints` prop to any of your components. The `MakerUIOptions` configuration lets you set a global breakpoints array so that all nested components obey the same media queries by default.
+You may never need to add a `breakpoints` prop to any of your components if you are using the Layout API. The `MakerUIOptions` configuration lets you set a global breakpoints array so that all nested components obey the same media queries by default.
 
 When you need a custom media query that is different from the array you specified in your `MakerUIOptions`, the `breakpoints` prop will always take precedence.
 

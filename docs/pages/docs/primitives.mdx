@@ -9,7 +9,7 @@ Maker UI Primitives are basic JSX elements that support `css` and `breakpoints` 
 
 You can use these components just as you would their normal HTML counterparts. They also forward any external refs that you might need to assign for measurements or layout effects.
 
-Just import the capital letter version of the normal JSX element or use an alias if applicable:
+Just import the capital letter version of your desired JSX element or use an alias:
 
 <Grid columns={['1fr', '1fr 1fr']} gap={50}>
 
@@ -46,7 +46,7 @@ Just import the capital letter version of the normal JSX element or use an alias
 
 If you don't use a Maker UI layout, the default breakpoints are `[768, 960, 1440]` (in pixels).
 
-If you are using the full Maker UI layout system, all nested primitive components will abide by the global breakpoints that you declare in your options configuration:
+If you are using the full layout system, all nested primitive components will abide by the global breakpoints that you declare in your options configuration:
 
 ```jsx
 // Example Layout component file
@@ -82,7 +82,7 @@ You are free to use any unit for your breakpoints array including `vw`, `em`, `p
 <Callout type="info">
   The following examples import from <code>maker-ui</code> but you can also
   import from
-  <code>@maker-ui/primitives</code> if you don't need the layout engine.
+  <code>@maker-ui/primitives</code> if you don't need the layout sytem.
 </Callout>
 
 <div id="components-list">
@@ -105,7 +105,7 @@ Flex is a `<Div>` component with a predefined flex display and a few handy short
 import { Flex } from 'maker-ui'
 ```
 
-You can use the following custom props in lieu of adding your flex settings to the `css` prop:
+You can use the following custom props instead of adding your flex settings to the `css` prop:
 
 |  Prop   | Description                                                                                                                        |
 | :-----: | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -114,7 +114,7 @@ You can use the following custom props in lieu of adding your flex settings to t
 |  flex   | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **flex** CSS property.                            |
 | inline  | <div className="prop">boolean</div> When true, this will set **display** to **inline-flex**.                                       |
 | justify | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **justify-content** CSS property.                 |
-|  wrap   | <div className="prop">boolean</div> When true, this will set **flex-wrap** to **wrap**                                             |
+|  wrap   | <div className="prop">boolean</div> When true, this will set **flex-wrap** to **wrap**.                                            |
 
 ### Grid
 
@@ -124,7 +124,7 @@ Grid is a `<Div>` component with a predefined CSS Grid display and a few handy s
 import { Grid } from 'maker-ui'
 ```
 
-You can use the following custom props in lieu of adding your grid settings to the `css` prop:
+You can use the following custom props instead of adding your grid settings to the `css` prop:
 
 |  Prop   | Description                                                                                                                                                                           |
 | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

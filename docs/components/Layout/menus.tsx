@@ -4,10 +4,10 @@ export const menu: MakerMenu = [
   { divider: true, label: 'Overview', className: 'side-section-header' },
   { label: 'Getting Started', path: '/docs/getting-started' },
   { label: 'Styling Components', path: '/docs/styling-components' },
-  { label: 'Primitives', path: '/docs/primitives' },
   { label: 'Maker UI Options', path: '/docs/maker-ui-options' },
   { label: 'Best Practices', path: '/docs/best-practices' },
   { divider: true, label: 'API Reference', className: 'side-section-header' },
+  { label: 'Primitives', path: '/docs/primitives' },
   {
     label: 'Layout',
     path: '/docs/layout',

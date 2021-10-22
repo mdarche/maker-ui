@@ -11,8 +11,73 @@ import { Header } from 'maker-ui'
 
 </Diagram>
 
+The Header component renders a `<header>` tag that contains all components for desktop and mobile navigation.
+
 ## Props
+
+|      Prop      | Description                                                                                                                                                  |
+| :------------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|      css       | <div className="prop">object</div> Styles from the `css` prop will be applied to the Topbar's inner content container.                                       |
+|     \_css      | <div className="prop">object</div> Styles from the `_css` prop will be applied to the root Topbar element.                                                   |
+|   background   | <div className="prop">string &#124; string[]</div> Overrides the Topbar's default `--color-bg_topbar` background value that you can set in Maker UI options. |
+|    maxWidth    | <div className="prop">string &#124; number &#124; (string &#124; number)[]</div> Overrides `topbar.maxWidth` that you can set in Maker UI options.           |
+| scrollOverflow | <div className="prop">boolean</div> When true, content overflow will scroll horizontally instead of wrapping to a new line. <br /><br />Default: **false**   |
+|     sticky     | <div className="prop">boolean</div> Overrides `topbar.sticky` from Maker UI options.                                                                         |
+| stickyOnMobile | <div className="prop">boolean</div> Overrides `topbar.stickyOnMobile` from Maker UI options.                                                                 |
+
+<Callout type="suggestion">
+  The override props are designed for conditional use cases or runtime logic.
+  Whenever possible, use Maker UI options instead.
+</Callout>
 
 ## Maker UI Options
 
+Your options configuration has a `topbar` object with the following properties:
+
+|         Option          | Description                                                                                                   |
+| :---------------------: | ------------------------------------------------------------------------------------------------------------- |
+|        absolute         | A Determines if the header should be absolutely positioned so site content begins at the top of the viewport. |
+|       breakpoint        |                                                                                                               |
+|       colorButton       |                                                                                                               |
+|        dropdown         |                                                                                                               |
+|      errorBoundary      |                                                                                                               |
+| hideColorButtonOnMobile |                                                                                                               |
+|   hideWidgetsOnMobile   |                                                                                                               |
+|        maxWidth         |                                                                                                               |
+|       menuButton        |                                                                                                               |
+|      menuOverflow       |                                                                                                               |
+|      mobileNavType      |                                                                                                               |
+|         navType         |                                                                                                               |
+|       scrollClass       |                                                                                                               |
+|     showColorButton     |                                                                                                               |
+|         sticky          | A boolean that determines if the header sticks to the top of the viewport on mobile.                          |
+|     stickyOnMobile      |                                                                                                               |
+|     stickyUpScroll      |                                                                                                               |
+
 ## Usage
+
+Add `Topbar` to the beginning of your layout tree, right before the header:
+
+```jsx {14}
+import {
+  Layout,
+  Topbar,
+  Header,
+  Content,
+  Main,
+  Footer
+} from 'maker-ui'
+
+// This example omits key props like menus, options, etc.
+
+export const MyLayout = ({ children }) => (
+  <Layout>
+    <Topbar>Your custom content<Topbar>
+    <Header />
+    <Content>
+      <Main>{children}</Main>
+    </Content>
+    <Footer />
+  </Layout>
+)
+```

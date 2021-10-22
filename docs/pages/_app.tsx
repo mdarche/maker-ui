@@ -3,16 +3,18 @@ import * as React from 'react'
 import Head from 'next/head'
 import { MDXProvider } from '@mdx-js/react'
 import { preToCodeBlock } from 'mdx-utils'
-import { Grid, GridProps } from 'maker-ui'
+import { Grid } from 'maker-ui'
 import '@docsearch/css'
 
 import Layout from '../components/Layout/Layout'
 import { CodeBlock } from '../components/CodeBlock'
 import { DocsLink } from '../components/DocsLink'
 import { Callout } from '../components/Callout'
-import { H2, H3, H4, HeadingProps } from '../components/Headings'
-import { SEO, SEOProps } from '../components/SEO'
-import { Diagram, DiagramProps } from '../components/Diagram'
+import { H2, H3, H4 } from '../components/Headings'
+import { SEO } from '../components/SEO'
+import { Diagram } from '../components/Diagram'
+import { Type } from '../components/Type'
+import { DefaultValue } from '../components/DefaultValue'
 
 const components = {
   pre: (preProps) => {
@@ -30,12 +32,14 @@ const components = {
   ),
   a: (anchorProps) => <DocsLink {...anchorProps} />,
   Callout,
-  h2: (h2Props: HeadingProps) => <H2 {...h2Props} />,
-  h3: (h3Props: HeadingProps) => <H3 {...h3Props} />,
-  h4: (h4Props: HeadingProps) => <H4 {...h4Props} />,
-  SEO: (seoProps: SEOProps) => <SEO {...seoProps} />,
-  Grid: (gridProps: GridProps) => <Grid {...gridProps} />,
-  Diagram: (diagramProps: DiagramProps) => <Diagram {...diagramProps} />,
+  h2: (h2Props) => <H2 {...h2Props} />,
+  h3: (h3Props) => <H3 {...h3Props} />,
+  h4: (h4Props) => <H4 {...h4Props} />,
+  SEO: (seoProps) => <SEO {...seoProps} />,
+  Grid: (gridProps) => <Grid {...gridProps} />,
+  Diagram: (diagramProps) => <Diagram {...diagramProps} />,
+  Type: (typeProps) => <Type {...typeProps} />,
+  DefaultValue: (valueProps) => <DefaultValue {...valueProps} />,
 }
 
 export default function App({ Component, pageProps }) {
