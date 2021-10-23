@@ -27,8 +27,8 @@ export interface FocusConfig {
  * The `useFocus` hook queries the DOM for nearby focusable elements and
  * returns an object that can be used for dynamic focus management
  *
- * @param containerRef - A react ref that points to the focus container
- * @param focusRef - A react ref that points to the desired focus HTML Element
+ * @param containerRef - A React ref that points to the focus container
+ * @param focusRef - A React ref that points to the desired focus HTML Element
  * @param show - A boolean that determines whether the effect should run
  *
  * @internal usage only
@@ -49,7 +49,7 @@ export function useFocus({ containerRef, focusRef, show }: FocusConfig) {
 
       elements.forEach((i, index) => {
         if (focusRef.current === i) {
-          setFocusable(state => ({ ...state, next: elements[index + 1] }))
+          setFocusable((state) => ({ ...state, next: elements[index + 1] }))
         }
       })
     }
@@ -60,14 +60,14 @@ export function useFocus({ containerRef, focusRef, show }: FocusConfig) {
    */
   useEffect(() => {
     if (containerRef.current && focusable.container === null) {
-      setFocusable(s => ({ ...s, container: containerRef.current }))
+      setFocusable((s) => ({ ...s, container: containerRef.current }))
     }
 
     if (show && containerRef.current) {
       const elements = containerRef.current.querySelectorAll(focusElements)
 
       if (elements.length !== 0) {
-        setFocusable(state => ({
+        setFocusable((state) => ({
           ...state,
           count: elements.length,
           first: elements[0],

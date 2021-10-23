@@ -10,10 +10,15 @@ import { useMeasurements } from '../context/LayoutContext'
 import { setBreakpoint, mergeSelectors } from '../utils/helper'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
+  /** Overrides `header.absolute` from Maker UI options. */
   absolute?: boolean
+  /** Overrides the Header's default `--color-bg_header` background value that you can set in Maker UI options. */
   background?: string | string[]
+  /** Overrides `header.sticky` from Maker UI options. */
   sticky?: boolean
+  /** Overrides `header.stickyOnMobile` from Maker UI options. */
   stickyOnMobile?: boolean
+  /** Overrides `header.stickyUpScroll` from Maker UI options. */
   stickyUpScroll?: boolean
 }
 

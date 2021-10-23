@@ -4,7 +4,6 @@ import { MakerUIOptions } from './types'
  * Default Maker UI option configuration.
  *
  * @link `MakerOptions` in src/types.ts for complete list of properties.
- * @todo - Revisit all of these defaults
  *
  */
 export const defaultOptions: MakerUIOptions = {

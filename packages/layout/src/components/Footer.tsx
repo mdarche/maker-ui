@@ -5,8 +5,11 @@ import { mergeSelectors } from '../utils/helper'
 import { ErrorContainer } from './Errors'
 
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
+  /** Overrides `footer.maxWidth` from Maker UI options. */
   maxWidth?: ResponsiveScale
+  /** Overrides the Footer's default `--color-bg_footer` CSS variable that you can set in Maker UI options. */
   background?: string | string[]
+  /** Applies css to the outer footer container. */
   _css?: MakerProps['css']
 }
 

@@ -38,7 +38,7 @@ export interface AnnouncementProps extends DivProps {
 export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {
-      storageKey = 'mui_dismiss_announce',
+      storageKey = 'maker_dismiss_announce',
       background = 'var(--color-primary)',
       className,
       color = '#fff',

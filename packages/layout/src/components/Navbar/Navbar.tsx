@@ -13,18 +13,31 @@ import { gridStyles } from './styles'
 import { setBreakpoint, mergeSelectors } from '../../utils/helper'
 
 export interface NavProps extends MakerProps {
+  /** Overrides the `header.navType` from Maker UI options. */
   type?: MakerOptions['header']['navType']
+  /** Overrides the `header.mobileNavType` from Maker UI options. */
   mobileType?: MakerOptions['header']['mobileNavType']
+  /** A custom logo component that is wrapped in an anchor tag that leads to the home page. */
   logo?: React.ReactElement | string
+  /** Lets you supply a `MakerMenu` that renders a fully responsive and accessible menu complete with nested dropdowns. */
   menu?: MenuItemProps[]
+  /** Overrides `header.colorButton` from Maker UI options. */
   colorButton?: MakerOptions['header']['colorButton']
+  /** Overrides `header.menuButton` from Maker UI options. */
   menuButton?: MakerOptions['header']['menuButton']
+  /** Replaces the Navbar logo-slot grid area with your own custom component.    */
   logoSlot?: React.ReactNode
+  /** Replaces the Navbar widget-slot grid area with your own custom component.    */
   widgetSlot?: React.ReactNode
+  /** Replaces the Navbar menu-slot grid area with your own custom component.    */
   menuSlot?: React.ReactNode
+  /** Lets you supply your app's current path to add a `.current` class and `aria-current` to the active menu item. This feature is only useful if you use the `menu` prop. */
   pathname?: string
+  /** Overrides `header.maxWidth` from Maker UI options. */
   maxWidth?: ResponsiveScale
+  /** Class selector */
   className?: string
+  /** ID selector */
   id?: string
 }
 
@@ -40,28 +53,26 @@ const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
  * @link https://maker-ui.com/components/layout/navbar
  */
 
-export const Navbar = (props: NavProps) => {
+export const Navbar = ({
+  type,
+  mobileType,
+  logo,
+  menu,
+  logoSlot,
+  widgetSlot,
+  menuSlot,
+  menuButton,
+  colorButton,
+  maxWidth,
+  className,
+  id,
+  css,
+}: NavProps) => {
   const { header, mobileMenu, breakpoints } = useOptions()
   const [layout, setLayout] = useLayout('nav')
   const [mobileLayout, setMobileLayout] = useLayout('mobileNav')
 
   const bpArray = setBreakpoint(header.breakpoint, breakpoints)
-
-  const {
-    type,
-    mobileType,
-    logo = 'Logo',
-    menu,
-    logoSlot,
-    widgetSlot,
-    menuSlot,
-    menuButton,
-    colorButton,
-    maxWidth,
-    className,
-    id,
-    css,
-  } = props
 
   const mid = menu && Math.ceil(menu.length / 2)
 
@@ -129,7 +140,7 @@ export const Navbar = (props: NavProps) => {
         </div>
       ) : null}
       <div className="nav-area logo-slot">
-        {logoSlot ? logoSlot : <Logo>{logo}</Logo>}
+        {logoSlot ? logoSlot : <Logo>{logo || 'Add Logo'}</Logo>}
       </div>
       <div className="nav-area menu-slot">
         {menuSlot ? (

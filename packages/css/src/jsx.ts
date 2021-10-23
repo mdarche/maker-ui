@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { createElement } from 'react'
 import { jsx as emotionJsx, Interpolation } from '@emotion/react'
 
 import { formatCSS } from './css'
@@ -44,4 +44,4 @@ export const jsx = <P extends {}>(
 ) =>
   typeof props?.css !== 'undefined' || typeof props?.breakpoints !== 'undefined'
     ? emotionJsx(type, parseProps(props), ...children)
-    : React.createElement(type, props, ...children)
+    : createElement(type, props, ...children)

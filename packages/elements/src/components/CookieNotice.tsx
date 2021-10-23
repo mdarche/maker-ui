@@ -16,7 +16,7 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     {
       background = '#000',
       color,
-      storageKey = 'mui_cookie_notice',
+      storageKey = 'maker_cookie_notice',
       expiration,
       springConfig,
       closeButton = 'Got it!',
