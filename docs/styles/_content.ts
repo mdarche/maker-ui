@@ -84,7 +84,7 @@ export const content_styles = {
   },
   table: {
     margin: '40px 0',
-    fontSize: ['0.95em', '1em'],
+    fontSize: ['0.9em'],
   },
   thead: {
     background: 'var(--color-table_th_bg)',
@@ -98,7 +98,7 @@ export const content_styles = {
     },
   },
   td: {
-    padding: '12px 20px',
+    padding: [10, '12px 20px'],
   },
   'tbody tr:nth-of-type(even)': {
     background: 'var(--color-bg_code)',
@@ -138,7 +138,7 @@ export const content_styles = {
     paddingBottom: 5,
   },
   '.type-title': {
-    marginRight: 15,
+    marginRight: [5, 15],
     fontSize: '0.85em',
     color: 'var(--color-table_th_bg)',
     fontWeight: 700,
@@ -147,5 +147,17 @@ export const content_styles = {
     fontFamily: 'var(--font-monospace)',
     color: 'var(--color-primary)',
     paddingTop: 1,
+    '&.flex': {
+      flexWrap: 'wrap',
+    },
+  },
+  '.multi-line span': {
+    marginRight: 5,
+  },
+  '.nested-type': {
+    marginLeft: 15,
+    span: {
+      fontWeight: 700,
+    },
   },
 }

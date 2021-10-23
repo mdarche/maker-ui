@@ -108,7 +108,7 @@ export const Navbar = (props: NavProps) => {
           ],
         },
         '.nav-widgets': {
-          display: header.hideWidgetsOnMobile ? ['none', 'flex'] : 'flex',
+          display: header.showWidgetsOnMobile ? 'flex' : ['none', 'flex'],
         },
         '&.m-layout-logo-center-alt .button-slot': {
           justifyContent: ['flex-end', 'flex-start'],

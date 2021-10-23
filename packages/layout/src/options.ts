@@ -51,8 +51,8 @@ export const defaultOptions: MakerUIOptions = {
     stickyOnMobile: false,
     stickyUpScroll: false,
     showColorButton: true,
-    hideColorButtonOnMobile: false,
-    hideWidgetsOnMobile: true,
+    showColorButtonOnMobile: true,
+    showWidgetsOnMobile: false,
     menuOverflow: 'wrap',
     dropdown: {
       caret: 'default',

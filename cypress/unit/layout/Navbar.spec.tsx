@@ -12,8 +12,8 @@ import { Wrapper, testMenu, nestedMenu, format, defaults } from '../setup'
  * - Option: `linkFunction`
  * - Option: `header.menuOverflow`
  * - Option: `mobileMenu.visibleOnDesktop`
- * - Option: `header.hideWidgetsOnMobile`
- * - Option: `header.showColorButton`, `header.shideColorButtonOnMobile`
+ * - Option: `header.showWidgetsOnMobile`
+ * - Option: `header.showColorButton`, `header.showColorButtonOnMobile`
  * - Option: `header.menuButton` (callback)
  * - Option: `header.colorButton` (callback)
  * - Prop: `logo` (component)
@@ -114,11 +114,11 @@ describe('Navbar', () => {
     cy.get('.widget-slot .menu-button').click()
   })
 
-  /*  Option: `header.hideWidgetsOnMobile` */
+  /*  Option: `header.showWidgetsOnMobile` */
 
   it('hides the widget area on mobile when specified', () => {
     mount(
-      <NavWrapper options={{ header: { hideWidgetsOnMobile: true } }}>
+      <NavWrapper options={{ header: { showWidgetsOnMobile: false } }}>
         <Navbar menu={testMenu} widgetSlot={<div>Widgets</div>} />
       </NavWrapper>
     )
@@ -142,7 +142,7 @@ describe('Navbar', () => {
               text: '#000',
             },
           },
-          header: { showColorButton: true, hideColorButtonOnMobile: true },
+          header: { showColorButton: true, showColorButtonOnMobile: false },
         }}>
         <Navbar menu={testMenu} />
       </NavWrapper>

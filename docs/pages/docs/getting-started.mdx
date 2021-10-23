@@ -13,7 +13,7 @@ npm i maker-ui
 yarn add maker-ui
 ```
 
-The core Maker UI library includes [layout components](/docs/layout-api) as well as basic [primitives](/docs/primitives) that you can use as building blocks in your page designs.
+The core Maker UI library includes [layout components](/docs/layout-api) as well as basic [primitives](/docs/primitives) and a [JSX runtime](/docs/primitives/#jsx) that you can use as building blocks in your page designs.
 
 <Callout type="info">
   If you just want to use <a href="/docs/primitives">primitives</a> without the
@@ -189,7 +189,7 @@ To address this, Maker UI's root `<Layout>` component accepts a `styles` prop wh
     <li>CSS resets</li>
     <li>Global or default CSS rules</li>
     <li>Shared or utility class styles</li>
-    <li>Layout API component styles via ID or class selector</li>
+    <li>Layout component styles via ID or class selector</li>
   </ul>
 </Callout>
 
@@ -217,7 +217,7 @@ const styles = {
   },
   header: {
     padding: [15, '10px 30px'],
-    borderBottom: '1px solid gainsboro',
+    borderBottom: '1px solid',
   },
   footer: {
     display: 'grid',
@@ -248,8 +248,8 @@ In this example, we add a global `textDecoration` rule to all anchor tags while 
 
 <Callout type="info">
   The easiest way to target a Maker UI layout component (without reading the{' '}
-  <a href="/docs/layout-api">Layout API docs</a>, of course) is to open DevTools
-  and identify the proper ID or class selector for the job.
+  <a href="/docs/layout">Layout API docs</a>, of course) is to open DevTools and
+  identify the proper ID or class selector for the job.
 </Callout>
 
 ## Use Inside a Root Provider

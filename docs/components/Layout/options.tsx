@@ -63,7 +63,7 @@ export const options: MakerUIOptions = {
     stickyOnMobile: true,
     breakpoint: 1000,
     showColorButton: false,
-    hideWidgetsOnMobile: false,
+    showWidgetsOnMobile: true,
     stickyUpScroll: {
       delay: 50,
       start: 1000,

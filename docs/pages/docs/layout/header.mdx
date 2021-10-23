@@ -15,15 +15,14 @@ The Header component renders a `<header>` tag that contains all components for d
 
 ## Props
 
-|      Prop      | Description                                                                                                                                                  |
-| :------------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|      css       | <div className="prop">object</div> Styles from the `css` prop will be applied to the Topbar's inner content container.                                       |
-|     \_css      | <div className="prop">object</div> Styles from the `_css` prop will be applied to the root Topbar element.                                                   |
-|   background   | <div className="prop">string &#124; string[]</div> Overrides the Topbar's default `--color-bg_topbar` background value that you can set in Maker UI options. |
-|    maxWidth    | <div className="prop">string &#124; number &#124; (string &#124; number)[]</div> Overrides `topbar.maxWidth` that you can set in Maker UI options.           |
-| scrollOverflow | <div className="prop">boolean</div> When true, content overflow will scroll horizontally instead of wrapping to a new line. <br /><br />Default: **false**   |
-|     sticky     | <div className="prop">boolean</div> Overrides `topbar.sticky` from Maker UI options.                                                                         |
-| stickyOnMobile | <div className="prop">boolean</div> Overrides `topbar.stickyOnMobile` from Maker UI options.                                                                 |
+|      Prop      | Description                                                                                                                                                                                                                        |
+| :------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|    absolute    | <Type name="boolean" /> Overrides `header.absolute` from Maker UI options.                                                                                                                                                         |
+|   background   | <Type name="ResponsiveString" /> Overrides the Header's default `--color-bg_header` background value that you can set in Maker UI options. **Note:** This doesn't have to be a color - you can use a gradient or an image as well. |
+|      css       | <Type name="object" /> Applies responsive CSS styles to the component.                                                                                                                                                             |
+|     sticky     | <Type name="boolean"/> Overrides `header.sticky` from Maker UI options.                                                                                                                                                            |
+| stickyOnMobile | <Type name="boolean"/> Overrides `header.stickyOnMobile` from Maker UI options.                                                                                                                                                    |
+| stickyUpScroll | <Type name="boolean"/> Overrides `header.stickyUpScroll` from Maker UI options.                                                                                                                                                    |
 
 <Callout type="suggestion">
   The override props are designed for conditional use cases or runtime logic.
@@ -32,37 +31,38 @@ The Header component renders a `<header>` tag that contains all components for d
 
 ## Maker UI Options
 
-Your options configuration has a `topbar` object with the following properties:
+Your options configuration has a `header` object with the following properties:
 
-|         Option          | Description                                                                                                   |
-| :---------------------: | ------------------------------------------------------------------------------------------------------------- |
-|        absolute         | A Determines if the header should be absolutely positioned so site content begins at the top of the viewport. |
-|       breakpoint        |                                                                                                               |
-|       colorButton       |                                                                                                               |
-|        dropdown         |                                                                                                               |
-|      errorBoundary      |                                                                                                               |
-| hideColorButtonOnMobile |                                                                                                               |
-|   hideWidgetsOnMobile   |                                                                                                               |
-|        maxWidth         |                                                                                                               |
-|       menuButton        |                                                                                                               |
-|      menuOverflow       |                                                                                                               |
-|      mobileNavType      |                                                                                                               |
-|         navType         |                                                                                                               |
-|       scrollClass       |                                                                                                               |
-|     showColorButton     |                                                                                                               |
-|         sticky          | A boolean that determines if the header sticks to the top of the viewport on mobile.                          |
-|     stickyOnMobile      |                                                                                                               |
-|     stickyUpScroll      |                                                                                                               |
+|         Option          | Description                                                                                                                                                                                                                                                                                                            |
+| :---------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|        absolute         | <Type name="boolean" /> If true, the header will be absolutely positioned so site content begins at the top of the viewport. <DefaultValue value="false" />                                                                                                                                                            |
+|       breakpoint        | <Type name="string-number" /> A breakpoint that controls when the header switches from desktop to mobile navigation. You may also use an index to access a breakpoint in the `options.breakpoints` array.                                                                                                              |
+|       colorButton       | <Type multi={["'default'", 'React.ReactNode', '((currentMode?: string, attributes?: object) => React.ReactNode)' ]} /> Lets you customize the header's color toggle. By default, it prints the name of the current color mode, but you can use a custom React component or a JSX callback to animate the icon's state. |
+|        dropdown         | <Type nested={{ caret: ['boolean', 'React.ReactElement'], transition: ["'scale'", "'fade'", "'fade-down'", "'fade-up'", "'none'"] }}></Type>                                                                                                                                                                           |
+|      errorBoundary      |                                                                                                                                                                                                                                                                                                                        |
+| showColorButtonOnMobile |                                                                                                                                                                                                                                                                                                                        |
+|   showWidgetsOnMobile   |                                                                                                                                                                                                                                                                                                                        |
+|        maxWidth         |                                                                                                                                                                                                                                                                                                                        |
+|       menuButton        | <Type multi={["'default'", 'React.ReactNode', '((isOpen?: boolean, attributes?: object) => React.ReactNode)' ]} />                                                                                                                                                                                                     |
+|      menuOverflow       |                                                                                                                                                                                                                                                                                                                        |
+|      mobileNavType      |                                                                                                                                                                                                                                                                                                                        |
+|         navType         | <Type multi={["'basic'", "'basic-left'", "'basic-right'", "'center'", "'split'", "'minimal'", "'minimal-left'","'minimal-center'","'reverse'", ]} flex />                                                                                                                                                              |
+|       scrollClass       |                                                                                                                                                                                                                                                                                                                        |
+|     showColorButton     |                                                                                                                                                                                                                                                                                                                        |
+|         sticky          | A boolean that determines if the header sticks to the top of the viewport on mobile.                                                                                                                                                                                                                                   |
+|     stickyOnMobile      |                                                                                                                                                                                                                                                                                                                        |
+|     stickyUpScroll      |                                                                                                                                                                                                                                                                                                                        |
 
 ## Usage
 
-Add `Topbar` to the beginning of your layout tree, right before the header:
+Add `Header` to the beginning of your layout tree and wrap it around `Navbar` and `MobileMenu`:
 
-```jsx {14}
+```jsx {15-18}
 import {
   Layout,
-  Topbar,
   Header,
+  Navbar,
+  MobileMenu
   Content,
   Main,
   Footer
@@ -72,8 +72,10 @@ import {
 
 export const MyLayout = ({ children }) => (
   <Layout>
-    <Topbar>Your custom content<Topbar>
-    <Header />
+    <Header>
+      <Navbar />
+      <MobileMenu />
+    </Header>
     <Content>
       <Main>{children}</Main>
     </Content>

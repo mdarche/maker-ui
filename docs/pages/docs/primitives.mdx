@@ -46,7 +46,7 @@ Just import the capital letter version of your desired JSX element or use an ali
 
 If you don't use a Maker UI layout, the default breakpoints are `[768, 960, 1440]` (in pixels).
 
-If you are using the full layout system, all nested primitive components will abide by the global breakpoints that you declare in your options configuration:
+If you are building with the full layout system, all nested primitives will use the global breakpoints that you declare in your options configuration:
 
 ```jsx
 // Example Layout component file
@@ -91,7 +91,7 @@ You are free to use any unit for your breakpoints array including `vw`, `em`, `p
 
 Supports all props of the `<div>` tag.
 
-This is most likely the primitive you need for the job. If you use it as the outermost wrapper of your component, you can set all nested, responsive styles. See [Nesting Selectors](/docs/styling-components/#nesting-selectors) for details.
+This is most likely the tool you need for the job. If you use it as the outermost wrapper of your component, you can set all nested, responsive styles. See [Nesting Selectors](/docs/styling-components/#nesting-selectors) for details.
 
 ```jsx
 import { Div } from 'maker-ui'
@@ -107,14 +107,14 @@ import { Flex } from 'maker-ui'
 
 You can use the following custom props instead of adding your flex settings to the `css` prop:
 
-|  Prop   | Description                                                                                                                        |
-| :-----: | ---------------------------------------------------------------------------------------------------------------------------------- |
-|  align  | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **align-items** CSS property.                     |
-| column  | <div className="prop">boolean</div> When true, this will set **flex-direction** to **column**. This value is **false** by default. |
-|  flex   | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **flex** CSS property.                            |
-| inline  | <div className="prop">boolean</div> When true, this will set **display** to **inline-flex**.                                       |
-| justify | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **justify-content** CSS property.                 |
-|  wrap   | <div className="prop">boolean</div> When true, this will set **flex-wrap** to **wrap**.                                            |
+|  Prop   | Description                                                                                                           |
+| :-----: | --------------------------------------------------------------------------------------------------------------------- |
+|  align  | <Type name="ResponsiveString"/> A shortcut for the responsive **align-items** CSS property.                           |
+| column  | <Type name="boolean"/> When true, this will set **flex-direction** to **column**. This value is **false** by default. |
+|  flex   | <Type name="ResponsiveString"/> A shortcut for the responsive **flex** CSS property.                                  |
+| inline  | <Type name="boolean"/> When true, this will set **display** to **inline-flex**.                                       |
+| justify | <Type name="ResponsiveString"/> A shortcut for the responsive **justify-content** CSS property.                       |
+|  wrap   | <Type name="boolean"/> When true, this will set **flex-wrap** to **wrap**.                                            |
 
 ### Grid
 
@@ -126,13 +126,13 @@ import { Grid } from 'maker-ui'
 
 You can use the following custom props instead of adding your grid settings to the `css` prop:
 
-|  Prop   | Description                                                                                                                                                                           |
-| :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|  areas  | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **grid-template-areas** property.                                                                    |
-| center  | <div className="prop">boolean</div> When true, this will vertically and horizontally center all content in each direct descendent container by setting **place-items** to **center**. |
-| columns | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **grid-template-columns** property.                                                                  |
-|   gap   | <div className="prop">number &#124; string &#124; (number &#124; string)[] </div> A shortcut for the responsive **gap** property.                                                     |
-|  rows   | <div className="prop">string &#124; string[]</div> A shortcut for the responsive **grid-template-row** property.                                                                      |
+|  Prop   | Description                                                                                                                                                             |
+| :-----: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  areas  | <Type name="ResponsiveString"/> A shortcut for the responsive **grid-template-areas** property.                                                                         |
+| center  | <Type name="boolean"/>When true, this will vertically and horizontally center all content in each direct descendent container by setting **place-items** to **center**. |
+| columns | <Type name="ResponsiveString"/> A shortcut for the responsive **grid-template-columns** property.                                                                       |
+|   gap   | <Type name="ResponsiveScale"/> A shortcut for the responsive **gap** property.                                                                                          |
+|  rows   | <Type name="ResponsiveString"/> A shortcut for the responsive **grid-template-row** property.                                                                           |
 
 ### Span
 

@@ -251,16 +251,16 @@ export interface MakerOptions {
      */
     showColorButton: boolean
     /**
-     * Hides the header's color toggle button on mobile.
-     * @default false
+     * Lets you hide the header's color toggle button on mobile.
+     * @default true
      */
-    hideColorButtonOnMobile: boolean
+    showColorButtonOnMobile: boolean
     /**
      * Hides the header nav area on mobile (typically containing search, social icons,
      * or other custom components).
-     * @default true
+     * @default false
      */
-    hideWidgetsOnMobile: boolean
+    showWidgetsOnMobile: boolean
     /**
      * Controls the header's default dropdown menu settings.
      */
