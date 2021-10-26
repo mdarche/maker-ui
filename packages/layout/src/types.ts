@@ -503,7 +503,7 @@ export interface MakerOptions {
      * value always determines the second (right-hand) sidebar width.
      * @default 200
      */
-    secondWidth?: ResponsiveScale
+    width_2?: ResponsiveScale
     /**
      * An option to add an optional error boundary to the Sidebar container
      * @default false

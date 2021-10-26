@@ -92,7 +92,7 @@ export const defaultOptions: MakerUIOptions = {
   },
   sidebar: {
     width: 300,
-    secondWidth: 200,
+    width_2: 200,
     errorBoundary: false,
   },
   footer: {

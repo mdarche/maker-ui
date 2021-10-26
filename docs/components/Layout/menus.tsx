@@ -26,7 +26,7 @@ export const menu: MakerMenu = [
       { label: 'Sidebar', path: '/docs/layout/sidebar' },
       { label: 'Footer', path: '/docs/layout/footer' },
       { label: 'ColorButton', path: '/docs/layout/color-button' },
-      { label: 'CollapsibleMenu', path: '/docs/layout/collapsible-menu' },
+      { label: 'Menus', path: '/docs/layout/menus' },
     ],
   },
   {

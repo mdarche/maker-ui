@@ -179,7 +179,7 @@ export const Header = (props: HeaderProps) => {
   }
 
   /**
-   * Format MakerUI scroll classes to merge with user-generated ones
+   * Format Maker UI scroll classes to merge with user-generated ones
    */
   let libClasses = [
     scrollClass,

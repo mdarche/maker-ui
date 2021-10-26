@@ -22,6 +22,7 @@ interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 
 export const Footer = ({
   id,
+  className,
   maxWidth,
   background,
   _css,
@@ -34,6 +35,7 @@ export const Footer = ({
   return (
     <footer
       id={mergeSelectors(['footer', id])}
+      className={className}
       role="contentinfo"
       css={hasRootStyles ? { background, ...(_css as object) } : undefined}
       {...props}>

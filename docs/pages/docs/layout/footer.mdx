@@ -11,8 +11,51 @@ import { SideNav } from 'maker-ui'
 
 </Diagram>
 
+The Footer component sits at the bottom of your layout tree and renders a semantic `<footer>` component for content like nav menus, copyright information, subscribe forms, etc.
+
+This component renders an inner container so you can use both the `_css` and `css` props for responsive styling.
+
 ## Props
+
+In addition to the props below, you can also add `id` and `className` props for custom selectors.
+
+|    Prop    | Description                                                                                                                                |
+| :--------: | ------------------------------------------------------------------------------------------------------------------------------------------ |
+|    css     | <Type name="object" /> Styles from the `css` prop will be applied to the Footer's inner content container.                                 |
+|   \_css    | <Type name="object" /> Styles from the `_css` prop will be applied to the root Footer element.                                             |
+| background | <Type name="ResponsiveString" /> Overrides the Topbar's default `--color-bg_footer` background value that you can set in Maker UI options. |
+|  maxWidth  | <Type name="ResponsiveScale" /> Overrides `footer.maxWidth` that you can set in Maker UI options.                                          |
+
+<Callout type="suggestion">
+  The override props are designed for conditional use cases or runtime logic.
+  Whenever possible, use Maker UI options instead.
+</Callout>
 
 ## Maker UI Options
 
+Your options configuration has a `footer` object with the following properties:
+
+|    Option     | Property                                                                                                                                                                             |
+| :-----------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| errorBoundary | <Type name="boolean" /> When true, this will wrap the inner contents of the Footer in an Error Boundary that you can customize with `options.errors`. <DefaultValue value="false" /> |
+|   maxWidth    | <Type name="ResponsiveScale" /> The max-width of the Topbar's content container. Can be a responsive array. <DefaultValue value="1020" />                                            |
+
 ## Usage
+
+Add `Footer` to the bottom of your layout, right before the closing `</Layout>` tag:
+
+```jsx {14}
+import { Layout, Header, Content, Main, Footer } from 'maker-ui'
+
+// This example omits key props like menus, options, etc.
+
+export const MyLayout = ({ children }) => (
+  <Layout>
+    <Header />
+    <Content>
+      <Main>{children}</Main>
+    </Content>
+    <Footer>Your custom footer content</Footer>
+  </Layout>
+)
+```

@@ -91,7 +91,7 @@ export const themeVars = (
     '--maxWidth_footer': footer?.maxWidth,
     '--width_mobileMenu': mobileMenu?.width,
     '--width_sidebar': sidebar?.width,
-    '--width_second_sidebar': sidebar?.secondWidth,
+    '--width_second_sidebar': sidebar?.width_2,
     '--width_sideNav': sideNav?.width,
     '--gap_content': content?.sidebarGap,
   }
