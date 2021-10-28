@@ -93,7 +93,7 @@ export const themeVars = (
     '--width_sidebar': sidebar?.width,
     '--width_second_sidebar': sidebar?.width_2,
     '--width_sideNav': sideNav?.width,
-    '--gap_content': content?.sidebarGap,
+    '--gap_content': sidebar?.sidebarGap,
   }
 
   function formatCssVars(obj: object) {

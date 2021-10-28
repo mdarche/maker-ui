@@ -471,12 +471,6 @@ export interface MakerOptions {
      */
     maxWidthSection?: ResponsiveScale
     /**
-     * The width of the gap between the main content area and optional sidebars.
-     * Can be a responsive array.
-     * @default 30
-     */
-    sidebarGap?: ResponsiveScale
-    /**
      * A specific breakpoint that controls when the grid for main content, sidebars, and the
      * side nav breaks down for mobile. You may also use an index to access a specific breakpoint
      * in the `options.breakpoints` array.
@@ -504,6 +498,12 @@ export interface MakerOptions {
      * @default 200
      */
     width_2?: ResponsiveScale
+    /**
+     * The width of the gap between the main content area and optional sidebars.
+     * Can be a responsive array.
+     * @default 30
+     */
+    sidebarGap?: ResponsiveScale
     /**
      * An option to add an optional error boundary to the Sidebar container
      * @default false

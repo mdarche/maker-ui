@@ -11,8 +11,39 @@ import { Layout } from 'maker-ui'
 
 </Diagram>
 
-The Layout component is Maker UI's context provider for storing all of your layout configurations. It is a required wrapper if you want to use any of the other Layout components.
+The Layout component is Maker UI's context provider for storing all of your layout configurations. It is a **required** wrapper if you want to use any of the other Layout components.
 
 ## Props
 
+|   Prop    | Description                                                                                                                                                                                                                                                                                                                                                                                                            |
+| :-------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  options  | <Type name="MakerUIOptions" required /> The Maker UI options configuration is the brain of your layout. Your settings will tell the layout how to behave. Check [Maker UI Options](/docs/maker-ui-options) for details.                                                                                                                                                                                                |
+| skiplinks | <Type>{ **id**: string, **label**: string }[]</Type> By default, the Layout Provider inserts a skiplinks menu that lets users skip to your site's main content and side navigation if applicable. You can use this prop to customize your own skiplinks. <br /> <br />Just create an array of objects that define the ID selector (without **#**) and a label that appears when a user tabs through your menu options. |
+|  styles   | <Type name="object" />Add global responsive styles that obey the breakpoints you specified in the `options` prop. See [Add Custom Styles](/docs/styling-components#add-custom-styles) for an example.                                                                                                                                                                                                                  |
+|   theme   | <Type name="object" /> This prop lets you define a custom Emotion Theme provider. <br /> <br /> Maker UI doesn't use Emotion for theming and instead assigns global CSS variables. However, if you need a theme in your project so you can read values from inside `css` prop attributes, you can inject a theme object here. See [Emotion Theming](https://emotion.sh/docs/theming) for details.                      |
+
 ## Usage
+
+Wrap your entire layout in the Layout component. You might also import the Layout component as an alias so you can export your own `Layout` :
+
+```jsx {12,18}
+import {
+  Layout as MakerLayout,
+  Header,
+  Content,
+  Main,
+  Footer
+} from 'maker-ui'
+
+import { myOptions, myStyles } from './config'
+
+export const Layout = ({ children }) => (
+  <MakerLayout options={myOptions} styles={myStyles}>
+    <Header />
+    <Conent>
+      <Main>{children}</Main>
+    </Content>
+    <Footer />
+  </MakerLayout>
+)
+```

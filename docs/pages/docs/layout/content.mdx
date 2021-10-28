@@ -11,8 +11,83 @@ import { Content } from 'maker-ui'
 
 </Diagram>
 
+The Content component controls the positioning of your inner page content (anything after `Header` and before `Footer`).
+
+It scans its child nodes for valid layout components like SideNav, Main, or Sidebar and will throw an error if it does not recognize a supported layout.
+
 ## Props
+
+Content does not have any special props, but you can still add custom `id` and `className` selectors.
+
+| Prop | Description                                                                   |
+| :--: | ----------------------------------------------------------------------------- |
+| css  | <Type name="object" /> Styles from the `css` prop will be applied to Content. |
 
 ## Maker UI Options
 
-## Usage
+The Content component computes all of the dynamic widths and grid layouts for your page. Your options configuration has a `content` object with the following properties:
+
+|      Prop       | Description                                                                                                                                                                                                                                                                                                |
+| :-------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|    maxWidth     | <Type name="ResponsiveScale" /> The max-width of the main content area. Can be a responsive array. <DefaultValue value="1020" />                                                                                                                                                                           |
+| maxWidthSection | <Type name="ResponsiveScale" /> The max-width of all nested `<Section />` components. Can be a responsive array. <DefaultValue value="1020" />                                                                                                                                                             |
+|   breakpoint    | <Type name="string-number" /> A breakpoint that controls when the grid for main content, sidebars, and the side nav breaks down for mobile. You may also use an index to access a breakpoint in the `options.breakpoints` array. <DefaultValue value="0"  note="The first index of options.breakpoints" /> |
+|  errorBoundary  | <Type name="object" /> <Type name="boolean" />When true, this will wrap the inner contents of Content in an Error Boundary that you can customize with `options.errors`.                                                                                                                                   |
+
+## Accepted Layouts
+
+The Content component accepts the following layouts:
+
+### Content
+
+```jsx
+<Content>
+  <Main>{children}</Main>
+</Content>
+```
+
+### Sidebar Content
+
+```jsx
+<Content>
+  <Sidebar />
+  <Main>{children}</Main>
+</Content>
+```
+
+### Content Sidebar
+
+```jsx
+<Content>
+  <Main>{children}</Main>
+  <Sidebar />
+</Content>
+```
+
+### Sidebar Content Sidebar
+
+```jsx
+<Content>
+  <Sidebar />
+  <Main>{children}</Main>
+  <Sidebar />
+</Content>
+```
+
+### SideNav Content
+
+```jsx
+<Content>
+  <SideNav />
+  <Main>{children}</Main>
+</Content>
+```
+
+### Content SideNav
+
+```jsx
+<Content>
+  <Main>{children}</Main>
+  <SideNav />
+</Content>
+```

@@ -1,7 +1,7 @@
-import { global_styles } from './_global'
-import { layout_styles } from './_layout'
-import { content_styles } from './_content'
-import { code_styles } from './_code'
+import { global_styles } from './global'
+import { layout_styles } from './layout'
+import { content_styles } from './content'
+import { code_styles } from './code'
 
 export const styles = {
   ...global_styles,

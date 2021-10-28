@@ -11,13 +11,21 @@ export interface TypeProps {
     | 'string-number'
   children: React.ReactNode
   multi?: string[]
+  required?: boolean
   flex?: boolean
   nested?: {
     [key: string]: string | string[]
   }
 }
 
-export const Type = ({ name, multi, flex, nested, children }: TypeProps) => {
+export const Type = ({
+  name,
+  multi,
+  flex,
+  required,
+  nested,
+  children,
+}: TypeProps) => {
   let typeName =
     name === 'ResponsiveScale'
       ? 'string | number | (string | number)[]'
@@ -28,6 +36,7 @@ export const Type = ({ name, multi, flex, nested, children }: TypeProps) => {
       : name
   return (
     <div className="prop-type">
+      {required ? <div className="type-title required">Required</div> : null}
       <div className="type-title">Type</div>
       <div
         className={mergeSelectors(['type-value', flex ? 'flex' : undefined])}>

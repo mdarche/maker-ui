@@ -83,6 +83,7 @@ export const content_styles = {
     },
   },
   table: {
+    width: '100%',
     margin: '40px 0',
     fontSize: ['0.9em'],
   },
