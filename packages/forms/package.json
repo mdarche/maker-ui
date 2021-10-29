@@ -23,7 +23,7 @@
     "yup": "^0.32.9"
   },
   "peerDependencies": {
-    "maker-ui": "1.0.2",
+    "maker-ui": "1.1.0",
     "react": "^16.x || ^17.x",
     "react-dom": "^16.x || ^17.x"
   },

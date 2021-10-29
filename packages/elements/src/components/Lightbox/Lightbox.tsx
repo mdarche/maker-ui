@@ -38,6 +38,7 @@ export const Lightbox = ({
   settings,
   css,
   children,
+  background,
   ...props
 }: LightboxProps) => {
   return (
