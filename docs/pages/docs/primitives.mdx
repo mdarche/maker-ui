@@ -5,7 +5,7 @@
 
 # Primitives
 
-Maker UI Primitives are basic JSX elements that support `css` and `breakpoints` props.
+Primitives are basic JSX elements that support `css` and `breakpoints` props.
 
 You can use these components just as you would their normal HTML counterparts. They also forward any external refs that you might need to assign for measurements or layout effects.
 
@@ -105,8 +105,6 @@ Flex is a `<Div>` component with a predefined flex display and a few handy short
 import { Flex } from 'maker-ui'
 ```
 
-You can use the following custom props instead of adding your flex settings to the `css` prop:
-
 |  Prop   | Description                                                                                                           |
 | :-----: | --------------------------------------------------------------------------------------------------------------------- |
 |  align  | <Type name="ResponsiveString"/> A shortcut for the responsive **align-items** CSS property.                           |
@@ -123,8 +121,6 @@ Grid is a `<Div>` component with a predefined CSS Grid display and a few handy s
 ```jsx
 import { Grid } from 'maker-ui'
 ```
-
-You can use the following custom props instead of adding your grid settings to the `css` prop:
 
 |  Prop   | Description                                                                                                                                                             |
 | :-----: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -232,7 +228,7 @@ import { H1, H2, H3, H4, H5, H6 } from 'maker-ui'
 
 </div>
 
-## JSX
+## JSX Factory
 
 If you don't want to import primitives or if you would rather use a JSX runtime that automatically parses elements for `css` and `breakpoints`, you can use Maker UI's JSX pragma instead.
 
@@ -253,7 +249,7 @@ export const MyComponent = () => (
 ```
 
 Remember to add the comment from the above example to the top of your file so
-you don't accidentally use the default React JSX runtime.
+you don't accidentally use the default JSX runtime (usually React).
 
 <Callout type="info">
   React 17 introduced a brand new{' '}

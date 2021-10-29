@@ -42,7 +42,7 @@ export const options: MakerUIOptions = {
       diagram_light: '#dbe4f1',
       diagram_dark: '#c2cee3',
       diagram_active: '#729bed',
-      table_th_bg: '#3b4d72',
+      table_th_bg: '#3b67bc',
     },
     dark: {
       text: '#fff',

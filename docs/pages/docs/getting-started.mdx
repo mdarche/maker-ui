@@ -170,15 +170,13 @@ export const MyLayout = ({ children }) => {
 
 Maker UI will add your custom logo to the navbar and create accessible desktop and mobile menus for you.
 
-The `MakerMenu` type is used by all Maker UI components that handle navigation menus. It supports a variety of common conventions including nested submenus, custom class selectors, new tab support, and leading icons.
-
-Learn about menus in the [Menu docs](/docs/layout/menus).
+The [MakerMenu](/docs/layout/menus) type is used by all Maker UI components that handle navigation menus. It supports a variety of common conventions including nested submenus, custom class selectors, new tab support, and leading icons.
 
 ## Add Custom Styles
 
 It's time to add some styles to our responsive layout skeleton.
 
-All Maker UI layout components accept the `css` and `breakpoints` props ([covered here](/docs/styling-components)). However, adding too many styles directly to the layout tree can quickly turn our file into a mess of CSS-in-JS.
+All Maker UI layout components accept the `css` prop ([covered here](/docs/styling-components)). However, adding too many styles directly to the layout tree can quickly turn our file into a mess of CSS-in-JS.
 
 To address this, Maker UI's root `<Layout>` component accepts a `styles` prop where we can add global styles that are applied to the entire document, just like a regular CSS stylesheet.
 

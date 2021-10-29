@@ -17,10 +17,11 @@ This component is only visible on mobile screen sizes unless you are using a [mi
 
 ### Menus vs Children
 
-The MobileMenu lets you a pre-built menu component or a custom childe.
-In many cases, you will want your mobile nav to display a list of links similar to your Navbar's primary menu. You can use the `menu` prop to supply a compatible `MakerMenu` array. Then you can use the `header` and `footer` props to add custom content above and below your menu.
+The MobileMenu displays a pre-built menu component or a custom child.
 
-If you prefer to create something completely custom, ignore these props and just wrap MobileMenu around a custom child component.
+In many cases, you will want your mobile nav to display a list of links similar to your Navbar's primary menu. You can use the `menu` prop to supply a compatible [MakerMenu](/docs/layout/menus) array. Then you can use the `header` and `footer` props to add custom components above and below your menu.
+
+If you prefer to create the MobileMenu's inner contents from scratch, ignore these props and just wrap MobileMenu around a child component.
 
 <Callout type="info">
   The <code>menu</code> prop supports nested / collapsible submenus just like
@@ -35,34 +36,39 @@ Use `mobileMenu.transition` and `mobileMenu.width` in Maker UI Options (or their
 
 In addition to the props below, MobileMenu supports `id` and `className` for custom selectors.
 
-|        Prop         | Description                                                                                                                                                                                                                                         |
-| :-----------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     background      | <Type name="ResponsiveString" /> Overrides the MobileMenu's default `--color-bg_mobileMenu` background value that you can set in Maker UI options.                                                                                                  |
-|       center        | <Type name="boolean" /> If true, this will center the inner contents of your MobileMenu with flexbox positioning. <DefaultValue value="false" />                                                                                                    |
-|     closeButton     | <Type multi={['React.ReactNode', '((isOpen?: boolean, attributes?: object) => React.ReactNode)' ]} />Overrides `mobileMenu.closeButton` from Maker UI options.                                                                                      |
-| closeButtonPosition | <Type multi={["'top-left'", "'top-right'", "'bottom-left'", "'bottom-right'", ]} flex /> Determines where to position the MobileMenu's default close button while activated.                                                                        |
-|         css         | <Type name="object" /> Styles from the `css` prop will be applied to the MobileMenu container.                                                                                                                                                      |
-|       footer        | <Type name="React.ReactElement" /> A custom component that is inserted into the MobileMenu below its main content (menu or children)                                                                                                                |
-|       header        | <Type name="React.ReactElement" /> A custom component that is inserted into the MobileMenu below its main content (menu or children)                                                                                                                |
-|        menu         | <Type name="MakerMenu" /> If you supply a [MakerMenu](/docs/layout/menus) array to this prop, the Navbar will render an accessible menu complete with nested dropdowns.                                                                             |
-|      pathname       | <Type name="string" /> This prop lets you supply your app's current path to help the menu determine the current page and add a `.current` class and `aria-current` to the active menu item. This feature is only useful if you use the `menu` prop. |
-|     transition      | <Type multi={["'fade'", "'fade-up'", "'fade-down'", "'slide-left'", "'slide-right'", "'none'", ]} flex /> Overrides `mobileMenu.transition` that you can set in Maker UI options.                                                                   |
-|        width        | <Type name="ResponsiveScale" /> Overrides `mobileMenu.width` that you can set in Maker UI options.                                                                                                                                                  |
+|        Prop         | Description                                                                                                                                                                                                                         |
+| :-----------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     background      | <Type name="ResponsiveString" /> Overrides the MobileMenu's default `--color-bg_mobileMenu` background value that you can set in Maker UI options.                                                                                  |
+|       center        | <Type name="boolean" /> If true, this will center the inner contents of your MobileMenu with flexbox positioning. <DefaultValue value="false" />                                                                                    |
+|     closeButton     | <Type multi={['React.ReactNode', '((isOpen?: boolean, attributes?: object) => React.ReactNode)' ]} />Overrides `mobileMenu.closeButton` from Maker UI options.                                                                      |
+| closeButtonPosition | <Type multi={["'top-left'", "'top-right'", "'bottom-left'", "'bottom-right'", ]} flex /> Determines where to position the MobileMenu's default close button while activated. <DefaultValue value="'top-right'" />                   |
+|         css         | <Type name="object" /> Styles from the `css` prop will be applied to the MobileMenu container.                                                                                                                                      |
+|       footer        | <Type name="React.ReactElement" /> A custom component that is inserted into the MobileMenu below its main content (menu or children)                                                                                                |
+|       header        | <Type name="React.ReactElement" /> A custom component that is inserted into the MobileMenu below its main content (menu or children)                                                                                                |
+|        menu         | <Type name="MakerMenu" /> If you supply a [MakerMenu](/docs/layout/menus) array to this prop, the MobileMenu will render an accessible menu complete with nested dropdowns.                                                         |
+|      pathname       | <Type name="string" /> Supply your app's current **location.pathname** as a string, allowing the menu to add a `.current` class and `aria-current` to the active menu item. This feature is only useful if you use the `menu` prop. |
+|     transition      | <Type multi={["'fade'", "'fade-up'", "'fade-down'", "'slide-left'", "'slide-right'", ]} flex /> Overrides `mobileMenu.transition` that you can set in Maker UI options.                                                             |
+|        width        | <Type name="ResponsiveScale" /> Overrides `mobileMenu.width` that you can set in Maker UI options.                                                                                                                                  |
+
+<Callout type="suggestion">
+  The override props are designed for conditional use cases or runtime logic.
+  Whenever possible, use Maker UI options instead.
+</Callout>
 
 ## Maker UI Options
 
 Your options configuration has a `mobileMenu` object with the following properties:
 
-|        Prop        | Description                                                                |
-| :----------------: | -------------------------------------------------------------------------- |
-|        css         | <Type name="object" /> Styles from the `css` prop will be applied to Main. |
-|       width        |                                                                            |
-|     transition     |                                                                            |
-|  visibleOnDesktop  |                                                                            |
-|    closeButton     |                                                                            |
-|    closeOnBlur     |                                                                            |
-| closeOnRouteChange |                                                                            |
-|   errorBoundary    |                                                                            |
+|        Prop        | Description                                                                                                                                                                                                                                                                |
+| :----------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|       width        | <Type name="ResponsiveScale" /> The width of the mobile menu when active. This can be a responsive array. <br /><br /> For `transition` types of `fade`, `fade-up` and `fade-down`, the MobileMenu width will automatically be set to `100%`. <DefaultValue value="70vw"/> |
+|     transition     |                                                                                                                                                                                                                                                                            |
+|  visibleOnDesktop  |                                                                                                                                                                                                                                                                            |
+|    closeButton     |                                                                                                                                                                                                                                                                            |
+|  showCloseButton   |                                                                                                                                                                                                                                                                            |
+|    closeOnBlur     |                                                                                                                                                                                                                                                                            |
+| closeOnRouteChange |                                                                                                                                                                                                                                                                            |
+|   errorBoundary    |                                                                                                                                                                                                                                                                            |
 
 ## Usage
 
@@ -113,10 +119,16 @@ const MyOtherLayout = ({ children, location }) => (
 )
 ```
 
+<Callout type="info">
+  This example assumes your root layout has access to a <code>location</code>{' '}
+  prop. In frameworks like Next.js and Gatsby, you can often get these values
+  from router hooks.
+</Callout>
+
 ## Usage with SideNav
 
-If you use a SideNav layout, you can choose to set the SideNav as your primary mobile navigation menu.
+If you use a SideNav layout, you can choose to set the SideNav as your primary mobile menu.
 
-To do so, you can skip adding a MobileMenu to your layout tree and set `sideNav.isPrimaryMobileNav` to `true` in Maker UI Options. This will ensure the [useMenu](/docs/hooks#usemenu) hook and the Navbar's MenuButton trigger your SideNav instead of a MobileNav.
+To do so, skip adding MobileMenu to your layout tree and set `sideNav.isPrimaryMobileNav` to `true` in Maker UI Options. This will ensure the [useMenu](/docs/hooks#usemenu) hook and the Navbar's MenuButton trigger your SideNav instead of the MobileMenu.
 
-To see it in action, minimize this website and try clicking the Nav's hamburger button.
+To see it in action, resize this website on desktop and try clicking the hamburger button.

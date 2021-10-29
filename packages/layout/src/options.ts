@@ -61,7 +61,7 @@ export const defaultOptions: MakerUIOptions = {
     errorBoundary: false,
   },
   mobileMenu: {
-    width: '60vw',
+    width: '70vw',
     transition: 'slide-left',
     visibleOnDesktop: false,
     showCloseButton: true,
@@ -86,13 +86,13 @@ export const defaultOptions: MakerUIOptions = {
   content: {
     maxWidth: 1020,
     maxWidthSection: 1020,
-    sidebarGap: 30,
     breakpoint: 0,
     errorBoundary: false,
   },
   sidebar: {
     width: 300,
     width_2: 200,
+    sidebarGap: 30,
     errorBoundary: false,
   },
   footer: {

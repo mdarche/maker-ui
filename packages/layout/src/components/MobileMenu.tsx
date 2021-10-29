@@ -19,6 +19,7 @@ interface MobileMenuProps
   background?: string | string[]
   /** Overrides `mobileMenu.width` that you can set in Maker UI options.   */
   width?: ResponsiveScale
+  /** If you supply a MakerMenu array to this prop, the MobileMenu will render an accessible menu complete with nested dropdowns. */
   menu?: MenuItemProps[]
   /** If true, this will center the inner contents of your MobileMenu with flexbox positioning.
    * @default false
@@ -28,12 +29,15 @@ interface MobileMenuProps
   pathname?: string
   /** Overrides `mobileMenu.closeButton` that you can set in Maker UI options.   */
   closeButton?: MakerOptions['mobileMenu']['closeButton']
+  /** Determines where to position the MobileMenu's default close button while activated. */
   closeButtonPosition?:
     | 'top-left'
     | 'top-right'
     | 'bottom-left'
     | 'bottom-right'
+  /** A custom component that is inserted into the MobileMenu above its main content */
   header?: React.ReactElement
+  /** A custom component that is inserted into the MobileMenu below its main content */
   footer?: React.ReactElement
 }
 

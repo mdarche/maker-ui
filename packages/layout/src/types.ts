@@ -319,7 +319,7 @@ export interface MakerOptions {
   mobileMenu: {
     /**
      * The width of the mobile menu when active. This can be a responsive array.
-     * @default '60vw'
+     * @default '70vw'
      */
     width: ResponsiveScale
     /**
