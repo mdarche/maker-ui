@@ -11,8 +11,112 @@ import { MobileMenu } from 'maker-ui'
 
 </Diagram>
 
+The MobileMenu component renders a responsive menu for mobile navigation. It comes in a few common styles and can be customized to your specific design needs.
+
+This component is only visible on mobile screen sizes unless you are using a [minimal desktop nav type](/docs/layout/header#nav-types). You can activate it via the Navbar's MenuButton or the [useMenu](/docs/hooks#usemenu) hook.
+
+### Menus vs Children
+
+The MobileMenu lets you a pre-built menu component or a custom childe.
+In many cases, you will want your mobile nav to display a list of links similar to your Navbar's primary menu. You can use the `menu` prop to supply a compatible `MakerMenu` array. Then you can use the `header` and `footer` props to add custom content above and below your menu.
+
+If you prefer to create something completely custom, ignore these props and just wrap MobileMenu around a custom child component.
+
+<Callout type="info">
+  The <code>menu</code> prop supports nested / collapsible submenus just like
+  the Navbar.
+</Callout>
+
+### Layouts
+
+Use `mobileMenu.transition` and `mobileMenu.width` in Maker UI Options (or their prop overrides) to determine the style and layout of your MobileMenu.
+
 ## Props
+
+In addition to the props below, MobileMenu supports `id` and `className` for custom selectors.
+
+|        Prop         | Description                                                                                                                                                                                                                                         |
+| :-----------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     background      | <Type name="ResponsiveString" /> Overrides the MobileMenu's default `--color-bg_mobileMenu` background value that you can set in Maker UI options.                                                                                                  |
+|       center        | <Type name="boolean" /> If true, this will center the inner contents of your MobileMenu with flexbox positioning. <DefaultValue value="false" />                                                                                                    |
+|     closeButton     | <Type multi={['React.ReactNode', '((isOpen?: boolean, attributes?: object) => React.ReactNode)' ]} />Overrides `mobileMenu.closeButton` from Maker UI options.                                                                                      |
+| closeButtonPosition | <Type multi={["'top-left'", "'top-right'", "'bottom-left'", "'bottom-right'", ]} flex /> Determines where to position the MobileMenu's default close button while activated.                                                                        |
+|         css         | <Type name="object" /> Styles from the `css` prop will be applied to the MobileMenu container.                                                                                                                                                      |
+|       footer        | <Type name="React.ReactElement" /> A custom component that is inserted into the MobileMenu below its main content (menu or children)                                                                                                                |
+|       header        | <Type name="React.ReactElement" /> A custom component that is inserted into the MobileMenu below its main content (menu or children)                                                                                                                |
+|        menu         | <Type name="MakerMenu" /> If you supply a [MakerMenu](/docs/layout/menus) array to this prop, the Navbar will render an accessible menu complete with nested dropdowns.                                                                             |
+|      pathname       | <Type name="string" /> This prop lets you supply your app's current path to help the menu determine the current page and add a `.current` class and `aria-current` to the active menu item. This feature is only useful if you use the `menu` prop. |
+|     transition      | <Type multi={["'fade'", "'fade-up'", "'fade-down'", "'slide-left'", "'slide-right'", "'none'", ]} flex /> Overrides `mobileMenu.transition` that you can set in Maker UI options.                                                                   |
+|        width        | <Type name="ResponsiveScale" /> Overrides `mobileMenu.width` that you can set in Maker UI options.                                                                                                                                                  |
 
 ## Maker UI Options
 
+Your options configuration has a `mobileMenu` object with the following properties:
+
+|        Prop        | Description                                                                |
+| :----------------: | -------------------------------------------------------------------------- |
+|        css         | <Type name="object" /> Styles from the `css` prop will be applied to Main. |
+|       width        |                                                                            |
+|     transition     |                                                                            |
+|  visibleOnDesktop  |                                                                            |
+|    closeButton     |                                                                            |
+|    closeOnBlur     |                                                                            |
+| closeOnRouteChange |                                                                            |
+|   errorBoundary    |                                                                            |
+
 ## Usage
+
+The MobileMenu should always be nested inside `Header` next to the `Navbar`. There are two common ways to use the MobileMenu:
+
+```jsx
+import {
+  Layout,
+  Header,
+  Navbar,
+  MobileMenu,
+  Content,
+  Main,
+  Footer,
+} from 'maker-ui'
+
+import { myMenu } from './config'
+
+/** Renders a MobileMenu with a pre-formatted, collapsible menu */
+
+const MyLayout = ({ children, location }) => (
+  <Layout>
+    <Header>
+      <Navbar menu={myMenu} />
+      <MobileMenu menu={myMenu} pathname={location.pathname} />
+    </Header>
+    <Content>
+      <Main>{children}</Main>
+    </Content>
+    <Footer />
+  </Layout>
+)
+
+/** Renders a MobileMenu with custom children instead
+ * of the default menu */
+
+const MyOtherLayout = ({ children, location }) => (
+  <Layout>
+    <Header>
+      <Navbar menu={myMenu} />
+      <MobileMenu>Completely custom menu content</MobileMenu>
+    </Header>
+    <Content>
+      <Main>{children}</Main>
+    </Content>
+    <Footer />
+  </Layout>
+)
+```
+
+## Usage with SideNav
+
+If you use a SideNav layout, you can choose to set the SideNav as your primary mobile navigation menu.
+
+To do so, you can skip adding a MobileMenu to your layout tree and set `sideNav.isPrimaryMobileNav` to `true` in Maker UI Options. This will ensure the [useMenu](/docs/hooks#usemenu) hook and the Navbar's MenuButton trigger your SideNav instead of a MobileNav.
+
+To see it in action, minimize this website and try clicking the Nav's hamburger button.

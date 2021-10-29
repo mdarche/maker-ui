@@ -11,7 +11,9 @@ import { Layout } from 'maker-ui'
 
 </Diagram>
 
-The Layout component is Maker UI's context provider for storing all of your layout configurations. It is a **required** wrapper if you want to use any of the other Layout components.
+The Layout component is Maker UI's context provider for storing your layout configurations.
+
+It's a **required wrapper** if you want to use the other Layout components.
 
 ## Props
 
@@ -24,10 +26,11 @@ The Layout component is Maker UI's context provider for storing all of your layo
 
 ## Usage
 
-Wrap your entire layout in the Layout component. You might also import the Layout component as an alias so you can export your own `Layout` :
+Wrap your entire app or page in the Layout component:
 
 ```jsx {12,18}
 import {
+  // As an alias
   Layout as MakerLayout,
   Header,
   Content,

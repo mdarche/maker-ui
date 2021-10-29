@@ -13,12 +13,20 @@ import { mergeSelectors } from '../utils/helper'
 interface MobileMenuProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
+  /** Overrides `mobileMenu.transition` that you can set in Maker UI options.   */
   transition?: MakerOptions['mobileMenu']['transition']
+  /** Overrides the MobileMenu's default `--color-bg_mobileMenu` background value that you can set in Maker UI options. */
   background?: string | string[]
+  /** Overrides `mobileMenu.width` that you can set in Maker UI options.   */
   width?: ResponsiveScale
   menu?: MenuItemProps[]
+  /** If true, this will center the inner contents of your MobileMenu with flexbox positioning.
+   * @default false
+   */
   center?: boolean
+  /** Your app's current path. This will add a `.current` class and `aria-current` to the active menu item. This feature is only useful if you use the `menu` prop. */
   pathname?: string
+  /** Overrides `mobileMenu.closeButton` that you can set in Maker UI options.   */
   closeButton?: MakerOptions['mobileMenu']['closeButton']
   closeButtonPosition?:
     | 'top-left'
@@ -27,7 +35,6 @@ interface MobileMenuProps
     | 'bottom-right'
   header?: React.ReactElement
   footer?: React.ReactElement
-  className?: string
 }
 
 /* Utility for mobile nav transitions that require a full-width window */

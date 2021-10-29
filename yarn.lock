@@ -11154,6 +11154,11 @@ growly@^1.3.0:
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
+"gsap@npm:@gsap/shockingly":
+  version "3.8.0"
+  resolved "https://npm.greensock.com/@gsap%2fshockingly/-/shockingly-3.8.0.tgz#be3f68364a4b90943ff3138a137b4189cca2ff86"
+  integrity sha512-2Lzw+4dgLYLfV+a0EYk8zuO1jyAseh3QoubjTPVPVDEWJwe7SSrrPWpTiapExcxT6zXDojwM0v0FpoNdb6e7Tg==
+
 gzip-size@5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-5.1.1.tgz#cb9bee692f87c0612b232840a873904e4c135274"

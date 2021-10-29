@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
     <MakerLayout options={options} styles={styles}>
       <Header>
         <Navbar
-          logo={<Logo />}
+          logo={<Logo path={asPath} />}
           menuSlot={<Search />}
           widgetSlot={<NavWidgets />}
         />
