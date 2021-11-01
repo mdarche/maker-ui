@@ -58,7 +58,7 @@ import {
 import { options, menu } from './config' // your custom configurations
 import Logo from './Logo' // your logo component
 
-const MyLayout = props => (
+const MyLayout = (props) => (
   <Layout options={options}>
     <Header>
       <Navbar logo={<Logo />} menu={menu} />
@@ -80,15 +80,20 @@ export default MyLayout
 All layout components and JSX primitives can be styled with the responsive `css` and `breakpoints` props.
 
 ```jsx
-import { Div } from 'maker-ui';
+/** Equivalent CSS:
+ * 
+ * color: red;
+ * @media screen and (min-width: 768px) {
+ *    color: blue;
+ * }
+ * @media screen and (min-width: 960px) {
+ *    color: green;
+ * }
+}*/
 
-const MyPage = props => (
-  <Div
-    breakpoints={['768px', '960px']}
-    css={{ color: ['red', 'blue', 'green']}}
-  />
-  ...
-  );
+<Div breakpoints={[768, 960]} css={{ color: ['red', 'blue', 'green'] }}>
+  Hello world
+</Div>
 ```
 
 This example would set the div's default color to `red` and generate `min-width` media queries so the color is `blue` at `768px` and `green` at `960px`. Never write a media query again!
@@ -111,4 +116,4 @@ Maker UI also has an optional package `@maker-ui/elements` that exports a variet
 
 ## License
 
-The MIT License (MIT)
+[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)

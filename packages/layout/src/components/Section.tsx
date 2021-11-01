@@ -2,8 +2,6 @@
 import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { forwardRef } from 'react'
 
-import { ErrorBoundary } from './Errors'
-
 interface SectionProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
@@ -50,25 +48,21 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
         css={{
           background,
           color,
-          width: '100%',
           ...(rootCss as object),
         }}>
-        <ErrorBoundary errorKey="section">
-          {container ? (
-            <div
-              className="container"
-              css={{
-                maxWidth,
-                margin: '0 auto',
-                ...(css as object),
-              }}
-              {...props}>
-              {children}
-            </div>
-          ) : (
-            children
-          )}
-        </ErrorBoundary>
+        {container ? (
+          <div
+            className="container"
+            css={{
+              maxWidth,
+              ...(css as object),
+            }}
+            {...props}>
+            {children}
+          </div>
+        ) : (
+          children
+        )}
       </section>
     )
   }

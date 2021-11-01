@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useFormikContext, FormikErrors, FormikTouched } from 'formik'
-import { Button, ButtonProps } from 'maker-ui'
+import { Button, ButtonProps, mergeSelectors } from 'maker-ui'
 import { useForm } from './Provider'
 import { getRequired } from './helper'
 
@@ -14,10 +14,10 @@ export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
 }
 
 export const SubmitButton = ({
-  css,
   onClick,
   lifecycle,
   children,
+  className,
   ...props
 }: FormSubmitButtonProps) => {
   const { fields } = useForm()
@@ -55,8 +55,8 @@ export const SubmitButton = ({
   return (
     <Button
       type="submit"
-      className="form-submit-btn"
-      onClick={onClick ? e => onClick(e, isSubmitting) : undefined}
+      className={mergeSelectors(['form-submit-btn', className])}
+      onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
       disabled={isValidated}
       {...props}>
       {renderLifecycle()}

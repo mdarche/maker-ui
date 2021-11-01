@@ -1,11 +1,10 @@
 import * as React from 'react'
-import { SVG, Button, ButtonProps } from '@maker-ui/primitives'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { setBreakpoint, mergeSelectors } from '../../utils/helper'
+import { mergeSelectors } from '../../utils/helper'
 
-interface MenuButtonProps extends ButtonProps {
+interface MenuButtonProps {
   isCloseButton?: boolean
   customButton?:
     | 'default'
@@ -25,17 +24,14 @@ export const MenuButton = ({
   customButton,
   visibleOnDesktop,
   isCloseButton,
-  className,
-  css,
   ...props
 }: MenuButtonProps) => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()
-  const { header, sideNav, breakpoints } = useOptions()
+  const { header, sideNav } = useOptions()
 
   /** Use custom button from props or check header / mobileMenu options */
   const menuButton = customButton || header?.menuButton
-  const getDisplay = visibleOnDesktop ? 'block' : ['block', 'none']
 
   const conditionalAttributes = sideNav?.isPrimaryMobileNav
     ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
@@ -43,7 +39,10 @@ export const MenuButton = ({
 
   const attributes = {
     title: 'Menu',
-    className: mergeSelectors(['menu-button', className]),
+    className: mergeSelectors([
+      'menu-button',
+      visibleOnDesktop ? 'desktop-visible' : undefined,
+    ]),
     'aria-label': 'Toggle Menu',
     ...conditionalAttributes,
     ...props,
@@ -52,32 +51,23 @@ export const MenuButton = ({
   return typeof menuButton === 'function' ? (
     menuButton(sideNav.isPrimaryMobileNav ? sideMenu : menu, attributes)
   ) : (
-    <Button
-      {...attributes}
-      breakpoints={setBreakpoint(header?.breakpoint, breakpoints)}
-      css={{
-        display: getDisplay,
-        margin: 0,
-        border: 'none',
-        background: 'none',
-        svg: { margin: '0 auto' },
-        ...(css as object),
-      }}>
+    <button {...attributes}>
       {menuButton || (
-        <SVG
+        <svg
           viewBox="0 0 24 24"
-          css={{
-            display: 'block',
-            height: isCloseButton ? 35 : 27,
-          }}>
+          xmlns="http://www.w3.org/2000/svg"
+          className={mergeSelectors([
+            'menu-button-icon',
+            isCloseButton ? 'close-button-icon' : undefined,
+          ])}>
           {isCloseButton ? (
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
           ) : (
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
           )}
-        </SVG>
+        </svg>
       )}
-    </Button>
+    </button>
   )
 }
 

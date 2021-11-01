@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/layout",
   "description": "The fastest way to build themeable, responsive layouts in React",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.1.4",
-    "@maker-ui/css": "1.0.1",
-    "@maker-ui/primitives": "1.0.1",
+    "@maker-ui/css": "1.1.0",
+    "@maker-ui/primitives": "1.1.0",
     "deepmerge": "^4.2.2",
     "react-use-measure": "^2.0.4",
     "tslib": "^2.0.0"

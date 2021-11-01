@@ -43,11 +43,11 @@ export interface FlexProps extends DivProps {
 /**
  * A pre-styled div with quick access to CSS Flex properties.
  *
- * @param align - shortcut for responsive `alignItems` property
- * @param direction - shortcut for responsive `flexDirection` property
- * @param flex - shotcut for responsive `flex` property
+ * @param align - shortcut for responsive `align-items` property
+ * @param column - shortcut for responsive `flex-direction` property
+ * @param flex - shortcut for responsive `flex` property
  * @param inline - a boolean that sets the `display` property to `inline-flex`
- * @param justify - shortcut for responsive `justifyContent` property
+ * @param justify - shortcut for responsive `justify-content` property
  * @param wrap - a boolean for that sets the `flex-wrap` property to `wrap`
  *
  * @link https://maker-ui.com/docs/primitives/
@@ -88,11 +88,11 @@ export interface GridProps extends MakerProps, DivProps {
 /**
  * A pre-styled div with quick access to CSS Grid properties.
  *
- * @param areas - shortcut for responsive `gridTemplateAreas` property
+ * @param areas - shortcut for responsive `grid-template-areas` property
  * @param center - centers all grid item content
- * @param columns - shortcut for responsive `gridTemplateColumns` property
+ * @param columns - shortcut for responsive `grid-template-columns` property
  * @param gap - shortcut for responsive `gap` property
- * @param row - shortcut for responsive `gridTemplateRow` property
+ * @param rows - shortcut for responsive `grid-template-rows` property
  *
  * @link https://maker-ui.com/docs/primitives/
  */
@@ -136,26 +136,6 @@ export const Table = forwardRef<HTMLTableElement, TableProps>((props, ref) => (
 ))
 
 Table.displayName = 'Table'
-
-/**
- * Alias for `Form` component props that includes all
- * HTML form tag attributes.
- */
-export interface FormProps
-  extends MakerProps,
-    React.HTMLAttributes<HTMLFormElement> {}
-
-/**
- * A form that supports responsive css values and the breakpoints prop.
- *
- * @link https://maker-ui.com/docs/primitives/
- */
-
-export const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => (
-  <form ref={ref} {...props} />
-))
-
-Form.displayName = 'Form'
 
 /**
  * Alias for `Span` component props that includes all
@@ -357,6 +337,8 @@ export const P = forwardRef<HTMLParagraphElement, HeadingProps>(
     </p>
   )
 )
+
+export { P as Paragraph }
 
 P.displayName = 'P'
 

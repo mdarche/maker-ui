@@ -10,7 +10,7 @@ const AnimatedDiv = animated(Div)
 export interface ModalProps extends DivProps {
   show?: boolean
   set?: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
-  background?: string | string
+  background?: string | string[]
   appendTo?: string
   title?: string
   closeOnBlur?: boolean
@@ -24,7 +24,7 @@ export interface ModalProps extends DivProps {
  * The `Modal` component displays content as a dialog box/popup window.
  * You can close the modal with the 'ESC' key or the optional `closeOnBlur` prop.
  *
- * @link https://maker-ui.com/docs/components/modal
+ * @link https://maker-ui.com/docs/elements/modal
  */
 
 export const Modal = ({
@@ -153,7 +153,12 @@ export const Modal = ({
               />
               <Div
                 className="modal-content"
-                css={{ zIndex: 1, overflow: 'scroll', ...(css as object) }}
+                css={{
+                  zIndex: 1,
+                  overflow: 'scroll',
+                  height: '100%',
+                  ...(css as object),
+                }}
                 {...rest}>
                 {children}
               </Div>

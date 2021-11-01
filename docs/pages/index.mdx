@@ -1,0 +1,60 @@
+# Overview
+
+Maker UI is a design system that helps you create responsive React apps. Build accessible, production ready layouts in just a few lines of code, or use Maker UI primitives to effortlessly construct responsive components.
+
+Maker UI is unopinionated, meaning that all of its components give you full control over theming and appearance.
+
+## Features
+
+There are 2 ways to use Maker UI:
+
+- CSS-in-JS Primitives
+- Layout System
+
+### CSS-in-JS Primitives
+
+Maker UI components support the responsive `css` and `breakpoints` props. Never write a media query again! You can use style arrays that correspond with breakpoints to build media queries:
+
+```jsx
+/** Equivalent CSS:
+ * 
+ * color: red;
+ * @media screen and (min-width: 960px) {
+ *    color: blue;
+ * }
+}*/
+
+<Div breakpoints={[960]} css={{ color: ['red', 'blue'] }}>
+  Hello world
+</Div>
+```
+
+The `css` prop is mobile-first so it writes media queries according to the `min-width` rule. The first index of a style array is the attribute's default value and subsequent styles correspond to screen widths specified in the `breakpoints` prop.
+
+Whenever you want to include responsive styles, just import any component from `@maker-ui/primitives` or `@maker-ui/elements`. They can be used independently of the layout system.
+
+### Layout System
+
+The Layout System gives you global control over your app's skeleton and global breakpoints. You can use its semantic components to build highly custom layouts that scale with zero-configuration.
+
+The Layout provider also gives you granular control over the way certain parts of your app behave. Use a `MakerUIOptions` configuration object to customize the look and feel of your layout:
+
+- 9 customizable desktop header layouts
+- 4 customizable mobile header layouts
+- 6 content layouts
+- Automatic responsive header and side navigation
+- Accessible dropdown menus
+- Automatic skiplink and keyboard focus management
+- Conditional or multi-layout support
+- Unlimited color modes
+- Custom CSS variables
+- Error boundaries and custom logging hooks
+
+<Callout type="suggestion">
+  Use the full Maker UI design system if you are starting a new project from
+  scratch.
+</Callout>
+
+## TypeScript
+
+Maker UI is written in TypeScript and includes type definitions as well as [TSDocs](https://tsdoc.org/) compatible comments for all exported types, hooks, and components. Our goal is to leverage Intellisense so your developer experience is **a lot** easier.

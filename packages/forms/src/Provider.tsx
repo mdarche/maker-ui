@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 import { ValidateIcon } from './Icons'
 import { FieldProps, FormValues, FormHelpers } from './types'
-import styles from './styles/position'
+import { styles } from './styles/position'
 
 interface Settings {
   validateOnBlur: boolean
@@ -52,11 +52,22 @@ export interface FormProviderProps extends MakerProps {
   settings?: Partial<Settings>
 }
 
+function getInitialValue(type: FieldProps['type']) {
+  const numberValues = ['number', 'range']
+  return numberValues.includes(type)
+    ? 0
+    : type === 'switch'
+    ? false
+    : type === 'checkbox'
+    ? []
+    : ''
+}
+
 /**
  * The `Form` component lets you generate a highly customizable form from a
  * configuration object and field array. Built on top of Formik.
  * .
- *
+ * @todo update field state via props
  * @link https://maker-ui.com/docs/form
  */
 
@@ -70,14 +81,16 @@ export const Provider = ({
   breakpoints,
   ...props
 }: FormProviderProps) => {
-  let datepicker = false
+  // let datepicker = false
   /* Calculate initial values via fields */
   let values: Partial<FormValues> = {}
-  fields.forEach(({ name, type, initialValue }) => {
-    if (type === 'datepicker') {
-      datepicker = true
-    }
-    return (values[name] = initialValue)
+  fields.forEach(({ type, name, initialValue }) => {
+    // if (type === 'datepicker') {
+    //   datepicker = true
+    // }
+    return type !== 'divider'
+      ? (values[name] = initialValue || getInitialValue(type))
+      : undefined
   })
 
   /* Calculate form validation schema via fields */
@@ -94,8 +107,8 @@ export const Provider = ({
 
   return (
     <MakerForm fields={fields} settings={settings as Settings}>
-      {datepicker ? <Global styles={{}} /> : null}
-      <Global styles={styles} />
+      {/* {datepicker ? <Global styles={{}} /> : null} */}
+      <Global styles={{ ...(styles as object) }} />
       <Formik
         initialValues={values}
         onSubmit={onSubmit}
@@ -106,10 +119,11 @@ export const Provider = ({
           className="form-wrapper"
           breakpoints={breakpoints}
           css={{
-            'input::placeholder, input:-ms-input-placeholder, ::-ms-input-placeholder': {
-              opacity: 1,
-              color: settings?.placeholderColor || '#b7b7b7',
-            },
+            'input::placeholder, input:-ms-input-placeholder, textarea::placeholder, textarea:-ms-input-placeholder':
+              {
+                opacity: 1,
+                color: settings?.placeholderColor || '#b7b7b7',
+              },
             ...(css as object),
           }}
           {...props}>
@@ -163,7 +177,7 @@ const MakerForm = ({
   })
 
   React.useEffect(() => {
-    setState(s => ({ ...s, settings: merge(s.settings, settings), fields }))
+    setState((s) => ({ ...s, settings: merge(s.settings, settings), fields }))
   }, [settings, fields])
 
   return (
@@ -176,18 +190,17 @@ const MakerForm = ({
 }
 
 export function useForm() {
-  const { fields, settings, currentPage, pageFields } = React.useContext(
-    FormContext
-  )
+  const { fields, settings, currentPage, pageFields } =
+    React.useContext(FormContext)
   const setState = React.useContext(FormUpdateContext)
 
   function setPage(page: 'next' | 'prev' | number) {
     if (currentPage > 0 && page === 'prev') {
-      setState(s => ({ ...s, currentPage: s.currentPage - 1 }))
+      setState((s) => ({ ...s, currentPage: s.currentPage - 1 }))
     }
 
     if (currentPage < (settings.pages as number) - 1 && page === 'prev') {
-      setState(s => ({ ...s, currentPage: s.currentPage + 1 }))
+      setState((s) => ({ ...s, currentPage: s.currentPage + 1 }))
     }
   }
 
@@ -195,14 +208,14 @@ export function useForm() {
     newSettings: Partial<Settings>,
     mergeSettings = true
   ) {
-    setState(s => ({
+    setState((s) => ({
       ...s,
       settings: mergeSettings ? merge(s.settings, newSettings) : newSettings,
     }))
   }
 
   function setPageFields(pageObject: FormState['pageFields']) {
-    setState(s => ({
+    setState((s) => ({
       ...s,
       pageFields: merge(s.pageFields, pageObject),
     }))

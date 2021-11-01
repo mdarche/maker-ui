@@ -10,9 +10,25 @@ import { MakerUIOptions, MakerOptions } from '../types'
 
 interface LayoutProps {
   children: React.ReactNode
+  /** A valid Maker UI Options configuration object */
   options: MakerUIOptions
+  /** Optional global responsive styles that abide by `options.breakpoints` */
   styles?: object
+  /**
+   * Optional Emotion Theme provider.
+   * @link https://emotion.sh/docs/theming
+   */
   theme?: Theme
+  /**
+   * Replaces the default Maker UI skiplinks with your own custom on-page links.
+   * You don't need to add `#` to your id selectors:
+   *
+   * @example
+   * [
+   *  { id: 'main-content', label: 'Skip to main content' },
+   *  { id: 'footer', label: 'Skip to footer' },
+   * ]
+   */
   skiplinks?: LinkItem[]
 }
 

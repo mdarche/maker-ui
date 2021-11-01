@@ -4,7 +4,7 @@ import { InputProps } from '../types'
 
 interface CheckboxProps extends InputProps {}
 
-export const Checkbox = ({ name, settings_checkbox }: CheckboxProps) => {
+export const Checkbox = ({ name, cy, settings_checkbox }: CheckboxProps) => {
   return (
     <div role="group" aria-labelledby={`${name}-group`}>
       {settings_checkbox?.options?.map(
@@ -12,6 +12,7 @@ export const Checkbox = ({ name, settings_checkbox }: CheckboxProps) => {
           <label key={index}>
             <FormikField
               id={id}
+              data-cy={cy}
               className={className}
               type="checkbox"
               name={name}

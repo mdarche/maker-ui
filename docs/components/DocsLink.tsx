@@ -7,20 +7,20 @@ interface DocsLinkProps {
 
 export const DocsLink = ({ children, href }: DocsLinkProps) => {
   if (href.startsWith('/')) {
-    return (
-      <Link href={href}>
-        <a>{children}</a>
-      </Link>
-    )
+    return <Link href={href}>{children}</Link>
   }
 
   const onPage = href.startsWith('#')
 
+  const attributes = !onPage
+    ? {
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      }
+    : undefined
+
   return (
-    <a
-      href={href}
-      target={onPage ? undefined : '_blank'}
-      rel={onPage ? undefined : 'noopener noreferrer'}>
+    <a href={href} {...attributes}>
       {children}
     </a>
   )

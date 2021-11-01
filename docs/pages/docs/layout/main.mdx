@@ -1,0 +1,53 @@
+<SEO
+  title="Main"
+  description="Use the Main component to wrap all of the main body content of your page."
+/>
+
+<Diagram component="Main">
+
+```jsx
+import { Main } from 'maker-ui'
+```
+
+</Diagram>
+
+The Main component stores all of your page's main body content in a `<main>` tag. It is used in all Maker UI layouts.
+
+## Width
+
+The width of the Main component is determined by the value of your site's content container that you set as `content.maxWidth` in Maker UI options.
+
+### Full Width Layouts
+
+If you want to use full width backgrounds or background colors throughout your pages, set `content.maxWidth` to `100%` and `options.maxWidthSection` to your desired inner content width. Whenever you want a new full width background, you can import the [Section](/docs/layout/section) component as a section wrapper.
+
+## Props
+
+Main does not have any special props, but you can still add custom `id` and `className` selectors.
+
+| Prop | Description                                                                |
+| :--: | -------------------------------------------------------------------------- |
+| css  | <Type name="object" /> Styles from the `css` prop will be applied to Main. |
+
+## Maker UI Options
+
+For a list of Main-related Maker UI options, see the [Content](/docs/layout/content) component.
+
+## Usage
+
+`Main` is used in all Maker UI layouts. It should always wrap your Layout's `{ children }`.
+
+In addition to the basic configuration below, check out the [Sidebar](/docs/layout/sidebar) and [SideNav](/docs/layout/sidenav) docs:
+
+```jsx
+import { Layout, Header, Content, Main, Sidebar } from 'maker-ui'
+
+export const MyLayout = ({ children }) => (
+  <Layout>
+    <Header />
+    <Content>
+      <Main>{children}</Main>
+    </Content>
+  </Layout>
+)
+```

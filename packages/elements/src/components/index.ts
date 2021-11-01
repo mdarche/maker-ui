@@ -9,7 +9,6 @@ export { Spinner } from './Spinner'
 export { Popover, Tooltip, Dropdown } from './Popovers'
 export { Portal } from './Portal'
 export { Tabs, TabPanel } from './Tabs'
-export { TreeMenu, TreeItem } from './TreeMenu'
 export { TableofContents } from './TableofContents'
 export { Generate } from './Generate'
 

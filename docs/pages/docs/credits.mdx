@@ -1,0 +1,27 @@
+# Credits
+
+## Motivation
+
+This library is intended to help React Developers quickly prototype high quality applications apps with a flexible, strong typed layout system. Move from static Figma or Sketch designs to production-grade layouts without the all of the setup headaches.
+
+- No more bloated UI libraries
+- Array-based CSS-in-JS media queries
+- Build with CSS variables, grid, and flex
+
+The API is simple yet infinitely customizable, allowing you to recreate any app layout you might encounter on the web.
+
+## Shoutouts
+
+Credit is due to 3 awesome projects in the React ecosystem:
+
+#### Emotion
+
+Maker UI has only one critical dependency: [@emotion/react](https://github.com/emotion-js/emotion). We build on top of Emotion's `jsx` prop to power our custom JSX factory. Emotion is a performant and flexible CSS-in-JS library that fully supports SSR in addition to runtime styles.
+
+#### React Spring
+
+This library uses pure CSS for almost every transition state, but in some cases we must gracefully mount and unmount components. The optional Popover, Modal, Lightbox, and Carousel components from `@maker-ui/elements` all use the amazing [React Spring](https://github.com/pmndrs/react-spring) library.
+
+#### Theme UI
+
+Maker UI is partly inspired by the innovations of Brent Jackson’s [Theme UI](https://github.com/system-ui/theme-ui). Theme UI introduced a responsive `sx` prop with array-based media queries that dramatically improves UI developer experience. Not having to write Sass mixins or a million `@media screen and (min-width: ...)` rules is an incredible boost to responsive website development.

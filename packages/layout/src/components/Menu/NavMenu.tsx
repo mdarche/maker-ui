@@ -1,10 +1,9 @@
-/** @jsx jsx */
-import { jsx } from '@maker-ui/css'
+import * as React from 'react'
 
 import { MenuItemProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { MenuItem } from './MenuItem'
-import { setBreakpoint } from '../../utils/helper'
+import { mergeSelectors } from '../../utils/helper'
 
 interface NavMenuProps {
   menuItems?: MenuItemProps[]
@@ -19,15 +18,16 @@ interface NavMenuProps {
  */
 
 export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
-  const { header, breakpoints, linkFunction } = useOptions()
+  const { header, linkFunction } = useOptions()
 
   return (
-    <nav
-      className="nav-primary"
-      role="navigation"
-      breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
-      css={{ display: ['none', 'flex'] }}>
-      <ul className="menu-primary">
+    <nav className="nav-primary" role="navigation">
+      <ul
+        className={mergeSelectors([
+          'menu-primary',
+          'header-nav',
+          `dropdown-${header.dropdown.transition}`,
+        ])}>
         {menuItems.map((item, index) => (
           <MenuItem
             key={index}

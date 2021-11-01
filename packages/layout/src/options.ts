@@ -4,7 +4,6 @@ import { MakerUIOptions } from './types'
  * Default Maker UI option configuration.
  *
  * @link `MakerOptions` in src/types.ts for complete list of properties.
- * @todo - Revisit all of these defaults
  *
  */
 export const defaultOptions: MakerUIOptions = {
@@ -41,6 +40,7 @@ export const defaultOptions: MakerUIOptions = {
     maxWidth: 1260,
     hideOnMobile: false,
     breakpoint: 0,
+    errorBoundary: false,
   },
   header: {
     navType: 'basic',
@@ -50,23 +50,24 @@ export const defaultOptions: MakerUIOptions = {
     stickyOnMobile: false,
     stickyUpScroll: false,
     showColorButton: true,
-    hideColorButtonOnMobile: false,
-    hideWidgetsOnMobile: true,
+    showColorButtonOnMobile: true,
+    showWidgetsOnMobile: false,
     menuOverflow: 'wrap',
     dropdown: {
       caret: 'default',
       transition: 'fade',
     },
     breakpoint: 0,
+    errorBoundary: false,
   },
   mobileMenu: {
-    width: '60vw',
+    width: '70vw',
     transition: 'slide-left',
-    cssTransition: 'all ease 0.3s',
     visibleOnDesktop: false,
     showCloseButton: true,
     closeOnBlur: true,
     closeOnRouteChange: false,
+    errorBoundary: false,
   },
   sideNav: {
     width: [250, 300],
@@ -80,19 +81,23 @@ export const defaultOptions: MakerUIOptions = {
     breakpoint: 0,
     collapse: false,
     collapseButton: 'default',
+    errorBoundary: false,
   },
   content: {
     maxWidth: 1020,
     maxWidthSection: 1020,
-    sidebarGap: 30,
     breakpoint: 0,
+    errorBoundary: false,
   },
   sidebar: {
     width: 300,
-    secondWidth: 200,
+    width_2: 200,
+    sidebarGap: 30,
+    errorBoundary: false,
   },
   footer: {
     maxWidth: 1020,
+    errorBoundary: false,
   },
   a11y: {
     skiplinks: true,

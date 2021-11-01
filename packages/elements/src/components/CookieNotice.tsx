@@ -8,7 +8,7 @@ import { Announcement, AnnouncementProps } from './Announcement'
  * By default, it is fixed to the bottom of the page and activated with a cookie that expires
  * after 30 days.
  *
- * @link https://maker-ui.com/docs/components/cookie-notice
+ * @link https://maker-ui.com/docs/elements/cookie-notice
  */
 
 export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
@@ -16,7 +16,7 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     {
       background = '#000',
       color,
-      storageKey = 'mui_cookie_notice',
+      storageKey = 'maker_cookie_notice',
       expiration,
       springConfig,
       closeButton = 'Got it!',

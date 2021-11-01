@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@maker-ui/css'
+import * as React from 'react'
 import { render, screen, cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import {
@@ -14,7 +13,6 @@ import {
   Button,
   Link,
   Image,
-  Form,
   Table,
   P,
   H1,
@@ -78,11 +76,6 @@ describe('Primitive components', () => {
         </tbody>
       </Table>
     )
-    expect(screen.getByText('test')).toBeInTheDocument()
-  })
-
-  test('Form renders', () => {
-    render(<Form>test</Form>)
     expect(screen.getByText('test')).toBeInTheDocument()
   })
 

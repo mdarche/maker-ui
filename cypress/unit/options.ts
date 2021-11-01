@@ -41,8 +41,8 @@ export const defaultOptions: MakerUIOptions = {
     sticky: false,
     stickyOnMobile: false,
     stickyUpScroll: false,
-    hideColorButtonOnMobile: false,
-    hideWidgetsOnMobile: true,
+    showColorButtonOnMobile: true,
+    showWidgetsOnMobile: false,
     menuOverflow: 'wrap',
     dropdown: {
       caret: 'default',
@@ -53,7 +53,6 @@ export const defaultOptions: MakerUIOptions = {
   mobileMenu: {
     width: '60vw',
     transition: 'slide-left',
-    cssTransition: 'all ease 0.3s',
     visibleOnDesktop: false,
     showCloseButton: true,
     closeOnBlur: true,
@@ -78,7 +77,7 @@ export const defaultOptions: MakerUIOptions = {
   },
   sidebar: {
     width: 300,
-    secondWidth: 200,
+    width_2: 200,
   },
   footer: {
     maxWidth: 1020,

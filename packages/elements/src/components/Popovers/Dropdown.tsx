@@ -30,7 +30,7 @@ interface DropdownProps {
  *
  * @todo - known issue with scale transition and height measurements
  *
- * @link https://maker-ui.com/docs/components/popovers
+ * @link https://maker-ui.com/docs/elements/popovers
  */
 
 export const Dropdown = ({

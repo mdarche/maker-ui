@@ -12,7 +12,7 @@ const TabsPage = () => {
   return (
     <>
       <div>
-        {keyValues.map(i => (
+        {keyValues.map((i) => (
           <button key={i} onClick={() => handleClick(i)}>
             Open Panel {i}
           </button>

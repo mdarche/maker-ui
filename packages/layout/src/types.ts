@@ -17,43 +17,49 @@ export type Partial<T> = {
 
 type ResponsiveString = string | string[]
 
+interface ColorKeys {
+  /** The site's primary text color. */
+  text: ResponsiveString
+  /** The default color for all anchor tags. */
+  link: ResponsiveString
+  /** The default hover color for all anchor tags. */
+  link_hover: ResponsiveString
+  /** The site's primary brand or accent color. */
+  primary: ResponsiveString
+  /** The site's secondary brand or accent color. */
+  secondary: ResponsiveString
+  /** The site's background color. */
+  background: ResponsiveString
+  /** The topbar background color. */
+  bg_topbar: ResponsiveString
+  /** The header background color. */
+  bg_header: ResponsiveString
+  /** The navbar's dropdown menu background color. */
+  bg_dropdown: ResponsiveString
+  /** The mobile menu's background color. */
+  bg_mobileMenu: ResponsiveString
+  /** The side navigation background color. */
+  bg_sideNav: ResponsiveString
+  /** The footer background color. */
+  bg_footer: ResponsiveString
+}
+
 /**
- * Configuration for the Maker UI layout system.
+ * Color configuration for the Maker UI layout system.
  *
- * @link https://maker-ui.com/docs/maker-options
+ * @link https://maker-ui.com/docs/maker-ui-options
  *
  */
 
-type ThemeColors = {
-  [key: string]: {
-    /** The site's primary text color. */
-    text: ResponsiveString
-    /** The default color for all anchor tags. */
-    link: ResponsiveString
-    /** The default hover color for all anchor tags. */
-    link_hover: ResponsiveString
-    /** The site's primary brand or accent color. */
-    primary: ResponsiveString
-    /** The site's secondary brand or accent color. */
-    secondary: ResponsiveString
-    /** The site's background color. */
-    background: ResponsiveString
-    /** The topbar background color. */
-    bg_topbar: ResponsiveString
-    /** The header background color. */
-    bg_header: ResponsiveString
-    /** The navbar's dropdown menu background color. */
-    bg_dropdown: ResponsiveString
-    /** The mobile menu's background color. */
-    bg_mobileMenu: ResponsiveString
-    /** The side navigation background color. */
-    bg_sideNav: ResponsiveString
-    /** The footer background color. */
-    bg_footer: ResponsiveString
-  } & {
-    [key: string]: ResponsiveString
-  }
-}
+type ThemeColors =
+  | {
+      [key: string]: ColorKeys & {
+        [key: string]: ResponsiveString
+      }
+    }
+  | (ColorKeys & {
+      [key: string]: ResponsiveString
+    })
 
 type ThemeFonts = {
   /** The document's default font. */
@@ -136,7 +142,7 @@ export interface MakerOptions {
     path: string,
     children: string | React.ReactElement,
     attributes: object,
-    icon?: React.ReactElement
+    icon?: React.ReactElement | string
   ): React.ReactElement
   /**
    * Configuration object for the Maker UI topbar.
@@ -170,6 +176,11 @@ export interface MakerOptions {
      * @remark This is only helpful if `hideOnMobile` is true.
      */
     breakpoint: number | string
+    /**
+     * An option to add an optional error boundary to the Topbar container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI header.
@@ -217,7 +228,14 @@ export interface MakerOptions {
      * Hides the sticky header on down scroll and reveals when scrolling back up.
      * @default false
      */
-    stickyUpScroll: boolean
+    stickyUpScroll:
+      | boolean
+      | {
+          /** Determines the number of milliseconds that should pass before the nav is triggered back into view on up-scroll */
+          delay: number
+          /** The scroll distance (in pixels) from the top of the document where the effect should begin  @default 500*/
+          start: number
+        }
     /**
      * Adds a custom class to the header when the user has scrolled past a specified point.
 \     */
@@ -233,16 +251,16 @@ export interface MakerOptions {
      */
     showColorButton: boolean
     /**
-     * Hides the header's color toggle button on mobile.
-     * @default false
+     * Lets you hide the header's color toggle button on mobile.
+     * @default true
      */
-    hideColorButtonOnMobile: boolean
+    showColorButtonOnMobile: boolean
     /**
      * Hides the header nav area on mobile (typically containing search, social icons,
      * or other custom components).
-     * @default true
+     * @default false
      */
-    hideWidgetsOnMobile: boolean
+    showWidgetsOnMobile: boolean
     /**
      * Controls the header's default dropdown menu settings.
      */
@@ -257,7 +275,7 @@ export interface MakerOptions {
        * The transition animation for showing/hiding header dropdown menus on hover or focus.
        * @default 'fade'
        * */
-      transition: 'scale' | 'fade' | 'fade-down' | 'fade-up'
+      transition: 'scale' | 'fade' | 'fade-down' | 'fade-up' | 'none'
     }
     /**
      * Lets you decide if your nav menu should wrap to the next line or scroll horizontally
@@ -289,6 +307,11 @@ export interface MakerOptions {
      * @default 0 (breakpoints[0], or 768px)
      */
     breakpoint: number | string
+    /**
+     * An option to add an optional error boundary to the Header container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI mobile menu.
@@ -296,7 +319,7 @@ export interface MakerOptions {
   mobileMenu: {
     /**
      * The width of the mobile menu when active. This can be a responsive array.
-     * @default '60vw'
+     * @default '70vw'
      */
     width: ResponsiveScale
     /**
@@ -305,12 +328,6 @@ export interface MakerOptions {
      * @default 'slide-left'
      */
     transition: typeof transitionTypes[number]
-    /**
-     * The CSS `transition` property that controls how the mobile menu enters and exits
-     * the viewport.
-     * @default 'all ease 0.3s'
-     */
-    cssTransition?: string
     /**
      * Displays the header's mobile menu button at all times.
      * @default false
@@ -343,6 +360,11 @@ export interface MakerOptions {
      * @default false
      */
     closeOnRouteChange: boolean
+    /**
+     * An option to add an optional error boundary to the MobileMenu container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI side navigation bar.
@@ -425,6 +447,11 @@ export interface MakerOptions {
      * @default 0 (breakpoints[0], or 768px)
      */
     breakpoint: string | number
+    /**
+     * An option to add an optional error boundary to the SideNav container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI content area.
@@ -444,18 +471,17 @@ export interface MakerOptions {
      */
     maxWidthSection?: ResponsiveScale
     /**
-     * The width of the gap between the main content area and optional sidebars.
-     * Can be a responsive array.
-     * @default 30
-     */
-    sidebarGap?: ResponsiveScale
-    /**
      * A specific breakpoint that controls when the grid for main content, sidebars, and the
      * side nav breaks down for mobile. You may also use an index to access a specific breakpoint
      * in the `options.breakpoints` array.
      * @default 0 (breakpoints[0], or 768px)
      */
     breakpoint: string | number
+    /**
+     * An option to add an optional error boundary to the main content area
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI sidebar.
@@ -471,7 +497,18 @@ export interface MakerOptions {
      * value always determines the second (right-hand) sidebar width.
      * @default 200
      */
-    secondWidth?: ResponsiveScale
+    width_2?: ResponsiveScale
+    /**
+     * The width of the gap between the main content area and optional sidebars.
+     * Can be a responsive array.
+     * @default 30
+     */
+    sidebarGap?: ResponsiveScale
+    /**
+     * An option to add an optional error boundary to the Sidebar container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for the Maker UI footer.
@@ -482,6 +519,11 @@ export interface MakerOptions {
      * @default 1020
      */
     maxWidth?: ResponsiveScale
+    /**
+     * An option to add an optional error boundary to the Footer container
+     * @default false
+     */
+    errorBoundary?: boolean
   }
   /**
    * Configuration object for Maker UI accessibility settings.
@@ -521,8 +563,6 @@ export interface MakerOptions {
       mobileMenu?: React.ReactNode
       /** Custom component that displays for any error nested in the Content component. */
       content?: React.ReactNode
-      /** Custom component that displays for any error nested in the Main component. */
-      main?: React.ReactNode
       /** Custom component that displays for any error nested in the SideNav. */
       sideNav?: React.ReactNode
       /** Custom component that displays for any error nested in the Sidebar. */

@@ -9,9 +9,7 @@ describe('Form component', () => {
     mount(<BasicForm />)
     cy.get('[data-cy=wrapper]')
     cy.get('[data-cy=submit]')
-    cy.get('[data-cy=form]')
-      .find('.field-container')
-      .should('have.length', 2)
+    cy.get('[data-cy=form]').find('.field-container').should('have.length', 2)
   })
 
   it('renders a custom grid gap with the gap prop', () => {
@@ -49,13 +47,13 @@ describe('Form component', () => {
     mount(<BasicForm fields={gridFields} formProps={{ columns: 3 }} />)
     cy.get('.form-grid')
       .should('have.css', 'grid-template-columns')
-      .should(val => {
+      .should((val) => {
         expect(val).to.eq('374.656px 374.656px 374.656px')
       })
     cy.viewport(600, 800)
     cy.get('.form-grid')
       .should('have.css', 'grid-template-columns')
-      .should(val => {
+      .should((val) => {
         expect(val).to.eq('584px')
       })
   })
@@ -70,13 +68,13 @@ describe('Form component', () => {
     )
     cy.get('.form-grid')
       .should('have.css', 'grid-template-columns')
-      .should(val => {
+      .should((val) => {
         expect(val).to.eq('273.5px 273.5px 273.5px 273.5px')
       })
     cy.viewport(600, 800)
     cy.get('.form-grid')
       .should('have.css', 'grid-template-columns')
-      .should(val => {
+      .should((val) => {
         expect(val).to.eq('454px 100px')
       })
   })

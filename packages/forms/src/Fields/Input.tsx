@@ -12,10 +12,12 @@ export const Input = ({
   placeholder,
   firstTouch,
   setFirstTouch,
+  cy,
 }: TextProps) => {
   return (
     <FormikField
       id={id}
+      data-cy={cy}
       onFocus={() => (!firstTouch ? setFirstTouch(true) : undefined)}
       onClick={() => (!firstTouch ? setFirstTouch(true) : undefined)}
       as={type === 'textarea' ? 'textarea' : 'input'}

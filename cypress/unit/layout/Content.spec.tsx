@@ -4,7 +4,25 @@ import { mount } from '@cypress/react'
 
 import { Wrapper, defaults, format } from '../setup'
 
+/**
+ * @component
+ * Content
+ *
+ * @tests
+ * - Render with defaults
+ * - Behavior: renders error when nested JSX is incompatible
+ * - Behavior: renders child components that have accepted display names
+ * - Behavior: renders error when nested child is a string
+ * - Layout: `content`
+ * - Layout: `content-sidebar`
+ * - Layout: `sidebar-content`
+ * - Layout: `sidebar-content-sidebar`
+ * - Layout: `sidenav-content`
+ * - Layout: `content-sidenav`
+ */
+
 describe('Content component', () => {
+  /* Render with defaults */
   it('renders the Content component', () => {
     mount(
       <Wrapper>
@@ -15,6 +33,8 @@ describe('Content component', () => {
     )
     cy.get('#site-inner')
   })
+
+  /* Behavior: renders error when nested JSX is incompatible */
 
   it('shows a helpful error when layout child component is unknown', () => {
     mount(
@@ -28,8 +48,10 @@ describe('Content component', () => {
     cy.contains('Invalid layout configuration')
   })
 
+  /* Behavior: renders child components that have accepted display names */
+
   it('accepts children with specified display names', () => {
-    const Fixed = props => <div style={{ position: 'fixed' }} {...props} />
+    const Fixed = (props) => <div style={{ position: 'fixed' }} {...props} />
     Fixed.displayName = 'Fixed'
 
     const Provider = () => <></>
@@ -51,6 +73,8 @@ describe('Content component', () => {
     cy.get('main')
   })
 
+  /* Behavior: renders error when nested child is a string */
+
   it('shows a helpful error when layout is a string', () => {
     mount(
       <Wrapper>
@@ -59,18 +83,9 @@ describe('Content component', () => {
     )
     cy.contains('Invalid layout configuration')
   })
-})
 
-/**
- * Register / accurately style all accepted layouts
- *
- * @remarks
- * - Include mobile layout checks
- * - Test all critical layout CSS here
- *
- */
+  /* Layout: `content` */
 
-describe('Content - Layout Builder', () => {
   it('identifies a `content` layout', () => {
     mount(
       <Wrapper>
@@ -87,6 +102,8 @@ describe('Content - Layout Builder', () => {
     cy.get('main')
   })
 
+  /* Layout: `content-sidebar` */
+
   it('identifies a `content-sidebar` layout', () => {
     mount(
       <Wrapper>
@@ -97,10 +114,10 @@ describe('Content - Layout Builder', () => {
       </Wrapper>
     )
     cy.get('#site-inner').should('have.css', 'display', 'grid')
-    cy.get('main')
-      .next('div')
-      .should('have.class', 'sidebar')
+    cy.get('main').next('div').should('have.class', 'sidebar')
   })
+
+  /* Layout: `sidebar-content` */
 
   it('identifies a `sidebar-content` layout', () => {
     mount(
@@ -117,6 +134,8 @@ describe('Content - Layout Builder', () => {
       .should('have.css', 'grid-row', '2 / auto')
   })
 
+  /* Layout: `sidebar-content-sidebar` */
+
   it('identifies a `sidebar-content-sidebar` layout', () => {
     mount(
       <Wrapper>
@@ -127,15 +146,14 @@ describe('Content - Layout Builder', () => {
         </Content>
       </Wrapper>
     )
-    cy.get('.sidebar')
-      .eq(0)
-      .next('main')
-      .next('.sidebar')
+    cy.get('.sidebar').eq(0).next('main').next('.sidebar')
     cy.viewport('iphone-x')
       .get('.sidebar')
       .eq(0)
       .should('have.css', 'grid-row', '2 / auto')
   })
+
+  /* Layout: `content-sidenav` */
 
   it('identifies a `content-sidenav` layout', () => {
     mount(
@@ -155,6 +173,8 @@ describe('Content - Layout Builder', () => {
       .get('#sidenav')
       .should('have.css', 'position', 'fixed')
   })
+
+  /* Layout: `sidenav-content` */
 
   it('identifies a `sidenav-content` layout', () => {
     mount(

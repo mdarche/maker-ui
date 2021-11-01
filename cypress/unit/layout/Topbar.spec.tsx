@@ -1,12 +1,24 @@
-/// <reference types="cypress" />
-
 import * as React from 'react'
 import { Topbar } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper, defaults, format } from '../setup'
 
-describe('Topbar component', () => {
+/**
+ * @component
+ * Topbar
+ *
+ * @tests
+ * - Render with defaults
+ * - Option: `topbar.maxWidth`, `colors.light.bg_topbar`
+ * - Option: `topbar.sticky`, `topbar.stickyOnMobile`
+ * - Prop: `stickyOnMobile`
+ * - Prop: `scrollOverflow`
+ * - Prop: `css`, `_css`
+ */
+
+describe('Topbar', () => {
+  /* Render with defaults */
+
   it('renders the Topbar component with default props', () => {
     mount(
       <Wrapper>
@@ -20,6 +32,8 @@ describe('Topbar component', () => {
       format(defaults.topbar.maxWidth)
     )
   })
+
+  /*  Option: `topbar.maxWidth`, `colors.light.bg_topbar` */
 
   it('renders with user-generated options', () => {
     mount(
@@ -35,6 +49,8 @@ describe('Topbar component', () => {
     cy.get('#topbar .container').should('have.css', 'max-width', '600px')
   })
 
+  /* Option: `topbar.sticky`, `topbar.stickyOnMobile` */
+
   it('applies sticky styles according to options', () => {
     mount(
       <Wrapper options={{ topbar: { sticky: true, stickyOnMobile: false } }}>
@@ -46,6 +62,8 @@ describe('Topbar component', () => {
       .get('#topbar')
       .should('have.css', 'position', 'relative')
   })
+
+  /* Prop: `stickyOnMobile` */
 
   it.only('applies sticky styles according to props', () => {
     mount(
@@ -59,6 +77,8 @@ describe('Topbar component', () => {
       .should('have.css', 'position', 'sticky')
   })
 
+  /* Prop: `scrollOverlow` */
+
   it('sets the scrollOverflow prop', () => {
     mount(
       <Wrapper>
@@ -68,6 +88,8 @@ describe('Topbar component', () => {
     cy.get('#topbar .container').should('have.css', 'overflow-x', 'scroll')
     cy.get('#topbar .container').should('have.css', 'white-space', 'nowrap')
   })
+
+  /* Prop: `css`, `_css` */
 
   it('applies _css to root and css to the container', () => {
     mount(

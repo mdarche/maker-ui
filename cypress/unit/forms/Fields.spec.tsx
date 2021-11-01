@@ -39,12 +39,12 @@ const TestForm = ({
       <Form.Provider
         settings={settings}
         fields={fields}
-        onSubmit={values => {
+        onSubmit={(values) => {
           console.log('Values are', values[id])
           setSubmitted({ value: values[id], complete: true })
         }}
         css={css}>
-        <Form>
+        <Form data-cy="form">
           <Form.Submit data-cy="submit">Submit</Form.Submit>
         </Form>
       </Form.Provider>
@@ -55,7 +55,7 @@ const TestForm = ({
 // Text Field
 
 describe('Text field', () => {
-  it('renders a text field with validation and placeholder', () => {
+  it.only('renders a text field with validation and placeholder', () => {
     mount(
       <TestForm
         id="text"
@@ -80,6 +80,23 @@ describe('Text field', () => {
     cy.get('input[type=text]').type('mike')
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('mike')
+  })
+  it.only('renders a text field with an initial value', () => {
+    mount(
+      <TestForm
+        id="text"
+        fields={[
+          {
+            name: 'text',
+            initialValue: 'Test',
+            type: 'text',
+            placeholder: 'Your name',
+            validation: Yup.string().required('Required'),
+            required: true,
+          },
+        ]}
+      />
+    )
   })
 })
 
@@ -114,6 +131,29 @@ describe('Textarea field', () => {
   })
 })
 
+// Number Field
+
+describe('Number field', () => {
+  // NOTE - default empty values don't work for number inputs. The field will always render an initial value
+  it('renders a number field', () => {
+    mount(
+      <TestForm
+        id="number"
+        fields={[
+          {
+            name: 'number',
+            type: 'number',
+          },
+        ]}
+      />
+    )
+    cy.get('[data-cy=success]').should('not.exist')
+    cy.get('input[type=number]').clear().type('2')
+    cy.get('[data-cy=submit]').click()
+    cy.get('[data-cy=success]').contains('2')
+  })
+})
+
 // Tel Field
 
 describe('Tel field', () => {
@@ -139,9 +179,7 @@ describe('Tel field', () => {
     cy.get('input[type=tel]').type('8675309')
     cy.get('[data-cy=submit]').click()
     cy.get('.error').should('exist')
-    cy.get('input[type=tel]')
-      .clear()
-      .type('908123456')
+    cy.get('input[type=tel]').clear().type('908123456')
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('908123456')
   })
@@ -172,9 +210,7 @@ describe('Email field', () => {
     cy.get('input[type=email]').type('mike@test')
     cy.get('[data-cy=submit]').click()
     cy.get('.error').should('exist')
-    cy.get('input[type=email]')
-      .clear()
-      .type('mike@test.com')
+    cy.get('input[type=email]').clear().type('mike@test.com')
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('mike@test.com')
   })
@@ -208,9 +244,7 @@ describe('Password field', () => {
     cy.get('input[type=password]').type('12345')
     cy.get('[data-cy=submit]').click()
     cy.get('.error').should('exist')
-    cy.get('input[type=password]')
-      .clear()
-      .type('aB1$dopg4')
+    cy.get('input[type=password]').clear().type('aB1$dopg4')
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('aB1$dopg4')
   })
@@ -241,9 +275,7 @@ describe('Url field', () => {
     cy.get('input[type=url]').type('12345')
     cy.get('[data-cy=submit]').click()
     cy.get('.error').should('exist')
-    cy.get('input[type=url]')
-      .clear()
-      .type('https://google.com')
+    cy.get('input[type=url]').clear().type('https://google.com')
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('https://google.com')
   })
@@ -269,9 +301,7 @@ describe('Color field', () => {
     cy.get('[data-cy=success]').should('not.exist')
     cy.get('[data-cy=submit]').click()
     cy.get('.error').should('exist')
-    cy.get('input[type=color]')
-      .invoke('val', '#ff0000')
-      .trigger('change')
+    cy.get('input[type=color]').invoke('val', '#ff0000').trigger('change')
   })
 })
 
@@ -477,9 +507,7 @@ describe('Checkbox field', () => {
     cy.get('[data-cy=success]').should('not.exist')
     cy.get('[data-cy=submit]').click()
     cy.get('.error').should('exist')
-    cy.get('input[type=checkbox]')
-      .first()
-      .check()
+    cy.get('input[type=checkbox]').first().check()
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('Option 1')
   })
@@ -505,9 +533,7 @@ describe('Checkbox field', () => {
       />
     )
     cy.get('#op3').should('have.class', 'class-3')
-    cy.get('input[type=checkbox]')
-      .first()
-      .check()
+    cy.get('input[type=checkbox]').first().check()
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('one')
   })
@@ -538,9 +564,7 @@ describe('Radio field', () => {
     cy.get('[data-cy=success]').should('not.exist')
     cy.get('[data-cy=submit]').click()
     cy.get('.error').should('exist')
-    cy.get('input[type=radio]')
-      .first()
-      .check()
+    cy.get('input[type=radio]').first().check()
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('Option 1')
   })
@@ -572,9 +596,7 @@ describe('Radio field', () => {
       />
     )
     cy.get('#op3').should('have.class', 'class-3')
-    cy.get('input[type=radio]')
-      .last()
-      .check()
+    cy.get('input[type=radio]').last().check()
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('3')
   })
@@ -637,6 +659,49 @@ describe('Switch field', () => {
   })
 })
 
+describe('Divider field', () => {
+  it('renders a divider component', () => {
+    mount(
+      <TestForm
+        fields={[
+          { name: 'text-1', type: 'text', label: 'Input 1' },
+          {
+            name: 'divider',
+            type: 'divider',
+            id: 'my-divider',
+            containerClass: 'divider-wrap',
+            label: 'Section Heading',
+          },
+          {
+            name: 'text-2',
+            type: 'text',
+            label: 'Input 2',
+          },
+        ]}
+      />
+    )
+    cy.get('[data-cy=form]').find('.field-container').should('have.length', 2)
+    cy.get('#my-divider')
+      .should('have.class', 'divider-wrap')
+      .and('contain.text', 'Section Heading')
+  })
+
+  it('renders a custom divider component', () => {
+    mount(
+      <TestForm
+        fields={[
+          {
+            name: 'divider',
+            type: 'divider',
+            label: <h2>Custom Divider</h2>,
+          },
+        ]}
+      />
+    )
+    cy.get('[data-cy=form]').find('h2').contains('Custom Divider')
+  })
+})
+
 describe('Shared field settings', () => {
   it('adds a custom input id selector', () => {
     mount(
@@ -691,9 +756,7 @@ describe('Shared field settings', () => {
         ]}
       />
     )
-    cy.get('label')
-      .find('h4')
-      .should('have.id', 'custom-label')
+    cy.get('label').find('h4').should('have.id', 'custom-label')
   })
 
   it('renders a field description', () => {
@@ -725,9 +788,7 @@ describe('Shared field settings', () => {
       />
     )
     cy.get('.validate-icon').should('not.have.class', 'valid')
-    cy.get('[type=text]')
-      .type('mike')
-      .blur()
+    cy.get('[type=text]').type('mike').blur()
     cy.get('.validate-icon').should('have.class', 'valid')
   })
 

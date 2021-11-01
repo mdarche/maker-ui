@@ -1,10 +1,23 @@
 import * as React from 'react'
 import { Section } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper, defaults, format } from '../setup'
 
-describe('Section component', () => {
+/**
+ * @component
+ * Section
+ *
+ * @tests
+ * - Render with defaults
+ * - Option: `content.maxWidthSection`
+ * - Prop: `className`, `maxWidth`, `background`, `color`
+ * - Prop: `css`, `_css`
+ * - Behavior: applies `css` to root when container = false
+ */
+
+describe('Section', () => {
+  /* Render with defaults */
+
   it('renders a Section with default props', () => {
     mount(
       <Wrapper header isContent>
@@ -19,6 +32,8 @@ describe('Section component', () => {
     )
   })
 
+  /* Option: `content.maxWidthSection` */
+
   it('renders with user-generated options', () => {
     mount(
       <Wrapper header isContent options={{ content: { maxWidthSection: 300 } }}>
@@ -27,6 +42,8 @@ describe('Section component', () => {
     )
     cy.get('.section .container').should('have.css', 'max-width', '300px')
   })
+
+  /* Prop: `className`, `maxWidth`, `background`, `color` */
 
   it('renders with prop values', () => {
     mount(
@@ -45,6 +62,8 @@ describe('Section component', () => {
     cy.get('.section .container').should('have.css', 'max-width', '700px')
   })
 
+  /* Prop: `css`, `_css` */
+
   it('applies _css to root and css to the container', () => {
     mount(
       <Wrapper header isContent>
@@ -59,6 +78,8 @@ describe('Section component', () => {
     cy.get('.section').should('have.css', 'margin', '20px')
     cy.get('.section .container').should('have.css', 'padding', '10px')
   })
+
+  /* Behavior: applies `css` to root when container = false */
 
   it('applies css to root when container is false', () => {
     mount(

@@ -2,7 +2,18 @@ import * as React from 'react'
 import { Portal } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
-describe('Portal component (internal)', () => {
+/**
+ * @component
+ * Portal
+ *
+ * @tests
+ * - Render with defaults
+ * - Prop: `root`
+ */
+
+describe('Portal (internal)', () => {
+  /* Render with defaults */
+
   it('attaches to the body element by default', () => {
     mount(
       <div>
@@ -14,10 +25,10 @@ describe('Portal component (internal)', () => {
         </div>
       </div>
     )
-    cy.get('body div')
-      .last()
-      .contains('Portal Content')
+    cy.get('body div').last().contains('Portal Content')
   })
+
+  /* Prop: `root` */
 
   // If this ever breaks, check to see if the root ID for Cypress has changed
   it('attaches to a specified DOM node using ID selector', () => {

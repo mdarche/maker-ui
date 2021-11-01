@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@maker-ui/css'
+import * as React from 'react'
 
 import { useLayout } from '../context/LayoutContext'
 import { useOptions } from '../context/OptionContext'
@@ -30,10 +29,7 @@ export const Skiplinks = (props: SkipLinkProps) => {
   if (props.links) {
     linkMenu = props.links
   } else {
-    linkMenu = [
-      { id: '#content', label: 'Skip to content' },
-      { id: '#footer', label: 'Skip to footer' },
-    ]
+    linkMenu = [{ id: '#content', label: 'Skip to content' }]
   }
 
   if (layout.includes('sidenav')) {
@@ -44,26 +40,7 @@ export const Skiplinks = (props: SkipLinkProps) => {
   }
 
   return a11y.skiplinks ? (
-    <ul
-      className="skiplinks"
-      css={{
-        listStyle: 'none',
-        position: 'relative',
-        zIndex: 1000,
-        padding: 0,
-        margin: 0,
-        a: {
-          background: 'var(--color-bg_header)',
-          display: 'block',
-          position: 'absolute',
-          fontFamily: 'var(--font-body)',
-          left: -9999,
-          padding: '1em',
-          '&:focus': {
-            left: 0,
-          },
-        },
-      }}>
+    <ul className="skiplinks">
       {linkMenu.map(({ id, label }) => (
         <li key={id}>
           <a href={id}>{label}</a>

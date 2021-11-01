@@ -4,31 +4,45 @@ import { forwardRef, Fragment } from 'react'
 
 import { MakerOptions } from '../types'
 import { CollapsibleMenu, MenuButton, MenuItemProps } from './Menu'
-import { ErrorBoundary } from './Errors'
+import { ErrorContainer } from './Errors'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
-import { getTransition, fullWidth, mergeSelectors } from '../utils/helper'
+import { mergeSelectors } from '../utils/helper'
 
 interface MobileMenuProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
+  /** Overrides `mobileMenu.transition` that you can set in Maker UI options.   */
   transition?: MakerOptions['mobileMenu']['transition']
+  /** Overrides the MobileMenu's default `--color-bg_mobileMenu` background value that you can set in Maker UI options. */
   background?: string | string[]
+  /** Overrides `mobileMenu.width` that you can set in Maker UI options.   */
   width?: ResponsiveScale
+  /** If you supply a MakerMenu array to this prop, the MobileMenu will render an accessible menu complete with nested dropdowns. */
   menu?: MenuItemProps[]
+  /** If true, this will center the inner contents of your MobileMenu with flexbox positioning.
+   * @default false
+   */
   center?: boolean
+  /** Your app's current path. This will add a `.current` class and `aria-current` to the active menu item. This feature is only useful if you use the `menu` prop. */
   pathname?: string
+  /** Overrides `mobileMenu.closeButton` that you can set in Maker UI options.   */
   closeButton?: MakerOptions['mobileMenu']['closeButton']
+  /** Determines where to position the MobileMenu's default close button while activated. */
   closeButtonPosition?:
     | 'top-left'
     | 'top-right'
     | 'bottom-left'
     | 'bottom-right'
+  /** A custom component that is inserted into the MobileMenu above its main content */
   header?: React.ReactElement
+  /** A custom component that is inserted into the MobileMenu below its main content */
   footer?: React.ReactElement
-  className?: string
 }
+
+/* Utility for mobile nav transitions that require a full-width window */
+const fullWidth = ['fade', 'fade-up', 'fade-down']
 
 /**
  * The `MobileMenu` component lets you customize a responsive overlay menu for mobile navigation.
@@ -40,14 +54,13 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
   (props, ref) => {
     const [show, toggleMenu] = useMenu()
     const { mobileMenu } = useOptions()
-
     const {
       id,
-      background = 'var(--color-bg_mobileMenu)',
+      background,
       center,
       closeButton = mobileMenu.closeButton,
       closeButtonPosition = 'top-right',
-      width = 'var(--width_mobileMenu)',
+      width,
       transition = mobileMenu.transition,
       menu = [],
       pathname,
@@ -58,53 +71,37 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
       children,
       ...rest
     } = props
-
-    const centerStyles: object | undefined = center
-      ? {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }
-      : undefined
-
-    const buttonX = closeButtonPosition.includes('right')
-      ? { right: 0 }
-      : { left: 0 }
-
-    const buttonY = closeButtonPosition.includes('top')
-      ? { top: 0 }
-      : { bottom: 0 }
+    const cssValues = background || width || css
 
     return (
       <Fragment>
         {mobileMenu.closeOnBlur && !fullWidth.includes(transition) ? (
-          <Overlay show={show} toggle={toggleMenu} />
+          <Overlay className="mobile-overlay" show={show} toggle={toggleMenu} />
         ) : null}
         <div
           ref={ref}
           id={mergeSelectors(['mobile-menu', id])}
-          className={mergeSelectors([show ? 'active' : '', className])}
-          css={{
-            position: 'fixed',
-            background,
-            top: 0,
-            bottom: 0,
-            zIndex: 100,
-            willChange: 'transform, opacity',
-            transition: mobileMenu.cssTransition,
-            ...getTransition(show, transition, width),
-            ...centerStyles,
-            ...(css as object),
-          }}
+          className={mergeSelectors([
+            show ? 'active' : undefined,
+            center ? 'center' : undefined,
+            fullWidth.includes(transition) ? 'full-width' : undefined,
+            `close-${closeButtonPosition}`,
+            transition,
+            className,
+          ])}
+          css={
+            typeof cssValues !== 'undefined'
+              ? {
+                  background,
+                  width,
+                  ...(css as object),
+                }
+              : undefined
+          }
           {...rest}>
-          <ErrorBoundary errorKey="mobileMenu">
+          <ErrorContainer errorKey="mobileMenu">
             {mobileMenu.showCloseButton || closeButton ? (
-              <MenuButton
-                customButton={closeButton}
-                isCloseButton
-                css={{ position: 'absolute', ...buttonY, ...buttonX }}
-              />
+              <MenuButton customButton={closeButton} isCloseButton />
             ) : null}
             {header ? header : null}
             {children || (
@@ -115,7 +112,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
               />
             )}
             {footer ? footer : null}
-          </ErrorBoundary>
+          </ErrorContainer>
         </div>
       </Fragment>
     )

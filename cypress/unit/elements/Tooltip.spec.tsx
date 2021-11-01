@@ -4,7 +4,19 @@ import { Tooltip } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
 
 /**
- * @see Popover.spec.tsx for gap, defer, trapFocus, and closeOnBlur unit tests
+ * @component
+ * Tooltip
+ *
+ * @tests
+ * - Render with defaults
+ * - Prop: `label` (component)
+ * - Prop: `buttonCss`
+ * - Prop: `background`, `color`
+ * - Prop: `noArrow`
+ * - Prop: `position`, `gap` (visual)
+ *
+ * @notes
+ * See Popover.spec.tsx for gap, defer, trapFocus, and closeOnBlur unit tests
  */
 
 const TestTooltip = ({ children, label, ...props }) => {
@@ -20,12 +32,16 @@ const TestTooltip = ({ children, label, ...props }) => {
   )
 }
 
-describe('Tooltip component', () => {
+describe('Tooltip', () => {
+  /* Render with default props */
+
   it('renders with default props', () => {
     mount(<TestTooltip label="Label">Tooltip content</TestTooltip>)
     cy.get('button').focus()
     cy.contains('Tooltip content')
   })
+
+  /* Prop: `label` (component) */
 
   it('renders with a custom label component', () => {
     mount(<TestTooltip label={<h2>Label</h2>}>Tooltip content</TestTooltip>)
@@ -33,6 +49,8 @@ describe('Tooltip component', () => {
     cy.get('button').focus()
     cy.contains('Tooltip content')
   })
+
+  /* Prop: `buttonCss` */
 
   it('applies `buttonCss` to the button label and `css` to the tooltip content container', () => {
     mount(
@@ -48,6 +66,8 @@ describe('Tooltip component', () => {
     cy.get('.tooltip').should('have.css', 'padding', '20px')
   })
 
+  /* Prop: `background`, `color` */
+
   it('applies a custom color and background with the `background` and `color` props', () => {
     mount(
       <TestTooltip label="label" background="#e3e333" color="#e23353">
@@ -59,11 +79,14 @@ describe('Tooltip component', () => {
     cy.get('.tooltip').should('have.color', '#e23353')
   })
 
-  // VISUAL TEST - pseudo arrow
+  /* Prop: `noArrow` */
+
   it('removes the pseudo arrow styles with the `noArrow` prop (visual)', () => {
     mount(<TestTooltip label="label">Tooltip content</TestTooltip>)
     cy.get('button').focus()
   })
+
+  /* Prop: `position`, `gap` (visual) */
 
   // VISUAL TEST - position top
   it('positions the tooltip to the top of the label', () => {

@@ -1,6 +1,6 @@
 module.exports = {
   plugins: ['prettier'],
-  extends: ['react-app', 'plugin:prettier/recommended'],
+  extends: ['react-app'],
   settings: {
     react: {
       version: 'detect',

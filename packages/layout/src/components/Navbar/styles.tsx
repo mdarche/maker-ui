@@ -3,60 +3,52 @@ import { navTypes, mobileNavTypes } from '../../constants'
 /**
  * Grid & flex justification styles for desktop
  */
+
 const desktop = {
   basic: {
-    areas: '"logo menu nav"',
+    areas: '"logo menu widgets"',
     columns: 'auto 1fr auto',
-    navArea: 'flex-start',
-    menuArea: 'flex-end',
+    widgetArea: 'flex-start',
   },
   'basic-left': {
-    areas: '"logo menu nav"',
+    areas: '"logo menu widgets"',
     columns: 'auto 1fr auto',
-    navArea: 'flex-start',
-    menuArea: 'flex-start',
+    widgetArea: 'flex-start',
   },
   'basic-center': {
-    areas: '"logo menu nav"',
+    areas: '"logo menu widgets"',
     columns: 'auto 1fr auto',
-    navArea: 'flex-start',
-    menuArea: 'center',
+    widgetArea: 'flex-start',
   },
   center: {
-    areas: '"logo logo" "menu nav"',
+    areas: '"logo logo" "menu widgets"',
     columns: '1fr',
-    navArea: 'flex-start',
-    menuArea: 'center',
+    widgetArea: 'flex-start',
   },
   split: {
-    areas: '"menu-split logo menu nav"',
+    areas: '"menu-split logo menu widgets"',
     columns: '1fr auto 1fr',
-    navArea: 'flex-start',
-    menuArea: false,
+    widgetArea: 'flex-start',
   },
   reverse: {
-    areas: '"menu logo nav"',
+    areas: '"menu logo widgets"',
     columns: '1fr auto 1fr',
-    navArea: 'flex-end',
-    menuArea: false,
+    widgetArea: 'flex-end',
   },
   minimal: {
-    areas: '"logo nav"',
+    areas: '"logo widgets"',
     columns: 'auto 1fr',
-    navArea: 'flex-end',
-    menuArea: false,
+    widgetArea: 'flex-end',
   },
   'minimal-left': {
-    areas: '"button logo nav"',
+    areas: '"button logo widgets"',
     columns: 'auto auto 1fr',
-    navArea: 'flex-end',
-    menuArea: false,
+    widgetArea: 'flex-end',
   },
   'minimal-center': {
-    areas: '"button logo nav"',
+    areas: '"button logo widgets"',
     columns: '1fr auto 1fr',
-    navArea: 'flex-end',
-    menuArea: false,
+    widgetArea: 'flex-end',
   },
 }
 
@@ -65,30 +57,31 @@ const desktop = {
  */
 const mobile = {
   basic: {
-    areas: '"logo nav"',
+    areas: '"logo widgets"',
     columns: 'auto 1fr',
-    navArea: 'flex-end',
+    widgetArea: 'flex-end',
   },
   'basic-menu-left': {
-    areas: '"button logo nav"',
+    areas: '"button logo widgets"',
     columns: 'auto auto 1fr',
-    navArea: 'flex-end',
+    widgetArea: 'flex-end',
   },
   'logo-center': {
-    areas: '"button logo nav"',
+    areas: '"button logo widgets"',
     columns: '1fr auto 1fr',
-    navArea: 'flex-end',
+    widgetArea: 'flex-end',
   },
   'logo-center-alt': {
-    areas: '"nav logo button"',
+    areas: '"widgets logo button"',
     columns: '1fr auto 1fr',
-    navArea: 'flex-start',
+    widgetArea: 'flex-start',
   },
 }
 
 /**
- * Calculate grid-template-area, grid-template-columns, and grid-template-rows
+ * Determine grid-template-area, grid-template-columns, and positioning
  */
+
 export function gridStyles(
   layout: typeof navTypes[number],
   mobileLayout: typeof mobileNavTypes[number]
@@ -99,47 +92,11 @@ export function gridStyles(
       mobile[mobileLayout].columns,
       desktop[layout].columns,
     ],
-    gridTemplateRows: ['1fr', layout !== 'center' ? '1fr' : '1fr 1fr'],
-    gap: 0,
-    '.nav-area': {
-      ...absolutePosition(layout),
-      justifyContent: [mobile[mobileLayout].navArea, desktop[layout].navArea],
-    },
-    '.menu-area': {
-      justifyContent: desktop[layout].menuArea
-        ? desktop[layout].menuArea
-        : undefined,
-    },
-    '.menu-area.split': { justifyContent: 'flex-end' },
-    '&.layout-center .logo-area': {
-      justifyContent: 'center',
-    },
-    '&.layout-minimal, &.layout-minimal-left, &.layout-minimal-center': {
-      '.menu-area': {
-        display: 'none',
-      },
-    },
-    '&.layout-minimal-center .button-area': {
-      justifyContent: 'flex-start',
-    },
-    '&.m-layout-logo-center-alt .button-area': {
-      justifyContent: ['flex-end', 'flex-start'],
+    '.widget-slot': {
+      justifyContent: [
+        mobile[mobileLayout].widgetArea,
+        desktop[layout].widgetArea,
+      ],
     },
   }
-}
-
-/**
- * Add absolute positioning to nav-area for `split` and `center` desktop layouts
- */
-
-function absolutePosition(layout: string) {
-  const abs = ['center', 'split']
-  return abs.includes(layout)
-    ? {
-        position: ['relative', 'absolute'],
-        top: 0,
-        right: 0,
-        height: '100%',
-      }
-    : undefined
 }

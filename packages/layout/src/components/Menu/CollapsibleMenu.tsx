@@ -63,7 +63,6 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
         ref={ref}
         className={mergeSelectors(['collapse-menu', className])}
         role="navigation"
-        css={{ ...(css as object) }}
         {...props}>
         {menu.map((item, index) => (
           <MenuItem

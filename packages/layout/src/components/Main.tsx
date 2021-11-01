@@ -2,11 +2,7 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { mergeSelectors } from '../utils/helper'
 
-import { ErrorBoundary } from './Errors'
-
-interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
-  background?: string | string[]
-}
+interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * The `Main` component wraps your layout's main content.
@@ -14,19 +10,9 @@ interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  * @link https://maker-ui.com/docs/layout/main
  */
 
-export const Main = ({
-  id,
-  background,
-  css,
-  children,
-  ...props
-}: MainProps) => (
-  <main
-    id={mergeSelectors(['content', id])}
-    role="main"
-    css={{ background, position: 'relative', flex: 1, ...(css as object) }}
-    {...props}>
-    <ErrorBoundary errorKey="main">{children}</ErrorBoundary>
+export const Main = ({ id, children, ...props }: MainProps) => (
+  <main id={mergeSelectors(['content', id])} role="main" {...props}>
+    {children}
   </main>
 )
 

@@ -1,5 +1,3 @@
-import { transitionTypes } from '../constants'
-
 /**
  * Evaluates a MakerOptions breakpoint and formats the `breakpoints` prop array
  *
@@ -19,51 +17,6 @@ export const setBreakpoint = (
  */
 
 export const format = (value: any) => (isNaN(value) ? value : `${value}px`)
-
-/**
- * Utility for mobile nav transitions that require a full-width window
- */
-
-export const fullWidth = ['fade', 'fade-up', 'fade-down']
-
-/**
- * Uses the nav's settings to build the appropriate transition and position.
- *
- * @param active - a boolean that determines whether or not the menu is active
- * @param type - the transition style (string)
- * @param width - the mobile menu's width specificed in the options configuration
- */
-
-export const getTransition = (
-  active: boolean,
-  type: typeof transitionTypes[number],
-  width: any
-): object => {
-  const opacity = type.includes('fade') ? (active ? 1 : 0) : 1
-  const visibility = active ? 'visible' : 'hidden'
-
-  const directionX = type.includes('right')
-    ? { right: 0, width, transform: active ? null : 'translateX(100%)' }
-    : { left: 0, width, transform: active ? null : 'translateX(-100%)' }
-
-  const directionY = () => {
-    if (type !== 'fade') {
-      const sign = type === 'fade-up' ? '' : '-'
-      return { transform: !active ? `translateY(${sign}20px)` : null }
-    }
-    return null
-  }
-
-  const size = fullWidth.includes(type)
-    ? { width: '100%', left: 0, ...directionY() }
-    : directionX
-
-  return {
-    opacity,
-    visibility,
-    ...size,
-  }
-}
 
 /**
  * Returns a randomly generated alphanumeric ID.
@@ -107,10 +60,12 @@ export function validate(obj: any) {
 export function mergeSelectors(
   selectors: (string | undefined)[]
 ): string | undefined {
-  return selectors
+  let s = selectors
     ? selectors
         .join(' ')
         .replace(/ +(?= )/g, '')
         .trim()
     : undefined
+
+  return s === '' ? undefined : s
 }

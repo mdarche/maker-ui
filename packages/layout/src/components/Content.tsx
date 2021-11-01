@@ -2,7 +2,7 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { useState, useEffect } from 'react'
 
-import { ErrorBoundary } from './Errors/ErrorBoundary'
+import { ErrorContainer } from './Errors'
 import { ContentError } from './Errors/Errors'
 import { useOptions } from '../context/OptionContext'
 import { useLayoutDetector } from '../context/LayoutContext'
@@ -22,7 +22,13 @@ interface ContentProps
  * @link https://maker-ui.com/docs/layout/content
  */
 
-export const Content = ({ id, children, css, ...props }: ContentProps) => {
+export const Content = ({
+  id,
+  className,
+  children,
+  css,
+  ...props
+}: ContentProps) => {
   const [initialRender, setInitialRender] = useState(true)
   const { content, sideNav, breakpoints } = useOptions()
   const { layout, showError } = useLayoutDetector('content', children)
@@ -31,6 +37,7 @@ export const Content = ({ id, children, css, ...props }: ContentProps) => {
     setInitialRender(false)
   }, [])
 
+  const layoutClass = layout.replace(/\s+/g, '-')
   const layoutStyles = useLayoutStyles(layout)
   const bp = layout.includes('sidenav')
     ? sideNav.breakpoint
@@ -39,10 +46,10 @@ export const Content = ({ id, children, css, ...props }: ContentProps) => {
   return (
     <div
       id={mergeSelectors(['site-inner', id])}
+      className={mergeSelectors([`layout-${layoutClass}`, className])}
       breakpoints={setBreakpoint(bp, breakpoints)}
+      style={initialRender ? { visibility: 'hidden' } : undefined}
       css={{
-        position: 'relative',
-        visibility: initialRender ? 'hidden' : undefined,
         ...layoutStyles,
         ...(css as object),
       }}
@@ -50,7 +57,7 @@ export const Content = ({ id, children, css, ...props }: ContentProps) => {
       {showError ? (
         <ContentError />
       ) : (
-        <ErrorBoundary errorKey="content">{children}</ErrorBoundary>
+        <ErrorContainer errorKey="content">{children}</ErrorContainer>
       )}
     </div>
   )

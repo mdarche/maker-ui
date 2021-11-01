@@ -19,7 +19,7 @@ export interface PageTransitionProps {
  * The `PageTransition` component wraps your content in a transition container. See docs
  * for currently supported transitions.
  *
- * @link https://maker-ui.com/docs/components/page-transition
+ * @link https://maker-ui.com/docs/elements/page-transition
  */
 
 export const PageTransition = ({

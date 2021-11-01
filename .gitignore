@@ -9,7 +9,6 @@ node_modules/
 dist
 .cache
 .env
-public
 dist
 
 .DS_Store
@@ -18,3 +17,4 @@ yarn-error.log
 .yarn-integrity
 .vscode/
 .next/
+.npmrc

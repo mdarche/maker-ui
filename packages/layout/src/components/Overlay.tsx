@@ -1,11 +1,12 @@
-/** @jsx jsx */
-import { jsx } from '@maker-ui/css'
+import * as React from 'react'
+import { mergeSelectors } from '../utils/helper'
 
 interface OverlayProps {
   show: boolean
   toggle: any
   bp?: number
   type?: string
+  className?: string
 }
 
 /**
@@ -15,29 +16,18 @@ interface OverlayProps {
  * @internal usage only
  */
 
-export const Overlay = ({ show, toggle }: OverlayProps) => {
+export const Overlay = ({ show, toggle, className }: OverlayProps) => {
   return (
     <div
-      className={`menu-overlay${show ? ' active' : ''}`}
+      className={mergeSelectors([
+        'menu-overlay',
+        'fixed',
+        'cover',
+        className,
+        show ? ' active' : undefined,
+      ])}
       role="button"
       onClick={toggle}
-      css={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'rgba(0, 0, 0, 0.15)',
-        zIndex: 100,
-        willChange: 'opacity',
-        transition: 'all ease .4s',
-        visibility: 'hidden',
-        opacity: 0,
-        '&.active': {
-          visibility: 'visible',
-          opacity: 1,
-        },
-      }}
     />
   )
 }

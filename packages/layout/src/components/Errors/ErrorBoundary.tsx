@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { OptionContext } from '../../context/OptionContext'
+import { useOptions, OptionContext } from '../../context/OptionContext'
 import { DefaultError } from './Errors'
 
 interface ErrorState {
@@ -11,10 +11,32 @@ interface ErrorState {
 
 export interface ErrorProps {
   errorMessage?: React.ReactNode
-  component?: string
   errorKey?: string
   showDetails?: boolean
   logFunction?: (error?: string, logInfo?: any, component?: string) => any
+  children: React.ReactNode
+}
+
+interface ErrorContainerProps extends Omit<ErrorProps, 'errorKey'> {
+  errorKey:
+    | 'topbar'
+    | 'header'
+    | 'mobileMenu'
+    | 'sidebar'
+    | 'sideNav'
+    | 'content'
+    | 'footer'
+}
+
+export const ErrorContainer = ({ children, ...props }: ErrorContainerProps) => {
+  const options = useOptions()
+  const keyExists = Object.keys(options).includes(props.errorKey)
+
+  return keyExists && options[props.errorKey].errorBoundary ? (
+    <ErrorBoundary>{children}</ErrorBoundary>
+  ) : (
+    <>{children}</>
+  )
 }
 
 /**

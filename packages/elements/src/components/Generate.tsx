@@ -12,7 +12,7 @@ interface GenerateProps {
  * The `Generate` component lets you configure a template component with props from
  * a randomly shuffled array of properties or shuffle an array of React components.
  *
- * @link https://maker-ui.com/docs/components/generate
+ * @link https://maker-ui.com/docs/elements/generate
  */
 
 export const Generate = ({ data, count, children }: GenerateProps) => {

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, SVG } from '@maker-ui/primitives'
+import { mergeSelectors } from '../../utils/helper'
 
 interface ExpandButtonProps {
   show: boolean
@@ -11,35 +11,33 @@ interface ExpandButtonProps {
  * next group of nested menu items.
  *
  * @internal usage only
+ * @todo add custom button support
  *
  */
 
 export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
   return (
-    <Button
+    <button
       title="Expand Section"
-      className="submenu-toggle"
+      className={mergeSelectors([
+        'submenu-toggle',
+        show ? 'expanded' : undefined,
+      ])}
       aria-expanded={show ? 'true' : 'false'}
       aria-label="Expand Section"
-      onClick={() => set(!show)}
-      css={{ border: 'none', background: 'transparent' }}>
-      <SVG
+      onClick={() => set(!show)}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
-        width="12"
-        height="12"
-        css={{
-          transition: 'transform ease .2s',
-          transformOrigin: '50% 55%',
-          transform: show ? 'rotate(180deg)' : undefined,
-        }}>
+        className={show ? 'rotate' : undefined}>
         <path
           stroke="currentcolor"
           strokeWidth="2"
           fill="none"
           d="M14 6 L8 12 L2 6"
         />
-      </SVG>
-    </Button>
+      </svg>
+    </button>
   )
 }
 

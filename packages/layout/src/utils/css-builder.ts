@@ -13,7 +13,7 @@ interface Dictionary<T> {
  * Converts colors from the Maker UI options configuration into CSS variables
  *
  * @param colors - the `colors` object from MakerOptions
- * @returns CSS variable declarations scoped to body dataset attribute
+ * @returns CSS variable declarations scoped to body dataset attribute or :root
  *
  * @internal usage only
  */
@@ -22,17 +22,23 @@ export const colorVars = (
   colors: MakerOptions['colors']
 ): GlobalProps['styles'] => {
   const themeKeys = Object.keys(colors)
-  let css = {}
+  const hasThemeName = colors && typeof colors[themeKeys[0]] === 'object'
+  let css: any = hasThemeName ? {} : { ':root': {} }
 
-  themeKeys.forEach(k => {
-    const selector = `body[data-theme='${k}']`
-    let styles: Dictionary<any> = { [selector]: {} }
+  themeKeys.forEach((k) => {
+    // Handle multiple themes
+    if (hasThemeName) {
+      const selector = `body[data-theme='${k}']`
+      let styles: Dictionary<any> = { [selector]: {} }
 
-    for (const [key, value] of Object.entries(colors[k])) {
-      styles[selector][`--color-${key}`] = value
+      for (const [key, value] of Object.entries(colors[k])) {
+        styles[selector][`--color-${key}`] = value
+      }
+      css = { ...css, ...styles }
+    } else {
+      // Handle single theme
+      css[':root'][`--color-${k}`] = colors[k]
     }
-
-    css = { ...css, ...styles }
   })
 
   return css
@@ -85,9 +91,9 @@ export const themeVars = (
     '--maxWidth_footer': footer?.maxWidth,
     '--width_mobileMenu': mobileMenu?.width,
     '--width_sidebar': sidebar?.width,
-    '--width_second_sidebar': sidebar?.secondWidth,
+    '--width_second_sidebar': sidebar?.width_2,
     '--width_sideNav': sideNav?.width,
-    '--gap_content': content?.sidebarGap,
+    '--gap_content': sidebar?.sidebarGap,
   }
 
   function formatCssVars(obj: object) {
@@ -122,5 +128,5 @@ export const themeVars = (
   /** Add breakpoints to variable string for external usage */
   css['--breakpoints'] = breakpoints.join(',')
 
-  return { html: css }
+  return { ':root': css }
 }

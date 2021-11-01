@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import useMeasure from 'react-use-measure'
 
 import { MakerOptions } from '../types'
-import { ErrorBoundary } from './Errors/ErrorBoundary'
+import { ErrorContainer } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
 import { useMeasurements } from '../context/LayoutContext'
 import { mergeSelectors, setBreakpoint } from '../utils/helper'
@@ -12,11 +12,19 @@ import { mergeSelectors, setBreakpoint } from '../utils/helper'
 type StickyType = 'sticky' | ('sticky' | 'relative')[] | undefined
 
 interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
+  /** Overrides the default `--color-bg_topbar` background that you can set with Maker UI Options. */
   background?: string
+  /** Overrides `topbar.maxWidth` from Maker UI options. */
   maxWidth?: ResponsiveScale
+  /** When true, content overflow will scroll horizontally instead of wrapping to a new line.
+   * @default false
+   */
   scrollOverflow?: boolean
+  /** Overrides `topbar.sticky` from Maker UI options. */
   sticky?: MakerOptions['topbar']['sticky']
+  /** Overrides `topbar.stickyOnMobile` from Maker UI options. */
   stickyOnMobile?: MakerOptions['topbar']['stickyOnMobile']
+  /** Gives you access to the root container styles */
   _css?: MakerProps['css']
 }
 
@@ -80,14 +88,13 @@ export const Topbar = (props: TopbarProps) => {
       <div
         className="container"
         css={{
-          margin: '0 auto',
           overflowX: scrollOverflow ? 'scroll' : undefined,
           whiteSpace: scrollOverflow ? 'nowrap' : undefined,
           maxWidth,
           ...(css as object),
         }}
         {...rest}>
-        <ErrorBoundary errorKey="topbar">{children}</ErrorBoundary>
+        <ErrorContainer errorKey="topbar">{children}</ErrorContainer>
       </div>
     </aside>
   )

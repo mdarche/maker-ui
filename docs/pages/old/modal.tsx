@@ -10,7 +10,7 @@ const ModalPage = () => {
       <br />
       <br />
       <br />
-      <button ref={ref} onClick={e => set(!show)}>
+      <button ref={ref} onClick={(e) => set(!show)}>
         Toggle Modal
       </button>
       <button>Fake button</button>
@@ -18,7 +18,7 @@ const ModalPage = () => {
       <br />
       <br />
       <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nost
       </p>

@@ -7,7 +7,9 @@ import { setBreakpoint, mergeSelectors } from '../../utils/helper'
 import { useColorTheme } from '../../context/LayoutContext'
 
 interface ColorButtonProps extends ButtonProps {
+  /** For internal usage with a Maker UI header layout */
   isHeaderButton?: boolean
+  /** A React Node for using a custom icon or a callback function that gives you access to all color themes */
   customButton?: MakerOptions['header']['colorButton']
 }
 
@@ -28,6 +30,9 @@ export const ColorButton = ({
 }: ColorButtonProps) => {
   const { header, breakpoints: bps } = useOptions()
   const { colorTheme, setColorTheme, themes } = useColorTheme()
+
+  // Never render this component if themes are undefined
+  if (!themes) return null
 
   const cycleMode = () => {
     const i = themes.indexOf(colorTheme as string)
@@ -50,7 +55,7 @@ export const ColorButton = ({
   // Use custom button from props or check header options
   const colorButton = customButton || header.colorButton
 
-  if (themes.length === 1) {
+  if (themes?.length === 1) {
     return null
   }
 
@@ -64,9 +69,9 @@ export const ColorButton = ({
         {...attributes}
         css={{
           display:
-            isHeaderButton && header.hideColorButtonOnMobile
-              ? ['none', 'block']
-              : ['block'],
+            isHeaderButton && header.showColorButtonOnMobile
+              ? ['block']
+              : ['none', 'block'],
           ...(css as object),
         }}>
         {colorButton || colorTheme}

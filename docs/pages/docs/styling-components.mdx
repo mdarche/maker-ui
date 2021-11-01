@@ -1,6 +1,11 @@
+<SEO
+  title="Styling Components"
+  description="Use the responsive breakpoints and css props to create media queries in no time at all."
+/>
+
 # Styling Components
 
-All Maker UI components and primitives have special `breakpoints` and `css` props. These props let you specify media query breakpoints as an array of values that correspond with CSS rules.
+All of Maker UI's components support special `breakpoints` and `css` props. These props let you specify media query breakpoints as an array of values that correspond with CSS rules.
 
 Here's how the syntax looks in action:
 
@@ -16,13 +21,11 @@ Here's how the syntax looks in action:
 </Div>
 ```
 
-## Mobile-First Design
+Maker UI stacks your CSS array values as **min-width** media queries. In the example above, the div's base color would be `blue`. At `min-width(768px)` the div's color would turn `red`, and finally at `min-width(960px)` the div's color would become `purple`.
 
-Maker UI stacks your CSS array values with **min-width** media queries. In the example above, the div's base color would be `blue`. At `min-width(768px)` the div's color would turn `red`, and finally at `min-width(960px)` the div's color would become `purple`.
-
-<Callout>
-  Just remember that the first index of your CSS attribute array will always
-  serve as the base style for your component.
+<Callout type="info">
+  The first index of your CSS attribute array will always serve as the base
+  style for your component.
 </Callout>
 
 Here's another example:
@@ -42,16 +45,17 @@ Here's another example:
 </Div>
 ```
 
-## Use Valid CSS Rules
+## Composing Styles
 
-The CSS prop will accept any officially adopted CSS attribute as both a single value or an array of values.
+The CSS prop will accept any officially adopted CSS attribute as both a single value or an array of values. If you can write it in a stylesheet, you can use it with the CSS prop.
 
-<Callout>
-  Maker UI is built with TypeScript, so your text editor may even try to help
-  you autocomplete CSS values.
-</Callout>
+You can also use custom functions or spread operators to create dynamic style rules. If any rule is undefined at run or buildtime, the parser will ignore it.
 
-If you need computed styles like a function that returns a style object, just cast your function as an object:
+### TypeScript
+
+For TypeScript users, some text editors that support auto-complete or intellisense may display and help you select valid CSS values as you declare styles.
+
+If you ever need to use a function that returns a style object, just cast your function as an object:
 
 ```jsx
 
@@ -108,7 +112,7 @@ You can use the CSS prop just like a Sass stylesheet-- nest styles for as many c
 
 ### Pseudo Selectors
 
-Declare styles for pseudo elements (`:before` and `:after`), state (`hover`, `focus`, `active`, etc.), or chained classes by prefacing the rule with the ampersand `&` symbol:
+Declare styles for pseudo elements (`:before` and `:after`), state (`:hover`, `:focus`, `:active`, etc.), or chained classes by prefacing the rule with an ampersand `&` symbol:
 
 ```jsx
 <Button
@@ -129,23 +133,15 @@ Declare styles for pseudo elements (`:before` and `:after`), state (`hover`, `fo
 
 ## When to Inline vs Import
 
-When prototyping, it's often easiest to bake your styles directly into your JSX. This strategy works really well when you can keep your files small with a modular component architecture.
+While prototyping, it's often easiest to bake styles directly into your JSX. This strategy also works really well when you can keep your files small with a modular component architecture.
 
-However, if you are building something complex, you may have a hard time identifying your component's business logic when the JSX becomes too bloated with styles. In this case, you should move your styles to a separate object or into a different file all together.
-
-There are 2 patterns for importing styles:
-
-- Scoped styles
-- Module styles
+However, as your component grows in complexity, you might have a hard time identifying business logic if the JSX becomes bloated with styles. It's often cleaner to define several styles in one place as a separate object.
 
 ### Scoped Styles
 
-With this pattern, you add a nested style declaration to a parent component or JSX element. All child element styles will be derived from the parent's `css` prop. This pattern encourages you to rely more on CSS selectors and natural HTML in your React components.
+With this approach, you add a nested style declaration to a parent component or outer container. All child element styles will be derived from the parent's `css` prop. Any responsive arrays in your style object will abide by global breakpoints or the local `breakpoints` prop.
 
-<Callout>
-  This is the recommended way to handle complex component styles because it will
-  make your component easier to maintain.
-</Callout>
+This pattern encourages you to rely more on CSS selectors and to write cleaner JSX in your React components.
 
 ```jsx
 import { Div } from 'maker-ui'
@@ -160,17 +156,22 @@ const styles = {
   }
   '.card-title': {
     fontWeight: 700,
-    fontSize: [20, 28]
+    fontSize: ['1.3em', '1.5em']
+  },
+  p: {
+    color: '#333'
   }
 }
 
-/* The styles object is applied to the root <Div /> and all nested elements
-are locally scoped */
+/* The styles object is applied to the root <Div /> and all nested
+elements are locally scoped */
 
 const TestComponent = () => (
   <Div css={styles}>
     <div className="card">
       <h2 className="card-title">Title</h2>
+      <p>paragraph one</p>
+      <p>paragraph two</p>
     </div>
   </Div>
 )
@@ -179,7 +180,7 @@ const TestComponent = () => (
 
 ### Module Styles
 
-This pattern is commonly used in React applications that leverage CSS Modules. You can use a dictionary of style declarations for each Maker UI primitive or component:
+This approach is commonly used in React applications that leverage CSS Modules. You can use a dictionary of style declarations for each Maker UI primitive or component:
 
 ```jsx
 import { Div, H2 } from 'maker-ui'
@@ -200,7 +201,7 @@ const styles = {
   },
 }
 
-/* NOTE - You must use a Maker UI component 
+/* NOTE - You must use a Maker UI component or the JSX pragma
 to access the CSS prop */
 
 const TestComponent = () => (
@@ -214,18 +215,18 @@ const TestComponent = () => (
 
 ## \_css Prop
 
-Several Maker UI components render a container with child elements. This is particularly useful for applying a `maxWidth` rule to the component's inner contents or adding a CSS display of `flex` or `grid` to the container.
+Several Maker UI components render a container element. This is useful for applying a `maxWidth` rule to the component's inner contents or adding a CSS display of `flex` or `grid` to the container.
 
 If you ever need to style a root container element, you can use the `_css` prop.
 
-<Callout>
-  To see if a component has a <strong>_css</strong> prop, check out its
-  respective documentation page.
+<Callout type="info">
+  To see if a component has a <code>_css</code> prop, check out its respective
+  documentation page.
 </Callout>
 
 ## Usage with Layout API
 
-If you decide to use the Layout API in your project, you may never need to add a `breakpoints` prop to any of your components. The `MakerUIOptions` configuration lets you set a global breakpoints array so that all nested components obey the same media queries by default.
+You may never need to add a `breakpoints` prop to any of your components if you are using the Layout API. The `MakerUIOptions` configuration lets you set a global breakpoints array so that all nested components obey the same media queries by default.
 
 When you need a custom media query that is different from the array you specified in your `MakerUIOptions`, the `breakpoints` prop will always take precedence.
 

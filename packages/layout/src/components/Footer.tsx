@@ -2,11 +2,14 @@
 import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { mergeSelectors } from '../utils/helper'
 
-import { ErrorBoundary } from './Errors'
+import { ErrorContainer } from './Errors'
 
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
+  /** Overrides `footer.maxWidth` from Maker UI options. */
   maxWidth?: ResponsiveScale
+  /** Overrides the Footer's default `--color-bg_footer` CSS variable that you can set in Maker UI options. */
   background?: string | string[]
+  /** Applies css to the outer footer container. */
   _css?: MakerProps['css']
 }
 
@@ -19,28 +22,34 @@ interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
 
 export const Footer = ({
   id,
-  maxWidth = 'var(--maxWidth_footer)',
-  background = 'var(--color-bg_footer)',
+  className,
+  maxWidth,
+  background,
   _css,
   css,
   children,
   ...props
 }: FooterProps) => {
+  const hasRootStyles = maxWidth || _css
+  const hasStyles = background || css
   return (
     <footer
       id={mergeSelectors(['footer', id])}
+      className={className}
       role="contentinfo"
-      css={{ background, ...(_css as object) }}
+      css={hasRootStyles ? { background, ...(_css as object) } : undefined}
       {...props}>
       <div
-        className="container"
-        css={{
-          display: 'flex',
-          maxWidth: maxWidth,
-          margin: '0 auto',
-          ...(css as object),
-        }}>
-        <ErrorBoundary errorKey="footer">{children}</ErrorBoundary>
+        className="footer-container container flex"
+        css={
+          hasStyles
+            ? {
+                maxWidth,
+                ...(css as object),
+              }
+            : undefined
+        }>
+        <ErrorContainer errorKey="footer">{children}</ErrorContainer>
       </div>
     </footer>
   )

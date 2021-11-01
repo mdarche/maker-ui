@@ -18,7 +18,7 @@ export const BackButton = ({ children, ...props }: FormBackButtonProps) => {
         'form-back-btn',
         currentPage === 0 ? 'hide' : undefined,
       ])}
-      onClick={e => {
+      onClick={(e) => {
         e.preventDefault()
         setPage('prev')
       }}

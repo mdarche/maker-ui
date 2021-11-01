@@ -50,7 +50,7 @@ const AnimatedDiv = animated(Div)
  * Use the `Carousel` component to iterate over an array of data objects or React components
  * to show an animated carousel.
  *
- * @link https://maker-ui.com/docs/components/carousel
+ * @link https://maker-ui.com/docs/elements/carousel
  */
 
 export const Carousel = ({
@@ -102,7 +102,7 @@ export const Carousel = ({
 
   const [props, api] = useSprings(
     data.length,
-    i => ({
+    (i) => ({
       // x: i * (width === 0 && isBrowser ? window.innerWidth : width),
       x: i * width,
       scale: 1,
@@ -135,7 +135,7 @@ export const Carousel = ({
         _setActive(index.current)
       }
 
-      api.start(i => {
+      api.start((i) => {
         if (i < index.current - 1 || i > index.current + 1) {
           return { display: 'none' }
         }
@@ -157,7 +157,7 @@ export const Carousel = ({
       const nextIndex = type === 'next' ? index.current + 1 : index.current - 1
 
       function update() {
-        api.start(i => ({
+        api.start((i) => ({
           x: (i - index.current) * width,
           scale: 1,
         }))
@@ -193,7 +193,7 @@ export const Carousel = ({
          * Simulate a bouncing / deflection drag gesture
          */
         if ((type === 'next' && isLast) || (type === 'previous' && isFirst)) {
-          api.start(i => ({
+          api.start((i) => ({
             x: (i - index.current) * width - (type === 'next' ? 100 : -100),
           }))
           setTimeout(() => update(), 200)

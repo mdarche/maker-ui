@@ -1,12 +1,24 @@
 import * as React from 'react'
 import { Announcement } from '@maker-ui/elements'
 import { mount } from '@cypress/react'
-
 import { Wrapper } from '../setup'
 
-// cy.clearLocalStorage()
+/**
+ * @component
+ * Announcement
+ *
+ * @tests
+ * - Render with defaults
+ * - Prop: `background`
+ * - Prop: `css`, `_css`
+ *
+ * @todo
+ * Use cy.clearLocalStorage() to flush cookies
+ */
 
-describe('Announcement component', () => {
+describe('Announcement', () => {
+  /* Render with defaults */
+
   it('renders with the default props', () => {
     mount(
       <Wrapper>
@@ -16,14 +28,17 @@ describe('Announcement component', () => {
     cy.get('.announcement')
   })
 
+  /* Prop: `background` */
+
   it('renders a custom close button inner string or component', () => {
     mount(
       <Wrapper>
         <Announcement background="red" />
       </Wrapper>
     )
-    // cy.get('.announcement').contains('Close Me')
   })
+
+  /* Prop: `css`, `_css` */
 
   it('applies _css to root and css to the container', () => {
     mount(

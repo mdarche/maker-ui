@@ -15,7 +15,7 @@ const data = [
   { text: '8' },
 ]
 
-const Card = props => (
+const Card = (props) => (
   <Div
     css={{
       textAlign: 'center',
@@ -40,24 +40,25 @@ const Component3 = () => (
   <Div css={{ background: '#aaffaa' }}>Custom Component 3</Div>
 )
 
-const componentData = [<Component1 />, <Component2 />, <Component3 />]
+const componentData = [
+  <Component1 key={1} />,
+  <Component2 key={2} />,
+  <Component3 key={3} />,
+]
 
 // Example 3 - Random image
 
 const imageData = [
   {
-    src:
-      'https://images.unsplash.com/photo-1583468323330-9032ad490fed?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80',
+    src: 'https://images.unsplash.com/photo-1583468323330-9032ad490fed?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80',
     alt: 'flower',
   },
   {
-    src:
-      'https://images.unsplash.com/photo-1583549323543-7ae855a78d6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
+    src: 'https://images.unsplash.com/photo-1583549323543-7ae855a78d6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
     alt: 'Food',
   },
   {
-    src:
-      'https://images.unsplash.com/photo-1583384991428-d3dca43177f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
+    src: 'https://images.unsplash.com/photo-1583384991428-d3dca43177f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
     alt: 'dunes',
   },
 ]
@@ -90,6 +91,7 @@ const GenerativePage = () => {
         <Generate data={componentData} />
       </Grid>
       <h2>Example 3</h2>
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image {...generateSrc(imageData)} />
       <h2>Example 4</h2>
       <Flex

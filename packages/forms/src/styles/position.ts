@@ -92,10 +92,15 @@ const validationStyles: MakerProps['css'] = {
   },
 }
 
-const style: MakerProps['css'] = {
+const dividerStyles: MakerProps['css'] = {
+  '.divider': {
+    gridColumn: '1 / -1',
+  },
+}
+
+export const styles: object = {
   ...errorStyles,
   ...labelStyles,
   ...validationStyles,
+  ...dividerStyles,
 }
-
-export default style

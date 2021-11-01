@@ -3,17 +3,22 @@ import { jsx, MakerProps } from '@maker-ui/css'
 import { useEffect, useState } from 'react'
 import useMeasure from 'react-use-measure'
 
-import { ErrorBoundary } from './Errors'
+import { ErrorContainer } from './Errors'
 import { useOptions } from '../context/OptionContext'
 import { useScrollPosition } from '../hooks/useScrollPosition'
 import { useMeasurements } from '../context/LayoutContext'
 import { setBreakpoint, mergeSelectors } from '../utils/helper'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
+  /** Overrides `header.absolute` from Maker UI options. */
   absolute?: boolean
+  /** Overrides the Header's default `--color-bg_header` background value that you can set in Maker UI options. */
   background?: string | string[]
+  /** Overrides `header.sticky` from Maker UI options. */
   sticky?: boolean
+  /** Overrides `header.stickyOnMobile` from Maker UI options. */
   stickyOnMobile?: boolean
+  /** Overrides `header.stickyUpScroll` from Maker UI options. */
   stickyUpScroll?: boolean
 }
 
@@ -57,13 +62,29 @@ export const Header = (props: HeaderProps) => {
     ...rest
   } = props
 
+  const upScroll: {
+    exists: boolean
+    start?: number
+    delay?: number
+  } =
+    typeof stickyUpScroll === 'object'
+      ? {
+          exists: true,
+          start: stickyUpScroll?.start,
+          delay: stickyUpScroll?.delay,
+        }
+      : stickyUpScroll
+      ? { exists: true }
+      : { exists: false }
+  const limit = upScroll?.start || 500
+
   /**
    * Fire hook effect if stickyUpScroll === true
    */
   useScrollPosition(
     ({ prevPos, currPos }) => {
       const isDownScroll = currPos > prevPos
-      const aboveLimit = currPos > 500
+      const aboveLimit = currPos > limit
 
       if (!aboveLimit && !show) {
         setShow(true)
@@ -77,8 +98,8 @@ export const Header = (props: HeaderProps) => {
         setShow(true)
       }
     },
-    350,
-    stickyUpScroll
+    upScroll.delay || 350,
+    upScroll.exists
   )
 
   /**
@@ -158,7 +179,7 @@ export const Header = (props: HeaderProps) => {
   }
 
   /**
-   * Format MakerUI scroll classes to merge with user-generated ones
+   * Format Maker UI scroll classes to merge with user-generated ones
    */
   let libClasses = [
     scrollClass,
@@ -168,19 +189,22 @@ export const Header = (props: HeaderProps) => {
   return (
     <header
       ref={ref}
-      className={mergeSelectors([libClasses, className])}
+      className={mergeSelectors([
+        libClasses,
+        absolute ? 'width-100' : undefined,
+        className,
+      ])}
       role="banner"
       breakpoints={setBreakpoint(header.breakpoint, breakpoints)}
+      style={{ visibility: initialRender ? 'hidden' : undefined }}
       css={{
         background,
-        zIndex: 100,
-        width: absolute ? '100%' : undefined,
-        visibility: initialRender ? 'hidden' : undefined,
+        '.mobile-overlay': { display: ['block', 'none'] },
         ...stickyPartial(),
         ...(css as object),
       }}
       {...rest}>
-      <ErrorBoundary errorKey="header">{children}</ErrorBoundary>
+      <ErrorContainer errorKey="header">{children}</ErrorContainer>
     </header>
   )
 }

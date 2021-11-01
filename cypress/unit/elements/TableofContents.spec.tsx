@@ -2,17 +2,33 @@ import * as React from 'react'
 import { TableofContents } from '@maker-ui/elements'
 import { Content, Main, MakerUIOptions, Sidebar } from 'maker-ui'
 import { mount } from '@cypress/react'
-
 import { Wrapper } from '../setup'
+
+/**
+ * @component
+ * TableofContents
+ *
+ * @tests
+ * - Render with defaults
+ * - Prop: `title`
+ * - Prop: `headings`
+ * - Prop: `activeColor`
+ * - Prop: `indent`
+ * - Prop: `indentSize`
+ * - Prop: `marker`
+ * - Prop: `smoothScroll`
+ * - Prop: `css`, `psuedoCss`
+ * - Behavior: adds the right ID selector to each link
+ * - Behavior: rescans DOM on route change via pathname
+ *
+ * @todo
+ * Add `pathname` prop test to Integration test suite
+ */
 
 interface TestLayoutProps {
   children: React.ReactNode
   options?: MakerUIOptions
 }
-
-/**
- * @todo - add `pathname` prop test to Integration test suite
- */
 
 const TestLayout = ({
   children,
@@ -43,6 +59,7 @@ const TestLayout = ({
 }
 
 describe('TableofContents component', () => {
+  /* Render with defaults */
   it('renders with default props', () => {
     mount(
       <TestLayout>
@@ -52,10 +69,10 @@ describe('TableofContents component', () => {
     cy.get('.toc-headings li').should('have.length', 5)
     cy.get('.level-1').should('have.css', 'padding-left', '10px')
     cy.get('.level-2').should('have.css', 'padding-left', '20px')
-    cy.viewport('iphone-x')
-      .get('.toc')
-      .should('have.css', 'display', 'none')
+    cy.viewport('iphone-x').get('.toc').should('have.css', 'display', 'none')
   })
+
+  /* Prop: `title` */
 
   it('supports a custom title component', () => {
     mount(
@@ -65,6 +82,8 @@ describe('TableofContents component', () => {
     )
     cy.get('.toc h2').contains('Table of Contents')
   })
+
+  /* Prop: `headings` */
 
   it('searches for specific heading tags', () => {
     mount(
@@ -84,6 +103,8 @@ describe('TableofContents component', () => {
     cy.get('.toc-headings li').should('have.length', 7)
   })
 
+  /* Prop: `activeColor` */
+
   it("highlights the viewport's active section heading", () => {
     mount(
       <TestLayout>
@@ -93,12 +114,11 @@ describe('TableofContents component', () => {
     cy.scrollTo('bottom')
     cy.scrollTo('top').wait(200)
     cy.get('#test-div').scrollIntoView()
-    cy.get('.toc-headings li')
-      .eq(0)
-      .find('a')
-      .should('have.class', 'active')
+    cy.get('.toc-headings li').eq(0).find('a').should('have.class', 'active')
     cy.get('.active').should('have.color', '#3efd83')
   })
+
+  /* Prop: `indent` */
 
   it('can flatten headings and remove indentation', () => {
     mount(
@@ -108,6 +128,8 @@ describe('TableofContents component', () => {
     )
     cy.get('.level-1 a').should('have.css', 'padding-left', '0px')
   })
+
+  /* Prop: `indentSize` */
 
   it('supports custom indentation', () => {
     mount(
@@ -119,6 +141,8 @@ describe('TableofContents component', () => {
     cy.get('.level-2').should('have.css', 'padding-left', '10px')
   })
 
+  /* Prop: `marker` */
+
   it('renders a marker `before` the ToC link', () => {
     mount(
       <TestLayout>
@@ -128,7 +152,7 @@ describe('TableofContents component', () => {
     cy.scrollTo('bottom')
     cy.scrollTo('top').wait(200)
     cy.get('#heading-2').scrollIntoView()
-    cy.get('.active').then(el => {
+    cy.get('.active').then((el) => {
       const win = el[0].ownerDocument.defaultView
       const before = win.getComputedStyle(el[0], 'before')
       const left = before.getPropertyValue('left')
@@ -145,13 +169,42 @@ describe('TableofContents component', () => {
     cy.scrollTo('bottom')
     cy.scrollTo('top').wait(200)
     cy.get('#heading-2').scrollIntoView()
-    cy.get('.active').then(el => {
+    cy.get('.active').then((el) => {
       const win = el[0].ownerDocument.defaultView
       const before = win.getComputedStyle(el[0], 'before')
       const right = before.getPropertyValue('right')
       expect(right).to.eq('0px')
     })
   })
+
+  /* Prop: `smoothScroll` */
+
+  it('adds smooth scroll to document when `smoothScroll` is true', () => {
+    mount(
+      <TestLayout>
+        <TableofContents smoothScroll />
+      </TestLayout>
+    )
+    cy.get('html').should('have.css', 'scroll-behavior', 'smooth')
+  })
+
+  /* Prop: `css`, `psuedoCss` */
+
+  it('supports `css` and `pseudoCss` props with default props', () => {
+    mount(
+      <TestLayout>
+        <TableofContents
+          marker="before"
+          css={{ top: 80, li: { listStyleType: 'none' } }}
+          pseudoCss={{ borderColor: '#c53030' }}
+        />
+      </TestLayout>
+    )
+    cy.get('.toc').should('have.css', 'top', '80px')
+    cy.get('.toc li a').should('have.css', 'content')
+  })
+
+  /* Behavior: adds the right ID selector to each link */
 
   it('adds the correct ID destination to each ToC link', () => {
     mount(
@@ -168,28 +221,7 @@ describe('TableofContents component', () => {
     cy.url().should('include', '#sub-1')
   })
 
-  it('adds smooth scroll to document when `smoothScroll` is true', () => {
-    mount(
-      <TestLayout>
-        <TableofContents smoothScroll />
-      </TestLayout>
-    )
-    cy.get('html').should('have.css', 'scroll-behavior', 'smooth')
-  })
-
-  it('supports `css` and `pseudoCss` props with default props', () => {
-    mount(
-      <TestLayout>
-        <TableofContents
-          marker="before"
-          css={{ top: 80, li: { listStyleType: 'none' } }}
-          pseudoCss={{ borderColor: '#c53030' }}
-        />
-      </TestLayout>
-    )
-    cy.get('.toc').should('have.css', 'top', '80px')
-    cy.get('.toc li a').should('have.css', 'content')
-  })
+  /* Behavior: rescans DOM on route change via pathname */
 
   it('rescans DOM on route change with the `pathname` prop', () => {
     mount(
