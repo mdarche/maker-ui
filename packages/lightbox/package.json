@@ -1,11 +1,11 @@
 {
-  "name": "@maker-ui/elements",
-  "description": "Customizable components for Maker UI themes.",
+  "name": "@maker-ui/lightbox",
+  "description": "A lightbox modal for displaying content with detail views.",
   "version": "1.1.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
-  "module": "dist/elements.esm.js",
+  "module": "dist/lightbox.esm.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@react-spring/web": "^9.2.3",
-    "@use-gesture/react": "^10.1.1",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {

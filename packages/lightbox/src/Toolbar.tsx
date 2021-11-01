@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Div, Flex } from 'maker-ui'
 
 import { useLightbox } from './LightboxContext'
-import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from '../icons'
+import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from './icons'
 
 interface ToolbarProps {
   count?: boolean
@@ -83,21 +83,21 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
             disabled={
               data[index].src && !data[index].htmlVideo ? true : undefined
             }
-            onClick={() => zoom?.set(z => !z)}>
+            onClick={() => zoom?.set((z) => !z)}>
             <ZoomIcon height="18" />
           </button>
         ) : null}
         {settings.showAutoPlay && data.length > 1 ? (
           <button
             className={`${autoPlay?.show ? 'active ' : ''}lb-autoplay`}
-            onClick={() => autoPlay?.set(a => !a)}>
+            onClick={() => autoPlay?.set((a) => !a)}>
             <PlayIcon height="24" />
           </button>
         ) : null}
         {data.length > 1 ? (
           <button
             className={`${preview?.show ? 'active ' : ''}lb-preview`}
-            onClick={() => preview?.set(p => !p)}>
+            onClick={() => preview?.set((p) => !p)}>
             <PreviewIcon height="21" />
           </button>
         ) : null}

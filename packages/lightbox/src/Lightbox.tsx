@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { SpringConfig } from '@react-spring/web'
+import { ModalProps } from '@maker-ui/elements'
 
 import { LightboxContext, LightboxData } from './LightboxContext'
 import { LightboxModal } from './LightboxModal'
 import { LightboxLink } from './LightboxLink'
-import { ModalProps } from '../Modal'
 
 export interface LightboxProps
   extends Omit<

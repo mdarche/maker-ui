@@ -1,11 +1,11 @@
 {
-  "name": "@maker-ui/elements",
-  "description": "Customizable components for Maker UI themes.",
+  "name": "@maker-ui/carousel",
+  "description": "A gesture-enabled carousel slider for Maker UI themes.",
   "version": "1.1.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
-  "module": "dist/elements.esm.js",
+  "module": "dist/carousel.esm.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
