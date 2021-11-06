@@ -30,7 +30,6 @@ export const layoutStyles: MakerProps['css'] = {
   // Nav Grid
   '.nav-grid': {
     margin: '0 auto',
-    position: 'relative',
     maxWidth: 'var(--maxWidth_header)',
   },
   '.nav-area': {
@@ -237,8 +236,27 @@ export const layoutStyles: MakerProps['css'] = {
     },
   },
   '.header-nav > .menu-item': {
-    position: 'relative',
     display: 'inline-flex',
+    '&.has-submenu': {
+      position: 'relative',
+    },
+  },
+  '.megamenu': {
+    position: 'absolute',
+    left: 0,
+    top: '100%',
+    width: '100%',
+    opacity: 0,
+    background: 'var(--color-bg_megamenu)',
+    visibility: 'hidden',
+    transition: 'all ease 0.4s',
+    '.container': {
+      margin: '0 auto',
+    },
+  },
+  '.has-megamenu:hover .megamenu, .has-megamenu:focus-within .megamenu': {
+    opacity: 1,
+    visibility: 'visible',
   },
   '.menu-item.caret > a:after': {
     content: '""',

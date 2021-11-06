@@ -14,6 +14,7 @@ export interface MenuItemProps {
   openNested?: boolean
   divider?: boolean
   isExpandButton?: boolean
+  megamenu?: React.ReactElement
 }
 
 /**
@@ -72,6 +73,7 @@ export const MenuItem = memo(
       icon,
       divider,
       isExpandButton,
+      megamenu,
     },
     caret = false,
     menuControls,
@@ -87,7 +89,12 @@ export const MenuItem = memo(
       target: newTab ? '_blank' : undefined,
       rel: newTab ? 'noopener noreferrer' : undefined,
       'aria-label': icon ? label : undefined,
-      'aria-haspopup': isHeader && submenu ? 'true' : undefined,
+      'aria-haspopup':
+        isHeader && submenu
+          ? 'true'
+          : isHeader && megamenu
+          ? 'true'
+          : undefined,
       'aria-current': pathname === path ? 'page' : undefined,
       ...menuControls,
     }
@@ -96,6 +103,7 @@ export const MenuItem = memo(
       <li
         className={mergeSelectors([
           'menu-item',
+          megamenu ? 'has-megamenu' : undefined,
           submenu ? 'has-submenu' : undefined,
           submenu && isHeader && caret === 'default' ? 'caret' : undefined,
           showNested ? 'expanded' : undefined,
@@ -123,7 +131,11 @@ export const MenuItem = memo(
             ) : null}
           </>
         </ConditionalWrapper>
-        {submenu && (
+        {megamenu && isHeader ? (
+          <div className={mergeSelectors(['megamenu'])} role="menu">
+            <div className="container">{megamenu}</div>
+          </div>
+        ) : submenu ? (
           <>
             {isHeader || (!isHeader && showNested) ? (
               <ul
@@ -136,6 +148,7 @@ export const MenuItem = memo(
                     data={item}
                     caret={caret}
                     menuControls={menuControls}
+                    linkFunction={linkFunction}
                     pathname={pathname}
                     isHeader={isHeader}
                     depth={depth + 1}
@@ -144,7 +157,7 @@ export const MenuItem = memo(
               </ul>
             ) : null}
           </>
-        )}
+        ) : null}
       </li>
     )
   }
