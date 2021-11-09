@@ -51,16 +51,17 @@ const Layout = ({ children }) => {
   return (
     <MakerLayout options={options} styles={styles}>
       <Header>
-        <Navbar
+        {/* <Navbar
           logo={<Logo path={asPath} />}
+          widgetSlot={<div>Test!</div>}
           menu={testMenu}
           css={{ 'li a': { padding: '5px 20px' } }}
-        />
-        {/* <Navbar
+        /> */}
+        <Navbar
           logo={<Logo path={asPath} />}
           menuSlot={<Search />}
           widgetSlot={<NavWidgets />}
-        /> */}
+        />
       </Header>
       <Content>
         <SideNav pathname={asPath} menu={menu} />
