@@ -15,6 +15,7 @@ export interface MenuItemProps {
   divider?: boolean
   isExpandButton?: boolean
   megamenu?: React.ReactElement
+  liAttributes?: object
 }
 
 /**
@@ -74,6 +75,7 @@ export const MenuItem = memo(
       divider,
       isExpandButton,
       megamenu,
+      liAttributes,
     },
     caret = false,
     menuControls,
@@ -108,7 +110,8 @@ export const MenuItem = memo(
           submenu && isHeader && caret === 'default' ? 'caret' : undefined,
           showNested ? 'expanded' : undefined,
           className,
-        ])}>
+        ])}
+        {...liAttributes}>
         <ConditionalWrapper
           condition={!isHeader && submenu ? true : false}
           wrapper={(children) => <div className="flex">{children}</div>}>
