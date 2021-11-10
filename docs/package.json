@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "docs",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "author": "Mike Darche",
   "license": "MIT",
   "scripts": {
@@ -12,12 +12,12 @@
   },
   "dependencies": {
     "@docsearch/react": "^3.0.0-alpha.40",
-    "@maker-ui/elements": "1.1.0",
+    "@maker-ui/elements": "1.1.1",
     "@mdx-js/loader": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^10.2.3",
     "gsap": "npm:@gsap/shockingly",
-    "maker-ui": "1.1.0",
+    "maker-ui": "1.1.1",
     "mdx-utils": "^0.2.0",
     "next": "^11.0.0",
     "next-pwa": "^5.3.1",
