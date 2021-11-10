@@ -4,16 +4,12 @@ export interface ActionState {
   menuActive: boolean
   sideNavActive: boolean
   sideNavCollapse: boolean
-  leftPanelActive: boolean
-  rightPanelActive: boolean
-  toolbarActive: boolean
 }
+
 type Action =
   | { type: 'MENU' }
   | { type: 'SIDENAV' }
   | { type: 'SIDENAV-COLLAPSE' }
-  | { type: 'PANEL-LEFT' }
-  | { type: 'PANEL-RIGHT' }
 
 type DispatchType = (s: Action) => void
 
@@ -32,10 +28,6 @@ function reducer(state: ActionState, action: Action): ActionState {
     case 'SIDENAV-COLLAPSE': {
       return { ...state, sideNavCollapse: !state.sideNavCollapse }
     }
-    case 'PANEL-LEFT':
-      return { ...state, leftPanelActive: !state.leftPanelActive }
-    case 'PANEL-RIGHT':
-      return { ...state, rightPanelActive: !state.rightPanelActive }
     default: {
       throw new Error(`Unhandled action type.`)
     }
@@ -57,9 +49,6 @@ const ActionProvider = ({ children }: ActionProviderProps) => {
     menuActive: false,
     sideNavActive: false,
     sideNavCollapse: false,
-    leftPanelActive: true,
-    rightPanelActive: true,
-    toolbarActive: true,
   })
 
   return (
@@ -99,9 +88,8 @@ function useMenu(): [boolean, () => void] {
  */
 
 function useSideNav(): [boolean, () => void] {
-  const { sideNavActive }: Partial<ActionState> = React.useContext(
-    ActionContext
-  )
+  const { sideNavActive }: Partial<ActionState> =
+    React.useContext(ActionContext)
   const dispatch = React.useContext(ActionUpdateContext)
 
   if (typeof sideNavActive === undefined) {
@@ -122,9 +110,8 @@ function useSideNav(): [boolean, () => void] {
  */
 
 function useCollapseSideNav(): [boolean, () => void] {
-  const { sideNavCollapse }: Partial<ActionState> = React.useContext(
-    ActionContext
-  )
+  const { sideNavCollapse }: Partial<ActionState> =
+    React.useContext(ActionContext)
   const dispatch = React.useContext(ActionUpdateContext)
 
   if (typeof sideNavCollapse === undefined) {

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Carousel } from '@maker-ui/elements'
+import { Carousel } from '@maker-ui/carousel'
 import { Div } from 'maker-ui'
 import { mount } from '@cypress/react'
 

@@ -1,33 +1,33 @@
 import * as React from 'react'
 import { Div } from 'maker-ui'
-import { Carousel } from '@maker-ui/elements'
+// import { Carousel } from '@maker-ui/elements'
 
 // Example 1 - Basic
-interface BasicSlideProps {
-  greeting?: string
-  bg?: string
-}
+// interface BasicSlideProps {
+//   greeting?: string
+//   bg?: string
+// }
 
-const basicData: BasicSlideProps[] = [
-  { greeting: 'Hello!', bg: '#ff8787' },
-  { greeting: 'Hola!', bg: '#aeaefe' },
-  { greeting: 'Bonjour!', bg: '#aefec7' },
-  { greeting: 'Ciao!', bg: '#e9a0e9' },
-]
+// const basicData: BasicSlideProps[] = [
+//   { greeting: 'Hello!', bg: '#ff8787' },
+//   { greeting: 'Hola!', bg: '#aeaefe' },
+//   { greeting: 'Bonjour!', bg: '#aefec7' },
+//   { greeting: 'Ciao!', bg: '#e9a0e9' },
+// ]
 
-const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
-  <Div
-    css={{
-      background: bg,
-      height: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: 36,
-    }}>
-    <p>{greeting}</p>
-  </Div>
-)
+// const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
+//   <Div
+//     css={{
+//       background: bg,
+//       height: '100%',
+//       display: 'flex',
+//       alignItems: 'center',
+//       justifyContent: 'center',
+//       fontSize: 36,
+//     }}>
+//     <p>{greeting}</p>
+//   </Div>
+// )
 
 // Example 2 - Image
 // interface ImageSlideProps {
@@ -65,7 +65,7 @@ const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
 
 const CarouselPage = () => (
   <Div>
-    <Carousel
+    {/* <Carousel
       data={basicData}
       template={<BasicSlide />}
       settings={{
@@ -81,7 +81,7 @@ const CarouselPage = () => (
         //   next: <div>Next</div>,
         // },
       }}
-    />
+    /> */}
     {/* <Carousel
       data={imageData}
       template={<ImageSlide />}

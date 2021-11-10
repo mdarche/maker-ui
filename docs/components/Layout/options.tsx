@@ -38,6 +38,7 @@ export const options: MakerUIOptions = {
       bg_sideNav: '#FBFCFF',
       bg_mobileMenu: '#000',
       bg_code: '#f2f3f9',
+      bg_megamenu: '#dbe4f1',
       diagram_bg: '#f3f6fa',
       diagram_light: '#dbe4f1',
       diagram_dark: '#c2cee3',

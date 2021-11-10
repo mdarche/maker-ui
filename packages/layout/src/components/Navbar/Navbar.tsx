@@ -95,6 +95,7 @@ export const Navbar = ({
       className={mergeSelectors([
         `nav-grid layout-${layout}`,
         `m-layout-${mobileLayout}`,
+        layout.includes('minimal') ? 'desktop-minimal' : undefined,
         header.menuOverflow === 'scroll' ? 'menu-scroll' : undefined,
         className,
       ])}
@@ -106,10 +107,6 @@ export const Navbar = ({
         '.menu-slot': {
           display: ['none', 'flex'],
         },
-        '&.layout-minimal .menu-slot, &.layout-minimal-left .menu-slot, &.layout-minimal-center .menu-slot':
-          {
-            display: 'none',
-          },
         '.widget-slot .menu-button': {
           display: [
             mobileEdge.includes(mobileLayout) ? 'none' : 'block',
@@ -118,11 +115,25 @@ export const Navbar = ({
               : 'none',
           ],
         },
+        '&.desktop-minimal .menu-slot': {
+          display: 'none',
+        },
+        '&:not(.desktop-minimal) .button-slot': {
+          display: ['flex', 'none'],
+        },
         '.nav-widgets': {
           display: header.showWidgetsOnMobile ? 'flex' : ['none', 'flex'],
         },
+        // Handle multiple menu button layouts
         '&.m-layout-logo-center-alt .button-slot': {
           justifyContent: ['flex-end', 'flex-start'],
+        },
+        '&.layout-minimal.m-layout-logo-center-alt .button-slot, &.layout-minimal.m-layout-basic-menu-left .button-slot':
+          {
+            display: ['flex', 'none'],
+          },
+        '&.layout-minimal-left.m-layout-basic .button-slot': {
+          display: ['none', 'flex'],
         },
         '&.layout-split .widget-slot, &.layout-center .widget-slot': {
           position: ['relative', 'absolute'],

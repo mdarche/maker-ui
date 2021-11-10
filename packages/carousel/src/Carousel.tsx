@@ -7,10 +7,10 @@ import {
   useMeasure,
 } from 'maker-ui'
 import { animated, useSprings, SpringConfig } from '@react-spring/web'
-import { useDrag } from 'react-use-gesture'
+import { useDrag } from '@use-gesture/react'
 import merge from 'deepmerge'
 
-import { clamp, mergeRefs } from '../helper'
+import { clamp, mergeRefs } from './helper'
 
 import { NavArrows } from './NavArrows'
 import { Pagination, Position } from './Pagination'
@@ -115,8 +115,8 @@ export const Carousel = ({
    * Handle drag and swipe gestures
    */
   const bind = useDrag(
-    ({ down, movement: [mx], direction: [xDir], distance, cancel }) => {
-      if (down && distance > width / 3.5) {
+    ({ down, movement: [mx], direction: [xDir], distance: [d], cancel }) => {
+      if (down && d > width / 3.5) {
         cancel(
           // @ts-ignore
           (index.current = clamp(
@@ -141,7 +141,7 @@ export const Carousel = ({
         }
 
         const x = (i - index.current) * width + (down ? mx : 0)
-        const scale = down ? 1 - distance / width / 2 : 1
+        const scale = down ? 1 - d / width / 2 : 1
         return { x, scale }
       })
     }

@@ -1,7 +1,5 @@
 import * as React from 'react'
-import { Button, ResponsiveScale } from 'maker-ui'
-
-import { CarouselArrowIcon } from '../icons'
+import { Button, ResponsiveScale, SVG } from 'maker-ui'
 
 interface NavArrowProps {
   arrow?: any
@@ -34,6 +32,7 @@ const NavButton = ({
     aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
     className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
     onClick={onClick}
+    style={{ ...transform(isNext, arrow), ...position(isNext) }}
     css={{
       cursor: 'pointer',
       background: 'none',
@@ -43,8 +42,6 @@ const NavButton = ({
       padding: arrowPadding,
       margin: arrowMargin,
       zIndex: 1,
-      ...transform(isNext, arrow),
-      ...position(isNext),
     }}>
     {arrow ? (
       React.isValidElement(arrow) ? (
@@ -53,9 +50,15 @@ const NavButton = ({
         arrow[isNext ? 'next' : 'prev']
       )
     ) : (
-      <CarouselArrowIcon />
+      <ArrowIcon />
     )}
   </Button>
+)
+
+const ArrowIcon = () => (
+  <SVG css={{ height: 30 }} viewBox="0 0 39 70">
+    <path d="M1.24 7.27L28.63 35.2 1.22 63.15a4.27 4.27 0 000 6 4.27 4.27 0 006.07 0l30.38-30.96a4.28 4.28 0 000-6L7.35 1.28a4.28 4.28 0 00-6.08 0 4.28 4.28 0 00-.03 5.99z" />
+  </SVG>
 )
 
 /**

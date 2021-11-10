@@ -2,7 +2,7 @@ import { MakerProps } from '@maker-ui/css'
 
 export const utilityStyles: MakerProps['css'] = {
   // Positioning
-  grid: {
+  '.grid': {
     display: 'grid',
   },
   '.inline-flex': {
@@ -19,6 +19,9 @@ export const utilityStyles: MakerProps['css'] = {
   },
   '.align-flex-end': {
     alignItems: 'flex-end',
+  },
+  '.align-stretch': {
+    alignItems: 'stretch',
   },
   '.justify-center': {
     justifyContent: 'center',

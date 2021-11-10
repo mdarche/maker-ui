@@ -49,7 +49,6 @@ export const NavWidgets = () => {
         }}>
         <Link href="/docs/getting-started/">Docs</Link>
         <Link href="/guides/">Guides</Link>
-        <Link href="/builder/">Builder</Link>
         <a
           className="github-link"
           href="https://github.com/mdarche/maker-ui"

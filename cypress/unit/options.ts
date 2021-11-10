@@ -23,7 +23,6 @@ export const defaultOptions: MakerUIOptions = {
       bg_mobileMenu: 'black',
       bg_sideNav: '#eee',
       bg_footer: '#d3d3d3',
-      bg_toolbar: '#fbfbfb',
     },
   },
   useColorDefaults: true,
@@ -72,10 +71,10 @@ export const defaultOptions: MakerUIOptions = {
   content: {
     maxWidth: 1020,
     maxWidthSection: 1020,
-    sidebarGap: 30,
     breakpoint: 0,
   },
   sidebar: {
+    sidebarGap: 30,
     width: 300,
     width_2: 200,
   },

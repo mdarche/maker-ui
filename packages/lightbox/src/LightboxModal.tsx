@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Div, DivProps } from 'maker-ui'
+import { Modal } from '@maker-ui/elements'
 
-import { Modal } from '../Modal'
 import { Canvas } from './Canvas'
 import { NavButton } from './NavButton'
 import { Toolbar } from './Toolbar'
@@ -31,14 +31,8 @@ export const LightboxModal = ({
   css,
   ...props
 }: LightboxModalProps) => {
-  const {
-    index,
-    active,
-    data,
-    settings,
-    setIndex,
-    toggleLightbox,
-  } = useLightbox()
+  const { index, active, data, settings, setIndex, toggleLightbox } =
+    useLightbox()
   const [play, setPlay] = React.useState(false)
   const [preview, setPreview] = React.useState(false)
   // const [zoom, setZoom] = React.useState(false)
