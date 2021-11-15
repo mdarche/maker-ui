@@ -1,6 +1,6 @@
 # Overview
 
-Maker UI is a design system that helps you create responsive React apps. Build accessible, production ready layouts in just a few lines of code, or use Maker UI primitives to effortlessly construct responsive components.
+Maker UI is a lightweight design system that helps you create responsive React apps. Build accessible, production ready layouts in just a few lines of code, or use Maker UI primitives to construct responsive components.
 
 Maker UI is unopinionated, meaning that all of its components give you full control over theming and appearance.
 
@@ -13,9 +13,13 @@ There are 2 ways to use Maker UI:
 
 ### CSS-in-JS Primitives
 
-Maker UI components support the responsive `css` and `breakpoints` props. Never write a media query again! You can use style arrays that correspond with breakpoints to build media queries:
+Maker UI components support the responsive `css` and `breakpoints` props. These props allow you to create media queries with style arrays that correspond to breakpoints:
 
 ```jsx
+<Div breakpoints={[960]} css={{ color: ['red', 'blue'] }}>
+  Hello world
+</Div>
+
 /** Equivalent CSS:
  * 
  * color: red;
@@ -23,15 +27,9 @@ Maker UI components support the responsive `css` and `breakpoints` props. Never 
  *    color: blue;
  * }
 }*/
-
-<Div breakpoints={[960]} css={{ color: ['red', 'blue'] }}>
-  Hello world
-</Div>
 ```
 
-The `css` prop is mobile-first so it writes media queries according to the `min-width` rule. The first index of a style array is the attribute's default value and subsequent styles correspond to screen widths specified in the `breakpoints` prop.
-
-Whenever you want to include responsive styles, just import any component from `@maker-ui/primitives` or `@maker-ui/elements`. They can be used independently of the layout system.
+The `css` prop is mobile-first and writes media queries according to the `min-width` rule. The first index of a style array is the attribute's default value. Subsequent styles in the array correspond to screen widths specified in the `breakpoints` prop.
 
 ### Layout System
 

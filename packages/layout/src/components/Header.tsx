@@ -178,19 +178,12 @@ export const Header = (props: HeaderProps) => {
     return { position: initialPos }
   }
 
-  /**
-   * Format Maker UI scroll classes to merge with user-generated ones
-   */
-  let libClasses = [
-    scrollClass,
-    `${stickyUpScroll && !show ? 'scroll-active' : ''}`,
-  ].join(' ')
-
   return (
     <header
       ref={ref}
       className={mergeSelectors([
-        libClasses,
+        scrollClass,
+        stickyUpScroll && !show ? 'scroll-active' : undefined,
         absolute ? 'width-100' : undefined,
         className,
       ])}
