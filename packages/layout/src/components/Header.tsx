@@ -2,6 +2,7 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { useEffect, useState } from 'react'
 import useMeasure from 'react-use-measure'
+import { ResizeObserver } from '@juggle/resize-observer'
 
 import { ErrorContainer } from './Errors'
 import { useOptions } from '../context/OptionContext'
@@ -37,7 +38,7 @@ export const Header = (props: HeaderProps) => {
   const { header, topbar, breakpoints } = useOptions()
   const activateScrollClass = header.scrollClass ? true : false
 
-  const [ref, { height }] = useMeasure()
+  const [ref, { height }] = useMeasure({ polyfill: ResizeObserver })
 
   useEffect(() => {
     if (height !== 0) {

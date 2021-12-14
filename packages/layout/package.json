@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.1.4",
+    "@juggle/resize-observer": "^3.3.1",
     "@maker-ui/css": "1.1.1",
     "@maker-ui/primitives": "1.1.1",
     "deepmerge": "^4.2.2",
