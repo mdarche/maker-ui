@@ -1,18 +1,7 @@
 import * as React from 'react'
-import {
-  Flex,
-  Button,
-  DivProps,
-  useMeasure,
-  MakerProps,
-  mergeSelectors,
-} from 'maker-ui'
-import { useSpring, animated, SpringConfig } from '@react-spring/web'
-
+import { Flex, Button, DivProps, MakerProps, mergeSelectors } from 'maker-ui'
 import { useTracker } from '../hooks'
 import { CloseIcon } from './icons'
-
-const AnimatedDiv = animated(Flex)
 
 export interface AnnouncementProps extends DivProps {
   storageKey?: string
@@ -24,10 +13,8 @@ export interface AnnouncementProps extends DivProps {
   closeButton?: React.ReactNode | ((attributes?: object) => React.ReactNode)
   bottom?: boolean
   top?: boolean
-  springConfig?: SpringConfig
   _css?: MakerProps['css']
 }
-
 /**
  * The `Announcement` component renders a dismissable message to the top or bottom of the web page.
  * You can choose the user's session or attach a cookie to determine when it appears / re-appears.
@@ -48,7 +35,6 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       allowClose = true,
       closeButton = <CloseIcon />,
       bottom = false,
-      springConfig,
       _css,
       css,
       children,
@@ -57,24 +43,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     ref
   ) => {
     const [show, set] = React.useState(true)
-    const [initialRender, setInitialRender] = React.useState(false)
-    const [measureRef, { height: viewHeight }] = useMeasure()
     const active = useTracker({ type, storageKey, show, expiration })
-
-    React.useEffect(() => {
-      setInitialRender(true)
-    }, [])
-
-    const spring = useSpring({
-      transform: fixed
-        ? show && initialRender
-          ? 'translateY(0%)'
-          : `translateY(${!bottom && '-'}100%)`
-        : undefined,
-      height: !fixed && initialRender ? (show ? viewHeight : 0) : undefined,
-      opacity: show ? 1 : 0,
-      config: springConfig,
-    })
 
     const btnAttributes = {
       className: 'announcement-close',
@@ -92,23 +61,20 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     }
 
     return active ? (
-      <AnimatedDiv
+      <Flex
         ref={ref}
         className={mergeSelectors(['announcement', className])}
-        style={spring as any}
+        align="center"
         css={{
-          display: 'flex',
-          alignItems: 'center',
           background,
           color,
-          willChange: !fixed ? 'height' : undefined,
           ...fixedPartial(fixed, bottom),
           ...(_css as object),
         }}>
         <Flex
           className="container"
-          ref={measureRef}
-          css={{ width: '100%', alignItems: 'center', ...(css as object) }}>
+          align="center"
+          css={{ width: '100%', ...(css as object) }}>
           <Flex
             className="announcement-text"
             css={{
@@ -126,7 +92,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
             )
           ) : null}
         </Flex>
-      </AnimatedDiv>
+      </Flex>
     ) : null
   }
 )

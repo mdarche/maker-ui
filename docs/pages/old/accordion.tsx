@@ -10,7 +10,7 @@ const AccordionPage = () => {
   return (
     <>
       <div>
-        {keyValues.map(i => (
+        {keyValues.map((i) => (
           <button key={i} onClick={() => handleClick(i)}>
             Open Panel {i}
           </button>
@@ -20,6 +20,7 @@ const AccordionPage = () => {
         className="example-accordion"
         activeKey={key}
         showSingle
+        animate
         css={{
           margin: 50,
           '.accordion': { borderColor: 'gainsboro' },

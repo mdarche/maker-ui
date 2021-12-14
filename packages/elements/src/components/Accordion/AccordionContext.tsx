@@ -25,7 +25,7 @@ export const AccordionContext = ({
   customIcon,
   activeKey,
   showSingle,
-  spring,
+  animate,
   children,
 }: AccordionContextProps) => {
   const [state, setState] = React.useState<AccordionState>({
@@ -34,11 +34,11 @@ export const AccordionContext = ({
     icon,
     customIcon,
     showSingle,
-    spring,
+    animate,
   })
 
   React.useEffect(() => {
-    setState(state => ({ ...state, activeKey }))
+    setState((state) => ({ ...state, activeKey }))
   }, [activeKey])
 
   return (
@@ -61,10 +61,12 @@ export function useAccordion() {
   }
 
   function registerPanel(id: string) {
-    const exists = state.panelKeys ? state.panelKeys.find(t => t === id) : false
+    const exists = state.panelKeys
+      ? state.panelKeys.find((t) => t === id)
+      : false
 
     if (!exists) {
-      setState(s => ({
+      setState((s) => ({
         ...s,
         panelKeys: [...s.panelKeys, id],
       }))
@@ -72,7 +74,7 @@ export function useAccordion() {
   }
 
   function setActivePanel(id: string) {
-    setState(s => ({ ...s, activeKey: id }))
+    setState((s) => ({ ...s, activeKey: id }))
   }
 
   return { state, registerPanel, setActivePanel }

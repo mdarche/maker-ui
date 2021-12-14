@@ -8,12 +8,9 @@ import {
   mergeSelectors,
   MakerProps,
 } from 'maker-ui'
-import { useSpring, animated } from '@react-spring/web'
 
 import { useAccordion } from './AccordionContext'
 import { CaretIcon } from '../icons'
-
-const AnimatedDiv = animated(Div)
 
 export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
@@ -33,16 +30,7 @@ export const AccordionPanel = React.forwardRef<
   AccordionPanelProps
 >(
   (
-    {
-      title,
-      open = false,
-      eventKey,
-      children,
-      className = '',
-      _css,
-      css,
-      ...props
-    },
+    { title, open = false, eventKey, children, className, _css, css, ...props },
     ref
   ) => {
     const [buttonId] = React.useState(generateId())
@@ -72,15 +60,6 @@ export const AccordionPanel = React.forwardRef<
       }
     }, [state, eventKey, panelKey, set])
 
-    const { height } = useSpring({
-      initial: { height: show ? viewHeight : 0 },
-      from: { height: 0 },
-      to: {
-        height: show ? viewHeight : 0,
-      },
-      config: state.spring,
-    })
-
     const setActive = () =>
       !show && state.showSingle ? setActivePanel(panelKey) : set(!show)
 
@@ -103,17 +82,23 @@ export const AccordionPanel = React.forwardRef<
       return null
     }
 
+    const isAnimated = state.animate
+
     return (
       <Div
         ref={ref}
         className={mergeSelectors([
-          `${show ? 'expanded ' : ''}accordion`,
+          show ? 'expanded ' : undefined,
+          'accordion',
           className,
         ])}
         css={{ border: '1px solid', ...(css as object) }}
         {...props}>
         <Button
-          className={`${show ? 'active ' : ''}accordion-toggle`}
+          className={mergeSelectors([
+            'accordion-toggle',
+            show ? 'active' : undefined,
+          ])}
           title={`${show ? 'Collapse' : 'Expand'} content`}
           id={buttonId}
           aria-expanded={show ? 'true' : 'false'}
@@ -121,7 +106,7 @@ export const AccordionPanel = React.forwardRef<
           onClick={setActive}
           css={{
             display: 'flex',
-            justifyContent: state.icon ? 'space-between' : 'flex-start',
+            justifyContent: state.icon ? 'space-between' : undefined,
             alignItems: 'center',
             width: '100%',
             border: 'none',
@@ -134,23 +119,25 @@ export const AccordionPanel = React.forwardRef<
           </div>
           {renderIcon()}
         </Button>
-        <AnimatedDiv
+        <div
           id={panelId}
           role="region"
           aria-labelledby={buttonId}
           style={{
             overflow: 'hidden',
-            height,
+            height: show ? viewHeight : 0,
+            willChange: isAnimated ? 'height' : undefined,
+            transition:
+              isAnimated && typeof state.animate === 'object'
+                ? state.animate.transition
+                : isAnimated
+                ? 'height 0.3s ease'
+                : undefined,
           }}>
-          <Div
-            ref={measureRef}
-            className="accordion-panel"
-            css={{
-              borderTop: `1px solid`,
-            }}>
+          <div ref={measureRef} className="accordion-panel">
             {children}
-          </Div>
-        </AnimatedDiv>
+          </div>
+        </div>
       </Div>
     )
   }

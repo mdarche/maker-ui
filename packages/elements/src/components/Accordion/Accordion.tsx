@@ -3,7 +3,6 @@ import { Div, DivProps, mergeSelectors } from 'maker-ui'
 
 import { AccordionContext } from './AccordionContext'
 import { AccordionPanel } from './AccordionPanel'
-import { SpringConfig } from '@react-spring/web'
 
 export interface AccordionProps extends DivProps {
   icon?: boolean
@@ -16,7 +15,7 @@ export interface AccordionProps extends DivProps {
     | ((isExpanded: boolean) => React.ReactNode)
   activeKey?: number | string
   showSingle?: boolean
-  spring?: SpringConfig
+  animate?: boolean | { transition: string }
 }
 
 /**
@@ -31,9 +30,9 @@ export const Accordion = ({
   customIcon,
   activeKey = 0,
   showSingle = false,
-  spring,
   className,
   css,
+  animate = false,
   children,
   ...props
 }: AccordionProps) => {
@@ -43,7 +42,7 @@ export const Accordion = ({
       customIcon={customIcon}
       activeKey={activeKey}
       showSingle={showSingle}
-      spring={spring}>
+      animate={animate}>
       <Div
         className={mergeSelectors(['accordion-container', className])}
         css={{ ...(css as object) }}
