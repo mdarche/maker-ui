@@ -89,7 +89,7 @@ export const content_styles = {
   },
   thead: {
     background: 'var(--color-table_th_bg)',
-    color: 'var(--color-background)',
+    color: '#fff',
     padding: 20,
   },
   th: {

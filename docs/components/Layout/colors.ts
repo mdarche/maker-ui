@@ -50,14 +50,15 @@ export const colors = {
     border_dark: '#272829',
     border_theme: '#c2d4f7',
     header_fill: '#bbbbbc',
+    // Theme
     gray_100: '',
     gray_200: '',
     gray_300: '',
     gray_400: '',
     gray_500: '',
-    border_100: '',
-    border_200: '',
-    border_300: '',
+    border_100: '#1b1b1b',
+    border_200: '#272829',
+    border_300: '#c2d4f7',
     // Callouts
     callout_suggestion: '#0a2919',
     callout_suggestion_accent: '#2cc320',
@@ -79,11 +80,12 @@ export const colors = {
     bg_mobileMenu: '#000',
     bg_code: '#191c28',
     bg_megamenu: '#dbe4f1',
-    // Code
+    bg_codeblock: '#050d20',
+    // Diagrams
     diagram_bg: '#f3f6fa',
     diagram_light: '#dbe4f1',
     diagram_dark: '#c2cee3',
     diagram_active: '#729bed',
-    table_th_bg: '#3b67bc',
+    table_th_bg: '#531a5a',
   },
 }
