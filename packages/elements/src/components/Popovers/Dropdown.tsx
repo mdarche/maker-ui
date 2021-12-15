@@ -11,7 +11,6 @@ interface DropdownProps {
   trapFocus?: boolean
   closeOnBlur?: boolean
   transition?: PopoverProps['transition']
-  spring?: PopoverProps['spring']
   buttonCss?: StyleObject
   _css?: StyleObject
   css?: StyleObject

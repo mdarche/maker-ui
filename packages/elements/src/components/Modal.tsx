@@ -5,8 +5,8 @@ import { Transition, TransitionStatus } from 'react-transition-group'
 import { Portal } from './Portal'
 import { useFocus } from '../hooks'
 
-type TransitionStyles = {
-  [key in TransitionStatus]?: { [key: string]: number | string }
+export type TransitionStyles = {
+  [key in TransitionStatus | 'start']?: { [key: string]: number | string }
 }
 
 export interface ModalProps extends DivProps {
@@ -37,9 +37,15 @@ export interface ModalProps extends DivProps {
    * @default false
    */
   center?: boolean
+  /** Linear easing curve or cubic bezier from css `transition` declaration
+   * (ease, ease-in-out, etc.).
+   * @default "ease-in-out"
+   */
+  easing?: string
   /** Lets you customize the different states of the mount / unmount transition
    * @default
    * const transitions: {
+   *   start: { opacity: 0 },
    *   entering: { opacity: 1 },
    *   entered: { opacity: 1 },
    *   exiting: { opacity: 0 },
@@ -54,6 +60,7 @@ export interface ModalProps extends DivProps {
 }
 
 const defaultTransitions: TransitionStyles = {
+  start: { opacity: 0 },
   entering: { opacity: 1 },
   entered: { opacity: 1 },
   exiting: { opacity: 0 },
@@ -78,6 +85,7 @@ export const Modal = ({
   background = 'rgba(0, 0, 0, 0.66)',
   className,
   css,
+  easing = 'ease-in-out',
   duration = 300,
   transitionStyles = defaultTransitions,
   children,
@@ -164,7 +172,8 @@ export const Modal = ({
             aria-modal="true"
             tabIndex={focusable.count === 0 ? 0 : undefined}
             style={{
-              transition: `all ${duration}ms ease-in-out`,
+              ...transitionStyles?.start,
+              transition: `all ${duration}ms ${easing}`,
               ...transitionStyles[state],
             }}
             css={{

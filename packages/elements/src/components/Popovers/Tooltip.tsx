@@ -22,7 +22,6 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
   position?: 'top' | 'bottom' | 'left' | 'right'
   buttonCss?: StyleObject
   _css?: StyleObject
-  spring?: PopoverProps['spring']
   defer?: PopoverProps['defer']
 }
 
@@ -41,7 +40,6 @@ export const Tooltip = ({
   background = '#555',
   color = '#fff',
   gap = 5,
-  spring,
   defer,
   buttonCss,
   css,
@@ -94,8 +92,7 @@ export const Tooltip = ({
         show={show}
         defer={defer}
         set={set}
-        _css={{ ...styles }}
-        spring={spring}>
+        _css={styles}>
         {children}
       </Popover>
     </Div>
