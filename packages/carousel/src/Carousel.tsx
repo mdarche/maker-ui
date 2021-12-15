@@ -5,10 +5,10 @@ import {
   ResponsiveScale,
   mergeSelectors,
   useMeasure,
+  merge,
 } from 'maker-ui'
 import { animated, useSprings, SpringConfig } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
-import merge from 'deepmerge'
 
 import { clamp, mergeRefs } from './helper'
 
@@ -31,6 +31,7 @@ export interface CarouselProps extends MakerProps {
     dotSpacing?: ResponsiveScale
     dotColorActive?: string
     dotColorMuted?: string
+    draggable?: boolean
     infiniteScroll?: boolean
     duration?: number // milliseconds
     spinner?: React.ReactElement
@@ -91,6 +92,7 @@ export const Carousel = ({
     dotColorMuted,
     dotColorActive,
     transition,
+    draggable,
     fadeDuration,
     springConfig,
   } = mergeSettings(settings)
@@ -98,7 +100,6 @@ export const Carousel = ({
   /**
    * React-spring slide animation
    */
-  // const isBrowser = typeof window !== 'undefined'
 
   const [props, api] = useSprings(
     data.length,
@@ -116,34 +117,36 @@ export const Carousel = ({
    */
   const bind = useDrag(
     ({ down, movement: [mx], direction: [xDir], distance: [d], cancel }) => {
-      if (down && d > width / 3.5) {
-        cancel(
-          // @ts-ignore
-          (index.current = clamp(
-            index.current + (xDir > 0 ? -1 : 1),
-            0,
-            data.length - 1
-          ))
-        )
-      }
-
-      if (index.current > data.length - 1) {
-        _setActive(index.current % data.length)
-      } else if (index.current < 0) {
-        _setActive(data.length + (index.current % data.length))
-      } else {
-        _setActive(index.current)
-      }
-
-      api.start((i) => {
-        if (i < index.current - 1 || i > index.current + 1) {
-          return { display: 'none' }
+      if (draggable) {
+        if (down && d > width / 3.5) {
+          cancel(
+            // @ts-ignore
+            (index.current = clamp(
+              index.current + (xDir > 0 ? -1 : 1),
+              0,
+              data.length - 1
+            ))
+          )
         }
 
-        const x = (i - index.current) * width + (down ? mx : 0)
-        const scale = down ? 1 - d / width / 2 : 1
-        return { x, scale }
-      })
+        if (index.current > data.length - 1) {
+          _setActive(index.current % data.length)
+        } else if (index.current < 0) {
+          _setActive(data.length + (index.current % data.length))
+        } else {
+          _setActive(index.current)
+        }
+
+        api.start((i) => {
+          if (i < index.current - 1 || i > index.current + 1) {
+            return { display: 'none' }
+          }
+
+          const x = (i - index.current) * width + (down ? mx : 0)
+          const scale = down ? 1 - d / width / 2 : 1
+          return { x, scale }
+        })
+      }
     }
   )
 
@@ -364,6 +367,7 @@ function mergeSettings(settings: CarouselProps['settings']) {
       dotSpacing: 10,
       dotColorMuted: 'rgba(0, 0, 0, 0.25)',
       dotColorActive: 'red',
+      draggable: false,
       infiniteScroll: false,
       hideControls: false,
       arrow: undefined,

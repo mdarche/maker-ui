@@ -69,7 +69,6 @@ const CarouselPage = () => (
         autoPlay: true,
         dotPosition: 'bottom',
         dotColorMuted: 'blue',
-        // progressBar: true,
         transition: 'slide',
         // infiniteScroll: true,
         // arrow: <div>Cmoon!</div>,
