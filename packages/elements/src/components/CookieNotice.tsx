@@ -1,12 +1,12 @@
-import { mergeSelectors } from 'maker-ui'
 import * as React from 'react'
+import { mergeSelectors } from 'maker-ui'
 
 import { Announcement, AnnouncementProps } from './Announcement'
 
 /**
  * The `CookieNotice` component is a pre-configured `Announcement` for GDPR cookie notices.
- * By default, it is fixed to the bottom of the page and activated with a cookie that expires
- * after 30 days.
+ * By default, it is fixed to the bottom of the page and activated with a browser cookie that
+ * expires after 30 days.
  *
  * @link https://maker-ui.com/docs/elements/cookie-notice
  */
@@ -18,9 +18,8 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       color,
       storageKey = 'maker_cookie_notice',
       expiration,
-      springConfig,
       closeButton = 'Got it!',
-      top = false,
+      bottom = true,
       className,
       children,
       ...props
@@ -32,13 +31,12 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         ref={ref}
         className={mergeSelectors(['cookie-notice', className])}
         fixed
-        bottom={!top ? true : false}
+        bottom={bottom}
         background={background}
         color={color}
         type="cookie"
         storageKey={storageKey}
         closeButton={closeButton}
-        springConfig={springConfig}
         {...props}>
         {children ||
           'We use cookies to ensure you get the best experience on our site.'}

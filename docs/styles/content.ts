@@ -89,7 +89,7 @@ export const content_styles = {
   },
   thead: {
     background: 'var(--color-table_th_bg)',
-    color: 'var(--color-background)',
+    color: '#fff',
     padding: 20,
   },
   th: {
@@ -132,11 +132,11 @@ export const content_styles = {
     },
   },
   '.prop-type': {
-    margin: '0 0 10px',
     display: 'flex',
     alignItems: 'center',
-    borderBottom: '1px solid var(--color-border_dark)',
-    paddingBottom: 5,
+    border: '1px solid var(--color-border_dark)',
+    padding: '10px 20px',
+    margin: '10px 0 20px',
   },
   '.type-title': {
     marginRight: [5, 15],

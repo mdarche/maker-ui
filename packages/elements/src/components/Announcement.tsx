@@ -1,33 +1,47 @@
 import * as React from 'react'
-import {
-  Flex,
-  Button,
-  DivProps,
-  useMeasure,
-  MakerProps,
-  mergeSelectors,
-} from 'maker-ui'
-import { useSpring, animated, SpringConfig } from '@react-spring/web'
-
+import { Flex, Button, DivProps, SVG, SVGProps, mergeSelectors } from 'maker-ui'
+import { StyleObject } from './types'
 import { useTracker } from '../hooks'
-import { CloseIcon } from './icons'
-
-const AnimatedDiv = animated(Flex)
 
 export interface AnnouncementProps extends DivProps {
+  /** The browser storage key that stores the dismiss expiration value
+   * @default "maker_dismiss_announce"
+   */
   storageKey?: string
+  /** If true, the component will use fixed positioning and adhere to the screen on scroll
+   * @default false
+   */
   fixed?: boolean
+  /** The background color of the Announcement or CookieNotice component */
   background?: string | string[]
+  /** The local storage tracker type
+   * @default
+   * "session" for Announcement
+   * "cookie" for CookieNotice
+   */
   type?: 'session' | 'cookie'
+  /** The storage expiration in seconds that determines how long the component will be hidden from
+   * the user's current session.
+   * @default 2593000 (30 days)
+   */
   expiration?: number
+  /** When true, users will be able to dismiss the announcement with a close button.
+   * @default true
+   */
   allowClose?: boolean
+  /** An optional button or callback function that will be used in place of
+   *  the default close button.
+   */
   closeButton?: React.ReactNode | ((attributes?: object) => React.ReactNode)
+  /** When true, the announcement will appear at the bottom of the screen. This only has
+   * an effect if `fixed` is set to `true`.
+   */
   bottom?: boolean
-  top?: boolean
-  springConfig?: SpringConfig
-  _css?: MakerProps['css']
+  /** Responsive styles that will be applied to the root Announcement container.
+   * Use `css` to apply styles to the inner container.
+   */
+  _css?: StyleObject
 }
-
 /**
  * The `Announcement` component renders a dismissable message to the top or bottom of the web page.
  * You can choose the user's session or attach a cookie to determine when it appears / re-appears.
@@ -48,7 +62,6 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       allowClose = true,
       closeButton = <CloseIcon />,
       bottom = false,
-      springConfig,
       _css,
       css,
       children,
@@ -57,24 +70,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     ref
   ) => {
     const [show, set] = React.useState(true)
-    const [initialRender, setInitialRender] = React.useState(false)
-    const [measureRef, { height: viewHeight }] = useMeasure()
     const active = useTracker({ type, storageKey, show, expiration })
-
-    React.useEffect(() => {
-      setInitialRender(true)
-    }, [])
-
-    const spring = useSpring({
-      transform: fixed
-        ? show && initialRender
-          ? 'translateY(0%)'
-          : `translateY(${!bottom && '-'}100%)`
-        : undefined,
-      height: !fixed && initialRender ? (show ? viewHeight : 0) : undefined,
-      opacity: show ? 1 : 0,
-      config: springConfig,
-    })
 
     const btnAttributes = {
       className: 'announcement-close',
@@ -92,23 +88,20 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     }
 
     return active ? (
-      <AnimatedDiv
+      <Flex
         ref={ref}
         className={mergeSelectors(['announcement', className])}
-        style={spring as any}
+        align="center"
         css={{
-          display: 'flex',
-          alignItems: 'center',
           background,
           color,
-          willChange: !fixed ? 'height' : undefined,
           ...fixedPartial(fixed, bottom),
           ...(_css as object),
         }}>
         <Flex
           className="container"
-          ref={measureRef}
-          css={{ width: '100%', alignItems: 'center', ...(css as object) }}>
+          align="center"
+          css={{ width: '100%', ...(css as object) }}>
           <Flex
             className="announcement-text"
             css={{
@@ -126,12 +119,18 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
             )
           ) : null}
         </Flex>
-      </AnimatedDiv>
+      </Flex>
     ) : null
   }
 )
 
 Announcement.displayName = 'Announcement'
+
+const CloseIcon = (props: SVGProps) => (
+  <SVG {...props} viewBox="0 0 24 24">
+    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+  </SVG>
+)
 
 /**
  * Returns a CSS object that positions the announcement bar

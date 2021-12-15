@@ -3,8 +3,16 @@ import * as React from 'react'
 import { shuffle } from './helper'
 
 interface GenerateProps {
+  /** An array of prop objects that will be applied to the child template, or an array of
+   * React components that will be shuffled at runtime.
+   */
   data: Object[] | React.ReactElement[]
+  /** The total number of components that the function should generate if the desired count
+   * is less than the length of the `data` prop array.
+   */
   count?: number
+  /** An optional React element that will be used as a generative component template.
+   * It should support all props outlined in the `data` prop. */
   children?: React.ReactElement
 }
 

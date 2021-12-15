@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
+import { jsx, MakerProps, ResponsiveScale, StyleObject } from '@maker-ui/css'
 import { forwardRef } from 'react'
 
 interface SectionProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
-  _css?: MakerProps['css']
+  _css?: StyleObject
   maxWidth?: ResponsiveScale
   container?: boolean
 }

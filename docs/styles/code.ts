@@ -10,7 +10,7 @@ export const code_styles = {
     backgroundColor: 'var(--color-bg_code)',
     color: 'var(--color-primary)',
     padding: '0 8px',
-    fontWeight: 700,
+    // fontWeight: 700,
   },
   '.highlight': {
     position: 'relative',
@@ -33,8 +33,6 @@ export const code_styles = {
     top: 0,
     fontSize: [13, 15],
     color: '#fff',
-    borderBottom: '1px solid',
-    borderColor: 'rgba(255,255,255,0.2)',
   },
   '.code-wrapper': {
     margin: '40px auto',

@@ -2,6 +2,7 @@
 import { jsx, MakerProps } from '@maker-ui/css'
 import { useEffect, useState } from 'react'
 import useMeasure from 'react-use-measure'
+import { ResizeObserver } from '@juggle/resize-observer'
 
 import { ErrorContainer } from './Errors'
 import { useOptions } from '../context/OptionContext'
@@ -37,7 +38,7 @@ export const Header = (props: HeaderProps) => {
   const { header, topbar, breakpoints } = useOptions()
   const activateScrollClass = header.scrollClass ? true : false
 
-  const [ref, { height }] = useMeasure()
+  const [ref, { height }] = useMeasure({ polyfill: ResizeObserver })
 
   useEffect(() => {
     if (height !== 0) {
@@ -178,19 +179,12 @@ export const Header = (props: HeaderProps) => {
     return { position: initialPos }
   }
 
-  /**
-   * Format Maker UI scroll classes to merge with user-generated ones
-   */
-  let libClasses = [
-    scrollClass,
-    `${stickyUpScroll && !show ? 'scroll-active' : ''}`,
-  ].join(' ')
-
   return (
     <header
       ref={ref}
       className={mergeSelectors([
-        libClasses,
+        scrollClass,
+        stickyUpScroll && !show ? 'scroll-active' : undefined,
         absolute ? 'width-100' : undefined,
         className,
       ])}

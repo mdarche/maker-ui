@@ -14,8 +14,7 @@ import { mount } from '@cypress/react'
  * - Prop: `closeOnBlur`
  * - Prop: `focusRef`
  * - Prop: `center`
- * - Prop: `css`, `_css`
- * - Prop: `spring`
+ * - Prop: `css`
  * - Behavior: can be closed via `esc` key
  *
  * @notes
@@ -56,7 +55,7 @@ describe('Modal', () => {
     mount(<TestModal appendTo="__cy_root">Modal content</TestModal>)
     cy.get('button').click()
     // If this ever breaks, check to see if the root ID for Cypress has changed
-    cy.get('#__cy_root div').last().contains('Modal content')
+    cy.get('#__cy_root').last().contains('Modal content', { timeout: 10000 })
   })
 
   /* Prop: `background` */
@@ -64,7 +63,7 @@ describe('Modal', () => {
   it('accepts a custom `background` prop', () => {
     mount(<TestModal background="#2ebcbd">Modal content</TestModal>)
     cy.get('button').click()
-    cy.get('.modal-overlay').should('have.backgroundColor', '#2ebcbd')
+    cy.get('[data-cy=modal-overlay]').should('have.backgroundColor', '#2ebcbd')
   })
 
   /* Prop: `title` */
@@ -72,17 +71,21 @@ describe('Modal', () => {
   it('accepts a custom `title` prop for its aria-label', () => {
     mount(<TestModal title="Custom Modal">Modal content</TestModal>)
     cy.get('button').click()
-    cy.get('.modal').should('have.attr', 'aria-label', 'Custom Modal')
+    cy.get('[data-cy=modal]').should('have.attr', 'aria-label', 'Custom Modal')
   })
 
   /* Prop: `closeOnBlur` */
 
-  it('closes the modal `onBlur`', () => {
-    mount(<TestModal closeOnBlur>Modal content</TestModal>)
+  it('closes the modal when a user clicks the modal overlay', () => {
+    mount(
+      <TestModal closeOnBlur>
+        <div>Modal content</div>
+      </TestModal>
+    )
     cy.get('button').click()
     cy.contains('Modal content')
-    cy.get('.modal-overlay').click()
-    cy.get('.modal').should('not.exist')
+    cy.get('[data-cy=modal-overlay]').click()
+    cy.get('[data-cy=modal]').should('not.exist')
   })
 
   /* Prop: `focusRef` */
@@ -91,7 +94,7 @@ describe('Modal', () => {
     mount(<TestModal closeOnBlur>Modal content</TestModal>)
     cy.get('button').click()
     cy.contains('Modal content')
-    cy.get('.modal-overlay').click()
+    cy.get('[data-cy=modal-overlay]').click()
     cy.focused().contains('Toggle Modal')
   })
 
@@ -100,36 +103,20 @@ describe('Modal', () => {
   it('centers child node in the middle of the viewport with the `center` prop', () => {
     mount(<TestModal center>Modal content</TestModal>)
     cy.get('button').click()
-    cy.get('.modal').should('have.css', 'align-items', 'center')
-    cy.get('.modal').should('have.css', 'justify-content', 'center')
+    cy.get('[data-cy=modal]').should('have.css', 'align-items', 'center')
+    cy.get('[data-cy=modal]').should('have.css', 'justify-content', 'center')
   })
 
-  /* Prop: `css`, `_css` */
+  /* Prop: `css` */
 
-  it('applies `_css` to the modal root and `css` to the modal content wrapper', () => {
+  it('applies `css` to the modal content wrapper', () => {
     mount(
-      <TestModal
-        className="custom-modal"
-        _css={{ padding: 20 }}
-        css={{ margin: 20 }}>
+      <TestModal className="custom-modal" css={{ margin: 20 }}>
         Modal content
       </TestModal>
     )
     cy.get('button').click()
-    cy.get('.custom-modal.modal').should('have.css', 'padding', '20px')
-    cy.get('.modal-content').should('have.css', 'margin', '20px')
-  })
-
-  /* Prop: `spring` */
-
-  it('supports a custom React Spring mounting transition with the `spring` prop (visual)', () => {
-    // This should look ridiculous --> fade in and out like a spring
-    mount(
-      <TestModal spring={{ tension: 500, friction: 2, mass: 1 }}>
-        Modal content
-      </TestModal>
-    )
-    cy.get('button').click()
+    cy.get('.custom-modal').should('have.css', 'margin', '20px')
   })
 
   /* Behavior: can be closed via `esc` key */
@@ -138,7 +125,7 @@ describe('Modal', () => {
     mount(<TestModal closeOnBlur>Modal content</TestModal>)
     cy.get('button').click()
     cy.contains('Modal content')
-    cy.get('.modal').type('{esc}')
-    cy.get('.modal').should('not.exist')
+    cy.get('[data-cy=modal]').type('{esc}')
+    cy.get('[data-cy=modal]').should('not.exist')
   })
 })

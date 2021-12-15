@@ -1,23 +1,72 @@
 import * as React from 'react'
-import { useTransition, animated, SpringConfig } from '@react-spring/web'
-import { Div, DivProps, mergeSelectors, MakerProps } from 'maker-ui'
+import { Div, DivProps, mergeSelectors } from 'maker-ui'
+import { Transition, TransitionStatus } from 'react-transition-group'
 
 import { Portal } from './Portal'
 import { useFocus } from '../hooks'
 
-const AnimatedDiv = animated(Div)
+export type TransitionState = {
+  [key in TransitionStatus | 'start']?: {
+    [key: string]: number | string | undefined
+  }
+}
 
 export interface ModalProps extends DivProps {
+  /** A boolean that indicates if the modal is active or unmounted */
   show?: boolean
+  /** A boolean toggle function that controls the modal's visibility */
   set?: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
+  /** The modal's background overlay color
+   * @default "rgba(0, 0, 0, 0.66)"
+   */
   background?: string | string[]
+  /** An ID selector for the DOM node that the Modal should attach to
+   * @default undefined (the end of the document body)
+   */
   appendTo?: string
+  /** A custom `aria-label` for screen readers
+   * @default "Modal Dialog"
+   */
   title?: string
+  /** If true, the modal will close when users click the modal overlay
+   * @default false
+   */
   closeOnBlur?: boolean
+  /** A ref that tells the modal where to direct focus when exited */
   focusRef?: React.MutableRefObject<any> | any
-  _css?: MakerProps['css']
+  /** Vertically centers your modal content in the center of the page. Only useful for content
+   *  that doesn't fill the viewport.
+   * @default false
+   */
   center?: boolean
-  spring?: SpringConfig
+  /** Linear easing curve or cubic bezier from css `transition` declaration
+   * (ease, ease-in-out, etc.).
+   * @default "ease-in-out"
+   */
+  easing?: string
+  /** Lets you customize the different states of the mount / unmount transition
+   * @default
+   * const transitions: {
+   *   start: { opacity: 0 },
+   *   entering: { opacity: 1 },
+   *   entered: { opacity: 1 },
+   *   exiting: { opacity: 0 },
+   *   exited: { opacity: 0 },
+   * }
+   */
+  transitionState?: TransitionState
+  /** Animation duration in milliseconds
+   * @default 300
+   */
+  duration?: number
+}
+
+const defaultTransitions: TransitionState = {
+  start: { opacity: 0 },
+  entering: { opacity: 1 },
+  entered: { opacity: 1 },
+  exiting: { opacity: 0 },
+  exited: { opacity: 0 },
 }
 
 /**
@@ -36,10 +85,11 @@ export const Modal = ({
   focusRef,
   center = false,
   background = 'rgba(0, 0, 0, 0.66)',
-  spring,
   className,
-  _css,
   css,
+  easing = 'ease-in-out',
+  duration = 300,
+  transitionState = defaultTransitions,
   children,
   ...rest
 }: ModalProps) => {
@@ -112,84 +162,58 @@ export const Modal = ({
     return () => window.removeEventListener(`keydown`, handleKeyDown)
   }, [handleKeyDown])
 
-  /**
-   * Configure react-spring mount animation
-   */
-  const transition = useTransition(show ? [1] : [], {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: spring,
-  })
-
   return (
     <Portal root={appendTo}>
-      {transition(
-        (props, item) =>
-          item && (
-            <AnimatedDiv
-              ref={modalRef}
-              role="dialog"
-              className={mergeSelectors(['modal', className])}
-              aria-label={title}
-              aria-modal="true"
-              style={props}
-              tabIndex={focusable.count === 0 ? 0 : undefined}
-              css={{
-                ...position,
-                ...centered(center),
-                zIndex: 101,
-                ...(_css as object),
-              }}>
-              <Div
-                role="button"
-                onClick={() => (closeOnBlur ? closeModal() : undefined)}
-                className="modal-overlay"
-                css={{
-                  ...position,
-                  zIndex: -1,
-                  background,
-                }}
-              />
-              <Div
-                className="modal-content"
-                css={{
-                  zIndex: 1,
-                  overflow: 'scroll',
-                  height: '100%',
-                  ...(css as object),
-                }}
-                {...rest}>
-                {children}
-              </Div>
-            </AnimatedDiv>
-          )
-      )}
+      <Transition in={show} timeout={duration} unmountOnExit>
+        {(state) => (
+          <Div
+            ref={modalRef}
+            role="dialog"
+            data-cy="modal"
+            className={mergeSelectors(['modal', className])}
+            aria-label={title}
+            aria-modal="true"
+            tabIndex={focusable.count === 0 ? 0 : undefined}
+            style={{
+              ...transitionState?.start,
+              transition: `all ${duration}ms ${easing}`,
+              ...transitionState[state],
+            }}
+            css={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: center ? 'center' : undefined,
+              zIndex: 101,
+              overflowY: 'scroll',
+              '.modal-overlay': {
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: -1,
+                background,
+              },
+              ...(css as object),
+            }}
+            {...rest}>
+            <div
+              role="button"
+              data-cy="modal-overlay"
+              onClick={() => (closeOnBlur ? closeModal() : undefined)}
+              className="modal-overlay"
+            />
+            {children}
+          </Div>
+        )}
+      </Transition>
     </Portal>
   )
 }
 
 Modal.displayName = 'Modal'
-
-/**
- * Helper positioning object
- */
-const position = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  height: '100%',
-  width: '100%',
-}
-
-/**
- * Helper centering function
- */
-const centered = (val: boolean) =>
-  val
-    ? {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }
-    : undefined

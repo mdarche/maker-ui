@@ -285,7 +285,6 @@ function useColorTheme() {
     state: { colorTheme },
     setState,
   } = React.useContext(LayoutContext)
-  // const keys = Object.keys(options?.colors)
 
   const themes = colorTheme ? Object.keys(options.colors) : undefined
 

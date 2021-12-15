@@ -1,6 +1,6 @@
-import { MakerProps } from '@maker-ui/css'
+import { StyleObject } from '@maker-ui/css'
 
-export const utilityStyles: MakerProps['css'] = {
+export const utilityStyles: StyleObject = {
   // Positioning
   '.grid': {
     display: 'grid',

@@ -39,13 +39,30 @@ const ModalPage = () => {
         set={set}
         focusRef={ref}
         closeOnBlur
+        center
+        css={{ padding: 50 }}>
+        {/* <div style={{ height: 2000, width: 500, background: '#fff' }}>test</div> */}
+        <div>Hello!</div>
+        <button className="target-button">Test</button>
+        <button>Yo</button>
+        <button>Ya</button>
+        <a href="https://google.com" rel="noreferrer" target="_blank">
+          Google link
+        </a>
+      </Modal>
+      {/* <Modal
+        id="modal-root"
+        show={show}
+        set={set}
+        focusRef={ref}
+        closeOnBlur
         center>
         <div>Hello!</div>
         <button className="target-button">Test</button>
         <button>Yo</button>
         <button>Ya</button>
         <a href="https://google.com">Google link</a>
-      </Modal>
+      </Modal> */}
     </div>
   )
 }

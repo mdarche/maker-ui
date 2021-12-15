@@ -3,10 +3,15 @@ import { Div, DivProps, mergeSelectors } from 'maker-ui'
 
 import { AccordionContext } from './AccordionContext'
 import { AccordionPanel } from './AccordionPanel'
-import { SpringConfig } from '@react-spring/web'
 
 export interface AccordionProps extends DivProps {
+  /** If true, the Accordion button will render an icon that shows expand / collapse status.
+   * @default true
+   */
   icon?: boolean
+  /** An optional icon, set of icons, or callback function that can be used to supply a custom
+   * accordion toggle icon.
+   */
   customIcon?:
     | React.ReactElement
     | {
@@ -14,9 +19,20 @@ export interface AccordionProps extends DivProps {
         collapse: React.ReactElement
       }
     | ((isExpanded: boolean) => React.ReactNode)
+  /** The currently active accordion panel key if controlled by an external or parent component.
+   * Make sure the key exists as an `eventKey` prop on a nested `<Accordion.Panel>`.
+   */
   activeKey?: number | string
+  /** If true, the accordion will only display one open panel at a time.
+   * @default false
+   */
   showSingle?: boolean
-  spring?: SpringConfig
+  /** If true or if you supply a configuration object, the accordion will add a
+   * CSS transition to the accordion panel's height. NOTE: Animating height will force a repaint
+   * that may affect your app's performance.
+   * @default false
+   */
+  animate?: boolean | { transition: string }
 }
 
 /**
@@ -31,9 +47,9 @@ export const Accordion = ({
   customIcon,
   activeKey = 0,
   showSingle = false,
-  spring,
   className,
   css,
+  animate = false,
   children,
   ...props
 }: AccordionProps) => {
@@ -43,7 +59,7 @@ export const Accordion = ({
       customIcon={customIcon}
       activeKey={activeKey}
       showSingle={showSingle}
-      spring={spring}>
+      animate={animate}>
       <Div
         className={mergeSelectors(['accordion-container', className])}
         css={{ ...(css as object) }}

@@ -1,41 +1,79 @@
 import * as React from 'react'
-import { useTransition, animated, SpringConfig } from '@react-spring/web'
-import { Div, DivProps, MakerProps, mergeSelectors } from 'maker-ui'
+import { Div, DivProps, mergeSelectors } from 'maker-ui'
+import { Transition } from 'react-transition-group'
 
+import { TransitionState } from '../Modal'
 import { Portal } from '../Portal'
-import { getSign } from '../helper'
 import { useFocus } from '../../hooks'
-
-const AnimatedDiv = animated(Div)
-
-export interface Position {
-  x: 'left' | 'center' | 'right' | 'origin'
-  y: 'top' | 'center' | 'bottom'
-}
+import { getTransition, Position, TransitionType } from './position'
+import { StyleObject } from '../types'
 
 export interface PopoverProps extends DivProps {
+  /** A boolean that indicates if the popover is active. */
   show: boolean
+  /** A setter for the show boolean that lets the popover close itself. */
   set: React.Dispatch<React.SetStateAction<boolean>>
+  /** A React ref that is used to anchor the position of the Popover. */
   anchorRef: React.MutableRefObject<any>
+  /** If true, the Popover will match the width of the anchorRef element. Useful for
+   * dropdown menus.
+   */
   anchorWidth?: boolean
+  /** The {x, y} position of the popover.
+   * @default { x: "origin", y: "bottom" }
+   */
   position?: Position
+  /** The amount of space (in pixels) between the popover and its anchor element.
+   * @default 0
+   */
   gap?: { x: number; y: number } | number
+  /** An optional ID selector or React ref that the popover will attach to. Defaults to
+   * the document body.
+   * @default 0
+   */
   appendTo?: string | Element | null
+  /** If true, the Popover will prevent keyboard focus from exiting the component.*/
   trapFocus?: boolean
+  /** If true, the Popover will close when keyboard focus leaves the component.
+   * @default true
+   */
   closeOnBlur?: boolean
-  _css?: MakerProps['css']
-  spring?: SpringConfig
-  transition?:
-    | 'fade'
-    | 'fade-down'
-    | 'fade-up'
-    | 'fade-left'
-    | 'fade-right'
-    | 'scale'
-    | 'none'
+  /** Resonse CSS styles that are applied to Popover container */
+  _css?: StyleObject
+  /** Predefined transition styles that you can use to toggle the Popover.
+   * @default "fade"
+   */
+  transition?: TransitionType
+  /** A number in milliseconds that indicates how long React should wait to calculate the
+   * position of the Popover. This is helpful if your page uses a Page Transition on each load.
+   * @default 200
+   * @remark this will be deprecated in the next major release
+   */
   defer?: number
+  /** Linear easing curve or cubic bezier from css `transition` declaration
+   * (ease, ease-in-out, etc.).
+   * @default "ease"
+   */
+  easing?: string
+  /** Lets you customize the different states of the mount / unmount transition instead of using
+   * the `transition` prop.
+   * @example
+   * const transitions: {
+   *   start: { opacity: 0 },
+   *   entering: { opacity: 1 },
+   *   entered: { opacity: 1 },
+   *   exiting: { opacity: 0 },
+   *   exited: { opacity: 0 },
+   * }
+   */
+  transitionState?: TransitionState
+  /** Animation duration in milliseconds
+   * @default 200
+   */
+  duration?: number
   /** @internal usage only */
   _type?: 'popover' | 'dropdown' | 'tooltip'
+  /** The child component of the Popover */
   children: React.ReactNode
 }
 
@@ -46,6 +84,7 @@ export interface PopoverProps extends DivProps {
  * Use the `Popover` to customize your own components, otherwise try out the pre-configured
  * `Tooltip` or `Dropdown` components.
  *
+ * @todo - transition animations
  * @link https://maker-ui.com/docs/elements/popovers
  */
 
@@ -61,13 +100,15 @@ export const Popover = ({
   gap = 0,
   closeOnBlur = true,
   transition = 'fade',
-  spring,
   defer = 100,
-  _type = 'popover',
   className,
   _css,
   css,
+  easing = 'ease',
+  duration = 200,
+  transitionState,
   children,
+  _type = 'popover',
   ...rest
 }: PopoverProps) => {
   const popoverRef = React.useRef<any>(null)
@@ -86,6 +127,19 @@ export const Popover = ({
     documentTop: 0,
     measured: false,
   })
+
+  /** Configure animation states based on `transition` and `transitionState` props */
+
+  const animationStates = getTransition(transition, height)
+  const popoverTransition: TransitionState = transitionState || {
+    start: animationStates.start,
+    entering: animationStates.enter,
+    entered: animationStates.enter,
+    exiting: animationStates.leave,
+    exited: animationStates.leave,
+  }
+
+  /** Grab the latest getBoundingClientRect for a given React ref */
 
   function resize() {
     if (anchorRef.current) {
@@ -160,7 +214,6 @@ export const Popover = ({
   React.useEffect(() => {
     if (transition === 'scale' && initialRender) {
       setInitialRender(false)
-      // set(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transition, set])
@@ -240,64 +293,6 @@ export const Popover = ({
   }, [handleKeyDown])
 
   /**
-   * Configure the React-spring useTransition hook
-   */
-
-  const getTransition = () => {
-    // No transition
-    if (transition === 'none') {
-      return {
-        from: {
-          visibility: 'hidden',
-        },
-        enter: {
-          visibility: 'visible',
-        },
-        leave: {
-          visibility: 'hidden',
-        },
-      }
-    }
-    // Scale transition
-    if (transition === 'scale') {
-      return {
-        from: {
-          height: '0px',
-        },
-        enter: {
-          height: `${height}px`,
-        },
-        leave: {
-          height: '0px',
-        },
-      }
-    }
-    // Fade transition & default
-    return {
-      from: {
-        opacity: 0,
-        transform: getTransform(transition),
-      },
-      enter: {
-        opacity: 1,
-        transform: `translate3d(0px,0px,0px)`,
-      },
-      leave: {
-        opacity: 0,
-        transform: getTransform(transition),
-      },
-    }
-  }
-
-  const animate = useTransition(
-    show || (transition === 'scale' && initialRender) ? [1] : [],
-    {
-      ...getTransition(),
-      config: spring,
-    }
-  )
-
-  /**
    * Get the popover's X position by calculating its distance to the anchor ref element.
    */
 
@@ -331,67 +326,52 @@ export const Popover = ({
   }
 
   return typeof window !== 'undefined' && box.measured ? (
-    // @ts-ignore
     <Portal root={appendTo}>
-      {animate(
-        (props, item) =>
-          item && (
-            <AnimatedDiv
-              id={id}
-              ref={popoverRef}
-              className={mergeSelectors([
-                `popover${show ? ' active' : ''}`,
-                className,
-              ])}
-              style={props as any}
-              css={{
-                position: 'absolute',
-                display: 'block',
-                zIndex: 99,
-                left: !appendTo ? getX() : undefined,
-                top: !appendTo ? getY() : undefined,
-                width: anchorWidth ? width : undefined,
-                overflow: transition.includes('scale') ? 'hidden' : undefined,
-                ...(_css as object),
+      <Transition in={show} timeout={duration} unmountOnExit>
+        {(state) => (
+          <Div
+            id={id}
+            ref={popoverRef}
+            className={mergeSelectors([
+              'popover',
+              show ? 'active' : undefined,
+              className,
+            ])}
+            style={{
+              ...popoverTransition?.start,
+              transition: `all ${duration}ms ${easing}`,
+              ...popoverTransition[state],
+              left: !appendTo ? getX() : undefined,
+              top: !appendTo ? getY() : undefined,
+              width: anchorWidth ? width : undefined,
+              overflow: transition.includes('scale') ? 'hidden' : undefined,
+            }}
+            css={{
+              position: 'absolute',
+              display: 'block',
+              zIndex: 99,
+              ...(_css as object),
+            }}
+            {...rest}>
+            <Div
+              ref={measuredRef}
+              className="container"
+              style={{
+                opacity:
+                  transition === 'scale' && initialRender ? 0 : undefined,
+                visibility:
+                  transition === 'scale' && initialRender
+                    ? 'hidden'
+                    : undefined,
               }}
-              {...rest}>
-              <Div
-                ref={measuredRef}
-                className="container"
-                css={{
-                  opacity:
-                    transition === 'scale' && initialRender ? 0 : undefined,
-                  visibility:
-                    transition === 'scale' && initialRender
-                      ? 'hidden'
-                      : undefined,
-                  ...(css as object),
-                }}>
-                {children}
-              </Div>
-            </AnimatedDiv>
-          )
-      )}
+              css={css}>
+              {children}
+            </Div>
+          </Div>
+        )}
+      </Transition>
     </Portal>
   ) : null
 }
 
 Popover.displayName = 'Popover'
-
-/**
- * Returns a CSS transform string
- */
-
-const getTransform = (type: string) => {
-  switch (type) {
-    case 'fade-up':
-    case 'fade-down':
-      return `translate3d(0,${getSign(type)}10px,0)`
-    case 'fade-left':
-    case 'fade-right':
-      return `translate3d(${getSign(type)}10px, 0, 0)`
-    case 'fade':
-    default:
-      return `translate3d(0px,0px,0px)`
-  }
-}

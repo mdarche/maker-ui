@@ -11,12 +11,12 @@ const PopoverPage = () => {
       <ColorButton />
       <Button
         ref={buttonRef}
-        onClick={e => set(!show)}
+        onClick={(e) => set(!show)}
         css={{ marginRight: 10 }}>
         Popover toggle
       </Button>
-      <Tooltip background="purple" label="test" position="bottom" gap={10}>
-        Hover here!
+      <Tooltip background="purple" label="Info" position="bottom" gap={10}>
+        <Div css={{ height: 200, width: 300 }}>Info!</Div>
       </Tooltip>
       <Popover
         anchorRef={buttonRef}

@@ -1,6 +1,7 @@
 import { Interpolation } from '@emotion/react'
 
 export type Breakpoints = (string | number)[]
+export type StyleObject = object | Interpolation<any>
 
 /**
  * Support for the breakpoints prop and responsive CSS scales.
@@ -13,7 +14,7 @@ export type Breakpoints = (string | number)[]
  *
  */
 export interface MakerProps {
-  css?: Interpolation<any> | object
+  css?: StyleObject
   breakpoints?: Breakpoints
 }
 

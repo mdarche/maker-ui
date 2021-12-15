@@ -6,11 +6,29 @@ import { TabNavigation } from './TabNavigation'
 import { TabPanel } from './TabPanel'
 
 export interface TabGroupProps extends DivProps {
+  /** The position of the tab buttons relative to the tab container.
+   * @default "top"
+   */
   navPosition?: 'top' | 'bottom' | 'left' | 'right'
+  /** The currently active tab key if tabs are controlled by an external or parent component.
+   * Make sure the key exists as an `eventKey` prop on a nested `<Tab.Panel>`.
+   */
   activeKey?: number | string
+  /** Determines how to handle the tab navigation buttons on mobile.
+   * @default "stack"
+   */
   overflow?: 'stack' | 'scroll'
+  /** If false, all inactive tab panels will be removed from the DOM instead of hidden and
+   * invisible with CSS.
+   * @default true
+   */
   renderInactive?: boolean
+  /** An optional button `type` prop that can be used to prevent or activate form submissions
+   * if the tabs are used inside of a form element.
+   * @default "button"
+   */
   buttonType?: ButtonProps['type']
+  /** Nested `<Tab.Panel>` or auxiliary components. */
   children?: React.ReactNode
 }
 
@@ -30,7 +48,7 @@ export const Tabs = ({
   overflow = 'stack',
   breakpoints,
   renderInactive = true,
-  buttonType,
+  buttonType = 'button',
   className,
   css,
   children,

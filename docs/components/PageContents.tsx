@@ -33,7 +33,7 @@ export const PageContents = ({ pathname }: PageContentsProps) => {
           <ContentIcon /> Contents
         </Flex>
       }
-      activeColor="var(--color-link)"
+      activeColor="var(--color-primary)"
       hideOnMobile
       sticky
       css={{

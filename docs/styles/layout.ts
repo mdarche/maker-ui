@@ -18,7 +18,7 @@ export const layout_styles = {
     width: '100%',
   },
   '#site-logo': {
-    fontSize: '1.3em',
+    fontSize: '1.2em',
     svg: {
       height: [21, 24],
     },

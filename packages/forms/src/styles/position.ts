@@ -1,6 +1,7 @@
-import { MakerProps } from 'maker-ui'
+import { Interpolation } from 'maker-ui'
+type StyleObject = object | Interpolation<any>
 
-const labelStyles: MakerProps['css'] = {
+const labelStyles: StyleObject = {
   '.label-top-left': {
     flexDirection: 'column',
   },
@@ -45,7 +46,7 @@ const labelStyles: MakerProps['css'] = {
 
 // TODO - Cover all label / error combinations where there might be a position conflict
 
-const errorStyles: MakerProps['css'] = {
+const errorStyles: StyleObject = {
   '.form-error': {
     position: 'absolute',
   },
@@ -74,7 +75,7 @@ const errorStyles: MakerProps['css'] = {
   },
 }
 
-const validationStyles: MakerProps['css'] = {
+const validationStyles: StyleObject = {
   '.validate-icon': {
     display: 'flex',
     alignItems: 'center',
@@ -92,7 +93,7 @@ const validationStyles: MakerProps['css'] = {
   },
 }
 
-const dividerStyles: MakerProps['css'] = {
+const dividerStyles: StyleObject = {
   '.divider': {
     gridColumn: '1 / -1',
   },

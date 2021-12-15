@@ -2,12 +2,14 @@ import * as React from 'react'
 import { createPortal } from 'react-dom'
 
 interface PortalProps {
+  /** The child node that should appear inside of the portal */
   children: React.ReactNode
-  root?: string | Element
+  /** An ID selector or React Element that the portal should connect to */
+  root?: string | Element | null
 }
 
 /**
- * `Portal` is an internal component that powers the Modal, Lightbox, and Popover.
+ * `Portal` is an internal component that powers the Modal and Popover.
  * It checks for the browser window and creates a React portal to a specified
  * node or the document body.
  *

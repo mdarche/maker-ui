@@ -1,29 +1,57 @@
 import * as React from 'react'
-import {
-  Button,
-  Div,
-  DivProps,
-  ResponsiveScale,
-  generateId,
-  MakerProps,
-} from 'maker-ui'
+import { Button, Div, DivProps, ResponsiveScale, generateId } from 'maker-ui'
 
-import { Popover, PopoverProps, Position } from './Popover'
+import { Popover, PopoverProps } from './Popover'
+import { convertPosition, TransitionType } from './position'
+import { StyleObject } from '../types'
 
 interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
+  /** The inner contents of the Tooltip button */
   label: React.ReactNode
-  children: React.ReactNode
+  /** The background color of the Tooltip
+   * @default "#333"
+   */
   background?: ResponsiveScale
+  /** The color of the Tooltip text
+   * @default "#fff"
+   */
   color?: ResponsiveScale
+  /** The padding between the Tooltip button and the Tooltip content
+   * @default 5
+   */
   gap?: number
+  /** If true, the Tooltip will prevent keyboard focus from exiting the component.
+   * @default false
+   */
   trapFocus?: boolean
+  /** If true, the Tooltip will close when keyboard focus leaves the component.
+   * @default true
+   */
   closeOnBlur?: boolean
+  /** If true, the Tooltip box will not show an arrow.
+   * @default false
+   */
   noArrow?: boolean
+  /** The position of the Tooltip relative to the Tooltip button.
+   * @default "right"
+   */
   position?: 'top' | 'bottom' | 'left' | 'right'
-  buttonCss?: MakerProps['css']
-  _css?: MakerProps['css']
-  spring?: PopoverProps['spring']
+  /**Responsive CSS that is applied to the tooltip button. */
+  buttonCss?: StyleObject
+  /** Responsive CSS that is applied to the Popover container. */
+  _css?: StyleObject
+  /** A number in milliseconds that indicates how long React should wait to calculate the
+   * position of the Popover. This is helpful if your page uses a Page Transition on each load.
+   * @default 200
+   * @remark this will be deprecated in the next major release
+   */
   defer?: PopoverProps['defer']
+  /** Predefined transition styles that you can use to toggle the Popover.
+   * @default "fade"
+   */
+  transition?: TransitionType
+  /** The contents of your Tooltip component. */
+  children: React.ReactNode
 }
 
 /**
@@ -38,13 +66,13 @@ export const Tooltip = ({
   label,
   noArrow = false,
   position = 'right',
-  background = '#555',
+  background = '#333',
   color = '#fff',
   gap = 5,
-  spring,
   defer,
   buttonCss,
   css,
+  transition,
   children,
   ...props
 }: TooltipProps) => {
@@ -59,7 +87,7 @@ export const Tooltip = ({
     color,
     padding: 5,
     borderRadius: 3,
-    ':after': !noArrow && {
+    '&:after': !noArrow && {
       content: '""',
       position: 'absolute',
       borderWidth: 5,
@@ -89,13 +117,13 @@ export const Tooltip = ({
         className="tooltip"
         role="tooltip"
         anchorRef={buttonRef}
+        transition={transition}
         position={positionData.position}
         gap={positionData.gap}
         show={show}
-        defer={defer}
         set={set}
-        _css={{ ...styles }}
-        spring={spring}>
+        defer={defer}
+        _css={styles}>
         {children}
       </Popover>
     </Div>
@@ -103,60 +131,3 @@ export const Tooltip = ({
 }
 
 Tooltip.displayName = 'Tooltip'
-
-/**
- * Format the simpler Tooltip API to work with the `Popover` parent.
- */
-
-function convertPosition(
-  pos: string,
-  bg: ResponsiveScale,
-  gap: number
-): { position: Position; styles: object; gap: { x: number; y: number } } {
-  const vertical = { left: '50%', marginLeft: '-5px' }
-  const horizontal = { top: '50%', marginTop: '-5px' }
-
-  switch (pos) {
-    case 'top':
-      return {
-        position: { x: 'center', y: 'top' },
-        gap: { x: 0, y: gap },
-        styles: {
-          top: '100%',
-          ...vertical,
-          borderColor: `${bg} transparent transparent transparent`,
-        },
-      }
-    case 'bottom':
-      return {
-        position: { x: 'center', y: 'bottom' },
-        gap: { x: 0, y: gap },
-        styles: {
-          bottom: '100%',
-          ...vertical,
-          borderColor: `transparent transparent ${bg} transparent`,
-        },
-      }
-    case 'left':
-      return {
-        position: { x: 'left', y: 'center' },
-        gap: { x: gap, y: 0 },
-        styles: {
-          left: '100%',
-          ...horizontal,
-          borderColor: `transparent transparent transparent ${bg}`,
-        },
-      }
-    case 'right':
-    default:
-      return {
-        position: { x: 'right', y: 'center' },
-        gap: { x: gap, y: 0 },
-        styles: {
-          right: '100%',
-          ...horizontal,
-          borderColor: `transparent ${bg} transparent transparent`,
-        },
-      }
-  }
-}
