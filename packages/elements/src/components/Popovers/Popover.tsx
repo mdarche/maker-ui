@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTransition, animated, SpringConfig } from '@react-spring/web'
-import { Div, DivProps, MakerProps, mergeSelectors } from 'maker-ui'
+import { Div, DivProps, StyleObject, mergeSelectors } from 'maker-ui'
 
 import { Portal } from '../Portal'
 import { getSign } from '../helper'
@@ -23,7 +23,7 @@ export interface PopoverProps extends DivProps {
   appendTo?: string | Element | null
   trapFocus?: boolean
   closeOnBlur?: boolean
-  _css?: MakerProps['css']
+  _css?: StyleObject
   spring?: SpringConfig
   transition?:
     | 'fade'

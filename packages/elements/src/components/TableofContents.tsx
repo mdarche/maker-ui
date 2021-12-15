@@ -4,7 +4,7 @@ import {
   ListItem,
   DivProps,
   useScrollPosition,
-  MakerProps,
+  StyleObject,
   mergeSelectors,
 } from 'maker-ui'
 
@@ -22,7 +22,7 @@ interface ToCProps extends Omit<DivProps, 'title'> {
   marker?: 'before' | 'after'
   indentSize?: number
   activeColor?: string | string[]
-  pseudoCss?: MakerProps['css']
+  pseudoCss?: StyleObject
   smoothScroll?: boolean
   sticky?: boolean
   hideOnMobile?: boolean

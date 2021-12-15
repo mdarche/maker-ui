@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Flex, Button, DivProps, MakerProps, mergeSelectors } from 'maker-ui'
+import { Flex, Button, DivProps, StyleObject, mergeSelectors } from 'maker-ui'
 import { useTracker } from '../hooks'
 import { CloseIcon } from './icons'
 
@@ -13,7 +13,7 @@ export interface AnnouncementProps extends DivProps {
   closeButton?: React.ReactNode | ((attributes?: object) => React.ReactNode)
   bottom?: boolean
   top?: boolean
-  _css?: MakerProps['css']
+  _css?: StyleObject
 }
 /**
  * The `Announcement` component renders a dismissable message to the top or bottom of the web page.

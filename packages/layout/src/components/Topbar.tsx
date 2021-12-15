@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
+import { jsx, MakerProps, ResponsiveScale, StyleObject } from '@maker-ui/css'
 import { useEffect } from 'react'
 import useMeasure from 'react-use-measure'
 import { ResizeObserver } from '@juggle/resize-observer'
@@ -26,7 +26,7 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
   /** Overrides `topbar.stickyOnMobile` from Maker UI options. */
   stickyOnMobile?: MakerOptions['topbar']['stickyOnMobile']
   /** Gives you access to the root container styles */
-  _css?: MakerProps['css']
+  _css?: StyleObject
 }
 
 /**

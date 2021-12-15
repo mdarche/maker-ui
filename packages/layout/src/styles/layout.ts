@@ -1,6 +1,6 @@
-import { MakerProps } from '@maker-ui/css'
+import { StyleObject } from '@maker-ui/css'
 
-export const layoutStyles: MakerProps['css'] = {
+export const layoutStyles: StyleObject = {
   // Skiplinks
   '.skiplinks': {
     listStyle: 'none',

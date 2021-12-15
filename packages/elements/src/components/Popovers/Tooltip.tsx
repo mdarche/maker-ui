@@ -5,7 +5,7 @@ import {
   DivProps,
   ResponsiveScale,
   generateId,
-  MakerProps,
+  StyleObject,
 } from 'maker-ui'
 
 import { Popover, PopoverProps, Position } from './Popover'
@@ -20,8 +20,8 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
   closeOnBlur?: boolean
   noArrow?: boolean
   position?: 'top' | 'bottom' | 'left' | 'right'
-  buttonCss?: MakerProps['css']
-  _css?: MakerProps['css']
+  buttonCss?: StyleObject
+  _css?: StyleObject
   spring?: PopoverProps['spring']
   defer?: PopoverProps['defer']
 }

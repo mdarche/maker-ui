@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Div, MakerProps, mergeSelectors } from 'maker-ui'
+import { Button, Div, StyleObject, mergeSelectors } from 'maker-ui'
 
 import { Popover, PopoverProps } from './Popover'
 
@@ -12,9 +12,9 @@ interface DropdownProps {
   closeOnBlur?: boolean
   transition?: PopoverProps['transition']
   spring?: PopoverProps['spring']
-  buttonCss?: MakerProps['css']
-  _css?: MakerProps['css']
-  css?: MakerProps['css']
+  buttonCss?: StyleObject
+  _css?: StyleObject
+  css?: StyleObject
   className?: string
   id?: string
   children: React.ReactNode

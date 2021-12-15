@@ -6,7 +6,7 @@ import {
   generateId,
   useMeasure,
   mergeSelectors,
-  MakerProps,
+  StyleObject,
 } from 'maker-ui'
 
 import { useAccordion } from './AccordionContext'
@@ -16,7 +16,7 @@ export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
   title?: string | React.ReactElement
   open?: boolean
   eventKey?: string
-  _css?: MakerProps['css']
+  _css?: StyleObject
 }
 
 /**

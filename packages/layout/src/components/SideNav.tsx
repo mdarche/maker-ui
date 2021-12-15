@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, MakerProps } from '@maker-ui/css'
+import { jsx, MakerProps, StyleObject } from '@maker-ui/css'
 
 import { MakerOptions } from '../types'
 import { ErrorContainer } from './Errors'
@@ -24,7 +24,7 @@ export interface SideNavProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
-  _css?: MakerProps['css']
+  _css?: StyleObject
   toggleButton?: MakerOptions['sideNav']['toggleButton']
   collapseButton?: MakerOptions['sideNav']['collapseButton']
   menu?: MenuItemProps[]
