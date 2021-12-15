@@ -4,6 +4,8 @@ import { Button, Div, StyleObject, mergeSelectors } from 'maker-ui'
 import { Popover, PopoverProps } from './Popover'
 
 interface DropdownProps {
+  id?: string
+  className?: string
   button?:
     | React.ReactNode
     | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
@@ -14,8 +16,6 @@ interface DropdownProps {
   buttonCss?: StyleObject
   _css?: StyleObject
   css?: StyleObject
-  className?: string
-  id?: string
   children: React.ReactNode
   /** Allows you to control the dropdown from an external React.useState hook*/
   controls?: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
@@ -73,7 +73,7 @@ export const Dropdown = ({
           {button}
         </Button>
       )}
-      <Div className="dropdown-container" ref={dropdownRef}>
+      <div className="dropdown-container" ref={dropdownRef}>
         <Popover
           appendTo={dropdownRef.current}
           role="listbox"
@@ -88,7 +88,7 @@ export const Dropdown = ({
           _type="dropdown">
           {children}
         </Popover>
-      </Div>
+      </div>
     </Div>
   )
 }

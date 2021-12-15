@@ -16,22 +16,57 @@ interface MenuItem {
 }
 
 interface ToCProps extends Omit<DivProps, 'title'> {
+  /** The application's current pathname, supplied via router hook or parent component.
+   * This value ensures the DOM scanning effect reruns on each page load.
+   */
+  pathname: string
+  /** A string title or custom React Element that sits above the ToC links
+   * @default "Content"
+   */
   title?: string | React.ReactElement
+  /** An array of all heading tags that the component should include as navigation links
+   * @default ["h2", "h3", "h4"]
+   */
   headings?: ('h2' | 'h3' | 'h4' | 'h5' | 'h6')[] | 'all'
-  indent?: boolean
+  /** An optional psuedo marker that indicates the heading that's currently in the viewport. */
   marker?: 'before' | 'after'
+  /** If true, links will be indented according to the heading tag
+   * @default true
+   */
+  indent?: boolean
+  /** A number (in pixels) that sets the indent padding for each nested heading.
+   * @default 10
+   */
   indentSize?: number
+  /** The color of an active link when its corresponding heading is in the viewport */
   activeColor?: string | string[]
+  /** Responsive CSS styles that will be applied to the marker pseudo styles if
+   * using the `marker` prop. */
   pseudoCss?: StyleObject
+  /** When true, the window will animate the scroll to each section.
+   * @remark This is a global `scroll-behavior` style rule that is applied to the document body.
+   * Use with caution and ensure it doesn't break your page transitions.
+   * @default false
+   */
   smoothScroll?: boolean
+  /** If true, the ToC component will used sticky positioning and remain visible as users scroll
+   * the main page content.
+   * @default true
+   */
   sticky?: boolean
+  /** If true, the ToC component will be hidden on mobile according to your breakpoints array
+   * or a custom defined `breakpoints` prop
+   * @default true
+   */
   hideOnMobile?: boolean
-  pathname?: string
+  /** An optional component that will sit below the heading navigation list. */
   footerComponent?: React.ReactElement
 }
 
 /**
  * Utility component to remove any leading or trailing HTML tags
+ * @param text a string that may include HTML tags
+ * @return a sanitized version of the string
  */
 function sanitize(text: string) {
   return text.split('<').find((i) => !i.startsWith('<'))

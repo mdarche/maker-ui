@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Div, DivProps, StyleObject, mergeSelectors } from 'maker-ui'
 import { Transition } from 'react-transition-group'
-import { TransitionStyles } from '../Modal'
+import { TransitionState } from '../Modal'
 
 import { Portal } from '../Portal'
 // import { getSign } from '../helper'
@@ -47,7 +47,7 @@ export interface PopoverProps extends DivProps {
    *   exited: { opacity: 0 },
    * }
    */
-  transitionStyles?: TransitionStyles
+  transitionState?: TransitionState
   /** Animation duration in milliseconds
    * @default 300
    */
@@ -56,7 +56,7 @@ export interface PopoverProps extends DivProps {
   _type?: 'popover' | 'dropdown' | 'tooltip'
 }
 
-const defaultTransitions: TransitionStyles = {
+const defaultTransitions: TransitionState = {
   entering: { opacity: 1 },
   entered: { opacity: 1 },
   exiting: { opacity: 0 },
@@ -92,7 +92,7 @@ export const Popover = ({
   css,
   easing = 'ease',
   duration = 200,
-  transitionStyles = defaultTransitions,
+  transitionState = defaultTransitions,
   children,
   ...rest
 }: PopoverProps) => {
@@ -299,7 +299,6 @@ export const Popover = ({
   }
 
   return typeof window !== 'undefined' && box.measured ? (
-    // @ts-ignore
     <Portal root={appendTo}>
       <Transition in={show} timeout={duration} unmountOnExit>
         {(state) => (
@@ -313,7 +312,7 @@ export const Popover = ({
             ])}
             style={{
               transition: `all ${duration}ms ${easing}`,
-              ...transitionStyles[state],
+              ...transitionState[state],
             }}
             css={{
               position: 'absolute',

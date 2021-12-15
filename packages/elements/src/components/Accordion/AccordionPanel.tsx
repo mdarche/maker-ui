@@ -10,13 +10,21 @@ import {
 } from 'maker-ui'
 
 import { useAccordion } from './AccordionContext'
-import { CaretIcon } from '../icons'
+import { CaretIcon } from './icons'
 
 export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
+  /** A title string or custom React element that will be used as the Accordion Button
+   * for this panel.
+   */
   title?: string | React.ReactElement
+  /** If true, the panel will be open by default
+   * @default false
+   */
   open?: boolean
+  /** A unique key that can toggle the panel open and close from an external component. */
   eventKey?: string
-  _css?: StyleObject
+  /** Optional styles for the accordion button */
+  buttonCss?: StyleObject
 }
 
 /**
@@ -30,7 +38,16 @@ export const AccordionPanel = React.forwardRef<
   AccordionPanelProps
 >(
   (
-    { title, open = false, eventKey, children, className, _css, css, ...props },
+    {
+      title,
+      open = false,
+      eventKey,
+      children,
+      className,
+      buttonCss,
+      css,
+      ...props
+    },
     ref
   ) => {
     const [buttonId] = React.useState(generateId())
@@ -112,7 +129,7 @@ export const AccordionPanel = React.forwardRef<
             border: 'none',
             padding: '15px',
             cursor: 'pointer',
-            ...(_css as object),
+            ...(buttonCss as object),
           }}>
           <div>
             {React.isValidElement(title) ? title : <span>{title}</span>}

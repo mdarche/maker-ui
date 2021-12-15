@@ -5,7 +5,7 @@ import { Transition, TransitionStatus } from 'react-transition-group'
 import { Portal } from './Portal'
 import { useFocus } from '../hooks'
 
-export type TransitionStyles = {
+export type TransitionState = {
   [key in TransitionStatus | 'start']?: { [key: string]: number | string }
 }
 
@@ -52,14 +52,14 @@ export interface ModalProps extends DivProps {
    *   exited: { opacity: 0 },
    * }
    */
-  transitionStyles?: TransitionStyles
+  transitionState?: TransitionState
   /** Animation duration in milliseconds
    * @default 300
    */
   duration?: number
 }
 
-const defaultTransitions: TransitionStyles = {
+const defaultTransitions: TransitionState = {
   start: { opacity: 0 },
   entering: { opacity: 1 },
   entered: { opacity: 1 },
@@ -87,7 +87,7 @@ export const Modal = ({
   css,
   easing = 'ease-in-out',
   duration = 300,
-  transitionStyles = defaultTransitions,
+  transitionState = defaultTransitions,
   children,
   ...rest
 }: ModalProps) => {
@@ -172,9 +172,9 @@ export const Modal = ({
             aria-modal="true"
             tabIndex={focusable.count === 0 ? 0 : undefined}
             style={{
-              ...transitionStyles?.start,
+              ...transitionState?.start,
               transition: `all ${duration}ms ${easing}`,
-              ...transitionStyles[state],
+              ...transitionState[state],
             }}
             css={{
               display: 'flex',
