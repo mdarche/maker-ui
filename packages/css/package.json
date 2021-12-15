@@ -14,7 +14,7 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@emotion/react": "^11.1.4",
+    "@emotion/react": "^11.7.1",
     "deepmerge": "^4.2.2"
   },
   "peerDependencies": {
