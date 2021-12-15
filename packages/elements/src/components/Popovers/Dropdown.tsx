@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { Button, Div, StyleObject, mergeSelectors } from 'maker-ui'
+import { Button, Div, mergeSelectors } from 'maker-ui'
 
+import { StyleObject } from '../types'
 import { Popover, PopoverProps } from './Popover'
 
 interface DropdownProps {

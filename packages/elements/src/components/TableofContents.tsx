@@ -4,9 +4,9 @@ import {
   ListItem,
   DivProps,
   useScrollPosition,
-  StyleObject,
   mergeSelectors,
 } from 'maker-ui'
+import { StyleObject } from './types'
 
 interface MenuItem {
   id: string

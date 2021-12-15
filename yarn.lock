@@ -3484,6 +3484,14 @@
     "@emotion/react" "^11.1.4"
     deepmerge "^4.2.2"
 
+"@maker-ui/css@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@maker-ui/css/-/css-1.1.1.tgz#a0c968725410a40dedd465762f970b70cbab7c56"
+  integrity sha512-HKxGRnzz8foSE4y61OR5DgL+30smA03fQqdnN8o37Zj/2mLILOcmTzv4RQVGf7h9+dSN5GjMoyhU/s/29cd/pg==
+  dependencies:
+    "@emotion/react" "^11.1.4"
+    deepmerge "^4.2.2"
+
 "@maker-ui/layout@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@maker-ui/layout/-/layout-1.0.0.tgz#adab0e8652e72f2cf2cdcf34841cc8d3ac426c37"
@@ -3502,6 +3510,14 @@
   integrity sha512-sAJyeVxkV51VCMSIYmKdWetHJyw156qMwidUrxMSv0T/cM6JsQxYkgmCjq+4PQUfm6fBLr8CyTfgH1zh71UFdQ==
   dependencies:
     "@maker-ui/css" "1.0.0"
+    csstype "^3.0.6"
+
+"@maker-ui/primitives@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@maker-ui/primitives/-/primitives-1.1.1.tgz#7f3eab1cf4dc518d271502734a6a595bf9eb470c"
+  integrity sha512-sWLSoGTuJT6df9OITE3s2Ty0Q2dCpB/afXkOBoSMZLxiZjL4vprYiYIhiGJ7FJrIj1RqG39fUCEC918iraSKBQ==
+  dependencies:
+    "@maker-ui/css" "1.1.1"
     csstype "^3.0.6"
 
 "@mdx-js/loader@^1.6.22":

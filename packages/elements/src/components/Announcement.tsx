@@ -1,13 +1,6 @@
 import * as React from 'react'
-import {
-  Flex,
-  Button,
-  DivProps,
-  SVG,
-  SVGProps,
-  StyleObject,
-  mergeSelectors,
-} from 'maker-ui'
+import { Flex, Button, DivProps, SVG, SVGProps, mergeSelectors } from 'maker-ui'
+import { StyleObject } from './types'
 import { useTracker } from '../hooks'
 
 export interface AnnouncementProps extends DivProps {

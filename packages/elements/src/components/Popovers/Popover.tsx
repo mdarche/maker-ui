@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { Div, DivProps, StyleObject, mergeSelectors } from 'maker-ui'
+import { Div, DivProps, mergeSelectors } from 'maker-ui'
 import { Transition } from 'react-transition-group'
 
 import { TransitionState } from '../Modal'
 import { Portal } from '../Portal'
 import { useFocus } from '../../hooks'
 import { getTransition, Position, TransitionType } from './position'
+import { StyleObject } from '../types'
 
 export interface PopoverProps extends DivProps {
   /** A boolean that indicates if the popover is active. */

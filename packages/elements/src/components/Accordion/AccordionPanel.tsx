@@ -6,9 +6,9 @@ import {
   generateId,
   useMeasure,
   mergeSelectors,
-  StyleObject,
 } from 'maker-ui'
 
+import { StyleObject } from '../types'
 import { useAccordion } from './AccordionContext'
 import { CaretIcon } from './icons'
 

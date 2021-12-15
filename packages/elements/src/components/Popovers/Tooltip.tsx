@@ -1,15 +1,9 @@
 import * as React from 'react'
-import {
-  Button,
-  Div,
-  DivProps,
-  ResponsiveScale,
-  generateId,
-  StyleObject,
-} from 'maker-ui'
+import { Button, Div, DivProps, ResponsiveScale, generateId } from 'maker-ui'
 
 import { Popover, PopoverProps } from './Popover'
 import { convertPosition, TransitionType } from './position'
+import { StyleObject } from '../types'
 
 interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
   /** The inner contents of the Tooltip button */
