@@ -169,7 +169,8 @@ export const Modal = ({
           <Div
             ref={modalRef}
             role="dialog"
-            className={mergeSelectors(['modal', 'fixed cover', className])}
+            data-cy="modal"
+            className={mergeSelectors(['modal', className])}
             aria-label={title}
             aria-modal="true"
             tabIndex={focusable.count === 0 ? 0 : undefined}
@@ -179,12 +180,22 @@ export const Modal = ({
               ...transitionState[state],
             }}
             css={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
               display: 'flex',
               justifyContent: 'center',
               alignItems: center ? 'center' : undefined,
               zIndex: 101,
               overflowY: 'scroll',
               '.modal-overlay': {
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
                 zIndex: -1,
                 background,
               },
@@ -193,8 +204,9 @@ export const Modal = ({
             {...rest}>
             <div
               role="button"
+              data-cy="modal-overlay"
               onClick={() => (closeOnBlur ? closeModal() : undefined)}
-              className="modal-overlay fixed cover"
+              className="modal-overlay"
             />
             {children}
           </Div>

@@ -168,7 +168,7 @@ describe('Content component', () => {
      *  SideNav test part 1 -- display and position
      */
     cy.get('#sidenav').should('have.css', 'right', '0px')
-    cy.get('#site-inner').should('have.css', 'display', 'flex')
+    cy.get('#site-inner').should('have.css', 'display', 'inline-flex')
     cy.viewport('iphone-x')
       .get('#sidenav')
       .should('have.css', 'position', 'fixed')
