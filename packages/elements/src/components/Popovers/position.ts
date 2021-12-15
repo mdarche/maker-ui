@@ -6,6 +6,15 @@ export interface Position {
   y: 'top' | 'center' | 'bottom'
 }
 
+export type TransitionType =
+  | 'fade'
+  | 'fade-down'
+  | 'fade-up'
+  | 'fade-left'
+  | 'fade-right'
+  | 'scale'
+  | 'none'
+
 /**
  * Configure the the transition animations
  */

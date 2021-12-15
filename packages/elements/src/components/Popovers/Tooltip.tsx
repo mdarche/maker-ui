@@ -9,7 +9,7 @@ import {
 } from 'maker-ui'
 
 import { Popover, PopoverProps } from './Popover'
-import { convertPosition } from './position'
+import { convertPosition, TransitionType } from './position'
 
 interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
   /** The inner contents of the Tooltip button */
@@ -52,6 +52,10 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
    * @remark this will be deprecated in the next major release
    */
   defer?: PopoverProps['defer']
+  /** Predefined transition styles that you can use to toggle the Popover.
+   * @default "fade"
+   */
+  transition?: TransitionType
   /** The contents of your Tooltip component. */
   children: React.ReactNode
 }
@@ -74,6 +78,7 @@ export const Tooltip = ({
   defer,
   buttonCss,
   css,
+  transition,
   children,
   ...props
 }: TooltipProps) => {
@@ -88,7 +93,7 @@ export const Tooltip = ({
     color,
     padding: 5,
     borderRadius: 3,
-    ':after': !noArrow && {
+    '&:after': !noArrow && {
       content: '""',
       position: 'absolute',
       borderWidth: 5,
@@ -118,6 +123,7 @@ export const Tooltip = ({
         className="tooltip"
         role="tooltip"
         anchorRef={buttonRef}
+        transition={transition}
         position={positionData.position}
         gap={positionData.gap}
         show={show}

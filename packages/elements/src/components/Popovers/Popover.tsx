@@ -5,7 +5,7 @@ import { Transition } from 'react-transition-group'
 import { TransitionState } from '../Modal'
 import { Portal } from '../Portal'
 import { useFocus } from '../../hooks'
-import { getTransition, Position } from './position'
+import { getTransition, Position, TransitionType } from './position'
 
 export interface PopoverProps extends DivProps {
   /** A boolean that indicates if the popover is active. */
@@ -42,14 +42,7 @@ export interface PopoverProps extends DivProps {
   /** Predefined transition styles that you can use to toggle the Popover.
    * @default "fade"
    */
-  transition?:
-    | 'fade'
-    | 'fade-down'
-    | 'fade-up'
-    | 'fade-left'
-    | 'fade-right'
-    | 'scale'
-    | 'none'
+  transition?: TransitionType
   /** A number in milliseconds that indicates how long React should wait to calculate the
    * position of the Popover. This is helpful if your page uses a Page Transition on each load.
    * @default 200
@@ -347,15 +340,15 @@ export const Popover = ({
               ...popoverTransition?.start,
               transition: `all ${duration}ms ${easing}`,
               ...popoverTransition[state],
+              left: !appendTo ? getX() : undefined,
+              top: !appendTo ? getY() : undefined,
+              width: anchorWidth ? width : undefined,
+              overflow: transition.includes('scale') ? 'hidden' : undefined,
             }}
             css={{
               position: 'absolute',
               display: 'block',
               zIndex: 99,
-              left: !appendTo ? getX() : undefined,
-              top: !appendTo ? getY() : undefined,
-              width: anchorWidth ? width : undefined,
-              overflow: transition.includes('scale') ? 'hidden' : undefined,
               ...(_css as object),
             }}
             {...rest}>

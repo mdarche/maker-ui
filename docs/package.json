@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@docsearch/react": "^3.0.0-alpha.40",
+    "@maker-ui/carousel": "1.1.1",
     "@maker-ui/elements": "1.1.1",
     "@mdx-js/loader": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
