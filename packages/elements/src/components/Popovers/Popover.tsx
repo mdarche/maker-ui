@@ -5,12 +5,7 @@ import { Transition } from 'react-transition-group'
 import { TransitionState } from '../Modal'
 import { Portal } from '../Portal'
 import { useFocus } from '../../hooks'
-import { getTransition } from './transitions'
-
-export interface Position {
-  x: 'left' | 'center' | 'right' | 'origin'
-  y: 'top' | 'center' | 'bottom'
-}
+import { getTransition, Position } from './position'
 
 export interface PopoverProps extends DivProps {
   /** A boolean that indicates if the popover is active. */
@@ -27,7 +22,9 @@ export interface PopoverProps extends DivProps {
    * @default { x: "origin", y: "bottom" }
    */
   position?: Position
-  /** The amount of space (in pixels) between the popover and its anchor element. */
+  /** The amount of space (in pixels) between the popover and its anchor element.
+   * @default 0
+   */
   gap?: { x: number; y: number } | number
   /** An optional ID selector or React ref that the popover will attach to. Defaults to
    * the document body.
@@ -53,6 +50,11 @@ export interface PopoverProps extends DivProps {
     | 'fade-right'
     | 'scale'
     | 'none'
+  /** A number in milliseconds that indicates how long React should wait to calculate the
+   * position of the Popover. This is helpful if your page uses a Page Transition on each load.
+   * @default 200
+   * @remark this will be deprecated in the next major release
+   */
   defer?: number
   /** Linear easing curve or cubic bezier from css `transition` declaration
    * (ease, ease-in-out, etc.).
