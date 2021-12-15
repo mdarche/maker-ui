@@ -6,7 +6,9 @@ import { Portal } from './Portal'
 import { useFocus } from '../hooks'
 
 export type TransitionState = {
-  [key in TransitionStatus | 'start']?: { [key: string]: number | string }
+  [key in TransitionStatus | 'start']?: {
+    [key: string]: number | string | undefined
+  }
 }
 
 export interface ModalProps extends DivProps {

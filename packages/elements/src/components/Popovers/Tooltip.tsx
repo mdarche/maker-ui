@@ -90,8 +90,8 @@ export const Tooltip = ({
         position={positionData.position}
         gap={positionData.gap}
         show={show}
-        defer={defer}
         set={set}
+        defer={defer}
         _css={styles}>
         {children}
       </Popover>
