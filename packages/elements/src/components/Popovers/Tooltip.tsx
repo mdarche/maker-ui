@@ -105,6 +105,7 @@ export const Tooltip = ({
       {...props}>
       <Button
         ref={buttonRef}
+        type="button"
         onFocus={() => set(true)}
         onBlur={() => typeof label === 'string' && set(false)}
         onClick={() => set(!show)}

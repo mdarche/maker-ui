@@ -59,6 +59,7 @@ export const Form = ({
 
   return (
     <FormikForm id={id} className={className} {...props}>
+      {/* {children?.type.displayName === 'FormHeader'} */}
       {fields ? (
         <Grid
           className="form-grid"
@@ -77,6 +78,8 @@ export const Form = ({
 }
 
 Form.displayName = 'Form'
+Header.displayName = 'FormHeader'
+Footer.displayName = 'FormFooter'
 
 Form.Page = Page
 Form.Provider = Provider

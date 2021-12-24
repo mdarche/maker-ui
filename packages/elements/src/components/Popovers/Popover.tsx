@@ -327,7 +327,11 @@ export const Popover = ({
 
   return typeof window !== 'undefined' && box.measured ? (
     <Portal root={appendTo}>
-      <Transition in={show} timeout={duration} unmountOnExit>
+      <Transition
+        in={show}
+        timeout={duration}
+        unmountOnExit
+        nodeRef={popoverRef}>
         {(state) => (
           <Div
             id={id}

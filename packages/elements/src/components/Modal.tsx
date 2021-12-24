@@ -164,7 +164,7 @@ export const Modal = ({
 
   return (
     <Portal root={appendTo}>
-      <Transition in={show} timeout={duration} unmountOnExit>
+      <Transition in={show} timeout={duration} unmountOnExit nodeRef={modalRef}>
         {(state) => (
           <Div
             ref={modalRef}

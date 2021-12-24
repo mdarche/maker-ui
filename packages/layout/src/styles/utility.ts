@@ -14,6 +14,9 @@ export const utilityStyles: StyleObject = {
   '.flex-1': {
     flex: 1,
   },
+  '.flex-col': {
+    flexDirection: 'column',
+  },
   '.align-center': {
     alignItems: 'center',
   },

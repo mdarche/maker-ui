@@ -7,6 +7,11 @@
   "main": "dist/index.js",
   "module": "dist/carousel.esm.js",
   "types": "dist/index.d.ts",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "files": [
     "dist"
   ],
