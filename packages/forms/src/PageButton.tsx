@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Button, ButtonProps } from 'maker-ui'
 
-import { useForm } from './Provider'
+import { useForm } from './FormProvider'
 import { FieldProps, PaginationElement } from './types'
 import { getRequired } from './helper'
 

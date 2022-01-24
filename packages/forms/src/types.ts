@@ -4,7 +4,7 @@ import { FormikHelpers, FormikValues } from 'formik'
 export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
 
-export { FormProviderProps } from './Provider'
+export { FormProviderProps } from './FormProvider'
 export { FormSubmitButtonProps } from './SubmitButton'
 export { FormPageButtonProps } from './PageButton'
 export { FormPageProps } from './Page'
@@ -22,9 +22,79 @@ export type InputOption = {
   id?: string
 }
 
+// TODO - Use generic type
+/**
+ * https://stackoverflow.com/questions/56949513/typescript-type-of-a-property-dependent-on-another-property-within-the-same-obj
+ */
+type SettingsMap = {
+  divider: undefined
+  text: {
+    mask?: 'phone' | 'zipcode' | 'credit-card'
+  }
+  textarea: undefined
+  tel: undefined
+  email: undefined
+  password: {
+    toggleCharacters?: boolean
+  }
+  number: undefined
+  url: undefined
+  select: {
+    options: InputOption[]
+  }
+  'select-datalist': {
+    settings: {}
+  }
+  date: undefined
+  datepicker: undefined // TODO
+  switch: {
+    /** If true, the switch will show `on` and `off` text values */
+    innerLabel?: boolean
+    /** A custom label for the switch `on` state. Must have `innerLabel` active. */
+    labelOn?: string | React.ReactNode
+    /** A custom label for the switch `off` state. Must have `innerLabel` active. */
+    labelOff?: string | React.ReactNode
+    /** The switch background color for `on` state */
+    activeColor?: string
+    /** The switch background color for `off` state */
+    inactiveColor?: string
+    /** Renders the switch as disabled */
+    disabled?: boolean
+    /** The total height of the switch input */
+    height?: number
+    /** The padding between the switch slider and the edge of the input */
+    padding?: number
+    /** The radius of the switch container and slider. This only applies to the `box` style. */
+    borderRadius?: number
+    /** The switch style can be `circle` or `box` */
+    style?: 'circle' | 'box'
+  }
+  radio: {
+    options: InputOption[]
+  }
+  checkbox: {
+    options: InputOption[]
+  }
+  slider: undefined
+  repeater: object // TODO
+  color: undefined
+  range: {
+    min?: number
+    max?: number
+  }
+  file: {
+    settings: {}
+  }
+}
+type FieldType = keyof SettingsMap
+
+// export type FieldProps<T extends FieldType> {
+
 export type FieldProps = {
   /** Unique identifier for the field (required)*/
   name: string
+  /** New Settings interface */
+  // settings:
   /** The field type (required) */
   type:
     | 'divider'

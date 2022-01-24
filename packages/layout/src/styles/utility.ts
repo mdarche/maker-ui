@@ -60,6 +60,9 @@ export const utilityStyles: StyleObject = {
   '.absolute': {
     position: 'absolute',
   },
+  '.relative': {
+    position: 'relative',
+  },
   '.cover': {
     top: 0,
     left: 0,

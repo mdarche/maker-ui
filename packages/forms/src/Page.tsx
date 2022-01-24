@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ResponsiveScale, Div, DivProps, Grid, mergeSelectors } from 'maker-ui'
 
 import { Field } from './Fields'
-import { FormState, useForm } from './Provider'
+import { FormState, useForm } from './FormProvider'
 import { FieldProps } from './types'
 
 export interface FormPageProps extends Omit<DivProps, 'title'> {

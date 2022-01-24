@@ -11,7 +11,7 @@ import { Form as FormikForm } from 'formik'
 
 import { Page } from './Page'
 import { Field } from './Fields'
-import { Provider, useForm } from './Provider'
+import { FormProvider, useForm } from './FormProvider'
 import { SubmitButton } from './SubmitButton'
 import { Progress } from './Progress'
 import { PageButton } from './PageButton'
@@ -82,7 +82,7 @@ Header.displayName = 'FormHeader'
 Footer.displayName = 'FormFooter'
 
 Form.Page = Page
-Form.Provider = Provider
+Form.Provider = FormProvider
 Form.Header = Header
 Form.Footer = Footer
 Form.Progress = Progress

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { mergeSelectors } from 'maker-ui'
-import { useForm } from './Provider'
+import { useForm } from './FormProvider'
 
 export interface FormProgressProps {
   id?: string

@@ -83,6 +83,12 @@ export const Dropdown = ({
     onClick: () => (controls ? controls[1](!controls[0]) : set(!show)),
   }
 
+  // React.useEffect(() => {
+  //   if (controls && controls[0] !== show) {
+  //     set(controls[0])
+  //   }
+  // }, [controls])
+
   return (
     <Div
       id={id}

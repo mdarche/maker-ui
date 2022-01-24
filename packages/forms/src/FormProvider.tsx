@@ -71,7 +71,7 @@ function getInitialValue(type: FieldProps['type']) {
  * @link https://maker-ui.com/docs/form
  */
 
-export const Provider = ({
+export const FormProvider = ({
   onSubmit,
   validationSchema,
   settings = {},
@@ -232,4 +232,4 @@ export function useForm() {
   }
 }
 
-Provider.displayName = 'FormProvider'
+FormProvider.displayName = 'FormProvider'

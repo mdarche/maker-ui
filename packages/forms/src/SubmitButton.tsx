@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useFormikContext, FormikErrors, FormikTouched } from 'formik'
 import { Button, ButtonProps, mergeSelectors } from 'maker-ui'
-import { useForm } from './Provider'
+import { useForm } from './FormProvider'
 import { getRequired } from './helper'
 
 export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
