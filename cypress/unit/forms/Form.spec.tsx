@@ -48,7 +48,7 @@ describe('Form component', () => {
     cy.get('.form-grid')
       .should('have.css', 'grid-template-columns')
       .should((val) => {
-        expect(val).to.eq('374.656px 374.656px 374.656px')
+        expect(val).to.eq('374.656px 374.672px 374.672px')
       })
     cy.viewport(600, 800)
     cy.get('.form-grid')

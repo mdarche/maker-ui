@@ -12,6 +12,7 @@ import { Switch } from './Switch'
 import { Checkbox } from './Checkbox'
 import { Radio } from './Radio'
 import { Range } from './Range'
+import { FieldSettings } from '..'
 
 const basicInputs = [
   'text',
@@ -83,23 +84,53 @@ export const Field = (props: FieldComponentProps) => {
     }
     /* Select and Datalist inputs */
     if (props.type === 'select' || props.type === 'select-datalist') {
-      return <Select {...attributes} {...props} />
+      return (
+        <Select
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'select'>}
+        />
+      )
     }
     /* Radio group input*/
     if (props.type === 'radio') {
-      return <Radio {...attributes} {...props} />
+      return (
+        <Radio
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'radio'>}
+        />
+      )
     }
     /* Checkbox group input*/
     if (props.type === 'checkbox') {
-      return <Checkbox {...attributes} {...props} />
+      return (
+        <Checkbox
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'checkbox'>}
+        />
+      )
     }
     /* Toggle input*/
     if (props.type === 'switch') {
-      return <Switch {...attributes} {...props} />
+      return (
+        <Switch
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'switch'>}
+        />
+      )
     }
     /* Range input*/
     if (props.type === 'range') {
-      return <Range {...attributes} {...props} />
+      return (
+        <Range
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'range'>}
+        />
+      )
     }
     return null
   }

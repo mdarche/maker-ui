@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { Div, mergeSelectors, merge } from 'maker-ui'
 import { useField } from 'formik'
-import { InputProps } from '../types'
+import { InputProps, FieldSettings } from '../types'
 
-interface SwitchProps extends InputProps {}
+interface SwitchProps extends InputProps {
+  settings: FieldSettings<'switch'>
+}
 
-const defaultSettings: SwitchProps['settings_switch'] = {
+const defaultSettings: FieldSettings<'switch'> = {
   innerLabel: false,
   labelOn: 'Yes',
   labelOff: 'No',
@@ -27,15 +29,15 @@ export const Switch = ({
   id,
   type,
   name,
-  settings_switch = {},
+  settings = {},
   cy,
   ...props
 }: SwitchProps) => {
   const [field, meta] = useField({ ...props, name, type: 'checkbox' })
-  const settings = merge(defaultSettings, settings_switch)
+  const config = merge(defaultSettings, settings)
 
-  const padding = settings.padding as number
-  const minWidth = (settings.height as number) * 4
+  const padding = config.padding as number
+  const minWidth = (config.height as number) * 4
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLLabelElement>) {
     //@ts-ignore
@@ -60,7 +62,7 @@ export const Switch = ({
         },
         label: {
           position: 'relative',
-          height: settings.height,
+          height: config.height,
           width: minWidth,
           display: 'flex',
           alignItems: 'center',
@@ -68,7 +70,7 @@ export const Switch = ({
           overflow: 'hidden',
           cursor: 'pointer',
           borderRadius:
-            settings.style === 'box' ? settings.borderRadius : settings.height,
+            config.style === 'box' ? config.borderRadius : config.height,
           padding: '1px 5px',
           transition: 'all ease .3s',
           background: settings.inactiveColor,
@@ -83,11 +85,10 @@ export const Switch = ({
           zIndex: 1,
           height: `calc(100% - ${padding * 2}px)`,
           width:
-            settings.style === 'circle'
-              ? (settings.height as number) - padding * 2
+            config.style === 'circle'
+              ? (config.height as number) - padding * 2
               : undefined,
-          borderRadius:
-            settings.style === 'circle' ? '50%' : settings.borderRadius,
+          borderRadius: config.style === 'circle' ? '50%' : config.borderRadius,
           left: padding,
           right: '50%',
           transition: 'all ease 0.3s',
@@ -99,14 +100,14 @@ export const Switch = ({
         },
         '&.active': {
           label: {
-            background: settings.activeColor,
+            background: config.activeColor,
           },
         },
       }}>
       <label
         className="switch-label"
         htmlFor={id || name}
-        tabIndex={settings.disabled ? -1 : 1}
+        tabIndex={config.disabled ? -1 : 1}
         onKeyDown={(e) => {
           handleKeyPress(e)
         }}>
@@ -115,12 +116,12 @@ export const Switch = ({
           type="checkbox"
           data-cy={cy}
           {...field}
-          disabled={settings.disabled}
+          disabled={config.disabled}
         />
-        {settings.innerLabel ? (
+        {config.innerLabel ? (
           <>
-            <span className="switch-on">{settings?.labelOn}</span>
-            <span className="switch-off">{settings?.labelOff}</span>
+            <span className="switch-on">{config?.labelOn}</span>
+            <span className="switch-off">{config?.labelOff}</span>
           </>
         ) : null}
         <div

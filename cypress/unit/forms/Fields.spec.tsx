@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { mount } from '@cypress/react'
-import { FieldProps, Form, Yup } from '@maker-ui/forms'
-import { FormProviderProps } from '@maker-ui/forms/dist/Provider'
+import { FieldProps, Form, Yup, FormProviderProps } from '@maker-ui/forms'
 
 const fieldSettings: {
   name: string
@@ -55,7 +54,7 @@ const TestForm = ({
 // Text Field
 
 describe('Text field', () => {
-  it.only('renders a text field with validation and placeholder', () => {
+  it('renders a text field with validation and placeholder', () => {
     mount(
       <TestForm
         id="text"
@@ -81,7 +80,7 @@ describe('Text field', () => {
     cy.get('[data-cy=submit]').click()
     cy.get('[data-cy=success]').contains('mike')
   })
-  it.only('renders a text field with an initial value', () => {
+  it('renders a text field with an initial value', () => {
     mount(
       <TestForm
         id="text"
@@ -355,7 +354,7 @@ describe('Range field', () => {
             name: 'range',
             initialValue: '',
             type: 'range',
-            settings_range: {
+            settings: {
               min: 5,
               max: 20,
             },
@@ -406,7 +405,7 @@ describe('Select field', () => {
             name: 'select',
             initialValue: '',
             type: 'select',
-            settings_select: {
+            settings: {
               options: [
                 { label: 'option-1' },
                 { label: 'option-2' },
@@ -435,7 +434,7 @@ describe('Select field', () => {
             name: 'select',
             initialValue: '',
             type: 'select',
-            settings_select: {
+            settings: {
               options: [
                 { label: 'option-1' },
                 { label: 'option-2', value: 'val-2' },
@@ -462,7 +461,7 @@ describe('Select field', () => {
             initialValue: '',
             type: 'select-datalist',
             validation: Yup.string().required(),
-            settings_select: {
+            settings: {
               options: [
                 { label: 'option-1' },
                 { label: 'option-2' },
@@ -493,7 +492,7 @@ describe('Checkbox field', () => {
             initialValue: [], // Must be an empty array for checkbox group
             type: 'checkbox',
             validation: Yup.array().length(1),
-            settings_checkbox: {
+            settings: {
               options: [
                 { label: 'Option 1' },
                 { label: 'Option 2' },
@@ -521,7 +520,7 @@ describe('Checkbox field', () => {
             name: 'checkbox',
             initialValue: [], // Must be an empty array for checkbox group
             type: 'checkbox',
-            settings_checkbox: {
+            settings: {
               options: [
                 { label: 'Option 1', value: 'one' },
                 { label: 'Option 2', value: 'two' },
@@ -550,7 +549,7 @@ describe('Radio field', () => {
             initialValue: '',
             type: 'radio',
             validation: Yup.string().required(),
-            settings_radio: {
+            settings: {
               options: [
                 { label: 'Option 1' },
                 { label: 'Option 2' },
@@ -579,7 +578,7 @@ describe('Radio field', () => {
             initialValue: 'Option 2',
             type: 'radio',
             validation: Yup.string().required(),
-            settings_radio: {
+            settings: {
               options: [
                 { label: 'Option 1' },
                 { label: 'Option 2' },
@@ -631,7 +630,7 @@ describe('Switch field', () => {
             name: 'switch',
             initialValue: false,
             type: 'switch',
-            settings_switch: {
+            settings: {
               innerLabel: true,
               labelOn: 'On',
               labelOff: 'Off',

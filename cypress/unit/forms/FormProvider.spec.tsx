@@ -21,7 +21,7 @@ const TestForm = ({
     fields={fields}
     validationSchema={validationSchema}
     settings={settings}
-    onSubmit={values => {
+    onSubmit={(values) => {
       console.log('Submitted', values)
     }}>
     <Form id="form-1" data-cy="form">
@@ -35,9 +35,7 @@ const formFields: FieldProps[] = [
     name: 'username',
     label: 'Your Username',
     type: 'text',
-    validation: Yup.string()
-      .min(5)
-      .required('Required'),
+    validation: Yup.string().min(5).required('Required'),
     initialValue: '',
   },
   {
@@ -69,19 +67,13 @@ const sansValidationFields: FieldProps[] = [
 describe('FormProvider', () => {
   it('validates fields on blur by default with validateOnBlur setting for Formik provider', () => {
     mount(<TestForm />)
-    cy.get('[type=text]')
-      .click()
-      .blur()
-      .wait(100)
+    cy.get('[type=text]').click().blur().wait(100)
     cy.get('.form-error').should('exist')
   })
 
   it('overrides the validateOnBlur setting for Formik provider', () => {
     mount(<TestForm settings={{ validateOnBlur: false }} />)
-    cy.get('[type=text]')
-      .click()
-      .blur()
-      .wait(100)
+    cy.get('[type=text]').click().blur().wait(100)
     cy.get('.form-error').should('not.exist')
   })
 
@@ -100,9 +92,7 @@ describe('FormProvider', () => {
 
   it('renders a custom field validate icon', () => {
     mount(<TestForm settings={{ validateIcon: <ValidateIcon /> }} />)
-    cy.get('[type=tel]')
-      .type('90830435567')
-      .blur()
+    cy.get('[type=tel]').type('90830435567').blur()
     cy.get('[data-cy=validate').should('exist')
   })
 
@@ -117,13 +107,13 @@ describe('FormProvider', () => {
     mount(<TestForm settings={{ columns: 2 }} />)
     cy.get('.form-grid')
       .should('have.css', 'grid-template-columns')
-      .should(val => {
+      .should((val) => {
         expect(val).to.eq('577px 577px')
       })
     cy.viewport(600, 800)
     cy.get('.form-grid')
       .should('have.css', 'grid-template-columns')
-      .should(val => {
+      .should((val) => {
         expect(val).to.eq('584px')
       })
   })
@@ -134,12 +124,12 @@ describe('FormProvider', () => {
   })
 
   // TODO visual regression test
-  it.only('renders the default labelStyle', () => {
+  it('renders the default labelStyle', () => {
     mount(<TestForm settings={{ labelStyle: 'bottom-right' }} />)
   })
 
   // TODO visual regression test
-  it.only('renders the default errorStyle', () => {
+  it('renders the default errorStyle', () => {
     mount(<TestForm settings={{ errorStyle: 'top-center' }} />)
     cy.get('[data-cy=submit]').click()
   })

@@ -1,12 +1,14 @@
 import * as React from 'react'
 import { Field as FormikField } from 'formik'
-import { InputProps } from '../types'
+import { InputProps, FieldSettings } from '../types'
 
-interface RangeProps extends InputProps {}
+interface RangeProps extends InputProps {
+  settings: FieldSettings<'range'>
+}
 
 export const Range = ({
   name,
-  settings_range = { min: 0, max: 10 },
+  settings = { min: 0, max: 10 },
   hasError,
   cy,
 }: RangeProps) => {
@@ -17,8 +19,8 @@ export const Range = ({
       data-cy={cy}
       name={name}
       className={hasError ? 'error' : undefined}
-      min={settings_range.min}
-      max={settings_range.max}
+      min={settings.min}
+      max={settings.max}
     />
   )
 }
