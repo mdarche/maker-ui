@@ -66,7 +66,7 @@ const MyLayout = () => (
 // Page or child component
 
 export default HomePage = () => (
-  <Div css={{ color: ['blue', 'red', 'green'] }}>
+  <Div css={{ color: ['red', 'blue', 'green'] }}>
     <h1>Home page</h1>
   </Div>
 )
@@ -200,6 +200,8 @@ import { Paragraph } from 'maker-ui'
 
 Supports all props of the `<svg>` tag. Maker UI automatically appends an `xmlns` attribute so you can omit that prop.
 
+When importing, use all capital letters.
+
 ```jsx
 import { SVG } from 'maker-ui'
 ```
@@ -249,7 +251,7 @@ export const MyComponent = () => (
 ```
 
 Remember to add the comment from the above example to the top of your file so
-you don't accidentally use the default JSX runtime (usually React).
+you don't accidentally use the default JSX runtime.
 
 <Callout type="info">
   React 17 introduced a brand new{' '}

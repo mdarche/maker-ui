@@ -1,17 +1,19 @@
 {
   "private": true,
   "scripts": {
-    "clean": "lerna run clean",
+    "clean": "turbo run clean",
     "git-clean": "git clean -fXd -e \\!node_modules -e \\!node_modules/**/*",
     "git-reset": "git reset --hard HEAD",
     "docs-start": "yarn workspace docs dev",
     "start": "lerna run start --stream --parallel",
-    "test": "lerna run test --",
-    "lint": "lerna run lint",
-    "build": "lerna run build",
-    "cypress": "cypress run",
-    "cy:open": "cypress open-ct",
-    "cy:run": "cypress run-ct",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "build": "turbo run build",
+    "prepublish": "lerna run prepublish",
+    "cy": "cypress open",
+    "cy:headless": "cypress run",
+    "cy:unit": "cypress open-ct",
+    "cy:unit:headless": "cypress run-ct",
     "changeset": "changeset",
     "release": "changeset publish"
   },
@@ -33,7 +35,7 @@
     "@types/react-test-renderer": "^17.0.0",
     "@weiran.zsd/tsdx": "^0.15.2",
     "babel-plugin-istanbul": "^6.0.0",
-    "cypress": "^8.2.0",
+    "cypress": "^9.3.1",
     "cypress-plugin-tab": "^1.0.5",
     "eslint-config-prettier": "^8.3.0",
     "html-webpack-plugin": "4",
@@ -46,11 +48,25 @@
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3",
     "tsdx": "https://github.com/weiran-zsd/tsdx.git",
-    "typescript": "^4.3.4"
+    "turbo": "^1.0.28",
+    "typescript": "^4.5.5"
   },
-  "nyc": {
-    "reporter": [
-      "html"
-    ]
+  "turbo": {
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "dist/**"
+        ]
+      },
+      "test": {
+        "outputs": []
+      },
+      "start": {
+        "cache": false
+      }
+    }
   }
 }
