@@ -20,7 +20,7 @@
   "workspaces": [
     "examples/*",
     "packages/*",
-    "docs"
+    "apps/*"
   ],
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.5",

@@ -141,11 +141,17 @@ export const Field = (props: FieldComponentProps) => {
     </Label>
   )
 
-  return type === 'divider' ? (
-    <div id={id} className={mergeSelectors(['divider', containerClass])}>
-      {label}
-    </div>
-  ) : (
+  // Return a Divider slot
+  if (type === 'divider') {
+    return (
+      <div id={id} className={mergeSelectors(['divider', containerClass])}>
+        {label}
+      </div>
+    )
+  }
+
+  // Return the appropriate field
+  return (
     <Flex
       key={id}
       breakpoints={breakpoints}
