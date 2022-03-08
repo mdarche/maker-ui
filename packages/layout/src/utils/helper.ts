@@ -5,7 +5,6 @@
  * @param bpArray - the MakerOptions breakpoints array
  *
  */
-
 export const setBreakpoint = (
   bp: string | number,
   bpArray: (string | number)[]
@@ -15,7 +14,6 @@ export const setBreakpoint = (
 /**
  * Utility for adding pixel value to numbers for transitions and animations
  */
-
 export const format = (value: any) => (isNaN(value) ? value : `${value}px`)
 
 /**
@@ -24,7 +22,6 @@ export const format = (value: any) => (isNaN(value) ? value : `${value}px`)
  * @internal usage only
  *
  */
-
 export function generateId(length: number = 5): string {
   let result = ''
   let chars = 'abcdefghijklmnopqrstuv1234567890'
@@ -43,7 +40,6 @@ export function generateId(length: number = 5): string {
  * @param obj - any value to be evaluated
  *
  */
-
 export function validate(obj: any) {
   return obj !== undefined && typeof obj === 'object' ? obj : {}
 }
@@ -56,7 +52,6 @@ export function validate(obj: any) {
  * Can be dynamically generated
  *
  */
-
 export function mergeSelectors(
   selectors: (string | undefined)[]
 ): string | undefined {

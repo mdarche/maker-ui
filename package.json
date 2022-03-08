@@ -6,7 +6,7 @@
     "git-reset": "git reset --hard HEAD",
     "docs-start": "yarn workspace docs dev",
     "start-old": "lerna run start --stream --parallel",
-    "start": "turbo run dev --parallel --continue",
+    "start": "turbo run start --parallel --continue",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "build": "turbo run build",
@@ -44,5 +44,6 @@
     "react-scripts": "^4.0.3",
     "tsdx": "https://github.com/weiran-zsd/tsdx.git",
     "turbo": "^1.1.5"
-  }
+  },
+  "packageManager": "yarn@1.17.3"
 }

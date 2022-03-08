@@ -10,11 +10,16 @@
     "inlineSources": false,
     "isolatedModules": true,
     "moduleResolution": "node",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
     "preserveWatchOutput": true,
-    "skipLibCheck": true,
-    "strict": true
+    "skipLibCheck": false,
+    "strict": true,
+    "importHelpers": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"]
 }

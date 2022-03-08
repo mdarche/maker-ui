@@ -1,6 +1,11 @@
 import { createElement } from 'react'
 import { jsx as emotionJsx } from '@emotion/react'
 import { parseProps } from './parse-props'
+import type { MakerProps } from './types'
+
+declare module 'react' {
+  interface Attributes extends MakerProps {}
+}
 
 /**
  * JSX that supports responsive arrays and the `breakpoints` prop. Uses normal
@@ -12,7 +17,7 @@ import { parseProps } from './parse-props'
  * @link https://maker-ui.com/docs/jsx
  *
  */
-export const jsx = <P extends {}>(
+export const jsx = <P>(
   type: React.ElementType<P>,
   props: React.Attributes & P,
   ...children: React.ReactNode[]

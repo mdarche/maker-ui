@@ -17,7 +17,6 @@ interface Dictionary<T> {
  *
  * @internal usage only
  */
-
 export const colorVars = (
   colors: MakerOptions['colors']
 ): GlobalProps['styles'] => {

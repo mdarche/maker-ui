@@ -14,7 +14,9 @@ export type StyleObject = object | Interpolation<any>
  *
  */
 export interface MakerProps {
+  /** A css object that can support array of responsive values for all nested properties */
   css?: StyleObject
+  /** An array of breakpoints that determines the css prop media queries */
   breakpoints?: Breakpoints
 }
 
@@ -25,10 +27,6 @@ export interface MakerProps {
  * <div css={{ height: [50, 100]}} />
  */
 export type ResponsiveScale = string | number | (string | number)[]
-
-declare module 'react' {
-  interface Attributes extends MakerProps {}
-}
 
 /**
  * Direct export from EmotionJS

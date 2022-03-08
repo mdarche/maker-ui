@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { jsx, MakerProps } from '@maker-ui/css'
+
+import { jsx, type MakerProps } from '@maker-ui/css'
 import { useEffect, useState } from 'react'
 import useMeasure from 'react-use-measure'
 import { ResizeObserver } from '@juggle/resize-observer'

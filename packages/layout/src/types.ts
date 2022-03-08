@@ -1,12 +1,15 @@
 import * as React from 'react'
-import { ResponsiveScale } from '@maker-ui/css'
+import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
 
 import { mobileNavTypes, navTypes, transitionTypes } from './constants'
+
+declare module 'react' {
+  interface Attributes extends MakerProps {}
+}
 
 /**
  * A deeply nested partial that makes all props optional.
  */
-
 export type Partial<T> = {
   [P in keyof T]?: Partial<T[P]>
 }
@@ -14,7 +17,6 @@ export type Partial<T> = {
 /**
  * Utility type for responsive css strings
  */
-
 type ResponsiveString = string | string[]
 
 interface ColorKeys {
@@ -50,7 +52,6 @@ interface ColorKeys {
  * @link https://maker-ui.com/docs/maker-ui-options
  *
  */
-
 type ThemeColors =
   | {
       [key: string]: ColorKeys & {
@@ -78,7 +79,6 @@ type ThemeFonts = {
  * @link https://maker-ui.com/docs/maker-ui-options
  *
  */
-
 export type MakerUIOptions = Partial<MakerOptions>
 
 /**
