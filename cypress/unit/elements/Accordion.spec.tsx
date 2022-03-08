@@ -126,18 +126,6 @@ describe('Accordion', () => {
     cy.contains('Close!')
   })
 
-  /* Prop: `spring` */
-
-  it('changes animation spring with `springConfig` (visual)', () => {
-    mount(
-      <Accordion spring={{ mass: 1, tension: 324, friction: 15 }}>
-        <Accordion.Panel title="Panel 1">Content 1</Accordion.Panel>
-      </Accordion>
-    )
-    cy.get('.accordion-toggle').click()
-    cy.get('.accordion').should('have.class', 'expanded')
-  })
-
   /* Prop: `activeKey`, `eventKey` */
 
   it('lets outside components control the accordion panels via `eventKey`', () => {

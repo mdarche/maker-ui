@@ -50,23 +50,5 @@
     "tsdx": "https://github.com/weiran-zsd/tsdx.git",
     "turbo": "^1.0.28",
     "typescript": "^4.5.5"
-  },
-  "turbo": {
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": [
-          "dist/**"
-        ]
-      },
-      "test": {
-        "outputs": []
-      },
-      "start": {
-        "cache": false
-      }
-    }
   }
 }
