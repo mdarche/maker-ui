@@ -6,15 +6,17 @@ yarn-error.log*
 
 coverage
 node_modules/
-dist
 .cache
 .env
+
+build
 dist
+.next
+.turbo
 
 .DS_Store
 package-lock.json
 yarn-error.log
 .yarn-integrity
 .vscode/
-.next/
 .npmrc.turbo

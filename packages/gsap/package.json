@@ -3,7 +3,7 @@
   "description": "Prebuilt GSAP effects for react",
   "version": "1.1.2",
   "license": "Apache-2.0",
-  "author": "Mike Darche <mike@oneofnone.io>",
+  "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
   "module": "dist/gsap.esm.js",
   "types": "dist/index.d.ts",
