@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { SVG, SVGProps } from 'maker-ui'
 
 export const ValidateIcon = (props: SVGProps) => (

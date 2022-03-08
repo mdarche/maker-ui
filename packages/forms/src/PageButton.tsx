@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Button, ButtonProps } from 'maker-ui'
 
 import { useForm } from './FormProvider'

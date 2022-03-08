@@ -1,13 +1,13 @@
 import * as React from 'react'
 import {
   Div,
-  MakerProps,
-  ResponsiveScale,
   mergeSelectors,
   useMeasure,
   merge,
+  type MakerProps,
+  type ResponsiveScale,
 } from 'maker-ui'
-import { animated, useSprings, SpringConfig } from '@react-spring/web'
+import { animated, useSprings, type SpringConfig } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
 
 import { clamp, mergeRefs } from './helper'
@@ -53,7 +53,6 @@ const AnimatedDiv = animated(Div)
  *
  * @link https://maker-ui.com/docs/elements/carousel
  */
-
 export const Carousel = ({
   data = [],
   template,

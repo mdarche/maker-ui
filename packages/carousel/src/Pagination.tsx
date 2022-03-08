@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { Flex, Button, ResponsiveScale, mergeSelectors } from 'maker-ui'
+import { Flex, Button, type ResponsiveScale, mergeSelectors } from 'maker-ui'
 
 export type Position = 'top' | 'bottom' | 'right' | 'left'
 
@@ -21,7 +20,6 @@ export interface PaginationProps {
  *
  * @internal usage only
  */
-
 export const Pagination = ({
   navigate,
   current,
@@ -30,13 +28,8 @@ export const Pagination = ({
 }: PaginationProps) => {
   let indicators = []
 
-  const {
-    dotPosition,
-    dotPadding,
-    dotSpacing,
-    mutedColor,
-    activeColor,
-  } = settings
+  const { dotPosition, dotPadding, dotSpacing, mutedColor, activeColor } =
+    settings
 
   const getSpacing = (index: number) => {
     if (index <= count - 2) {

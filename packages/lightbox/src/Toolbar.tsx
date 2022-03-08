@@ -27,7 +27,6 @@ interface ToolbarProps {
  *
  * @internal usage only
  */
-
 export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
   const { index, data, settings, toggleLightbox } = useLightbox()
   return (

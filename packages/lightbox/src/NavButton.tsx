@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { MakerProps, Button } from 'maker-ui'
+import { type MakerProps, Button } from 'maker-ui'
 
 import { useLightbox } from './LightboxContext'
 import { DefaultArrow } from './icons'

@@ -1,6 +1,5 @@
-import * as React from 'react'
-import { SpringConfig } from '@react-spring/web'
-import { ModalProps } from '@maker-ui/elements'
+import type { SpringConfig } from '@react-spring/web'
+import type { ModalProps } from '@maker-ui/elements'
 
 import { LightboxContext, LightboxData } from './LightboxContext'
 import { LightboxModal } from './LightboxModal'

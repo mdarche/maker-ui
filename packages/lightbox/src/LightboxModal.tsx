@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, DivProps } from 'maker-ui'
+import { Div, type DivProps } from 'maker-ui'
 import { Modal } from '@maker-ui/elements'
 
 import { Canvas } from './Canvas'

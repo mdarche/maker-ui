@@ -5,26 +5,20 @@
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
-  "module": "dist/maker-ui.esm.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "README.md",
-    "dist"
+    "dist/**"
   ],
   "scripts": {
-    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
-    "build": "tsdx build --tsconfig tsconfig.build.json",
-    "test": "tsdx test",
-    "lint": "tsdx lint src",
-    "prepublish": "npm run build"
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
     "@maker-ui/css": "1.1.2",
     "@maker-ui/layout": "1.1.2",
     "@maker-ui/primitives": "1.1.2"
-  },
-  "peerDependencies": {
-    "react": "^16.x || ^17.x",
-    "react-dom": "^16.x || ^17.x"
   }
 }

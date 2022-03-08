@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, ResponsiveScale, SVG } from 'maker-ui'
+import { Button, type ResponsiveScale, SVG } from 'maker-ui'
 
 interface NavArrowProps {
   arrow?: any
@@ -19,7 +19,6 @@ interface NavButtonProps extends NavArrowProps {
  *
  * @internal usage only
  */
-
 const NavButton = ({
   isNext = false,
   arrow,

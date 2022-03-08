@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { SVG, SVGProps } from 'maker-ui'
 
 const defaultColors = {
@@ -33,7 +32,6 @@ interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
  *
  * @link https://maker-ui.com/docs/elements/spinner
  */
-
 export const Spinner = ({
   type = 'default',
   size = 80,

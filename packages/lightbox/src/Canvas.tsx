@@ -19,7 +19,6 @@ interface MediaFrameProps {
  *
  * @internal usage only
  */
-
 const MediaFrame = ({
   item: { src, alt, youtubeId, vimeoId, htmlVideo, poster },
 }: MediaFrameProps) => {
@@ -63,10 +62,6 @@ const MediaFrame = ({
 
 MediaFrame.displayName = 'MediaFrame'
 
-// interface CanvasProps extends DivProps {
-//   zoom?: boolean
-// }
-
 /**
  * The `Canvas` component uses transition animations to show / paginate
  * the lightbox gallery content.
@@ -75,7 +70,6 @@ MediaFrame.displayName = 'MediaFrame'
  *
  * @internal usage only
  */
-
 export const Canvas = () => {
   const { data, index, settings } = useLightbox()
 

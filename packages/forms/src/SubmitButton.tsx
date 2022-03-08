@@ -43,7 +43,7 @@ export const SubmitButton = ({
   // console.log('Values are', values)
 
   // TODO check if required fields all have values
-  const isValidated = errors === {} ? true : false
+  const isValidated = Object.keys(errors).length ? true : false
 
   function renderLifecycle() {
     if (lifecycle) {

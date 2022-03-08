@@ -4,11 +4,11 @@ import { FormikHelpers, FormikValues } from 'formik'
 export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
 
-export { FormProviderProps } from './FormProvider'
-export { FormSubmitButtonProps } from './SubmitButton'
-export { FormPageButtonProps } from './PageButton'
-export { FormPageProps } from './Page'
-export { FormProgressProps } from './Progress'
+export type { FormProviderProps } from './FormProvider'
+export type { FormSubmitButtonProps } from './SubmitButton'
+export type { FormPageButtonProps } from './PageButton'
+export type { FormPageProps } from './Page'
+export type { FormProgressProps } from './Progress'
 
 export type PaginationElement =
   | string

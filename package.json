@@ -5,12 +5,10 @@
     "git-clean": "git clean -fXd -e \\!node_modules -e \\!node_modules/**/*",
     "git-reset": "git reset --hard HEAD",
     "docs-start": "yarn workspace docs dev",
-    "start-old": "lerna run start --stream --parallel",
     "start": "turbo run start --parallel --continue",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "build": "turbo run build",
-    "prepublish": "lerna run prepublish",
     "cy": "cypress open",
     "cy:headless": "cypress run",
     "cy:unit": "cypress open-ct",
@@ -30,7 +28,6 @@
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "@types/react-test-renderer": "^17.0.0",
-    "@weiran.zsd/tsdx": "^0.15.2",
     "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^9.3.1",
     "cypress-plugin-tab": "^1.0.5",
@@ -42,7 +39,6 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3",
-    "tsdx": "https://github.com/weiran-zsd/tsdx.git",
     "turbo": "^1.1.5"
   },
   "packageManager": "yarn@1.17.3"

@@ -15,7 +15,6 @@ interface PortalProps {
  *
  * @internal usage only
  */
-
 export const Portal = ({ children, root }: PortalProps) => {
   if (typeof window !== 'undefined') {
     const idTarget =

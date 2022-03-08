@@ -75,7 +75,6 @@ const defaultTransitions: TransitionState = {
  *
  * @link https://maker-ui.com/docs/elements/modal
  */
-
 export const Modal = ({
   appendTo,
   title = 'Modal Dialog',

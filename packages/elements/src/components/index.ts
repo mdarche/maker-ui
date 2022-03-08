@@ -1,7 +1,7 @@
 export { Accordion, AccordionPanel } from './Accordion'
 export { Announcement } from './Announcement'
 export { CookieNotice } from './CookieNotice'
-export { Modal, ModalProps } from './Modal'
+export { Modal, type ModalProps } from './Modal'
 export { Spinner } from './Spinner'
 export { Popover, Tooltip, Dropdown } from './Popovers'
 export { Portal } from './Portal'

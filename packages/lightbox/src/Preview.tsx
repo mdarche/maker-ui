@@ -13,7 +13,6 @@ interface PreviewProps {
  *
  * @internal usage only
  */
-
 export const Preview = ({ show }: PreviewProps) => {
   const ref = React.useRef<any>(null)
   const { index, data, setIndex } = useLightbox()
