@@ -1,0 +1,19 @@
+{
+  "name": "config",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "eslint-preset.js"
+  ],
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.29.3"
+  }
+}

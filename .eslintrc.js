@@ -1,9 +1,1 @@
-module.exports = {
-  plugins: ['prettier'],
-  extends: ['react-app'],
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
-}
+module.exports = require('./packages/config/eslint-preset.js')

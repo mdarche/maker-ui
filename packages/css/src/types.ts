@@ -33,4 +33,4 @@ declare module 'react' {
 /**
  * Direct export from EmotionJS
  */
-export { Interpolation }
+export { type Interpolation }
