@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '../src/jsx'
+import { jsx } from '../src/jsx-runtime'
 import { createSerializer } from '@emotion/jest'
 import { ThemeProvider } from '@emotion/react'
 import renderer from 'react-test-renderer'

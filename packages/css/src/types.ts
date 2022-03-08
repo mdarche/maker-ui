@@ -1,4 +1,4 @@
-import { Interpolation } from '@emotion/react'
+import type { Interpolation } from '@emotion/react'
 
 export type Breakpoints = (string | number)[]
 export type StyleObject = object | Interpolation<any>
@@ -33,4 +33,4 @@ declare module 'react' {
 /**
  * Direct export from EmotionJS
  */
-export { type Interpolation }
+export { Interpolation }

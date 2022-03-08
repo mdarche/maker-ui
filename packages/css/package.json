@@ -4,16 +4,16 @@
   "author": "Mike Darche <mike@newcreative.io>",
   "license": "Apache-2.0",
   "main": "dist/index.js",
-  "module": "dist/css.esm.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist/**"
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
-    "lint": "eslint src --fix",
+    "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
@@ -28,7 +28,6 @@
     "@types/jest": "^27.4.1",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.13",
-    "config": "*",
     "react-test-renderer": "^17.0.1",
     "tsconfig": "*",
     "tsup": "^5.12.0",
