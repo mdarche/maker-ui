@@ -33,7 +33,6 @@
     "eslint": "^8.10.0",
     "html-webpack-plugin": "4",
     "husky": "^7.0.1",
-    "lerna": "^3.20.2",
     "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
