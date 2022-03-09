@@ -11,6 +11,9 @@
     "dev": {
       "cache": false
     },
+    "docgen": {
+      "cache": false
+    },
     "start": {
       "cache": false,
       "dependsOn": ["^build"]

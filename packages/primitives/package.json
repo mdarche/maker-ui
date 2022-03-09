@@ -7,6 +7,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
+    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
     "start": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
     "lint": "TIMING=1 eslint src --fix",

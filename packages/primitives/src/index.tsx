@@ -6,6 +6,10 @@ import * as CSS from 'csstype'
 
 type ResponsiveType<T> = T | T[]
 
+declare module 'react' {
+  interface Attributes extends MakerProps {}
+}
+
 /**
  * Alias for `Div` component props that includes all
  * HTML div tag attributes.
