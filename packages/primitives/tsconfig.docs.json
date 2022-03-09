@@ -1,13 +1,11 @@
 {
-  "extends": "tsconfig/react-library.json",
-  "include": ["./src"],
-  "exclude": ["dist", "build", "node_modules"],
+  "extends": "tsconfig/docgen.json",
+  "include": ["src"],
   "compilerOptions": {
-    "jsx": "react",
-    "skipLibCheck": true
+    "jsx": "react"
   },
   "typedocOptions": {
-    "entryPoints": ["./src"],
+    "entryPoints": ["src"],
     "json": "../../apps/docs/docgen/primitives.json"
   }
 }

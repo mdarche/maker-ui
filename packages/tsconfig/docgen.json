@@ -1,13 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "React Library",
-  "extends": "./base.json",
-  "exclude": ["dist", "build", "node_modules"],
+  "display": "Typedoc Generator",
+  "extends": "./react-library.json",
   "compilerOptions": {
-    "lib": ["es2015", "dom"],
-    "module": "esnext",
-    "target": "es6",
-    "jsx": "react-jsx"
+    "skipLibCheck": true
   },
   "typedocOptions": {
     "out": "apps/docs/temp",

@@ -6,6 +6,6 @@
   },
   "typedocOptions": {
     "entryPoints": ["src"],
-    "json": "../../apps/docs/docgen/css.json"
+    "json": "../../apps/docs/docgen/layout.json"
   }
 }

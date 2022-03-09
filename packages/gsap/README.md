@@ -1,3 +1,3 @@
-# @maker-ui/forms
+# @maker-ui/gsap
 
 Coming soon

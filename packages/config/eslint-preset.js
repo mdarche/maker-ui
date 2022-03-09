@@ -6,4 +6,5 @@ module.exports = {
       version: 'detect',
     },
   },
+  ignorePatterns: ['packages/dist/*'],
 }
