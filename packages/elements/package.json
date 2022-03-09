@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@types/react-transition-group": "^4.4.4",
+    "tsconfig": "*",
     "tsup": "^5.12.0",
     "typescript": "^4.6.2"
   }

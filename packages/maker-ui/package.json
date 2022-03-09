@@ -20,5 +20,10 @@
     "@maker-ui/css": "1.1.2",
     "@maker-ui/layout": "1.1.2",
     "@maker-ui/primitives": "1.1.2"
+  },
+  "devDependencies": {
+    "tsconfig": "*",
+    "tsup": "^5.12.0",
+    "typescript": "^4.3.5"
   }
 }

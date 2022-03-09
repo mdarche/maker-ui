@@ -29,6 +29,7 @@
     "maker-ui": "1.1.2"
   },
   "devDependencies": {
+    "tsconfig": "*",
     "tsup": "^5.12.0",
     "typescript": "^4.6.2"
   }
