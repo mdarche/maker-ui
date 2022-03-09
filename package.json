@@ -21,6 +21,8 @@
     "apps/*"
   ],
   "devDependencies": {
+    "@changesets/changelog-github": "^0.4.3",
+    "@changesets/cli": "^2.21.1",
     "@cypress/code-coverage": "^3.9.5",
     "@cypress/react": "^5.4.2",
     "@cypress/webpack-dev-server": "^1.4.0",
