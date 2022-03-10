@@ -1,6 +1,5 @@
 import * as React from 'react'
-import merge from 'deepmerge'
-import { generateId } from 'maker-ui'
+import { generateId, merge } from '@maker-ui/utils'
 
 import { LightboxProps } from './Lightbox'
 
@@ -56,14 +55,14 @@ export const LightboxContext = ({
   const [state, setState] = React.useState<LightboxState>({
     index: 0,
     active: false,
-    data: data.map(i => formatData(i)),
+    data: data.map((i) => formatData(i)),
     settings: mergeSettings(settings),
     set,
   })
 
   React.useEffect(() => {
     if (show) {
-      setState(s => ({ ...s, active: show }))
+      setState((s) => ({ ...s, active: show }))
     }
   }, [show])
 
@@ -86,9 +85,8 @@ LightboxContext.displayName = 'LightboxContext'
  */
 
 export function useLightbox(): any {
-  const { active, index, data, settings, set } = React.useContext(
-    LightboxDataContext
-  )
+  const { active, index, data, settings, set } =
+    React.useContext(LightboxDataContext)
   const setState = React.useContext(LightboxUpdateContext)
 
   if (typeof data === undefined) {
@@ -101,10 +99,10 @@ export function useLightbox(): any {
 
   function toggleLightbox(id?: string) {
     if (id && data) {
-      const current = data.findIndex(i => i.id === id)
-      return setState(s => ({ ...s, active: !s.active, index: current }))
+      const current = data.findIndex((i) => i.id === id)
+      return setState((s) => ({ ...s, active: !s.active, index: current }))
     }
-    return set ? set(false) : setState(s => ({ ...s, active: false }))
+    return set ? set(false) : setState((s) => ({ ...s, active: false }))
   }
 
   /**
@@ -117,12 +115,12 @@ export function useLightbox(): any {
       : false
 
     if (!exists) {
-      setState(s => ({ ...s, data: [...s.data, formatData(item)] }))
+      setState((s) => ({ ...s, data: [...s.data, formatData(item)] }))
     }
   }
 
   function setIndex(type: 'previous' | 'next' | 'index', index?: number) {
-    setState(s => {
+    setState((s) => {
       if (type === 'index' && index) {
         return { ...s, index }
       }
@@ -160,7 +158,7 @@ function formatData(original: LightboxData) {
       vimeoId: null,
       poster: null,
       htmlVideo: original.src
-        ? videoFormats.some(v => original.src?.includes(v))
+        ? videoFormats.some((v) => original.src?.includes(v))
         : false,
     },
     original

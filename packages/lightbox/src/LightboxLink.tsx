@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { Link, generateId, type MakerProps } from 'maker-ui'
+import { Link } from '@maker-ui/primitives'
+import { generateId } from '@maker-ui/utils'
+import type { MakerProps } from '@maker-ui/css'
 
 import { useLightbox, LightboxData } from './LightboxContext'
 

@@ -1,5 +1,4 @@
-import merge from 'deepmerge'
-
+import { merge } from '@maker-ui/utils'
 import type { Interpolation, Breakpoints } from './types'
 
 const format = (value: any) => (isNaN(value) ? value : `${value}px`)

@@ -1,4 +1,5 @@
-import { type MakerProps, Button } from 'maker-ui'
+import { Button } from '@maker-ui/primitives'
+import type { MakerProps } from '@maker-ui/css'
 
 import { useLightbox } from './LightboxContext'
 import { DefaultArrow } from './icons'

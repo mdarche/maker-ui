@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Grid, Button } from 'maker-ui'
+import { Grid, Button } from '@maker-ui/primitives'
 
 import { useLightbox, LightboxData } from './LightboxContext'
 

@@ -22,7 +22,6 @@ interface GenerateProps {
  *
  * @link https://maker-ui.com/docs/elements/generate
  */
-
 export const Generate = ({ data, count, children }: GenerateProps) => {
   const [random, setRandom] = React.useState<GenerateProps['data'][]>([])
 
@@ -30,10 +29,9 @@ export const Generate = ({ data, count, children }: GenerateProps) => {
     setRandom(shuffle(data))
   }, [data, setRandom])
 
-  /**
-   * If there is no template component but the data array itself is composed of
-   * React components, shuffle them and return
-   */
+  // If there is no template component but the data array itself is composed of
+  // React components, shuffle them and return
+
   if (!children && React.isValidElement(data[0])) {
     return (
       <React.Fragment>
@@ -50,10 +48,9 @@ export const Generate = ({ data, count, children }: GenerateProps) => {
     )
   }
 
-  /**
-   * If a child template exists, return the required count (or all) and assign each
-   * element the corresponding props from the `data` array.
-   */
+  // If a child template exists, return the required count (or all) and assign each
+  // element the corresponding props from the `data` array.
+
   if (children) {
     return (
       <React.Fragment>
@@ -74,8 +71,6 @@ export const Generate = ({ data, count, children }: GenerateProps) => {
     )
   }
 
-  /**
-   * Else return null
-   */
+  // Else return null
   return null
 }

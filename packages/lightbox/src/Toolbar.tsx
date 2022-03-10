@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, Flex } from 'maker-ui'
+import { Div, Flex } from '@maker-ui/primitives'
 
 import { useLightbox } from './LightboxContext'
 import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from './icons'

@@ -19,7 +19,8 @@
   "dependencies": {
     "@maker-ui/css": "1.1.2",
     "@maker-ui/layout": "1.1.2",
-    "@maker-ui/primitives": "1.1.2"
+    "@maker-ui/primitives": "1.1.2",
+    "@maker-ui/utils": "1.1.2"
   },
   "devDependencies": {
     "tsconfig": "*",

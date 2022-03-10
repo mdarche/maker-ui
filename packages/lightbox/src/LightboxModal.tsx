@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Div, type DivProps } from 'maker-ui'
-import { Modal } from '@maker-ui/elements'
+import { Div, type DivProps } from '@maker-ui/primitives'
+import { Modal } from '@maker-ui/modal'
 
 import { Canvas } from './Canvas'
 import { NavButton } from './NavButton'

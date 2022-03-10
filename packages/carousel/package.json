@@ -13,7 +13,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
-    "dist"
+    "dist/**"
   ],
   "scripts": {
     "docgen": "npx typedoc --tsconfig tsconfig.docs.json",

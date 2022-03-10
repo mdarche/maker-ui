@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
-    "deepmerge": "^4.2.2"
+    "@maker-ui/utils": "^1.1.2"
   },
   "devDependencies": {
     "@emotion/jest": "^11.1.0",
