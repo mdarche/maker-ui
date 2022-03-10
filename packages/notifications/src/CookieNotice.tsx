@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { mergeSelectors } from 'maker-ui'
+import { mergeSelectors } from '@maker-ui/utils'
 
-import { Announcement, AnnouncementProps } from './Announcement'
+import { Announcement, type AnnouncementProps } from './Announcement'
 
 /**
  * The `CookieNotice` component is a pre-configured `Announcement` for GDPR cookie notices.
@@ -10,7 +10,6 @@ import { Announcement, AnnouncementProps } from './Announcement'
  *
  * @link https://maker-ui.com/docs/elements/cookie-notice
  */
-
 export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {

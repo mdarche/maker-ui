@@ -18,11 +18,11 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
+    "@maker-ui/css": "1.1.2",
+    "@maker-ui/primitives": "1.1.2",
+    "@maker-ui/utils": "1.1.2",
     "formik": "^2.2.9",
     "yup": "^0.32.9"
-  },
-  "peerDependencies": {
-    "maker-ui": "1.1.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",

@@ -1,9 +1,8 @@
 {
-  "name": "@maker-ui/elements",
-  "description": "Customizable components for Maker UI themes.",
+  "name": "@maker-ui/notifications",
   "version": "1.1.2",
-  "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -11,6 +10,7 @@
     "dist/**"
   ],
   "scripts": {
+    "test": "jest",
     "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
@@ -18,16 +18,11 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/accordion": "1.1.2",
-    "@maker-ui/popovers": "1.1.2",
-    "@maker-ui/tabs": "1.1.2",
-    "@maker-ui/modal": "1.1.2",
-    "@maker-ui/generative": "1.1.2",
-    "@maker-ui/notifications": "1.1.2",
-    "react-transition-group": "^4.4.2"
+    "@maker-ui/css": "^1.1.2",
+    "@maker-ui/primitives": "^1.1.2",
+    "@maker-ui/utils": "^1.1.2"
   },
   "devDependencies": {
-    "@types/react-transition-group": "^4.4.4",
     "eslint": "7.32.0",
     "eslint-preset": "*",
     "tsconfig": "*",
