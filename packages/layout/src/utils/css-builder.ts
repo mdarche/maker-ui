@@ -1,8 +1,7 @@
-import { GlobalProps, ResponsiveScale } from '@maker-ui/css'
-import merge from 'deepmerge'
+import type { GlobalProps, ResponsiveScale } from '@maker-ui/css'
+import { merge, format } from '@maker-ui/utils'
 
 import { defaultOptions } from '../options'
-import { format } from './helper'
 import { MakerOptions } from '../types'
 
 interface Dictionary<T> {

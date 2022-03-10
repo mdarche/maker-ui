@@ -1,4 +1,6 @@
-import { Flex, Button, type ResponsiveScale, mergeSelectors } from 'maker-ui'
+import { Flex, Button } from '@maker-ui/primitives'
+import { mergeSelectors } from '@maker-ui/utils'
+import type { ResponsiveScale } from '@maker-ui/css'
 
 export type Position = 'top' | 'bottom' | 'right' | 'left'
 

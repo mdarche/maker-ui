@@ -22,8 +22,7 @@
     "@juggle/resize-observer": "^3.3.1",
     "@maker-ui/css": "1.1.2",
     "@maker-ui/primitives": "1.1.2",
-    "deepmerge": "^4.2.2",
-    "react-use-measure": "^2.0.4"
+    "@maker-ui/utils": "1.1.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",

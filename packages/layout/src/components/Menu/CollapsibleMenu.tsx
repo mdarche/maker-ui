@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { jsx, MakerProps } from '@maker-ui/css'
+import { jsx, type MakerProps } from '@maker-ui/css'
+import { mergeSelectors } from '@maker-ui/utils'
 import { forwardRef } from 'react'
 
-import { MenuItem, MenuItemProps } from './MenuItem'
+import { MenuItem, type MenuItemProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { mergeSelectors } from '../../utils/helper'
 
 interface CollapsibleProps
   extends MakerProps,

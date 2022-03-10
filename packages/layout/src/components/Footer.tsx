@@ -1,8 +1,7 @@
 /** @jsx jsx */
 
 import { jsx, type MakerProps, type ResponsiveScale } from '@maker-ui/css'
-
-import { mergeSelectors } from '../utils/helper'
+import { mergeSelectors } from '@maker-ui/utils'
 import { ErrorContainer } from './Errors'
 
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {

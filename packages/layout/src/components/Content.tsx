@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { jsx, MakerProps } from '@maker-ui/css'
+import { jsx, type MakerProps } from '@maker-ui/css'
+import { mergeSelectors, setBreakpoint } from '@maker-ui/utils'
 import { useState, useEffect } from 'react'
 
 import { ErrorContainer } from './Errors'
@@ -7,7 +8,7 @@ import { ContentError } from './Errors/Errors'
 import { useOptions } from '../context/OptionContext'
 import { useLayoutDetector } from '../context/LayoutContext'
 import { useLayoutStyles } from '../hooks/useLayoutStyles'
-import { mergeSelectors, setBreakpoint } from '../utils/helper'
+
 
 interface ContentProps
   extends MakerProps,

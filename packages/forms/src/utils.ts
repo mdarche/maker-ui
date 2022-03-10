@@ -1,4 +1,4 @@
-import { FieldProps } from './types'
+import type { FieldProps } from './types'
 
 export function getRequired(fields?: FieldProps[]) {
   return fields?.reduce((filtered: string[], { name, required }) => {

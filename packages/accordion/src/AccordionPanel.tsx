@@ -1,13 +1,7 @@
 import * as React from 'react'
-import {
-  Div,
-  DivProps,
-  Button,
-  generateId,
-  useMeasure,
-  mergeSelectors,
-  MakerProps,
-} from 'maker-ui'
+import { Div, type DivProps, Button } from '@maker-ui/primitives'
+import { generateId, useMeasure, mergeSelectors } from '@maker-ui/utils'
+import { MakerProps } from '@maker-ui/css'
 
 import { useAccordion } from './AccordionContext'
 import { CaretIcon } from './icons'

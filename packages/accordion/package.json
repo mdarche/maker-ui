@@ -22,8 +22,10 @@
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
-  "peerDependencies": {
-    "maker-ui": "1.1.2"
+  "dependencies": {
+    "@maker-ui/css": "1.1.2",
+    "@maker-ui/primitives": "1.1.2",
+    "@maker-ui/utils": "1.1.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",

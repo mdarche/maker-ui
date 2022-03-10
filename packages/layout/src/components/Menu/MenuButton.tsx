@@ -1,8 +1,8 @@
 import * as React from 'react'
+import { mergeSelectors } from '@maker-ui/utils'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { mergeSelectors } from '../../utils/helper'
 
 interface MenuButtonProps {
   isCloseButton?: boolean

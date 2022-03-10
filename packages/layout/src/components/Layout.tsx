@@ -1,12 +1,12 @@
 import * as React from 'react'
-import merge from 'deepmerge'
+import {merge} from '@maker-ui/utils'
 import { ThemeProvider, Theme } from '@emotion/react'
 
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'
 import { LayoutProvider } from '../context/LayoutContext'
 import { Skiplinks, LinkItem } from './Skiplinks'
-import { MakerUIOptions, MakerOptions } from '../types'
+import type { MakerUIOptions, MakerOptions } from '../types'
 
 interface LayoutProps {
   children: React.ReactNode

@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { Flex, mergeSelectors, MakerProps } from 'maker-ui'
+import { Flex } from '@maker-ui/primitives'
+import type { MakerProps } from '@maker-ui/css'
+import { mergeSelectors } from '@maker-ui/utils'
 import { FormikErrors, FormikTouched, useFormikContext } from 'formik'
 
 import { Input } from './Input'

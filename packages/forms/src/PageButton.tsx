@@ -1,7 +1,7 @@
-import { Button, ButtonProps } from 'maker-ui'
+import { Button, type ButtonProps } from '@maker-ui/primitives'
 
 import { useForm } from './FormProvider'
-import { FieldProps, PaginationElement } from './types'
+import type { FieldProps, PaginationElement } from './types'
 import { getRequired } from './utils'
 
 export interface FormPageButtonProps extends ButtonProps {

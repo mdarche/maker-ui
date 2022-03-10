@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Formik } from 'formik'
-import { Div, MakerProps, merge, ResponsiveScale, Global } from 'maker-ui'
+import { Div } from '@maker-ui/primitives'
+import { type MakerProps, type ResponsiveScale, Global } from '@maker-ui/css'
+import { merge } from '@maker-ui/utils'
 import * as Yup from 'yup'
 
 import { ValidateIcon } from './Icons'

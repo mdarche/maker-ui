@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mergeSelectors } from '../utils/helper'
+import { mergeSelectors } from '@maker-ui/utils'
 
 interface OverlayProps {
   show: boolean

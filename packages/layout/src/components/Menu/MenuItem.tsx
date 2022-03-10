@@ -1,8 +1,8 @@
 import React, { useState, memo, isValidElement } from 'react'
+import { mergeSelectors } from '@maker-ui/utils'
 
 import { ExpandButton } from './ExpandButton'
 import { MakerOptions } from '../../types'
-import { mergeSelectors } from '../../utils/helper'
 
 export interface MenuItemProps {
   label: string

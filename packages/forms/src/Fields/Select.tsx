@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Field as FormikField } from 'formik'
-import { FieldSettings, InputProps } from '../types'
+import type { FieldSettings, InputProps } from '../types'
 
 interface OptionProps {
   settings: FieldSettings<'select'>

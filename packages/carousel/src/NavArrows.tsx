@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Button, type ResponsiveScale, SVG } from 'maker-ui'
+import { Button, SVG } from '@maker-ui/primitives'
+import type { ResponsiveScale } from '@maker-ui/css'
 
 interface NavArrowProps {
   arrow?: any

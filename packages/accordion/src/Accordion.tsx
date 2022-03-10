@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Div, DivProps, mergeSelectors } from 'maker-ui'
+import { Div, type DivProps } from '@maker-ui/primitives'
+import { mergeSelectors } from '@maker-ui/utils'
 
 import { AccordionContext } from './AccordionContext'
 import { AccordionPanel } from './AccordionPanel'

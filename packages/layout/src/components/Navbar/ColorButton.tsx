@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Button, ButtonProps } from '@maker-ui/primitives'
+import { setBreakpoint, mergeSelectors } from '@maker-ui/utils'
 
-import { MakerOptions } from '../../types'
+import type { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
-import { setBreakpoint, mergeSelectors } from '../../utils/helper'
 import { useColorTheme } from '../../context/LayoutContext'
 
 interface ColorButtonProps extends ButtonProps {

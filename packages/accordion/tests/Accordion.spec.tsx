@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { Accordion, AccordionPanel } from '../src'
+import { useState } from 'react'
 import { mount } from '@cypress/react'
 
+import { Accordion, AccordionPanel } from '../src'
 /**
  * @component
  * Accordion
@@ -130,7 +130,7 @@ describe('Accordion', () => {
 
   it('lets outside components control the accordion panels via `eventKey`', () => {
     const EventKeyTest = () => {
-      const [key, setKey] = React.useState('1')
+      const [key, setKey] = useState('1')
 
       const keyValues = ['1', '2', '3']
       const handleClick = (i: string) => setKey(i)

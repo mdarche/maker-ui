@@ -1,9 +1,8 @@
 import * as React from 'react'
+import { mergeSelectors } from '@maker-ui/utils'
 
-import { MenuItemProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
-import { MenuItem } from './MenuItem'
-import { mergeSelectors } from '../../utils/helper'
+import { MenuItem, type MenuItemProps } from './MenuItem'
 
 interface NavMenuProps {
   menuItems?: MenuItemProps[]
@@ -16,7 +15,6 @@ interface NavMenuProps {
  * @internal usage only
  *
  */
-
 export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
   const { header, linkFunction } = useOptions()
 

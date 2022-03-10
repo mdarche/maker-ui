@@ -1,5 +1,5 @@
 import * as React from 'react'
-import merge from 'deepmerge'
+import {merge} from '@maker-ui/utils'
 import { Global } from '@maker-ui/css'
 
 import { colorVars, themeVars } from '../utils/css-builder'

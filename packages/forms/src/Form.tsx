@@ -1,12 +1,7 @@
 import * as React from 'react'
-import {
-  Grid,
-  Div,
-  DivProps,
-  ResponsiveScale,
-  MakerProps,
-  mergeSelectors,
-} from 'maker-ui'
+import { Grid, Div, type DivProps } from '@maker-ui/primitives'
+import { mergeSelectors } from '@maker-ui/utils'
+import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
 import { Form as FormikForm } from 'formik'
 
 import { Page } from './Page'

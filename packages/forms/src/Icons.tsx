@@ -1,4 +1,4 @@
-import { SVG, SVGProps } from 'maker-ui'
+import { SVG, SVGProps } from '@maker-ui/primitives'
 
 export const ValidateIcon = (props: SVGProps) => (
   <SVG viewBox="0 0 512 512" css={{ height: 20, fill: '#3aca3a' }} {...props}>

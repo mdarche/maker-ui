@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
+import { jsx, type MakerProps, type ResponsiveScale } from '@maker-ui/css'
+import { mergeSelectors } from '@maker-ui/utils'
 import { forwardRef, Fragment } from 'react'
 
-import { MakerOptions } from '../types'
+import type { MakerOptions } from '../types'
 import { CollapsibleMenu, MenuButton, MenuItemProps } from './Menu'
 import { ErrorContainer } from './Errors'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useMenu } from '../context/ActionContext'
-import { mergeSelectors } from '../utils/helper'
 
 interface MobileMenuProps
   extends MakerProps,

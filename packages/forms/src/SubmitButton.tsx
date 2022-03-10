@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useFormikContext, FormikErrors, FormikTouched } from 'formik'
-import { Button, ButtonProps, mergeSelectors } from 'maker-ui'
+import { Button, type ButtonProps } from '@maker-ui/primitives'
+import { mergeSelectors } from '@maker-ui/utils'
 import { useForm } from './FormProvider'
 import { getRequired } from './utils'
 

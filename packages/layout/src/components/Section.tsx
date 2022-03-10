@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, MakerProps, ResponsiveScale, StyleObject } from '@maker-ui/css'
+import { jsx, type MakerProps, type ResponsiveScale, type StyleObject } from '@maker-ui/css'
 import { forwardRef } from 'react'
 
 interface SectionProps

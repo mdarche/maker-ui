@@ -1,12 +1,7 @@
-import * as React from 'react'
-import {
-  Div,
-  mergeSelectors,
-  useMeasure,
-  merge,
-  type MakerProps,
-  type ResponsiveScale,
-} from 'maker-ui'
+import { useRef, useState, useEffect, useCallback, cloneElement } from 'react'
+import { mergeSelectors, useMeasure, merge } from '@maker-ui/utils'
+import { Div } from '@maker-ui/primitives'
+import type { MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { animated, useSprings, type SpringConfig } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
 
@@ -63,10 +58,10 @@ export const Carousel = ({
   css,
   ...rest
 }: CarouselProps) => {
-  const carouselRef = React.useRef<any>(null)
-  const index = React.useRef(0)
-  const [active, setActive] = React.useState(0)
-  const [isPaused, setPause] = React.useState(false)
+  const carouselRef = useRef<any>(null)
+  const index = useRef(0)
+  const [active, setActive] = useState(0)
+  const [isPaused, setPause] = useState(false)
   const [ref, { width }] = useMeasure()
 
   const _active = controls ? controls[0] : active
@@ -152,7 +147,7 @@ export const Carousel = ({
   /**
    * Handle external navigation from arrow buttons
    */
-  const navigate = React.useCallback(
+  const navigate = useCallback(
     (type: 'next' | 'previous' | 'index', idx?: number) => {
       const isFirst = index.current === 0 ? true : false
       const isLast = index.current === data.length - 1 ? true : false
@@ -214,7 +209,7 @@ export const Carousel = ({
   /**
    * Handle external navigation from `controls prop`
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (controls && controls[0] !== index.current) {
       navigate('index', controls[0])
     }
@@ -223,7 +218,7 @@ export const Carousel = ({
   /**
    * Pause the autoPlay slide transition
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (autoPlay && !isPaused) {
       const auto = setTimeout(() => {
         navigate('next')
@@ -236,18 +231,18 @@ export const Carousel = ({
   /**
    * Pause the autoPlay slide transition
    */
-  const pause = React.useCallback(() => setPause(true), [])
+  const pause = useCallback(() => setPause(true), [])
 
   /**
    * Resume the autoPlay slide transition and reset counter
    */
-  const resume = React.useCallback(() => setPause(false), [])
+  const resume = useCallback(() => setPause(false), [])
 
   /**
    * Handle pause on focus
    * @todo - test this
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const current = carouselRef.current
 
     if (autoPlay) {
@@ -315,7 +310,7 @@ export const Carousel = ({
                 width: '100%',
                 willChange: 'transform',
               }}>
-              {React.cloneElement(template, data[i])}
+              {cloneElement(template, data[i])}
             </AnimatedDiv>
           </AnimatedDiv>
         ))}

@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { Div, mergeSelectors, merge } from 'maker-ui'
+import { Div } from '@maker-ui/primitives'
+import { mergeSelectors, merge } from '@maker-ui/utils'
 import { useField } from 'formik'
-import { InputProps, FieldSettings } from '../types'
+import type { InputProps, FieldSettings } from '../types'
 
 interface SwitchProps extends InputProps {
   settings: FieldSettings<'switch'>

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Field as FormikField } from 'formik'
-import { InputProps, FieldSettings } from '../types'
+import type { InputProps, FieldSettings } from '../types'
 
 interface CheckboxProps extends InputProps {
   settings: FieldSettings<'checkbox'>

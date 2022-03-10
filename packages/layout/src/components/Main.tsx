@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, MakerProps } from '@maker-ui/css'
-import { mergeSelectors } from '../utils/helper'
+import { jsx, type MakerProps } from '@maker-ui/css'
+import { mergeSelectors } from '@maker-ui/utils'
 
 interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {}
 

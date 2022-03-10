@@ -23,11 +23,11 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
+    "@maker-ui/css": "1.1.2",
+    "@maker-ui/primitives": "1.1.2",
+    "@maker-ui/utils": "1.1.2",
     "@react-spring/web": "^9.3.1",
     "@use-gesture/react": "^10.2.4"
-  },
-  "peerDependencies": {
-    "maker-ui": "1.1.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",
