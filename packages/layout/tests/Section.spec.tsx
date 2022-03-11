@@ -1,6 +1,6 @@
 import { mount } from '@cypress/react'
-import { Wrapper, defaults, format } from './_setup'
-import { Section } from '../src'
+import { Section } from '@maker-ui/layout'
+import { Wrapper, defaults, format } from './setup'
 
 /**
  * @component

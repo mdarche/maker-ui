@@ -1,5 +1,5 @@
 import { mount } from '@cypress/react'
-import { Portal } from '../src/Portal'
+import { Portal } from '@maker-ui/modal'
 
 /**
  * @component

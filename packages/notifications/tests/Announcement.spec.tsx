@@ -1,7 +1,6 @@
 import { Div } from '@maker-ui/primitives'
 import { mount } from '@cypress/react'
-
-import { Announcement } from '../src'
+import { Announcement } from '@maker-ui/notifications'
 
 /**
  * @component

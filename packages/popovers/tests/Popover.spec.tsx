@@ -1,8 +1,7 @@
 import { useState, useRef } from 'react'
 import { Flex } from '@maker-ui/primitives'
 import { mount } from '@cypress/react'
-
-import { Popover } from '../src'
+import { Popover } from '@maker-ui/popovers'
 
 /**
  * @component

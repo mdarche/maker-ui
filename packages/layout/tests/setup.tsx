@@ -8,8 +8,8 @@ import {
   MakerMenu,
   Content,
   Main,
-} from '../src'
-export { defaultOptions as defaults } from './_options'
+} from '@maker-ui/layout'
+export { defaultOptions as defaults } from './options'
 
 export function format(value: any, index: number = 0): string {
   const val = Array.isArray(value) ? value[index] : value

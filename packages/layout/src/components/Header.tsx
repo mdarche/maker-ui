@@ -1,7 +1,11 @@
 /** @jsx jsx */
-
 import { jsx, type MakerProps } from '@maker-ui/css'
-import {useMeasure, setBreakpoint, mergeSelectors, useScrollPosition} from '@maker-ui/utils'
+import {
+  useMeasure,
+  setBreakpoint,
+  mergeSelectors,
+  useScrollPosition,
+} from '@maker-ui/utils'
 import { useEffect, useState } from 'react'
 import { ResizeObserver } from '@juggle/resize-observer'
 

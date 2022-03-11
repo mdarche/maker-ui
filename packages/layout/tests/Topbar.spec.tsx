@@ -1,6 +1,6 @@
 import { mount } from '@cypress/react'
-import { Wrapper, defaults, format } from './_setup'
-import { Topbar } from '../src'
+import { Topbar } from '@maker-ui/layout'
+import { Wrapper, defaults, format } from './setup'
 
 /**
  * @component

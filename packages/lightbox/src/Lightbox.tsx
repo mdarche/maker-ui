@@ -1,3 +1,4 @@
+import * as React from 'react'
 import type { SpringConfig } from '@react-spring/web'
 import type { ModalProps } from '@maker-ui/modal'
 

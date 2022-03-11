@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { mount } from '@cypress/react'
+import { Accordion, AccordionPanel } from '@maker-ui/accordion'
 
-import { Accordion, AccordionPanel } from '../src'
 /**
  * @component
  * Accordion

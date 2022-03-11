@@ -1,6 +1,10 @@
 import { mount } from '@cypress/react'
-
-import { Form, Yup, type FieldProps, type FormProviderProps } from '../src'
+import {
+  Form,
+  Yup,
+  type FieldProps,
+  type FormProviderProps,
+} from '@maker-ui/forms'
 
 interface TestFormProps {
   settings?: FormProviderProps['settings']

@@ -1,7 +1,6 @@
 import { Flex } from '@maker-ui/primitives'
 import { mount } from '@cypress/react'
-
-import { Tooltip } from '../src'
+import { Tooltip } from '@maker-ui/popovers'
 
 /**
  * @component

@@ -1,6 +1,6 @@
 import { mount } from '@cypress/react'
 
-import type { FieldProps } from '../src'
+import type { FieldProps } from '@maker-ui/forms'
 import { BasicForm } from './setup'
 
 describe('Form component', () => {

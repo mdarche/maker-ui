@@ -1,12 +1,12 @@
 import { mount } from '@cypress/react'
-import { Wrapper, testMenu } from './_setup'
 import {
   MobileMenu,
   Header,
   Navbar,
   type MakerUIOptions,
   type MenuItemProps,
-} from '../src'
+} from '@maker-ui/layout'
+import { Wrapper, testMenu } from './setup'
 
 /**
  * @component

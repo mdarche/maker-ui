@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Div } from '@maker-ui/primitives'
 import { mount } from '@cypress/react'
-
-import { Dropdown } from '../src'
+import { Dropdown } from '@maker-ui/popovers'
 
 /**
  * @component

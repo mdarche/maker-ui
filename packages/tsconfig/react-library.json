@@ -8,12 +8,5 @@
     "module": "esnext",
     "target": "es6",
     "jsx": "react-jsx"
-  },
-  "typedocOptions": {
-    "out": "apps/docs/temp",
-    "excludeExternals": true,
-    "excludeInternal": true,
-    "pretty": true,
-    "emit": "docs"
   }
 }

@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { SVG, SVGProps } from '@maker-ui/primitives'
 
 export const DefaultArrow = (props: SVGProps) => (

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Button, Div } from '@maker-ui/primitives'
 import { mergeSelectors } from '@maker-ui/utils'
 import type { MakerProps } from '@maker-ui/css'

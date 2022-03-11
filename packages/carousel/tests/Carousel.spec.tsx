@@ -1,8 +1,7 @@
-import * as React from 'react'
-import { Div } from '@maker-ui/primitives'
+import { useState } from 'react'
 import { mount } from '@cypress/react'
-
-import { Carousel } from '../src'
+import { Div } from '@maker-ui/primitives'
+import { Carousel } from '@maker-ui/carousel'
 
 /**
  * @component
@@ -53,7 +52,7 @@ describe('Carousel', () => {
 })
 
 const ExternalDemo = () => {
-  const [index, setIndex] = React.useState(0)
+  const [index, setIndex] = useState(0)
   return (
     <div>
       <Carousel

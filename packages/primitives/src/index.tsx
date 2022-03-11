@@ -1,5 +1,4 @@
 /** @jsx jsx */
-
 import { jsx, type MakerProps, type ResponsiveScale } from '@maker-ui/css'
 import { forwardRef } from 'react'
 import * as CSS from 'csstype'

@@ -1,7 +1,6 @@
 import { mount } from '@cypress/react'
 import { Div } from '@maker-ui/primitives'
-
-import { CookieNotice } from '../src'
+import { CookieNotice } from '@maker-ui/notifications'
 
 /**
  * @component

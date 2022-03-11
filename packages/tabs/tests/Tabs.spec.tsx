@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { mount } from '@cypress/react'
-
-import { Tabs } from '../src'
+import { Tabs } from '@maker-ui/tabs'
 
 /**
  * @component

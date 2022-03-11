@@ -1,5 +1,5 @@
+import * as React from 'react'
 import { SVG, type SVGProps } from '@maker-ui/primitives'
-
 interface CaretProps extends SVGProps {
   show: boolean
 }

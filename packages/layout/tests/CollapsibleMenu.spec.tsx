@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { mount } from '@cypress/react'
-
-import { CollapsibleMenu, type MakerMenu } from '../src'
-import { nestedMenu, Wrapper } from './_setup'
+import { CollapsibleMenu, type MakerMenu } from '@maker-ui/layout'
+import { nestedMenu, Wrapper } from './setup'
 
 /**
  * @component

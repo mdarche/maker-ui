@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { SVG, SVGProps } from 'maker-ui'
 
 const defaultColors = {

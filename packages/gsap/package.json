@@ -12,10 +12,8 @@
   ],
   "scripts": {},
   "dependencies": {
-    "gsap": "^3.9.1"
-  },
-  "peerDependencies": {
-    "maker-ui": "1.1.2"
+    "gsap": "^3.9.1",
+    "@maker-ui/primitives": "1.1.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",

@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react'
 import { mount } from '@cypress/react'
-
-import { Modal } from '../src/Modal'
+import { Modal } from '@maker-ui/modal'
 
 /**
  * @component

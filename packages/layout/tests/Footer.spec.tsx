@@ -1,7 +1,6 @@
 import { mount } from '@cypress/react'
-
-import { Wrapper, defaults, format } from './_setup'
-import { Footer } from '../src'
+import { Footer } from '@maker-ui/layout'
+import { Wrapper, defaults, format } from './setup'
 
 /**
  * @component

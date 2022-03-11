@@ -1,6 +1,11 @@
 import { mount } from '@cypress/react'
-import { Wrapper, testMenu, nestedMenu, format, defaults } from './_setup'
-import { Navbar, Header, MobileMenu, type MakerUIOptions } from '../src'
+import {
+  Navbar,
+  Header,
+  MobileMenu,
+  type MakerUIOptions,
+} from '@maker-ui/layout'
+import { Wrapper, testMenu, nestedMenu, format, defaults } from './setup'
 
 /**
  * @component

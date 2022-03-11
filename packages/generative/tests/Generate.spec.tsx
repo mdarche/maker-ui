@@ -1,6 +1,5 @@
 import { mount } from '@cypress/react'
-
-import { Generate } from '../src'
+import { Generate } from '@maker-ui/generative'
 
 /**
  * @component
