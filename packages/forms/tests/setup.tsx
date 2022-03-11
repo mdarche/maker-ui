@@ -5,7 +5,7 @@ import {
   type FormSubmitButtonProps,
   Form,
   Yup,
-} from '../src'
+} from '@maker-ui/forms'
 
 export interface FormValues {
   username: string

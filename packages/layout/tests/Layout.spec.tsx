@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { mount } from '@cypress/react'
 import { Div } from '@maker-ui/primitives'
 import { Layout, type MakerUIOptions } from '@maker-ui/layout'
-
-import { defaultOptions } from './options'
-import { Wrapper } from './setup'
+import { Wrapper, defaultOptions } from './setup'
 
 /**
  * @component

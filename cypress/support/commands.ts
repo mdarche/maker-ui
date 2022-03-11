@@ -23,20 +23,20 @@ const compareColor = (color: string, property: any) => (targetElement: any) => {
   expect(tempColor).to.equal(targetColor)
 }
 
-// Cypress.Commands.overwrite(
-//   'should',
-//   (originalFn, subject, expectation, ...args) => {
-//     const customMatchers = {
-//       'have.backgroundColor': compareColor(args[0], 'backgroundColor'),
-//       'have.color': compareColor(args[0], 'color'),
-//     }
+Cypress.Commands.overwrite(
+  'should',
+  (originalFn, subject, expectation, ...args) => {
+    const customMatchers = {
+      'have.backgroundColor': compareColor(args[0], 'backgroundColor'),
+      'have.color': compareColor(args[0], 'color'),
+    }
 
-//     // See if the expectation is a string and if it is a member of Jest's expect
-//     // @ts-ignore
-//     if (typeof expectation === 'string' && customMatchers[expectation]) {
-//       // @ts-ignore
-//       return originalFn(subject, customMatchers[expectation])
-//     }
-//     return originalFn(subject, expectation, ...args)
-//   }
-// )
+    // See if the expectation is a string and if it is a member of Jest's expect
+    // @ts-ignore
+    if (typeof expectation === 'string' && customMatchers[expectation]) {
+      // @ts-ignore
+      return originalFn(subject, customMatchers[expectation])
+    }
+    return originalFn(subject, expectation, ...args)
+  }
+)

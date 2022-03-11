@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type MakerProps } from '@maker-ui/css'
 import { mergeSelectors, setBreakpoint } from '@maker-ui/utils'
@@ -8,7 +9,6 @@ import { ContentError } from './Errors/Errors'
 import { useOptions } from '../context/OptionContext'
 import { useLayoutDetector } from '../context/LayoutContext'
 import { useLayoutStyles } from '../hooks/useLayoutStyles'
-
 
 interface ContentProps
   extends MakerProps,

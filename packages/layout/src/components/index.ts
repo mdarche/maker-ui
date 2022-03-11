@@ -12,5 +12,3 @@ export { Section } from './Section'
 export { ColorButton } from './Navbar/ColorButton'
 export { CollapsibleMenu, type MenuItemProps, type MakerMenu } from './Menu'
 export { ErrorBoundary } from './Errors'
-
-export * from '../types'

@@ -1,18 +1,32 @@
 import { ResizeObserver } from '@juggle/resize-observer'
 
-// All utility functions
-export * from '@maker-ui/utils'
-
 // Components
-export * from './components'
+export {
+  Layout,
+  Topbar,
+  Header,
+  Navbar,
+  MobileMenu,
+  Content,
+  Main,
+  SideNav,
+  Sidebar,
+  Footer,
+  Section,
+  ColorButton,
+  CollapsibleMenu,
+  ErrorBoundary,
+  type MenuItemProps,
+  type MakerMenu,
+} from './components'
 
 // Layout Hooks
 export { useMenu, useSideNav } from './context/ActionContext'
 export { useOptions } from './context/OptionContext'
 export { useColorTheme } from './context/LayoutContext'
 
-// Reexport external helper packages
+// Re-export external helper packages
 export { ResizeObserver }
 
 // Types
-export * from './types'
+export type { MakerUIOptions } from './types'

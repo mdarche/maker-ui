@@ -29,6 +29,11 @@ export interface MakerProps {
 export type ResponsiveScale = string | number | (string | number)[]
 
 /**
+ * Utility type for responsive css strings
+ */
+export type ResponsiveString = string | string[]
+
+/**
  * Direct export from EmotionJS
  */
 export { Interpolation }

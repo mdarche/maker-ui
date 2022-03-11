@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type MakerProps } from '@maker-ui/css'
 import {

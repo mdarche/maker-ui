@@ -4,7 +4,7 @@
   "testFiles": ["**/*.spec.{ts,tsx}"],
   "component": {
     "testFiles": "**/tests/*.spec.{ts,tsx}",
-    "componentFolder": "packages"
+    "componentFolder": "packages/layout"
   },
   "viewportWidth": 1280,
   "viewportHeight": 800,

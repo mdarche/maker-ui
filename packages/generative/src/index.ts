@@ -1,2 +1,2 @@
 export { Generate } from './Generate'
-export * from './utils'
+export { shuffle, random, generateStyles, generateSrc } from './utils'

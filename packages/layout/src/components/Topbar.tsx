@@ -1,6 +1,12 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, type MakerProps, type ResponsiveScale, type StyleObject } from '@maker-ui/css'
-import {useMeasure, mergeSelectors, setBreakpoint} from '@maker-ui/utils'
+import {
+  jsx,
+  type MakerProps,
+  type ResponsiveScale,
+  type StyleObject,
+} from '@maker-ui/css'
+import { useMeasure, mergeSelectors, setBreakpoint } from '@maker-ui/utils'
 import { useEffect } from 'react'
 import { ResizeObserver } from '@juggle/resize-observer'
 

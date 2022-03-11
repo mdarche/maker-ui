@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 const injectDevServer = require('@cypress/react/plugins/next')
+require('tsconfig-paths').register()
 
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins

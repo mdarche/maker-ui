@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "maker-ui": ["packages/maker-ui/src"],
+      "@maker-ui/*": ["packages/*/src"]
+    }
+  }
+}

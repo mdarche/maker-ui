@@ -1,5 +1,9 @@
 import * as React from 'react'
-import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
+import type {
+  ResponsiveScale,
+  ResponsiveString,
+  MakerProps,
+} from '@maker-ui/css'
 
 import { mobileNavTypes, navTypes, transitionTypes } from './constants'
 
@@ -13,11 +17,6 @@ declare module 'react' {
 export type Partial<T> = {
   [P in keyof T]?: Partial<T[P]>
 }
-
-/**
- * Utility type for responsive css strings
- */
-type ResponsiveString = string | string[]
 
 interface ColorKeys {
   /** The site's primary text color. */

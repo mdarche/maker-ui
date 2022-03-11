@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type MakerProps, type ResponsiveScale } from '@maker-ui/css'
 import { mergeSelectors } from '@maker-ui/utils'
