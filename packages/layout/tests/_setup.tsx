@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
   Layout,
   Header,
@@ -9,8 +8,8 @@ import {
   MakerMenu,
   Content,
   Main,
-} from 'maker-ui'
-export { defaultOptions as defaults } from './options'
+} from '../src'
+export { defaultOptions as defaults } from './_options'
 
 export function format(value: any, index: number = 0): string {
   const val = Array.isArray(value) ? value[index] : value

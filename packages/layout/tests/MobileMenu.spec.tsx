@@ -1,13 +1,12 @@
-import * as React from 'react'
+import { mount } from '@cypress/react'
+import { Wrapper, testMenu } from './_setup'
 import {
   MobileMenu,
   Header,
   Navbar,
-  MakerUIOptions,
-  MenuItemProps,
-} from 'maker-ui'
-import { mount } from '@cypress/react'
-import { Wrapper, testMenu } from '../setup'
+  type MakerUIOptions,
+  type MenuItemProps,
+} from '../src'
 
 /**
  * @component

@@ -1,8 +1,7 @@
-import * as React from 'react'
-import { Content, Main, SideNav, Sidebar } from 'maker-ui'
 import { mount } from '@cypress/react'
 
-import { Wrapper, defaults, format } from '../setup'
+import { Content, Main, SideNav, Sidebar } from '../src'
+import { Wrapper, defaults, format } from './_setup'
 
 /**
  * @component

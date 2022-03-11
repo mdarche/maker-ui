@@ -1,8 +1,10 @@
-import * as React from 'react'
-import { Layout, Div, MakerUIOptions } from 'maker-ui'
+import { useState } from 'react'
 import { mount } from '@cypress/react'
-import { defaultOptions } from '../options'
-import { Wrapper } from '../setup'
+import { Div } from '@maker-ui/primitives'
+
+import { defaultOptions } from './_options'
+import { Wrapper } from './_setup'
+import { Layout, type MakerUIOptions } from '../src'
 
 /**
  * @component
@@ -124,7 +126,7 @@ describe('Layout', () => {
 
   it.only('updates Layout and Options context when `options` prop changes', () => {
     const DynamicLayout = () => {
-      const [opts, setOpts] = React.useState({})
+      const [opts, setOpts] = useState({})
 
       return (
         <Wrapper header isContent footer options={opts}>

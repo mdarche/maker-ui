@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { ColorButton } from 'maker-ui'
 import { mount } from '@cypress/react'
-import { Wrapper } from '../setup'
+
+import { Wrapper } from './_setup'
+import { ColorButton } from '../src'
 
 /**
  * @component

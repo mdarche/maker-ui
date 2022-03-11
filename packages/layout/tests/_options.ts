@@ -1,4 +1,4 @@
-import { MakerUIOptions } from 'maker-ui'
+import type { MakerUIOptions } from '../src'
 
 export const defaultOptions: MakerUIOptions = {
   fonts: {
