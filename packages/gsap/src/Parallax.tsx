@@ -1,17 +1,13 @@
 import React, { useEffect, useRef } from 'react'
-import {
-  merge,
-  mergeSelectors,
-  Section,
-  type DivProps,
-  type ResponsiveScale,
-} from 'maker-ui'
+import { Section, type SectionProps } from '@maker-ui/layout'
+import { type ResponsiveScale } from '@maker-ui/css'
+import { merge, mergeSelectors } from '@maker-ui/utils'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-interface ParallaxProps extends Omit<DivProps, 'translate'> {
+interface ParallaxProps extends Omit<SectionProps, 'background' | 'translate'> {
   /** An object of <img /> tag props or a custom component like Next/Image
    * @remark If using Next.js Image, make sure you set the Image props to
    * `layout='fill'` and `objectFit='cover'`
@@ -27,7 +23,7 @@ interface ParallaxProps extends Omit<DivProps, 'translate'> {
   imageHeight: ResponsiveScale
   /** An intial CSS transform that marks the starting position of the image */
   imagePosition?: string
-  /** Additional styles that are applied to .image-container */
+  /** Additional styles that are applied to `.image-container` */
   imageCss?: object
   /** The maxwidth of the content container where nested children are rendered */
   maxWidth?: ResponsiveScale
@@ -70,7 +66,7 @@ export const Parallax = ({
   overlay = { background: 'rgba(0,0,0,0.25)' },
   layer,
   imageHeight = 500,
-  imagePosition = 'translate(0%, -70%)',
+  imagePosition = 'translateY(-500px)',
   maxWidth = 'var(--maxWidth_section)',
   imageCss,
   css,
@@ -140,7 +136,15 @@ export const Parallax = ({
       {...props}>
       <div className="parallax-image absolute cover">
         <div ref={ref} className="parallax-image-wrap">
-          {React.isValidElement(image) ? image : <img {...image} />}
+          {React.isValidElement(image) ? (
+            image
+          ) : (
+            // eslint-disable-next-line jsx-a11y/alt-text
+            <img
+              className="absolute cover"
+              {...(image as React.HTMLAttributes<HTMLImageElement>)}
+            />
+          )}
         </div>
       </div>
       {overlay ? <div className="overlay absolute cover" /> : null}

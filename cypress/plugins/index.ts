@@ -20,6 +20,6 @@ module.exports = (
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions
 ) => {
-  injectDevServer(on, config)
+  injectDevServer(on, { ...config, pagesDir: `${config.projectRoot}/pages` })
   return config
 }

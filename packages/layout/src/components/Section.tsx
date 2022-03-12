@@ -8,7 +8,7 @@ import {
 } from '@maker-ui/css'
 import { forwardRef } from 'react'
 
-interface SectionProps
+export interface SectionProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]

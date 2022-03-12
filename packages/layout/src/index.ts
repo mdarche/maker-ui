@@ -16,6 +16,7 @@ export {
   ColorButton,
   CollapsibleMenu,
   ErrorBoundary,
+  type SectionProps,
   type MenuItemProps,
   type MakerMenu,
 } from './components'

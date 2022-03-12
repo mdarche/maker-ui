@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import { mergeSelectors, Div, type DivProps } from 'maker-ui'
+import { mergeSelectors } from '@maker-ui/utils'
+import { Div, type DivProps } from '@maker-ui/primitives'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
