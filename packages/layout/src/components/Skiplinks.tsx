@@ -20,7 +20,6 @@ interface SkipLinkProps {
  *
  * @internal usage only
  */
-
 export const Skiplinks = (props: SkipLinkProps) => {
   const { a11y } = useOptions()
   const [layout] = useLayout('content')

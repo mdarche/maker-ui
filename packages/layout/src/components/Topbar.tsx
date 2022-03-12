@@ -42,7 +42,6 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  *
  * @link https://maker-ui.com/docs/layout/topbar
  */
-
 export const Topbar = (props: TopbarProps) => {
   const { topbar, breakpoints } = useOptions()
   const [ref, { height }] = useMeasure({ polyfill: ResizeObserver })

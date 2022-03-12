@@ -40,7 +40,6 @@ export interface SideNavProps
  *
  * @link https://maker-ui.com/docs/layout/sidenav
  */
-
 export const SideNav = ({
   id,
   background,

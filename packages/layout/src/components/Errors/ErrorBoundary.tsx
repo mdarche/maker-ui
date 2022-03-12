@@ -45,7 +45,6 @@ export const ErrorContainer = ({ children, ...props }: ErrorContainerProps) => {
  *
  * @link https://maker-ui.com/docs/error-boundary
  */
-
 export class ErrorBoundary extends React.Component<ErrorProps, ErrorState> {
   static contextType = OptionContext
 

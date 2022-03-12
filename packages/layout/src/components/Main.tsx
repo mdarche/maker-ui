@@ -10,7 +10,6 @@ interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {}
  *
  * @link https://maker-ui.com/docs/layout/main
  */
-
 export const Main = ({ id, children, ...props }: MainProps) => (
   <main id={mergeSelectors(['content', id])} role="main" {...props}>
     {children}

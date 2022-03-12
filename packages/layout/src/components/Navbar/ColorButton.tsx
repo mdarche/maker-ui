@@ -19,7 +19,6 @@ interface ColorButtonProps extends ButtonProps {
  *
  * @link https://maker-ui.com/docs/layout/buttons/#colorButton
  */
-
 export const ColorButton = ({
   isHeaderButton,
   customButton,

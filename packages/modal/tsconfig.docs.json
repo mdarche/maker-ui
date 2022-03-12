@@ -3,6 +3,6 @@
   "include": ["src"],
   "typedocOptions": {
     "entryPoints": ["src"],
-    "json": "../../apps/docs/docgen/accordion.json"
+    "json": "../../apps/docs/docgen/modal.json"
   }
 }

@@ -22,7 +22,6 @@ interface ContentProps
  *
  * @link https://maker-ui.com/docs/layout/content
  */
-
 export const Content = ({
   id,
   className,

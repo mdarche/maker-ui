@@ -14,7 +14,6 @@ interface SidebarProps
  *
  * @link https://maker-ui.com/docs/layout/sidebar
  */
-
 export const Sidebar = ({ className, children, ...props }: SidebarProps) => {
   return (
     <div

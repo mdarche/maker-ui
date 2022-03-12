@@ -50,7 +50,6 @@ const fullWidth = ['fade', 'fade-up', 'fade-down']
  *
  * @link https://maker-ui.com/docs/layout/mobile-menu
  */
-
 export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
   (props, ref) => {
     const [show, toggleMenu] = useMenu()

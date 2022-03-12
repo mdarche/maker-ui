@@ -53,7 +53,6 @@ const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
  *
  * @link https://maker-ui.com/components/layout/navbar
  */
-
 export const Navbar = ({
   type,
   mobileType,

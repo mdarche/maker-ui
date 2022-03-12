@@ -33,7 +33,6 @@ interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
  *
  * @link https://maker-ui.com/docs/layout/header
  */
-
 export const Header = (props: HeaderProps) => {
   const [scrollClass, setScrollClass] = useState('')
   const [initialRender, setInitialRender] = useState(true)

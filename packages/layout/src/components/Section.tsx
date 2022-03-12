@@ -23,7 +23,6 @@ interface SectionProps
  *
  * @link https://maker-ui.com/docs/layout/section
  */
-
 export const Section = forwardRef<HTMLElement, SectionProps>(
   (
     {

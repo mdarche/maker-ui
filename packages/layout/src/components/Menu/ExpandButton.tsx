@@ -14,7 +14,6 @@ interface ExpandButtonProps {
  * @todo add custom button support
  *
  */
-
 export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
   return (
     <button

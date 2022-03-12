@@ -26,7 +26,6 @@ interface CollapsibleProps
  *
  * @link https://maker-ui.com/docs/layout/collapsible-menu
  */
-
 export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
   ({ menu = [], menuType, pathname, className, css, ...props }, ref) => {
     const { mobileMenu, sideNav, linkFunction } = useOptions()

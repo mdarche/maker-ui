@@ -19,7 +19,6 @@ interface MenuButtonProps {
  *
  * @link https://maker-ui.com/docs/layout/buttons/#menuButton
  */
-
 export const MenuButton = ({
   customButton,
   visibleOnDesktop,

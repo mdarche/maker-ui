@@ -19,7 +19,6 @@ interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  *
  * @link https://maker-ui.com/docs/layout/footer
  */
-
 export const Footer = ({
   id,
   className,

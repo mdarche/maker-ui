@@ -41,7 +41,6 @@ export interface MenuItemProps {
  *  },
  * ]
  */
-
 export type MakerMenu = MenuItemProps[]
 
 interface MenuInternalProps {

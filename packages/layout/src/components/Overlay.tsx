@@ -15,7 +15,6 @@ interface OverlayProps {
  *
  * @internal usage only
  */
-
 export const Overlay = ({ show, toggle, className }: OverlayProps) => {
   return (
     <div

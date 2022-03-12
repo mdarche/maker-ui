@@ -12,7 +12,6 @@ interface LogoProps {
  *
  * @internal usage only
  */
-
 export const Logo = ({ children }: LogoProps): React.ReactElement => {
   const { linkFunction } = useOptions()
 

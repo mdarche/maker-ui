@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {merge} from '@maker-ui/utils'
+import { merge } from '@maker-ui/utils'
 import { ThemeProvider, Theme } from '@emotion/react'
 
 import { OptionProvider } from '../context/OptionContext'
@@ -37,7 +37,6 @@ interface LayoutProps {
  *
  * @link https://maker-ui.com/docs/layout/layout
  */
-
 export const Layout = ({
   options,
   styles,
