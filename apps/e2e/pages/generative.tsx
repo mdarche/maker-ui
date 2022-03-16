@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Flex, Div, Grid, Image } from 'maker-ui'
-import { Generate, generateStyles, generateSrc } from '@maker-ui/elements'
+import { Generate, generateStyles, generateSrc } from '@maker-ui/generative'
 
 // Example 1 - Random grid items
 
@@ -15,7 +15,7 @@ const data = [
   { text: '8' },
 ]
 
-const Card = (props) => (
+const Card = (props: any) => (
   <Div
     css={{
       textAlign: 'center',

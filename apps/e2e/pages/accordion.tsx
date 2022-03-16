@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Accordion } from '@maker-ui/elements'
+import { Accordion } from '@maker-ui/accordion'
 
 const AccordionPage = () => {
   const [key, setKey] = React.useState('1')

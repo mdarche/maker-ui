@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Grid, Div } from 'maker-ui'
-import { TableofContents } from '@maker-ui/elements'
+// import { TableofContents } from '@maker-ui/elements'
 
 const TocPage = () => {
   return (
@@ -23,7 +23,7 @@ const TocPage = () => {
         </Div>
       </div>
       <div>
-        <TableofContents
+        {/* <TableofContents
           title="On this page"
           activeColor="blue"
           marker="before"
@@ -38,7 +38,7 @@ const TocPage = () => {
               color: '#555',
             },
           }}
-        />
+        /> */}
       </div>
     </Grid>
   )

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Section, Div, Button, ColorButton } from 'maker-ui'
-import { Popover, Dropdown, Tooltip } from '@maker-ui/elements'
+import { Popover, Dropdown, Tooltip } from '@maker-ui/popovers'
 
 const PopoverPage = () => {
   const [show, set] = React.useState(false)
