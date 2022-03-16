@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useCallback } from 'react'
+import * as React from 'react'
 import { Div, DivProps } from '@maker-ui/primitives'
 import { mergeSelectors, useFocus } from '@maker-ui/utils'
-import { Transition, TransitionStatus } from 'react-transition-group'
+import { Transition, type TransitionStatus } from 'react-transition-group'
 
 import { Portal } from './Portal'
 
@@ -92,9 +92,9 @@ export const Modal = ({
   children,
   ...rest
 }: ModalProps) => {
-  const modalRef = useRef<any>(null)
+  const modalRef = React.useRef<any>(null)
 
-  const closeModal = useCallback(() => {
+  const closeModal = React.useCallback(() => {
     if (set) {
       set(false)
     }
@@ -113,7 +113,7 @@ export const Modal = ({
   /**
    * Lock body when modal is active
    */
-  useEffect(() => {
+  React.useEffect(() => {
     if (show) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -124,7 +124,7 @@ export const Modal = ({
   /**
    * Add accessible keyboard shortcuts
    */
-  const handleKeyDown = useCallback(
+  const handleKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
       function previous(e: KeyboardEvent) {
         if (document.activeElement === focusable.first) {
@@ -156,7 +156,7 @@ export const Modal = ({
     [closeModal, focusable, show]
   )
 
-  useEffect(() => {
+  React.useEffect(() => {
     window.addEventListener(`keydown`, handleKeyDown)
     return () => window.removeEventListener(`keydown`, handleKeyDown)
   }, [handleKeyDown])
