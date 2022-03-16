@@ -2,11 +2,11 @@ import * as React from 'react'
 import {
   Div,
   ListItem,
-  DivProps,
   useScrollPosition,
   mergeSelectors,
+  type DivProps,
+  type StyleObject,
 } from 'maker-ui'
-import { StyleObject } from './types'
 
 interface MenuItem {
   id: string
@@ -15,7 +15,7 @@ interface MenuItem {
   offset: number
 }
 
-interface ToCProps extends Omit<DivProps, 'title'> {
+export interface ToCProps extends Omit<DivProps, 'title'> {
   /** The application's current pathname, supplied via router hook or parent component.
    * This value ensures the DOM scanning effect reruns on each page load.
    */

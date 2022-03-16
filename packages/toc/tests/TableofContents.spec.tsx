@@ -1,8 +1,6 @@
-import * as React from 'react'
-import { TableofContents } from '@maker-ui/elements'
-import { Content, Main, MakerUIOptions, Sidebar } from 'maker-ui'
+import { TableofContents } from '@maker-ui/toc'
+import { Layout, Content, Main, MakerUIOptions, Sidebar } from 'maker-ui'
 import { mount } from '@cypress/react'
-import { Wrapper } from '../setup'
 
 /**
  * @component
@@ -35,7 +33,7 @@ const TestLayout = ({
   options = { sidebar: { width: 300 } },
 }: TestLayoutProps) => {
   return (
-    <Wrapper options={options} header footer>
+    <Layout options={options}>
       <Content>
         <Main>
           <h2 id="heading-1">Heading 1</h2>
@@ -54,7 +52,7 @@ const TestLayout = ({
         </Main>
         <Sidebar>{children}</Sidebar>
       </Content>
-    </Wrapper>
+    </Layout>
   )
 }
 
