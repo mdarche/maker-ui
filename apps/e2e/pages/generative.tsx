@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Flex, Div, Grid, Image } from 'maker-ui'
 import { Generate, generateStyles, generateSrc } from '@maker-ui/generative'
 
@@ -74,9 +73,9 @@ const styles = {
   borderRadius: [0, 10, 5],
 }
 
-const GenerativePage = () => {
+export default function GenerativePage() {
   return (
-    <React.Fragment>
+    <>
       <h2>Example 1</h2>
       <Grid gap="30px" columns={['1fr 1fr', 'repeat(4, 1fr)']}>
         <Generate data={data}>
@@ -103,8 +102,6 @@ const GenerativePage = () => {
         My styles are randomly generated on each rerender
       </Flex>
       <Flex css={{ height: 800 }} />
-    </React.Fragment>
+    </>
   )
 }
-
-export default GenerativePage

@@ -1,10 +1,10 @@
-import * as React from 'react'
+import { useState, useRef } from 'react'
 import { Section, Div, Button, ColorButton } from 'maker-ui'
 import { Popover, Dropdown, Tooltip } from '@maker-ui/popovers'
 
-const PopoverPage = () => {
-  const [show, set] = React.useState(false)
-  const buttonRef = React.useRef(null)
+export default function PopoverPage() {
+  const [show, set] = useState(false)
+  const buttonRef = useRef(null)
 
   return (
     <Section css={{ paddingTop: 50 }}>
@@ -82,5 +82,3 @@ const PopoverPage = () => {
     </Section>
   )
 }
-
-export default PopoverPage

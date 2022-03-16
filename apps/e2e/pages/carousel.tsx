@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Div } from 'maker-ui'
 import { Carousel } from '@maker-ui/carousel'
 
@@ -60,30 +59,30 @@ const ImageSlide = ({ url, alt }: ImageSlideProps) => (
   />
 )
 
-const CarouselPage = () => (
-  <Div>
-    <Carousel
-      data={basicData}
-      template={<BasicSlide />}
-      settings={{
-        autoPlay: true,
-        dotPosition: 'bottom',
-        dotColorMuted: 'blue',
-        transition: 'slide',
-        // infiniteScroll: true,
-        // arrow: <div>Cmoon!</div>,
-        // arrow: {
-        //   prev: <div>Prev</div>,
-        //   next: <div>Next</div>,
-        // },
-      }}
-    />
-    <Carousel
-      data={imageData}
-      template={<ImageSlide />}
-      settings={{ autoPlay: false }}
-    />
-  </Div>
-)
-
-export default CarouselPage
+export default function CarouselPage() {
+  return (
+    <Div>
+      <Carousel
+        data={basicData}
+        template={<BasicSlide />}
+        settings={{
+          autoPlay: true,
+          dotPosition: 'bottom',
+          dotColorMuted: 'blue',
+          transition: 'slide',
+          // infiniteScroll: true,
+          // arrow: <div>Cmoon!</div>,
+          // arrow: {
+          //   prev: <div>Prev</div>,
+          //   next: <div>Next</div>,
+          // },
+        }}
+      />
+      <Carousel
+        data={imageData}
+        template={<ImageSlide />}
+        settings={{ autoPlay: false }}
+      />
+    </Div>
+  )
+}

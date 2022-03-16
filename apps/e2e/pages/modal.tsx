@@ -1,9 +1,9 @@
-import * as React from 'react'
+import { useState, useRef } from 'react'
 import { Modal } from '@maker-ui/modal'
 
-const ModalPage = () => {
-  const [show, set] = React.useState(false)
-  const ref = React.useRef(null)
+export default function ModalPage() {
+  const [show, set] = useState(false)
+  const ref = useRef(null)
 
   return (
     <div>
@@ -66,5 +66,3 @@ const ModalPage = () => {
     </div>
   )
 }
-
-export default ModalPage

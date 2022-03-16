@@ -2,7 +2,7 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Layout } from '../components/Layout'
 
-function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <Layout>
       <Head>
@@ -15,4 +15,3 @@ function App({ Component, pageProps }: AppProps) {
     </Layout>
   )
 }
-export default App

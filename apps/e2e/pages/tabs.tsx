@@ -1,9 +1,9 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { Div } from 'maker-ui'
 import { Tabs } from '@maker-ui/tabs'
 
-const TabsPage = () => {
-  const [key, setKey] = React.useState('1')
+export default function TabsPage() {
+  const [key, setKey] = useState('1')
 
   const keyValues = ['1', '2', '3']
   const handleClick = (i: string) => setKey(i)
@@ -72,4 +72,3 @@ const TabsPage = () => {
     </>
   )
 }
-export default TabsPage

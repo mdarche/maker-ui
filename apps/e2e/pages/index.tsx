@@ -5,13 +5,13 @@ export default function IndexPage() {
   return (
     <>
       <Head>
-        <title>Maker UI App Starter</title>
+        <title>Component Playground</title>
         <meta
           name="description"
           content="Configure your production-ready NextJS app"
         />
       </Head>
-      <h1>Home Page</h1>
+      <h1>Component Playground</h1>
       <Div css={{ fontSize: 50 }}>test</Div>
       <p>
         Modernipsum dolor sit amet intervention art nouveau realisme secularism

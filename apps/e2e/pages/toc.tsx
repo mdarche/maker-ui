@@ -1,8 +1,7 @@
-import * as React from 'react'
 import { Grid, Div } from 'maker-ui'
 // import { TableofContents } from '@maker-ui/elements'
 
-const TocPage = () => {
+export default function TocPag() {
   return (
     <Grid columns={['1fr 1fr']}>
       <div>
@@ -43,5 +42,3 @@ const TocPage = () => {
     </Grid>
   )
 }
-
-export default TocPage
