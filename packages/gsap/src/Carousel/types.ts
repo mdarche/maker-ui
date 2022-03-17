@@ -10,7 +10,6 @@ export interface CarouselSettings {
   delay?: number
   /** Duration of the transition animation in seconds */
   duration?: number
-  transition?: 'fade' | 'slide' | 'scale'
 }
 
 export interface ArrowSettings {

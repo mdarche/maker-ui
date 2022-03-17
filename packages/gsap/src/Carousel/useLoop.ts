@@ -22,30 +22,36 @@ const defaultConfig = {
   ease: 'none',
 }
 
-export const useLoop = (items: HTMLElement[], width: number) => {
+export const useLoop = (items: HTMLElement[], config: LoopConfig = {}) => {
   const [loop, setLoop] = useState<GSAPTimeline | undefined>(undefined)
 
   useEffect(() => {
-    const slides = gsap.utils.toArray(items) as HTMLElement[]
-    setLoop(horizontalLoop(slides, width))
+    if (!loop) {
+      const slides = gsap.utils.toArray(items) as HTMLElement[]
+      setLoop(horizontalLoop(slides, config))
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loop])
+
+  useEffect(() => {
+    return () => setLoop(undefined)
   }, [])
 
-  return loop
+  function resetLoop() {
+    console.log('Resetting')
+    loop?.time(0).kill()
+    setLoop(undefined)
+  }
+
+  return { loop, resetLoop }
 }
 
-export function horizontalLoop(
-  items: HTMLElement[],
-  width: number,
-  config: LoopConfig = {}
-) {
+export function horizontalLoop(items: HTMLElement[], config: LoopConfig) {
   items = gsap.utils.toArray(items)
   const { repeat, paused, speed, snap, paddingRight, reversed, ease } = merge(
     config,
     defaultConfig
   )
-
-  console.log('Initializing')
 
   let tl = gsap.timeline({
     repeat,
@@ -60,7 +66,7 @@ export function horizontalLoop(
     times: number[] = [],
     widths: number[] = [],
     xPercents: number[] = [],
-    curIndex = 0,
+    currentIndex = 0,
     pixelsPerSecond = speed * 100,
     snapFn = snap === false ? (v: any) => v : gsap.utils.snap(snap),
     totalWidth,
@@ -72,10 +78,12 @@ export function horizontalLoop(
 
   gsap.set(items, {
     xPercent: (i, el) => {
-      let w = (widths[i] = parseFloat(gsap.getProperty(el, 'width', 'px')))
+      let w = (widths[i] = parseFloat(
+        gsap.getProperty(el, 'width', 'px') as string
+      ))
       xPercents[i] = snapFn(
-        (parseFloat(gsap.getProperty(el, 'x', 'px')) / w) * 100 +
-          gsap.getProperty(el, 'xPercent')
+        (parseFloat(gsap.getProperty(el, 'x', 'px') as string) / w) * 100 +
+          (gsap.getProperty(el, 'xPercent') as number)
       )
       return xPercents[i]
     },
@@ -87,14 +95,15 @@ export function horizontalLoop(
     (xPercents[length - 1] / 100) * widths[length - 1] -
     startX +
     items[length - 1].offsetWidth *
-      gsap.getProperty(items[length - 1], 'scaleX') +
+      (gsap.getProperty(items[length - 1], 'scaleX') as number) +
     paddingRight
+
   for (i = 0; i < length; i++) {
     item = items[i]
     curX = (xPercents[i] / 100) * widths[i]
     distanceToStart = item.offsetLeft + curX - startX
     distanceToLoop =
-      distanceToStart + widths[i] * gsap.getProperty(item, 'scaleX')
+      distanceToStart + widths[i] * (gsap.getProperty(item, 'scaleX') as number)
     tl.to(
       item,
       {
@@ -122,26 +131,25 @@ export function horizontalLoop(
     times[i] = distanceToStart / pixelsPerSecond
   }
 
-  function toIndex(index: number, vars: GSAPTweenVars) {
-    vars = vars || {}
-    Math.abs(index - curIndex) > length / 2 &&
-      (index += index > curIndex ? -length : length) // always go in the shortest direction
+  function toIndex(index: number, vars: GSAPTweenVars = {}) {
+    Math.abs(index - currentIndex) > length / 2 &&
+      (index += index > currentIndex ? -length : length) // always go in the shortest direction
     let newIndex = gsap.utils.wrap(0, length, index),
       time = times[newIndex]
     const p1 = time > tl.time()
-    const p2 = index > curIndex
+    const p2 = index > currentIndex
     if (p1 !== p2) {
       vars.modifiers = { time: gsap.utils.wrap(0, tl.duration()) }
-      time += tl.duration() * (index > curIndex ? 1 : -1)
+      time += tl.duration() * (index > currentIndex ? 1 : -1)
     }
-    curIndex = newIndex
+    currentIndex = newIndex
     vars.overwrite = true
     return tl.tweenTo(time, vars)
   }
 
-  tl.next = (vars: GSAPTweenVars) => toIndex(curIndex + 1, vars)
-  tl.previous = (vars: GSAPTweenVars) => toIndex(curIndex - 1, vars)
-  tl.current = () => curIndex
+  tl.next = (vars: GSAPTweenVars) => toIndex(currentIndex + 1, vars)
+  tl.previous = (vars: GSAPTweenVars) => toIndex(currentIndex - 1, vars)
+  tl.current = () => currentIndex
   tl.toIndex = (index: number, vars: GSAPTweenVars) => toIndex(index, vars)
   tl.times = times
   tl.progress(1, true).progress(0, true) // pre-render for performance
