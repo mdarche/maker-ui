@@ -6,8 +6,10 @@ export interface CarouselSettings {
   infiniteScroll?: boolean
   hideControls?: boolean
   showControlsOnHover?: boolean
-  /** Duration in milliseconds that each slide is displayed before changing */
-  duration?: number // milliseconds
+  /** Delay in milliseconds that each slide is displayed before changing */
+  delay?: number
+  /** Duration of the transition animation in milliseconds */
+  duration?: number
   transition?: 'fade' | 'slide' | 'scale'
   fadeDuration?: number // seconds
 }

@@ -1,9 +1,11 @@
 import { Grid, Div } from 'maker-ui'
-// import { TableofContents } from '@maker-ui/elements'
+import { TableofContents } from '@maker-ui/toc'
+import { useRouter } from 'next/router'
 
-export default function TocPag() {
+export default function TocPage() {
+  const { asPath } = useRouter()
   return (
-    <Grid columns={['1fr 1fr']}>
+    <Grid columns={['.75fr .25fr']}>
       <div>
         <Div css={{ height: 400 }}>
           <h2 id="section1">Title 1</h2>
@@ -22,22 +24,24 @@ export default function TocPag() {
         </Div>
       </div>
       <div>
-        {/* <TableofContents
+        <TableofContents
           title="On this page"
+          pathname={asPath}
           activeColor="blue"
           marker="before"
           css={{
-            top: 80,
+            top: 100,
             ul: {
               lineHeight: 2,
               borderLeft: '1px solid gainsboro',
             },
             a: {
+              display: 'block',
               padding: '20px 5px',
               color: '#555',
             },
           }}
-        /> */}
+        />
       </div>
     </Grid>
   )

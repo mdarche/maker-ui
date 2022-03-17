@@ -14,16 +14,17 @@ export const primary_menu: MakerMenu = [
       { label: 'Popovers', path: '/popovers' },
       { label: 'Tabs', path: '/tabs' },
       { label: 'Table of Contents', path: '/toc' },
+      { label: 'Old Carousel', path: '/carousel' },
     ],
   },
   { label: 'Forms', path: '/forms' },
   {
     label: 'GSAP',
-    path: '/carousel',
+    path: '/gsap/carousel',
     submenu: [
-      { label: 'Carousel', path: '/carousel' },
-      { label: 'Parallax', path: '/parallax' },
-      { label: 'ScrollReveal', path: '/scrollreveal' },
+      { label: 'Carousel', path: '/gsap/carousel' },
+      { label: 'Parallax', path: '/gsap/parallax' },
+      { label: 'ScrollReveal', path: '/gsap/scrollreveal' },
     ],
   },
 ]

@@ -1,7 +1,8 @@
-import * as React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { mergeSelectors, useMeasure, merge } from '@maker-ui/utils'
 import { Div, type DivProps } from '@maker-ui/primitives'
 import type { ResponsiveScale } from '@maker-ui/css'
+import { ResizeObserver } from '@juggle/resize-observer'
 import { gsap } from 'gsap'
 import { useDrag } from '@use-gesture/react'
 
@@ -32,8 +33,8 @@ export const Carousel = ({
   data = [],
   template,
   settings = {},
-  dots,
-  arrows,
+  dots = {},
+  arrows = {},
   height = 500,
   controls,
   id,
@@ -41,31 +42,11 @@ export const Carousel = ({
   css,
   ...props
 }: CarouselProps) => {
-  const carouselRef = React.useRef<HTMLDivElement>(null)
-  const index = React.useRef(0)
-  const [active, setActive] = React.useState(0)
-  const [isPaused, setPause] = React.useState(false)
-  const [ref, { width }] = useMeasure()
-  const slideRefs = React.useRef([])
-  slideRefs.current = []
-
-  // For GSAP
-  const progressWrap = gsap.utils.wrap(0, 1)
-  const numSlides = data.length
-  const autoPlayLimit = numSlides * 2
-  var autoPlayCount = 0
-
-  let _active = controls ? controls[0] : active
-  let _setActive = (val: number) =>
-    controls ? controls[1](val) : setActive(val)
-
-  const addToRefs = (el: any) => {
-    //@ts-ignore
-    if (el && !refs.current.includes(el)) {
-      //@ts-ignore
-      refs.current.push(el)
-    }
-  }
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const [index, setIndex] = useState(0)
+  const [active, setActive] = useState(0)
+  const [isPaused, setPause] = useState(false)
+  const [measuredRef, { width }] = useMeasure({ polyfill: ResizeObserver })
 
   /**
    * Merge user settings with defaults (bottom of file)
@@ -73,6 +54,7 @@ export const Carousel = ({
   const {
     infiniteScroll,
     autoPlay,
+    delay,
     duration,
     transition,
     draggable,
@@ -81,140 +63,63 @@ export const Carousel = ({
   const _dots = mergeDots(dots)
   const _arrows = mergeArrows(arrows)
 
-  React.useEffect(() => {
-    gsap.set(slideRefs.current, {
-      xPercent: (i) => i * 100,
-    })
+  let _active = controls ? controls[0] : active
+  let _setActive = (val: number) =>
+    controls ? controls[1](val) : setActive(val)
 
-    var proxy = document.createElement('div')
-    var slideAnimation = gsap.to({}, {})
-    var slideWidth = 0
-    var wrapWidth = 0
-    // @ts-ignore
-    var snapX
-    resize()
+  // GSAP Static vars
+  const numSlides = data.length
+  const progressWrap = gsap.utils.wrap(0, 1)
+  // var wrap = gsap.utils.wrap(-100, (numSlides - 1) * 100)
+  // var timer = gsap.delayedCall(duration, autoPlay)
 
-    var wrap = gsap.utils.wrap(-100, (numSlides - 1) * 100)
-    var timer = gsap.delayedCall(duration, autoPlay)
+  // function autoPlayer() {
+  //   setAutoPlayCount(autoPlayCount + 1)
+  //   if (autoPlayCount < autoPlayLimit) {
+  //     animateSlides(-1)
+  //   }
+  // }
 
-    const animation = gsap.to(slideRefs.current, {
-      xPercent: '+=' + numSlides * 100,
-      duration: 1,
-      ease: 'none',
-      paused: true,
-      repeat: -1,
-      modifiers: {
-        xPercent: wrap,
-      },
-    })
+  // function updateProgress() {
+  //   animation.progress(progressWrap(gsap.getProperty(proxy, 'x') / wrapWidth))
+  // }
+  // function animateSlides(direction) {
+  //   timer.restart(true)
+  //   // slideAnimation.kill();
 
-    function updateProgress() {
-      // @ts-ignore
-      animation.progress(progressWrap(gsap.getProperty(proxy, 'x') / wrapWidth))
-    }
+  //   var x = snapX(gsap.getProperty(proxy, 'x') + direction * slideWidth)
 
-    function animateSlides(direction: -1 | 1 | 0) {
-      timer.restart(true)
-      slideAnimation.kill()
-      // @ts-ignore
-      var x = snapX(gsap.getProperty(proxy, 'x') + direction * slideWidth)
+  //   gsap.to(proxy, {
+  //     x: x,
+  //     duration,
+  //     onUpdate: updateProgress,
+  //   })
+  // }
 
-      slideAnimation = gsap.to(proxy, {
-        x: x,
-        duration,
-        onUpdate: updateProgress,
-      })
-    }
+  /** Initialize the slider and slide positions */
+  useEffect(() => {}, [])
 
-    function autoPlay() {
-      // if (draggable.isPressed || draggable.isDragging || draggable.isThrowing) {
-      //   timer.restart(true);
-      // } else {
-      autoPlayCount++
-      if (autoPlayCount < autoPlayLimit) {
-        animateSlides(-1)
-      }
-      // }
-    }
-
-    function resize() {
-      // @ts-ignore
-      var norm = gsap.getProperty(proxy, 'x') / wrapWidth || 0
-      // @ts-ignore
-      slideWidth = slideRefs[0].offsetWidth
-      wrapWidth = slideWidth * numSlides
-      snapX = gsap.utils.snap(slideWidth)
-
-      gsap.set(proxy, {
-        x: norm * wrapWidth,
-      })
-
-      animateSlides(0)
-      slideAnimation.progress(1)
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  /**
-   * Handle drag and swipe gestures
-   */
-  const bind = useDrag(
-    ({ down, movement: [mx], direction: [xDir], distance: [d], cancel }) => {
-      if (draggable) {
-        if (down && d > width / 3.5) {
-          cancel(
-            // @ts-ignore
-            (index.current = clamp(
-              index.current + (xDir > 0 ? -1 : 1),
-              0,
-              data.length - 1
-            ))
-          )
-        }
-
-        if (index.current > data.length - 1) {
-          _setActive(index.current % data.length)
-        } else if (index.current < 0) {
-          _setActive(data.length + (index.current % data.length))
-        } else {
-          _setActive(index.current)
-        }
-
-        // api.start((i) => {
-        //   if (i < index.current - 1 || i > index.current + 1) {
-        //     return { display: 'none' }
-        //   }
-
-        //   const x = (i - index.current) * width + (down ? mx : 0)
-        //   const scale = down ? 1 - d / width / 2 : 1
-        //   return { x, scale }
-        // })
-      }
-    }
-  )
+  // Handle Animation
+  useEffect(() => {}, [index, width])
 
   /**
    * Handle external navigation from arrow buttons
    */
   const navigate = React.useCallback(
     (type: 'next' | 'previous' | 'index', idx?: number) => {
-      const isFirst = index.current === 0 ? true : false
-      const isLast = index.current === data.length - 1 ? true : false
-      const nextIndex = type === 'next' ? index.current + 1 : index.current - 1
+      const isFirst = index === 0 ? true : false
+      const isLast = index === data.length - 1 ? true : false
+      const nextIndex = type === 'next' ? index + 1 : index - 1
 
       function update() {
-        // api.start((i) => ({
-        //   x: (i - index.current) * width,
-        //   scale: 1,
-        // }))
+        // Animate here
       }
 
       /**
        * Handle page indicator buttons that select a specific slide index
        */
       if (type === 'index' && idx !== undefined) {
-        index.current = idx
+        setIndex(idx)
         _setActive(idx)
         update()
         return
@@ -223,34 +128,20 @@ export const Carousel = ({
       /**
        * Handle infiniteScroll if user navigates beyond the array bounds
        */
-      if (infiniteScroll) {
-        if (type === 'next' && isLast) {
-          index.current = 0
-          _setActive(0)
-          return update()
-        }
 
-        if (type === 'previous' && isFirst) {
-          index.current = data.length - 1
-          _setActive(data.length - 1)
-          return update()
-        }
+      if (type === 'next' && isLast) {
+        setIndex(0)
+        _setActive(0)
+        return update()
+      } else if (type === 'previous' && isFirst) {
+        setIndex(data.length - 1)
+        _setActive(data.length - 1)
+        return update()
       } else {
-        /**
-         * Simulate a bouncing / deflection drag gesture
-         */
-        // if ((type === 'next' && isLast) || (type === 'previous' && isFirst)) {
-        //   api.start((i) => ({
-        //     x: (i - index.current) * width - (type === 'next' ? 100 : -100),
-        //   }))
-        //   setTimeout(() => update(), 200)
-        //   return
-        // }
+        setIndex(nextIndex)
+        _setActive(nextIndex)
+        return update()
       }
-
-      index.current = nextIndex
-      _setActive(nextIndex)
-      update()
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [data.length, infiniteScroll, width]
@@ -259,59 +150,16 @@ export const Carousel = ({
   /**
    * Handle external navigation from `controls prop`
    */
-  React.useEffect(() => {
-    if (controls && controls[0] !== index.current) {
+  useEffect(() => {
+    if (controls && controls[0] !== index) {
       navigate('index', controls[0])
     }
   }, [navigate, controls, index])
 
-  /**
-   * Pause the autoPlay slide transition
-   */
-  React.useEffect(() => {
-    if (autoPlay && !isPaused) {
-      const auto = setTimeout(() => {
-        navigate('next')
-      }, duration)
-
-      return () => clearTimeout(auto)
-    }
-  }, [isPaused, navigate, active, autoPlay, duration, controls])
-
-  /**
-   * Pause the autoPlay slide transition
-   */
-  const pause = React.useCallback(() => setPause(true), [])
-
-  /**
-   * Resume the autoPlay slide transition and reset counter
-   */
-  const resume = React.useCallback(() => setPause(false), [])
-
-  /**
-   * Handle pause on focus
-   * @todo - test this
-   */
-  React.useEffect(() => {
-    const current = carouselRef.current
-
-    if (autoPlay) {
-      current?.addEventListener(`focusin`, pause)
-      current?.addEventListener(`focusout`, resume)
-    }
-
-    return () => {
-      current?.removeEventListener(`focusin`, pause)
-      current?.removeEventListener(`focusout`, resume)
-    }
-  }, [pause, resume, autoPlay])
-
   return (
     <Div
       id={id}
-      ref={mergeRefs([carouselRef, ref])}
-      onMouseEnter={autoPlay ? pause : undefined}
-      onMouseLeave={autoPlay ? resume : undefined}
+      ref={mergeRefs([carouselRef, measuredRef])}
       className={mergeSelectors(['carousel', className])}
       css={{
         overflow: 'hidden',
@@ -329,17 +177,12 @@ export const Carousel = ({
       <div className="slide-container">
         {data.map((d, i) => (
           <Div
-            ref={addToRefs}
             className={mergeSelectors([
               'slide',
               _active === i ? ' active' : '',
             ])}
-            {...bind()}
+            // {...bind()}
             key={i}
-            // style={{
-            //   opacity: transition === 'fade' && _active === i ? 1 : undefined,
-            //   x: transition !== 'fade' ? x : undefined,
-            // }}
             css={{
               position: 'absolute',
               display: 'block',
@@ -357,9 +200,6 @@ export const Carousel = ({
             }}>
             <Div
               className="slide-inner"
-              // style={{
-              //   scale: transition === 'scale' ? scale : undefined,
-              // }}
               css={{
                 height: '100%',
                 width: '100%',
@@ -396,7 +236,8 @@ function mergeSettings(initial: CarouselProps['settings']) {
       infiniteScroll: false,
       hideControls: false,
       showControlsOnHover: false,
-      duration: 6500,
+      delay: 6500,
+      duration: 300,
       transition: 'slide',
       fadeDuration: 0.5,
     },
