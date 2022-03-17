@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { mergeSelectors, useMeasure, merge } from '@maker-ui/utils'
 import { Div, type DivProps } from '@maker-ui/primitives'
 import type { ResponsiveScale } from '@maker-ui/css'
 import { ResizeObserver } from '@juggle/resize-observer'
 import { gsap } from 'gsap'
-import { useDrag } from '@use-gesture/react'
+// import { useDrag } from '@use-gesture/react'
 
-import { clamp, mergeRefs } from './helper'
+import { mergeRefs } from './helper'
 import { NavArrows } from './NavArrows'
 import { Pagination } from './Pagination'
 import type { CarouselSettings, ArrowSettings, DotSettings } from './types'
+import { useLoop } from './useLoop'
 
 export interface CarouselProps extends DivProps {
   data: Object[]
@@ -42,119 +43,91 @@ export const Carousel = ({
   css,
   ...props
 }: CarouselProps) => {
+  // Merge user settings with defaults
+  const { autoPlay, autoPlayLimit, delay, duration, transition, draggable } =
+    mergeSettings(settings)
+  // Local State
   const carouselRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
-  const [active, setActive] = useState(0)
-  const [isPaused, setPause] = useState(false)
+  const [autoPlayCount, setAutoPlayCount] = useState(0)
   const [measuredRef, { width }] = useMeasure({ polyfill: ResizeObserver })
+  const [timer] = useState(gsap.delayedCall(delay, initAutoPlay))
+  const slideRefs = useRef([])
+  slideRefs.current = []
+  const loop = useLoop(slideRefs.current, width)
+
+  function addToRefs(el: any) {
+    //@ts-ignore
+    if (el && !slideRefs.current.includes(el)) {
+      //@ts-ignore
+      slideRefs.current.push(el)
+    }
+  }
+
+  function initAutoPlay() {
+    console.log('Hitting this')
+    if (autoPlay) {
+      setAutoPlayCount(autoPlayCount + 1)
+      if (autoPlayCount < autoPlayLimit * data.length) {
+        navigate('next')
+      }
+    }
+  }
 
   /**
    * Merge user settings with defaults (bottom of file)
    */
-  const {
-    infiniteScroll,
-    autoPlay,
-    delay,
-    duration,
-    transition,
-    draggable,
-    fadeDuration,
-  } = mergeSettings(settings)
   const _dots = mergeDots(dots)
   const _arrows = mergeArrows(arrows)
 
-  let _active = controls ? controls[0] : active
-  let _setActive = (val: number) =>
-    controls ? controls[1](val) : setActive(val)
-
-  // GSAP Static vars
-  const numSlides = data.length
-  const progressWrap = gsap.utils.wrap(0, 1)
-  // var wrap = gsap.utils.wrap(-100, (numSlides - 1) * 100)
-  // var timer = gsap.delayedCall(duration, autoPlay)
-
-  // function autoPlayer() {
-  //   setAutoPlayCount(autoPlayCount + 1)
-  //   if (autoPlayCount < autoPlayLimit) {
-  //     animateSlides(-1)
-  //   }
-  // }
-
-  // function updateProgress() {
-  //   animation.progress(progressWrap(gsap.getProperty(proxy, 'x') / wrapWidth))
-  // }
-  // function animateSlides(direction) {
-  //   timer.restart(true)
-  //   // slideAnimation.kill();
-
-  //   var x = snapX(gsap.getProperty(proxy, 'x') + direction * slideWidth)
-
-  //   gsap.to(proxy, {
-  //     x: x,
-  //     duration,
-  //     onUpdate: updateProgress,
-  //   })
-  // }
-
-  /** Initialize the slider and slide positions */
-  useEffect(() => {}, [])
-
-  // Handle Animation
-  useEffect(() => {}, [index, width])
+  // Proxy state in case an external component is controlling the slide index
+  const _index = controls ? controls[0] : index
+  const _setIndex = (val: number) =>
+    controls ? controls[1](val) : setIndex(val)
 
   /**
    * Handle external navigation from arrow buttons
    */
-  const navigate = React.useCallback(
-    (type: 'next' | 'previous' | 'index', idx?: number) => {
-      const isFirst = index === 0 ? true : false
-      const isLast = index === data.length - 1 ? true : false
-      const nextIndex = type === 'next' ? index + 1 : index - 1
+  const navigate = (
+    type: 'next' | 'previous' | 'index',
+    targetIndex?: number
+  ) => {
+    const isFirst = _index === 0
+    const isLast = _index === data.length - 1
+    const nextIndex = type === 'next' ? _index + 1 : _index - 1
 
-      function update() {
-        // Animate here
-      }
+    if (autoPlay) {
+      timer.restart(true)
+      loop?.kill()
+    }
 
-      /**
-       * Handle page indicator buttons that select a specific slide index
-       */
-      if (type === 'index' && idx !== undefined) {
-        setIndex(idx)
-        _setActive(idx)
-        update()
-        return
-      }
+    /**
+     * Handle page indicator buttons that select a specific slide index
+     */
+    if (type === 'index' && targetIndex !== undefined) {
+      _setIndex(targetIndex)
+      loop?.toIndex(targetIndex, { duration: 0.8, ease: 'power1.inOut' })
+    }
 
-      /**
-       * Handle infiniteScroll if user navigates beyond the array bounds
-       */
+    if (type === 'next') {
+      _setIndex(isLast ? 0 : nextIndex)
+      loop?.next({ duration: 0.4, ease: 'power1.inOut' })
+    }
 
-      if (type === 'next' && isLast) {
-        setIndex(0)
-        _setActive(0)
-        return update()
-      } else if (type === 'previous' && isFirst) {
-        setIndex(data.length - 1)
-        _setActive(data.length - 1)
-        return update()
-      } else {
-        setIndex(nextIndex)
-        _setActive(nextIndex)
-        return update()
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data.length, infiniteScroll, width]
-  )
+    if (type === 'previous') {
+      _setIndex(isFirst ? data.length - 1 : _index - 1)
+      loop?.previous({ duration: 0.4, ease: 'power1.inOut' })
+    }
+  }
 
   /**
    * Handle external navigation from `controls prop`
    */
-  useEffect(() => {
-    if (controls && controls[0] !== index) {
-      navigate('index', controls[0])
-    }
-  }, [navigate, controls, index])
+  // useEffect(() => {
+  //   if (controls && controls[0] !== _index) {
+  //     navigate('index', controls[0])
+  //   }
+  // }, [controls, navigate, _index])
 
   return (
     <Div
@@ -162,7 +135,6 @@ export const Carousel = ({
       ref={mergeRefs([carouselRef, measuredRef])}
       className={mergeSelectors(['carousel', className])}
       css={{
-        overflow: 'hidden',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
@@ -172,49 +144,46 @@ export const Carousel = ({
         button: {
           zIndex: 100,
         },
+        '.slide-container': {
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          overflow: 'hidden',
+          width: '100%',
+          height: '100%',
+        },
+        '.slide': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+          width: '100%',
+          position: 'relative',
+          flexShrink: 0,
+          cursor: 'pointer',
+        },
+        '.slide-inner': {
+          height: '100%',
+          width: '100%',
+        },
       }}
       {...props}>
       <div className="slide-container">
         {data.map((d, i) => (
-          <Div
-            className={mergeSelectors([
-              'slide',
-              _active === i ? ' active' : '',
-            ])}
+          <div
+            ref={addToRefs}
+            className={mergeSelectors(['slide', _index === i ? ' active' : ''])}
             // {...bind()}
-            key={i}
-            css={{
-              position: 'absolute',
-              display: 'block',
-              top: 0,
-              left: 0,
-              height: '100%',
-              width: '100%',
-              willChange: 'transform',
-              opacity: transition === 'fade' ? 0 : undefined,
-              zIndex: i === 0 ? 1 : 0,
-              transition:
-                transition === 'fade'
-                  ? `opacity ${fadeDuration}s ease-in-out`
-                  : undefined,
-            }}>
-            <Div
-              className="slide-inner"
-              css={{
-                height: '100%',
-                width: '100%',
-                willChange: 'transform',
-              }}>
-              {React.cloneElement(template, d)}
-            </Div>
-          </Div>
+            key={i}>
+            <div className="slide-inner">{React.cloneElement(template, d)}</div>
+          </div>
         ))}
       </div>
       {_arrows ? <NavArrows navigate={navigate} settings={_arrows} /> : null}
       {_dots ? (
         <Pagination
           navigate={navigate}
-          current={_active}
+          current={_index}
           count={data.length}
           settings={_dots}
         />
@@ -232,14 +201,14 @@ function mergeSettings(initial: CarouselProps['settings']) {
   return merge(
     {
       autoPlay: false,
+      autoPlayLimit: 2,
       draggable: false,
       infiniteScroll: false,
       hideControls: false,
       showControlsOnHover: false,
-      delay: 6500,
-      duration: 300,
+      delay: 6.5,
+      duration: 0.3,
       transition: 'slide',
-      fadeDuration: 0.5,
     },
     initial as object
   )

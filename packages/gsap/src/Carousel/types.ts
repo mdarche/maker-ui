@@ -2,16 +2,15 @@ import type { ResponsiveScale } from '@maker-ui/css'
 
 export interface CarouselSettings {
   autoPlay?: boolean
+  autoPlayLimit?: number
   draggable?: boolean
-  infiniteScroll?: boolean
   hideControls?: boolean
   showControlsOnHover?: boolean
-  /** Delay in milliseconds that each slide is displayed before changing */
+  /** Delay in seconds that each slide is displayed before changing */
   delay?: number
-  /** Duration of the transition animation in milliseconds */
+  /** Duration of the transition animation in seconds */
   duration?: number
   transition?: 'fade' | 'slide' | 'scale'
-  fadeDuration?: number // seconds
 }
 
 export interface ArrowSettings {
