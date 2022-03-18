@@ -14,9 +14,8 @@ import { useDrag } from '@use-gesture/react'
 import { NavArrows } from './NavArrows'
 import { Pagination } from './Pagination'
 import type { CarouselSettings, ArrowSettings, DotSettings } from './types'
-import { useLoop } from './useLoop'
+import { useTimer, useLoop } from '../hooks'
 import styles from './Carousel.styles'
-import { useTimer } from './useTimer'
 
 export interface CarouselProps extends DivProps {
   data: Object[]
@@ -26,6 +25,7 @@ export interface CarouselProps extends DivProps {
   dots?: DotSettings | false
   settings?: CarouselSettings
   loader?: React.ReactElement
+  overlay?: React.ReactElement
   /** External controls via useState hook */
   controls?: [number, React.Dispatch<React.SetStateAction<number>>]
 }
@@ -44,6 +44,7 @@ export const Carousel = ({
   arrows = {},
   height = 500,
   controls,
+  overlay,
   id,
   className,
   css,
@@ -207,6 +208,7 @@ export const Carousel = ({
           </div>
         ))}
       </div>
+      {overlay ? overlay : null}
       {_arrows ? <NavArrows navigate={navigate} settings={_arrows} /> : null}
       {_dots ? (
         <Pagination

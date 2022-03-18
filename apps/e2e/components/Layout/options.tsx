@@ -37,7 +37,7 @@ export const options: MakerUIOptions = {
     sticky: true,
   },
   content: {
-    maxWidth: 900,
+    maxWidth: '100%',
     maxWidthSection: 900,
   },
 }

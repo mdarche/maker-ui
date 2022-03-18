@@ -17,6 +17,11 @@ export const useTimer = (
     setIsActive(true)
   }
 
+  function restart() {
+    setEffectCount(0)
+    setIsActive(true)
+  }
+
   useEffect(() => {
     let timer: null | ReturnType<typeof setTimeout> = null
     if (isActive && effectCount < maxRuns) {
@@ -28,5 +33,5 @@ export const useTimer = (
     return () => (timer ? clearInterval(timer) : undefined)
   }, [delay, callback, params, maxRuns, isActive, effectCount])
 
-  return { pause, resume }
+  return { pause, resume, restart }
 }

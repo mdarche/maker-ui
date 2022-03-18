@@ -1,4 +1,4 @@
-import type { ResponsiveScale } from '@maker-ui/css'
+import type { ResponsiveScale, StyleObject } from '@maker-ui/css'
 
 export interface CarouselSettings {
   autoPlay?: boolean
@@ -28,4 +28,5 @@ export interface DotSettings {
   spacing?: ResponsiveScale
   colorActive?: string
   colorMuted?: string
+  css?: StyleObject
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Flex, Button } from '@maker-ui/primitives'
-import { mergeSelectors } from '@maker-ui/utils'
+import { merge, mergeSelectors } from '@maker-ui/utils'
 import type { ResponsiveScale } from '@maker-ui/css'
 import type { Position, DotSettings } from './types'
 
@@ -20,7 +20,7 @@ export const Pagination = ({
   navigate,
   current,
   count,
-  settings: { position, padding, spacing, colorActive, colorMuted },
+  settings: { position, padding, spacing, colorActive, colorMuted, css },
 }: PaginationProps) => {
   let indicators = []
 
@@ -49,18 +49,21 @@ export const Pagination = ({
         onClick={() => navigate && navigate('index', i)}
         aria-label={`Show slide ${i + 1}`}
         aria-selected={i === current ? 'true' : 'false'}
-        css={{
-          ...getSpacing(i),
-          padding: 0,
-          height: 10,
-          width: 10,
-          border: 'none',
-          borderRadius: '50%',
-          backgroundColor: colorMuted,
-          '&.active': {
-            backgroundColor: colorActive,
+        css={merge(
+          {
+            ...getSpacing(i),
+            padding: 0,
+            height: 10,
+            width: 10,
+            border: 'none',
+            borderRadius: '50%',
+            backgroundColor: colorMuted,
+            '&.active': {
+              backgroundColor: colorActive,
+            },
           },
-        }}
+          (css as object) || {}
+        )}
       />
     )
   }

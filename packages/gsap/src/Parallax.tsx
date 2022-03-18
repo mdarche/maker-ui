@@ -20,7 +20,7 @@ interface ParallaxProps extends Omit<SectionProps, 'background' | 'translate'> {
   /** Settings for the image overlay or a false boolean to remove it */
   overlay?: { background: string } | false
   /** The height of the actual background image */
-  imageHeight: ResponsiveScale
+  imageHeight?: ResponsiveScale
   /** An intial CSS transform that marks the starting position of the image */
   imagePosition?: string
   /** Additional styles that are applied to `.image-container` */
@@ -28,7 +28,7 @@ interface ParallaxProps extends Omit<SectionProps, 'background' | 'translate'> {
   /** The maxwidth of the content container where nested children are rendered */
   maxWidth?: ResponsiveScale
   /** Settings for GSAP's ScrollTrigger */
-  translate?: {
+  effect?: {
     /** Image y translation */
     y?: number | string
     /** Image yPercent translation */
@@ -40,7 +40,7 @@ interface ParallaxProps extends Omit<SectionProps, 'background' | 'translate'> {
     /** GSAP ScrollTrigger scrub */
     scrub?: number | boolean
     /** Additional GSAP timeline animation properties */
-    effect?: object
+    custom?: object
   }
   /** A simultaneous gsap.to() timeline animation object that is applied to the content container */
   textEffect?: object
@@ -50,12 +50,12 @@ interface ParallaxProps extends Omit<SectionProps, 'background' | 'translate'> {
   layer?: React.ReactNode
 }
 
-const defaultTranslate = {
+const defaultEffect = {
   y: 200,
   start: () => '-200px top',
   end: () => 'bottom top',
   scrub: true,
-  effect: {},
+  custom: {},
 }
 
 export const Parallax = ({
@@ -65,12 +65,12 @@ export const Parallax = ({
   markers,
   overlay = { background: 'rgba(0,0,0,0.25)' },
   layer,
-  imageHeight = 500,
+  imageHeight = [800, 1500, 2000],
   imagePosition = 'translateY(-500px)',
   maxWidth = 'var(--maxWidth_section)',
   imageCss,
   css,
-  translate = {},
+  effect = {},
   textEffect,
   parallax = true,
   children,
@@ -79,7 +79,7 @@ export const Parallax = ({
   const ref = useRef(null)
   const sectionRef = useRef(null)
   const containerRef = useRef(null)
-  const t = merge(defaultTranslate, translate)
+  const t = merge(defaultEffect, effect)
 
   useEffect(() => {
     if (parallax) {
@@ -96,7 +96,7 @@ export const Parallax = ({
       tl.to(ref.current, {
         y: t.yPercent ? undefined : t.y,
         yPercent: t.yPercent,
-        ...t.effect,
+        ...t.custom,
       })
       if (textEffect) {
         tl.to(containerRef.current, textEffect, 0)
@@ -130,6 +130,15 @@ export const Parallax = ({
           position: 'relative',
           maxWidth,
           margin: '0 auto',
+        },
+        img: {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          height: '100%',
+          width: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center',
         },
         ...(css as object),
       }}
