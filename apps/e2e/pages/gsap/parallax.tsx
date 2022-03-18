@@ -1,9 +1,11 @@
 import { Parallax } from '@maker-ui/gsap'
 import { Div } from 'maker-ui'
+import Image from 'next/image'
+import cosmosImage from '../../public/cosmos.jpeg'
 
 export default function ParallaxPage() {
   return (
-    <Div css={{ height: '200vh', h1: { color: '#fff', fontSize: 40 } }}>
+    <Div css={{ paddingBottom: '200vh', h1: { color: '#fff', fontSize: 40 } }}>
       <Parallax
         image={{
           src: 'https://picsum.photos/id/214/2000/1500',
@@ -31,6 +33,23 @@ export default function ParallaxPage() {
           textAlign: 'center',
         }}>
         <h1>Basic Image Tag</h1>
+      </Parallax>
+      <Parallax
+        image={
+          <Image
+            src={cosmosImage}
+            alt="cosmos"
+            layout="fill"
+            objectFit="cover"
+          />
+        }
+        overlay={{ background: 'rgba(0, 4, 200, 0.66)' }}
+        effect={{ start: 'top bottom', end: 'bottom top', y: 300 }}
+        css={{
+          padding: '200px 20px',
+          textAlign: 'center',
+        }}>
+        <h1>NextImage</h1>
       </Parallax>
     </Div>
   )

@@ -1,10 +1,22 @@
 import { createElement } from 'react'
 import { jsx as emotionJsx } from '@emotion/react'
 import { parseProps } from './parse-props'
-import type { MakerProps } from './types'
+import type { MakerProps, StyleObject } from './types'
 
 declare module 'react' {
   interface Attributes extends MakerProps {}
+}
+
+/**
+ * Scans the CSS prop and returns true if every key is undefined
+ *
+ * @param {StyleObject} obj a CSS prop style object
+ * @returns {boolean}
+ */
+function isEmpty(obj: StyleObject) {
+  return Object.values(obj as object).every(
+    (el) => el === undefined || el === null
+  )
 }
 
 /**
@@ -21,7 +33,13 @@ export const jsx = <P>(
   type: React.ElementType<P>,
   props: React.Attributes & P,
   ...children: React.ReactNode[]
-) =>
-  typeof props?.css !== 'undefined' || typeof props?.breakpoints !== 'undefined'
+) => {
+  if (props?.css && isEmpty(props.css)) {
+    delete props.css
+    delete props?.breakpoints
+  }
+
+  return props?.css
     ? emotionJsx(type, parseProps(props), ...children)
     : createElement(type, props, ...children)
+}

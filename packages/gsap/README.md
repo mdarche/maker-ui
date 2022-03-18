@@ -6,3 +6,4 @@
 - Parallax Grid
 - Parallax Layers
   - Option for tracking mouse movement to translate layers
+- ScrollTrigger component

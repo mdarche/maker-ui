@@ -1,4 +1,4 @@
-import { Div } from 'maker-ui'
+import { Div, Section } from 'maker-ui'
 import { Carousel } from '@maker-ui/gsap'
 import { useState } from 'react'
 
@@ -34,29 +34,36 @@ export default function CarouselPage() {
   const [array, setArray] = useState(basicData)
   return (
     <>
-      <div className="flex justify-between">
-        <div>
-          <button onClick={() => setIndex(1)}>Go to Slide 2</button>
-          <button onClick={() => setIndex(3)}>Go to Slide 4</button>
+      <Section _css={{ background: 'green' }}>
+        <div className="flex justify-between">
+          <div>
+            <button onClick={() => setIndex(1)}>Go to Slide 2</button>
+            <button onClick={() => setIndex(3)}>Go to Slide 4</button>
+          </div>
+          <div>
+            <button
+              onClick={() =>
+                setArray((arr) => [
+                  ...arr,
+                  { greeting: 'New greeting', bg: 'black' },
+                ])
+              }>
+              Add to array
+            </button>
+          </div>
         </div>
-        <div>
-          <button
-            onClick={() =>
-              setArray((arr) => [
-                ...arr,
-                { greeting: 'New greeting', bg: 'black' },
-              ])
-            }>
-            Add to array
-          </button>
-        </div>
-      </div>
+      </Section>
       <Div css={{ marginTop: 30 }}>
         <Carousel
           data={array}
           template={<BasicSlide />}
           controls={[index, setIndex]}
           settings={{}}
+          overlay={
+            <Div className="absolute cover flex align-center justify-center">
+              <h2>Test</h2>
+            </Div>
+          }
         />
       </Div>
     </>
