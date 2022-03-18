@@ -13,6 +13,7 @@ const styles = {
     overflow: 'hidden',
     width: '100%',
     height: '100%',
+    touchAction: 'none',
   },
   '.slide': {
     display: 'flex',

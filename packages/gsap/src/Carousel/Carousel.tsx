@@ -9,8 +9,7 @@ import { mergeSelectors, merge } from '@maker-ui/utils'
 import { Div, type DivProps } from '@maker-ui/primitives'
 import type { ResponsiveScale } from '@maker-ui/css'
 import debounce from 'lodash.debounce'
-
-// import { useDrag } from '@use-gesture/react'
+import { useDrag } from '@use-gesture/react'
 
 import { NavArrows } from './NavArrows'
 import { Pagination } from './Pagination'
@@ -101,7 +100,6 @@ export const Carousel = ({
         }
         setIndex(val)
       }
-      console.log('In here')
 
       /**
        * Handle page indicator buttons that select a specific slide index
@@ -130,6 +128,26 @@ export const Carousel = ({
       }
     },
     [_index, controls, data.length, loop]
+  )
+
+  const bind = useDrag(
+    ({ dragging, last, direction, intentional, movement: [mx] }) => {
+      if (dragging) {
+        pause()
+      }
+      if (intentional && direction[0] === -1 && Math.abs(mx) > 160 && last) {
+        navigate('next')
+      } else if (intentional && Math.abs(mx) > 160 && last) {
+        navigate('previous')
+      }
+      console.log(
+        'in here',
+        intentional,
+        last,
+        direction[0],
+        Math.abs(mx) > 160
+      )
+    }
   )
 
   /**
@@ -179,12 +197,11 @@ export const Carousel = ({
         height,
       }}
       {...props}>
-      <div className="slide-container">
+      <div className="slide-container" {...bind()}>
         {data.map((d, i) => (
           <div
             ref={addToRefs}
             className={mergeSelectors(['slide', _index === i ? ' active' : ''])}
-            // {...bind()}
             key={i}>
             <div className="slide-inner">{cloneElement(template, d)}</div>
           </div>
