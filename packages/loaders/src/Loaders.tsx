@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SVG, SVGProps } from 'maker-ui'
+import { SVG, SVGProps } from '@maker-ui/primitives'
 
 const defaultColors = {
   primary: '#0e94d4',
