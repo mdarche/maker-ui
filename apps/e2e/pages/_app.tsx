@@ -13,12 +13,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="robots" content="index, follow" />
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      {!asPath.includes('/layouts/') ? (
+      {asPath.includes('/layouts/') || asPath.includes('/headers/') ? (
+        <Component {...pageProps} />
+      ) : (
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      ) : (
-        <Component {...pageProps} />
       )}
     </>
   )

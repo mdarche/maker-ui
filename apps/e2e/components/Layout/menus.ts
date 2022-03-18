@@ -7,6 +7,7 @@ export const primary_menu: MakerMenu = [
   { label: 'Home', path: '/' },
   {
     label: 'Components',
+    path: '/accordion',
     submenu: [
       { label: 'Accordion', path: '/accordion' },
       { label: 'Generative', path: '/generative' },
@@ -25,6 +26,15 @@ export const primary_menu: MakerMenu = [
       { label: 'Carousel', path: '/gsap/carousel' },
       { label: 'Parallax', path: '/gsap/parallax' },
       { label: 'ScrollReveal', path: '/gsap/scrollreveal' },
+    ],
+  },
+  {
+    label: 'Content Layouts',
+    path: '/layouts/basic',
+    submenu: [
+      { label: 'Basic', path: '/layouts/basic' },
+      { label: 'Sidebar Right', path: '/layouts/sidebar-right' },
+      { label: 'Sidebar Left', path: '/layouts/sidebar-left' },
     ],
   },
 ]
