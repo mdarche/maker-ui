@@ -14,6 +14,10 @@ const styles = {
     width: '100%',
     height: '100%',
     touchAction: 'none',
+    cursor: 'pointer',
+    '&.dragging': {
+      cursor: 'grabbing',
+    },
   },
   '.slide': {
     display: 'flex',
@@ -23,7 +27,6 @@ const styles = {
     width: '100%',
     position: 'relative',
     flexShrink: 0,
-    cursor: 'pointer',
   },
   '.slide-inner': {
     height: '100%',

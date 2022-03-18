@@ -56,6 +56,7 @@ export const Carousel = ({
   const carouselRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
   const [length, setLength] = useState(data.length)
+  const [isDragging, setIsDragging] = useState(false)
   const slideRefs = useRef([])
   slideRefs.current = []
   const { loop, resetLoop } = useLoop(slideRefs.current)
@@ -135,19 +136,15 @@ export const Carousel = ({
     ({ dragging, last, direction, intentional, movement: [mx] }) => {
       if (dragging) {
         pause()
+        setIsDragging(true)
+      } else {
+        setIsDragging(false)
       }
       if (intentional && direction[0] === -1 && Math.abs(mx) > 160 && last) {
         navigate('next')
       } else if (intentional && Math.abs(mx) > 160 && last) {
         navigate('previous')
       }
-      console.log(
-        'in here',
-        intentional,
-        last,
-        direction[0],
-        Math.abs(mx) > 160
-      )
     }
   )
 
@@ -170,7 +167,6 @@ export const Carousel = ({
 
   /**
    * Handle pause on focus
-   * @todo - test this
    */
   useEffect(() => {
     const current = carouselRef.current
@@ -198,7 +194,12 @@ export const Carousel = ({
         height,
       }}
       {...props}>
-      <div className="slide-container" {...bind()}>
+      <div
+        className={mergeSelectors([
+          'slide-container',
+          isDragging ? 'dragging' : undefined,
+        ])}
+        {...bind()}>
         {data.map((d, i) => (
           <div
             ref={addToRefs}

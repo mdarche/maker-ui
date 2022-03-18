@@ -59,11 +59,11 @@ export default function CarouselPage() {
           template={<BasicSlide />}
           controls={[index, setIndex]}
           settings={{}}
-          overlay={
-            <Div className="absolute cover flex align-center justify-center">
-              <h2>Test</h2>
-            </Div>
-          }
+          // overlay={
+          //   <Div className="absolute cover flex align-center justify-center">
+          //     <h2>Test</h2>
+          //   </Div>
+          // }
         />
       </Div>
     </>
