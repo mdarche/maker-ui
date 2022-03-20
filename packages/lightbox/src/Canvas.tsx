@@ -17,7 +17,7 @@ interface MediaFrameProps {
  * The `Media Frame` is a wrapper that conditionally loads and configures
  * a Youtube/Vimeo iframe, HTML video element, or image.
  *
- * @internal usage only
+ * @internal
  */
 const MediaFrame = ({
   item: { src, alt, youtubeId, vimeoId, htmlVideo, poster },
@@ -68,7 +68,7 @@ MediaFrame.displayName = 'MediaFrame'
  *
  * @todo - add props and loading spinner to background
  *
- * @internal usage only
+ * @internal
  */
 export const Canvas = () => {
   const { data, index, settings } = useLightbox()

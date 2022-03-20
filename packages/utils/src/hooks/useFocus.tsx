@@ -31,7 +31,7 @@ export interface FocusConfig {
  * @param focusRef - A React ref that points to the desired focus HTML Element
  * @param show - A boolean that determines whether the effect should run
  *
- * @internal usage only
+ * @internal
  */
 
 export function useFocus({ containerRef, focusRef, show }: FocusConfig) {

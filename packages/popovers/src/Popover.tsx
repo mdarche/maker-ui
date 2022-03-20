@@ -70,7 +70,7 @@ export interface PopoverProps extends DivProps {
    * @default 200
    */
   duration?: number
-  /** @internal usage only */
+  /** @internal */
   _type?: 'popover' | 'dropdown' | 'tooltip'
   /** The child component of the Popover */
   children: React.ReactNode

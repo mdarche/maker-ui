@@ -18,7 +18,7 @@ interface SkipLinkProps {
  *
  * Supply your own link array for extra control via the `Layout` component props.
  *
- * @internal usage only
+ * @internal
  */
 export const Skiplinks = (props: SkipLinkProps) => {
   const { a11y } = useOptions()

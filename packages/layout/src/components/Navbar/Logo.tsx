@@ -10,7 +10,7 @@ interface LogoProps {
  * The `Logo` is used by `Navbar` to show a custom logo wrapped in a link to
  * the site's index page.
  *
- * @internal usage only
+ * @internal
  */
 export const Logo = ({ children }: LogoProps): React.ReactElement => {
   const { linkFunction } = useOptions()

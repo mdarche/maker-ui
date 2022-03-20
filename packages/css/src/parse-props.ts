@@ -7,7 +7,7 @@ import type { Interpolation } from './types'
  * @param props - all of the element's props
  * @returns All original props + a formatted, responsive EmotionJS `css` prop
  *
- * @internal usage only
+ * @internal
  *
  */
 export function parseProps(props: any) {

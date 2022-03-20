@@ -13,7 +13,7 @@ interface PortalProps {
  * It checks for the browser window and creates a React portal to a specified
  * node or the document body.
  *
- * @internal usage only
+ * @internal
  */
 export const Portal = ({ children, root }: PortalProps) => {
   if (typeof window !== 'undefined') {

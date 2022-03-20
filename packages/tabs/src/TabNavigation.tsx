@@ -18,7 +18,7 @@ export interface TabStyleProps {
  * The `TabNavigation` component generates a nav bar for the `TabGroup`.
  * It uses the `title` prop on a `TabPanel` component.
  *
- * @internal usage only
+ * @internal
  */
 
 export const TabNavigation = ({ settings, buttonType }: TabStyleProps) => {

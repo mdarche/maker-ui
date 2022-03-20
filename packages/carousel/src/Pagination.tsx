@@ -21,7 +21,7 @@ export interface PaginationProps {
 /**
  * The `Pagination` component adds page indicators to the `Carousel` component.
  *
- * @internal usage only
+ * @internal
  */
 export const Pagination = ({
   navigate,

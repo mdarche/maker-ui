@@ -57,7 +57,7 @@ interface MenuInternalProps {
  * Returns a menu item and nested children for `NavMenu` or `CollapsibleMenu`
  * components. This component uses recursion to create nested menus.
  *
- * @internal usage only
+ * @internal
  *
  */
 

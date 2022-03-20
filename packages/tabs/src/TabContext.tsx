@@ -27,7 +27,7 @@ const TabUpdateContext = React.createContext<
  * The `TabContext` component is a Provider that handles all of the
  * settings for a `Tabs` component and its `TabPanel` children.
  *
- * @internal usage only
+ * @internal
  */
 
 export const TabContext = ({
@@ -89,7 +89,7 @@ TabContext.displayName = 'TabContext'
 /**
  * Hook for registering tab panels and tracking the currently active tab.
  *
- * @internal usage only
+ * @internal
  */
 
 export function useTabs() {

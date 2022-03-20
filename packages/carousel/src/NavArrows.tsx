@@ -18,7 +18,7 @@ interface NavButtonProps extends NavArrowProps {
  * The `NavButton` component creates an accessible button component for
  * the Carousel `Navigation`.
  *
- * @internal usage only
+ * @internal
  */
 const NavButton = ({
   isNext = false,
@@ -64,7 +64,7 @@ const ArrowIcon = () => (
 /**
  * The `Navigation` component adds previous / next buttons to the `Carousel` component.
  *
- * @internal usage only
+ * @internal
  */
 
 export const NavArrows = React.memo(({ navigate, ...props }: NavArrowProps) => {

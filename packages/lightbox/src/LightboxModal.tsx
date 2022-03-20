@@ -19,7 +19,7 @@ interface LightboxModalProps extends DivProps {
  * @todo - implement zoom feature
  * @todo - add Carousel for slider
  *
- * @internal usage only
+ * @internal
  */
 
 export const LightboxModal = ({

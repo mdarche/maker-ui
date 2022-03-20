@@ -17,7 +17,7 @@ const AccordionUpdateContext = React.createContext<
 /**
  * Use the `Accordion` component to build and customize collapsible accordions.
  *
- * @internal usage only
+ * @internal
  */
 
 export const AccordionContext = ({

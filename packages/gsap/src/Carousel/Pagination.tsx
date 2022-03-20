@@ -14,13 +14,23 @@ interface PaginationProps {
 /**
  * The `Pagination` component adds page indicators to the `Carousel` component.
  *
- * @internal usage only
+ * @internal
  */
 export const Pagination = ({
   navigate,
   current,
   count,
-  settings: { position, padding, spacing, colorActive, colorMuted, css },
+  settings: {
+    position,
+    padding,
+    spacing,
+    height,
+    width,
+    borderRadius,
+    colorActive,
+    colorMuted,
+    css,
+  },
 }: PaginationProps) => {
   let indicators = []
 
@@ -53,10 +63,10 @@ export const Pagination = ({
           {
             ...getSpacing(i),
             padding: 0,
-            height: 10,
-            width: 10,
+            height,
+            width,
+            borderRadius,
             border: 'none',
-            borderRadius: '50%',
             backgroundColor: colorMuted,
             '&.active': {
               backgroundColor: colorActive,

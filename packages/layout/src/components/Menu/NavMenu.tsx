@@ -12,7 +12,7 @@ interface NavMenuProps {
 /**
  * Used by the `Navbar` to render a list of primary menu items.
  *
- * @internal usage only
+ * @internal
  *
  */
 export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {

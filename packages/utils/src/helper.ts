@@ -19,7 +19,7 @@ export const format = (value: any) => (isNaN(value) ? value : `${value}px`)
 /**
  * Returns a randomly generated alphanumeric ID.
  *
- * @internal usage only
+ * @internal
  *
  */
 export function generateId(length: number = 5): string {

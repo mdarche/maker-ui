@@ -42,7 +42,7 @@ const LightboxUpdateContext = React.createContext<
  * The `LightboxContext` component is a Provider that handles stores all of the data
  * for a lightbox gallery.
  *
- * @internal usage only
+ * @internal
  */
 
 export const LightboxContext = ({
@@ -81,7 +81,7 @@ LightboxContext.displayName = 'LightboxContext'
  * React hook that registers all lightbox links and data as well as control
  * of the lightbox state.
  *
- * @internal usage only
+ * @internal
  */
 
 export function useLightbox(): any {

@@ -38,7 +38,6 @@ export const useLoop = (items: HTMLElement[], config: LoopConfig = {}) => {
   }, [])
 
   function resetLoop() {
-    console.log('Resetting')
     loop?.time(0).kill()
     setLoop(undefined)
   }

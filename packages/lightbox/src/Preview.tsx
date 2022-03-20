@@ -11,7 +11,7 @@ interface PreviewProps {
  * The `Preview` component shows additional gallery items while the lightbox view
  * is active.
  *
- * @internal usage only
+ * @internal
  */
 export const Preview = ({ show }: PreviewProps) => {
   const ref = React.useRef<any>(null)

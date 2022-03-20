@@ -10,7 +10,7 @@ interface ExpandButtonProps {
  * The `ExpandButton` is used in collapsible menus to open or close the
  * next group of nested menu items.
  *
- * @internal usage only
+ * @internal
  * @todo add custom button support
  *
  */

@@ -11,7 +11,7 @@ const defaultBreakpoints = ['768px', '960px', '1440px']
  * @param breakpoints - an array of breakpoints
  * @returns A CSS style object
  *
- * @internal usage only
+ * @internal
  *
  */
 export function responsive(
@@ -51,7 +51,7 @@ export function responsive(
  * @param breakpoints - an array of breakpoints
  * @returns An EmotionJS compatible CSSObject
  *
- * @internal usage only
+ * @internal
  *
  */
 export const formatCSS =

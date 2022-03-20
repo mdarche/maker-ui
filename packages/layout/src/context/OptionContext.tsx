@@ -32,7 +32,7 @@ function getDefaultOptions(defaultColors?: boolean) {
  * The `OptionProvider` stores all of Maker UI's client-facing
  * configurations.
  *
- * @internal usage only
+ * @internal
  */
 
 const OptionProvider = ({ options, children }: OptionProviderProps) => {
@@ -42,7 +42,7 @@ const OptionProvider = ({ options, children }: OptionProviderProps) => {
   )
 
   React.useEffect(() => {
-    setState(s => mergeOptions(s, options))
+    setState((s) => mergeOptions(s, options))
   }, [options])
 
   return (
@@ -88,7 +88,7 @@ function useOptionsUpdater() {
   }
 
   function setOptions(options: Partial<MakerOptions>) {
-    dispatch(state => merge(state, options))
+    dispatch((state) => merge(state, options))
   }
 
   return setOptions
