@@ -1,47 +1,47 @@
-import { random } from '@maker-ui/elements'
-import { useState, useEffect } from 'react'
-import { gsap } from 'gsap'
-import { MorphSVGPlugin } from 'gsap/dist/MorphSVGPlugin'
+// import { random } from '@maker-ui/elements'
+// import { useState, useEffect } from 'react'
+// import { gsap } from 'gsap'
+// import { MorphSVGPlugin } from 'gsap/dist/MorphSVGPlugin'
 
-gsap.registerPlugin(MorphSVGPlugin)
+// gsap.registerPlugin(MorphSVGPlugin)
 
 interface LogoProps {
   path: string
 }
 
-const logoShapes = [
-  'sidebar_left',
-  'sidebar_right',
-  'sidebars',
-  'content',
-  'navless_left',
-  'navless_right',
-] as const
+// const logoShapes = [
+//   'sidebar_left',
+//   'sidebar_right',
+//   'sidebars',
+//   'content',
+//   'navless_left',
+//   'navless_right',
+// ] as const
 
 export const Logo = ({ path }: LogoProps) => {
-  const [shape, setShape] = useState<typeof logoShapes[number]>('sidebars')
-  const [firstRender, setFirstRender] = useState(true)
-  const variants = logoShapes.filter((k) => k !== shape)
+  // const [shape, setShape] = useState<typeof logoShapes[number]>('sidebars')
+  // const [firstRender, setFirstRender] = useState(true)
+  // const variants = logoShapes.filter((k) => k !== shape)
 
-  useEffect(() => {
-    if (firstRender) {
-      setFirstRender(false)
-      return
-    }
-    setShape(random(variants))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path])
+  // useEffect(() => {
+  //   if (firstRender) {
+  //     setFirstRender(false)
+  //     return
+  //   }
+  //   setShape(random(variants))
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [path])
 
-  useEffect(() => {
-    const selectors = ['nav', 'right', 'left', 'body']
+  // useEffect(() => {
+  //   const selectors = ['nav', 'right', 'left', 'body']
 
-    selectors.forEach((s) => {
-      gsap.to(`#l-${s}`, {
-        duration: 0.4,
-        morphSVG: pathData[shape][s],
-      })
-    })
-  }, [shape])
+  //   selectors.forEach((s) => {
+  //     gsap.to(`#l-${s}`, {
+  //       duration: 0.4,
+  //       morphSVG: pathData[shape][s],
+  //     })
+  //   })
+  // }, [shape])
 
   return (
     <div className="flex align-center">
