@@ -1,4 +1,4 @@
-import { MakerMenu } from 'maker-ui'
+import type { MakerMenu } from 'maker-ui'
 
 /**
  * Primary header menu

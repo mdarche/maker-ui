@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MakerUIOptions } from 'maker-ui'
+import type { MakerUIOptions } from 'maker-ui'
 
 export const options: MakerUIOptions = {
   linkFunction: function nextLink(

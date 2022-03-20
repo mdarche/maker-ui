@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ✨ Feature Request
+    url: https://github.com/mdarche/maker-ui/discussions/new
+    about: Have an idea for a new feature or integration? Share it here!
+  - name: ❓ Ask a Question
+    url: https://github.com/mdarche/maker-ui/discussions/new
+    about: If you have any questions about how to do something in Maker UI, ask it here.
+  - name: 📖 View Documentation
+    url: https://maker-ui.com
+    about: Official Maker UI Documentation Site
