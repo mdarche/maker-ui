@@ -20,30 +20,6 @@ import { NavWidgets } from '../NavWidgets'
 import { PostNavigation } from '../PostNavigation'
 import { PageContents } from '../PageContents'
 
-const testMenu = [
-  { path: '', label: 'Home' },
-  { path: '', label: 'About' },
-  { path: '', label: 'More Info' },
-  {
-    path: '',
-    label: 'Test',
-    submenu: [
-      { path: '', label: 'Home' },
-      { path: '', label: 'About' },
-      { path: '', label: 'More Info' },
-    ],
-  },
-  {
-    path: '',
-    label: 'Test',
-    megamenu: (
-      <Div css={{ padding: 50 }}>
-        <a href="https://google.com">Test</a>
-      </Div>
-    ),
-  },
-]
-
 const Layout = ({ children }) => {
   const { asPath } = useRouter()
   const isDocs = asPath.includes('docs')
@@ -51,12 +27,6 @@ const Layout = ({ children }) => {
   return (
     <MakerLayout options={options} styles={styles}>
       <Header>
-        {/* <Navbar
-          logo={<Logo path={asPath} />}
-          widgetSlot={<div>Test!</div>}
-          menu={testMenu}
-          css={{ 'li a': { padding: '5px 20px' } }}
-        /> */}
         <Navbar
           logo={<Logo path={asPath} />}
           menuSlot={<Search />}

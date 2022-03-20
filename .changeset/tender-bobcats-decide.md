@@ -7,7 +7,6 @@
 '@maker-ui/carousel': minor
 '@maker-ui/css': minor
 '@maker-ui/elements': minor
-'eslint-preset': minor
 '@maker-ui/forms': minor
 '@maker-ui/generative': minor
 '@maker-ui/gsap': minor
@@ -21,7 +20,6 @@
 '@maker-ui/primitives': minor
 '@maker-ui/tabs': minor
 '@maker-ui/toc': minor
-'tsconfig': minor
 '@maker-ui/utils': minor
 ---
 
