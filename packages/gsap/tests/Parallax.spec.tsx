@@ -2,8 +2,7 @@ import * as React from 'react'
 import { mount } from '@cypress/react'
 import { Parallax } from '@maker-ui/gsap'
 import { Layout } from '@maker-ui/layout'
-import Image from 'next/image'
-import CosmoBG from './cosmos.jpeg'
+// import Image from 'next/image'
 import { Div } from '@maker-ui/primitives'
 
 const Wrapper = ({ children }) => {
@@ -36,14 +35,14 @@ describe('Parallax', () => {
     mount(
       <Wrapper>
         <Parallax
-          image={
-            <Image
-              src={CosmoBG}
-              alt="test-image"
-              layout="fill"
-              objectFit="cover"
-            />
-          }
+          // image={
+          //   <Image
+          //     // src={CosmoBG}
+          //     alt="test-image"
+          //     layout="fill"
+          //     objectFit="cover"
+          //   />
+          // }
           imageHeight={2000}>
           <h1>Page title</h1>
         </Parallax>
