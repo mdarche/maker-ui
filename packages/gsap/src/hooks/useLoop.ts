@@ -1,5 +1,5 @@
 import { gsap } from 'gsap'
-import { merge } from 'maker-ui'
+import { merge } from '@maker-ui/utils'
 import { useEffect, useState } from 'react'
 
 interface LoopConfig {
