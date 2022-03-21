@@ -18,15 +18,26 @@ export const ImageField = ({
   ...props
 }: ImageFieldProps) => {
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)
+  const { isSubmitting } = useFormikContext()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [field, meta, { setValue }] = useField({
+  const [field, { touched }, { setValue, setTouched }] = useField({
     ...props,
     name,
-    type: 'image-picker',
+    type: 'file',
   })
 
   useEffect(() => {
+    if (!touched && isSubmitting) {
+      setTouched(true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitting])
+
+  useEffect(() => {
     setValue(imageFile)
+    if (imageFile) {
+      setFirstTouch(true)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageFile, name])
 

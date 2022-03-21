@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { mergeSelectors, generateId } from 'maker-ui'
-import { FileValidations, validateFile } from './helper'
-import { ImagePickerState, Action, DropzoneSettings } from './ImagePicker'
+import { mergeSelectors, generateId } from '@maker-ui/utils'
+import { type FileValidations, validateFile } from './helper'
+import type { ImagePickerState, Action, DropzoneSettings } from './ImagePicker'
 
 interface DragAndDropProps {
   data: ImagePickerState

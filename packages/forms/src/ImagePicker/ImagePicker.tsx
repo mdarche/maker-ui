@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react'
-import {
-  Div,
-  mergeSelectors,
-  merge,
-  type MakerProps,
-  type ResponsiveScale,
-} from 'maker-ui'
+import { mergeSelectors, merge } from '@maker-ui/utils'
+import { Div } from '@maker-ui/primitives'
+import { type MakerProps, type ResponsiveScale } from '@maker-ui/css'
 
 import { UploadIcon } from './icons'
 import { DragAndDrop } from './DragAndDrop'
@@ -284,7 +280,7 @@ export const ImagePicker = ({
                 alignItems:
                   dropzone && !dropzone.height ? 'stretch' : undefined,
               },
-              ...styles,
+              ...(styles as object),
               ...(css as object),
             }
           : css

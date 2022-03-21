@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SVG, SVGProps } from 'maker-ui'
+import { SVG, type SVGProps } from '@maker-ui/primitives'
 
 export const UploadIcon = (props: SVGProps) => (
   <SVG className="icon-upload" viewBox="0 0 154.68 151.2" {...props}>

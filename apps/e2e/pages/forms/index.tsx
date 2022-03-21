@@ -20,9 +20,7 @@ const testFields: FieldProps[] = [
     label: 'Profile Image',
     type: 'image-picker',
     initialValue: '',
-    // validation: Yup.object().shape({
-    //   file: Yup.mixed().required('File is required'),
-    // }),
+    validation: Yup.mixed().required('Required'),
   },
 ]
 

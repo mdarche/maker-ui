@@ -76,7 +76,9 @@ export const Field = (props: FieldComponentProps) => {
     setFirstTouch,
   }
 
-  console.log('Field Component', name, errors[name], hasError, firstTouch)
+  if (name === 'image-picker') {
+    console.log('Field Component', name, errors[name], hasError, firstTouch)
+  }
 
   function renderInputs() {
     /* Basic HTML Inputs */
