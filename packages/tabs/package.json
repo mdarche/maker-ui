@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/tabs",
   "description": "A Maker UI tab component",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -23,8 +23,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/primitives": "1.1.2",
-    "@maker-ui/utils": "1.1.2"
+    "@maker-ui/primitives": "1.2.0",
+    "@maker-ui/utils": "1.2.0"
   },
   "devDependencies": {
     "eslint": "7.32.0",
