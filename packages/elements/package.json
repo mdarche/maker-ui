@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/elements",
   "description": "Customizable components for Maker UI themes.",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -18,12 +18,12 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/accordion": "1.1.2",
-    "@maker-ui/popovers": "1.1.2",
-    "@maker-ui/tabs": "1.1.2",
-    "@maker-ui/modal": "1.1.2",
-    "@maker-ui/generative": "1.1.2",
-    "@maker-ui/notifications": "1.1.2",
+    "@maker-ui/accordion": "2.0.0",
+    "@maker-ui/popovers": "2.0.0",
+    "@maker-ui/tabs": "2.0.0",
+    "@maker-ui/modal": "2.0.0",
+    "@maker-ui/generative": "2.0.0",
+    "@maker-ui/notifications": "2.0.0",
     "react-transition-group": "^4.4.2"
   },
   "devDependencies": {

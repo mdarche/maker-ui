@@ -1,7 +1,7 @@
 {
   "name": "maker-ui",
   "description": "The fastest way to build themeable, responsive layouts in React",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -17,10 +17,10 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/css": "1.1.2",
-    "@maker-ui/layout": "1.1.2",
-    "@maker-ui/primitives": "1.1.2",
-    "@maker-ui/utils": "1.1.2"
+    "@maker-ui/css": "2.0.0",
+    "@maker-ui/layout": "2.0.0",
+    "@maker-ui/primitives": "2.0.0",
+    "@maker-ui/utils": "2.0.0"
   },
   "devDependencies": {
     "tsconfig": "*",

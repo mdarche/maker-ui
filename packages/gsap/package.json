@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/gsap",
   "description": "Prebuilt GSAP effects for React",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -18,12 +18,12 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "peerDependencies": {
-    "@maker-ui/css": "1.1.2",
-    "@maker-ui/layout": "1.1.2",
-    "@maker-ui/primitives": "1.1.2",
-    "@maker-ui/utils": "1.1.2",
+    "@maker-ui/css": "2.0.0",
+    "@maker-ui/layout": "2.0.0",
+    "@maker-ui/primitives": "2.0.0",
+    "@maker-ui/utils": "2.0.0",
     "gsap": "^3.9.1",
-    "maker-ui": "1.1.2"
+    "maker-ui": "2.0.0"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",

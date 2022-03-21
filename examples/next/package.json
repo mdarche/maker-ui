@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "next-example",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "license": "MIT",
   "scripts": {
@@ -10,7 +10,7 @@
     "next:start": "next start"
   },
   "dependencies": {
-    "maker-ui": "1.1.2",
+    "maker-ui": "2.0.0",
     "next": "^12.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

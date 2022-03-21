@@ -1,6 +1,6 @@
 {
   "name": "e2e",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,17 +8,17 @@
     "app-start": "next start"
   },
   "dependencies": {
-    "@maker-ui/accordion": "1.1.2",
+    "@maker-ui/accordion": "2.0.0",
     "@maker-ui/carousel": "1.1.2",
-    "@maker-ui/forms": "1.1.2",
-    "@maker-ui/gsap": "1.1.2",
-    "@maker-ui/generative": "1.1.2",
-    "@maker-ui/lightbox": "1.1.2",
-    "@maker-ui/loaders": "1.1.2",
-    "@maker-ui/modal": "1.1.2",
-    "@maker-ui/notifications": "1.1.2",
-    "@maker-ui/tabs": "1.1.2",
-    "maker-ui": "1.1.2",
+    "@maker-ui/forms": "2.0.0",
+    "@maker-ui/gsap": "2.0.0",
+    "@maker-ui/generative": "2.0.0",
+    "@maker-ui/lightbox": "2.0.0",
+    "@maker-ui/loaders": "2.0.0",
+    "@maker-ui/modal": "2.0.0",
+    "@maker-ui/notifications": "2.0.0",
+    "@maker-ui/tabs": "2.0.0",
+    "maker-ui": "2.0.0",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
