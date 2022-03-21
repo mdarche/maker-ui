@@ -113,12 +113,12 @@ Maker UI ships a varity of optional packages for common components that you can 
 | Lightbox        | @maker-ui/lightbox      | A lightbox modal for individual triggers or a media gallery.                                   |
 | Modal           | @maker-ui/modal         | A full-screen accesible overlay component that can be triggered by a `useState` hook.          |
 | Parallax        | @maker-ui/gsap          | A Parallax background section.                                                                 |
-| Popover         | @maker-ui/popovers      | data3                                                                                          |
-| ScrollReveal    | @maker-ui/gsap          | data3                                                                                          |
-| Spinner         | @maker-ui/loaders       | data3                                                                                          |
-| TableOfContents | @maker-ui/toc           | data3                                                                                          |
-| Tabs            | @maker-ui/tabs          | data3                                                                                          |
-| Tooltip         | @maker-ui/popovers      | data3                                                                                          |
+| Popover         | @maker-ui/popovers      | A simple popover component that is used to power the Dropdown and Tooltip components.          |
+| ScrollReveal    | @maker-ui/gsap          | Staggered viewport entrance animations.                                                        |
+| Spinner         | @maker-ui/loaders       | A collection of SVG loading spinners.                                                          |
+| TableOfContents | @maker-ui/toc           | An interactive menu that scans for heading tags and creates on-page links.                     |
+| Tabs            | @maker-ui/tabs          | A customizable tabs component.                                                                 |
+| Tooltip         | @maker-ui/popovers      | A popover that is triggered on hover or focus to show supplemental information.                |
 
 You can also import `@maker-ui/elements` to bundle the most commonly used `@maker-ui/accordion`, `@maker-ui/tabs`, `@maker-ui/popovers`, and `@maker-ui/modal`.
 
