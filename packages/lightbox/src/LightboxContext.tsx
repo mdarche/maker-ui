@@ -44,7 +44,6 @@ const LightboxUpdateContext = React.createContext<
  *
  * @internal
  */
-
 export const LightboxContext = ({
   data = [],
   settings = {},
@@ -83,7 +82,6 @@ LightboxContext.displayName = 'LightboxContext'
  *
  * @internal
  */
-
 export function useLightbox(): any {
   const { active, index, data, settings, set } =
     React.useContext(LightboxDataContext)
@@ -96,7 +94,6 @@ export function useLightbox(): any {
   /**
    * Accepts an option `ID` string and opens or closes the lightbox modal
    */
-
   function toggleLightbox(id?: string) {
     if (id && data) {
       const current = data.findIndex((i) => i.id === id)
@@ -108,7 +105,6 @@ export function useLightbox(): any {
   /**
    * Registers a `LightboxData` object to the Lightbox context
    */
-
   function addToGallery(item: LightboxData) {
     const exists = data
       ? data.find((e: LightboxData) => e.id === item.id)
@@ -145,7 +141,6 @@ export function useLightbox(): any {
 /**
  * Utility that formats LightboxLink prop data and assigns an ID
  */
-
 function formatData(original: LightboxData) {
   return merge(
     {
@@ -168,7 +163,6 @@ function formatData(original: LightboxData) {
 /**
  * Utility that merges user settings with `Lightbox` defaults.
  */
-
 function mergeSettings(settings: LightboxProps['settings']) {
   return merge(
     {

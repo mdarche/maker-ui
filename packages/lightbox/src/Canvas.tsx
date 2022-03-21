@@ -1,10 +1,7 @@
 import * as React from 'react'
 import { Div, Image } from '@maker-ui/primitives'
-import { animated, useTransition } from '@react-spring/web'
 
 import { useLightbox, LightboxData } from './LightboxContext'
-
-const AnimatedDiv = animated(Div)
 
 const youtubeRoot = 'https://youtube.com/embed/'
 const vimeoRoot = 'https://player.vimeo.com/video/'
@@ -40,7 +37,7 @@ const MediaFrame = ({
   if (htmlVideo) {
     return (
       <video controls poster={poster ? poster : undefined}>
-        <source src={src} type={`video/${src?.substr(-3, 3)}`} />
+        <source src={src} type={`video/mp4`} />
         Your browser does not support the video tag.
       </video>
     )
@@ -67,63 +64,56 @@ MediaFrame.displayName = 'MediaFrame'
  * the lightbox gallery content.
  *
  * @todo - add props and loading spinner to background
+ * @todo - add gsap carousel component
  *
  * @internal
  */
 export const Canvas = () => {
   const { data, index, settings } = useLightbox()
+  const item = data[index]
 
-  const transitions = useTransition(data[index], {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: settings.springConfig,
-  })
-
-  return transitions(
-    (props, item) =>
-      item && (
-        <AnimatedDiv
-          className="lb-canvas"
-          style={props}
-          css={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            height: '100%',
-            width: '100%',
-            overflowY: 'scroll',
-            maxHeight: ['68vh', '88vh'],
-            maxWidth: ['90vw', '75vw'],
-            transform: 'translate(-50%, -50%)',
-            'img, video, iframe': {
-              height:
-                item.title && settings.showInfo
-                  ? ['calc(100% - 100px)', 'calc(100% - 50px)']
-                  : '100%',
-              width: '100%',
-            },
-          }}>
-          <MediaFrame item={item} />
-          {settings.showInfo && item.title && (
-            <Div
-              className="lb-info"
-              css={{
-                color: '#fff',
-                h4: {
-                  marginTop: 20,
-                  fontSize: '18px',
-                  textAlign: 'center',
-                },
-              }}>
-              <h4>{item.title}</h4>
-              {item.description && (
-                <Div css={{ marginTop: 20 }}>{item.description}</Div>
-              )}
-            </Div>
+  return (
+    <Div
+      className="lb-canvas"
+      css={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        height: '100%',
+        width: '100%',
+        overflowY: 'scroll',
+        maxHeight: ['68vh', '88vh'],
+        maxWidth: ['90vw', '75vw'],
+        transform: 'translate(-50%, -50%)',
+        'img, video, iframe': {
+          height:
+            item.title && settings.showInfo
+              ? ['calc(100% - 100px)', 'calc(100% - 50px)']
+              : '100%',
+          width: '100%',
+        },
+        '.lightbox-info': {
+          color: '#fff',
+          h4: {
+            marginTop: 20,
+            fontSize: '18px',
+            textAlign: 'center',
+          },
+        },
+        '.description': {
+          marginTop: 20,
+        },
+      }}>
+      <MediaFrame item={item} />
+      {settings.showInfo && item.title && (
+        <div className="lightbox-info">
+          <h4>{item.title}</h4>
+          {item.description && (
+            <div className="description">{item.description}</div>
           )}
-        </AnimatedDiv>
-      )
+        </div>
+      )}
+    </Div>
   )
 }
 

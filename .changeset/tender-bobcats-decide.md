@@ -4,7 +4,6 @@
 'gatsby-example': minor
 'next-example': minor
 '@maker-ui/accordion': minor
-'@maker-ui/carousel': minor
 '@maker-ui/css': minor
 '@maker-ui/elements': minor
 '@maker-ui/forms': minor
@@ -23,4 +22,4 @@
 '@maker-ui/utils': minor
 ---
 
-Convert codebase to turborepo
+Convert codebase to turborepo and begin changesets.

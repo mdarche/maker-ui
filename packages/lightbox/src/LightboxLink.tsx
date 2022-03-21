@@ -3,7 +3,7 @@ import { Link } from '@maker-ui/primitives'
 import { generateId } from '@maker-ui/utils'
 import type { MakerProps } from '@maker-ui/css'
 
-import { useLightbox, LightboxData } from './LightboxContext'
+import { useLightbox, type LightboxData } from './LightboxContext'
 
 export interface LightboxLinkProps extends MakerProps, LightboxData {
   trigger?: boolean
@@ -14,9 +14,8 @@ export interface LightboxLinkProps extends MakerProps, LightboxData {
  * The `LightboxLink` renders clickable elements that toggle the Lightbox detail view.
  * Must be wrapped inside a `Lightbox` component.
  *
- * @link https://maker-ui.com/docs/elements/lightbox
+ * @link https://maker-ui.com/docs/components/lightbox
  */
-
 export const LightboxLink = React.forwardRef<
   HTMLAnchorElement,
   LightboxLinkProps

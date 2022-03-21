@@ -22,7 +22,7 @@
     "@maker-ui/modal": "1.1.2",
     "@maker-ui/primitives": "1.1.2",
     "@maker-ui/utils": "1.1.2",
-    "@react-spring/web": "^9.2.3"
+    "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Div, type DivProps } from '@maker-ui/primitives'
 import { Modal } from '@maker-ui/modal'
 
@@ -21,7 +21,6 @@ interface LightboxModalProps extends DivProps {
  *
  * @internal
  */
-
 export const LightboxModal = ({
   id,
   focusRef,
@@ -33,15 +32,15 @@ export const LightboxModal = ({
 }: LightboxModalProps) => {
   const { index, active, data, settings, setIndex, toggleLightbox } =
     useLightbox()
-  const [play, setPlay] = React.useState(false)
-  const [preview, setPreview] = React.useState(false)
+  const [play, setPlay] = useState(false)
+  const [preview, setPreview] = useState(false)
   // const [zoom, setZoom] = React.useState(false)
-  const [controlsActive, setControlsActive] = React.useState(true)
+  const [controlsActive, setControlsActive] = useState(true)
 
   /**
    * Handle autoPlay controls
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (play) {
       if (!data[index].src || data[index].htmlVideo) {
         setPlay(false)
@@ -58,7 +57,7 @@ export const LightboxModal = ({
   /**
    * Hide preview area when lightbox closes
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (!active && preview) {
       setPreview(false)
     }
@@ -71,7 +70,7 @@ export const LightboxModal = ({
   /**
    * Handle accesible key strokes
    */
-  const handleKeyDown = React.useCallback(
+  const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!controlsActive && active && !settings.disableHideControls) {
         setControlsActive(true)
@@ -90,7 +89,7 @@ export const LightboxModal = ({
     [active, controlsActive, preview, setIndex, settings.disableHideControls]
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(`keydown`, handleKeyDown)
 
     return () => window.removeEventListener(`keydown`, handleKeyDown)
@@ -99,7 +98,7 @@ export const LightboxModal = ({
   /**
    * Hide controls and reset timer when they appear
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (active && controlsActive && !settings.disableHideControls && !preview) {
       const hide = setTimeout(() => {
         setControlsActive(false)
