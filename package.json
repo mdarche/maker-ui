@@ -10,6 +10,7 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "build": "turbo run build --scope=*maker-ui* --no-deps --include-dependencies",
+    "prepublish": "yarn build",
     "cy": "cypress open",
     "cy:headless": "cypress run",
     "cy:unit": "cypress open-ct",
