@@ -41,7 +41,7 @@ const ActionUpdateContext = React.createContext<DispatchType>(() => {})
  * The `ActionProvider` controls the showing / toggling of all compatible Maker UI
  * layout components.
  *
- * @internal usage only
+ * @internal
  */
 
 const ActionProvider = ({ children }: ActionProviderProps) => {

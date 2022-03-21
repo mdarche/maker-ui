@@ -1,0 +1,1023 @@
+{
+	"id": 0,
+	"name": "@maker-ui/carousel",
+	"kind": 1,
+	"kindString": "Project",
+	"flags": {},
+	"originalName": "",
+	"children": [
+		{
+			"id": 6,
+			"name": "Carousel",
+			"kind": 4,
+			"kindString": "Namespace",
+			"flags": {},
+			"children": [
+				{
+					"id": 7,
+					"name": "displayName",
+					"kind": 32,
+					"kindString": "Variable",
+					"flags": {},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Variables",
+					"kind": 32,
+					"children": [
+						7
+					]
+				}
+			]
+		},
+		{
+			"id": 8,
+			"name": "CarouselProps",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {},
+			"children": [
+				{
+					"id": 38,
+					"name": "breakpoints",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"shortText": "An array of breakpoints that determines the css prop media queries"
+					},
+					"sources": [
+						{
+							"fileName": "css/dist/index.d.ts",
+							"line": 21,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "reference",
+						"name": "Breakpoints"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "MakerProps.breakpoints"
+					}
+				},
+				{
+					"id": 12,
+					"name": "className",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "carousel/src/Carousel.tsx",
+							"line": 22,
+							"character": 2
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 36,
+					"name": "controls",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "carousel/src/Carousel.tsx",
+							"line": 45,
+							"character": 2
+						}
+					],
+					"type": {
+						"type": "tuple",
+						"elements": [
+							{
+								"type": "intrinsic",
+								"name": "number"
+							},
+							{
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "number"
+											}
+										],
+										"qualifiedName": "React.SetStateAction",
+										"package": "@types/react",
+										"name": "SetStateAction"
+									}
+								],
+								"qualifiedName": "React.Dispatch",
+								"package": "@types/react",
+								"name": "Dispatch"
+							}
+						]
+					}
+				},
+				{
+					"id": 37,
+					"name": "css",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"shortText": "A css object that can support array of responsive values for all nested properties"
+					},
+					"sources": [
+						{
+							"fileName": "css/dist/index.d.ts",
+							"line": 19,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "reference",
+						"name": "StyleObject"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "MakerProps.css"
+					}
+				},
+				{
+					"id": 9,
+					"name": "data",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "carousel/src/Carousel.tsx",
+							"line": 19,
+							"character": 2
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "reference",
+							"qualifiedName": "Object",
+							"package": "typescript",
+							"name": "Object"
+						}
+					}
+				},
+				{
+					"id": 11,
+					"name": "height",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "carousel/src/Carousel.tsx",
+							"line": 21,
+							"character": 2
+						}
+					],
+					"type": {
+						"type": "reference",
+						"name": "ResponsiveScale"
+					}
+				},
+				{
+					"id": 13,
+					"name": "settings",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "carousel/src/Carousel.tsx",
+							"line": 23,
+							"character": 2
+						}
+					],
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 14,
+							"name": "__type",
+							"kind": 65536,
+							"kindString": "Type literal",
+							"flags": {},
+							"children": [
+								{
+									"id": 29,
+									"name": "arrow",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 38,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"typeArguments": [
+													{
+														"type": "intrinsic",
+														"name": "any"
+													},
+													{
+														"type": "union",
+														"types": [
+															{
+																"type": "intrinsic",
+																"name": "string"
+															},
+															{
+																"type": "reference",
+																"typeArguments": [
+																	{
+																		"type": "intrinsic",
+																		"name": "any"
+																	}
+																],
+																"qualifiedName": "React.JSXElementConstructor",
+																"package": "@types/react",
+																"name": "JSXElementConstructor"
+															}
+														]
+													}
+												],
+												"qualifiedName": "React.ReactElement",
+												"package": "@types/react",
+												"name": "ReactElement"
+											},
+											{
+												"type": "reflection",
+												"declaration": {
+													"id": 30,
+													"name": "__type",
+													"kind": 65536,
+													"kindString": "Type literal",
+													"flags": {},
+													"children": [
+														{
+															"id": 32,
+															"name": "next",
+															"kind": 1024,
+															"kindString": "Property",
+															"flags": {
+																"isOptional": true
+															},
+															"sources": [
+																{
+																	"fileName": "carousel/src/Carousel.tsx",
+																	"line": 40,
+																	"character": 37
+																}
+															],
+															"type": {
+																"type": "reference",
+																"typeArguments": [
+																	{
+																		"type": "intrinsic",
+																		"name": "any"
+																	},
+																	{
+																		"type": "union",
+																		"types": [
+																			{
+																				"type": "intrinsic",
+																				"name": "string"
+																			},
+																			{
+																				"type": "reference",
+																				"typeArguments": [
+																					{
+																						"type": "intrinsic",
+																						"name": "any"
+																					}
+																				],
+																				"qualifiedName": "React.JSXElementConstructor",
+																				"package": "@types/react",
+																				"name": "JSXElementConstructor"
+																			}
+																		]
+																	}
+																],
+																"qualifiedName": "React.ReactElement",
+																"package": "@types/react",
+																"name": "ReactElement"
+															}
+														},
+														{
+															"id": 31,
+															"name": "prev",
+															"kind": 1024,
+															"kindString": "Property",
+															"flags": {
+																"isOptional": true
+															},
+															"sources": [
+																{
+																	"fileName": "carousel/src/Carousel.tsx",
+																	"line": 40,
+																	"character": 10
+																}
+															],
+															"type": {
+																"type": "reference",
+																"typeArguments": [
+																	{
+																		"type": "intrinsic",
+																		"name": "any"
+																	},
+																	{
+																		"type": "union",
+																		"types": [
+																			{
+																				"type": "intrinsic",
+																				"name": "string"
+																			},
+																			{
+																				"type": "reference",
+																				"typeArguments": [
+																					{
+																						"type": "intrinsic",
+																						"name": "any"
+																					}
+																				],
+																				"qualifiedName": "React.JSXElementConstructor",
+																				"package": "@types/react",
+																				"name": "JSXElementConstructor"
+																			}
+																		]
+																	}
+																],
+																"qualifiedName": "React.ReactElement",
+																"package": "@types/react",
+																"name": "ReactElement"
+															}
+														}
+													],
+													"groups": [
+														{
+															"title": "Properties",
+															"kind": 1024,
+															"children": [
+																32,
+																31
+															]
+														}
+													]
+												}
+											}
+										]
+									}
+								},
+								{
+									"id": 18,
+									"name": "arrowMargin",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 27,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "ResponsiveScale"
+									}
+								},
+								{
+									"id": 17,
+									"name": "arrowPadding",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 26,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "ResponsiveScale"
+									}
+								},
+								{
+									"id": 16,
+									"name": "arrows",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 25,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 15,
+									"name": "autoPlay",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 24,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 23,
+									"name": "dotColorActive",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 32,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 24,
+									"name": "dotColorMuted",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 33,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 21,
+									"name": "dotPadding",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 30,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "ResponsiveScale"
+									}
+								},
+								{
+									"id": 20,
+									"name": "dotPosition",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 29,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Position"
+									}
+								},
+								{
+									"id": 22,
+									"name": "dotSpacing",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 31,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "ResponsiveScale"
+									}
+								},
+								{
+									"id": 19,
+									"name": "dots",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 28,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 25,
+									"name": "draggable",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 34,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 27,
+									"name": "duration",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 36,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								},
+								{
+									"id": 34,
+									"name": "fadeDuration",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 42,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								},
+								{
+									"id": 26,
+									"name": "infiniteScroll",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 35,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								},
+								{
+									"id": 28,
+									"name": "spinner",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 37,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "any"
+											},
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "string"
+													},
+													{
+														"type": "reference",
+														"typeArguments": [
+															{
+																"type": "intrinsic",
+																"name": "any"
+															}
+														],
+														"qualifiedName": "React.JSXElementConstructor",
+														"package": "@types/react",
+														"name": "JSXElementConstructor"
+													}
+												]
+											}
+										],
+										"qualifiedName": "React.ReactElement",
+										"package": "@types/react",
+										"name": "ReactElement"
+									}
+								},
+								{
+									"id": 35,
+									"name": "springConfig",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 43,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "reference",
+												"qualifiedName": "AnimationConfig",
+												"package": "@react-spring/core",
+												"name": "AnimationConfig"
+											}
+										],
+										"qualifiedName": "Partial",
+										"package": "typescript",
+										"name": "Partial"
+									}
+								},
+								{
+									"id": 33,
+									"name": "transition",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isOptional": true
+									},
+									"sources": [
+										{
+											"fileName": "carousel/src/Carousel.tsx",
+											"line": 41,
+											"character": 4
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "literal",
+												"value": "fade"
+											},
+											{
+												"type": "literal",
+												"value": "slide"
+											},
+											{
+												"type": "literal",
+												"value": "scale"
+											}
+										]
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"kind": 1024,
+									"children": [
+										29,
+										18,
+										17,
+										16,
+										15,
+										23,
+										24,
+										21,
+										20,
+										22,
+										19,
+										25,
+										27,
+										34,
+										26,
+										28,
+										35,
+										33
+									]
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 10,
+					"name": "template",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "carousel/src/Carousel.tsx",
+							"line": 20,
+							"character": 2
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "intrinsic",
+								"name": "any"
+							},
+							{
+								"type": "union",
+								"types": [
+									{
+										"type": "intrinsic",
+										"name": "string"
+									},
+									{
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "any"
+											}
+										],
+										"qualifiedName": "React.JSXElementConstructor",
+										"package": "@types/react",
+										"name": "JSXElementConstructor"
+									}
+								]
+							}
+						],
+						"qualifiedName": "React.ReactElement",
+						"package": "@types/react",
+						"name": "ReactElement"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						38,
+						12,
+						36,
+						37,
+						9,
+						11,
+						13,
+						10
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "carousel/src/Carousel.tsx",
+					"line": 18,
+					"character": 17
+				}
+			],
+			"extendedTypes": [
+				{
+					"type": "reference",
+					"name": "MakerProps"
+				}
+			]
+		},
+		{
+			"id": 1,
+			"name": "Carousel",
+			"kind": 32,
+			"kindString": "Variable",
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "carousel/src/Carousel.tsx",
+					"line": 56,
+					"character": 13
+				}
+			],
+			"type": {
+				"type": "reflection",
+				"declaration": {
+					"id": 2,
+					"name": "__type",
+					"kind": 65536,
+					"kindString": "Type literal",
+					"flags": {},
+					"children": [
+						{
+							"id": 3,
+							"name": "displayName",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								3
+							]
+						}
+					],
+					"signatures": [
+						{
+							"id": 4,
+							"name": "__type",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "Use the `Carousel` component to iterate over an array of data objects or React components\nto show an animated carousel.",
+								"tags": [
+									{
+										"tag": "link",
+										"text": "https://maker-ui.com/docs/elements/carousel\n"
+									}
+								]
+							},
+							"parameters": [
+								{
+									"id": 5,
+									"name": "__namedParameters",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"id": 8,
+										"name": "CarouselProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"qualifiedName": "global.JSX.Element",
+								"package": "@types/react",
+								"name": "Element"
+							}
+						}
+					]
+				}
+			},
+			"defaultValue": "..."
+		}
+	],
+	"groups": [
+		{
+			"title": "Namespaces",
+			"kind": 4,
+			"children": [
+				6
+			]
+		},
+		{
+			"title": "Interfaces",
+			"kind": 256,
+			"children": [
+				8
+			]
+		},
+		{
+			"title": "Variables",
+			"kind": 32,
+			"children": [
+				1
+			]
+		}
+	],
+	"sources": [
+		{
+			"fileName": "carousel/src/index.ts",
+			"line": 1,
+			"character": 0
+		}
+	]
+}

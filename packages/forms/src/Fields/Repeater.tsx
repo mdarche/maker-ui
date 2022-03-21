@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Flex } from 'maker-ui'
+import { Flex } from '@maker-ui/primitives'
 import { useFormikContext, Field, FieldArray, FormikErrors } from 'formik'
 
 import { TrashIcon, PlusIcon } from '../Icons'
-import { InputProps } from '../types'
+import type { InputProps } from '../types'
 
 interface RepeaterProps extends InputProps {}
 

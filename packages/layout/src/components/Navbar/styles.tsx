@@ -3,7 +3,6 @@ import { navTypes, mobileNavTypes } from '../../constants'
 /**
  * Grid & flex justification styles for desktop
  */
-
 const desktop = {
   basic: {
     areas: '"logo menu widgets"',
@@ -81,7 +80,6 @@ const mobile = {
 /**
  * Determine grid-template-area, grid-template-columns, and positioning
  */
-
 export function gridStyles(
   layout: typeof navTypes[number],
   mobileLayout: typeof mobileNavTypes[number]

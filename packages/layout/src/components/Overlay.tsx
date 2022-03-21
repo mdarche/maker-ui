@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mergeSelectors } from '../utils/helper'
+import { mergeSelectors } from '@maker-ui/utils'
 
 interface OverlayProps {
   show: boolean
@@ -13,9 +13,8 @@ interface OverlayProps {
  * The `Overlay` component acts as an `onBlur` click toggle for closing the
  * SideNav or MobileMenu components on mobile.
  *
- * @internal usage only
+ * @internal
  */
-
 export const Overlay = ({ show, toggle, className }: OverlayProps) => {
   return (
     <div

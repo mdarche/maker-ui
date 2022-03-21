@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Grid, Button } from 'maker-ui'
+import { Grid, Button } from '@maker-ui/primitives'
 
 import { useLightbox, LightboxData } from './LightboxContext'
 
@@ -11,9 +11,8 @@ interface PreviewProps {
  * The `Preview` component shows additional gallery items while the lightbox view
  * is active.
  *
- * @internal usage only
+ * @internal
  */
-
 export const Preview = ({ show }: PreviewProps) => {
   const ref = React.useRef<any>(null)
   const { index, data, setIndex } = useLightbox()

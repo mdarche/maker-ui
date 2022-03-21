@@ -1,0 +1,46 @@
+{
+  "name": "@maker-ui/gsap",
+  "description": "Prebuilt GSAP effects for React",
+  "version": "1.1.2",
+  "license": "Apache-2.0",
+  "author": "Mike Darche <mike@newcreative.io>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "peerDependencies": {
+    "@maker-ui/css": "1.1.2",
+    "@maker-ui/layout": "1.1.2",
+    "@maker-ui/primitives": "1.1.2",
+    "@maker-ui/utils": "1.1.2",
+    "gsap": "^3.9.1",
+    "maker-ui": "1.1.2"
+  },
+  "devDependencies": {
+    "@types/lodash.debounce": "^4.0.6",
+    "eslint": "7.32.0",
+    "eslint-preset": "*",
+    "gsap": "^3.9.1",
+    "tsconfig": "*",
+    "tsup": "^5.12.0",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "@juggle/resize-observer": "^3.3.1",
+    "lodash.debounce": "^4.0.8"
+  },
+  "peerDependenciesMeta": {
+    "maker-ui": {
+      "optional": true
+    }
+  }
+}

@@ -1,14 +1,18 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, MakerProps, ResponsiveScale } from '@maker-ui/css'
+import { jsx, type MakerProps, type ResponsiveScale } from '@maker-ui/css'
 import { forwardRef } from 'react'
 import * as CSS from 'csstype'
 
 type ResponsiveType<T> = T | T[]
 
+declare module 'react' {
+  interface Attributes extends MakerProps {}
+}
+
 /**
  * Alias for `Div` component props that includes all
  * HTML div tag attributes.
- *
  */
 export interface DivProps
   extends MakerProps,
@@ -16,10 +20,8 @@ export interface DivProps
 
 /**
  * A div that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const Div = forwardRef<HTMLDivElement, DivProps>((props, ref) => (
   <div ref={ref} {...props} />
 ))
@@ -30,7 +32,6 @@ Div.displayName = 'Div'
  * Alias for `Flex` component props that includes all
  * HTML div tag attributes.
  */
-
 export interface FlexProps extends DivProps {
   align?: ResponsiveType<CSS.Properties['alignItems']>
   column?: boolean
@@ -52,7 +53,6 @@ export interface FlexProps extends DivProps {
  *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const Flex = forwardRef<HTMLDivElement, FlexProps>(
   ({ inline, align, justify, column, flex, wrap, css, ...props }, ref) => (
     <div
@@ -96,7 +96,6 @@ export interface GridProps extends MakerProps, DivProps {
  *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
   ({ columns, rows, gap, areas, center, css, ...props }, ref) => (
     <div
@@ -127,10 +126,8 @@ export interface TableProps
 
 /**
  * A table that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const Table = forwardRef<HTMLTableElement, TableProps>((props, ref) => (
   <table ref={ref} {...props} />
 ))
@@ -147,10 +144,8 @@ export interface SpanProps
 
 /**
  * A span that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const Span = forwardRef<HTMLSpanElement, SpanProps>((props, ref) => (
   <span ref={ref} {...props} />
 ))
@@ -167,10 +162,8 @@ export interface OListProps
 
 /**
  * An ordered list that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const OList = forwardRef<HTMLOListElement, OListProps>((props, ref) => (
   <ol ref={ref} {...props} />
 ))
@@ -189,10 +182,8 @@ export interface UListProps
 
 /**
  * An unordered list that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const UList = forwardRef<HTMLUListElement, UListProps>((props, ref) => (
   <ul ref={ref} {...props} />
 ))
@@ -211,10 +202,8 @@ export interface ListItemProps
 
 /**
  * A list item that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
   (props, ref) => <li ref={ref} {...props} />
 )
@@ -231,10 +220,8 @@ export interface SVGProps extends MakerProps, React.SVGAttributes<SVGElement> {}
 
 /**
  * An SVG that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const SVG = forwardRef<SVGSVGElement, SVGProps>((props, ref) => (
   <svg ref={ref} xmlns="http://www.w3.org/2000/svg" {...props} />
 ))
@@ -254,10 +241,8 @@ export interface ButtonProps
 
 /**
  * An button that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => <button ref={ref} {...props} />
 )
@@ -274,10 +259,8 @@ export interface LinkProps
 
 /**
  * An anchor tag that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ children, ...props }, ref) => (
     <a ref={ref} {...props}>
@@ -303,10 +286,8 @@ export interface ImageProps
 
 /**
  * An image that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const Image = forwardRef<HTMLImageElement, ImageProps>(
   ({ src, alt, ...props }, ref) => (
     <img ref={ref} alt={alt} src={src} {...props} />
@@ -326,10 +307,8 @@ export interface ParagraphProps
 
 /**
  * A p tag that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const P = forwardRef<HTMLParagraphElement, HeadingProps>(
   ({ children, ...props }, ref) => (
     <p ref={ref} {...props}>
@@ -352,10 +331,8 @@ export interface HeadingProps
 
 /**
  * An h1 that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const H1 = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ children, ...props }, ref) => (
     <h1 ref={ref} {...props}>
@@ -368,10 +345,8 @@ H1.displayName = 'H1'
 
 /**
  * An h2 that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const H2 = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ children, ...props }, ref) => (
     <h2 ref={ref} {...props}>
@@ -384,10 +359,8 @@ H2.displayName = 'H2'
 
 /**
  * An h3 that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const H3 = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ children, ...props }, ref) => (
     <h3 ref={ref} {...props}>
@@ -400,10 +373,8 @@ H3.displayName = 'H3'
 
 /**
  * An h4 that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const H4 = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ children, ...props }, ref) => (
     <h4 ref={ref} {...props}>
@@ -416,10 +387,8 @@ H4.displayName = 'H4'
 
 /**
  * An h5 that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const H5 = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ children, ...props }, ref) => (
     <h5 ref={ref} {...props}>
@@ -432,10 +401,8 @@ H5.displayName = 'H5'
 
 /**
  * An h6 that supports responsive css values and the breakpoints prop.
- *
  * @link https://maker-ui.com/docs/primitives/
  */
-
 export const H6 = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ children, ...props }, ref) => (
     <h6 ref={ref} {...props}>

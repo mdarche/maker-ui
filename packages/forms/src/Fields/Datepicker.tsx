@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { Flex } from 'maker-ui'
+import { Flex } from '@maker-ui/primitives'
 // import { useField, useFormikContext } from 'formik'
 
-import { InputProps } from '../types'
+import type { InputProps } from '../types'
 
 interface DatePickerProps extends InputProps {}
 
@@ -11,7 +11,6 @@ interface DatePickerProps extends InputProps {}
  *
  * @todo - find next weekday filter function
  */
-
 export const DatePicker = (props: DatePickerProps) => {
   // const { setFieldValue } = useFormikContext()
   // //@ts-ignore

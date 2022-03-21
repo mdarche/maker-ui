@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { MakerProps, Button } from 'maker-ui'
+import { Button } from '@maker-ui/primitives'
+import type { MakerProps } from '@maker-ui/css'
 
 import { useLightbox } from './LightboxContext'
 import { DefaultArrow } from './icons'
@@ -11,7 +12,7 @@ interface NavButtonProps extends MakerProps {
 /**
  * The `NavButton` controls previous / next button clicks from the LighthouseModal.
  *
- * @internal usage only
+ * @internal
  */
 
 export const NavButton = ({ type }: NavButtonProps) => {

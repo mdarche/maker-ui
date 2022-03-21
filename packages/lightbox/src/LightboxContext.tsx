@@ -1,6 +1,5 @@
 import * as React from 'react'
-import merge from 'deepmerge'
-import { generateId } from 'maker-ui'
+import { generateId, merge } from '@maker-ui/utils'
 
 import { LightboxProps } from './Lightbox'
 
@@ -43,9 +42,8 @@ const LightboxUpdateContext = React.createContext<
  * The `LightboxContext` component is a Provider that handles stores all of the data
  * for a lightbox gallery.
  *
- * @internal usage only
+ * @internal
  */
-
 export const LightboxContext = ({
   data = [],
   settings = {},
@@ -56,14 +54,14 @@ export const LightboxContext = ({
   const [state, setState] = React.useState<LightboxState>({
     index: 0,
     active: false,
-    data: data.map(i => formatData(i)),
+    data: data.map((i) => formatData(i)),
     settings: mergeSettings(settings),
     set,
   })
 
   React.useEffect(() => {
     if (show) {
-      setState(s => ({ ...s, active: show }))
+      setState((s) => ({ ...s, active: show }))
     }
   }, [show])
 
@@ -82,13 +80,11 @@ LightboxContext.displayName = 'LightboxContext'
  * React hook that registers all lightbox links and data as well as control
  * of the lightbox state.
  *
- * @internal usage only
+ * @internal
  */
-
 export function useLightbox(): any {
-  const { active, index, data, settings, set } = React.useContext(
-    LightboxDataContext
-  )
+  const { active, index, data, settings, set } =
+    React.useContext(LightboxDataContext)
   const setState = React.useContext(LightboxUpdateContext)
 
   if (typeof data === undefined) {
@@ -98,31 +94,29 @@ export function useLightbox(): any {
   /**
    * Accepts an option `ID` string and opens or closes the lightbox modal
    */
-
   function toggleLightbox(id?: string) {
     if (id && data) {
-      const current = data.findIndex(i => i.id === id)
-      return setState(s => ({ ...s, active: !s.active, index: current }))
+      const current = data.findIndex((i) => i.id === id)
+      return setState((s) => ({ ...s, active: !s.active, index: current }))
     }
-    return set ? set(false) : setState(s => ({ ...s, active: false }))
+    return set ? set(false) : setState((s) => ({ ...s, active: false }))
   }
 
   /**
    * Registers a `LightboxData` object to the Lightbox context
    */
-
   function addToGallery(item: LightboxData) {
     const exists = data
       ? data.find((e: LightboxData) => e.id === item.id)
       : false
 
     if (!exists) {
-      setState(s => ({ ...s, data: [...s.data, formatData(item)] }))
+      setState((s) => ({ ...s, data: [...s.data, formatData(item)] }))
     }
   }
 
   function setIndex(type: 'previous' | 'next' | 'index', index?: number) {
-    setState(s => {
+    setState((s) => {
       if (type === 'index' && index) {
         return { ...s, index }
       }
@@ -147,7 +141,6 @@ export function useLightbox(): any {
 /**
  * Utility that formats LightboxLink prop data and assigns an ID
  */
-
 function formatData(original: LightboxData) {
   return merge(
     {
@@ -160,7 +153,7 @@ function formatData(original: LightboxData) {
       vimeoId: null,
       poster: null,
       htmlVideo: original.src
-        ? videoFormats.some(v => original.src?.includes(v))
+        ? videoFormats.some((v) => original.src?.includes(v))
         : false,
     },
     original
@@ -170,7 +163,6 @@ function formatData(original: LightboxData) {
 /**
  * Utility that merges user settings with `Lightbox` defaults.
  */
-
 function mergeSettings(settings: LightboxProps['settings']) {
   return merge(
     {

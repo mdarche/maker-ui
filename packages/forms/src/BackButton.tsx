@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { Button, ButtonProps, mergeSelectors } from 'maker-ui'
+import { Button, type ButtonProps } from '@maker-ui/primitives'
+import { mergeSelectors } from '@maker-ui/utils'
 
-import { useForm } from './Provider'
-import { PaginationElement } from './types'
+import { useForm } from './FormProvider'
+import type { PaginationElement } from './types'
 
 export interface FormBackButtonProps extends ButtonProps {
   children?: PaginationElement

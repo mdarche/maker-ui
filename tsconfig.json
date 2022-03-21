@@ -1,14 +1,9 @@
 {
-  "extends": "./tsconfig.build.json",
-  "include": ["packages", "types", "scripts", "example", "app"],
   "compilerOptions": {
-    "allowJs": false,
     "baseUrl": ".",
     "paths": {
       "maker-ui": ["packages/maker-ui/src"],
-      "@maker-ui/*": ["packages/*/src"],
-      "tslib": ["node_modules/tslib/tslib.d.ts"],
-      "$test/*": ["test/*"]
-    }, 
+      "@maker-ui/*": ["packages/*/src"]
+    }
   }
 }

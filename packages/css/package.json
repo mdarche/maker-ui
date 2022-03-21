@@ -4,25 +4,36 @@
   "author": "Mike Darche <mike@newcreative.io>",
   "license": "Apache-2.0",
   "main": "dist/index.js",
-  "module": "dist/css.esm.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
-    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
-    "build": "tsdx build --tsconfig tsconfig.build.json",
-    "test": "tsdx test",
-    "lint": "tsdx lint src",
-    "prepublish": "npm run build"
+    "test": "jest",
+    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
-    "deepmerge": "^4.2.2"
-  },
-  "peerDependencies": {
-    "react": "^16.x || ^17.x"
+    "@maker-ui/utils": "^1.1.2"
   },
   "devDependencies": {
     "@emotion/jest": "^11.1.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "react-test-renderer": "^17.0.1"
+    "@testing-library/dom": "^8.11.3",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.3",
+    "@types/jest": "^27.4.1",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.13",
+    "eslint": "7.32.0",
+    "eslint-preset": "*",
+    "react-test-renderer": "^17.0.1",
+    "tsconfig": "*",
+    "tsup": "^5.12.0",
+    "typescript": "^4.6.2"
   }
 }

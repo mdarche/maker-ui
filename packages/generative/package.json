@@ -1,0 +1,32 @@
+{
+  "name": "@maker-ui/generative",
+  "description": "An assortment of helper functions and React components for Generative design",
+  "version": "1.1.2",
+  "license": "Apache-2.0",
+  "author": "Mike Darche <mike@newcreative.io>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-preset": "*",
+    "tsconfig": "*",
+    "tsup": "^5.12.0",
+    "typescript": "^4.6.2"
+  }
+}

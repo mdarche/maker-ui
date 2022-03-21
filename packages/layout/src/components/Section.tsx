@@ -1,8 +1,14 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, MakerProps, ResponsiveScale, StyleObject } from '@maker-ui/css'
+import {
+  jsx,
+  type MakerProps,
+  type ResponsiveScale,
+  type StyleObject,
+} from '@maker-ui/css'
 import { forwardRef } from 'react'
 
-interface SectionProps
+export interface SectionProps
   extends MakerProps,
     React.HTMLAttributes<HTMLDivElement> {
   background?: string | string[]
@@ -17,7 +23,6 @@ interface SectionProps
  *
  * @link https://maker-ui.com/docs/layout/section
  */
-
 export const Section = forwardRef<HTMLElement, SectionProps>(
   (
     {

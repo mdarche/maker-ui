@@ -1,16 +1,16 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, MakerProps, StyleObject } from '@maker-ui/css'
+import { jsx, type MakerProps, type StyleObject } from '@maker-ui/css'
+import { mergeSelectors } from '@maker-ui/utils'
 
-import { MakerOptions } from '../types'
 import { ErrorContainer } from './Errors'
-import { MenuItemProps } from './Menu'
-
 import { CollapsibleMenu } from './Menu'
 import { Overlay } from './Overlay'
 import { useOptions } from '../context/OptionContext'
 import { useSideNav, useCollapseSideNav } from '../context/ActionContext'
-import { mergeSelectors } from '../utils/helper'
 import { useLayout } from '../context/LayoutContext'
+import type { MenuItemProps } from './Menu'
+import type { MakerOptions } from '../types'
 
 interface ContainerProps {
   isHeader: boolean
@@ -40,7 +40,6 @@ export interface SideNavProps
  *
  * @link https://maker-ui.com/docs/layout/sidenav
  */
-
 export const SideNav = ({
   id,
   background,
