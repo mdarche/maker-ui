@@ -20,6 +20,7 @@ interface Settings {
   placeholderColor: string | string[]
   labelStyle: FieldProps['labelStyle']
   errorStyle: FieldProps['errorStyle']
+  disableSubmit: boolean
 }
 
 export interface FormState {
@@ -157,6 +158,7 @@ const initialState: FormState = {
     validateIcon: <ValidateIcon />,
     validateOnChange: false,
     validateOnBlur: true,
+    disableSubmit: false,
   },
 }
 const FormContext = React.createContext<FormState>(initialState)

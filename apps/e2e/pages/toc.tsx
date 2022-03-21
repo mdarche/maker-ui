@@ -1,5 +1,5 @@
 import { Grid, Div } from 'maker-ui'
-import { TableofContents } from '@maker-ui/toc'
+import { TableOfContents } from '@maker-ui/toc'
 import { useRouter } from 'next/router'
 
 export default function TocPage() {
@@ -24,7 +24,7 @@ export default function TocPage() {
         </Div>
       </div>
       <div>
-        <TableofContents
+        <TableOfContents
           title="On this page"
           pathname={asPath}
           activeColor="blue"

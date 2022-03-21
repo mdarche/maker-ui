@@ -15,10 +15,13 @@ export const primary_menu: MakerMenu = [
       { label: 'Popovers', path: '/popovers' },
       { label: 'Tabs', path: '/tabs' },
       { label: 'Table of Contents', path: '/toc' },
-      { label: 'Old Carousel', path: '/carousel' },
     ],
   },
-  { label: 'Forms', path: '/forms' },
+  {
+    label: 'Forms',
+    path: '/forms',
+    submenu: [{ label: 'ImagePicker', path: '/forms/image-picker' }],
+  },
   {
     label: 'GSAP',
     path: '/gsap/carousel',

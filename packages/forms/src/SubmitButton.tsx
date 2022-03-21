@@ -23,7 +23,7 @@ export const SubmitButton = ({
   className,
   ...props
 }: FormSubmitButtonProps) => {
-  const { fields } = useForm()
+  const { fields, settings } = useForm()
   const {
     errors,
     // touched,
@@ -44,7 +44,8 @@ export const SubmitButton = ({
   // console.log('Values are', values)
 
   // TODO check if required fields all have values
-  const isValidated = Object.keys(errors).length ? true : false
+
+  const hasErrors = Object.keys(errors).length ? true : false
 
   function renderLifecycle() {
     if (lifecycle) {
@@ -60,7 +61,7 @@ export const SubmitButton = ({
       type="submit"
       className={mergeSelectors(['form-submit-btn', className])}
       onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
-      disabled={isValidated}
+      disabled={settings.disableSubmit && hasErrors}
       {...props}>
       {renderLifecycle()}
     </Button>

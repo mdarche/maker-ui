@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { FormikHelpers, FormikValues } from 'formik'
+import { ImagePickerProps } from './ImagePicker'
 
 export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
@@ -47,6 +48,7 @@ type FieldType =
   | 'color'
   | 'range'
   | 'file'
+  | 'image-picker'
 
 export type FieldSettings<T> = T extends 'text'
   ? { mask?: 'phone' | 'zipcode' | 'credit-card' }
@@ -86,6 +88,8 @@ export type FieldSettings<T> = T extends 'text'
       /** The switch style can be `circle` or `box` */
       style?: 'circle' | 'box'
     }
+  : T extends 'image-picker'
+  ? Omit<ImagePickerProps, 'setFile' | 'setFiles'>
   : undefined
 
 export interface FieldProps {

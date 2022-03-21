@@ -15,6 +15,7 @@ import { Checkbox } from './Checkbox'
 import { Radio } from './Radio'
 import { Range } from './Range'
 import { FieldSettings } from '..'
+import { ImageField } from './ImageField'
 
 const basicInputs = [
   'text',
@@ -75,6 +76,8 @@ export const Field = (props: FieldComponentProps) => {
     setFirstTouch,
   }
 
+  console.log('Field Component', name, errors[name], hasError, firstTouch)
+
   function renderInputs() {
     /* Basic HTML Inputs */
     if (basicInputs.includes(type)) {
@@ -83,6 +86,16 @@ export const Field = (props: FieldComponentProps) => {
     /* Datepicker that supports ranges */
     if (props.type === 'datepicker') {
       return <DatePicker {...attributes} {...props} />
+    }
+    /* Imagepicker  */
+    if (props.type === 'image-picker') {
+      return (
+        <ImageField
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'image-picker'>}
+        />
+      )
     }
     /* Select and Datalist inputs */
     if (props.type === 'select' || props.type === 'select-datalist') {

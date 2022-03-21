@@ -88,6 +88,8 @@ export interface ImagePickerProps extends MakerProps {
   onRemoveImage?: () => any
   /** Optional effect that runs when image files are added to state. */
   onUploadImage?: (url: Promise<string>) => any
+  /** A custom cypress `data-cy` selector for the file input */
+  cy?: string
 }
 
 const defaultDropzone: Partial<ImagePickerProps['dropzone']> = {
@@ -140,6 +142,7 @@ export const ImagePicker = ({
   validations,
   onRemoveImage,
   onUploadImage,
+  cy,
   ...props
 }: ImagePickerProps) => {
   const [image, setImage] = useState(preview || placeholder)
@@ -285,7 +288,8 @@ export const ImagePicker = ({
               ...(css as object),
             }
           : css
-      }>
+      }
+      {...props}>
       {preview !== false && (placeholder || data.fileList.length || preview) ? (
         <div
           className={mergeSelectors([
@@ -330,6 +334,7 @@ export const ImagePicker = ({
           dispatch={dispatch}
           setErrors={setErrors}
           fileValidations={validations}
+          cy={cy}
         />
       ) : null}
       {errors ? (

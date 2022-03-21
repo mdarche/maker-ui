@@ -10,6 +10,7 @@ interface DragAndDropProps {
   dispatch: React.Dispatch<Action>
   setErrors: (e: string[]) => void
   fileValidations?: FileValidations
+  cy?: string
 }
 
 /**
@@ -23,6 +24,7 @@ export const DragAndDrop = ({
   fileValidations,
   isHoverPreview = false,
   settings,
+  cy = 'image-picker',
 }: DragAndDropProps) => {
   const [inputId] = useState(generateId())
   const dropArea = isHoverPreview ? 'preview' : 'dropzone'
@@ -152,6 +154,7 @@ export const DragAndDrop = ({
         className="hidden"
         accept="image/png, image/jpeg, image/jpg, image/webp"
         onChange={onUpdateImage}
+        data-cy={cy}
       />
     </div>
   )
