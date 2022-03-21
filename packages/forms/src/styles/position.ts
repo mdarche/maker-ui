@@ -1,5 +1,4 @@
-import { Interpolation } from 'maker-ui'
-type StyleObject = object | Interpolation<any>
+import { StyleObject } from '@maker-ui/css'
 
 const labelStyles: StyleObject = {
   '.label-top-left': {

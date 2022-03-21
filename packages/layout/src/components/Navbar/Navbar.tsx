@@ -1,16 +1,17 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, ResponsiveScale, MakerProps } from '@maker-ui/css'
+import { jsx, type ResponsiveScale, type MakerProps } from '@maker-ui/css'
+import { setBreakpoint, mergeSelectors } from '@maker-ui/utils'
 import { Grid } from '@maker-ui/primitives'
 import { useEffect } from 'react'
 
-import { MakerOptions } from '../../types'
+import type { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
 import { useLayout } from '../../context/LayoutContext'
 import { Logo } from './Logo'
 import { ColorButton } from './ColorButton'
-import { NavMenu, MenuButton, MenuItemProps } from '../Menu'
+import { NavMenu, MenuButton, type MenuItemProps } from '../Menu'
 import { gridStyles } from './styles'
-import { setBreakpoint, mergeSelectors } from '../../utils/helper'
 
 export interface NavProps extends MakerProps {
   /** Overrides the `header.navType` from Maker UI options. */
@@ -52,7 +53,6 @@ const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
  *
  * @link https://maker-ui.com/components/layout/navbar
  */
-
 export const Navbar = ({
   type,
   mobileType,

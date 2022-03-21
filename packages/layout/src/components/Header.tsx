@@ -1,14 +1,18 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, MakerProps } from '@maker-ui/css'
+import { jsx, type MakerProps } from '@maker-ui/css'
+import {
+  useMeasure,
+  setBreakpoint,
+  mergeSelectors,
+  useScrollPosition,
+} from '@maker-ui/utils'
 import { useEffect, useState } from 'react'
-import useMeasure from 'react-use-measure'
 import { ResizeObserver } from '@juggle/resize-observer'
 
 import { ErrorContainer } from './Errors'
 import { useOptions } from '../context/OptionContext'
-import { useScrollPosition } from '../hooks/useScrollPosition'
 import { useMeasurements } from '../context/LayoutContext'
-import { setBreakpoint, mergeSelectors } from '../utils/helper'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
   /** Overrides `header.absolute` from Maker UI options. */
@@ -29,7 +33,6 @@ interface HeaderProps extends React.HTMLAttributes<HTMLDivElement>, MakerProps {
  *
  * @link https://maker-ui.com/docs/layout/header
  */
-
 export const Header = (props: HeaderProps) => {
   const [scrollClass, setScrollClass] = useState('')
   const [initialRender, setInitialRender] = useState(true)

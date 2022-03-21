@@ -1,32 +1,34 @@
 {
   "name": "@maker-ui/lightbox",
   "description": "A lightbox modal for displaying content with detail views.",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
-  "module": "dist/lightbox.esm.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist/**"
   ],
   "scripts": {
-    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
-    "build": "tsdx build --tsconfig tsconfig.build.json",
-    "test": "tsdx test",
-    "lint": "tsdx lint src",
-    "prepublish": "npm run build"
+    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@react-spring/web": "^9.2.3",
-    "tslib": "^2.0.0"
-  },
-  "peerDependencies": {
-    "maker-ui": "1.1.0",
-    "react": "^16.x || ^17.x",
-    "react-dom": "^16.x || ^17.x"
+    "@maker-ui/css": "1.1.2",
+    "@maker-ui/modal": "1.1.2",
+    "@maker-ui/primitives": "1.1.2",
+    "@maker-ui/utils": "1.1.2",
+    "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
-    "eslint-plugin-prettier": "^3.4.0"
+    "eslint": "7.32.0",
+    "eslint-preset": "*",
+    "tsconfig": "*",
+    "tsup": "^5.12.0",
+    "typescript": "^4.6.2"
   }
 }

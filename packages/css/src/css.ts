@@ -1,7 +1,5 @@
-import { Interpolation } from '@emotion/react'
-import merge from 'deepmerge'
-
-import { Breakpoints } from './types'
+import { merge } from '@maker-ui/utils'
+import type { Interpolation, Breakpoints } from './types'
 
 const format = (value: any) => (isNaN(value) ? value : `${value}px`)
 const defaultBreakpoints = ['768px', '960px', '1440px']
@@ -13,10 +11,9 @@ const defaultBreakpoints = ['768px', '960px', '1440px']
  * @param breakpoints - an array of breakpoints
  * @returns A CSS style object
  *
- * @internal usage only
+ * @internal
  *
  */
-
 export function responsive(
   styles: Interpolation<any>,
   breakpoints: Breakpoints
@@ -54,30 +51,27 @@ export function responsive(
  * @param breakpoints - an array of breakpoints
  * @returns An EmotionJS compatible CSSObject
  *
- * @internal usage only
+ * @internal
  *
  */
+export const formatCSS =
+  (css: Interpolation<any>, breakpoints?: Breakpoints) => (theme: any) => {
+    let result: Interpolation<any> = {}
 
-export const formatCSS = (
-  css: Interpolation<any>,
-  breakpoints?: Breakpoints
-) => (theme: any) => {
-  let result: Interpolation<any> = {}
+    const bp = breakpoints || theme?.breakpoints || defaultBreakpoints
+    const styles = responsive(css, bp)
 
-  const bp = breakpoints || theme?.breakpoints || defaultBreakpoints
-  const styles = responsive(css, bp)
+    for (const [key, value] of Object.entries(styles)) {
+      // @ts-ignore
+      const val = typeof value === 'function' ? value(theme) : value
 
-  for (const [key, value] of Object.entries(styles)) {
-    // @ts-ignore
-    const val = typeof value === 'function' ? value(theme) : value
-
-    if (val && typeof val === 'object') {
-      /** Recursively format nested objects */
-      result[key] = formatCSS(val as Interpolation<any>, bp)(theme)
-      continue
+      if (val && typeof val === 'object') {
+        /** Recursively format nested objects */
+        result[key] = formatCSS(val as Interpolation<any>, bp)(theme)
+        continue
+      }
+      result[key] = val
     }
-    result[key] = val
-  }
 
-  return result
-}
+    return result
+  }

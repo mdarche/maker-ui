@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Div, Flex } from 'maker-ui'
+import { Div, Flex } from '@maker-ui/primitives'
 
 import { useLightbox } from './LightboxContext'
 import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from './icons'
@@ -25,9 +25,8 @@ interface ToolbarProps {
 /**
  * The `Toolbar` component provides utility button options inside the lightbox.
  *
- * @internal usage only
+ * @internal
  */
-
 export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
   const { index, data, settings, toggleLightbox } = useLightbox()
   return (

@@ -1,4 +1,4 @@
-import { MakerUIOptions } from './types'
+import type { MakerUIOptions } from './types'
 
 /**
  * Default Maker UI option configuration.

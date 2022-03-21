@@ -1,8 +1,7 @@
-import { GlobalProps, ResponsiveScale } from '@maker-ui/css'
-import merge from 'deepmerge'
+import type { GlobalProps, ResponsiveScale } from '@maker-ui/css'
+import { merge, format } from '@maker-ui/utils'
 
 import { defaultOptions } from '../options'
-import { format } from './helper'
 import { MakerOptions } from '../types'
 
 interface Dictionary<T> {
@@ -15,9 +14,8 @@ interface Dictionary<T> {
  * @param colors - the `colors` object from MakerOptions
  * @returns CSS variable declarations scoped to body dataset attribute or :root
  *
- * @internal usage only
+ * @internal
  */
-
 export const colorVars = (
   colors: MakerOptions['colors']
 ): GlobalProps['styles'] => {
@@ -51,7 +49,7 @@ export const colorVars = (
  * @param {Object} options - the entire options object
  * @returns CSS variable declarations for Emotion <Global />
  *
- * @internal usage only
+ * @internal
  */
 export const themeVars = (
   options: Partial<MakerOptions>

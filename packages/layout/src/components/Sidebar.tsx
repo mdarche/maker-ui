@@ -1,6 +1,7 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, MakerProps } from '@maker-ui/css'
-import { mergeSelectors } from '../utils/helper'
+import { jsx, type MakerProps } from '@maker-ui/css'
+import { mergeSelectors } from '@maker-ui/utils'
 
 import { ErrorContainer } from './Errors'
 
@@ -13,7 +14,6 @@ interface SidebarProps
  *
  * @link https://maker-ui.com/docs/layout/sidebar
  */
-
 export const Sidebar = ({ className, children, ...props }: SidebarProps) => {
   return (
     <div

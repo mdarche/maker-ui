@@ -1,11 +1,12 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, MakerProps } from '@maker-ui/css'
+import { jsx, type MakerProps } from '@maker-ui/css'
+import { mergeSelectors } from '@maker-ui/utils'
 import { forwardRef } from 'react'
 
-import { MenuItem, MenuItemProps } from './MenuItem'
+import { MenuItem, type MenuItemProps } from './MenuItem'
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { mergeSelectors } from '../../utils/helper'
 
 interface CollapsibleProps
   extends MakerProps,
@@ -25,7 +26,6 @@ interface CollapsibleProps
  *
  * @link https://maker-ui.com/docs/layout/collapsible-menu
  */
-
 export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
   ({ menu = [], menuType, pathname, className, css, ...props }, ref) => {
     const { mobileMenu, sideNav, linkFunction } = useOptions()

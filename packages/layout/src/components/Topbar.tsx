@@ -1,14 +1,19 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, MakerProps, ResponsiveScale, StyleObject } from '@maker-ui/css'
+import {
+  jsx,
+  type MakerProps,
+  type ResponsiveScale,
+  type StyleObject,
+} from '@maker-ui/css'
+import { useMeasure, mergeSelectors, setBreakpoint } from '@maker-ui/utils'
 import { useEffect } from 'react'
-import useMeasure from 'react-use-measure'
 import { ResizeObserver } from '@juggle/resize-observer'
 
 import { MakerOptions } from '../types'
 import { ErrorContainer } from './Errors/ErrorBoundary'
 import { useOptions } from '../context/OptionContext'
 import { useMeasurements } from '../context/LayoutContext'
-import { mergeSelectors, setBreakpoint } from '../utils/helper'
 
 type StickyType = 'sticky' | ('sticky' | 'relative')[] | undefined
 
@@ -37,7 +42,6 @@ interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
  *
  * @link https://maker-ui.com/docs/layout/topbar
  */
-
 export const Topbar = (props: TopbarProps) => {
   const { topbar, breakpoints } = useOptions()
   const [ref, { height }] = useMeasure({ polyfill: ResizeObserver })

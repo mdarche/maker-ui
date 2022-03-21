@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Field as FormikField } from 'formik'
-import { InputProps } from '../types'
+import type { FieldSettings, InputProps } from '../types'
 
 interface OptionProps {
-  settings: InputProps['settings_select']
+  settings: FieldSettings<'select'>
   datalist?: boolean
   name?: string
 }
@@ -37,14 +37,16 @@ export const OptionList = ({
   ) : null
 }
 
-interface SelectProps extends InputProps {}
+interface SelectProps extends InputProps {
+  settings: FieldSettings<'select'>
+}
 
 export const Select = ({
   id,
   type,
   name,
   hasError,
-  settings_select,
+  settings,
   firstTouch,
   setFirstTouch,
   cy,
@@ -62,11 +64,11 @@ export const Select = ({
         list={type === 'select-datalist' ? `list-${name}` : undefined}
         type={type !== 'select-datalist' ? 'select' : undefined}>
         {type === 'select' ? (
-          <OptionList name={name} settings={settings_select} />
+          <OptionList name={name} settings={settings} />
         ) : null}
       </FormikField>
       {type === 'select-datalist' ? (
-        <OptionList name={name} settings={settings_select} datalist />
+        <OptionList name={name} settings={settings} datalist />
       ) : null}
     </>
   )

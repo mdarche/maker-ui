@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mergeSelectors } from '../../utils/helper'
+import { mergeSelectors } from '@maker-ui/utils'
 
 interface ExpandButtonProps {
   show: boolean
@@ -10,11 +10,10 @@ interface ExpandButtonProps {
  * The `ExpandButton` is used in collapsible menus to open or close the
  * next group of nested menu items.
  *
- * @internal usage only
+ * @internal
  * @todo add custom button support
  *
  */
-
 export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
   return (
     <button

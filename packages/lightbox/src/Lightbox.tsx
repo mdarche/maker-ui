@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { SpringConfig } from '@react-spring/web'
-import { ModalProps } from '@maker-ui/elements'
+import type { ModalProps } from '@maker-ui/modal'
 
 import { LightboxContext, LightboxData } from './LightboxContext'
 import { LightboxModal } from './LightboxModal'
@@ -21,7 +20,6 @@ export interface LightboxProps
     showAutoPlay?: boolean
     autoPlayDuration?: number
     disableHideControls?: boolean
-    springConfig?: SpringConfig
   }
 }
 

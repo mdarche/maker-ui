@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { useFormikContext, FormikErrors, FormikTouched } from 'formik'
-import { Button, ButtonProps, mergeSelectors } from 'maker-ui'
-import { useForm } from './Provider'
-import { getRequired } from './helper'
+import { Button, type ButtonProps } from '@maker-ui/primitives'
+import { mergeSelectors } from '@maker-ui/utils'
+import { useForm } from './FormProvider'
+import { getRequired } from './utils'
 
 export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
   children?: React.ReactNode
@@ -13,6 +14,8 @@ export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
   }
 }
 
+// TODO - Forward ref
+
 export const SubmitButton = ({
   onClick,
   lifecycle,
@@ -20,7 +23,7 @@ export const SubmitButton = ({
   className,
   ...props
 }: FormSubmitButtonProps) => {
-  const { fields } = useForm()
+  const { fields, settings } = useForm()
   const {
     errors,
     // touched,
@@ -41,7 +44,8 @@ export const SubmitButton = ({
   // console.log('Values are', values)
 
   // TODO check if required fields all have values
-  const isValidated = errors === {} ? true : false
+
+  const hasErrors = Object.keys(errors).length ? true : false
 
   function renderLifecycle() {
     if (lifecycle) {
@@ -57,7 +61,7 @@ export const SubmitButton = ({
       type="submit"
       className={mergeSelectors(['form-submit-btn', className])}
       onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
-      disabled={isValidated}
+      disabled={settings.disableSubmit && hasErrors}
       {...props}>
       {renderLifecycle()}
     </Button>

@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { Flex, mergeSelectors, MakerProps } from 'maker-ui'
+import { Flex } from '@maker-ui/primitives'
+import type { MakerProps } from '@maker-ui/css'
+import { mergeSelectors } from '@maker-ui/utils'
 import { FormikErrors, FormikTouched, useFormikContext } from 'formik'
 
 import { Input } from './Input'
@@ -7,11 +9,13 @@ import { Select } from './Select'
 import { DatePicker } from './Datepicker'
 import { Label } from './Label'
 import { FieldProps } from '../types'
-import { useForm } from '../Provider'
+import { useForm } from '../FormProvider'
 import { Switch } from './Switch'
 import { Checkbox } from './Checkbox'
 import { Radio } from './Radio'
 import { Range } from './Range'
+import { FieldSettings } from '..'
+import { ImageField } from './ImageField'
 
 const basicInputs = [
   'text',
@@ -72,6 +76,10 @@ export const Field = (props: FieldComponentProps) => {
     setFirstTouch,
   }
 
+  if (name === 'image-picker') {
+    console.log('Field Component', name, errors[name], hasError, firstTouch)
+  }
+
   function renderInputs() {
     /* Basic HTML Inputs */
     if (basicInputs.includes(type)) {
@@ -81,25 +89,65 @@ export const Field = (props: FieldComponentProps) => {
     if (props.type === 'datepicker') {
       return <DatePicker {...attributes} {...props} />
     }
+    /* Imagepicker  */
+    if (props.type === 'image-picker') {
+      return (
+        <ImageField
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'image-picker'>}
+        />
+      )
+    }
     /* Select and Datalist inputs */
     if (props.type === 'select' || props.type === 'select-datalist') {
-      return <Select {...attributes} {...props} />
+      return (
+        <Select
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'select'>}
+        />
+      )
     }
     /* Radio group input*/
     if (props.type === 'radio') {
-      return <Radio {...attributes} {...props} />
+      return (
+        <Radio
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'radio'>}
+        />
+      )
     }
     /* Checkbox group input*/
     if (props.type === 'checkbox') {
-      return <Checkbox {...attributes} {...props} />
+      return (
+        <Checkbox
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'checkbox'>}
+        />
+      )
     }
     /* Toggle input*/
     if (props.type === 'switch') {
-      return <Switch {...attributes} {...props} />
+      return (
+        <Switch
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'switch'>}
+        />
+      )
     }
     /* Range input*/
     if (props.type === 'range') {
-      return <Range {...attributes} {...props} />
+      return (
+        <Range
+          {...attributes}
+          {...props}
+          settings={props.settings as FieldSettings<'range'>}
+        />
+      )
     }
     return null
   }
@@ -110,11 +158,17 @@ export const Field = (props: FieldComponentProps) => {
     </Label>
   )
 
-  return type === 'divider' ? (
-    <div id={id} className={mergeSelectors(['divider', containerClass])}>
-      {label}
-    </div>
-  ) : (
+  // Return a Divider slot
+  if (type === 'divider') {
+    return (
+      <div id={id} className={mergeSelectors(['divider', containerClass])}>
+        {label}
+      </div>
+    )
+  }
+
+  // Return the appropriate field
+  return (
     <Flex
       key={id}
       breakpoints={breakpoints}

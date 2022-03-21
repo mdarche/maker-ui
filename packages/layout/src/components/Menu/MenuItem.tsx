@@ -1,8 +1,8 @@
 import React, { useState, memo, isValidElement } from 'react'
+import { mergeSelectors } from '@maker-ui/utils'
 
 import { ExpandButton } from './ExpandButton'
 import { MakerOptions } from '../../types'
-import { mergeSelectors } from '../../utils/helper'
 
 export interface MenuItemProps {
   label: string
@@ -41,7 +41,6 @@ export interface MenuItemProps {
  *  },
  * ]
  */
-
 export type MakerMenu = MenuItemProps[]
 
 interface MenuInternalProps {
@@ -58,7 +57,7 @@ interface MenuInternalProps {
  * Returns a menu item and nested children for `NavMenu` or `CollapsibleMenu`
  * components. This component uses recursion to create nested menus.
  *
- * @internal usage only
+ * @internal
  *
  */
 

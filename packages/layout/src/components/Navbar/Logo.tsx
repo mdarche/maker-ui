@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { A } from '@maker-ui/primitives'
 
 import { useOptions } from '../../context/OptionContext'
 
@@ -9,9 +10,8 @@ interface LogoProps {
  * The `Logo` is used by `Navbar` to show a custom logo wrapped in a link to
  * the site's index page.
  *
- * @internal usage only
+ * @internal
  */
-
 export const Logo = ({ children }: LogoProps): React.ReactElement => {
   const { linkFunction } = useOptions()
 
@@ -23,9 +23,9 @@ export const Logo = ({ children }: LogoProps): React.ReactElement => {
   return linkFunction ? (
     linkFunction('/', children, attributes)
   ) : (
-    <a href="/" {...attributes} css={{ display: 'inline-flex' }}>
+    <A href="/" {...attributes} css={{ display: 'inline-flex' }}>
       {children}
-    </a>
+    </A>
   )
 }
 

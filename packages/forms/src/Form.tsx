@@ -1,17 +1,12 @@
 import * as React from 'react'
-import {
-  Grid,
-  Div,
-  DivProps,
-  ResponsiveScale,
-  MakerProps,
-  mergeSelectors,
-} from 'maker-ui'
+import { Grid, Div, type DivProps } from '@maker-ui/primitives'
+import { mergeSelectors } from '@maker-ui/utils'
+import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
 import { Form as FormikForm } from 'formik'
 
 import { Page } from './Page'
 import { Field } from './Fields'
-import { Provider, useForm } from './Provider'
+import { FormProvider, useForm } from './FormProvider'
 import { SubmitButton } from './SubmitButton'
 import { Progress } from './Progress'
 import { PageButton } from './PageButton'
@@ -59,6 +54,7 @@ export const Form = ({
 
   return (
     <FormikForm id={id} className={className} {...props}>
+      {/* {children?.type.displayName === 'FormHeader'} */}
       {fields ? (
         <Grid
           className="form-grid"
@@ -77,9 +73,11 @@ export const Form = ({
 }
 
 Form.displayName = 'Form'
+Header.displayName = 'FormHeader'
+Footer.displayName = 'FormFooter'
 
 Form.Page = Page
-Form.Provider = Provider
+Form.Provider = FormProvider
 Form.Header = Header
 Form.Footer = Footer
 Form.Progress = Progress

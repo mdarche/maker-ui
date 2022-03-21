@@ -4,20 +4,24 @@
   "author": "Mike Darche <mike@newcreative.io>",
   "license": "Apache-2.0",
   "main": "dist/index.js",
-  "module": "dist/primitives.esm.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
-    "build": "tsdx build --tsconfig tsconfig.build.json",
-    "test": "tsdx test",
-    "lint": "tsdx lint src",
-    "prepublish": "npm run build"
+    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "start": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
     "@maker-ui/css": "1.1.2",
     "csstype": "^3.0.6"
   },
-  "peerDependencies": {
-    "react": "^16.x || ^17.x"
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-preset": "*",
+    "tsconfig": "*",
+    "tsup": "^5.12.0",
+    "typescript": "^4.6.2"
   }
 }

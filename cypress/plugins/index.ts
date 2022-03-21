@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
-const findReactScriptsWebpackConfig = require('@cypress/react/plugins/react-scripts/findReactScriptsWebpackConfig')
-const { startDevServer } = require('@cypress/webpack-dev-server')
+
+const injectDevServer = require('@cypress/react/plugins/next')
+require('tsconfig-paths').register()
 
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
@@ -19,17 +20,6 @@ module.exports = (
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions
 ) => {
-  const webpackConfig = findReactScriptsWebpackConfig(config)
-
-  const rules = webpackConfig.module.rules.find((rule: any) => !!rule.oneOf)
-    .oneOf
-  const babelRule = rules.find((rule: any) => /babel-loader/.test(rule.loader))
-  babelRule.options.plugins.push(require.resolve('babel-plugin-istanbul'))
-
-  //@ts-ignore
-  on('dev-server:start', options => {
-    return startDevServer({ options, webpackConfig })
-  })
-
+  injectDevServer(on, { ...config, pagesDir: `${config.projectRoot}/pages` })
   return config
 }

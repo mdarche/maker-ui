@@ -1,0 +1,14 @@
+{
+  "name": "tsconfig",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "base.json",
+    "next.json",
+    "react-library.json"
+  ]
+}

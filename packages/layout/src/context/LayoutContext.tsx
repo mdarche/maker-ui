@@ -1,5 +1,5 @@
 import * as React from 'react'
-import merge from 'deepmerge'
+import { merge } from '@maker-ui/utils'
 import { Global } from '@maker-ui/css'
 
 import { colorVars, themeVars } from '../utils/css-builder'
@@ -44,7 +44,7 @@ export const LayoutContext = React.createContext<LayoutContextType>({
  *
  * @todo clean up / optimize color mode logic. Fix default color mode
  *
- * @internal usage only
+ * @internal
  */
 
 const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
@@ -186,7 +186,7 @@ function useLayout<T extends 'content' | 'nav' | 'mobileNav'>(
 /**
  * Fetches Maker UI's key layout measurements
  *
- * @internal usage only
+ * @internal
  */
 
 function useMeasurements() {
@@ -211,7 +211,7 @@ function useMeasurements() {
 /**
  * Reads a parent component's children and generates a formatted Maker UI layout string.
  *
- * @internal usage only
+ * @internal
  */
 
 function getLayoutType(type: 'content', children: React.ReactNode): string {
@@ -251,7 +251,7 @@ function getLayoutType(type: 'content', children: React.ReactNode): string {
  *
  * Currently used in the `Content` wrapper components
  *
- * @internal usage only
+ * @internal
  */
 
 function useLayoutDetector<T extends 'content', K extends React.ReactNode>(

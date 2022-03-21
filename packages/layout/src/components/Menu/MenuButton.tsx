@@ -1,8 +1,8 @@
 import * as React from 'react'
+import { mergeSelectors } from '@maker-ui/utils'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
-import { mergeSelectors } from '../../utils/helper'
 
 interface MenuButtonProps {
   isCloseButton?: boolean
@@ -19,7 +19,6 @@ interface MenuButtonProps {
  *
  * @link https://maker-ui.com/docs/layout/buttons/#menuButton
  */
-
 export const MenuButton = ({
   customButton,
   visibleOnDesktop,

@@ -1,4 +1,4 @@
-import { Interpolation } from '@emotion/react'
+import type { Interpolation } from '@emotion/react'
 
 export type Breakpoints = (string | number)[]
 export type StyleObject = object | Interpolation<any>
@@ -14,7 +14,9 @@ export type StyleObject = object | Interpolation<any>
  *
  */
 export interface MakerProps {
+  /** A css object that can support array of responsive values for all nested properties */
   css?: StyleObject
+  /** An array of breakpoints that determines the css prop media queries */
   breakpoints?: Breakpoints
 }
 
@@ -26,9 +28,10 @@ export interface MakerProps {
  */
 export type ResponsiveScale = string | number | (string | number)[]
 
-declare module 'react' {
-  interface Attributes extends MakerProps {}
-}
+/**
+ * Utility type for responsive css strings
+ */
+export type ResponsiveString = string | string[]
 
 /**
  * Direct export from EmotionJS

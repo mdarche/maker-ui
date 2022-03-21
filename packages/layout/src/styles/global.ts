@@ -1,4 +1,4 @@
-import { GlobalProps } from '@emotion/react'
+import type { GlobalProps } from '@maker-ui/css'
 
 export const globalStyles: GlobalProps['styles'] = {
   '*': {
