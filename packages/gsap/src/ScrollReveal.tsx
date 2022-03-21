@@ -45,7 +45,7 @@ function getTranslation(
   return e
 }
 
-interface ScrollRevealProps extends DivProps {
+export interface ScrollRevealProps extends DivProps {
   /** The className shared by all components in the group */
   group?: string
   /** A number representing the duration in seconds between batch animations

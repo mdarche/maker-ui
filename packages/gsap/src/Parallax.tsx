@@ -7,7 +7,8 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-interface ParallaxProps extends Omit<SectionProps, 'background' | 'translate'> {
+export interface ParallaxProps
+  extends Omit<SectionProps, 'background' | 'translate'> {
   /** An object of <img /> tag props or a custom component like Next/Image
    * @remark If using Next.js Image, make sure you set the Image props to
    * `layout='fill'` and `objectFit='cover'`
