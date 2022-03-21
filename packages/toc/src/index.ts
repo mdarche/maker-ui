@@ -1,1 +1,1 @@
-export { TableofContents, type ToCProps } from './TableofContents'
+export { TableOfContents, type ToCProps } from './TableOfContents'

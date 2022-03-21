@@ -2,7 +2,7 @@
 
 Build React apps with a responsive layout system powered by [Emotion](https://emotion.sh/docs/introduction).
 
-Maker UI helps you design accessible, responsive apps that can be customized in an infinite number of ways. Use it to quickly prototype and deploy a polished layout so you can focus on developing great content or adding new features to your project.
+Maker UI helps you design accessible, responsive apps that can be customized in any way imaginable. Quickly deploy a production-ready layout so you can focus on creating content and adding new features to your project.
 
 [![Version][version]][npm]
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -12,15 +12,13 @@ Maker UI helps you design accessible, responsive apps that can be customized in 
 
 ## Templating Features
 
-- 9 customizable desktop header layouts
-- 4 customizable mobile header layouts
-- 10+ content layouts
-- Responsive header and side navigation
+- Fully customizable CSS Grid-based desktop and mobile header layouts
+- 10+ common page layouts
+- Responsive navigation
 - Accessible dropdown menus
-- Automatic skiplink and keyboard focus management
-- Conditional or multi-layout support
+- Skiplink and keyboard focus management
 - Unlimited color modes
-- Error boundaries, logging support, and custom error reporting hooks
+- Error boundaries and custom error reporting hooks
 - JSX primitives that support responsive `css` arrays
 
 ## Getting Started
@@ -29,17 +27,21 @@ Maker UI helps you design accessible, responsive apps that can be customized in 
 npm i maker-ui
 ```
 
-Maker UI uses a configuration object and optional custom components to build complex layouts in seconds. Your custom options configuration determines how each layout should behave and appear.
+or
+
+```sh
+yarn maker-ui
+```
+
+Maker UI uses a configuration object to build complex layouts in seconds. Your custom configuration determines how each layout should behave and appear.
 
 See the documentation for more details on setting up your project.
 
 ### Layout Components
 
-If your design requires more customization or if you need conditional layouts depending on a page route or variable, you can build with Maker UI's layout components:
+At the root of your project or on a specific page, import and build with Maker UI's layout components:
 
 ```jsx
-// basic layout component usage
-import * as React from 'react'
 import {
   Layout,
   Header,
@@ -54,7 +56,8 @@ import {
 import { options, menu } from './config' // your custom configurations
 import Logo from './Logo' // your logo component
 
-const MyLayout = (props) => (
+// basic sidebar-content layout
+const SidebarLayout = (props) => (
   <Layout options={options}>
     <Header>
       <Navbar logo={<Logo />} menu={menu} />
@@ -79,10 +82,10 @@ All layout components and JSX primitives can be styled with the responsive `css`
 /** Equivalent CSS:
  * 
  * color: red;
- * @media screen and (min-width: 768px) {
+ * @media (min-width: 768px) {
  *    color: blue;
  * }
- * @media screen and (min-width: 960px) {
+ * @media (min-width: 960px) {
  *    color: green;
  * }
 }*/
@@ -94,22 +97,30 @@ All layout components and JSX primitives can be styled with the responsive `css`
 
 This example would set the div's default color to `red` and generate `min-width` media queries so the color is `blue` at `768px` and `green` at `960px`. Never write a media query again!
 
-## Maker Components
+## Maker UI Components
 
-Maker UI also has an optional packages that export a variety of common components you might need for your site:
+Maker UI ships a varity of optional packages for common components that you can use on your site. All packages are styled without opinions and buit with a11y best practices in mind:
 
-- Accordion
-- Modal
-- Lightbox
-- Tabs
-- Announcement
-- Popover, Tooltip, and Dropdown
-- Loading Spinners
-- CookieNotice
-- TableOfContents
-- Carousel
-- ParallaxSection
-- ScrollReveal
+| Component       | Package                 | Description                                                                                    |
+| --------------- | ----------------------- | ---------------------------------------------------------------------------------------------- |
+| Accordion       | @maker-ui/accordion     | A fully customizable Accordion comoponent.                                                     |
+| Announcement    | @maker-ui/notifications | An announcement banner that can be dismissed.                                                  |
+| Carousel        | @maker-ui/gsap          | A Greensock based carousel that accepts fully custom slide components.                         |
+| CookieNotice    | @maker-ui/notifications | A cookie notice that appears after a custom interval.                                          |
+| Dropdown        | @maker-ui/popovers      | A dropdown menu component.                                                                     |
+| Form            | @maker-ui/forms         | A wrapper for Formik that makes building grid-based forms with custom inputs even easier.      |
+| Generate        | @maker-ui/generative    | Wrapper components and utility functions that return randomly ordered or generated components. |
+| Lightbox        | @maker-ui/lightbox      | A lightbox modal for individual triggers or a media gallery.                                   |
+| Modal           | @maker-ui/modal         | A full-screen accesible overlay component that can be triggered by a `useState` hook.          |
+| Parallax        | @maker-ui/gsap          | A Parallax background section.                                                                 |
+| Popover         | @maker-ui/popovers      | data3                                                                                          |
+| ScrollReveal    | @maker-ui/gsap          | data3                                                                                          |
+| Spinner         | @maker-ui/loaders       | data3                                                                                          |
+| TableOfContents | @maker-ui/toc           | data3                                                                                          |
+| Tabs            | @maker-ui/tabs          | data3                                                                                          |
+| Tooltip         | @maker-ui/popovers      | data3                                                                                          |
+
+You can also import `@maker-ui/elements` to bundle the most commonly used `@maker-ui/accordion`, `@maker-ui/tabs`, `@maker-ui/popovers`, and `@maker-ui/modal`.
 
 ## License
 

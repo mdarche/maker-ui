@@ -79,7 +79,7 @@ function sanitize(text: string) {
  * @link https://maker-ui.com/docs/elements/tableofcontents
  */
 
-export const TableofContents = ({
+export const TableOfContents = ({
   title = 'Contents',
   headings = ['h2', 'h3', 'h4'],
   activeColor,
@@ -264,7 +264,7 @@ export const TableofContents = ({
   )
 }
 
-TableofContents.displayName = 'TableofContents'
+TableOfContents.displayName = 'TableOfContents'
 
 const allHeadings = ['h2', 'h3', 'h4', 'h5', 'h6']
 
