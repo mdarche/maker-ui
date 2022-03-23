@@ -3,19 +3,22 @@
   "scripts": {
     "clean": "turbo run clean",
     "git-reset": "git reset --hard HEAD",
-    "docs-start": "yarn workspace docs dev",
+    "docs:dev": "pnpm recursive run dev --filter docs",
+    "docs:build": "pnpm recursive run build --filter docs",
+    "e2e:dev": "pnpm recursive run dev --filter e2e",
+    "e2e:build": "pnpm recursive run build --filter e2e",
     "docgen": "turbo run docgen --parallel",
     "postdocgen": "rm -rf apps/docs/temp",
     "start": "turbo run start --parallel --continue",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "build": "turbo run build --scope=*maker-ui* --no-deps --include-dependencies",
-    "prepublish": "yarn build",
     "cy": "cypress open",
     "cy:headless": "cypress run",
     "cy:unit": "cypress open-ct",
     "cy:unit:headless": "cypress run-ct",
     "changeset": "changeset",
+    "prerelease": "pnpm build",
     "release": "changeset publish"
   },
   "workspaces": [
@@ -24,6 +27,7 @@
     "apps/*"
   ],
   "devDependencies": {
+    "@babel/core": "^7.0.0-0",
     "@changesets/changelog-github": "^0.4.3",
     "@changesets/cli": "^2.21.1",
     "@cypress/code-coverage": "^3.9.5",
@@ -50,5 +54,5 @@
     "webpack": "5",
     "webpack-dev-server": "3"
   },
-  "packageManager": "yarn@1.17.3"
+  "packageManager": "pnpm@6.32.3"
 }
