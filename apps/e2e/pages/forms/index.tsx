@@ -23,7 +23,7 @@ const testFields: FieldProps[] = [
     type: 'select',
     initialValue: [],
     settings: {
-      isCreatableInput: true,
+      // isCreatableInput: true,
       isMulti: true,
       placeholder: 'Select',
       options: [
