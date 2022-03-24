@@ -2,17 +2,15 @@ import * as React from 'react'
 import { Flex } from '@maker-ui/primitives'
 import { useFormikContext, Field, FieldArray, FormikErrors } from 'formik'
 
-import { TrashIcon, PlusIcon } from '../Icons'
+import { TrashIcon, PlusIcon } from '../icons'
 import type { InputProps } from '../types'
 
 interface RepeaterProps extends InputProps {}
 
 // Todo
 export const Repeater = (props: RepeaterProps) => {
-  const {
-    errors,
-    values,
-  }: { errors: FormikErrors<any>; values: any } = useFormikContext()
+  const { errors, values }: { errors: FormikErrors<any>; values: any } =
+    useFormikContext()
   const valueKey = 'todo'
   const subKey = 'todo'
 

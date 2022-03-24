@@ -10,17 +10,19 @@ export const Range = ({
   name,
   settings = { min: 0, max: 10 },
   hasError,
+  validation,
   cy,
+  ...props
 }: RangeProps) => {
   return (
     <FormikField
       as="input"
-      type="range"
       data-cy={cy}
       name={name}
       className={hasError ? 'error' : undefined}
       min={settings.min}
       max={settings.max}
+      {...props}
     />
   )
 }

@@ -8,13 +8,41 @@ const testFields: FieldProps[] = [
     label: 'Your Username',
     type: 'text',
     initialValue: '',
-    validation: Yup.string().required('Required'),
+    // validation: Yup.string().required('Required'),
+    // autoSave: true,
   },
   {
     name: 'myrange',
     label: 'My Range',
     type: 'range',
     initialValue: 0,
+    autoSave: true,
+  },
+  {
+    name: 'myCheck',
+    label: 'My Checkbox',
+    type: 'checkbox',
+    initialValue: '',
+    settings: {
+      options: [
+        { label: 'Option 1', value: '1' },
+        { label: 'Option 2', value: '2' },
+        { label: 'Option 3', value: '3' },
+      ],
+    },
+  },
+  {
+    name: 'myRadio',
+    label: 'My Radio',
+    type: 'radio',
+    initialValue: '',
+    settings: {
+      options: [
+        { label: 'Option 1', value: '1' },
+        { label: 'Option 2', value: '2' },
+        { label: 'Option 3', value: '3' },
+      ],
+    },
   },
   {
     name: 'select',
@@ -33,7 +61,6 @@ const testFields: FieldProps[] = [
       ],
     },
     // validation: Yup.array().min(3, 'Pick at least 3 tags'),
-    // cy: 'test',
   },
   {
     name: 'profileImage',
@@ -51,9 +78,8 @@ export default function FormsPage() {
   }
   return (
     <>
-      <Section>
+      <Section css={{ padding: '50px 0' }}>
         <Form.Provider
-          settings={{ autoSave: true }}
           fields={testFields}
           onSubmit={(vals) => onSubmitForm(vals)}>
           <Form>

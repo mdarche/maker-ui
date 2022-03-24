@@ -4,12 +4,12 @@ import { mergeSelectors } from '@maker-ui/utils'
 import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
 import { Form as FormikForm } from 'formik'
 
-import { Page } from './Page'
+import { Page } from './Pagination/Page'
 import { Field } from './Fields'
 import { FormProvider, useForm } from './FormProvider'
 import { SubmitButton } from './SubmitButton'
-import { Progress } from './Progress'
-import { PageButton } from './PageButton'
+import { Progress } from './Pagination/Progress'
+import { PageButton } from './Pagination/PageButton'
 
 export interface FormProps
   extends React.HTMLAttributes<HTMLFormElement>,

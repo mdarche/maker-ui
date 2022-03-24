@@ -2,20 +2,19 @@ import * as React from 'react'
 import { Flex } from '@maker-ui/primitives'
 import type { MakerProps } from '@maker-ui/css'
 import { mergeSelectors } from '@maker-ui/utils'
-import { useField } from 'formik'
+import { useField, useFormikContext } from 'formik'
 
 import { Input } from './Input'
 import { Select } from './Select'
 import { DatePicker } from './Datepicker'
 import { Label } from './Label'
-import { FieldProps } from '../types'
+import { FieldProps, SelectSettings, SwitchSettings } from '../types'
 import { useForm } from '../FormProvider'
 import { Switch } from './Switch'
-import { Checkbox } from './Checkbox'
-import { Radio } from './Radio'
 import { Range } from './Range'
 import { FieldSettings } from '..'
 import { ImageField } from './ImageField'
+import { InputOptionProps, InputOptions } from './InputOptions'
 
 const basicInputs = [
   'text',
@@ -39,6 +38,7 @@ interface FieldComponentProps extends FieldProps {
 
 export const Field = (props: FieldComponentProps) => {
   const { settings } = useForm()
+  const { submitForm } = useFormikContext()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [field, { touched, error }] = useField(props.name)
   const {
@@ -53,6 +53,7 @@ export const Field = (props: FieldComponentProps) => {
     containerClass,
     showValidation,
     breakpoints,
+    autoSave,
   } = props
 
   const hasError = settings.validateOnChange
@@ -63,21 +64,27 @@ export const Field = (props: FieldComponentProps) => {
     ? true
     : false
   const isComplete = !error && touched ? true : false
+  const saveOnBlur = autoSave || settings.autoSave ? { onBlur: submitForm } : {}
+  const attributes = {
+    ...props,
+    ...saveOnBlur,
+    hasError,
+  }
 
   function renderFieldType() {
     /* Basic HTML Inputs */
     if (basicInputs.includes(type)) {
-      return <Input {...{ ...props, hasError }} />
+      return <Input {...attributes} />
     }
     /* Datepicker that supports ranges */
     if (props.type === 'datepicker') {
-      return <DatePicker {...{ ...props, hasError }} />
+      return <DatePicker {...attributes} />
     }
     /* Imagepicker  */
     if (props.type === 'image-picker') {
       return (
         <ImageField
-          {...{ ...props, hasError }}
+          {...attributes}
           settings={props.settings as FieldSettings<'image-picker'>}
         />
       )
@@ -85,44 +92,29 @@ export const Field = (props: FieldComponentProps) => {
     /* Select and Datalist inputs */
     if (props.type === 'select') {
       return (
-        <Select
-          {...{ ...props, hasError }}
-          settings={props.settings as FieldSettings<'select'>}
-        />
+        <Select {...attributes} settings={props.settings as SelectSettings} />
       )
     }
-    /* Radio group input*/
-    if (props.type === 'radio') {
+    /* Radio and Checkbox group inputs*/
+    if (props.type === 'radio' || props.type === 'checkbox') {
       return (
-        <Radio
-          {...{ ...props, hasError }}
-          settings={props.settings as FieldSettings<'radio'>}
-        />
-      )
-    }
-    /* Checkbox group input*/
-    if (props.type === 'checkbox') {
-      return (
-        <Checkbox
-          {...{ ...props, hasError }}
-          settings={props.settings as FieldSettings<'checkbox'>}
+        <InputOptions
+          {...attributes}
+          settings={props.settings as InputOptionProps['settings']}
         />
       )
     }
     /* Toggle input*/
     if (props.type === 'switch') {
       return (
-        <Switch
-          {...{ ...props, hasError }}
-          settings={props.settings as FieldSettings<'switch'>}
-        />
+        <Switch {...attributes} settings={props.settings as SwitchSettings} />
       )
     }
     /* Range input*/
     if (props.type === 'range') {
       return (
         <Range
-          {...{ ...props, hasError }}
+          {...attributes}
           settings={props.settings as FieldSettings<'range'>}
         />
       )

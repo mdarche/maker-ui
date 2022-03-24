@@ -5,7 +5,7 @@ import { type MakerProps, type ResponsiveScale, Global } from '@maker-ui/css'
 import { merge } from '@maker-ui/utils'
 import * as Yup from 'yup'
 
-import { ValidateIcon } from './Icons'
+import { ValidateIcon } from './icons'
 import { FieldProps, FormValues, FormHelpers } from './types'
 import { styles } from './styles/position'
 

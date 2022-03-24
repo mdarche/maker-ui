@@ -6,20 +6,20 @@ interface TextProps extends InputProps {}
 
 export const Input = ({
   id,
-  type,
   name,
+  type,
   hasError,
-  placeholder,
   cy,
-}: TextProps) => {
-  return (
-    <FormikField
-      id={id}
-      data-cy={cy}
-      as={type === 'textarea' ? 'textarea' : 'input'}
-      name={name}
-      className={hasError ? 'error' : undefined}
-      placeholder={placeholder}
-      type={type}></FormikField>
-  )
-}
+  validation,
+  ...props
+}: TextProps) => (
+  <FormikField
+    id={id || name}
+    name={name}
+    data-cy={cy}
+    as={type === 'textarea' ? 'textarea' : 'input'}
+    className={hasError ? 'error' : undefined}
+    type={type}
+    {...props}
+  />
+)

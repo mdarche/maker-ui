@@ -8,14 +8,14 @@ interface LabelProps {
   type: FieldProps['type']
 }
 
-const nonLabelFields = ['radio']
+const nonLabelFields = ['']
 
 export const Label = ({ id, name, children, type }: LabelProps) => {
-  if (nonLabelFields.includes(type)) {
+  if (nonLabelFields.includes(type) || !children) {
     return null
   }
 
-  if (type === 'checkbox') {
+  if (type === 'checkbox' || type === 'radio') {
     return (
       <div id={`${name}-group`} className="form-label">
         {children}
@@ -32,7 +32,7 @@ export const Label = ({ id, name, children, type }: LabelProps) => {
   }
 
   return (
-    <label htmlFor={id} className="form-label">
+    <label htmlFor={id || name} className="form-label">
       {children}
     </label>
   )

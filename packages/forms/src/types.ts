@@ -8,9 +8,9 @@ export interface FormHelpers extends FormikHelpers<any> {}
 
 export type { FormProviderProps } from './FormProvider'
 export type { FormSubmitButtonProps } from './SubmitButton'
-export type { FormPageButtonProps } from './PageButton'
-export type { FormPageProps } from './Page'
-export type { FormProgressProps } from './Progress'
+export type { FormPageButtonProps } from './Pagination/PageButton'
+export type { FormPageProps } from './Pagination/Page'
+export type { FormProgressProps } from './Pagination/Progress'
 
 export type PaginationElement =
   | string
@@ -89,6 +89,16 @@ export interface SwitchSettings {
   style?: 'circle' | 'box'
 }
 
+export interface RangeSettings {
+  min?: number
+  max?: number
+}
+
+export interface PasswordSettings {
+  /** Display a button that lets you toggle password visibility */
+  toggleCharacters?: boolean
+}
+
 export type FieldSettings<T> = T extends 'text'
   ? { mask?: 'phone' | 'zipcode' | 'credit-card' }
   : T extends 'select'
@@ -98,12 +108,9 @@ export type FieldSettings<T> = T extends 'text'
   : T extends 'checkbox'
   ? { options: InputOption[] }
   : T extends 'range'
-  ? { min?: number; max?: number }
+  ? RangeSettings
   : T extends 'password'
-  ? {
-      /** Display a button that lets you toggle password visibility */
-      toggleCharacters?: boolean
-    }
+  ? PasswordSettings
   : T extends 'switch'
   ? SwitchSettings
   : T extends 'image-picker'
@@ -158,6 +165,8 @@ export interface FieldProps {
   colSpan?: number
   /** If true, the field will render a validation icon after onTouch validation */
   showValidation?: boolean
+  /** If true, blurring this field will cause the form to run its submit handler */
+  autoSave?: boolean
   /** A cypress test selector */
   cy?: string
 }

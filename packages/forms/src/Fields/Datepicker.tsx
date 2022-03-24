@@ -35,8 +35,7 @@ export const DatePicker = (props: DatePickerProps) => {
         '.react-datepicker__day--today': {
           border: '1px solid',
         },
-      }}
-      {...props}>
+      }}>
       {/* <ReactDatePicker
         inline
         {...field}
