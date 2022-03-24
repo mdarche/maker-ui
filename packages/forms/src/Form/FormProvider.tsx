@@ -22,6 +22,8 @@ interface Settings {
   errorStyle: FieldProps['errorStyle']
   disableSubmit: boolean
   autoSave: boolean
+  autoSaveIndicator: boolean | React.ReactNode
+  autoSavePosition: FieldProps['labelStyle']
 }
 
 export interface FormState {
@@ -67,7 +69,7 @@ function getInitialValue(type: FieldProps['type']) {
     : type === 'image-picker'
     ? {}
     : type === 'select'
-    ? {}
+    ? []
     : ''
 }
 
@@ -89,13 +91,9 @@ export const FormProvider = ({
   breakpoints,
   ...props
 }: FormProviderProps) => {
-  // let datepicker = false
   /* Calculate initial values via fields */
   let values: Partial<FormValues> = {}
   fields.forEach(({ type, name, initialValue }) => {
-    // if (type === 'datepicker') {
-    //   datepicker = true
-    // }
     return type !== 'divider'
       ? (values[name] = initialValue || getInitialValue(type))
       : undefined
@@ -109,9 +107,6 @@ export const FormProvider = ({
 
   const FormSchema =
     Object.keys(schema).length !== 0 ? Yup.object().shape(schema) : undefined
-
-  // TODO - Add form style classes to Global
-  // - Check for datepicker
 
   return (
     <MakerForm fields={fields} settings={settings as Settings}>

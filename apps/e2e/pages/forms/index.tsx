@@ -35,7 +35,7 @@ const testFields: FieldProps[] = [
     name: 'mySwitch',
     label: 'My Switch',
     type: 'switch',
-    initialValue: false,
+    initialValue: true,
   },
   {
     name: 'myRadio',
@@ -56,8 +56,9 @@ const testFields: FieldProps[] = [
     label: 'Pick an option',
     type: 'select',
     initialValue: [],
+    autoSave: true,
     settings: {
-      // isCreatableInput: true,
+      isCreatableInput: true,
       isMulti: true,
       placeholder: 'Select',
       options: [

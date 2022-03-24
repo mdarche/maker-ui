@@ -13,9 +13,13 @@ export const InputOptions = ({
   name,
   cy,
   settings,
+  hasError,
   ...props
 }: InputOptionProps) => (
-  <div role="group" aria-labelledby={`${name}-group`}>
+  <div
+    role="group"
+    aria-labelledby={`${name}-group`}
+    className={hasError ? 'error' : undefined}>
     {settings?.options?.map(({ id, className, label, value }, index) => (
       <label key={index}>
         <FormikField

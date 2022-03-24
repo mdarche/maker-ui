@@ -6,7 +6,6 @@ import { useField, useFormikContext } from 'formik'
 
 import { Input } from './Input'
 import { Select } from './Select'
-import { DatePicker } from './Datepicker'
 import { Label } from './Label'
 import { FieldProps, SelectSettings, SwitchSettings } from '../types'
 import { useForm } from '../Form/FormProvider'
@@ -54,6 +53,7 @@ export const Field = (props: FieldComponentProps) => {
     showValidation,
     breakpoints,
     autoSave,
+    component,
     cy,
   } = props
 
@@ -76,14 +76,18 @@ export const Field = (props: FieldComponentProps) => {
   }
 
   function renderFieldType() {
+    /* Custom React inputs */
+    if (type === 'custom' && component) {
+      return component
+    }
     /* Basic HTML Inputs */
     if (basicInputs.includes(type)) {
       return <Input {...attributes} />
     }
     /* Datepicker that supports ranges */
-    if (props.type === 'datepicker') {
-      return <DatePicker {...attributes} />
-    }
+    // if (props.type === 'datepicker') {
+    //   return <DatePicker {...attributes} />
+    // }
     /* Imagepicker  */
     if (props.type === 'image-picker') {
       return (

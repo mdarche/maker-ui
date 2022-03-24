@@ -7,6 +7,7 @@ import { merge } from '@maker-ui/utils'
 
 interface SelectProps extends InputProps {
   settings: SelectSettings
+  onBlur?: () => void
 }
 
 const creatableInputProps = {
@@ -32,7 +33,14 @@ const createOption = (label: string) => ({
 
 // TODO CY prop does not work
 
-export const Select = ({ id, name, hasError, settings, cy }: SelectProps) => {
+export const Select = ({
+  id,
+  name,
+  hasError,
+  settings,
+  onBlur,
+  cy,
+}: SelectProps) => {
   const [state, setState] = useState({
     inputValue: '',
     value: [] as { label: string; value: string }[],
@@ -48,6 +56,7 @@ export const Select = ({ id, name, hasError, settings, cy }: SelectProps) => {
   })
 
   function handleChange(value?: any) {
+    console.log('here', value)
     // Todo optional convert return value into a string with delimeter
     if (settings.isCreatableInput) {
       setState({ value, inputValue: '' })
@@ -62,6 +71,10 @@ export const Select = ({ id, name, hasError, settings, cy }: SelectProps) => {
 
   function handleBlur() {
     setTouched(true)
+    // Handle autosave
+    if (onBlur) {
+      onBlur()
+    }
   }
 
   function handleKeyDown(event: React.KeyboardEvent) {

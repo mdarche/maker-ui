@@ -35,7 +35,6 @@ const Footer = ({ className, children, ...props }: DivProps) => (
  *
  * @link https://maker-ui.com/docs/form
  */
-
 export const Form = ({
   id,
   className,

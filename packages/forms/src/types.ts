@@ -39,16 +39,18 @@ type FieldType =
   | 'url'
   | 'select'
   | 'date'
-  | 'datepicker' // TODO
+  // | 'datepicker' // TODO
+  // | 'color-picker' // TODO
   | 'switch'
   | 'radio'
   | 'checkbox'
   | 'slider'
-  | 'repeater' // TODO
+  // | 'repeater' // TODO
   | 'color'
   | 'range'
   | 'file'
   | 'image-picker'
+  | 'custom'
 
 export interface SelectSettings extends ReactSelectProps {
   isCreatable?: boolean
@@ -62,7 +64,6 @@ export interface SelectSettings extends ReactSelectProps {
   closeMenuOnScroll?: boolean
   isDisabled?: boolean
   isMulti?: boolean
-  delimiter?: string
   placeholder?: string | number | boolean
 }
 
@@ -83,8 +84,10 @@ export interface SwitchSettings {
   height?: number
   /** The padding between the switch slider and the edge of the input */
   padding?: number
-  /** The radius of the switch container and slider. This only applies to the `box` style. */
+  /** The radius of the switch container and slider if no `innerBorderRadius` is defined. This only applies to the `box` style. */
   borderRadius?: number
+  /** The radius of the slider. This only applies to the `box` style. */
+  innerBorderRadius?: number
   /** The switch style can be `circle` or `box` */
   style?: 'circle' | 'box'
 }
@@ -130,6 +133,8 @@ export interface FieldProps {
    * @link https://github.com/jquense/yup
    */
   validation?: any
+  /** If you set `type` to "custom", you can supply a custom React component here. In your custom file, you will need to import `useField` or `useFormikContext` to set the field's value. */
+  component?: React.ReactNode
   /** A custom id selector for the input field */
   id?: string
   /** A custom class selector for the field container*/
