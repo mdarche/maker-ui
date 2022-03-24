@@ -24,6 +24,12 @@ export type InputOption = {
   id?: string
 }
 
+export interface AutoSaveSettings {
+  indicator?: React.ReactNode
+  successIcon?: React.ReactNode
+  position: FieldProps['labelStyle']
+}
+
 /**
  * https://stackoverflow.com/questions/56949513/typescript-type-of-a-property-dependent-on-another-property-within-the-same-obj
  */

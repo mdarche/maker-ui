@@ -6,7 +6,7 @@ import { merge } from '@maker-ui/utils'
 import * as Yup from 'yup'
 
 import { ValidateIcon } from '../icons'
-import { FieldProps, FormValues, FormHelpers } from '../types'
+import { FieldProps, FormValues, FormHelpers, AutoSaveSettings } from '../types'
 import { styles } from '../styles/position'
 
 interface Settings {
@@ -21,9 +21,7 @@ interface Settings {
   labelStyle: FieldProps['labelStyle']
   errorStyle: FieldProps['errorStyle']
   disableSubmit: boolean
-  autoSave: boolean
-  autoSaveIndicator: boolean | React.ReactNode
-  autoSavePosition: FieldProps['labelStyle']
+  autoSave: boolean | AutoSaveSettings
 }
 
 export interface FormState {

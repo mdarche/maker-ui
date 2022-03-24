@@ -56,9 +56,9 @@ const testFields: FieldProps[] = [
     label: 'Pick an option',
     type: 'select',
     initialValue: [],
-    autoSave: true,
+    // autoSave: true,
     settings: {
-      isCreatableInput: true,
+      // isCreatableInput: true,
       isMulti: true,
       placeholder: 'Select',
       options: [

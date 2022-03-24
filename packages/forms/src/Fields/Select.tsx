@@ -56,10 +56,11 @@ export const Select = ({
   })
 
   function handleChange(value?: any) {
-    console.log('here', value)
-    // Todo optional convert return value into a string with delimeter
     if (settings.isCreatableInput) {
       setState({ value, inputValue: '' })
+      if (onBlur) {
+        setValue(value)
+      }
     } else {
       setValue(value)
     }
