@@ -23,8 +23,8 @@ const testFields: FieldProps[] = [
     type: 'select',
     initialValue: [],
     settings: {
+      isCreatableInput: true,
       isMulti: true,
-      delimiter: '--',
       placeholder: 'Select',
       options: [
         { label: 'Yes', value: 'yes' },
@@ -32,14 +32,15 @@ const testFields: FieldProps[] = [
         { label: 'Maybe So', value: 'maybe-so' },
       ],
     },
-    validation: Yup.array().min(3, 'Pick at least 3 tags'),
+    // validation: Yup.array().min(3, 'Pick at least 3 tags'),
+    // cy: 'test',
   },
   {
     name: 'profileImage',
     label: 'Profile Image',
     type: 'image-picker',
     settings: { inputId: 'testId' },
-    validation: Yup.mixed().required('Required'),
+    // validation: Yup.mixed().required('Required'),
   },
 ]
 

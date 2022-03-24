@@ -51,6 +51,8 @@ type FieldType =
   | 'image-picker'
 
 export interface SelectSettings extends ReactSelectProps {
+  isCreatable?: boolean
+  isCreatableInput?: boolean
   options: InputOption[]
   isSearchable?: boolean
   isClearable?: boolean

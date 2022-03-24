@@ -26,7 +26,7 @@ export const DragAndDrop = ({
   fileValidations,
   isHoverPreview = false,
   settings,
-  cy = 'image-picker',
+  cy,
 }: DragAndDropProps) => {
   const [inputId] = useState(customInputId || generateId())
   const dropArea = isHoverPreview ? 'preview' : 'dropzone'
