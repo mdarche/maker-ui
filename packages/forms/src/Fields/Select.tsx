@@ -1,44 +1,11 @@
-import * as React from 'react'
-import { Field as FormikField } from 'formik'
-import type { FieldSettings, InputProps } from '../types'
-
-interface OptionProps {
-  settings: FieldSettings<'select'>
-  datalist?: boolean
-  name?: string
-}
-
-interface OptionWrapperProps {
-  children: React.ReactNode
-  wrapper?: boolean
-  name?: string
-}
-
-const OptionWrapper = ({ wrapper, name, children }: OptionWrapperProps) =>
-  wrapper ? (
-    <datalist id={`list-${name}`}>{children}</datalist>
-  ) : (
-    <>{children}</>
-  )
-
-export const OptionList = ({
-  settings,
-  name,
-  datalist = false,
-}: OptionProps) => {
-  return settings ? (
-    <OptionWrapper name={name} wrapper={datalist}>
-      {settings.options.map(({ id, className, label, value }, index) => (
-        <option key={index} id={id} className={className} value={value}>
-          {label}
-        </option>
-      ))}
-    </OptionWrapper>
-  ) : null
-}
+import React, { useState } from 'react'
+import { useField } from 'formik'
+import { default as ReactSelect } from 'react-select'
+import type { InputProps, SelectSettings } from '../types'
+import { merge } from '@maker-ui/utils'
 
 interface SelectProps extends InputProps {
-  settings: FieldSettings<'select'>
+  settings: SelectSettings
 }
 
 export const Select = ({
@@ -47,29 +14,51 @@ export const Select = ({
   name,
   hasError,
   settings,
-  firstTouch,
-  setFirstTouch,
   cy,
 }: SelectProps) => {
+  const mergedSelectProps: SelectSettings = merge(
+    {
+      isSearchable: true,
+      isClearable: true,
+      blurInputOnSelect: false,
+      captureMenuScroll: false,
+      closeMenuOnSelect: false,
+      closeMenuOnScroll: false,
+      isDisabled: false,
+      isMulti: false,
+    },
+    settings
+  )
+
+  const [field, { touched }, { setValue, setTouched }] = useField({
+    name,
+    type: 'file',
+  })
+
+  function handleChange(newVal?: any) {
+    // Todo optional convert return value into a string with delimeter
+    setValue(newVal)
+  }
+
+  function handleBlur() {
+    console.log('handling blur')
+    setTouched(true)
+  }
+
+  // useEffect(() => {
+  //   setValue(state)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [state])
+
   return (
-    <>
-      <FormikField
-        id={id}
-        onFocus={() => (!firstTouch ? setFirstTouch(true) : undefined)}
-        onClick={() => (!firstTouch ? setFirstTouch(true) : undefined)}
-        as={type === 'select' ? 'select' : 'input'}
-        name={name}
-        data-cy={cy}
-        className={hasError ? 'error' : undefined}
-        list={type === 'select-datalist' ? `list-${name}` : undefined}
-        type={type !== 'select-datalist' ? 'select' : undefined}>
-        {type === 'select' ? (
-          <OptionList name={name} settings={settings} />
-        ) : null}
-      </FormikField>
-      {type === 'select-datalist' ? (
-        <OptionList name={name} settings={settings} datalist />
-      ) : null}
-    </>
+    <ReactSelect
+      inputId={id}
+      name={name}
+      className={hasError ? 'error' : undefined}
+      {...mergedSelectProps}
+      data-cy={cy}
+      onChange={handleChange}
+      onBlur={handleBlur}
+    />
   )
 }

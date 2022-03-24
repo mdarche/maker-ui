@@ -21,6 +21,7 @@ interface Settings {
   labelStyle: FieldProps['labelStyle']
   errorStyle: FieldProps['errorStyle']
   disableSubmit: boolean
+  autoSave: boolean
 }
 
 export interface FormState {
@@ -63,6 +64,10 @@ function getInitialValue(type: FieldProps['type']) {
     ? false
     : type === 'checkbox'
     ? []
+    : type === 'image-picker'
+    ? {}
+    : type === 'select'
+    ? {}
     : ''
 }
 
@@ -117,7 +122,14 @@ export const FormProvider = ({
         onSubmit={onSubmit}
         validationSchema={validationSchema || FormSchema}
         validateOnBlur={settings?.validateOnBlur}
-        validateOnChange={settings?.validateOnChange}>
+        validateOnChange={settings?.validateOnChange}
+        handleBlur={
+          settings?.autoSave
+            ? () => {
+                console.log('Autosaving')
+              }
+            : undefined
+        }>
         <Div
           className="form-wrapper"
           breakpoints={breakpoints}
@@ -159,6 +171,7 @@ const initialState: FormState = {
     validateOnChange: false,
     validateOnBlur: true,
     disableSubmit: false,
+    autoSave: false,
   },
 }
 const FormContext = React.createContext<FormState>(initialState)

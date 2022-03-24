@@ -53,6 +53,8 @@ export interface ImagePickerProps extends MakerProps {
   className?: string
   /** An ID selector for the outermost image picker container */
   id?: string
+  /** An ID selector for the file upload input */
+  inputId?: string
   /** An image URL or React component */
   preview?: string | React.ReactElement | false
   /** The size of the image preview. If square, use a number or array of numbers or an object
@@ -126,6 +128,7 @@ const reducer = (state: ImagePickerState, action: Action) => {
  */
 export const ImagePicker = ({
   id,
+  inputId,
   className,
   breakpoints,
   css,
@@ -302,6 +305,7 @@ export const ImagePicker = ({
             )}
             {isPreviewDropzone ? (
               <DragAndDrop
+                inputId={inputId}
                 settings={{
                   showFileName: false,
                   height: '100%',
@@ -325,6 +329,7 @@ export const ImagePicker = ({
       ) : null}
       {showDropzone() ? (
         <DragAndDrop
+          inputId={inputId}
           settings={dropzone as DropzoneSettings}
           data={data}
           dispatch={dispatch}

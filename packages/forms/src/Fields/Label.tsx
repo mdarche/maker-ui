@@ -1,13 +1,11 @@
 import * as React from 'react'
-import { FieldProps } from '../types'
+import type { FieldProps } from '../types'
 
 interface LabelProps {
   id: FieldProps['id']
   name: FieldProps['name']
   children: FieldProps['label']
   type: FieldProps['type']
-  position: FieldProps['labelStyle']
-  top?: boolean
 }
 
 const nonLabelFields = ['radio']

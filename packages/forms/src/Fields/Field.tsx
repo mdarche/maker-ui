@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Flex } from '@maker-ui/primitives'
 import type { MakerProps } from '@maker-ui/css'
 import { mergeSelectors } from '@maker-ui/utils'
-import { FormikErrors, FormikTouched, useFormikContext } from 'formik'
+import { useField } from 'formik'
 
 import { Input } from './Input'
 import { Select } from './Select'
@@ -38,15 +38,9 @@ interface FieldComponentProps extends FieldProps {
 }
 
 export const Field = (props: FieldComponentProps) => {
-  const [firstTouch, setFirstTouch] = React.useState(false)
   const { settings } = useForm()
-  const {
-    errors,
-    touched,
-  }: {
-    errors: FormikErrors<any>
-    touched: FormikTouched<any>
-  } = useFormikContext()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [field, { touched, error }] = useField(props.name)
   const {
     name,
     id,
@@ -62,49 +56,37 @@ export const Field = (props: FieldComponentProps) => {
   } = props
 
   const hasError = settings.validateOnChange
-    ? errors[name]
+    ? error
       ? true
       : false
-    : errors[name] && touched[name]
+    : error && touched
     ? true
     : false
-  const isComplete = !errors[name] && touched[name] ? true : false
+  const isComplete = !error && touched ? true : false
 
-  const attributes = {
-    hasError,
-    firstTouch,
-    setFirstTouch,
-  }
-
-  if (name === 'image-picker') {
-    console.log('Field Component', name, errors[name], hasError, firstTouch)
-  }
-
-  function renderInputs() {
+  function renderFieldType() {
     /* Basic HTML Inputs */
     if (basicInputs.includes(type)) {
-      return <Input {...attributes} {...props} />
+      return <Input {...{ ...props, hasError }} />
     }
     /* Datepicker that supports ranges */
     if (props.type === 'datepicker') {
-      return <DatePicker {...attributes} {...props} />
+      return <DatePicker {...{ ...props, hasError }} />
     }
     /* Imagepicker  */
     if (props.type === 'image-picker') {
       return (
         <ImageField
-          {...attributes}
-          {...props}
+          {...{ ...props, hasError }}
           settings={props.settings as FieldSettings<'image-picker'>}
         />
       )
     }
     /* Select and Datalist inputs */
-    if (props.type === 'select' || props.type === 'select-datalist') {
+    if (props.type === 'select') {
       return (
         <Select
-          {...attributes}
-          {...props}
+          {...{ ...props, hasError }}
           settings={props.settings as FieldSettings<'select'>}
         />
       )
@@ -113,8 +95,7 @@ export const Field = (props: FieldComponentProps) => {
     if (props.type === 'radio') {
       return (
         <Radio
-          {...attributes}
-          {...props}
+          {...{ ...props, hasError }}
           settings={props.settings as FieldSettings<'radio'>}
         />
       )
@@ -123,8 +104,7 @@ export const Field = (props: FieldComponentProps) => {
     if (props.type === 'checkbox') {
       return (
         <Checkbox
-          {...attributes}
-          {...props}
+          {...{ ...props, hasError }}
           settings={props.settings as FieldSettings<'checkbox'>}
         />
       )
@@ -133,8 +113,7 @@ export const Field = (props: FieldComponentProps) => {
     if (props.type === 'switch') {
       return (
         <Switch
-          {...attributes}
-          {...props}
+          {...{ ...props, hasError }}
           settings={props.settings as FieldSettings<'switch'>}
         />
       )
@@ -143,8 +122,7 @@ export const Field = (props: FieldComponentProps) => {
     if (props.type === 'range') {
       return (
         <Range
-          {...attributes}
-          {...props}
+          {...{ ...props, hasError }}
           settings={props.settings as FieldSettings<'range'>}
         />
       )
@@ -153,7 +131,11 @@ export const Field = (props: FieldComponentProps) => {
   }
 
   const labelComponent = (
-    <Label id={id} name={name} type={type} position={labelStyle} top>
+    <Label
+      // @ts-ignore
+      id={type === 'image-picker' ? props.settings?.inputId : id}
+      name={name}
+      type={type}>
       {label}
     </Label>
   )
@@ -176,7 +158,7 @@ export const Field = (props: FieldComponentProps) => {
         'field-container',
         containerClass,
         hasError ? 'error' : undefined,
-        firstTouch ? 'touched' : undefined,
+        touched ? 'touched' : undefined,
         `label-${labelStyle}`,
         `error-${errorStyle}`,
       ])}
@@ -188,7 +170,7 @@ export const Field = (props: FieldComponentProps) => {
       {description ? (
         <div className="field-description">{description}</div>
       ) : null}
-      {renderInputs()}
+      {renderFieldType()}
       {labelBottom.includes(labelStyle as string) ? labelComponent : null}
       {showValidation ? (
         <div
@@ -199,7 +181,7 @@ export const Field = (props: FieldComponentProps) => {
           {settings?.validateIcon}
         </div>
       ) : null}
-      {hasError ? <div className="form-error">{errors[name]}</div> : null}
+      {hasError ? <div className="form-error">{error}</div> : null}
     </Flex>
   )
 }

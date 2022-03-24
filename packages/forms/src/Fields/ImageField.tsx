@@ -12,8 +12,6 @@ export const ImageField = ({
   name,
   settings,
   hasError,
-  firstTouch,
-  setFirstTouch,
   cy,
   ...props
 }: ImageFieldProps) => {
@@ -35,9 +33,6 @@ export const ImageField = ({
 
   useEffect(() => {
     setValue(imageFile)
-    if (imageFile) {
-      setFirstTouch(true)
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageFile, name])
 

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { FormikHelpers, FormikValues } from 'formik'
+import type { Props as ReactSelectProps } from 'react-select'
 import { ImagePickerProps } from './ImagePicker'
 
 export interface FormValues extends FormikValues {}
@@ -37,7 +38,6 @@ type FieldType =
   | 'number'
   | 'url'
   | 'select'
-  | 'select-datalist'
   | 'date'
   | 'datepicker' // TODO
   | 'switch'
@@ -50,10 +50,47 @@ type FieldType =
   | 'file'
   | 'image-picker'
 
+export interface SelectSettings extends ReactSelectProps {
+  options: InputOption[]
+  isSearchable?: boolean
+  isClearable?: boolean
+  blurInputOnSelect?: boolean
+  captureMenuScroll?: boolean
+  closeMenuOnSelect?: boolean
+  closeMenuOnScroll?: boolean
+  isDisabled?: boolean
+  isMulti?: boolean
+  delimiter?: string
+  placeholder?: string | number | boolean
+}
+
+export interface SwitchSettings {
+  /** If true, the switch will show `on` and `off` text values */
+  innerLabel?: boolean
+  /** A custom label for the switch `on` state. Must have `innerLabel` active. */
+  labelOn?: string | React.ReactNode
+  /** A custom label for the switch `off` state. Must have `innerLabel` active. */
+  labelOff?: string | React.ReactNode
+  /** The switch background color for `on` state */
+  activeColor?: string
+  /** The switch background color for `off` state */
+  inactiveColor?: string
+  /** Renders the switch as disabled */
+  disabled?: boolean
+  /** The total height of the switch input */
+  height?: number
+  /** The padding between the switch slider and the edge of the input */
+  padding?: number
+  /** The radius of the switch container and slider. This only applies to the `box` style. */
+  borderRadius?: number
+  /** The switch style can be `circle` or `box` */
+  style?: 'circle' | 'box'
+}
+
 export type FieldSettings<T> = T extends 'text'
   ? { mask?: 'phone' | 'zipcode' | 'credit-card' }
   : T extends 'select'
-  ? { options: InputOption[] }
+  ? SelectSettings
   : T extends 'radio'
   ? { options: InputOption[] }
   : T extends 'checkbox'
@@ -66,28 +103,7 @@ export type FieldSettings<T> = T extends 'text'
       toggleCharacters?: boolean
     }
   : T extends 'switch'
-  ? {
-      /** If true, the switch will show `on` and `off` text values */
-      innerLabel?: boolean
-      /** A custom label for the switch `on` state. Must have `innerLabel` active. */
-      labelOn?: string | React.ReactNode
-      /** A custom label for the switch `off` state. Must have `innerLabel` active. */
-      labelOff?: string | React.ReactNode
-      /** The switch background color for `on` state */
-      activeColor?: string
-      /** The switch background color for `off` state */
-      inactiveColor?: string
-      /** Renders the switch as disabled */
-      disabled?: boolean
-      /** The total height of the switch input */
-      height?: number
-      /** The padding between the switch slider and the edge of the input */
-      padding?: number
-      /** The radius of the switch container and slider. This only applies to the `box` style. */
-      borderRadius?: number
-      /** The switch style can be `circle` or `box` */
-      style?: 'circle' | 'box'
-    }
+  ? SwitchSettings
   : T extends 'image-picker'
   ? Omit<ImagePickerProps, 'setFile' | 'setFiles'>
   : undefined
@@ -97,7 +113,7 @@ export interface FieldProps {
   name: string
   /** The field type (required) */
   type: FieldType
-  /** Custom settings depending on the fields `type` attribute */
+  /** Custom settings depending on the field's `type` attribute */
   settings?: FieldSettings<FieldProps['type']>
   /** The input's initial value*/
   initialValue?: any
@@ -140,65 +156,10 @@ export interface FieldProps {
   colSpan?: number
   /** If true, the field will render a validation icon after onTouch validation */
   showValidation?: boolean
-  // // /** Settings for the switch field */
-  // settings_switch?: {
-  //   /** If true, the switch will show `on` and `off` text values */
-  //   innerLabel?: boolean
-  //   /** A custom label for the switch `on` state. Must have `innerLabel` active. */
-  //   labelOn?: string | React.ReactNode
-  //   /** A custom label for the switch `off` state. Must have `innerLabel` active. */
-  //   labelOff?: string | React.ReactNode
-  //   /** The switch background color for `on` state */
-  //   activeColor?: string
-  //   /** The switch background color for `off` state */
-  //   inactiveColor?: string
-  //   /** Renders the switch as disabled */
-  //   disabled?: boolean
-  //   /** The total height of the switch input */
-  //   height?: number
-  //   /** The padding between the switch slider and the edge of the input */
-  //   padding?: number
-  //   /** The radius of the switch container and slider. This only applies to the `box` style. */
-  //   borderRadius?: number
-  //   /** The switch style can be `circle` or `box` */
-  //   style?: 'circle' | 'box'
-  // }
-  // /** Settings for the select and select-datalist fields */
-  // settings_select?: {
-  //   /** An array of values for the select options */
-  //   options: InputOption[]
-  // }
-  // /** Settings for the checkbox field */
-  // settings_checkbox?: {
-  //   /** An array of values for the checkbox options */
-  //   options: InputOption[]
-  // }
-  // /** Settings for the radio field */
-  // settings_radio?: {
-  //   /** An array of values for the radio options */
-  //   options: InputOption[]
-  // }
-  // /** Settings for the password field */
-  // settings_password?: {
-  //   /** When true, the user can toggle the field between text and password to see the characters */
-  //   toggleCharacters?: boolean // TODO
-  // }
-  // /** Settings for the range field */
-  // settings_range?: {
-  //   min?: number
-  //   max?: number
-  // }
-  // /** Settings for the text field */
-  // settings_text?: {
-  //   /** An optional formatting mask for the text field*/
-  //   mask?: 'phone' | 'zipcode' | 'credit-card' // TODO
-  // }
   /** A cypress test selector */
   cy?: string
 }
 
 export interface InputProps extends FieldProps {
   hasError: boolean
-  firstTouch: boolean
-  setFirstTouch: (b: boolean) => void
 }
