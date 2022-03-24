@@ -1,4 +1,4 @@
-export { Form, type FormProps } from './Form'
+export { Form, type FormProps } from './Form/Form'
 export { useFormikContext as useFormContext } from 'formik'
 export * as Yup from 'yup'
 export { ImagePicker, type ImagePickerProps } from './ImagePicker'

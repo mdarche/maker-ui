@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Div } from '@maker-ui/primitives'
 import { mergeSelectors, merge } from '@maker-ui/utils'
 import { useField } from 'formik'
-import type { InputProps, FieldSettings } from '../types'
+import type { InputProps, FieldSettings } from '../../types'
 
 interface SwitchProps extends InputProps {
   settings: FieldSettings<'switch'>
@@ -32,9 +32,10 @@ export const Switch = ({
   name,
   settings = {},
   cy,
+  hasError,
   ...props
 }: SwitchProps) => {
-  const [field, meta] = useField({ ...props, name, type: 'checkbox' })
+  const [field, meta] = useField(name)
   const config = merge(defaultSettings, settings)
 
   const padding = config.padding as number
@@ -112,11 +113,13 @@ export const Switch = ({
         onKeyDown={(e) => {
           handleKeyPress(e)
         }}>
+        {/* @ts-ignore */}
         <input
           id={id || name}
           type="checkbox"
           data-cy={cy}
           {...field}
+          {...props}
           disabled={config.disabled}
         />
         {config.innerLabel ? (

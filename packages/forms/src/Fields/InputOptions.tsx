@@ -12,8 +12,6 @@ export interface InputOptionProps extends InputProps {
 export const InputOptions = ({
   name,
   cy,
-  type,
-  validation,
   settings,
   ...props
 }: InputOptionProps) => (
@@ -24,7 +22,6 @@ export const InputOptions = ({
           id={id}
           data-cy={cy}
           className={className}
-          type={type}
           name={name}
           value={value || label}
           {...props}

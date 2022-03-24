@@ -6,8 +6,8 @@ import { ImagePickerProps } from './ImagePicker'
 export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
 
-export type { FormProviderProps } from './FormProvider'
-export type { FormSubmitButtonProps } from './SubmitButton'
+export type { FormProviderProps } from './Form/FormProvider'
+export type { FormSubmitButtonProps } from './Form/SubmitButton'
 export type { FormPageButtonProps } from './Pagination/PageButton'
 export type { FormPageProps } from './Pagination/Page'
 export type { FormProgressProps } from './Pagination/Progress'

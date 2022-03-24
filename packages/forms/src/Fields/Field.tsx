@@ -9,7 +9,7 @@ import { Select } from './Select'
 import { DatePicker } from './Datepicker'
 import { Label } from './Label'
 import { FieldProps, SelectSettings, SwitchSettings } from '../types'
-import { useForm } from '../FormProvider'
+import { useForm } from '../Form/FormProvider'
 import { Switch } from './Switch'
 import { Range } from './Range'
 import { FieldSettings } from '..'
@@ -54,6 +54,7 @@ export const Field = (props: FieldComponentProps) => {
     showValidation,
     breakpoints,
     autoSave,
+    cy,
   } = props
 
   const hasError = settings.validateOnChange
@@ -66,9 +67,12 @@ export const Field = (props: FieldComponentProps) => {
   const isComplete = !error && touched ? true : false
   const saveOnBlur = autoSave || settings.autoSave ? { onBlur: submitForm } : {}
   const attributes = {
-    ...props,
-    ...saveOnBlur,
+    name,
+    id,
+    type,
+    cy,
     hasError,
+    ...saveOnBlur,
   }
 
   function renderFieldType() {

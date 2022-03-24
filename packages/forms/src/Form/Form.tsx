@@ -4,12 +4,10 @@ import { mergeSelectors } from '@maker-ui/utils'
 import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
 import { Form as FormikForm } from 'formik'
 
-import { Page } from './Pagination/Page'
-import { Field } from './Fields'
+import { Page, Progress, PageButton } from '../Pagination'
+import { Field } from '../Fields'
 import { FormProvider, useForm } from './FormProvider'
 import { SubmitButton } from './SubmitButton'
-import { Progress } from './Pagination/Progress'
-import { PageButton } from './Pagination/PageButton'
 
 export interface FormProps
   extends React.HTMLAttributes<HTMLFormElement>,
@@ -51,6 +49,8 @@ export const Form = ({
   const { fields, settings } = useForm()
   const col = columns || settings.columns
   const gridCol = typeof col === 'number' ? ['1fr', `repeat(${col}, 1fr)`] : col
+
+  // TODO use display name to determine where to place header
 
   return (
     <FormikForm id={id} className={className} {...props}>

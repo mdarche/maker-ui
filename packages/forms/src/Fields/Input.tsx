@@ -10,7 +10,6 @@ export const Input = ({
   type,
   hasError,
   cy,
-  validation,
   ...props
 }: TextProps) => (
   <FormikField

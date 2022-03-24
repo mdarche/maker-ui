@@ -4,7 +4,7 @@ import { mergeSelectors } from '@maker-ui/utils'
 import type { ResponsiveScale } from '@maker-ui/css'
 
 import { Field } from '../Fields'
-import { type FormState, useForm } from '../FormProvider'
+import { type FormState, useForm } from '../Form/FormProvider'
 import type { FieldProps } from '../types'
 
 export interface FormPageProps extends Omit<DivProps, 'title'> {

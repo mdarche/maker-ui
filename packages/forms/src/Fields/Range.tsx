@@ -7,15 +7,16 @@ interface RangeProps extends InputProps {
 }
 
 export const Range = ({
+  id,
   name,
   settings = { min: 0, max: 10 },
   hasError,
-  validation,
   cy,
   ...props
 }: RangeProps) => {
   return (
     <FormikField
+      id={id || name}
       as="input"
       data-cy={cy}
       name={name}

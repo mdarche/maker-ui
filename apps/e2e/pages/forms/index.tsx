@@ -16,7 +16,7 @@ const testFields: FieldProps[] = [
     label: 'My Range',
     type: 'range',
     initialValue: 0,
-    autoSave: true,
+    // autoSave: true,
   },
   {
     name: 'myCheck',
@@ -30,6 +30,12 @@ const testFields: FieldProps[] = [
         { label: 'Option 3', value: '3' },
       ],
     },
+  },
+  {
+    name: 'mySwitch',
+    label: 'My Switch',
+    type: 'switch',
+    initialValue: false,
   },
   {
     name: 'myRadio',
