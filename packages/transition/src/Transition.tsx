@@ -6,6 +6,7 @@ import {
 } from 'react-transition-group'
 import { StyleObject } from '@maker-ui/css'
 import { Div, type DivProps } from '@maker-ui/primitives'
+import { mergeRefs } from '@maker-ui/utils'
 
 export type TransitionState = {
   [key in TransitionStatus | 'start']?: {
@@ -13,7 +14,9 @@ export type TransitionState = {
   }
 }
 
-export interface TransitionProps extends ReactTransitionProps<HTMLDivElement> {
+export interface TransitionProps
+  extends Partial<ReactTransitionProps<HTMLDivElement>> {
+  nodeRef?: React.MutableRefObject<any>
   show?: boolean
   containerProps?: DivProps
   css?: StyleObject
@@ -47,6 +50,7 @@ const defaultTransitions: TransitionState = {
 
 export const Transition = ({
   show = false,
+  nodeRef,
   easing = 'ease-in-out',
   duration = 300,
   unmountOnExit = true,
@@ -66,14 +70,15 @@ export const Transition = ({
       {...props}>
       {(state) => (
         <Div
-          ref={ref}
+          ref={nodeRef ? mergeRefs([ref, nodeRef]) : ref}
           {...containerProps}
-          css={css}
           style={{
             ...transitionState?.start,
             transition: `all ${duration}ms ${easing}`,
             ...transitionState[state],
-          }}>
+            ...(containerProps?.style ? containerProps.style : {}),
+          }}
+          css={css}>
           {children}
         </Div>
       )}

@@ -1,8 +1,7 @@
-import * as React from 'react'
-import { Transition } from 'react-transition-group'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { Div, DivProps } from '@maker-ui/primitives'
 import { mergeSelectors, useFocus } from '@maker-ui/utils'
-import { type TransitionState, Portal } from '@maker-ui/modal'
+import { Portal, Transition, type TransitionState } from '@maker-ui/modal'
 import type { MakerProps } from '@maker-ui/css'
 
 import { getTransition, Position, TransitionType } from './position'
@@ -110,7 +109,7 @@ export const Popover = ({
   _type = 'popover',
   ...rest
 }: PopoverProps) => {
-  const popoverRef = React.useRef<any>(null)
+  const popoverRef = useRef<any>(null)
   const [width, setWidth] = React.useState(0)
   const [height, setHeight] = React.useState(0)
   const [initialRender, setInitialRender] = React.useState(true)
@@ -161,7 +160,7 @@ export const Popover = ({
 
   // Initial Measurement or changing Anchor Ref
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (anchorRef.current) {
       setTimeout(() => {
         resize()
@@ -172,7 +171,7 @@ export const Popover = ({
 
   // Browser Resize
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', resize)
     return () => {
       window.removeEventListener('resize', resize)
@@ -185,7 +184,7 @@ export const Popover = ({
    * positioning & the `scale` transition.
    */
 
-  const measuredRef = React.useCallback(
+  const measuredRef = useCallback(
     (node) => {
       if (node !== null && height === 0) {
         setHeight(node.offsetHeight)
@@ -210,7 +209,7 @@ export const Popover = ({
    * to capture height measurement
    */
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (transition === 'scale' && initialRender) {
       setInitialRender(false)
     }
@@ -221,7 +220,7 @@ export const Popover = ({
    * Set anchor width measurement
    */
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!box.measured) return
     if (anchorWidth) {
       setWidth(box.width)
@@ -232,7 +231,7 @@ export const Popover = ({
    * Add focus trap and update tab sequence for popovers attached to body
    */
 
-  const handleKeyDown = React.useCallback(
+  const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       const setFocus = (
         close?: boolean,
@@ -284,7 +283,7 @@ export const Popover = ({
     [anchorRef, closeOnBlur, focusable, set, trapFocus, _type]
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     const ref = popoverRef.current
     ref?.addEventListener(`keydown`, handleKeyDown)
 
@@ -327,51 +326,42 @@ export const Popover = ({
   return typeof window !== 'undefined' && box.measured ? (
     <Portal root={appendTo}>
       <Transition
-        in={show}
-        timeout={duration}
-        unmountOnExit
-        nodeRef={popoverRef}>
-        {(state) => (
-          <Div
-            id={id}
-            ref={popoverRef}
-            className={mergeSelectors([
-              'popover',
-              show ? 'active' : undefined,
-              className,
-            ])}
-            style={{
-              ...popoverTransition?.start,
-              transition: `all ${duration}ms ${easing}`,
-              ...popoverTransition[state],
-              left: !appendTo ? getX() : undefined,
-              top: !appendTo ? getY() : undefined,
-              width: anchorWidth ? width : undefined,
-              overflow: transition.includes('scale') ? 'hidden' : undefined,
-            }}
-            css={{
-              position: 'absolute',
-              display: 'block',
-              zIndex: 99,
-              ...(_css as object),
-            }}
-            {...rest}>
-            <Div
-              ref={measuredRef}
-              className="container"
-              style={{
-                opacity:
-                  transition === 'scale' && initialRender ? 0 : undefined,
-                visibility:
-                  transition === 'scale' && initialRender
-                    ? 'hidden'
-                    : undefined,
-              }}
-              css={css}>
-              {children}
-            </Div>
-          </Div>
-        )}
+        show={show}
+        nodeRef={popoverRef}
+        duration={duration}
+        transitionState={popoverTransition}
+        containerProps={{
+          id,
+          className: mergeSelectors([
+            'popover',
+            show ? 'active' : undefined,
+            className,
+          ]),
+          style: {
+            left: !appendTo ? getX() : undefined,
+            top: !appendTo ? getY() : undefined,
+            width: anchorWidth ? width : undefined,
+            overflow: transition.includes('scale') ? 'hidden' : undefined,
+          },
+          ...rest,
+        }}
+        css={{
+          position: 'absolute',
+          display: 'block',
+          zIndex: 99,
+          ...(_css as object),
+        }}>
+        <Div
+          ref={measuredRef}
+          className="container"
+          style={{
+            opacity: transition === 'scale' && initialRender ? 0 : undefined,
+            visibility:
+              transition === 'scale' && initialRender ? 'hidden' : undefined,
+          }}
+          css={css}>
+          {children}
+        </Div>
       </Transition>
     </Portal>
   ) : null

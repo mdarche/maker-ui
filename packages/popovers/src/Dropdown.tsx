@@ -111,7 +111,10 @@ export const Dropdown = ({
     <Div
       id={id}
       className={mergeSelectors(['dropdown', className])}
-      css={{ display: 'inline-block', ...(_css as object) }}>
+      css={{
+        display: 'inline-block',
+        ...(_css as object),
+      }}>
       {typeof button === 'function' ? (
         button(controls ? controls[0] : show, buttonAttributes)
       ) : (

@@ -23,11 +23,9 @@
     "@maker-ui/tabs": "workspace:*",
     "@maker-ui/modal": "workspace:*",
     "@maker-ui/generative": "workspace:*",
-    "@maker-ui/notifications": "workspace:*",
-    "react-transition-group": "^4.4.2"
+    "@maker-ui/notifications": "workspace:*"
   },
   "devDependencies": {
-    "@types/react-transition-group": "^4.4.4",
     "eslint": "7.32.0",
     "eslint-preset": "workspace:*",
     "tsconfig": "workspace:*",

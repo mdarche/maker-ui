@@ -28,7 +28,7 @@ interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
  * The `Spinner` component gives you easy access to 5 common loading indicators for a better
  * user experience during network requests.
  *
- * @todo add react-transition-group to this component for smooth entry and exit
+ * @todo add transition to this component for smooth entry and exit
  * @todo refactor and remove the css repetition
  *
  * @link https://maker-ui.com/docs/elements/spinner

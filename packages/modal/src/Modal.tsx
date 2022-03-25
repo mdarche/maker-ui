@@ -1,15 +1,9 @@
 import * as React from 'react'
-import { Div, DivProps } from '@maker-ui/primitives'
+import { type DivProps } from '@maker-ui/primitives'
 import { mergeSelectors, useFocus } from '@maker-ui/utils'
-import { Transition, type TransitionStatus } from 'react-transition-group'
+import { Transition, type TransitionState } from '@maker-ui/transition'
 
 import { Portal } from './Portal'
-
-export type TransitionState = {
-  [key in TransitionStatus | 'start']?: {
-    [key: string]: number | string | undefined
-  }
-}
 
 export interface ModalProps extends DivProps {
   /** A boolean that indicates if the modal is active or unmounted */
@@ -61,14 +55,6 @@ export interface ModalProps extends DivProps {
   duration?: number
 }
 
-const defaultTransitions: TransitionState = {
-  start: { opacity: 0 },
-  entering: { opacity: 1 },
-  entered: { opacity: 1 },
-  exiting: { opacity: 0 },
-  exited: { opacity: 0 },
-}
-
 /**
  * The `Modal` component displays content as a dialog box/popup window.
  * You can close the modal with the 'ESC' key or the optional `closeOnBlur` prop.
@@ -86,11 +72,11 @@ export const Modal = ({
   background = 'rgba(0, 0, 0, 0.66)',
   className,
   css,
-  easing = 'ease-in-out',
-  duration = 300,
-  transitionState = defaultTransitions,
+  easing,
+  duration,
+  transitionState,
   children,
-  ...rest
+  ...props
 }: ModalProps) => {
   const modalRef = React.useRef<any>(null)
 
@@ -163,53 +149,49 @@ export const Modal = ({
 
   return (
     <Portal root={appendTo}>
-      <Transition in={show} timeout={duration} unmountOnExit nodeRef={modalRef}>
-        {(state) => (
-          <Div
-            ref={modalRef}
-            role="dialog"
-            data-cy="modal"
-            className={mergeSelectors(['modal', className])}
-            aria-label={title}
-            aria-modal="true"
-            tabIndex={focusable.count === 0 ? 0 : undefined}
-            style={{
-              ...transitionState?.start,
-              transition: `all ${duration}ms ${easing}`,
-              ...transitionState[state],
-            }}
-            css={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: center ? 'center' : undefined,
-              zIndex: 101,
-              overflowY: 'scroll',
-              '.modal-overlay': {
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                zIndex: -1,
-                background,
-              },
-              ...(css as object),
-            }}
-            {...rest}>
-            <div
-              role="button"
-              data-cy="modal-overlay"
-              onClick={() => (closeOnBlur ? closeModal() : undefined)}
-              className="modal-overlay"
-            />
-            {children}
-          </Div>
-        )}
+      <Transition
+        nodeRef={modalRef}
+        show={show}
+        easing={easing}
+        duration={duration}
+        transitionState={transitionState}
+        containerProps={{
+          role: 'dialog',
+          className: mergeSelectors(['modal', className]),
+          'aria-label': title,
+          'aria-modal': 'true',
+          tabIndex: focusable.count === 0 ? 0 : undefined,
+          ...props,
+        }}
+        css={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: center ? 'center' : undefined,
+          zIndex: 101,
+          overflowY: 'scroll',
+          '.modal-overlay': {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: -1,
+            background,
+          },
+          ...(css as object),
+        }}>
+        <div
+          role="button"
+          data-cy="modal-overlay"
+          onClick={() => (closeOnBlur ? closeModal() : undefined)}
+          className="modal-overlay"
+        />
+        {children}
       </Transition>
     </Portal>
   )

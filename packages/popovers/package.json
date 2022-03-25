@@ -26,8 +26,7 @@
     "@maker-ui/css": "workspace:*",
     "@maker-ui/modal": "workspace:*",
     "@maker-ui/primitives": "workspace:*",
-    "@maker-ui/utils": "workspace:*",
-    "react-transition-group": "^4.4.2"
+    "@maker-ui/utils": "workspace:*"
   },
   "devDependencies": {
     "eslint": "7.32.0",

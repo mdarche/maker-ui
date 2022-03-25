@@ -8,6 +8,7 @@ export {
   generateId,
   validate,
   mergeSelectors,
+  mergeRefs,
 } from './helper'
 
 export { merge, useMeasure }
