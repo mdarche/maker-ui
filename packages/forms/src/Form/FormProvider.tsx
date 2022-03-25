@@ -38,6 +38,8 @@ export interface FormState {
   settings: Partial<Settings>
   fields?: FieldProps[]
   pageFields: { [key: string]: { name: string; required?: boolean }[] }
+  success?: boolean
+  error?: boolean
 }
 
 export interface FormProviderProps extends MakerProps {
@@ -57,12 +59,16 @@ export interface FormProviderProps extends MakerProps {
    * const allFields = [...firstPageFields, ...secondPageFields]
    */
   fields: FieldProps[]
-  /** Forwards access to the Formik `validationSchema` prop for Yup validation. See for details:
-   * @link https://formik.org/docs/guides/validation
+  /** Submission handler that gives you access to all form values as well as Formik actions
+   * @link https://formik.org/docs/guides/form-submission
    */
   onSubmit: (values: any, actions: FormHelpers) => void | Promise<any>
   /** A settings configuration object for global form settings*/
   settings?: Partial<Settings>
+  /** An optional error boolean that will toggle the Form.Error component if true*/
+  error?: boolean
+  /** An optional success boolean that will toggle the Form.Success component if true*/
+  success?: boolean
 }
 
 function getInitialValue(type: FieldProps['type']) {
@@ -93,11 +99,15 @@ export const FormProvider = ({
   validationSchema,
   settings = {},
   fields,
+  success,
+  error,
   children,
   css,
   breakpoints,
   ...props
 }: FormProviderProps) => {
+  const mergedSettings = merge(settings, initialState.settings)
+
   /* Calculate initial values via fields */
   let values: Partial<FormValues> = {}
   fields.forEach(({ type, name, initialValue }) => {
@@ -114,9 +124,13 @@ export const FormProvider = ({
 
   const FormSchema =
     Object.keys(schema).length !== 0 ? Yup.object().shape(schema) : undefined
-  const mergedSettings = merge(settings, initialState.settings)
+
   return (
-    <MakerForm fields={fields} settings={mergedSettings}>
+    <MakerForm
+      fields={fields}
+      success={success}
+      error={error}
+      settings={mergedSettings}>
       {/* {datepicker ? <Global styles={{}} /> : null} */}
       <Global styles={{ ...(styles as object) }} />
       <Formik
@@ -170,22 +184,28 @@ const initialState: FormState = {
     autoSave: false,
   },
 }
-const FormContext = React.createContext<FormState>(initialState)
-const FormUpdateContext = React.createContext<
-  React.Dispatch<React.SetStateAction<FormState>>
->(() => {})
+const FormContext = React.createContext<{
+  state: FormState
+  setState: React.Dispatch<React.SetStateAction<FormState>>
+}>({ state: initialState, setState: (a) => {} })
 
 const MakerForm = ({
   children,
   fields,
   settings,
+  success = false,
+  error = false,
 }: {
   children: React.ReactNode
   fields: FieldProps[]
   settings: Settings
+  success?: boolean
+  error?: boolean
 }) => {
   const [state, setState] = React.useState<FormState>({
     ...initialState,
+    success,
+    error,
     fields,
   })
 
@@ -193,19 +213,25 @@ const MakerForm = ({
     setState((s) => ({ ...s, settings, fields }))
   }, [settings, fields])
 
+  React.useEffect(() => {
+    if (success || error) {
+      setState({ ...state, error, success })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, error])
+
   return (
-    <FormContext.Provider value={state}>
-      <FormUpdateContext.Provider value={setState}>
-        {children}
-      </FormUpdateContext.Provider>
+    <FormContext.Provider value={{ state, setState }}>
+      {children}
     </FormContext.Provider>
   )
 }
 
 export function useForm() {
-  const { fields, settings, currentPage, pageFields } =
-    React.useContext(FormContext)
-  const setState = React.useContext(FormUpdateContext)
+  const {
+    state: { fields, settings, currentPage, pageFields, success, error },
+    setState,
+  } = React.useContext(FormContext)
 
   function setPage(page: 'next' | 'prev' | number) {
     if (currentPage > 0 && page === 'prev') {
@@ -237,6 +263,8 @@ export function useForm() {
   return {
     settings,
     fields,
+    success,
+    error,
     currentPage,
     setPage,
     pageFields,

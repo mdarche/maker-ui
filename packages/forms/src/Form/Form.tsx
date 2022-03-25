@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment, useRef } from 'react'
 import { Grid } from '@maker-ui/primitives'
 import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
 import { Form as FormikForm } from 'formik'
@@ -34,7 +34,8 @@ export const Form = ({
   breakpoints,
   ...props
 }: FormProps) => {
-  const { fields, settings } = useForm()
+  const ref = useRef(null)
+  const { fields, settings, success, error } = useForm()
   const [components, setComponents] =
     useState<NestedComponents>(defaultComponents)
   const col = columns || settings.columns
@@ -63,7 +64,7 @@ export const Form = ({
         <Fragment key={i}>{child}</Fragment>
       ))}
       {components.formSubmit}
-      {components.formError}
+      {error ? components.formError : null}
       {components.formHeader}
     </FormikForm>
   )
