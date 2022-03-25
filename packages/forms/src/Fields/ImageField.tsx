@@ -18,11 +18,7 @@ export const ImageField = ({
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)
   const { isSubmitting } = useFormikContext()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [field, { touched }, { setValue, setTouched }] = useField({
-    ...props,
-    name,
-    type: 'file',
-  })
+  const [field, { touched }, { setValue, setTouched }] = useField(name)
 
   useEffect(() => {
     if (!touched && isSubmitting) {

@@ -1,6 +1,17 @@
 import { Section } from 'maker-ui'
-import { Form, type FieldProps, Yup } from '@maker-ui/forms'
+import { Form, type FieldProps, Yup, useField } from '@maker-ui/forms'
 import { useState } from 'react'
+
+export const MyCustomComponent = () => {
+  const [field, meta, { setValue }] = useField('customComponent')
+  return (
+    <>
+      <button onClick={() => setValue('value 1')}>Value 1</button>
+      <button onClick={() => setValue('value 2')}>Value 2</button>
+      <button onClick={() => setValue('value 3')}>Value 3</button>
+    </>
+  )
+}
 
 const testFields: FieldProps[] = [
   {
@@ -8,14 +19,29 @@ const testFields: FieldProps[] = [
     label: 'Your Username',
     type: 'text',
     initialValue: '',
+    validation: Yup.string().required('Required'),
+    colSpan: 1,
+    // autoSave: true,
+  },
+  {
+    name: 'pass',
+    label: 'Your Passwrod',
+    type: 'password',
+    initialValue: '',
     // validation: Yup.string().required('Required'),
+    colSpan: 1,
+    settings: {
+      toggleCharacters: true,
+    },
     // autoSave: true,
   },
   {
     name: 'myrange',
     label: 'My Range',
     type: 'range',
+    autoSave: true,
     initialValue: 0,
+    colSpan: 1,
     // autoSave: true,
   },
   {
@@ -23,6 +49,7 @@ const testFields: FieldProps[] = [
     label: 'My Checkbox',
     type: 'checkbox',
     initialValue: '',
+    colSpan: 1,
     settings: {
       options: [
         { label: 'Option 1', value: '1' },
@@ -36,6 +63,10 @@ const testFields: FieldProps[] = [
     label: 'My Switch',
     type: 'switch',
     initialValue: true,
+    colSpan: 1,
+    settings: {
+      style: 'circle',
+    },
   },
   {
     name: 'myRadio',
@@ -49,6 +80,7 @@ const testFields: FieldProps[] = [
         { label: 'Option 3', value: '3' },
       ],
     },
+    colSpan: 1,
   },
   {
     name: 'select',
@@ -74,7 +106,14 @@ const testFields: FieldProps[] = [
     label: 'Profile Image',
     type: 'image-picker',
     settings: { inputId: 'testId' },
-    // validation: Yup.mixed().required('Required'),
+    validation: Yup.mixed().required('Required'),
+  },
+  {
+    name: 'customComponent',
+    label: 'A Custom component',
+    type: 'custom',
+    initialValue: '',
+    component: <MyCustomComponent />,
   },
 ]
 
@@ -88,11 +127,19 @@ export default function FormsPage() {
       <Section css={{ padding: '50px 0' }}>
         <Form.Provider
           fields={testFields}
-          onSubmit={(vals) => onSubmitForm(vals)}>
-          <Form>
+          onSubmit={(vals) => {
+            console.log(vals)
+            onSubmitForm(vals)
+          }}>
+          <Form columns={['1fr 1fr']}>
+            <Form.Header>Form Header</Form.Header>
             <Form.Submit>Submit</Form.Submit>
+            <Form.Error>There was an error</Form.Error>
+            <Form.Footer>Form Footer</Form.Footer>
           </Form>
+          <Form.Success>Successful Form</Form.Success>
         </Form.Provider>
+        {/* <Form.Success>Success Message</Form.Success> */}
       </Section>
       <Section css={{ padding: '50px 0' }}>
         {JSON.stringify(formSubmission, null, ' ')}

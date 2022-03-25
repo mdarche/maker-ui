@@ -2,6 +2,7 @@ import * as React from 'react'
 import { FormikHelpers, FormikValues } from 'formik'
 import type { Props as ReactSelectProps } from 'react-select'
 import { ImagePickerProps } from './ImagePicker'
+import { ResponsiveScale } from '@maker-ui/css'
 
 export interface FormValues extends FormikValues {}
 export interface FormHelpers extends FormikHelpers<any> {}
@@ -27,7 +28,7 @@ export type InputOption = {
 export interface AutoSaveSettings {
   indicator?: React.ReactNode
   successIcon?: React.ReactNode
-  position: FieldProps['labelStyle']
+  position?: FieldProps['labelStyle']
 }
 
 /**
@@ -106,6 +107,9 @@ export interface RangeSettings {
 export interface PasswordSettings {
   /** Display a button that lets you toggle password visibility */
   toggleCharacters?: boolean
+  visibleIcon?: React.ReactElement
+  hiddenIcon?: React.ReactElement
+  padding?: ResponsiveScale
 }
 
 export type FieldSettings<T> = T extends 'text'
@@ -177,7 +181,7 @@ export interface FieldProps {
   /** If true, the field will render a validation icon after onTouch validation */
   showValidation?: boolean
   /** If true, blurring this field will cause the form to run its submit handler */
-  autoSave?: boolean
+  autoSave?: boolean | AutoSaveSettings
   /** A cypress test selector */
   cy?: string
 }

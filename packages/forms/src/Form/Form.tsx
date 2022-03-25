@@ -1,6 +1,5 @@
-import * as React from 'react'
-import { Grid, Div, type DivProps } from '@maker-ui/primitives'
-import { mergeSelectors } from '@maker-ui/utils'
+import React, { useState, useEffect, Fragment } from 'react'
+import { Grid } from '@maker-ui/primitives'
 import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
 import { Form as FormikForm } from 'formik'
 
@@ -8,6 +7,8 @@ import { Page, Progress, PageButton } from '../Pagination'
 import { Field } from '../Fields'
 import { FormProvider, useForm } from './FormProvider'
 import { SubmitButton } from './SubmitButton'
+import { FormError, FormSuccess, FormFooter, FormHeader } from './FormElements'
+import { type NestedComponents, defaultComponents, sortChildren } from './utils'
 
 export interface FormProps
   extends React.HTMLAttributes<HTMLFormElement>,
@@ -15,18 +16,6 @@ export interface FormProps
   columns?: string | string[] | number
   gap?: ResponsiveScale
 }
-
-const Header = ({ className, children, ...props }: DivProps) => (
-  <Div className={mergeSelectors(['form-header', className])} {...props}>
-    {children}
-  </Div>
-)
-
-const Footer = ({ className, children, ...props }: DivProps) => (
-  <Div className={mergeSelectors(['form-footer', className])} {...props}>
-    {children}
-  </Div>
-)
 
 /**
  * The `Form` component lets you generate a highly customized form from a
@@ -46,14 +35,18 @@ export const Form = ({
   ...props
 }: FormProps) => {
   const { fields, settings } = useForm()
+  const [components, setComponents] =
+    useState<NestedComponents>(defaultComponents)
   const col = columns || settings.columns
   const gridCol = typeof col === 'number' ? ['1fr', `repeat(${col}, 1fr)`] : col
 
-  // TODO use display name to determine where to place header
+  useEffect(() => {
+    setComponents(sortChildren(children))
+  }, [children])
 
   return (
     <FormikForm id={id} className={className} {...props}>
-      {/* {children?.type.displayName === 'FormHeader'} */}
+      {components.formHeader}
       {fields ? (
         <Grid
           className="form-grid"
@@ -66,19 +59,24 @@ export const Form = ({
           ))}
         </Grid>
       ) : null}
-      {children}
+      {components.formChildren?.map((child, i) => (
+        <Fragment key={i}>{child}</Fragment>
+      ))}
+      {components.formSubmit}
+      {components.formError}
+      {components.formHeader}
     </FormikForm>
   )
 }
 
 Form.displayName = 'Form'
-Header.displayName = 'FormHeader'
-Footer.displayName = 'FormFooter'
 
 Form.Page = Page
 Form.Provider = FormProvider
-Form.Header = Header
-Form.Footer = Footer
+Form.Header = FormHeader
+Form.Footer = FormFooter
 Form.Progress = Progress
 Form.Submit = SubmitButton
 Form.PageButton = PageButton
+Form.Error = FormError
+Form.Success = FormSuccess

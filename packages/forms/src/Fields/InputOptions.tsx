@@ -8,6 +8,7 @@ export interface InputOptionProps extends InputProps {
   }
 }
 // For the radio and checkbox input components
+// TODO add setting for vertical options + columns
 
 export const InputOptions = ({
   name,

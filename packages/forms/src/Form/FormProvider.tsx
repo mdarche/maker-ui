@@ -6,13 +6,22 @@ import { merge } from '@maker-ui/utils'
 import * as Yup from 'yup'
 
 import { ValidateIcon } from '../icons'
-import { FieldProps, FormValues, FormHelpers, AutoSaveSettings } from '../types'
+import type {
+  FieldProps,
+  FormValues,
+  FormHelpers,
+  AutoSaveSettings,
+} from '../types'
 import { styles } from '../styles/position'
 
 interface Settings {
-  validateOnBlur: boolean
-  validateOnChange: boolean
-  validateIcon: React.ReactNode
+  /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
+  validateFieldOnBlur: boolean
+  /** Validates all fields when an input is blurred  */
+  validateFormOnBlur: boolean
+  /** Validates all fields when an input changes */
+  validateFormOnChange: boolean
+  validateIcon: React.ReactElement
   columns: string | string[] | number
   gap: ResponsiveScale
   pages: number
@@ -65,7 +74,7 @@ function getInitialValue(type: FieldProps['type']) {
     : type === 'checkbox'
     ? []
     : type === 'image-picker'
-    ? {}
+    ? null
     : type === 'select'
     ? []
     : ''
@@ -105,24 +114,17 @@ export const FormProvider = ({
 
   const FormSchema =
     Object.keys(schema).length !== 0 ? Yup.object().shape(schema) : undefined
-
+  const mergedSettings = merge(settings, initialState.settings)
   return (
-    <MakerForm fields={fields} settings={settings as Settings}>
+    <MakerForm fields={fields} settings={mergedSettings}>
       {/* {datepicker ? <Global styles={{}} /> : null} */}
       <Global styles={{ ...(styles as object) }} />
       <Formik
         initialValues={values}
         onSubmit={onSubmit}
         validationSchema={validationSchema || FormSchema}
-        validateOnBlur={settings?.validateOnBlur}
-        validateOnChange={settings?.validateOnChange}
-        handleBlur={
-          settings?.autoSave
-            ? () => {
-                console.log('Autosaving')
-              }
-            : undefined
-        }>
+        validateOnBlur={mergedSettings.validateFormOnBlur}
+        validateOnChange={mergedSettings.validateFormOnChange}>
         <Div
           className="form-wrapper"
           breakpoints={breakpoints}
@@ -130,7 +132,7 @@ export const FormProvider = ({
             'input::placeholder, input:-ms-input-placeholder, textarea::placeholder, textarea:-ms-input-placeholder':
               {
                 opacity: 1,
-                color: settings?.placeholderColor || '#b7b7b7',
+                color: mergedSettings.placeholderColor,
               },
             ...(css as object),
           }}
@@ -161,8 +163,9 @@ const initialState: FormState = {
     labelStyle: 'top-left',
     errorStyle: 'bottom-right',
     validateIcon: <ValidateIcon />,
-    validateOnChange: false,
-    validateOnBlur: true,
+    validateFormOnChange: false,
+    validateFormOnBlur: true,
+    validateFieldOnBlur: true,
     disableSubmit: false,
     autoSave: false,
   },
@@ -187,7 +190,7 @@ const MakerForm = ({
   })
 
   React.useEffect(() => {
-    setState((s) => ({ ...s, settings: merge(s.settings, settings), fields }))
+    setState((s) => ({ ...s, settings, fields }))
   }, [settings, fields])
 
   return (

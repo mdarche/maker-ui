@@ -13,15 +13,10 @@ export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
   }
 }
 
-// TODO - Forward ref
-
-export const SubmitButton = ({
-  onClick,
-  lifecycle,
-  children,
-  className,
-  ...props
-}: FormSubmitButtonProps) => {
+export const SubmitButton = React.forwardRef<
+  HTMLButtonElement,
+  FormSubmitButtonProps
+>(({ onClick, lifecycle, children, className, ...props }, ref) => {
   const { settings } = useForm()
   const {
     errors,
@@ -51,6 +46,7 @@ export const SubmitButton = ({
   return (
     <Button
       type="submit"
+      ref={ref}
       className={mergeSelectors(['form-submit-btn', className])}
       onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
       disabled={settings.disableSubmit && hasErrors}
@@ -58,6 +54,6 @@ export const SubmitButton = ({
       {renderLifecycle()}
     </Button>
   )
-}
+})
 
 SubmitButton.displayName = 'FormSubmit'

@@ -17,7 +17,7 @@ export const Label = ({ id, name, children, type }: LabelProps) => {
 
   if (type === 'checkbox' || type === 'radio') {
     return (
-      <div id={`${name}-group`} className="form-label">
+      <div id={`${name}-group`} className="field-label form-label">
         {children}
       </div>
     )
@@ -25,14 +25,14 @@ export const Label = ({ id, name, children, type }: LabelProps) => {
 
   if (type === 'switch') {
     return (
-      <div id={`${name}-label`} className="form-label">
+      <div id={`${name}-label`} className="field-label form-label">
         {children}
       </div>
     )
   }
 
   return (
-    <label htmlFor={id || name} className="form-label">
+    <label htmlFor={id || name} className="field-label form-label">
       {children}
     </label>
   )
