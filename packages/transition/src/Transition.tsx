@@ -36,7 +36,7 @@ export interface TransitionProps
   /** Animation duration in milliseconds
    * @default 300
    */
-  duration?: number
+  timeout?: number
   children: React.ReactNode
 }
 
@@ -52,7 +52,7 @@ export const Transition = ({
   show = false,
   nodeRef,
   easing = 'ease-in-out',
-  duration = 300,
+  timeout = 300,
   unmountOnExit = true,
   transitionState = defaultTransitions,
   css,
@@ -65,7 +65,7 @@ export const Transition = ({
     <ReactTransition
       nodeRef={ref}
       in={show}
-      timeout={duration}
+      timeout={timeout}
       unmountOnExit={unmountOnExit}
       {...props}>
       {(state) => (
@@ -74,7 +74,7 @@ export const Transition = ({
           {...containerProps}
           style={{
             ...transitionState?.start,
-            transition: `all ${duration}ms ${easing}`,
+            transition: `all ${timeout}ms ${easing}`,
             ...transitionState[state],
             ...(containerProps?.style ? containerProps.style : {}),
           }}

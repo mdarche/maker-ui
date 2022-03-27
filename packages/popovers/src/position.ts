@@ -18,7 +18,6 @@ export type TransitionType =
 /**
  * Configure the the transition animations
  */
-
 function getTransform(type: string) {
   switch (type) {
     case 'fade-up':

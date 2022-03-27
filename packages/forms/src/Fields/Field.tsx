@@ -43,19 +43,6 @@ const defaultAutoSave: AutoSaveSettings = {
 const positionTop = ['top-right', 'top-left', 'top-center', 'left', 'floating']
 const positionBottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
 
-interface ConditionalWrapperProps {
-  condition: boolean
-  wrapper: (children: React.ReactNode) => React.ReactElement
-  children: React.ReactElement
-}
-
-export const ConditionalWrapper = ({
-  condition,
-  wrapper,
-  children,
-}: ConditionalWrapperProps): React.ReactElement =>
-  condition ? wrapper(children) : children
-
 interface FieldComponentProps extends FieldProps {
   breakpoints: MakerProps['breakpoints']
 }

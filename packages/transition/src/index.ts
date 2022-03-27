@@ -3,7 +3,4 @@ export {
   type TransitionProps,
   type TransitionState,
 } from './Transition'
-export {
-  SwitchTransition,
-  type SwitchTransitionProps,
-} from './SwitchTransition'
+export { CSSTransition, type CSSTransitionProps } from './CSSTransition'

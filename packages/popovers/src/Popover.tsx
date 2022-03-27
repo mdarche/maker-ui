@@ -328,7 +328,7 @@ export const Popover = ({
       <Transition
         show={show}
         nodeRef={popoverRef}
-        duration={duration}
+        timeout={duration}
         transitionState={popoverTransition}
         containerProps={{
           id,

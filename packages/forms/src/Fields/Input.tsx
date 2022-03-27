@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { Field as FormikField } from 'formik'
 import type { InputProps, PasswordSettings } from '../types'
 import { Div } from '@maker-ui/primitives'
-import { ConditionalWrapper } from './Field'
-import { merge } from '@maker-ui/utils'
+import { merge, ConditionalWrapper } from '@maker-ui/utils'
 import { HideIcon, RevealIcon } from '../icons'
 
 const defaultSettings: PasswordSettings = {

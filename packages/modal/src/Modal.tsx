@@ -153,7 +153,7 @@ export const Modal = ({
         nodeRef={modalRef}
         show={show}
         easing={easing}
-        duration={duration}
+        timeout={duration}
         transitionState={transitionState}
         containerProps={{
           role: 'dialog',
