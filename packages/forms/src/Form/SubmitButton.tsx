@@ -20,8 +20,6 @@ export const SubmitButton = React.forwardRef<
   const { settings } = useForm()
   const {
     errors,
-    // touched,
-    // values,
     isSubmitting,
   }: {
     errors: FormikErrors<any>

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@maker-ui/css": "workspace:*",
+    "@maker-ui/loaders": "workspace:*",
     "@maker-ui/primitives": "workspace:*",
     "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*",

@@ -72,7 +72,7 @@ export const Form = ({
         ))}
         {components.formSubmit}
         {error ? components.formError : null}
-        {components.formHeader}
+        {components.formFooter}
       </FormikForm>
     </ConditionalWrapper>
   )

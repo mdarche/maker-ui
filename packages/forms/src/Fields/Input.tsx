@@ -3,7 +3,7 @@ import { Field as FormikField } from 'formik'
 import type { InputProps, PasswordSettings } from '../types'
 import { Div } from '@maker-ui/primitives'
 import { merge, ConditionalWrapper } from '@maker-ui/utils'
-import { HideIcon, RevealIcon } from '../icons'
+import { HideIcon, RevealIcon } from '../Icons'
 
 const defaultSettings: PasswordSettings = {
   hideIcon: <HideIcon />,

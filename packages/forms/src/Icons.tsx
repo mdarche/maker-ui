@@ -17,9 +17,9 @@ export const TrashIcon = (props: SVGProps) => (
   </SVG>
 )
 
-export const SuccessIcon = (props: SVGProps) => (
-  <SVG viewBox="0 0 15 12" {...props}>
-    <path d="M4.99997 8.58597L1.70697 5.29297L0.292969 6.70697L4.99997 11.414L14.707 1.70697L13.293 0.292969L4.99997 8.58597Z" />
+export const ErrorIcon = (props: SVGProps) => (
+  <SVG className="icon-error" viewBox="0 0 181 181" {...props}>
+    <path d="M90.5 181a90.5 90.5 0 1 0 0-181 90.5 90.5 0 0 0 0 181Zm-13.575-49.775a13.576 13.576 0 1 1 27.152 0 13.576 13.576 0 0 1-27.152 0Zm4.67-87.604a9.05 9.05 0 0 1 17.81 0l.145 1.629V90.5l-.145 1.629a9.05 9.05 0 0 1-17.81 0L81.45 90.5V45.25l.145-1.629Z" />
   </SVG>
 )
 

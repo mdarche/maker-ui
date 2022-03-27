@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { merge } from '@maker-ui/utils'
-import { ThemeProvider, Theme } from '@emotion/react'
+import { ThemeProvider, type Theme } from '@maker-ui/css'
 
 import { OptionProvider } from '../context/OptionContext'
 import { ActionProvider } from '../context/ActionContext'

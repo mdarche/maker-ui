@@ -36,6 +36,8 @@ export function sortChildren(children: React.ReactNode) {
           return (order.formSuccess = child)
         case 'FormError':
           return (order.formError = child)
+        case 'FormSubmit':
+          return (order.formSubmit = child)
         default:
           return order.formChildren.push(child as React.ReactElement)
       }

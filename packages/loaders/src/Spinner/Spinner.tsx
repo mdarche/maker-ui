@@ -37,13 +37,13 @@ export interface SpinnerProps extends SVGProps {
   /** A number in pixels that will determine the width and height of the spinner.
    * Each spinner is a perfect square.
    */
-  size: number
+  size?: number
   /** A dictionary of colors that are applied to various parts of each Spinner SVG */
   colors: {
-    primary: string
-    secondary: string
-    third: string
-    fourth: string
+    primary?: string
+    secondary?: string
+    third?: string
+    fourth?: string
   }
 }
 

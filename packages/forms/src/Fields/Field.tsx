@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Flex } from '@maker-ui/primitives'
 import type { MakerProps } from '@maker-ui/css'
-import { mergeSelectors, merge } from '@maker-ui/utils'
+import { Spinner } from '@maker-ui/loaders'
+import { mergeSelectors, merge, ConditionalWrapper } from '@maker-ui/utils'
 import { useField, useFormikContext } from 'formik'
 
 import { Input } from './Input'
@@ -13,6 +14,8 @@ import { Range } from './Range'
 import { FieldSettings } from '..'
 import { ImageField } from './ImageField'
 import { type InputOptionProps, InputOptions } from './InputOptions'
+import { AutoSave } from './AutoSave'
+import { ErrorIcon, ValidateIcon } from '../Icons'
 import type {
   AutoSaveSettings,
   FieldProps,
@@ -35,9 +38,14 @@ const basicInputs = [
 ]
 
 const defaultAutoSave: AutoSaveSettings = {
-  indicator: <div>Test</div>,
-  successIcon: <div>Success</div>,
-  position: 'right',
+  indicator: (
+    <Spinner type="classic" size={20} colors={{ primary: '#d2d2d2' }} />
+  ),
+  successIcon: <ValidateIcon css={{ height: 20, fill: '#3aca3a' }} />,
+  errorIcon: <ErrorIcon css={{ height: 20, fill: '#e93030' }} />,
+  timeout: 2500,
+  position: 'left',
+  padding: 30,
 }
 
 const positionTop = ['top-right', 'top-left', 'top-center', 'left', 'floating']
@@ -48,7 +56,7 @@ interface FieldComponentProps extends FieldProps {
 }
 
 export const Field = (props: FieldComponentProps) => {
-  const { settings } = useForm()
+  const { settings, error: formError } = useForm()
   const { submitForm } = useFormikContext()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [field, { touched, error }] = useField(props.name)
@@ -82,13 +90,12 @@ export const Field = (props: FieldComponentProps) => {
   // Let's figure out autosave
   const hasAutoSave = autoSave || settings.autoSave
   const autoSaveSettings = () => {
-    if (!hasAutoSave) return undefined
     let local = typeof autoSave === 'boolean' || !autoSave ? {} : autoSave
     let global =
       typeof settings.autoSave === 'boolean' || !settings.autoSave
         ? {}
         : settings.autoSave
-    return merge.all([defaultAutoSave, global, local])
+    return merge.all([defaultAutoSave, global, local]) as AutoSaveSettings
   }
 
   const saveOnBlur = hasAutoSave ? { onBlur: submitForm } : {}
@@ -199,7 +206,18 @@ export const Field = (props: FieldComponentProps) => {
       {description ? (
         <div className="field-description">{description}</div>
       ) : null}
-      {renderFieldType()}
+      <ConditionalWrapper
+        condition={hasAutoSave === true}
+        wrapper={(c) => (
+          <AutoSave
+            name={name}
+            formError={formError}
+            settings={autoSaveSettings()}>
+            {c}
+          </AutoSave>
+        )}>
+        <>{renderFieldType()}</>
+      </ConditionalWrapper>
       {positionBottom.includes(labelStyle as string) ? labelComponent : null}
       {showValidation ? (
         <div

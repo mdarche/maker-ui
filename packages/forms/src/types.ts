@@ -28,7 +28,10 @@ export type InputOption = {
 export interface AutoSaveSettings {
   indicator?: React.ReactNode
   successIcon?: React.ReactNode
-  position?: FieldProps['labelStyle']
+  errorIcon?: React.ReactNode
+  timeout?: number
+  position?: 'left' | 'right'
+  padding?: number
 }
 
 /**
