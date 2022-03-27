@@ -1,4 +1,4 @@
-import { TransitionType } from './CSSTransition'
+import type { TransitionType } from './CSSTransition'
 
 const getSign = (type: string): string =>
   type.includes('right') || type.includes('down') ? '-' : ''
@@ -27,7 +27,7 @@ export function getStyles(
   easing: string,
   prefix?: string
 ) {
-  const name = prefix ? `${prefix}-fade` : 'fade'
+  const name = prefix ? `.${prefix}-${type}` : `.${type}`
   const dist = typeof distance === 'number' ? `${distance}px` : distance
   const format = dist.endsWith('%') ? '%' : ''
   return {

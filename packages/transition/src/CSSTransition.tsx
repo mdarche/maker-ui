@@ -19,8 +19,7 @@ export type TransitionType =
 export interface CSSTransitionProps
   extends Partial<ReactCSSTransitionProps<HTMLDivElement>> {
   switchMode?: 'out-in' | 'in-out'
-  show?: boolean
-  key?: string | number
+  show: boolean | string | number
   type?: TransitionType
   classNamePrefix?: string
   className?: string
@@ -30,6 +29,7 @@ export interface CSSTransitionProps
   timeout?: number
   distance?: number | string
   easing?: string
+  noStyles?: boolean
   children: React.ReactNode
 }
 
@@ -43,34 +43,32 @@ export const CSSTransition = ({
   className,
   classNamePrefix,
   show,
-  key,
   nodeRef,
   containerProps,
+  noStyles = false,
   children,
   ...props
 }: CSSTransitionProps) => {
   const ref = useRef(null)
-
+  const styles = getStyles(type, distance, timeout, easing, classNamePrefix)
+  const isSwitchTransition = typeof show !== 'boolean'
+  const t = classNamePrefix ? `${classNamePrefix}-${type}` : type
   return (
     <>
-      {className ? undefined : (
-        <Global
-          styles={getStyles(type, distance, timeout, easing, classNamePrefix)}
-        />
-      )}
+      {className || noStyles ? undefined : <Global styles={styles} />}
       <ConditionalWrapper
         wrapper={(c) => (
           <SwitchTransition mode={switchMode}>
             {c as React.ReactElement}
           </SwitchTransition>
         )}
-        condition={key ? true : false}>
+        condition={isSwitchTransition}>
         <ReactCSSTransition
-          key={key}
-          in={!key ? show : undefined}
+          key={isSwitchTransition ? show : undefined}
+          in={!isSwitchTransition ? show : undefined}
           nodeRef={nodeRef ? mergeRefs([ref, nodeRef]) : ref}
           timeout={timeout}
-          className={className || type}
+          classNames={className || t}
           unmountOnExit={unmountOnExit}
           {...props}>
           <div ref={ref} {...containerProps}>
