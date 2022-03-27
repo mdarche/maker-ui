@@ -35,54 +35,6 @@ export const Bars = ({
           <animate {...attributes} begin={begin} />
         </path>
       ))}
-      {/* <path fill="#e15b64" d="M13.5 30h13v40h-13z">
-        <animate
-          attributeName="opacity"
-          dur="1.25s"
-          repeatCount="indefinite"
-          calcMode="spline"
-          keyTimes="0;0.5;1"
-          keySplines="0.5 0 0.5 1;0.5 0 0.5 1"
-          values="1;0.2;1"
-          begin="-.75"
-        />
-      </path>
-      <path fill="#f47e60" d="M33.5 30h13v40h-13z">
-        <animate
-          attributeName="opacity"
-          dur="1.25s"
-          repeatCount="indefinite"
-          calcMode="spline"
-          keyTimes="0;0.5;1"
-          keySplines="0.5 0 0.5 1;0.5 0 0.5 1"
-          values="1;0.2;1"
-          begin="-.5"
-        />
-      </path>
-      <path fill="#f8b26a" d="M53.5 30h13v40h-13z">
-        <animate
-          attributeName="opacity"
-          dur="1.25s"
-          repeatCount="indefinite"
-          calcMode="spline"
-          keyTimes="0;0.5;1"
-          keySplines="0.5 0 0.5 1;0.5 0 0.5 1"
-          values="1;0.2;1"
-          begin="-.25"
-        />
-      </path>
-      <path fill="#abbd81" d="M73.5 30h13v40h-13z">
-        <animate
-          attributeName="opacity"
-          dur="1.25s"
-          repeatCount="indefinite"
-          calcMode="spline"
-          keyTimes="0;0.5;1"
-          keySplines="0.5 0 0.5 1;0.5 0 0.5 1"
-          values="1;0.2;1"
-          begin="-1.25"
-        />
-      </path> */}
     </SVG>
   )
 }
