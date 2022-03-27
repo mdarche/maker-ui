@@ -9,6 +9,7 @@ import { Dots } from './Dots'
 import { DotSpinner } from './DotSpinner'
 import { Gear } from './Gear'
 import { Pulse } from './Pulse'
+import { Classic } from './Classic'
 
 const defaults: SpinnerProps = {
   type: 'default',
@@ -25,6 +26,7 @@ export interface SpinnerProps extends SVGProps {
   /** All prebuilt spinner types */
   type:
     | 'default'
+    | 'classic'
     | 'pulse'
     | 'dot-spinner'
     | 'blocks'
@@ -61,6 +63,8 @@ export const Spinner = (p: Partial<SpinnerProps>) => {
   switch (p.type) {
     case 'bars':
       return <Bars {...props} />
+    case 'classic':
+      return <Classic {...props} />
     case 'pulse':
       return <Pulse {...props} />
     case 'dot-spinner':
