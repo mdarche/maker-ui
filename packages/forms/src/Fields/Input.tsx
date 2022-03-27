@@ -4,10 +4,11 @@ import type { InputProps, PasswordSettings } from '../types'
 import { Div } from '@maker-ui/primitives'
 import { ConditionalWrapper } from './Field'
 import { merge } from '@maker-ui/utils'
+import { HideIcon, RevealIcon } from '../icons'
 
 const defaultSettings: PasswordSettings = {
-  hiddenIcon: <div>Hidden</div>,
-  visibleIcon: <div>Visible</div>,
+  hideIcon: <HideIcon />,
+  revealIcon: <RevealIcon />,
   toggleCharacters: true,
   padding: 10,
 }
@@ -55,7 +56,7 @@ export const Input = ({
             className="btn-password"
             type="button"
             onClick={() => setShowPass(!showPass)}>
-            {showPass ? s?.visibleIcon : s?.hiddenIcon}
+            {showPass ? s?.hideIcon : s?.revealIcon}
           </button>
         </Div>
       )}>

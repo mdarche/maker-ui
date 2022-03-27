@@ -430,6 +430,7 @@ importers:
       '@maker-ui/utils': workspace:*
       eslint: 7.32.0
       eslint-preset: workspace:*
+      react-transition-group: ^4.4.2
       tsconfig: workspace:*
       tsup: ^5.12.0
       typescript: ^4.6.2
@@ -437,6 +438,7 @@ importers:
       '@maker-ui/css': link:../css
       '@maker-ui/primitives': link:../primitives
       '@maker-ui/utils': link:../utils
+      react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
     devDependencies:
       eslint: 7.32.0
       eslint-preset: link:../eslint-preset
@@ -452,7 +454,6 @@ importers:
       '@maker-ui/utils': workspace:*
       eslint: 7.32.0
       eslint-preset: workspace:*
-      react-transition-group: ^4.4.2
       tsconfig: workspace:*
       tsup: ^5.12.0
       typescript: ^4.6.2
@@ -461,7 +462,6 @@ importers:
       '@maker-ui/modal': link:../modal
       '@maker-ui/primitives': link:../primitives
       '@maker-ui/utils': link:../utils
-      react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
     devDependencies:
       eslint: 7.32.0
       eslint-preset: link:../eslint-preset

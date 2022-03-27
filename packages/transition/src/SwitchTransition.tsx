@@ -1,7 +1,7 @@
 export interface SwitchTransitionProps {}
 
 export const SwitchTransition = () => {
-  return <div ref={nodeRef}></div>
+  return <div></div>
   // <SwitchTransition mode="out-in">
   // <CSSTransition
   //   nodeRef={nodeRef}

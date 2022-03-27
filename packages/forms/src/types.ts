@@ -107,8 +107,8 @@ export interface RangeSettings {
 export interface PasswordSettings {
   /** Display a button that lets you toggle password visibility */
   toggleCharacters?: boolean
-  visibleIcon?: React.ReactElement
-  hiddenIcon?: React.ReactElement
+  hideIcon?: React.ReactElement
+  revealIcon?: React.ReactElement
   padding?: ResponsiveScale
 }
 

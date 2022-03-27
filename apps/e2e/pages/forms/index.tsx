@@ -25,7 +25,7 @@ const testFields: FieldProps[] = [
   },
   {
     name: 'pass',
-    label: 'Your Passwrod',
+    label: 'Your Password',
     type: 'password',
     initialValue: '',
     // validation: Yup.string().required('Required'),
@@ -106,7 +106,7 @@ const testFields: FieldProps[] = [
     label: 'Profile Image',
     type: 'image-picker',
     settings: { inputId: 'testId' },
-    validation: Yup.mixed().required('Required'),
+    // validation: Yup.mixed().required('Required'),
   },
   {
     name: 'customComponent',
