@@ -20,6 +20,7 @@
   "dependencies": {
     "@maker-ui/css": "workspace:*",
     "@maker-ui/primitives": "workspace:*",
+    "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*",
     "formik": "^2.2.9",
     "react-select": "^5.2.2",

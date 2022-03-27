@@ -244,6 +244,7 @@ importers:
     specifiers:
       '@maker-ui/css': workspace:*
       '@maker-ui/primitives': workspace:*
+      '@maker-ui/transition': workspace:*
       '@maker-ui/utils': workspace:*
       eslint: 7.32.0
       eslint-preset: workspace:*
@@ -256,6 +257,7 @@ importers:
     dependencies:
       '@maker-ui/css': link:../css
       '@maker-ui/primitives': link:../primitives
+      '@maker-ui/transition': link:../transition
       '@maker-ui/utils': link:../utils
       formik: 2.2.9_react@17.0.2
       react-select: 5.2.2_7d3856d183165341eeba41208b68ef17

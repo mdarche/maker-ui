@@ -118,14 +118,21 @@ const testFields: FieldProps[] = [
 ]
 
 export default function FormsPage() {
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
+
   const [formSubmission, setFormSubmission] = useState<object>({})
   function onSubmitForm(values: object) {
     setFormSubmission(values)
+    // setError(true)
+    setSuccess(true)
   }
   return (
     <>
       <Section css={{ padding: '50px 0' }}>
         <Form.Provider
+          success={success}
+          error={error}
           fields={testFields}
           onSubmit={(vals) => {
             console.log(vals)
@@ -136,10 +143,9 @@ export default function FormsPage() {
             <Form.Submit>Submit</Form.Submit>
             <Form.Error>There was an error</Form.Error>
             <Form.Footer>Form Footer</Form.Footer>
+            <Form.Success>Successful Form</Form.Success>
           </Form>
-          <Form.Success>Successful Form</Form.Success>
         </Form.Provider>
-        {/* <Form.Success>Success Message</Form.Success> */}
       </Section>
       <Section css={{ padding: '50px 0' }}>
         {JSON.stringify(formSubmission, null, ' ')}

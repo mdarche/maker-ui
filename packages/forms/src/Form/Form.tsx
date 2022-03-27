@@ -1,6 +1,8 @@
-import React, { useState, useEffect, Fragment, useRef } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { Grid } from '@maker-ui/primitives'
 import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
+import { ConditionalWrapper } from '@maker-ui/utils'
+import { CSSTransition } from '@maker-ui/transition'
 import { Form as FormikForm } from 'formik'
 
 import { Page, Progress, PageButton } from '../Pagination'
@@ -20,7 +22,6 @@ export interface FormProps
 /**
  * The `Form` component lets you generate a highly customized form from a
  * configuration object and field array. Based on Formik.
- * .
  *
  * @link https://maker-ui.com/docs/form
  */
@@ -34,7 +35,6 @@ export const Form = ({
   breakpoints,
   ...props
 }: FormProps) => {
-  const ref = useRef(null)
   const { fields, settings, success, error } = useForm()
   const [components, setComponents] =
     useState<NestedComponents>(defaultComponents)
@@ -46,27 +46,35 @@ export const Form = ({
   }, [children])
 
   return (
-    <FormikForm id={id} className={className} {...props}>
-      {components.formHeader}
-      {fields ? (
-        <Grid
-          className="form-grid"
-          breakpoints={breakpoints}
-          columns={gridCol}
-          gap={gap || settings?.gap}
-          css={css}>
-          {fields.map((p, index) => (
-            <Field key={index} breakpoints={breakpoints} {...p} />
-          ))}
-        </Grid>
-      ) : null}
-      {components.formChildren?.map((child, i) => (
-        <Fragment key={i}>{child}</Fragment>
-      ))}
-      {components.formSubmit}
-      {error ? components.formError : null}
-      {components.formHeader}
-    </FormikForm>
+    <ConditionalWrapper
+      condition={components.formSuccess ? true : false}
+      wrapper={(c) => (
+        <CSSTransition show={success ? 0 : 1}>
+          {success ? components.formSuccess : c}
+        </CSSTransition>
+      )}>
+      <FormikForm id={id} className={className} {...props}>
+        {components.formHeader}
+        {fields ? (
+          <Grid
+            className="form-grid"
+            breakpoints={breakpoints}
+            columns={gridCol}
+            gap={gap || settings?.gap}
+            css={css}>
+            {fields.map((p, index) => (
+              <Field key={index} breakpoints={breakpoints} {...p} />
+            ))}
+          </Grid>
+        ) : null}
+        {components.formChildren?.map((child, i) => (
+          <Fragment key={i}>{child}</Fragment>
+        ))}
+        {components.formSubmit}
+        {error ? components.formError : null}
+        {components.formHeader}
+      </FormikForm>
+    </ConditionalWrapper>
   )
 }
 

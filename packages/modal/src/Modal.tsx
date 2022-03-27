@@ -151,7 +151,7 @@ export const Modal = ({
     <Portal root={appendTo}>
       <Transition
         nodeRef={modalRef}
-        show={show}
+        show={show as boolean}
         easing={easing}
         timeout={duration}
         transitionState={transitionState}
