@@ -14,7 +14,7 @@ import type {
 } from '../types'
 import { styles } from '../styles/position'
 
-interface Settings {
+export interface FormSettings {
   /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
   validateFieldOnBlur: boolean
   /** Validates all fields when an input is blurred  */
@@ -22,6 +22,7 @@ interface Settings {
   /** Validates all fields when an input changes */
   validateFormOnChange: boolean
   validateIcon: React.ReactElement
+  // submitFormOnChange: boolean TODO
   columns: string | string[] | number
   gap: ResponsiveScale
   pages: number
@@ -35,11 +36,11 @@ interface Settings {
 
 export interface FormState {
   currentPage: number
-  settings: Partial<Settings>
+  settings: Partial<FormSettings>
   fields?: FieldProps[]
   pageFields: { [key: string]: { name: string; required?: boolean }[] }
   success?: boolean
-  error?: boolean
+  error?: boolean | string
 }
 
 export interface FormProviderProps extends MakerProps {
@@ -64,7 +65,7 @@ export interface FormProviderProps extends MakerProps {
    */
   onSubmit: (values: any, actions: FormHelpers) => void | Promise<any>
   /** A settings configuration object for global form settings*/
-  settings?: Partial<Settings>
+  settings?: Partial<FormSettings>
   /** An optional error boolean that will toggle the Form.Error component if true*/
   error?: boolean
   /** An optional success boolean that will toggle the Form.Success component if true*/
@@ -106,7 +107,7 @@ export const FormProvider = ({
   breakpoints,
   ...props
 }: FormProviderProps) => {
-  const mergedSettings = merge(settings, initialState.settings)
+  const mergedSettings = merge(initialState.settings, settings)
 
   /* Calculate initial values via fields */
   let values: Partial<FormValues> = {}
@@ -198,7 +199,7 @@ const MakerForm = ({
 }: {
   children: React.ReactNode
   fields: FieldProps[]
-  settings: Settings
+  settings: FormSettings
   success?: boolean
   error?: boolean
 }) => {
@@ -244,7 +245,7 @@ export function useForm() {
   }
 
   function updateSettings(
-    newSettings: Partial<Settings>,
+    newSettings: Partial<FormSettings>,
     mergeSettings = true
   ) {
     setState((s) => ({

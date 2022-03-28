@@ -60,6 +60,7 @@ export const Field = (props: FieldComponentProps) => {
   const { submitForm } = useFormikContext()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [field, { touched, error }] = useField(props.name)
+
   const {
     name,
     id,
@@ -211,7 +212,7 @@ export const Field = (props: FieldComponentProps) => {
         wrapper={(c) => (
           <AutoSave
             name={name}
-            formError={formError}
+            formError={formError ? true : false}
             settings={autoSaveSettings()}>
             {c}
           </AutoSave>

@@ -50,10 +50,7 @@ export const Select = ({
   })
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [field, meta, { setValue, setTouched }] = useField({
-    name,
-    type: 'file',
-  })
+  const [field, meta, { setValue, setTouched }] = useField(name)
 
   function handleChange(value?: any) {
     if (settings.isCreatableInput) {
