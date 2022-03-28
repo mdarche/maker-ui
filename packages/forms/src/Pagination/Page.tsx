@@ -3,9 +3,9 @@ import { Div, type DivProps, Grid } from '@maker-ui/primitives'
 import { mergeSelectors } from '@maker-ui/utils'
 import type { ResponsiveScale } from '@maker-ui/css'
 
-import { Field } from './Fields'
-import { type FormState, useForm } from './FormProvider'
-import type { FieldProps } from './types'
+import { Field } from '../Fields'
+import { type FormState, useForm } from '../Form/FormProvider'
+import type { FieldProps } from '../types'
 
 export interface FormPageProps extends Omit<DivProps, 'title'> {
   id: string

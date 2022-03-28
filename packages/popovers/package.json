@@ -23,16 +23,15 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/css": "1.2.0",
-    "@maker-ui/modal": "1.2.0",
-    "@maker-ui/primitives": "1.2.0",
-    "@maker-ui/utils": "1.2.0",
-    "react-transition-group": "^4.4.2"
+    "@maker-ui/css": "workspace:*",
+    "@maker-ui/modal": "workspace:*",
+    "@maker-ui/primitives": "workspace:*",
+    "@maker-ui/utils": "workspace:*"
   },
   "devDependencies": {
     "eslint": "7.32.0",
-    "eslint-preset": "*",
-    "tsconfig": "*",
+    "eslint-preset": "workspace:*",
+    "tsconfig": "workspace:*",
     "tsup": "^5.12.0",
     "typescript": "^4.6.2"
   }

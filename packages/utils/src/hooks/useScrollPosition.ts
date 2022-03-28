@@ -33,7 +33,7 @@ export function useScrollPosition(
   useEffect(() => {
     /**
      * Exit if run on server or if the effect is not active
-     * */
+     */
     if (!active || !isBrowser) return
 
     let throttleTimeout: any

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Button, type ButtonProps } from '@maker-ui/primitives'
 
-import { useForm } from './FormProvider'
-import type { FieldProps, PaginationElement } from './types'
-import { getRequired } from './utils'
+import { useForm } from '../Form/FormProvider'
+import type { FieldProps, PaginationElement } from '../types'
+import { getRequired } from '../utils'
 
 export interface FormPageButtonProps extends ButtonProps {
   pageId: string

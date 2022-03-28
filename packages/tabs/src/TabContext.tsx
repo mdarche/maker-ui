@@ -18,10 +18,10 @@ export interface TabState extends Omit<TabContextProps, 'children'> {
   tabs: TabItem[]
 }
 
-const TabDataContext = React.createContext<Partial<TabState>>({})
-const TabUpdateContext = React.createContext<
-  React.Dispatch<React.SetStateAction<TabState>>
->(() => {})
+const TabDataContext = React.createContext<{
+  state: Partial<TabState>
+  setState: React.Dispatch<React.SetStateAction<TabState>>
+}>({ state: {}, setState: (b) => {} })
 
 /**
  * The `TabContext` component is a Provider that handles all of the
@@ -44,7 +44,6 @@ export const TabContext = ({
   /**
    * Set the default open tab if none is specified
    */
-
   React.useEffect(() => {
     if (state.tabs.length && state.activeKey === 0) {
       // Get first tab that isn't disabled
@@ -59,7 +58,6 @@ export const TabContext = ({
   /**
    * Watch props for a new activeKey (controlled by external variable)
    */
-
   React.useEffect(() => {
     if (state.activeKey !== 0) {
       // Make sure the tab isn't disabled
@@ -76,10 +74,8 @@ export const TabContext = ({
   }, [activeKey])
 
   return (
-    <TabDataContext.Provider value={state}>
-      <TabUpdateContext.Provider value={setState}>
-        {children}
-      </TabUpdateContext.Provider>
+    <TabDataContext.Provider value={{ state, setState }}>
+      {children}
     </TabDataContext.Provider>
   )
 }
@@ -91,10 +87,8 @@ TabContext.displayName = 'TabContext'
  *
  * @internal
  */
-
 export function useTabs() {
-  const state: Partial<TabState> = React.useContext(TabDataContext)
-  const setState = React.useContext(TabUpdateContext)
+  const { state, setState } = React.useContext(TabDataContext)
 
   if (typeof state === undefined) {
     throw new Error('Tab must be used within a TabGroup component')

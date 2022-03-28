@@ -1,21 +1,28 @@
 import * as React from 'react'
 import { Flex } from '@maker-ui/primitives'
 import type { MakerProps } from '@maker-ui/css'
-import { mergeSelectors } from '@maker-ui/utils'
-import { FormikErrors, FormikTouched, useFormikContext } from 'formik'
+import { Spinner } from '@maker-ui/loaders'
+import { mergeSelectors, merge, ConditionalWrapper } from '@maker-ui/utils'
+import { useField, useFormikContext } from 'formik'
 
 import { Input } from './Input'
 import { Select } from './Select'
-import { DatePicker } from './Datepicker'
 import { Label } from './Label'
-import { FieldProps } from '../types'
-import { useForm } from '../FormProvider'
+import { useForm } from '../Form/FormProvider'
 import { Switch } from './Switch'
-import { Checkbox } from './Checkbox'
-import { Radio } from './Radio'
 import { Range } from './Range'
 import { FieldSettings } from '..'
 import { ImageField } from './ImageField'
+import { type InputOptionProps, InputOptions } from './InputOptions'
+import { AutoSave } from './AutoSave'
+import { ErrorIcon, ValidateIcon } from '../Icons'
+import type {
+  AutoSaveSettings,
+  FieldProps,
+  PasswordSettings,
+  SelectSettings,
+  SwitchSettings,
+} from '../types'
 
 const basicInputs = [
   'text',
@@ -30,23 +37,30 @@ const basicInputs = [
   'color',
 ]
 
-const labelTop = ['top-right', 'top-left', 'top-center', 'left', 'floating']
-const labelBottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
+const defaultAutoSave: AutoSaveSettings = {
+  indicator: (
+    <Spinner type="classic" size={20} colors={{ primary: '#d2d2d2' }} />
+  ),
+  successIcon: <ValidateIcon css={{ height: 20, fill: '#3aca3a' }} />,
+  errorIcon: <ErrorIcon css={{ height: 20, fill: '#e93030' }} />,
+  timeout: 2500,
+  position: 'left',
+  padding: 30,
+}
+
+const positionTop = ['top-right', 'top-left', 'top-center', 'left', 'floating']
+const positionBottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
 
 interface FieldComponentProps extends FieldProps {
   breakpoints: MakerProps['breakpoints']
 }
 
 export const Field = (props: FieldComponentProps) => {
-  const [firstTouch, setFirstTouch] = React.useState(false)
-  const { settings } = useForm()
-  const {
-    errors,
-    touched,
-  }: {
-    errors: FormikErrors<any>
-    touched: FormikTouched<any>
-  } = useFormikContext()
+  const { settings, error: formError } = useForm()
+  const { submitForm } = useFormikContext()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [field, { touched, error }] = useField(props.name)
+
   const {
     name,
     id,
@@ -59,84 +73,86 @@ export const Field = (props: FieldComponentProps) => {
     containerClass,
     showValidation,
     breakpoints,
+    autoSave,
+    component,
+    cy,
   } = props
 
-  const hasError = settings.validateOnChange
-    ? errors[name]
+  const hasError = settings.validateFieldOnBlur
+    ? error && touched
       ? true
       : false
-    : errors[name] && touched[name]
+    : error
     ? true
     : false
-  const isComplete = !errors[name] && touched[name] ? true : false
 
+  const isComplete = !error && touched ? true : false
+
+  // Let's figure out autosave
+  const hasAutoSave = autoSave || settings.autoSave
+  const autoSaveSettings = () => {
+    let local = typeof autoSave === 'boolean' || !autoSave ? {} : autoSave
+    let global =
+      typeof settings.autoSave === 'boolean' || !settings.autoSave
+        ? {}
+        : settings.autoSave
+    return merge.all([defaultAutoSave, global, local]) as AutoSaveSettings
+  }
+
+  const saveOnBlur = hasAutoSave ? { onBlur: submitForm } : {}
   const attributes = {
+    name,
+    id,
+    type,
+    cy,
     hasError,
-    firstTouch,
-    setFirstTouch,
+    settings,
+    ...saveOnBlur,
   }
 
-  if (name === 'image-picker') {
-    console.log('Field Component', name, errors[name], hasError, firstTouch)
-  }
-
-  function renderInputs() {
+  function renderFieldType() {
+    /* Custom React inputs */
+    if (type === 'custom' && component) {
+      return component
+    }
     /* Basic HTML Inputs */
     if (basicInputs.includes(type)) {
-      return <Input {...attributes} {...props} />
+      return (
+        <Input {...attributes} settings={props?.settings as PasswordSettings} />
+      )
     }
     /* Datepicker that supports ranges */
-    if (props.type === 'datepicker') {
-      return <DatePicker {...attributes} {...props} />
-    }
+    // if (props.type === 'datepicker') {
+    //   return <DatePicker {...attributes} />
+    // }
     /* Imagepicker  */
     if (props.type === 'image-picker') {
       return (
         <ImageField
           {...attributes}
-          {...props}
           settings={props.settings as FieldSettings<'image-picker'>}
         />
       )
     }
     /* Select and Datalist inputs */
-    if (props.type === 'select' || props.type === 'select-datalist') {
+    if (props.type === 'select') {
       return (
-        <Select
-          {...attributes}
-          {...props}
-          settings={props.settings as FieldSettings<'select'>}
-        />
+        <Select {...attributes} settings={props.settings as SelectSettings} />
       )
     }
-    /* Radio group input*/
-    if (props.type === 'radio') {
+    /* Radio and Checkbox group inputs*/
+    if (props.type === 'radio' || props.type === 'checkbox') {
       return (
-        <Radio
+        <InputOptions
           {...attributes}
-          {...props}
-          settings={props.settings as FieldSettings<'radio'>}
-        />
-      )
-    }
-    /* Checkbox group input*/
-    if (props.type === 'checkbox') {
-      return (
-        <Checkbox
-          {...attributes}
-          {...props}
-          settings={props.settings as FieldSettings<'checkbox'>}
+          settings={props.settings as InputOptionProps['settings']}
         />
       )
     }
     /* Toggle input*/
     if (props.type === 'switch') {
       return (
-        <Switch
-          {...attributes}
-          {...props}
-          settings={props.settings as FieldSettings<'switch'>}
-        />
+        <Switch {...attributes} settings={props.settings as SwitchSettings} />
       )
     }
     /* Range input*/
@@ -144,7 +160,6 @@ export const Field = (props: FieldComponentProps) => {
       return (
         <Range
           {...attributes}
-          {...props}
           settings={props.settings as FieldSettings<'range'>}
         />
       )
@@ -153,7 +168,11 @@ export const Field = (props: FieldComponentProps) => {
   }
 
   const labelComponent = (
-    <Label id={id} name={name} type={type} position={labelStyle} top>
+    <Label
+      // @ts-ignore
+      id={type === 'image-picker' ? props.settings?.inputId : id}
+      name={name}
+      type={type}>
       {label}
     </Label>
   )
@@ -175,8 +194,8 @@ export const Field = (props: FieldComponentProps) => {
       className={mergeSelectors([
         'field-container',
         containerClass,
-        hasError ? 'error' : undefined,
-        firstTouch ? 'touched' : undefined,
+        error ? 'error' : undefined,
+        touched ? 'touched' : undefined,
         `label-${labelStyle}`,
         `error-${errorStyle}`,
       ])}
@@ -184,12 +203,23 @@ export const Field = (props: FieldComponentProps) => {
         position: 'relative',
         gridColumn: colSpan ? ['1 / -1', `span ${colSpan}`] : '1 / -1',
       }}>
-      {labelTop.includes(labelStyle as string) ? labelComponent : null}
+      {positionTop.includes(labelStyle as string) ? labelComponent : null}
       {description ? (
         <div className="field-description">{description}</div>
       ) : null}
-      {renderInputs()}
-      {labelBottom.includes(labelStyle as string) ? labelComponent : null}
+      <ConditionalWrapper
+        condition={hasAutoSave === true}
+        wrapper={(c) => (
+          <AutoSave
+            name={name}
+            formError={formError ? true : false}
+            settings={autoSaveSettings()}>
+            {c}
+          </AutoSave>
+        )}>
+        <>{renderFieldType()}</>
+      </ConditionalWrapper>
+      {positionBottom.includes(labelStyle as string) ? labelComponent : null}
       {showValidation ? (
         <div
           className={mergeSelectors([
@@ -199,7 +229,7 @@ export const Field = (props: FieldComponentProps) => {
           {settings?.validateIcon}
         </div>
       ) : null}
-      {hasError ? <div className="form-error">{errors[name]}</div> : null}
+      {hasError ? <div className="form-error field-error">{error}</div> : null}
     </Flex>
   )
 }

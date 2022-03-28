@@ -51,7 +51,7 @@ export default function PopoverPage() {
           </ul>
         </Div>
       </Popover>
-      <Dropdown button="Click here" transition="fade-down" trapFocus>
+      <Dropdown button="Dropdown" transition="fade-down" trapFocus>
         <Div
           css={{
             background: 'gainsboro',

@@ -1,0 +1,39 @@
+{
+  "name": "@maker-ui/transition",
+  "description": "A Maker UI React Transition Group wrapper",
+  "version": "1.2.0",
+  "license": "Apache-2.0",
+  "author": "Mike Darche <mike@newcreative.io>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "@maker-ui/css": "workspace:*",
+    "@maker-ui/primitives": "workspace:*",
+    "@maker-ui/utils": "workspace:*",
+    "react-transition-group": "^4.4.2"
+  },
+  "devDependencies": {
+    "@types/react-transition-group": "^4.4.4",
+    "eslint": "7.32.0",
+    "eslint-preset": "workspace:*",
+    "tsconfig": "workspace:*",
+    "tsup": "^5.12.0",
+    "typescript": "^4.6.2"
+  }
+}

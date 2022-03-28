@@ -12,7 +12,7 @@
   "dependencies": {
     "gatsby": "^4.9.3",
     "gatsby-plugin-layout": "^3.9.0",
-    "maker-ui": "1.2.0",
+    "maker-ui": "workspace:*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

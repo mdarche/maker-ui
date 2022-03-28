@@ -6,13 +6,13 @@ const labelStyles: StyleObject = {
   },
   '.label-top-right': {
     flexDirection: 'column',
-    '.form-label': {
+    '.field-label': {
       textAlign: 'right',
     },
   },
   '.label-top-center': {
     flexDirection: 'column',
-    '.form-label': {
+    '.field-label': {
       textAlign: 'center',
     },
   },
@@ -21,13 +21,13 @@ const labelStyles: StyleObject = {
   },
   '.label-bottom-center': {
     flexDirection: 'column',
-    '.form-label': {
+    '.field-label': {
       textAlign: 'center',
     },
   },
   '.label-bottom-right': {
     flexDirection: 'column',
-    '.form-label': {
+    '.field-label': {
       textAlign: 'right',
     },
   },
@@ -40,38 +40,41 @@ const labelStyles: StyleObject = {
     },
   },
   '.label-floating': {},
-  '.form-label': {},
+  '.field-label': {},
 }
 
 // TODO - Cover all label / error combinations where there might be a position conflict
 
 const errorStyles: StyleObject = {
-  '.form-error': {
+  // Field Errors
+  '.field-error': {
     position: 'absolute',
   },
-  '.error-top-right .form-error': { top: 0, right: 0 },
-  '.error-top-right.label-top-right .form-error': {
+  '.error-top-right .field-error': { top: 0, right: 0 },
+  '.error-top-right.label-top-right .field-error': {
     top: 'initial',
     bottom: '100%',
   },
-  '.error-top-left .form-error': { top: 0, left: 0 },
-  '.error-top-left.label-top-left .form-error': {
+  '.error-top-left .field-error': { top: 0, left: 0 },
+  '.error-top-left.label-top-left .field-error': {
     top: 'initial',
     bottom: '100%',
   },
-  '.error-top-center .form-error': {
+  '.error-top-center .field-error': {
     top: 0,
     left: '50%',
     transform: 'translateX(-50%)',
   },
-  '.error-top-center.label-top-center .form-error': { bottom: '100%' },
-  '.error-bottom-right .form-error': { top: '100%', right: 0 },
-  '.error-bottom-left .form-error': { top: '100%', left: 0 },
-  '.error-bottom-center .form-error': {
+  '.error-top-center.label-top-center .field-error': { bottom: '100%' },
+  '.error-bottom-right .field-error': { top: '100%', right: 0 },
+  '.error-bottom-left .field-error': { top: '100%', left: 0 },
+  '.error-bottom-center .field-error': {
     top: '100%',
     left: '50%',
     transform: 'translateX(-50%)',
   },
+  // Form Error
+  '.form-main-error': {},
 }
 
 const validationStyles: StyleObject = {

@@ -4,6 +4,7 @@ import { type FileValidations, validateFile } from './helper'
 import type { ImagePickerState, Action, DropzoneSettings } from './ImagePicker'
 
 interface DragAndDropProps {
+  inputId?: string
   data: ImagePickerState
   isHoverPreview?: boolean
   settings: DropzoneSettings
@@ -19,14 +20,15 @@ interface DragAndDropProps {
  */
 export const DragAndDrop = ({
   data,
+  inputId: customInputId,
   dispatch,
   setErrors,
   fileValidations,
   isHoverPreview = false,
   settings,
-  cy = 'image-picker',
+  cy,
 }: DragAndDropProps) => {
-  const [inputId] = useState(generateId())
+  const [inputId] = useState(customInputId || generateId())
   const dropArea = isHoverPreview ? 'preview' : 'dropzone'
 
   /**

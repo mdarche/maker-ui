@@ -1,25 +1,23 @@
 import * as React from 'react'
-import { FieldProps } from '../types'
+import type { FieldProps } from '../types'
 
 interface LabelProps {
   id: FieldProps['id']
   name: FieldProps['name']
   children: FieldProps['label']
   type: FieldProps['type']
-  position: FieldProps['labelStyle']
-  top?: boolean
 }
 
-const nonLabelFields = ['radio']
+const nonLabelFields = ['']
 
 export const Label = ({ id, name, children, type }: LabelProps) => {
-  if (nonLabelFields.includes(type)) {
+  if (nonLabelFields.includes(type) || !children) {
     return null
   }
 
-  if (type === 'checkbox') {
+  if (type === 'checkbox' || type === 'radio') {
     return (
-      <div id={`${name}-group`} className="form-label">
+      <div id={`${name}-group`} className="field-label form-label">
         {children}
       </div>
     )
@@ -27,14 +25,14 @@ export const Label = ({ id, name, children, type }: LabelProps) => {
 
   if (type === 'switch') {
     return (
-      <div id={`${name}-label`} className="form-label">
+      <div id={`${name}-label`} className="field-label form-label">
         {children}
       </div>
     )
   }
 
   return (
-    <label htmlFor={id} className="form-label">
+    <label htmlFor={id || name} className="field-label form-label">
       {children}
     </label>
   )

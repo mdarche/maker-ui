@@ -5,14 +5,24 @@ import { type MakerProps, type ResponsiveScale, Global } from '@maker-ui/css'
 import { merge } from '@maker-ui/utils'
 import * as Yup from 'yup'
 
-import { ValidateIcon } from './Icons'
-import { FieldProps, FormValues, FormHelpers } from './types'
-import { styles } from './styles/position'
+import { ValidateIcon } from '../Icons'
+import type {
+  FieldProps,
+  FormValues,
+  FormHelpers,
+  AutoSaveSettings,
+} from '../types'
+import { styles } from '../styles/position'
 
-interface Settings {
-  validateOnBlur: boolean
-  validateOnChange: boolean
-  validateIcon: React.ReactNode
+export interface FormSettings {
+  /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
+  validateFieldOnBlur: boolean
+  /** Validates all fields when an input is blurred  */
+  validateFormOnBlur: boolean
+  /** Validates all fields when an input changes */
+  validateFormOnChange: boolean
+  validateIcon: React.ReactElement
+  // submitFormOnChange: boolean TODO
   columns: string | string[] | number
   gap: ResponsiveScale
   pages: number
@@ -21,13 +31,16 @@ interface Settings {
   labelStyle: FieldProps['labelStyle']
   errorStyle: FieldProps['errorStyle']
   disableSubmit: boolean
+  autoSave: boolean | AutoSaveSettings
 }
 
 export interface FormState {
   currentPage: number
-  settings: Partial<Settings>
+  settings: Partial<FormSettings>
   fields?: FieldProps[]
   pageFields: { [key: string]: { name: string; required?: boolean }[] }
+  success?: boolean
+  error?: boolean | string
 }
 
 export interface FormProviderProps extends MakerProps {
@@ -47,12 +60,16 @@ export interface FormProviderProps extends MakerProps {
    * const allFields = [...firstPageFields, ...secondPageFields]
    */
   fields: FieldProps[]
-  /** Forwards access to the Formik `validationSchema` prop for Yup validation. See for details:
-   * @link https://formik.org/docs/guides/validation
+  /** Submission handler that gives you access to all form values as well as Formik actions
+   * @link https://formik.org/docs/guides/form-submission
    */
   onSubmit: (values: any, actions: FormHelpers) => void | Promise<any>
   /** A settings configuration object for global form settings*/
-  settings?: Partial<Settings>
+  settings?: Partial<FormSettings>
+  /** An optional error boolean that will toggle the Form.Error component if true*/
+  error?: boolean
+  /** An optional success boolean that will toggle the Form.Success component if true*/
+  success?: boolean
 }
 
 function getInitialValue(type: FieldProps['type']) {
@@ -62,6 +79,10 @@ function getInitialValue(type: FieldProps['type']) {
     : type === 'switch'
     ? false
     : type === 'checkbox'
+    ? []
+    : type === 'image-picker'
+    ? null
+    : type === 'select'
     ? []
     : ''
 }
@@ -79,18 +100,18 @@ export const FormProvider = ({
   validationSchema,
   settings = {},
   fields,
+  success,
+  error,
   children,
   css,
   breakpoints,
   ...props
 }: FormProviderProps) => {
-  // let datepicker = false
+  const mergedSettings = merge(initialState.settings, settings)
+
   /* Calculate initial values via fields */
   let values: Partial<FormValues> = {}
   fields.forEach(({ type, name, initialValue }) => {
-    // if (type === 'datepicker') {
-    //   datepicker = true
-    // }
     return type !== 'divider'
       ? (values[name] = initialValue || getInitialValue(type))
       : undefined
@@ -105,19 +126,20 @@ export const FormProvider = ({
   const FormSchema =
     Object.keys(schema).length !== 0 ? Yup.object().shape(schema) : undefined
 
-  // TODO - Add form style classes to Global
-  // - Check for datepicker
-
   return (
-    <MakerForm fields={fields} settings={settings as Settings}>
+    <MakerForm
+      fields={fields}
+      success={success}
+      error={error}
+      settings={mergedSettings}>
       {/* {datepicker ? <Global styles={{}} /> : null} */}
       <Global styles={{ ...(styles as object) }} />
       <Formik
         initialValues={values}
         onSubmit={onSubmit}
         validationSchema={validationSchema || FormSchema}
-        validateOnBlur={settings?.validateOnBlur}
-        validateOnChange={settings?.validateOnChange}>
+        validateOnBlur={mergedSettings.validateFormOnBlur}
+        validateOnChange={mergedSettings.validateFormOnChange}>
         <Div
           className="form-wrapper"
           breakpoints={breakpoints}
@@ -125,7 +147,7 @@ export const FormProvider = ({
             'input::placeholder, input:-ms-input-placeholder, textarea::placeholder, textarea:-ms-input-placeholder':
               {
                 opacity: 1,
-                color: settings?.placeholderColor || '#b7b7b7',
+                color: mergedSettings.placeholderColor,
               },
             ...(css as object),
           }}
@@ -156,47 +178,61 @@ const initialState: FormState = {
     labelStyle: 'top-left',
     errorStyle: 'bottom-right',
     validateIcon: <ValidateIcon />,
-    validateOnChange: false,
-    validateOnBlur: true,
+    validateFormOnChange: false,
+    validateFormOnBlur: true,
+    validateFieldOnBlur: true,
     disableSubmit: false,
+    autoSave: false,
   },
 }
-const FormContext = React.createContext<FormState>(initialState)
-const FormUpdateContext = React.createContext<
-  React.Dispatch<React.SetStateAction<FormState>>
->(() => {})
+const FormContext = React.createContext<{
+  state: FormState
+  setState: React.Dispatch<React.SetStateAction<FormState>>
+}>({ state: initialState, setState: (a) => {} })
 
 const MakerForm = ({
   children,
   fields,
   settings,
+  success = false,
+  error = false,
 }: {
   children: React.ReactNode
   fields: FieldProps[]
-  settings: Settings
+  settings: FormSettings
+  success?: boolean
+  error?: boolean
 }) => {
   const [state, setState] = React.useState<FormState>({
     ...initialState,
+    success,
+    error,
     fields,
   })
 
   React.useEffect(() => {
-    setState((s) => ({ ...s, settings: merge(s.settings, settings), fields }))
+    setState((s) => ({ ...s, settings, fields }))
   }, [settings, fields])
 
+  React.useEffect(() => {
+    if (success || error) {
+      setState({ ...state, error, success })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, error])
+
   return (
-    <FormContext.Provider value={state}>
-      <FormUpdateContext.Provider value={setState}>
-        {children}
-      </FormUpdateContext.Provider>
+    <FormContext.Provider value={{ state, setState }}>
+      {children}
     </FormContext.Provider>
   )
 }
 
 export function useForm() {
-  const { fields, settings, currentPage, pageFields } =
-    React.useContext(FormContext)
-  const setState = React.useContext(FormUpdateContext)
+  const {
+    state: { fields, settings, currentPage, pageFields, success, error },
+    setState,
+  } = React.useContext(FormContext)
 
   function setPage(page: 'next' | 'prev' | number) {
     if (currentPage > 0 && page === 'prev') {
@@ -209,7 +245,7 @@ export function useForm() {
   }
 
   function updateSettings(
-    newSettings: Partial<Settings>,
+    newSettings: Partial<FormSettings>,
     mergeSettings = true
   ) {
     setState((s) => ({
@@ -228,6 +264,8 @@ export function useForm() {
   return {
     settings,
     fields,
+    success,
+    error,
     currentPage,
     setPage,
     pageFields,

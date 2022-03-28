@@ -27,12 +27,6 @@ Maker UI helps you design accessible, responsive apps that can be customized in 
 npm i maker-ui
 ```
 
-or
-
-```sh
-yarn maker-ui
-```
-
 Maker UI uses a configuration object to build complex layouts in seconds. Your custom configuration determines how each layout should behave and appear.
 
 See the documentation for more details on setting up your project.

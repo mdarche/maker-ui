@@ -23,9 +23,9 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/primitives": "1.2.0",
-    "@maker-ui/utils": "1.2.0",
-    "react-transition-group": "^4.4.2"
+    "@maker-ui/primitives": "workspace:*",
+    "@maker-ui/transition": "workspace:*",
+    "@maker-ui/utils": "workspace:*"
   },
   "peerDependencies": {
     "react": "^16.x || ^17.x",
@@ -33,8 +33,8 @@
   },
   "devDependencies": {
     "eslint": "7.32.0",
-    "eslint-preset": "*",
-    "tsconfig": "*",
+    "eslint-preset": "workspace:*",
+    "tsconfig": "workspace:*",
     "tsup": "^5.12.0",
     "typescript": "^4.6.2"
   }
