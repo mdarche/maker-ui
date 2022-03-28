@@ -3,4 +3,4 @@
 '@maker-ui/tabs': patch
 ---
 
-Remove double context provider patterns and simplify
+Remove double context provider patterns

@@ -243,6 +243,7 @@ importers:
   packages/forms:
     specifiers:
       '@maker-ui/css': workspace:*
+      '@maker-ui/loaders': workspace:*
       '@maker-ui/primitives': workspace:*
       '@maker-ui/transition': workspace:*
       '@maker-ui/utils': workspace:*
@@ -256,6 +257,7 @@ importers:
       yup: ^0.32.9
     dependencies:
       '@maker-ui/css': link:../css
+      '@maker-ui/loaders': link:../loaders
       '@maker-ui/primitives': link:../primitives
       '@maker-ui/transition': link:../transition
       '@maker-ui/utils': link:../utils
@@ -316,7 +318,6 @@ importers:
 
   packages/layout:
     specifiers:
-      '@emotion/react': ^11.7.1
       '@juggle/resize-observer': ^3.3.1
       '@maker-ui/css': workspace:*
       '@maker-ui/primitives': workspace:*
@@ -327,7 +328,6 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.6.2
     dependencies:
-      '@emotion/react': 11.8.2_793d1b9407fde722ee2b77b8e29baf07
       '@juggle/resize-observer': 3.3.1
       '@maker-ui/css': link:../css
       '@maker-ui/primitives': link:../primitives

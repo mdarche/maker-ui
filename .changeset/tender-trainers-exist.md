@@ -2,6 +2,7 @@
 '@maker-ui/forms': patch
 ---
 
+Add react-select for select and multi-select inputs
 Add autosave form and field settings
 Add @maker-ui/loaders and @maker-ui/transition as dependencies
 Use @maker-ui/transition to dynamically reveal Form.Success component
