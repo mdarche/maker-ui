@@ -292,6 +292,7 @@ importers:
       '@maker-ui/primitives': workspace:*
       '@maker-ui/utils': workspace:*
       '@types/lodash.debounce': ^4.0.6
+      '@use-gesture/react': ^10.2.10
       eslint: 7.32.0
       eslint-preset: workspace:*
       gsap: ^3.9.1
@@ -304,6 +305,7 @@ importers:
       '@maker-ui/layout': link:../layout
       '@maker-ui/primitives': link:../primitives
       '@maker-ui/utils': link:../utils
+      '@use-gesture/react': 10.2.10_react@17.0.2
       lodash.debounce: 4.0.8
     devDependencies:
       '@types/lodash.debounce': 4.0.6
@@ -4087,6 +4089,19 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.16.0
       eslint-visitor-keys: 3.3.0
+    dev: false
+
+  /@use-gesture/core/10.2.10:
+    resolution: {integrity: sha512-7WFIDfeTB+7RBui8YOrB2xbgmvMsvaCDjyzrdvECKkgOpIynNSdhlLXjiFuqQMtnK71IL/9WNZNU0P8xuaLuUQ==}
+    dev: false
+
+  /@use-gesture/react/10.2.10_react@17.0.2:
+    resolution: {integrity: sha512-znChnKVAMMGXD9J7fCKN686BJNBlUJaRtCu92IQXVWdcxg4MqS0SgsBslGnTWXTlsHVkg5zcGjKYf7qYkOf0Rg==}
+    peerDependencies:
+      react: '>= 16.8.0'
+    dependencies:
+      '@use-gesture/core': 10.2.10
+      react: 17.0.2
     dev: false
 
   /@webassemblyjs/ast/1.11.1:
