@@ -1,0 +1,56 @@
+"use strict";
+
+var _extends = require("@babel/runtime/helpers/extends"), createSerializer = require("./create-serializer-dc032909.cjs.prod.js"), enzymeToJson = require("enzyme-to-json");
+
+function _interopDefault(e) {
+  return e && e.__esModule ? e : {
+    default: e
+  };
+}
+
+var _extends__default = _interopDefault(_extends), enzymeToJsonSerializer = enzymeToJson.createSerializer({
+  map: function(json) {
+    return "string" == typeof json.node.type ? json : json.node.type.__emotion_real === json.node.type ? _extends__default.default({}, json, {
+      children: json.children.slice(-1)
+    }) : json;
+  }
+}), getUnrenderedElement = function(shallowWrapper) {
+  var elementValues = Object.getOwnPropertySymbols(shallowWrapper).filter((function(sym) {
+    var val = shallowWrapper[sym];
+    return !!val && val.$$typeof === Symbol.for("react.element");
+  }));
+  if (1 !== elementValues.length) throw new Error("Could not get unrendered element reliably from the Enzyme's ShallowWrapper. This is a bug in Emotion - please open an issue with repro steps included:\nhttps://github.com/emotion-js/emotion/issues/new?assignees=&labels=bug%2C+needs+triage&template=--bug-report.md&title=");
+  return shallowWrapper[elementValues[0]];
+}, wrappedEnzymeSerializer = {
+  test: enzymeToJsonSerializer.test,
+  print: function(enzymeWrapper, printer) {
+    if (!!enzymeWrapper.dive && enzymeWrapper.root() === enzymeWrapper) {
+      var unrendered = getUnrenderedElement(enzymeWrapper);
+      if (createSerializer.isEmotionCssPropElementType(unrendered) || createSerializer.isStyledElementType(unrendered)) return enzymeToJsonSerializer.print(createSerializer.unwrapFromPotentialFragment(enzymeWrapper), printer);
+    }
+    return enzymeToJsonSerializer.print(enzymeWrapper, printer);
+  }
+};
+
+function createEnzymeSerializer(_temp) {
+  var _ref = void 0 === _temp ? {} : _temp, classNameReplacer = _ref.classNameReplacer, _ref$DOMElements = _ref.DOMElements, DOMElements = void 0 === _ref$DOMElements || _ref$DOMElements, emotionSerializer = createSerializer.createSerializer({
+    classNameReplacer: classNameReplacer,
+    DOMElements: DOMElements
+  });
+  return {
+    test: function(node) {
+      return wrappedEnzymeSerializer.test(node) || emotionSerializer.test(node);
+    },
+    serialize: function(node, config, indentation, depth, refs, printer) {
+      if (wrappedEnzymeSerializer.test(node)) {
+        var tickled = createSerializer.tickle(node);
+        return wrappedEnzymeSerializer.print(tickled, (function(valChild) {
+          return printer(valChild, config, indentation, depth, refs);
+        }));
+      }
+      return emotionSerializer.serialize(node, config, indentation, depth, refs, printer);
+    }
+  };
+}
+
+exports.createEnzymeSerializer = createEnzymeSerializer;

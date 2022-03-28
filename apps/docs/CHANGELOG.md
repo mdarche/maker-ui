@@ -1,5 +1,14 @@
 # docs
 
+## 1.1.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - maker-ui@1.2.1
+  - @maker-ui/elements@1.2.1
+  - @maker-ui/toc@1.2.1
+
 ## 1.1.3
 
 ### Patch Changes
