@@ -17,8 +17,8 @@
     "cy:headless": "cypress run",
     "cy:unit": "cypress open-ct",
     "cy:unit:headless": "cypress run-ct",
+    "postinstall": "pnpm build",
     "changeset": "changeset",
-    "prerelease": "pnpm build",
     "release": "changeset publish"
   },
   "workspaces": [

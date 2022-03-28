@@ -1,5 +1,5 @@
 import * as React from 'react'
-import merge from 'deepmerge'
+import { merge } from '@maker-ui/utils'
 
 import { MakerOptions, MakerUIOptions } from '../types'
 import { defaultOptions } from '../options'

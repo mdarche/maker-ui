@@ -5,7 +5,7 @@ on:
       - main
 env:
   CI: true
-  PNPM_CACHE_FOLDER: .pnpm-store
+  PNPM_CACHE_FOLDER: .pnpm/cache
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
       - name: setup pnpm config
         run: pnpm config set store-dir $PNPM_CACHE_FOLDER
 
-      - name: Install Dependencies
+      - name: Install Dependencies and Build Packages
         run: pnpm install
 
       - name: Create Release PR or Publish to npm
