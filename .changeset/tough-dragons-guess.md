@@ -1,6 +1,5 @@
 ---
-'@maker-ui/popovers': patch
+'@maker-ui/modal': patch
 ---
 
-Add blur click handler to close dropdown menu.
 Use @maker-ui/transition to replace React Transition Group dependency
