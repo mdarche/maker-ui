@@ -1,5 +1,21 @@
 # e2e
 
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies [[`ccf46c28`](https://github.com/mdarche/maker-ui/commit/ccf46c28e765c8aee76ace7107640af9b13f65f9)]:
+  - @maker-ui/accordion@1.2.2
+  - @maker-ui/forms@1.2.2
+  - @maker-ui/generative@1.2.2
+  - @maker-ui/gsap@1.2.2
+  - @maker-ui/lightbox@1.2.2
+  - @maker-ui/loaders@1.2.2
+  - maker-ui@1.2.2
+  - @maker-ui/modal@1.2.2
+  - @maker-ui/notifications@1.2.2
+  - @maker-ui/tabs@1.2.2
+
 ## 1.1.4
 
 ### Patch Changes

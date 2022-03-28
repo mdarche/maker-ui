@@ -1,5 +1,16 @@
 # @maker-ui/notifications
 
+## 1.2.2
+
+### Patch Changes
+
+- [#71](https://github.com/mdarche/maker-ui/pull/71) [`ccf46c28`](https://github.com/mdarche/maker-ui/commit/ccf46c28e765c8aee76ace7107640af9b13f65f9) Thanks [@mdarche](https://github.com/mdarche)! - Fix build workflow and publish script
+
+- Updated dependencies [[`ccf46c28`](https://github.com/mdarche/maker-ui/commit/ccf46c28e765c8aee76ace7107640af9b13f65f9)]:
+  - @maker-ui/css@1.2.2
+  - @maker-ui/primitives@1.2.2
+  - @maker-ui/utils@1.2.2
+
 ## 1.2.1
 
 ### Patch Changes
