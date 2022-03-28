@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/utils",
   "description": "Utility functions and react hooks that are used throughout Maker UI libraries",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",

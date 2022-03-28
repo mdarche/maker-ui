@@ -1,5 +1,14 @@
 # @maker-ui/css
 
+## 1.2.1
+
+### Patch Changes
+
+- [#66](https://github.com/mdarche/maker-ui/pull/66) [`ccfb069e`](https://github.com/mdarche/maker-ui/commit/ccfb069e0fd1fd40b61514b62dd959269886b3e3) Thanks [@mdarche](https://github.com/mdarche)! - Export Emotion Theme type and ThemeProvider component
+
+- Updated dependencies [[`ccfb069e`](https://github.com/mdarche/maker-ui/commit/ccfb069e0fd1fd40b61514b62dd959269886b3e3)]:
+  - @maker-ui/utils@1.2.1
+
 ## 1.2.0
 
 ### Minor Changes

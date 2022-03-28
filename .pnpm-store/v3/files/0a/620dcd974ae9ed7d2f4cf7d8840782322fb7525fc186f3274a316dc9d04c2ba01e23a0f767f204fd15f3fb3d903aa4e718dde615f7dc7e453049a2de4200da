@@ -1,0 +1,36 @@
+{
+    "name": "@types/lodash.debounce",
+    "version": "4.0.6",
+    "description": "TypeScript definitions for lodash.debounce",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Brian Zengel",
+            "url": "https://github.com/bczengel",
+            "githubUsername": "bczengel"
+        },
+        {
+            "name": "Ilya Mochalov",
+            "url": "https://github.com/chrootsu",
+            "githubUsername": "chrootsu"
+        },
+        {
+            "name": "Stepan Mikhaylyuk",
+            "url": "https://github.com/stepancar",
+            "githubUsername": "stepancar"
+        }
+    ],
+    "main": "",
+    "types": "index",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/lodash.debounce"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/lodash": "*"
+    },
+    "typesPublisherContentHash": "798c2774a109ad91652dd1986f1cc20ef3b1640051a7e67683aecbc7565ced7a",
+    "typeScriptVersion": "2.8"
+}
