@@ -17,29 +17,29 @@
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
-  "peerDependencies": {
-    "gsap": "^3.9.1"
-  },
-  "devDependencies": {
-    "@types/lodash.debounce": "^4.0.6",
-    "eslint": "7.32.0",
-    "eslint-preset": "*",
-    "gsap": "^3.9.1",
-    "tsconfig": "*",
-    "tsup": "^5.12.0",
-    "typescript": "^4.6.2"
-  },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
-    "@maker-ui/css": "1.2.0",
-    "@maker-ui/layout": "1.2.0",
-    "@maker-ui/primitives": "1.2.0",
-    "@maker-ui/utils": "1.2.0",
+    "@maker-ui/css": "workspace:*",
+    "@maker-ui/layout": "workspace:*",
+    "@maker-ui/primitives": "workspace:*",
+    "@maker-ui/utils": "workspace:*",
     "lodash.debounce": "^4.0.8"
+  },
+  "peerDependencies": {
+    "gsap": "^3.9.1"
   },
   "peerDependenciesMeta": {
     "maker-ui": {
       "optional": true
     }
+  },
+  "devDependencies": {
+    "@types/lodash.debounce": "^4.0.6",
+    "eslint": "7.32.0",
+    "eslint-preset": "workspace:*",
+    "gsap": "^3.9.1",
+    "tsconfig": "workspace:*",
+    "tsup": "^5.12.0",
+    "typescript": "^4.6.2"
   }
 }

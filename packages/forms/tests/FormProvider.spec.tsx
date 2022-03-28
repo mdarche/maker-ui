@@ -71,26 +71,26 @@ describe('FormProvider', () => {
   it('validates fields on blur by default with validateOnBlur setting for Formik provider', () => {
     mount(<TestForm />)
     cy.get('[type=text]').click().blur().wait(100)
-    cy.get('.form-error').should('exist')
+    cy.get('.field-error').should('exist')
   })
 
   it('overrides the validateOnBlur setting for Formik provider', () => {
     mount(<TestForm settings={{ validateOnBlur: false }} />)
     cy.get('[type=text]').click().blur().wait(100)
-    cy.get('.form-error').should('not.exist')
+    cy.get('.field-error').should('not.exist')
   })
 
   it('does not validate field onChange by default', () => {
     mount(<TestForm />)
     cy.get('[type=text]').type('m')
-    cy.get('.form-error').should('not.exist')
+    cy.get('.field-error').should('not.exist')
   })
 
   it('validates field onChange via validateOnChange setting for Formik provider', () => {
     mount(<TestForm settings={{ validateOnChange: true }} />)
-    cy.get('.form-error').should('not.exist')
+    cy.get('.field-error').should('not.exist')
     cy.get('[type=text]').type('m')
-    cy.get('.form-error').should('exist')
+    cy.get('.field-error').should('exist')
   })
 
   it('renders a custom field validate icon', () => {
@@ -147,6 +147,6 @@ describe('FormProvider', () => {
       />
     )
     cy.get('[data-cy=submit]').click()
-    cy.get('.form-error').should('have.length', 1)
+    cy.get('.field-error').should('have.length', 1)
   })
 })

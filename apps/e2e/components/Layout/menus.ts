@@ -16,6 +16,8 @@ export const primary_menu: MakerMenu = [
       { label: 'Tabs', path: '/tabs' },
       { label: 'Table of Contents', path: '/toc' },
       { label: 'Lightbox', path: '/lightbox' },
+      { label: 'Loaders', path: '/loaders' },
+      { label: 'Transition', path: '/transition' },
     ],
   },
   {

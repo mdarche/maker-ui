@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Div } from '@maker-ui/primitives'
 import { mergeSelectors } from '@maker-ui/utils'
 import type { MakerProps } from '@maker-ui/css'
@@ -84,17 +84,37 @@ export const Dropdown = ({
     onClick: () => (controls ? controls[1](!controls[0]) : set(!show)),
   }
 
-  // React.useEffect(() => {
-  //   if (controls && controls[0] !== show) {
-  //     set(controls[0])
-  //   }
-  // }, [controls])
+  /**
+   * Create / remove a click handler to detect when the user clicks outside of the
+   * dropdown menu (if active)
+   */
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        closeOnBlur &&
+        dropdownRef.current &&
+        // @ts-ignore
+        !dropdownRef.current.contains(event.target) &&
+        // @ts-ignore
+        !buttonRef.current.contains(event.target)
+      ) {
+        return controls ? controls[1](false) : set(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [closeOnBlur, controls])
 
   return (
     <Div
       id={id}
       className={mergeSelectors(['dropdown', className])}
-      css={{ display: 'inline-block', ...(_css as object) }}>
+      css={{
+        display: 'inline-block',
+        ...(_css as object),
+      }}>
       {typeof button === 'function' ? (
         button(controls ? controls[0] : show, buttonAttributes)
       ) : (

@@ -11,6 +11,9 @@ import { CSSTransition } from 'react-transition-group'
 import { ErrorIcon, SaveIcon, SuccessIcon, InfoIcon } from './icons'
 import styles from './ToastProvider.styles'
 
+// TODO - Stack multiple toasts and push older ones up
+// TODO - Allow custom component template via provider or for an individual toast
+
 interface ToastState {
   /** An boolean that indicates if the toast message is active */
   active: boolean

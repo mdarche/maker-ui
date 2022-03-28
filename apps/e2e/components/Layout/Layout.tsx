@@ -6,6 +6,7 @@ import {
   Content,
   Main,
   Footer,
+  SideNav,
 } from 'maker-ui'
 import { useRouter } from 'next/router'
 
@@ -33,9 +34,13 @@ export const Layout = ({ children }: LayoutProps) => {
         <Navbar logo={<Logo />} menu={primary_menu} />
         <MobileMenu menu={mobile_menu} pathname={asPath} />
       </Header>
-      <Content>
-        <Main>{children}</Main>
-      </Content>
+      {asPath.includes('/forms') ? (
+        children
+      ) : (
+        <Content>
+          <Main>{children}</Main>
+        </Content>
+      )}
       <Footer>copyright</Footer>
     </MakerLayout>
   )

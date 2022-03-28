@@ -1,75 +1,116 @@
-import * as React from 'react'
-import { Field as FormikField } from 'formik'
-import type { FieldSettings, InputProps } from '../types'
-
-interface OptionProps {
-  settings: FieldSettings<'select'>
-  datalist?: boolean
-  name?: string
-}
-
-interface OptionWrapperProps {
-  children: React.ReactNode
-  wrapper?: boolean
-  name?: string
-}
-
-const OptionWrapper = ({ wrapper, name, children }: OptionWrapperProps) =>
-  wrapper ? (
-    <datalist id={`list-${name}`}>{children}</datalist>
-  ) : (
-    <>{children}</>
-  )
-
-export const OptionList = ({
-  settings,
-  name,
-  datalist = false,
-}: OptionProps) => {
-  return settings ? (
-    <OptionWrapper name={name} wrapper={datalist}>
-      {settings.options.map(({ id, className, label, value }, index) => (
-        <option key={index} id={id} className={className} value={value}>
-          {label}
-        </option>
-      ))}
-    </OptionWrapper>
-  ) : null
-}
+import React, { useState } from 'react'
+import { useField } from 'formik'
+import { default as ReactSelect } from 'react-select'
+import { default as CreatableSelect } from 'react-select/creatable'
+import type { InputProps, SelectSettings } from '../types'
+import { merge } from '@maker-ui/utils'
 
 interface SelectProps extends InputProps {
-  settings: FieldSettings<'select'>
+  settings: SelectSettings
+  onBlur?: () => void
 }
+
+const creatableInputProps = {
+  components: { DropdownIndicator: null },
+  isMulti: true,
+  isClearable: true,
+  menuIsOpen: false,
+}
+
+const defaults = {
+  isCreatable: false,
+  isCreatableInput: false,
+  isSearchable: true,
+  isClearable: true,
+  isMulti: false,
+  classNamePrefix: 'maker-ui',
+}
+
+const createOption = (label: string) => ({
+  label,
+  value: label,
+})
+
+// TODO CY prop does not work
 
 export const Select = ({
   id,
-  type,
   name,
   hasError,
   settings,
-  firstTouch,
-  setFirstTouch,
+  onBlur,
   cy,
 }: SelectProps) => {
-  return (
-    <>
-      <FormikField
-        id={id}
-        onFocus={() => (!firstTouch ? setFirstTouch(true) : undefined)}
-        onClick={() => (!firstTouch ? setFirstTouch(true) : undefined)}
-        as={type === 'select' ? 'select' : 'input'}
-        name={name}
-        data-cy={cy}
-        className={hasError ? 'error' : undefined}
-        list={type === 'select-datalist' ? `list-${name}` : undefined}
-        type={type !== 'select-datalist' ? 'select' : undefined}>
-        {type === 'select' ? (
-          <OptionList name={name} settings={settings} />
-        ) : null}
-      </FormikField>
-      {type === 'select-datalist' ? (
-        <OptionList name={name} settings={settings} datalist />
-      ) : null}
-    </>
+  const [state, setState] = useState({
+    inputValue: '',
+    value: [] as { label: string; value: string }[],
+  })
+  const mergedProps: SelectSettings = merge(defaults, {
+    ...merge(settings, settings.isCreatableInput ? creatableInputProps : {}),
+  })
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [field, meta, { setValue, setTouched }] = useField(name)
+
+  function handleChange(value?: any) {
+    if (settings.isCreatableInput) {
+      setState({ value, inputValue: '' })
+      if (onBlur) {
+        setValue(value)
+      }
+    } else {
+      setValue(value)
+    }
+  }
+
+  function handleInputChange(inputValue: string) {
+    setState({ ...state, inputValue })
+  }
+
+  function handleBlur() {
+    setTouched(true)
+    // Handle autosave
+    if (onBlur) {
+      onBlur()
+    }
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent) {
+    const { inputValue, value } = state
+    if (!inputValue) return
+    switch (event.key) {
+      case 'Enter':
+      case 'Tab':
+        const newValue = [...(value || []), createOption(inputValue)]
+        setState({
+          inputValue: '',
+          value: newValue,
+        })
+        setValue(newValue)
+        event.preventDefault()
+    }
+  }
+
+  const attributes = {
+    inputId: id,
+    name,
+    className: hasError ? 'error' : undefined,
+    onChange: handleChange,
+    onBlur: handleBlur,
+    ...mergedProps,
+    ...(settings.isCreatableInput
+      ? {
+          onKeyDown: handleKeyDown,
+          onInputChange: handleInputChange,
+          inputValue: state.inputValue,
+          value: state.value,
+        }
+      : undefined),
+  }
+
+  return settings.isCreatable || settings.isCreatableInput ? (
+    <CreatableSelect {...attributes} />
+  ) : (
+    <ReactSelect {...attributes} />
   )
 }

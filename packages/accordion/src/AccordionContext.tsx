@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { createContext, useEffect, useState, useContext } from 'react'
 import { AccordionProps } from './Accordion'
 
 interface AccordionContextProps extends AccordionProps {
@@ -9,10 +9,10 @@ interface AccordionState extends Omit<AccordionProps, 'children'> {
   panelKeys: string[]
 }
 
-const AccordionDataContext = React.createContext<Partial<AccordionState>>({})
-const AccordionUpdateContext = React.createContext<
-  React.Dispatch<React.SetStateAction<AccordionState>>
->(() => {})
+const AccordionDataContext = createContext<{
+  state: Partial<AccordionState>
+  setState: React.Dispatch<React.SetStateAction<AccordionState>>
+}>({ state: { panelKeys: [] }, setState: (b) => {} })
 
 /**
  * Use the `Accordion` component to build and customize collapsible accordions.
@@ -28,7 +28,7 @@ export const AccordionContext = ({
   animate,
   children,
 }: AccordionContextProps) => {
-  const [state, setState] = React.useState<AccordionState>({
+  const [state, setState] = useState<AccordionState>({
     activeKey,
     panelKeys: [],
     icon,
@@ -37,15 +37,13 @@ export const AccordionContext = ({
     animate,
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     setState((state) => ({ ...state, activeKey }))
   }, [activeKey])
 
   return (
-    <AccordionDataContext.Provider value={state}>
-      <AccordionUpdateContext.Provider value={setState}>
-        {children}
-      </AccordionUpdateContext.Provider>
+    <AccordionDataContext.Provider value={{ state, setState }}>
+      {children}
     </AccordionDataContext.Provider>
   )
 }
@@ -53,8 +51,7 @@ export const AccordionContext = ({
 AccordionContext.displayName = 'AccordionContext'
 
 export function useAccordion() {
-  const state = React.useContext(AccordionDataContext)
-  const setState = React.useContext(AccordionUpdateContext)
+  const { state, setState } = useContext(AccordionDataContext)
 
   if (typeof state === undefined) {
     throw new Error('Panel must be used within an Accordion component')

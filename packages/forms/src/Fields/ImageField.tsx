@@ -12,19 +12,13 @@ export const ImageField = ({
   name,
   settings,
   hasError,
-  firstTouch,
-  setFirstTouch,
   cy,
   ...props
 }: ImageFieldProps) => {
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)
   const { isSubmitting } = useFormikContext()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [field, { touched }, { setValue, setTouched }] = useField({
-    ...props,
-    name,
-    type: 'file',
-  })
+  const [field, { touched }, { setValue, setTouched }] = useField(name)
 
   useEffect(() => {
     if (!touched && isSubmitting) {
@@ -35,9 +29,6 @@ export const ImageField = ({
 
   useEffect(() => {
     setValue(imageFile)
-    if (imageFile) {
-      setFirstTouch(true)
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageFile, name])
 

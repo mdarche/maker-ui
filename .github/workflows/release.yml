@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+env:
+  CI: true
+  PNPM_CACHE_FOLDER: .pnpm-store
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -17,13 +20,24 @@ jobs:
         with:
           version: 14.x
 
-      - name: Install Dependencies
-        run: yarn
+      - name: Install pnpm
+        run: npm i pnpm@latest -g
 
-      - name: Create Release Pull Request or Publish to npm
+      - name: Setup npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+
+      - name: setup pnpm config
+        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Create Release PR or Publish to npm
         uses: changesets/action@master
         with:
-          publish: yarn release
+          commit: 'chore: update versions'
+          title: 'chore: update versions'
+          publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

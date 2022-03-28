@@ -33,7 +33,6 @@ export interface FocusConfig {
  *
  * @internal
  */
-
 export function useFocus({ containerRef, focusRef, show }: FocusConfig) {
   const [focusable, setFocusable] = useState<FocusState>({
     count: 0,
