@@ -1,0 +1,15 @@
+{
+  "name": "@next/mdx",
+  "version": "10.2.3",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "url": "vercel/next.js",
+    "directory": "packages/next-mdx"
+  },
+  "peerDependencies": {
+    "@mdx-js/loader": ">=0.15.0",
+    "@mdx-js/react": "*"
+  },
+  "gitHead": "4f32a03ffa4902a91292d2266ec5f73b8e2b5384"
+}

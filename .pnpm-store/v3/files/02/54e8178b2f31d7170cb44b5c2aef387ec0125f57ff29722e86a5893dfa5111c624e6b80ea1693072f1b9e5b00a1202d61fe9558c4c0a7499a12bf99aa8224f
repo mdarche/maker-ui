@@ -1,0 +1,81 @@
+declare type MaybeUndefined<T> = T | undefined;
+declare type MaybePromise<T> = T | Promise<T>;
+declare type Changefreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+export interface IRobotPolicy {
+    userAgent: string;
+    disallow?: string | string[];
+    allow?: string | string[];
+}
+export interface IRobotsTxt {
+    policies?: IRobotPolicy[];
+    additionalSitemaps?: string[];
+}
+export interface IConfig {
+    siteUrl: string;
+    changefreq: Changefreq;
+    priority: any;
+    sitemapBaseFileName?: string;
+    sourceDir?: string;
+    outDir?: string;
+    sitemapSize?: number;
+    generateRobotsTxt: boolean;
+    robotsTxtOptions?: IRobotsTxt;
+    autoLastmod?: boolean;
+    exclude?: string[];
+    alternateRefs?: Array<AlternateRef>;
+    transform?: (config: IConfig, url: string) => MaybePromise<MaybeUndefined<ISitemapField>>;
+    additionalPaths?: (config: AdditionalPathsConfig) => MaybePromise<MaybeUndefined<ISitemapField>[]>;
+    trailingSlash?: boolean;
+}
+export declare type AdditionalPathsConfig = Readonly<IConfig & {
+    transform: NonNullable<IConfig['transform']>;
+}>;
+export interface IBuildManifest {
+    pages: {
+        [key: string]: string[];
+    };
+}
+export interface IPreRenderManifest {
+    routes: {
+        [key: string]: any;
+    };
+}
+export interface IRoutesManifest {
+    i18n?: {
+        locales: string[];
+        defaultLocale: string;
+    };
+}
+export interface IExportMarker {
+    exportTrailingSlash: boolean;
+}
+export interface INextManifest {
+    build: IBuildManifest;
+    preRender?: IPreRenderManifest;
+    routes?: IRoutesManifest;
+}
+export interface ISitemapChunk {
+    path: string;
+    fields: ISitemapField[];
+    filename: string;
+}
+export interface IRuntimePaths {
+    BUILD_MANIFEST: string;
+    PRERENDER_MANIFEST: string;
+    ROUTES_MANIFEST: string;
+    SITEMAP_FILE: string;
+    ROBOTS_TXT_FILE: string;
+    EXPORT_MARKER: string;
+}
+export declare type AlternateRef = {
+    href: string;
+    hreflang: string;
+};
+export declare type ISitemapField = {
+    loc: string;
+    lastmod?: string;
+    changefreq?: Changefreq;
+    priority?: number;
+    alternateRefs?: Array<AlternateRef>;
+};
+export {};

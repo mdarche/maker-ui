@@ -1,5 +1,12 @@
 # @maker-ui/primitives
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`48f8316`](https://github.com/mdarche/maker-ui/commit/48f8316fe34c1726df86b3dc4bb9fb01529559fc)]:
+  - @maker-ui/css@1.2.1
+
 ## 1.2.0
 
 ### Patch Changes

@@ -1,0 +1,108 @@
+{
+  "name": "@cypress/browserify-preprocessor",
+  "version": "3.0.2",
+  "description": "Cypress preprocessor for bundling JavaScript via browserify",
+  "scripts": {
+    "ban": "ban",
+    "deps": "deps-ok && dependency-check --no-dev .",
+    "license": "license-checker --production --onlyunknown --csv",
+    "lint": "eslint --fix '*.js' 'test/unit/*.js' 'test/e2e/*.js'",
+    "precommit": "npm run lint",
+    "secure": "nsp check",
+    "semantic-release": "semantic-release",
+    "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
+    "pretest": "npm run lint",
+    "test": "npm run test-unit && npm run test-e2e",
+    "test-debug": "node --inspect --debug-brk ./node_modules/.bin/_mocha",
+    "test-e2e": "mocha test/e2e/*.js",
+    "test-unit": "mocha test/unit/*.js",
+    "test-watch": "chokidar '*.js' 'test/unit/*.js' -c 'npm run test-unit'"
+  },
+  "dependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/runtime": "^7.16.0",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "babelify": "^10.0.0",
+    "bluebird": "^3.7.2",
+    "browserify": "^16.2.3",
+    "coffeeify": "^3.0.1",
+    "coffeescript": "^1.12.7",
+    "debug": "^4.3.2",
+    "fs-extra": "^9.0.0",
+    "lodash.clonedeep": "^4.5.0",
+    "through2": "^2.0.0",
+    "watchify": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cypress/eslint-plugin-dev": "^5.1.0",
+    "ban-sensitive-files": "^1.9.16",
+    "chai": "^4.3.4",
+    "chokidar-cli": "^2.1.0",
+    "dependency-check": "^4.1.0",
+    "deps-ok": "^1.4.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-json-format": "^2.0.1",
+    "eslint-plugin-mocha": "^6.3.0",
+    "husky": "^7.0.4",
+    "license-checker": "^25.0.1",
+    "mocha": "^5.2.0",
+    "mockery": "^2.1.0",
+    "nsp": "^3.2.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "semantic-release": "^17.2.3",
+    "sinon": "^7.2.3",
+    "sinon-chai": "^3.7.0",
+    "snap-shot-it": "^7.9.6",
+    "typescript": "^3.8.3"
+  },
+  "files": [
+    "*.js",
+    "lib/*.js"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cypress-io/cypress-browserify-preprocessor.git"
+  },
+  "homepage": "https://github.com/cypress-io/cypress-browserify-preprocessor#readme",
+  "author": "Chris Breiding <chris@cypress.io>",
+  "bugs": "https://github.com/cypress-io/cypress-browserify-preprocessor/issues",
+  "keywords": [
+    "cypress",
+    "browserify",
+    "cypress-plugin",
+    "cypress-preprocessor"
+  ],
+  "release": {
+    "analyzeCommits": {
+      "preset": "angular",
+      "releaseRules": [
+        {
+          "type": "break",
+          "release": "major"
+        },
+        {
+          "type": "major",
+          "release": "major"
+        },
+        {
+          "type": "minor",
+          "release": "minor"
+        },
+        {
+          "type": "patch",
+          "release": "patch"
+        }
+      ]
+    }
+  }
+}
