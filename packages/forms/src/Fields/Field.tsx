@@ -75,6 +75,7 @@ export const Field = (props: FieldComponentProps) => {
     breakpoints,
     autoSave,
     component,
+    placeholder,
     cy,
   } = props
 
@@ -107,6 +108,7 @@ export const Field = (props: FieldComponentProps) => {
     cy,
     hasError,
     settings,
+    placeholder,
     ...saveOnBlur,
   }
 

@@ -31,6 +31,7 @@ const testFields: FieldProps[] = [
     name: 'username',
     label: 'Your Username',
     type: 'text',
+    placeholder: 'Placeholder text',
     initialValue: '',
     validation: Yup.string().required('Required'),
     colSpan: 1,

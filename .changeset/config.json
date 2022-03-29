@@ -2,7 +2,9 @@
   "$schema": "https://unpkg.com/@changesets/config@1.7.0/schema.json",
   "changelog": ["@changesets/changelog-github", { "repo": "mdarche/maker-ui" }],
   "commit": false,
-  "fixed": [["maker-ui", "@maker-ui/*"]],
+  "fixed": [
+    ["maker-ui", "@maker-ui/css", "@maker-ui/utils", "@maker-ui/primitives"]
+  ],
   "linked": [],
   "access": "public",
   "baseBranch": "main",

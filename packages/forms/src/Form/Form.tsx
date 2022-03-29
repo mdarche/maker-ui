@@ -43,7 +43,8 @@ export const Form = ({
 
   useEffect(() => {
     setComponents(sortChildren(children))
-  }, [children])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <ConditionalWrapper
