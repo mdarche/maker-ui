@@ -38,7 +38,7 @@ export interface AutoSaveSettings {
  * https://stackoverflow.com/questions/56949513/typescript-type-of-a-property-dependent-on-another-property-within-the-same-obj
  */
 
-type FieldType =
+export type FieldType =
   | 'divider'
   | 'text'
   | 'textarea'
@@ -132,6 +132,21 @@ export type FieldSettings<T> = T extends 'text'
   : T extends 'image-picker'
   ? Omit<ImagePickerProps, 'setFile' | 'setFiles'>
   : undefined
+
+export type CompareOperator =
+  | 'eq'
+  | 'ne'
+  | 'gt'
+  | 'lt'
+  | 'contains'
+  | 'exists'
+  | 'notExists'
+
+export interface Condition {
+  field: string
+  compare: CompareOperator
+  target?: any
+}
 
 export interface FieldProps {
   /** Unique identifier for the field (required)*/
