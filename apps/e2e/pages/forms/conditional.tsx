@@ -8,7 +8,6 @@ const testFields: FieldProps[] = [
     label: 'Your Username',
     type: 'text',
     placeholder: 'Placeholder text',
-    initialValue: '',
     validation: Yup.string().required('Required'),
     colSpan: 1,
   },
@@ -16,7 +15,6 @@ const testFields: FieldProps[] = [
     name: 'pass',
     label: 'Your Password',
     type: 'password',
-    initialValue: '',
     placeholder: 'Password',
     // validation: Yup.string().required('Required'),
     settings: {
@@ -29,8 +27,6 @@ const testFields: FieldProps[] = [
     name: 'myrange',
     label: 'My Range',
     type: 'range',
-    autoSave: true,
-    initialValue: 0,
     colSpan: 1,
     // autoSave: true,
   },
@@ -38,7 +34,6 @@ const testFields: FieldProps[] = [
     name: 'myCheck',
     label: 'My Checkbox',
     type: 'checkbox',
-    initialValue: '',
     colSpan: 1,
     settings: {
       options: [
@@ -62,7 +57,6 @@ const testFields: FieldProps[] = [
     name: 'myRadio',
     label: 'My Radio',
     type: 'radio',
-    initialValue: '',
     settings: {
       options: [
         { label: 'Option 1', value: '1' },

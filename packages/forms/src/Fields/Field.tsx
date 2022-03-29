@@ -189,9 +189,10 @@ export const Field = (props: FieldComponentProps) => {
     )
   }
 
-  // Return and ensure the field is supposed to be visible
-  return !conditions ||
-    evaluateConditions(conditions, values as object, fieldArray) ? (
+  const shouldRender =
+    !conditions || evaluateConditions(conditions, values as object, fieldArray)
+
+  return shouldRender ? (
     <Flex
       key={id}
       breakpoints={breakpoints}
