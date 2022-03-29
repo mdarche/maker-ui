@@ -1,4 +1,6 @@
 const styles = {
+  display: 'flex',
+  position: 'fixed',
   left: 50,
   bottom: 50,
   zIndex: 1000,

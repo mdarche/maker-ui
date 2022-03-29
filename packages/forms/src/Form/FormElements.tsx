@@ -1,6 +1,6 @@
+import React, { forwardRef } from 'react'
 import { Div, type DivProps } from '@maker-ui/primitives'
 import { mergeSelectors } from '@maker-ui/utils'
-import React, { forwardRef } from 'react'
 
 export const FormSuccess = forwardRef<HTMLDivElement, DivProps>(
   ({ className, ...props }, ref) => (

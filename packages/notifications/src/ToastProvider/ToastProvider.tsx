@@ -1,18 +1,13 @@
-import { Div, mergeSelectors } from 'maker-ui'
-import React, {
-  useReducer,
-  createContext,
-  useEffect,
-  useContext,
-  useRef,
-} from 'react'
-import { CSSTransition } from 'react-transition-group'
+/* eslint-disable no-unused-vars */
+import React, { useReducer, createContext, useEffect, useContext } from 'react'
+import { mergeSelectors } from '@maker-ui/utils'
+import { CSSTransition } from '@maker-ui/transition'
 
 import { ErrorIcon, SaveIcon, SuccessIcon, InfoIcon } from './icons'
 import styles from './ToastProvider.styles'
 
 // TODO - Stack multiple toasts and push older ones up
-// TODO - Allow custom component template via provider or for an individual toast
+// TODO - Create settings config for Provider that specifies colors / icons / toast position / custom template
 
 interface ToastState {
   /** An boolean that indicates if the toast message is active */
@@ -32,7 +27,7 @@ type Action = {
 
 const ToastContext = createContext<{
   state: Partial<ToastState>
-  dispatch: (action: Action) => void
+  dispatch: (a: Action) => void
 }>({ state: {}, dispatch: (a) => {} })
 
 /**
@@ -95,7 +90,6 @@ function toastReducer(state: ToastState, action: Action): ToastState {
  * @prop {React.ReactNode} children a React child node
  */
 export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
-  const ref = useRef(null)
   const [state, dispatch] = useReducer(toastReducer, {
     active: false,
     type: 'SUCCESS',
@@ -108,9 +102,11 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
    */
   useEffect(() => {
     if (state.active) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         dispatch({ type: 'HIDDEN' })
       }, 3000)
+
+      return () => clearInterval(timer)
     }
   }, [state.active])
 
@@ -118,17 +114,14 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
     <ToastContext.Provider value={{ state, dispatch }}>
       {children}
       <CSSTransition
-        nodeRef={ref}
-        classNames="toast-animate"
-        in={state.active}
-        timeout={300}
-        unmountOnExit>
-        <Div ref={ref} id="toast-container" className="flex fixed" css={styles}>
-          <div className={mergeSelectors(['toast', state.type])}>
-            {state.icon as React.ReactElement}
-            <span>{state.message}</span>
-          </div>
-        </Div>
+        className="toast-animate"
+        show={state.active}
+        containerProps={{ id: 'toast-container' }}
+        css={styles}>
+        <div className={mergeSelectors(['toast', state.type])}>
+          {state.icon as React.ReactElement}
+          <span>{state.message}</span>
+        </div>
       </CSSTransition>
     </ToastContext.Provider>
   )
