@@ -3,7 +3,13 @@
   "changelog": ["@changesets/changelog-github", { "repo": "mdarche/maker-ui" }],
   "commit": false,
   "fixed": [
-    ["maker-ui", "@maker-ui/css", "@maker-ui/utils", "@maker-ui/primitives"]
+    [
+      "maker-ui",
+      "@maker-ui/css",
+      "@maker-ui/layout",
+      "@maker-ui/utils",
+      "@maker-ui/primitives"
+    ]
   ],
   "linked": [],
   "access": "public",
