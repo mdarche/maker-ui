@@ -1,16 +1,16 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { Fragment } from 'react'
+import { Form as FormikForm } from 'formik'
 import { Grid } from '@maker-ui/primitives'
 import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
 import { ConditionalWrapper } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
-import { Form as FormikForm } from 'formik'
 
 import { Page, Progress, PageButton } from '../Pagination'
 import { Field } from '../Fields'
 import { FormProvider, useForm } from './FormProvider'
 import { SubmitButton } from './SubmitButton'
 import { FormError, FormSuccess, FormFooter, FormHeader } from './FormElements'
-import { type NestedComponents, defaultComponents, sortChildren } from './utils'
+import { sortChildren } from './utils'
 
 export interface FormProps
   extends React.HTMLAttributes<HTMLFormElement>,
@@ -36,15 +36,9 @@ export const Form = ({
   ...props
 }: FormProps) => {
   const { fields, settings, success, error } = useForm()
-  const [components, setComponents] =
-    useState<NestedComponents>(defaultComponents)
   const col = columns || settings.columns
   const gridCol = typeof col === 'number' ? ['1fr', `repeat(${col}, 1fr)`] : col
-
-  useEffect(() => {
-    setComponents(sortChildren(children))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const components = sortChildren(children)
 
   return (
     <ConditionalWrapper
@@ -55,7 +49,7 @@ export const Form = ({
         </CSSTransition>
       )}>
       <FormikForm id={id} className={className} {...props}>
-        {components.formHeader}
+        {components.formHeader || null}
         {fields ? (
           <Grid
             className="form-grid"
@@ -71,9 +65,9 @@ export const Form = ({
         {components.formChildren?.map((child, i) => (
           <Fragment key={i}>{child}</Fragment>
         ))}
-        {components.formSubmit}
+        {components.formSubmit || null}
         {error ? components.formError : null}
-        {components.formFooter}
+        {components.formFooter || null}
       </FormikForm>
     </ConditionalWrapper>
   )

@@ -18,7 +18,7 @@ export const defaultComponents: NestedComponents = {
   formChildren: [],
 }
 
-export function sortChildren(children: React.ReactNode) {
+export function sortChildren(children: React.ReactNode): NestedComponents {
   let order = defaultComponents
   React.Children.forEach(children, (child, i) => {
     if (

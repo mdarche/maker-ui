@@ -32,14 +32,8 @@ export const SubmitButton = React.forwardRef<
 
   const hasErrors = Object.keys(errors).length ? true : false
 
-  function renderLifecycle() {
-    if (lifecycle) {
-      if (isSubmitting) {
-        return lifecycle.submitting
-      }
-    }
-    return children
-  }
+  const renderLifecycle = () =>
+    lifecycle && isSubmitting ? lifecycle.submitting : children
 
   return (
     <Button

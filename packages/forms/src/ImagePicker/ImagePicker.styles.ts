@@ -41,7 +41,7 @@ const styles: StyleObject = {
   },
   '.drag-active': { background: 'var(--color-gray_300)' },
   '.icon-upload': {
-    fill: 'var(--color-gray_400)',
+    fill: 'var(--color-text)',
     height: 45,
     marginBottom: 10,
   },

@@ -140,7 +140,7 @@ export default function FormsPage() {
   const [formSubmission, setFormSubmission] = useState<object>({})
   function onSubmitForm(values: object, setSubmitting: (b: boolean) => void) {
     setTimeout(() => {
-      setSuccess(true)
+      setError(true)
       setSubmitting(false)
     }, 1000)
     setFormSubmission(values)
@@ -150,8 +150,12 @@ export default function FormsPage() {
   return (
     <>
       <Content>
-        <SideNav>
-          <ControlPanel sendProps={setFormProps} />
+        <SideNav
+          _css={{
+            padding: '10px 25px 40px',
+            borderRight: '1px solid var(--color-border)',
+          }}>
+          <ControlPanel />
         </SideNav>
         <Main>
           <Section css={{ padding: '50px 0' }}>
@@ -168,7 +172,7 @@ export default function FormsPage() {
                 <Form.Submit>Submit</Form.Submit>
                 <Form.Error>There was an error</Form.Error>
                 <Form.Footer>Form Footer</Form.Footer>
-                {/* <Form.Success>Successful Form</Form.Success> */}
+                <Form.Success>We did it!</Form.Success>
               </Form>
             </Form.Provider>
           </Section>

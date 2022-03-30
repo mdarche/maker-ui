@@ -36,7 +36,7 @@ export const Switch = ({
   hasError,
   ...props
 }: SwitchProps) => {
-  const [field, { value }] = useField(name)
+  const [field, { value }, { setValue }] = useField(name)
   const config = merge(defaultSettings, settings)
 
   const padding = config.padding as number
@@ -48,6 +48,8 @@ export const Switch = ({
     if (e.code !== 'Space') return
     e.preventDefault()
   }
+
+  console.log('Current Switch value is', value)
 
   return (
     <Div
@@ -98,8 +100,10 @@ export const Switch = ({
         <input
           id={id || name}
           type="checkbox"
+          name={name}
           data-cy={cy}
-          {...field}
+          value={value}
+          onClick={() => setValue(!value)}
           {...props}
           disabled={config.disabled}
         />

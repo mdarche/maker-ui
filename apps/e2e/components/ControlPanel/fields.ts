@@ -18,54 +18,25 @@ export const defaultFormProps: Partial<FormSettings> = {
 export const getFields = (settings: Partial<FormSettings>): FieldProps[] => {
   return [
     {
+      name: 'divider',
+      label: 'Form Layout',
+      type: 'divider',
+    },
+    {
       name: 'columns',
-      label: 'columns',
+      label: 'Columns',
+      description: 'columns',
       type: 'number',
       initialValue: settings.columns,
       colSpan: 1,
     },
     {
       name: 'gap',
-      label: 'gap',
+      label: 'Gap',
+      description: 'gap',
       type: 'number',
       initialValue: settings.gap,
       colSpan: 1,
-    },
-    // {
-    //   name: 'submitFormOnBlur',
-    //   label: 'validateFieldOnBlur',
-    //   type: 'switch',
-    //   initialValue: settings.validateFieldOnBlur,
-    // },
-    {
-      name: 'validateFieldOnBlur',
-      label: 'validateFieldOnBlur',
-      type: 'switch',
-      initialValue: settings.validateFieldOnBlur,
-    },
-    {
-      name: 'validateFormOnChange',
-      label: 'validateFormOnChange',
-      type: 'switch',
-      initialValue: settings.validateFormOnChange,
-    },
-    {
-      name: 'validateFormOnBlur',
-      label: 'validateFormOnBlur',
-      type: 'switch',
-      initialValue: settings.validateFormOnBlur,
-    },
-    {
-      name: 'disableSubmit',
-      label: 'disableSubmit',
-      type: 'switch',
-      initialValue: settings.disableSubmit,
-    },
-    {
-      name: 'autoSave',
-      label: 'autoSave',
-      type: 'switch',
-      initialValue: settings.autoSave,
     },
     {
       name: 'labelStyle',
@@ -73,6 +44,7 @@ export const getFields = (settings: Partial<FormSettings>): FieldProps[] => {
       type: 'select',
       initialValue: settings.labelStyle,
       settings: {
+        isMulti: true,
         options: [
           { label: 'Top Right', value: 'top-right' },
           { label: 'Top Left', value: 'top-left' },
@@ -85,8 +57,68 @@ export const getFields = (settings: Partial<FormSettings>): FieldProps[] => {
           { label: 'Floating', value: 'floating' },
         ],
       },
-      colSpan: 1,
     },
+    // {
+    //   name: 'submitFormOnBlur',
+    //   label: 'validateFieldOnBlur',
+    //   type: 'switch',
+    //   initialValue: settings.validateFieldOnBlur,
+    // },
+    {
+      name: 'divider',
+      label: 'Validation',
+      type: 'divider',
+    },
+    {
+      name: 'validateFieldOnBlur',
+      label: 'Validate Field - Blur',
+      description: 'validateFieldOnBlur',
+      type: 'switch',
+      initialValue: settings.validateFieldOnBlur,
+      settings: {
+        style: 'circle',
+      },
+    },
+    {
+      name: 'validateFormOnChange',
+      label: 'Validate Form - Input Change',
+      description: 'validateFormOnChange',
+      type: 'switch',
+      initialValue: settings.validateFormOnChange,
+      settings: {
+        style: 'circle',
+      },
+    },
+    {
+      name: 'validateFormOnBlur',
+      label: 'Validate Form - Blur',
+      description: 'validateFormOnBlur',
+      type: 'switch',
+      initialValue: settings.validateFormOnBlur,
+      settings: {
+        style: 'circle',
+      },
+    },
+    {
+      name: 'disableSubmit',
+      label: 'Disable Submit Button',
+      description: 'disableSubmit',
+      type: 'switch',
+      initialValue: settings.disableSubmit,
+      settings: {
+        style: 'circle',
+      },
+    },
+    {
+      name: 'autoSave',
+      label: 'autoSave',
+      type: 'switch',
+      initialValue: settings.autoSave,
+      settings: {
+        style: 'circle',
+      },
+    },
+
     // {
     //   name: 'errorStyle',
     //   label: 'errorStyle',
