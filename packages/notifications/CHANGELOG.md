@@ -1,5 +1,11 @@
 # @maker-ui/notifications
 
+## 1.3.0
+
+### Minor Changes
+
+- [#73](https://github.com/mdarche/maker-ui/pull/73) [`ae578077`](https://github.com/mdarche/maker-ui/commit/ae578077c0ba58000d06f43c6094e8cda6ebfe10) Thanks [@mdarche](https://github.com/mdarche)! - - Export ToastProvider and useToast hook
+
 ## 1.2.2
 
 ### Patch Changes
