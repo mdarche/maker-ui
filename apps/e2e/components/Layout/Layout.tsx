@@ -41,7 +41,6 @@ export const Layout = ({ children }: LayoutProps) => {
           <Main>{children}</Main>
         </Content>
       )}
-      <Footer>copyright</Footer>
     </MakerLayout>
   )
 }

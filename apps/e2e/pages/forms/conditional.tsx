@@ -1,30 +1,6 @@
-import { Content, Main, Section, SideNav } from 'maker-ui'
-import {
-  Form,
-  type FieldProps,
-  Yup,
-  useField,
-  FormSettings,
-} from '@maker-ui/forms'
+import { Content, Main, Section } from 'maker-ui'
+import { Form, type FieldProps, Yup } from '@maker-ui/forms'
 import { useState } from 'react'
-import { ControlPanel, defaultFormProps } from '../../components/ControlPanel'
-
-export const MyCustomComponent = () => {
-  const [field, meta, { setValue }] = useField('customComponent')
-  return (
-    <>
-      <button type="button" onClick={() => setValue('value 1')}>
-        Value 1
-      </button>
-      <button type="button" onClick={() => setValue('value 2')}>
-        Value 2
-      </button>
-      <button type="button" onClick={() => setValue('value 3')}>
-        Value 3
-      </button>
-    </>
-  )
-}
 
 const testFields: FieldProps[] = [
   {
@@ -32,29 +8,25 @@ const testFields: FieldProps[] = [
     label: 'Your Username',
     type: 'text',
     placeholder: 'Placeholder text',
-    initialValue: '',
     validation: Yup.string().required('Required'),
     colSpan: 1,
-    autoSave: true,
   },
   {
     name: 'pass',
     label: 'Your Password',
     type: 'password',
-    initialValue: '',
+    placeholder: 'Password',
     // validation: Yup.string().required('Required'),
-    colSpan: 1,
     settings: {
       toggleCharacters: true,
     },
-    autoSave: true,
+    colSpan: 1,
+    conditions: [[{ field: 'username', compare: 'eq', target: 'John' }]],
   },
   {
     name: 'myrange',
     label: 'My Range',
     type: 'range',
-    autoSave: true,
-    initialValue: 0,
     colSpan: 1,
     // autoSave: true,
   },
@@ -62,7 +34,6 @@ const testFields: FieldProps[] = [
     name: 'myCheck',
     label: 'My Checkbox',
     type: 'checkbox',
-    initialValue: '',
     colSpan: 1,
     settings: {
       options: [
@@ -86,7 +57,6 @@ const testFields: FieldProps[] = [
     name: 'myRadio',
     label: 'My Radio',
     type: 'radio',
-    initialValue: '',
     settings: {
       options: [
         { label: 'Option 1', value: '1' },
@@ -97,14 +67,29 @@ const testFields: FieldProps[] = [
     colSpan: 1,
   },
   {
-    name: 'select',
-    id: 'mySelect',
-    label: 'Pick an option',
+    name: 'singleSelect',
+    id: 'Single Select',
+    label: 'Pick one option',
     type: 'select',
     initialValue: [],
     // autoSave: true,
     settings: {
       // isCreatableInput: true,
+      placeholder: 'Select',
+      options: [
+        { label: 'Yes', value: 'yes' },
+        { label: 'No', value: 'no' },
+        { label: 'Maybe So', value: 'maybe-so' },
+      ],
+    },
+  },
+  {
+    name: 'multiSelect',
+    id: 'Multi Select',
+    label: 'Pick many options',
+    type: 'select',
+    initialValue: [],
+    settings: {
       isMulti: true,
       placeholder: 'Select',
       options: [
@@ -120,64 +105,60 @@ const testFields: FieldProps[] = [
     label: 'Profile Image',
     type: 'image-picker',
     settings: { inputId: 'testId' },
+    conditions: [
+      [
+        {
+          field: 'singleSelect',
+          compare: 'contains',
+          target: 'no',
+        },
+      ],
+      [
+        {
+          field: 'myCheck',
+          compare: 'contains',
+          target: '1',
+        },
+      ],
+    ],
     // validation: Yup.mixed().required('Required'),
-  },
-  {
-    name: 'customComponent',
-    label: 'A Custom component',
-    type: 'custom',
-    initialValue: '',
-    component: <MyCustomComponent />,
   },
 ]
 
 export default function FormsPage() {
   const [success, setSuccess] = useState(false)
-  const [error, setError] = useState(false)
-  const [formProps, setFormProps] =
-    useState<Partial<FormSettings>>(defaultFormProps)
+  const [error] = useState(false)
 
-  const [formSubmission, setFormSubmission] = useState<object>({})
+  // eslint-disable-next-line no-unused-vars
   function onSubmitForm(values: object, setSubmitting: (b: boolean) => void) {
+    console.log(values)
     setTimeout(() => {
-      setError(true)
+      setSuccess(true)
       setSubmitting(false)
     }, 1000)
-    setFormSubmission(values)
   }
 
-  console.log('FormProps are', formProps)
   return (
     <>
       <Content>
-        <SideNav
-          _css={{
-            padding: '10px 25px 40px',
-            borderRight: '1px solid var(--color-border)',
-          }}>
-          <ControlPanel />
-        </SideNav>
         <Main>
           <Section css={{ padding: '50px 0' }}>
             <Form.Provider
               success={success}
               error={error}
               fields={testFields}
-              settings={formProps}
+              settings={{}}
               onSubmit={(vals, { setSubmitting }) => {
                 onSubmitForm(vals, setSubmitting)
               }}>
-              <Form>
+              <Form columns={2}>
                 <Form.Header>Form Header</Form.Header>
                 <Form.Submit>Submit</Form.Submit>
                 <Form.Error>There was an error</Form.Error>
                 <Form.Footer>Form Footer</Form.Footer>
-                <Form.Success>We did it!</Form.Success>
+                {/* <Form.Success>Successful Form</Form.Success> */}
               </Form>
             </Form.Provider>
-          </Section>
-          <Section css={{ padding: '50px 0' }}>
-            {JSON.stringify(formSubmission, null, ' ')}
           </Section>
         </Main>
       </Content>

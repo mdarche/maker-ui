@@ -36,7 +36,7 @@ export const Switch = ({
   hasError,
   ...props
 }: SwitchProps) => {
-  const [field, meta] = useField(name)
+  const [field, { value }, { setValue }] = useField(name)
   const config = merge(defaultSettings, settings)
 
   const padding = config.padding as number
@@ -49,9 +49,11 @@ export const Switch = ({
     e.preventDefault()
   }
 
+  console.log('Current Switch value is', value)
+
   return (
     <Div
-      className={mergeSelectors(['switch', meta.value ? 'active' : ''])}
+      className={mergeSelectors(['switch', value ? 'active' : ''])}
       aria-labelledby={`${name}-label`}
       css={merge(
         {
@@ -98,8 +100,10 @@ export const Switch = ({
         <input
           id={id || name}
           type="checkbox"
+          name={name}
           data-cy={cy}
-          {...field}
+          value={value}
+          onClick={() => setValue(!value)}
           {...props}
           disabled={config.disabled}
         />
@@ -110,10 +114,7 @@ export const Switch = ({
           </>
         ) : null}
         <div
-          className={mergeSelectors([
-            'switch-slider',
-            meta.value ? 'on' : 'off',
-          ])}
+          className={mergeSelectors(['switch-slider', value ? 'on' : 'off'])}
         />
       </label>
     </Div>

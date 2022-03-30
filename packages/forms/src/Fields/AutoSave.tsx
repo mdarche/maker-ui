@@ -38,16 +38,18 @@ export const AutoSave = ({
 
     // Show failure or success status
     if (!isSubmitting && status === 'active') {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setStatus(formError ? 'error' : 'success')
       }, 200)
+      return () => clearTimeout(timer)
     }
 
     // Return to normal status
     if (status === 'error' || status === 'success') {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setStatus('inactive')
       }, settings.timeout)
+      return () => clearTimeout(timer)
     }
   }, [
     error,

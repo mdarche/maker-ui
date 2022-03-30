@@ -8,7 +8,7 @@ module.exports = {
   },
   rules: {
     'react-hooks/exhaustive-deps': 'error',
-    'no-unused-vars': ['error', { varsIgnorePattern: 'field' }],
+    'no-unused-vars': 'off',
   },
   ignorePatterns: ['packages/dist/*', 'dist/*'],
 }

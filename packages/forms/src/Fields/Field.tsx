@@ -23,6 +23,7 @@ import type {
   SelectSettings,
   SwitchSettings,
 } from '../types'
+import { evaluateConditions } from './conditions'
 
 const basicInputs = [
   'text',
@@ -56,8 +57,8 @@ interface FieldComponentProps extends FieldProps {
 }
 
 export const Field = (props: FieldComponentProps) => {
-  const { settings, error: formError } = useForm()
-  const { submitForm } = useFormikContext()
+  const { settings, fields, error: formError } = useForm()
+  const { submitForm, values } = useFormikContext()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [field, { touched, error }] = useField(props.name)
 
@@ -75,9 +76,11 @@ export const Field = (props: FieldComponentProps) => {
     breakpoints,
     autoSave,
     component,
+    placeholder,
+    conditions,
     cy,
   } = props
-
+  const fieldArray = fields?.map(({ name, type }) => ({ name, type }))
   const hasError = settings.validateFieldOnBlur
     ? error && touched
       ? true
@@ -88,7 +91,6 @@ export const Field = (props: FieldComponentProps) => {
 
   const isComplete = !error && touched ? true : false
 
-  // Let's figure out autosave
   const hasAutoSave = autoSave || settings.autoSave
   const autoSaveSettings = () => {
     let local = typeof autoSave === 'boolean' || !autoSave ? {} : autoSave
@@ -107,6 +109,7 @@ export const Field = (props: FieldComponentProps) => {
     cy,
     hasError,
     settings,
+    placeholder: basicInputs.includes(type) ? placeholder : undefined,
     ...saveOnBlur,
   }
 
@@ -186,8 +189,10 @@ export const Field = (props: FieldComponentProps) => {
     )
   }
 
-  // Return the appropriate field
-  return (
+  const shouldRender =
+    !conditions || evaluateConditions(conditions, values as object, fieldArray)
+
+  return shouldRender ? (
     <Flex
       key={id}
       breakpoints={breakpoints}
@@ -231,7 +236,9 @@ export const Field = (props: FieldComponentProps) => {
       ) : null}
       {hasError ? <div className="form-error field-error">{error}</div> : null}
     </Flex>
-  )
+  ) : colSpan ? (
+    <div />
+  ) : null
 }
 
 Field.displayName = 'Field'

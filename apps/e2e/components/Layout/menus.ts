@@ -17,13 +17,17 @@ export const primary_menu: MakerMenu = [
       { label: 'Table of Contents', path: '/toc' },
       { label: 'Lightbox', path: '/lightbox' },
       { label: 'Loaders', path: '/loaders' },
+      { label: 'Toasts', path: '/toasts' },
       { label: 'Transition', path: '/transition' },
     ],
   },
   {
     label: 'Forms',
     path: '/forms',
-    submenu: [{ label: 'ImagePicker', path: '/forms/image-picker' }],
+    submenu: [
+      { label: 'ImagePicker', path: '/forms/image-picker' },
+      { label: 'Conditional', path: '/forms/conditional' },
+    ],
   },
   {
     label: 'GSAP',

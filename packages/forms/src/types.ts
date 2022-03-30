@@ -38,7 +38,7 @@ export interface AutoSaveSettings {
  * https://stackoverflow.com/questions/56949513/typescript-type-of-a-property-dependent-on-another-property-within-the-same-obj
  */
 
-type FieldType =
+export type FieldType =
   | 'divider'
   | 'text'
   | 'textarea'
@@ -133,6 +133,21 @@ export type FieldSettings<T> = T extends 'text'
   ? Omit<ImagePickerProps, 'setFile' | 'setFiles'>
   : undefined
 
+export type CompareOperator =
+  | 'eq'
+  | 'ne'
+  | 'gt'
+  | 'lt'
+  | 'contains'
+  | 'exists'
+  | 'notExists'
+
+export interface Condition {
+  field: string
+  compare: CompareOperator
+  target?: any
+}
+
 export interface FieldProps {
   /** Unique identifier for the field (required)*/
   name: string
@@ -183,6 +198,10 @@ export interface FieldProps {
   colSpan?: number
   /** If true, the field will render a validation icon after onTouch validation */
   showValidation?: boolean
+  /** A nested array of conditions where items from the first array are evaluated as
+   * AND conditions and items from the second array are treated as OR conditions.
+   */
+  conditions?: Array<Condition[]>
   /** If true, blurring this field will cause the form to run its submit handler */
   autoSave?: boolean | AutoSaveSettings
   /** A cypress test selector */
