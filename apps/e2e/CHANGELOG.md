@@ -1,5 +1,13 @@
 # e2e
 
+## 1.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`ae578077`](https://github.com/mdarche/maker-ui/commit/ae578077c0ba58000d06f43c6094e8cda6ebfe10), [`ae578077`](https://github.com/mdarche/maker-ui/commit/ae578077c0ba58000d06f43c6094e8cda6ebfe10)]:
+  - @maker-ui/notifications@1.3.0
+  - @maker-ui/forms@1.3.0
+
 ## 1.1.5
 
 ### Patch Changes
