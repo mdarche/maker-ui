@@ -3,7 +3,7 @@ import { mergeSelectors, merge } from '@maker-ui/utils'
 import { Div } from '@maker-ui/primitives'
 import { type MakerProps, type ResponsiveScale } from '@maker-ui/css'
 
-import { UploadIcon } from './icons'
+import { UploadIcon } from '../Icons'
 import { DragAndDrop } from './DragAndDrop'
 import { FileValidations } from './helper'
 import styles from './ImagePicker.styles'

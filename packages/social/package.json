@@ -24,16 +24,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/primitives": "workspace:*",
-    "@maker-ui/utils": "workspace:*"
-  },
-  "peerDependencies": {
-    "next": "^12.1.4"
-  },
-  "peerDependenciesMeta": {
-    "next": {
-      "optional": true
-    }
+    "@maker-ui/primitives": "workspace:*"
   },
   "devDependencies": {
     "@svgr/cli": "^6.2.1",

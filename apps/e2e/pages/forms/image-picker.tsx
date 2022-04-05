@@ -5,6 +5,7 @@ import { useState } from 'react'
 export default function ImagePickerPage() {
   const [file, setFile] = useState<File | undefined>(undefined)
 
+  // Need to return processed file url
   console.log('File is', file)
   return (
     <Section css={{ padding: '50px 20px' }}>
