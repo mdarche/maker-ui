@@ -1,5 +1,12 @@
 # @maker-ui/elements
 
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`ae578077`](https://github.com/mdarche/maker-ui/commit/ae578077c0ba58000d06f43c6094e8cda6ebfe10)]:
+  - @maker-ui/notifications@1.3.0
+
 ## 1.2.2
 
 ### Patch Changes

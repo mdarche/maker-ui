@@ -53,7 +53,7 @@ export const Form = ({
         </CSSTransition>
       )}>
       <FormikForm id={id} className={className} {...props}>
-        {components.formHeader}
+        {components.formHeader || null}
         {fields ? (
           <Grid
             className="form-grid"
@@ -69,9 +69,9 @@ export const Form = ({
         {components.formChildren?.map((child, i) => (
           <Fragment key={i}>{child}</Fragment>
         ))}
-        {components.formSubmit}
+        {components.formSubmit || null}
         {error ? components.formError : null}
-        {components.formFooter}
+        {components.formFooter || null}
       </FormikForm>
     </ConditionalWrapper>
   )
