@@ -1,5 +1,5 @@
 import { Flex } from 'maker-ui'
-import { TableofContents as MakerToc } from '@maker-ui/toc'
+import { TableOfContents as MakerToc } from '@maker-ui/toc'
 
 import { ContentIcon } from './Icons'
 
