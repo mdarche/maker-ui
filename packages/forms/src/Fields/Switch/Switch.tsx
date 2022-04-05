@@ -36,6 +36,7 @@ export const Switch = ({
   hasError,
   ...props
 }: SwitchProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [field, { value }, { setValue }] = useField(name)
   const config = merge(defaultSettings, settings)
 

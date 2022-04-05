@@ -65,7 +65,7 @@ export default function TabsPage() {
         <Tabs.Panel title="Title 4">
           <a href="/test">Test</a>
         </Tabs.Panel>
-        <Tabs.Panel title="Title 5">Fifth Text</Tabs.Panel>
+        <Tabs.Panel title="Title 5">Fifth</Tabs.Panel>
         <Tabs.Panel title="Title 6">Sixth Text</Tabs.Panel>
       </Tabs>
       <Div css={{ height: [100, 2000] }}>test</Div>

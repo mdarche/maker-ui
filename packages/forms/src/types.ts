@@ -168,9 +168,9 @@ export interface FieldProps {
   /** A custom class selector for the field container*/
   containerClass?: string
   /** The field's label string or React component */
-  label?: string | React.ReactNode
+  label?: React.ReactElement
   /** Additional helper text that will be rendered alongside the field */
-  description?: string
+  description?: React.ReactElement
   /** Placeholder text for all text-based inputs */
   placeholder?: string
   /** A boolean that helps the form identify required fields */

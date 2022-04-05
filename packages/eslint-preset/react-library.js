@@ -7,8 +7,9 @@ module.exports = {
     },
   },
   rules: {
-    'react-hooks/exhaustive-deps': 'error',
+    'react-hooks/exhaustive-deps': ['error'],
     'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
   ignorePatterns: ['packages/dist/*', 'dist/*'],
 }
