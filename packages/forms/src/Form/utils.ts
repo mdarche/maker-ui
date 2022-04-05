@@ -1,3 +1,4 @@
+import { merge } from '@maker-ui/utils'
 import * as React from 'react'
 
 export interface NestedComponents {
@@ -19,7 +20,9 @@ export const defaultComponents: NestedComponents = {
 }
 
 export function sortChildren(children: React.ReactNode): NestedComponents {
-  let order = defaultComponents
+  let sorted: Partial<NestedComponents> = {
+    formChildren: [],
+  }
   React.Children.forEach(children, (child, i) => {
     if (
       React.isValidElement(child) &&
@@ -29,21 +32,21 @@ export function sortChildren(children: React.ReactNode): NestedComponents {
       //@ts-ignore
       switch (child.type.displayName) {
         case 'FormHeader':
-          return (order.formHeader = child)
+          return (sorted.formHeader = child)
         case 'FormFooter':
-          return (order.formFooter = child)
+          return (sorted.formFooter = child)
         case 'FormSuccess':
-          return (order.formSuccess = child)
+          return (sorted.formSuccess = child)
         case 'FormError':
-          return (order.formError = child)
+          return (sorted.formError = child)
         case 'FormSubmit':
-          return (order.formSubmit = child)
+          return (sorted.formSubmit = child)
         default:
-          return order.formChildren.push(child as React.ReactElement)
+          return sorted.formChildren?.push(child as React.ReactElement)
       }
     } else {
-      order.formChildren.push(child as React.ReactElement)
+      sorted.formChildren?.push(child as React.ReactElement)
     }
   })
-  return order
+  return merge(defaultComponents, sorted)
 }

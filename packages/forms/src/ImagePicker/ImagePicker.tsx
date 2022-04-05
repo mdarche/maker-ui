@@ -321,7 +321,10 @@ export const ImagePicker = ({
             ) : null}
           </div>
           {data.fileList[0] || canRemoveImage ? (
-            <button className="btn-remove width-100" onClick={removeImage}>
+            <button
+              type="button"
+              className="btn-remove width-100"
+              onClick={removeImage}>
               Remove Image
             </button>
           ) : null}

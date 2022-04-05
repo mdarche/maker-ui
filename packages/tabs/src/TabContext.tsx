@@ -111,6 +111,7 @@ export function useTabs() {
         activeKey: open ? item.id : state.activeKey,
       }))
     }
+    // TODO - IF EXISTS, UPDATE THE TAB DATA (ie. title)
   }
 
   return { state, setActive, addToTabGroup }

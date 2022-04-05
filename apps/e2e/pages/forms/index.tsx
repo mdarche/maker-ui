@@ -1,4 +1,4 @@
-import { Content, Main, Section, SideNav } from 'maker-ui'
+import { Content, generateId, Main, Section, SideNav } from 'maker-ui'
 import {
   Form,
   type FieldProps,
@@ -145,8 +145,6 @@ export default function FormsPage() {
     }, 1000)
     setFormSubmission(values)
   }
-
-  console.log('FormProps are', formProps)
   return (
     <>
       <Content>

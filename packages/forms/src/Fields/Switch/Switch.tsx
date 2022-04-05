@@ -48,9 +48,6 @@ export const Switch = ({
     if (e.code !== 'Space') return
     e.preventDefault()
   }
-
-  console.log('Current Switch value is', value)
-
   return (
     <Div
       className={mergeSelectors(['switch', value ? 'active' : ''])}
