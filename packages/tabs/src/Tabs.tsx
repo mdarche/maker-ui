@@ -24,6 +24,10 @@ export interface TabGroupProps extends DivProps {
    * @default true
    */
   renderInactive?: boolean
+  /** If true, the tab key and tab key + shift will navigate the tab buttons like the arrow keys.
+   * @default false
+   */
+  tabKeyNavigate?: boolean
   /** An optional button `type` prop that can be used to prevent or activate form submissions
    * if the tabs are used inside of a form element.
    * @default "button"
@@ -34,21 +38,21 @@ export interface TabGroupProps extends DivProps {
 }
 
 /**
- * The `Tabs` component is the root component for building a tab container. It's a local
- * provider that contains the settings for responsive behaviors, positioning, and nested
+ * The root component for building a tab container. The Tabs wrapper component contains
+ * all settings for responsive behaviors, keyboard navigation, positioning, and nested
  * `TabPanel` components.
  *
  * @todo add preset styles
  *
- * @link https://maker-ui.com/docs/elements/tabs
+ * @link https://maker-ui.com/docs/components/tabs
  */
-
 export const Tabs = ({
   activeKey = 0,
   navPosition = 'top',
   overflow = 'stack',
   breakpoints,
   renderInactive = true,
+  tabKeyNavigate = false,
   buttonType = 'button',
   className,
   css,
@@ -58,7 +62,10 @@ export const Tabs = ({
   const isVertical = ['top', 'bottom'].includes(navPosition) ? true : false
 
   return (
-    <TabContext activeKey={activeKey} renderInactive={renderInactive}>
+    <TabContext
+      activeKey={activeKey}
+      renderInactive={renderInactive}
+      tabKeyNavigate={tabKeyNavigate}>
       <Div
         className={mergeSelectors(['tabs-container', className])}
         breakpoints={breakpoints}

@@ -5,6 +5,7 @@ export interface TabContextProps {
   renderInactive?: TabGroupProps['renderInactive']
   activeKey: number | string
   children: React.ReactElement
+  tabKeyNavigate: boolean
 }
 
 export interface TabItem {
@@ -33,12 +34,14 @@ const TabDataContext = React.createContext<{
 export const TabContext = ({
   activeKey,
   renderInactive = false,
+  tabKeyNavigate,
   children,
 }: TabContextProps) => {
   const [state, setState] = React.useState<TabState>({
     activeKey,
     tabs: [],
     renderInactive,
+    tabKeyNavigate,
   })
 
   /**
@@ -105,14 +108,23 @@ export function useTabs() {
     const exists = state.tabs ? state.tabs.find((t) => t.id === item.id) : false
 
     if (!exists) {
-      setState((state) => ({
-        ...state,
-        tabs: [...state.tabs, item],
-        activeKey: open ? item.id : state.activeKey,
+      setState((s) => ({
+        ...s,
+        tabs: [...s.tabs, item],
+        activeKey: open ? item.id : s.activeKey,
       }))
     }
-    // TODO - IF EXISTS, UPDATE THE TAB DATA (ie. title)
   }
 
-  return { state, setActive, addToTabGroup }
+  function updateTab(id: string, item: TabItem) {
+    const index = state.tabs?.findIndex((tab) => id === tab.id)
+
+    if (index !== -1 && state.tabs?.length) {
+      let newTabs = state.tabs
+      newTabs[index as number] = item
+      setState((s) => ({ ...s, tabs: newTabs }))
+    }
+  }
+
+  return { state, setActive, addToTabGroup, updateTab }
 }

@@ -46,13 +46,19 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     const {
       state: { activeKey, renderInactive },
       addToTabGroup,
+      updateTab,
     } = useTabs()
     const tabItem: TabItem = { id, panelId, title, disabled }
 
     React.useEffect(() => {
       addToTabGroup(tabItem, open)
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tabItem, title, open])
+    }, [tabItem, open])
+
+    React.useEffect(() => {
+      updateTab(id, tabItem)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [title])
 
     return renderInactive || activeKey === id ? (
       <Div

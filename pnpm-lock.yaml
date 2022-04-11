@@ -162,7 +162,7 @@ importers:
   packages/css:
     specifiers:
       '@emotion/jest': ^11.1.0
-      '@emotion/react': ^11.7.1
+      '@emotion/react': ^11.8.2
       '@maker-ui/utils': workspace:*
       '@testing-library/dom': ^8.11.3
       '@testing-library/jest-dom': ^5.16.2

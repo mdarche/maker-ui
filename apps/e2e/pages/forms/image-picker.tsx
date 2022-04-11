@@ -9,7 +9,10 @@ export default function ImagePickerPage() {
   console.log('File is', file)
   return (
     <Section css={{ padding: '50px 20px' }}>
-      <ImagePicker setFile={setFile} />
+      <ImagePicker
+        setFile={setFile}
+        removeImageComponent={<strong>Remove</strong>}
+      />
     </Section>
   )
 }
