@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Div, Image } from '@maker-ui/primitives'
+import { Spinner } from '@maker-ui/loaders'
 
 import { useLightbox, LightboxData } from './LightboxContext'
 
@@ -103,7 +104,15 @@ export const Canvas = () => {
         '.description': {
           marginTop: 20,
         },
+        '#media-spinner': {
+          left: '50%',
+          top: '50%',
+          transform: 'translate3d(-50%, -50%, 0)',
+          position: 'absolute',
+          zIndex: -1,
+        },
       }}>
+      <Spinner id="media-spinner" colors={{ primary: '#fff' }} size={50} />
       <MediaFrame item={item} />
       {settings.showInfo && item.title && (
         <div className="lightbox-info">
