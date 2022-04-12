@@ -14,7 +14,6 @@ interface NavButtonProps extends MakerProps {
  *
  * @internal
  */
-
 export const NavButton = ({ type }: NavButtonProps) => {
   const { settings, setIndex } = useLightbox()
   const isNext = type === 'next' ? true : false
@@ -58,7 +57,6 @@ const position = (isNext: boolean) =>
   isNext ? { right: '10px' } : { left: '10px' }
 
 /** Reflect the arrow icon */
-
 const transform = (isNext: boolean) =>
   isNext
     ? { transform: ['translateY(0)', 'translateY(-50%)'] }

@@ -18,9 +18,14 @@ interface MediaFrameProps {
  * @internal
  */
 const MediaFrame = ({
-  item: { src, alt, youtubeId, vimeoId, htmlVideo, poster },
+  item: { src, alt, youtubeId, vimeoId, htmlVideo, poster, component },
 }: MediaFrameProps) => {
   const [show, set] = React.useState(false)
+
+  if (component) {
+    console.log('Componetn is', component)
+    return <>{component}</>
+  }
 
   if (youtubeId || vimeoId) {
     return (
@@ -112,7 +117,12 @@ export const Canvas = () => {
           zIndex: -1,
         },
       }}>
-      <Spinner id="media-spinner" colors={{ primary: '#fff' }} size={50} />
+      <Spinner
+        id="media-spinner"
+        type={settings.spinnerType}
+        colors={{ primary: '#fff' }}
+        size={50}
+      />
       <MediaFrame item={item} />
       {settings.showInfo && item.title && (
         <div className="lightbox-info">
