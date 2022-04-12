@@ -20,16 +20,14 @@ export interface TabStyleProps {
  *
  * @internal
  */
-
 export const TabNavigation = ({ settings, buttonType }: TabStyleProps) => {
-  const ref = React.useRef(null)
+  const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([])
   const { state, setActive } = useTabs()
   const [tabIds, setTabIds] = React.useState<string[]>([])
 
   /**
    * Create array of all tab ids that are not disabled
    */
-
   React.useEffect(() => {
     const ids = state.tabs?.reduce((filtered: string[], { disabled, id }) => {
       if (!disabled) {
@@ -46,7 +44,6 @@ export const TabNavigation = ({ settings, buttonType }: TabStyleProps) => {
   /**
    * Handle keyboard arrow controls
    */
-
   const handleKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
       if (tabIds.some((id) => document.activeElement?.id.includes(id))) {
@@ -72,12 +69,31 @@ export const TabNavigation = ({ settings, buttonType }: TabStyleProps) => {
             return setActive(tabIds[next])
           case 'ArrowLeft':
             return setActive(tabIds[prev])
+          case 'Tab':
+            if (state.tabKeyNavigate) {
+              if (e.shiftKey) {
+                if (index === 0) return
+                e.preventDefault()
+                return setActive(tabIds[prev])
+              } else {
+                if (index === tabIds.length - 1) return
+                e.preventDefault()
+                return setActive(tabIds[next])
+              }
+            }
+            return
           default:
             return
         }
       }
     },
-    [setActive, settings.isVertical, state.activeKey, tabIds]
+    [
+      setActive,
+      settings.isVertical,
+      state.activeKey,
+      state.tabKeyNavigate,
+      tabIds,
+    ]
   )
 
   React.useEffect(() => {
@@ -85,16 +101,24 @@ export const TabNavigation = ({ settings, buttonType }: TabStyleProps) => {
     return () => window.removeEventListener(`keydown`, handleKeyDown)
   }, [handleKeyDown])
 
+  React.useEffect(() => {
+    // Get active key index and focus to that button ref
+    const index = state.tabs?.findIndex((t) => t.id === state.activeKey)
+    if (typeof index === 'number') {
+      buttonRefs.current[index]?.focus()
+    }
+  }, [state.activeKey, state.tabs])
+
   return (
     <Flex
-      ref={ref}
       className="tab-navigation"
       role="tablist"
       css={{
         ...getNavPosition({ settings }),
       }}>
-      {state.tabs?.map((item) => (
+      {state.tabs?.map((item, i) => (
         <Button
+          ref={(el) => (buttonRefs.current[i] = el)}
           key={item.id}
           role="tab"
           type={buttonType}

@@ -54,6 +54,7 @@ export const ControlPanel = ({ sendProps }: ControlPanelProps) => {
           onSubmit(vals, setSubmitting)
         }}>
         <Form
+          key={2}
           css={{
             // Select Field
             '.maker-ui__menu': {
@@ -131,8 +132,8 @@ export const ControlPanel = ({ sendProps }: ControlPanelProps) => {
               textTransform: 'uppercase',
             },
           }}>
-          <Form.Header></Form.Header>
-          <Form.Footer></Form.Footer>
+          {/* <Form.Header></Form.Header>
+          <Form.Footer></Form.Footer> */}
         </Form>
       </Form.Provider>
     </Div>

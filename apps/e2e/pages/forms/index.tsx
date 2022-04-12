@@ -145,8 +145,6 @@ export default function FormsPage() {
     }, 1000)
     setFormSubmission(values)
   }
-
-  console.log('FormProps are', formProps)
   return (
     <>
       <Content>

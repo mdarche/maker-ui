@@ -17,6 +17,8 @@ export interface FormProps
     MakerProps {
   columns?: string | string[] | number
   gap?: ResponsiveScale
+  columnGap?: ResponsiveScale
+  rowGap?: ResponsiveScale
 }
 
 /**
@@ -31,6 +33,8 @@ export const Form = ({
   children,
   columns,
   gap,
+  columnGap,
+  rowGap,
   css,
   breakpoints,
   ...props
@@ -56,7 +60,7 @@ export const Form = ({
             breakpoints={breakpoints}
             columns={gridCol}
             gap={gap || settings?.gap}
-            css={css}>
+            css={{ columnGap, rowGap, ...(css as object) }}>
             {fields.map((p, index) => (
               <Field key={index} breakpoints={breakpoints} {...p} />
             ))}

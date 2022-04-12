@@ -80,8 +80,10 @@ Flex.displayName = 'Flex'
 export interface GridProps extends MakerProps, DivProps {
   areas?: ResponsiveType<CSS.Properties['gridTemplateAreas']>
   center?: boolean
-  columns?: ResponsiveType<CSS.Properties['gridTemplateColumns']>
+  columns?: ResponsiveType<CSS.Properties['gridTemplateColumns']> | number
   gap?: ResponsiveScale
+  columnGap?: ResponsiveScale
+  rowGap?: ResponsiveScale
   rows?: ResponsiveType<CSS.Properties['gridTemplateRows']>
 }
 
@@ -97,21 +99,31 @@ export interface GridProps extends MakerProps, DivProps {
  * @link https://maker-ui.com/docs/primitives/
  */
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
-  ({ columns, rows, gap, areas, center, css, ...props }, ref) => (
-    <div
-      ref={ref}
-      css={{
-        display: 'grid',
-        gridTemplateColumns: columns,
-        gridTemplateRows: rows,
-        gridTemplateAreas: areas,
-        gap,
-        placeItems: center ? 'center' : undefined,
-        ...(css as object),
-      }}
-      {...props}
-    />
-  )
+  (
+    { columns, rows, gap, columnGap, rowGap, areas, center, css, ...props },
+    ref
+  ) => {
+    return (
+      <div
+        ref={ref}
+        css={{
+          display: 'grid',
+          gridTemplateColumns:
+            columns && typeof columns === 'number'
+              ? ['1fr', `repeat(${columns}, 1fr)`]
+              : columns,
+          gridTemplateRows: rows,
+          gridTemplateAreas: areas,
+          gap,
+          columnGap,
+          rowGap,
+          placeItems: center ? 'center' : undefined,
+          ...(css as object),
+        }}
+        {...props}
+      />
+    )
+  }
 )
 
 Grid.displayName = 'Grid'

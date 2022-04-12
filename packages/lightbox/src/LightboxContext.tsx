@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { generateId, merge } from '@maker-ui/utils'
+import type { SpinnerProps } from '@maker-ui/loaders'
 
 import { LightboxProps } from './Lightbox'
 
@@ -13,6 +14,7 @@ export interface LightboxData {
   htmlVideo?: boolean
   vimeoId?: string
   poster?: string
+  component?: React.ReactNode
 }
 
 interface LightboxContextProps {
@@ -41,6 +43,8 @@ const LightboxUpdateContext = React.createContext<
 /**
  * The `LightboxContext` component is a Provider that handles stores all of the data
  * for a lightbox gallery.
+ *
+ * @todo combine this with lightbox component and simplify
  *
  * @internal
  */
@@ -174,6 +178,7 @@ function mergeSettings(settings: LightboxProps['settings']) {
       showAutoPlay: true,
       autoPlayDuration: 6000,
       disableHideControls: false,
+      spinnerType: 'dots' as SpinnerProps['type'],
     },
     settings as object
   )

@@ -7,6 +7,7 @@ import { useLightbox, type LightboxData } from './LightboxContext'
 
 export interface LightboxLinkProps extends MakerProps, LightboxData {
   trigger?: boolean
+  component?: boolean
   children?: React.ReactNode
 }
 
@@ -31,12 +32,16 @@ export const LightboxLink = React.forwardRef<
       children,
       poster,
       trigger = false,
+      component = false,
       ...props
     },
     ref
   ) => {
     const [id] = React.useState(generateId())
     const { addToGallery, toggleLightbox } = useLightbox()
+
+    const emptyProps = !src && !youtubeId && !vimeoId
+    const isComponent = children && (component || emptyProps)
 
     const config = React.useMemo(
       () => ({
@@ -48,8 +53,20 @@ export const LightboxLink = React.forwardRef<
         youtubeId,
         vimeoId,
         poster,
+        component: isComponent ? children : undefined,
       }),
-      [id, src, alt, title, description, youtubeId, vimeoId, poster]
+      [
+        id,
+        src,
+        alt,
+        title,
+        description,
+        youtubeId,
+        vimeoId,
+        poster,
+        isComponent,
+        children,
+      ]
     )
 
     React.useEffect(() => {

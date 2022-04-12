@@ -39,6 +39,7 @@ export const Select = ({
   hasError,
   settings,
   onBlur,
+  initialValue,
   cy,
 }: SelectProps) => {
   const [state, setState] = useState({
@@ -98,6 +99,11 @@ export const Select = ({
     onChange: handleChange,
     onBlur: handleBlur,
     ...mergedProps,
+    defaultValue: initialValue
+      ? initialValue
+      : settings.defaultValue
+      ? settings.defaultValue
+      : undefined,
     ...(settings.isCreatableInput
       ? {
           onKeyDown: handleKeyDown,

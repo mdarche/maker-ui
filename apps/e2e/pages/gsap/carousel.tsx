@@ -1,6 +1,10 @@
 import { Div, Section, Global } from 'maker-ui'
 import { Carousel } from '@maker-ui/gsap'
 import { useState } from 'react'
+import Image from 'next/image'
+
+import CosmosImage from '../../public/cosmos.jpeg'
+import NYCImage from '../../public/nyc.jpeg'
 
 // Example 1 - Basic
 
@@ -39,6 +43,33 @@ const components = [
 ]
 
 // Example 3 - Next.js Images
+
+const images = [
+  { url: CosmosImage, bg: 'red' },
+  { url: NYCImage, bg: 'blue' },
+]
+
+const ImageSlide = ({ url }: { url?: string }) => {
+  return (
+    <Div
+      css={{
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Div css={{ height: '100%', width: '100%', position: 'relative' }}>
+        <Image
+          src={url as string}
+          alt="carousel-image"
+          layout="fill"
+          objectFit="cover"
+          priority
+        />
+      </Div>
+    </Div>
+  )
+}
 
 export default function CarouselPage() {
   const [index, setIndex] = useState(0)
@@ -98,7 +129,6 @@ export default function CarouselPage() {
         <Carousel
           data={components}
           template="custom"
-          settings={{ autoPlay: false }}
           // overlay={
           //   <Div className="absolute cover flex align-center justify-center">
           //     <h2>Test</h2>
@@ -109,16 +139,7 @@ export default function CarouselPage() {
 
       <Div css={{ marginTop: 80 }}>
         <h1>Next.js Image Slides</h1>
-        <Carousel
-          data={array}
-          template={<BasicSlide />}
-          settings={{}}
-          // overlay={
-          //   <Div className="absolute cover flex align-center justify-center">
-          //     <h2>Test</h2>
-          //   </Div>
-          // }
-        />
+        <Carousel data={images} template={<ImageSlide />} settings={{}} />
       </Div>
     </>
   )

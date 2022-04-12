@@ -69,6 +69,7 @@ export const Field = (props: FieldComponentProps) => {
     type,
     labelStyle = settings?.labelStyle,
     errorStyle = settings?.errorStyle,
+    initialValue,
     label,
     description,
     containerClass,
@@ -140,7 +141,11 @@ export const Field = (props: FieldComponentProps) => {
     /* Select and Datalist inputs */
     if (props.type === 'select') {
       return (
-        <Select {...attributes} settings={props.settings as SelectSettings} />
+        <Select
+          {...attributes}
+          initialValue={initialValue}
+          settings={props.settings as SelectSettings}
+        />
       )
     }
     /* Radio and Checkbox group inputs*/
@@ -199,7 +204,7 @@ export const Field = (props: FieldComponentProps) => {
       className={mergeSelectors([
         'field-container',
         containerClass,
-        error ? 'error' : undefined,
+        hasError ? 'error' : undefined,
         touched ? 'touched' : undefined,
         `label-${labelStyle}`,
         `error-${errorStyle}`,

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Div, DivProps } from '@maker-ui/primitives'
+import { Div, type DivProps } from '@maker-ui/primitives'
 import { mergeRefs, ConditionalWrapper } from '@maker-ui/utils'
 import { Global } from '@maker-ui/css'
 import {
@@ -19,6 +19,7 @@ export type TransitionType =
 export interface CSSTransitionProps
   extends Partial<ReactCSSTransitionProps<HTMLDivElement>> {
   switchMode?: 'out-in' | 'in-out'
+  isSwitch?: boolean
   show: boolean | string | number
   type?: TransitionType
   classNamePrefix?: string
@@ -36,6 +37,7 @@ export interface CSSTransitionProps
 
 export const CSSTransition = ({
   type = 'fade-up',
+  isSwitch = false,
   switchMode = 'out-in',
   timeout = 300,
   distance = 10,
@@ -53,8 +55,16 @@ export const CSSTransition = ({
 }: CSSTransitionProps) => {
   const ref = useRef(null)
   const styles = getStyles(type, distance, timeout, easing, classNamePrefix)
-  const isSwitchTransition = typeof show !== 'boolean'
+  const isShowBool = typeof show === 'boolean'
+  const isSwitchTransition = isSwitch || !isShowBool
   const t = classNamePrefix ? `${classNamePrefix}-${type}` : type
+  const switchKey =
+    isSwitchTransition && isShowBool
+      ? show
+        ? 'key-1'
+        : 'key-0'
+      : (show as string | number)
+
   return (
     <>
       {className || noStyles ? undefined : <Global styles={styles} />}
@@ -66,7 +76,7 @@ export const CSSTransition = ({
         )}
         condition={isSwitchTransition}>
         <ReactCSSTransition
-          key={isSwitchTransition ? show : undefined}
+          key={isSwitchTransition ? switchKey : undefined}
           in={!isSwitchTransition ? show : undefined}
           nodeRef={nodeRef ? mergeRefs([ref, nodeRef]) : ref}
           timeout={timeout}

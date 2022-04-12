@@ -3,7 +3,7 @@ import { mergeSelectors, merge } from '@maker-ui/utils'
 import { Div } from '@maker-ui/primitives'
 import { type MakerProps, type ResponsiveScale } from '@maker-ui/css'
 
-import { UploadIcon } from './icons'
+import { UploadIcon } from '../Icons'
 import { DragAndDrop } from './DragAndDrop'
 import { FileValidations } from './helper'
 import styles from './ImagePicker.styles'
@@ -82,6 +82,8 @@ export interface ImagePickerProps extends MakerProps {
   dropzone?: false | DropzoneSettings
   /** A configuration object for file upload requirements. */
   validations?: FileValidations
+  /** A custom component or string to be used inside the Remove Image button */
+  removeImageComponent?: React.ReactElement | string
   /** Optional effect that runs when the image is removed. Helpful for removing cloudbased images as well. */
   onRemoveImage?: () => any
   /** Optional effect that runs when image files are added to state. */
@@ -139,6 +141,7 @@ export const ImagePicker = ({
   setFile,
   setFiles,
   validations,
+  removeImageComponent = 'Remove Image',
   onRemoveImage,
   onUploadImage,
   cy,
@@ -321,8 +324,11 @@ export const ImagePicker = ({
             ) : null}
           </div>
           {data.fileList[0] || canRemoveImage ? (
-            <button className="btn-remove width-100" onClick={removeImage}>
-              Remove Image
+            <button
+              type="button"
+              className="btn-remove width-100"
+              onClick={removeImage}>
+              {removeImageComponent}
             </button>
           ) : null}
         </div>

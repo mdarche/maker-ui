@@ -126,8 +126,8 @@ export const Carousel = ({
 
       if (type === 'next') {
         _setIndex(isLast ? 0 : nextIndex)
-        if (targetIndex === 0) {
-          // If intiated by autoPlay, use a debounce
+        if (targetIndex === 0 && controls) {
+          // If intiated by autoPlay and using external controls, use a debounce
           debounce(() => loop?.next({ duration, ease }), 500)
         } else {
           loop?.next({ duration, ease })

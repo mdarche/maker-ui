@@ -1,16 +1,10 @@
 import { Div, Section } from 'maker-ui'
-import Head from 'next/head'
+import { SEO } from '../components/SEO'
 
 export default function IndexPage() {
   return (
     <>
-      <Head>
-        <title>Component Playground</title>
-        <meta
-          name="description"
-          content="Configure your production-ready NextJS app"
-        />
-      </Head>
+      <SEO />
       <Section>
         <h1>Component Playground</h1>
         <Div css={{ fontSize: 50 }}>test</Div>

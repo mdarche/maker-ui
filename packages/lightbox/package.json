@@ -22,6 +22,7 @@
     "@maker-ui/modal": "workspace:*",
     "@maker-ui/primitives": "workspace:*",
     "@maker-ui/transition": "workspace:*",
+    "@maker-ui/loaders": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
   "devDependencies": {

@@ -36,6 +36,7 @@ export const Switch = ({
   hasError,
   ...props
 }: SwitchProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [field, { value }, { setValue }] = useField(name)
   const config = merge(defaultSettings, settings)
 
@@ -48,9 +49,6 @@ export const Switch = ({
     if (e.code !== 'Space') return
     e.preventDefault()
   }
-
-  console.log('Current Switch value is', value)
-
   return (
     <Div
       className={mergeSelectors(['switch', value ? 'active' : ''])}

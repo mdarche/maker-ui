@@ -1,6 +1,9 @@
 import * as React from 'react'
-import { Section } from 'maker-ui'
+import { Div, Section } from 'maker-ui'
 import { Lightbox } from '@maker-ui/lightbox'
+import Image from 'next/image'
+
+import CosmosImage from '../public/cosmos.jpeg'
 
 const galleryData = [
   {
@@ -25,20 +28,21 @@ const LightboxPage = () => {
 
   return (
     <Section css={{ padding: '100px 30px' }}>
-      {/* <Spinner type="scale" />
-      <Spinner type="rotate" />
-      <Spinner type="pulse" />
-      <Spinner type="blocks" />
-      <Spinner /> */}
       <button ref={ref} onClick={(e) => set(true)}>
         Focus Ref
       </button>
       {/* Test with Clickable lightbox items */}
       <Lightbox focusRef={ref}>
-        <Lightbox.Link
-          title="Test"
-          src="https://images.unsplash.com/photo-1585127366945-8249097d15fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80">
-          <div>Test!!</div>
+        <Lightbox.Link>
+          <Div css={{ position: 'relative', height: 300 }}>
+            <Image
+              src={CosmosImage}
+              placeholder="blur"
+              alt="cosmos"
+              objectFit="cover"
+              layout="fill"
+            />
+          </Div>
         </Lightbox.Link>
         <Lightbox.Link
           title="Hilarious stuff"

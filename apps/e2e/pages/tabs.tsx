@@ -19,6 +19,7 @@ export default function TabsPage() {
       </div>
       <Tabs
         activeKey={key}
+        tabKeyNavigate
         css={{
           marginTop: 100,
           marginBottom: 200,
@@ -46,7 +47,7 @@ export default function TabsPage() {
         <Tabs.Panel title="Title 8">Eighth Text</Tabs.Panel>
         <Tabs.Panel title="Title 9">Ninth Text</Tabs.Panel>
       </Tabs>
-      <Tabs
+      {/* <Tabs
         navPosition="left"
         overflow="scroll"
         className="tabs"
@@ -65,9 +66,9 @@ export default function TabsPage() {
         <Tabs.Panel title="Title 4">
           <a href="/test">Test</a>
         </Tabs.Panel>
-        <Tabs.Panel title="Title 5">Fifth Text</Tabs.Panel>
+        <Tabs.Panel title="Title 5">Fifth</Tabs.Panel>
         <Tabs.Panel title="Title 6">Sixth Text</Tabs.Panel>
-      </Tabs>
+      </Tabs> */}
       <Div css={{ height: [100, 2000] }}>test</Div>
     </>
   )
