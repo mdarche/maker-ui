@@ -1,5 +1,24 @@
 # @maker-ui/lightbox
 
+## 1.3.0
+
+### Minor Changes
+
+- [#75](https://github.com/mdarche/maker-ui/pull/75) [`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488) Thanks [@mdarche](https://github.com/mdarche)! - Lightbox Link and Lightbox Gallery updates:
+
+  - Add spinner from @maker-ui/loader to lightbox view
+  - Show child component for Lightbox Link in Lightbox Canvas if no media props are found
+
+### Patch Changes
+
+- Updated dependencies [[`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488), [`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488), [`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488)]:
+  - @maker-ui/primitives@1.2.3
+  - @maker-ui/css@1.2.3
+  - @maker-ui/transition@1.2.3
+  - @maker-ui/loaders@1.2.3
+  - @maker-ui/modal@1.2.3
+  - @maker-ui/utils@1.2.3
+
 ## 1.2.2
 
 ### Patch Changes

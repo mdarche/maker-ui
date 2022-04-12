@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "next-example",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "author": "Mike Darche <mike@newcreative.io>",
   "license": "MIT",
   "scripts": {

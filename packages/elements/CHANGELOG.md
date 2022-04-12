@@ -1,5 +1,16 @@
 # @maker-ui/elements
 
+## 1.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488)]:
+  - @maker-ui/tabs@1.2.3
+  - @maker-ui/accordion@1.2.3
+  - @maker-ui/modal@1.2.3
+  - @maker-ui/notifications@1.3.1
+  - @maker-ui/popovers@1.2.3
+
 ## 1.2.3
 
 ### Patch Changes

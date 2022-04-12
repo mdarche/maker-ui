@@ -1,5 +1,19 @@
 # @maker-ui/tabs
 
+## 1.2.3
+
+### Patch Changes
+
+- [#75](https://github.com/mdarche/maker-ui/pull/75) [`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488) Thanks [@mdarche](https://github.com/mdarche)! - Tab component bug fixes:
+
+  - Add `tabKeyNavigate` prop to override default a11y behavior of tab key
+  - Update tab state if title changes (support hot reload)
+  - Fix focus bug by adding array of refs to tab navigation
+
+- Updated dependencies [[`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488)]:
+  - @maker-ui/primitives@1.2.3
+  - @maker-ui/utils@1.2.3
+
 ## 1.2.2
 
 ### Patch Changes
