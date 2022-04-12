@@ -115,6 +115,11 @@ export interface PasswordSettings {
   padding?: ResponsiveScale
 }
 
+export interface ImageSettings
+  extends Omit<ImagePickerProps, 'setFile' | 'setFiles'> {
+  returnUrl?: boolean
+}
+
 export type FieldSettings<T> = T extends 'text'
   ? { mask?: 'phone' | 'zipcode' | 'credit-card' }
   : T extends 'select'
@@ -130,7 +135,7 @@ export type FieldSettings<T> = T extends 'text'
   : T extends 'switch'
   ? SwitchSettings
   : T extends 'image-picker'
-  ? Omit<ImagePickerProps, 'setFile' | 'setFiles'>
+  ? ImageSettings
   : undefined
 
 export type CompareOperator =

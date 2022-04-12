@@ -100,23 +100,7 @@ const fields: FieldProps[] = [
     name: 'profileImage',
     label: 'Profile Image',
     type: 'image-picker',
-    settings: { inputId: 'testId' },
-    conditions: [
-      [
-        {
-          field: 'singleSelect',
-          compare: 'contains',
-          target: 'no',
-        },
-      ],
-      [
-        {
-          field: 'myCheck',
-          compare: 'contains',
-          target: '1',
-        },
-      ],
-    ],
+    settings: { inputId: 'testId', returnUrl: true },
     // validation: Yup.mixed().required('Required'),
   },
 ]

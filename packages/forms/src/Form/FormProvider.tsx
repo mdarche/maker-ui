@@ -118,7 +118,10 @@ export const FormProvider = ({
   })
 
   /* Calculate form validation schema via fields */
-  /** @TODO - Handle conditional field validation */
+  /**
+   * @TODO Handle conditional field validation
+   * ie. Ignore if field is not rendered. Handle this in the field component
+   * */
   let schema: { [key: string]: any } = {}
   fields.forEach(({ name, validation }) =>
     validation ? (schema[name] = validation) : undefined

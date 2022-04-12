@@ -16,9 +16,15 @@ export const ImageField = ({
   ...props
 }: ImageFieldProps) => {
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)
+  const [imageUrl, setImageUrl] = useState('')
   const { isSubmitting } = useFormikContext()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [field, { touched }, { setValue, setTouched }] = useField(name)
+
+  async function setLocalUrl(url: Promise<string>) {
+    const urlString = await url
+    setImageUrl(urlString)
+  }
 
   useEffect(() => {
     if (!touched && isSubmitting) {
@@ -28,11 +34,22 @@ export const ImageField = ({
   }, [isSubmitting])
 
   useEffect(() => {
-    setValue(imageFile)
+    // Check if Local URL String is required, else just return file
+    if (settings.returnUrl) {
+      setValue({ file: imageFile, url: imageUrl })
+    } else {
+      setValue(imageFile)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imageFile, name])
+  }, [imageFile, imageUrl, name])
 
   return (
-    <ImagePicker id={id || name} setFile={setImageFile} {...settings} cy={cy} />
+    <ImagePicker
+      id={id || name}
+      setFile={setImageFile}
+      onUploadImage={setLocalUrl}
+      {...settings}
+      cy={cy}
+    />
   )
 }
