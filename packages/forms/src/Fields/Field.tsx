@@ -204,7 +204,7 @@ export const Field = (props: FieldComponentProps) => {
       className={mergeSelectors([
         'field-container',
         containerClass,
-        error ? 'error' : undefined,
+        hasError ? 'error' : undefined,
         touched ? 'touched' : undefined,
         `label-${labelStyle}`,
         `error-${errorStyle}`,

@@ -8,7 +8,6 @@ const fields1: FieldProps[] = [
     label: 'Your Username',
     type: 'text',
     placeholder: 'Placeholder text',
-    validation: Yup.string().required('Required'),
     colSpan: 1,
   },
   {
@@ -16,7 +15,7 @@ const fields1: FieldProps[] = [
     label: 'Your Password',
     type: 'password',
     placeholder: 'Password',
-    // validation: Yup.string().required('Required'),
+    validation: Yup.string().required('Required'),
     settings: {
       toggleCharacters: true,
     },

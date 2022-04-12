@@ -118,6 +118,7 @@ export const FormProvider = ({
   })
 
   /* Calculate form validation schema via fields */
+  /** @TODO - Handle conditional field validation */
   let schema: { [key: string]: any } = {}
   fields.forEach(({ name, validation }) =>
     validation ? (schema[name] = validation) : undefined
@@ -138,7 +139,10 @@ export const FormProvider = ({
         initialValues={values}
         onSubmit={onSubmit}
         validationSchema={validationSchema || FormSchema}
-        validateOnBlur={mergedSettings.validateFormOnBlur}
+        validateOnBlur={
+          mergedSettings.validateFormOnBlur ||
+          mergedSettings.validateFieldOnBlur
+        }
         validateOnChange={mergedSettings.validateFormOnChange}>
         <Div
           className="form-wrapper"
@@ -179,7 +183,7 @@ const initialState: FormState = {
     errorStyle: 'bottom-right',
     validateIcon: <ValidateIcon />,
     validateFormOnChange: false,
-    validateFormOnBlur: true,
+    validateFormOnBlur: false,
     validateFieldOnBlur: true,
     disableSubmit: false,
     autoSave: false,

@@ -170,7 +170,7 @@ export interface FieldProps {
   /** The field's label string or React component */
   label?: React.ReactElement | string
   /** Additional helper text that will be rendered alongside the field */
-  description?: React.ReactElement
+  description?: React.ReactElement | string
   /** Placeholder text for all text-based inputs */
   placeholder?: string
   /** A boolean that helps the form identify required fields */
