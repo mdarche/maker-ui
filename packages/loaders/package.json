@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/loaders",
   "description": "A variety of common SVG loading spinners",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",

@@ -1,5 +1,12 @@
 # gatsby-example
 
+## 1.1.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - maker-ui@1.2.3
+
 ## 1.1.5
 
 ### Patch Changes

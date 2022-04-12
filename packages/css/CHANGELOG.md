@@ -1,5 +1,14 @@
 # @maker-ui/css
 
+## 1.2.3
+
+### Patch Changes
+
+- [#75](https://github.com/mdarche/maker-ui/pull/75) [`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488) Thanks [@mdarche](https://github.com/mdarche)! - Update `@emotion/react` and `@emotion/jest` dependencies to `11.8.2`
+
+- Updated dependencies []:
+  - @maker-ui/utils@1.2.3
+
 ## 1.2.2
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # e2e
 
+## 1.1.7
+
+### Patch Changes
+
+- Updated dependencies [[`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488), [`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488), [`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488), [`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488), [`a9a04ac1`](https://github.com/mdarche/maker-ui/commit/a9a04ac119a558a98897544fa1121761fb3dd488)]:
+  - @maker-ui/gsap@1.2.3
+  - @maker-ui/tabs@1.2.3
+  - @maker-ui/social@1.3.0
+  - @maker-ui/forms@1.4.0
+  - @maker-ui/lightbox@1.3.0
+  - @maker-ui/accordion@1.2.3
+  - @maker-ui/loaders@1.2.3
+  - maker-ui@1.2.3
+  - @maker-ui/modal@1.2.3
+  - @maker-ui/notifications@1.3.1
+
 ## 1.1.6
 
 ### Patch Changes
