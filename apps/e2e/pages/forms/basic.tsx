@@ -100,7 +100,11 @@ const fields: FieldProps[] = [
     name: 'profileImage',
     label: 'Profile Image',
     type: 'image-picker',
-    settings: { inputId: 'testId', returnUrl: true },
+    settings: {
+      inputId: 'testId',
+      returnUrl: true,
+      removeImageComponent: <div>Remove!</div>,
+    },
     // validation: Yup.mixed().required('Required'),
   },
 ]
@@ -132,9 +136,9 @@ export default function FormsPage() {
               }}>
               <Form columns={2}>
                 <Form.Header>Form 2 Header</Form.Header>
-                <Form.Submit>Submit</Form.Submit>
                 <Form.Error>There was an error</Form.Error>
                 <Form.Footer>Form 2 Footer</Form.Footer>
+                <Form.Submit>Submit</Form.Submit>
                 <Form.Success>Successful Form</Form.Success>
               </Form>
             </Form.Provider>
