@@ -1,5 +1,5 @@
 ---
-'@maker-ui/patch': minor
+'@maker-ui/primitives': patch
 ---
 
 Grid primitive updates:
