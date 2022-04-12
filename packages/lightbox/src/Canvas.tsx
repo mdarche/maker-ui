@@ -23,7 +23,6 @@ const MediaFrame = ({
   const [show, set] = React.useState(false)
 
   if (component) {
-    console.log('Componetn is', component)
     return <>{component}</>
   }
 
