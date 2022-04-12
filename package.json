@@ -54,5 +54,10 @@
     "webpack": "5",
     "webpack-dev-server": "3"
   },
+  "pnpm": {
+    "overrides": {
+      "react-select>@emotion/react": "11.8.2"
+    }
+  },
   "packageManager": "pnpm@6.32.3"
 }

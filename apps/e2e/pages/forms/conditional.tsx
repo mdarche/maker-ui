@@ -1,8 +1,8 @@
-import { Content, Main, Section } from 'maker-ui'
+import { Content, Grid, Main, Section } from 'maker-ui'
 import { Form, type FieldProps, Yup } from '@maker-ui/forms'
 import { useState } from 'react'
 
-const testFields: FieldProps[] = [
+const fields1: FieldProps[] = [
   {
     name: 'username',
     label: 'Your Username',
@@ -34,7 +34,6 @@ const testFields: FieldProps[] = [
     name: 'myCheck',
     label: 'My Checkbox',
     type: 'checkbox',
-    colSpan: 1,
     settings: {
       options: [
         { label: 'Option 1', value: '1' },
@@ -48,7 +47,6 @@ const testFields: FieldProps[] = [
     label: 'My Switch',
     type: 'switch',
     initialValue: true,
-    colSpan: 1,
     settings: {
       style: 'circle',
     },
@@ -64,7 +62,6 @@ const testFields: FieldProps[] = [
         { label: 'Option 3', value: '3' },
       ],
     },
-    colSpan: 1,
   },
   {
     name: 'singleSelect',
@@ -88,7 +85,7 @@ const testFields: FieldProps[] = [
     id: 'Multi Select',
     label: 'Pick many options',
     type: 'select',
-    initialValue: [],
+    initialValue: [{ label: 'Yes', value: 'yes' }],
     settings: {
       isMulti: true,
       placeholder: 'Select',
@@ -125,6 +122,14 @@ const testFields: FieldProps[] = [
   },
 ]
 
+const fields2: FieldProps[] = [
+  {
+    name: 'first',
+    label: 'First Name',
+    type: 'text',
+  },
+]
+
 export default function FormsPage() {
   const [success, setSuccess] = useState(false)
   const [error] = useState(false)
@@ -143,22 +148,41 @@ export default function FormsPage() {
       <Content>
         <Main>
           <Section css={{ padding: '50px 0' }}>
-            <Form.Provider
-              success={success}
-              error={error}
-              fields={testFields}
-              settings={{}}
-              onSubmit={(vals, { setSubmitting }) => {
-                onSubmitForm(vals, setSubmitting)
-              }}>
-              <Form columns={2}>
-                <Form.Header>Form Header</Form.Header>
-                <Form.Submit>Submit</Form.Submit>
-                <Form.Error>There was an error</Form.Error>
-                <Form.Footer>Form Footer</Form.Footer>
-                {/* <Form.Success>Successful Form</Form.Success> */}
-              </Form>
-            </Form.Provider>
+            <Grid columns={2}>
+              <Form.Provider
+                success={success}
+                error={error}
+                fields={fields1}
+                settings={{}}
+                onSubmit={(vals, { setSubmitting }) => {
+                  onSubmitForm(vals, setSubmitting)
+                }}>
+                <Form columns={2}>
+                  <Form.Header>Form Header</Form.Header>
+                  <div>Custom content inside the form</div>
+                  <Form.Submit>Submit</Form.Submit>
+                  <Form.Error>There was an error</Form.Error>
+                  <Form.Footer>Form Footer</Form.Footer>
+                  <Form.Success>Successful Form</Form.Success>
+                </Form>
+              </Form.Provider>
+              <Form.Provider
+                success={success}
+                error={error}
+                fields={fields2}
+                settings={{}}
+                onSubmit={(vals, { setSubmitting }) => {
+                  onSubmitForm(vals, setSubmitting)
+                }}>
+                <Form columns={2}>
+                  <Form.Header>Form 2 Header</Form.Header>
+                  <Form.Submit>Submit</Form.Submit>
+                  <Form.Error>There was an error</Form.Error>
+                  <Form.Footer>Form 2 Footer</Form.Footer>
+                  <Form.Success>Successful Form</Form.Success>
+                </Form>
+              </Form.Provider>
+            </Grid>
           </Section>
         </Main>
       </Content>

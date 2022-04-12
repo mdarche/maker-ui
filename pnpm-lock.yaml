@@ -1,5 +1,8 @@
 lockfileVersion: 5.3
 
+overrides:
+  react-select>@emotion/react: 11.8.2
+
 importers:
 
   .:
@@ -161,15 +164,13 @@ importers:
 
   packages/css:
     specifiers:
-      '@emotion/jest': ^11.1.0
-      '@emotion/react': ^11.8.2
+      '@emotion/jest': ^11.8.0
+      '@emotion/react': 11.8.2
       '@maker-ui/utils': workspace:*
       '@testing-library/dom': ^8.11.3
       '@testing-library/jest-dom': ^5.16.2
       '@testing-library/react': ^12.1.3
       '@types/jest': ^27.4.1
-      '@types/react': ^17.0.39
-      '@types/react-dom': ^17.0.13
       eslint: 7.32.0
       eslint-preset: workspace:*
       react-test-renderer: ^17.0.1
@@ -177,7 +178,7 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.6.2
     dependencies:
-      '@emotion/react': 11.8.2_ac8e640ee2ebe4fcb4080b2762e3254a
+      '@emotion/react': 11.8.2_793d1b9407fde722ee2b77b8e29baf07
       '@maker-ui/utils': link:../utils
     devDependencies:
       '@emotion/jest': 11.8.0_@types+jest@27.4.1
@@ -185,8 +186,6 @@ importers:
       '@testing-library/jest-dom': 5.16.2
       '@testing-library/react': 12.1.4_react-dom@17.0.2+react@17.0.2
       '@types/jest': 27.4.1
-      '@types/react': 17.0.41
-      '@types/react-dom': 17.0.14
       eslint: 7.32.0
       eslint-preset: link:../eslint-preset
       react-test-renderer: 17.0.2_react@17.0.2
@@ -344,6 +343,7 @@ importers:
   packages/lightbox:
     specifiers:
       '@maker-ui/css': workspace:*
+      '@maker-ui/loaders': workspace:*
       '@maker-ui/modal': workspace:*
       '@maker-ui/primitives': workspace:*
       '@maker-ui/transition': workspace:*
@@ -355,6 +355,7 @@ importers:
       typescript: ^4.6.2
     dependencies:
       '@maker-ui/css': link:../css
+      '@maker-ui/loaders': link:../loaders
       '@maker-ui/modal': link:../modal
       '@maker-ui/primitives': link:../primitives
       '@maker-ui/transition': link:../transition
@@ -2635,30 +2636,6 @@ packages:
       '@emotion/utils': 1.1.0
       '@emotion/weak-memoize': 0.2.5
       '@types/react': 16.14.24
-      hoist-non-react-statics: 3.3.2
-      react: 17.0.2
-    dev: false
-
-  /@emotion/react/11.8.2_ac8e640ee2ebe4fcb4080b2762e3254a:
-    resolution: {integrity: sha512-+1bcHBaNJv5nkIIgnGKVsie3otS0wF9f1T1hteF3WeVvMNQEtfZ4YyFpnphGoot3ilU/wWMgP2SgIDuHLE/wAA==}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-      '@types/react': '*'
-      react: '>=16.8.0'
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/core': 7.17.8
-      '@babel/runtime': 7.17.8
-      '@emotion/babel-plugin': 11.7.2_@babel+core@7.17.8
-      '@emotion/cache': 11.7.1
-      '@emotion/serialize': 1.0.2
-      '@emotion/utils': 1.1.0
-      '@emotion/weak-memoize': 0.2.5
-      '@types/react': 17.0.41
       hoist-non-react-statics: 3.3.2
       react: 17.0.2
     dev: false

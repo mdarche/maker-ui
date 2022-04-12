@@ -18,17 +18,15 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@emotion/react": "^11.8.2",
+    "@emotion/react": "11.8.2",
     "@maker-ui/utils": "workspace:*"
   },
   "devDependencies": {
-    "@emotion/jest": "^11.1.0",
+    "@emotion/jest": "^11.8.0",
     "@testing-library/dom": "^8.11.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
     "@types/jest": "^27.4.1",
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.13",
     "eslint": "7.32.0",
     "eslint-preset": "workspace:*",
     "react-test-renderer": "^17.0.1",
