@@ -60,7 +60,7 @@ export const Field = (props: FieldComponentProps) => {
   const { settings, fields, error: formError } = useForm()
   const { submitForm, values } = useFormikContext()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [field, { touched, error }, { setError }] = useField(props.name)
+  const [field, { touched, error }] = useField(props.name)
 
   const {
     name,
