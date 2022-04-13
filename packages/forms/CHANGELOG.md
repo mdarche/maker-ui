@@ -1,5 +1,11 @@
 # @maker-ui/forms
 
+## 1.4.1
+
+### Patch Changes
+
+- [#77](https://github.com/mdarche/maker-ui/pull/77) [`7428bfb0`](https://github.com/mdarche/maker-ui/commit/7428bfb0147fc80a3199459f5baed2ba682fabba) Thanks [@mdarche](https://github.com/mdarche)! - Fix `returnUrl` setting bug
+
 ## 1.4.0
 
 ### Minor Changes

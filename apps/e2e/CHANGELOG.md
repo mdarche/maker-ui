@@ -1,5 +1,12 @@
 # e2e
 
+## 1.1.8
+
+### Patch Changes
+
+- Updated dependencies [[`7428bfb0`](https://github.com/mdarche/maker-ui/commit/7428bfb0147fc80a3199459f5baed2ba682fabba)]:
+  - @maker-ui/forms@1.4.1
+
 ## 1.1.7
 
 ### Patch Changes
