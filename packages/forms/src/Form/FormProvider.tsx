@@ -91,10 +91,8 @@ function getInitialValue(type: FieldProps['type']) {
  * The `Form` component lets you generate a highly customizable form from a
  * configuration object and field array. Built on top of Formik.
  * .
- * @todo update field state via props
  * @link https://maker-ui.com/docs/form
  */
-
 export const FormProvider = ({
   onSubmit,
   validationSchema,
@@ -118,10 +116,6 @@ export const FormProvider = ({
   })
 
   /* Calculate form validation schema via fields */
-  /**
-   * @TODO Handle conditional field validation
-   * ie. Ignore if field is not rendered. Handle this in the field component
-   * */
   let schema: { [key: string]: any } = {}
   fields.forEach(({ name, validation }) =>
     validation ? (schema[name] = validation) : undefined

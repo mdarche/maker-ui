@@ -15,7 +15,10 @@ const fields1: FieldProps[] = [
     label: 'Your Password',
     type: 'password',
     placeholder: 'Password',
-    validation: Yup.string().required('Required'),
+    validation: Yup.mixed().when('username', {
+      is: (value: any) => !!value,
+      then: Yup.string().required('Required'),
+    }),
     settings: {
       toggleCharacters: true,
     },

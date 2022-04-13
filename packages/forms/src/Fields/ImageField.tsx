@@ -35,7 +35,7 @@ export const ImageField = ({
 
   useEffect(() => {
     // Check if Local URL String is required, else just return file
-    if (settings.returnUrl) {
+    if (settings?.returnUrl) {
       setValue({ file: imageFile, url: imageUrl })
     } else {
       setValue(imageFile)
