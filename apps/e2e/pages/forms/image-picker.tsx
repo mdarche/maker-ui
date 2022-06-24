@@ -11,6 +11,7 @@ export default function ImagePickerPage() {
     <Section css={{ padding: '50px 20px' }}>
       <ImagePicker
         setFile={setFile}
+        data-cy="myImage"
         removeImageComponent={<strong>Remove</strong>}
       />
     </Section>

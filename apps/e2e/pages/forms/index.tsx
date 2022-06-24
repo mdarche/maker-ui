@@ -13,13 +13,13 @@ export const MyCustomComponent = () => {
   const [field, meta, { setValue }] = useField('customComponent')
   return (
     <>
-      <button type="button" onClick={() => setValue('value 1')}>
+      <button type="button" onClick={() => setValue('value 1')} data-cy="value1">
         Value 1
       </button>
-      <button type="button" onClick={() => setValue('value 2')}>
+      <button type="button" onClick={() => setValue('value 2')} data-cy="value2">
         Value 2
       </button>
-      <button type="button" onClick={() => setValue('value 3')}>
+      <button type="button" onClick={() => setValue('value 3')} data-cy="value3">
         Value 3
       </button>
     </>
@@ -36,6 +36,7 @@ const testFields: FieldProps[] = [
     validation: Yup.string().required('Required'),
     colSpan: 1,
     autoSave: true,
+    cy:"username"
   },
   {
     name: 'pass',
@@ -48,6 +49,7 @@ const testFields: FieldProps[] = [
       toggleCharacters: true,
     },
     autoSave: true,
+    cy:"pass"
   },
   {
     name: 'myrange',
@@ -57,6 +59,7 @@ const testFields: FieldProps[] = [
     initialValue: 0,
     colSpan: 1,
     // autoSave: true,
+    cy:"myrange"
   },
   {
     name: 'myCheck',
@@ -71,6 +74,7 @@ const testFields: FieldProps[] = [
         { label: 'Option 3', value: '3' },
       ],
     },
+    cy:"myCheck"
   },
   {
     name: 'mySwitch',
@@ -81,6 +85,7 @@ const testFields: FieldProps[] = [
     settings: {
       style: 'circle',
     },
+    cy:"mySwitch"
   },
   {
     name: 'myRadio',
@@ -95,18 +100,21 @@ const testFields: FieldProps[] = [
       ],
     },
     colSpan: 1,
+    cy:"myRadio"
   },
   {
     name: 'select',
     id: 'mySelect',
     label: 'Pick an option',
     type: 'select',
+    cy:"mySelect",
     initialValue: [],
     // autoSave: true,
     settings: {
       // isCreatableInput: true,
       isMulti: true,
-      placeholder: 'Select',
+      cy:"mySelect",
+      placeholder: 'Please Select',
       options: [
         { label: 'Yes', value: 'yes' },
         { label: 'No', value: 'no' },
@@ -121,6 +129,7 @@ const testFields: FieldProps[] = [
     type: 'image-picker',
     settings: { inputId: 'testId' },
     // validation: Yup.mixed().required('Required'),
+    cy:"profileImage"
   },
   {
     name: 'customComponent',
@@ -128,6 +137,7 @@ const testFields: FieldProps[] = [
     type: 'custom',
     initialValue: '',
     component: <MyCustomComponent />,
+    cy:"customComponent"
   },
 ]
 

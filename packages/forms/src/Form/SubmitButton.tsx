@@ -6,6 +6,7 @@ import { useForm } from './FormProvider'
 
 export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
   children?: React.ReactNode
+  cy?:string,
   onClick?: (e: any, isSubmitting: boolean) => void
   lifecycle?: {
     submitting?: React.ReactNode
@@ -16,7 +17,8 @@ export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
 export const SubmitButton = React.forwardRef<
   HTMLButtonElement,
   FormSubmitButtonProps
->(({ onClick, lifecycle, children, className, ...props }, ref) => {
+>(({ onClick, lifecycle, children, className,cy, ...props }, ref) => {
+  
   const { settings } = useForm()
   const {
     errors,
@@ -39,6 +41,7 @@ export const SubmitButton = React.forwardRef<
     <Button
       type="submit"
       ref={ref}
+      data-cy={mergeSelectors(['btn-submit', cy])}
       className={mergeSelectors(['form-submit-btn', className])}
       onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
       disabled={settings.disableSubmit && hasErrors}
@@ -47,5 +50,7 @@ export const SubmitButton = React.forwardRef<
     </Button>
   )
 })
+
+
 
 SubmitButton.displayName = 'FormSubmit'

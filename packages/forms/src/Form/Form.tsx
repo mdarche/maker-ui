@@ -29,6 +29,7 @@ export interface FormProps
  */
 export const Form = ({
   id,
+  cy,
   className,
   children,
   columns,

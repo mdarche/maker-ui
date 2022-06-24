@@ -60,5 +60,8 @@
       "react-select>@emotion/react": "11.8.2"
     }
   },
-  "packageManager": "pnpm@6.32.3"
+  "packageManager": "pnpm@6.32.3",
+  "dependencies": {
+    "cypress-file-upload": "^5.0.8"
+  }
 }

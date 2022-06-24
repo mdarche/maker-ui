@@ -29,6 +29,7 @@ export function sortChildren(children: React.ReactNode): NestedComponents {
       //@ts-ignore
       child.type.displayName
     ) {
+      console.log("child.type.displayName->",child.type.displayName)
       //@ts-ignore
       switch (child.type.displayName) {
         case 'FormHeader':
@@ -40,6 +41,7 @@ export function sortChildren(children: React.ReactNode): NestedComponents {
         case 'FormError':
           return (sorted.formError = child)
         case 'FormSubmit':
+           console.log("child--->",child)
           return (sorted.formSubmit = child)
         default:
           return sorted.formChildren?.push(child as React.ReactElement)

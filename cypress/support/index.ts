@@ -20,5 +20,6 @@ import './commands'
 // Add tab key support
 import 'cypress-plugin-tab'
 
+import 'cypress-file-upload'
 // Add code coverage helper
 // import '@cypress/code-coverage/support'

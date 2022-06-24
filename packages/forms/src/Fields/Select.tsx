@@ -35,12 +35,12 @@ const createOption = (label: string) => ({
 
 export const Select = ({
   id,
+  cy,
   name,
   hasError,
   settings,
   onBlur,
   initialValue,
-  cy,
 }: SelectProps) => {
   const [state, setState] = useState({
     inputValue: '',
@@ -95,6 +95,7 @@ export const Select = ({
   const attributes = {
     inputId: id,
     name,
+    cy,
     className: hasError ? 'error' : undefined,
     onChange: handleChange,
     onBlur: handleBlur,
@@ -115,8 +116,8 @@ export const Select = ({
   }
 
   return settings.isCreatable || settings.isCreatableInput ? (
-    <CreatableSelect {...attributes} />
+    <CreatableSelect {...attributes} data-cy={cy} />
   ) : (
-    <ReactSelect {...attributes} />
+    <ReactSelect {...attributes} data-cy={cy} />
   )
 }
