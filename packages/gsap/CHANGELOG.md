@@ -1,5 +1,19 @@
 # @maker-ui/gsap
 
+## 1.2.4
+
+### Patch Changes
+
+- [#80](https://github.com/mdarche/maker-ui/pull/80) [`00da7da5`](https://github.com/mdarche/maker-ui/commit/00da7da5b26bd2bcb42ddbebb81b35fe9545c3f7) Thanks [@mdarche](https://github.com/mdarche)! - - Fix carousel arrow and dot props = false bug
+  - Automatically supply the slide index to each slide as an `index` prop
+  - Allow individual slides to disable drag gestures via `draggable` prop
+  - Support displaying multiple carousel slides at once
+- Updated dependencies [[`00da7da5`](https://github.com/mdarche/maker-ui/commit/00da7da5b26bd2bcb42ddbebb81b35fe9545c3f7)]:
+  - @maker-ui/layout@1.2.4
+  - @maker-ui/css@1.2.4
+  - @maker-ui/utils@1.2.4
+  - @maker-ui/primitives@1.2.4
+
 ## 1.2.3
 
 ### Patch Changes

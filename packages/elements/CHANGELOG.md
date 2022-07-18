@@ -1,5 +1,16 @@
 # @maker-ui/elements
 
+## 1.2.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @maker-ui/accordion@1.2.4
+  - @maker-ui/notifications@1.3.2
+  - @maker-ui/popovers@1.2.4
+  - @maker-ui/modal@1.2.4
+  - @maker-ui/tabs@1.2.4
+
 ## 1.2.4
 
 ### Patch Changes

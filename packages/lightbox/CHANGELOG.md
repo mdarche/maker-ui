@@ -1,5 +1,17 @@
 # @maker-ui/lightbox
 
+## 1.3.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @maker-ui/css@1.2.4
+  - @maker-ui/utils@1.2.4
+  - @maker-ui/primitives@1.2.4
+  - @maker-ui/transition@1.2.4
+  - @maker-ui/loaders@1.2.4
+  - @maker-ui/modal@1.2.4
+
 ## 1.3.0
 
 ### Minor Changes
