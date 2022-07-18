@@ -15,6 +15,7 @@
     "@maker-ui/lightbox": "workspace:*",
     "@maker-ui/loaders": "workspace:*",
     "@maker-ui/modal": "workspace:*",
+    "@maker-ui/popovers": "workspace:*",
     "@maker-ui/notifications": "workspace:*",
     "@maker-ui/social": "workspace:*",
     "@maker-ui/tabs": "workspace:*",

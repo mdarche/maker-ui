@@ -118,6 +118,7 @@ importers:
       '@maker-ui/loaders': workspace:*
       '@maker-ui/modal': workspace:*
       '@maker-ui/notifications': workspace:*
+      '@maker-ui/popovers': workspace:*
       '@maker-ui/social': workspace:*
       '@maker-ui/tabs': workspace:*
       maker-ui: workspace:*
@@ -134,6 +135,7 @@ importers:
       '@maker-ui/loaders': link:../../packages/loaders
       '@maker-ui/modal': link:../../packages/modal
       '@maker-ui/notifications': link:../../packages/notifications
+      '@maker-ui/popovers': link:../../packages/popovers
       '@maker-ui/social': link:../../packages/social
       '@maker-ui/tabs': link:../../packages/tabs
       maker-ui: link:../../packages/maker-ui

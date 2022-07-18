@@ -54,6 +54,7 @@ export const options: MakerUIOptions = {
       bg_footer: '#000',
     },
   },
+  systemColorMode: true,
   useColorDefaults: false,
   header: {
     maxWidth: 1200,
