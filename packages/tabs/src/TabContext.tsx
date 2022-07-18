@@ -30,7 +30,6 @@ const TabDataContext = React.createContext<{
  *
  * @internal
  */
-
 export const TabContext = ({
   activeKey,
   renderInactive = false,

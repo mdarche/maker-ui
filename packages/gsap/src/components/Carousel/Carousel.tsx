@@ -15,7 +15,7 @@ import { NavArrows } from './NavArrows'
 import { Pagination } from './Pagination'
 import { mergeSettings, mergeArrows, mergeDots } from './defaults'
 import type { CarouselSettings, ArrowSettings, DotSettings } from './types'
-import { useTimer, useLoop } from '../hooks'
+import { useTimer, useLoop } from '../../hooks'
 import styles from './Carousel.styles'
 
 export interface CarouselProps extends DivProps {
@@ -50,8 +50,8 @@ export const Carousel = ({
   data = [],
   template,
   settings,
-  dots,
-  arrows,
+  dots = {},
+  arrows = {},
   height = 500,
   controls,
   overlay,
@@ -94,8 +94,8 @@ export const Carousel = ({
   /**
    * Merge user settings with defaults (bottom of file)
    */
-  const _dots = mergeDots(dots || {})
-  const _arrows = mergeArrows(arrows || {})
+  const _dots = !dots ? false : mergeDots(dots || {})
+  const _arrows = !arrows ? false : mergeArrows(arrows || {})
 
   // Proxy state in case an external component is controlling the slide index
   const _index = controls ? controls[0] : index
@@ -218,11 +218,17 @@ export const Carousel = ({
             key={i}
             ref={addToRefs}
             className={mergeSelectors(['slide', _index === i ? ' active' : ''])}
-            {...(draggable && dragTarget === 'slide' ? bind() : {})}>
+            // @ts-ignore
+            {...(d?.draggable !== false && draggable && dragTarget === 'slide'
+              ? bind()
+              : {})}>
             <div className="slide-inner">
-              {template === 'custom' ? d : cloneElement(template, d)}
+              {template === 'custom'
+                ? d
+                : cloneElement(template, { ...d, index: i })}
             </div>
-            {draggable && dragTarget === 'overlay' ? (
+            {/* @ts-ignore */}
+            {d?.draggable !== false && draggable && dragTarget === 'overlay' ? (
               <div className="dt-overlay" {...bind()} />
             ) : null}
           </div>
