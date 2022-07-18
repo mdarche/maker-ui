@@ -32,6 +32,7 @@ export const defaultOptions: MakerUIOptions = {
       bg_megamenu: '#fbfbfb',
     },
   },
+  systemColorMode: true,
   persistentColorMode: true,
   useColorDefaults: true,
   useMeasurementDefaults: true,

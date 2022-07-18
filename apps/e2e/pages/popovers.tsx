@@ -9,6 +9,13 @@ export default function PopoverPage() {
   return (
     <Section css={{ paddingTop: 50 }}>
       <ColorButton />
+      <ColorButton
+        customButton={(currentMode, attributes, preferences) => (
+          <button {...attributes}>
+            {currentMode} {preferences}
+          </button>
+        )}
+      />
       <Button
         ref={buttonRef}
         onClick={(e) => set(!show)}

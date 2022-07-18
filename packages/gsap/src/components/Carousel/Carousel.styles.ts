@@ -23,8 +23,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100%',
-    width: '100%',
     position: 'relative',
     flexShrink: 0,
   },

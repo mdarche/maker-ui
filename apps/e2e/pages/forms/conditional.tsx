@@ -103,7 +103,7 @@ const fields1: FieldProps[] = [
     name: 'profileImage',
     label: 'Profile Image',
     type: 'image-picker',
-    settings: { inputId: 'testId' },
+    settings: { inputId: 'testId', returnUrl: true },
     conditions: [
       [
         {

@@ -116,6 +116,12 @@ export interface MakerOptions {
    */
   colors: ThemeColors
   /**
+   * When true, all color buttons will have an automatic option for the user's system
+   * color preference.
+   * @default true
+   */
+  systemColorMode?: boolean
+  /**
    * An option that lets you save the user's color mode preference to the browser's local storage.
    */
   persistentColorMode: boolean | { key: string; expiration: number }
@@ -298,7 +304,11 @@ export interface MakerOptions {
     colorButton?:
       | 'default'
       | React.ReactNode
-      | ((currentMode?: string, attributes?: object) => React.ReactNode)
+      | ((
+          currentMode?: string,
+          attributes?: object,
+          preference?: string
+        ) => React.ReactNode)
     /**
      * A specific breakpoint that controls when the header switches from desktop navigation
      * to mobile navigation. You may also use an index to access a specific breakpoint in

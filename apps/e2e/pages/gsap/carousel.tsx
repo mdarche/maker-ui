@@ -11,6 +11,7 @@ import NYCImage from '../../public/nyc.jpeg'
 interface BasicSlideProps {
   greeting?: string
   bg?: string
+  index?: number
 }
 
 const basicData: BasicSlideProps[] = [
@@ -20,7 +21,7 @@ const basicData: BasicSlideProps[] = [
   { greeting: 'Ciao!', bg: '#e9a0e9' },
 ]
 
-const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
+const BasicSlide = ({ greeting, bg, index }: BasicSlideProps) => (
   <Div
     css={{
       background: bg,
@@ -30,7 +31,9 @@ const BasicSlide = ({ greeting, bg }: BasicSlideProps) => (
       justifyContent: 'center',
       fontSize: 36,
     }}>
-    <p>{greeting}</p>
+    <p>
+      {greeting} - {index}
+    </p>
   </Div>
 )
 
@@ -46,7 +49,7 @@ const components = [
 
 const images = [
   { url: CosmosImage, bg: 'red' },
-  { url: NYCImage, bg: 'blue' },
+  { url: NYCImage, bg: 'blue', draggable: false },
 ]
 
 const ImageSlide = ({ url }: { url?: string }) => {
@@ -107,7 +110,11 @@ export default function CarouselPage() {
           data={array}
           template={<BasicSlide />}
           controls={[index, setIndex]}
-          settings={{}}
+          settings={{
+            autoPlay: false,
+            slideWidth: ['100%', 200],
+            center: true,
+          }}
           overlay={
             showOverlay ? (
               <Div
@@ -139,7 +146,12 @@ export default function CarouselPage() {
 
       <Div css={{ marginTop: 80 }}>
         <h1>Next.js Image Slides</h1>
-        <Carousel data={images} template={<ImageSlide />} settings={{}} />
+        <Carousel
+          key={1}
+          data={images}
+          template={<ImageSlide />}
+          settings={{ draggable: true, dragTarget: 'overlay' }}
+        />
       </Div>
     </>
   )

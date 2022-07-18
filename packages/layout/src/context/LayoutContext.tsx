@@ -73,9 +73,15 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
    * @remark To conform with `prefers-color-scheme`, make sure you explicitly
    * set color modes with `light` and `dark` keys.
    *
-   * */
-
+   */
   React.useEffect(() => {
+    const systemDark = window?.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    const systemLight = window?.matchMedia(
+      '(prefers-color-scheme: light)'
+    ).matches
+
     const themeKeys = Object.keys(options?.colors)
 
     //  If there are multiple color themes, save the active one to local storage
@@ -93,32 +99,46 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
         const sessionCheck = localStorage.getItem(storageKey)
 
         const setDefaultTheme = () => {
+          let theme = ''
           // Check for dark theme key and if user prefers dark mode
           if (
+            options.systemColorMode &&
             themeKeys.includes('dark') &&
-            window?.matchMedia('(prefers-color-scheme: dark)').matches
+            themeKeys.includes('light')
           ) {
-            document.body.dataset.theme = 'dark'
-            setState((s) => ({ ...s, colorTheme: 'dark' }))
+            theme = 'system'
+            document.body.dataset.theme = systemDark ? 'dark' : 'light'
+            setState((s) => ({
+              ...s,
+              colorTheme: 'system',
+            }))
           } else {
-            // Use the first theme key as the default
             const defaultTheme = themeKeys[0]
-            localStorage.setItem(
-              storageKey,
-              JSON.stringify({ theme: defaultTheme })
-            )
+            theme = defaultTheme
             document.body.dataset.theme = defaultTheme
             setState((s) => ({ ...s, colorTheme: defaultTheme }))
           }
+
+          localStorage.setItem(storageKey, JSON.stringify({ theme }))
         }
 
         if (sessionCheck) {
           // @ts-ignore
           const { theme } = JSON.parse(localStorage.getItem(storageKey))
-          const colors = options.colors ? Object.keys(options.colors) : []
+          const colors = options.colors
+            ? [
+                ...(options?.systemColorMode ? ['system'] : []),
+                ...Object.keys(options.colors),
+              ]
+            : []
 
           if (colors.includes(theme)) {
-            document.body.dataset.theme = theme
+            document.body.dataset.theme =
+              theme === 'system' && systemDark
+                ? 'dark'
+                : theme === 'system' && systemLight
+                ? 'light'
+                : theme
             setState((s) => ({ ...s, colorTheme: theme }))
           } else {
             setDefaultTheme()
@@ -281,22 +301,45 @@ function useLayoutDetector<T extends 'content', K extends React.ReactNode>(
 
 function useColorTheme() {
   const options = useOptions()
+  const [preference, setPreference] = React.useState('')
   const {
     state: { colorTheme },
     setState,
   } = React.useContext(LayoutContext)
 
-  const themes = colorTheme ? Object.keys(options.colors) : undefined
+  React.useEffect(() => {
+    if (window?.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setPreference('dark')
+    }
+    if (window?.matchMedia('(prefers-color-scheme: light)').matches) {
+      setPreference('light')
+    }
+  }, [])
+
+  const themes = colorTheme
+    ? [
+        ...(options?.systemColorMode ? ['system'] : []),
+        ...Object.keys(options.colors),
+      ]
+    : undefined
+  const systemDark = preference === 'dark' && themes?.includes('dark')
+  const systemLight = preference === 'light' && themes?.includes('light')
 
   function setColorTheme(theme: string) {
     if (options.persistentColorMode) {
       localStorage.setItem('color-theme', JSON.stringify({ theme }))
     }
-    document.body.dataset.theme = theme
+
+    document.body.dataset.theme =
+      theme === 'system' && systemDark
+        ? 'dark'
+        : theme === 'system' && systemLight
+        ? 'light'
+        : theme
     setState((s) => ({ ...s, colorTheme: theme }))
   }
 
-  return { colorTheme, setColorTheme, themes }
+  return { colorTheme, setColorTheme, themes, preference }
 }
 
 export {

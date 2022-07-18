@@ -28,7 +28,7 @@ export const ColorButton = ({
   ...props
 }: ColorButtonProps) => {
   const { header, breakpoints: bps } = useOptions()
-  const { colorTheme, setColorTheme, themes } = useColorTheme()
+  const { colorTheme, setColorTheme, themes, preference } = useColorTheme()
 
   // Never render this component if themes are undefined
   if (!themes) return null
@@ -62,7 +62,7 @@ export const ColorButton = ({
 
   if ((isHeaderButton && header.showColorButton) || !isHeaderButton) {
     return typeof colorButton === 'function' ? (
-      colorButton(colorTheme, attributes)
+      colorButton(colorTheme, attributes, preference)
     ) : (
       <Button
         {...attributes}
@@ -73,7 +73,7 @@ export const ColorButton = ({
               : ['none', 'block'],
           ...(css as object),
         }}>
-        {colorButton || colorTheme}
+        {colorButton ?? colorTheme}
       </Button>
     )
   }
