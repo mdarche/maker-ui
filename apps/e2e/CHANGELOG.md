@@ -1,5 +1,26 @@
 # e2e
 
+## 1.1.9
+
+### Patch Changes
+
+- [#80](https://github.com/mdarche/maker-ui/pull/80) [`00da7da5`](https://github.com/mdarche/maker-ui/commit/00da7da5b26bd2bcb42ddbebb81b35fe9545c3f7) Thanks [@mdarche](https://github.com/mdarche)! - - Add popover package to dependencies
+  - Update conditional form example
+  - Update carousel examples
+  - Update popover / color button page
+- Updated dependencies [[`00da7da5`](https://github.com/mdarche/maker-ui/commit/00da7da5b26bd2bcb42ddbebb81b35fe9545c3f7), [`00da7da5`](https://github.com/mdarche/maker-ui/commit/00da7da5b26bd2bcb42ddbebb81b35fe9545c3f7)]:
+  - @maker-ui/gsap@1.2.4
+  - @maker-ui/forms@1.4.2
+  - maker-ui@1.2.4
+  - @maker-ui/accordion@1.2.4
+  - @maker-ui/lightbox@1.3.1
+  - @maker-ui/notifications@1.3.2
+  - @maker-ui/popovers@1.2.4
+  - @maker-ui/loaders@1.2.4
+  - @maker-ui/modal@1.2.4
+  - @maker-ui/tabs@1.2.4
+  - @maker-ui/social@1.3.1
+
 ## 1.1.8
 
 ### Patch Changes

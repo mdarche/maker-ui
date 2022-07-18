@@ -1,5 +1,18 @@
 # @maker-ui/forms
 
+## 1.4.2
+
+### Patch Changes
+
+- [#80](https://github.com/mdarche/maker-ui/pull/80) [`00da7da5`](https://github.com/mdarche/maker-ui/commit/00da7da5b26bd2bcb42ddbebb81b35fe9545c3f7) Thanks [@mdarche](https://github.com/mdarche)! - - Prevent `returnUrl` image picker attribute from being rendered to DOM
+
+- Updated dependencies []:
+  - @maker-ui/css@1.2.4
+  - @maker-ui/utils@1.2.4
+  - @maker-ui/primitives@1.2.4
+  - @maker-ui/transition@1.2.4
+  - @maker-ui/loaders@1.2.4
+
 ## 1.4.1
 
 ### Patch Changes
