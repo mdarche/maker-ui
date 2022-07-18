@@ -38,7 +38,7 @@ export interface CarouselSettings {
    * @default "power1.inOut"
    */
   ease?: string
-  /** The height of a slided.
+  /** The height of a slide.
    * @default '100%''
    */
   slideHeight?: ResponsiveScale
