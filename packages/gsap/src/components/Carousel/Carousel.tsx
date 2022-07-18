@@ -69,7 +69,11 @@ export const Carousel = ({
     ease,
     draggable,
     dragTarget,
-  } = mergeSettings(settings || {})
+    slideWidth,
+    slideHeight,
+    center,
+    centerMobile,
+  }: CarouselSettings = mergeSettings(settings ?? {})
   const carouselRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
   const [length, setLength] = useState(data.length)
@@ -207,16 +211,26 @@ export const Carousel = ({
         height,
       }}
       {...props}>
-      <div
+      <Div
+        css={
+          center
+            ? {
+                justifyContent: centerMobile
+                  ? 'center'
+                  : ['flex-start', 'center'],
+              }
+            : undefined
+        }
         className={mergeSelectors([
           'slide-container',
           isDragging ? 'dragging' : undefined,
         ])}
         {...(draggable && dragTarget === 'container' ? bind() : {})}>
         {data.map((d, i) => (
-          <div
+          <Div
             key={i}
             ref={addToRefs}
+            css={{ width: slideWidth, height: slideHeight }}
             className={mergeSelectors(['slide', _index === i ? ' active' : ''])}
             // @ts-ignore
             {...(d?.draggable !== false && draggable && dragTarget === 'slide'
@@ -231,9 +245,9 @@ export const Carousel = ({
             {d?.draggable !== false && draggable && dragTarget === 'overlay' ? (
               <div className="dt-overlay" {...bind()} />
             ) : null}
-          </div>
+          </Div>
         ))}
-      </div>
+      </Div>
       {overlay ? overlay : null}
       {_arrows ? <NavArrows navigate={navigate} settings={_arrows} /> : null}
       {_dots ? (

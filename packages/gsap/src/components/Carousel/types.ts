@@ -38,6 +38,24 @@ export interface CarouselSettings {
    * @default "power1.inOut"
    */
   ease?: string
+  /** The height of a slided.
+   * @default '100%''
+   */
+  slideHeight?: ResponsiveScale
+  /** The width of a slide. Default is 100% for full width slides, but you can
+   * use a percentage or a responsive scale to customize.
+   * @default '100%'
+   */
+  slideWidth?: ResponsiveScale
+  /** If true, the slide container will have flex property `justify-content: center;`.
+   * Helpful if slide width is not 100%.
+   * @default false
+   */
+  center?: boolean
+  /** Lets you control the `center` prop on mobile.
+   * @default false
+   */
+  centerMobile?: boolean
 }
 
 export interface ArrowSettings {

@@ -110,7 +110,11 @@ export default function CarouselPage() {
           data={array}
           template={<BasicSlide />}
           controls={[index, setIndex]}
-          settings={{}}
+          settings={{
+            autoPlay: false,
+            slideWidth: ['100%', 200],
+            center: true,
+          }}
           overlay={
             showOverlay ? (
               <Div
@@ -143,6 +147,7 @@ export default function CarouselPage() {
       <Div css={{ marginTop: 80 }}>
         <h1>Next.js Image Slides</h1>
         <Carousel
+          key={1}
           data={images}
           template={<ImageSlide />}
           settings={{ draggable: true, dragTarget: 'overlay' }}

@@ -12,10 +12,14 @@ export function mergeSettings(initial?: CarouselSettings) {
       pauseOnHover: true,
       delay: 6.5,
       draggable: true,
-      dragTarget: 'container',
-      hideControls: false,
+      dragTarget: 'container' as CarouselSettings['dragTarget'],
+      // hideControls: false,
       duration: 0.3,
       ease: 'power1.inOut',
+      slideWidth: '100%',
+      slideHeight: '100%',
+      center: false,
+      centerMobile: false,
     },
     initial as object
   )
