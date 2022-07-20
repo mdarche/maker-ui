@@ -1,5 +1,11 @@
 # @maker-ui/gsap
 
+## 1.2.5
+
+### Patch Changes
+
+- [#82](https://github.com/mdarche/maker-ui/pull/82) [`08b9deb1`](https://github.com/mdarche/maker-ui/commit/08b9deb17b81559bdbff08ea3fa1b4fc81d48fe7) Thanks [@mdarche](https://github.com/mdarche)! - fix: remove carousel autoplay bug
+
 ## 1.2.4
 
 ### Patch Changes
