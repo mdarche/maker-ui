@@ -20,9 +20,6 @@ export const PageButton = ({
   const fields = pageFields[pageId]
   const required = getRequired(fields as FieldProps[])
 
-  console.log('fields are', fields)
-  console.log('Required fields are', required)
-
   return (
     <Button
       type="button"

@@ -79,14 +79,29 @@ export default function CarouselPage() {
   const [array, setArray] = useState(basicData)
   const [showOverlay, setShowOverlay] = useState(false)
 
+  console.log('index is', index)
+
   return (
     <>
       <Global styles={{ h1: { textAlign: 'center' } }} />
-      <Section _css={{ padding: 20, background: 'gainsboro' }}>
+      <Section
+        _css={{
+          padding: 20,
+          background: 'gainsboro',
+          'button.active': { color: 'red' },
+        }}>
         <div className="flex justify-between">
           <div>
-            <button onClick={() => setIndex(1)}>Go to Slide 2</button>
-            <button onClick={() => setIndex(3)}>Go to Slide 4</button>
+            <button
+              className={index === 1 ? 'active' : undefined}
+              onClick={() => setIndex(1)}>
+              Go to Slide 2
+            </button>
+            <button
+              className={index === 3 ? 'active' : undefined}
+              onClick={() => setIndex(3)}>
+              Go to Slide 4
+            </button>
           </div>
           <div>
             <button
@@ -112,8 +127,7 @@ export default function CarouselPage() {
           controls={[index, setIndex]}
           settings={{
             autoPlay: false,
-            slideWidth: ['100%', 200],
-            center: true,
+            slideWidth: ['100%'],
           }}
           overlay={
             showOverlay ? (

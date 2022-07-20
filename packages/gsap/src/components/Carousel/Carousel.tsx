@@ -81,7 +81,11 @@ export const Carousel = ({
   const slideRefs = useRef([])
   slideRefs.current = []
   const { loop, resetLoop } = useLoop(slideRefs.current)
-  const loopTimer = useTimer(delay, autoPlayLimit * data.length, initAutoPlay)
+  const loopTimer = useTimer(
+    delay,
+    autoPlay ? autoPlayLimit * data.length : 0,
+    initAutoPlay
+  )
 
   function addToRefs(el: any) {
     //@ts-ignore

@@ -32,6 +32,7 @@ const styles = {
   },
   '.dt-overlay': {
     position: 'absolute',
+    touchAction: 'none',
     top: 0,
     left: 0,
     right: 0,
