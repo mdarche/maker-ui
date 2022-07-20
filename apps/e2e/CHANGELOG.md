@@ -1,5 +1,12 @@
 # e2e
 
+## 1.1.10
+
+### Patch Changes
+
+- Updated dependencies [[`08b9deb1`](https://github.com/mdarche/maker-ui/commit/08b9deb17b81559bdbff08ea3fa1b4fc81d48fe7)]:
+  - @maker-ui/gsap@1.2.5
+
 ## 1.1.9
 
 ### Patch Changes
