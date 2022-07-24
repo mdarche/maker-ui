@@ -97,8 +97,12 @@ export const MenuItem = memo(
           ? 'true'
           : undefined,
       'aria-current': pathname === path ? 'page' : undefined,
-      ...menuControls,
+      ...(menuControls ?? {
+        onClick: depth !== 0 ? (e: any) => e?.target.blur() : undefined,
+      }),
     }
+
+    console.log(label, attributes)
 
     return (
       <li
