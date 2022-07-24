@@ -1,50 +1,22 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  cloneElement,
-  useCallback,
-} from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { mergeSelectors, merge } from '@maker-ui/utils'
-import { Div, type DivProps } from '@maker-ui/primitives'
-import type { ResponsiveScale } from '@maker-ui/css'
+import { Div } from '@maker-ui/primitives'
 import debounce from 'lodash.debounce'
 import { useDrag } from '@use-gesture/react'
 
 import { NavArrows } from './NavArrows'
 import { Pagination } from './Pagination'
+import { Slide } from './Slide'
 import { mergeSettings, mergeArrows, mergeDots } from './defaults'
-import type { CarouselSettings, ArrowSettings, DotSettings } from './types'
+import type { CarouselSettings, CarouselProps, SlideProps } from './types'
 import { useTimer, useLoop } from '../../hooks'
 import styles from './Carousel.styles'
-
-export interface CarouselProps extends DivProps {
-  /** Required array of data or React components that will be used to generate slides */
-  data: Object[] | React.ReactElement[]
-  /** Required component template for data
-   * - Supply a React component that accepts props for each of the attributes in your `data` array
-   * - Set to "custom" to indicate an array of custom components in the `data` array
-   * */
-  template: React.ReactElement | 'custom'
-  /** The height of the carousel. Can be a responsive array value. */
-  height?: ResponsiveScale
-  /** Settings that control the carousel previous and next (arrow) buttons */
-  arrows?: ArrowSettings | false
-  /** Settings that control the carousel page indicators (dots) */
-  dots?: DotSettings | false
-  /** Settings that control the carousel */
-  settings?: CarouselSettings
-  /** An optional component that will sit on top of all slides and remain visible */
-  overlay?: React.ReactElement
-  /** External controls via useState hook */
-  controls?: [number, React.Dispatch<React.SetStateAction<number>>]
-}
 
 /**
  * Use the `Carousel` component to iterate over an array of data objects or React components
  * to show an animated carousel.
  *
- * @link https://maker-ui.com/docs/elements/carousel
+ * @link https://maker-ui.com/docs/gsap/carousel
  */
 export const Carousel = ({
   data = [],
@@ -57,6 +29,7 @@ export const Carousel = ({
   overlay,
   id,
   className,
+  breakpoints,
   css,
   ...props
 }: CarouselProps) => {
@@ -67,6 +40,7 @@ export const Carousel = ({
     delay,
     duration,
     ease,
+    dragThreshold,
     draggable,
     dragTarget,
     slideWidth,
@@ -104,12 +78,12 @@ export const Carousel = ({
    */
   const _dots = !dots ? false : mergeDots(dots || {})
   const _arrows = !arrows ? false : mergeArrows(arrows || {})
-
   // Proxy state in case an external component is controlling the slide index
   const _index = controls ? controls[0] : index
 
   /**
    * Handle external navigation from arrow buttons
+   * @TODO rebuild this to include support for animated drags
    */
   const navigate = useCallback(
     (type: 'next' | 'previous' | 'index', targetIndex?: number) => {
@@ -152,12 +126,21 @@ export const Carousel = ({
 
   const bind = useDrag(
     ({ dragging, last, direction, intentional, movement: [mx] }) => {
-      if (dragging) {
+      if (dragging && Math.abs(mx) > dragThreshold && intentional) {
         loopTimer.pause()
         setIsDragging(true)
-      } else {
+      } else if (!dragging && Math.abs(mx) < dragThreshold) {
+        if (
+          typeof data[_index] === 'object' &&
+          (data[_index] as SlideProps)?.onClick
+        ) {
+          //@ts-ignore
+          ;(data[_index] as SlideProps)?.onClick()
+        }
+        // Add click callback here
         setIsDragging(false)
       }
+
       if (intentional && direction[0] === -1 && Math.abs(mx) > 160 && last) {
         navigate('next')
       } else if (intentional && Math.abs(mx) > 160 && last) {
@@ -206,6 +189,7 @@ export const Carousel = ({
   return (
     <Div
       id={id}
+      breakpoints={breakpoints}
       ref={carouselRef}
       className={mergeSelectors(['carousel', className])}
       onMouseEnter={autoPlay && pauseOnHover ? loopTimer.pause : undefined}
@@ -216,6 +200,7 @@ export const Carousel = ({
       }}
       {...props}>
       <Div
+        breakpoints={breakpoints}
         css={
           center
             ? {
@@ -231,25 +216,21 @@ export const Carousel = ({
         ])}
         {...(draggable && dragTarget === 'container' ? bind() : {})}>
         {data.map((d, i) => (
-          <Div
+          <Slide
             key={i}
-            ref={addToRefs}
-            css={{ width: slideWidth, height: slideHeight }}
-            className={mergeSelectors(['slide', _index === i ? ' active' : ''])}
-            // @ts-ignore
-            {...(d?.draggable !== false && draggable && dragTarget === 'slide'
-              ? bind()
-              : {})}>
-            <div className="slide-inner">
-              {template === 'custom'
-                ? d
-                : cloneElement(template, { ...d, index: i })}
-            </div>
-            {/* @ts-ignore */}
-            {d?.draggable !== false && draggable && dragTarget === 'overlay' ? (
-              <div className="dt-overlay" {...bind()} />
-            ) : null}
-          </Div>
+            {...{
+              index: i,
+              isActive: _index === i,
+              height: slideHeight,
+              width: slideWidth,
+              slideProps: d,
+              template,
+              draggable,
+              dragTarget,
+              bind,
+              addToRefs,
+            }}
+          />
         ))}
       </Div>
       {overlay ? overlay : null}

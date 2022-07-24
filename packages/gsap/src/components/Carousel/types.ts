@@ -1,4 +1,38 @@
 import type { ResponsiveScale, StyleObject } from '@maker-ui/css'
+import type { DivProps } from '@maker-ui/primitives'
+
+export interface SlideProps {
+  index?: number
+  isActive?: boolean
+  draggable?: boolean
+  onClick?: () => void
+}
+
+export interface SlideData extends SlideProps {
+  [key: string]: any
+}
+
+export interface CarouselProps extends DivProps {
+  /** Required array of data or React components that will be used to generate slides */
+  data: SlideData[] | React.ReactElement[]
+  /** Required component template for data
+   * - Supply a React component that accepts props for each of the attributes in your `data` array
+   * - Set to "custom" to indicate an array of custom components in the `data` array
+   * */
+  template: React.ReactElement | 'custom'
+  /** The height of the carousel. Can be a responsive array value. */
+  height?: ResponsiveScale
+  /** Settings that control the carousel previous and next (arrow) buttons */
+  arrows?: ArrowSettings | false
+  /** Settings that control the carousel page indicators (dots) */
+  dots?: DotSettings | false
+  /** Settings that control the carousel */
+  settings?: CarouselSettings
+  /** An optional component that will sit on top of all slides and remain visible */
+  overlay?: React.ReactElement
+  /** External controls via useState hook */
+  controls?: [number, React.Dispatch<React.SetStateAction<number>>]
+}
 
 // TODO - ADD `hideControls` prop with a timer to show / hide controls when user is not focusing or hovering over carousel
 
@@ -22,6 +56,10 @@ export interface CarouselSettings {
   /** Determines if the carousel can be controlled via drag and swipe gestures
    * @default true
    */
+  /**
+   * The number of pixels required to register the drag event handler vs click handler
+   */
+  dragThreshold?: number
   draggable?: boolean
   /** The element that should be used to track drag and swipe gestures.
    * - `slide` - applied directly to each slide component
