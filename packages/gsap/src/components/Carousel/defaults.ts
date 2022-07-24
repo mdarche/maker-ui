@@ -11,6 +11,7 @@ export function mergeSettings(initial?: CarouselSettings) {
       autoPlayLimit: 2,
       pauseOnHover: true,
       delay: 6.5,
+      dragThreshold: 5,
       draggable: true,
       dragTarget: 'container' as CarouselSettings['dragTarget'],
       // hideControls: false,

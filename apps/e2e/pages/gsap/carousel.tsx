@@ -1,5 +1,5 @@
 import { Div, Section, Global } from 'maker-ui'
-import { Carousel } from '@maker-ui/gsap'
+import { Carousel, SlideProps } from '@maker-ui/gsap'
 import { useState } from 'react'
 import Image from 'next/image'
 
@@ -8,10 +8,9 @@ import NYCImage from '../../public/nyc.jpeg'
 
 // Example 1 - Basic
 
-interface BasicSlideProps {
+interface BasicSlideProps extends SlideProps {
   greeting?: string
   bg?: string
-  index?: number
 }
 
 const basicData: BasicSlideProps[] = [
@@ -49,12 +48,21 @@ const components = [
 
 const images = [
   { url: CosmosImage, bg: 'red' },
-  { url: NYCImage, bg: 'blue', draggable: false },
+  { url: NYCImage, bg: 'blue' },
 ]
 
-const ImageSlide = ({ url }: { url?: string }) => {
+const ImageSlide = ({
+  url,
+  isActive,
+  clicked,
+}: {
+  url?: string
+  isActive?: boolean
+  clicked?: number
+}) => {
   return (
     <Div
+      className={isActive ? 'active' : undefined}
       css={{
         height: '100%',
         display: 'flex',
@@ -78,8 +86,6 @@ export default function CarouselPage() {
   const [index, setIndex] = useState(0)
   const [array, setArray] = useState(basicData)
   const [showOverlay, setShowOverlay] = useState(false)
-
-  console.log('index is', index)
 
   return (
     <>
@@ -164,7 +170,7 @@ export default function CarouselPage() {
           key={1}
           data={images}
           template={<ImageSlide />}
-          settings={{ draggable: true, dragTarget: 'overlay' }}
+          settings={{ dragTarget: 'overlay' }}
         />
       </Div>
     </>
