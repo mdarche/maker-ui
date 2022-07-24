@@ -1,5 +1,12 @@
 # next-example
 
+## 1.1.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - maker-ui@1.2.5
+
 ## 1.1.7
 
 ### Patch Changes

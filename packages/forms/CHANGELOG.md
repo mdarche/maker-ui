@@ -1,5 +1,16 @@
 # @maker-ui/forms
 
+## 1.4.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @maker-ui/css@1.2.5
+  - @maker-ui/utils@1.2.5
+  - @maker-ui/primitives@1.2.5
+  - @maker-ui/transition@1.2.5
+  - @maker-ui/loaders@1.2.5
+
 ## 1.4.2
 
 ### Patch Changes

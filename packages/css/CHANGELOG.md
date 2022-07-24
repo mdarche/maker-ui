@@ -1,5 +1,12 @@
 # @maker-ui/css
 
+## 1.2.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @maker-ui/utils@1.2.5
+
 ## 1.2.4
 
 ### Patch Changes
