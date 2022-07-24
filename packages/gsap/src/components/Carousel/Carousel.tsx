@@ -12,6 +12,10 @@ import type { CarouselSettings, CarouselProps, SlideProps } from './types'
 import { useTimer, useLoop } from '../../hooks'
 import styles from './Carousel.styles'
 
+interface ClickState {
+  [index: number]: number
+}
+
 /**
  * Use the `Carousel` component to iterate over an array of data objects or React components
  * to show an animated carousel.
@@ -49,6 +53,7 @@ export const Carousel = ({
     centerMobile,
   }: CarouselSettings = mergeSettings(settings ?? {})
   const carouselRef = useRef<HTMLDivElement>(null)
+  const [clicked, setClicked] = useState<ClickState>({})
   const [index, setIndex] = useState(0)
   const [length, setLength] = useState(data.length)
   const [isDragging, setIsDragging] = useState(false)
@@ -130,6 +135,7 @@ export const Carousel = ({
         loopTimer.pause()
         setIsDragging(true)
       } else if (!dragging && Math.abs(mx) < dragThreshold) {
+        setClicked((s) => ({ ...s, [_index]: (s?.[_index] ?? 0) + 1 }))
         if (
           typeof data[_index] === 'object' &&
           (data[_index] as SlideProps)?.onClick
@@ -224,6 +230,7 @@ export const Carousel = ({
               height: slideHeight,
               width: slideWidth,
               slideProps: d,
+              clicked: clicked[i],
               template,
               draggable,
               dragTarget,

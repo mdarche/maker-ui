@@ -47,19 +47,18 @@ const components = [
 // Example 3 - Next.js Images
 
 const images = [
-  { url: CosmosImage, bg: 'red', onClick: () => console.log('LETS GO') },
-  {
-    url: NYCImage,
-    bg: 'blue',
-  },
+  { url: CosmosImage, bg: 'red' },
+  { url: NYCImage, bg: 'blue' },
 ]
 
 const ImageSlide = ({
   url,
   isActive,
+  clicked,
 }: {
   url?: string
   isActive?: boolean
+  clicked?: number
 }) => {
   return (
     <Div

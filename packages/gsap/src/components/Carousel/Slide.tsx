@@ -2,11 +2,12 @@ import * as React from 'react'
 import { Div } from '@maker-ui/primitives'
 import { ResponsiveScale } from '@maker-ui/css'
 import { mergeSelectors } from '@maker-ui/utils'
-import type { CarouselSettings, CarouselProps } from './types'
+import type { CarouselSettings, CarouselProps, SlideProps } from './types'
 
 interface InternalSlideProps {
-  index?: number
-  isActive?: boolean
+  index?: SlideProps['index']
+  isActive?: SlideProps['isActive']
+  clicked?: number
   height?: ResponsiveScale
   width?: ResponsiveScale
   addToRefs: (el: any) => void
@@ -20,6 +21,7 @@ interface InternalSlideProps {
 export const Slide = ({
   index,
   isActive,
+  clicked,
   height,
   width,
   template,
@@ -46,6 +48,7 @@ export const Slide = ({
               ...slideProps,
               index,
               isActive,
+              clicked,
             })}
       </div>
       {slideProps?.draggable !== false &&
