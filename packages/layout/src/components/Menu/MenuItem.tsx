@@ -102,8 +102,6 @@ export const MenuItem = memo(
       }),
     }
 
-    console.log(label, attributes)
-
     return (
       <li
         className={mergeSelectors([
