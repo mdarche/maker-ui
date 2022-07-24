@@ -1,5 +1,12 @@
 # @maker-ui/toc
 
+## 1.2.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - maker-ui@1.2.5
+
 ## 1.2.4
 
 ### Patch Changes

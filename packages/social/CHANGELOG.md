@@ -1,5 +1,12 @@
 # @maker-ui/social
 
+## 1.3.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @maker-ui/primitives@1.2.5
+
 ## 1.3.1
 
 ### Patch Changes

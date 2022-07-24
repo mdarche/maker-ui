@@ -1,5 +1,17 @@
 # @maker-ui/gsap
 
+## 1.2.6
+
+### Patch Changes
+
+- [#84](https://github.com/mdarche/maker-ui/pull/84) [`0feec1b9`](https://github.com/mdarche/maker-ui/commit/0feec1b92b5a2100b0d365e18d8c68d1974a7d16) Thanks [@mdarche](https://github.com/mdarche)! - - Add slide template click handler and active index prop
+
+- Updated dependencies [[`0feec1b9`](https://github.com/mdarche/maker-ui/commit/0feec1b92b5a2100b0d365e18d8c68d1974a7d16)]:
+  - @maker-ui/layout@1.2.5
+  - @maker-ui/css@1.2.5
+  - @maker-ui/utils@1.2.5
+  - @maker-ui/primitives@1.2.5
+
 ## 1.2.5
 
 ### Patch Changes
