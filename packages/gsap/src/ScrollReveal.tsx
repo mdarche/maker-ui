@@ -89,7 +89,7 @@ export interface ScrollRevealProps extends DivProps {
   /** An optional React ref that serves as the trigger element for the `start` and `end` props.
    * @remark This prop only works for individual elements, not `group` animations.
    */
-  trigger?: Element
+  trigger?: Element | string
   /** If true, the animation effect will reverse when users scroll up
    * @default false
    */

@@ -94,8 +94,8 @@ export const Carousel = ({
   /**
    * Merge user settings with defaults (bottom of file)
    */
-  const _dots = mergeDots(dots || {})
-  const _arrows = mergeArrows(arrows || {})
+  const _dots = dots ? mergeDots(dots || {}) : false
+  const _arrows = arrows ? mergeArrows(arrows || {}) : false
 
   // Proxy state in case an external component is controlling the slide index
   const _index = controls ? controls[0] : index

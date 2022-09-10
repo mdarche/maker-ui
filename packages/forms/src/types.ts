@@ -19,10 +19,10 @@ export type PaginationElement =
   | ((currentPage: number) => React.ReactNode)
 
 export type InputOption = {
-  label: string
-  value?: string
+  value?: string | React.ReactNode
   className?: string
   id?: string
+  disabled?: boolean
 }
 
 export interface AutoSaveSettings {

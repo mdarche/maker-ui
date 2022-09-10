@@ -21,18 +21,21 @@ export const InputOptions = ({
     role="group"
     aria-labelledby={`${name}-group`}
     className={hasError ? 'error' : undefined}>
-    {settings?.options?.map(({ id, className, label, value }, index) => (
-      <label key={index}>
-        <FormikField
-          id={id}
-          data-cy={cy}
-          className={className}
-          name={name}
-          value={value || label}
-          {...props}
-        />
-        {label}
-      </label>
-    ))}
+    {settings?.options?.map(
+      ({ id, className, label, value, disabled }, index) => (
+        <label key={index}>
+          <FormikField
+            id={id}
+            data-cy={cy}
+            className={className}
+            name={name}
+            value={value || label}
+            disabled={disabled}
+            {...props}
+          />
+          {label}
+        </label>
+      )
+    )}
   </div>
 )

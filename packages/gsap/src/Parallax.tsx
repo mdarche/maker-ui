@@ -23,7 +23,7 @@ export interface ParallaxProps
   /** The height of the actual background image */
   imageHeight?: ResponsiveScale
   /** An intial CSS transform that marks the starting position of the image */
-  imagePosition?: string
+  imagePosition?: ResponsiveScale
   /** Additional styles that are applied to `.image-container` */
   imageCss?: object
   /** The maxwidth of the content container where nested children are rendered */

@@ -117,6 +117,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
             {...props}>
             {children}
           </Flex>
+          {/** @todo fix this  */}
           {allowClose && !closeButton ? (
             typeof closeButton === 'function' ? (
               closeButton(btnAttributes)
