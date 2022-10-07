@@ -13,7 +13,7 @@ const styles = {
     overflow: 'hidden',
     width: '100%',
     height: '100%',
-    touchAction: 'none',
+    // touchAction: 'none',
     cursor: 'pointer',
     '&.dragging': {
       cursor: 'grabbing',
@@ -32,7 +32,7 @@ const styles = {
   },
   '.dt-overlay': {
     position: 'absolute',
-    touchAction: 'none',
+    // touchAction: 'none',
     top: 0,
     left: 0,
     right: 0,

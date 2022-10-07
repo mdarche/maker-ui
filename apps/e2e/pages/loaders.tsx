@@ -1,8 +1,9 @@
+import { Section } from 'maker-ui'
 import { Spinner } from '@maker-ui/loaders'
 
 export default function LoaderPage() {
   return (
-    <div>
+    <Section>
       <Spinner size={40} />
       <Spinner type="classic" />
       <Spinner type="dot-spinner" />
@@ -11,6 +12,6 @@ export default function LoaderPage() {
       <Spinner type="gear" />
       <Spinner type="bars" />
       <Spinner type="blocks" />
-    </div>
+    </Section>
   )
 }

@@ -125,6 +125,28 @@ export default function CarouselPage() {
           </div>
         </div>
       </Section>
+      <Div css={{ marginTop: 80 }}>
+        <h1>Custom / Interactive Slides</h1>
+        <Carousel
+          data={components}
+          template="custom"
+          // overlay={
+          //   <Div className="absolute cover flex align-center justify-center">
+          //     <h2>Test</h2>
+          //   </Div>
+          // }
+        />
+      </Div>
+
+      <Div css={{ marginTop: 80 }}>
+        <h1>Next.js Image Slides</h1>
+        <Carousel
+          key={1}
+          data={images}
+          template={<ImageSlide />}
+          settings={{ dragTarget: 'overlay' }}
+        />
+      </Div>
       <Div css={{ marginTop: 30 }}>
         <h1>Basic Data/Template Example</h1>
         <Carousel
@@ -148,29 +170,6 @@ export default function CarouselPage() {
               </Div>
             ) : undefined
           }
-        />
-      </Div>
-
-      <Div css={{ marginTop: 80 }}>
-        <h1>Custom / Interactive Slides</h1>
-        <Carousel
-          data={components}
-          template="custom"
-          // overlay={
-          //   <Div className="absolute cover flex align-center justify-center">
-          //     <h2>Test</h2>
-          //   </Div>
-          // }
-        />
-      </Div>
-
-      <Div css={{ marginTop: 80 }}>
-        <h1>Next.js Image Slides</h1>
-        <Carousel
-          key={1}
-          data={images}
-          template={<ImageSlide />}
-          settings={{ dragTarget: 'overlay' }}
         />
       </Div>
     </>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Div } from 'maker-ui'
+import { Div, Section } from 'maker-ui'
 import { Tabs } from '@maker-ui/tabs'
 
 export default function TabsPage() {
@@ -9,7 +9,7 @@ export default function TabsPage() {
   const handleClick = (i: string) => setKey(i)
 
   return (
-    <>
+    <Section>
       <div>
         {keyValues.map((i) => (
           <button key={i} onClick={() => handleClick(i)}>
@@ -70,6 +70,6 @@ export default function TabsPage() {
         <Tabs.Panel title="Title 6">Sixth Text</Tabs.Panel>
       </Tabs> */}
       <Div css={{ height: [100, 2000] }}>test</Div>
-    </>
+    </Section>
   )
 }

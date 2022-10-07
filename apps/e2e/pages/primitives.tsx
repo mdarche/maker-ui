@@ -1,8 +1,8 @@
-import { Grid } from 'maker-ui'
+import { Grid, Section } from 'maker-ui'
 
 export default function PrimitivesPage() {
   return (
-    <div>
+    <Section>
       <h1>Primitives</h1>
       <Grid
         columns={5}
@@ -13,6 +13,6 @@ export default function PrimitivesPage() {
         <div className="col"></div>
         <div className="col"></div>
       </Grid>
-    </div>
+    </Section>
   )
 }

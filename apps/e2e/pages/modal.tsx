@@ -1,12 +1,13 @@
 import { useState, useRef } from 'react'
 import { Modal } from '@maker-ui/modal'
+import { Section } from 'maker-ui'
 
 export default function ModalPage() {
   const [show, set] = useState(false)
   const ref = useRef(null)
 
   return (
-    <div>
+    <Section>
       <br />
       <br />
       <br />
@@ -63,6 +64,6 @@ export default function ModalPage() {
         <button>Ya</button>
         <a href="https://google.com">Google link</a>
       </Modal> */}
-    </div>
+    </Section>
   )
 }

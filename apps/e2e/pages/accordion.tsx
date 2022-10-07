@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Accordion } from '@maker-ui/accordion'
+import { Section } from 'maker-ui'
 
 export default function AccordionPage() {
   const [key, setKey] = useState('1')
@@ -8,7 +9,7 @@ export default function AccordionPage() {
   const handleClick = (i: string) => setKey(i)
 
   return (
-    <>
+    <Section>
       <div>
         {keyValues.map((i) => (
           <button key={i} onClick={() => handleClick(i)}>
@@ -41,6 +42,6 @@ export default function AccordionPage() {
           Yo 3!
         </Accordion.Panel>
       </Accordion>
-    </>
+    </Section>
   )
 }
