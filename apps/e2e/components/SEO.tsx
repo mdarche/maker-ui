@@ -23,6 +23,7 @@ export interface SEOConfig {
 /**
  * An SEO shortcut component that lets individual pages show fallback information or
  * custom titles, descriptions, and social share images.
+ * // todo make this work with next/head
  */
 export const SEO = ({
   title,

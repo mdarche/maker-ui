@@ -1,4 +1,12 @@
 const styles = {
+  // Animatinos
+  '--_duration': 3,
+  '--_travel-distance': 0,
+  willChange: 'transform',
+  animation: `fade-in .3s ease,
+    slide-in .3s ease,
+    fade-out .3s ease var(--_duration)`,
+
   display: 'flex',
   position: 'fixed',
   left: 50,

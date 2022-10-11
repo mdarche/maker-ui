@@ -37,10 +37,10 @@ export const options: MakerUIOptions = {
       bg_footer: '#fff',
     },
     dark: {
-      link: 'blue',
-      text: '#fff',
+      link: '#575757',
+      text: '#575757',
       background: '#000',
-      muted: '#7e7e7e',
+      muted: '#575757',
       border: '#333',
       input: '#242424',
       input_border: '#333',
