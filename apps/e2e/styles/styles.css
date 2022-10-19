@@ -11,7 +11,7 @@
   }
 }
 
-.toast {
+/* .toast {
   --_duration: 3s;
   --_travel-distance: 0;
 
@@ -23,4 +23,4 @@
   .toast {
     --_travel-distance: 5vh;
   }
-}
+} */

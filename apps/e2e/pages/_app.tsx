@@ -1,4 +1,3 @@
-import { ToastProvider } from '@maker-ui/notifications'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -19,9 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       ) : (
         <Layout>
-          <ToastProvider settings={{ clearCache: true }}>
-            <Component {...pageProps} />
-          </ToastProvider>
+          <Component {...pageProps} />
         </Layout>
       )}
     </>

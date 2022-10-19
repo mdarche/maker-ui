@@ -8,55 +8,9 @@ import React, {
 import { Div } from '@maker-ui/primitives'
 import { cx, merge, generateId } from '@maker-ui/utils'
 
+import type { ToastState, Action, ToastProps, ToastSettings } from './types'
 import { ErrorIcon, SuccessIcon, InfoIcon } from './icons'
 // import styles from './default.styles'
-
-interface ToastClassNames {
-  container: string
-  toast: string
-  toast_icon: string
-  toast_body: string
-}
-
-interface ToastSettings {
-  clearCache: boolean
-  /** Custom component mapping for keyed types*/
-  components: {
-    [key: string]: React.ReactNode | ((msg: string) => React.ReactNode)
-  }
-  position: 'top-left' | 'center' | 'top-right' | 'bottom-left' | 'bottom-right'
-  /** Custom classnames mapping for the toast component */
-  classNames: Partial<ToastClassNames>
-  /** Custom SVG icon mapping */
-  icons: {
-    [key: string]: React.ReactNode
-  }
-}
-
-interface ToastProps {
-  id: string
-  type: string
-  icon: React.ReactNode
-  component: React.ReactNode
-  message: string | React.ReactElement
-  dismiss: boolean | React.ReactElement
-  created_at: number
-  active: boolean
-}
-
-interface ToastState extends ToastSettings {
-  /** A cache of all past notification messages */
-  history: ToastProps[]
-  offsetHeight: number
-}
-
-type Action =
-  | {
-      type: 'CREATE'
-      value?: Partial<ToastProps>
-    }
-  | { type: 'INACTIVE'; value: string }
-  | { type: 'CLEAR_CACHE' }
 
 const ToastContext = createContext<{
   state: Partial<ToastState>
@@ -73,11 +27,8 @@ const ToastContext = createContext<{
 function toastReducer(state: ToastState, action: Action): ToastState {
   switch (action.type) {
     case 'CREATE':
-      const el = document?.getElementById('toast-provider')
-      const offsetHeight = el?.offsetHeight as number
       return {
         ...state,
-        offsetHeight,
         history: [
           ...(state?.history || []),
           {
@@ -130,9 +81,10 @@ export const ToastProvider = ({
     merge(
       {
         history: [],
-        clearCache: false,
+        clearCache: true,
         position: 'bottom-left',
-        offsetHeight: 0,
+        duration: 3,
+        distance: '5vh',
         icons: {
           error: <ErrorIcon />,
           success: <SuccessIcon />,
@@ -142,10 +94,6 @@ export const ToastProvider = ({
       settings
     )
   )
-  const activeToasts = state.history
-    ?.filter(({ active }) => active)
-    .sort((a, b) => a.created_at - b.created_at)
-
   useEffect(() => {
     if (settings?.clearCache) {
       const stillActive = state.history.filter(({ active }) => active === true)
@@ -153,21 +101,9 @@ export const ToastProvider = ({
         dispatch({ type: 'CLEAR_CACHE' })
       }
     }
-    if (state.history.length) {
-      const newHeight = ref?.current?.offsetHeight as number
-      ref?.current?.animate(
-        [
-          { transform: `translateY(${newHeight - state.offsetHeight}px)` },
-          { transform: 'translateY(0)' },
-        ],
-        {
-          duration: 150,
-          easing: 'ease-out',
-        }
-      )
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.history, settings?.clearCache])
+
+  const toasts = state.history.sort((a, b) => a.created_at - b.created_at)
 
   return (
     <ToastContext.Provider value={{ state, dispatch }}>
@@ -186,20 +122,18 @@ export const ToastProvider = ({
           justifyItems: 'center',
           justifyContent: 'center',
           gap: '1vh',
-          // '.toast': {
-          //   '--_duration': '3s',
-          //   '--_travelDistance': 0,
-          //   willChange: 'transform',
-          //   animation:
-          //     'toast-fade-in 0.3s ease, toast-fade-out 0.3s ease var(--_duration)',
-          // },
-          // '@media (prefers-reduced-motion: no-preference)': {
-          //   '.toast': {
-          //     '--_travelDistance': '5vh',
-          //   },
-          // },
+          '.toast': {
+            '--_travelDistance': 0,
+            willChange: 'transform',
+            animation: `toast-fade-in 0.3s ease, toast-fade-out 0.3s ease ${state.duration}s`,
+          },
+          '@media (prefers-reduced-motion: no-preference)': {
+            '.toast': {
+              '--_travelDistance': state.distance,
+            },
+          },
         }}>
-        {activeToasts?.map((props) => (
+        {toasts?.map((props) => (
           <Toast key={props.id} {...props} />
         ))}
       </Div>
@@ -210,7 +144,7 @@ export const ToastProvider = ({
 export const Toast = ({ id, type, message, ...p }: ToastProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const { icons, components, classNames, setInactive } = useToast()
-
+  // Templates
   const _icon = p?.icon ? p.icon : icons && icons[type] ? icons[type] : null
   const _component = p?.component
     ? p?.component
@@ -223,29 +157,38 @@ export const Toast = ({ id, type, message, ...p }: ToastProps) => {
   useEffect(() => {
     const toast = ref?.current
     const unmount = (e: AnimationEvent) => {
-      if (e.animationName === 'toast-fade-out') setInactive(id)
+      if (e.animationName === 'toast-fade-out') {
+        setInactive(id)
+      }
     }
     toast?.addEventListener('animationend', unmount)
     return () => toast?.removeEventListener('animationend', unmount)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (
-    <div ref={ref} className={cx(['toast', classNames?.toast, type])}>
+  return p?.active ? (
+    <div
+      ref={ref}
+      className={cx([
+        'toast',
+        classNames?.toast,
+        type,
+        !p.active ? 'inactive' : undefined,
+      ])}>
       {_component ?? (
         <>
           {_icon ? (
-            <div className={cx(['toast-icon', classNames?.toast_icon, type])}>
+            <div className={cx(['toast-icon', classNames?.toast_icon])}>
               {_icon}
             </div>
           ) : null}
-          <div className={cx(['toast-body', classNames?.toast_body, type])}>
+          <div className={cx(['toast-body', classNames?.toast_body])}>
             {message}
           </div>
         </>
       )}
     </div>
-  )
+  ) : null
 }
 
 /**
@@ -260,6 +203,7 @@ export function useToast() {
    * @param {ToastState['type']} type the toast type
    * @param {string} message an optional custom toast message
    * @param {React.ReactElement} icon an optional React Element (ie. svg or custom div)
+   * @param {React.ReactElement} component an optional React Element (ie. svg or custom div)
    * @returns {void}
    */
   function toast(props: Partial<ToastProps>) {
