@@ -3,6 +3,7 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Layout } from '../components/Layout'
+import '../styles/styles.css'
 
 export default function App({ Component, pageProps }: AppProps) {
   const { asPath } = useRouter()
@@ -18,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       ) : (
         <Layout>
-          <ToastProvider>
+          <ToastProvider settings={{ clearCache: true }}>
             <Component {...pageProps} />
           </ToastProvider>
         </Layout>

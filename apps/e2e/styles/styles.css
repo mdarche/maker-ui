@@ -1,0 +1,26 @@
+@keyframes toast-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--_travel-distance, 10px));
+  }
+}
+
+@keyframes toast-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.toast {
+  --_duration: 3s;
+  --_travel-distance: 0;
+
+  will-change: transform;
+  animation: toast-fade-in 0.3s ease, toast-fade-out 0.3s ease var(--_duration);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toast {
+    --_travel-distance: 5vh;
+  }
+}
