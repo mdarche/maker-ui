@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { Div } from '@maker-ui/primitives'
 import { mount } from '@cypress/react'
 import { Announcement } from '@maker-ui/notifications'
@@ -29,10 +30,18 @@ describe('Announcement', () => {
 
   /* Prop: `background` */
 
-  it('renders a custom close button inner string or component', () => {
+  it('renders with a background color', () => {
     mount(
       <Div>
         <Announcement background="red" />
+      </Div>
+    )
+  })
+
+  it('renders a custom close button inner string or component', () => {
+    mount(
+      <Div>
+        <Announcement closeButton="Close" />
       </Div>
     )
   })
