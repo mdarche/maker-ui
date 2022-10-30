@@ -142,6 +142,7 @@ export const Navbar = ({
       }}>
       {edge.includes(layout) || mobileEdge.includes(mobileLayout) ? (
         <div className="nav-area button-slot">
+          {/* @ts-ignore */}
           <MenuButton customButton={menuButton} visibleOnDesktop />
         </div>
       ) : null}
@@ -162,7 +163,9 @@ export const Navbar = ({
       </div>
       <div className="nav-area widget-slot">
         <div className="nav-widgets">{widgetSlot}</div>
+        {/* @ts-ignore */}
         <MenuButton customButton={menuButton} />
+        {/* @ts-ignore */}
         <ColorButton isHeaderButton customButton={colorButton} />
       </div>
     </Grid>

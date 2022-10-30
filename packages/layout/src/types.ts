@@ -293,16 +293,14 @@ export interface MakerOptions {
      * icon, but you can use a custom React component or a JSX callback to animate the icon's state.
      */
     menuButton?:
-      | 'default'
       | React.ReactNode
-      | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+      | ((isOpen: boolean, attributes: object) => React.ReactNode)
     /**
      * Lets you customize the header's color toggle. By default, it prints the name of the current
      * color mode, but you can use a custom React component or a JSX callback to animate the icon's
      * state.
      */
     colorButton?:
-      | 'default'
       | React.ReactNode
       | ((
           currentMode?: string,
@@ -347,9 +345,8 @@ export interface MakerOptions {
      * but you can use a custom React component or a JSX callback to animate the icon's state.
      */
     closeButton?:
-      | 'default'
       | React.ReactNode
-      | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+      | ((isOpen: boolean, attributes: object) => React.ReactNode)
     /**
      * Displays a close button in the mobile menu.
      * @default true
@@ -426,9 +423,8 @@ export interface MakerOptions {
      * @default 'default'
      */
     toggleButton?:
-      | 'default'
       | React.ReactNode
-      | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+      | ((isOpen: boolean, attributes: object) => React.ReactNode)
     /**
      * A boolean that lets you collapse Maker UI's SideNav.
      *
@@ -446,9 +442,8 @@ export interface MakerOptions {
      * @default 'default'
      */
     collapseButton?:
-      | 'default'
       | React.ReactNode
-      | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
+      | ((isOpen: boolean, attributes: object) => React.ReactNode)
     /**
      * A specific breakpoint that controls when the grid for main content, sidebars, and the
      * side nav breaks down for mobile. You may also use an index to access a specific breakpoint

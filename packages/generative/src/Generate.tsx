@@ -44,9 +44,15 @@ export const Generate = ({ data, count, children }: GenerateProps) => {
         {count
           ? random
               .slice(0, count)
-              .map((item, index) => <Fragment key={index}>{item}</Fragment>)
+              .map((item, index) => (
+                <Fragment key={index}>
+                  {item as unknown as React.ReactElement}
+                </Fragment>
+              ))
           : random.map((item, index) => (
-              <Fragment key={index}>{item}</Fragment>
+              <Fragment key={index}>
+                {item as unknown as React.ReactElement}
+              </Fragment>
             ))}
       </>
     )

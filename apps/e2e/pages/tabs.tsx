@@ -38,14 +38,14 @@ export default function TabsPage() {
         <Tabs.Panel eventKey="3" title="Title 3">
           Third Text
         </Tabs.Panel>
-        <Tabs.Panel title="Title 4">Fourth Text</Tabs.Panel>
+        {/* <Tabs.Panel title="Title 4">Fourth Text</Tabs.Panel>
         <Tabs.Panel open title="Title 5">
           Fifth Text
         </Tabs.Panel>
         <Tabs.Panel title="Title 6">Sixth Text</Tabs.Panel>
         <Tabs.Panel title="Title 7">Seventh Text</Tabs.Panel>
         <Tabs.Panel title="Title 8">Eighth Text</Tabs.Panel>
-        <Tabs.Panel title="Title 9">Ninth Text</Tabs.Panel>
+        <Tabs.Panel title="Title 9">Ninth Text</Tabs.Panel> */}
       </Tabs>
       {/* <Tabs
         navPosition="left"

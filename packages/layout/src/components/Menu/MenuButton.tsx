@@ -3,13 +3,11 @@ import { mergeSelectors } from '@maker-ui/utils'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
+import { MakerOptions } from '../../types'
 
 interface MenuButtonProps {
   isCloseButton?: boolean
-  customButton?:
-    | 'default'
-    | React.ReactNode
-    | ((isOpen?: string, attributes?: object) => React.ReactNode)
+  customButton?: MakerOptions['header']['menuButton']
   visibleOnDesktop?: boolean
 }
 
@@ -24,7 +22,7 @@ export const MenuButton = ({
   visibleOnDesktop,
   isCloseButton,
   ...props
-}: MenuButtonProps) => {
+}: MenuButtonProps): React.ReactNode => {
   const [menu, toggleMenu] = useMenu()
   const [sideMenu, toggleSideMenu] = useSideNav()
   const { header, sideNav } = useOptions()

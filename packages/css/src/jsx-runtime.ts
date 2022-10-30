@@ -40,6 +40,6 @@ export const jsx = <P>(
   }
 
   return props?.css
-    ? emotionJsx(type, parseProps(props), ...children)
-    : createElement(type, props, ...children)
+    ? emotionJsx(type as string, parseProps(props), ...children)
+    : createElement(type as string, props, ...children)
 }

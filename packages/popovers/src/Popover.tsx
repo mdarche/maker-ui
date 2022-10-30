@@ -185,7 +185,7 @@ export const Popover = ({
    */
 
   const measuredRef = useCallback(
-    (node) => {
+    (node: any) => {
       if (node !== null && height === 0) {
         setHeight(node.offsetHeight)
         setWidth(node.offsetWidth)

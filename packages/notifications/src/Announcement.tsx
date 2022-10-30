@@ -119,6 +119,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
           </Flex>
           {allowClose && !closeButton ? (
             typeof closeButton === 'function' ? (
+              // @ts-ignore
               closeButton(btnAttributes)
             ) : (
               <Button {...btnAttributes}>{closeButton}</Button>

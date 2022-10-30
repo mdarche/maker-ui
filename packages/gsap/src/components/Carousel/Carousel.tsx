@@ -130,6 +130,7 @@ export const Carousel = ({
   )
 
   const bind = useDrag(
+    //@ts-ignore
     ({ event, dragging, last, direction, intentional, movement: [mx] }) => {
       event.preventDefault()
       if (dragging && Math.abs(mx) > dragThreshold && intentional) {

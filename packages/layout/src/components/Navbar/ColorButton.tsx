@@ -26,7 +26,7 @@ export const ColorButton = ({
   className,
   css,
   ...props
-}: ColorButtonProps) => {
+}: ColorButtonProps): React.ReactNode => {
   const { header, breakpoints: bps } = useOptions()
   const { colorTheme, setColorTheme, themes, preference } = useColorTheme()
 

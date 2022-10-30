@@ -43,8 +43,8 @@ export const AccordionPanel = React.forwardRef<
     },
     ref
   ) => {
-    const [buttonId] = React.useState(generateId())
-    const [panelId] = React.useState(generateId())
+    const buttonId = React.useId()
+    const panelId = React.useId()
     const [panelKey] = React.useState(() =>
       eventKey ? eventKey : generateId()
     )

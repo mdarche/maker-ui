@@ -1,4 +1,4 @@
-import { Div, Section } from 'maker-ui'
+import { Section } from 'maker-ui'
 import { SEO } from '../components/SEO'
 
 export default function IndexPage() {
@@ -7,7 +7,7 @@ export default function IndexPage() {
       <SEO />
       <Section>
         <h1>Component Playground</h1>
-        <Div css={{ fontSize: 50 }}>test</Div>
+        <div style={{ fontSize: 50 }}>test</div>
         <p>
           Modernipsum dolor sit amet intervention art nouveau realisme
           secularism action painting abstract expressionism pre-raphaelites,

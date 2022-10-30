@@ -26,7 +26,8 @@ export default function ToastsPage() {
     <ToastProvider
       settings={{
         clearCache: true,
-        duration: 8,
+        position: 'bottom-center',
+        duration: 3,
         components: { success: (msg) => <DynamicToast message={msg} /> },
         classNames: {
           container: 'container-class',

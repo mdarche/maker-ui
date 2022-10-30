@@ -15,16 +15,16 @@ const data = [
 ]
 
 const Card = (props: any) => (
-  <Div
-    css={{
+  <div
+    style={{
       textAlign: 'center',
-      p: 40,
+      padding: 40,
       fontSize: 5,
-      bg: '#f7f7f7',
+      background: '#f7f7f7',
       border: '1px solid',
     }}>
     {props?.text}
-  </Div>
+  </div>
 )
 
 // Example 2 - Random components

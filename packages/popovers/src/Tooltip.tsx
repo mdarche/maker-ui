@@ -1,7 +1,6 @@
 import * as React from 'react'
 import type { MakerProps, ResponsiveScale } from '@maker-ui/css'
 import { Button, Div, DivProps } from '@maker-ui/primitives'
-import { generateId } from '@maker-ui/utils'
 
 import { Popover, PopoverProps } from './Popover'
 import { convertPosition, TransitionType } from './position'
@@ -79,7 +78,7 @@ export const Tooltip = ({
 }: TooltipProps) => {
   const buttonRef = React.useRef(null)
   const [show, set] = React.useState(false)
-  const [tooltipId] = React.useState(generateId())
+  const tooltipId = React.useId()
 
   const positionData = convertPosition(position, background, gap)
 

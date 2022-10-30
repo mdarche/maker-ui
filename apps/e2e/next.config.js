@@ -1,6 +1,9 @@
 module.exports = {
   reactStrictMode: true,
-  images: {
-    // domains: ['delex.newcreative.io'],
+  compiler: {
+    emotion: {
+      autoLabel: 'always',
+      labelFormat: 'maker-ui--[local]',
+    },
   },
 }

@@ -1,3 +1,5 @@
+import { ResponsiveScale } from '@maker-ui/css'
+
 export interface ToastClassNames {
   container: string
   toast: string
@@ -11,7 +13,13 @@ export interface ToastSettings {
   components: {
     [key: string]: React.ReactNode | ((msg: string) => React.ReactNode)
   }
-  position: 'top-left' | 'center' | 'top-right' | 'bottom-left' | 'bottom-right'
+  position:
+    | 'top-center'
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-center'
+    | 'bottom-left'
+    | 'bottom-right'
   /** Custom classnames mapping for the toast component */
   classNames: Partial<ToastClassNames>
   /** Custom SVG icon mapping */
@@ -22,6 +30,10 @@ export interface ToastSettings {
   duration?: number
   /** Distance of a toasts transform @default '5vh' */
   distance?: string
+  /** Distance of the toast from the edge of the screen @default '5vh' */
+  padding?: ResponsiveScale
+  /** Distance between stacked toasts */
+  gap?: ResponsiveScale
 }
 
 export interface ToastProps {

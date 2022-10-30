@@ -10,7 +10,7 @@ import { cx, merge, generateId } from '@maker-ui/utils'
 
 import type { ToastState, Action, ToastProps, ToastSettings } from './types'
 import { ErrorIcon, SuccessIcon, InfoIcon } from './icons'
-// import styles from './default.styles'
+import { ResponsiveScale } from '@maker-ui/css'
 
 const ToastContext = createContext<{
   state: Partial<ToastState>
@@ -83,8 +83,10 @@ export const ToastProvider = ({
         history: [],
         clearCache: true,
         position: 'bottom-left',
+        padding: '5vh',
         duration: 3,
         distance: '5vh',
+        gap: '1vh',
         icons: {
           error: <ErrorIcon />,
           success: <SuccessIcon />,
@@ -103,6 +105,7 @@ export const ToastProvider = ({
     }
   }, [state.history, settings?.clearCache])
 
+  const pos = getPosition(state.position, state.padding)
   const toasts = state.history.sort((a, b) => a.created_at - b.created_at)
 
   return (
@@ -114,14 +117,12 @@ export const ToastProvider = ({
         className={cx(['toast-container', state.classNames?.container])}
         css={{
           position: 'fixed',
-          zIndex: 1,
-          insetBlockEnd: 0,
-          insetInline: 0,
-          paddingBlockEnd: '5vh',
+          zIndex: 100,
           display: 'grid',
           justifyItems: 'center',
           justifyContent: 'center',
-          gap: '1vh',
+          gap: state.gap,
+          ...pos,
           '.toast': {
             '--_travelDistance': 0,
             willChange: 'transform',
@@ -222,4 +223,23 @@ export function useToast() {
     components: state.components,
     setInactive,
   }
+}
+
+function getPosition(
+  type?: ToastSettings['position'],
+  padding?: ResponsiveScale
+) {
+  let styles = {
+    insetInline: type?.includes('center') ? 0 : undefined,
+    insetInlineStart: type?.includes('left') ? 0 : undefined,
+    insetInlineEnd: type?.includes('right') ? 0 : undefined,
+    insetBlockStart: type?.includes('top') ? 0 : undefined,
+    insetBlockEnd: type?.includes('bottom') ? 0 : undefined,
+    paddingBlockStart: type?.includes('top') ? padding : undefined,
+    paddingBlockEnd: type?.includes('bottom') ? padding : undefined,
+    paddingInlineStart: type?.includes('left') ? padding : undefined,
+    paddingInlineEnd: type?.includes('right') ? padding : undefined,
+  }
+
+  return styles
 }

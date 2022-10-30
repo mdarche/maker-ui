@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Link } from '@maker-ui/primitives'
-import { generateId } from '@maker-ui/utils'
 import type { MakerProps } from '@maker-ui/css'
 
 import { useLightbox, type LightboxData } from './LightboxContext'
@@ -37,7 +36,7 @@ export const LightboxLink = React.forwardRef<
     },
     ref
   ) => {
-    const [id] = React.useState(generateId())
+    const id = React.useId()
     const { addToGallery, toggleLightbox } = useLightbox()
 
     const emptyProps = !src && !youtubeId && !vimeoId

@@ -38,10 +38,10 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     },
     ref
   ) => {
-    const [id] = React.useState(() =>
+    const [id] = React.useState<string>(() =>
       eventKey ? eventKey.toString() : generateId()
     )
-    const [panelId] = React.useState(generateId())
+    const panelId = React.useId()
 
     const {
       state: { activeKey, renderInactive },

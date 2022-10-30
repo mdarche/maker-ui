@@ -101,6 +101,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
           {...rest}>
           <ErrorContainer errorKey="mobileMenu">
             {mobileMenu.showCloseButton || closeButton ? (
+              // @ts-ignore
               <MenuButton customButton={closeButton} isCloseButton />
             ) : null}
             {header ? header : null}

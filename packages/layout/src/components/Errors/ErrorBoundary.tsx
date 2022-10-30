@@ -4,8 +4,8 @@ import { useOptions, OptionContext } from '../../context/OptionContext'
 import { DefaultError } from './Errors'
 
 interface ErrorState {
-  error: string
-  errorInfo: string
+  error?: Error
+  errorInfo?: React.ErrorInfo
   hasError: boolean
 }
 
@@ -49,8 +49,8 @@ export class ErrorBoundary extends React.Component<ErrorProps, ErrorState> {
   static contextType = OptionContext
 
   state = {
-    error: '',
-    errorInfo: '',
+    error: undefined,
+    errorInfo: undefined,
     hasError: false,
   }
 
@@ -58,13 +58,13 @@ export class ErrorBoundary extends React.Component<ErrorProps, ErrorState> {
     return { error, hasError: true }
   }
 
-  componentDidCatch(error: any, errorInfo: any) {
-    const logger =
-      this.props.logFunction || this.context.errors.logFunction || false
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // const logger =
+    //   this.props.logFunction || this.context.errors.logFunction || false
 
-    if (logger) {
-      logger(error, errorInfo, this.props.errorKey)
-    }
+    // if (logger) {
+    //   logger(error, errorInfo, this.props.errorKey)
+    // }
 
     this.setState({ errorInfo })
   }
@@ -72,10 +72,13 @@ export class ErrorBoundary extends React.Component<ErrorProps, ErrorState> {
   render() {
     if (this.state.hasError) {
       return this.props.errorMessage ||
+        // @ts-ignore
         this.context.errors.errorMessage[`${this.props.errorKey}`] ? (
+        // @ts-ignore
         this.context.errors.errorMessage[`${this.props.errorKey}`]
       ) : (
         <DefaultError
+          // @ts-ignore
           showStackTrace={this.context.errors.errorMessage.showStackTrace}
           errorInfo={this.state.errorInfo}
         />

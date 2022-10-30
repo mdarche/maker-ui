@@ -150,7 +150,7 @@ const LayoutProvider = ({ styles = {}, children }: LayoutProviderProps) => {
     } else {
       setState((s) => ({ ...s, colorTheme: undefined }))
     }
-  }, [options.persistentColorMode, options.colors])
+  }, [options.persistentColorMode, options.colors, options.systemColorMode])
 
   /**
    * Merge all static global styles into one object
