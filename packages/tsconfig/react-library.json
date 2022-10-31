@@ -5,6 +5,7 @@
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "lib": ["es2015", "dom"],
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "module": "esnext",
     "target": "es6",
     "jsx": "react-jsx"

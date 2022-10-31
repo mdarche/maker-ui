@@ -11,13 +11,16 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "build": "tsup --minify",
+    "start": "tsup --watch",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
     "eslint-config-library": "workspace:*",
+    "postcss": "^8.4.18",
+    "postcss-modules": "^5.0.0",
+    "postcss-nested": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",

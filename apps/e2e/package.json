@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@maker-ui/accordion": "workspace:*",
+    "@maker-ui/carousel": "workspace:*",
     "@maker-ui/forms": "workspace:*",
     "@maker-ui/generative": "workspace:*",
     "@maker-ui/gsap": "workspace:*",

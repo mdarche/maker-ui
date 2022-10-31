@@ -19,6 +19,7 @@ export const primary_menu: MakerMenu = [
       { label: 'Loaders', path: '/loaders' },
       { label: 'Toasts', path: '/toasts' },
       { label: 'Transition', path: '/transition' },
+      { label: 'Carousel', path: '/carousel' },
     ],
   },
   {

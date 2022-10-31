@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { mount } from '@cypress/react'
 
 import type { FieldProps } from '@maker-ui/forms'
