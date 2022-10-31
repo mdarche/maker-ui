@@ -1,0 +1,25 @@
+{
+  "name": "eslint-config-library",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "eslint-config-turbo": "latest"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "next": "^12.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "^4.8.4"
+  }
+}

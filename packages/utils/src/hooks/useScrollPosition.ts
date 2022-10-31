@@ -8,9 +8,9 @@ const isBrowser = typeof window !== 'undefined'
 
 function getScrollPosition(): number {
   if (!isBrowser) return 0
-  const position = document.body.getBoundingClientRect()
+  const pos = document.body.getBoundingClientRect()
 
-  return Math.abs(position.top)
+  return Math.abs(pos.top)
 }
 
 /**

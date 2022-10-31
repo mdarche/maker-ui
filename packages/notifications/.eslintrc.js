@@ -1,1 +1,4 @@
-module.exports = require('eslint-preset/react-library.js')
+module.exports = {
+  root: true,
+  extends: ['library'],
+}

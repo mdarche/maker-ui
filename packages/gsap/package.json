@@ -35,9 +35,10 @@
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",
-    "eslint": "7.32.0",
-    "eslint-preset": "workspace:*",
+    "eslint-config-library": "workspace:*",
     "gsap": "^3.9.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",
     "tsup": "^5.12.0",
     "typescript": "^4.8.4"

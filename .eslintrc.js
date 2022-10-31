@@ -1,1 +1,9 @@
-module.exports = require('./packages/eslint-preset/react-library.js')
+module.exports = {
+  root: true,
+  extends: ['app'],
+  settings: {
+    next: {
+      rootDir: ['apps/*/'],
+    },
+  },
+}

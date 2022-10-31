@@ -27,6 +27,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "eslint-config-app": "workspace:*",
     "typescript": "^4.8.4"
   }
 }

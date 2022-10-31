@@ -44,11 +44,11 @@ export function useFocus({ containerRef, focusRef, show }: FocusConfig) {
    */
   useEffect(() => {
     if (focusRef?.current) {
-      const elements = document.querySelectorAll(focusElements)
+      const els = document.querySelectorAll(focusElements)
 
-      elements.forEach((i, index) => {
+      els.forEach((i, index) => {
         if (focusRef.current === i) {
-          setFocusable((state) => ({ ...state, next: elements[index + 1] }))
+          setFocusable((state) => ({ ...state, next: els[index + 1] }))
         }
       })
     }
@@ -63,16 +63,16 @@ export function useFocus({ containerRef, focusRef, show }: FocusConfig) {
     }
 
     if (show && containerRef.current) {
-      const elements = containerRef.current.querySelectorAll(focusElements)
+      const els = containerRef.current.querySelectorAll(focusElements)
 
-      if (elements.length !== 0) {
+      if (els.length !== 0) {
         setFocusable((state) => ({
           ...state,
-          count: elements.length,
-          first: elements[0],
-          last: elements[elements.length - 1],
+          count: els.length,
+          first: els[0],
+          last: els[els.length - 1],
         }))
-        elements[0].focus()
+        els[0].focus()
       } else {
         containerRef.current.focus()
       }

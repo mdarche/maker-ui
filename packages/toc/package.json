@@ -26,8 +26,9 @@
     "maker-ui": "workspace:*"
   },
   "devDependencies": {
-    "eslint": "7.32.0",
-    "eslint-preset": "workspace:*",
+    "eslint-config-library": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",
     "tsup": "^5.12.0",
     "typescript": "^4.8.4"

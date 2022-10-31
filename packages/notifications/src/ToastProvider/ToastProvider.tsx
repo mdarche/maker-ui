@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from 'react'
 import { Div } from '@maker-ui/primitives'
-import { cx, merge, generateId } from '@maker-ui/utils'
+import { cn, merge, generateId } from '@maker-ui/utils'
 
 import type { ToastState, Action, ToastProps, ToastSettings } from './types'
 import { ErrorIcon, SuccessIcon, InfoIcon } from './icons'
@@ -114,7 +114,7 @@ export const ToastProvider = ({
       <Div
         id="toast-provider"
         ref={ref}
-        className={cx(['toast-container', state.classNames?.container])}
+        className={cn(['toast-container', state.classNames?.container])}
         css={{
           position: 'fixed',
           zIndex: 100,
@@ -170,7 +170,7 @@ export const Toast = ({ id, type, message, ...p }: ToastProps) => {
   return p?.active ? (
     <div
       ref={ref}
-      className={cx([
+      className={cn([
         'toast',
         classNames?.toast,
         type,
@@ -179,11 +179,11 @@ export const Toast = ({ id, type, message, ...p }: ToastProps) => {
       {_component ?? (
         <>
           {_icon ? (
-            <div className={cx(['toast-icon', classNames?.toast_icon])}>
+            <div className={cn(['toast-icon', classNames?.toast_icon])}>
               {_icon}
             </div>
           ) : null}
-          <div className={cx(['toast-body', classNames?.toast_body])}>
+          <div className={cn(['toast-body', classNames?.toast_body])}>
             {message}
           </div>
         </>

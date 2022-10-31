@@ -9,7 +9,7 @@ export {
   generateId,
   validate,
   mergeSelectors,
-  mergeSelectors as cx,
+  mergeSelectors as cn,
   mergeRefs,
 } from './helper'
 
