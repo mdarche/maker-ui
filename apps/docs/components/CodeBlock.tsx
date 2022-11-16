@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { mergeSelectors } from 'maker-ui'
+import { cn } from 'maker-ui'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import Prism from 'prism-react-renderer/prism'
 import { codeTheme } from './utils'
@@ -49,10 +49,7 @@ export const CodeBlock = ({ codeString, language, metastring, ...props }) => {
       {...props}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <div
-          className={mergeSelectors([
-            'highlight',
-            isShell ? 'shell' : undefined,
-          ])}
+          className={cn(['highlight', isShell ? 'shell' : undefined])}
           data-language={language}>
           <div className="code-wrapper">
             <div className="code-header flex align-center justify-flex-end">

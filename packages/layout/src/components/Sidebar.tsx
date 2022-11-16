@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type MakerProps } from '@maker-ui/css'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { ErrorContainer } from './Errors'
 
@@ -16,10 +16,7 @@ interface SidebarProps
  */
 export const Sidebar = ({ className, children, ...props }: SidebarProps) => {
   return (
-    <div
-      className={mergeSelectors(['sidebar', className])}
-      role="complementary"
-      {...props}>
+    <div className={cn(['sidebar', className])} role="complementary" {...props}>
       <ErrorContainer errorKey="sidebar">{children}</ErrorContainer>
     </div>
   )

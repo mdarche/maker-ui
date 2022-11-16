@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { useOptions } from '../../context/OptionContext'
 import { useMenu, useSideNav } from '../../context/ActionContext'
@@ -36,7 +36,7 @@ export const MenuButton = ({
 
   const attributes = {
     title: 'Menu',
-    className: mergeSelectors([
+    className: cn([
       'menu-button',
       visibleOnDesktop ? 'desktop-visible' : undefined,
     ]),
@@ -53,7 +53,7 @@ export const MenuButton = ({
         <svg
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
-          className={mergeSelectors([
+          className={cn([
             'menu-button-icon',
             isCloseButton ? 'close-button-icon' : undefined,
           ])}>

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { useOptions } from '../../context/OptionContext'
 import { MenuItem, type MenuItemProps } from './MenuItem'
@@ -21,7 +21,7 @@ export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
   return (
     <nav className="nav-primary" role="navigation">
       <ul
-        className={mergeSelectors([
+        className={cn([
           'menu-primary',
           'header-nav',
           `dropdown-${header.dropdown.transition}`,

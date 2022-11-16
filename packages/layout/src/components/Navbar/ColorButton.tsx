@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Button, ButtonProps } from '@maker-ui/primitives'
-import { setBreakpoint, mergeSelectors } from '@maker-ui/utils'
+import { setBreakpoint, cn } from '@maker-ui/utils'
 
 import type { MakerOptions } from '../../types'
 import { useOptions } from '../../context/OptionContext'
@@ -42,7 +42,7 @@ export const ColorButton = ({
 
   const attributes = {
     title: 'Color Theme',
-    className: mergeSelectors(['color-button', className]),
+    className: cn(['color-button', className]),
     'aria-label': 'Toggle Color Mode',
     onClick: cycleMode,
     breakpoints: isHeaderButton

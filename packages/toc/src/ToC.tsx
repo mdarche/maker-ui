@@ -3,7 +3,7 @@ import {
   Div,
   ListItem,
   useScrollPosition,
-  mergeSelectors,
+  cn,
   type DivProps,
   type StyleObject,
 } from 'maker-ui'
@@ -208,7 +208,7 @@ export const TableOfContents = ({
 
   return (
     <Div
-      className={mergeSelectors(['toc', className])}
+      className={cn(['toc', className])}
       css={{
         display: hideOnMobile ? ['none', 'block'] : 'block',
         position: sticky ? 'sticky' : undefined,

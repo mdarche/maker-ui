@@ -52,9 +52,7 @@ export function validate(obj: any) {
  * Can be dynamically generated
  *
  */
-export function mergeSelectors(
-  selectors: (string | undefined)[]
-): string | undefined {
+export function cn(selectors: (string | undefined)[]): string | undefined {
   let s = selectors
     ? selectors
         .join(' ')

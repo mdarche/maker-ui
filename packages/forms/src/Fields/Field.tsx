@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Flex } from '@maker-ui/primitives'
 import type { MakerProps } from '@maker-ui/css'
 import { Spinner } from '@maker-ui/loaders'
-import { mergeSelectors, merge, ConditionalWrapper } from '@maker-ui/utils'
+import { cn, merge, ConditionalWrapper } from '@maker-ui/utils'
 import { useField, useFormikContext } from 'formik'
 
 import { Input } from './Input'
@@ -188,7 +188,7 @@ export const Field = (props: FieldComponentProps) => {
   // Return a Divider slot
   if (type === 'divider') {
     return (
-      <div id={id} className={mergeSelectors(['divider', containerClass])}>
+      <div id={id} className={cn(['divider', containerClass])}>
         {label}
       </div>
     )
@@ -201,7 +201,7 @@ export const Field = (props: FieldComponentProps) => {
     <Flex
       key={id}
       breakpoints={breakpoints}
-      className={mergeSelectors([
+      className={cn([
         'field-container',
         containerClass,
         hasError ? 'error' : undefined,
@@ -231,11 +231,7 @@ export const Field = (props: FieldComponentProps) => {
       </ConditionalWrapper>
       {positionBottom.includes(labelStyle as string) ? labelComponent : null}
       {showValidation ? (
-        <div
-          className={mergeSelectors([
-            'validate-icon',
-            isComplete ? 'valid' : '',
-          ])}>
+        <div className={cn(['validate-icon', isComplete ? 'valid' : ''])}>
           {settings?.validateIcon}
         </div>
       ) : null}

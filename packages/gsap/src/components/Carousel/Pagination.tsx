@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Flex, Button } from '@maker-ui/primitives'
-import { merge, mergeSelectors } from '@maker-ui/utils'
+import { merge, cn } from '@maker-ui/utils'
 import type { ResponsiveScale } from '@maker-ui/css'
 import type { Position, DotSettings } from './types'
 
@@ -52,10 +52,7 @@ export const Pagination = ({
       <Button
         key={i}
         role="tab"
-        className={mergeSelectors([
-          'carousel-dot',
-          `${current === i ? 'active' : ''}`,
-        ])}
+        className={cn(['carousel-dot', `${current === i ? 'active' : ''}`])}
         onClick={() => navigate && navigate('index', i)}
         aria-label={`Show slide ${i + 1}`}
         aria-selected={i === current ? 'true' : 'false'}

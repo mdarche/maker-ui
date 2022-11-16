@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer } from 'react'
-import { mergeSelectors, merge } from '@maker-ui/utils'
+import { cn, merge } from '@maker-ui/utils'
 import { Div } from '@maker-ui/primitives'
 import { type MakerProps, type ResponsiveScale } from '@maker-ui/css'
 
@@ -264,7 +264,7 @@ export const ImagePicker = ({
     <Div
       id={id}
       breakpoints={breakpoints}
-      className={mergeSelectors(['image-picker', getPosition(), className])}
+      className={cn(['image-picker', getPosition(), className])}
       css={
         dropzone && !dropzone.naked
           ? {
@@ -294,7 +294,7 @@ export const ImagePicker = ({
       {...props}>
       {preview !== false && (placeholder || data.fileList.length || preview) ? (
         <div
-          className={mergeSelectors([
+          className={cn([
             'preview-container',
             isPreviewPrimary ? 'is-primary-dropzone' : undefined,
           ])}>
@@ -345,8 +345,7 @@ export const ImagePicker = ({
         />
       ) : null}
       {errors ? (
-        <div
-          className={mergeSelectors(['upload-error absolute', errorPosition])}>
+        <div className={cn(['upload-error absolute', errorPosition])}>
           {errors.map((message, i) => (
             <div key={i}>{message}</div>
           ))}

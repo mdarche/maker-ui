@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, DivProps } from '@maker-ui/primitives'
-import { generateId, mergeSelectors } from '@maker-ui/utils'
+import { generateId, cn } from '@maker-ui/utils'
 
 import { useTabs, TabItem } from './TabContext'
 
@@ -66,7 +66,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
         role="tabpanel"
         id={`panel-${panelId}`}
         aria-labelledby={`control-${panelId}`}
-        className={mergeSelectors([
+        className={cn([
           `tab-panel${activeKey === id ? ' active' : ''}`,
           className,
         ])}

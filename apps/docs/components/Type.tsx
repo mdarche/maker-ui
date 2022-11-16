@@ -1,4 +1,4 @@
-import { mergeSelectors } from 'maker-ui'
+import { cn } from 'maker-ui'
 
 export interface TypeProps {
   name?:
@@ -38,8 +38,7 @@ export const Type = ({
     <div className="prop-type">
       {required ? <div className="type-title required">Required</div> : null}
       <div className="type-title">Type</div>
-      <div
-        className={mergeSelectors(['type-value', flex ? 'flex' : undefined])}>
+      <div className={cn(['type-value', flex ? 'flex' : undefined])}>
         {multi ? (
           multi.map((text, i) => (
             <div key={i} className="flex multi-line">

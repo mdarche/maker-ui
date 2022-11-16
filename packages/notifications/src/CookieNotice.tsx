@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { Announcement, type AnnouncementProps } from './Announcement'
 
@@ -28,7 +28,7 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     return (
       <Announcement
         ref={ref}
-        className={mergeSelectors(['cookie-notice', className])}
+        className={cn(['cookie-notice', className])}
         fixed
         bottom={bottom}
         background={background}

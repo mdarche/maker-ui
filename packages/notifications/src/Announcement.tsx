@@ -7,7 +7,7 @@ import {
   type SVGProps,
 } from '@maker-ui/primitives'
 import { StyleObject } from '@maker-ui/css'
-import { useTracker, mergeSelectors } from '@maker-ui/utils'
+import { useTracker, cn } from '@maker-ui/utils'
 
 export interface AnnouncementProps extends DivProps {
   /** The browser storage key that stores the dismiss expiration value
@@ -96,7 +96,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     return active ? (
       <Flex
         ref={ref}
-        className={mergeSelectors(['announcement', className])}
+        className={cn(['announcement', className])}
         align="center"
         css={{
           background,

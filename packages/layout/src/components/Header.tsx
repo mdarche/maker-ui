@@ -4,7 +4,7 @@ import { jsx, type MakerProps } from '@maker-ui/css'
 import {
   useMeasure,
   setBreakpoint,
-  mergeSelectors,
+  cn,
   useScrollPosition,
 } from '@maker-ui/utils'
 import { useEffect, useState } from 'react'
@@ -185,7 +185,7 @@ export const Header = (props: HeaderProps) => {
   return (
     <header
       ref={ref}
-      className={mergeSelectors([
+      className={cn([
         scrollClass,
         stickyUpScroll && !show ? 'scroll-active' : undefined,
         absolute ? 'width-100' : undefined,

@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type MakerProps } from '@maker-ui/css'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import { forwardRef } from 'react'
 
 import { MenuItem, type MenuItemProps } from './MenuItem'
@@ -61,7 +61,7 @@ export const CollapsibleMenu = forwardRef<HTMLUListElement, CollapsibleProps>(
     return (
       <ul
         ref={ref}
-        className={mergeSelectors(['collapse-menu', className])}
+        className={cn(['collapse-menu', className])}
         role="navigation"
         {...props}>
         {menu.map((item, index) => (

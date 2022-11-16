@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type ResponsiveScale, type MakerProps } from '@maker-ui/css'
-import { setBreakpoint, mergeSelectors } from '@maker-ui/utils'
+import { setBreakpoint, cn } from '@maker-ui/utils'
 import { Grid } from '@maker-ui/primitives'
 import { useEffect } from 'react'
 
@@ -92,7 +92,7 @@ export const Navbar = ({
   return (
     <Grid
       id={id}
-      className={mergeSelectors([
+      className={cn([
         `nav-grid layout-${layout}`,
         `m-layout-${mobileLayout}`,
         layout.includes('minimal') ? 'desktop-minimal' : undefined,

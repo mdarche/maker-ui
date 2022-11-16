@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Div } from '@maker-ui/primitives'
 import { ResponsiveScale } from '@maker-ui/css'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import type { CarouselSettings, CarouselProps, SlideProps } from './types'
 
 interface InternalSlideProps {
@@ -35,7 +35,7 @@ export const Slide = ({
     <Div
       ref={addToRefs}
       css={{ width, height }}
-      className={mergeSelectors(['slide', isActive ? ' active' : ''])}
+      className={cn(['slide', isActive ? ' active' : ''])}
       {...(slideProps?.draggable !== false &&
       draggable &&
       dragTarget === 'slide'

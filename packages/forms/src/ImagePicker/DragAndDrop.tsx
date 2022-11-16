@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { mergeSelectors, generateId } from '@maker-ui/utils'
+import { cn, generateId } from '@maker-ui/utils'
 import { type FileValidations, validateFile } from './helper'
 import type { ImagePickerState, Action, DropzoneSettings } from './ImagePicker'
 
@@ -117,7 +117,7 @@ export const DragAndDrop = ({
 
   return (
     <div
-      className={mergeSelectors([
+      className={cn([
         'dropzone flex',
         isHoverPreview
           ? 'preview-dropzone absolute cover flex align-center justify-center'
@@ -126,7 +126,7 @@ export const DragAndDrop = ({
       ])}>
       <label className="hitbox cover flex" htmlFor={inputId}>
         <div
-          className={mergeSelectors([
+          className={cn([
             'drag-area',
             'flex align-center justify-center flex-col width-100',
             data.inDropZone && dropArea === data.dropArea

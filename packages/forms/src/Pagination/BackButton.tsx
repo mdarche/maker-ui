@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Button, type ButtonProps } from '@maker-ui/primitives'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { useForm } from '../Form/FormProvider'
 import type { PaginationElement } from '../types'
@@ -15,10 +15,7 @@ export const BackButton = ({ children, ...props }: FormBackButtonProps) => {
   return (
     <Button
       type="button"
-      className={mergeSelectors([
-        'form-back-btn',
-        currentPage === 0 ? 'hide' : undefined,
-      ])}
+      className={cn(['form-back-btn', currentPage === 0 ? 'hide' : undefined])}
       onClick={(e) => {
         e.preventDefault()
         setPage('prev')

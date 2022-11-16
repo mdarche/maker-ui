@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { mergeSelectors, merge } from '@maker-ui/utils'
+import { cn, merge } from '@maker-ui/utils'
 import { Div } from '@maker-ui/primitives'
 import debounce from 'lodash.debounce'
 import { useDrag } from '@use-gesture/react'
@@ -199,7 +199,7 @@ export const Carousel = ({
       id={id}
       breakpoints={breakpoints}
       ref={carouselRef}
-      className={mergeSelectors(['carousel', className])}
+      className={cn(['carousel', className])}
       onMouseEnter={autoPlay && pauseOnHover ? loopTimer.pause : undefined}
       onMouseLeave={autoPlay && pauseOnHover ? loopTimer.resume : undefined}
       css={{
@@ -218,10 +218,7 @@ export const Carousel = ({
               }
             : undefined
         }
-        className={mergeSelectors([
-          'slide-container',
-          isDragging ? 'dragging' : undefined,
-        ])}
+        className={cn(['slide-container', isDragging ? 'dragging' : undefined])}
         {...(draggable && dragTarget === 'container' ? bind() : {})}>
         {data.map((d, i) => (
           <Slide

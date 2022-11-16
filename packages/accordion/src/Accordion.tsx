@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, type DivProps } from '@maker-ui/primitives'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { AccordionContext } from './AccordionContext'
 import { AccordionPanel } from './AccordionPanel'
@@ -62,7 +62,7 @@ export const Accordion = ({
       showSingle={showSingle}
       animate={animate}>
       <Div
-        className={mergeSelectors(['accordion-container', className])}
+        className={cn(['accordion-container', className])}
         css={{ ...(css as object) }}
         {...props}>
         {children}

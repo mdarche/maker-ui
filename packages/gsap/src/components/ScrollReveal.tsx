@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import { Div, type DivProps } from '@maker-ui/primitives'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -187,10 +187,7 @@ export const ScrollReveal = ({
   }, [])
 
   return (
-    <Div
-      className={mergeSelectors(['scroll-reveal', className])}
-      ref={ref}
-      {...props}>
+    <Div className={cn(['scroll-reveal', className])} ref={ref} {...props}>
       {children}
     </Div>
   )

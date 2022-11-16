@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Section, type SectionProps } from '@maker-ui/layout'
 import { type ResponsiveScale } from '@maker-ui/css'
-import { merge, mergeSelectors } from '@maker-ui/utils'
+import { merge, cn } from '@maker-ui/utils'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
@@ -109,7 +109,7 @@ export const Parallax = ({
   return (
     <Section
       ref={sectionRef}
-      className={mergeSelectors(['parallax', className])}
+      className={cn(['parallax', className])}
       container={false}
       css={{
         position: 'relative',

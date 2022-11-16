@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 import { Div, DivProps } from '@maker-ui/primitives'
-import { mergeSelectors, useFocus } from '@maker-ui/utils'
+import { cn, useFocus } from '@maker-ui/utils'
 import { Portal, Transition, type TransitionState } from '@maker-ui/modal'
 import type { MakerProps } from '@maker-ui/css'
 
@@ -332,11 +332,7 @@ export const Popover = ({
         transitionState={popoverTransition}
         containerProps={{
           id,
-          className: mergeSelectors([
-            'popover',
-            show ? 'active' : undefined,
-            className,
-          ]),
+          className: cn(['popover', show ? 'active' : undefined, className]),
           style: {
             left: !appendTo ? getX() : undefined,
             top: !appendTo ? getY() : undefined,

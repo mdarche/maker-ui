@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div } from '@maker-ui/primitives'
-import { mergeSelectors, merge } from '@maker-ui/utils'
+import { cn, merge } from '@maker-ui/utils'
 import { useField } from 'formik'
 import type { InputProps, SwitchSettings } from '../../types'
 import styles from './Switch.styles'
@@ -51,7 +51,7 @@ export const Switch = ({
   }
   return (
     <Div
-      className={mergeSelectors(['switch', value ? 'active' : ''])}
+      className={cn(['switch', value ? 'active' : ''])}
       aria-labelledby={`${name}-label`}
       css={merge(
         {
@@ -111,9 +111,7 @@ export const Switch = ({
             <span className="switch-off">{config?.labelOff}</span>
           </>
         ) : null}
-        <div
-          className={mergeSelectors(['switch-slider', value ? 'on' : 'off'])}
-        />
+        <div className={cn(['switch-slider', value ? 'on' : 'off'])} />
       </label>
     </Div>
   )

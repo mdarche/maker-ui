@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 interface OverlayProps {
   show: boolean
@@ -18,7 +18,7 @@ interface OverlayProps {
 export const Overlay = ({ show, toggle, className }: OverlayProps) => {
   return (
     <div
-      className={mergeSelectors([
+      className={cn([
         'menu-overlay',
         'fixed',
         'cover',

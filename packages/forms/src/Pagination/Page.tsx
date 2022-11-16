@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, type DivProps, Grid } from '@maker-ui/primitives'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import type { ResponsiveScale } from '@maker-ui/css'
 
 import { Field } from '../Fields'
@@ -39,7 +39,7 @@ export const Page = ({
   }, [id, fields])
 
   return (
-    <Div id={id} className={mergeSelectors(['form-page', className])}>
+    <Div id={id} className={cn(['form-page', className])}>
       {typeof title === 'function' ? title(currentPage) : title}
       <Grid
         className="form-grid"

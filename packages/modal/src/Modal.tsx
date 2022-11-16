@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { type DivProps } from '@maker-ui/primitives'
-import { mergeSelectors, useFocus } from '@maker-ui/utils'
+import { cn, useFocus } from '@maker-ui/utils'
 import { Transition, type TransitionState } from '@maker-ui/transition'
 
 import { Portal } from './Portal'
@@ -157,7 +157,7 @@ export const Modal = ({
         transitionState={transitionState}
         containerProps={{
           role: 'dialog',
-          className: mergeSelectors(['modal', className]),
+          className: cn(['modal', className]),
           'aria-label': title,
           'aria-modal': 'true',
           tabIndex: focusable.count === 0 ? 0 : undefined,

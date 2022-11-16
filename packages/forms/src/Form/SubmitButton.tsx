@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useFormikContext, FormikErrors, FormikTouched } from 'formik'
 import { Button, type ButtonProps } from '@maker-ui/primitives'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import { useForm } from './FormProvider'
 
 export interface FormSubmitButtonProps extends Omit<ButtonProps, 'onClick'> {
@@ -39,7 +39,7 @@ export const SubmitButton = React.forwardRef<
     <Button
       type="submit"
       ref={ref}
-      className={mergeSelectors(['form-submit-btn', className])}
+      className={cn(['form-submit-btn', className])}
       onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
       disabled={settings.disableSubmit && hasErrors}
       {...props}>

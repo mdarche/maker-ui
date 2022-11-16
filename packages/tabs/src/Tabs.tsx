@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, DivProps, ButtonProps } from '@maker-ui/primitives'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { TabContext } from './TabContext'
 import { TabNavigation } from './TabNavigation'
@@ -67,7 +67,7 @@ export const Tabs = ({
       renderInactive={renderInactive}
       tabKeyNavigate={tabKeyNavigate}>
       <Div
-        className={mergeSelectors(['tabs-container', className])}
+        className={cn(['tabs-container', className])}
         breakpoints={breakpoints}
         css={{
           display: ['block', 'flex'],

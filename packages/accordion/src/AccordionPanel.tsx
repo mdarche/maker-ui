@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, type DivProps, Button } from '@maker-ui/primitives'
-import { generateId, useMeasure, mergeSelectors } from '@maker-ui/utils'
+import { generateId, useMeasure, cn } from '@maker-ui/utils'
 import { MakerProps } from '@maker-ui/css'
 
 import { useAccordion } from './AccordionContext'
@@ -97,18 +97,11 @@ export const AccordionPanel = React.forwardRef<
     return (
       <Div
         ref={ref}
-        className={mergeSelectors([
-          show ? 'expanded ' : undefined,
-          'accordion',
-          className,
-        ])}
+        className={cn([show ? 'expanded ' : undefined, 'accordion', className])}
         css={{ border: '1px solid', ...(css as object) }}
         {...props}>
         <Button
-          className={mergeSelectors([
-            'accordion-toggle',
-            show ? 'active' : undefined,
-          ])}
+          className={cn(['accordion-toggle', show ? 'active' : undefined])}
           title={`${show ? 'Collapse' : 'Expand'} content`}
           id={buttonId}
           aria-expanded={show ? 'true' : 'false'}

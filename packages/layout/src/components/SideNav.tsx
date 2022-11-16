@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type MakerProps, type StyleObject } from '@maker-ui/css'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { ErrorContainer } from './Errors'
 import { CollapsibleMenu } from './Menu'
@@ -80,10 +80,7 @@ export const SideNav = ({
       <button {...attributes('collapse')}>
         {customCollapse === 'default' ? (
           <svg
-            className={mergeSelectors([
-              'default-collapse',
-              collapse ? 'rotate' : '',
-            ])}
+            className={cn(['default-collapse', collapse ? 'rotate' : ''])}
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M9 19a1 1 0 01-.71-1.71l5.3-5.29-5.3-5.29a1 1 0 011.42-1.42l6 6a1 1 0 010 1.41l-6 6A1 1 0 019 19z" />
@@ -103,8 +100,8 @@ export const SideNav = ({
       {layout === 'content sidenav' ? renderCollapseButton() : null}
       <Container
         isHeader={sideNav.isHeader}
-        id={mergeSelectors(['sidenav', id])}
-        className={mergeSelectors([
+        id={cn(['sidenav', id])}
+        className={cn([
           !active ? 'hide-sidenav' : '',
           collapse ? 'collapse-sidenav' : '',
           className,

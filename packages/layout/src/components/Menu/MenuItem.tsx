@@ -1,5 +1,5 @@
 import React, { useState, memo, isValidElement } from 'react'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { ExpandButton } from './ExpandButton'
 import { MakerOptions } from '../../types'
@@ -104,7 +104,7 @@ export const MenuItem = memo(
 
     return (
       <li
-        className={mergeSelectors([
+        className={cn([
           'menu-item',
           megamenu ? 'has-megamenu' : undefined,
           submenu ? 'has-submenu' : undefined,
@@ -136,14 +136,14 @@ export const MenuItem = memo(
           </>
         </ConditionalWrapper>
         {megamenu && isHeader ? (
-          <div className={mergeSelectors(['megamenu'])} role="menu">
+          <div className={cn(['megamenu'])} role="menu">
             <div className="container">{megamenu}</div>
           </div>
         ) : submenu ? (
           <>
             {isHeader || (!isHeader && showNested) ? (
               <ul
-                className={mergeSelectors(['submenu', `depth-${depth}`])}
+                className={cn(['submenu', `depth-${depth}`])}
                 role="menu"
                 aria-label="submenu">
                 {submenu.map((item, index) => (

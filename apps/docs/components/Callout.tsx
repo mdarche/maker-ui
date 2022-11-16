@@ -1,4 +1,4 @@
-import { mergeSelectors } from 'maker-ui'
+import { cn } from 'maker-ui'
 
 interface CalloutProps {
   type: 'alert' | 'info' | 'suggestion'
@@ -6,5 +6,5 @@ interface CalloutProps {
 }
 
 export const Callout = ({ children, type = 'suggestion' }: CalloutProps) => {
-  return <div className={mergeSelectors(['callout', type])}>{children}</div>
+  return <div className={cn(['callout', type])}>{children}</div>
 }

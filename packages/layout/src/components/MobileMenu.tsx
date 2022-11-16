@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type MakerProps, type ResponsiveScale } from '@maker-ui/css'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import { forwardRef, Fragment } from 'react'
 
 import type { MakerOptions } from '../types'
@@ -80,8 +80,8 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
         ) : null}
         <div
           ref={ref}
-          id={mergeSelectors(['mobile-menu', id])}
-          className={mergeSelectors([
+          id={cn(['mobile-menu', id])}
+          className={cn([
             show ? 'active' : undefined,
             center ? 'center' : undefined,
             fullWidth.includes(transition) ? 'full-width' : undefined,

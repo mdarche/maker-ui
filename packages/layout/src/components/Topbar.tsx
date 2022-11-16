@@ -6,7 +6,7 @@ import {
   type ResponsiveScale,
   type StyleObject,
 } from '@maker-ui/css'
-import { useMeasure, mergeSelectors, setBreakpoint } from '@maker-ui/utils'
+import { useMeasure, cn, setBreakpoint } from '@maker-ui/utils'
 import { useEffect } from 'react'
 import { ResizeObserver } from '@juggle/resize-observer'
 
@@ -79,7 +79,7 @@ export const Topbar = (props: TopbarProps) => {
   return (
     <aside
       ref={ref}
-      id={mergeSelectors(['topbar', id])}
+      id={cn(['topbar', id])}
       className={className}
       breakpoints={setBreakpoint(topbar.breakpoint, breakpoints)}
       css={{

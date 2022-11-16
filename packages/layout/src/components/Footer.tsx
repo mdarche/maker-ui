@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type MakerProps, type ResponsiveScale } from '@maker-ui/css'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import { ErrorContainer } from './Errors'
 
 interface FooterProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
@@ -33,7 +33,7 @@ export const Footer = ({
   const hasStyles = background || css
   return (
     <footer
-      id={mergeSelectors(['footer', id])}
+      id={cn(['footer', id])}
       className={className}
       role="contentinfo"
       css={hasRootStyles ? { background, ...(_css as object) } : undefined}

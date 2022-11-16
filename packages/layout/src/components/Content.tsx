@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, type MakerProps } from '@maker-ui/css'
-import { mergeSelectors, setBreakpoint } from '@maker-ui/utils'
+import { cn, setBreakpoint } from '@maker-ui/utils'
 import { useState, useEffect } from 'react'
 
 import { ErrorContainer } from './Errors'
@@ -45,8 +45,8 @@ export const Content = ({
 
   return (
     <div
-      id={mergeSelectors(['site-inner', id])}
-      className={mergeSelectors([`layout-${layoutClass}`, className])}
+      id={cn(['site-inner', id])}
+      className={cn([`layout-${layoutClass}`, className])}
       breakpoints={setBreakpoint(bp, breakpoints)}
       style={initialRender ? { visibility: 'hidden' } : undefined}
       css={{

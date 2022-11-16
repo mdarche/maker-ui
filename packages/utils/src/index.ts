@@ -8,8 +8,8 @@ export {
   format,
   generateId,
   validate,
-  mergeSelectors,
-  mergeSelectors as cn,
+  cn,
+  cn as mergeSelectors,
   mergeRefs,
 } from './helper'
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 interface ExpandButtonProps {
   show: boolean
@@ -18,10 +18,7 @@ export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
   return (
     <button
       title="Expand Section"
-      className={mergeSelectors([
-        'submenu-toggle',
-        show ? 'expanded' : undefined,
-      ])}
+      className={cn(['submenu-toggle', show ? 'expanded' : undefined])}
       aria-expanded={show ? 'true' : 'false'}
       aria-label="Expand Section"
       onClick={() => set(!show)}>

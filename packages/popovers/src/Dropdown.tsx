@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Div } from '@maker-ui/primitives'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import type { MakerProps } from '@maker-ui/css'
 
 import { Popover, PopoverProps } from './Popover'
@@ -75,7 +75,7 @@ export const Dropdown = ({
 
   const buttonAttributes = {
     ref: buttonRef,
-    className: mergeSelectors([
+    className: cn([
       'dropdown-btn',
       (controls ? controls[0] : show) ? 'active' : '',
     ]),
@@ -110,7 +110,7 @@ export const Dropdown = ({
   return (
     <Div
       id={id}
-      className={mergeSelectors(['dropdown', className])}
+      className={cn(['dropdown', className])}
       css={{
         display: 'inline-block',
         ...(_css as object),

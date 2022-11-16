@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { mergeSelectors } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import { useForm } from '../Form/FormProvider'
 
 export interface FormProgressProps {
@@ -31,7 +31,7 @@ export const Progress = ({
   return style === 'bar' ? (
     <progress
       id={id}
-      className={mergeSelectors(['form-progress', className])}
+      className={cn(['form-progress', className])}
       value={currentPage / pageCount}
       max="100"
       {...props}
