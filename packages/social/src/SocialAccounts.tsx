@@ -153,10 +153,6 @@ export const SocialAccounts = ({
                 paddingRight: 0,
               }
             : undefined,
-        '.icon-wrapper': {
-          display: 'flex',
-          alignItems: 'center',
-        },
         ...(css as object),
       }}
       {...props}>
@@ -169,7 +165,7 @@ export const SocialAccounts = ({
               href={formatSocialURL(accounts[key as Account], key as Account)}
               target="_blank"
               rel="noreferrer">
-              <div className="icon-wrapper">
+              <div className="icon-wrapper flex align-center">
                 {socialLogos[key as Account].icon}
               </div>
             </a>
