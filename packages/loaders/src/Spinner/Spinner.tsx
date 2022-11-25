@@ -1,5 +1,4 @@
 import * as React from 'react'
-import type { SVGProps } from '@maker-ui/primitives'
 import { merge } from '@maker-ui/utils'
 // Spinners
 import { Bars } from './Bars'
@@ -22,7 +21,7 @@ const defaults: SpinnerProps = {
   },
 }
 
-export interface SpinnerProps extends SVGProps {
+export interface SpinnerProps extends React.SVGAttributes<SVGElement> {
   /** All prebuilt spinner types */
   type:
     | 'default'
@@ -50,7 +49,7 @@ export interface SpinnerProps extends SVGProps {
 export interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
 
 /**
- * The `Spinner` component gives you easy access to 5 common loading indicators for a better
+ * The `Spinner` component gives you easy access to common loading indicators for a better
  * user experience during network requests.
  *
  * @todo add transition to this component for smooth entry and exit

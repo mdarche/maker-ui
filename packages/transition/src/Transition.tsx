@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef } from 'react'
 import {
   Transition as ReactTransition,
@@ -5,7 +7,6 @@ import {
   type Transition as ReactTransitionProps,
 } from 'react-transition-group'
 import { StyleObject } from '@maker-ui/css'
-import { Div, type DivProps } from '@maker-ui/primitives'
 import { mergeRefs } from '@maker-ui/utils'
 
 export type TransitionState = {
@@ -18,7 +19,7 @@ export interface TransitionProps
   extends Partial<ReactTransitionProps<HTMLDivElement>> {
   nodeRef?: React.MutableRefObject<any>
   show: boolean
-  containerProps?: DivProps
+  containerProps?: React.HTMLAttributes<HTMLDivElement>
   css?: StyleObject
   unmountOnExit?: boolean
   easing?: string
@@ -69,7 +70,7 @@ export const Transition = ({
       unmountOnExit={unmountOnExit}
       {...props}>
       {(state) => (
-        <Div
+        <div
           ref={nodeRef ? mergeRefs([ref, nodeRef]) : ref}
           {...containerProps}
           style={{
@@ -77,10 +78,9 @@ export const Transition = ({
             transition: `all ${timeout}ms ${easing}`,
             ...transitionState[state],
             ...(containerProps?.style ? containerProps.style : {}),
-          }}
-          css={css}>
+          }}>
           {children}
-        </Div>
+        </div>
       )}
     </ReactTransition>
   )

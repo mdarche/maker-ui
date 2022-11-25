@@ -1,17 +1,16 @@
 import * as React from 'react'
-import { SVG } from '@maker-ui/primitives'
 import { SpinnerSVGProps } from './Spinner'
 
 export const Basic = ({
   size,
   colors: { primary },
-  css,
   ...props
 }: SpinnerSVGProps) => {
   return (
-    <SVG
+    <svg
       viewBox="0 0 100 100"
-      css={{ height: size, width: size, ...(css as object) }}
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ height: size, width: size }}
       {...props}>
       <circle
         cx="50"
@@ -30,6 +29,6 @@ export const Basic = ({
           keyTimes="0;1"
         />
       </circle>
-    </SVG>
+    </svg>
   )
 }

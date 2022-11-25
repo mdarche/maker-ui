@@ -1,20 +1,18 @@
 import * as React from 'react'
-import { SVG } from '@maker-ui/primitives'
 import { SpinnerSVGProps } from './Spinner'
 
 export const Gear = ({
   size,
   colors: { primary },
-  css,
   ...props
 }: SpinnerSVGProps) => {
   return (
-    <SVG
+    <svg
       viewBox="0 0 100 100"
-      css={{
+      xmlns="http://www.w3.org/2000/svg"
+      style={{
         height: size,
         width: size,
-        ...(css as object),
       }}
       {...props}>
       <animateTransform
@@ -31,6 +29,6 @@ export const Gear = ({
           fill={primary}
         />
       </g>
-    </SVG>
+    </svg>
   )
 }

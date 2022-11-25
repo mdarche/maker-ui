@@ -1,5 +1,6 @@
+'use client'
+
 import React, { useRef } from 'react'
-import { Div, type DivProps } from '@maker-ui/primitives'
 import { mergeRefs, ConditionalWrapper } from '@maker-ui/utils'
 import { Global } from '@maker-ui/css'
 import {
@@ -25,13 +26,12 @@ export interface CSSTransitionProps
   classNamePrefix?: string
   className?: string
   nodeRef?: React.MutableRefObject<any>
-  containerProps?: DivProps
+  containerProps?: React.HTMLAttributes<HTMLDivElement>
   unmountOnExit?: boolean
   timeout?: number
   distance?: number | string
   easing?: string
   noStyles?: boolean
-  css?: DivProps['css']
   children: React.ReactNode
 }
 
@@ -49,7 +49,6 @@ export const CSSTransition = ({
   nodeRef,
   containerProps,
   noStyles = false,
-  css,
   children,
   ...props
 }: CSSTransitionProps) => {
@@ -83,9 +82,9 @@ export const CSSTransition = ({
           classNames={className || t}
           unmountOnExit={unmountOnExit}
           {...props}>
-          <Div ref={ref} {...containerProps} css={css}>
+          <div ref={ref} {...containerProps}>
             {children}
-          </Div>
+          </div>
         </ReactCSSTransition>
       </ConditionalWrapper>
     </>

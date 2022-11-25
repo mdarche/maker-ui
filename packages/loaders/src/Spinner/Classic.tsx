@@ -1,11 +1,9 @@
 import * as React from 'react'
-import { SVG } from '@maker-ui/primitives'
 import { SpinnerSVGProps } from './Spinner'
 
 export const Classic = ({
   size,
   colors: { primary },
-  css,
   ...props
 }: SpinnerSVGProps) => {
   const attributes = {
@@ -43,15 +41,16 @@ export const Classic = ({
   ]
 
   return (
-    <SVG
+    <svg
       viewBox="0 0 100 100"
-      css={{ height: size, width: size, ...(css as object) }}
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ height: size, width: size }}
       {...props}>
       {dynamic.map(({ transform, begin }, i) => (
         <rect key={i} {...attributes.rect} transform={transform}>
           <animate {...attributes.animate} begin={begin} />
         </rect>
       ))}
-    </SVG>
+    </svg>
   )
 }

@@ -66,19 +66,3 @@ export function generateStyles(
 
   return styles
 }
-
-interface RandomImage {
-  alt: HTMLImageElement['alt']
-  src: HTMLImageElement['src']
-}
-
-/**
- * Return a random image object
- *
- * @param {RandomImage[]} options - An array of objects that include a `src` URL and `alt` text
- */
-export function generateSrc(options: RandomImage[] = []) {
-  const { src, alt }: RandomImage = random(options)
-
-  return { src, alt }
-}

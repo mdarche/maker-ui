@@ -123,7 +123,6 @@ export const LightboxModal = ({
         focusRef={focusRef}
         background={background}
         closeOnBlur={settings.closeOnBlur}
-        css={{ ...(css as object) }}
         {...props}>
         <Div
           onMouseEnter={showControls}

@@ -1,0 +1,33 @@
+{
+  "name": "e2e",
+  "version": "1.1.11",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "app-build": "next build",
+    "app-start": "next start"
+  },
+  "dependencies": {
+    "@maker-ui/accordion": "workspace:*",
+    "@maker-ui/carousel": "workspace:*",
+    "@maker-ui/forms": "workspace:*",
+    "@maker-ui/generative": "workspace:*",
+    "@maker-ui/gsap": "workspace:*",
+    "@maker-ui/lightbox": "workspace:*",
+    "@maker-ui/loaders": "workspace:*",
+    "@maker-ui/modal": "workspace:*",
+    "@maker-ui/notifications": "workspace:*",
+    "@maker-ui/popovers": "workspace:*",
+    "@maker-ui/social": "workspace:*",
+    "@maker-ui/tabs": "workspace:*",
+    "@maker-ui/toc": "workspace:*",
+    "maker-ui": "workspace:*",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "eslint-config-app": "workspace:*",
+    "typescript": "^4.8.4"
+  }
+}

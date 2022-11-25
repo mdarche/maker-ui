@@ -1,15 +1,10 @@
+'use client'
+
 import * as React from 'react'
-import {
-  Flex,
-  Button,
-  SVG,
-  type DivProps,
-  type SVGProps,
-} from '@maker-ui/primitives'
-import { StyleObject } from '@maker-ui/css'
 import { useTracker, cn } from '@maker-ui/utils'
 
-export interface AnnouncementProps extends DivProps {
+export interface AnnouncementProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   /** The browser storage key that stores the dismiss expiration value
    * @default "maker_dismiss_announce"
    */
@@ -19,7 +14,7 @@ export interface AnnouncementProps extends DivProps {
    */
   fixed?: boolean
   /** The background color of the Announcement or CookieNotice component */
-  background?: string | string[]
+  background?: string
   /** The local storage tracker type
    * @default
    * "session" for Announcement
@@ -43,10 +38,6 @@ export interface AnnouncementProps extends DivProps {
    * an effect if `fixed` is set to `true`.
    */
   bottom?: boolean
-  /** Responsive styles that will be applied to the root Announcement container.
-   * Use `css` to apply styles to the inner container.
-   */
-  _css?: StyleObject
 }
 
 /**
@@ -66,10 +57,8 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       type = 'session',
       expiration = 2592000, // 30 days
       allowClose = true,
-      closeButton = <CloseIcon />,
+      closeButton = <CloseIcon style={{ height: 27, fill: color }} />,
       bottom = false,
-      _css,
-      css,
       children,
       ...props
     },
@@ -83,60 +72,48 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       title: 'Dismiss',
       'aria-label': 'Dismiss',
       onClick: () => set(false),
-      css: {
+      style: {
         cursor: 'pointer',
         border: 'none',
         background: 'none',
         padding: '0 15px',
         color,
-        svg: { height: 27, fill: color },
       },
     }
 
     return active ? (
-      <Flex
+      <div
         ref={ref}
-        className={cn(['announcement', className])}
-        align="center"
-        css={{
+        className={cn(['announcement flex align-center', className])}
+        style={{
           background,
           color,
           ...fixedPartial(fixed, bottom),
-          ...(_css as object),
         }}>
-        <Flex
-          className="container"
-          align="center"
-          css={{ width: '100%', ...(css as object) }}>
-          <Flex
-            className="announcement-text"
-            css={{
-              flex: 1,
-              flexWrap: 'wrap',
-            }}
-            {...props}>
+        <div className="container flex align-center width-100">
+          <div className="announcement-text flex flex-1 flex-wrap" {...props}>
             {children}
-          </Flex>
+          </div>
           {allowClose && !closeButton ? (
             typeof closeButton === 'function' ? (
               // @ts-ignore
               closeButton(btnAttributes)
             ) : (
-              <Button {...btnAttributes}>{closeButton}</Button>
+              <button {...btnAttributes}>{closeButton}</button>
             )
           ) : null}
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     ) : null
   }
 )
 
 Announcement.displayName = 'Announcement'
 
-const CloseIcon = (props: SVGProps) => (
-  <SVG {...props} viewBox="0 0 24 24">
+const CloseIcon = (props: React.HtmlHTMLAttributes<HTMLOrSVGElement>) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-  </SVG>
+  </svg>
 )
 
 /**

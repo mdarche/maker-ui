@@ -1,11 +1,9 @@
 import * as React from 'react'
-import { SVG } from '@maker-ui/primitives'
 import { SpinnerSVGProps } from './Spinner'
 
 export const Bars = ({
   size,
   colors: { primary, secondary, third, fourth },
-  css,
   ...props
 }: SpinnerSVGProps) => {
   const attributes = {
@@ -26,15 +24,16 @@ export const Bars = ({
   ]
 
   return (
-    <SVG
+    <svg
       viewBox="0 0 100 100"
-      css={{ height: size, width: size, ...(css as object) }}
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ height: size, width: size }}
       {...props}>
       {dynamic.map(({ color, begin, d }, i) => (
         <path key={i} fill={color} d={d}>
           <animate {...attributes} begin={begin} />
         </path>
       ))}
-    </SVG>
+    </svg>
   )
 }

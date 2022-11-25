@@ -1,11 +1,12 @@
+'use client'
+
 import * as React from 'react'
-import { type DivProps } from '@maker-ui/primitives'
 import { cn, useFocus } from '@maker-ui/utils'
 import { Transition, type TransitionState } from '@maker-ui/transition'
 
 import { Portal } from './Portal'
 
-export interface ModalProps extends DivProps {
+export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   /** A boolean that indicates if the modal is active or unmounted */
   show?: boolean
   /** A boolean toggle function that controls the modal's visibility */
@@ -13,7 +14,7 @@ export interface ModalProps extends DivProps {
   /** The modal's background overlay color
    * @default "rgba(0, 0, 0, 0.66)"
    */
-  background?: string | string[]
+  background?: string
   /** An ID selector for the DOM node that the Modal should attach to
    * @default undefined (the end of the document body)
    */
@@ -53,6 +54,7 @@ export interface ModalProps extends DivProps {
    * @default 300
    */
   duration?: number
+  children?: React.ReactNode
 }
 
 /**
@@ -71,7 +73,6 @@ export const Modal = ({
   center = false,
   background = 'rgba(0, 0, 0, 0.66)',
   className,
-  css,
   easing,
   duration,
   transitionState,
@@ -157,39 +158,23 @@ export const Modal = ({
         transitionState={transitionState}
         containerProps={{
           role: 'dialog',
-          className: cn(['modal', className]),
+          className: cn(['modal fixed cover flex justify-center', className]),
           'aria-label': title,
           'aria-modal': 'true',
           tabIndex: focusable.count === 0 ? 0 : undefined,
-          ...props,
-        }}
-        css={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: center ? 'center' : undefined,
-          zIndex: 101,
-          overflowY: 'scroll',
-          '.modal-overlay': {
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: -1,
-            background,
+          style: {
+            alignItems: center ? 'center' : undefined,
+            zIndex: 101,
+            overflowY: 'scroll',
           },
-          ...(css as object),
+          ...props,
         }}>
         <div
           role="button"
           data-cy="modal-overlay"
           onClick={() => (closeOnBlur ? closeModal() : undefined)}
-          className="modal-overlay"
+          className="modal-overlay fixed cover"
+          style={{ zIndex: -1, background }}
         />
         {children}
       </Transition>

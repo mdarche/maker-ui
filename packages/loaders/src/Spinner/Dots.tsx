@@ -1,11 +1,9 @@
 import * as React from 'react'
-import { SVG } from '@maker-ui/primitives'
 import { SpinnerSVGProps } from './Spinner'
 
 export const Dots = ({
   size,
   colors: { primary, secondary, third, fourth },
-  css,
   ...props
 }: SpinnerSVGProps) => {
   const points = [
@@ -15,9 +13,10 @@ export const Dots = ({
   ]
 
   return (
-    <SVG
+    <svg
       viewBox="0 0 100 100"
-      css={{ width: size, height: size, ...(css as object) }}
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ width: size, height: size }}
       {...props}>
       {points.map(({ translate, scale, begin, color }, index) => (
         <g key={index} transform={`translate(${translate})`}>
@@ -36,6 +35,6 @@ export const Dots = ({
           </circle>
         </g>
       ))}
-    </SVG>
+    </svg>
   )
 }

@@ -7,10 +7,7 @@ import { LightboxLink } from './LightboxLink'
 import { SpinnerProps } from '@maker-ui/loaders'
 
 export interface LightboxProps
-  extends Omit<
-    ModalProps,
-    'closeOnBlur' | 'center' | 'appendTo' | 'springConfig'
-  > {
+  extends Omit<ModalProps, 'closeOnBlur' | 'center' | 'appendTo'> {
   id?: string
   data?: LightboxData[]
   settings?: {
@@ -36,16 +33,13 @@ export const Lightbox = ({
   set,
   show,
   settings,
-  css,
   children,
   background,
   ...props
 }: LightboxProps) => {
   return (
     <LightboxContext data={data} settings={settings} show={show} set={set}>
-      <LightboxModal css={{ ...(css as object) }} {...props}>
-        {children}
-      </LightboxModal>
+      <LightboxModal {...props}>{children}</LightboxModal>
     </LightboxContext>
   )
 }
