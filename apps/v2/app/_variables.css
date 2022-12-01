@@ -1,0 +1,58 @@
+:root {
+  --height-topbar: 50px;
+  --height-header: 70px;
+  --width-mobile-menu: 100%;
+  --width-sidebar: 300px;
+  --width-sidebar-secondary: 100px;
+  --width-side-nav: 300px;
+  --max-width-header: 1300px;
+  --max-width-section: 1300px;
+  --max-width-footer: 1300px;
+  --gap-content: 50px;
+  --font-body: itc-avant-garde-gothic-pro, Helvetica, Arial, sans-serif;
+  --font-heading: itc-avant-garde-gothic-pro, Helvetica, Arial, sans-serif;
+  --font-monospace: lexia-mono, monospace;
+  --transition-side-nav: transform ease 0.3s;
+  --color-modes: light, dark, system;
+  // Add media queries for heights, widths, and gaps here
+}
+
+body[data-theme='dark'] {
+  // Required
+  --color-bg-header: #000;
+  --color-bg-side-nav: #000;
+  --color-bg-topbar: #000;
+  --color-bg-mobile-menu: #000;
+  --color-logo: #fff;
+  --color-text: #fff;
+  --color-background: #000;
+  // Project specific
+  --color-gray_100: #111;
+  --color-gray_200: #1f1f1f;
+  --color-gray_300: #616161;
+  --color-gray_400: #7a7a7a;
+  --color-gray_500: #adadad;
+  --color-border_100: #2a2a2a;
+  --color-border_200: #818181;
+  --color-shadow: 1px 3px 5px rgba(122, 115, 144, 0.06);
+}
+
+body[data-theme='light'] {
+  // Required
+  --color-bg-header: #000;
+  --color-bg-side-nav: #000;
+  --color-bg-topbar: #000;
+  --color-bg-mobile-menu: #000;
+  --color-logo: #000;
+  --color-text: #000;
+  --color-background: #fff;
+  // Project specific
+  --color-gray_100: #fafafa;
+  --color-gray_200: #ebebeb;
+  --color-gray_300: #c4c4c4;
+  --color-gray_400: #979797;
+  --color-gray_500: #6f6f6f;
+  --color-border_100: #e5e9ea;
+  --color-border_200: #a2a2a2;
+  --color-shadow: 1px 3px 5px rgba(122, 115, 144, 0.06);
+}

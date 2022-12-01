@@ -1,5 +1,5 @@
 const styles = {
-  // Animatinos
+  // Animations
   '--_duration': 3,
   '--_travel-distance': 0,
   willChange: 'transform',

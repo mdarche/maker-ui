@@ -1,0 +1,26 @@
+* {
+  boxsizing: border-box;
+}
+body {
+  margin: 0;
+  fontfamily: var(--font-body);
+  color: var(--color-text);
+  backgroundcolor: var(--color-background);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  fontfamily: var(--font-heading);
+}
+code,
+pre {
+  fontfamily: var(--font-monospace);
+}
+b,
+strong,
+.bold {
+  fontweight: 700;
+}

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { SVG, type SVGProps } from '@maker-ui/primitives'
-interface CaretProps extends SVGProps {
+
+interface CaretProps extends Partial<HTMLOrSVGElement> {
   show: boolean
 }
 
@@ -8,7 +8,7 @@ interface CaretProps extends SVGProps {
  * Default Caret Icon for the accordion
  */
 export const CaretIcon = ({ show, ...props }: CaretProps) => (
-  <SVG
+  <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     style={{
@@ -24,5 +24,5 @@ export const CaretIcon = ({ show, ...props }: CaretProps) => (
       strokeWidth="2"
       d="M21 8.5l-9 9-9-9"
     />
-  </SVG>
+  </svg>
 )

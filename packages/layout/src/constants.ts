@@ -8,7 +8,6 @@ export const contentTypes = [
   'sidebar content',
   'sidebar content sidebar',
   'sidenav content',
-  'page-transition',
 ] as const
 
 /**

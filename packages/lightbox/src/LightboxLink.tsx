@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Link } from '@maker-ui/primitives'
 import type { MakerProps } from '@maker-ui/css'
 
 import { useLightbox, type LightboxData } from './LightboxContext'
@@ -78,14 +77,14 @@ export const LightboxLink = React.forwardRef<
     }
 
     return (
-      <Link
+      <a
         ref={ref}
         href={src || '#'}
         role="button"
         onClick={handleClick}
         {...props}>
         {children}
-      </Link>
+      </a>
     )
   }
 )

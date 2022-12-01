@@ -62,7 +62,7 @@ export const Accordion = ({
       showSingle={showSingle}
       animate={animate}>
       <Div
-        className={cn(['accordion-container', className])}
+        className={cn(['mk_accordion', className])}
         css={{ ...(css as object) }}
         {...props}>
         {children}

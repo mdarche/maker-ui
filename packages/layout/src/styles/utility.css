@@ -1,0 +1,69 @@
+.grid {
+  display: grid;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.flex {
+  display: flex;
+}
+.flex-1 {
+  flex: 1;
+}
+.flex-col {
+  flexdirection: column;
+}
+.align-center {
+  alignitems: center;
+}
+.align-flex-end {
+  alignitems: flex-end;
+}
+.align-stretch {
+  alignitems: stretch;
+}
+.justify-center {
+  justifycontent: center;
+}
+.justify-flex-start {
+  justifycontent: flex-start;
+}
+.justify-flex-end {
+  justifycontent: flex-end;
+}
+.justify-between {
+  justifycontent: space-between;
+}
+.width-80 {
+  width: 80%;
+}
+.width-90 {
+  width: 90%;
+}
+.width-100 {
+  width: 100%;
+}
+.height-100 {
+  height: 100%;
+}
+.sticky {
+  position: sticky;
+}
+.fixed {
+  position: fixed;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.cover {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.container {
+  margin: 0 auto;
+}
