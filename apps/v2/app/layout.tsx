@@ -92,7 +92,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Layout options={}>
+        <Layout>
           <Layout.Topbar />
           <Layout.Header logo="" menu="" />
           <Layout.MobileMenu />
