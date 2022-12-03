@@ -1,13 +1,15 @@
-.button_root {
+.btn_root {
   color: red;
-}
 
-.button_inner {
-  color: blue;
-}
+  span {
+    color: blue;
+  }
 
-@media screen and (min-width: 768px) {
-  .button_root {
+  @media screen and (min-width: 768px) {
     color: pink;
   }
+}
+
+.btn_inner {
+  color: blue;
 }

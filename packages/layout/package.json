@@ -18,12 +18,10 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@juggle/resize-observer": "^3.3.1",
-    "@maker-ui/css": "workspace:*",
-    "@maker-ui/primitives": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
   "devDependencies": {
+    "build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

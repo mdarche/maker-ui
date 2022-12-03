@@ -1,3 +1,4 @@
+/* Skiplinks */
 .skiplinks {
   list-style: none;
   position: relative;
@@ -16,6 +17,24 @@
     &:focus {
       left: 0;
     }
+  }
+}
+/* Topbar */
+.mkr-topbar {
+  height: var(--height-topbar);
+  background: var(--color-bg-topbar, #fff);
+  top: 0px;
+  z-index: 101;
+  display: block;
+  position: relative;
+  > div {
+    max-width: var(--max-width-topbar);
+  }
+  &.sticky {
+    position: sticky;
+  }
+  &.hide-mobile {
+    display: none;
   }
 }
 /* Header */

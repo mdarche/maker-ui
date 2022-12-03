@@ -1,19 +1,8 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import {
-  jsx,
-  type MakerProps,
-  type ResponsiveScale,
-  type StyleObject,
-} from '@maker-ui/css'
-import { forwardRef } from 'react'
+import * as React from 'react'
 
-export interface SectionProps
-  extends MakerProps,
-    React.HTMLAttributes<HTMLDivElement> {
-  background?: string | string[]
-  _css?: StyleObject
-  maxWidth?: ResponsiveScale
+export interface SectionProps extends React.HTMLAttributes<HTMLDivElement> {
+  background?: string
+  maxWidth?: string
   container?: boolean
 }
 
@@ -23,54 +12,33 @@ export interface SectionProps
  *
  * @link https://maker-ui.com/docs/layout/section
  */
-export const Section = forwardRef<HTMLElement, SectionProps>(
-  (
-    {
-      maxWidth = 'var(--maxWidth_section)',
-      background,
-      color,
-      container = true,
-      id,
-      className,
-      _css,
-      css,
-      children,
-      ...props
-    },
-    ref
-  ) => {
-    /**
-     * If container is false, apply `css` prop to the root element
-     */
-    const rootCss = container
-      ? _css
-      : { ...(_css as object), ...(css as object) }
-    return (
-      <section
-        ref={ref}
-        id={id}
-        className={className}
-        css={{
-          background,
-          color,
-          ...(rootCss as object),
-        }}>
-        {container ? (
-          <div
-            className="container"
-            css={{
-              maxWidth,
-              ...(css as object),
-            }}
-            {...props}>
-            {children}
-          </div>
-        ) : (
-          children
-        )}
-      </section>
-    )
-  }
-)
+export const Section = ({
+  id,
+  className,
+  maxWidth = 'var(--maxWidth_section)',
+  background,
+  color,
+  container = true,
+  children,
+  ...props
+}: SectionProps) => {
+  return (
+    <section
+      id={id}
+      className={className}
+      style={background ? { background } : undefined}>
+      {container ? (
+        <div
+          className="container"
+          style={maxWidth ? { maxWidth } : undefined}
+          {...props}>
+          {children}
+        </div>
+      ) : (
+        children
+      )}
+    </section>
+  )
+}
 
 Section.displayName = 'Section'

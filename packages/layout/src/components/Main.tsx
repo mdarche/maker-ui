@@ -1,17 +1,17 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx, type MakerProps } from '@maker-ui/css'
-import { cn } from '@maker-ui/utils'
+import * as React from 'react'
 
-interface MainProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {}
+interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Internal prop to denote child node type */
+  _type?: 'main'
+}
 
 /**
  * The `Main` component wraps your layout's main content.
  *
  * @link https://maker-ui.com/docs/layout/main
  */
-export const Main = ({ id, children, ...props }: MainProps) => (
-  <main id={cn(['content', id])} role="main" {...props}>
+export const Main = ({ _type = 'main', children, ...props }: MainProps) => (
+  <main role="main" {...props}>
     {children}
   </main>
 )

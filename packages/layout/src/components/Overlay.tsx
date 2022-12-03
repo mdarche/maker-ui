@@ -2,10 +2,6 @@ import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 
 interface OverlayProps {
-  show: boolean
-  toggle: any
-  bp?: number
-  type?: string
   className?: string
 }
 
@@ -13,21 +9,13 @@ interface OverlayProps {
  * The `Overlay` component acts as an `onBlur` click toggle for closing the
  * SideNav or MobileMenu components on mobile.
  *
+ * TODO - handle all overlay clicks inside the client component for mobile menu and side nav
+ *
  * @internal
  */
-export const Overlay = ({ show, toggle, className }: OverlayProps) => {
+export const Overlay = ({ className }: OverlayProps) => {
   return (
-    <div
-      className={cn([
-        'menu-overlay',
-        'fixed',
-        'cover',
-        className,
-        show ? ' active' : undefined,
-      ])}
-      role="button"
-      onClick={toggle}
-    />
+    <div className={cn(['mkr-overlay fixed cover', className])} role="button" />
   )
 }
 

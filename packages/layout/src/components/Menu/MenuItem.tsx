@@ -1,8 +1,9 @@
 import React, { useState, memo, isValidElement } from 'react'
 import { cn } from '@maker-ui/utils'
+import { Link } from 'next/link'
 
 import { ExpandButton } from './ExpandButton'
-import { MakerOptions } from '../../types'
+import { MakerUIOptions } from '@/types'
 
 export interface MenuItemProps {
   label: string
@@ -45,11 +46,10 @@ export type MakerMenu = MenuItemProps[]
 
 interface MenuInternalProps {
   data: MenuItemProps
-  caret?: MakerOptions['header']['dropdown']['caret']
+  caret?: MakerUIOptions['header']['dropdown']['caret']
   menuControls?: any
   pathname?: string
   isHeader?: boolean
-  linkFunction?: MakerOptions['linkFunction']
   depth?: number
 }
 
@@ -80,7 +80,6 @@ export const MenuItem = memo(
     menuControls,
     pathname,
     isHeader = false,
-    linkFunction,
     depth = 0,
   }: MenuInternalProps) => {
     const [showNested, setNested] = useState(openNested)
@@ -117,9 +116,7 @@ export const MenuItem = memo(
           condition={!isHeader && submenu ? true : false}
           wrapper={(children) => <div className="flex">{children}</div>}>
           <>
-            {linkFunction && path ? (
-              linkFunction(path, label, attributes, icon)
-            ) : !isHeader && divider ? (
+            {!isHeader && divider ? (
               label
             ) : !isHeader && isExpandButton && submenu ? (
               <button onClick={() => setNested(!showNested)}>{label}</button>
@@ -152,7 +149,6 @@ export const MenuItem = memo(
                     data={item}
                     caret={caret}
                     menuControls={menuControls}
-                    linkFunction={linkFunction}
                     pathname={pathname}
                     isHeader={isHeader}
                     depth={depth + 1}

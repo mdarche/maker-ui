@@ -1,105 +1,40 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import {
-  jsx,
-  type MakerProps,
-  type ResponsiveScale,
-  type StyleObject,
-} from '@maker-ui/css'
-import { useMeasure, cn, setBreakpoint } from '@maker-ui/utils'
-import { useEffect } from 'react'
-import { ResizeObserver } from '@juggle/resize-observer'
+import * as React from 'react'
+import { cn } from '@maker-ui/utils'
+import { TopbarOptions } from '@/types'
 
-import { MakerOptions } from '../types'
-import { ErrorContainer } from './Errors/ErrorBoundary'
-import { useOptions } from '../context/OptionContext'
-import { useMeasurements } from '../context/LayoutContext'
-
-type StickyType = 'sticky' | ('sticky' | 'relative')[] | undefined
-
-interface TopbarProps extends MakerProps, React.HTMLAttributes<HTMLDivElement> {
-  /** Overrides the default `--color-bg_topbar` background that you can set with Maker UI Options. */
-  background?: string
-  /** Overrides `topbar.maxWidth` from Maker UI options. */
-  maxWidth?: ResponsiveScale
-  /** When true, content overflow will scroll horizontally instead of wrapping to a new line.
-   * @default false
-   */
-  scrollOverflow?: boolean
-  /** Overrides `topbar.sticky` from Maker UI options. */
-  sticky?: MakerOptions['topbar']['sticky']
-  /** Overrides `topbar.stickyOnMobile` from Maker UI options. */
-  stickyOnMobile?: MakerOptions['topbar']['stickyOnMobile']
-  /** Gives you access to the root container styles */
-  _css?: StyleObject
-}
+interface TopbarProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    TopbarOptions {}
 
 /**
  * The `Topbar` component displays content like announcements, social media icons,
  * or promotions above the page header.
  *
- * @TODO - revisit hide on mobile / sticky style conflict
- *
  * @link https://maker-ui.com/docs/layout/topbar
  */
 export const Topbar = (props: TopbarProps) => {
-  const { topbar, breakpoints } = useOptions()
-  const [ref, { height }] = useMeasure({ polyfill: ResizeObserver })
-  const { setMeasurement } = useMeasurements()
-
-  useEffect(() => {
-    if (height !== 0) {
-      setMeasurement('topbar', height)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [height])
-
   const {
     id,
-    background = 'var(--color-bg_topbar)',
-    maxWidth = 'var(--maxWidth_topbar)',
-    sticky = topbar.sticky,
-    stickyOnMobile = topbar.stickyOnMobile,
-    scrollOverflow = false,
+    sticky,
+    stickyOnMobile,
+    hideOnMobile,
     className,
-    _css,
-    css,
     children,
     ...rest
   } = props
 
-  const stickyPartial: StickyType = sticky
-    ? stickyOnMobile
-      ? 'sticky'
-      : ['relative', 'sticky']
-    : !sticky && stickyOnMobile
-    ? ['sticky', 'relative']
-    : undefined
-
   return (
     <aside
-      ref={ref}
-      id={cn(['topbar', id])}
-      className={className}
-      breakpoints={setBreakpoint(topbar.breakpoint, breakpoints)}
-      css={{
-        background,
-        top: 0,
-        zIndex: 101,
-        position: stickyPartial,
-        display: topbar.hideOnMobile ? ['none', 'block'] : ['block'],
-        ...(_css as object),
-      }}>
-      <div
-        className="container"
-        css={{
-          overflowX: scrollOverflow ? 'scroll' : undefined,
-          whiteSpace: scrollOverflow ? 'nowrap' : undefined,
-          maxWidth,
-          ...(css as object),
-        }}
-        {...rest}>
-        <ErrorContainer errorKey="topbar">{children}</ErrorContainer>
+      id={id}
+      className={cn([
+        'mkr-topbar',
+        sticky ? 'sticky' : '',
+        stickyOnMobile ? 'sticky-mobile' : '',
+        hideOnMobile ? 'hide-mobile' : '',
+        className,
+      ])}>
+      <div className="container" {...rest}>
+        {children}
       </div>
     </aside>
   )

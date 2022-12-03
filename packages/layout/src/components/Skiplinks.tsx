@@ -1,8 +1,5 @@
 import * as React from 'react'
 
-import { useLayout } from '../context/LayoutContext'
-import { useOptions } from '../context/OptionContext'
-
 export interface LinkItem {
   id: string
   label: string
@@ -21,8 +18,6 @@ interface SkipLinkProps {
  * @internal
  */
 export const Skiplinks = (props: SkipLinkProps) => {
-  const { a11y } = useOptions()
-  const [layout] = useLayout('content')
   let linkMenu: LinkItem[] = []
 
   if (props.links) {
@@ -31,22 +26,15 @@ export const Skiplinks = (props: SkipLinkProps) => {
     linkMenu = [{ id: '#content', label: 'Skip to content' }]
   }
 
-  if (layout.includes('sidenav')) {
-    linkMenu.splice(1, 0, {
-      id: '#sidenav',
-      label: 'Skip to side navigation',
-    })
-  }
-
-  return a11y.skiplinks ? (
-    <ul className="skiplinks">
+  return (
+    <ul className="mkr-skiplinks">
       {linkMenu.map(({ id, label }) => (
         <li key={id}>
           <a href={id}>{label}</a>
         </li>
       ))}
     </ul>
-  ) : null
+  )
 }
 
 Skiplinks.displayName = 'Skiplinks'

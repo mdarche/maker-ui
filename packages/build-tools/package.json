@@ -1,5 +1,5 @@
 {
-  "name": "@maker-ui/carousel",
+  "name": "build-tools",
   "description": "A lightweight, flexible carousel component.",
   "version": "1.3.0",
   "license": "Apache-2.0",
@@ -11,16 +11,18 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup --minify",
-    "start": "tsup --watch",
+    "build": "tsup --minify src/index.ts --format esm,cjs --dts",
+    "start": "tsup --watch src/index.ts --format esm,cjs --dts",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
+  "dependencies": {
+    "postcss": "^8.4.18",
+    "postcss-modules": "^5.0.0",
+    "postcss-nested": "^6.0.0"
+  },
   "devDependencies": {
-    "build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",
     "tsup": "^5.12.0",
     "typescript": "^4.8.4"
