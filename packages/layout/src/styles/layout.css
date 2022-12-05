@@ -20,7 +20,7 @@
   }
 }
 /* Topbar */
-.mkr-topbar {
+/* .topbar {
   height: var(--height-topbar);
   background: var(--color-bg-topbar, #fff);
   top: 0px;
@@ -36,7 +36,7 @@
   &.hide-mobile {
     display: none;
   }
-}
+} */
 /* Header */
 header {
   z-index: 100;

@@ -1,0 +1,18 @@
+.topbar {
+  height: var(--height-topbar);
+  background: var(--color-bg-topbar, #fff);
+  top: 0px;
+  z-index: 101;
+  display: block;
+  position: relative;
+  > div {
+    max-width: var(--max-width-topbar);
+  }
+
+  &:global.sticky {
+    position: sticky;
+  }
+  &:global.hide-mobile {
+    display: none;
+  }
+}

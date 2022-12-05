@@ -3,23 +3,23 @@ import { useScrollPosition } from '@maker-ui/utils'
 
 import type { HeaderOptions } from '@/types'
 
-interface HeaderClientProps extends HeaderOptions {}
+interface HeaderClientProps extends Partial<HeaderOptions> {}
 
 /**
  * TODO - add the necessary classes to the DOM w/ useEffect
  * -- Mobile Overlay
  */
 
-export const HeaderClient = ({
+export const Client = ({
   stickyUpScroll,
   scrollClass: sc,
 }: HeaderClientProps) => {
   const [scrollClass, setScrollClass] = useState('')
   const [show, setShow] = useState(true)
-  const activateScrollClass = sc ? true : false
+  const activateScrollClass = !!sc
 
   useEffect(() => {
-    const header = document.querySelector('.mkr-header')
+    const header = document.querySelector('.mkr_header')
     if (header) {
       if (scrollClass.length) {
         header.classList.add('sticky')
@@ -30,7 +30,7 @@ export const HeaderClient = ({
   }, [scrollClass])
 
   useEffect(() => {
-    const header = document.querySelector('.mkr-header')
+    const header = document.querySelector('.mkr_header')
     if (header) {
       if (!!stickyUpScroll && show) {
         header.classList.add('scroll-active')
@@ -86,9 +86,8 @@ export const HeaderClient = ({
   useScrollPosition(
     ({ currPos }) => {
       if (activateScrollClass) {
-        const { scrollTop, className } = sc
+        const { scrollTop, className } = sc || {}
         const isActive = currPos > scrollTop ? className : ''
-
         if (isActive !== scrollClass) {
           setScrollClass(isActive)
         }

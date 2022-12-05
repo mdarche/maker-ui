@@ -160,6 +160,7 @@ importers:
       '@maker-ui/forms': workspace:*
       '@maker-ui/generative': workspace:*
       '@maker-ui/gsap': workspace:*
+      '@maker-ui/layout': workspace:*
       '@maker-ui/lightbox': workspace:*
       '@maker-ui/loaders': workspace:*
       '@maker-ui/modal': workspace:*
@@ -169,10 +170,9 @@ importers:
       '@maker-ui/tabs': workspace:*
       '@maker-ui/toc': workspace:*
       eslint-config-app: workspace:*
-      maker-ui: workspace:*
-      next: latest
-      react: latest
-      react-dom: latest
+      next: ^13.0.6
+      react: ^18.2.0
+      react-dom: 18.2.0
       typescript: ^4.8.4
     dependencies:
       '@maker-ui/accordion': link:../../packages/accordion
@@ -180,6 +180,7 @@ importers:
       '@maker-ui/forms': link:../../packages/forms
       '@maker-ui/generative': link:../../packages/generative
       '@maker-ui/gsap': link:../../packages/gsap
+      '@maker-ui/layout': link:../../packages/layout
       '@maker-ui/lightbox': link:../../packages/lightbox
       '@maker-ui/loaders': link:../../packages/loaders
       '@maker-ui/modal': link:../../packages/modal
@@ -188,7 +189,6 @@ importers:
       '@maker-ui/social': link:../../packages/social
       '@maker-ui/tabs': link:../../packages/tabs
       '@maker-ui/toc': link:../../packages/toc
-      maker-ui: link:../../packages/maker-ui
       next: 13.0.6_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -483,23 +483,21 @@ importers:
 
   packages/layout:
     specifiers:
-      '@juggle/resize-observer': ^3.3.1
-      '@maker-ui/css': workspace:*
-      '@maker-ui/primitives': workspace:*
       '@maker-ui/utils': workspace:*
+      build-tools: workspace:*
       eslint-config-library: workspace:*
+      next: latest
       react: ^18.2.0
       react-dom: ^18.2.0
       tsconfig: workspace:*
       tsup: ^5.12.0
       typescript: ^4.8.4
     dependencies:
-      '@juggle/resize-observer': 3.3.1
-      '@maker-ui/css': link:../css
-      '@maker-ui/primitives': link:../primitives
       '@maker-ui/utils': link:../utils
     devDependencies:
+      build-tools: link:../build-tools
       eslint-config-library: link:../eslint-config-library
+      next: 13.0.6_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       tsconfig: link:../tsconfig
@@ -3144,10 +3142,6 @@ packages:
       '@jridgewell/resolve-uri': 3.0.5
       '@jridgewell/sourcemap-codec': 1.4.11
 
-  /@juggle/resize-observer/3.3.1:
-    resolution: {integrity: sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==}
-    dev: false
-
   /@manypkg/find-root/1.1.0:
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
     dependencies:
@@ -3222,7 +3216,6 @@ packages:
 
   /@next/env/13.0.6:
     resolution: {integrity: sha512-yceT6DCHKqPRS1cAm8DHvDvK74DLIkDQdm5iV+GnIts8h0QbdHvkUIkdOvQoOODgpr6018skbmSQp12z5OWIQQ==}
-    dev: false
 
   /@next/eslint-plugin-next/13.0.6:
     resolution: {integrity: sha512-JUANdYNCddhmQBjQQPxEJYL7GMCqYtbfrdmtX7c013srig7waNCG69Aoql7CgAgjdy8jn1ovHVdcF/NB46XN3Q==}
@@ -3254,7 +3247,6 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-android-arm64/12.3.1:
@@ -3271,7 +3263,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-darwin-arm64/12.3.1:
@@ -3288,7 +3279,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-darwin-x64/12.3.1:
@@ -3305,7 +3295,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-freebsd-x64/12.3.1:
@@ -3322,7 +3311,6 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-arm-gnueabihf/12.3.1:
@@ -3339,7 +3327,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-arm64-gnu/12.3.1:
@@ -3356,7 +3343,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-arm64-musl/12.3.1:
@@ -3373,7 +3359,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-x64-gnu/12.3.1:
@@ -3390,7 +3375,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-x64-musl/12.3.1:
@@ -3407,7 +3391,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-win32-arm64-msvc/12.3.1:
@@ -3424,7 +3407,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-win32-ia32-msvc/12.3.1:
@@ -3441,7 +3423,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-win32-x64-msvc/12.3.1:
@@ -3458,7 +3439,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@nodelib/fs.scandir/2.1.5:
@@ -3951,7 +3931,6 @@ packages:
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
     dependencies:
       tslib: 2.4.0
-    dev: false
 
   /@swc/plugin-emotion/2.5.17:
     resolution: {integrity: sha512-LYyUGe4i69TqD3l3MSL9OarVKYNTWR2lwBGXotb2jnuB4vUi4BZfamwy4AHiCTjCIySTEm8ijeyvs3GaoRiDnQ==}
@@ -6712,7 +6691,6 @@ packages:
 
   /client-only/0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
-    dev: false
 
   /cliui/5.0.0:
     resolution: {integrity: sha512-PYeGSEmmHM6zvoef2w8TPzlrnNpXIjTipYK780YswmIP9vjxmd6Y2a3CB2Ks6/AU8NHjZugXvo8w3oWM2qnwXA==}
@@ -13074,7 +13052,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
-    dev: false
 
   /nice-try/1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
@@ -16708,7 +16685,6 @@ packages:
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
-    dev: false
 
   /stylehacks/4.0.3:
     resolution: {integrity: sha512-7GlLk9JwlElY4Y6a/rmbH2MhVlTyVmiJd1PfTCqFaIBEGMYNsrO/v3SeGTdhBThLg4Z+NbOk/qFMwCa+J+3p/g==}

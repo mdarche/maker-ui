@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
+import { useRouter } from 'next/router'
 
-import { useOptions } from '../../temp/OptionContext'
 import { MenuItem, type MenuItemProps } from '../Menu/MenuItem'
+import { HeaderOptions } from '@/types'
 
 interface NavMenuProps {
+  dropdown?: HeaderOptions['dropdown']
   menuItems?: MenuItemProps[]
   pathname?: string
 }
@@ -15,8 +17,8 @@ interface NavMenuProps {
  * @internal
  *
  */
-export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
-  const { header, linkFunction } = useOptions()
+export const NavMenu = ({ menuItems = [], dropdown }: NavMenuProps) => {
+  const { asPath } = useRouter()
 
   return (
     <nav className="nav-primary" role="navigation">
@@ -24,15 +26,14 @@ export const NavMenu = ({ menuItems = [], pathname }: NavMenuProps) => {
         className={cn([
           'menu-primary',
           'header-nav',
-          `dropdown-${header.dropdown.transition}`,
+          `dropdown-${dropdown?.transition}`,
         ])}>
         {menuItems.map((item, index) => (
           <MenuItem
             key={index}
             data={item}
-            caret={header.dropdown?.caret}
-            pathname={pathname}
-            linkFunction={linkFunction}
+            caret={dropdown?.caret}
+            pathname={asPath}
             isHeader
           />
         ))}

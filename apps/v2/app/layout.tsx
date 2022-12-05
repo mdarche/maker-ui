@@ -1,5 +1,5 @@
 import { Layout } from '@maker-ui/layout'
-import '@maker-ui/layout/dist/layout.css'
+import '@maker-ui/layout/dist/index.css'
 
 import './_variables.css'
 import './_global.css'
@@ -94,12 +94,12 @@ export default function RootLayout({
       <body>
         <Layout>
           <Layout.Topbar />
-          <Layout.Header logo="" menu="" />
-          <Layout.MobileMenu />
+          {/* <Layout.Header logo="" menu="" /> */}
+          {/* <Layout.MobileMenu />
           <Layout.Main>{children}</Layout.Main>
           <Layout.Sidebar>Sidebar</Layout.Sidebar>
           <Layout.SideNav>SideNav</Layout.SideNav>
-          <Layout.Footer>Footer stuff</Layout.Footer>
+          <Layout.Footer>Footer stuff</Layout.Footer> */}
         </Layout>
       </body>
     </html>

@@ -1,44 +1,36 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx, type ResponsiveScale, type MakerProps } from '@maker-ui/css'
-import { setBreakpoint, cn } from '@maker-ui/utils'
-import { Grid } from '@maker-ui/primitives'
-import { useEffect } from 'react'
+import * as React from 'react'
+import { cn } from '@maker-ui/utils'
+import Link from 'next/Link'
 
-import type { MakerUIOptions } from '@/types'
-import { useOptions } from '../../temp/OptionContext'
-import { useLayout } from '../../temp/LayoutContext'
+import type {
+  HeaderOptions,
+  ColorButtonProps,
+  CustomButtonProps,
+} from '@/types'
 import { ColorButton } from '../ColorButton'
-import { NavMenu, MenuButton, type MenuItemProps } from '../Menu'
-import { gridStyles } from './styles'
+import { MenuButton, type MenuItemProps } from '../Menu'
+import { NavMenu } from './NavMenu'
+import styles from './Header.module.css'
+// import { gridStyles } from './styles'
 
-export interface NavProps extends MakerProps {
-  /** Overrides the `header.navType` from Maker UI options. */
-  type?: MakerOptions['header']['navType']
-  /** Overrides the `header.mobileNavType` from Maker UI options. */
-  mobileType?: MakerOptions['header']['mobileNavType']
+export interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {
+  header: HeaderOptions
   /** A custom logo component that is wrapped in an anchor tag that leads to the home page. */
   logo?: React.ReactElement | string
   /** Lets you supply a `MakerMenu` that renders a fully responsive and accessible menu complete with nested dropdowns. */
   menu?: MenuItemProps[]
   /** Overrides `header.colorButton` from Maker UI options. */
-  colorButton?: MakerOptions['header']['colorButton']
+  colorButton?: ColorButtonProps
   /** Overrides `header.menuButton` from Maker UI options. */
-  menuButton?: MakerOptions['header']['menuButton']
+  menuButton?: CustomButtonProps
   /** Replaces the Navbar logo-slot grid area with your own custom component.    */
   logoSlot?: React.ReactNode
   /** Replaces the Navbar widget-slot grid area with your own custom component.    */
   widgetSlot?: React.ReactNode
   /** Replaces the Navbar menu-slot grid area with your own custom component.    */
   menuSlot?: React.ReactNode
-  /** Lets you supply your app's current path to add a `.current` class and `aria-current` to the active menu item. This feature is only useful if you use the `menu` prop. */
-  pathname?: string
   /** Overrides `header.maxWidth` from Maker UI options. */
-  maxWidth?: ResponsiveScale
-  /** Class selector */
-  className?: string
-  /** ID selector */
-  id?: string
+  maxWidth?: string
 }
 
 /** Special (edge) cases */
@@ -53,8 +45,9 @@ const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
  * @link https://maker-ui.com/components/layout/navbar
  */
 export const Navbar = ({
-  type,
-  mobileType,
+  id,
+  className,
+  header: { navType, mobileNavType },
   logo,
   menu,
   logoSlot,
@@ -63,43 +56,21 @@ export const Navbar = ({
   menuButton,
   colorButton,
   maxWidth,
-  className,
-  id,
-  css,
-}: NavProps) => {
-  const { header, mobileMenu, breakpoints } = useOptions()
-  const [layout, setLayout] = useLayout('nav')
-  const [mobileLayout, setMobileLayout] = useLayout('mobileNav')
-
-  const bpArray = setBreakpoint(header.breakpoint, breakpoints)
-
+}: NavbarProps) => {
   const mid = menu && Math.ceil(menu.length / 2)
 
-  useEffect(() => {
-    /** Update layout context if current desktop layout is different */
-    if (type !== undefined && type !== layout) {
-      setLayout(type)
-    }
-
-    /** Update layout context if current mobile layout is different */
-    if (mobileType !== undefined && mobileType !== mobileLayout) {
-      setMobileLayout(mobileType)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type, mobileType, layout, mobileLayout])
-
   return (
-    <Grid
+    <div
       id={id}
       className={cn([
-        `nav-grid layout-${layout}`,
-        `m-layout-${mobileLayout}`,
-        layout.includes('minimal') ? 'desktop-minimal' : undefined,
-        header.menuOverflow === 'scroll' ? 'menu-scroll' : undefined,
+        styles.nav_grid,
+        `${navType}`,
+        `m-${mobileNavType}`,
+        navType.includes('minimal') ? 'desktop-minimal' : undefined,
         className,
       ])}
-      breakpoints={bpArray}
-      css={{
+      style={maxWidth ? { maxWidth } : undefined}>
+      {/* css={{
         maxWidth,
         ...gridStyles(layout, mobileLayout),
         gridTemplateRows: ['1fr', layout !== 'center' ? '1fr' : '1fr 1fr'],
@@ -138,26 +109,26 @@ export const Navbar = ({
           position: ['relative', 'absolute'],
         },
         ...(css as object),
-      }}>
-      {edge.includes(layout) || mobileEdge.includes(mobileLayout) ? (
+      }} */}
+      {edge.includes(navType) || mobileEdge.includes(mobileNavType) ? (
         <div className="nav-area button-slot">
           {/* @ts-ignore */}
           <MenuButton customButton={menuButton} visibleOnDesktop />
         </div>
       ) : null}
-      {layout === 'split' ? (
+      {navType === 'split' ? (
         <div className="nav-area menu-slot split">
           {menuSlot ? null : <NavMenu menuItems={menu?.slice(0, mid)} />}
         </div>
       ) : null}
       <div className="nav-area logo-slot">
-        {logoSlot ? logoSlot : <Logo>{logo || 'Add Logo'}</Logo>}
+        {logoSlot ? logoSlot : <Link href="/">{logo || 'Add Logo'}</Link>}
       </div>
       <div className="nav-area menu-slot">
         {menuSlot ? (
           menuSlot
         ) : (
-          <NavMenu menuItems={layout === 'split' ? menu?.slice(mid) : menu} />
+          <NavMenu menuItems={navType === 'split' ? menu?.slice(mid) : menu} />
         )}
       </div>
       <div className="nav-area widget-slot">
@@ -167,7 +138,7 @@ export const Navbar = ({
         {/* @ts-ignore */}
         <ColorButton isHeaderButton customButton={colorButton} />
       </div>
-    </Grid>
+    </div>
   )
 }
 

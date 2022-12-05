@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Form as FormikForm } from 'formik'
 import { Grid } from '@maker-ui/primitives'
 import type { ResponsiveScale, MakerProps } from '@maker-ui/css'
-import { ConditionalWrapper } from '@maker-ui/utils'
+import { Conditional } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
 
 import { Page, Progress, PageButton } from '../Pagination'
@@ -45,7 +45,7 @@ export const Form = ({
   const components = sortChildren(children)
 
   return (
-    <ConditionalWrapper
+    <Conditional
       condition={components.formSuccess ? true : false}
       wrapper={(c) => (
         <CSSTransition show={success ? 0 : 1}>
@@ -73,7 +73,7 @@ export const Form = ({
         {error ? components.formError : null}
         {components.formFooter || null}
       </FormikForm>
-    </ConditionalWrapper>
+    </Conditional>
   )
 }
 

@@ -1,18 +1,18 @@
-'use client'
-
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { forwardRef, Fragment } from 'react'
 
 import type { MobileMenuOptions } from '@/types'
-import { CollapseMenu, MenuButton } from '../Menu'
+import { CollapseMenu, MenuButton, type MenuItemProps } from '../Menu'
 import { Overlay } from '../Overlay'
-import { useMenu } from '../../temp/ActionContext'
+import styles from './MobileMenu.module.css'
 
-interface MobileMenuProps
+export interface MobileMenuProps
   extends MobileMenuOptions,
     React.HTMLAttributes<HTMLDivElement> {
   _type?: 'mobileMenu'
+  header?: React.ReactNode
+  footer?: React.ReactNode
+  menu?: MenuItemProps[]
 }
 
 /* Utility for mobile nav transitions that require a full-width window */
@@ -23,62 +23,45 @@ const fullWidth = ['fade', 'fade-up', 'fade-down']
  *
  * @link https://maker-ui.com/docs/layout/mobile-menu
  */
-export const MobileMenu = (props: MobileMenuProps) => {
-  const [show, toggleMenu] = useMenu()
-  const {
-    id,
-    closeButton = mobileMenu.closeButton,
-    closeButtonPosition = 'top-right',
-    width,
-    transition = mobileMenu.transition,
-    menu = [],
-    pathname,
-    header,
-    footer,
-    className,
-    css,
-    children,
-    ...rest
-  } = props
-  const cssValues = background || width || css
-
+export const MobileMenu = ({
+  _type = 'mobileMenu',
+  className,
+  header,
+  footer,
+  menu = [],
+  closeButton,
+  closeButtonPosition = 'top-right',
+  showCloseButton,
+  closeOnBlur,
+  center,
+  transition,
+  children,
+  ...props
+}: MobileMenuProps) => {
   return (
-    <Fragment>
-      {mobileMenu.closeOnBlur && !fullWidth.includes(transition) ? (
-        <Overlay className="mobile-overlay" show={show} toggle={toggleMenu} />
+    <>
+      {closeOnBlur && !fullWidth.includes(transition) ? (
+        <Overlay className="mobile-menu" />
       ) : null}
       <div
-        ref={ref}
-        id={cn(['mobile-menu', id])}
         className={cn([
-          show ? 'active' : undefined,
+          styles.mobile_menu,
           center ? 'center' : undefined,
           fullWidth.includes(transition) ? 'full-width' : undefined,
           `close-${closeButtonPosition}`,
           transition,
           className,
         ])}
-        css={
-          typeof cssValues !== 'undefined'
-            ? {
-                background,
-                width,
-                ...(css as object),
-              }
-            : undefined
-        }
-        {...rest}>
-        {mobileMenu.showCloseButton || closeButton ? (
+        {...props}>
+        {showCloseButton || closeButton ? (
           // @ts-ignore
           <MenuButton customButton={closeButton} isCloseButton />
         ) : null}
         {header ? header : null}
-        {children || (
-          <CollapseMenu menu={menu} menuType="mobile" pathname={pathname} />
-        )}
+        {children || <CollapseMenu menu={menu} />}
         {footer ? footer : null}
       </div>
-    </Fragment>
+    </>
   )
 }
 

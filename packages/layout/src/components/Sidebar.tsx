@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   _type?: 'sidebar'
   primary?: boolean
   secondary?: boolean
@@ -23,7 +23,7 @@ export const Sidebar = ({
   return (
     <div
       className={cn([
-        'mkr-sidebar',
+        'mkr_sidebar',
         primary ? 'primary' : secondary ? 'secondary' : undefined,
         className,
       ])}

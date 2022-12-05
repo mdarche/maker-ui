@@ -11,28 +11,28 @@
   flex: 1;
 }
 .flex-col {
-  flexdirection: column;
+  flexd-direction: column;
 }
 .align-center {
-  alignitems: center;
+  align-items: center;
 }
 .align-flex-end {
-  alignitems: flex-end;
+  align-items: flex-end;
 }
 .align-stretch {
-  alignitems: stretch;
+  align-items: stretch;
 }
 .justify-center {
-  justifycontent: center;
+  justify-content: center;
 }
 .justify-flex-start {
-  justifycontent: flex-start;
+  justify-content: flex-start;
 }
 .justify-flex-end {
-  justifycontent: flex-end;
+  justify-content: flex-end;
 }
 .justify-between {
-  justifycontent: space-between;
+  justify-content: space-between;
 }
 .width-80 {
   width: 80%;

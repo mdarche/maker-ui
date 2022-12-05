@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Internal prop to denote child node type */
   _type?: 'footer'
 }

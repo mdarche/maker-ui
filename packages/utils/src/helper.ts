@@ -1,17 +1,4 @@
 /**
- * Evaluates a MakerOptions breakpoint and formats the `breakpoints` prop array
- *
- * @param bp - a breakpoint value
- * @param bpArray - the MakerOptions breakpoints array
- *
- */
-export const setBreakpoint = (
-  bp: string | number,
-  bpArray: (string | number)[]
-) =>
-  typeof bp === 'string' ? [bp] : bp < bpArray.length ? [bpArray[bp]] : [bp]
-
-/**
  * Utility for adding pixel value to numbers for transitions and animations
  */
 export const format = (value: any) => (isNaN(value) ? value : `${value}px`)
@@ -36,7 +23,6 @@ export function generateId(length: number = 5): string {
 
 /**
  * Check to see if value is an object else return an empty object
- *
  * @param obj - any value to be evaluated
  *
  */
@@ -47,7 +33,6 @@ export function validate(obj: any) {
 /**
  * Returns a formatted selector string for `id` or `className` attributes that
  * merges user generated classNames with MakerUI defaults.
- *
  * @param selectors - an array of classNames or ids supplied by component props.
  * Can be dynamically generated
  *

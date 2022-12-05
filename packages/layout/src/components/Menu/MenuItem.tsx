@@ -1,6 +1,8 @@
+'use client'
+
 import React, { useState, memo, isValidElement } from 'react'
-import { cn } from '@maker-ui/utils'
-import { Link } from 'next/link'
+import { cn, Conditional } from '@maker-ui/utils'
+import Link from 'next/link'
 
 import { ExpandButton } from './ExpandButton'
 import { MakerUIOptions } from '@/types'
@@ -47,7 +49,6 @@ export type MakerMenu = MenuItemProps[]
 interface MenuInternalProps {
   data: MenuItemProps
   caret?: MakerUIOptions['header']['dropdown']['caret']
-  menuControls?: any
   pathname?: string
   isHeader?: boolean
   depth?: number
@@ -77,12 +78,12 @@ export const MenuItem = memo(
       liAttributes,
     },
     caret = false,
-    menuControls,
     pathname,
     isHeader = false,
     depth = 0,
   }: MenuInternalProps) => {
     const [showNested, setNested] = useState(openNested)
+    const isLocal = !!(path && !path?.startsWith('/'))
 
     const attributes = {
       className: pathname === path ? 'current' : undefined,
@@ -91,14 +92,11 @@ export const MenuItem = memo(
       'aria-label': icon ? label : undefined,
       'aria-haspopup':
         isHeader && submenu
-          ? 'true'
+          ? ('true' as 'true')
           : isHeader && megamenu
-          ? 'true'
+          ? ('true' as 'true')
           : undefined,
-      'aria-current': pathname === path ? 'page' : undefined,
-      ...(menuControls ?? {
-        onClick: depth !== 0 ? (e: any) => e?.target.blur() : undefined,
-      }),
+      'aria-current': pathname === path ? ('page' as 'page') : undefined,
     }
 
     return (
@@ -107,12 +105,12 @@ export const MenuItem = memo(
           'menu-item',
           megamenu ? 'has-megamenu' : undefined,
           submenu ? 'has-submenu' : undefined,
-          submenu && isHeader && caret === 'default' ? 'caret' : undefined,
+          submenu && isHeader ? 'caret' : undefined,
           showNested ? 'expanded' : undefined,
           className,
         ])}
         {...liAttributes}>
-        <ConditionalWrapper
+        <Conditional
           condition={!isHeader && submenu ? true : false}
           wrapper={(children) => <div className="flex">{children}</div>}>
           <>
@@ -121,17 +119,25 @@ export const MenuItem = memo(
             ) : !isHeader && isExpandButton && submenu ? (
               <button onClick={() => setNested(!showNested)}>{label}</button>
             ) : (
-              <a href={path} {...attributes}>
-                {icon ? <span className="menu-icon">{icon}</span> : undefined}
-                <span className="menu-text">{label}</span>
-                {submenu && caret && isValidElement(caret) ? caret : null}
-              </a>
+              <Conditional
+                condition={isLocal}
+                wrapper={(children) => (
+                  <Link href={path as string} legacyBehavior>
+                    {children}
+                  </Link>
+                )}>
+                <a href={isLocal ? undefined : path} {...attributes}>
+                  {icon ? <span className="menu-icon">{icon}</span> : undefined}
+                  <span className="menu-text">{label}</span>
+                  {submenu && caret && isValidElement(caret) ? caret : null}
+                </a>
+              </Conditional>
             )}
             {!isHeader && submenu ? (
               <ExpandButton set={setNested} show={showNested} />
             ) : null}
           </>
-        </ConditionalWrapper>
+        </Conditional>
         {megamenu && isHeader ? (
           <div className={cn(['megamenu'])} role="menu">
             <div className="container">{megamenu}</div>
@@ -148,7 +154,6 @@ export const MenuItem = memo(
                     key={index}
                     data={item}
                     caret={caret}
-                    menuControls={menuControls}
                     pathname={pathname}
                     isHeader={isHeader}
                     depth={depth + 1}
@@ -164,15 +169,3 @@ export const MenuItem = memo(
 )
 
 MenuItem.displayName = 'MenuItem'
-
-interface ConditionalWrapperProps {
-  condition: boolean
-  wrapper: (children: React.ReactNode) => React.ReactElement
-  children: React.ReactElement
-}
-const ConditionalWrapper = ({
-  condition,
-  wrapper,
-  children,
-}: ConditionalWrapperProps): React.ReactElement =>
-  condition ? wrapper(children) : children

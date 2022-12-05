@@ -11,7 +11,7 @@ interface LayoutClientProps {
  * This component stays active in the DOM tree and is used to detect the initial status / any changes to the layout.
  * @returns
  */
-export const LayoutClient = ({
+export const Client = ({
   options: { type, header, colorThemes, systemColorTheme, ...rest },
 }: LayoutClientProps) => {
   const [state, setState] = useState({
@@ -94,9 +94,9 @@ export const LayoutClient = ({
   }, [colorThemes, systemColorTheme])
 
   useEffect(() => {
-    // Any other event listeners that must be added to the window object
+    // Any other event listeners that should be added to the window object
     // - Overlay 'active'
-    // -
+    // - Close Menus on route change click event handler
   }, [])
 
   /**

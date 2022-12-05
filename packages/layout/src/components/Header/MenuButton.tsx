@@ -1,16 +1,21 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState } from 'react'
 import { cn } from '@maker-ui/utils'
 
-import { useOptions } from '../../temp/OptionContext'
-import { useMenu, useSideNav } from '../../temp/ActionContext'
-import { MakerUIOptions } from '@/types'
+import type {
+  CustomButtonProps,
+  HeaderOptions,
+  MobileMenuOptions,
+  SideNavOptions,
+} from '@/types'
 
 interface MenuButtonProps {
+  header: HeaderOptions
+  sideNav: SideNavOptions
+  mobileMenu: MobileMenuOptions
   isCloseButton?: boolean
-  customButton?: MakerUIOptions['header']['menuButton']
-  visibleOnDesktop?: boolean
+  jsx?: CustomButtonProps
 }
 
 /**
@@ -20,38 +25,43 @@ interface MenuButtonProps {
  * @link https://maker-ui.com/docs/layout/buttons/#menuButton
  */
 export const MenuButton = ({
-  customButton,
-  visibleOnDesktop,
+  jsx,
+  header,
+  mobileMenu,
+  sideNav,
   isCloseButton,
   ...props
 }: MenuButtonProps): React.ReactNode => {
-  const [menu, toggleMenu] = useMenu()
-  const [sideMenu, toggleSideMenu] = useSideNav()
-  const { header, sideNav } = useOptions()
-
-  /** Use custom button from props or check header / mobileMenu options */
-  const menuButton = customButton || header?.menuButton
+  const [mobileActive, setMobileActive] = useState(false)
+  const [sideActive, setSideActive] = useState(false)
 
   const conditionalAttributes = sideNav?.isPrimaryMobileNav
-    ? { 'aria-expanded': sideMenu ? true : false, onClick: toggleSideMenu }
-    : { 'aria-expanded': menu ? true : false, onClick: toggleMenu }
+    ? { 'aria-expanded': sideActive ? true : false, onClick: toggleSideMenu }
+    : {
+        'aria-expanded': mobileActive ? true : false,
+        onClick: toggleMobileMenu,
+      }
+
+  function toggleMobileMenu() {}
+
+  function toggleSideMenu() {}
 
   const attributes = {
     title: 'Menu',
     className: cn([
       'menu-button',
-      visibleOnDesktop ? 'desktop-visible' : undefined,
+      mobileMenu?.visibleOnDesktop ? 'desktop-visible' : undefined,
     ]),
     'aria-label': 'Toggle Menu',
     ...conditionalAttributes,
     ...props,
   }
 
-  return typeof menuButton === 'function' ? (
-    menuButton(sideNav.isPrimaryMobileNav ? sideMenu : menu, attributes)
+  return typeof jsx === 'function' ? (
+    jsx(sideNav.isPrimaryMobileNav ? sideActive : mobileActive, attributes)
   ) : (
     <button {...attributes}>
-      {menuButton || (
+      {jsx || (
         <svg
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

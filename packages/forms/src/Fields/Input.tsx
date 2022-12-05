@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Field as FormikField } from 'formik'
 import type { InputProps, PasswordSettings } from '../types'
 import { Div } from '@maker-ui/primitives'
-import { merge, ConditionalWrapper } from '@maker-ui/utils'
+import { merge, Conditional } from '@maker-ui/utils'
 import { HideIcon, RevealIcon } from '../Icons'
 
 const defaultSettings: PasswordSettings = {
@@ -32,7 +32,7 @@ export const Input = ({
   const s = isPass && settings ? merge(defaultSettings, settings) : undefined
 
   return (
-    <ConditionalWrapper
+    <Conditional
       condition={isPass}
       wrapper={(children) => (
         <Div
@@ -68,6 +68,6 @@ export const Input = ({
         type={isPass && showPass ? 'text' : type}
         {...props}
       />
-    </ConditionalWrapper>
+    </Conditional>
   )
 }

@@ -20,9 +20,13 @@
   "dependencies": {
     "@maker-ui/utils": "workspace:*"
   },
+  "peerDependencies": {
+    "next": "13.x"
+  },
   "devDependencies": {
     "build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
+    "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",

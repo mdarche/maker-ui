@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Internal prop to denote child node type */
   _type?: 'main'
 }

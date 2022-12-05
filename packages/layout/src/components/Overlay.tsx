@@ -15,7 +15,7 @@ interface OverlayProps {
  */
 export const Overlay = ({ className }: OverlayProps) => {
   return (
-    <div className={cn(['mkr-overlay fixed cover', className])} role="button" />
+    <div className={cn(['mkr_overlay fixed cover', className])} role="button" />
   )
 }
 

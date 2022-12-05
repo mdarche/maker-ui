@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { TopbarOptions } from '@/types'
+import styles from './Topbar.module.css'
 
-interface TopbarProps
+export interface TopbarProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    TopbarOptions {}
+    Partial<TopbarOptions> {}
 
 /**
  * The `Topbar` component displays content like announcements, social media icons,
@@ -12,28 +13,26 @@ interface TopbarProps
  *
  * @link https://maker-ui.com/docs/layout/topbar
  */
-export const Topbar = (props: TopbarProps) => {
-  const {
-    id,
-    sticky,
-    stickyOnMobile,
-    hideOnMobile,
-    className,
-    children,
-    ...rest
-  } = props
-
+export const Topbar = ({
+  id,
+  sticky,
+  stickyOnMobile,
+  hideOnMobile,
+  className,
+  children,
+  ...props
+}: TopbarProps) => {
   return (
     <aside
       id={id}
       className={cn([
-        'mkr-topbar',
+        styles.topbar,
         sticky ? 'sticky' : '',
         stickyOnMobile ? 'sticky-mobile' : '',
         hideOnMobile ? 'hide-mobile' : '',
         className,
       ])}>
-      <div className="container" {...rest}>
+      <div className="container" {...props}>
         {children}
       </div>
     </aside>

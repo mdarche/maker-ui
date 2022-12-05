@@ -14,11 +14,11 @@
   --font-monospace: lexia-mono, monospace;
   --transition-side-nav: transform ease 0.3s;
   --color-modes: light, dark, system;
-  // Add media queries for heights, widths, and gaps here
+  /* Add media queries for heights, widths, and gaps here*/
 }
 
 body[data-theme='dark'] {
-  // Required
+  /* Required */
   --color-bg-header: #000;
   --color-bg-side-nav: #000;
   --color-bg-topbar: #000;
@@ -27,7 +27,7 @@ body[data-theme='dark'] {
   --color-logo: #fff;
   --color-text: #fff;
   --color-background: #000;
-  // Project specific
+  /* Project specific */
   --color-gray_100: #111;
   --color-gray_200: #1f1f1f;
   --color-gray_300: #616161;
@@ -39,7 +39,7 @@ body[data-theme='dark'] {
 }
 
 body[data-theme='light'] {
-  // Required
+  /* Required */
   --color-bg-header: #000;
   --color-bg-side-nav: #000;
   --color-bg-topbar: #000;
@@ -47,7 +47,7 @@ body[data-theme='light'] {
   --color-logo: #000;
   --color-text: #000;
   --color-background: #fff;
-  // Project specific
+  /* Project specific */
   --color-gray_100: #fafafa;
   --color-gray_200: #ebebeb;
   --color-gray_300: #c4c4c4;

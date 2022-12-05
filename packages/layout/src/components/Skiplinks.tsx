@@ -27,7 +27,7 @@ export const Skiplinks = (props: SkipLinkProps) => {
   }
 
   return (
-    <ul className="mkr-skiplinks">
+    <ul className="mkr_skiplinks">
       {linkMenu.map(({ id, label }) => (
         <li key={id}>
           <a href={id}>{label}</a>

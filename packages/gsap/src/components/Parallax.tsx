@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import { Section, type SectionProps } from '@maker-ui/layout'
 import { type ResponsiveScale } from '@maker-ui/css'
 import { merge, cn } from '@maker-ui/utils'
 import { gsap } from 'gsap'
@@ -7,8 +6,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-export interface ParallaxProps
-  extends Omit<SectionProps, 'background' | 'translate'> {
+export interface ParallaxProps extends React.HTMLAttributes<HTMLDivElement> {
   /** An object of <img /> tag props or a custom component like Next/Image
    * @remark If using Next.js Image, make sure you set the Image props to
    * `layout='fill'` and `objectFit='cover'`
@@ -70,7 +68,6 @@ export const Parallax = ({
   imagePosition = 'translateY(-500px)',
   maxWidth = 'var(--maxWidth_section)',
   imageCss,
-  css,
   effect = {},
   textEffect,
   parallax = true,
@@ -107,10 +104,9 @@ export const Parallax = ({
   }, [])
 
   return (
-    <Section
+    <section
       ref={sectionRef}
       className={cn(['parallax', className])}
-      container={false}
       css={{
         position: 'relative',
         overflow: 'hidden',
@@ -141,7 +137,6 @@ export const Parallax = ({
           objectFit: 'cover',
           objectPosition: 'center',
         },
-        ...(css as object),
       }}
       {...props}>
       <div className="parallax-image absolute cover">
@@ -162,7 +157,7 @@ export const Parallax = ({
       <div ref={containerRef} className="parallax-body">
         {children}
       </div>
-    </Section>
+    </section>
   )
 }
 

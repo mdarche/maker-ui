@@ -1,11 +1,11 @@
 * {
-  boxsizing: border-box;
+  box-sizing: border-box;
 }
 body {
   margin: 0;
-  fontfamily: var(--font-body);
+  font-family: var(--font-body);
   color: var(--color-text);
-  backgroundcolor: var(--color-background);
+  background-color: var(--color-background);
 }
 h1,
 h2,
@@ -13,14 +13,14 @@ h3,
 h4,
 h5,
 h6 {
-  fontfamily: var(--font-heading);
+  font-family: var(--font-heading);
 }
 code,
 pre {
-  fontfamily: var(--font-monospace);
+  font-family: var(--font-monospace);
 }
 b,
 strong,
 .bold {
-  fontweight: 700;
+  font-weight: 700;
 }

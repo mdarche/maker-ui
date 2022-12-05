@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef } from 'react'
-import { mergeRefs, ConditionalWrapper } from '@maker-ui/utils'
+import { mergeRefs, Conditional } from '@maker-ui/utils'
 import { Global } from '@maker-ui/css'
 import {
   CSSTransition as ReactCSSTransition,
@@ -67,7 +67,7 @@ export const CSSTransition = ({
   return (
     <>
       {className || noStyles ? undefined : <Global styles={styles} />}
-      <ConditionalWrapper
+      <Conditional
         wrapper={(c) => (
           <SwitchTransition mode={switchMode}>
             {c as React.ReactElement}
@@ -86,7 +86,7 @@ export const CSSTransition = ({
             {children}
           </div>
         </ReactCSSTransition>
-      </ConditionalWrapper>
+      </Conditional>
     </>
   )
 }

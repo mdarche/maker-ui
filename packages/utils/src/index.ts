@@ -1,15 +1,8 @@
 import merge from 'deepmerge'
 import useMeasure from 'react-use-measure'
 
-export { ConditionalWrapper } from './ConditionalWrapper'
+export { Conditional } from './Conditional'
 export { useFocus, useScrollPosition, useTracker } from './hooks'
-export {
-  setBreakpoint,
-  format,
-  generateId,
-  validate,
-  cn,
-  mergeRefs,
-} from './helper'
+export { format, generateId, validate, cn, mergeRefs } from './helper'
 
 export { merge, useMeasure }

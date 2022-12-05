@@ -5,14 +5,33 @@ import postcss from 'postcss'
 import postcssModules from 'postcss-modules'
 import postcssNested from 'postcss-nested'
 
-// Convert to function with build config for both CSS modules and globals
-export const buildConfig = (global = false): Options => {
+export interface BuildSettings {
+  /** - If true, all `.module.css` files will include scoped hashes at the end of the selector
+   *  - If false, the `.module.css` classes will not include a unique trailing hash
+   * @default false
+   */
+  global?: boolean
+  /** An array of entry points for the bundler
+   * @default ['src/index.ts']
+   */
+  entry?: string[]
+  /** Cleans the dist directory on each build (including watch mode)
+   * @default false
+   */
+  clean?: boolean
+}
+
+export const buildConfig = ({
+  global = false,
+  entry = ['src/index.ts'],
+  clean = false,
+}: BuildSettings): Options => {
   return {
-    entry: ['src/index.ts'],
-    format: ['esm', 'cjs'],
+    entry,
+    format: ['esm'],
     external: ['react'],
     dts: true,
-    clean: true,
+    clean,
     esbuildPlugins: [
       {
         name: 'css-module',
@@ -43,6 +62,7 @@ export const buildConfig = (global = false): Options => {
                   getJSON(_, json) {
                     cssModule = json
                   },
+                  exportGlobals: true,
                   generateScopedName: global
                     ? 'mkr_[local]'
                     : 'mkr_[local]_[hash:base64:5]',

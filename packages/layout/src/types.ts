@@ -46,6 +46,10 @@ export interface TopbarOptions {
   stickyOnMobile: boolean
 }
 
+export type CustomButtonProps =
+  | React.ReactNode
+  | ((status: boolean, attrs: object) => React.ReactNode)
+
 export type ColorButtonProps =
   | React.ReactNode
   | ((
@@ -73,9 +77,7 @@ export interface HeaderOptions {
     caret: boolean | React.ReactElement
     transition: 'scale' | 'fade' | 'fade-down' | 'fade-up' | 'none'
   }
-  menuButton?:
-    | React.ReactNode
-    | ((isOpen: boolean, attrs: object) => React.ReactNode)
+  menuButton?: CustomButtonProps
   colorButton?: ColorButtonProps
 }
 
@@ -85,7 +87,7 @@ export interface MobileMenuOptions {
   visibleOnDesktop: boolean
   closeOnBlur: boolean
   closeOnRouteChange: boolean
-  centerContent: boolean
+  center: boolean
   closeButton?:
     | React.ReactNode
     | ((isOpen: boolean, attrs: object) => React.ReactNode)
@@ -103,13 +105,9 @@ export interface SideNavOptions {
   closeOnBlur: boolean
   closeOnRouteChange: boolean
   showToggleOnMobile: boolean
-  toggleButton?:
-    | React.ReactNode
-    | ((isOpen: boolean, attributes: object) => React.ReactNode)
+  toggleButton?: CustomButtonProps
   collapse: boolean
-  collapseButton?:
-    | React.ReactNode
-    | ((isOpen: boolean, attributes: object) => React.ReactNode)
+  collapseButton?: CustomButtonProps
 }
 
 /**
