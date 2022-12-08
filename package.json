@@ -12,7 +12,7 @@
     "start": "turbo run start --parallel --continue",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "build": "turbo run build --filter=build-tools --filter=*maker-ui* --no-deps --include-dependencies",
+    "build": "turbo run build --filter=*maker-ui* --no-deps --include-dependencies",
     "cy": "cypress open",
     "cy:headless": "cypress run",
     "cy:unit": "cypress open-ct",

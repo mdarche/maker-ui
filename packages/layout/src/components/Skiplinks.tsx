@@ -1,12 +1,8 @@
+import { Options } from '@/types'
 import * as React from 'react'
 
-export interface LinkItem {
-  id: string
-  label: string
-}
-
 interface SkipLinkProps {
-  links?: LinkItem[]
+  links?: Options['skiplinks']
 }
 
 /**
@@ -17,16 +13,16 @@ interface SkipLinkProps {
  *
  * @internal
  */
-export const Skiplinks = (props: SkipLinkProps) => {
-  let linkMenu: LinkItem[] = []
+export const Skiplinks = ({ links }: SkipLinkProps) => {
+  let linkMenu: Options['skiplinks'] = []
 
-  if (props.links) {
-    linkMenu = props.links
+  if (Array.isArray(links)) {
+    linkMenu = links
   } else {
     linkMenu = [{ id: '#content', label: 'Skip to content' }]
   }
 
-  return (
+  return links === false ? null : (
     <ul className="mkr_skiplinks">
       {linkMenu.map(({ id, label }) => (
         <li key={id}>

@@ -5,7 +5,6 @@ import { cn, Conditional } from '@maker-ui/utils'
 import Link from 'next/link'
 
 import { ExpandButton } from './ExpandButton'
-import { MakerUIOptions } from '@/types'
 
 export interface MenuItemProps {
   label: string
@@ -48,7 +47,7 @@ export type MakerMenu = MenuItemProps[]
 
 interface MenuInternalProps {
   data: MenuItemProps
-  caret?: MakerUIOptions['header']['dropdown']['caret']
+  caret?: boolean | React.ReactElement
   pathname?: string
   isHeader?: boolean
   depth?: number

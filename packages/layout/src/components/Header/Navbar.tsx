@@ -8,7 +8,8 @@ import type {
   CustomButtonProps,
 } from '@/types'
 import { ColorButton } from '../ColorButton'
-import { MenuButton, type MenuItemProps } from '../Menu'
+import { MenuButton } from '../MenuButton'
+import type { MenuItemProps } from '../Menu'
 import { NavMenu } from './NavMenu'
 import styles from './Header.module.css'
 // import { gridStyles } from './styles'

@@ -1,5 +1,4 @@
 export { CollapseMenu } from './CollapseMenu'
 export { ExpandButton } from './ExpandButton'
-export { MenuButton } from '../Header/MenuButton'
 export { type MakerMenu, type MenuItemProps, MenuItem } from './MenuItem'
 export { NavMenu } from '../Header/NavMenu'

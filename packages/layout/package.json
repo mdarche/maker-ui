@@ -12,8 +12,8 @@
   ],
   "scripts": {
     "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "build": "tsup",
+    "start": "tsup --watch",
     "lint": "eslint src",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
@@ -24,9 +24,9 @@
     "next": "13.x"
   },
   "devDependencies": {
-    "build-tools": "workspace:*",
+    "@maker-ui/build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
-    "next": "latest",
+    "next": "^13.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",

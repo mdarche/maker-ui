@@ -17,7 +17,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "build-tools": "workspace:*",
+    "@maker-ui/build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

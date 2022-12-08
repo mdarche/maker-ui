@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import type { HeaderOptions } from '@/types'
-import { Client } from './Client'
 import styles from './Header.module.css'
 
 export interface HeaderProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    HeaderOptions {
+    Partial<HeaderOptions> {
   _mobileMenu?: React.ReactNode
+  _type: 'header'
 }
 
 /**
@@ -24,6 +24,7 @@ export const Header = ({
   stickyUpScroll,
   scrollClass,
   _mobileMenu,
+  _type,
   children,
   ...props
 }: HeaderProps) => {
@@ -40,9 +41,9 @@ export const Header = ({
       {...props}>
       Navbar
       {_mobileMenu ?? null}
-      <Client {...{ stickyUpScroll, scrollClass }} />
     </header>
   )
 }
 
 Header.displayName = 'Header'
+Header.defaultProps = { _type: 'header' }

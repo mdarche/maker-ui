@@ -221,6 +221,7 @@ importers:
 
   packages/build-tools:
     specifiers:
+      esbuild: 0.14.27
       eslint-config-library: workspace:*
       postcss: ^8.4.18
       postcss-modules: ^5.0.0
@@ -233,6 +234,7 @@ importers:
       postcss-modules: 5.0.0_postcss@8.4.18
       postcss-nested: 6.0.0_postcss@8.4.18
     devDependencies:
+      esbuild: 0.14.27
       eslint-config-library: link:../eslint-config-library
       tsconfig: link:../tsconfig
       tsup: 5.12.1_typescript@4.8.4
@@ -240,7 +242,7 @@ importers:
 
   packages/carousel:
     specifiers:
-      build-tools: workspace:*
+      '@maker-ui/build-tools': workspace:*
       eslint-config-library: workspace:*
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -248,7 +250,7 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.8.4
     devDependencies:
-      build-tools: link:../build-tools
+      '@maker-ui/build-tools': link:../build-tools
       eslint-config-library: link:../eslint-config-library
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -483,10 +485,10 @@ importers:
 
   packages/layout:
     specifiers:
+      '@maker-ui/build-tools': workspace:*
       '@maker-ui/utils': workspace:*
-      build-tools: workspace:*
       eslint-config-library: workspace:*
-      next: latest
+      next: ^13.0.6
       react: ^18.2.0
       react-dom: ^18.2.0
       tsconfig: workspace:*
@@ -495,7 +497,7 @@ importers:
     dependencies:
       '@maker-ui/utils': link:../utils
     devDependencies:
-      build-tools: link:../build-tools
+      '@maker-ui/build-tools': link:../build-tools
       eslint-config-library: link:../eslint-config-library
       next: 13.0.6_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0

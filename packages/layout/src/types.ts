@@ -6,7 +6,7 @@ export const contentTypes = [
   'content-sidenav',
   'content',
   'sidebar-content',
-  'sidebar-content sidebar',
+  'sidebar-content-sidebar',
   'sidenav-content',
 ] as const
 
@@ -40,12 +40,6 @@ export const transitionTypes = [
   'slide-right',
 ] as const
 
-export interface TopbarOptions {
-  hideOnMobile: boolean
-  sticky: boolean
-  stickyOnMobile: boolean
-}
-
 export type CustomButtonProps =
   | React.ReactNode
   | ((status: boolean, attrs: object) => React.ReactNode)
@@ -58,6 +52,27 @@ export type ColorButtonProps =
       preference?: string
     ) => React.ReactNode)
 
+/**
+ * A deeply nested partial that makes all props optional.
+ */
+export type Partial<T> = {
+  [P in keyof T]?: Partial<T[P]>
+}
+
+/**
+ * Configuration for the Maker UI layout system.
+ *
+ * @link https://maker-ui.com/docs/maker-ui-options
+ *
+ */
+export type MakerUIOptions = Partial<Options>
+
+export interface TopbarOptions {
+  hideOnMobile: boolean
+  sticky: boolean
+  stickyOnMobile: boolean
+}
+
 export interface HeaderOptions {
   breakpoint: string | number
   navType: typeof navTypes[number]
@@ -66,17 +81,11 @@ export interface HeaderOptions {
   sticky: boolean
   stickyOnMobile: boolean
   stickyUpScroll: boolean | { delay: number; start: number }
-  scrollClass: {
+  scrollClass?: {
     scrollTop: number
     className: string
   }
-  showColorButtonOnMobile: boolean
-  showWidgetsOnMobile: boolean
   menuOverflow: 'wrap' | 'scroll'
-  dropdown: {
-    caret: boolean | React.ReactElement
-    transition: 'scale' | 'fade' | 'fade-down' | 'fade-up' | 'none'
-  }
   menuButton?: CustomButtonProps
   colorButton?: ColorButtonProps
 }
@@ -116,14 +125,22 @@ export interface SideNavOptions {
  * @link https://maker-ui.com/docs/maker-ui-options
  *
  */
-export interface MakerUIOptions {
+export interface Options {
   // Can be applied as root props
   type: typeof contentTypes[number]
-  skiplinks: boolean
+  /**
+   * Replaces the default Maker UI skiplinks with your own custom on-page links.
+   * You don't need to add `#` to your id selectors:
+   *
+   * @example
+   * [
+   *  { id: 'main-content', label: 'Skip to main content' },
+   *  { id: 'footer', label: 'Skip to footer' },
+   * ]
+   */
+  skiplinks: boolean | { label: string; id: string }[]
   /** Make sure you use all of these themes in your css variable declaration file */
   colorThemes: string[]
-  /** Use the system preference if you have both 'light' and 'dark' color themes*/
-  systemColorTheme: boolean
   // Can be applied as props to the relevant child
   topbar: TopbarOptions
   header: HeaderOptions

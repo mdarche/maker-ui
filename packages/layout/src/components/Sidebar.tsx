@@ -13,11 +13,11 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
  * @link https://maker-ui.com/docs/layout/sidebar
  */
 export const Sidebar = ({
-  _type = 'sidebar',
   primary,
   secondary,
   className,
   children,
+  _type,
   ...props
 }: SidebarProps) => {
   return (
@@ -35,3 +35,4 @@ export const Sidebar = ({
 }
 
 Sidebar.displayName = 'Sidebar'
+Sidebar.defaultProps = { _type: 'sidebar' }

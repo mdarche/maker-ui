@@ -1,18 +1,15 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-
 import type { MobileMenuOptions } from '@/types'
-import { CollapseMenu, MenuButton, type MenuItemProps } from '../Menu'
-import { Overlay } from '../Overlay'
 import styles from './MobileMenu.module.css'
 
 export interface MobileMenuProps
-  extends MobileMenuOptions,
+  extends Partial<MobileMenuOptions>,
     React.HTMLAttributes<HTMLDivElement> {
   _type?: 'mobileMenu'
   header?: React.ReactNode
   footer?: React.ReactNode
-  menu?: MenuItemProps[]
+  menu?: React.ReactNode
 }
 
 /* Utility for mobile nav transitions that require a full-width window */
@@ -24,24 +21,24 @@ const fullWidth = ['fade', 'fade-up', 'fade-down']
  * @link https://maker-ui.com/docs/layout/mobile-menu
  */
 export const MobileMenu = ({
-  _type = 'mobileMenu',
   className,
   header,
   footer,
-  menu = [],
+  menu,
   closeButton,
   closeButtonPosition = 'top-right',
   showCloseButton,
   closeOnBlur,
   center,
-  transition,
+  transition = 'fade',
   children,
+  _type,
   ...props
 }: MobileMenuProps) => {
   return (
     <>
       {closeOnBlur && !fullWidth.includes(transition) ? (
-        <Overlay className="mobile-menu" />
+        <div className="mkr_overlay fixed cover mobile-menu" role="button" />
       ) : null}
       <div
         className={cn([
@@ -53,16 +50,16 @@ export const MobileMenu = ({
           className,
         ])}
         {...props}>
-        {showCloseButton || closeButton ? (
-          // @ts-ignore
-          <MenuButton customButton={closeButton} isCloseButton />
-        ) : null}
-        {header ? header : null}
-        {children || <CollapseMenu menu={menu} />}
-        {footer ? footer : null}
+        <div className="container">
+          <>{closeButton ?? null}</>
+          {header ? header : null}
+          {children ?? null}
+          {footer ? footer : null}
+        </div>
       </div>
     </>
   )
 }
 
 MobileMenu.displayName = 'MobileMenu'
+MobileMenu.defaultProps = { _type: 'mobileMenu' }

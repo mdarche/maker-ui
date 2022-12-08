@@ -3,8 +3,15 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 
-import type { ColorButtonProps } from '@/types'
-import { useColorTheme } from '@/hooks'
+import { useColorTheme } from './Provider'
+
+type ColorButtonProps =
+  | React.ReactNode
+  | ((
+      currentMode?: string,
+      attrs?: object,
+      preference?: string
+    ) => React.ReactNode)
 
 interface ColorProps extends React.HTMLAttributes<HTMLButtonElement> {
   jsx?: ColorButtonProps
@@ -16,12 +23,8 @@ interface ColorProps extends React.HTMLAttributes<HTMLButtonElement> {
  *
  * @link https://maker-ui.com/docs/layout/buttons/#colorButton
  */
-export const ColorButton = ({
-  className,
-  jsx,
-  ...props
-}: ColorProps): React.ReactNode => {
-  const { current, themes, setColorTheme, preference } = useColorTheme()
+export const ColorButton = ({ className, jsx, ...props }: ColorProps) => {
+  const { current, themes, setColorTheme } = useColorTheme()
 
   // Never render this component if themes are undefined
   if (!themes) return null
@@ -30,7 +33,9 @@ export const ColorButton = ({
     const i = themes.indexOf(current as string)
     const next = themes[(i + 1) % themes.length]
 
-    setColorTheme(next)
+    if (next) {
+      setColorTheme(next)
+    }
   }
 
   const attributes = {
@@ -48,7 +53,7 @@ export const ColorButton = ({
   /** If this is the header, make sure `showColorButton` is true */
 
   return typeof jsx === 'function' ? (
-    jsx(current, attributes, preference)
+    (jsx(current, attributes) as React.ReactNode)
   ) : (
     <button {...attributes}>{jsx ?? current}</button>
   )

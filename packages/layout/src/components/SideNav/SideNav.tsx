@@ -1,17 +1,15 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-
-import { CollapseMenu, type MenuItemProps } from '../Menu'
-import { Overlay } from '../Overlay'
 import type { SideNavOptions } from '@/types'
 import styles from './SideNav.module.css'
 
 export interface SideNavProps
-  extends SideNavOptions,
+  extends Partial<SideNavOptions>,
     React.HTMLAttributes<HTMLDivElement> {
-  menu?: MenuItemProps[]
-  header?: React.ReactElement
-  footer?: React.ReactElement
+  _type?: 'sideNav'
+  menu?: React.ReactNode
+  header?: React.ReactNode
+  footer?: React.ReactNode
 }
 
 /**
@@ -23,7 +21,7 @@ export interface SideNavProps
  */
 export const SideNav = ({
   id,
-  isHeader,
+  isHeader = false,
   toggleButton,
   closeOnBlur,
   collapseButton,
@@ -32,6 +30,7 @@ export const SideNav = ({
   footer,
   className,
   children,
+  _type,
   ...props
 }: SideNavProps) => {
   // const attributes = (type: 'collapse' | 'toggle') => ({
@@ -62,17 +61,19 @@ export const SideNav = ({
 
   return (
     <>
-      {closeOnBlur ? <Overlay className="sidenav" /> : null}
+      {closeOnBlur ? (
+        <div className="mkr_overlay fixed cover sidenav" role="button" />
+      ) : null}
       {/* {layout === 'content-sidenav' ? renderCollapseButton() : null} */}
       <Container
         isHeader={isHeader}
         className={cn([styles.sidenav, className])}
         {...props}>
         <div className="container">
-          {header ? header : null}
-          {children ? children : null}
-          {menu ? <CollapseMenu menu={menu} /> : null}
-          {footer ? footer : null}
+          {header ?? null}
+          {children ?? null}
+          {menu ?? null}
+          {footer ?? null}
         </div>
       </Container>
       {/* {typeof customToggle === 'function' ? (
@@ -92,6 +93,7 @@ export const SideNav = ({
 }
 
 SideNav.displayName = 'SideNav'
+SideNav.defaultProps = { _type: 'sideNav' }
 
 interface ContainerProps {
   isHeader: boolean

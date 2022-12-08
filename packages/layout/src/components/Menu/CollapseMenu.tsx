@@ -9,6 +9,7 @@ import { MenuItem, type MenuItemProps } from './MenuItem'
 
 interface CollapseProps extends React.HTMLAttributes<HTMLUListElement> {
   menu: MenuItemProps[]
+  caret: boolean | React.ReactElement
   children?: React.ReactElement
 }
 
@@ -22,7 +23,7 @@ interface CollapseProps extends React.HTMLAttributes<HTMLUListElement> {
  * @link https://maker-ui.com/docs/layout/collapsible-menu
  */
 export const CollapseMenu = forwardRef<HTMLUListElement, CollapseProps>(
-  ({ menu = [], className, ...props }, ref) => {
+  ({ menu = [], caret, className, ...props }, ref) => {
     const { asPath } = useRouter()
 
     return (
@@ -32,7 +33,7 @@ export const CollapseMenu = forwardRef<HTMLUListElement, CollapseProps>(
         role="navigation"
         {...props}>
         {menu.map((item, index) => (
-          <MenuItem key={index} data={item} pathname={asPath} />
+          <MenuItem key={index} data={item} pathname={asPath} caret={caret} />
         ))}
       </ul>
     )

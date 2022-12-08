@@ -5,7 +5,9 @@ import styles from './Topbar.module.css'
 
 export interface TopbarProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    Partial<TopbarOptions> {}
+    Partial<TopbarOptions> {
+  _type: 'topbar'
+}
 
 /**
  * The `Topbar` component displays content like announcements, social media icons,
@@ -20,6 +22,7 @@ export const Topbar = ({
   hideOnMobile,
   className,
   children,
+  _type,
   ...props
 }: TopbarProps) => {
   return (
@@ -40,3 +43,4 @@ export const Topbar = ({
 }
 
 Topbar.displayName = 'Topbar'
+Topbar.defaultProps = { _type: 'topbar' }

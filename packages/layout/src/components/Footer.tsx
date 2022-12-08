@@ -11,11 +11,7 @@ export interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
  *
  * @link https://maker-ui.com/docs/layout/footer
  */
-export const Footer = ({
-  _type = 'footer',
-  children,
-  ...props
-}: FooterProps) => {
+export const Footer = ({ children, _type, ...props }: FooterProps) => {
   return (
     <footer role="contentinfo" {...props}>
       <div className="container">{children}</div>
@@ -24,3 +20,4 @@ export const Footer = ({
 }
 
 Footer.displayName = 'Footer'
+Footer.defaultProps = { _type: 'footer' }

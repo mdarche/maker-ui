@@ -58,7 +58,10 @@ export const MenuButton = ({
   }
 
   return typeof jsx === 'function' ? (
-    jsx(sideNav.isPrimaryMobileNav ? sideActive : mobileActive, attributes)
+    (jsx(
+      sideNav.isPrimaryMobileNav ? sideActive : mobileActive,
+      attributes
+    ) as React.ReactNode)
   ) : (
     <button {...attributes}>
       {jsx || (

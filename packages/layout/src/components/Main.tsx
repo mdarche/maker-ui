@@ -7,13 +7,15 @@ export interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * The `Main` component wraps your layout's main content.
+ * Test
  *
  * @link https://maker-ui.com/docs/layout/main
  */
-export const Main = ({ _type = 'main', children, ...props }: MainProps) => (
+export const Main = ({ children, _type, ...props }: MainProps) => (
   <main role="main" {...props}>
     {children}
   </main>
 )
 
 Main.displayName = 'Main'
+Main.defaultProps = { _type: 'main' }
