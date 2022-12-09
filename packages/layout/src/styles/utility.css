@@ -11,7 +11,7 @@
   flex: 1;
 }
 .flex-col {
-  flexd-direction: column;
+  flex-direction: column;
 }
 .align-center {
   align-items: center;

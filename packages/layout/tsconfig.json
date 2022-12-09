@@ -5,7 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "@/types": ["src/types.ts"],
-      "@/hooks": ["src/hooks"]
+      "@/defaults": ["src/defaults.ts"]
     }
   }
 }

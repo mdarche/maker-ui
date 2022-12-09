@@ -1,8 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
+import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-
 import type {
   CustomButtonProps,
   HeaderOptions,
@@ -32,8 +31,8 @@ export const MenuButton = ({
   isCloseButton,
   ...props
 }: MenuButtonProps): React.ReactNode => {
-  const [mobileActive, setMobileActive] = useState(false)
-  const [sideActive, setSideActive] = useState(false)
+  const [mobileActive, setMobileActive] = React.useState(false)
+  const [sideActive, setSideActive] = React.useState(false)
 
   const conditionalAttributes = sideNav?.isPrimaryMobileNav
     ? { 'aria-expanded': sideActive ? true : false, onClick: toggleSideMenu }

@@ -5,15 +5,11 @@ const config = buildConfig({
   global: true,
   clean: true,
   minifyIdentifiers: true,
-  minifyWhitespace: false,
+  minifyWhitespace: true,
   minifySyntax: true,
   entry: {
-    Layout: 'src/components/Layout.tsx',
-    ColorButton: 'src/components/ColorButton.tsx',
-    MenuButton: 'src/components/MenuButton.tsx',
-    NavMenu: 'src/components/Header/NavMenu.tsx',
-    CollapseMenu: 'src/components/Menu/CollapseMenu.tsx',
-    provider: 'src/components/Provider.tsx',
+    index: 'src/index.ts',
+    client: 'src/components/client/index.ts',
   },
 })
 

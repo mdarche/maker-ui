@@ -1,5 +1,6 @@
-import { Options } from '@/types'
 import * as React from 'react'
+import type { Options } from '@/types'
+import styles from './Skiplinks.module.css'
 
 interface SkipLinkProps {
   links?: Options['skiplinks']
@@ -23,7 +24,7 @@ export const Skiplinks = ({ links }: SkipLinkProps) => {
   }
 
   return links === false ? null : (
-    <ul className="mkr_skiplinks">
+    <ul className={styles.skiplinks}>
       {linkMenu.map(({ id, label }) => (
         <li key={id}>
           <a href={id}>{label}</a>

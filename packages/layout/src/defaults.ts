@@ -12,7 +12,6 @@ export const defaults: Options = {
     sticky: false,
     stickyOnMobile: false,
     stickyUpScroll: false,
-    menuOverflow: 'scroll',
   },
   topbar: {
     hideOnMobile: true,

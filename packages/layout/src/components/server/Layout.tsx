@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { merge } from '@maker-ui/utils'
+import { merge, Conditional } from '@maker-ui/utils'
 import { MobileMenu } from './MobileMenu'
 import { Footer } from './Footer'
 import { Topbar } from './Topbar'
@@ -8,7 +8,7 @@ import { SideNav } from './SideNav'
 import { Sidebar } from './Sidebar'
 import { Skiplinks } from './Skiplinks'
 import { Header } from './Header'
-import { defaults } from '../defaults'
+import { defaults } from '@/defaults'
 import type { MakerUIOptions, Options } from '@/types'
 
 interface LayoutProps {
@@ -42,29 +42,47 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
   const isSideNav = slots.sideNav && opts.type.includes('sidenav')
   const isLeft = opts.type.includes('-content')
   const isRight = opts.type.includes('content-')
-  // const isBoth = isSidebar && opts.type === 'sidebar-content-sidebar'
 
-  // React child props, determine where they belong, and copy relevant options props to the new element using `React.cloneElement`
   return (
     <>
       <Skiplinks links={opts.skiplinks} />
+      {slots?.topbar && <Topbar {...merge(opts.topbar, slots.topbar.props)} />}
       <Header
-        {...slots?.header?.props}
+        {...merge(opts.header, slots?.header?.props)}
         _mobileMenu={
           slots?.mobileMenu ? (
             <MobileMenu {...slots?.mobileMenu?.props} />
           ) : null
         }
       />
-      <>
-        {isSidebar && <Sidebar {...slots?.sidebar?.props} />}
-        {isSideNav && <SideNav {...slots?.sideNav?.props} />}
-      </>
-      <Main {...slots?.main?.props} />
-      <>
-        {isSidebar && <Sidebar {...slots?.sidebar?.props} />}
-        {isSideNav && <SideNav {...slots?.sideNav?.props} />}
-      </>
+      <Conditional
+        condition={opts.type !== 'content'}
+        wrapper={(c) => <div className="mkr_site-inner">{c}</div>}>
+        <>
+          {isLeft ? (
+            <>
+              {isSidebar && (
+                <Sidebar {...merge(opts.sidebar, slots?.sidebar?.props)} />
+              )}
+              {isSideNav && (
+                <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
+              )}
+            </>
+          ) : null}
+          <Main {...slots?.main?.props} />
+          {isRight ? (
+            <>
+              {isSidebar && (
+                <Sidebar {...merge(opts.sidebar, slots?.sidebar?.props)} />
+              )}
+              {isSideNav && (
+                <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
+              )}
+            </>
+          ) : null}
+        </>
+      </Conditional>
+      {slots?.footer && <Footer {...slots.footer.props} />}
     </>
   )
 }
@@ -77,4 +95,4 @@ Layout.Footer = Footer
 Layout.Sidebar = Sidebar
 Layout.SideNav = SideNav
 
-Layout.displayName = 'Maker_Layout'
+Layout.displayName = 'Layout'

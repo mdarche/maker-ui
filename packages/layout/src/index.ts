@@ -1,10 +1,7 @@
 import './styles/global.css'
 import './styles/utility.css'
-// Components
-export { Layout } from './components'
-
-// Hooks
-// export { useColorTheme } from '@/hooks'
-
+// Server Components
+export { Layout } from './components/server/Layout'
+export { Section } from './components/server/Section'
 // Types
 export type { MakerUIOptions } from '@/types'

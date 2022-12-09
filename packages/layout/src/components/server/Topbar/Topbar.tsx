@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { TopbarOptions } from '@/types'
+import type { TopbarOptions } from '@/types'
 import styles from './Topbar.module.css'
 
 export interface TopbarProps

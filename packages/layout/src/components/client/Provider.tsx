@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useEffect, createContext, useContext, useReducer } from 'react'
+import * as React from 'react'
 import { merge } from '@maker-ui/utils'
-import { MakerUIOptions, Options } from '@/types'
-import { defaults } from '../defaults'
+import type { MakerUIOptions, Options } from '@/types'
+import { defaults } from '@/defaults'
 
 type Action =
   | { type: 'SET_MENU' }
@@ -29,7 +29,7 @@ type LayoutContextType = {
   dispatch: (a: Action) => void
 }
 
-const LayoutContext = createContext<LayoutContextType>({
+const LayoutContext = React.createContext<LayoutContextType>({
   state: {},
   dispatch: (a) => {},
 })
@@ -86,9 +86,9 @@ function reducer(state: LayoutState, action: Action): LayoutState {
   }
 }
 
-const LayoutProvider = (props: LayoutProviderProps) => {
+export const Provider = (props: LayoutProviderProps) => {
   const options = merge(defaults, props.options || {}) as Options
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = React.useReducer(reducer, {
     sideNavActive: false,
     menuActive: false,
     sideNavCollapse: false,
@@ -102,7 +102,7 @@ const LayoutProvider = (props: LayoutProviderProps) => {
    * set color modes with `light` and `dark` keys.
    *
    */
-  useEffect(() => {
+  React.useEffect(() => {
     const themes = options.colorThemes
     //  If there are multiple color themes, save the active one to local storage
     if (themes.length) {
@@ -122,7 +122,7 @@ const LayoutProvider = (props: LayoutProviderProps) => {
     }
   }, [options.colorThemes])
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Any other event listeners that should be added to the window object
     // - Sidenav close on route change
     // - Mobile menu close on route change
@@ -132,7 +132,7 @@ const LayoutProvider = (props: LayoutProviderProps) => {
    * NOTE - ALL STYLES ADDED TO HEAD WILL BE MOVED TO SERVER WHEN
    * NEXT.JS LAYOUT API SUPPORTS <style> TAGS
    */
-  useEffect(() => {
+  React.useEffect(() => {
     // Add option based styles to document head
     // Add initial media query styles to document head
   }, [])
@@ -147,7 +147,7 @@ const LayoutProvider = (props: LayoutProviderProps) => {
 export const useLayout = () => {
   const {
     state: { options },
-  } = useContext(LayoutContext)
+  } = React.useContext(LayoutContext)
 
   return { options }
 }
@@ -156,7 +156,7 @@ export const useMenu = () => {
   const {
     state: { options, menuActive, sideNavActive, sideNavCollapse },
     dispatch,
-  } = useContext(LayoutContext)
+  } = React.useContext(LayoutContext)
 
   function setMenu(type: 'menu' | 'sidenav' | 'collapse', value?: boolean) {
     if (type === 'menu') {
@@ -175,7 +175,7 @@ export function useColorTheme() {
   const {
     state: { colorTheme, options },
     dispatch,
-  } = useContext(LayoutContext)
+  } = React.useContext(LayoutContext)
 
   function setColorTheme(theme: string) {
     setBrowserTheme(theme, options?.colorThemes || [])
@@ -188,5 +188,3 @@ export function useColorTheme() {
     setColorTheme,
   }
 }
-
-export default LayoutProvider

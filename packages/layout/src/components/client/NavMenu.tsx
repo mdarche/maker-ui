@@ -1,8 +1,9 @@
+'use client'
+
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { useRouter } from 'next/router'
-
-import { MenuItem, type MenuItemProps } from '../Menu/MenuItem'
+import { MenuItem, type MenuItemProps } from './MenuItem'
 
 interface NavMenuProps {
   transition?: 'scale' | 'fade' | 'fade-down' | 'fade-up' | 'none'

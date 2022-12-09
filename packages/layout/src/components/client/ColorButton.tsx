@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-
 import { useColorTheme } from './Provider'
 
 type ColorButtonProps =

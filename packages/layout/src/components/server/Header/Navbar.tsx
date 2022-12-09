@@ -7,10 +7,9 @@ import type {
   ColorButtonProps,
   CustomButtonProps,
 } from '@/types'
-import { ColorButton } from '../ColorButton'
-import { MenuButton } from '../MenuButton'
-import type { MenuItemProps } from '../Menu'
-import { NavMenu } from './NavMenu'
+import { ColorButton } from '../../client/ColorButton'
+import { MenuButton } from '../../client/MenuButton'
+import { NavMenu } from '../../client/NavMenu'
 import styles from './Header.module.css'
 // import { gridStyles } from './styles'
 
@@ -19,7 +18,6 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {
   /** A custom logo component that is wrapped in an anchor tag that leads to the home page. */
   logo?: React.ReactElement | string
   /** Lets you supply a `MakerMenu` that renders a fully responsive and accessible menu complete with nested dropdowns. */
-  menu?: MenuItemProps[]
   /** Overrides `header.colorButton` from Maker UI options. */
   colorButton?: ColorButtonProps
   /** Overrides `header.menuButton` from Maker UI options. */

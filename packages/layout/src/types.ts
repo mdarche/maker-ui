@@ -85,7 +85,6 @@ export interface HeaderOptions {
     scrollTop: number
     className: string
   }
-  menuOverflow: 'wrap' | 'scroll'
   menuButton?: CustomButtonProps
   colorButton?: ColorButtonProps
 }
