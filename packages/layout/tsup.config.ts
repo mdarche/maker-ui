@@ -3,7 +3,7 @@ import { buildConfig } from '@maker-ui/build-tools'
 
 const config = buildConfig({
   global: true,
-  clean: true,
+  clean: false,
   minifyIdentifiers: true,
   minifyWhitespace: true,
   minifySyntax: true,

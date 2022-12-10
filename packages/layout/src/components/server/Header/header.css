@@ -1,0 +1,56 @@
+header {
+  z-index: 100;
+}
+.nav-grid {
+  margin: 0 auto;
+  max-width: var(--max-width-header);
+}
+.nav-area {
+  display: flex;
+  align-items: center;
+}
+.button-slot {
+  grid-area: 'button';
+}
+.menu-slot {
+  grid-area: 'menu';
+}
+.menu-slot.split {
+  grid-area: 'menu-split';
+  justify-content: flex-end;
+}
+.logo-slot {
+  grid-area: 'logo';
+}
+.widget-slot {
+  grid-area: 'widgets';
+}
+.menu-scroll .menu-slot {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+.desktop-visible {
+  display: block;
+}
+.mkr_nav.basic .menu-slot {
+  justify-content: flex-end;
+}
+.mkr_nav.basic-left .menu-slot {
+  justify-content: flex-start;
+}
+.mkr_nav.basic-center .menu-slot {
+  justify-content: center;
+}
+.mkr_nav.center .menu-slot,
+.mkr_nav.center .logo-slot {
+  justify-content: center;
+}
+.mkr_nav.split .widget-slot,
+.mkr_nav.center .widget-slot {
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+.mkr_nav.minimal-center .button-slot {
+  justify-content: flex-start;
+}

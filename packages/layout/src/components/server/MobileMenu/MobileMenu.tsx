@@ -7,9 +7,6 @@ export interface MobileMenuProps
   extends Partial<MobileMenuOptions>,
     React.HTMLAttributes<HTMLDivElement> {
   _type?: 'mobileMenu'
-  header?: React.ReactNode
-  footer?: React.ReactNode
-  menu?: React.ReactNode
 }
 
 /* Utility for mobile nav transitions that require a full-width window */
@@ -22,12 +19,8 @@ const fullWidth = ['fade', 'fade-up', 'fade-down']
  */
 export const MobileMenu = ({
   className,
-  header,
-  footer,
-  menu,
   closeButton,
   closeButtonPosition = 'top-right',
-  showCloseButton,
   closeOnBlur,
   center,
   transition = 'fade',
@@ -35,26 +28,33 @@ export const MobileMenu = ({
   _type,
   ...props
 }: MobileMenuProps) => {
+  const positions = closeButtonPosition.split('-')
   return (
     <>
       {closeOnBlur && !fullWidth.includes(transition) ? (
-        <div className="mkr_overlay fixed cover mobile-menu" role="button" />
+        <div
+          className={cn([styles.menu_overlay, 'overlay fixed cover'])}
+          role="button"
+        />
       ) : null}
       <div
         className={cn([
           styles.mobile_menu,
           center ? 'center' : undefined,
           fullWidth.includes(transition) ? 'full-width' : undefined,
-          `close-${closeButtonPosition}`,
           transition,
           className,
         ])}
         {...props}>
         <div className="container">
-          <>{closeButton ?? null}</>
-          {header ? header : null}
+          <>
+            {closeButton ? (
+              <div className={cn([styles.close_button, ...positions])}>
+                {closeButton}
+              </div>
+            ) : null}
+          </>
           {children ?? null}
-          {footer ? footer : null}
         </div>
       </div>
     </>

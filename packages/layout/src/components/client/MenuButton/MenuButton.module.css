@@ -1,0 +1,19 @@
+.btn_menu {
+  display: block;
+  margin: 0;
+  border: none;
+  background: none;
+
+  svg {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.btn_menu_icon {
+  height: 27px;
+
+  &:global.close {
+    height: 35px;
+  }
+}

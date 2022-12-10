@@ -1,0 +1,117 @@
+.nav {
+  :global .submenu {
+    display: inline-block;
+    background: var(--color-bg-header);
+    width: max-content;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    list-style: none;
+    a {
+      width: 100%;
+    }
+    li {
+      display: block;
+    }
+  }
+
+  :global .submenu.depth-0 {
+    position: absolute;
+    top: 99%;
+    left: 0;
+  }
+
+  :global .submenu:not(.depth-0) {
+    position: fixed;
+    height: 100%;
+    left: 100%;
+    top: 0;
+  }
+
+  :global .menu-item {
+    display: inline-flex;
+  }
+
+  :global .menu-item.has-submenu {
+    position: relative;
+  }
+}
+
+:global .submenu-toggle {
+  border: none;
+  background: transparent;
+
+  svg {
+    height: 12px;
+    width: 12px;
+    transition: transform ease 0.2s;
+    transform-origin: 50% 55%;
+
+    &:global.rotate {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+:global .dropdown-fade,
+:global .dropdown-fade-down,
+:global .dropdown-fade-up {
+  :global .submenu {
+    transition: all ease 0.3s;
+  }
+  :global li:focus-within > .submenu,
+  :global li:hover > .submenu {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+:global .dropdown-fade-down .submenu {
+  transform: translateY(-10px);
+}
+:global .dropdown-fade-up .submenu {
+  transform: translateY(10px);
+}
+:global .dropdown-fade-up,
+:global .dropdown-fade-down {
+  :global li:focus-within > .submenu,
+  :global li:hover > .submenu {
+    transform: translateY(0);
+  }
+}
+:global .dropdown-scale {
+  :global .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1, 0);
+    transform-origin: 0 0;
+    transition: transform ease-in-out 0.25s;
+
+    li {
+      opacity: 0;
+      transition: opacity 0.03s ease-in-out;
+    }
+  }
+  :global li:focus-within > .submenu,
+  :global li:hover > .submenu {
+    transform: scale(1, 1);
+    li {
+      opacity: 1;
+      transition: opacity ease-in-out 0.2s 0.2s;
+    }
+  }
+}
+
+:global .menu-item.caret > a:after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.4em;
+  vertical-align: 0.25em;
+  border-top: 0.25em solid;
+  border-right: 0.25em solid transparent;
+  border-left: 0.25em solid transparent;
+}

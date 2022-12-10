@@ -20,7 +20,6 @@ export const defaults: Options = {
   },
   mobileMenu: {
     transition: 'fade',
-    showCloseButton: true,
     visibleOnDesktop: false,
     closeOnBlur: true,
     closeOnRouteChange: true,

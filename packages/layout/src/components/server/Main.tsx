@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { cn } from '@maker-ui/utils'
 
 export interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Internal prop to denote child node type */
@@ -11,8 +12,8 @@ export interface MainProps extends React.HTMLAttributes<HTMLDivElement> {
  *
  * @link https://maker-ui.com/docs/layout/main
  */
-export const Main = ({ children, _type, ...props }: MainProps) => (
-  <main role="main" {...props}>
+export const Main = ({ id, children, _type, ...props }: MainProps) => (
+  <main id={cn(['content', id])} {...props}>
     {children}
   </main>
 )

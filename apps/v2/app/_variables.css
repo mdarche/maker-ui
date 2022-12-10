@@ -6,6 +6,7 @@
   --width-sidebar-secondary: 100px;
   --width-side-nav: 300px;
   --max-width-header: 1300px;
+  --max-width-content: 1300px;
   --max-width-section: 1300px;
   --max-width-footer: 1300px;
   --gap-content: 50px;
@@ -40,10 +41,10 @@ body[data-theme='dark'] {
 
 body[data-theme='light'] {
   /* Required */
-  --color-bg-header: #000;
-  --color-bg-side-nav: #000;
-  --color-bg-topbar: #000;
-  --color-bg-mobile-menu: #000;
+  --color-bg-header: #fff;
+  --color-bg-side-nav: #fbfbfb;
+  --color-bg-topbar: #d2d2d2;
+  --color-bg-mobile-menu: #fff;
   --color-logo: #000;
   --color-text: #000;
   --color-background: #fff;

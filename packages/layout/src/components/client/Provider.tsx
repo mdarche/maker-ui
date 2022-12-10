@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { merge } from '@maker-ui/utils'
+import { Effects } from './Effects'
 import type { MakerUIOptions, Options } from '@/types'
 import { defaults } from '@/defaults'
 
@@ -120,12 +121,7 @@ export const Provider = (props: LayoutProviderProps) => {
         dispatch({ type: 'SET_COLOR_THEME', value: themes[0] })
       }
     }
-  }, [options.colorThemes])
-
-  React.useEffect(() => {
-    // Any other event listeners that should be added to the window object
-    // - Sidenav close on route change
-    // - Mobile menu close on route change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   /**
@@ -139,6 +135,7 @@ export const Provider = (props: LayoutProviderProps) => {
 
   return (
     <LayoutContext.Provider value={{ state, dispatch }}>
+      <Effects options={options} />
       {props.children}
     </LayoutContext.Provider>
   )

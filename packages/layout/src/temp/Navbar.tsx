@@ -7,9 +7,9 @@ import type {
   ColorButtonProps,
   CustomButtonProps,
 } from '@/types'
-import { ColorButton } from '../../client/ColorButton'
-import { MenuButton } from '../../client/MenuButton'
-import { NavMenu } from '../../client/NavMenu'
+import { ColorButton } from '../components/client/ColorButton'
+import { MenuButton } from '../components/client/MenuButton/MenuButton'
+import { NavMenu } from '../components/client/NavMenu/NavMenu'
 import styles from './Header.module.css'
 // import { gridStyles } from './styles'
 

@@ -6,15 +6,15 @@
   margin: 0;
 
   a {
-    background: var(--color-bg_header);
+    background: var(--color-bg-header);
     display: block;
     position: absolute;
     font-family: var(--font-body);
-    left: -9999;
+    left: -9999px;
     padding: 1em;
 
     &:focus {
-      left: 0;
+      left: 0px;
     }
   }
 }

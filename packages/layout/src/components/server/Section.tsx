@@ -15,7 +15,7 @@ export interface SectionProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Section = ({
   id,
   className,
-  maxWidth = 'var(--maxWidth_section)',
+  maxWidth = 'var(--max-width-section)',
   background,
   color,
   container = true,

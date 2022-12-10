@@ -40,18 +40,6 @@ export const transitionTypes = [
   'slide-right',
 ] as const
 
-export type CustomButtonProps =
-  | React.ReactNode
-  | ((status: boolean, attrs: object) => React.ReactNode)
-
-export type ColorButtonProps =
-  | React.ReactNode
-  | ((
-      currentMode?: string,
-      attrs?: object,
-      preference?: string
-    ) => React.ReactNode)
-
 /**
  * A deeply nested partial that makes all props optional.
  */
@@ -85,20 +73,16 @@ export interface HeaderOptions {
     scrollTop: number
     className: string
   }
-  menuButton?: CustomButtonProps
-  colorButton?: ColorButtonProps
+  menuButton?: React.ReactNode
 }
 
 export interface MobileMenuOptions {
   transition: typeof transitionTypes[number]
-  showCloseButton: boolean
   visibleOnDesktop: boolean
   closeOnBlur: boolean
   closeOnRouteChange: boolean
   center: boolean
-  closeButton?:
-    | React.ReactNode
-    | ((isOpen: boolean, attrs: object) => React.ReactNode)
+  closeButton?: React.ReactNode
   closeButtonPosition?:
     | 'top-left'
     | 'top-right'
@@ -113,9 +97,9 @@ export interface SideNavOptions {
   closeOnBlur: boolean
   closeOnRouteChange: boolean
   showToggleOnMobile: boolean
-  toggleButton?: CustomButtonProps
+  toggleButton?: React.ReactNode
   collapse: boolean
-  collapseButton?: CustomButtonProps
+  collapseButton?: React.ReactNode
 }
 
 /**

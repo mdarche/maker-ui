@@ -1,7 +1,7 @@
 'use client'
 export { CollapseMenu } from './CollapseMenu'
 export { ColorButton } from './ColorButton'
-export { MenuButton } from './MenuButton'
+export { MenuButton } from './MenuButton/MenuButton'
 export { NavMenu } from './NavMenu'
 export type { MenuItemProps, MakerMenu } from './MenuItem'
 export * from './Provider'

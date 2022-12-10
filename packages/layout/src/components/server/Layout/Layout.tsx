@@ -1,15 +1,16 @@
 import * as React from 'react'
-import { merge, Conditional } from '@maker-ui/utils'
-import { MobileMenu } from './MobileMenu'
-import { Footer } from './Footer'
-import { Topbar } from './Topbar'
-import { Main } from './Main'
-import { SideNav } from './SideNav'
-import { Sidebar } from './Sidebar'
-import { Skiplinks } from './Skiplinks'
-import { Header } from './Header'
+import { merge } from '@maker-ui/utils'
+import { MobileMenu } from '../MobileMenu'
+import { Footer } from '../Footer'
+import { Topbar } from '../Topbar'
+import { Main } from '../Main'
+import { SideNav } from '../SideNav'
+import { Sidebar } from '../Sidebar'
+import { Skiplinks } from '../Skiplinks'
+import { Header } from '../Header'
 import { defaults } from '@/defaults'
 import type { MakerUIOptions, Options } from '@/types'
+import styles from './Layout.module.css'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -55,9 +56,7 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
           ) : null
         }
       />
-      <Conditional
-        condition={opts.type !== 'content'}
-        wrapper={(c) => <div className="mkr_site-inner">{c}</div>}>
+      <div className={styles.layout}>
         <>
           {isLeft ? (
             <>
@@ -73,7 +72,10 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
           {isRight ? (
             <>
               {isSidebar && (
-                <Sidebar {...merge(opts.sidebar, slots?.sidebar?.props)} />
+                <Sidebar
+                  {...merge(opts.sidebar, slots?.sidebar?.props)}
+                  primary={!(opts.type === 'sidebar-content-sidebar')}
+                />
               )}
               {isSideNav && (
                 <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
@@ -81,7 +83,7 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
             </>
           ) : null}
         </>
-      </Conditional>
+      </div>
       {slots?.footer && <Footer {...slots.footer.props} />}
     </>
   )

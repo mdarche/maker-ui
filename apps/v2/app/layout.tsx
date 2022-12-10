@@ -1,9 +1,11 @@
-import { Layout } from '@maker-ui/layout'
+import { Layout, type MakerUIOptions } from '@maker-ui/layout'
 import { Provider } from '../components/client'
 
 import '@maker-ui/layout/dist/index.css'
 import './_variables.css'
 import './_global.css'
+
+const options: MakerUIOptions = { colorThemes: ['light', 'dark', 'system'] }
 
 export default function RootLayout({
   children,
@@ -13,8 +15,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Provider>
-          <Layout>
+        <Provider options={options}>
+          <Layout options={options}>
             <Layout.Topbar>Test</Layout.Topbar>
             <Layout.Header />
             <Layout.MobileMenu />

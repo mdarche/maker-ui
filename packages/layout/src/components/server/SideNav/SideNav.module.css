@@ -1,2 +1,25 @@
 .sidenav {
+  top: 0;
+  bottom: 0;
+  width: var(--width_side-nav);
+  background: var(--color-bg_side-nav);
+  will-change: transform;
+  transform: translateX(0);
 }
+
+.sidenav_inner {
+  position: sticky;
+  overflow-y: auto;
+}
+
+/* #toggle-sidenav {
+  position: fixed;
+  bottom: 30px;
+  z-index: 100;
+}
+#collapse-sidenav {
+  position: sticky;
+  z-index: 100;
+  top: 80px;
+  height: 50px;
+} */

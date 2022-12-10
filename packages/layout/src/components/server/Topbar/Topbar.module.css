@@ -5,14 +5,15 @@
   z-index: 101;
   display: block;
   position: relative;
-  > div {
+
+  :global .container {
     max-width: var(--max-width-topbar);
   }
 
   &:global.sticky {
     position: sticky;
   }
-  &:global.hide-mobile {
+  &:global.m-hide {
     display: none;
   }
 }

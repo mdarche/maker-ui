@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { useScrollPosition } from '@maker-ui/utils'
 
-import type { HeaderOptions } from '@/types'
+import type { Options } from '@/types'
 
-interface HeaderClientProps extends Partial<HeaderOptions> {}
+interface EffectsProps {
+  options: Options
+}
 
 /**
  * TODO - add the necessary classes to the DOM w/ useEffect
  * -- Mobile Overlay
  */
 
-export const Client = ({
-  stickyUpScroll,
-  scrollClass: sc,
-}: HeaderClientProps) => {
+export const Effects = ({
+  options: {
+    header: { stickyUpScroll, scrollClass: sc },
+  },
+}: EffectsProps) => {
   const [scrollClass, setScrollClass] = useState('')
   const [show, setShow] = useState(true)
   const activateScrollClass = !!sc
+
+  React.useEffect(() => {
+    // Any other event listeners that should be added to the window object
+    // - Sidenav close on route change
+    // - Mobile menu close on route change
+    // Sidenav and mobile overlay click events
+  }, [])
 
   useEffect(() => {
     const header = document.querySelector('.mkr_header')
