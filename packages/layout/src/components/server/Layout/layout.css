@@ -47,6 +47,24 @@
     } */
 }
 
+.mkr_overlay {
+  background: var(--bg-overlay, rgba(0, 0, 0, 0.15));
+  z-index: 100;
+  will-change: opacity;
+  transition: all ease 0.4s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.mkr_overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.mkr_collapse {
+  list-style-type: none;
+}
+
 main {
   position: relative;
   flex: 1;

@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { MenuItem, type MenuItemProps } from '../MenuItem'
 
 interface NavMenuProps {
@@ -23,10 +23,10 @@ export const NavMenu = ({
   transition = 'fade',
   caret = false,
 }: NavMenuProps) => {
-  const { asPath } = useRouter()
+  const pathname = usePathname()
 
   return (
-    <nav className="mkr_nav" role="navigation">
+    <nav className="mkr_nav_menu" role="navigation">
       <ul
         className={cn([
           'menu-primary header-nav',
@@ -38,7 +38,7 @@ export const NavMenu = ({
             key={index}
             data={item}
             caret={caret}
-            pathname={asPath}
+            pathname={pathname}
             isHeader
           />
         ))}

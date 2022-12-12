@@ -20,7 +20,8 @@ export const Effects = ({
     // Any other event listeners that should be added to the window object
     // - Sidenav close on route change
     // - Mobile menu close on route change
-    // Sidenav and mobile overlay click events
+    // - Sidenav and mobile overlay click events
+    // - Sidenav collapse on resize
   }, [])
 
   React.useEffect(() => {

@@ -25,13 +25,14 @@ export const SideNav = ({
   collapseButton,
   className,
   children,
+  breakpoint,
   _type,
   ...props
 }: SideNavProps) => {
   return (
     <>
       {closeOnBlur ? (
-        <div className="mkr_overlay fixed cover sidenav" role="button" />
+        <div className="mkr_overlay mkr_overlay_s fixed cover" role="button" />
       ) : null}
       <Container
         isHeader={isHeader}

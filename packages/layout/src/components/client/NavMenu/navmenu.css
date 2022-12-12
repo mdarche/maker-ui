@@ -1,4 +1,4 @@
-.mkr_nav .submenu {
+.mkr_nav_menu .submenu {
   display: inline-block;
   background: var(--color-bg-header);
   width: max-content;
@@ -9,29 +9,33 @@
   visibility: hidden;
   list-style: none;
 }
-.mkr_nav .submenu a {
+.mkr_nav_menu .submenu a {
   width: 100%;
 }
 
-.mkr_nav .submenu li {
+.mkr_nav_menu .submenu li {
   display: block;
 }
 
-.mkr_nav .submenu.depth-0 {
+.mkr_nav_menu .submenu.depth-0 {
   position: absolute;
   top: 99%;
   left: 0;
 }
 
-.mkr_nav .submenu:not(.depth-0) {
+.mkr_nav_menu .submenu:not(.depth-0) {
   position: fixed;
   height: 100%;
   left: 100%;
   top: 0;
 }
 
-.mkr_nav .menu-item.has-submenu {
+.mkr_nav_menu .menu-item.has-submenu {
   position: relative;
+}
+
+.mkr_nav_menu ul > .menu-item {
+  display: inline-flex;
 }
 
 .submenu-toggle {

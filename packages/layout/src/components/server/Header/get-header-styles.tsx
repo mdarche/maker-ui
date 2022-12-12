@@ -117,7 +117,7 @@ export function getHeaderStyles(options: Options) {
       .mkr_nav:not(.desktop-minimal) .button-slot {
         display: none;
       }
-      .widget-slot .mkr_btn_menu {
+      .mkr_nav .mkr_btn_menu {
         display: ${
           layout === 'minimal' || options.mobileMenu.visibleOnDesktop
             ? 'block'

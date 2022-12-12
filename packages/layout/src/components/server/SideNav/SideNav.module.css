@@ -1,8 +1,8 @@
 .sidenav {
   top: 0;
   bottom: 0;
-  width: var(--width_side-nav);
-  background: var(--color-bg_side-nav);
+  width: var(--width-side-nav);
+  background: var(--color-bg-side-nav);
   will-change: transform;
   transform: translateX(0);
 }

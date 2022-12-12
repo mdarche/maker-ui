@@ -90,6 +90,7 @@ function reducer(state: LayoutState, action: Action): LayoutState {
 }
 
 export const Provider = (props: LayoutProviderProps) => {
+  const [initialized, setInitialized] = React.useState(false)
   const options = merge(defaults, props.options || {}) as Options
   const [state, dispatch] = React.useReducer(reducer, {
     sideNavActive: false,
@@ -138,7 +139,6 @@ export const Provider = (props: LayoutProviderProps) => {
     let css = ''
     css += getHeaderStyles(options)
     css += getLayoutStyles(options, props.children)
-    console.log('Layout styles are', getLayoutStyles(options, props.children))
 
     style.textContent = css
     style.id = 'mkr_responsive'
@@ -147,10 +147,16 @@ export const Provider = (props: LayoutProviderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  React.useEffect(() => {
+    if (initialized) return
+    setInitialized(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <LayoutContext.Provider value={{ state, dispatch }}>
       <Effects options={options} />
-      {props.children}
+      {initialized ? props.children : null}
     </LayoutContext.Provider>
   )
 }
@@ -160,7 +166,7 @@ export const useLayout = () => {
     state: { options },
   } = React.useContext(LayoutContext)
 
-  return { options }
+  return { options: options as Options }
 }
 
 export const useMenu = () => {

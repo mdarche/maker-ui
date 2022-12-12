@@ -4,13 +4,10 @@ import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { useColorTheme } from './Provider'
 
-type ColorButtonProps =
-  | React.ReactNode
-  | ((
-      currentMode?: string,
-      attrs?: object,
-      preference?: string
-    ) => React.ReactNode)
+type ColorButtonProps = (
+  currentMode?: string,
+  attrs?: object
+) => React.ReactNode
 
 interface ColorProps extends React.HTMLAttributes<HTMLButtonElement> {
   jsx?: ColorButtonProps
@@ -22,11 +19,16 @@ interface ColorProps extends React.HTMLAttributes<HTMLButtonElement> {
  *
  * @link https://maker-ui.com/docs/layout/buttons/#colorButton
  */
-export const ColorButton = ({ className, jsx, ...props }: ColorProps) => {
+export const ColorButton = ({
+  className,
+  jsx,
+  children,
+  ...props
+}: ColorProps) => {
   const { current, themes, setColorTheme } = useColorTheme()
 
   // Never render this component if themes are undefined
-  if (!themes) return null
+  if (!themes || themes.length === 1) return null
 
   const cycleMode = () => {
     const i = themes.indexOf(current as string)
@@ -45,14 +47,10 @@ export const ColorButton = ({ className, jsx, ...props }: ColorProps) => {
     ...props,
   }
 
-  if (themes?.length === 1) {
-    return null
-  }
-
-  return typeof jsx === 'function' ? (
-    (jsx(current, attributes) as React.ReactNode)
+  return jsx ? (
+    <>{jsx(current, attributes) as React.ReactNode}</>
   ) : (
-    <button {...attributes}>{jsx ?? current}</button>
+    <button {...attributes}>{children ?? current}</button>
   )
 }
 

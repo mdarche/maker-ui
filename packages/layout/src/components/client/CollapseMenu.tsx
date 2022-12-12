@@ -2,12 +2,12 @@
 
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { MenuItem, type MenuItemProps } from './MenuItem'
 
 interface CollapseProps extends React.HTMLAttributes<HTMLUListElement> {
-  menu: MenuItemProps[]
-  caret: boolean | React.ReactElement
+  items: MenuItemProps[]
+  caret?: boolean | React.ReactElement
   children?: React.ReactElement
 }
 
@@ -21,8 +21,8 @@ interface CollapseProps extends React.HTMLAttributes<HTMLUListElement> {
  * @link https://maker-ui.com/docs/layout/collapsible-menu
  */
 export const CollapseMenu = React.forwardRef<HTMLUListElement, CollapseProps>(
-  ({ menu = [], caret, className, ...props }, ref) => {
-    const { asPath } = useRouter()
+  ({ items = [], caret, className, ...props }, ref) => {
+    const pathname = usePathname()
 
     return (
       <ul
@@ -30,8 +30,8 @@ export const CollapseMenu = React.forwardRef<HTMLUListElement, CollapseProps>(
         className={cn(['mkr_collapse', className])}
         role="navigation"
         {...props}>
-        {menu.map((item, index) => (
-          <MenuItem key={index} data={item} pathname={asPath} caret={caret} />
+        {items.map((item, index) => (
+          <MenuItem key={index} data={item} pathname={pathname} caret={caret} />
         ))}
       </ul>
     )

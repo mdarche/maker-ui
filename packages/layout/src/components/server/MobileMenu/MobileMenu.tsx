@@ -33,7 +33,7 @@ export const MobileMenu = ({
     <>
       {closeOnBlur && !fullWidth.includes(transition) ? (
         <div
-          className={cn([styles.menu_overlay, 'overlay fixed cover'])}
+          className="mkr_overlay mkr_overlay_m overlay fixed cover"
           role="button"
         />
       ) : null}

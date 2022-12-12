@@ -46,7 +46,7 @@ export type MakerMenu = MenuItemProps[]
 interface MenuInternalProps {
   data: MenuItemProps
   caret?: boolean | React.ReactElement
-  pathname?: string
+  pathname?: string | null
   isHeader?: boolean
   depth?: number
 }

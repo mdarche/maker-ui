@@ -55,20 +55,6 @@
   }
 }
 
-.menu_overlay {
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 100;
-  will-change: opacity;
-  transition: all ease 0.4s;
-  visibility: hidden;
-  opacity: 0;
-
-  &:global.active {
-    visibility: visible;
-    opacity: 1;
-  }
-}
-
 .close_button {
   &:global.top {
     top: 0;

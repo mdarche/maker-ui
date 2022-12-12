@@ -36,7 +36,7 @@ function assign(children: React.ReactNode) {
  * @link https://maker-ui.com/docs/layout/layout
  */
 export const Layout = ({ options = {}, children }: LayoutProps) => {
-  const opts = merge(options, defaults) as Options
+  const opts = merge(defaults, options) as Options
   const slots = assign(children)
   const isSidebar = slots.sidebar && opts.type.includes('sidebar')
   const isSideNav = slots.sideNav && opts.type.includes('sidenav')

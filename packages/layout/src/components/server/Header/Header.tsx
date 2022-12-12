@@ -78,10 +78,8 @@ export const Header = ({
           {navType === 'split' ? menuSplitSlot : menuSlot}
         </div>
         <div className="nav-area widget-slot">
-          <div className="nav-widgets">
-            <>{widgetSlot}</>
-            <>{menuButton}</>
-          </div>
+          <>{widgetSlot}</>
+          <>{menuButton}</>
         </div>
       </div>
       {_mobileMenu ?? null}

@@ -2,18 +2,12 @@
 
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import type { HeaderOptions, MobileMenuOptions, SideNavOptions } from '@/types'
+import { useLayout, useMenu } from '../Provider'
 import styles from './MenuButton.module.css'
-import { useMenu } from '../Provider'
 
 interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  header: HeaderOptions
-  sideNav: SideNavOptions
-  mobileMenu: MobileMenuOptions
-  isCloseButton?: boolean
-  jsx?:
-    | React.ReactNode
-    | ((active?: boolean, attrs?: object) => React.ReactNode)
+  closeIcon?: boolean
+  jsx?: (active?: boolean, attrs?: object) => React.ReactNode
 }
 
 /**
@@ -25,16 +19,16 @@ interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 export const MenuButton = ({
   className,
   jsx,
-  header,
-  mobileMenu,
-  sideNav,
-  isCloseButton,
+  closeIcon,
   children,
   ...props
-}: MenuButtonProps): React.ReactNode => {
+}: MenuButtonProps) => {
+  const {
+    options: { sideNav, mobileMenu },
+  } = useLayout()
   const { menuActive, sideNavActive } = useMenu()
 
-  const conditionalAttributes = sideNav?.isPrimaryMobileNav
+  const conditionalAttributes = sideNav.isPrimaryMobileNav
     ? { 'aria-expanded': sideNavActive ? true : false, onClick: toggleSideMenu }
     : {
         'aria-expanded': menuActive ? true : false,
@@ -57,22 +51,21 @@ export const MenuButton = ({
     ...props,
   }
 
-  return typeof jsx === 'function' ? (
-    (jsx(
-      sideNav.isPrimaryMobileNav ? sideNavActive : menuActive,
-      attributes
-    ) as React.ReactNode)
+  return jsx ? (
+    <>
+      {jsx(sideNav.isPrimaryMobileNav ? sideNavActive : menuActive, attributes)}
+    </>
   ) : (
     <button {...attributes}>
-      {jsx || children || (
+      {children || (
         <svg
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
           className={cn([
             styles.btn_menu_icon,
-            isCloseButton ? 'close' : undefined,
+            closeIcon ? 'close' : undefined,
           ])}>
-          {isCloseButton ? (
+          {closeIcon ? (
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
           ) : (
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />

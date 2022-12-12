@@ -1,7 +1,10 @@
 header {
   z-index: 100;
+  height: var(--height-header);
 }
 .mkr_nav {
+  display: grid;
+  height: 100%;
   margin: 0 auto;
   max-width: var(--max-width-header);
   grid-template-rows: 1fr;
@@ -11,21 +14,21 @@ header {
   align-items: center;
 }
 .button-slot {
-  grid-area: 'button';
+  grid-area: button;
 }
 .menu-slot {
-  grid-area: 'menu';
+  grid-area: menu;
   display: none;
 }
 .menu-slot.split {
-  grid-area: 'menu-split';
+  grid-area: menu-split;
   justify-content: flex-end;
 }
 .logo-slot {
-  grid-area: 'logo';
+  grid-area: logo;
 }
 .widget-slot {
-  grid-area: 'widgets';
+  grid-area: widgets;
 }
 .menu-scroll .menu-slot {
   overflow-x: scroll;

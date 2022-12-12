@@ -79,7 +79,8 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
       : 'var(--width-side-nav)'
 
   const getTop = () => {
-    let top = hasHeader && options.header.sticky ? 'var(--height-header)' : 0
+    let top =
+      hasHeader && options.header.sticky ? 'var(--height-header)' : '0px'
     if (hasTopbar && options.topbar.sticky) {
       top += '+ var(--height-topbar)'
     }
@@ -109,7 +110,7 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
         ${ml('0')}
         ${mr('0')}
       }
-      .mkr_overlay.sidenav {
+      .mkr_overlay_s {
         display: block;
       }
       .mkr_sidenav_inner {
@@ -132,7 +133,7 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
           top: calc(${getTop()});
           height: calc(100vh - ${getTop()})
         }
-        .mkr_overlay.sidenav {
+        .mkr_overlay_s {
           display: none;
         }
       }
