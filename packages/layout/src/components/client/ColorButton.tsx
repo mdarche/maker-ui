@@ -39,7 +39,7 @@ export const ColorButton = ({ className, jsx, ...props }: ColorProps) => {
 
   const attributes = {
     title: 'Color Theme',
-    className: cn(['btn-color-mode', className]),
+    className: cn(['mkr_btn_color', className]),
     'aria-label': 'Toggle Color Mode',
     onClick: cycleMode,
     ...props,
@@ -48,8 +48,6 @@ export const ColorButton = ({ className, jsx, ...props }: ColorProps) => {
   if (themes?.length === 1) {
     return null
   }
-
-  /** If this is the header, make sure `showColorButton` is true */
 
   return typeof jsx === 'function' ? (
     (jsx(current, attributes) as React.ReactNode)

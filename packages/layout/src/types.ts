@@ -100,6 +100,7 @@ export interface SideNavOptions {
   toggleButton?: React.ReactNode
   collapse: boolean
   collapseButton?: React.ReactNode
+  cssTransition?: string
 }
 
 /**

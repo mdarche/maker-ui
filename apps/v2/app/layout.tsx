@@ -5,7 +5,10 @@ import '@maker-ui/layout/dist/index.css'
 import './_variables.css'
 import './_global.css'
 
-const options: MakerUIOptions = { colorThemes: ['light', 'dark', 'system'] }
+const options: MakerUIOptions = {
+  colorThemes: ['light', 'dark', 'system'],
+  type: 'content-sidenav',
+}
 
 export default function RootLayout({
   children,

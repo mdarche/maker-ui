@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import type { HeaderOptions } from '@/types'
-import styles from './Header.module.css'
 
 export interface HeaderProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -21,8 +20,8 @@ export interface HeaderProps
 }
 
 /** Special (edge) cases */
-const edge = ['minimal-left', 'minimal-center']
-const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
+export const edge = ['minimal-left', 'minimal-center']
+export const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
 
 /**
  * The `Header` component stores your site logo, primary menu, mobile menu,
@@ -62,7 +61,7 @@ export const Header = ({
       {...props}>
       <div
         className={cn([
-          styles.nav,
+          'mkr_nav',
           navType,
           `m-${mobileNavType}`,
           navType.includes('minimal') ? 'desktop-minimal' : undefined,
@@ -79,7 +78,10 @@ export const Header = ({
           {navType === 'split' ? menuSplitSlot : menuSlot}
         </div>
         <div className="nav-area widget-slot">
-          <div className="nav-widgets">{widgetSlot}</div>
+          <div className="nav-widgets">
+            <>{widgetSlot}</>
+            <>{menuButton}</>
+          </div>
         </div>
       </div>
       {_mobileMenu ?? null}

@@ -1,9 +1,10 @@
 header {
   z-index: 100;
 }
-.nav-grid {
+.mkr_nav {
   margin: 0 auto;
   max-width: var(--max-width-header);
+  grid-template-rows: 1fr;
 }
 .nav-area {
   display: flex;
@@ -14,6 +15,7 @@ header {
 }
 .menu-slot {
   grid-area: 'menu';
+  display: none;
 }
 .menu-slot.split {
   grid-area: 'menu-split';
@@ -31,6 +33,12 @@ header {
 }
 .desktop-visible {
   display: block;
+}
+.desktop-minimal .menu-slot {
+  display: none;
+}
+.mkr_nav:not(.desktop-minimal) .button-slot {
+  display: flex;
 }
 .mkr_nav.basic .menu-slot {
   justify-content: flex-end;
@@ -53,4 +61,19 @@ header {
 }
 .mkr_nav.minimal-center .button-slot {
   justify-content: flex-start;
+}
+/* Multiple menu button layouts */
+.mkr_nav.split .widget-slot,
+.mkr_nav.center .widget-slot {
+  position: relative;
+}
+.mkr_nav.minimal-left.m-basic .button-slot {
+  display: none;
+}
+.mkr_nav.minimal.m-logo-center-alt .button-slot,
+.mkr_nav.minimal.m-basic-menu-left .button-slot {
+  display: flex;
+}
+.mkr_nav.m-logo-center-alt .button-slot {
+  justify-content: flex-end;
 }

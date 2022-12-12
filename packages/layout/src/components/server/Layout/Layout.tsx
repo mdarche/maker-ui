@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { merge } from '@maker-ui/utils'
+import { cn, merge } from '@maker-ui/utils'
 import { MobileMenu } from '../MobileMenu'
 import { Footer } from '../Footer'
 import { Topbar } from '../Topbar'
@@ -10,7 +10,6 @@ import { Skiplinks } from '../Skiplinks'
 import { Header } from '../Header'
 import { defaults } from '@/defaults'
 import type { MakerUIOptions, Options } from '@/types'
-import styles from './Layout.module.css'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -56,7 +55,12 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
           ) : null
         }
       />
-      <div className={styles.layout}>
+      <div
+        className={cn([
+          'mkr_layout',
+          opts.type,
+          isSideNav ? 'sidenav' : isSidebar ? 'sidebar' : undefined,
+        ])}>
         <>
           {isLeft ? (
             <>

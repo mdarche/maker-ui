@@ -4,6 +4,7 @@ import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import type { HeaderOptions, MobileMenuOptions, SideNavOptions } from '@/types'
 import styles from './MenuButton.module.css'
+import { useMenu } from '../Provider'
 
 interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   header: HeaderOptions
@@ -28,15 +29,15 @@ export const MenuButton = ({
   mobileMenu,
   sideNav,
   isCloseButton,
+  children,
   ...props
 }: MenuButtonProps): React.ReactNode => {
-  const [mobileActive, setMobileActive] = React.useState(false)
-  const [sideActive, setSideActive] = React.useState(false)
+  const { menuActive, sideNavActive } = useMenu()
 
   const conditionalAttributes = sideNav?.isPrimaryMobileNav
-    ? { 'aria-expanded': sideActive ? true : false, onClick: toggleSideMenu }
+    ? { 'aria-expanded': sideNavActive ? true : false, onClick: toggleSideMenu }
     : {
-        'aria-expanded': mobileActive ? true : false,
+        'aria-expanded': menuActive ? true : false,
         onClick: toggleMobileMenu,
       }
 
@@ -58,12 +59,12 @@ export const MenuButton = ({
 
   return typeof jsx === 'function' ? (
     (jsx(
-      sideNav.isPrimaryMobileNav ? sideActive : mobileActive,
+      sideNav.isPrimaryMobileNav ? sideNavActive : menuActive,
       attributes
     ) as React.ReactNode)
   ) : (
     <button {...attributes}>
-      {jsx || (
+      {jsx || children || (
         <svg
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

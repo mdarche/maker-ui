@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import * as React from 'react'
 import { useScrollPosition } from '@maker-ui/utils'
 
 import type { Options } from '@/types'
@@ -7,18 +7,13 @@ interface EffectsProps {
   options: Options
 }
 
-/**
- * TODO - add the necessary classes to the DOM w/ useEffect
- * -- Mobile Overlay
- */
-
 export const Effects = ({
   options: {
     header: { stickyUpScroll, scrollClass: sc },
   },
 }: EffectsProps) => {
-  const [scrollClass, setScrollClass] = useState('')
-  const [show, setShow] = useState(true)
+  const [scrollClass, setScrollClass] = React.useState('')
+  const [show, setShow] = React.useState(true)
   const activateScrollClass = !!sc
 
   React.useEffect(() => {
@@ -28,7 +23,7 @@ export const Effects = ({
     // Sidenav and mobile overlay click events
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const header = document.querySelector('.mkr_header')
     if (header) {
       if (scrollClass.length) {
@@ -39,7 +34,7 @@ export const Effects = ({
     }
   }, [scrollClass])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const header = document.querySelector('.mkr_header')
     if (header) {
       if (!!stickyUpScroll && show) {

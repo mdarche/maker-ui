@@ -3,6 +3,8 @@
 import * as React from 'react'
 import { merge } from '@maker-ui/utils'
 import { Effects } from './Effects'
+import { getHeaderStyles } from '../server/Header/get-header-styles'
+import { getLayoutStyles } from '../server/Layout/get-layout-styles'
 import type { MakerUIOptions, Options } from '@/types'
 import { defaults } from '@/defaults'
 
@@ -129,8 +131,20 @@ export const Provider = (props: LayoutProviderProps) => {
    * NEXT.JS LAYOUT API SUPPORTS <style> TAGS
    */
   React.useEffect(() => {
-    // Add option based styles to document head
-    // Add initial media query styles to document head
+    const exists = document.getElementById('mkr_responsive')
+    if (exists) return
+
+    const style = document.createElement('style')
+    let css = ''
+    css += getHeaderStyles(options)
+    css += getLayoutStyles(options, props.children)
+    console.log('Layout styles are', getLayoutStyles(options, props.children))
+
+    style.textContent = css
+    style.id = 'mkr_responsive'
+
+    document.head.appendChild(style)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

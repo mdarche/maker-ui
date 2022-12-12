@@ -4,7 +4,6 @@ import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { useRouter } from 'next/router'
 import { MenuItem, type MenuItemProps } from '../MenuItem'
-import styles from './NavMenu.module.css'
 
 interface NavMenuProps {
   transition?: 'scale' | 'fade' | 'fade-down' | 'fade-up' | 'none'
@@ -27,8 +26,13 @@ export const NavMenu = ({
   const { asPath } = useRouter()
 
   return (
-    <nav className={styles.nav} role="navigation">
-      <ul className={cn(['menu-primary header-nav', `dropdown-${transition}`])}>
+    <nav className="mkr_nav" role="navigation">
+      <ul
+        className={cn([
+          'menu-primary header-nav',
+          `dropdown-${transition}`,
+          transition.includes('fade') ? 'dd-fade' : undefined,
+        ])}>
         {menuItems.map((item, index) => (
           <MenuItem
             key={index}
