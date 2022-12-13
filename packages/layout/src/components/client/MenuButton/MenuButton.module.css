@@ -3,6 +3,7 @@
   margin: 0;
   border: none;
   background: none;
+  cursor: pointer;
 
   svg {
     display: flex;

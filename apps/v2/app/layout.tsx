@@ -15,18 +15,30 @@ import Link from 'next/link'
 
 const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
-  type: 'sidenav-content',
+  type: 'content',
+  topbar: {
+    sticky: true,
+    stickyOnMobile: false,
+    hideOnMobile: false,
+  },
   header: {
     navType: 'basic',
+    mobileNavType: 'logo-center',
+    sticky: true,
+    stickyOnMobile: true,
   },
   mobileMenu: {
-    visibleOnDesktop: true,
+    transition: 'slide-left',
+    visibleOnDesktop: false,
   },
 }
 
 const menu = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
+  { label: 'Services', path: '/about' },
+  { label: 'News', path: '/about' },
+  { label: 'Contact', path: '/about' },
 ]
 
 export default function RootLayout({
@@ -46,7 +58,7 @@ export default function RootLayout({
               widgetSlot={<ColorButton />}
               menuButton={<MenuButton />}
             />
-            <Layout.MobileMenu closeButton={<MenuButton />}>
+            <Layout.MobileMenu closeButton={<MenuButton closeIcon />}>
               <CollapseMenu items={menu} />
             </Layout.MobileMenu>
             <Layout.Main>{children}</Layout.Main>
@@ -54,7 +66,7 @@ export default function RootLayout({
             <Layout.SideNav>
               <CollapseMenu items={menu} />
             </Layout.SideNav>
-            <Layout.Footer>Footer stuff</Layout.Footer>
+            {/* <Layout.Footer>Footer stuff</Layout.Footer> */}
           </Layout>
         </Provider>
       </body>

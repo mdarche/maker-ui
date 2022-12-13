@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import type { MobileMenuOptions } from '@/types'
-import styles from './MobileMenu.module.css'
 
 export interface MobileMenuProps
   extends Partial<MobileMenuOptions>,
@@ -21,6 +20,8 @@ export const MobileMenu = ({
   className,
   closeButton,
   closeButtonPosition = 'top-right',
+  closeOnRouteChange,
+  visibleOnDesktop,
   closeOnBlur,
   center,
   transition = 'fade',
@@ -28,7 +29,6 @@ export const MobileMenu = ({
   _type,
   ...props
 }: MobileMenuProps) => {
-  const positions = closeButtonPosition.split('-')
   return (
     <>
       {closeOnBlur && !fullWidth.includes(transition) ? (
@@ -39,22 +39,17 @@ export const MobileMenu = ({
       ) : null}
       <div
         className={cn([
-          styles.mobile_menu,
+          'mkr_mobile_menu',
           center ? 'center' : undefined,
-          fullWidth.includes(transition) ? 'full-width' : undefined,
+          fullWidth.includes(transition) ? 'width-100' : undefined,
+          transition.includes('fade') ? 't-fade' : undefined,
           transition,
           className,
         ])}
         {...props}>
-        <div className="container">
-          <>
-            {closeButton ? (
-              <div className={cn([styles.close_button, ...positions])}>
-                {closeButton}
-              </div>
-            ) : null}
-          </>
-          {children ?? null}
+        <div className="container height-100 width-100">
+          <>{closeButton}</>
+          <>{children}</>
         </div>
       </div>
     </>

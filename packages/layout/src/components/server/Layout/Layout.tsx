@@ -51,7 +51,7 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
         {...merge(opts.header, slots?.header?.props)}
         _mobileMenu={
           slots?.mobileMenu ? (
-            <MobileMenu {...slots?.mobileMenu?.props} />
+            <MobileMenu {...merge(opts.mobileMenu, slots?.mobileMenu?.props)} />
           ) : null
         }
       />

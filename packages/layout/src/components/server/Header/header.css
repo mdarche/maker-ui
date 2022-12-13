@@ -1,13 +1,17 @@
-header {
+.mkr_header {
   z-index: 100;
   height: var(--height-header);
+  background: var(--color-bg-header);
+}
+.mkr_header.d-sticky,
+.mkr_header.m-sticky {
+  position: sticky;
 }
 .mkr_nav {
   display: grid;
   height: 100%;
   margin: 0 auto;
   max-width: var(--max-width-header);
-  grid-template-rows: 1fr;
 }
 .nav-area {
   display: flex;
@@ -18,11 +22,6 @@ header {
 }
 .menu-slot {
   grid-area: menu;
-  display: none;
-}
-.menu-slot.split {
-  grid-area: menu-split;
-  justify-content: flex-end;
 }
 .logo-slot {
   grid-area: logo;
@@ -30,18 +29,9 @@ header {
 .widget-slot {
   grid-area: widgets;
 }
-.menu-scroll .menu-slot {
-  overflow-x: scroll;
-  white-space: nowrap;
-}
-.desktop-visible {
-  display: block;
-}
-.desktop-minimal .menu-slot {
-  display: none;
-}
-.mkr_nav:not(.desktop-minimal) .button-slot {
-  display: flex;
+.menu-slot.split {
+  grid-area: menu-split;
+  justify-content: flex-end;
 }
 .mkr_nav.basic .menu-slot {
   justify-content: flex-end;
@@ -62,10 +52,10 @@ header {
   right: 0;
   height: 100%;
 }
+/* Multiple menu button layouts */
 .mkr_nav.minimal-center .button-slot {
   justify-content: flex-start;
 }
-/* Multiple menu button layouts */
 .mkr_nav.split .widget-slot,
 .mkr_nav.center .widget-slot {
   position: relative;

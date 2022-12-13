@@ -2,7 +2,7 @@
   height: var(--height-topbar);
   background: var(--color-bg-topbar, #fff);
   top: 0px;
-  z-index: 101;
+  z-index: 100;
   display: block;
   position: relative;
 

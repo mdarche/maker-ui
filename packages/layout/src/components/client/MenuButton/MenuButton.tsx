@@ -19,14 +19,15 @@ interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 export const MenuButton = ({
   className,
   jsx,
-  closeIcon,
+  closeIcon = false,
   children,
   ...props
 }: MenuButtonProps) => {
   const {
     options: { sideNav, mobileMenu },
   } = useLayout()
-  const { menuActive, sideNavActive } = useMenu()
+  const { menuActive, sideNavActive, setMenu } = useMenu()
+  const positions = mobileMenu?.closeButtonPosition?.split('-')
 
   const conditionalAttributes = sideNav.isPrimaryMobileNav
     ? { 'aria-expanded': sideNavActive ? true : false, onClick: toggleSideMenu }
@@ -35,7 +36,15 @@ export const MenuButton = ({
         onClick: toggleMobileMenu,
       }
 
-  function toggleMobileMenu() {}
+  function toggleMobileMenu() {
+    const menu = document.querySelector('.mkr_mobile_menu')
+    if (menuActive) {
+      menu?.classList.remove('active')
+    } else {
+      menu?.classList.add('active')
+    }
+    setMenu('menu', !menuActive)
+  }
 
   function toggleSideMenu() {}
 
@@ -43,8 +52,9 @@ export const MenuButton = ({
     title: 'Menu',
     className: cn([
       styles.btn_menu,
+      closeIcon ? 'mkr_btn_close fixed' : undefined,
+      ...(positions || []),
       className,
-      mobileMenu?.visibleOnDesktop ? 'desktop-visible' : undefined,
     ]),
     'aria-label': 'Toggle Menu',
     ...conditionalAttributes,

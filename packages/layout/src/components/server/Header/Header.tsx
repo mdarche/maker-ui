@@ -19,9 +19,9 @@ export interface HeaderProps
   _type: 'header'
 }
 
-/** Special (edge) cases */
-export const edge = ['minimal-left', 'minimal-center']
-export const mobileEdge = ['basic-menu-left', 'logo-center', 'logo-center-alt']
+export function stickyClass(d?: boolean, m?: boolean) {
+  return d && m ? 'sticky' : d ? 'd-sticky' : m ? 'm-sticky' : undefined
+}
 
 /**
  * The `Header` component stores your site logo, primary menu, mobile menu,
@@ -45,31 +45,23 @@ export const Header = ({
   menuButton,
   breakpoint,
   _mobileMenu,
-  _type,
+  _type = 'header',
   children,
   ...props
 }: HeaderProps) => {
   return (
     <header
       className={cn([
-        sticky ? 'sticky' : undefined,
-        stickyOnMobile ? 'sticky-mobile' : undefined,
+        'mkr_header',
+        stickyClass(sticky, stickyOnMobile),
         absolute ? 'width-100' : undefined,
         className,
       ])}
       role="banner"
       {...props}>
       <div
-        className={cn([
-          'mkr_nav',
-          navType,
-          `m-${mobileNavType}`,
-          navType.includes('minimal') ? 'desktop-minimal' : undefined,
-          className,
-        ])}>
-        {edge.includes(navType) || mobileEdge.includes(mobileNavType) ? (
-          <div className="nav-area button-slot">{menuButton}</div>
-        ) : null}
+        className={cn(['mkr_nav', navType, `m-${mobileNavType}`, className])}>
+        <div className="nav-area button-slot">{menuButton}</div>
         {navType === 'split' ? (
           <div className="nav-area menu-slot split">{menuSlot}</div>
         ) : null}
@@ -77,10 +69,7 @@ export const Header = ({
         <div className="nav-area menu-slot">
           {navType === 'split' ? menuSplitSlot : menuSlot}
         </div>
-        <div className="nav-area widget-slot">
-          <>{widgetSlot}</>
-          <>{menuButton}</>
-        </div>
+        <div className="nav-area widget-slot">{widgetSlot}</div>
       </div>
       {_mobileMenu ?? null}
     </header>

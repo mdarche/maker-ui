@@ -1,43 +1,43 @@
+import * as React from 'react'
 import type { Options } from '@/types'
-import { mobileEdge } from './Header'
 
 /**
  * Grid & flex justification styles for desktop
  */
 const desktop = {
   basic: {
-    areas: '"logo menu widgets"',
-    columns: 'auto 1fr auto',
+    areas: '"logo menu widgets button"',
+    columns: 'auto 1fr auto auto',
     widgetArea: 'flex-start',
   },
   'basic-left': {
-    areas: '"logo menu widgets"',
-    columns: 'auto 1fr auto',
+    areas: '"logo menu widgets button"',
+    columns: 'auto 1fr auto auto',
     widgetArea: 'flex-start',
   },
   'basic-center': {
-    areas: '"logo menu widgets"',
-    columns: 'auto 1fr auto',
+    areas: '"logo menu widgets button"',
+    columns: 'auto 1fr auto auto',
     widgetArea: 'flex-start',
   },
   center: {
-    areas: '"logo logo" "menu widgets"',
+    areas: `"logo" "menu"`,
     columns: '1fr',
     widgetArea: 'flex-start',
   },
   split: {
-    areas: '"menu-split logo menu widgets"',
-    columns: '1fr auto 1fr',
+    areas: '"menu-split logo menu widgets button"',
+    columns: '1fr auto 1fr auto',
     widgetArea: 'flex-start',
   },
   reverse: {
-    areas: '"menu logo widgets"',
-    columns: '1fr auto 1fr',
+    areas: '"menu logo widgets button"',
+    columns: '1fr auto 1fr auto',
     widgetArea: 'flex-end',
   },
   minimal: {
-    areas: '"logo widgets"',
-    columns: 'auto 1fr',
+    areas: '"logo widgets button"',
+    columns: 'auto 1fr auto',
     widgetArea: 'flex-end',
   },
   'minimal-left': {
@@ -57,8 +57,8 @@ const desktop = {
  */
 const mobile = {
   basic: {
-    areas: '"logo widgets"',
-    columns: 'auto 1fr',
+    areas: '"logo widgets button"',
+    columns: 'auto 1fr auto',
     widgetArea: 'flex-end',
   },
   'basic-menu-left': {
@@ -81,14 +81,47 @@ const mobile = {
 /**
  * Determine grid-template-area, grid-template-columns, and positioning
  */
-export function getHeaderStyles(options: Options) {
+export function getHeaderStyles(options: Options, children: React.ReactNode) {
   // Helpers
+  let hasTopbar = false
   const layout = options.header.navType
   const mobileLayout = options.header.mobileNavType
   const bp = options.header.breakpoint
   const breakpoint = typeof bp === 'number' ? `${bp}px` : bp
 
+  React.Children.toArray(children).forEach((child: any) => {
+    // TODO - replace className w/ search when this is moved to the server
+    const type = child.props?.className
+    if (type?.includes('mkr_topbar')) {
+      hasTopbar = true
+    }
+  })
+
   return `
+    .mkr_header.d-sticky, .mkr_topbar.d-sticky {
+      position: relative;
+    }
+    .mkr_topbar.sticky, .mkr_topbar.m-sticky, .mkr_topbar.d-sticky {
+      position: sticky;
+      top: 0px;
+    }
+    .mkr_header.sticky,
+    .mkr_header.m-sticky {
+      position: sticky;
+      top: ${
+        hasTopbar &&
+        options.topbar.stickyOnMobile &&
+        !options.topbar.hideOnMobile
+          ? 'var(--height-topbar)'
+          : '0px'
+      };
+    }
+    .mkr_nav .menu-slot {
+      display: none;
+    }
+    .mkr_nav .button-slot {
+      display: flex;
+    }
     .mkr_nav {
       grid-template-areas: ${mobile[mobileLayout].areas};
       grid-template-columns: ${mobile[mobileLayout].columns};
@@ -96,31 +129,38 @@ export function getHeaderStyles(options: Options) {
     .mkr_nav .widget-slot {
       justify-content: ${mobile[mobileLayout].widgetArea};
     }
-    .widget-slot .mkr_btn_menu {
-      display: ${mobileEdge.includes(mobileLayout) ? 'none' : 'block'};
-    }
     @media screen and (min-width: ${breakpoint}) {
+      .mkr_header.sticky {
+        top: ${
+          hasTopbar && options.topbar.sticky ? 'var(--height-topbar)' : '0px'
+        };
+      }
+      .mkr_header.m-sticky, .mkr_topbar.m-sticky {
+        position: relative;
+      }
+      .mkr_header.d-sticky {
+        top: ${
+          hasTopbar && options.topbar.sticky ? 'var(--height-topbar)' : '0px'
+        };
+      }
       .mkr_topbar.m-hide {
         display: block;
       }
       .mkr_nav { 
         grid-template-areas: ${desktop[layout].areas};
         grid-template-columns: ${desktop[layout].columns};
-        grid-template-rows: ${layout !== 'center' ? '1fr' : 'repeat(2, 1fr)'};
+        grid-template-rows: ${layout !== 'center' ? '1fr' : '1fr 1fr'};
       }
       .mkr_nav .widget-slot {
         justify-content: ${desktop[layout].widgetArea};
       }
-      .menu-slot {
-        display: flex;
+      .mkr_nav .menu-slot {
+        display: ${layout.includes('minimal') ? 'none' : 'flex'};
       }
-      .mkr_nav:not(.desktop-minimal) .button-slot {
-        display: none;
-      }
-      .mkr_nav .mkr_btn_menu {
+      .mkr_nav .button-slot {
         display: ${
-          layout === 'minimal' || options.mobileMenu.visibleOnDesktop
-            ? 'block'
+          layout.includes('minimal') || options.mobileMenu.visibleOnDesktop
+            ? 'flex'
             : 'none'
         };
       }

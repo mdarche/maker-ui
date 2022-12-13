@@ -12,11 +12,11 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
   const breakpoint = typeof bp === 'number' ? `${bp}px` : bp
 
   React.Children.toArray(children).forEach((child: any) => {
-    const type = child.props?._type
-    if (type === 'header') {
+    const type = child.props?.className
+    if (type?.includes('mkr_header')) {
       hasHeader = true
     }
-    if (type === 'topbar') {
+    if (type?.includes('mkr_topbar')) {
       hasTopbar = true
     }
   })
@@ -78,11 +78,12 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
       ? 'calc(-1 * var(--width-side-nav))'
       : 'var(--width-side-nav)'
 
-  const getTop = () => {
+  const getTop = (height = false) => {
+    console.log('has header is', hasHeader)
     let top =
       hasHeader && options.header.sticky ? 'var(--height-header)' : '0px'
     if (hasTopbar && options.topbar.sticky) {
-      top += '+ var(--height-topbar)'
+      top += `${height ? ' -' : ' +'} var(--height-topbar)`
     }
     return top
   }
@@ -100,7 +101,7 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
     styles = `
       .mkr_sidenav {
         position: fixed;
-        z-index: 0;
+        z-index: 101;
         ${transition}
       }
       .mkr_sidenav.hide-sidenav {
@@ -120,7 +121,7 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
       @media screen and (min-width: ${breakpoint}) {
         .mkr_sidenav {
           position: relative;
-          z-index: 101;
+          z-index: 0;
         }
         .mkr_sidenav.hide-sidenav {
           transform: none;
@@ -131,7 +132,7 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
         }
         .mkr_sidenav_inner {
           top: calc(${getTop()});
-          height: calc(100vh - ${getTop()})
+          height: calc(100vh - ${getTop(true)});
         }
         .mkr_overlay_s {
           display: none;

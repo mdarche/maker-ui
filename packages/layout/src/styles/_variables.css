@@ -1,3 +1,5 @@
+/* Include a variables file like this in the root of your Next.js project */
+
 :root {
   --height-topbar: 50px;
   --height-header: 70px;
@@ -20,41 +22,23 @@
 
 body[data-theme='dark'] {
   /* Required */
+  --color-text: #fff;
+  --color-background: #000;
   --color-bg-header: #000;
   --color-bg-side-nav: #000;
   --color-bg-topbar: #000;
   --color-bg-mobile-menu: #000;
   --color-bg-footer: #000;
-  --color-logo: #fff;
-  --color-text: #fff;
-  --color-background: #000;
-  /* Project specific */
-  --color-gray_100: #111;
-  --color-gray_200: #1f1f1f;
-  --color-gray_300: #616161;
-  --color-gray_400: #7a7a7a;
-  --color-gray_500: #adadad;
-  --color-border_100: #2a2a2a;
-  --color-border_200: #818181;
-  --color-shadow: 1px 3px 5px rgba(122, 115, 144, 0.06);
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
 }
 
 body[data-theme='light'] {
   /* Required */
+  --color-text: #000;
+  --color-background: #fff;
   --color-bg-header: #fff;
   --color-bg-side-nav: #fbfbfb;
   --color-bg-topbar: #d2d2d2;
   --color-bg-mobile-menu: #fff;
-  --color-logo: #000;
-  --color-text: #000;
-  --color-background: #fff;
-  /* Project specific */
-  --color-gray_100: #fafafa;
-  --color-gray_200: #ebebeb;
-  --color-gray_300: #c4c4c4;
-  --color-gray_400: #979797;
-  --color-gray_500: #6f6f6f;
-  --color-border_100: #e5e9ea;
-  --color-border_200: #a2a2a2;
-  --color-shadow: 1px 3px 5px rgba(122, 115, 144, 0.06);
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
 }

@@ -137,8 +137,10 @@ export const Provider = (props: LayoutProviderProps) => {
 
     const style = document.createElement('style')
     let css = ''
-    css += getHeaderStyles(options)
+    css += getHeaderStyles(options, props.children)
     css += getLayoutStyles(options, props.children)
+
+    console.log('css is', css)
 
     style.textContent = css
     style.id = 'mkr_responsive'
