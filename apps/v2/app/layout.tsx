@@ -22,14 +22,15 @@ const options: MakerUIOptions = {
     hideOnMobile: false,
   },
   header: {
-    navType: 'basic',
+    navType: 'minimal',
     mobileNavType: 'logo-center',
-    sticky: true,
+    sticky: false,
     stickyOnMobile: true,
   },
   mobileMenu: {
     transition: 'slide-left',
     visibleOnDesktop: false,
+    closeOnBlur: true,
   },
 }
 

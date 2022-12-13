@@ -9,15 +9,17 @@ import type { MakerUIOptions, Options } from '@/types'
 import { defaults } from '@/defaults'
 
 type Action =
-  | { type: 'SET_MENU' }
+  | { type: 'SET_MENU'; value?: boolean }
   | { type: 'SET_SIDENAV' }
   | { type: 'SET_SIDENAV_COLLAPSE' }
   | { type: 'SET_COLOR_THEME'; value: string }
 
 interface LayoutState {
-  sideNavActive: boolean
-  menuActive: boolean
-  sideNavCollapse: boolean
+  active: {
+    menu: boolean
+    sideNav: boolean
+    sideNavCollapse: boolean
+  }
   colorTheme?: string
   options?: Options
 }
@@ -72,13 +74,15 @@ function setBrowserTheme(
 function reducer(state: LayoutState, action: Action): LayoutState {
   switch (action.type) {
     case 'SET_MENU': {
-      return { ...state, menuActive: !state.menuActive }
+      return merge(state, { active: { menu: !state.active.menu } })
     }
     case 'SET_SIDENAV': {
-      return { ...state, sideNavActive: !state.sideNavActive }
+      return merge(state, { active: { sideNav: !state.active.sideNav } })
     }
     case 'SET_SIDENAV_COLLAPSE': {
-      return { ...state, sideNavCollapse: !state.sideNavCollapse }
+      return merge(state, {
+        active: { sideNavCollapse: !state.active.sideNavCollapse },
+      })
     }
     case 'SET_COLOR_THEME': {
       return { ...state, colorTheme: action.value }
@@ -93,9 +97,11 @@ export const Provider = (props: LayoutProviderProps) => {
   const [initialized, setInitialized] = React.useState(false)
   const options = merge(defaults, props.options || {}) as Options
   const [state, dispatch] = React.useReducer(reducer, {
-    sideNavActive: false,
-    menuActive: false,
-    sideNavCollapse: false,
+    active: {
+      menu: false,
+      sideNav: false,
+      sideNavCollapse: false,
+    },
     options,
   })
 
@@ -140,8 +146,6 @@ export const Provider = (props: LayoutProviderProps) => {
     css += getHeaderStyles(options, props.children)
     css += getLayoutStyles(options, props.children)
 
-    console.log('css is', css)
-
     style.textContent = css
     style.id = 'mkr_responsive'
 
@@ -158,7 +162,7 @@ export const Provider = (props: LayoutProviderProps) => {
   return (
     <LayoutContext.Provider value={{ state, dispatch }}>
       <Effects options={options} />
-      {initialized ? props.children : null}
+      {props.children}
     </LayoutContext.Provider>
   )
 }
@@ -173,21 +177,48 @@ export const useLayout = () => {
 
 export const useMenu = () => {
   const {
-    state: { options, menuActive, sideNavActive, sideNavCollapse },
+    state: { options, active },
     dispatch,
   } = React.useContext(LayoutContext)
 
-  function setMenu(type: 'menu' | 'sidenav' | 'collapse', value?: boolean) {
-    if (type === 'menu') {
-      // If sidenav is main menu, handle appropriately-- check options
+  function setMenu(type: 'menu' | 'sidenav' | 'collapse', value: boolean) {
+    // Find elements in DOM to manipulate
+    const menu = document.querySelector('.mkr_mobile_menu')
+    const sidenav = document.querySelector('.mkr_sidenav')
+    const overlay_m = document.querySelector('.mkr_overlay_m')
+    const overlay_s = document.querySelector('.mkr_overlay_s')
+
+    const handleMobileMenu = () => {
+      if (value) {
+        menu?.classList.add('active')
+        overlay_m?.classList.add('active')
+      } else {
+        menu?.classList.remove('active')
+        overlay_m?.classList.remove('active')
+      }
+    }
+
+    const handleSideNav = () => {}
+    /** Handle mobile menu */
+    if (type === 'menu' && !options?.sideNav.isPrimaryMobileNav) {
+      handleMobileMenu()
       dispatch({ type: 'SET_MENU' })
-    } else if (type === 'collapse') {
+    }
+    /** Handle sidenav and mobile menu when sidenav is primary */
+    if (
+      (type === 'menu' && options?.sideNav.isPrimaryMobileNav) ||
+      type === 'sidenav'
+    ) {
+      handleSideNav()
+      dispatch({ type: 'SET_SIDENAV' })
+    }
+
+    if (type === 'collapse') {
       dispatch({ type: 'SET_SIDENAV_COLLAPSE' })
-    } else {
     }
   }
 
-  return { menuActive, sideNavActive, sideNavCollapse, setMenu }
+  return { active, setMenu }
 }
 
 export function useColorTheme() {

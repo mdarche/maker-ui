@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useScrollPosition } from '@maker-ui/utils'
 
 import type { Options } from '@/types'
+import { useMenu } from './Provider'
 
 interface EffectsProps {
   options: Options
@@ -10,8 +11,11 @@ interface EffectsProps {
 export const Effects = ({
   options: {
     header: { stickyUpScroll, scrollClass: sc },
+    mobileMenu,
+    sideNav,
   },
 }: EffectsProps) => {
+  const { active, setMenu } = useMenu()
   const [scrollClass, setScrollClass] = React.useState('')
   const [show, setShow] = React.useState(true)
   const activateScrollClass = !!sc
@@ -20,20 +24,54 @@ export const Effects = ({
     // Any other event listeners that should be added to the window object
     // - Sidenav close on route change
     // - Mobile menu close on route change
-    // - Sidenav and mobile overlay click events
     // - Sidenav collapse on resize
   }, [])
 
+  /**
+   * Handle mobile menu overlay clicks
+   */
   React.useEffect(() => {
-    const header = document.querySelector('.mkr_header')
-    if (header) {
-      if (scrollClass.length) {
-        header.classList.add('sticky')
-      } else {
-        header.classList.remove('sticky')
-      }
+    const o = document.querySelector('.mkr_overlay_m')
+    if (!o) return
+    if (!mobileMenu.closeOnBlur) return
+    const click = (e: any) => {
+      e.preventDefault()
+      setMenu('menu', false)
     }
-  }, [scrollClass])
+    o.addEventListener('click', click)
+    return () => o.removeEventListener('click', click)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  /**
+   * Handle sidenav overlay clicks
+   */
+  React.useEffect(() => {
+    const o = document.querySelector('.mkr_overlay_s')
+    if (!o) return
+    if (!sideNav.closeOnBlur) return
+    const click = (e: any) => {
+      e.preventDefault()
+      setMenu('sidenav', false)
+    }
+    o.addEventListener('click', click)
+    return () => o.removeEventListener('click', click)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  /**
+   * Handle disappearing header on up scroll
+   */
+  // React.useEffect(() => {
+  //   const header = document.querySelector('.mkr_header')
+  //   if (header) {
+  //     if (scrollClass.length) {
+  //       header.classList.add('sticky')
+  //     } else {
+  //       header.classList.remove('sticky')
+  //     }
+  //   }
+  // }, [scrollClass])
 
   React.useEffect(() => {
     const header = document.querySelector('.mkr_header')

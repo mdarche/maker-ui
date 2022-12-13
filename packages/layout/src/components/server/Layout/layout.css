@@ -48,8 +48,9 @@
 }
 
 .mkr_overlay {
-  background: var(--bg-overlay, rgba(0, 0, 0, 0.15));
+  background: var(--color-bg-overlay);
   z-index: 100;
+  cursor: pointer;
   will-change: opacity;
   transition: all ease 0.4s;
   visibility: hidden;

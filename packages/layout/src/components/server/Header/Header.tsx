@@ -19,7 +19,7 @@ export interface HeaderProps
   _type: 'header'
 }
 
-export function stickyClass(d?: boolean, m?: boolean) {
+function stickyClass(d?: boolean, m?: boolean) {
   return d && m ? 'sticky' : d ? 'd-sticky' : m ? 'm-sticky' : undefined
 }
 

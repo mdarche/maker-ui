@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "app-build": "next build",
-    "app-start": "next start"
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@maker-ui/accordion": "workspace:*",

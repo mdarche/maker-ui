@@ -101,9 +101,8 @@ export function getHeaderStyles(options: Options, children: React.ReactNode) {
     .mkr_header.d-sticky, .mkr_topbar.d-sticky {
       position: relative;
     }
-    .mkr_topbar.sticky, .mkr_topbar.m-sticky, .mkr_topbar.d-sticky {
+    .mkr_topbar.sticky, .mkr_topbar.m-sticky {
       position: sticky;
-      top: 0px;
     }
     .mkr_header.sticky,
     .mkr_header.m-sticky {
@@ -138,7 +137,11 @@ export function getHeaderStyles(options: Options, children: React.ReactNode) {
       .mkr_header.m-sticky, .mkr_topbar.m-sticky {
         position: relative;
       }
+      .mkr_topbar.d-sticky {
+        position: sticky;
+      }
       .mkr_header.d-sticky {
+        position: sticky;
         top: ${
           hasTopbar && options.topbar.sticky ? 'var(--height-topbar)' : '0px'
         };

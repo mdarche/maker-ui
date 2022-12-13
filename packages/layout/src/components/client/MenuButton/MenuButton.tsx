@@ -26,24 +26,21 @@ export const MenuButton = ({
   const {
     options: { sideNav, mobileMenu },
   } = useLayout()
-  const { menuActive, sideNavActive, setMenu } = useMenu()
+  const { active, setMenu } = useMenu()
   const positions = mobileMenu?.closeButtonPosition?.split('-')
 
   const conditionalAttributes = sideNav.isPrimaryMobileNav
-    ? { 'aria-expanded': sideNavActive ? true : false, onClick: toggleSideMenu }
+    ? {
+        'aria-expanded': active?.sideNav ? true : false,
+        onClick: toggleSideMenu,
+      }
     : {
-        'aria-expanded': menuActive ? true : false,
+        'aria-expanded': active?.menu ? true : false,
         onClick: toggleMobileMenu,
       }
 
   function toggleMobileMenu() {
-    const menu = document.querySelector('.mkr_mobile_menu')
-    if (menuActive) {
-      menu?.classList.remove('active')
-    } else {
-      menu?.classList.add('active')
-    }
-    setMenu('menu', !menuActive)
+    setMenu('menu', !active?.menu)
   }
 
   function toggleSideMenu() {}
@@ -63,7 +60,10 @@ export const MenuButton = ({
 
   return jsx ? (
     <>
-      {jsx(sideNav.isPrimaryMobileNav ? sideNavActive : menuActive, attributes)}
+      {jsx(
+        sideNav.isPrimaryMobileNav ? active?.sideNav : active?.menu,
+        attributes
+      )}
     </>
   ) : (
     <button {...attributes}>
