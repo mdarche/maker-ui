@@ -26,10 +26,10 @@ export const NavMenu = ({
   const pathname = usePathname()
 
   return (
-    <nav className="mkr_nav_menu" role="navigation">
+    <nav className="mkui_nav_menu" role="navigation">
       <ul
         className={cn([
-          'menu-primary header-nav',
+          'menu-primary nav-header',
           `dropdown-${transition}`,
           transition.includes('fade') ? 'dd-fade' : undefined,
         ])}>

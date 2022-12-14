@@ -41,7 +41,7 @@ export const ColorButton = ({
 
   const attributes = {
     title: 'Color Theme',
-    className: cn(['mkr_btn_color', className]),
+    className: cn(['mkui_btn_color', className]),
     'aria-label': 'Toggle Color Mode',
     onClick: cycleMode,
     ...props,

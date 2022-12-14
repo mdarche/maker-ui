@@ -15,22 +15,22 @@ function getStyles(
   const sidebarOrder =
     layout === 'sidebar-content'
       ? `
-          .mkr_sidebar { 
+          .mkui_sidebar { 
             grid-row: 2;
           }
           @media screen and (min-width: ${breakpoint}) {
-            .mkr_sidebar { 
+            .mkui_sidebar { 
               grid-row: auto;
             }
           }
           `
       : layout === 'sidebar-content-sidebar'
       ? `
-          .mkr_sidebar:first-of-type { 
+          .mkui_sidebar:first-of-type { 
             grid-row: 2;
           }
           @media screen and (min-width: ${breakpoint}) {
-            .mkr_sidebar { 
+            .mkui_sidebar { 
               grid-row: auto;
             }
           }
@@ -49,11 +49,11 @@ function getStyles(
   if (isSidebar) {
     styles = `
     ${sidebarOrder}
-    .mkr_layout {
+    .mkui_layout {
       grid-template-columns: 1fr;
     }
     @media screen and (min-width: ${breakpoint}) {
-      .mkr_layout {
+      .mkui_layout {
         grid-template-columns: ${sidebarColumns};
       }
     }
@@ -75,10 +75,6 @@ function getStyles(
     return top
   }
 
-  const transition = !sideNav.isHeader
-    ? `transition: ${sideNav.cssTransition};`
-    : ''
-
   const ml = (val: string) =>
     layout === 'sidenav-content' ? `margin-left: ${val};` : ''
   const mr = (val: string) =>
@@ -86,42 +82,41 @@ function getStyles(
 
   if (isSidenav) {
     styles = `
-      .mkr_sidenav {
+      .mkui_sn {
         position: fixed;
         z-index: 101;
-        ${transition}
+        transition: ${sideNav.cssTransition};
       }
-      .mkr_sidenav.hide-sidenav {
+      .mkui_sn.sn-collapse {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .mkui_sn.sn-hide {
         transform: translateX(${direction});
       }
-      .mkr_sidenav.collapse-sidenav {
-        ${ml('0')}
-        ${mr('0')}
-      }
-      .mkr_overlay_s {
-        display: block;
-      }
-      .mkr_sidenav_inner {
-        top: 0px;
-        height: 100vh;
-      }
       @media screen and (min-width: ${breakpoint}) {
-        .mkr_sidenav {
+        .mkui_btn_collapse {
+          display: none;
+        }
+        .mkui_btn_collapse.collapsible {
+          display: block;
+        }
+        .mkui_sn {
           position: relative;
           z-index: 0;
         }
-        .mkr_sidenav.hide-sidenav {
+        .mkui_sn.sn-hide {
           transform: none;
         }
-        .mkr_sidenav.collapse-sidenav {
+        .mkui_sn.sn-collapse {
           ${ml('calc(-1 * var(--width-side-nav))')}
           ${mr('calc(-1 * var(--width-side-nav))')}
         }
-        .mkr_sidenav_inner {
+        .mkui_sn_inner {
           top: calc(${getTop()});
           height: calc(100vh - ${getTop(true)});
         }
-        .mkr_overlay_s {
+        .mkui_overlay_s {
           display: none;
         }
       }

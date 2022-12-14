@@ -10,9 +10,10 @@ import { defaults } from '@/defaults'
 
 type Action =
   | { type: 'SET_MENU'; value?: boolean }
-  | { type: 'SET_SIDENAV' }
-  | { type: 'SET_SIDENAV_COLLAPSE' }
+  | { type: 'SET_SIDENAV'; value?: boolean }
+  | { type: 'SET_SIDENAV_COLLAPSE'; value?: boolean }
   | { type: 'SET_COLOR_THEME'; value: string }
+  | { type: 'RESET' }
 
 interface LayoutState {
   active: {
@@ -77,12 +78,22 @@ function reducer(state: LayoutState, action: Action): LayoutState {
       return merge(state, { active: { menu: !state.active.menu } })
     }
     case 'SET_SIDENAV': {
-      return merge(state, { active: { sideNav: !state.active.sideNav } })
+      return merge(state, {
+        active: { sideNav: action.value || !state.active.sideNav },
+      })
     }
     case 'SET_SIDENAV_COLLAPSE': {
       return merge(state, {
-        active: { sideNavCollapse: !state.active.sideNavCollapse },
+        active: {
+          sideNavCollapse: action.value || !state.active.sideNavCollapse,
+        },
       })
+    }
+    case 'RESET': {
+      return {
+        ...state,
+        active: { sideNav: false, menu: false, sideNavCollapse: false },
+      }
     }
     case 'SET_COLOR_THEME': {
       return { ...state, colorTheme: action.value }
@@ -138,7 +149,7 @@ export const Provider = (props: LayoutProviderProps) => {
    * NEXT.JS LAYOUT API SUPPORTS <style> TAGS
    */
   React.useEffect(() => {
-    const exists = document.getElementById('mkr_responsive')
+    const exists = document.getElementById('mkui_responsive')
     if (exists) return
 
     let header = false
@@ -146,10 +157,10 @@ export const Provider = (props: LayoutProviderProps) => {
 
     React.Children.toArray(props.children).forEach((child: any) => {
       const type = child.props?.className
-      if (type?.includes('mkr_header')) {
+      if (type?.includes('mkui_header')) {
         header = true
       }
-      if (type?.includes('mkr_topbar')) {
+      if (type?.includes('mkui_topbar')) {
         topbar = true
       }
     })
@@ -160,7 +171,7 @@ export const Provider = (props: LayoutProviderProps) => {
     css += layoutStyles(options, { topbar, header })
 
     style.textContent = css
-    style.id = 'mkr_responsive'
+    style.id = 'mkui_responsive'
 
     document.head.appendChild(style)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -200,10 +211,10 @@ export const useMenu = () => {
 
   function setMenu(type: 'menu' | 'sidenav' | 'collapse', value: boolean) {
     // Find elements in DOM to manipulate
-    const menu = document.querySelector('.mkr_mobile_menu')
-    const sidenav = document.querySelector('.mkr_sidenav')
-    const overlay_m = document.querySelector('.mkr_overlay_m')
-    const overlay_s = document.querySelector('.mkr_overlay_s')
+    const menu = document.querySelector('.mkui_mobile_menu')
+    const sidenav = document.querySelector('.mkui_sn')
+    const overlay_m = document.querySelector('.mkui_overlay_m')
+    const overlay_s = document.querySelector('.mkui_overlay_s')
 
     const handleMobileMenu = () => {
       if (value) {
@@ -215,7 +226,17 @@ export const useMenu = () => {
       }
     }
 
-    const handleSideNav = () => {}
+    const handleSideNav = () => {
+      const c = type === 'collapse' ? 'sn-collapse' : 'sn-hide'
+      if (!value) {
+        sidenav?.classList.add(c)
+        overlay_s?.classList.remove('active')
+      } else {
+        sidenav?.classList.remove(c)
+        overlay_s?.classList.add('active')
+      }
+    }
+
     /** Handle mobile menu */
     if (type === 'menu' && !options?.sideNav.isPrimaryMobileNav) {
       handleMobileMenu()
@@ -231,11 +252,28 @@ export const useMenu = () => {
     }
 
     if (type === 'collapse') {
-      dispatch({ type: 'SET_SIDENAV_COLLAPSE' })
+      handleSideNav()
+      dispatch({
+        type: 'SET_SIDENAV_COLLAPSE',
+      })
     }
   }
 
-  return { active, setMenu }
+  function reset(mobile = true) {
+    const sidenav = document.querySelector('.mkui_sn')
+    const overlay_s = document.querySelector('.mkui_overlay_s')
+
+    dispatch({ type: 'RESET' })
+    if (mobile) {
+      sidenav?.classList.add('sn-hide')
+      overlay_s?.classList.remove('active')
+    } else {
+      sidenav?.classList.remove('sn-hide')
+      sidenav?.classList.remove('sn-collapse')
+    }
+  }
+
+  return { active, setMenu, reset }
 }
 
 export function useColorTheme() {

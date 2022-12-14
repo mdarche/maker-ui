@@ -61,9 +61,9 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
       ) : null}
       <div
         className={cn([
-          'mkr_layout',
+          'mkui_layout',
           opts.layout,
-          isSideNav ? 'sidenav' : isSidebar ? 'sidebar' : undefined,
+          isSideNav ? 'l-sn' : isSidebar ? 'l-sb' : undefined,
         ])}>
         <>
           {isLeft ? (

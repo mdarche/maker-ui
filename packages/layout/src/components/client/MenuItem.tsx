@@ -137,11 +137,7 @@ export const MenuItem = React.memo(
             ) : null}
           </>
         </Conditional>
-        {megamenu && isHeader ? (
-          <div className={cn(['megamenu'])} role="menu">
-            <div className="container">{megamenu}</div>
-          </div>
-        ) : submenu ? (
+        {submenu ? (
           <>
             {isHeader || (!isHeader && showNested) ? (
               <ul

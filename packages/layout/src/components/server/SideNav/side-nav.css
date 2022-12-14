@@ -1,0 +1,28 @@
+.mkui_sn {
+  top: 0;
+  bottom: 0;
+  width: var(--width-side-nav);
+  background: var(--color-bg-side-nav);
+  will-change: transform;
+  transform: translateX(0);
+}
+
+.mkui_sn_init {
+  visibility: hidden;
+  transition: none !important;
+}
+
+.mkui_sn_inner {
+  top: 0px;
+  height: 100vh;
+  position: sticky;
+  overflow-y: auto;
+}
+
+.mkui_overlay_s {
+  display: block;
+}
+
+.mkui_btn_collapse {
+  z-index: 1;
+}

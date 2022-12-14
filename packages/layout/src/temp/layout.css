@@ -296,7 +296,7 @@
     }
   }
 }
-.header-nav > .menu-item {
+.nav-header > .menu-item {
   display: inline-flex;
   &.has-submenu {
     position: relative;

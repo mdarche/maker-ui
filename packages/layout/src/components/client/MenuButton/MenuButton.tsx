@@ -1,12 +1,13 @@
 'use client'
 
 import * as React from 'react'
-import { cn } from '@maker-ui/utils'
+import { cn, useWindowSize } from '@maker-ui/utils'
 import { useLayout, useMenu } from '../Provider'
 import styles from './MenuButton.module.css'
 
 interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   close?: boolean
+  sideNav?: boolean
   jsx?: (active?: boolean, attrs?: object) => React.ReactNode
 }
 
@@ -19,17 +20,19 @@ interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 export const MenuButton = ({
   className,
   jsx,
+  sideNav = false,
   close = false,
   children,
   ...props
 }: MenuButtonProps) => {
   const {
-    options: { sideNav, mobileMenu },
+    options: { sideNav: sn, mobileMenu: mm },
   } = useLayout()
+  const { width } = useWindowSize()
   const { active, setMenu } = useMenu()
-  const positions = mobileMenu?.closeButtonPosition?.split('-')
+  const positions = mm?.closeButtonPosition?.split('-')
 
-  const conditionalAttributes = sideNav.isPrimaryMobileNav
+  const conditionalAttributes = sideNav
     ? {
         'aria-expanded': active?.sideNav ? true : false,
         onClick: toggleSideMenu,
@@ -43,13 +46,21 @@ export const MenuButton = ({
     setMenu('menu', !active?.menu)
   }
 
-  function toggleSideMenu() {}
+  function toggleSideMenu() {
+    if (width && width > sn.breakpoint && sn.collapse) {
+      setMenu('collapse', !active?.sideNavCollapse)
+    } else {
+      setMenu('sidenav', !active?.sideNav)
+    }
+  }
 
   const attributes = {
     title: 'Menu',
     className: cn([
       styles.btn_menu,
-      close ? 'mkr_btn_close fixed' : undefined,
+      sideNav ? 'mkui_btn_collapse fixed' : undefined,
+      sn.collapse ? 'collapsible' : undefined,
+      !sideNav && close ? 'mkui_btn_close fixed' : undefined,
       ...(positions || []),
       className,
     ]),
@@ -61,13 +72,13 @@ export const MenuButton = ({
   return jsx ? (
     <>
       {jsx(
-        sideNav.isPrimaryMobileNav ? active?.sideNav : active?.menu,
+        sideNav && sn.isPrimaryMobileNav ? active?.sideNav : active?.menu,
         attributes
       )}
     </>
   ) : (
     <button {...attributes}>
-      {children || (
+      {children || !sideNav ? (
         <svg
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -78,6 +89,8 @@ export const MenuButton = ({
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
           )}
         </svg>
+      ) : (
+        'TODO'
       )}
     </button>
   )

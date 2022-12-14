@@ -96,10 +96,9 @@ export interface SideNavOptions {
   isPrimaryMobileNav: boolean
   closeOnBlur: boolean
   closeOnRouteChange: boolean
-  showToggleOnMobile: boolean
-  toggleButton?: React.ReactNode
   collapse: boolean
   collapseButton?: React.ReactNode
+  showCollapseOnMobile: boolean
   cssTransition?: string
 }
 

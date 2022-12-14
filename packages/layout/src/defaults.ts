@@ -1,13 +1,13 @@
 import { Options } from '@/types'
 
 export const defaults: Options = {
-  type: 'content',
+  layout: 'content',
   skiplinks: true,
   colorThemes: [],
   header: {
     breakpoint: 960,
     navType: 'basic',
-    mobileNavType: 'basic',
+    navTypeMobile: 'basic',
     absolute: false,
     sticky: false,
     stickyOnMobile: false,
@@ -32,10 +32,11 @@ export const defaults: Options = {
     isPrimaryMobileNav: false,
     closeOnBlur: true,
     closeOnRouteChange: true,
-    showToggleOnMobile: false,
+    showCollapseOnMobile: true,
     collapse: false,
+    cssTransition: 'all ease 0.3s',
   },
-  sidebar: {
+  content: {
     breakpoint: 960,
   },
 }

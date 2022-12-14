@@ -91,14 +91,14 @@ function getStyles(
   const breakpoint = typeof bp === 'number' ? `${bp}px` : bp
 
   return `
-    .mkr_header.d-sticky, .mkr_topbar.d-sticky {
+    .mkui_header.d-sticky, .mkui_topbar.d-sticky {
       position: relative;
     }
-    .mkr_topbar.sticky, .mkr_topbar.m-sticky {
+    .mkui_topbar.sticky, .mkui_topbar.m-sticky {
       position: sticky;
     }
-    .mkr_header.sticky,
-    .mkr_header.m-sticky {
+    .mkui_header.sticky,
+    .mkui_header.m-sticky {
       position: sticky;
       top: ${
         children.topbar &&
@@ -108,35 +108,35 @@ function getStyles(
           : '0px'
       };
     }
-    .mkr_nav .menu-slot {
+    .mkui_nav .menu-slot {
       display: none;
     }
-    .mkr_nav .button-slot {
+    .mkui_nav .button-slot {
       display: flex;
     }
-    .mkr_nav {
+    .mkui_nav {
       grid-template-areas: ${mobile[mobileLayout].areas};
       grid-template-columns: ${mobile[mobileLayout].columns};
     }
-    .mkr_nav .widget-slot {
+    .mkui_nav .widget-slot {
       justify-content: ${mobile[mobileLayout].widgetArea};
     }
     @media screen and (min-width: ${breakpoint}) {
-      .mkr_header.sticky {
+      .mkui_header.sticky {
         top: ${
           children.topbar && options.topbar.sticky
             ? 'var(--height-topbar)'
             : '0px'
         };
       }
-      .mkr_header.d-sticky.abs,
-      .mkr_header.m-sticky, .mkr_topbar.m-sticky {
+      .mkui_header.d-sticky.abs,
+      .mkui_header.m-sticky, .mkui_topbar.m-sticky {
         position: relative;
       }
-      .mkr_topbar.d-sticky {
+      .mkui_topbar.d-sticky {
         position: sticky;
       }
-      .mkr_header.d-sticky {
+      .mkui_header.d-sticky {
         position: sticky;
         top: ${
           children.topbar && options.topbar.sticky
@@ -144,39 +144,39 @@ function getStyles(
             : '0px'
         };
       }
-      .mkr_topbar.m-hide {
+      .mkui_topbar.m-hide {
         display: block;
       }
-      .mkr_nav { 
+      .mkui_nav { 
         grid-template-areas: ${desktop[layout].areas};
         grid-template-columns: ${desktop[layout].columns};
         grid-template-rows: ${layout !== 'center' ? '1fr' : '1fr 1fr'};
       }
-      .mkr_nav .widget-slot {
+      .mkui_nav .widget-slot {
         justify-content: ${desktop[layout].widgetArea};
       }
-      .mkr_nav .menu-slot {
+      .mkui_nav .menu-slot {
         display: ${layout.includes('minimal') ? 'none' : 'flex'};
       }
-      .mkr_nav .button-slot {
+      .mkui_nav .button-slot {
         display: ${
           layout.includes('minimal') || options.mobileMenu.visibleOnDesktop
             ? 'flex'
             : 'none'
         };
       }
-      .mkr_nav.split .widget-slot,
-      .mkr_nav.center .widget-slot {
+      .mkui_nav.split .widget-slot,
+      .mkui_nav.center .widget-slot {
         position: absolute;
       }
-      .mkr_nav.minimal-left.m-basic .button-slot {
+      .mkui_nav.minimal-left.m-basic .button-slot {
         display: flex;
       }
-      .mkr_nav.minimal.m-logo-center-alt .button-slot,
-      .mkr_nav.minimal.m-basic-menu-left .button-slot {
+      .mkui_nav.minimal.m-logo-center-alt .button-slot,
+      .mkui_nav.minimal.m-basic-menu-left .button-slot {
         display: none;
       }
-      .mkr_nav.m-logo-center-alt .button-slot {
+      .mkui_nav.m-logo-center-alt .button-slot {
         justifycontent: flex-start;
       }
     }

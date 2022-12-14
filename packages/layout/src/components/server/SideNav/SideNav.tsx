@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import type { SideNavOptions } from '@/types'
-import styles from './SideNav.module.css'
 
 export interface SideNavProps
   extends Partial<SideNavOptions>,
@@ -20,33 +19,32 @@ export interface SideNavProps
 export const SideNav = ({
   id,
   isHeader = false,
-  toggleButton,
-  closeOnBlur,
   isPrimaryMobileNav,
-  collapse,
+  closeOnBlur,
   closeOnRouteChange,
-  showToggleOnMobile,
+  collapse,
+  showCollapseOnMobile,
   collapseButton,
   cssTransition,
   className,
-  children,
   breakpoint,
+  children,
   _type,
   ...props
 }: SideNavProps) => {
   return (
     <>
-      {closeOnBlur ? (
-        <div className="mkr_overlay mkr_overlay_s fixed cover" role="button" />
-      ) : null}
+      <div
+        className="mkui_overlay mkui_overlay_s fixed cover"
+        role={closeOnBlur ? 'button' : undefined}
+      />
       <Container
         isHeader={isHeader}
-        className={cn([styles.sidenav, className])}
+        className={cn(['mkui_sn mkui_sn_init', className])}
         {...props}>
-        <div className={cn([styles.sidenav_inner, 'container'])}>
-          {children}
-        </div>
+        <div className={cn(['mkui_sn_inner', 'container'])}>{children}</div>
       </Container>
+      {collapseButton}
     </>
   )
 }

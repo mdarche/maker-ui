@@ -32,11 +32,11 @@ export default function RootLayout({
       <body>
         <Provider options={options}>
           <Layout options={options}>
-            <Layout.Topbar>Test</Layout.Topbar>
+            {/* <Layout.Topbar>Test</Layout.Topbar> */}
             <Layout.Header
-              logoSlot={<Link href="/">Logo</Link>}
-              menuSlot={<NavMenu menuItems={menu} />}
-              widgetSlot={<ColorButton />}
+              logo={<Link href="/">Logo</Link>}
+              menu={<NavMenu menuItems={menu} />}
+              widgets={<ColorButton />}
               menuButton={<MenuButton />}
             />
             <Layout.MobileMenu closeButton={<MenuButton close />}>
@@ -44,7 +44,7 @@ export default function RootLayout({
             </Layout.MobileMenu>
             <Layout.Main>{children}</Layout.Main>
             <Layout.Sidebar>Sidebar</Layout.Sidebar>
-            <Layout.SideNav>
+            <Layout.SideNav collapseButton={<MenuButton sideNav />}>
               <CollapseMenu items={menu} />
             </Layout.SideNav>
             {/* <Layout.Footer>Footer stuff</Layout.Footer> */}

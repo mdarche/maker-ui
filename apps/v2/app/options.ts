@@ -19,15 +19,18 @@ export const options: MakerUIOptions = {
     transition: 'slide-left',
     visibleOnDesktop: false,
     closeOnBlur: true,
+    closeOnRouteChange: true,
   },
   sideNav: {
-    isHeader: true,
+    isHeader: false,
     collapse: true,
+    showCollapseOnMobile: true,
+    closeOnBlur: true,
+    closeOnRouteChange: true,
     // isPrimaryMobileNav: true,
     // closeOnBlur: true,
     // closeOnRouteChange: true,
     // showToggleOnMobile: true,
-    // toggleButton?: React.ReactNode;
     // collapse: boolean;
     // collapseButton?: React.ReactNode;
     // cssTransition?: string;

@@ -1,16 +1,16 @@
-.mkr_header {
+.mkui_header {
   z-index: 100;
   height: var(--height-header);
   background: var(--color-bg-header);
 }
-.mkr_header.d-sticky,
-.mkr_header.m-sticky {
+.mkui_header.d-sticky,
+.mkui_header.m-sticky {
   position: sticky;
 }
-.mkr_header.abs {
+.mkui_header.abs {
   position: absolute;
 }
-.mkr_nav {
+.mkui_nav {
   display: grid;
   height: 100%;
   margin: 0 auto;
@@ -36,40 +36,40 @@
   grid-area: menu-split;
   justify-content: flex-end;
 }
-.mkr_nav.basic .menu-slot {
+.mkui_nav.basic .menu-slot {
   justify-content: flex-end;
 }
-.mkr_nav.basic-left .menu-slot {
+.mkui_nav.basic-left .menu-slot {
   justify-content: flex-start;
 }
-.mkr_nav.basic-center .menu-slot {
+.mkui_nav.basic-center .menu-slot {
   justify-content: center;
 }
-.mkr_nav.center .menu-slot,
-.mkr_nav.center .logo-slot {
+.mkui_nav.center .menu-slot,
+.mkui_nav.center .logo-slot {
   justify-content: center;
 }
-.mkr_nav.split .widget-slot,
-.mkr_nav.center .widget-slot {
+.mkui_nav.split .widget-slot,
+.mkui_nav.center .widget-slot {
   top: 0;
   right: 0;
   height: 100%;
 }
 /* Multiple menu button layouts */
-.mkr_nav.minimal-center .button-slot {
+.mkui_nav.minimal-center .button-slot {
   justify-content: flex-start;
 }
-.mkr_nav.split .widget-slot,
-.mkr_nav.center .widget-slot {
+.mkui_nav.split .widget-slot,
+.mkui_nav.center .widget-slot {
   position: relative;
 }
-.mkr_nav.minimal-left.m-basic .button-slot {
+.mkui_nav.minimal-left.m-basic .button-slot {
   display: none;
 }
-.mkr_nav.minimal.m-logo-center-alt .button-slot,
-.mkr_nav.minimal.m-basic-menu-left .button-slot {
+.mkui_nav.minimal.m-logo-center-alt .button-slot,
+.mkui_nav.minimal.m-basic-menu-left .button-slot {
   display: flex;
 }
-.mkr_nav.m-logo-center-alt .button-slot {
+.mkui_nav.m-logo-center-alt .button-slot {
   justify-content: flex-end;
 }

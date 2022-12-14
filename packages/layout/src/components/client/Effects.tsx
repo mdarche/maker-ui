@@ -10,30 +10,57 @@ interface EffectsProps {
 
 export const Effects = ({
   options: {
+    layout,
     header: { stickyUpScroll, scrollClass: sc },
     mobileMenu,
     sideNav,
   },
 }: EffectsProps) => {
-  const { active, setMenu } = useMenu()
+  const { reset, setMenu } = useMenu()
   const { width } = useWindowSize()
   const [scrollClass, setScrollClass] = useState('')
   const [show, setShow] = useState(true)
   const els = ['span', 'a', 'li']
   const activateScrollClass = !!sc
 
-  React.useEffect(() => {
-    // Any other event listeners that should be added to the window object
-    // - Sidenav close on route change
-    // - Mobile menu close on route change
-    // - Sidenav collapse on resize
-  }, [])
-
+  /**
+   * Collapse SideNav on mobile or when window is resized
+   */
   useEffect(() => {
-    // Any other event listeners that should be added to the window object
-    // - Sidenav close on route change
-    // - Mobile menu close on route change
-    // - Sidenav collapse on resize
+    if (!layout.includes('sidenav')) return
+    const sn = document.querySelector('.mkui_sn')
+
+    if (width && width < sideNav.breakpoint) {
+      reset(true)
+    } else if (width && width > sideNav.breakpoint) {
+      reset()
+    }
+
+    if (width) {
+      // TODO make this timeout dynamic based on sidenav.cssTransition
+      setTimeout(() => {
+        sn?.classList.remove('mkui_sn_init')
+      }, 350)
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width])
+
+  /**
+   * Dismiss mobile side nav on route change
+   */
+  useEffect(() => {
+    if (!sideNav.closeOnRouteChange) return
+    if (!width || width > sideNav.breakpoint) return
+    const menu = document.querySelector('.mkui_sn .mkui_collapse_menu')
+    const click = (e: any) => {
+      if (els.includes(e?.target?.localName)) {
+        setMenu('sidenav', false)
+      }
+    }
+    menu?.addEventListener('click', click)
+    return () => menu?.removeEventListener('click', click)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   /**
@@ -41,9 +68,8 @@ export const Effects = ({
    */
   useEffect(() => {
     if (!mobileMenu.closeOnRouteChange) return
-    const menu = document.querySelector('.mkr_mobile_menu .mkr_collapse')
+    const menu = document.querySelector('.mkui_mobile_menu .mkui_collapse_menu')
     const click = (e: any) => {
-      e.preventDefault()
       if (els.includes(e?.target?.localName)) {
         setMenu('menu', false)
       }
@@ -57,7 +83,7 @@ export const Effects = ({
    * Handle mobile menu overlay clicks
    */
   useEffect(() => {
-    const o = document.querySelector('.mkr_overlay_m')
+    const o = document.querySelector('.mkui_overlay_m')
     if (!o) return
     if (!mobileMenu.closeOnBlur) return
     const click = (e: any) => {
@@ -73,10 +99,11 @@ export const Effects = ({
    * Handle sidenav overlay clicks
    */
   useEffect(() => {
-    const o = document.querySelector('.mkr_overlay_s')
+    const o = document.querySelector('.mkui_overlay_s')
     if (!o) return
     if (!sideNav.closeOnBlur) return
     const click = (e: any) => {
+      console.log('here')
       e.preventDefault()
       setMenu('sidenav', false)
     }
@@ -88,8 +115,8 @@ export const Effects = ({
   /**
    * Handle disappearing header on up scroll
    */
-  // React.useEffect(() => {
-  //   const header = document.querySelector('.mkr_header')
+  // useEffect(() => {
+  //   const header = document.querySelector('.mkui_header')
   //   if (header) {
   //     if (scrollClass.length) {
   //       header.classList.add('sticky')
@@ -100,7 +127,7 @@ export const Effects = ({
   // }, [scrollClass])
 
   useEffect(() => {
-    const header = document.querySelector('.mkr_header')
+    const header = document.querySelector('.mkui_header')
     if (header) {
       if (!!stickyUpScroll && show) {
         header.classList.add('scroll-active')
