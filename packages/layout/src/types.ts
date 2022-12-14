@@ -64,7 +64,7 @@ export interface TopbarOptions {
 export interface HeaderOptions {
   breakpoint: string | number
   navType: typeof navTypes[number]
-  mobileNavType: typeof mobileNavTypes[number]
+  navTypeMobile: typeof mobileNavTypes[number]
   absolute: boolean
   sticky: boolean
   stickyOnMobile: boolean
@@ -111,7 +111,7 @@ export interface SideNavOptions {
  */
 export interface Options {
   // Can be applied as root props
-  type: typeof contentTypes[number]
+  layout: typeof contentTypes[number]
   /**
    * Replaces the default Maker UI skiplinks with your own custom on-page links.
    * You don't need to add `#` to your id selectors:
@@ -130,7 +130,7 @@ export interface Options {
   header: HeaderOptions
   mobileMenu: MobileMenuOptions
   sideNav: SideNavOptions
-  sidebar: {
+  content: {
     breakpoint: string | number
   }
 }

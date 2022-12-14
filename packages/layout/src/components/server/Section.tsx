@@ -17,7 +17,6 @@ export const Section = ({
   className,
   maxWidth = 'var(--max-width-section)',
   background,
-  color,
   container = true,
   children,
   ...props

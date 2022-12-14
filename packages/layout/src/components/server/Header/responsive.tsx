@@ -1,4 +1,3 @@
-import * as React from 'react'
 import type { Options } from '@/types'
 
 /**
@@ -81,21 +80,15 @@ const mobile = {
 /**
  * Determine grid-template-area, grid-template-columns, and positioning
  */
-export function getHeaderStyles(options: Options, children: React.ReactNode) {
+function getStyles(
+  options: Options,
+  children: { topbar: boolean; header: boolean }
+) {
   // Helpers
-  let hasTopbar = false
   const layout = options.header.navType
-  const mobileLayout = options.header.mobileNavType
+  const mobileLayout = options.header.navTypeMobile
   const bp = options.header.breakpoint
   const breakpoint = typeof bp === 'number' ? `${bp}px` : bp
-
-  React.Children.toArray(children).forEach((child: any) => {
-    // TODO - replace className w/ search when this is moved to the server
-    const type = child.props?.className
-    if (type?.includes('mkr_topbar')) {
-      hasTopbar = true
-    }
-  })
 
   return `
     .mkr_header.d-sticky, .mkr_topbar.d-sticky {
@@ -108,7 +101,7 @@ export function getHeaderStyles(options: Options, children: React.ReactNode) {
     .mkr_header.m-sticky {
       position: sticky;
       top: ${
-        hasTopbar &&
+        children.topbar &&
         options.topbar.stickyOnMobile &&
         !options.topbar.hideOnMobile
           ? 'var(--height-topbar)'
@@ -131,9 +124,12 @@ export function getHeaderStyles(options: Options, children: React.ReactNode) {
     @media screen and (min-width: ${breakpoint}) {
       .mkr_header.sticky {
         top: ${
-          hasTopbar && options.topbar.sticky ? 'var(--height-topbar)' : '0px'
+          children.topbar && options.topbar.sticky
+            ? 'var(--height-topbar)'
+            : '0px'
         };
       }
+      .mkr_header.d-sticky.abs,
       .mkr_header.m-sticky, .mkr_topbar.m-sticky {
         position: relative;
       }
@@ -143,7 +139,9 @@ export function getHeaderStyles(options: Options, children: React.ReactNode) {
       .mkr_header.d-sticky {
         position: sticky;
         top: ${
-          hasTopbar && options.topbar.sticky ? 'var(--height-topbar)' : '0px'
+          children.topbar && options.topbar.sticky
+            ? 'var(--height-topbar)'
+            : '0px'
         };
       }
       .mkr_topbar.m-hide {
@@ -184,3 +182,4 @@ export function getHeaderStyles(options: Options, children: React.ReactNode) {
     }
   `
 }
+export default getStyles

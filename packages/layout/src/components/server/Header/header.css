@@ -7,6 +7,9 @@
 .mkr_header.m-sticky {
   position: sticky;
 }
+.mkr_header.abs {
+  position: absolute;
+}
 .mkr_nav {
   display: grid;
   height: 100%;

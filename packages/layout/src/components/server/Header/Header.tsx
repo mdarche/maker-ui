@@ -6,13 +6,13 @@ export interface HeaderProps
   extends React.HTMLAttributes<HTMLDivElement>,
     Partial<HeaderOptions> {
   /** Replaces the Navbar logo-slot grid area with your own custom component.    */
-  logoSlot?: React.ReactNode
+  logo?: React.ReactNode
   /** Replaces the Navbar widget-slot grid area with your own custom component.    */
-  widgetSlot?: React.ReactNode
+  widgets?: React.ReactNode
   /** Replaces the Navbar menu-slot grid area with your own custom component.    */
-  menuSlot?: React.ReactNode
+  menu?: React.ReactNode
   /** Renders the second menu for "split" nav types   */
-  menuSplitSlot?: React.ReactNode
+  menuSplit?: React.ReactNode
   /** Replaces the Navbar button-slot grid area with your own custom component.    */
   menuButton?: React.ReactNode
   _mobileMenu?: React.ReactNode
@@ -33,15 +33,15 @@ export const Header = ({
   className,
   absolute,
   navType = 'basic',
-  mobileNavType = 'basic',
+  navTypeMobile = 'basic',
   sticky,
   stickyOnMobile,
   stickyUpScroll,
   scrollClass,
-  logoSlot,
-  widgetSlot,
-  menuSlot,
-  menuSplitSlot,
+  logo,
+  widgets,
+  menu,
+  menuSplit,
   menuButton,
   breakpoint,
   _mobileMenu,
@@ -54,22 +54,22 @@ export const Header = ({
       className={cn([
         'mkr_header',
         stickyClass(sticky, stickyOnMobile),
-        absolute ? 'width-100' : undefined,
+        absolute ? 'abs width-100' : undefined,
         className,
       ])}
       role="banner"
       {...props}>
       <div
-        className={cn(['mkr_nav', navType, `m-${mobileNavType}`, className])}>
+        className={cn(['mkr_nav', navType, `m-${navTypeMobile}`, className])}>
         <div className="nav-area button-slot">{menuButton}</div>
         {navType === 'split' ? (
-          <div className="nav-area menu-slot split">{menuSlot}</div>
+          <div className="nav-area menu-slot split">{menu}</div>
         ) : null}
-        <div className="nav-area logo-slot">{logoSlot}</div>
+        <div className="nav-area logo-slot">{logo}</div>
         <div className="nav-area menu-slot">
-          {navType === 'split' ? menuSplitSlot : menuSlot}
+          {navType === 'split' ? menuSplit : menu}
         </div>
-        <div className="nav-area widget-slot">{widgetSlot}</div>
+        <div className="nav-area widget-slot">{widgets}</div>
       </div>
       {_mobileMenu ?? null}
     </header>

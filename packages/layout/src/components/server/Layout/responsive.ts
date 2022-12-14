@@ -1,30 +1,19 @@
-import * as React from 'react'
 import { Options } from '@/types'
 
-export function getLayoutStyles(options: Options, children: React.ReactNode) {
+function getStyles(
+  { layout, topbar, header, content, sideNav }: Options,
+  children: { topbar: boolean; header: boolean }
+) {
   let styles = ''
-  let hasHeader = false
-  let hasTopbar = false
-  const layout = options.type
   const isSidebar = layout.includes('sidebar')
   const isSidenav = layout.includes('sidenav')
-  const bp = isSidebar ? options.sidebar.breakpoint : options.sideNav.breakpoint
+  const bp = isSidebar ? content.breakpoint : sideNav.breakpoint
   const breakpoint = typeof bp === 'number' ? `${bp}px` : bp
-
-  React.Children.toArray(children).forEach((child: any) => {
-    const type = child.props?.className
-    if (type?.includes('mkr_header')) {
-      hasHeader = true
-    }
-    if (type?.includes('mkr_topbar')) {
-      hasTopbar = true
-    }
-  })
 
   /** Sidebar styles */
 
   const sidebarOrder =
-    options.type === 'sidebar-content'
+    layout === 'sidebar-content'
       ? `
           .mkr_sidebar { 
             grid-row: 2;
@@ -35,7 +24,7 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
             }
           }
           `
-      : options.type === 'sidebar-content-sidebar'
+      : layout === 'sidebar-content-sidebar'
       ? `
           .mkr_sidebar:first-of-type { 
             grid-row: 2;
@@ -79,17 +68,15 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
       : 'var(--width-side-nav)'
 
   const getTop = (height = false) => {
-    console.log('has header is', hasHeader)
-    let top =
-      hasHeader && options.header.sticky ? 'var(--height-header)' : '0px'
-    if (hasTopbar && options.topbar.sticky) {
+    let top = children.header && header.sticky ? 'var(--height-header)' : '0px'
+    if (children.topbar && topbar.sticky) {
       top += `${height ? ' -' : ' +'} var(--height-topbar)`
     }
     return top
   }
 
-  const transition = !options.sideNav.isHeader
-    ? `transition: ${options.sideNav.cssTransition};`
+  const transition = !sideNav.isHeader
+    ? `transition: ${sideNav.cssTransition};`
     : ''
 
   const ml = (val: string) =>
@@ -143,3 +130,5 @@ export function getLayoutStyles(options: Options, children: React.ReactNode) {
 
   return styles
 }
+
+export default getStyles

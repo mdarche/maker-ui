@@ -1,4 +1,6 @@
-import { Layout, type MakerUIOptions } from '@maker-ui/layout'
+import { Layout } from '@maker-ui/layout'
+import Link from 'next/link'
+import { options } from './options'
 import {
   CollapseMenu,
   ColorButton,
@@ -11,28 +13,6 @@ import '@maker-ui/layout/dist/index.css'
 import '@maker-ui/layout/dist/client.css'
 import './_variables.css'
 import './_global.css'
-import Link from 'next/link'
-
-const options: MakerUIOptions = {
-  colorThemes: ['light', 'dark', 'system'],
-  type: 'content',
-  topbar: {
-    sticky: true,
-    stickyOnMobile: false,
-    hideOnMobile: false,
-  },
-  header: {
-    navType: 'minimal',
-    mobileNavType: 'logo-center',
-    sticky: false,
-    stickyOnMobile: true,
-  },
-  mobileMenu: {
-    transition: 'slide-left',
-    visibleOnDesktop: false,
-    closeOnBlur: true,
-  },
-}
 
 const menu = [
   { label: 'Home', path: '/' },
@@ -59,7 +39,7 @@ export default function RootLayout({
               widgetSlot={<ColorButton />}
               menuButton={<MenuButton />}
             />
-            <Layout.MobileMenu closeButton={<MenuButton closeIcon />}>
+            <Layout.MobileMenu closeButton={<MenuButton close />}>
               <CollapseMenu items={menu} />
             </Layout.MobileMenu>
             <Layout.Main>{children}</Layout.Main>

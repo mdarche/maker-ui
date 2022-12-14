@@ -24,9 +24,9 @@ body[data-theme='dark'] {
   /* Required */
   --color-text: #fff;
   --color-background: #000;
+  --color-bg-topbar: #000;
   --color-bg-header: #000;
   --color-bg-side-nav: #000;
-  --color-bg-topbar: #000;
   --color-bg-mobile-menu: #000;
   --color-bg-footer: #000;
   --color-bg-overlay: rgba(0, 0, 0, 0.5);
@@ -36,9 +36,10 @@ body[data-theme='light'] {
   /* Required */
   --color-text: #000;
   --color-background: #fff;
-  --color-bg-header: #fff;
-  --color-bg-side-nav: #fbfbfb;
   --color-bg-topbar: #d2d2d2;
+  --color-bg-header: #fff;
   --color-bg-mobile-menu: #fff;
+  --color-bg-side-nav: #fbfbfb;
+  --color-bg-footer: #000;
   --color-bg-overlay: rgba(0, 0, 0, 0.5);
 }

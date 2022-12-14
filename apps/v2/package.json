@@ -3,8 +3,9 @@
   "version": "1.1.11",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "build-css": "esrun ./scripts/config.ts",
+    "dev": "pnpm build-css && next dev",
+    "build": "pnpm build-css && next build",
     "start": "next start"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { useScrollPosition } from '@maker-ui/utils'
+import React, { useEffect, useState } from 'react'
+import { useScrollPosition, useWindowSize } from '@maker-ui/utils'
 
 import type { Options } from '@/types'
 import { useMenu } from './Provider'
@@ -16,8 +16,10 @@ export const Effects = ({
   },
 }: EffectsProps) => {
   const { active, setMenu } = useMenu()
-  const [scrollClass, setScrollClass] = React.useState('')
-  const [show, setShow] = React.useState(true)
+  const { width } = useWindowSize()
+  const [scrollClass, setScrollClass] = useState('')
+  const [show, setShow] = useState(true)
+  const els = ['span', 'a', 'li']
   const activateScrollClass = !!sc
 
   React.useEffect(() => {
@@ -27,10 +29,34 @@ export const Effects = ({
     // - Sidenav collapse on resize
   }, [])
 
+  useEffect(() => {
+    // Any other event listeners that should be added to the window object
+    // - Sidenav close on route change
+    // - Mobile menu close on route change
+    // - Sidenav collapse on resize
+  }, [])
+
+  /**
+   * Dismiss mobile menu on route change
+   */
+  useEffect(() => {
+    if (!mobileMenu.closeOnRouteChange) return
+    const menu = document.querySelector('.mkr_mobile_menu .mkr_collapse')
+    const click = (e: any) => {
+      e.preventDefault()
+      if (els.includes(e?.target?.localName)) {
+        setMenu('menu', false)
+      }
+    }
+    menu?.addEventListener('click', click)
+    return () => menu?.removeEventListener('click', click)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   /**
    * Handle mobile menu overlay clicks
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const o = document.querySelector('.mkr_overlay_m')
     if (!o) return
     if (!mobileMenu.closeOnBlur) return
@@ -46,7 +72,7 @@ export const Effects = ({
   /**
    * Handle sidenav overlay clicks
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const o = document.querySelector('.mkr_overlay_s')
     if (!o) return
     if (!sideNav.closeOnBlur) return
@@ -73,7 +99,7 @@ export const Effects = ({
   //   }
   // }, [scrollClass])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const header = document.querySelector('.mkr_header')
     if (header) {
       if (!!stickyUpScroll && show) {

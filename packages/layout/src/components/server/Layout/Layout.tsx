@@ -38,35 +38,37 @@ function assign(children: React.ReactNode) {
 export const Layout = ({ options = {}, children }: LayoutProps) => {
   const opts = merge(defaults, options) as Options
   const slots = assign(children)
-  const isSidebar = slots.sidebar && opts.type.includes('sidebar')
-  const isSideNav = slots.sideNav && opts.type.includes('sidenav')
-  const isLeft = opts.type.includes('-content')
-  const isRight = opts.type.includes('content-')
+  const isSidebar = slots.sidebar && opts.layout.includes('sidebar')
+  const isSideNav = slots.sideNav && opts.layout.includes('sidenav')
+  const isLeft = opts.layout.includes('-content')
+  const isRight = opts.layout.includes('content-')
 
   return (
     <>
       <Skiplinks links={opts.skiplinks} />
       {slots?.topbar && <Topbar {...merge(opts.topbar, slots.topbar.props)} />}
-      <Header
-        {...merge(opts.header, slots?.header?.props)}
-        _mobileMenu={
-          slots?.mobileMenu ? (
-            <MobileMenu {...merge(opts.mobileMenu, slots?.mobileMenu?.props)} />
-          ) : null
-        }
-      />
+      {slots?.header ? (
+        <Header
+          {...merge(opts.header, slots?.header?.props)}
+          _mobileMenu={
+            slots?.mobileMenu ? (
+              <MobileMenu
+                {...merge(opts.mobileMenu, slots?.mobileMenu?.props)}
+              />
+            ) : null
+          }
+        />
+      ) : null}
       <div
         className={cn([
           'mkr_layout',
-          opts.type,
+          opts.layout,
           isSideNav ? 'sidenav' : isSidebar ? 'sidebar' : undefined,
         ])}>
         <>
           {isLeft ? (
             <>
-              {isSidebar && (
-                <Sidebar {...merge(opts.sidebar, slots?.sidebar?.props)} />
-              )}
+              {isSidebar && <Sidebar {...slots?.sidebar?.props} />}
               {isSideNav && (
                 <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
               )}
@@ -77,8 +79,8 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
             <>
               {isSidebar && (
                 <Sidebar
-                  {...merge(opts.sidebar, slots?.sidebar?.props)}
-                  primary={!(opts.type === 'sidebar-content-sidebar')}
+                  {...slots?.sidebar?.props}
+                  primary={!(opts.layout === 'sidebar-content-sidebar')}
                 />
               )}
               {isSideNav && (

@@ -80,7 +80,7 @@ export const MenuItem = React.memo(
     depth = 0,
   }: MenuInternalProps) => {
     const [showNested, setNested] = React.useState(openNested)
-    const isLocal = !!(path && !path?.startsWith('/'))
+    const isLocal = path && path?.startsWith('/')
 
     const attributes = {
       className: pathname === path ? 'current' : undefined,
@@ -95,6 +95,14 @@ export const MenuItem = React.memo(
           : undefined,
       'aria-current': pathname === path ? ('page' as 'page') : undefined,
     }
+
+    const InnerLink = () => (
+      <>
+        {icon ? <span className="menu-icon">{icon}</span> : undefined}
+        <span className="menu-text">{label}</span>
+        {submenu && caret && React.isValidElement(caret) ? caret : null}
+      </>
+    )
 
     return (
       <li
@@ -115,22 +123,14 @@ export const MenuItem = React.memo(
               label
             ) : !isHeader && isExpandButton && submenu ? (
               <button onClick={() => setNested(!showNested)}>{label}</button>
+            ) : isLocal ? (
+              <Link href={path}>
+                <InnerLink />
+              </Link>
             ) : (
-              <Conditional
-                condition={isLocal}
-                wrapper={(children) => (
-                  <Link href={path as string} legacyBehavior>
-                    {children}
-                  </Link>
-                )}>
-                <a href={isLocal ? undefined : path} {...attributes}>
-                  {icon ? <span className="menu-icon">{icon}</span> : undefined}
-                  <span className="menu-text">{label}</span>
-                  {submenu && caret && React.isValidElement(caret)
-                    ? caret
-                    : null}
-                </a>
-              </Conditional>
+              <a href={path} {...attributes}>
+                <InnerLink />
+              </a>
             )}
             {!isHeader && submenu ? (
               <ExpandButton set={setNested} show={showNested} />

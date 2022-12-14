@@ -6,7 +6,7 @@ import { useLayout, useMenu } from '../Provider'
 import styles from './MenuButton.module.css'
 
 interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  closeIcon?: boolean
+  close?: boolean
   jsx?: (active?: boolean, attrs?: object) => React.ReactNode
 }
 
@@ -19,7 +19,7 @@ interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 export const MenuButton = ({
   className,
   jsx,
-  closeIcon = false,
+  close = false,
   children,
   ...props
 }: MenuButtonProps) => {
@@ -49,7 +49,7 @@ export const MenuButton = ({
     title: 'Menu',
     className: cn([
       styles.btn_menu,
-      closeIcon ? 'mkr_btn_close fixed' : undefined,
+      close ? 'mkr_btn_close fixed' : undefined,
       ...(positions || []),
       className,
     ]),
@@ -71,11 +71,8 @@ export const MenuButton = ({
         <svg
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
-          className={cn([
-            styles.btn_menu_icon,
-            closeIcon ? 'close' : undefined,
-          ])}>
-          {closeIcon ? (
+          className={cn([styles.btn_menu_icon, close ? 'close' : undefined])}>
+          {close ? (
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
           ) : (
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />

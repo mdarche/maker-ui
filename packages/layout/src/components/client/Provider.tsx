@@ -3,8 +3,8 @@
 import * as React from 'react'
 import { merge } from '@maker-ui/utils'
 import { Effects } from './Effects'
-import { getHeaderStyles } from '../server/Header/get-header-styles'
-import { getLayoutStyles } from '../server/Layout/get-layout-styles'
+import headerStyles from '../server/Header/responsive'
+import layoutStyles from '../server/Layout/responsive'
 import type { MakerUIOptions, Options } from '@/types'
 import { defaults } from '@/defaults'
 
@@ -141,10 +141,23 @@ export const Provider = (props: LayoutProviderProps) => {
     const exists = document.getElementById('mkr_responsive')
     if (exists) return
 
+    let header = false
+    let topbar = false
+
+    React.Children.toArray(props.children).forEach((child: any) => {
+      const type = child.props?.className
+      if (type?.includes('mkr_header')) {
+        header = true
+      }
+      if (type?.includes('mkr_topbar')) {
+        topbar = true
+      }
+    })
+
     const style = document.createElement('style')
     let css = ''
-    css += getHeaderStyles(options, props.children)
-    css += getLayoutStyles(options, props.children)
+    css += headerStyles(options, { topbar, header })
+    css += layoutStyles(options, { topbar, header })
 
     style.textContent = css
     style.id = 'mkr_responsive'
@@ -161,8 +174,12 @@ export const Provider = (props: LayoutProviderProps) => {
 
   return (
     <LayoutContext.Provider value={{ state, dispatch }}>
-      <Effects options={options} />
-      {props.children}
+      {initialized ? (
+        <>
+          <Effects options={options} />
+          {props.children}
+        </>
+      ) : null}
     </LayoutContext.Provider>
   )
 }
