@@ -18,10 +18,9 @@ export const Effects = ({
 }: EffectsProps) => {
   const { reset, setMenu } = useMenu()
   const { width } = useWindowSize()
-  const [scrollClass, setScrollClass] = useState('')
+  const [effectClass, setEffectClass] = useState('')
   const [show, setShow] = useState(true)
   const els = ['span', 'a', 'li']
-  const activateScrollClass = !!sc
 
   /**
    * Collapse SideNav on mobile or when window is resized
@@ -103,7 +102,6 @@ export const Effects = ({
     if (!o) return
     if (!sideNav.closeOnBlur) return
     const click = (e: any) => {
-      console.log('here')
       e.preventDefault()
       setMenu('sidenav', false)
     }
@@ -113,85 +111,87 @@ export const Effects = ({
   }, [])
 
   /**
-   * Handle disappearing header on up scroll
+   * Handle custom header scroll class
    */
+  useEffect(() => {
+    if (!sc) return
+    const header = document.querySelector('.mkui_header')
+    if (!header) return
+    if (effectClass.length) {
+      header?.classList.add(effectClass)
+    }
+    if (!effectClass.length && header.classList.contains(sc.className)) {
+      header.classList.remove(sc.className)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [effectClass])
+
   // useEffect(() => {
   //   const header = document.querySelector('.mkui_header')
   //   if (header) {
-  //     if (scrollClass.length) {
-  //       header.classList.add('sticky')
+  //     if (!!stickyUpScroll && show) {
+  //       header.classList.add('scroll-active')
   //     } else {
-  //       header.classList.remove('sticky')
+  //       header.classList.remove('scroll-active')
   //     }
   //   }
-  // }, [scrollClass])
+  // }, [stickyUpScroll, show])
 
-  useEffect(() => {
-    const header = document.querySelector('.mkui_header')
-    if (header) {
-      if (!!stickyUpScroll && show) {
-        header.classList.add('scroll-active')
-      } else {
-        header.classList.remove('scroll-active')
-      }
-    }
-  }, [stickyUpScroll, show])
-
-  const upScroll: {
-    exists: boolean
-    start?: number
-    delay?: number
-  } =
-    typeof stickyUpScroll === 'object'
-      ? {
-          exists: true,
-          start: stickyUpScroll?.start,
-          delay: stickyUpScroll?.delay,
-        }
-      : stickyUpScroll
-      ? { exists: true }
-      : { exists: false }
-  const limit = upScroll?.start || 500
+  // const upScroll: {
+  //   exists: boolean
+  //   start?: number
+  //   delay?: number
+  // } =
+  //   typeof stickyUpScroll === 'object'
+  //     ? {
+  //         exists: true,
+  //         start: stickyUpScroll?.start,
+  //         delay: stickyUpScroll?.delay,
+  //       }
+  //     : stickyUpScroll
+  //     ? { exists: true }
+  //     : { exists: false }
+  // const limit = upScroll?.start || 500
 
   /**
    * Fire hook effect if stickyUpScroll === true
    */
-  useScrollPosition(
-    ({ prevPos, currPos }) => {
-      const isDownScroll = currPos > prevPos
-      const aboveLimit = currPos > limit
+  // useScrollPosition(
+  //   ({ prevPos, currPos }) => {
+  //     const isDownScroll = currPos > prevPos
+  //     const aboveLimit = currPos > limit
 
-      if (!aboveLimit && !show) {
-        setShow(true)
-      }
+  //     if (!aboveLimit && !show) {
+  //       setShow(true)
+  //     }
 
-      if (aboveLimit && isDownScroll && show) {
-        setShow(false)
-      }
+  //     if (aboveLimit && isDownScroll && show) {
+  //       setShow(false)
+  //     }
 
-      if (aboveLimit && !isDownScroll && !show) {
-        setShow(true)
-      }
-    },
-    upScroll.delay || 350,
-    upScroll.exists
-  )
+  //     if (aboveLimit && !isDownScroll && !show) {
+  //       setShow(true)
+  //     }
+  //   },
+  //   upScroll.delay || 350,
+  //   upScroll.exists
+  // )
 
   /**
    * Fire hook effect if sc !== undefined
    */
   useScrollPosition(
     ({ currPos }) => {
-      if (activateScrollClass) {
+      if (sc) {
         const { scrollTop, className } = sc || {}
         const isActive = currPos > scrollTop ? className : ''
-        if (isActive !== scrollClass) {
-          setScrollClass(isActive)
+        if (isActive !== effectClass) {
+          setEffectClass(isActive)
         }
       }
     },
     0,
-    activateScrollClass
+    !!sc
   )
   return <></>
 }

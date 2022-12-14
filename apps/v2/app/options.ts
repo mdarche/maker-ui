@@ -2,18 +2,23 @@ import { type MakerUIOptions } from '@maker-ui/layout'
 
 export const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
-  layout: 'sidenav-content',
+  layout: 'content',
   topbar: {
     sticky: false,
     stickyOnMobile: false,
     hideOnMobile: false,
   },
   header: {
-    absolute: true, // TODO & Please simplify sticky class disaster
+    absolute: false, // TODO & Please simplify sticky class disaster
     navType: 'minimal',
     navTypeMobile: 'logo-center',
     sticky: true,
     stickyOnMobile: true,
+    stickyUpScroll: false,
+    scrollClass: {
+      scrollTop: 1000,
+      className: 'testss',
+    },
   },
   mobileMenu: {
     transition: 'slide-left',
@@ -28,10 +33,6 @@ export const options: MakerUIOptions = {
     closeOnBlur: true,
     closeOnRouteChange: true,
     // isPrimaryMobileNav: true,
-    // closeOnBlur: true,
-    // closeOnRouteChange: true,
-    // showToggleOnMobile: true,
-    // collapse: boolean;
     // collapseButton?: React.ReactNode;
     // cssTransition?: string;
   },
