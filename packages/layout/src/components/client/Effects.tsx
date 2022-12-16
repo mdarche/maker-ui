@@ -8,19 +8,39 @@ interface EffectsProps {
   options: Options
 }
 
+type UpScrollSettings = {
+  /** Whether the scroll listener should be mounted to the DOM */
+  active: boolean
+  /** Scroll top where the hide effect should begin */
+  start?: number
+  /** Optional delay for obtaining new scrollTop */
+  delay?: number
+}
+
 export const Effects = ({
   options: {
     layout,
-    header: { stickyUpScroll, scrollClass: sc },
+    header: { stickyUpScroll, scrollClass },
     mobileMenu,
     sideNav,
   },
 }: EffectsProps) => {
   const { reset, setMenu } = useMenu()
   const { width } = useWindowSize()
-  const [effectClass, setEffectClass] = useState('')
+  const [selector, setSelector] = useState('')
   const [show, setShow] = useState(true)
   const els = ['span', 'a', 'li']
+  const upScroll: UpScrollSettings =
+    typeof stickyUpScroll === 'object'
+      ? {
+          active: true,
+          start: stickyUpScroll?.start,
+          delay: stickyUpScroll?.delay,
+        }
+      : stickyUpScroll
+      ? { active: true }
+      : { active: false }
+  const limit = upScroll?.start || 500
 
   /**
    * Collapse SideNav on mobile or when window is resized
@@ -114,84 +134,72 @@ export const Effects = ({
    * Handle custom header scroll class
    */
   useEffect(() => {
-    if (!sc) return
+    if (!scrollClass) return
     const header = document.querySelector('.mkui_header')
     if (!header) return
-    if (effectClass.length) {
-      header?.classList.add(effectClass)
+    if (selector.length) {
+      header?.classList.add(selector)
     }
-    if (!effectClass.length && header.classList.contains(sc.className)) {
-      header.classList.remove(sc.className)
+    if (!selector.length && header.classList.contains(scrollClass.className)) {
+      header.classList.remove(scrollClass.className)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [effectClass])
+  }, [selector])
 
-  // useEffect(() => {
-  //   const header = document.querySelector('.mkui_header')
-  //   if (header) {
-  //     if (!!stickyUpScroll && show) {
-  //       header.classList.add('scroll-active')
-  //     } else {
-  //       header.classList.remove('scroll-active')
-  //     }
-  //   }
-  // }, [stickyUpScroll, show])
-
-  // const upScroll: {
-  //   exists: boolean
-  //   start?: number
-  //   delay?: number
-  // } =
-  //   typeof stickyUpScroll === 'object'
-  //     ? {
-  //         exists: true,
-  //         start: stickyUpScroll?.start,
-  //         delay: stickyUpScroll?.delay,
-  //       }
-  //     : stickyUpScroll
-  //     ? { exists: true }
-  //     : { exists: false }
-  // const limit = upScroll?.start || 500
+  /**
+   * Handle sticky upscroll effect
+   */
+  useEffect(() => {
+    const header = document.querySelector('.mkui_header')
+    // Don't run both effects at once
+    if (header && !!stickyUpScroll) {
+      if (show) {
+        header.classList.remove('hide')
+      } else {
+        header.classList.add('hide')
+      }
+    }
+  }, [stickyUpScroll, show])
 
   /**
    * Fire hook effect if stickyUpScroll === true
    */
-  // useScrollPosition(
-  //   ({ prevPos, currPos }) => {
-  //     const isDownScroll = currPos > prevPos
-  //     const aboveLimit = currPos > limit
+  useScrollPosition(
+    ({ prevPos, currPos }) => {
+      const isDownScroll = currPos > prevPos
+      const aboveLimit = currPos > limit
 
-  //     if (!aboveLimit && !show) {
-  //       setShow(true)
-  //     }
+      if (!aboveLimit && !show) {
+        setShow(true)
+      }
 
-  //     if (aboveLimit && isDownScroll && show) {
-  //       setShow(false)
-  //     }
+      if (aboveLimit && isDownScroll && show) {
+        setShow(false)
+      }
 
-  //     if (aboveLimit && !isDownScroll && !show) {
-  //       setShow(true)
-  //     }
-  //   },
-  //   upScroll.delay || 350,
-  //   upScroll.exists
-  // )
+      if (aboveLimit && !isDownScroll && !show) {
+        setShow(true)
+      }
+    },
+    upScroll.delay || 350,
+    upScroll.active
+  )
 
   /**
-   * Fire hook effect if sc !== undefined
+   * Fire hook effect if scrollClass !== undefined
    */
   useScrollPosition(
     ({ currPos }) => {
-      if (sc) {
-        const { scrollTop, className } = sc || {}
+      if (scrollClass) {
+        const { scrollTop, className } = scrollClass || {}
         const isActive = currPos > scrollTop ? className : ''
-        if (isActive !== effectClass) {
-          setEffectClass(isActive)
+        if (isActive !== selector) {
+          setSelector(isActive)
         }
       }
     },
     0,
-    !!sc
+    !!scrollClass
   )
   return <></>
 }

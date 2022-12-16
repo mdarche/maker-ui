@@ -53,7 +53,7 @@ export const Header = ({
     <header
       className={cn([
         'mkui_header',
-        stickyClass(sticky, stickyOnMobile),
+        stickyUpScroll ? 'sticky-scroll' : stickyClass(sticky, stickyOnMobile),
         absolute ? 'abs width-100' : undefined,
         className,
       ])}

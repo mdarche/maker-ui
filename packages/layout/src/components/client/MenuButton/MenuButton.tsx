@@ -61,7 +61,7 @@ export const MenuButton = ({
       sideNav ? 'mkui_btn_collapse fixed' : undefined,
       sn.collapse ? 'collapsible' : undefined,
       !sideNav && close ? 'mkui_btn_close fixed' : undefined,
-      ...(positions || []),
+      ...(sideNav || close ? positions || [] : []),
       className,
     ]),
     'aria-label': 'Toggle Menu',
