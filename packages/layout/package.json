@@ -21,7 +21,9 @@
     "@maker-ui/utils": "workspace:*"
   },
   "peerDependencies": {
-    "next": "13.x"
+    "next": "^13.x",
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x"
   },
   "devDependencies": {
     "@maker-ui/build-tools": "workspace:*",

@@ -2,7 +2,6 @@
 
 import React, { useRef } from 'react'
 import { mergeRefs, Conditional } from '@maker-ui/utils'
-import { Global } from '@maker-ui/css'
 import {
   CSSTransition as ReactCSSTransition,
   SwitchTransition,
@@ -66,7 +65,7 @@ export const CSSTransition = ({
 
   return (
     <>
-      {className || noStyles ? undefined : <Global styles={styles} />}
+      {className || noStyles ? undefined : <style>{styles}</style>}
       <Conditional
         wrapper={(c) => (
           <SwitchTransition mode={switchMode}>

@@ -6,7 +6,6 @@ import {
   type TransitionStatus,
   type Transition as ReactTransitionProps,
 } from 'react-transition-group'
-import { StyleObject } from '@maker-ui/css'
 import { mergeRefs } from '@maker-ui/utils'
 
 export type TransitionState = {
@@ -20,7 +19,6 @@ export interface TransitionProps
   nodeRef?: React.MutableRefObject<any>
   show: boolean
   containerProps?: React.HTMLAttributes<HTMLDivElement>
-  css?: StyleObject
   unmountOnExit?: boolean
   easing?: string
   /** Lets you customize the different states of the mount / unmount transition
@@ -56,7 +54,6 @@ export const Transition = ({
   timeout = 300,
   unmountOnExit = true,
   transitionState = defaultTransitions,
-  css,
   containerProps,
   children,
   ...props

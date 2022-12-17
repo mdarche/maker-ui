@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { generateId, merge } from '@maker-ui/utils'
-import type { SpinnerProps } from '@maker-ui/loaders'
+import type { SpinnerProps } from '@maker-ui/spinners'
 
 import { LightboxProps } from './Lightbox'
 

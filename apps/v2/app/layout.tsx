@@ -20,17 +20,17 @@ const menu: MenuItemProps[] = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
   {
-    label: 'Services',
+    label: 'Demo',
     path: '/about',
     submenu: [
-      { label: 'Home', path: '/' },
+      { label: 'Modal', path: '/demo/modal' },
       {
-        label: 'About',
-        path: '/about',
-        submenu: [
-          { label: 'Home', path: '/' },
-          { label: 'About', path: '/about' },
-        ],
+        label: 'Transition',
+        path: '/demo/transition',
+      },
+      {
+        label: 'Spinners',
+        path: '/demo/spinners',
       },
     ],
   },

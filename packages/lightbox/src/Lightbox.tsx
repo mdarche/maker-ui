@@ -4,7 +4,7 @@ import type { ModalProps } from '@maker-ui/modal'
 import { LightboxContext, LightboxData } from './LightboxContext'
 import { LightboxModal } from './LightboxModal'
 import { LightboxLink } from './LightboxLink'
-import { SpinnerProps } from '@maker-ui/loaders'
+import { SpinnerProps } from '@maker-ui/spinners'
 
 export interface LightboxProps
   extends Omit<ModalProps, 'closeOnBlur' | 'center' | 'appendTo'> {

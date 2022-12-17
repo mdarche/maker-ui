@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Div, Image } from '@maker-ui/primitives'
-import { Spinner } from '@maker-ui/loaders'
+import { Spinner } from '@maker-ui/spinners'
 
 import { useLightbox, LightboxData } from './LightboxContext'
 

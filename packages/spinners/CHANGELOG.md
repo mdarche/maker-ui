@@ -1,4 +1,4 @@
-# @maker-ui/loaders
+# @maker-ui/spinners
 
 ## 1.2.5
 
@@ -13,7 +13,7 @@
 
 ### Patch Changes
 
-- Updated dependencies []:
+- Updated dependencies []:@
   - @maker-ui/utils@1.2.4
   - @maker-ui/primitives@1.2.4
   - @maker-ui/transition@1.2.4

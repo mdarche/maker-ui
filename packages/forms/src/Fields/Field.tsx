@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Flex } from '@maker-ui/primitives'
 import type { MakerProps } from '@maker-ui/css'
-import { Spinner } from '@maker-ui/loaders'
+import { Spinner } from '@maker-ui/spinners'
 import { cn, merge, Conditional } from '@maker-ui/utils'
 import { useField, useFormikContext } from 'formik'
 

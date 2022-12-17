@@ -75,3 +75,55 @@ export const formatCSS =
 
     return result
   }
+
+/**
+ * Converts camelcase JS-based style rules into dashes
+ */
+// const formatName = (n: string) =>
+// n.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())
+
+// const formatValue = (v: any) => {
+// // add pixels if number and not a whitelisted value like z-index
+// return v
+// }
+
+// function nestedObjectToCssString(
+//   obj: { [key: string]: any },
+//   parentSelector: string = ''
+// ): string {
+//   let cssString = ''
+//   for (const key in obj) {
+//     const value = obj[key]
+//     const currentSelector = parentSelector ? `${parentSelector} ${key}` : key
+//     if (key.startsWith('@media')) {
+//       cssString += `${key} { ${nestedObjectToCssString(
+//         value,
+//         parentSelector
+//       )} }`
+//     } else if (typeof value === 'object') {
+//       cssString += nestedObjectToCssString(value, currentSelector)
+//     } else {
+//       cssString += `${currentSelector}: ${value};`
+//     }
+//   }
+//   return cssString
+// }
+
+// function objectToCSS(
+//   obj: { [key: string]: any },
+//   parentSelector: string = ''
+// ): string {
+//   let cssString = ''
+//   for (const key in obj) {
+//     const value = obj[key]
+//     const currentSelector = parentSelector ? `${parentSelector} ${key}` : key
+//     if (key.startsWith('@media')) {
+//       cssString += `${key} { ${objectToCSS(value, parentSelector)} }`
+//     } else if (typeof value === 'object') {
+//       cssString += objectToCSS(value, currentSelector)
+//     } else {
+//       cssString += `${currentSelector}: ${value};`
+//     }
+//   }
+//   return cssString
+// }

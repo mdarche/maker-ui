@@ -1,5 +1,5 @@
 {
-  "name": "@maker-ui/loaders",
+  "name": "@maker-ui/spinners",
   "description": "A variety of common SVG loading spinners",
   "version": "1.2.5",
   "license": "Apache-2.0",
@@ -16,9 +16,8 @@
     "dist/**"
   ],
   "scripts": {
-    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "build": "tsup",
+    "start": "tsup --watch",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
@@ -26,7 +25,12 @@
     "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
+  "peerDependencies": {
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x"
+  },
   "devDependencies": {
+    "@maker-ui/build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
