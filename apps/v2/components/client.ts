@@ -6,4 +6,5 @@ export {
   ColorButton,
   CollapseMenu,
   NavMenu,
+  type MenuItemProps,
 } from '@maker-ui/layout/dist/client'

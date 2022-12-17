@@ -31,7 +31,7 @@ export const NavMenu = ({
         className={cn([
           'menu-primary nav-header',
           `dropdown-${transition}`,
-          transition.includes('fade') ? 'dd-fade' : undefined,
+          transition.includes('fade') ? 'mkui_fade' : undefined,
         ])}>
         {menuItems.map((item, index) => (
           <MenuItem

@@ -34,7 +34,7 @@
   position: relative;
 }
 
-.mkui_nav_menu ul > .menu-item {
+.mkui_nav_menu .menu-primary > .menu-item {
   display: inline-flex;
 }
 
@@ -54,12 +54,12 @@
   transform: rotate(180deg);
 }
 
-.dd-fade .submenu {
+.mkui_fade .submenu {
   transition: all ease 0.3s;
 }
 
-.dd-fade li:focus-within > .submenu,
-.dd-fade li:hover > .submenu {
+.mkui_fade li:focus-within > .submenu,
+.mkui_fade li:hover > .submenu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -97,7 +97,7 @@
   transition: opacity ease-in-out 0.2s 0.2s;
 }
 
-.menu-item.caret > a:after {
+.menu-item.mkui_caret > a:after {
   content: '';
   display: inline-block;
   width: 0;

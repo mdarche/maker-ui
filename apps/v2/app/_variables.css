@@ -44,7 +44,7 @@ body[data-theme='light'] {
   /* Required */
   --color-bg-header: #fff;
   --color-bg-side-nav: #fbfbfb;
-  --color-bg-topbar: #d2d2d2;
+  --color-bg-topbar: #fff;
   --color-bg-mobile-menu: #fff;
   --color-bg-overlay: rgba(0, 0, 0, 0.7);
   --color-logo: #000;

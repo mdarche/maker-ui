@@ -8,7 +8,7 @@ import styles from './MenuButton.module.css'
 interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   close?: boolean
   sideNav?: boolean
-  jsx?: (active?: boolean, attrs?: object) => React.ReactNode
+  renderProps?: (active?: boolean, attrs?: object) => React.ReactNode
 }
 
 /**
@@ -19,7 +19,7 @@ interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
  */
 export const MenuButton = ({
   className,
-  jsx,
+  renderProps,
   sideNav = false,
   close = false,
   children,
@@ -32,7 +32,7 @@ export const MenuButton = ({
   const { active, setMenu } = useMenu()
   const positions = mm?.closeButtonPosition?.split('-')
 
-  const conditionalAttributes = sideNav
+  const attrs = sideNav
     ? {
         'aria-expanded': active?.sideNav ? true : false,
         onClick: toggleSideMenu,
@@ -65,13 +65,13 @@ export const MenuButton = ({
       className,
     ]),
     'aria-label': 'Toggle Menu',
-    ...conditionalAttributes,
+    ...attrs,
     ...props,
   }
 
-  return jsx ? (
+  return renderProps ? (
     <>
-      {jsx(
+      {renderProps(
         sideNav && sn.isPrimaryMobileNav ? active?.sideNav : active?.menu,
         attributes
       )}
@@ -89,9 +89,7 @@ export const MenuButton = ({
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
           )}
         </svg>
-      ) : (
-        'TODO'
-      )}
+      ) : null}
     </button>
   )
 }

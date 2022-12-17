@@ -3,25 +3,26 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { usePathname } from 'next/navigation'
-import { MenuItem, type MenuItemProps } from './MenuItem'
+import {
+  MenuItem,
+  type ExpandButtonProps,
+  type MenuItemProps,
+} from './MenuItem'
 
 interface CollapseProps extends React.HTMLAttributes<HTMLUListElement> {
   items: MenuItemProps[]
-  caret?: boolean | React.ReactElement
+  expandButton?: ExpandButtonProps
   children?: React.ReactElement
 }
 
 /**
- * The `CollapseMenu` displays nested menus for the `SideNav` and `MobileMenu` components.
+ * The `CollapseMenu` displays nested menus for navibation.
  * Menu items with submenus will render a show/hide arrow button next to the item label.
  *
- * Used as a default menu for `SideNav` and `MobileMenu` when child components
- * are not included and you supply a menu prop.
- *
- * @link https://maker-ui.com/docs/layout/collapsible-menu
+ * @link https://maker-ui.com/docs/layout/collapse-menu
  */
 export const CollapseMenu = React.forwardRef<HTMLUListElement, CollapseProps>(
-  ({ items = [], caret, className, ...props }, ref) => {
+  ({ items = [], expandButton, className, ...props }, ref) => {
     const pathname = usePathname()
 
     return (
@@ -31,7 +32,12 @@ export const CollapseMenu = React.forwardRef<HTMLUListElement, CollapseProps>(
         role="navigation"
         {...props}>
         {items.map((item, index) => (
-          <MenuItem key={index} data={item} pathname={pathname} caret={caret} />
+          <MenuItem
+            key={index}
+            data={item}
+            pathname={pathname}
+            expandButton={expandButton}
+          />
         ))}
       </ul>
     )

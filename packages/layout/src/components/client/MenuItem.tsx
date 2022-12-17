@@ -4,6 +4,29 @@ import * as React from 'react'
 import { cn, Conditional } from '@maker-ui/utils'
 import Link from 'next/link'
 
+/**
+ * `MenuItemProp` is the menu structure for all menu-compatible Maker UI components. Create a
+ * deeply nested array of menu items that include:
+ *
+ * @param {string} label The menu item label
+ * @param {string} path The relative path or off-site URL
+ * @param {string?} className Custom class selectors for the menu item
+ * @param {React.ReactElement?} icon A React element to be rendered before the label
+ * @param {boolean} newTab A boolean that specifies whether the link should open in a new tab
+ * @param {MenuItem[]} submenu A nested array of additional MenuItems
+ * @param {boolean} openNested A boolean that hides or displays the nested submenu
+ *
+ * @example
+ * const menu: MenuItemProps[] = [
+ *  { label: 'Home', path: '/' },
+ *  { label: 'About', path: '/about', submenu:
+ *    [
+ *      { label: 'Team', path: '/about/team' },
+ *      { label: 'History', path: '/about/history' },
+ *    ]
+ *  },
+ * ]
+ */
 export interface MenuItemProps {
   label: string
   path?: string
@@ -18,34 +41,18 @@ export interface MenuItemProps {
   liAttributes?: object
 }
 
-/**
- * `MakerMenu` is the menu structure for all menu-compatible Maker UI components. Create a
- * deeply nested array of menu items that include:
- *
- * @param {string} label The menu item label
- * @param {string} path The relative path or off-site URL
- * @param {string?} className Custom class selectors for the menu item
- * @param {React.ReactElement?} icon A React element to be rendered before the label
- * @param {boolean} newTab A boolean that specifies whether the link should open in a new tab
- * @param {MenuItem[]} submenu A nested array of additional MenuItems
- * @param {boolean} openNested A boolean that hides or displays the nested submenu
- *
- * @example
- * const menu: MakerMenu = [
- *  { label: 'Home', path: '/' },
- *  { label: 'About', path: '/about', submenu:
- *    [
- *      { label: 'Team', path: '/about/team' },
- *      { label: 'History', path: '/about/history' },
- *    ]
- *  },
- * ]
- */
-export type MakerMenu = MenuItemProps[]
+export type ExpandButtonProps =
+  | boolean
+  | React.ReactElement
+  | ((
+      show: boolean,
+      attrs: React.HTMLAttributes<HTMLButtonElement>
+    ) => React.ReactElement)
 
 interface MenuInternalProps {
   data: MenuItemProps
   caret?: boolean | React.ReactElement
+  expandButton?: ExpandButtonProps
   pathname?: string | null
   isHeader?: boolean
   depth?: number
@@ -58,7 +65,6 @@ interface MenuInternalProps {
  * @internal
  *
  */
-
 export const MenuItem = React.memo(
   ({
     data: {
@@ -75,15 +81,19 @@ export const MenuItem = React.memo(
       liAttributes,
     },
     caret = false,
+    expandButton,
     pathname,
     isHeader = false,
     depth = 0,
   }: MenuInternalProps) => {
-    const [showNested, setNested] = React.useState(openNested)
+    const [show, set] = React.useState(openNested)
     const isLocal = path && path?.startsWith('/')
 
-    const attributes = {
-      className: pathname === path ? 'current' : undefined,
+    const linkAttrs = {
+      className: cn([
+        pathname === path ? 'current' : undefined,
+        caret ? 'inline-flex' : undefined,
+      ]),
       target: newTab ? '_blank' : undefined,
       rel: newTab ? 'noopener noreferrer' : undefined,
       'aria-label': icon ? label : undefined,
@@ -95,6 +105,21 @@ export const MenuItem = React.memo(
           : undefined,
       'aria-current': pathname === path ? ('page' as 'page') : undefined,
     }
+
+    const title = `${show ? 'Collapse' : 'Expand'} Section`
+    const buttonAttrs: React.HTMLAttributes<HTMLButtonElement> = submenu
+      ? {
+          title,
+          className: cn([
+            expandButton ? undefined : 'mkui_btn_expand',
+            'submenu-toggle',
+            show ? 'expanded' : undefined,
+          ]),
+          'aria-expanded': show ? 'true' : 'false',
+          'aria-label': title,
+          onClick: () => set(!show),
+        }
+      : {}
 
     const InnerLink = () => (
       <>
@@ -110,8 +135,8 @@ export const MenuItem = React.memo(
           'menu-item',
           megamenu ? 'has-megamenu' : undefined,
           submenu ? 'has-submenu' : undefined,
-          submenu && isHeader ? 'caret' : undefined,
-          showNested ? 'expanded' : undefined,
+          submenu && isHeader && !caret ? 'mkui_caret' : undefined,
+          show ? 'expanded' : undefined,
           className,
         ])}
         {...liAttributes}>
@@ -122,36 +147,61 @@ export const MenuItem = React.memo(
             {!isHeader && divider ? (
               label
             ) : !isHeader && isExpandButton && submenu ? (
-              <button onClick={() => setNested(!showNested)}>{label}</button>
+              <button onClick={() => set(!show)}>{label}</button>
             ) : isLocal ? (
-              <Link href={path}>
+              <Link href={path} {...linkAttrs}>
                 <InnerLink />
               </Link>
             ) : (
-              <a href={path} {...attributes}>
+              <a href={path} {...linkAttrs}>
                 <InnerLink />
               </a>
             )}
             {!isHeader && submenu ? (
-              <ExpandButton set={setNested} show={showNested} />
+              <>
+                {expandButton && typeof expandButton === 'function' ? (
+                  expandButton(show, buttonAttrs)
+                ) : (
+                  <button {...buttonAttrs}>
+                    {React.isValidElement(expandButton) ? (
+                      expandButton
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        className={show ? 'rotate' : undefined}>
+                        <path
+                          stroke="currentcolor"
+                          strokeWidth="2"
+                          fill="none"
+                          d="M14 6 L8 12 L2 6"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                )}
+              </>
             ) : null}
           </>
         </Conditional>
         {submenu ? (
           <>
-            {isHeader || (!isHeader && showNested) ? (
+            {isHeader || (!isHeader && show) ? (
               <ul
                 className={cn(['submenu', `depth-${depth}`])}
                 role="menu"
                 aria-label="submenu">
                 {submenu.map((item, index) => (
                   <MenuItem
-                    key={index}
-                    data={item}
-                    caret={caret}
-                    pathname={pathname}
-                    isHeader={isHeader}
-                    depth={depth + 1}
+                    {...{
+                      key: index,
+                      data: item,
+                      caret,
+                      expandButton,
+                      pathname,
+                      isHeader,
+                      depth: depth + 1,
+                    }}
                   />
                 ))}
               </ul>
@@ -164,41 +214,3 @@ export const MenuItem = React.memo(
 )
 
 MenuItem.displayName = 'MenuItem'
-
-interface ExpandButtonProps {
-  show: boolean
-  set: (show: boolean) => void
-}
-
-/**
- * The `ExpandButton` is used in collapsible menus to open or close the
- * next group of nested menu items.
- *
- * @internal
- * @todo add custom button support
- *
- */
-export const ExpandButton = ({ show, set }: ExpandButtonProps) => {
-  return (
-    <button
-      title="Expand Section"
-      className={cn(['submenu-toggle', show ? 'expanded' : undefined])}
-      aria-expanded={show ? 'true' : 'false'}
-      aria-label="Expand Section"
-      onClick={() => set(!show)}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 16 16"
-        className={show ? 'rotate' : undefined}>
-        <path
-          stroke="currentcolor"
-          strokeWidth="2"
-          fill="none"
-          d="M14 6 L8 12 L2 6"
-        />
-      </svg>
-    </button>
-  )
-}
-
-ExpandButton.displayName = 'ExpandButton'

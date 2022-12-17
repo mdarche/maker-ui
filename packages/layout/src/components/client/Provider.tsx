@@ -119,7 +119,7 @@ export const Provider = (props: LayoutProviderProps) => {
   /**
    * Set the initial color theme
    *
-   * @remark To conform with `prefers-color-scheme`, make sure you explicitly
+   * @remark To conform with `prefers-color-scheme`, you must explicitly
    * set color modes with `light` and `dark` keys.
    *
    */
@@ -145,7 +145,7 @@ export const Provider = (props: LayoutProviderProps) => {
   }, [])
 
   /**
-   * NOTE - ALL STYLES ADDED TO HEAD WILL BE MOVED TO SERVER WHEN
+   * @TODO - ALL STYLES ADDED TO HEAD WILL BE MOVED TO SERVER WHEN
    * NEXT.JS LAYOUT API SUPPORTS <style> TAGS
    */
   React.useEffect(() => {

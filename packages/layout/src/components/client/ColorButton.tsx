@@ -4,24 +4,19 @@ import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { useColorTheme } from './Provider'
 
-type ColorButtonProps = (
-  currentMode?: string,
-  attrs?: object
-) => React.ReactNode
-
 interface ColorProps extends React.HTMLAttributes<HTMLButtonElement> {
-  jsx?: ColorButtonProps
+  renderProps?: (currentMode?: string, attrs?: object) => React.ReactNode
 }
 
 /**
  * The `ColorButton` is used by `Navbar` to show the current color mode and let you toggle
  * to other color presets. You can also use this button anywhere within your layout.
  *
- * @link https://maker-ui.com/docs/layout/buttons/#colorButton
+ * @link https://maker-ui.com/docs/layout/color-button
  */
 export const ColorButton = ({
   className,
-  jsx,
+  renderProps,
   children,
   ...props
 }: ColorProps) => {
@@ -47,8 +42,8 @@ export const ColorButton = ({
     ...props,
   }
 
-  return jsx ? (
-    <>{jsx(current, attributes) as React.ReactNode}</>
+  return renderProps ? (
+    <>{renderProps(current, attributes) as React.ReactNode}</>
   ) : (
     <button {...attributes}>{children ?? current}</button>
   )
