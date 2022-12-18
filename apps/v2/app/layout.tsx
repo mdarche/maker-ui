@@ -32,6 +32,10 @@ const menu: MenuItemProps[] = [
         label: 'Spinners',
         path: '/demo/spinners',
       },
+      {
+        label: 'Social',
+        path: '/demo/social',
+      },
     ],
   },
   { label: 'News', path: '/about' },

@@ -48,7 +48,7 @@ export const Form = ({
     <Conditional
       condition={components.formSuccess ? true : false}
       wrapper={(c) => (
-        <CSSTransition show={success ? 0 : 1}>
+        <CSSTransition id="form" show={success ? 0 : 1}>
           {success ? components.formSuccess : c}
         </CSSTransition>
       )}>

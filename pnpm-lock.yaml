@@ -157,7 +157,6 @@ importers:
     specifiers:
       '@maker-ui/accordion': workspace:*
       '@maker-ui/carousel': workspace:*
-      '@maker-ui/forms': workspace:*
       '@maker-ui/generative': workspace:*
       '@maker-ui/gsap': workspace:*
       '@maker-ui/layout': workspace:*
@@ -177,7 +176,6 @@ importers:
     dependencies:
       '@maker-ui/accordion': link:../../packages/accordion
       '@maker-ui/carousel': link:../../packages/carousel
-      '@maker-ui/forms': link:../../packages/forms
       '@maker-ui/generative': link:../../packages/generative
       '@maker-ui/gsap': link:../../packages/gsap
       '@maker-ui/layout': link:../../packages/layout
@@ -650,7 +648,8 @@ importers:
 
   packages/social:
     specifiers:
-      '@maker-ui/primitives': workspace:*
+      '@maker-ui/build-tools': workspace:*
+      '@maker-ui/utils': workspace:*
       '@svgr/cli': ^6.2.1
       eslint-config-library: workspace:*
       react: ^18.2.0
@@ -659,8 +658,9 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.8.4
     dependencies:
-      '@maker-ui/primitives': link:../primitives
+      '@maker-ui/utils': link:../utils
     devDependencies:
+      '@maker-ui/build-tools': link:../build-tools
       '@svgr/cli': 6.2.1
       eslint-config-library: link:../eslint-config-library
       react: 18.2.0

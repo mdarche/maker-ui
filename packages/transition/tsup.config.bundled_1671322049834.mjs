@@ -1,0 +1,17 @@
+// tsup.config.ts
+import { defineConfig } from "tsup";
+import { buildConfig } from "@maker-ui/build-tools";
+var config = buildConfig({
+  clean: false,
+  minifyIdentifiers: true,
+  minifyWhitespace: true,
+  minifySyntax: true,
+  entry: {
+    index: "src/index.ts"
+  }
+});
+var tsup_config_default = defineConfig(config);
+export {
+  tsup_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidHN1cC5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImltcG9ydCB7IGRlZmluZUNvbmZpZyB9IGZyb20gJ3RzdXAnXG5pbXBvcnQgeyBidWlsZENvbmZpZyB9IGZyb20gJ0BtYWtlci11aS9idWlsZC10b29scydcblxuY29uc3QgY29uZmlnID0gYnVpbGRDb25maWcoe1xuICBjbGVhbjogZmFsc2UsXG4gIG1pbmlmeUlkZW50aWZpZXJzOiB0cnVlLFxuICBtaW5pZnlXaGl0ZXNwYWNlOiB0cnVlLFxuICBtaW5pZnlTeW50YXg6IHRydWUsXG4gIGVudHJ5OiB7XG4gICAgaW5kZXg6ICdzcmMvaW5kZXgudHMnLFxuICB9LFxufSlcblxuZXhwb3J0IGRlZmF1bHQgZGVmaW5lQ29uZmlnKGNvbmZpZylcbiJdLAogICJtYXBwaW5ncyI6ICI7QUFBQTtBQUNBO0FBRUEsSUFBTSxTQUFTLFlBQVk7QUFBQSxFQUN6QixPQUFPO0FBQUEsRUFDUCxtQkFBbUI7QUFBQSxFQUNuQixrQkFBa0I7QUFBQSxFQUNsQixjQUFjO0FBQUEsRUFDZCxPQUFPO0FBQUEsSUFDTCxPQUFPO0FBQUEsRUFDVDtBQUNGLENBQUM7QUFFRCxJQUFPLHNCQUFRLGFBQWEsTUFBTTsiLAogICJuYW1lcyI6IFtdCn0K

@@ -13,7 +13,7 @@ export default function TransitionPage() {
     <>
       <Section>
         <button onClick={() => set(!show)}>{show ? 'Hide' : 'Reveal'}</button>
-        <CSSTransition show={show}>
+        <CSSTransition id="one" show={show}>
           <div style={{ height: 400, background: 'gainsboro' }}>
             <h2>Regular CSS Transition</h2>
           </div>
@@ -24,7 +24,7 @@ export default function TransitionPage() {
         <button onClick={() => set2(!show2)}>
           {show2 ? 'Component 2' : 'Component 1'}
         </button>
-        <CSSTransition isSwitch show={show2}>
+        <CSSTransition id="two" isSwitch show={show2}>
           {show2 ? (
             <div style={{ height: 400, background: 'gainsboro' }}>
               <h2>Component 1</h2>
@@ -41,7 +41,7 @@ export default function TransitionPage() {
         <button onClick={() => setKey(1)}>Key 1</button>
         <button onClick={() => setKey(2)}>Key 2</button>
         <button onClick={() => setKey(3)}>Key 3</button>
-        <CSSTransition show={key}>
+        <CSSTransition id="three" show={key}>
           <div style={{ height: 400, background: 'gainsboro' }}>
             <h2>Switch CSS Transition</h2>
             <div>

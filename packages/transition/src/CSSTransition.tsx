@@ -18,6 +18,8 @@ export type TransitionType =
 
 export interface CSSTransitionProps
   extends Partial<ReactCSSTransitionProps<HTMLDivElement>> {
+  /** ID is a required unique string (necessary for client hydration and local scoping) */
+  id: string
   switchMode?: 'out-in' | 'in-out'
   isSwitch?: boolean
   show: boolean | string | number
@@ -35,6 +37,7 @@ export interface CSSTransitionProps
 }
 
 export const CSSTransition = ({
+  id,
   type = 'fade-up',
   isSwitch = false,
   switchMode = 'out-in',
@@ -43,7 +46,6 @@ export const CSSTransition = ({
   unmountOnExit = true,
   easing = 'ease',
   className,
-  classNamePrefix,
   show,
   nodeRef,
   containerProps,
@@ -52,10 +54,10 @@ export const CSSTransition = ({
   ...props
 }: CSSTransitionProps) => {
   const ref = useRef(null)
-  const styles = getStyles(type, distance, timeout, easing, classNamePrefix)
+  const styles = getStyles(type, distance, timeout, easing, id)
   const isShowBool = typeof show === 'boolean'
   const isSwitchTransition = isSwitch || !isShowBool
-  const t = classNamePrefix ? `${classNamePrefix}-${type}` : type
+  const t = id ? `${id}-${type}` : type
   const switchKey =
     isSwitchTransition && isShowBool
       ? show
@@ -65,7 +67,9 @@ export const CSSTransition = ({
 
   return (
     <>
-      {className || noStyles ? undefined : <style>{styles}</style>}
+      {className || noStyles ? undefined : (
+        <style id={`mkui_${id}`}>{styles}</style>
+      )}
       <Conditional
         wrapper={(c) => (
           <SwitchTransition mode={switchMode}>

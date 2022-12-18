@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { UList, type UListProps } from '@maker-ui/primitives'
+import { cn, generateId } from '@maker-ui/utils'
 import {
   TwitterIcon,
   InstagramIcon,
@@ -10,6 +10,7 @@ import {
   TiktokIcon,
   WebsiteIcon,
 } from './svgr'
+import { getStyles } from './styles'
 
 interface AccountLinks {
   twitter?: string
@@ -34,7 +35,7 @@ export type Account =
 
 type ResponsiveString = string | string[]
 
-interface ColorConfig {
+export interface ColorConfig {
   default: ResponsiveString
   active: ResponsiveString
 }
@@ -43,10 +44,11 @@ type SocialLogos = {
   [K in Account]: { icon: JSX.Element; label: string; root?: string }
 }
 
-interface SocialAccountsProps extends Omit<UListProps, 'color'> {
+export interface SocialAccountsProps
+  extends Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
   accounts: AccountLinks
-  iconSize?: number | number[]
-  spacing?: number | number[]
+  iconSize?: number | string
+  spacing?: number | string
   vertical?: boolean
   justify?: 'center' | 'left' | 'right'
   trim?: boolean
@@ -102,77 +104,32 @@ function formatSocialURL(val?: string, account?: Account) {
 
 export const SocialAccounts = ({
   accounts,
-  css,
-  iconSize = 22,
-  spacing = 10,
-  vertical = false,
-  justify = 'left',
   color,
-  trim = false,
-  trimFirst = false,
-  trimLast = false,
   ...props
 }: SocialAccountsProps) => {
-  const isColorObject = typeof color === 'object'
+  const id = generateId()
+  const styles = getStyles(id, { ...props, color })
   return accounts ? (
-    <UList
-      className="social-accounts"
-      css={{
-        display: !vertical ? 'flex' : undefined,
-        listStyleType: 'none',
-        justifyContent:
-          justify === 'right'
-            ? 'flex-end'
-            : justify === 'center'
-            ? 'center'
-            : undefined,
-        padding: 0,
-        svg: {
-          height: iconSize,
-          width: iconSize,
-          fill: isColorObject ? (color as ColorConfig)?.default : color,
-          transition: 'fill ease 0.3s',
-        },
-        a: {
-          display: 'block',
-          paddingLeft: spacing,
-          paddingRight: spacing,
-          ...(isColorObject
-            ? { '&:hover svg': { fill: (color as ColorConfig)?.active } }
-            : {}),
-        },
-        'li:first-of-type a':
-          trim || trimFirst
-            ? {
-                paddingLeft: 0,
-              }
-            : undefined,
-        'li:last-of-type a':
-          trim || trimLast
-            ? {
-                paddingRight: 0,
-              }
-            : undefined,
-        ...(css as object),
-      }}
-      {...props}>
-      {Object.keys(accounts).map((key) =>
-        // @ts-ignore
-        accounts[key] === null || !accounts[key].length ? null : (
-          <li key={key}>
-            {/* @ts-ignore */}
-            <a
-              href={formatSocialURL(accounts[key as Account], key as Account)}
-              target="_blank"
-              rel="noreferrer">
-              <div className="icon-wrapper flex align-center">
-                {socialLogos[key as Account].icon}
-              </div>
-            </a>
-          </li>
-        )
-      )}
-    </UList>
+    <>
+      <style id={`mkui_css_${id}`}>{styles}</style>
+      <ul className={cn([`mkui_${id}`, 'social-accounts'])} {...props}>
+        {Object.keys(accounts).map((key) =>
+          // @ts-ignore
+          accounts[key] === null || !accounts[key].length ? null : (
+            <li key={key}>
+              <a
+                href={formatSocialURL(accounts[key as Account], key as Account)}
+                target="_blank"
+                rel="noreferrer">
+                <div className="icon-wrapper flex align-center">
+                  {socialLogos[key as Account].icon}
+                </div>
+              </a>
+            </li>
+          )
+        )}
+      </ul>
+    </>
   ) : null
 }
 
