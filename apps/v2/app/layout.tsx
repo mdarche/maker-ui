@@ -22,6 +22,7 @@ const menu: MenuItemProps[] = [
   {
     label: 'Demo',
     path: '/about',
+    openNested: true,
     submenu: [
       { label: 'Modal', path: '/demo/modal' },
       {
@@ -35,6 +36,10 @@ const menu: MenuItemProps[] = [
       {
         label: 'Social',
         path: '/demo/social',
+      },
+      {
+        label: 'Style',
+        path: '/demo/style',
       },
     ],
   },

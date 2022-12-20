@@ -102,6 +102,8 @@ function formatSocialURL(val?: string, account?: Account) {
   return val.startsWith('http') ? val : `${socialLogos[account].root}${clean}`
 }
 
+// TODO - add support for custom accounts and BYO icons
+
 export const SocialAccounts = ({
   accounts,
   color,

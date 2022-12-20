@@ -12,6 +12,7 @@
     "@maker-ui/carousel": "workspace:*",
     "@maker-ui/generative": "workspace:*",
     "@maker-ui/gsap": "workspace:*",
+    "@maker-ui/jss": "workspace:*",
     "@maker-ui/layout": "workspace:*",
     "@maker-ui/lightbox": "workspace:*",
     "@maker-ui/spinners": "workspace:*",
@@ -21,6 +22,7 @@
     "@maker-ui/social": "workspace:*",
     "@maker-ui/tabs": "workspace:*",
     "@maker-ui/toc": "workspace:*",
+    "@maker-ui/utils": "workspace:*",
     "next": "^13.0.6",
     "react": "^18.2.0",
     "react-dom": "18.2.0"

@@ -1,5 +1,5 @@
 import { merge } from '@maker-ui/utils'
-import type { Interpolation, Breakpoints } from './types'
+import type { ResponsiveCSS, Breakpoints } from './types'
 
 const format = (value: any) => (isNaN(value) ? value : `${value}px`)
 const defaultBreakpoints = ['768px', '960px', '1440px']
@@ -14,11 +14,8 @@ const defaultBreakpoints = ['768px', '960px', '1440px']
  * @internal
  *
  */
-export function responsive(
-  styles: Interpolation<any>,
-  breakpoints: Breakpoints
-) {
-  let next: Interpolation<any> = {}
+export function parseArrays(styles: ResponsiveCSS, breakpoints: Breakpoints) {
+  let next: ResponsiveCSS = {}
   for (const [key, value] of Object.entries(styles as object)) {
     if (value === null) continue
     /** If value is not an array */
@@ -49,81 +46,27 @@ export function responsive(
  *
  * @param styles - a CSS style object
  * @param breakpoints - an array of breakpoints
- * @returns An EmotionJS compatible CSSObject
+ * @returns A CSS object
  *
  * @internal
  *
  */
-export const formatCSS =
-  (css: Interpolation<any>, breakpoints?: Breakpoints) => (theme: any) => {
-    let result: Interpolation<any> = {}
+export const formatCSS = (css: ResponsiveCSS, breakpoints?: Breakpoints) => {
+  let result: ResponsiveCSS = {}
 
-    const bp = breakpoints || theme?.breakpoints || defaultBreakpoints
-    const styles = responsive(css, bp)
+  const bp = breakpoints || defaultBreakpoints
+  const styles = parseArrays(css, bp)
 
-    for (const [key, value] of Object.entries(styles)) {
-      // @ts-ignore
-      const val = typeof value === 'function' ? value(theme) : value
-
-      if (val && typeof val === 'object') {
-        /** Recursively format nested objects */
-        result[key] = formatCSS(val as Interpolation<any>, bp)(theme)
-        continue
-      }
-      result[key] = val
+  for (const [key, val] of Object.entries(styles)) {
+    if (val && typeof val === 'object') {
+      /** Recursively format nested objects */
+      //@ts-ignore
+      result[key] = formatCSS(val, bp)
+      continue
     }
 
-    return result
+    result[key] = val
   }
 
-/**
- * Converts camelcase JS-based style rules into dashes
- */
-// const formatName = (n: string) =>
-// n.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())
-
-// const formatValue = (v: any) => {
-// // add pixels if number and not a whitelisted value like z-index
-// return v
-// }
-
-// function nestedObjectToCssString(
-//   obj: { [key: string]: any },
-//   parentSelector: string = ''
-// ): string {
-//   let cssString = ''
-//   for (const key in obj) {
-//     const value = obj[key]
-//     const currentSelector = parentSelector ? `${parentSelector} ${key}` : key
-//     if (key.startsWith('@media')) {
-//       cssString += `${key} { ${nestedObjectToCssString(
-//         value,
-//         parentSelector
-//       )} }`
-//     } else if (typeof value === 'object') {
-//       cssString += nestedObjectToCssString(value, currentSelector)
-//     } else {
-//       cssString += `${currentSelector}: ${value};`
-//     }
-//   }
-//   return cssString
-// }
-
-// function objectToCSS(
-//   obj: { [key: string]: any },
-//   parentSelector: string = ''
-// ): string {
-//   let cssString = ''
-//   for (const key in obj) {
-//     const value = obj[key]
-//     const currentSelector = parentSelector ? `${parentSelector} ${key}` : key
-//     if (key.startsWith('@media')) {
-//       cssString += `${key} { ${objectToCSS(value, parentSelector)} }`
-//     } else if (typeof value === 'object') {
-//       cssString += objectToCSS(value, currentSelector)
-//     } else {
-//       cssString += `${currentSelector}: ${value};`
-//     }
-//   }
-//   return cssString
-// }
+  return result
+}

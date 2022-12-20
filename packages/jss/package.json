@@ -11,19 +11,21 @@
   ],
   "scripts": {
     "test": "jest",
-    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "build": "tsup",
+    "start": "tsup --watch",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@emotion/react": "11.8.2",
     "@maker-ui/utils": "workspace:*",
     "csstype": "^3.0.6"
   },
+  "peerDependencies": {
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x"
+  },
   "devDependencies": {
-    "@emotion/jest": "^11.8.0",
+    "@maker-ui/build-tools": "workspace:*",
     "@testing-library/dom": "^8.11.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",

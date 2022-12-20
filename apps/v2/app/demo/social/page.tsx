@@ -8,6 +8,12 @@ export default function SocialPage() {
         accounts={{
           twitter: 'https://twitter.com',
           facebook: 'https://facebook.com',
+          instagram: 'https://facebook.com',
+          youtube: 'https://facebook.com',
+          website: 'https://facebook.com',
+          linkedin: 'https://facebook.com',
+          tiktok: 'https://facebook.com',
+          discord: 'https://facebook.com',
         }}
       />
     </Section>

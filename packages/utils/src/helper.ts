@@ -11,10 +11,12 @@ export const format = (value: any) => (isNaN(value) ? value : `${value}px`)
  */
 export function generateId(length: number = 5): string {
   let result = ''
-  let chars = 'abcdefghijklmnopqrstuv1234567890'
+  const letters = 'abcdefghijklmnopqrstuv',
+    nums = '1234567890',
+    chars = letters + nums
   let charLength = chars.length
-
-  for (let i = 0; i < length; i++) {
+  result += letters.charAt(Math.floor(Math.random() * charLength))
+  for (let i = 1; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * charLength))
   }
 

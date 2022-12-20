@@ -159,6 +159,7 @@ importers:
       '@maker-ui/carousel': workspace:*
       '@maker-ui/generative': workspace:*
       '@maker-ui/gsap': workspace:*
+      '@maker-ui/jss': workspace:*
       '@maker-ui/layout': workspace:*
       '@maker-ui/lightbox': workspace:*
       '@maker-ui/modal': workspace:*
@@ -178,6 +179,7 @@ importers:
       '@maker-ui/carousel': link:../../packages/carousel
       '@maker-ui/generative': link:../../packages/generative
       '@maker-ui/gsap': link:../../packages/gsap
+      '@maker-ui/jss': link:../../packages/jss
       '@maker-ui/layout': link:../../packages/layout
       '@maker-ui/lightbox': link:../../packages/lightbox
       '@maker-ui/modal': link:../../packages/modal
@@ -448,8 +450,7 @@ importers:
 
   packages/jss:
     specifiers:
-      '@emotion/jest': ^11.8.0
-      '@emotion/react': 11.8.2
+      '@maker-ui/build-tools': workspace:*
       '@maker-ui/utils': workspace:*
       '@testing-library/dom': ^8.11.3
       '@testing-library/jest-dom': ^5.16.2
@@ -464,11 +465,10 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.8.4
     dependencies:
-      '@emotion/react': 11.8.2_react@18.2.0
       '@maker-ui/utils': link:../utils
       csstype: 3.0.11
     devDependencies:
-      '@emotion/jest': 11.8.0_@types+jest@27.4.1
+      '@maker-ui/build-tools': link:../build-tools
       '@testing-library/dom': 8.11.3
       '@testing-library/jest-dom': 5.16.2
       '@testing-library/react': 12.1.4_biqbaboplfbrettd7655fr4n2y

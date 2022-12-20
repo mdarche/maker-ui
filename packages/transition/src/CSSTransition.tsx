@@ -19,7 +19,7 @@ export type TransitionType =
 export interface CSSTransitionProps
   extends Partial<ReactCSSTransitionProps<HTMLDivElement>> {
   /** ID is a required unique string (necessary for client hydration and local scoping) */
-  id: string
+  id?: string
   switchMode?: 'out-in' | 'in-out'
   isSwitch?: boolean
   show: boolean | string | number
@@ -68,7 +68,7 @@ export const CSSTransition = ({
   return (
     <>
       {className || noStyles ? undefined : (
-        <style id={`mkui_${id}`}>{styles}</style>
+        <style id={`mkui_style_${id}`}>{styles}</style>
       )}
       <Conditional
         wrapper={(c) => (
