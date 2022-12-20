@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Div, type DivProps } from '@maker-ui/primitives'
 import { cn } from '@maker-ui/utils'
 
 import { AccordionContext } from './AccordionContext'
 import { AccordionPanel } from './AccordionPanel'
 
-export interface AccordionProps extends DivProps {
+export interface AccordionProps
+  extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /** If true, the Accordion button will render an icon that shows expand / collapse status.
    * @default true
    */
@@ -49,7 +49,7 @@ export const Accordion = ({
   activeKey = 0,
   showSingle = false,
   className,
-  css,
+  // css,
   animate = false,
   children,
   ...props
@@ -61,12 +61,9 @@ export const Accordion = ({
       activeKey={activeKey}
       showSingle={showSingle}
       animate={animate}>
-      <Div
-        className={cn(['mk_accordion', className])}
-        css={{ ...(css as object) }}
-        {...props}>
+      <div className={cn(['mk_accordion', className])} {...props}>
         {children}
-      </Div>
+      </div>
     </AccordionContext>
   )
 }

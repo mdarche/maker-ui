@@ -1,25 +1,26 @@
-/**
- * Utility for adding pixel value to numbers for transitions and animations
- */
-export const format = (value: any) => (isNaN(value) ? value : `${value}px`)
+type IDType = 'mixed' | 'letters' | 'numbers'
 
 /**
  * Returns a randomly generated alphanumeric ID.
  *
- * @internal
+ * @param length - an integer that determines the length of the random string
+ * @param type - 'mixed' | 'letters' | 'numbers'
  *
  */
-export function generateId(length: number = 5): string {
+export function generateId(length: number = 6, type: IDType = 'mixed'): string {
   let result = ''
-  const letters = 'abcdefghijklmnopqrstuv',
+  const letters = 'abcdefghijklmnopqrstuvwxyz',
     nums = '1234567890',
-    chars = letters + nums
-  let charLength = chars.length
-  result += letters.charAt(Math.floor(Math.random() * charLength))
-  for (let i = 1; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * charLength))
+    chars =
+      type === 'mixed' ? letters + nums : type === 'numbers' ? nums : letters
+  for (let i = 0; i < length; i++) {
+    if (i === 0 && type !== 'numbers') {
+      // Ensure first character is a letter to prevent errors
+      result += letters.charAt(Math.floor(Math.random() * letters.length))
+    } else {
+      result += chars.charAt(Math.floor(Math.random() * chars.length))
+    }
   }
-
   return result
 }
 
@@ -35,6 +36,7 @@ export function validate(obj: any) {
 /**
  * Returns a formatted selector string for `id` or `className` attributes that
  * merges user generated classNames with MakerUI defaults.
+ *
  * @param selectors - an array of classNames or ids supplied by component props.
  * Can be dynamically generated
  *

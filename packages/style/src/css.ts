@@ -1,7 +1,7 @@
 import { merge } from '@maker-ui/utils'
 import type { ResponsiveCSS, Breakpoints } from './types'
 
-const format = (value: any) => (isNaN(value) ? value : `${value}px`)
+const formatBreakpoint = (value: any) => (isNaN(value) ? value : `${value}px`)
 const defaultBreakpoints = ['768px', '960px', '1440px']
 
 /**
@@ -26,7 +26,9 @@ export function parseArrays(styles: ResponsiveCSS, breakpoints: Breakpoints) {
     /** If value is a responsive array */
     next[key] = value[0]
     for (let i = 0; i < value.length - 1; i++) {
-      const mq = `@media screen and (min-width: ${format(breakpoints[i])})`
+      const mq = `@media screen and (min-width: ${formatBreakpoint(
+        breakpoints[i]
+      )})`
       if (next[mq]) {
         next = merge(next, { [mq]: { [key]: value[i + 1] } })
       } else {
@@ -60,8 +62,7 @@ export const formatCSS = (css: ResponsiveCSS, breakpoints?: Breakpoints) => {
   for (const [key, val] of Object.entries(styles)) {
     if (val && typeof val === 'object') {
       /** Recursively format nested objects */
-      //@ts-ignore
-      result[key] = formatCSS(val, bp)
+      result[key] = formatCSS(val as ResponsiveCSS, bp)
       continue
     }
 

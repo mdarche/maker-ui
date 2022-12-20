@@ -17,9 +17,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/css": "workspace:*",
     "@maker-ui/layout": "workspace:*",
-    "@maker-ui/primitives": "workspace:*",
+    "@maker-ui/style": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
   "devDependencies": {

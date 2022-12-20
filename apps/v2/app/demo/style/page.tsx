@@ -1,25 +1,28 @@
 import { Section } from '@maker-ui/layout'
-import { Style } from '@maker-ui/jss'
-import { generateId } from '../../../../../packages/utils/dist'
+import { Style } from '@maker-ui/style'
+import { generateId } from '@maker-ui/utils'
 
 export default function LoaderPage() {
   const id = generateId()
   return (
     <Section>
       <Style
-        id={id}
+        root={id}
         css={{
+          color: 'red',
           span: { color: 'red' },
-          // opacity: [20, 40],
+          opacity: [0.2, 0.4],
           // backgroundColor: 'red',
-          // // background: 'red',
-          // svg: {
-          //   color: 'red',
-          //   path: { fill: ['blue', 'red'] },
-          // },
+          svg: {
+            color: 'red',
+            path: { fill: ['blue', 'red'] },
+          },
           // color: ['red', 'blue'],
           '.test-selector': {
             opacity: 20,
+            '&:hover': {
+              color: 'orange',
+            },
             h2: {
               background: ['blue', 'black'],
             },

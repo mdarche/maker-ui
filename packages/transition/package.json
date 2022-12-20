@@ -22,6 +22,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
+    "@maker-ui/style": "workspace:*",
     "@maker-ui/utils": "workspace:*",
     "react-transition-group": "^4.4.5"
   },
