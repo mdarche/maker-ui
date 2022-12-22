@@ -1,12 +1,14 @@
 import * as React from 'react'
-import { Div, DivProps, ButtonProps } from '@maker-ui/primitives'
 import { cn } from '@maker-ui/utils'
+import { Style, type ResponsiveCSS, type Breakpoints } from '@maker-ui/style'
 
 import { TabContext } from './TabContext'
 import { TabNavigation } from './TabNavigation'
 import { TabPanel } from './TabPanel'
 
-export interface TabGroupProps extends DivProps {
+export interface TabGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  css?: ResponsiveCSS
+  breakpoints?: Breakpoints
   /** The position of the tab buttons relative to the tab container.
    * @default "top"
    */
@@ -28,11 +30,6 @@ export interface TabGroupProps extends DivProps {
    * @default false
    */
   tabKeyNavigate?: boolean
-  /** An optional button `type` prop that can be used to prevent or activate form submissions
-   * if the tabs are used inside of a form element.
-   * @default "button"
-   */
-  buttonType?: ButtonProps['type']
   /** Nested `<Tab.Panel>` or auxiliary components. */
   children?: React.ReactNode
 }
@@ -50,12 +47,11 @@ export const Tabs = ({
   activeKey = 0,
   navPosition = 'top',
   overflow = 'stack',
-  breakpoints,
   renderInactive = true,
   tabKeyNavigate = false,
-  buttonType = 'button',
   className,
   css,
+  breakpoints,
   children,
   ...props
 }: TabGroupProps) => {
@@ -66,18 +62,17 @@ export const Tabs = ({
       activeKey={activeKey}
       renderInactive={renderInactive}
       tabKeyNavigate={tabKeyNavigate}>
-      <Div
+      <div
         className={cn(['tabs-container', className])}
         breakpoints={breakpoints}
-        css={{
-          display: ['block', 'flex'],
+        style={{
+          // display: ['block', 'flex'],
           flexDirection: isVertical ? 'column' : undefined,
           flexWrap: 'wrap',
-          ...(css as object),
+          // ...(css as object),
         }}
         {...props}>
         <TabNavigation
-          buttonType={buttonType}
           settings={{
             isVertical,
             navPosition,
@@ -86,7 +81,7 @@ export const Tabs = ({
           }}
         />
         {children}
-      </Div>
+      </div>
     </TabContext>
   )
 }

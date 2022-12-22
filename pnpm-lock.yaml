@@ -200,8 +200,8 @@ importers:
 
   packages/accordion:
     specifiers:
-      '@maker-ui/css': workspace:*
-      '@maker-ui/primitives': workspace:*
+      '@maker-ui/build-tools': workspace:*
+      '@maker-ui/style': workspace:*
       '@maker-ui/utils': workspace:*
       eslint-config-library: workspace:*
       react: ^18.2.0
@@ -210,10 +210,10 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.8.4
     dependencies:
-      '@maker-ui/css': link:../css
-      '@maker-ui/primitives': link:../primitives
+      '@maker-ui/style': link:../style
       '@maker-ui/utils': link:../utils
     devDependencies:
+      '@maker-ui/build-tools': link:../build-tools
       eslint-config-library: link:../eslint-config-library
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0

@@ -21,6 +21,10 @@
     "@maker-ui/style": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
+  "peerDependencies": {
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x"
+  },
   "devDependencies": {
     "tsconfig": "workspace:*",
     "tsup": "^5.12.0",

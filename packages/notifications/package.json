@@ -11,7 +11,6 @@
   ],
   "scripts": {
     "test": "jest",
-    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "lint": "TIMING=1 eslint src --fix",
@@ -23,7 +22,12 @@
     "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
+  "peerDependencies": {
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x"
+  },
   "devDependencies": {
+    "@maker-ui/build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

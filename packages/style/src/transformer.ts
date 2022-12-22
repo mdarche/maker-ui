@@ -24,7 +24,7 @@ const formatValue = (v: any, n: string) =>
   typeof v === 'number' ? (numberProps.includes(n) ? v : `${v}px`) : v
 
 /**
- * Sorts an object that includes media queries, nested selectors, and
+ * Sorts an object that includes media query keys, nested object values, and
  * basic style rules
  */
 function ruleSort(a: string, b: string, obj: any) {
@@ -50,6 +50,13 @@ const formatKey = (p: string) =>
 
 /**
  * Converts a deeply nested object into a flattened CSS string
+ *
+ * @param root - the parent element's CSS selector. Should be unique for locally scoped styles
+ * @param obj - a deeply nested style object
+ * @param parentSelector - The current object key for recursive function calls
+ * @param depth - The current level of recursion
+ * @param isMediaQuery - If the current iteration is a media query
+ *
  */
 export function objectToCSS(
   root: string,
@@ -109,7 +116,9 @@ export function objectToCSS(
       res += nested
     } else {
       // Handle CSS attribute / value
-      res += `${formatName(k)}: ${formatValue(value, k)};`
+      if (value !== undefined) {
+        res += `${formatName(k)}: ${formatValue(value, k)};`
+      }
       // Close the style rule if this is the last property
       if (i === propCount - 1 && mq === 0) {
         res += '}'

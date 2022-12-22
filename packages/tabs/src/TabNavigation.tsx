@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Flex, Button } from '@maker-ui/primitives'
 
 import { useTabs } from './TabContext'
 import { TabGroupProps } from './Tabs'
@@ -11,7 +10,6 @@ export interface TabStyleProps {
     navPosition?: TabGroupProps['navPosition']
     breakpoints?: (string | number)[]
   }
-  buttonType?: TabGroupProps['buttonType']
 }
 
 /**
@@ -20,7 +18,7 @@ export interface TabStyleProps {
  *
  * @internal
  */
-export const TabNavigation = ({ settings, buttonType }: TabStyleProps) => {
+export const TabNavigation = ({ settings }: TabStyleProps) => {
   const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([])
   const { state, setActive } = useTabs()
   const [tabIds, setTabIds] = React.useState<string[]>([])
@@ -110,18 +108,18 @@ export const TabNavigation = ({ settings, buttonType }: TabStyleProps) => {
   }, [state.activeKey, state.tabs])
 
   return (
-    <Flex
-      className="tab-navigation"
+    <div
+      className="tab-navigation flex"
       role="tablist"
       css={{
         ...getNavPosition({ settings }),
       }}>
       {state.tabs?.map((item, i) => (
-        <Button
+        <button
           ref={(el) => (buttonRefs.current[i] = el)}
           key={item.id}
           role="tab"
-          type={buttonType}
+          type="button"
           tabIndex={state.activeKey === item.id ? 0 : -1}
           id={`control-${item.id}`}
           className={`tab-button ${
@@ -133,9 +131,9 @@ export const TabNavigation = ({ settings, buttonType }: TabStyleProps) => {
           aria-selected={state.activeKey === item.id ? 'true' : 'false'}
           onClick={() => setActive(item.id)}>
           {item.title}
-        </Button>
+        </button>
       ))}
-    </Flex>
+    </div>
   )
 }
 

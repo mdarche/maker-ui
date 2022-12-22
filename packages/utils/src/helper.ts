@@ -26,6 +26,7 @@ export function generateId(length: number = 6, type: IDType = 'mixed'): string {
 
 /**
  * Check to see if value is an object else return an empty object
+ *
  * @param obj - any value to be evaluated
  *
  */

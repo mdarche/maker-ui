@@ -1,12 +1,10 @@
 import * as React from 'react'
-import { Div, type DivProps, Button } from '@maker-ui/primitives'
 import { generateId, useMeasure, cn } from '@maker-ui/utils'
-import { MakerProps } from '@maker-ui/css'
 
-import { useAccordion } from './AccordionContext'
-import { CaretIcon } from './icons'
+import { useAccordion } from './Accordion'
 
-export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
+export interface AccordionPanelProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   /** A title string or custom React element that will be used as the Accordion Button
    * for this panel.
    */
@@ -17,8 +15,6 @@ export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
   open?: boolean
   /** A unique key that can toggle the panel open and close from an external component. */
   eventKey?: string
-  /** Optional styles for the accordion button */
-  buttonCss?: MakerProps['css']
 }
 
 /**
@@ -29,121 +25,115 @@ export interface AccordionPanelProps extends Omit<DivProps, 'title'> {
 export const AccordionPanel = React.forwardRef<
   HTMLDivElement,
   AccordionPanelProps
->(
-  (
-    {
-      title,
-      open = false,
-      eventKey,
-      children,
-      className,
-      buttonCss,
-      css,
-      ...props
-    },
-    ref
-  ) => {
-    const buttonId = React.useId()
-    const panelId = React.useId()
-    const [panelKey] = React.useState(() =>
-      eventKey ? eventKey : generateId()
-    )
-    const { state, registerPanel, setActivePanel } = useAccordion()
+>(({ title, open = false, eventKey, children, className, ...props }, ref) => {
+  const [buttonId] = React.useState(generateId())
+  const [panelId] = React.useState(generateId())
+  const [panelKey] = React.useState(() => (eventKey ? eventKey : generateId()))
+  const { state, registerPanel, setActivePanel } = useAccordion()
 
-    /**
-     * @todo - Add default support for an initial `open` when showSingle is active too
-     * @todo - Support `eventKey` in any scenario, not just showSingle
-     */
+  /**
+   * @todo - Add default support for an initial `open` when showSingle is active too
+   * @todo - Support `eventKey` in any scenario, not just showSingle
+   */
+  const [show, set] = React.useState(
+    state.showSingle && state.activeKey === eventKey ? true : open
+  )
+  const [measure, { height: viewHeight }] = useMeasure()
 
-    const [show, set] = React.useState(
-      state.showSingle && state.activeKey === eventKey ? true : open
-    )
-    const [measureRef, { height: viewHeight }] = useMeasure()
+  React.useEffect(() => {
+    registerPanel(panelKey)
+  }, [registerPanel, panelKey])
 
-    React.useEffect(() => {
-      registerPanel(panelKey)
-    }, [registerPanel, panelKey])
-
-    React.useEffect(() => {
-      if (state.showSingle) {
-        return state.activeKey !== panelKey ? set(false) : set(true)
-      }
-    }, [state, eventKey, panelKey, set])
-
-    const setActive = () =>
-      !show && state.showSingle ? setActivePanel(panelKey) : set(!show)
-
-    function renderIcon() {
-      if (state.icon) {
-        if (React.isValidElement(state.customIcon)) {
-          return state.customIcon
-        }
-
-        if (typeof state.customIcon === 'object') {
-          return show ? state.customIcon?.collapse : state.customIcon?.expand
-        }
-
-        if (typeof state.customIcon === 'function') {
-          return state.customIcon(show)
-        }
-
-        return <CaretIcon show={show} />
-      }
-      return null
+  React.useEffect(() => {
+    if (state.showSingle) {
+      return state.activeKey !== panelKey ? set(false) : set(true)
     }
+  }, [state, eventKey, panelKey, set])
 
-    const isAnimated = state.animate
+  const setActive = () =>
+    !show && state.showSingle ? setActivePanel(panelKey) : set(!show)
 
-    return (
-      <Div
-        ref={ref}
-        className={cn([show ? 'expanded ' : undefined, 'accordion', className])}
-        css={{ border: '1px solid', ...(css as object) }}
-        {...props}>
-        <Button
-          className={cn(['accordion-toggle', show ? 'active' : undefined])}
-          title={`${show ? 'Collapse' : 'Expand'} content`}
-          id={buttonId}
-          aria-expanded={show ? 'true' : 'false'}
-          aria-controls={panelId}
-          onClick={setActive}
-          css={{
-            display: 'flex',
-            justifyContent: state.icon ? 'space-between' : undefined,
-            alignItems: 'center',
-            width: '100%',
-            border: 'none',
-            padding: '15px',
-            cursor: 'pointer',
-            ...(buttonCss as object),
-          }}>
-          <div>
-            {React.isValidElement(title) ? title : <span>{title}</span>}
-          </div>
-          {renderIcon()}
-        </Button>
-        <div
-          id={panelId}
-          role="region"
-          aria-labelledby={buttonId}
-          style={{
-            overflow: 'hidden',
-            height: show ? viewHeight : 0,
-            willChange: isAnimated ? 'height' : undefined,
-            transition:
-              isAnimated && typeof state.animate === 'object'
-                ? state.animate.transition
-                : isAnimated
-                ? 'height 0.3s ease'
-                : undefined,
-          }}>
-          <div ref={measureRef} className="accordion-panel">
-            {children}
-          </div>
-        </div>
-      </Div>
-    )
+  function renderIcon() {
+    if (state.icon) {
+      if (React.isValidElement(state.customIcon)) {
+        return state.customIcon
+      }
+
+      if (typeof state.customIcon === 'object') {
+        return show ? state.customIcon?.collapse : state.customIcon?.expand
+      }
+
+      if (typeof state.customIcon === 'function') {
+        return state.customIcon(show)
+      }
+
+      return <CaretIcon show={show} />
+    }
+    return null
   }
-)
+
+  const isAnimated = state.animate
+
+  return (
+    <div
+      ref={ref}
+      className={cn([
+        show ? 'expanded ' : undefined,
+        'mkui_accordion',
+        className,
+      ])}
+      {...props}>
+      <button
+        className={cn([
+          'mkui_accordion_btn',
+          'flex align-center width-100',
+          state.icon ? 'justify-between' : undefined,
+          show ? 'active' : undefined,
+        ])}
+        title={`${show ? 'Collapse' : 'Expand'} content`}
+        id={buttonId}
+        aria-expanded={show ? 'true' : 'false'}
+        aria-controls={panelId}
+        onClick={setActive}>
+        <div>{React.isValidElement(title) ? title : <span>{title}</span>}</div>
+        {renderIcon()}
+      </button>
+      <div
+        id={panelId}
+        role="region"
+        className="mkui_accordion_panel"
+        aria-labelledby={buttonId}
+        style={{
+          height: show ? (isAnimated ? viewHeight : '100%') : 0,
+        }}>
+        <div ref={measure} className="mkui_accordion_inner">
+          {children}
+        </div>
+      </div>
+    </div>
+  )
+})
 
 AccordionPanel.displayName = 'AccordionPanel'
+
+/**
+ * Default Caret Icon for the accordion
+ */
+const CaretIcon = ({ show }: { show: boolean }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    style={{
+      width: 15,
+      transition: 'all ease .3s',
+      transform: !show ? 'rotate(0)' : 'rotate(180deg)',
+    }}>
+    <path
+      fill="none"
+      stroke="currentColor"
+      strokeMiterlimit="10"
+      strokeWidth="2"
+      d="M21 8.5l-9 9-9-9"
+    />
+  </svg>
+)

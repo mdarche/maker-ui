@@ -1,12 +1,6 @@
 import * as React from 'react'
-import {
-  Div,
-  ListItem,
-  useScrollPosition,
-  cn,
-  type DivProps,
-  type StyleObject,
-} from 'maker-ui'
+import { useScrollPosition, generateId, cn } from '@maker-ui/utils'
+import { Style, type ResponsiveCSS, type Breakpoints } from '@maker-ui/style'
 
 interface MenuItem {
   id: string
@@ -15,7 +9,10 @@ interface MenuItem {
   offset: number
 }
 
-export interface ToCProps extends Omit<DivProps, 'title'> {
+export interface PageContentsProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+  breakpoints?: Breakpoints
+  css?: ResponsiveCSS
   /** The application's current pathname, supplied via router hook or parent component.
    * This value ensures the DOM scanning effect reruns on each page load.
    */
@@ -42,7 +39,7 @@ export interface ToCProps extends Omit<DivProps, 'title'> {
   activeColor?: string | string[]
   /** Responsive CSS styles that will be applied to the marker pseudo styles if
    * using the `marker` prop. */
-  pseudoCss?: StyleObject
+  pseudoCss?: ResponsiveCSS
   /** When true, the window will animate the scroll to each section.
    * @remark This is a global `scroll-behavior` style rule that is applied to the document body.
    * Use with caution and ensure it doesn't break your page transitions.
@@ -79,7 +76,7 @@ function sanitize(text: string) {
  * @link https://maker-ui.com/docs/elements/tableofcontents
  */
 
-export const TableOfContents = ({
+export const PageContents = ({
   title = 'Contents',
   headings = ['h2', 'h3', 'h4'],
   activeColor,
@@ -94,7 +91,8 @@ export const TableOfContents = ({
   css,
   pathname,
   footerComponent,
-}: ToCProps) => {
+}: PageContentsProps) => {
+  const [styleId] = React.useState(generateId())
   const [menuItems, setMenu] = React.useState<MenuItem[]>([])
   const [activeNode, setActiveNode] = React.useState<number | null>(null)
 
@@ -207,64 +205,67 @@ export const TableOfContents = ({
   )
 
   return (
-    <Div
-      className={cn(['toc', className])}
-      css={{
-        display: hideOnMobile ? ['none', 'block'] : 'block',
-        position: sticky ? 'sticky' : undefined,
-        top: sticky ? 0 : undefined,
-        ...(css as object),
-        ul: {
-          padding: 0,
-          listStyle: 'none',
-        },
-      }}>
-      <div>{title}</div>
-      <ul className="toc-headings">
-        {menuItems.length
-          ? menuItems.map(({ id, text, level }: MenuItem, index) => (
-              <ListItem
-                key={index}
-                className={`level-${level}`}
-                css={{
-                  paddingLeft: indent ? indentSize * level : undefined,
-                  a: { position: 'relative' },
-                  'a.active, a:hover': { color: activeColor || undefined },
-                  'a.active': marker && {
-                    ':before': {
-                      content: '""',
-                      position: 'absolute',
-                      height: '100%',
-                      top: 0,
-                      left:
-                        marker === 'before' && indent
-                          ? 0 - indentSize * level
-                          : marker === 'before'
-                          ? 0
-                          : undefined,
-                      right: marker === 'after' ? 0 : undefined,
-                      borderLeft: marker === 'before' ? `2px solid` : undefined,
-                      borderRight: marker === 'after' ? `2px solid` : undefined,
-                      ...(pseudoCss as object),
-                    },
-                  },
-                }}>
-                <a
-                  className={activeNode === index ? 'active' : undefined}
-                  onClick={() => setActiveNode(index)}
-                  href={`#${id}`}>
-                  {text}
-                </a>
-              </ListItem>
-            ))
-          : null}
-      </ul>
-      {footerComponent}
-    </Div>
+    <>
+      <div className={cn(['mkui_contents', styleId, className])}>
+        <div>{title}</div>
+        <ul className="mkui_contents_list">
+          {menuItems.length
+            ? menuItems.map(({ id, text, level }: MenuItem, index) => (
+                <li key={`${id}-${index}`} className={`level-${level}`}>
+                  <a
+                    className={activeNode === index ? 'active' : undefined}
+                    onClick={() => setActiveNode(index)}
+                    href={`#${id}`}>
+                    {text}
+                  </a>
+                </li>
+              ))
+            : null}
+        </ul>
+        {footerComponent}
+      </div>
+      <Style
+        root={styleId}
+        breakpoints={breakpoints}
+        css={{
+          display: hideOnMobile ? ['none', 'block'] : 'block',
+          position: sticky ? 'sticky' : undefined,
+          top: sticky ? 0 : undefined,
+          ...(css as object),
+          '.mkui_contents_list': {
+            padding: 0,
+            listStyle: 'none',
+          },
+          li: {
+            paddingLeft: indent ? indentSize * level : undefined,
+            a: { position: 'relative' },
+            'a.active, a:hover': { color: activeColor || undefined },
+            'a.active': marker && {
+              ':before': {
+                content: '""',
+                position: 'absolute',
+                height: '100%',
+                top: 0,
+                left:
+                  marker === 'before' && indent
+                    ? 0 - indentSize * level
+                    : marker === 'before'
+                    ? 0
+                    : undefined,
+                right: marker === 'after' ? 0 : undefined,
+                borderLeft: marker === 'before' ? `2px solid` : undefined,
+                borderRight: marker === 'after' ? `2px solid` : undefined,
+                ...(pseudoCss as object),
+              },
+            },
+          },
+        }}
+      />
+    </>
   )
 }
 
-TableOfContents.displayName = 'TableOfContents'
+PageContents.displayName = 'PageContents'
 
 const allHeadings = ['h2', 'h3', 'h4', 'h5', 'h6']
 

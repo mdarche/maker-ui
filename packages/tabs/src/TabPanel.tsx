@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Div, DivProps } from '@maker-ui/primitives'
 import { generateId, cn } from '@maker-ui/utils'
 
 import { useTabs, TabItem } from './TabContext'
 
-export interface TabPanelProps extends Omit<DivProps, 'title'> {
+export interface TabPanelProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   /** A title string or custom React element that will be used as the Tab Button for this panel. */
   title: string | React.ReactElement
   /** A unique key that can toggle the tab open and close from an external component. */
@@ -41,7 +41,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     const [id] = React.useState<string>(() =>
       eventKey ? eventKey.toString() : generateId()
     )
-    const panelId = React.useId()
+    const [panelId] = React.useState(generateId())
 
     const {
       state: { activeKey, renderInactive },
@@ -61,7 +61,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
     }, [title])
 
     return renderInactive || activeKey === id ? (
-      <Div
+      <div
         ref={ref}
         role="tabpanel"
         id={`panel-${panelId}`}
@@ -70,15 +70,15 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
           `tab-panel${activeKey === id ? ' active' : ''}`,
           className,
         ])}
-        css={{
-          flex: 1,
-          order: 1,
-          display: 'none',
-          '&.active': {
-            display: 'block',
-          },
-          ...(css as object),
-        }}
+        // css={{
+        //   flex: 1,
+        //   order: 1,
+        //   display: 'none',
+        //   '&.active': {
+        //     display: 'block',
+        //   },
+        //   ...(css as object),
+        // }}
         {...props}
       />
     ) : null

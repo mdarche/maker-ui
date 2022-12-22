@@ -11,7 +11,6 @@
     "dist/**"
   ],
   "scripts": {
-    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
     "build": "tsup",
     "start": "tsup --watch",
     "lint": "eslint src",
@@ -21,7 +20,7 @@
     "@maker-ui/utils": "workspace:*"
   },
   "peerDependencies": {
-    "next": "^13.x",
+    "next": "^12.x || ^13.x",
     "react": "^17.x || ^18.x",
     "react-dom": "^17.x || ^18.x"
   },

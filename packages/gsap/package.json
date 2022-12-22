@@ -11,7 +11,6 @@
     "dist/**"
   ],
   "scripts": {
-    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "lint": "TIMING=1 eslint src --fix",
@@ -26,7 +25,9 @@
     "lodash.debounce": "^4.0.8"
   },
   "peerDependencies": {
-    "gsap": "^3.9.1"
+    "gsap": "^3.x",
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x"
   },
   "peerDependenciesMeta": {
     "maker-ui": {
@@ -34,6 +35,7 @@
     }
   },
   "devDependencies": {
+    "@maker-ui/build-tools": "workspace:*",
     "@types/lodash.debounce": "^4.0.6",
     "eslint-config-library": "workspace:*",
     "gsap": "^3.9.1",
