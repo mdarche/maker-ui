@@ -1,21 +1,23 @@
 import * as React from 'react'
-import type { MakerProps, ResponsiveScale } from '@maker-ui/css'
-import { Button, Div, DivProps } from '@maker-ui/primitives'
+import { type ResponsiveCSS, type Breakpoints } from '@maker-ui/style'
 
 import { Popover, PopoverProps } from './Popover'
 import { convertPosition, TransitionType } from './position'
 
-interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
+interface TooltipProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'color'> {
+  breakpoints?: Breakpoints
+  css?: ResponsiveCSS
   /** The inner contents of the Tooltip button */
   label: React.ReactNode
   /** The background color of the Tooltip
    * @default "#333"
    */
-  background?: ResponsiveScale
+  background?: string | string[]
   /** The color of the Tooltip text
    * @default "#fff"
    */
-  color?: ResponsiveScale
+  color?: string | string[]
   /** The padding between the Tooltip button and the Tooltip content
    * @default 5
    */
@@ -37,9 +39,9 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
    */
   position?: 'top' | 'bottom' | 'left' | 'right'
   /**Responsive CSS that is applied to the tooltip button. */
-  buttonCss?: MakerProps['css']
+  buttonCss?: ResponsiveCSS
   /** Responsive CSS that is applied to the Popover container. */
-  _css?: MakerProps['css']
+  _css?: ResponsiveCSS
   /** A number in milliseconds that indicates how long React should wait to calculate the
    * position of the Popover. This is helpful if your page uses a Page Transition on each load.
    * @default 200
@@ -82,37 +84,39 @@ export const Tooltip = ({
 
   const positionData = convertPosition(position, background, gap)
 
-  const styles: object = {
+  const styles: ResponsiveCSS = {
     background,
     color,
     padding: 5,
     borderRadius: 3,
-    '&:after': !noArrow && {
-      content: '""',
-      position: 'absolute',
-      borderWidth: 5,
-      borderStyle: 'solid',
-      ...positionData.styles,
-    },
+    '&:after': !noArrow
+      ? {
+          content: '""',
+          position: 'absolute',
+          borderWidth: 5,
+          borderStyle: 'solid',
+          ...positionData.styles,
+        }
+      : undefined,
     ...(css as object),
   }
 
   return (
-    <Div
-      css={{ display: 'inline-block' }}
+    <div
+      style={{ display: 'inline-block' }}
       onMouseOver={() => set(true)}
       onMouseOut={() => set(false)}
       {...props}>
-      <Button
+      <button
         ref={buttonRef}
         type="button"
         onFocus={() => set(true)}
         onBlur={() => typeof label === 'string' && set(false)}
         onClick={() => set(!show)}
-        css={buttonCss}
+        // css={buttonCss}
         aria-describedby={tooltipId}>
         {label}
-      </Button>
+      </button>
       <Popover
         id={tooltipId}
         className="tooltip"
@@ -127,7 +131,7 @@ export const Tooltip = ({
         _css={styles}>
         {children}
       </Popover>
-    </Div>
+    </div>
   )
 }
 

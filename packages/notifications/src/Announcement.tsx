@@ -1,7 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import { useTracker, cn } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
+import { useTracker } from '@maker-ui/hooks'
 
 export interface AnnouncementProps
   extends React.HTMLAttributes<HTMLDivElement> {

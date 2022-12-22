@@ -8,6 +8,10 @@ interface ConditionalProps {
   /** Main content that will always display, regardless of condition truthiness*/
   children: React.ReactElement
 }
+
+/**
+ * Conditional uses a render prop to wrap children with a wrapper component if a condition is true.
+ */
 export const Conditional = ({
   condition,
   wrapper,

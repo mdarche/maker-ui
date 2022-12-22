@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { useScrollPosition, generateId, cn } from '@maker-ui/utils'
+import { generateId, cn } from '@maker-ui/utils'
+import { useScrollPosition } from '@maker-ui/hooks'
 import { Style, type ResponsiveCSS, type Breakpoints } from '@maker-ui/style'
 
 interface MenuItem {
@@ -89,6 +90,7 @@ export const PageContents = ({
   sticky = true,
   hideOnMobile = true,
   css,
+  breakpoints,
   pathname,
   footerComponent,
 }: PageContentsProps) => {
@@ -211,7 +213,12 @@ export const PageContents = ({
         <ul className="mkui_contents_list">
           {menuItems.length
             ? menuItems.map(({ id, text, level }: MenuItem, index) => (
-                <li key={`${id}-${index}`} className={`level-${level}`}>
+                <li
+                  key={`${id}-${index}`}
+                  className={`level-${level}`}
+                  style={{
+                    paddingLeft: indent ? indentSize * level : undefined,
+                  }}>
                   <a
                     className={activeNode === index ? 'active' : undefined}
                     onClick={() => setActiveNode(index)}
@@ -236,27 +243,24 @@ export const PageContents = ({
             padding: 0,
             listStyle: 'none',
           },
-          li: {
-            paddingLeft: indent ? indentSize * level : undefined,
-            a: { position: 'relative' },
-            'a.active, a:hover': { color: activeColor || undefined },
-            'a.active': marker && {
-              ':before': {
-                content: '""',
-                position: 'absolute',
-                height: '100%',
-                top: 0,
-                left:
-                  marker === 'before' && indent
-                    ? 0 - indentSize * level
-                    : marker === 'before'
-                    ? 0
-                    : undefined,
-                right: marker === 'after' ? 0 : undefined,
-                borderLeft: marker === 'before' ? `2px solid` : undefined,
-                borderRight: marker === 'after' ? `2px solid` : undefined,
-                ...(pseudoCss as object),
-              },
+          a: { position: 'relative' },
+          'a.active, a:hover': { color: activeColor || undefined },
+          'a.active': marker && {
+            ':before': {
+              content: '""',
+              position: 'absolute',
+              height: '100%',
+              top: 0,
+              // left:
+              //   marker === 'before' && indent
+              //     ? 0 - indentSize * level
+              //     : marker === 'before'
+              //     ? 0
+              //     : undefined,
+              right: marker === 'after' ? 0 : undefined,
+              borderLeft: marker === 'before' ? `2px solid` : undefined,
+              borderRight: marker === 'after' ? `2px solid` : undefined,
+              ...(pseudoCss as object),
             },
           },
         }}

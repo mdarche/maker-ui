@@ -15,7 +15,7 @@ export function generateId(length: number = 6, type: IDType = 'mixed'): string {
       type === 'mixed' ? letters + nums : type === 'numbers' ? nums : letters
   for (let i = 0; i < length; i++) {
     if (i === 0 && type !== 'numbers') {
-      // Ensure first character is a letter to prevent errors
+      // Ensure first character is a letter to prevent className errors
       result += letters.charAt(Math.floor(Math.random() * letters.length))
     } else {
       result += chars.charAt(Math.floor(Math.random() * chars.length))

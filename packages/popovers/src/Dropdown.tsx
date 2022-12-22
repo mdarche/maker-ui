@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Button, Div } from '@maker-ui/primitives'
 import { cn } from '@maker-ui/utils'
-import type { MakerProps } from '@maker-ui/css'
+import type { ResponsiveCSS, Breakpoints } from '@maker-ui/style'
 
 import { Popover, PopoverProps } from './Popover'
 
 interface DropdownProps {
+  breakpoints?: Breakpoints
   /** ID selector for the dropdown container */
   id?: string
   /** className selector for the dropdown container */
@@ -34,11 +34,11 @@ interface DropdownProps {
    */
   transition?: PopoverProps['transition']
   /** Responsive styles that are applied to the button if a custom button is not supplied */
-  buttonCss?: MakerProps['css']
+  buttonCss?: ResponsiveCSS
   /** Responsive styles that are applied to the dropdown container. */
-  _css?: MakerProps['css']
+  _css?: ResponsiveCSS
   /** Responsive styles that are applied to the nested popover container. */
-  css?: MakerProps['css']
+  css?: ResponsiveCSS
   /** The contents of your dropdown component */
   children: React.ReactNode
   /** Allows you to control the dropdown from an external React.useState hook*/
@@ -108,19 +108,23 @@ export const Dropdown = ({
   }, [closeOnBlur, controls])
 
   return (
-    <Div
+    <div
       id={id}
       className={cn(['dropdown', className])}
-      css={{
-        display: 'inline-block',
-        ...(_css as object),
-      }}>
+      // css={{
+      //   display: 'inline-block',
+      //   ...(_css as object),
+      // }}
+    >
       {typeof button === 'function' ? (
         button(controls ? controls[0] : show, buttonAttributes)
       ) : (
-        <Button {...buttonAttributes} css={{ ...(buttonCss as object) }}>
+        <button
+          {...buttonAttributes}
+          // css={{ ...(buttonCss as object) }}
+        >
           {button}
-        </Button>
+        </button>
       )}
       <div className="dropdown-container" ref={dropdownRef}>
         <Popover
@@ -138,7 +142,7 @@ export const Dropdown = ({
           {children}
         </Popover>
       </div>
-    </Div>
+    </div>
   )
 }
 

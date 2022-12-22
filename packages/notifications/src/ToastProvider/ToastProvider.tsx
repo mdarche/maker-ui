@@ -7,12 +7,10 @@ import React, {
   useContext,
   useRef,
 } from 'react'
-import { Div } from '@maker-ui/primitives'
 import { cn, merge, generateId } from '@maker-ui/utils'
 
 import type { ToastState, Action, ToastProps, ToastSettings } from './types'
 import { ErrorIcon, SuccessIcon, InfoIcon } from './icons'
-import { ResponsiveScale } from '@maker-ui/css'
 
 const ToastContext = createContext<{
   state: Partial<ToastState>
@@ -113,33 +111,34 @@ export const ToastProvider = ({
   return (
     <ToastContext.Provider value={{ state, dispatch }}>
       {children}
-      <Div
+      <div
         id="toast-provider"
         ref={ref}
         className={cn(['toast-container', state.classNames?.container])}
-        css={{
-          position: 'fixed',
-          zIndex: 100,
-          display: 'grid',
-          justifyItems: 'center',
-          justifyContent: 'center',
-          gap: state.gap,
-          ...pos,
-          '.toast': {
-            '--_travelDistance': 0,
-            willChange: 'transform',
-            animation: `toast-fade-in 0.3s ease, toast-fade-out 0.3s ease ${state.duration}s`,
-          },
-          '@media (prefers-reduced-motion: no-preference)': {
-            '.toast': {
-              '--_travelDistance': state.distance,
-            },
-          },
-        }}>
+        // css={{
+        //   position: 'fixed',
+        //   zIndex: 100,
+        //   display: 'grid',
+        //   justifyItems: 'center',
+        //   justifyContent: 'center',
+        //   gap: state.gap,
+        //   ...pos,
+        //   '.toast': {
+        //     '--_travelDistance': 0,
+        //     willChange: 'transform',
+        //     animation: `toast-fade-in 0.3s ease, toast-fade-out 0.3s ease ${state.duration}s`,
+        //   },
+        //   '@media (prefers-reduced-motion: no-preference)': {
+        //     '.toast': {
+        //       '--_travelDistance': state.distance,
+        //     },
+        //   },
+        // }}
+      >
         {toasts?.map((props) => (
           <Toast key={props.id} {...props} />
         ))}
-      </Div>
+      </div>
     </ToastContext.Provider>
   )
 }
@@ -229,7 +228,7 @@ export function useToast() {
 
 function getPosition(
   type?: ToastSettings['position'],
-  padding?: ResponsiveScale
+  padding?: string | number | (string | number)[]
 ) {
   let styles = {
     insetInline: type?.includes('center') ? 0 : undefined,

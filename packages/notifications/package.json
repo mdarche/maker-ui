@@ -11,14 +11,14 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "build": "tsup",
+    "start": "tsup --watch",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/css": "workspace:*",
-    "@maker-ui/primitives": "workspace:*",
+    "@maker-ui/hooks": "workspace:*",
+    "@maker-ui/style": "workspace:*",
     "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },

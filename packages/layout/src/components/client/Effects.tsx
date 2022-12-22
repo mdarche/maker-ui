@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useScrollPosition, useWindowSize } from '@maker-ui/utils'
+import { useScrollPosition, useWindowSize } from '@maker-ui/hooks'
 
 import type { Options } from '@/types'
 import { useMenu } from './Provider'

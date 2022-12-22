@@ -1,5 +1,5 @@
 'use client'
-import { Accordion } from '@maker-ui/accordion'
+export { Accordion } from '@maker-ui/accordion'
 export {
   Provider,
   MenuButton,
@@ -9,5 +9,4 @@ export {
   type MenuItemProps,
 } from '@maker-ui/layout/dist/client'
 export { Modal } from '@maker-ui/modal'
-
-export { Accordion }
+export { Tabs } from '@maker-ui/tabs'

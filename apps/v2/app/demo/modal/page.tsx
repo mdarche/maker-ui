@@ -1,7 +1,7 @@
 'use client'
 import { useState, useRef } from 'react'
 import { Section } from '@maker-ui/layout'
-import { Modal, CSSTransition } from '@maker-ui/modal'
+import { Modal } from '@maker-ui/modal'
 
 export default function ModalPage() {
   const [showModal, setModal] = useState(false)

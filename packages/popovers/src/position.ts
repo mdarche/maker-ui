@@ -1,6 +1,3 @@
-import type { ResponsiveScale } from '@maker-ui/css'
-import { getSign } from './utils'
-
 export interface Position {
   x: 'left' | 'center' | 'right' | 'origin'
   y: 'top' | 'center' | 'bottom'
@@ -72,7 +69,7 @@ export function getTransition(transition: string, height: number) {
 
 export function convertPosition(
   pos: string,
-  bg: ResponsiveScale,
+  bg: string[] | string,
   gap: number
 ): { position: Position; styles: object; gap: { x: number; y: number } } {
   const vertical = { left: '50%', marginLeft: '-5px' }
@@ -122,3 +119,12 @@ export function convertPosition(
       }
   }
 }
+
+/**
+ * Utility for parsing transition strings and setting positive or negative value
+ *
+ * @param {string} type - A transition string ('fade-up', 'slide-right', etc.)
+ *
+ */
+export const getSign = (type: string): string =>
+  type.includes('right') || type.includes('down') ? '-' : ''

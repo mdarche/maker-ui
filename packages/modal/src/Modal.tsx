@@ -1,7 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import { cn, useFocus } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
+import { useFocus } from '@maker-ui/hooks'
 import { Transition, type TransitionState } from '@maker-ui/transition'
 
 import { Portal } from './Portal'

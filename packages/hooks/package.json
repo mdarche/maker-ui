@@ -1,6 +1,6 @@
 {
-  "name": "@maker-ui/popovers",
-  "description": "A variety of Maker UI popover components",
+  "name": "@maker-ui/hooks",
+  "description": "Helpful hooks for client side React",
   "version": "1.2.5",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
@@ -22,11 +22,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/hooks": "workspace:*",
-    "@maker-ui/modal": "workspace:*",
-    "@maker-ui/style": "workspace:*",
-    "@maker-ui/transition": "workspace:*",
-    "@maker-ui/utils": "workspace:*"
+    "react-use-measure": "^2.0.4"
   },
   "peerDependencies": {
     "react": "^17.x || ^18.x",

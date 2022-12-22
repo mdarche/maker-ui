@@ -1,5 +1,3 @@
-import { ResponsiveScale } from '@maker-ui/css'
-
 export interface ToastClassNames {
   container: string
   toast: string
@@ -31,9 +29,9 @@ export interface ToastSettings {
   /** Distance of a toasts transform @default '5vh' */
   distance?: string
   /** Distance of the toast from the edge of the screen @default '5vh' */
-  padding?: ResponsiveScale
+  padding?: string | number | (string | number)[]
   /** Distance between stacked toasts */
-  gap?: ResponsiveScale
+  gap?: string | number | (string | number)[]
 }
 
 export interface ToastProps {

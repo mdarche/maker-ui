@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useRef } from 'react'
-import { Div, DivProps } from '@maker-ui/primitives'
-import { cn, useFocus } from '@maker-ui/utils'
-import { Portal, Transition, type TransitionState } from '@maker-ui/modal'
-import type { MakerProps } from '@maker-ui/css'
+import { cn } from '@maker-ui/utils'
+import { useFocus } from '@maker-ui/hooks'
+import { Portal } from '@maker-ui/modal'
+import { Transition, type TransitionState } from '@maker-ui/transition'
+import type { ResponsiveCSS, Breakpoints } from '@maker-ui/style'
 
 import { getTransition, Position, TransitionType } from './position'
 
-export interface PopoverProps extends DivProps {
+export interface PopoverProps extends React.HTMLAttributes<HTMLDivElement> {
+  css?: ResponsiveCSS
+  breakpoints?: Breakpoints
   /** A boolean that indicates if the popover is active. */
   show: boolean
   /** A setter for the show boolean that lets the popover close itself. */
@@ -37,7 +40,7 @@ export interface PopoverProps extends DivProps {
    */
   closeOnBlur?: boolean
   /** Resonse CSS styles that are applied to Popover container */
-  _css?: MakerProps['css']
+  _css?: ResponsiveCSS
   /** Predefined transition styles that you can use to toggle the Popover.
    * @default "fade"
    */
@@ -341,13 +344,14 @@ export const Popover = ({
           },
           ...rest,
         }}
-        css={{
-          position: 'absolute',
-          display: 'block',
-          zIndex: 99,
-          ...(_css as object),
-        }}>
-        <Div
+        // css={{
+        //   position: 'absolute',
+        //   display: 'block',
+        //   zIndex: 99,
+        //   ...(_css as object),
+        // }}
+      >
+        <div
           ref={measuredRef}
           className="container"
           style={{
@@ -355,9 +359,10 @@ export const Popover = ({
             visibility:
               transition === 'scale' && initialRender ? 'hidden' : undefined,
           }}
-          css={css}>
+          // css={css}
+        >
           {children}
-        </Div>
+        </div>
       </Transition>
     </Portal>
   ) : null

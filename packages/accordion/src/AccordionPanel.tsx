@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { generateId, useMeasure, cn } from '@maker-ui/utils'
+import { generateId, cn } from '@maker-ui/utils'
+import { useMeasure } from '@maker-ui/hooks'
 
 import { useAccordion } from './Accordion'
 

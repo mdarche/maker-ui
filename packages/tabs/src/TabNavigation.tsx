@@ -1,13 +1,11 @@
 import * as React from 'react'
+import { TabsProps, useTabs } from './Tabs'
 
-import { useTabs } from './TabContext'
-import { TabGroupProps } from './Tabs'
-
-export interface TabStyleProps {
+export interface TabNavigationProps {
   settings: {
     isVertical?: boolean
-    overflow?: TabGroupProps['overflow']
-    navPosition?: TabGroupProps['navPosition']
+    overflow?: TabsProps['overflow']
+    navPosition?: TabsProps['navPosition']
     breakpoints?: (string | number)[]
   }
 }
@@ -18,7 +16,7 @@ export interface TabStyleProps {
  *
  * @internal
  */
-export const TabNavigation = ({ settings }: TabStyleProps) => {
+export const TabNavigation = ({ settings }: TabNavigationProps) => {
   const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([])
   const { state, setActive } = useTabs()
   const [tabIds, setTabIds] = React.useState<string[]>([])
@@ -108,12 +106,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
   }, [state.activeKey, state.tabs])
 
   return (
-    <div
-      className="tab-navigation flex"
-      role="tablist"
-      css={{
-        ...getNavPosition({ settings }),
-      }}>
+    <div className="mkui_tab_navigation flex" role="tablist">
       {state.tabs?.map((item, i) => (
         <button
           ref={(el) => (buttonRefs.current[i] = el)}
@@ -122,7 +115,7 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
           type="button"
           tabIndex={state.activeKey === item.id ? 0 : -1}
           id={`control-${item.id}`}
-          className={`tab-button ${
+          className={`mkui_tab_btn ${
             state.activeKey === item.id ? 'active' : ''
           }${item.disabled ? 'disabled' : ''}`}
           disabled={item.disabled}
@@ -139,13 +132,19 @@ export const TabNavigation = ({ settings }: TabStyleProps) => {
 
 TabNavigation.displayName = 'TabNavigation'
 
+interface PositionProps {
+  isVertical?: boolean
+  overflow?: TabsProps['overflow']
+  navPosition?: TabsProps['navPosition']
+}
 /**
  * Generate positioning and overflow CSS styles
  */
-
-const getNavPosition = ({
-  settings: { isVertical, navPosition, overflow = 'stack' },
-}: TabStyleProps): object => {
+export const getNavPosition = ({
+  isVertical,
+  navPosition,
+  overflow,
+}: PositionProps): object => {
   const shared = {
     overflowX: overflow === 'scroll' ? 'scroll' : undefined,
     flexWrap: overflow === 'stack' ? 'wrap' : 'nowrap',

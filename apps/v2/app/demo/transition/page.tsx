@@ -1,6 +1,6 @@
 'use client'
 import { Section } from '@maker-ui/layout'
-import { CSSTransition, Transition } from '@maker-ui/modal'
+import { CSSTransition, Transition } from '@maker-ui/transition'
 import { useState } from 'react'
 
 export default function TransitionPage() {

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { generateId, cn } from '@maker-ui/utils'
-
-import { useTabs, TabItem } from './TabContext'
+import { useTabs, type TabItem } from './Tabs'
 
 export interface TabPanelProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -27,15 +26,7 @@ export interface TabPanelProps
 
 export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
   (
-    {
-      title,
-      eventKey,
-      className,
-      open = false,
-      disabled = false,
-      css,
-      ...props
-    },
+    { title, eventKey, className, open = false, disabled = false, ...props },
     ref
   ) => {
     const [id] = React.useState<string>(() =>
@@ -67,18 +58,10 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
         id={`panel-${panelId}`}
         aria-labelledby={`control-${panelId}`}
         className={cn([
-          `tab-panel${activeKey === id ? ' active' : ''}`,
+          'mkui_tab',
+          activeKey === id ? ' active' : undefined,
           className,
         ])}
-        // css={{
-        //   flex: 1,
-        //   order: 1,
-        //   display: 'none',
-        //   '&.active': {
-        //     display: 'block',
-        //   },
-        //   ...(css as object),
-        // }}
         {...props}
       />
     ) : null

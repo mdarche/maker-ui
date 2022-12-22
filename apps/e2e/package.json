@@ -21,7 +21,6 @@
     "@maker-ui/social": "workspace:*",
     "@maker-ui/tabs": "workspace:*",
     "@maker-ui/toc": "workspace:*",
-    "@swc/plugin-emotion": "^2.5.17",
     "maker-ui": "workspace:*",
     "next": "^12.3.1",
     "react": "^18.2.0",
