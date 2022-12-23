@@ -14,7 +14,7 @@ const defaults: BuildSettings = {
   format: ['esm'],
   external: ['react'],
   dts: true,
-  clean: true,
+  clean: false,
 }
 
 export const buildConfig = (p?: BuildSettings): Options => {

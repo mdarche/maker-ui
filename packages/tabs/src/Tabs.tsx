@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn, generateId } from '@maker-ui/utils'
+import { cn, generateId, merge } from '@maker-ui/utils'
 import { Style, type ResponsiveCSS, type Breakpoints } from '@maker-ui/style'
 
 import { TabNavigation, getNavPosition } from './TabNavigation'
@@ -7,9 +7,18 @@ import { TabPanel } from './TabPanel'
 
 export interface TabItem {
   id: string
-  panelId: string
-  title: string | React.ReactElement
-  disabled: boolean
+  /** A title string or custom React element that will be used as the Tab Button for this panel. */
+  title?: string | React.ReactElement
+  /** A unique key that can toggle the tab open and close from an external component. */
+  eventKey?: number | string
+  /** If true, the tab will be open by default
+   * @default false
+   */
+  open?: boolean
+  /** If true, the tab will be disabled so users cannot activate it.
+   * @default false
+   */
+  disabled?: boolean
 }
 
 export interface TabState {
@@ -121,22 +130,24 @@ export const Tabs = ({
       <Style
         root={state.styleId}
         breakpoints={breakpoints}
-        css={{
-          flexDirection: isVertical ? 'column' : undefined,
-          flexWrap: 'wrap',
-          '.mkui_tab': {
-            flex: 1,
-            order: 1,
-            display: 'none',
-            '&.active': {
-              display: 'block',
+        css={merge(
+          {
+            flexDirection: isVertical ? 'column' : undefined,
+            flexWrap: 'wrap',
+            '.mkui_tab': {
+              flex: 1,
+              order: 1,
+              display: 'none',
+              '&.active': {
+                display: 'block',
+              },
+            },
+            '.mkui_tab_btn': {
+              ...position,
             },
           },
-          '.mkui_tab_btn': {
-            ...position,
-          },
-          ...css,
-        }}
+          css
+        )}
       />
       <div
         className={cn(['mkui_tabgroup', state.styleId, className])}
@@ -163,12 +174,27 @@ Tabs.Panel = TabPanel
  *
  * @internal
  */
-export function useTabs() {
+export function useTabs(props?: Partial<TabItem>) {
+  const { eventKey, title, disabled, open } = props || {}
+  const id = eventKey ? eventKey.toString() : generateId()
   const { state, setState } = React.useContext(TabContext)
 
   if (typeof state === undefined) {
     throw new Error('Tab must be used within a TabGroup component')
   }
+
+  React.useEffect(() => {
+    const exists = state.tabs ? state.tabs.find((t) => t.id === id) : false
+
+    if (!exists) {
+      // setState((s) => ({
+      //   ...s,
+      //   tabs: [...s.tabs, { id, title, disabled, open }],
+      //   activeKey: open ? id : s.activeKey,
+      // }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   function setActive(id: string) {
     setState((state) => ({
@@ -177,27 +203,28 @@ export function useTabs() {
     }))
   }
 
-  function addToTabGroup(item: TabItem, open: boolean) {
-    const exists = state.tabs ? state.tabs.find((t) => t.id === item.id) : false
+  // function addToTabGroup(item: TabItem, open: boolean) {
+  //   const exists = state.tabs ? state.tabs.find((t) => t.id === item.id) : false
+  //   console.log('Calling this function', state.tabs, item)
 
-    if (!exists) {
-      setState((s) => ({
-        ...s,
-        tabs: [...s.tabs, item],
-        activeKey: open ? item.id : s.activeKey,
-      }))
-    }
-  }
+  //   if (!exists) {
+  //     setState((s) => ({
+  //       ...s,
+  //       tabs: [...s.tabs, item],
+  //       activeKey: open ? item.id : s.activeKey,
+  //     }))
+  //   }
+  // }
 
-  function updateTab(id: string, item: TabItem) {
-    const index = state.tabs?.findIndex((tab) => id === tab.id)
+  // function updateTab(id: string, item: TabItem) {
+  //   const index = state.tabs?.findIndex((tab) => id === tab.id)
 
-    if (index !== -1 && state.tabs?.length) {
-      let newTabs = state.tabs
-      newTabs[index as number] = item
-      setState((s) => ({ ...s, tabs: newTabs }))
-    }
-  }
+  //   if (index !== -1 && state.tabs?.length) {
+  //     let newTabs = state.tabs
+  //     newTabs[index as number] = item
+  //     setState((s) => ({ ...s, tabs: newTabs }))
+  //   }
+  // }
 
-  return { state, setActive, addToTabGroup, updateTab }
+  return { id, state, setActive }
 }

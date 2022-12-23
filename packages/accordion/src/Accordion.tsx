@@ -34,7 +34,7 @@ export interface AccordionProps
    * that may affect your app's performance.
    * @default false
    */
-  animate?: boolean | { transition: string }
+  animate?: boolean | string
 }
 
 interface AccordionState extends Omit<AccordionProps, 'children'> {
@@ -94,8 +94,8 @@ export const Accordion = ({
             overflow: 'hidden',
             willChange: animate ? 'height' : undefined,
             transition:
-              animate && typeof animate === 'object'
-                ? animate.transition
+              animate && typeof animate === 'string'
+                ? animate
                 : animate
                 ? 'height 0.3s ease'
                 : undefined,

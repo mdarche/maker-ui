@@ -18,7 +18,7 @@ export interface TabNavigationProps {
  */
 export const TabNavigation = ({ settings }: TabNavigationProps) => {
   const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([])
-  const { state, setActive } = useTabs()
+  const { state, setActive } = useTabs({})
   const [tabIds, setTabIds] = React.useState<string[]>([])
 
   /**
@@ -120,7 +120,7 @@ export const TabNavigation = ({ settings }: TabNavigationProps) => {
           }${item.disabled ? 'disabled' : ''}`}
           disabled={item.disabled}
           title={typeof item.title === 'string' ? item.title : undefined}
-          aria-controls={`panel-${item.panelId}`}
+          aria-controls={`panel-${item.id}`}
           aria-selected={state.activeKey === item.id ? 'true' : 'false'}
           onClick={() => setActive(item.id)}>
           {item.title}
@@ -148,9 +148,12 @@ export const getNavPosition = ({
   const shared = {
     overflowX: overflow === 'scroll' ? 'scroll' : undefined,
     flexWrap: overflow === 'stack' ? 'wrap' : 'nowrap',
-    button: overflow === 'scroll' && {
-      flex: ['1 0 auto', 'none'],
-    },
+    button:
+      overflow === 'scroll'
+        ? {
+            flex: ['1 0 auto', 'none'],
+          }
+        : undefined,
   }
 
   return isVertical

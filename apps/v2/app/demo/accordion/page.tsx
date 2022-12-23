@@ -5,8 +5,10 @@ import { Accordion } from '@maker-ui/accordion'
 export default function SocialPage() {
   return (
     <Section>
-      <Accordion>
+      <Accordion showSingle animate="height ease-in-out 0.2s">
         <Accordion.Panel title="Button info">Sample test</Accordion.Panel>
+        <Accordion.Panel title="Second info">Test test</Accordion.Panel>
+        <Accordion.Panel title="Another info">Test test</Accordion.Panel>
       </Accordion>
       {/* <div className="accordion">
         <details>
