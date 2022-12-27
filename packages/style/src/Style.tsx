@@ -22,7 +22,7 @@ export const Style = ({
     : undefined
   const children = cssString ?? props.children
 
-  return <style id={`mkui_css-${root}`} {...{ ...props, children }} />
+  return <style id={`css-${root}`} {...{ ...props, children }} />
 }
 
 function parseCSS({ root, css, breakpoints }: StyleSettings): string {

@@ -119,7 +119,9 @@ export function useAccordion() {
   const { state, setState } = React.useContext(AccordionContext)
 
   if (typeof state === undefined) {
-    throw new Error('Panel must be used within an Accordion component')
+    throw new Error(
+      'Accordion.Panel must be used within an Accordion component'
+    )
   }
 
   function registerPanel(id: string) {

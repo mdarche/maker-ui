@@ -5,28 +5,9 @@ import { Style, type ResponsiveCSS, type Breakpoints } from '@maker-ui/style'
 import { TabNavigation, getNavPosition } from './TabNavigation'
 import { TabPanel } from './TabPanel'
 
-export interface TabItem {
-  id: string
-  /** A title string or custom React element that will be used as the Tab Button for this panel. */
-  title?: string | React.ReactElement
-  /** A unique key that can toggle the tab open and close from an external component. */
-  eventKey?: number | string
-  /** If true, the tab will be open by default
-   * @default false
-   */
-  open?: boolean
-  /** If true, the tab will be disabled so users cannot activate it.
-   * @default false
-   */
-  disabled?: boolean
-}
-
 export interface TabState {
   styleId: string
-  tabs: TabItem[]
-  renderInactive?: TabsProps['renderInactive']
-  activeKey: number | string
-  tabKeyNavigate: boolean
+  activeKey: number
 }
 
 export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -39,7 +20,7 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The currently active tab key if tabs are controlled by an external or parent component.
    * Make sure the key exists as an `eventKey` prop on a nested `<Tab.Panel>`.
    */
-  activeKey?: number | string
+  activeEventKey?: number | string
   /** Determines how to handle the tab navigation buttons on mobile.
    * @default "stack"
    */
@@ -54,25 +35,19 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   tabKeyNavigate?: boolean
   /** Nested `<Tab.Panel>` or auxiliary components. */
-  children?: React.ReactNode
+  children?: React.ReactElement[]
 }
-
-const TabContext = React.createContext<{
-  state: Partial<TabState>
-  setState: React.Dispatch<React.SetStateAction<TabState>>
-}>({ state: {}, setState: (b) => {} })
 
 /**
  * The root component for building a tab container. The Tabs wrapper component contains
  * all settings for responsive behaviors, keyboard navigation, positioning, and nested
  * `TabPanel` components.
  *
- * @todo add preset styles
- *
  * @link https://maker-ui.com/docs/components/tabs
+ *
  */
 export const Tabs = ({
-  activeKey = 0,
+  activeEventKey,
   navPosition = 'top',
   overflow = 'stack',
   renderInactive = true,
@@ -85,11 +60,17 @@ export const Tabs = ({
 }: TabsProps) => {
   const [state, setState] = React.useState<TabState>({
     styleId: generateId(),
-    activeKey,
-    tabs: [],
-    renderInactive,
-    tabKeyNavigate,
+    activeKey: 0,
   })
+  const tabs = children
+    ? children.map(({ props }, index) => ({
+        id: index,
+        title: props.title,
+        disabled: props?.disabled,
+        eventKey: props?.eventKey?.toString(),
+        open: props?.open,
+      }))
+    : []
   const isVertical = ['top', 'bottom'].includes(navPosition) ? true : false
   const position = getNavPosition({ isVertical, navPosition, overflow })
 
@@ -97,36 +78,51 @@ export const Tabs = ({
    * Set the default open tab if none is specified
    */
   React.useEffect(() => {
-    if (state.tabs.length && state.activeKey === 0) {
-      // Get first tab that isn't disabled
-      const tab = state.tabs.find((t) => !t.disabled)
-      setState((state) => ({
-        ...state,
-        activeKey: tab ? tab.id : state.activeKey,
-      }))
-    }
-  }, [state])
+    if (tabs.length && !activeEventKey) {
+      // Get first tab that's marked as open
+      const opened = tabs.find((t) => t.open)
+      // Get first tab that's not disabled
+      const notDisabled = tabs.find((t) => !t.disabled)
 
-  /**
-   * Watch props for a new activeKey (controlled by external variable)
-   */
-  React.useEffect(() => {
-    if (state.activeKey !== 0) {
-      // Make sure the tab isn't disabled
-      const tab = state.tabs.find(
-        ({ id, disabled }) => id === activeKey.toString() && !disabled
-      )
-
-      setState((state) => ({
-        ...state,
-        activeKey: tab ? activeKey.toString() : state.activeKey,
+      setState((s) => ({
+        ...s,
+        activeKey: opened
+          ? opened.id
+          : notDisabled
+          ? notDisabled.id
+          : state.activeKey,
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeKey])
+  }, [])
+
+  /**
+   * Watch props for a new activeKey (controlled by external components)
+   */
+  React.useEffect(() => {
+    if (activeEventKey) {
+      // Make sure the tab isn't disabled
+      const tab = tabs.find(
+        ({ eventKey, disabled }) =>
+          eventKey === activeEventKey.toString() && !disabled
+      )
+
+      setState((s) => ({
+        ...s,
+        activeKey: tab ? tab.id : state.activeKey,
+      }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeEventKey])
+
+  const panels = renderInactive
+    ? children
+    : children
+    ? [children[state.activeKey]]
+    : []
 
   return (
-    <TabContext.Provider value={{ state, setState }}>
+    <>
       <Style
         root={state.styleId}
         breakpoints={breakpoints}
@@ -137,12 +133,14 @@ export const Tabs = ({
             '.mkui_tab': {
               flex: 1,
               order: 1,
-              display: 'none',
-              '&.active': {
-                display: 'block',
-              },
+              display: renderInactive ? 'none' : undefined,
+              '&.active': renderInactive
+                ? {
+                    display: 'block',
+                  }
+                : undefined,
             },
-            '.mkui_tab_btn': {
+            '.mkui_tab_navigation': {
               ...position,
             },
           },
@@ -150,81 +148,43 @@ export const Tabs = ({
         )}
       />
       <div
-        className={cn(['mkui_tabgroup', state.styleId, className])}
+        className={cn(['mkui_tabgroup flex', state.styleId, className])}
         {...props}>
         <TabNavigation
+          activeKey={state.activeKey}
+          setActiveKey={(k) => setState((s) => ({ ...s, activeKey: k }))}
+          tabs={tabs}
           settings={{
             isVertical,
             navPosition,
             overflow,
             breakpoints,
+            tabKeyNavigate,
           }}
         />
-        {children}
+        {panels?.map(
+          (
+            { props: { className, title, eventKey, open, disabled, ...rest } },
+            index
+          ) => (
+            <div
+              key={index}
+              className={cn([
+                'mkui_tab',
+                state.activeKey === index ? 'active' : undefined,
+                className,
+              ])}
+              role="tabpanel"
+              id={`panel-${index}`}
+              aria-labelledby={`control-${index}`}
+              {...rest}
+            />
+          )
+        )}
       </div>
-    </TabContext.Provider>
+    </>
   )
 }
 
 Tabs.displayName = 'Tabs'
 Tabs.Panel = TabPanel
-
-/**
- * Hook for registering tab panels and tracking the currently active tab.
- *
- * @internal
- */
-export function useTabs(props?: Partial<TabItem>) {
-  const { eventKey, title, disabled, open } = props || {}
-  const id = eventKey ? eventKey.toString() : generateId()
-  const { state, setState } = React.useContext(TabContext)
-
-  if (typeof state === undefined) {
-    throw new Error('Tab must be used within a TabGroup component')
-  }
-
-  React.useEffect(() => {
-    const exists = state.tabs ? state.tabs.find((t) => t.id === id) : false
-
-    if (!exists) {
-      // setState((s) => ({
-      //   ...s,
-      //   tabs: [...s.tabs, { id, title, disabled, open }],
-      //   activeKey: open ? id : s.activeKey,
-      // }))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  function setActive(id: string) {
-    setState((state) => ({
-      ...state,
-      activeKey: id,
-    }))
-  }
-
-  // function addToTabGroup(item: TabItem, open: boolean) {
-  //   const exists = state.tabs ? state.tabs.find((t) => t.id === item.id) : false
-  //   console.log('Calling this function', state.tabs, item)
-
-  //   if (!exists) {
-  //     setState((s) => ({
-  //       ...s,
-  //       tabs: [...s.tabs, item],
-  //       activeKey: open ? item.id : s.activeKey,
-  //     }))
-  //   }
-  // }
-
-  // function updateTab(id: string, item: TabItem) {
-  //   const index = state.tabs?.findIndex((tab) => id === tab.id)
-
-  //   if (index !== -1 && state.tabs?.length) {
-  //     let newTabs = state.tabs
-  //     newTabs[index as number] = item
-  //     setState((s) => ({ ...s, tabs: newTabs }))
-  //   }
-  // }
-
-  return { id, state, setActive }
-}

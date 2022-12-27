@@ -6,7 +6,7 @@ import { useState } from 'react'
 export default function TabsPage() {
   const [key, setKey] = useState('1')
 
-  const keyValues = ['1daf', 'lkj2', '3fdsl']
+  const keyValues = ['1daf', 'lkj2']
   const handleClick = (i: string) => setKey(i)
 
   return (
@@ -19,7 +19,8 @@ export default function TabsPage() {
         ))}
       </div>
       <Tabs
-        activeKey={key}
+        activeEventKey={key}
+        // renderInactive={false}
         // tabKeyNavigate
         css={{
           marginTop: 100,
@@ -30,8 +31,12 @@ export default function TabsPage() {
             padding: 10,
           },
         }}>
-        K how about now
-        <Tabs.Panel title="Title 1">First Text</Tabs.Panel>
+        <Tabs.Panel title="Title 1" eventKey={'1daf'}>
+          First Text
+        </Tabs.Panel>
+        <Tabs.Panel title={<div>Custom div title</div>} eventKey="lkj2">
+          Second Text
+        </Tabs.Panel>
         {/* <Tabs.Panel eventKey="2" title="Title 2">
           Second Text
         </Tabs.Panel>

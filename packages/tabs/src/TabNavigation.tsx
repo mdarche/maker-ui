@@ -1,8 +1,17 @@
+import { cn } from '@maker-ui/utils'
 import * as React from 'react'
-import { TabsProps, useTabs } from './Tabs'
+import { TabsProps } from './Tabs'
 
 export interface TabNavigationProps {
+  activeKey: string | number
+  setActiveKey: (s: number) => void
+  tabs?: {
+    id: number
+    title: string | React.ReactElement
+    disabled?: boolean
+  }[]
   settings: {
+    tabKeyNavigate?: boolean
     isVertical?: boolean
     overflow?: TabsProps['overflow']
     navPosition?: TabsProps['navPosition']
@@ -16,65 +25,56 @@ export interface TabNavigationProps {
  *
  * @internal
  */
-export const TabNavigation = ({ settings }: TabNavigationProps) => {
+export const TabNavigation = ({
+  activeKey,
+  setActiveKey,
+  tabs,
+  settings,
+}: TabNavigationProps) => {
   const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([])
-  const { state, setActive } = useTabs({})
-  const [tabIds, setTabIds] = React.useState<string[]>([])
-
-  /**
-   * Create array of all tab ids that are not disabled
-   */
-  React.useEffect(() => {
-    const ids = state.tabs?.reduce((filtered: string[], { disabled, id }) => {
-      if (!disabled) {
-        filtered.push(id)
-      }
-      return filtered
-    }, [])
-
-    if (ids) {
-      setTabIds(ids)
-    }
-  }, [state.tabs])
 
   /**
    * Handle keyboard arrow controls
    */
   const handleKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
-      if (tabIds.some((id) => document.activeElement?.id.includes(id))) {
-        const index = tabIds.findIndex((i) => i === state.activeKey)
+      if (
+        tabs?.some(({ id }) =>
+          document.activeElement?.id.includes(id.toString())
+        )
+      ) {
+        const index = tabs.findIndex(({ id }) => id === activeKey)
 
-        const next = index === tabIds.length - 1 ? 0 : index + 1
-        const prev = index === 0 ? tabIds.length - 1 : index - 1
+        const next = index === tabs.length - 1 ? 0 : index + 1
+        const prev = index === 0 ? tabs.length - 1 : index - 1
 
         switch (e.code) {
           case 'ArrowUp':
             if (!settings.isVertical) {
               e.preventDefault()
-              return setActive(tabIds[prev])
+              return setActiveKey(prev)
             }
             return
           case 'ArrowDown':
             if (!settings.isVertical) {
               e.preventDefault()
-              return setActive(tabIds[next])
+              return setActiveKey(next)
             }
             return
           case 'ArrowRight':
-            return setActive(tabIds[next])
+            return setActiveKey(next)
           case 'ArrowLeft':
-            return setActive(tabIds[prev])
+            return setActiveKey(next)
           case 'Tab':
-            if (state.tabKeyNavigate) {
+            if (settings?.tabKeyNavigate) {
               if (e.shiftKey) {
                 if (index === 0) return
                 e.preventDefault()
-                return setActive(tabIds[prev])
+                return setActiveKey(prev)
               } else {
-                if (index === tabIds.length - 1) return
+                if (index === tabs.length - 1) return
                 e.preventDefault()
-                return setActive(tabIds[next])
+                return setActiveKey(next)
               }
             }
             return
@@ -84,11 +84,11 @@ export const TabNavigation = ({ settings }: TabNavigationProps) => {
       }
     },
     [
-      setActive,
+      activeKey,
+      setActiveKey,
       settings.isVertical,
-      state.activeKey,
-      state.tabKeyNavigate,
-      tabIds,
+      settings?.tabKeyNavigate,
+      tabs,
     ]
   )
 
@@ -99,30 +99,32 @@ export const TabNavigation = ({ settings }: TabNavigationProps) => {
 
   React.useEffect(() => {
     // Get active key index and focus to that button ref
-    const index = state.tabs?.findIndex((t) => t.id === state.activeKey)
+    const index = tabs?.findIndex((t) => t.id === activeKey)
     if (typeof index === 'number') {
       buttonRefs.current[index]?.focus()
     }
-  }, [state.activeKey, state.tabs])
+  }, [activeKey, tabs])
 
   return (
     <div className="mkui_tab_navigation flex" role="tablist">
-      {state.tabs?.map((item, i) => (
+      {tabs?.map((item, i) => (
         <button
           ref={(el) => (buttonRefs.current[i] = el)}
           key={item.id}
           role="tab"
           type="button"
-          tabIndex={state.activeKey === item.id ? 0 : -1}
+          tabIndex={activeKey === item.id ? 0 : -1}
           id={`control-${item.id}`}
-          className={`mkui_tab_btn ${
-            state.activeKey === item.id ? 'active' : ''
-          }${item.disabled ? 'disabled' : ''}`}
+          className={cn([
+            'mkui_tab_btn',
+            activeKey === item.id ? 'active' : undefined,
+            item.disabled ? 'disabled' : undefined,
+          ])}
           disabled={item.disabled}
           title={typeof item.title === 'string' ? item.title : undefined}
           aria-controls={`panel-${item.id}`}
-          aria-selected={state.activeKey === item.id ? 'true' : 'false'}
-          onClick={() => setActive(item.id)}>
+          aria-selected={activeKey === item.id ? 'true' : 'false'}
+          onClick={() => setActiveKey(item.id)}>
           {item.title}
         </button>
       ))}
