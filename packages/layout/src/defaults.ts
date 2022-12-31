@@ -34,7 +34,7 @@ export const defaults: Options = {
     closeOnRouteChange: true,
     showCollapseOnMobile: true,
     collapse: false,
-    cssTransition: 'all ease 0.3s',
+    cssTransition: 'margin ease 0.3s, transform ease 0.3s',
   },
   content: {
     breakpoint: 960,

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import { type ResponsiveScale } from '@maker-ui/css'
-import { merge, cn } from '@maker-ui/utils'
+import React, { useEffect, useRef, useState } from 'react'
+import { Style } from '@maker-ui/style'
+import { merge, cn, generateId } from '@maker-ui/utils'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
@@ -15,17 +15,17 @@ export interface ParallaxProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Optional ScrollTrigger markers for testing and debugging */
   markers?: boolean
   /** Background CSS attribute for the section root container */
-  background?: ResponsiveScale
+  background?: string | string[]
   /** Settings for the image overlay or a false boolean to remove it */
   overlay?: { background: string } | false
   /** The height of the actual background image */
-  imageHeight?: ResponsiveScale
+  imageHeight?: string | number | (string | number)[]
   /** An intial CSS transform that marks the starting position of the image */
-  imagePosition?: ResponsiveScale
+  imagePosition?: string | number | (string | number)[]
   /** Additional styles that are applied to `.image-container` */
   imageCss?: object
   /** The maxwidth of the content container where nested children are rendered */
-  maxWidth?: ResponsiveScale
+  maxWidth?: string | number | (string | number)[]
   /** Settings for GSAP's ScrollTrigger */
   effect?: {
     /** Image y translation */
@@ -74,6 +74,7 @@ export const Parallax = ({
   children,
   ...props
 }: ParallaxProps) => {
+  const [styleId] = useState(generateId())
   const ref = useRef(null)
   const sectionRef = useRef(null)
   const containerRef = useRef(null)
@@ -106,39 +107,42 @@ export const Parallax = ({
   return (
     <section
       ref={sectionRef}
-      className={cn(['parallax', className])}
-      css={{
-        position: 'relative',
-        overflow: 'hidden',
-        background,
-        '.overlay': {
-          background: overlay !== false ? overlay?.background : undefined,
-        },
-        '.parallax-image': {
-          transform: imagePosition,
-          ...imageCss,
-        },
-        '.parallax-image-wrap': {
-          position: 'relative',
-          height: imageHeight,
-        },
-        '.parallax-body': {
-          zIndex: 10,
-          position: 'relative',
-          maxWidth,
-          margin: '0 auto',
-        },
-        img: {
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          height: '100%',
-          width: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center',
-        },
-      }}
+      className={cn(['mkui_parallax', styleId, className])}
       {...props}>
+      <Style
+        root={styleId}
+        css={{
+          position: 'relative',
+          overflow: 'hidden',
+          background,
+          '.overlay': {
+            background: overlay !== false ? overlay?.background : undefined,
+          },
+          '.parallax-image': {
+            transform: imagePosition,
+            ...imageCss,
+          },
+          '.parallax-image-wrap': {
+            position: 'relative',
+            height: imageHeight,
+          },
+          '.parallax-body': {
+            zIndex: 10,
+            position: 'relative',
+            maxWidth,
+            margin: '0 auto',
+          },
+          img: {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+          },
+        }}
+      />
       <div className="parallax-image absolute cover">
         <div ref={ref} className="parallax-image-wrap">
           {React.isValidElement(image) ? (

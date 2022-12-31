@@ -7,24 +7,26 @@ interface WindowState {
   height?: number
 }
 
+const getWindowWidth = () => {
+  if (typeof window === 'undefined') {
+    return {}
+  }
+
+  return { width: window.innerWidth, height: window.innerHeight }
+}
+
 /**
  * A React hook that adds a resize event-listener to the window and returns
  * the current window size
  */
 export function useWindowSize() {
-  const [windowSize, setWindowSize] = useState<WindowState>({})
+  const [windowSize, setWindowSize] = useState<WindowState>(getWindowWidth())
 
   useEffect(() => {
     function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
+      setWindowSize(getWindowWidth())
     }
-
     window.addEventListener('resize', handleResize)
-    handleResize()
-
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 

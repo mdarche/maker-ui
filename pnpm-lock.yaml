@@ -247,12 +247,17 @@ importers:
   packages/carousel:
     specifiers:
       '@maker-ui/build-tools': workspace:*
+      '@maker-ui/style': workspace:*
+      '@maker-ui/utils': workspace:*
       eslint-config-library: workspace:*
       react: ^18.2.0
       react-dom: ^18.2.0
       tsconfig: workspace:*
       tsup: ^5.12.0
       typescript: ^4.8.4
+    dependencies:
+      '@maker-ui/style': link:../style
+      '@maker-ui/utils': link:../utils
     devDependencies:
       '@maker-ui/build-tools': link:../build-tools
       eslint-config-library: link:../eslint-config-library
@@ -332,7 +337,7 @@ importers:
       react-dom: 18.2.0
       typescript: ^4.8.4
     dependencies:
-      eslint-config-next: 13.1.0_3rubbgt5ekhqrcgx4uwls3neim
+      eslint-config-next: 13.1.1_3rubbgt5ekhqrcgx4uwls3neim
       eslint-config-prettier: 8.5.0_eslint@7.32.0
       eslint-config-turbo: 0.0.7_eslint@7.32.0
       eslint-plugin-react: 7.31.11_eslint@7.32.0
@@ -426,9 +431,7 @@ importers:
   packages/gsap:
     specifiers:
       '@maker-ui/build-tools': workspace:*
-      '@maker-ui/css': workspace:*
-      '@maker-ui/layout': workspace:*
-      '@maker-ui/primitives': workspace:*
+      '@maker-ui/style': workspace:*
       '@maker-ui/utils': workspace:*
       '@types/lodash.debounce': ^4.0.6
       '@use-gesture/react': ^10.2.10
@@ -441,9 +444,7 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.8.4
     dependencies:
-      '@maker-ui/css': link:../css
-      '@maker-ui/layout': link:../layout
-      '@maker-ui/primitives': link:../primitives
+      '@maker-ui/style': link:../style
       '@maker-ui/utils': link:../utils
       '@use-gesture/react': 10.2.10_react@18.2.0
       lodash.debounce: 4.0.8
@@ -3276,8 +3277,8 @@ packages:
   /@next/env/13.0.6:
     resolution: {integrity: sha512-yceT6DCHKqPRS1cAm8DHvDvK74DLIkDQdm5iV+GnIts8h0QbdHvkUIkdOvQoOODgpr6018skbmSQp12z5OWIQQ==}
 
-  /@next/eslint-plugin-next/13.1.0:
-    resolution: {integrity: sha512-LGh0iqcEwxs0HmEK96cXXuhofcOGSUGl8Zms279JW8Zq/6GJkXo87gtRpfJrwD+a77nEIdRaORPM91Us3xW0Qw==}
+  /@next/eslint-plugin-next/13.1.1:
+    resolution: {integrity: sha512-SBrOFS8PC3nQ5aeZmawJkjKkWjwK9RoxvBSv/86nZp0ubdoVQoko8r8htALd9ufp16NhacCdqhu9bzZLDWtALQ==}
     dependencies:
       glob: 7.1.7
     dev: false
@@ -5482,7 +5483,7 @@ packages:
     dev: true
 
   /ast-types-flow/0.0.7:
-    resolution: {integrity: sha1-9wtzXGvKGlycItmCw+Oef+ujva0=}
+    resolution: {integrity: sha512-eBvWn1lvIApYMhzQMsu9ciLfkBY499mFZlNqG+/9WR7PVlroQw0vG30cOQQbaKz3sCEc44TAOu2ykzqXSNnwag==}
 
   /astral-regex/2.0.0:
     resolution: {integrity: sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==}
@@ -7046,6 +7047,7 @@ packages:
 
   /core-js-pure/3.21.1:
     resolution: {integrity: sha512-12VZfFIu+wyVbBebyHmRTuEE/tZrB4tJToWcwAMcsp3h4+sHR+fMJWbKpYiCRWlhFBq+KNyO8rIV9rTkeVmznQ==}
+    deprecated: core-js-pure@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js-pure.
     requiresBuild: true
 
   /core-js/2.6.12:
@@ -8546,8 +8548,8 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /eslint-config-next/13.1.0_3rubbgt5ekhqrcgx4uwls3neim:
-    resolution: {integrity: sha512-UdZm8GTR8PWys1dw+gJY+aLR/etkbTTsrRxiQ57nxqAE4Fw6PGZ2prLjqV6IhNkFve3c8ZgbCrUolfGad2mryA==}
+  /eslint-config-next/13.1.1_3rubbgt5ekhqrcgx4uwls3neim:
+    resolution: {integrity: sha512-/5S2XGWlGaiqrRhzpn51ux5JUSLwx8PVK2keLi5xk7QmhfYB8PqE6R6SlVw6hgnf/VexvUXSrlNJ/su00NhtHQ==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -8555,7 +8557,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@next/eslint-plugin-next': 13.1.0
+      '@next/eslint-plugin-next': 13.1.1
       '@rushstack/eslint-patch': 1.2.0
       '@typescript-eslint/parser': 5.44.0_3rubbgt5ekhqrcgx4uwls3neim
       eslint: 7.32.0
@@ -8934,7 +8936,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.17.8
       aria-query: 4.2.2
-      array-includes: 3.1.4
+      array-includes: 3.1.6
       ast-types-flow: 0.0.7
       axe-core: 4.4.1
       axobject-query: 2.2.0
@@ -10929,7 +10931,6 @@ packages:
     resolution: {integrity: sha512-RRjxlvLDkD1YJwDbroBHMb+cukurkDWNyHx7D3oNB5x9rb5ogcksMC5wHCadcXoo67gVr/+3GFySh3134zi6rw==}
     dependencies:
       has: 1.0.3
-    dev: false
 
   /is-core-module/2.8.1:
     resolution: {integrity: sha512-SdNCUs284hr40hFTFP6l0IfZ/RSrMXF3qgoRHd3/79unUTvrFO/JoXwkGm+5J/Oe3E/b5GsnG330uUNgRpu1PA==}
@@ -12112,7 +12113,7 @@ packages:
     resolution: {integrity: sha512-L0IqwlIXjilBVVYKFT37X9Ih11Um5NEl9cbJIuU/SwP/zEEAbBPOnEeeuxVMf45ydWQRDQN3Nqc96OgbH1K+Pg==}
 
   /language-tags/1.0.5:
-    resolution: {integrity: sha1-0yHbxNowuovzAk4ED6XBRmH5GTo=}
+    resolution: {integrity: sha512-qJhlO9cGXi6hBGKoxEG/sKZDAHD5Hnu9Hs4WbOY3pCWXDhw0N8x1NenNzm2EnNLkLkk7J2SdxAkDSbb6ftT+UQ==}
     dependencies:
       language-subtag-registry: 0.3.21
 
@@ -15614,7 +15615,7 @@ packages:
   /resolve/2.0.0-next.3:
     resolution: {integrity: sha512-W8LucSynKUIDu9ylraa7ueVZ7hc0uAgJBxVsQSKOXOyle8a93qXhcz+XAXZ8bIq2d6i4Ehddn6Evt+0/UwKk6Q==}
     dependencies:
-      is-core-module: 2.8.1
+      is-core-module: 2.11.0
       path-parse: 1.0.7
 
   /restore-cursor/3.1.0:

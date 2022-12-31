@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { merge, cn } from '@maker-ui/utils'
-import type { Position, DotSettings } from './types'
+import type { Position, DotSettings } from '@/types'
 
 interface PaginationProps {
   current: number
@@ -77,43 +77,21 @@ export const Pagination = ({
     <div
       className="carousel-pagination flex"
       role="tablist"
-      css={{
-        position: 'absolute',
-        top: position === 'top' ? padding : undefined,
-        bottom: position === 'bottom' ? padding : undefined,
-        left: position === 'left' ? padding : undefined,
-        right: position === 'right' ? padding : undefined,
-        ...getPosition(position as Position, padding as number),
-        flexDirection:
-          position === 'top' || position === 'bottom' ? 'row' : 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 1,
-      }}>
+      // css={{
+      //   position: 'absolute',
+      //   top: position === 'top' ? padding : undefined,
+      //   bottom: position === 'bottom' ? padding : undefined,
+      //   left: position === 'left' ? padding : undefined,
+      //   right: position === 'right' ? padding : undefined,
+      //   ...getPosition(position as Position, padding as number),
+      //   flexDirection:
+      //     position === 'top' || position === 'bottom' ? 'row' : 'column',
+      //   alignItems: 'center',
+      //   justifyContent: 'center',
+      //   zIndex: 1,
+      // }}
+    >
       {indicators}
     </div>
   )
-}
-
-Pagination.displayName = 'CarouselPagination'
-
-function getPosition(
-  pos: Position,
-  gap: string | number | (string | number)[]
-): object {
-  if (pos === 'left' || pos === 'right') {
-    return {
-      top: '50%',
-      transform: `translate3d(0,-50%,0)`,
-      left: pos === 'left' ? gap : undefined,
-      right: pos === 'right' ? gap : undefined,
-    }
-  }
-
-  return {
-    left: '50%',
-    transform: `translate3d(-50%,0,0)`,
-    top: pos === 'top' ? gap : undefined,
-    bottom: pos === 'bottom' ? gap : undefined,
-  }
 }

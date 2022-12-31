@@ -26,23 +26,12 @@ const menu: MenuItemProps[] = [
     submenu: [
       { label: 'Accordion', path: '/demo/accordion' },
       { label: 'Tabs', path: '/demo/tabs' },
+      { label: 'Carousel', path: '/demo/carousel' },
       { label: 'Modal', path: '/demo/modal' },
-      {
-        label: 'Transition',
-        path: '/demo/transition',
-      },
-      {
-        label: 'Spinners',
-        path: '/demo/spinners',
-      },
-      {
-        label: 'Social',
-        path: '/demo/social',
-      },
-      {
-        label: 'Style',
-        path: '/demo/style',
-      },
+      { label: 'Transition', path: '/demo/transition' },
+      { label: 'Spinners', path: '/demo/spinners' },
+      { label: 'Social', path: '/demo/social' },
+      { label: 'Style', path: '/demo/style' },
     ],
   },
   { label: 'News', path: '/about' },

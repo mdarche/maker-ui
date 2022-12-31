@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { ArrowSettings } from './types'
+import { ArrowSettings } from '@/types'
+import { getArrowPosition, getArrowTransform } from '@/helpers'
 
 interface NavArrowProps {
   settings: ArrowSettings
@@ -17,7 +18,7 @@ interface NavButtonProps extends NavArrowProps {
  *
  * @internal
  */
-const NavButton = ({
+const ArrowButton = ({
   isNext = false,
   settings: { custom, padding, margin, css },
   onClick,
@@ -27,7 +28,10 @@ const NavButton = ({
     aria-label={`${isNext ? 'Next' : 'Previous'} Slide`}
     className={`carousel-nav ${isNext ? 'carousel-next' : 'carousel-prev'}`}
     onClick={onClick}
-    style={{ ...transform(isNext, custom), ...position(isNext) }}
+    style={{
+      ...getArrowTransform(isNext, custom),
+      ...getArrowPosition(isNext),
+    }}
     // css={{
     //   cursor: 'pointer',
     //   background: 'none',
@@ -67,8 +71,11 @@ const ArrowIcon = () => (
 export const NavArrows = React.memo(({ navigate, ...props }: NavArrowProps) => {
   return (
     <div className="carousel-navigation">
-      <NavButton onClick={() => navigate && navigate('previous')} {...props} />
-      <NavButton
+      <ArrowButton
+        onClick={() => navigate && navigate('previous')}
+        {...props}
+      />
+      <ArrowButton
         onClick={() => navigate && navigate('next')}
         isNext
         {...props}
@@ -78,19 +85,3 @@ export const NavArrows = React.memo(({ navigate, ...props }: NavArrowProps) => {
 })
 
 NavArrows.displayName = 'Arrows'
-
-/**
- * Returns a left or right position style rule
- */
-const position = (isNext: boolean) => (isNext ? { right: 0 } : { left: 0 })
-
-/**
- * Returns a center transform and reflected arrow for the left previous button.
- */
-const transform = (isNext: boolean, custom: ArrowSettings['custom']) => {
-  return typeof custom === 'object' && custom.hasOwnProperty('prev')
-    ? undefined
-    : isNext
-    ? { transform: 'translateY(-50%)' }
-    : { transform: 'translateY(-50%) scaleX(-1)' }
-}

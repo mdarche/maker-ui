@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { cn, merge } from '@maker-ui/utils'
-import { Div } from '@maker-ui/primitives'
+import { Style } from '@maker-ui/style'
 import debounce from 'lodash.debounce'
 import { useDrag } from '@use-gesture/react'
 
@@ -195,19 +195,19 @@ export const Carousel = ({
   }, [loopTimer, autoPlay])
 
   return (
-    <Div
+    <div
       id={id}
       breakpoints={breakpoints}
       ref={carouselRef}
       className={cn(['carousel', className])}
       onMouseEnter={autoPlay && pauseOnHover ? loopTimer.pause : undefined}
       onMouseLeave={autoPlay && pauseOnHover ? loopTimer.resume : undefined}
-      css={{
-        ...merge(css as object, styles),
-        height,
-      }}
+      // css={{
+      //   ...merge(css as object, styles),
+      //   height,
+      // }}
       {...props}>
-      <Div
+      <div
         breakpoints={breakpoints}
         css={
           center
@@ -238,7 +238,7 @@ export const Carousel = ({
             }}
           />
         ))}
-      </Div>
+      </div>
       {overlay ? overlay : null}
       {_arrows ? <NavArrows navigate={navigate} settings={_arrows} /> : null}
       {_dots ? (
@@ -249,7 +249,7 @@ export const Carousel = ({
           settings={_dots}
         />
       ) : null}
-    </Div>
+    </div>
   )
 }
 

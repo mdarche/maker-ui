@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import { cn } from '@maker-ui/utils'
-import { Div, type DivProps } from '@maker-ui/primitives'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
@@ -45,7 +44,8 @@ function getTranslation(
   return e
 }
 
-export interface ScrollRevealProps extends DivProps {
+export interface ScrollRevealProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   /** The className shared by all components in the group */
   group?: string
   /** A number representing the duration in seconds between batch animations
@@ -187,9 +187,9 @@ export const ScrollReveal = ({
   }, [])
 
   return (
-    <Div className={cn(['scroll-reveal', className])} ref={ref} {...props}>
+    <div className={cn(['mkui_scroll', className])} ref={ref} {...props}>
       {children}
-    </Div>
+    </div>
   )
 }
 

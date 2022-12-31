@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { Div } from '@maker-ui/primitives'
-import { ResponsiveScale } from '@maker-ui/css'
 import { cn } from '@maker-ui/utils'
 import type { CarouselSettings, CarouselProps, SlideProps } from './types'
 
@@ -8,8 +6,8 @@ interface InternalSlideProps {
   index?: SlideProps['index']
   isActive?: SlideProps['isActive']
   clicked?: number
-  height?: ResponsiveScale
-  width?: ResponsiveScale
+  height?: string | number | (string | number)[]
+  width?: string | number | (string | number)[]
   addToRefs: (el: any) => void
   bind: (...args: any[]) => any
   template: CarouselProps['template']
@@ -32,7 +30,7 @@ export const Slide = ({
   dragTarget,
 }: InternalSlideProps) => {
   return (
-    <Div
+    <div
       ref={addToRefs}
       css={{ width, height }}
       className={cn(['slide', isActive ? ' active' : ''])}
@@ -42,20 +40,20 @@ export const Slide = ({
         ? bind()
         : {})}>
       <div className="slide-inner">
-        {template === 'custom'
+        {/* {template === 'custom'
           ? slideProps
           : React.cloneElement(template, {
               ...slideProps,
               index,
               isActive,
               clicked,
-            })}
+            })} */}
       </div>
       {slideProps?.draggable !== false &&
       draggable &&
       dragTarget === 'overlay' ? (
         <div className="dt-overlay" {...bind()} />
       ) : null}
-    </Div>
+    </div>
   )
 }
