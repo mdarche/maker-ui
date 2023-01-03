@@ -6,9 +6,14 @@ export enum SlideDirection {
   Left = 1,
 }
 
-export const enum ArrowKeys {
-  Right = 39,
-  Left = 37,
+export interface CarouselClasses {
+  root?: string
+  slide?: string
+  slider?: string
+  slideTrack?: string
+  navigation?: string
+  dot?: string
+  arrow?: string
 }
 
 export type SlideItem = React.ReactElement

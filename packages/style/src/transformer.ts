@@ -1,3 +1,5 @@
+import { ResponsiveCSS } from './types'
+
 /**
  * CSS attributes that accept an integer
  */
@@ -49,6 +51,15 @@ const formatKey = (p: string) =>
   p.includes('&') ? p.replace(/&|\s&/g, '') : ` ${p}`
 
 /**
+ * Checks for empty style object
+ */
+function isEmpty(obj: ResponsiveCSS) {
+  return Object.values(obj as object).every(
+    (el) => el === undefined || el === null
+  )
+}
+
+/**
  * Converts a deeply nested object into a flattened CSS string
  *
  * @param root - the parent element's CSS selector. Should be unique for locally scoped styles
@@ -70,6 +81,7 @@ export function objectToCSS(
     mq = 0
   const keys = Object.keys(obj).sort((a, b) => ruleSort(a, b, obj))
   const parent = formatKey(parentSelector)
+  const empty = isEmpty(obj)
 
   for (let k of keys) {
     if (k.startsWith('@media')) {
@@ -85,7 +97,7 @@ export function objectToCSS(
     if (propCount > 0) {
       res += `.${root} {`
     }
-  } else if (!isMediaQuery) {
+  } else if (!isMediaQuery && !empty) {
     res += ` .${root}${parent} {`
   }
 

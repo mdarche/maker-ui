@@ -67,3 +67,7 @@
 .container {
   margin: 0 auto;
 }
+.mkui_container {
+  max-width: var(--max-width-section);
+  margin: 0 auto;
+}

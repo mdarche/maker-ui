@@ -1,4 +1,4 @@
-import { MouseEvent, TouchEvent } from 'react'
+import type { MouseEvent, TouchEvent } from 'react'
 import { SlideDirection, SlideItem } from '@/types'
 
 export class Circular<T> {
@@ -163,6 +163,7 @@ export const initItems = (
 }
 
 export function getPageX(e: TouchEvent | MouseEvent): number {
+  // console.log('Logging:', e.nativeEvent, MouseEvent)
   if (e.nativeEvent instanceof MouseEvent) {
     return e.nativeEvent.pageX
   } else if (e.nativeEvent instanceof TouchEvent) {

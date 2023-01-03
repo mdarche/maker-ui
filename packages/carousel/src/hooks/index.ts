@@ -8,9 +8,13 @@ const getWindowWidth = () => {
   return window.innerWidth
 }
 
-export const useWindowWidthChange = (callBack: (changed: number) => any) => {
+export const useWindowWidthChange = (
+  callBack: (changed: number) => any,
+  runEffect: boolean
+) => {
   const [windowWidth, setWindowWidth] = useState(getWindowWidth())
   useLayoutEffect(() => {
+    if (!runEffect) return
     const update = () => {
       const changed = windowWidth - window.innerWidth
       setWindowWidth(window.innerWidth)
