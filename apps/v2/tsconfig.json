@@ -21,7 +21,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/client": ["components/client"]
+      "@/client": ["components/client"],
+      "@/public/*": ["public/*"]
     }
   },
   "include": [

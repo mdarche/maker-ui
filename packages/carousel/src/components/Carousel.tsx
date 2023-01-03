@@ -1,11 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  type KeyboardEvent,
-  type ReactElement,
-} from 'react'
-import { cn, generateId } from '@maker-ui/utils'
+import React, { useState, useEffect, useRef, type KeyboardEvent } from 'react'
+import { cn, generateId, merge } from '@maker-ui/utils'
+import { Style } from '@maker-ui/style'
 import {
   rotateItems,
   getTransformAmount,
@@ -18,52 +13,14 @@ import {
   rotateNavigationItems,
   getNavigationSlideAmount,
 } from '@/helpers'
-import { SlideDirection, SlideItem, CarouselClasses } from '@/types'
+import { SlideDirection, SlideItem, CarouselProps } from '@/types'
 import { usePrevious } from '@/hooks'
 import { Arrow } from './Arrow'
 import { Slider } from './Slider'
-import { Navigation } from './Navigation'
+import { Pagination } from './Pagination'
 import { defaultProps } from '../default-props'
-import { Style } from '@maker-ui/style'
-import { css } from './style'
 
-export interface CarouselProps {
-  children: React.ReactElement[]
-  /** Number of items to show per slide */
-  show?: number
-  /** Number of items to slide per click or swipe */
-  slide?: number
-  /** CSS transition duration for each slide */
-  transition?: number
-  /** Enable swiping and drag events for touch enabled devices*/
-  swiping?: boolean
-  /** Percentage of item width that triggers a slide */
-  swipeOn?: number
-  /** If true, slide items will change width dynamically according to the screen size */
-  responsive?: boolean
-  /** If true, the carousel will loop infinitely */
-  infinite?: boolean
-  /** Custom classNames for all carousel sub-components */
-  classNames?: CarouselClasses | null
-  /** If true, the left and right arrow keys can be used to navigate slides */
-  useArrowKeys?: boolean
-  /** Set this to true if any of your slide items are stateful. Additionally, add a unique
-   * key to each item. This will prevent the carousel from unnecessary re-renders.
-   */
-  dynamic?: boolean
-  paginationCallback?: ((direction: SlideDirection) => any) | null
-  pageCount?: number
-  hideArrows?: boolean
-  arrows?: {
-    left?: ReactElement | null
-    right?: ReactElement | null
-    onLeftArrowClick?: () => void
-    onRightArrowClick?: () => void
-  } | null
-  autoSwipe?: number | null
-  navigation?: null | ((selected: boolean) => ReactElement)
-  triggerClickOn?: number
-}
+import { css } from './style'
 
 export interface CarouselState {
   items: SlideItem[]
@@ -75,11 +32,13 @@ export interface CarouselState {
 }
 
 export const Carousel = (userProps: CarouselProps) => {
-  const props: Required<CarouselProps> = { ...defaultProps, ...userProps }
+  const props: Required<CarouselProps> = merge(defaultProps, userProps)
+  const isNavigation =
+    props.navigation !== undefined && typeof props.navigation === 'function'
   const [styleId] = useState(generateId())
   const initialItems = initItems(
     props.children,
-    props.navigation ? props.children.length - 1 : props.slide,
+    isNavigation ? props.children.length - 1 : props.slide,
     props.infinite
   )
   const [items, setItems] = useState(initialItems)
@@ -104,8 +63,8 @@ export const Carousel = (userProps: CarouselProps) => {
   const [page, setPage] = useState<number>(0)
   const isPaginating = useRef(false)
   const slideButtonRef = useRef<HTMLButtonElement>(null)
-  const autoSwipeTimer = useRef<number>()
-  const isNavigation = typeof props.navigation === 'function'
+  const autoPlayTimer = useRef<number>()
+  // const isNavigation = typeof props.navigation === 'function'
 
   useEffect(() => {
     if (!props.dynamic) return
@@ -131,24 +90,24 @@ export const Carousel = (userProps: CarouselProps) => {
   }, [props.children])
 
   useEffect(() => {
-    autoSwipe()
+    autoPlay()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const autoSwipe = () => {
-    clearTimeout(autoSwipeTimer.current)
+  const autoPlay = () => {
+    clearTimeout(autoPlayTimer.current)
 
     if (
       slideButtonRef &&
-      typeof props.autoSwipe === 'number' &&
-      props.autoSwipe > props.transition
+      typeof props.autoPlay === 'number' &&
+      props.autoPlay > props.transition
     ) {
       //@ts-ignore
-      autoSwipeTimer.current = setTimeout(() => {
+      autoPlayTimer.current = setTimeout(() => {
         if (slideButtonRef.current) {
           slideButtonRef.current!.click()
         }
-      }, props.autoSwipe)
+      }, props.autoPlay)
     }
   }
 
@@ -238,7 +197,7 @@ export const Carousel = (userProps: CarouselProps) => {
         transform: props.infinite
           ? getTransformAmount(
               width,
-              props.navigation ? props.children.length - 1 : props.slide,
+              isNavigation ? props.children.length - 1 : props.slide,
               SlideDirection.Right
             )
           : animation.transform +
@@ -246,7 +205,7 @@ export const Carousel = (userProps: CarouselProps) => {
         transition: 0,
         isSliding: false,
       })
-      autoSwipe()
+      autoPlay()
     }, props.transition * 1_0_0_0)
     isPaginating.current = false
   }
@@ -257,7 +216,7 @@ export const Carousel = (userProps: CarouselProps) => {
       transform: props.infinite
         ? getTransformAmount(
             calculatedWidth,
-            props.navigation ? props.children.length - 1 : props.slide,
+            isNavigation ? props.children.length - 1 : props.slide,
             SlideDirection.Right
           )
         : 0,
@@ -333,13 +292,13 @@ export const Carousel = (userProps: CarouselProps) => {
       )}
       <Slider
         {...props}
-        transition={animation.transition}
         items={itemsRef.current}
+        classNames={props?.classNames}
+        transition={animation.transition}
         transform={animation.transform}
         slideCallback={slideCallback}
         dragCallback={dragCallback}
         widthCallBack={widthCallBack}
-        classNames={props?.classNames}
       />
       {showArrow.right && (
         <Arrow
@@ -350,13 +309,13 @@ export const Carousel = (userProps: CarouselProps) => {
           onClick={onRightArrowClick}
         />
       )}
-      {isNavigation && (
-        <Navigation
-          navigate={props.navigation!}
-          items={props.children}
+      {!props.hidePagination && (
+        <Pagination
+          factory={props.navigation}
+          classNames={props?.classNames}
+          length={props.children.length}
           current={current}
           onClick={onNavigate}
-          classNames={props?.classNames}
         />
       )}
     </div>

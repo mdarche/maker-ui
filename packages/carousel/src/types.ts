@@ -1,5 +1,4 @@
 import * as React from 'react'
-import type { ResponsiveCSS } from '@maker-ui/style'
 
 export enum SlideDirection {
   Right = -1,
@@ -12,168 +11,106 @@ export interface CarouselClasses {
   slider?: string
   slideTrack?: string
   navigation?: string
-  dot?: string
+  page?: string
   arrow?: string
 }
 
 export type SlideItem = React.ReactElement
 
-type ResponsiveScale = string | number | (string | number)[]
+type ResponsiveValue = string | number | (string | number)[]
 
-export interface SlideProps {
-  index?: number
-  isActive?: boolean
+export interface CarouselProps {
+  /** The carousel must contain child nodes that will be registered as slides. */
+  children: React.ReactElement[]
+  /** Number of items to show per slide.
+   * @default 1
+   */
+  show?: number
+  /** Number of items to slide per click or touch / drag gesture.
+   * @default 1
+   */
+  slide?: number
+  /** CSS transition duration for each slide.
+   * @default 0.5
+   */
+  transition?: number
+  /** Enable swiping and drag events for mouse and touch enabled devices.
+   * @default true
+   */
   draggable?: boolean
-  onClick?: () => void
-}
-
-export interface SlideData extends SlideProps {
-  [key: string]: any
-}
-
-export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Required array of data or React components that will be used to generate slides */
-  data: SlideData[] | React.ReactElement[]
-  /** Required component template for data
-   * - Supply a React component that accepts props for each of the attributes in your `data` array
-   * - Set to "custom" to indicate an array of custom components in the `data` array
-   * */
-  template: React.ReactElement | 'custom'
-  /** The height of the carousel. Can be a responsive array value. */
-  height?: ResponsiveScale
-  /** Settings that control the carousel previous and next (arrow) buttons */
-  arrows?: ArrowSettings | false
-  /** Settings that control the carousel page indicators (dots) */
-  dots?: DotSettings | false
-  /** Settings that control the carousel */
-  settings?: CarouselSettings
-  /** An optional component that will sit on top of all slides and remain visible */
-  overlay?: React.ReactElement
-  /** External controls via useState hook */
-  controls?: [number, React.Dispatch<React.SetStateAction<number>>]
-}
-
-// TODO - ADD `hideControls` prop with a timer to show / hide controls when user is not focusing or hovering over carousel
-
-export interface CarouselSettings {
-  /** A boolean that determines if the carousel should play automatically
+  /** Percentage of item width (as a decimal) that serves as the drag limit in order to register
+   * a slide change. For example, if dragX is set to 0.25, the user must drag at least 25% of the
+   * slide item width in order to trigger a slide change.
+   * @default 0.25
+   */
+  dragX?: number
+  /** If true, slide items will change width dynamically according to the screen size.
    * @default true
    */
-  autoPlay?: boolean
-  /** The number of times that the carousel should loop on autoplay. Use -1 for infinite loops
-   * @default 2
-   */
-  autoPlayLimit?: number
-  /** Pauses the autoPlay timer when the user is focused inside the carousl or hovering over it
+  responsive?: boolean
+  /** If true, the carousel will loop infinitely.
    * @default true
    */
-  pauseOnHover?: boolean
-  /** Delay in seconds that each slide is displayed before changing
-   * @default 6.5
-   */
-  delay?: number
-  /** Determines if the carousel can be controlled via drag and swipe gestures
-   * @default true
-   */
-  /**
-   * The number of pixels required to register the drag event handler vs click handler
-   */
-  dragThreshold?: number
-  draggable?: boolean
-  /** The element that should be used to track drag and swipe gestures.
-   * - `slide` - applied directly to each slide component
-   * - `container` - applied to the carousel container (default)
-   * - `overlay` - an absolutely positioned layer on top of each slide. Helpful for <img /> tag slides that hijack dragging
-   * @default 'container'
-   */
-  dragTarget?: 'container' | 'slide' | 'overlay'
-  /** Duration of the slide transition animation in seconds
-   * @default 0.4
-   */
-  duration?: number
-  /** GSAP easing curve for the transition animation
-   * @default "power1.inOut"
-   */
-  ease?: string
-  /** The height of a slide.
-   * @default '100%''
-   */
-  slideHeight?: ResponsiveScale
-  /** The width of a slide. Default is 100% for full width slides, but you can
-   * use a percentage or a responsive scale to customize.
-   * @default '100%'
-   */
-  slideWidth?: ResponsiveScale
-  /** If true, the slide container will have flex property `justify-content: center;`.
-   * Helpful if slide width is not 100%.
+  infinite?: boolean
+  /** Custom classNames for all carousel sub-components. You can use these classNames to add
+   * custom styles.*/
+  classNames?: CarouselClasses | null
+  /** If true, the left and right arrow keys can be used to navigate slides.
    * @default false
    */
-  center?: boolean
-  /** Lets you control the `center` prop on mobile.
+  useArrowKeys?: boolean
+  /** Set this to true if any of your slide items are stateful. Additionally, add a unique
+   * key to each item to prevent the carousel from unnecessary re-renders.
    * @default false
    */
-  centerMobile?: boolean
-}
-
-export interface ArrowSettings {
-  /** Custom arrow indicators for the carousel `previous` and `next` buttons.
-   * - A single custom component will be used for the next button and rotated 180deg for previous
-   * - You can also supply an object with custom components for each: `{ prev, next }`
+  dynamic?: boolean
+  /** An optional callback function that is called whenever a slide changes. */
+  paginationCallback?: ((direction: SlideDirection) => any) | null
+  pageCount?: number // TO FIGURE OUT
+  /** If true, the carousel will not render left and right arrow navigation.
+   * @default false
    */
-  custom?:
-    | React.ReactElement
-    | { prev?: React.ReactElement; next?: React.ReactElement }
-  /** Padding applied to each navigation button
-   * @default 20
+  hideArrows?: boolean
+  /** Settings for carousel arrows */
+  arrows?: {
+    left?: React.ReactElement | null
+    right?: React.ReactElement | null
+    onLeftArrowClick?: () => void
+    onRightArrowClick?: () => void
+  } | null
+  /** If true, the carousel will not show any page indicator buttons.
+   * @default false
    */
-  padding?: ResponsiveScale
-  /** Margin applied to each button
-   * @default 0
+  hidePagination?: boolean
+  /** Settings for carousel page indicators. */
+  pagination?: {
+    absolute?: boolean
+    position?: 'top' | 'bottom' | 'right' | 'left'
+    padding?: ResponsiveValue
+    spacing?: ResponsiveValue
+    height?: ResponsiveValue
+    width?: ResponsiveValue
+    borderRadius?: ResponsiveValue
+    colorActive?: string
+    colorMuted?: string
+    onPageClick?: (index: number) => void
+  }
+  navigate?: number
+  autoPlay?: number
+  /** Determines when to begin registering a drag event.
+   * @default Number.MIN_SAFE_INTEGER
    */
-  margin?: ResponsiveScale
-  /** Custom Maker UI CSS object that is applied to each navigation button.
-   * - Any styles you add may override other settings like padding or margin
+  triggerClickOn?: number
+  /** A render prop that lets you create custom page indicators. You can spread the second
+   * parameter (button attributes) as props for your custom buttom.
+   * 
+   * @example  
+   * <Carousel 
+   *    navigation={(active, attrs) => (
+          <button {...attrs}>
+            active ? 'Active' : 'inactive'}
+          </button>
+      )}>...
    */
-  css?: ResponsiveCSS
-}
-
-export type Position = 'top' | 'bottom' | 'right' | 'left'
-
-export interface DotSettings {
-  /** The position of the pagination container in the carousel
-   * @default 'bottom'
-   */
-  position?: Position
-  /** Position of the pagination container relative to the edge of the carousel
-   * @default 30
-   */
-  padding?: ResponsiveScale
-  /** Distance between each page indicator
-   * @default 10
-   */
-  spacing?: ResponsiveScale
-  /** The height of a page indiciator
-   * @default 10
-   */
-  height?: ResponsiveScale
-  /** The width of a page indicator
-   * @default 10
-   */
-  width?: ResponsiveScale
-  /** The page indicator's border radius value. Default is 50% for a circle
-   * @default '50%''
-   */
-  borderRadius?: ResponsiveScale
-  /** The color of the active page indicator
-   * @default '#fff'
-   */
-  colorActive?: string
-  /** The color of muted / inactive page indicators
-   * @default 'rgba(0, 0, 0, 0.25)''
-   */
-  colorMuted?: string
-  /** Custom Maker UI CSS object that is applied to the page indicators
-   * - Any styles you add may override other settings like height, width, etc.
-   */
-  css?: ResponsiveCSS
+  navigation?: (selected: boolean, attributes: object) => React.ReactElement
 }

@@ -5,7 +5,7 @@ import React, {
   type TouchEvent,
 } from 'react'
 import { cn } from '@maker-ui/utils'
-import { SlideItem, SlideDirection, CarouselClasses } from '@/types'
+import { type SlideItem, SlideDirection, type CarouselClasses } from '@/types'
 import { getPageX } from '@/helpers'
 import { useWindowWidthChange } from '@/hooks'
 
@@ -18,8 +18,8 @@ export interface CanvasProps {
   slideCallback: (direction: SlideDirection) => void
   transition: number
   transform: number
-  swiping: boolean
-  swipeOn: number
+  draggable: boolean
+  dragX: number
   responsive: boolean
   infinite: boolean
   triggerClickOn: number
@@ -31,7 +31,6 @@ export const Slider = (props: CanvasProps) => {
   const ref = useCallback(
     (node: any) => {
       if (node !== null) {
-        console.log('Original width is', node.getBoundingClientRect().width)
         const calculated = node.getBoundingClientRect().width / props.show
         setWidth(calculated)
         props.widthCallBack(calculated)
@@ -68,7 +67,7 @@ export const Slider = (props: CanvasProps) => {
     if (drag.finished) {
       return
     }
-    if (Math.abs(drag.drag) < width * props.swipeOn) {
+    if (Math.abs(drag.drag) < width * props.dragX) {
       props.dragCallback(props.transform)
       return setDrag({
         initial: props.transform,
@@ -98,7 +97,7 @@ export const Slider = (props: CanvasProps) => {
       pointers: Math.abs(drag.start - pos) < props.triggerClickOn,
     })
   }
-  const swipeProps = props.swiping
+  const swipeProps = props.draggable
     ? {
         onTouchCancel: handleDragFinish,
         onTouchEnd: handleDragFinish,
@@ -115,7 +114,7 @@ export const Slider = (props: CanvasProps) => {
     <div ref={ref} className={cn(['mkui_slider', props?.classNames?.slider])}>
       <div
         className={cn(['mkui_slide_track'])}
-        data-cy="mkui_slide_track"
+        data-cy="slidetrack"
         {...swipeProps}
         style={{
           transform: `translateX(${props.transform - drag.drag}px)`,
