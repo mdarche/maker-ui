@@ -392,6 +392,7 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.8.4
       yup: ^0.32.9
+      zod: ^3.20.2
     dependencies:
       '@maker-ui/css': link:../css
       '@maker-ui/primitives': link:../primitives
@@ -401,6 +402,7 @@ importers:
       formik: 2.2.9_react@18.2.0
       react-select: 5.2.2_biqbaboplfbrettd7655fr4n2y
       yup: 0.32.11
+      zod: 3.20.2
     devDependencies:
       '@maker-ui/build-tools': link:../build-tools
       eslint-config-library: link:../eslint-config-library
@@ -18882,6 +18884,10 @@ packages:
       nanoclone: 0.2.1
       property-expr: 2.0.5
       toposort: 2.0.2
+    dev: false
+
+  /zod/3.20.2:
+    resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
     dev: false
 
   /zwitch/1.0.5:

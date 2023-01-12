@@ -40,7 +40,7 @@ export const evaluateConditions = (
     if (!s.length) {
       return
     }
-    s.forEach(({ field, compare, target }) => {
+    s.forEach(({ field, compare, value }) => {
       if (values[field] === undefined) return
       const targetType = fields.find((p) => p.name === field)
       const formValue =
@@ -48,7 +48,7 @@ export const evaluateConditions = (
           ? formatSelect(values[field] as FormatSelectProps)
           : values[field]
 
-      const result = comparators[compare](formValue, target)
+      const result = comparators[compare](formValue, value)
       if (index === 0) {
         and.push(result)
       } else {

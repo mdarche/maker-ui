@@ -18,13 +18,14 @@
   },
   "dependencies": {
     "@maker-ui/css": "workspace:*",
-    "@maker-ui/spinners": "workspace:*",
     "@maker-ui/primitives": "workspace:*",
+    "@maker-ui/spinners": "workspace:*",
     "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*",
     "formik": "^2.2.9",
     "react-select": "^5.2.2",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "zod": "^3.20.2"
   },
   "peerDependencies": {
     "react": "^17.x || ^18.x",

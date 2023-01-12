@@ -151,7 +151,7 @@ export type CompareOperator =
 export interface Condition {
   field: string
   compare: CompareOperator
-  target?: any
+  value?: any
 }
 
 export interface FieldProps {

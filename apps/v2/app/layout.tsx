@@ -25,6 +25,7 @@ const menu: MenuItemProps[] = [
     openNested: true,
     submenu: [
       { label: 'Accordion', path: '/demo/accordion' },
+      { label: 'Forms', path: '/demo/forms' },
       { label: 'Tabs', path: '/demo/tabs' },
       { label: 'Carousel', path: '/demo/carousel' },
       { label: 'Modal', path: '/demo/modal' },
