@@ -10,6 +10,8 @@ export default function CarouselPage() {
   return (
     <Section>
       <Carousel
+        hideArrows
+        // hidePagination
         navigation={(active, attrs) => (
           <button {...attrs}>{active ? 'y' : 'n'}</button>
         )}>
@@ -18,13 +20,15 @@ export default function CarouselPage() {
             key={c}
             className="flex align-center justify-center"
             style={{
+              marginTop: 50,
               color: 'white',
               position: 'relative',
-              height: 400,
+              height: 600,
               background: c,
             }}>
             {i === 1 || i === 3 ? (
               <Image
+                priority
                 src={CosmosImage}
                 alt="carousel-image"
                 fill

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { CarouselProps } from '@/types'
 
 export const defaultProps: CarouselProps = {
@@ -13,9 +12,23 @@ export const defaultProps: CarouselProps = {
   useArrowKeys: false,
   dynamic: false,
   pageCount: 0,
-  // autoSwipe: false,
   triggerClickOn: Number.MIN_SAFE_INTEGER,
   hideArrows: false,
   hidePagination: false,
-  navigation: (_, attrs) => <button {...attrs} />,
+  autoPlayLimit: -1, // infinitely
+  arrows: {
+    padding: 20,
+    margin: 0,
+  },
+  pagination: {
+    absolute: true,
+    position: 'bottom',
+    height: 10,
+    width: 10,
+    borderRadius: '50%',
+    spacing: 10,
+    margin: 10,
+    colorActive: '',
+    colorMuted: '',
+  },
 }

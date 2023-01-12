@@ -7,9 +7,8 @@ import {
   getCurrent,
   initItems,
   getShowArrow,
-  cleanItems,
   updateNodes,
-  cleanNavigationItems,
+  cleanItems,
   rotateNavigationItems,
   getNavigationSlideAmount,
 } from '@/helpers'
@@ -32,13 +31,11 @@ export interface CarouselState {
 }
 
 export const Carousel = (userProps: CarouselProps) => {
-  const props: Required<CarouselProps> = merge(defaultProps, userProps)
-  const isNavigation =
-    props.navigation !== undefined && typeof props.navigation === 'function'
+  const { ...props }: Required<CarouselProps> = merge(defaultProps, userProps)
   const [styleId] = useState(generateId())
   const initialItems = initItems(
     props.children,
-    isNavigation ? props.children.length - 1 : props.slide,
+    props.children.length - 1,
     props.infinite
   )
   const [items, setItems] = useState(initialItems)
@@ -60,11 +57,11 @@ export const Carousel = (userProps: CarouselProps) => {
     })
   )
   const prevChildren = usePrevious<SlideItem[]>(userProps.children)
-  const [page, setPage] = useState<number>(0)
+  const [page, setPage] = useState(0)
+  const [autoCount, setAutoCount] = useState(0)
   const isPaginating = useRef(false)
   const slideButtonRef = useRef<HTMLButtonElement>(null)
   const autoPlayTimer = useRef<number>()
-  // const isNavigation = typeof props.navigation === 'function'
 
   useEffect(() => {
     if (!props.dynamic) return
@@ -96,27 +93,24 @@ export const Carousel = (userProps: CarouselProps) => {
 
   const autoPlay = () => {
     clearTimeout(autoPlayTimer.current)
-
+    setAutoCount(autoCount + 1)
+    // Exit if autoPlay has run the limit
     if (
-      slideButtonRef &&
-      typeof props.autoPlay === 'number' &&
-      props.autoPlay > props.transition
-    ) {
+      props?.autoPlayLimit !== -1 &&
+      autoCount >= props.children.length * props?.autoPlayLimit
+    )
+      return
+
+    if (typeof props.autoPlay === 'number') {
       //@ts-ignore
       autoPlayTimer.current = setTimeout(() => {
-        if (slideButtonRef.current) {
-          slideButtonRef.current!.click()
-        }
-      }, props.autoPlay)
+        onRightArrowClick()
+      }, props.autoPlay * 1000)
     }
   }
 
   const slide = (direction: SlideDirection, target?: number) => {
-    if (
-      animation.isSliding ||
-      (direction === SlideDirection.Right && !showArrow.right) ||
-      (direction === SlideDirection.Left && !showArrow.left)
-    ) {
+    if (animation.isSliding) {
       return
     }
 
@@ -139,17 +133,17 @@ export const Carousel = (userProps: CarouselProps) => {
       typeof target === 'number' ? target - current : -1 * direction
 
     const rotated = props.infinite
-      ? isNavigation
-        ? rotateNavigationItems(
-            elements,
-            items,
-            next,
-            props.show,
-            slideAmount,
-            direction
-          )
-        : rotateItems(elements, items, next, props.show, props.slide, direction)
-      : items
+      ? // ? isNavigation
+        rotateNavigationItems(
+          elements,
+          items,
+          next,
+          props.show,
+          slideAmount,
+          direction
+        )
+      : rotateItems(elements, items, next, props.show, props.slide, direction)
+    // : items
 
     if (props.infinite && direction === SlideDirection.Right) {
       setItems(rotated)
@@ -165,7 +159,7 @@ export const Carousel = (userProps: CarouselProps) => {
       isSliding: true,
     })
 
-    setCurrent(isNavigation && typeof target === 'number' ? target : next)
+    setCurrent(typeof target === 'number' ? target : next)
     setShowArrow(
       getShowArrow({
         itemCount: elements.length,
@@ -178,18 +172,11 @@ export const Carousel = (userProps: CarouselProps) => {
 
     setTimeout(() => {
       if (props.infinite) {
-        const cleanedItems = isNavigation
-          ? cleanNavigationItems(
-              direction === SlideDirection.Right ? itemsRef.current : rotated,
-              getNavigationSlideAmount(target, next, slideAmount, direction),
-              direction
-            )
-          : cleanItems(
-              direction === SlideDirection.Right ? itemsRef.current : rotated,
-              props.slide,
-              direction
-            )
-
+        const cleanedItems = cleanItems(
+          direction === SlideDirection.Right ? itemsRef.current : rotated,
+          getNavigationSlideAmount(target, next, slideAmount, direction),
+          direction
+        )
         setItems(cleanedItems)
         itemsRef.current = cleanedItems
       }
@@ -197,7 +184,7 @@ export const Carousel = (userProps: CarouselProps) => {
         transform: props.infinite
           ? getTransformAmount(
               width,
-              isNavigation ? props.children.length - 1 : props.slide,
+              props.children.length - 1,
               SlideDirection.Right
             )
           : animation.transform +
@@ -216,7 +203,7 @@ export const Carousel = (userProps: CarouselProps) => {
       transform: props.infinite
         ? getTransformAmount(
             calculatedWidth,
-            isNavigation ? props.children.length - 1 : props.slide,
+            props.children.length - 1,
             SlideDirection.Right
           )
         : 0,
@@ -311,7 +298,8 @@ export const Carousel = (userProps: CarouselProps) => {
       )}
       {!props.hidePagination && (
         <Pagination
-          factory={props.navigation}
+          isDefault={props?.navigation === undefined}
+          factory={props.navigation || ((_, attrs) => <button {...attrs} />)}
           classNames={props?.classNames}
           length={props.children.length}
           current={current}

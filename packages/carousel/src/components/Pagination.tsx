@@ -3,6 +3,7 @@ import { cn } from '@maker-ui/utils'
 import type { CarouselClasses } from '@/types'
 
 export interface PaginationProps {
+  isDefault?: boolean
   length: number
   current: number
   classNames?: CarouselClasses | null
@@ -11,6 +12,7 @@ export interface PaginationProps {
 }
 
 export const Pagination = ({
+  isDefault,
   length,
   current,
   factory,
@@ -21,10 +23,10 @@ export const Pagination = ({
     <div className={cn(['mkui_carousel_nav', classNames?.navigation])}>
       {[...Array(length)].map((_: any, i) => {
         const attrs: object = {
-          key: i,
           role: 'tab',
           className: cn([
             'mkui_carousel_page',
+            isDefault ? 'default' : '',
             classNames?.page,
             i === current ? 'active' : '',
           ]),
@@ -32,7 +34,11 @@ export const Pagination = ({
           'aria-label': `page ${i + 1}`,
           'aria-selected': i === current ? 'true' : 'false',
         }
-        return factory(i === current, attrs)
+        return (
+          <React.Fragment key={i}>
+            {factory(i === current, attrs)}
+          </React.Fragment>
+        )
       })}
     </div>
   )

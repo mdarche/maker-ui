@@ -66,37 +66,85 @@ export interface CarouselProps {
   dynamic?: boolean
   /** An optional callback function that is called whenever a slide changes. */
   paginationCallback?: ((direction: SlideDirection) => any) | null
-  pageCount?: number // TO FIGURE OUT
+  // TO FIGURE OUT
+  pageCount?: number
   /** If true, the carousel will not render left and right arrow navigation.
    * @default false
    */
   hideArrows?: boolean
   /** Settings for carousel arrows */
   arrows?: {
+    /** Padding applied to each navigation button
+     * @default 20
+     */
+    padding?: ResponsiveValue
+    /** Margin applied to each button
+     * @default 0
+     */
+    margin?: ResponsiveValue
+    /** A custom React element that will be rendered as the Left (previous) arrow. */
     left?: React.ReactElement | null
+    /** A custom React element that will be rendered as the Right (next) arrow. */
     right?: React.ReactElement | null
+    /** An optional callback function that is executed when the left arrow is clicked. */
     onLeftArrowClick?: () => void
+    /** An optional callback function that is executed when the right arrow is clicked. */
     onRightArrowClick?: () => void
   } | null
   /** If true, the carousel will not show any page indicator buttons.
    * @default false
    */
   hidePagination?: boolean
-  /** Settings for carousel page indicators. */
+  /** Settings for carousel page indicators. Note that many of these style and positioning settings
+   * only apply if the `navigation` prop is undefined.
+   */
   pagination?: {
+    /** If true, the carousel navigation container will be absolutely positioned
+     * inside the carousel.
+     * @default true
+     * */
     absolute?: boolean
+    /** The position of the pagination container in the carousel. The `absolute` setting must
+     * be true to achieve this effect.
+     * @default 'bottom'
+     */
     position?: 'top' | 'bottom' | 'right' | 'left'
-    padding?: ResponsiveValue
+    /** Margin of the pagination container relative to the edge of the carousel
+     * @default 30
+     */
+    margin?: ResponsiveValue
+    /** Distance between each page indicator
+     * @default 10
+     */
     spacing?: ResponsiveValue
+    /** The height of page indicator (default only)
+     * @default 10
+     */
     height?: ResponsiveValue
+    /** The width of page indicator (default only)
+     * @default 10
+     */
     width?: ResponsiveValue
+    /** The page indicator's border radius value. Default is 50% for a circle
+     * @default '50%''
+     */
     borderRadius?: ResponsiveValue
+    /** The color of the active page indicator
+     * @default '#fff'
+     */
     colorActive?: string
+    /** The color of muted / inactive page indicators
+     * @default 'rgba(0, 0, 0, 0.25)''
+     */
     colorMuted?: string
-    onPageClick?: (index: number) => void
   }
   navigate?: number
+  /** A number in seconds that determines how long a slide will stay visible until changing. */
   autoPlay?: number
+  /** The number of times that autoPlay should loop through the carousel.
+   * @default -1 (infinite)
+   */
+  autoPlayLimit?: number
   /** Determines when to begin registering a drag event.
    * @default Number.MIN_SAFE_INTEGER
    */

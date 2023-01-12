@@ -127,17 +127,6 @@ export const cleanItems = (
   direction: SlideDirection
 ): any[] => {
   if (direction === SlideDirection.Left) {
-    return showingItems.slice(0, -1 * slide)
-  }
-  return showingItems.slice(slide)
-}
-
-export const cleanNavigationItems = (
-  showingItems: any[],
-  slide: number,
-  direction: SlideDirection
-): any[] => {
-  if (direction === SlideDirection.Left) {
     return showingItems.slice(0, slide)
   }
 
