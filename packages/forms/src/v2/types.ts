@@ -137,6 +137,7 @@ export interface FieldProps {
     revealIcon?: React.ReactElement
     padding?: string | number | (string | number)[]
   }
+  subFields?: FieldProps[]
 }
 
 // Form Types
@@ -158,11 +159,15 @@ export interface FormSettings {
   validateIcon: React.ReactElement
   columns: string | string[] | number
   gap: string | number | (string | number)[]
-  labelStyle: LabelPosition
-  errorStyle: ErrorPosition
+  labelPosition: LabelPosition
+  errorPosition: ErrorPosition
   classNames?: FormClassNames
   placeholderColor?: string | string[]
   autoSave?: boolean | AutoSaveSettings
+  /** If true, the submit button will be disabled until form validation passes. This
+   * prop requires validateFormOnBlur to be `true`.
+   */
+  disableSubmit?: boolean
 }
 
 export interface FormClassNames {
@@ -184,19 +189,24 @@ export interface FormErrors {
   [key: string]: any
 }
 
+export interface ValidationSchema {
+  [key: string]: any
+}
+
 // Form State
 
 export interface FormState {
   settings: FormSettings
-  fields?: any[]
+  fields: FieldProps[]
   currentPage: number
-  totalPages?: number
+  totalPages: number
   formSuccess?: boolean
   formError?: boolean
-  errors?: FormErrors
-  values?: FormValues
-  touched?: string[]
-  submitCount?: number
+  errors: FormErrors
+  values: FormValues
+  validation: ValidationSchema
+  touched: string[]
+  submitCount: number
   isSubmitting: boolean
   isValidating: boolean
 }

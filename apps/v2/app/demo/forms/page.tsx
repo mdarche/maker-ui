@@ -1,5 +1,10 @@
 import { Section } from '@maker-ui/layout'
+import { FormDemo } from './forms'
 
 export default function FormPage() {
-  return <Section>Yo</Section>
+  return (
+    <Section>
+      <FormDemo />
+    </Section>
+  )
 }

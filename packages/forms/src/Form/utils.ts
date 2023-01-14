@@ -2,50 +2,45 @@ import { merge } from '@maker-ui/utils'
 import * as React from 'react'
 
 export interface NestedComponents {
-  formHeader: React.ReactElement | null
-  formFooter: React.ReactElement | null
-  formError: React.ReactElement | null
-  formSuccess: React.ReactElement | null
-  formSubmit: React.ReactElement | null
-  formChildren: React.ReactElement[]
+  header: React.ReactElement | null
+  footer: React.ReactElement | null
+  error: React.ReactElement | null
+  success: React.ReactElement | null
+  submit: React.ReactElement | null
+  children: React.ReactElement[]
 }
 
 export const defaultComponents: NestedComponents = {
-  formHeader: null,
-  formFooter: null,
-  formError: null,
-  formSuccess: null,
-  formSubmit: null,
-  formChildren: [],
+  header: null,
+  footer: null,
+  error: null,
+  success: null,
+  submit: null,
+  children: [],
 }
 
 export function sortChildren(children: React.ReactNode): NestedComponents {
   let sorted: Partial<NestedComponents> = {
-    formChildren: [],
+    children: [],
   }
-  React.Children.forEach(children, (child, i) => {
-    if (
-      React.isValidElement(child) &&
-      //@ts-ignore
-      child.type.displayName
-    ) {
-      //@ts-ignore
-      switch (child.type.displayName) {
-        case 'FormHeader':
-          return (sorted.formHeader = child)
-        case 'FormFooter':
-          return (sorted.formFooter = child)
-        case 'FormSuccess':
-          return (sorted.formSuccess = child)
-        case 'FormError':
-          return (sorted.formError = child)
-        case 'FormSubmit':
-          return (sorted.formSubmit = child)
+  React.Children.toArray(children).forEach((child) => {
+    if (React.isValidElement(child) && child.props?._type) {
+      switch (child.props._type) {
+        case 'header':
+          return (sorted.header = child)
+        case 'footer':
+          return (sorted.footer = child)
+        case 'success':
+          return (sorted.success = child)
+        case 'error':
+          return (sorted.error = child)
+        case 'submit':
+          return (sorted.submit = child)
         default:
-          return sorted.formChildren?.push(child as React.ReactElement)
+          return sorted.children?.push(child as React.ReactElement)
       }
     } else {
-      sorted.formChildren?.push(child as React.ReactElement)
+      sorted.children?.push(child as React.ReactElement)
     }
   })
   return merge(defaultComponents, sorted)
