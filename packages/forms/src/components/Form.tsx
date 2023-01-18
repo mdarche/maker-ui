@@ -1,16 +1,22 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useMemo, useEffect, useReducer, useState } from 'react'
 import { merge } from '@maker-ui/utils'
 
+import { FormRenderer } from './FormRenderer'
+import {
+  FormHeader,
+  FormFooter,
+  FormError,
+  FormSuccess,
+  FormSubmit,
+} from './Slots'
 import type {
   FieldProps,
+  FormSchema,
   FormSettings,
   FormState,
   FormValues,
-  ValidationSchema,
-} from './types'
-import { initialState } from './defaults'
-import { FormRenderer } from './FormRenderer'
-import { FormHeader, FormFooter, FormError, FormSuccess } from './FormSlots'
+} from '@/types'
+import { initialState } from '@/helpers'
 
 export type Action =
   | {
@@ -32,14 +38,22 @@ export type Action =
   | { type: 'SET_FORM_ERROR'; value: boolean }
   | { type: 'UPDATE_SETTINGS'; value: Partial<FormSettings> }
   | { type: 'RESET_FORM' }
+  | { type: 'SET_SUBMIT_COUNT' }
 
-export interface FormProps extends React.HTMLAttributes<HTMLFormElement> {
+interface FormHelpers {
+  submitCount: number
+  setIsSubmitting: (value: boolean) => void
+  resetForm: () => void
+}
+
+export interface FormProps
+  extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
   children: React.ReactNode
   fields: FieldProps[]
   settings?: Partial<FormSettings>
   error?: boolean
   success?: boolean
-  onSubmit: (values: FormValues) => void | Promise<any>
+  onSubmit: (values: FormValues, helpers: FormHelpers) => void | Promise<any>
 }
 
 export const FormContext = React.createContext<{
@@ -80,14 +94,16 @@ function formReducer(state: FormState, action: Action): FormState {
         settings: merge(state.settings, action.value),
       }
     case 'RESET_FORM':
-      const { values, validation } = getFieldData(state.fields || [])
+      const { values, schema } = getFieldData(state.fields || [])
       return {
         ...state,
         values,
-        validation,
+        schema,
         errors: {},
         touched: [],
       }
+    case 'SET_SUBMIT_COUNT':
+      return { ...state, submitCount: state.submitCount + 1 }
     default: {
       //@ts-ignore
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -108,81 +124,72 @@ function getDefault(type: FieldProps['type']) {
     : ''
 }
 
-function getFieldData(fields: FieldProps[]) {
+function getFieldData(fields: FieldProps[], index = 0) {
   const nonFields = ['page', 'group', 'divider']
   let values: FormValues = {}
-  let validation: ValidationSchema = {}
+  let schema: FormSchema = {}
 
-  fields.forEach((f) => {
-    if (nonFields.includes(f.type) && f.subFields) {
+  fields.forEach((f, i) => {
+    if (nonFields.includes(f.type) && f?.subFields) {
       // Recursively get nested field data
-      const nested = getFieldData(f.subFields)
+      const nested = getFieldData(f.subFields, i)
       values = merge(values, nested.values)
-      validation = merge(validation, nested.validation)
+      schema = merge(schema, nested.schema)
     } else {
       values[f.name] = f.initialValue || getDefault(f.type)
-      validation[f.name] = f.validation
+      schema[f.name] = {
+        type: f.type,
+        required: !!f.required,
+        page: index + 1,
+        validation: f?.validation,
+      }
     }
   })
-  return { values, validation }
+  return { values, schema }
 }
 
 export const Form = ({
   children,
-  settings,
+  settings = {},
   success,
   error,
   onSubmit,
-  fields,
+  fields = [],
   ...props
 }: FormProps) => {
-  const isPaginated = fields.find((f) => f.type === 'page')
-  const { values, validation } = getFieldData(fields)
-  // Parse fields for initial values and page count
+  const memoFields = useMemo(() => fields, [fields])
+  const isPaginated = !!fields.find((f) => f.type === 'page')
+  const { values, schema } = getFieldData(fields)
   const [rendered, setRendered] = useState(false)
   const [state, dispatch] = useReducer(
     formReducer,
     merge(initialState, {
       settings,
-      fields,
+      fields: memoFields,
       formSuccess: success,
       formError: error,
       totalPages: isPaginated ? fields.length : 1,
-      validation,
+      schema,
       values,
     }) as FormState
   )
 
   if (isPaginated) {
-    // Warn if the form is paginated but not all fields are of type `page`
     if (fields.find((f) => f.type !== 'page')) {
+      // Warn if the form is paginated but not all fields are of type `page`
       console.warn(
         'If your form is paginated, all top level fields must use type `page`.'
       )
     }
-    // Warn if there is only one page
     if (fields.length === 1) {
+      // Warn if there is only one page
       console.warn('Your form is paginated but only has one page.')
     }
   }
 
-  // Listen for changes to fields, settings, error, and success
-  useEffect(() => {
-    if (!rendered) return
-    if (fields.length) {
-      dispatch({ type: 'UPDATE_FIELDS', value: fields })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fields])
-
-  useEffect(() => {
-    if (!rendered) return
-    if (settings) {
-      dispatch({ type: 'UPDATE_SETTINGS', value: settings })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings])
-
+  /**
+   * Listen for changes to error and success
+   */
   useEffect(() => {
     if (!rendered) return
     if (error !== undefined) {
@@ -191,8 +198,7 @@ export const Form = ({
     if (success !== undefined) {
       dispatch({ type: 'SET_FORM_SUCCESS', value: success })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error, success])
+  }, [error, success, rendered])
 
   useEffect(() => {
     setRendered(true)
@@ -207,6 +213,7 @@ export const Form = ({
   )
 }
 
+Form.Submit = FormSubmit
 Form.Header = FormHeader
 Form.Footer = FormFooter
 Form.Error = FormError

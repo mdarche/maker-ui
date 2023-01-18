@@ -15,11 +15,11 @@
     "@maker-ui/gsap": "workspace:*",
     "@maker-ui/layout": "workspace:*",
     "@maker-ui/lightbox": "workspace:*",
-    "@maker-ui/spinners": "workspace:*",
     "@maker-ui/modal": "workspace:*",
     "@maker-ui/notifications": "workspace:*",
     "@maker-ui/popovers": "workspace:*",
     "@maker-ui/social": "workspace:*",
+    "@maker-ui/spinners": "workspace:*",
     "@maker-ui/style": "workspace:*",
     "@maker-ui/tabs": "workspace:*",
     "@maker-ui/toc": "workspace:*",
@@ -27,7 +27,8 @@
     "@maker-ui/utils": "workspace:*",
     "next": "^13.0.6",
     "react": "^18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "eslint-config-app": "workspace:*",

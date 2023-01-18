@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { ValidateIcon } from '../Icons'
-import type { FormState } from './types'
+import { ValidateIcon } from '@/components'
+import type { FormState } from '@/types'
 
 export const initialState: FormState = {
   settings: {
@@ -18,10 +18,10 @@ export const initialState: FormState = {
   totalPages: 1,
   errors: {},
   values: {},
-  validation: {},
   touched: [],
   fields: [],
-  submitCount: 0,
+  schema: {},
+  submitCount: 1,
   isSubmitting: false,
   isValidating: false,
 }

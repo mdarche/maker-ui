@@ -41,7 +41,7 @@ export const SubmitButton = React.forwardRef<
       ref={ref}
       className={cn(['form-submit-btn', className])}
       onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
-      disabled={settings.disableSubmit && hasErrors}
+      disabled={settings?.disableSubmit && hasErrors}
       {...props}>
       {renderLifecycle()}
     </Button>

@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import { cn, merge } from '@maker-ui/utils'
-import { Div } from '@maker-ui/primitives'
-import { type MakerProps, type ResponsiveScale } from '@maker-ui/css'
 
 import { UploadIcon } from '../Icons'
 import { DragAndDrop } from './DragAndDrop'
-import { FileValidations } from './helper'
+import type { FileValidations } from '@/types'
 import styles from './ImagePicker.styles'
 
 export interface ImagePickerState {
@@ -15,6 +13,8 @@ export interface ImagePickerState {
   dropArea: 'preview' | 'dropzone'
   fileList: File[]
 }
+
+type ResponsiveScale = string | number | (string | number)[]
 
 export type Action =
   | {
@@ -48,7 +48,7 @@ export interface DropzoneSettings {
   naked?: boolean
 }
 
-export interface ImagePickerProps extends MakerProps {
+export interface ImagePickerProps {
   /** A className selector for the outermost image picker container */
   className?: string
   /** An ID selector for the outermost image picker container */
@@ -132,8 +132,6 @@ export const ImagePicker = ({
   id,
   inputId,
   className,
-  breakpoints,
-  css,
   preview,
   previewSize = 150,
   errorPosition = 'bottom',
@@ -261,36 +259,35 @@ export const ImagePicker = ({
   }
 
   return (
-    <Div
+    <div
       id={id}
-      breakpoints={breakpoints}
       className={cn(['image-picker', getPosition(), className])}
-      css={
-        dropzone && !dropzone.naked
-          ? {
-              '.preview-image': {
-                position: 'relative',
-                ...(typeof previewSize === 'object' &&
-                !Array.isArray(previewSize)
-                  ? previewSize
-                  : {
-                      height: previewSize,
-                      width: previewSize,
-                    }),
-              },
-              '.dropzone:not(.preview-dropzone)': {
-                position: 'relative',
-                width: dropzone && dropzone.width,
-                height:
-                  dropzone && dropzone.height ? dropzone.height : previewSize,
-                alignItems:
-                  dropzone && !dropzone.height ? 'stretch' : undefined,
-              },
-              ...(styles as object),
-              ...(css as object),
-            }
-          : css
-      }
+      // css={
+      //   dropzone && !dropzone.naked
+      //     ? {
+      //         '.preview-image': {
+      //           position: 'relative',
+      //           ...(typeof previewSize === 'object' &&
+      //           !Array.isArray(previewSize)
+      //             ? previewSize
+      //             : {
+      //                 height: previewSize,
+      //                 width: previewSize,
+      //               }),
+      //         },
+      //         '.dropzone:not(.preview-dropzone)': {
+      //           position: 'relative',
+      //           width: dropzone && dropzone.width,
+      //           height:
+      //             dropzone && dropzone.height ? dropzone.height : previewSize,
+      //           alignItems:
+      //             dropzone && !dropzone.height ? 'stretch' : undefined,
+      //         },
+      //         ...(styles as object),
+      //         ...(css as object),
+      //       }
+      //     : css
+      // }
       {...props}>
       {preview !== false && (placeholder || data.fileList.length || preview) ? (
         <div
@@ -351,7 +348,7 @@ export const ImagePicker = ({
           ))}
         </div>
       ) : null}
-    </Div>
+    </div>
   )
 }
 

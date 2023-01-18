@@ -2,12 +2,13 @@ import * as React from 'react'
 import { cn, Conditional } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
 
+import { useForm } from '@/hooks'
+import { sortChildren } from '@/helpers'
+import { Field } from './Field'
 import type { FormProps } from './Form'
-import { Field } from './fields'
-import { useForm } from './hooks'
-import { sortChildren } from './sort-children'
 
-interface FormRendererProps extends React.HTMLAttributes<HTMLFormElement> {
+interface FormRendererProps
+  extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
   onSubmit: FormProps['onSubmit']
   children: React.ReactNode
 }
@@ -18,7 +19,19 @@ export const FormRenderer = ({
   ...props
 }: FormRendererProps) => {
   const components = sortChildren(children)
-  const { totalPages, fields, error, success, settings } = useForm()
+  const {
+    totalPages,
+    fields,
+    error,
+    values,
+    success,
+    settings,
+    submitCount,
+    setSubmitCount,
+    setIsSubmitting,
+    resetForm,
+    validateForm,
+  } = useForm()
   const isPaginated = totalPages > 1
 
   return (
@@ -29,7 +42,17 @@ export const FormRenderer = ({
           {success ? components.success : c}
         </CSSTransition>
       )}>
-      <form {...props}>
+      <form
+        {...props}
+        onSubmit={(e) => {
+          e.preventDefault()
+          // Validate all form fields before running onSubmit
+          const valid = validateForm()
+          if (valid) {
+            setSubmitCount()
+            onSubmit(values, { setIsSubmitting, resetForm, submitCount })
+          }
+        }}>
         {isPaginated ? components.progress : null}
         {components.header ?? null}
         {isPaginated ? (
@@ -47,7 +70,9 @@ export const FormRenderer = ({
                   <Field key={p.name} {...p} />
                 ))}
               </div>
-              {/**Add pagination here */}
+              {/** Add pagination here
+               * - Validate all fields on current page before advancing
+               */}
             </div>
           ))
         ) : (

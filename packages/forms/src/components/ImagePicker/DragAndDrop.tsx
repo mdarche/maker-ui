@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { cn, generateId } from '@maker-ui/utils'
-import { type FileValidations, validateFile } from './helper'
+import { validateFile } from '@/helpers'
+import { FileValidations } from '@/types'
 import type { ImagePickerState, Action, DropzoneSettings } from './ImagePicker'
 
 interface DragAndDropProps {

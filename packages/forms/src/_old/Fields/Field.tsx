@@ -11,11 +11,11 @@ import { Label } from './Label'
 import { useForm } from '../Form/FormProvider'
 import { Switch } from './Switch'
 import { Range } from './Range'
-import { FieldSettings } from '..'
+import { FieldSettings } from '../..'
 import { ImageField } from './ImageField'
 import { type InputOptionProps, InputOptions } from './InputOptions'
 import { AutoSave } from './AutoSave'
-import { ErrorIcon, ValidateIcon } from '../Icons'
+import { ErrorIcon, ValidateIcon } from '../../components/Icons'
 import type {
   AutoSaveSettings,
   FieldProps,
@@ -178,7 +178,7 @@ export const Field = (props: FieldComponentProps) => {
   const labelComponent = (
     <Label
       // @ts-ignore
-      id={type === 'image-picker' ? props.settings?.inputId : id}
+      id={type === 'image-picker' ? props.settings?.inputId : name}
       name={name}
       type={type}>
       {label}

@@ -1,6 +1,4 @@
-import type { StyleObject } from '@maker-ui/css'
-
-const styles: StyleObject = {
+const styles: object = {
   position: 'relative',
   '.hidden': {
     display: 'none',

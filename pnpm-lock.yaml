@@ -175,6 +175,7 @@ importers:
       react: ^18.2.0
       react-dom: 18.2.0
       typescript: ^4.8.4
+      zod: ^3.20.2
     dependencies:
       '@maker-ui/accordion': link:../../packages/accordion
       '@maker-ui/carousel': link:../../packages/carousel
@@ -196,6 +197,7 @@ importers:
       next: 13.0.6_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      zod: 3.20.2
     devDependencies:
       eslint-config-app: link:../../packages/eslint-config-app
       typescript: 4.8.4
@@ -389,7 +391,6 @@ importers:
       formik: ^2.2.9
       react: ^18.2.0
       react-dom: ^18.2.0
-      react-select: ^5.2.2
       tsconfig: workspace:*
       tsup: ^5.12.0
       typescript: ^4.8.4
@@ -402,7 +403,6 @@ importers:
       '@maker-ui/transition': link:../transition
       '@maker-ui/utils': link:../utils
       formik: 2.2.9_react@18.2.0
-      react-select: 5.2.2_biqbaboplfbrettd7655fr4n2y
       yup: 0.32.11
       zod: 3.20.2
     devDependencies:
@@ -4243,12 +4243,6 @@ packages:
       '@types/react': 18.0.21
     dev: true
 
-  /@types/react-transition-group/4.4.4:
-    resolution: {integrity: sha512-7gAPz7anVK5xzbeQW9wFBDg7G++aPLAFY0QaSMOou9rJZpbuI58WAuJrgu+qR92l61grlnCUe7AFX8KGahAgug==}
-    dependencies:
-      '@types/react': 17.0.41
-    dev: false
-
   /@types/react-transition-group/4.4.5:
     resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}
     dependencies:
@@ -4268,6 +4262,7 @@ packages:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
       csstype: 3.0.11
+    dev: true
 
   /@types/react/18.0.21:
     resolution: {integrity: sha512-7QUCOxvFgnD5Jk8ZKlUAhVcRj7GuJRjnjjiY/IUBWKgOlnvDvTMLD4RTF7NPyVmbRhNrbomZiOepg7M/2Kj1mA==}
@@ -12541,10 +12536,6 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /memoize-one/5.2.1:
-    resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
-    dev: false
-
   /memory-fs/0.4.1:
     resolution: {integrity: sha1-OpoguEYlI+RHz7x+i7gO1me/xVI=}
     dependencies:
@@ -15174,26 +15165,6 @@ packages:
       - webpack-plugin-serve
     dev: true
 
-  /react-select/5.2.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-miGS2rT1XbFNjduMZT+V73xbJEeMzVkJOz727F6MeAr2hKE0uUSA8Ff7vD44H32x2PD3SRB6OXTY/L+fTV3z9w==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    dependencies:
-      '@babel/runtime': 7.17.8
-      '@emotion/cache': 11.7.1
-      '@emotion/react': 11.8.2_react@18.2.0
-      '@types/react-transition-group': 4.4.4
-      memoize-one: 5.2.1
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      react-transition-group: 4.4.2_biqbaboplfbrettd7655fr4n2y
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@types/react'
-    dev: false
-
   /react-shallow-renderer/16.14.1_react@18.2.0:
     resolution: {integrity: sha512-rkIMcQi01/+kxiTE9D3fdS959U1g7gs+/rborw++42m1O9FAQiNI/UNRZExVUoAOprn4umcXf+pFRou8i4zuBg==}
     peerDependencies:
@@ -15215,20 +15186,6 @@ packages:
       react-shallow-renderer: 16.14.1_react@18.2.0
       scheduler: 0.20.2
     dev: true
-
-  /react-transition-group/4.4.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==}
-    peerDependencies:
-      react: '>=16.6.0'
-      react-dom: '>=16.6.0'
-    dependencies:
-      '@babel/runtime': 7.17.8
-      dom-helpers: 5.2.1
-      loose-envify: 1.4.0
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
 
   /react-transition-group/4.4.5_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}

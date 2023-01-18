@@ -1,6 +1,6 @@
 import React, { forwardRef, Fragment } from 'react'
 import { cn } from '@maker-ui/utils'
-import { useForm } from './hooks'
+import { useForm } from '@/hooks'
 
 export interface SlotProps extends React.HTMLAttributes<HTMLDivElement> {
   _type?: string
@@ -84,7 +84,7 @@ export const FormSubmit = React.forwardRef<
       ref={ref}
       className={cn(['mkui_form_submit', className])}
       onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
-      disabled={settings.disableSubmit && hasErrors}
+      disabled={settings?.disableSubmit && hasErrors}
       {...props}>
       {renderLifecycle()}
     </button>
