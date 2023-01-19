@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ValidateIcon } from '@/components'
+import { ValidateIcon } from '../components/Icons'
 import type { FormState } from '@/types'
 
 export const initialState: FormState = {

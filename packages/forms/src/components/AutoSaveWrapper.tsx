@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { CSSTransition } from '@maker-ui/transition'
+import { Spinner } from '@maker-ui/spinners'
 import { AutoSaveSettings } from '@/types'
 import { useField, useForm } from '@/hooks'
-import { Spinner } from '@maker-ui/spinners'
 import { ErrorIcon, ValidateIcon } from './Icons'
 
 interface AutoSaveWrapperProps {
@@ -15,11 +15,11 @@ interface AutoSaveWrapperProps {
 type StatusType = 'active' | 'inactive' | 'success' | 'error'
 
 export const initial: AutoSaveSettings = {
-  indicator: (
+  saveIcon: (
     <Spinner type="classic" size={20} colors={{ primary: '#d2d2d2' }} />
   ),
-  successIcon: <ValidateIcon css={{ height: 20, fill: '#3aca3a' }} />,
-  errorIcon: <ErrorIcon css={{ height: 20, fill: '#e93030' }} />,
+  successIcon: <ValidateIcon style={{ height: 20, fill: '#3aca3a' }} />,
+  errorIcon: <ErrorIcon style={{ height: 20, fill: '#e93030' }} />,
   timeout: 2500,
   position: 'left',
   padding: 30,
@@ -76,7 +76,7 @@ export const AutoSaveWrapper = ({
   function renderIndicator() {
     switch (status) {
       case 'active':
-        return settings.indicator
+        return settings.saveIcon
       case 'success':
         return settings.successIcon
       case 'error':
@@ -89,12 +89,13 @@ export const AutoSaveWrapper = ({
 
   return (
     <div
-      css={{
-        position: 'relative',
-        '> *:first-of-type:not(.autosave-indicator)': {
-          width: '100%',
-        },
-      }}>
+    // css={{
+    //   position: 'relative',
+    //   '> *:first-of-type:not(.autosave-indicator)': {
+    //     width: '100%',
+    //   },
+    // }}
+    >
       {children}
       <div
         className="mkui_autosave"

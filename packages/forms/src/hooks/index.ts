@@ -1,29 +1,13 @@
 import { useContext } from 'react'
+import { merge } from '@maker-ui/utils'
 import { FormContext } from '@/components'
 import { validate } from '@/helpers'
-// import type { FormErrors, FormSchema, FormValues } from '@/types'
-
-// Validate function
-// - validate required
-// - validate anything custom per field
-// - if using pages, determine what to validate
-// - update errors
 
 function isEmpty(obj: object) {
   return Object.values(obj as object).every(
     (el) => el === undefined || el === null
   )
 }
-
-// function validate(
-//   values: FormValues,
-//   schema: FormSchema
-// ): { success: boolean; errors: FormErrors } {
-//   let success = false
-//   let errors = {}
-
-//   return { success, errors }
-// }
 
 export function useForm() {
   const { state: s, dispatch } = useContext(FormContext)
@@ -42,8 +26,19 @@ export function useForm() {
     return isValid
   }
 
-  function validatePage(): boolean {
-    return true
+  function validatePage(page: number): boolean {
+    const { isValid, errors } = validate({
+      type: 'page',
+      schema: s.schema,
+      values: s.values,
+      page,
+    })
+
+    if (!isEmpty(errors)) {
+      dispatch({ type: 'SET_ERRORS', value: merge(s.errors, errors) })
+    }
+
+    return isValid
   }
 
   function setSubmitCount() {
@@ -103,9 +98,18 @@ export function useField(name: string) {
   }
 
   function validateField(): boolean {
-    // Validate the current value for this field
-    // Add error if fails validation
-    return true
+    const { isValid, errors } = validate({
+      type: 'field',
+      schema: s.schema,
+      values: s.values,
+      field: name,
+    })
+
+    if (!isEmpty(errors)) {
+      dispatch({ type: 'SET_ERRORS', value: merge(s.errors, errors) })
+    }
+
+    return isValid
   }
 
   return {

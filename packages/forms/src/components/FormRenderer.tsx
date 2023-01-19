@@ -30,6 +30,7 @@ export const FormRenderer = ({
     setSubmitCount,
     setIsSubmitting,
     resetForm,
+    currentPage,
     validateForm,
   } = useForm()
   const isPaginated = totalPages > 1
@@ -46,35 +47,37 @@ export const FormRenderer = ({
         {...props}
         onSubmit={(e) => {
           e.preventDefault()
-          // Validate all form fields before running onSubmit
           const valid = validateForm()
           if (valid) {
             setSubmitCount()
             onSubmit(values, { setIsSubmitting, resetForm, submitCount })
           }
         }}>
-        {isPaginated ? components.progress : null}
-        {components.header ?? null}
+        {isPaginated && components.progress}
+        {components.header}
         {isPaginated ? (
-          fields?.map(({ subFields, className }, i) => (
-            // Wrap this in a CSS transition and add transition controls to settings
-            <div
-              className={cn([
-                'mkui_form_page',
-                `page-${i}`,
-                className,
-                settings?.classNames?.page,
-              ])}>
-              <div className="mkui_form_grid">
-                {subFields?.map((p) => (
-                  <Field key={p.name} {...p} />
-                ))}
-              </div>
-              {/** Add pagination here
-               * - Validate all fields on current page before advancing
-               */}
-            </div>
-          ))
+          <CSSTransition show={currentPage} type="fade">
+            {fields?.map(({ subFields, className }, i) => (
+              <React.Fragment key={i}>
+                {currentPage === i + 1 ? (
+                  <div
+                    className={cn([
+                      'mkui_form_page',
+                      `page-${i}`,
+                      className,
+                      settings?.classNames?.page,
+                    ])}>
+                    <div className="mkui_form_grid">
+                      {subFields?.map((p) => (
+                        <Field key={p.name} {...p} />
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </React.Fragment>
+            ))}
+            <div>Render pagination buttons</div>
+          </CSSTransition>
         ) : (
           <div className="mkui_form_grid">
             {fields?.map((p) =>
@@ -94,13 +97,12 @@ export const FormRenderer = ({
             )}
           </div>
         )}
-        {/* render page vs render field and check for group */}
         {components.children?.map((child, i) => (
           <React.Fragment key={i}>{child}</React.Fragment>
         ))}
-        {components.submit ?? null}
-        {error ? components.error : null}
-        {components.footer ?? null}
+        {!isPaginated && components.submit}
+        {error && components.error}
+        {components.footer}
       </form>
     </Conditional>
   )

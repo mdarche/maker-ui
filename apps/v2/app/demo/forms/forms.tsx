@@ -20,20 +20,34 @@ export function FormDemo() {
         error={error}
         fields={[
           {
-            type: 'text',
-            name: 'first_name',
-            label: 'First Name',
-            required: true,
-            colSpan: 2,
-            validation: z.string().min(2),
+            type: 'page',
+            name: 'temp',
+            subFields: [
+              {
+                type: 'text',
+                name: 'first_name',
+                label: 'First Name',
+                required: true,
+                colSpan: 2,
+                validation: z
+                  .string()
+                  .min(2, { message: 'String must contain 2 chars' }),
+              },
+            ],
           },
           {
-            type: 'text',
-            name: 'last_name',
-            label: 'Last Name',
-            required: true,
-            colSpan: 2,
-            validation: z.string().min(2),
+            type: 'page',
+            name: 'temp2',
+            subFields: [
+              {
+                type: 'text',
+                name: 'last_name',
+                label: 'Last Name',
+                required: true,
+                colSpan: 2,
+                validation: z.string().min(2),
+              },
+            ],
           },
         ]}
         onSubmit={(vals, { submitCount }) => {

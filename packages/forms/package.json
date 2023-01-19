@@ -20,8 +20,7 @@
     "@maker-ui/spinners": "workspace:*",
     "@maker-ui/style": "workspace:*",
     "@maker-ui/transition": "workspace:*",
-    "@maker-ui/utils": "workspace:*",
-    "zod": "^3.20.2"
+    "@maker-ui/utils": "workspace:*"
   },
   "peerDependencies": {
     "next": "^12.x || ^13.x",

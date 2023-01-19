@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { cn, Conditional, merge } from '@maker-ui/utils'
+import type { ZodError } from 'zod'
 
-import { Label } from './Label'
-import { Input } from './Input'
-import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
 import { useForm, useField } from '@/hooks'
 import { evaluateConditions } from '@/helpers'
 import type { FieldProps } from '@/types'
-import { ZodError } from 'zod'
+import { Label } from './Label'
+import { Input } from './Input'
+import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
 
 const basicInputs = [
   'text',
@@ -26,50 +26,40 @@ const basicInputs = [
 const top = ['top-right', 'top-left', 'top-center', 'left', 'floating']
 const bottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
 
-export const Field = (props: FieldProps) => {
-  const { settings, values, schema, formError } = useForm()
-  const { touched, error } = useField(props.name)
-
-  console.log(props.name, 'error is ', error)
+export const Field = (p: FieldProps) => {
+  const { settings: s, values, schema, formError } = useForm()
+  const { touched, error } = useField(p.name)
   // Helpers
-  const labelPos = props?.labelPosition || settings.labelPosition
-  const errorPos = props?.errorPosition || settings.errorPosition
-  const hasAutoSave = props?.autoSave || settings.autoSave
+  const labelPos = p?.labelPosition || s.labelPosition
+  const errorPos = p?.errorPosition || s.errorPosition
+  const hasError = !!error
+  const hasAutoSave = p?.autoSave || s.autoSave
   const autoSaveSettings = () => {
-    let local =
-      typeof props.autoSave === 'boolean' || !props.autoSave
-        ? {}
-        : props.autoSave
+    let local = typeof p.autoSave === 'boolean' || !p.autoSave ? {} : p.autoSave
     let global =
-      typeof settings.autoSave === 'boolean' || !settings.autoSave
-        ? {}
-        : settings.autoSave
+      typeof s.autoSave === 'boolean' || !s.autoSave ? {} : s.autoSave
     return merge.all([initial, global, local])
   }
-  const hasError = !!error
-  // const hasAutoSave = props.autoSave || settings.autoSave
   const shouldRender =
-    !props.conditions || evaluateConditions(props.conditions, values, schema)
+    !p.conditions || evaluateConditions(p.conditions, values, schema)
 
   // Return a Divider slot
-  if (props.type === 'divider') {
+  if (p.type === 'divider') {
     return (
-      <div
-        id={props.name}
-        className={cn(['mkui_form_divider', props.className])}>
-        {props?.component ?? null}
+      <div id={p.name} className={cn(['mkui_form_divider', p.className])}>
+        {p?.component ?? null}
       </div>
     )
   }
 
   function renderFieldType() {
     /* Custom React inputs */
-    if (props.type === 'custom' && props?.component) {
-      return props.component
+    if (p.type === 'custom' && p?.component) {
+      return p.component
     }
     /* Basic HTML Inputs */
-    if (basicInputs.includes(props.type)) {
-      return <Input name={props.name} />
+    if (basicInputs.includes(p.type)) {
+      return <Input name={p.name} />
     }
   }
 
@@ -77,26 +67,26 @@ export const Field = (props: FieldProps) => {
     <div
       className={cn([
         'mkui_field_container',
-        props.className,
+        p.className,
         'label-' + labelPos,
         'error-' + errorPos,
-        settings?.classNames?.fieldContainer,
+        s?.classNames?.fieldContainer,
         hasError ? 'error' : undefined,
         touched ? 'touched' : '',
       ])}>
       {top.includes(labelPos) ? (
-        <Label name={props.name} type={props.type}>
-          {props.label}
+        <Label name={p.name} type={p.type}>
+          {p.label}
         </Label>
       ) : null}
-      {props.instructions ? (
-        <div className="mkui_field_instructions">{props.instructions}</div>
+      {p.instructions ? (
+        <div className="mkui_field_instructions">{p.instructions}</div>
       ) : null}
       <Conditional
         condition={hasAutoSave === true}
         wrapper={(c) => (
           <AutoSaveWrapper
-            name={props.name}
+            name={p.name}
             formError={!!formError}
             settings={autoSaveSettings()}>
             {c}
@@ -105,21 +95,21 @@ export const Field = (props: FieldProps) => {
         <>{renderFieldType()}</>
       </Conditional>
       {bottom.includes(labelPos) ? (
-        <Label name={props.name} type={props.type}>
-          {props.label}
+        <Label name={p.name} type={p.type}>
+          {p.label}
         </Label>
       ) : null}
-      {props?.showValidation ? (
+      {p?.showValidation ? (
         <div
           className={cn(['mkui_validate', !error && touched ? 'active' : ''])}>
-          {settings?.validateIcon}
+          {s?.validateIcon}
         </div>
       ) : null}
       {hasError ? (
         <div className="mkui_field_error">
           {typeof error === 'string'
             ? error
-            : (error as ZodError).formErrors?.formErrors[0]}
+            : (error as ZodError).issues[0]?.message}
         </div>
       ) : null}
     </div>

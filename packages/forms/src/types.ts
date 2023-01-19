@@ -166,10 +166,18 @@ export type InputOption = {
   disabled?: boolean
 }
 
+// type OptionalName = string | undefined
+// type FieldName<T> = T extends 'page'
+//   ? OptionalName
+//   : T extends 'group'
+//   ? OptionalName
+//   : string
+
 export interface FieldProps {
   key?: string
-  name: string
   type: FieldType
+  // name: FieldName<FieldProps['type']> // TODO - FIgure this out
+  name: string
   initialValue?: any
   className?: string
   label?: string | React.ReactElement
@@ -177,7 +185,7 @@ export interface FieldProps {
   component?: React.ReactElement
   placeholder?: string
   required?: boolean
-  // Custom Zod validation that will be run during validation
+  /** Custom Zod validation that will be run during validation */
   validation?: Schema
   labelPosition?: LabelPosition
   errorPosition?: ErrorPosition
@@ -208,9 +216,9 @@ export interface FieldProps {
 // Form Types
 
 export interface AutoSaveSettings {
-  indicator?: React.ReactNode
-  successIcon?: React.ReactNode
-  errorIcon?: React.ReactNode
+  saveIcon?: React.ReactElement
+  successIcon?: React.ReactElement
+  errorIcon?: React.ReactElement
   timeout?: number
   position?: 'left' | 'right'
   padding?: number
@@ -236,14 +244,20 @@ export interface FormSettings {
 }
 
 export interface FormClassNames {
+  /** Applied to the root form element */
   form?: string
+  /** Applied to all field groups */
   fieldGroup?: string
+  /** Applied to all field containers (label and input) */
   fieldContainer?: string
+  /** Applied to each form page container */
   page?: string
+  /** Applied to the page progress bar container */
   progress?: string
+  /** Applied to all pagination buttons */
   pageButton?: string
+  /** Applied to the submit button. */
   submitButton?: string
-  // All individual inputs are handled in the field config
 }
 
 export interface FormValues {

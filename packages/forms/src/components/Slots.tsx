@@ -60,6 +60,7 @@ export const FormProgress = forwardRef<HTMLDivElement, FormProgressProps>(
 
 export interface FormSubmitButtonProps
   extends Omit<React.HTMLAttributes<HTMLButtonElement>, 'onClick'> {
+  _type?: string
   children?: React.ReactNode
   onClick?: (e: any, isSubmitting: boolean) => void
   lifecycle?: {
@@ -121,6 +122,7 @@ export const FormFooter = forwardRef<HTMLDivElement, SlotProps>(
 
 // Default props for slot layout
 FormProgress.defaultProps = { _type: 'progress' }
+FormSubmit.defaultProps = { _type: 'submit' }
 FormSuccess.defaultProps = { _type: 'success' }
 FormError.defaultProps = { _type: 'error' }
 FormHeader.defaultProps = { _type: 'header' }

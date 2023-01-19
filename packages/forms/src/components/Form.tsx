@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect, useReducer, useState } from 'react'
 import { merge } from '@maker-ui/utils'
 
+import { initialState } from '@/helpers'
 import { FormRenderer } from './FormRenderer'
 import {
   FormHeader,
@@ -11,26 +12,17 @@ import {
 } from './Slots'
 import type {
   FieldProps,
+  FormErrors,
   FormSchema,
   FormSettings,
   FormState,
   FormValues,
 } from '@/types'
-import { initialState } from '@/helpers'
 
 export type Action =
-  | {
-      type: 'SET_FIELDS'
-      value: FieldProps[]
-    }
-  | {
-      type: 'SET_VALUE'
-      value: { [key: string]: any }
-    }
-  | {
-      type: 'SET_ERRORS'
-      value: { [key: string]: any }
-    }
+  | { type: 'SET_FIELDS'; value: FieldProps[] }
+  | { type: 'SET_VALUE'; value: FormValues }
+  | { type: 'SET_ERRORS'; value: FormErrors }
   | { type: 'SET_TOUCHED'; value: string }
   | { type: 'SET_PAGE'; value: number }
   | { type: 'SET_STATUS'; value: boolean }
@@ -64,50 +56,25 @@ export const FormContext = React.createContext<{
 function formReducer(state: FormState, action: Action): FormState {
   switch (action.type) {
     case 'SET_VALUE':
-      return {
-        ...state,
-        values: { ...state.values, ...action.value },
-      }
+      return { ...state, values: { ...state.values, ...action.value } }
     case 'SET_ERRORS':
-      return {
-        ...state,
-        errors: merge(state.errors || {}, action.value),
-      }
+      return { ...state, errors: action.value }
     case 'SET_TOUCHED':
-      return {
-        ...state,
-        touched: [...(state.touched || []), action.value],
-      }
+      return { ...state, touched: [...(state.touched || []), action.value] }
     case 'SET_FORM_SUCCESS':
-      return {
-        ...state,
-        formSuccess: action.value,
-      }
+      return { ...state, formSuccess: action.value }
     case 'SET_FORM_ERROR':
-      return {
-        ...state,
-        formError: action.value,
-      }
+      return { ...state, formError: action.value }
     case 'UPDATE_SETTINGS':
-      return {
-        ...state,
-        settings: merge(state.settings, action.value),
-      }
+      return { ...state, settings: merge(state.settings, action.value) }
     case 'RESET_FORM':
       const { values, schema } = getFieldData(state.fields || [])
-      return {
-        ...state,
-        values,
-        schema,
-        errors: {},
-        touched: [],
-      }
+      return { ...state, values, schema, errors: {}, touched: [] }
     case 'SET_SUBMIT_COUNT':
       return { ...state, submitCount: state.submitCount + 1 }
     case 'SET_FIELDS':
       return { ...state, fields: action.value }
     default: {
-      //@ts-ignore
       throw new Error(`Unhandled action type: ${action.type}`)
     }
   }
@@ -178,14 +145,16 @@ export const Form = ({
 
   if (isPaginated) {
     if (fields.find((f) => f.type !== 'page')) {
-      // Warn if the form is paginated but not all fields are of type `page`
-      console.warn(
-        'If your form is paginated, all top level fields must use type `page`.'
+      // Err if the form is paginated but not all fields are of type `page`
+      console.error(
+        'If your form is paginated, all top level fields must use type "page".'
       )
     }
     if (fields.length === 1) {
-      // Warn if there is only one page
-      console.warn('Your form is paginated but only has one page.')
+      // Err if there is only one page
+      console.error(
+        'Your form is paginated but only has one page. Please create additional pages or remove the "page" field type.'
+      )
     }
   }
 
@@ -209,7 +178,6 @@ export const Form = ({
   useEffect(() => {
     if (!rendered) return
     dispatch({ type: 'SET_FIELDS', value: fields })
-    console.log('running')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fields])
 
