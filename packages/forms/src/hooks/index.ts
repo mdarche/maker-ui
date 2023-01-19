@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { FormContext } from '@/components'
+import { validate } from '@/helpers'
 // import type { FormErrors, FormSchema, FormValues } from '@/types'
 
 // Validate function
@@ -28,33 +29,20 @@ export function useForm() {
   const { state: s, dispatch } = useContext(FormContext)
 
   function validateForm(): boolean {
-    let success = true
-    let errors: { [key: string]: any } = {}
-
-    // Loop through all values
-    Object.keys(s.schema).forEach((name) => {
-      if (s.schema[name].required && !s.values[name]) {
-        // Check for required
-        success = false
-        errors[name] = `Field is required`
-      } else if (s.schema[name].validation) {
-        // Check for custom validation
-        const parsed = s.schema[name].validation.safeParse(s.values[name])
-        console.log('parsed is', parsed)
-      }
+    const { isValid, errors } = validate({
+      type: 'form',
+      schema: s.schema,
+      values: s.values,
     })
 
     if (!isEmpty(errors)) {
       dispatch({ type: 'SET_ERRORS', value: errors })
     }
 
-    return success
+    return isValid
   }
 
   function validatePage(): boolean {
-    let success = false
-    let errors = {}
-
     return true
   }
 

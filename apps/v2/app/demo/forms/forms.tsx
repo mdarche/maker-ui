@@ -24,6 +24,15 @@ export function FormDemo() {
             name: 'first_name',
             label: 'First Name',
             required: true,
+            colSpan: 2,
+            validation: z.string().min(2),
+          },
+          {
+            type: 'text',
+            name: 'last_name',
+            label: 'Last Name',
+            required: true,
+            colSpan: 2,
             validation: z.string().min(2),
           },
         ]}

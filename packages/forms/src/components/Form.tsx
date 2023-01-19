@@ -20,7 +20,7 @@ import { initialState } from '@/helpers'
 
 export type Action =
   | {
-      type: 'UPDATE_FIELDS'
+      type: 'SET_FIELDS'
       value: FieldProps[]
     }
   | {
@@ -104,6 +104,8 @@ function formReducer(state: FormState, action: Action): FormState {
       }
     case 'SET_SUBMIT_COUNT':
       return { ...state, submitCount: state.submitCount + 1 }
+    case 'SET_FIELDS':
+      return { ...state, fields: action.value }
     default: {
       //@ts-ignore
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -191,6 +193,10 @@ export const Form = ({
    * Listen for changes to error and success
    */
   useEffect(() => {
+    setRendered(true)
+  }, [])
+
+  useEffect(() => {
     if (!rendered) return
     if (error !== undefined) {
       dispatch({ type: 'SET_FORM_ERROR', value: error })
@@ -199,6 +205,13 @@ export const Form = ({
       dispatch({ type: 'SET_FORM_SUCCESS', value: success })
     }
   }, [error, success, rendered])
+
+  useEffect(() => {
+    if (!rendered) return
+    dispatch({ type: 'SET_FIELDS', value: fields })
+    console.log('running')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fields])
 
   useEffect(() => {
     setRendered(true)

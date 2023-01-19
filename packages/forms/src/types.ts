@@ -1,4 +1,5 @@
 import * as React from 'react'
+import type { Schema, ZodError } from 'zod'
 
 type ResponsiveScale = string | number | (string | number)[]
 
@@ -177,7 +178,7 @@ export interface FieldProps {
   placeholder?: string
   required?: boolean
   // Custom Zod validation that will be run during validation
-  validation?: any
+  validation?: Schema
   labelPosition?: LabelPosition
   errorPosition?: ErrorPosition
   conditions?: Array<Condition[]>
@@ -250,7 +251,7 @@ export interface FormValues {
 }
 
 export interface FormErrors {
-  [key: string]: any
+  [key: string]: ZodError | string
 }
 
 // Form State
@@ -260,7 +261,7 @@ export type FormSchema = {
     type: FieldType
     page: number
     required: boolean
-    validation?: any
+    validation?: Schema
   }
 }
 

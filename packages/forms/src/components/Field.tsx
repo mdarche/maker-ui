@@ -7,6 +7,7 @@ import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
 import { useForm, useField } from '@/hooks'
 import { evaluateConditions } from '@/helpers'
 import type { FieldProps } from '@/types'
+import { ZodError } from 'zod'
 
 const basicInputs = [
   'text',
@@ -28,6 +29,8 @@ const bottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
 export const Field = (props: FieldProps) => {
   const { settings, values, schema, formError } = useForm()
   const { touched, error } = useField(props.name)
+
+  console.log(props.name, 'error is ', error)
   // Helpers
   const labelPos = props?.labelPosition || settings.labelPosition
   const errorPos = props?.errorPosition || settings.errorPosition
@@ -101,7 +104,6 @@ export const Field = (props: FieldProps) => {
         )}>
         <>{renderFieldType()}</>
       </Conditional>
-      {renderFieldType()}
       {bottom.includes(labelPos) ? (
         <Label name={props.name} type={props.type}>
           {props.label}
@@ -113,7 +115,13 @@ export const Field = (props: FieldProps) => {
           {settings?.validateIcon}
         </div>
       ) : null}
-      {hasError ? <div className="mkui_field_error">{error}</div> : null}
+      {hasError ? (
+        <div className="mkui_field_error">
+          {typeof error === 'string'
+            ? error
+            : (error as ZodError).formErrors?.formErrors[0]}
+        </div>
+      ) : null}
     </div>
   ) : null
 }
