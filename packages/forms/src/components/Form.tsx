@@ -9,6 +9,7 @@ import {
   FormError,
   FormSuccess,
   FormSubmit,
+  FormProgress,
 } from './Slots'
 import type {
   FieldProps,
@@ -18,6 +19,7 @@ import type {
   FormState,
   FormValues,
 } from '@/types'
+import { FieldError } from './FieldError'
 
 export type Action =
   | { type: 'SET_FIELDS'; value: FieldProps[] }
@@ -55,6 +57,8 @@ export const FormContext = React.createContext<{
 
 function formReducer(state: FormState, action: Action): FormState {
   switch (action.type) {
+    case 'SET_PAGE':
+      return { ...state, currentPage: action.value }
     case 'SET_VALUE':
       return { ...state, values: { ...state.values, ...action.value } }
     case 'SET_ERRORS':
@@ -199,3 +203,5 @@ Form.Header = FormHeader
 Form.Footer = FormFooter
 Form.Error = FormError
 Form.Success = FormSuccess
+Form.Progress = FormProgress
+Form.FieldError = FieldError

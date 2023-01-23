@@ -54,7 +54,10 @@ export function FormDemo() {
           submitHandler(vals)
           console.log('Submit count: ' + submitCount)
         }}>
-        <Form.Header>Form 2 Header</Form.Header>
+        <Form.Progress />
+        <Form.FieldError />
+        {/* <Form.BackButton />
+        <Form.NextButton /> */}
         <Form.Submit>Submit</Form.Submit>
         <Form.Footer>Form 2 Footer</Form.Footer>
         <Form.Error>There was an error. Please try to submit again.</Form.Error>

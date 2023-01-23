@@ -54,6 +54,7 @@ export function useForm() {
   }
 
   function setPage(n: number) {
+    // Validate current page and change page if it succeeds.
     dispatch({ type: 'SET_PAGE', value: n })
   }
 
