@@ -91,6 +91,9 @@ function getStyles(
         margin-left: 0;
         margin-right: 0;
       }
+      .mkui-btn-collapse.mobile-hide {
+        display: none;
+      }
       .mkui-sn.sn-hide {
         transform: translateX(${direction});
       }
@@ -110,7 +113,7 @@ function getStyles(
         .mkui-btn-collapse {
           display: none;
         }
-        .mkui-btn-collapse.collapsible {
+        .mkui-btn-collapse.desktop {
           display: block;
         }
         .mkui-sn {

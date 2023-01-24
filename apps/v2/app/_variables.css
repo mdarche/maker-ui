@@ -30,13 +30,13 @@ body[data-theme='dark'] {
   --color-text: #fff;
   --color-background: #000;
   /* Project specific */
-  --color-gray_100: #111;
-  --color-gray_200: #1f1f1f;
-  --color-gray_300: #616161;
-  --color-gray_400: #7a7a7a;
-  --color-gray_500: #adadad;
-  --color-border_100: #2a2a2a;
-  --color-border_200: #818181;
+  --color-gray-100: #111;
+  --color-gray-200: #1f1f1f;
+  --color-gray-300: #616161;
+  --color-gray-400: #7a7a7a;
+  --color-gray-500: #adadad;
+  --color-border-100: #2a2a2a;
+  --color-border-200: #818181;
   --color-shadow: 1px 3px 5px rgba(122, 115, 144, 0.06);
 }
 
@@ -51,12 +51,13 @@ body[data-theme='light'] {
   --color-text: #000;
   --color-background: #fff;
   /* Project specific */
-  --color-gray_100: #fafafa;
-  --color-gray_200: #ebebeb;
-  --color-gray_300: #c4c4c4;
-  --color-gray_400: #979797;
-  --color-gray_500: #6f6f6f;
-  --color-border_100: #e5e9ea;
-  --color-border_200: #a2a2a2;
+  --color-gray-100: #fafafa;
+  --color-gray-200: #ebebeb;
+  --color-gray-300: #c4c4c4;
+  --color-gray-400: #979797;
+  --color-gray-500: #6f6f6f;
+  --color-border-100: #e5e9ea;
+  --color-border-200: #a2a2a2;
   --color-shadow: 1px 3px 5px rgba(122, 115, 144, 0.06);
+  /* Add media queries for heights, widths, and gaps here*/
 }

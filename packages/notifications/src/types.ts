@@ -18,6 +18,15 @@ export interface ToastSettings {
     | 'bottom-center'
     | 'bottom-left'
     | 'bottom-right'
+  toast?: {
+    color?: string
+    background?: string
+    padding?: string | number | (string | number)[]
+    border?: string
+    boxShadow?: string
+    borderRadius?: string | number
+    iconHeight?: string | number | (string | number)[]
+  }
   /** Custom classnames mapping for the toast component */
   classNames: Partial<ToastClassNames>
   /** Custom SVG icon mapping */

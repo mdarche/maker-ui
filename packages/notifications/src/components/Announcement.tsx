@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { useTracker } from '@maker-ui/hooks'
+import { CloseIcon } from './Icons'
 
 export interface AnnouncementProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -85,14 +86,16 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     return active ? (
       <div
         ref={ref}
-        className={cn(['announcement flex align-center', className])}
+        className={cn(['mkui-announcement flex align-center', className])}
         style={{
           background,
           color,
           ...fixedPartial(fixed, bottom),
         }}>
         <div className="container flex align-center width-100">
-          <div className="announcement-text flex flex-1 flex-wrap" {...props}>
+          <div
+            className="mkui-announcement-text flex flex-1 flex-wrap"
+            {...props}>
             {children}
           </div>
           {allowClose && !closeButton ? (
@@ -110,12 +113,6 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 )
 
 Announcement.displayName = 'Announcement'
-
-const CloseIcon = (props: React.HtmlHTMLAttributes<HTMLOrSVGElement>) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-  </svg>
-)
 
 /**
  * Returns a CSS object that positions the announcement bar

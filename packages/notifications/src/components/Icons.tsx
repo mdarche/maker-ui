@@ -44,3 +44,11 @@ export const InfoIcon = (props: SVGProps) => (
     <path d="M10 0C4.486 0 0 4.486 0 10C0 15.514 4.486 20 10 20C15.514 20 20 15.514 20 10C20 4.486 15.514 0 10 0ZM11 15H9V9H11V15ZM11 7H9V5H11V7Z" />
   </svg>
 )
+
+export const CloseIcon = (
+  props: React.HtmlHTMLAttributes<HTMLOrSVGElement>
+) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+  </svg>
+)

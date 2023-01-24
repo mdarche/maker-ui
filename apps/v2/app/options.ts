@@ -21,7 +21,7 @@ export const options: MakerUIOptions = {
     // },
   },
   mobileMenu: {
-    transition: 'slide-left',
+    transition: 'fade',
     visibleOnDesktop: false,
     closeOnBlur: true,
     closeOnRouteChange: true,
