@@ -33,6 +33,7 @@ export interface CarouselState {
 export const Carousel = (userProps: CarouselProps) => {
   const { ...props }: Required<CarouselProps> = merge(defaultProps, userProps)
   const [styleId] = useState(generateId())
+  const containerRef = useRef<HTMLDivElement>(null)
   const initialItems = initItems(
     props.children,
     props.children.length - 1,
@@ -264,6 +265,7 @@ export const Carousel = (userProps: CarouselProps) => {
 
   return (
     <div
+      ref={containerRef}
       className={cn(['mkui-carousel', props.classNames?.root, styleId])}
       data-cy="mkui-carousel"
       tabIndex={0}

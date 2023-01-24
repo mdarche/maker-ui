@@ -8,7 +8,7 @@ import CosmosImage from '@/public/cosmos.jpeg'
 export default function CarouselPage() {
   const colors = ['red', 'orange', 'purple', 'blue']
   return (
-    <Section style={{ padding: 20, maxWidth: '100vw', overflow: 'hidden' }}>
+    <Section style={{ maxWidth: '100vw', overflow: 'hidden' }}>
       <Carousel
         hideArrows
         // hidePagination

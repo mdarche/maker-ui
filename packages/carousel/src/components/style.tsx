@@ -3,6 +3,7 @@ import type { ResponsiveCSS } from '@maker-ui/style'
 export const css: ResponsiveCSS = {
   position: 'relative',
   width: '100%',
+  margin: 'auto',
   maxWidth: '100vw',
   outline: 'none',
   '.mkui-slider': {

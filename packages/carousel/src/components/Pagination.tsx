@@ -7,7 +7,11 @@ export interface PaginationProps {
   length: number
   current: number
   classNames?: CarouselClasses | null
-  factory: (selected: boolean, attrs: object) => React.ReactElement
+  factory: (
+    selected: boolean,
+    attrs: object,
+    index: number
+  ) => React.ReactElement
   onClick: (i: number) => void
 }
 
@@ -36,7 +40,7 @@ export const Pagination = ({
         }
         return (
           <React.Fragment key={i}>
-            {factory(i === current, attrs)}
+            {factory(i === current, attrs, i)}
           </React.Fragment>
         )
       })}

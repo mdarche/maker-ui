@@ -98,8 +98,11 @@ function getStyles(
         display: none;
       }
       @media screen and (min-width: ${breakpoint}) {
-        .mkui-sn.mkui-carousel {
-          max-width: calc(100vw - var(--width-side-nav)) !important;
+        .l-sn .mkui-carousel {
+          max-width: calc(100vw - var(--width-side-nav));
+        }
+        .l-sn:has(.sn-collapse) .mkui-carousel {
+          max-width: 100vw;
         }
         .mkui-sn-init {
           display: flex;

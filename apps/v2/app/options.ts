@@ -29,7 +29,7 @@ export const options: MakerUIOptions = {
   sideNav: {
     isHeader: false,
     collapse: true,
-    showCollapseOnMobile: true,
+    showCollapseOnMobile: false,
     closeOnBlur: true,
     closeOnRouteChange: true,
     // isPrimaryMobileNav: true,
