@@ -68,7 +68,7 @@ export const CSSTransition = ({
   return (
     <>
       {className || noStyles ? undefined : (
-        <style id={`mkui_style_${id}`}>{styles}</style>
+        <style id={`mkui-style-${id}`}>{styles}</style>
       )}
       <Conditional
         wrapper={(c) => (

@@ -111,7 +111,7 @@ export const MenuItem = React.memo(
       ? {
           title,
           className: cn([
-            expandButton ? undefined : 'mkui_btn_expand',
+            expandButton ? undefined : 'mkui-btn-expand',
             'submenu-toggle',
             show ? 'expanded' : undefined,
           ]),
@@ -135,7 +135,7 @@ export const MenuItem = React.memo(
           'menu-item',
           megamenu ? 'has-megamenu' : undefined,
           submenu ? 'has-submenu' : undefined,
-          submenu && isHeader && !caret ? 'mkui_caret' : undefined,
+          submenu && isHeader && !caret ? 'mkui-caret' : undefined,
           show ? 'expanded' : undefined,
           className,
         ])}

@@ -91,20 +91,20 @@ function getStyles(
   const breakpoint = typeof bp === 'number' ? `${bp}px` : bp
 
   return `
-    .mkui_header.d-sticky, .mkui_topbar.d-sticky {
+    .mkui-header.d-sticky, .mkui-topbar.d-sticky {
       position: relative;
     }
-    .mkui_header.d-sticky.abs {
+    .mkui-header.d-sticky.abs {
       position: absolute;
     }
-    .mkui_topbar.sticky, .mkui_topbar.m-sticky {
+    .mkui-topbar.sticky, .mkui-topbar.m-sticky {
       position: sticky;
     }
-    .mkui_header.sticky.abs, .mkui_header.m-sticky.abs {
+    .mkui-header.sticky.abs, .mkui-header.m-sticky.abs {
       position: fixed;
     }
-    .mkui_header.sticky,
-    .mkui_header.m-sticky {
+    .mkui-header.sticky,
+    .mkui-header.m-sticky {
       position: sticky;
       top: ${
         children.topbar &&
@@ -114,40 +114,40 @@ function getStyles(
           : '0px'
       };
     }
-    .mkui_header.abs.sticky {
+    .mkui-header.abs.sticky {
       position: fixed;
     }
-    .mkui_nav .menu-slot {
+    .mkui-nav .menu-slot {
       display: none;
     }
-    .mkui_nav .button-slot {
+    .mkui-nav .button-slot {
       display: flex;
     }
-    .mkui_nav {
+    .mkui-nav {
       grid-template-areas: ${mobile[mobileLayout].areas};
       grid-template-columns: ${mobile[mobileLayout].columns};
     }
-    .mkui_nav .widget-slot {
+    .mkui-nav .widget-slot {
       justify-content: ${mobile[mobileLayout].widgetArea};
     }
     @media screen and (min-width: ${breakpoint}) {
-      .mkui_header.sticky {
+      .mkui-header.sticky {
         top: ${
           children.topbar && options.topbar.sticky
             ? 'var(--height-topbar)'
             : '0px'
         };
       }
-      .mkui_header.m-sticky.abs, .mkui_topbar.m-sticky.abs {
+      .mkui-header.m-sticky.abs, .mkui-topbar.m-sticky.abs {
         position: absolute;
       }
-      .mkui_header.m-sticky, .mkui_topbar.m-sticky {
+      .mkui-header.m-sticky, .mkui-topbar.m-sticky {
         position: relative;
       }
-      .mkui_topbar.d-sticky {
+      .mkui-topbar.d-sticky {
         position: sticky;
       }
-      .mkui_header.d-sticky {
+      .mkui-header.d-sticky {
         position: sticky;
         top: ${
           children.topbar && options.topbar.sticky
@@ -155,39 +155,39 @@ function getStyles(
             : '0px'
         };
       }
-      .mkui_topbar.m-hide {
+      .mkui-topbar.m-hide {
         display: block;
       }
-      .mkui_nav { 
+      .mkui-nav { 
         grid-template-areas: ${desktop[layout].areas};
         grid-template-columns: ${desktop[layout].columns};
         grid-template-rows: ${layout !== 'center' ? '1fr' : '1fr 1fr'};
       }
-      .mkui_nav .widget-slot {
+      .mkui-nav .widget-slot {
         justify-content: ${desktop[layout].widgetArea};
       }
-      .mkui_nav .menu-slot {
+      .mkui-nav .menu-slot {
         display: ${layout.includes('minimal') ? 'none' : 'flex'};
       }
-      .mkui_nav .button-slot {
+      .mkui-nav .button-slot {
         display: ${
           layout.includes('minimal') || options.mobileMenu.visibleOnDesktop
             ? 'flex'
             : 'none'
         };
       }
-      .mkui_nav.split .widget-slot,
-      .mkui_nav.center .widget-slot {
+      .mkui-nav.split .widget-slot,
+      .mkui-nav.center .widget-slot {
         position: absolute;
       }
-      .mkui_nav.minimal-left.m-basic .button-slot {
+      .mkui-nav.minimal-left.m-basic .button-slot {
         display: flex;
       }
-      .mkui_nav.minimal.m-logo-center-alt .button-slot,
-      .mkui_nav.minimal.m-basic-menu-left .button-slot {
+      .mkui-nav.minimal.m-logo-center-alt .button-slot,
+      .mkui-nav.minimal.m-basic-menu-left .button-slot {
         display: none;
       }
-      .mkui_nav.m-logo-center-alt .button-slot {
+      .mkui-nav.m-logo-center-alt .button-slot {
         justifycontent: flex-start;
       }
     }

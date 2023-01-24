@@ -59,9 +59,9 @@ export const MenuButton = ({
     title: 'Menu',
     className: cn([
       styles.btn_menu,
-      sideNav ? 'mkui_btn_collapse fixed' : undefined,
+      sideNav ? 'mkui-btn-collapse fixed' : undefined,
       sn.collapse ? 'collapsible' : undefined,
-      !sideNav && close ? 'mkui_btn_close fixed' : undefined,
+      !sideNav && close ? 'mkui-btn-close fixed' : undefined,
       ...(sideNav || close ? positions || [] : []),
       className,
     ]),

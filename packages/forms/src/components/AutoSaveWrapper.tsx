@@ -98,7 +98,7 @@ export const AutoSaveWrapper = ({
     >
       {children}
       <div
-        className="mkui_autosave"
+        className="mkui-autosave"
         style={{
           position: 'absolute',
           right:

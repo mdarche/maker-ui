@@ -14,7 +14,7 @@ export const Arrow = React.forwardRef<HTMLButtonElement, ArrowProps>(
     return (
       <button
         ref={ref}
-        className={cn(['mkui_carousel_arrow', direction, className])}
+        className={cn(['mkui-carousel-arrow', direction, className])}
         onClick={onClick}
         data-direction={direction}>
         {custom ?? (

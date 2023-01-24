@@ -16,7 +16,7 @@ export function getStyles(
   }: Omit<SocialAccountsProps, 'accounts'>
 ): string {
   const isColorObject = typeof color === 'object'
-  const base = `.mkui_${id}`
+  const base = `.mkui-${id}`
   const size = format(iconSize)
   const padding = format(spacing)
   const obj = {

@@ -15,7 +15,7 @@ export const Options = ({ name }: OptionsProps) => {
     <div
       role="group"
       aria-labelledby={`${name}-group`}
-      className={cn(['mkui_option_input', error ? 'error' : undefined])}>
+      className={cn(['mkui-option-input', error ? 'error' : undefined])}>
       {Array.isArray(field?.options)
         ? field?.options?.map((o) => (
             <label key={o.value}>

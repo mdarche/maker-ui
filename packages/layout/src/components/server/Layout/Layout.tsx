@@ -61,7 +61,7 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
       ) : null}
       <div
         className={cn([
-          'mkui_layout',
+          'mkui-layout',
           opts.layout,
           isSideNav ? 'l-sn' : isSidebar ? 'l-sb' : undefined,
         ])}>

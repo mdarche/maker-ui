@@ -41,7 +41,7 @@ export const Switch = ({ name }: SwitchProps) => {
   }
   return (
     <div
-      className={cn(['mkui_switch', value ? 'active' : ''])}
+      className={cn(['mkui-switch', value ? 'active' : ''])}
       aria-labelledby={`${name}-label`}>
       <label
         className="switch-label"
@@ -59,11 +59,11 @@ export const Switch = ({ name }: SwitchProps) => {
         />
         {config.inner_label ? (
           <>
-            <span className="mkui_switch_on">{config?.label_on}</span>
-            <span className="mkui_switch_off">{config?.label_off}</span>
+            <span className="mkui-switch-on">{config?.label_on}</span>
+            <span className="mkui-switch-off">{config?.label_off}</span>
           </>
         ) : null}
-        <div className={cn(['mkui_switch_slider', value ? 'on' : 'off'])} />
+        <div className={cn(['mkui-switch-slider', value ? 'on' : 'off'])} />
       </label>
     </div>
   )

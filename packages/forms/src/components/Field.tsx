@@ -46,7 +46,7 @@ export const Field = (p: FieldProps) => {
   // Return a Divider slot
   if (p.type === 'divider') {
     return (
-      <div id={p.name} className={cn(['mkui_form_divider', p.className])}>
+      <div id={p.name} className={cn(['mkui-form-divider', p.className])}>
         {p?.component ?? null}
       </div>
     )
@@ -66,7 +66,7 @@ export const Field = (p: FieldProps) => {
   return shouldRender ? (
     <div
       className={cn([
-        'mkui_field_container',
+        'mkui-field-container',
         p.className,
         'label-' + labelPos,
         'error-' + errorPos,
@@ -80,7 +80,7 @@ export const Field = (p: FieldProps) => {
         </Label>
       ) : null}
       {p.instructions ? (
-        <div className="mkui_field_instructions">{p.instructions}</div>
+        <div className="mkui-field-instructions">{p.instructions}</div>
       ) : null}
       <Conditional
         condition={hasAutoSave === true}
@@ -101,12 +101,12 @@ export const Field = (p: FieldProps) => {
       ) : null}
       {p?.showValidation ? (
         <div
-          className={cn(['mkui_validate', !error && touched ? 'active' : ''])}>
+          className={cn(['mkui-validate', !error && touched ? 'active' : ''])}>
           {s?.validateIcon}
         </div>
       ) : null}
       {hasError ? (
-        <div className="mkui_field_error">
+        <div className="mkui-field-error">
           {typeof error === 'string'
             ? error
             : (error as ZodError).issues[0]?.message}

@@ -111,9 +111,9 @@ export const Slider = (props: CanvasProps) => {
     : {}
 
   return (
-    <div ref={ref} className={cn(['mkui_slider', props?.classNames?.slider])}>
+    <div ref={ref} className={cn(['mkui-slider', props?.classNames?.slider])}>
       <div
-        className={cn(['mkui_slide_track'])}
+        className={cn(['mkui-slide-track'])}
         data-cy="slidetrack"
         {...swipeProps}
         style={{
@@ -124,7 +124,7 @@ export const Slider = (props: CanvasProps) => {
         {props.items.map((item, i) => (
           <div
             key={i}
-            className={cn(['mkui_slide', props?.classNames?.slide])}
+            className={cn(['mkui-slide', props?.classNames?.slide])}
             style={{ width, pointerEvents: drag.pointers ? 'all' : 'none' }}>
             {item}
           </div>

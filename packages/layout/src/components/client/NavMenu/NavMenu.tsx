@@ -26,12 +26,12 @@ export const NavMenu = ({
   const pathname = usePathname()
 
   return (
-    <nav className="mkui_nav_menu" role="navigation">
+    <nav className="mkui-nav-menu" role="navigation">
       <ul
         className={cn([
           'menu-primary nav-header',
           `dropdown-${transition}`,
-          transition.includes('fade') ? 'mkui_fade' : undefined,
+          transition.includes('fade') ? 'mkui-fade' : undefined,
         ])}>
         {menuItems.map((item, index) => (
           <MenuItem

@@ -62,12 +62,12 @@ export const FormRenderer = ({
                 {currentPage === i + 1 ? (
                   <div
                     className={cn([
-                      'mkui_form_page',
+                      'mkui-form-page',
                       `page-${i}`,
                       className,
                       settings?.classNames?.page,
                     ])}>
-                    <div className="mkui_form_grid">
+                    <div className="mkui-form-grid">
                       {subFields?.map((p) => (
                         <Field key={p.name} {...p} />
                       ))}
@@ -79,12 +79,12 @@ export const FormRenderer = ({
             <div>Render pagination buttons</div>
           </CSSTransition>
         ) : (
-          <div className="mkui_form_grid">
+          <div className="mkui-form-grid">
             {fields?.map((p) =>
               p?.type === 'group' && p?.subFields ? (
                 <div
                   className={cn([
-                    'mkui_field_group',
+                    'mkui-field-group',
                     settings?.classNames?.fieldGroup,
                   ])}>
                   {p.subFields?.map((p) => (

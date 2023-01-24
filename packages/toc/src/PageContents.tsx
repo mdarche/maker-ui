@@ -208,9 +208,9 @@ export const PageContents = ({
 
   return (
     <>
-      <div className={cn(['mkui_contents', styleId, className])}>
+      <div className={cn(['mkui-contents', styleId, className])}>
         <div>{title}</div>
-        <ul className="mkui_contents_list">
+        <ul className="mkui-contents-list">
           {menuItems.length
             ? menuItems.map(({ id, text, level }: MenuItem, index) => (
                 <li
@@ -239,7 +239,7 @@ export const PageContents = ({
           position: sticky ? 'sticky' : undefined,
           top: sticky ? 0 : undefined,
           ...(css as object),
-          '.mkui_contents_list': {
+          '.mkui-contents-list': {
             padding: 0,
             listStyle: 'none',
           },

@@ -21,7 +21,7 @@ export const Sidebar = ({
   return (
     <div
       className={cn([
-        'mkui_sidebar',
+        'mkui-sidebar',
         primary ? 'primary' : 'secondary',
         className,
       ])}

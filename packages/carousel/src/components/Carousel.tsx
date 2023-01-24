@@ -264,8 +264,8 @@ export const Carousel = (userProps: CarouselProps) => {
 
   return (
     <div
-      className={cn(['mkui_carousel', props.classNames?.root, styleId])}
-      data-cy="mkui_carousel"
+      className={cn(['mkui-carousel', props.classNames?.root, styleId])}
+      data-cy="mkui-carousel"
       tabIndex={0}
       {...(props.useArrowKeys ? { onKeyDown: handleOnKeyDown } : {})}>
       <Style root={styleId} css={css} />

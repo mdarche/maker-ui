@@ -29,7 +29,7 @@ export const Input = ({ name }: InputProps) => {
   const attrs = {
     id: field?.name,
     name: field?.name,
-    className: cn(['mkui_input', error ? 'error' : undefined]),
+    className: cn(['mkui-input', error ? 'error' : undefined]),
     type: isPass && showPass ? 'text' : field?.type,
     value,
     onChange: (e: any) => setValue(e.target.value, true),
@@ -42,10 +42,10 @@ export const Input = ({ name }: InputProps) => {
     <Conditional
       condition={isPass}
       wrapper={(children) => (
-        <div className="mkui_password_wrapper">
+        <div className="mkui-password-wrapper">
           {children}
           <button
-            className="mkui_btn_password"
+            className="mkui-btn-password"
             type="button"
             onClick={() => setShowPass(!showPass)}>
             {showPass ? s?.hideIcon : s?.revealIcon}

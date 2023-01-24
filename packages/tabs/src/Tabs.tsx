@@ -130,7 +130,7 @@ export const Tabs = ({
           {
             flexDirection: isVertical ? 'column' : undefined,
             flexWrap: 'wrap',
-            '.mkui_tab': {
+            '.mkui-tab': {
               flex: 1,
               order: 1,
               display: renderInactive ? 'none' : undefined,
@@ -140,7 +140,7 @@ export const Tabs = ({
                   }
                 : undefined,
             },
-            '.mkui_tab_navigation': {
+            '.mkui-tab-navigation': {
               ...position,
             },
           },
@@ -148,7 +148,7 @@ export const Tabs = ({
         )}
       />
       <div
-        className={cn(['mkui_tabgroup flex', state.styleId, className])}
+        className={cn(['mkui-tabgroup flex', state.styleId, className])}
         {...props}>
         <TabNavigation
           activeKey={state.activeKey}
@@ -170,7 +170,7 @@ export const Tabs = ({
             <div
               key={index}
               className={cn([
-                'mkui_tab',
+                'mkui-tab',
                 state.activeKey === index ? 'active' : undefined,
                 className,
               ])}

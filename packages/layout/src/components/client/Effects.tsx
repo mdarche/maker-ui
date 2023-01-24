@@ -47,7 +47,7 @@ export const Effects = ({
    */
   useEffect(() => {
     if (!layout.includes('sidenav')) return
-    const sn = document.querySelector('.mkui_sn')
+    const sn = document.querySelector('.mkui-sn')
 
     if (width && width < sideNav.breakpoint) {
       reset(true)
@@ -58,7 +58,7 @@ export const Effects = ({
     if (width) {
       // TODO make this timeout dynamic based on sidenav.cssTransition
       setTimeout(() => {
-        sn?.classList.remove('mkui_sn_init')
+        sn?.classList.remove('mkui-sn-init')
       }, 350)
     }
 
@@ -71,7 +71,7 @@ export const Effects = ({
   useEffect(() => {
     if (!sideNav.closeOnRouteChange) return
     if (!width || width > sideNav.breakpoint) return
-    const menu = document.querySelector('.mkui_sn .mkui_collapse_menu')
+    const menu = document.querySelector('.mkui-sn .mkui-collapse-menu')
     const click = (e: any) => {
       if (els.includes(e?.target?.localName)) {
         setMenu('sidenav', false)
@@ -87,7 +87,7 @@ export const Effects = ({
    */
   useEffect(() => {
     if (!mobileMenu.closeOnRouteChange) return
-    const menu = document.querySelector('.mkui_mobile_menu .mkui_collapse_menu')
+    const menu = document.querySelector('.mkui-mobile-menu .mkui-collapse-menu')
     const click = (e: any) => {
       if (els.includes(e?.target?.localName)) {
         setMenu('menu', false)
@@ -102,7 +102,7 @@ export const Effects = ({
    * Handle mobile menu overlay clicks
    */
   useEffect(() => {
-    const o = document.querySelector('.mkui_overlay_m')
+    const o = document.querySelector('.mkui-overlay-m')
     if (!o) return
     if (!mobileMenu.closeOnBlur) return
     const click = (e: any) => {
@@ -118,7 +118,7 @@ export const Effects = ({
    * Handle sidenav overlay clicks
    */
   useEffect(() => {
-    const o = document.querySelector('.mkui_overlay_s')
+    const o = document.querySelector('.mkui-overlay-s')
     if (!o) return
     if (!sideNav.closeOnBlur) return
     const click = (e: any) => {
@@ -135,7 +135,7 @@ export const Effects = ({
    */
   useEffect(() => {
     if (!scrollClass) return
-    const header = document.querySelector('.mkui_header')
+    const header = document.querySelector('.mkui-header')
     if (!header) return
     if (selector.length) {
       header?.classList.add(selector)
@@ -150,7 +150,7 @@ export const Effects = ({
    * Handle sticky upscroll effect
    */
   useEffect(() => {
-    const header = document.querySelector('.mkui_header')
+    const header = document.querySelector('.mkui-header')
     // Don't run both effects at once
     if (header && !!stickyUpScroll) {
       if (show) {

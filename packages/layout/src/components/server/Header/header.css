@@ -1,28 +1,28 @@
-.mkui_header {
+.mkui-header {
   z-index: 100;
   height: var(--height-header);
   background: var(--color-bg-header);
 }
-.mkui_header.d-sticky,
-.mkui_header.m-sticky {
+.mkui-header.d-sticky,
+.mkui-header.m-sticky {
   position: sticky;
 }
-.mkui_header.sticky-scroll {
+.mkui-header.sticky-scroll {
   position: sticky;
   top: 0;
   transition: transform 0.4s ease-in-out;
 }
-.mkui_header.sticky-scroll.abs {
+.mkui-header.sticky-scroll.abs {
   position: fixed;
 }
-.mkui_header.sticky-scroll.hide {
+.mkui-header.sticky-scroll.hide {
   transform: translateY(-100%);
 }
-.mkui_header.abs {
+.mkui-header.abs {
   position: absolute;
   left: 0;
 }
-.mkui_nav {
+.mkui-nav {
   display: grid;
   height: 100%;
   margin: 0 auto;
@@ -48,40 +48,40 @@
   grid-area: menu-split;
   justify-content: flex-end;
 }
-.mkui_nav.basic .menu-slot {
+.mkui-nav.basic .menu-slot {
   justify-content: flex-end;
 }
-.mkui_nav.basic-left .menu-slot {
+.mkui-nav.basic-left .menu-slot {
   justify-content: flex-start;
 }
-.mkui_nav.basic-center .menu-slot {
+.mkui-nav.basic-center .menu-slot {
   justify-content: center;
 }
-.mkui_nav.center .menu-slot,
-.mkui_nav.center .logo-slot {
+.mkui-nav.center .menu-slot,
+.mkui-nav.center .logo-slot {
   justify-content: center;
 }
-.mkui_nav.split .widget-slot,
-.mkui_nav.center .widget-slot {
+.mkui-nav.split .widget-slot,
+.mkui-nav.center .widget-slot {
   top: 0;
   right: 0;
   height: 100%;
 }
 /* Multiple menu button layouts */
-.mkui_nav.minimal-center .button-slot {
+.mkui-nav.minimal-center .button-slot {
   justify-content: flex-start;
 }
-.mkui_nav.split .widget-slot,
-.mkui_nav.center .widget-slot {
+.mkui-nav.split .widget-slot,
+.mkui-nav.center .widget-slot {
   position: relative;
 }
-.mkui_nav.minimal-left.m-basic .button-slot {
+.mkui-nav.minimal-left.m-basic .button-slot {
   display: none;
 }
-.mkui_nav.minimal.m-logo-center-alt .button-slot,
-.mkui_nav.minimal.m-basic-menu-left .button-slot {
+.mkui-nav.minimal.m-logo-center-alt .button-slot,
+.mkui-nav.minimal.m-basic-menu-left .button-slot {
   display: flex;
 }
-.mkui_nav.m-logo-center-alt .button-slot {
+.mkui-nav.m-logo-center-alt .button-slot {
   justify-content: flex-end;
 }

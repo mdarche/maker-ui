@@ -15,22 +15,22 @@ function getStyles(
   const sidebarOrder =
     layout === 'sidebar-content'
       ? `
-          .mkui_sidebar { 
+          .mkui-sidebar { 
             grid-row: 2;
           }
           @media screen and (min-width: ${breakpoint}) {
-            .mkui_sidebar { 
+            .mkui-sidebar { 
               grid-row: auto;
             }
           }
           `
       : layout === 'sidebar-content-sidebar'
       ? `
-          .mkui_sidebar:first-of-type { 
+          .mkui-sidebar:first-of-type { 
             grid-row: 2;
           }
           @media screen and (min-width: ${breakpoint}) {
-            .mkui_sidebar { 
+            .mkui-sidebar { 
               grid-row: auto;
             }
           }
@@ -49,11 +49,11 @@ function getStyles(
   if (isSidebar) {
     styles = `
     ${sidebarOrder}
-    .mkui_layout {
+    .mkui-layout {
       grid-template-columns: 1fr;
     }
     @media screen and (min-width: ${breakpoint}) {
-      .mkui_layout {
+      .mkui-layout {
         grid-template-columns: ${sidebarColumns};
       }
     }
@@ -82,41 +82,41 @@ function getStyles(
 
   if (isSidenav) {
     styles = `
-      .mkui_sn {
+      .mkui-sn {
         position: fixed;
         z-index: 101;
         transition: ${sideNav.cssTransition};
       }
-      .mkui_sn.sn-collapse {
+      .mkui-sn.sn-collapse {
         margin-left: 0;
         margin-right: 0;
       }
-      .mkui_sn.sn-hide {
+      .mkui-sn.sn-hide {
         transform: translateX(${direction});
       }
       @media screen and (min-width: ${breakpoint}) {
-        .mkui_btn_collapse {
+        .mkui-btn-collapse {
           display: none;
         }
-        .mkui_btn_collapse.collapsible {
+        .mkui-btn-collapse.collapsible {
           display: block;
         }
-        .mkui_sn {
+        .mkui-sn {
           position: relative;
           z-index: 0;
         }
-        .mkui_sn.sn-hide {
+        .mkui-sn.sn-hide {
           transform: none;
         }
-        .mkui_sn.sn-collapse {
+        .mkui-sn.sn-collapse {
           ${ml('calc(-1 * var(--width-side-nav))')}
           ${mr('calc(-1 * var(--width-side-nav))')}
         }
-        .mkui_sn_inner {
+        .mkui-sn-inner {
           top: calc(${getTop()});
           height: calc(100vh - ${getTop(true)});
         }
-        .mkui_overlay_s {
+        .mkui-overlay-s {
           display: none;
         }
       }

@@ -10,7 +10,7 @@ interface LabelProps {
 export const Label = ({ name, children, type }: LabelProps) => {
   if (type === 'checkbox' || type === 'radio') {
     return (
-      <div id={`${name}-group`} className="mkui_field_label">
+      <div id={`${name}-group`} className="mkui-field-label">
         {children}
       </div>
     )
@@ -18,14 +18,14 @@ export const Label = ({ name, children, type }: LabelProps) => {
 
   if (type === 'switch') {
     return (
-      <div id={`${name}-label`} className="mkui_field_label">
+      <div id={`${name}-label`} className="mkui-field-label">
         {children}
       </div>
     )
   }
 
   return (
-    <label htmlFor={name} className="mkui_field_label">
+    <label htmlFor={name} className="mkui-field-label">
       {children}
     </label>
   )

@@ -106,7 +106,7 @@ export const TabNavigation = ({
   }, [activeKey, tabs])
 
   return (
-    <div className="mkui_tab_navigation flex" role="tablist">
+    <div className="mkui-tab-navigation flex" role="tablist">
       {tabs?.map((item, i) => (
         <button
           ref={(el) => (buttonRefs.current[i] = el)}
@@ -116,7 +116,7 @@ export const TabNavigation = ({
           tabIndex={activeKey === item.id ? 0 : -1}
           id={`control-${item.id}`}
           className={cn([
-            'mkui_tab_btn',
+            'mkui-tab-btn',
             activeKey === item.id ? 'active' : undefined,
             item.disabled ? 'disabled' : undefined,
           ])}

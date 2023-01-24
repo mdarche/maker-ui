@@ -20,12 +20,12 @@ export const Pagination = ({
   classNames,
 }: PaginationProps) => {
   return (
-    <div className={cn(['mkui_carousel_nav', classNames?.navigation])}>
+    <div className={cn(['mkui-carousel-nav', classNames?.navigation])}>
       {[...Array(length)].map((_: any, i) => {
         const attrs: object = {
           role: 'tab',
           className: cn([
-            'mkui_carousel_page',
+            'mkui-carousel-page',
             isDefault ? 'default' : '',
             classNames?.page,
             i === current ? 'active' : '',

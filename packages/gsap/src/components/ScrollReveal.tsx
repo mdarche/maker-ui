@@ -187,7 +187,7 @@ export const ScrollReveal = ({
   }, [])
 
   return (
-    <div className={cn(['mkui_scroll', className])} ref={ref} {...props}>
+    <div className={cn(['mkui-scroll', className])} ref={ref} {...props}>
       {children}
     </div>
   )

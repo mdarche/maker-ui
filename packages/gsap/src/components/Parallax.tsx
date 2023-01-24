@@ -107,7 +107,7 @@ export const Parallax = ({
   return (
     <section
       ref={sectionRef}
-      className={cn(['mkui_parallax', styleId, className])}
+      className={cn(['mkui-parallax', styleId, className])}
       {...props}>
       <Style
         root={styleId}

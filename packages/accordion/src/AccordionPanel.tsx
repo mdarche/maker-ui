@@ -80,13 +80,13 @@ export const AccordionPanel = React.forwardRef<
       ref={ref}
       className={cn([
         show ? 'expanded ' : undefined,
-        'mkui_accordion',
+        'mkui-accordion',
         className,
       ])}
       {...props}>
       <button
         className={cn([
-          'mkui_accordion_btn',
+          'mkui-accordion-btn',
           'flex align-center width-100',
           state.icon ? 'justify-between' : undefined,
           show ? 'active' : undefined,
@@ -102,12 +102,12 @@ export const AccordionPanel = React.forwardRef<
       <div
         id={panelId}
         role="region"
-        className="mkui_accordion_panel"
+        className="mkui-accordion-panel"
         aria-labelledby={buttonId}
         style={{
           height: show ? (isAnimated ? viewHeight : '100%') : 0,
         }}>
-        <div ref={measure} className="mkui_accordion_inner">
+        <div ref={measure} className="mkui-accordion-inner">
           {children}
         </div>
       </div>

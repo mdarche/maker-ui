@@ -35,14 +35,14 @@ export const SideNav = ({
   return (
     <>
       <div
-        className="mkui_overlay mkui_overlay_s fixed cover"
+        className="mkui-overlay mkui-overlay-s fixed cover"
         role={closeOnBlur ? 'button' : undefined}
       />
       <Container
         isHeader={isHeader}
-        className={cn(['mkui_sn mkui_sn_init', className])}
+        className={cn(['mkui-sn mkui-sn-init', className])}
         {...props}>
-        <div className={cn(['mkui_sn_inner', 'container'])}>{children}</div>
+        <div className={cn(['mkui-sn-inner', 'container'])}>{children}</div>
       </Container>
       {collapseButton}
     </>

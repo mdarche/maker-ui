@@ -5,19 +5,19 @@ export const css: ResponsiveCSS = {
   width: '100%',
   maxWidth: '100vw',
   outline: 'none',
-  '.mkui_slider': {
+  '.mkuislider': {
     // cursor: 'pointer',
     overflow: 'hidden',
     width: '100%',
   },
-  '.mkui_slide_track': {
+  '.mkui-slide-track': {
     height: '100%',
     display: 'flex',
   },
-  '.mkui_slide': {},
-  '.mkui_carousel_nav': {},
-  '.mkui_carousel_page': {},
-  '.mkui_carousel_arrow': {
+  '.mkui-slide': {},
+  '.mkui-carousel-nav': {},
+  '.mkui-carousel-page': {},
+  '.mkui-carousel-arrow': {
     cursor: 'pointer',
     background: 'none',
     border: 'none',

@@ -149,7 +149,7 @@ export const Provider = (props: LayoutProviderProps) => {
    * NEXT.JS LAYOUT API SUPPORTS <style> TAGS
    */
   React.useEffect(() => {
-    const exists = document.getElementById('mkui_responsive')
+    const exists = document.getElementById('mkui-responsive')
     if (exists) return
 
     let header = false
@@ -157,10 +157,10 @@ export const Provider = (props: LayoutProviderProps) => {
 
     React.Children.toArray(props.children).forEach((child: any) => {
       const type = child.props?.className
-      if (type?.includes('mkui_header')) {
+      if (type?.includes('mkui-header')) {
         header = true
       }
-      if (type?.includes('mkui_topbar')) {
+      if (type?.includes('mkui-topbar')) {
         topbar = true
       }
     })
@@ -171,7 +171,7 @@ export const Provider = (props: LayoutProviderProps) => {
     css += layoutStyles(options, { topbar, header })
 
     style.textContent = css
-    style.id = 'mkui_responsive'
+    style.id = 'mkui-responsive'
 
     document.head.appendChild(style)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -211,10 +211,10 @@ export const useMenu = () => {
 
   function setMenu(type: 'menu' | 'sidenav' | 'collapse', value: boolean) {
     // Find elements in DOM to manipulate
-    const menu = document.querySelector('.mkui_mobile_menu')
-    const sidenav = document.querySelector('.mkui_sn')
-    const overlay_m = document.querySelector('.mkui_overlay_m')
-    const overlay_s = document.querySelector('.mkui_overlay_s')
+    const menu = document.querySelector('.mkui-mobile-menu')
+    const sidenav = document.querySelector('.mkui-sn')
+    const overlay_m = document.querySelector('.mkui-overlay-m')
+    const overlay_s = document.querySelector('.mkui-overlay-s')
 
     const handleMobileMenu = () => {
       if (value) {
@@ -260,8 +260,8 @@ export const useMenu = () => {
   }
 
   function reset(mobile = true) {
-    const sidenav = document.querySelector('.mkui_sn')
-    const overlay_s = document.querySelector('.mkui_overlay_s')
+    const sidenav = document.querySelector('.mkui-sn')
+    const overlay_s = document.querySelector('.mkui-overlay-s')
 
     dispatch({ type: 'RESET' })
     if (mobile) {

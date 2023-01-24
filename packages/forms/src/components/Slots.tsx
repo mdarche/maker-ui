@@ -30,7 +30,7 @@ export const FormProgress = forwardRef<HTMLDivElement, FormProgressProps>(
     return (
       <div
         ref={ref}
-        className={cn(['mkui_form_progress', className, classNames?.container])}
+        className={cn(['mkui-form-progress', className, classNames?.container])}
         {...props}>
         {[...Array(totalPages)].map((_, i) => {
           const isActive = i + 1 === currentPage
@@ -42,7 +42,7 @@ export const FormProgress = forwardRef<HTMLDivElement, FormProgressProps>(
                 <button
                   onClick={() => setPage(i + 1)}
                   className={cn([
-                    'mkui_form_page',
+                    'mkui-form-page',
                     classNames?.indicator,
                     isActive ? 'active' : '',
                     isActive ? classNames?.active : '',
@@ -83,7 +83,7 @@ export const FormSubmit = React.forwardRef<
     <button
       type="submit"
       ref={ref}
-      className={cn(['mkui_form_submit', className])}
+      className={cn(['mkui-form-submit', className])}
       onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
       disabled={settings?.disableSubmit && hasErrors}
       {...props}>
@@ -96,7 +96,7 @@ export const FormSuccess = forwardRef<HTMLDivElement, SlotProps>(
   ({ className, _type, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(['mkui_form_success', className])}
+      className={cn(['mkui-form-success', className])}
       {...props}
     />
   )
@@ -104,19 +104,19 @@ export const FormSuccess = forwardRef<HTMLDivElement, SlotProps>(
 
 export const FormError = forwardRef<HTMLDivElement, SlotProps>(
   ({ className, _type, ...props }, ref) => (
-    <div ref={ref} className={cn(['mkui_form_error', className])} {...props} />
+    <div ref={ref} className={cn(['mkui-form-error', className])} {...props} />
   )
 )
 
 export const FormHeader = forwardRef<HTMLDivElement, SlotProps>(
   ({ className, _type, ...props }, ref) => (
-    <div ref={ref} className={cn(['mkui_form_header', className])} {...props} />
+    <div ref={ref} className={cn(['mkui-form-header', className])} {...props} />
   )
 )
 
 export const FormFooter = forwardRef<HTMLDivElement, SlotProps>(
   ({ className, _type, ...props }, ref) => (
-    <div ref={ref} className={cn(['mkui_form_footer', className])} {...props} />
+    <div ref={ref} className={cn(['mkui-form-footer', className])} {...props} />
   )
 )
 

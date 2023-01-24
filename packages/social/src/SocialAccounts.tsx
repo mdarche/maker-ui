@@ -113,8 +113,8 @@ export const SocialAccounts = ({
   const styles = getStyles(id, { ...props, color })
   return accounts ? (
     <>
-      <style id={`mkui_css_${id}`}>{styles}</style>
-      <ul className={cn([`mkui_${id}`, 'social-accounts'])} {...props}>
+      <style id={`mkui-css-${id}`}>{styles}</style>
+      <ul className={cn([`mkui-${id}`, 'social-accounts'])} {...props}>
         {Object.keys(accounts).map((key) =>
           // @ts-ignore
           accounts[key] === null || !accounts[key].length ? null : (

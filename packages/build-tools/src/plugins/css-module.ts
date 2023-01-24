@@ -37,8 +37,8 @@ export const PluginCSSModule: (global: boolean) => Plugin = (g) => {
               },
               exportGlobals: true,
               generateScopedName: g
-                ? 'mkui_[local]'
-                : 'mkui_[local]_[hash:base64:5]',
+                ? 'mkui-[local]'
+                : 'mkui-[local]-[hash:base64:5]',
             }),
           ]).process(source, { from: pluginData.pathDir })
 

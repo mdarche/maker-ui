@@ -85,12 +85,12 @@ export const Accordion = ({
         root={state.id}
         breakpoints={breakpoints}
         css={{
-          '.mkui_accordion_btn': {
+          '.mkui-accordion-btn': {
             border: 'none',
             padding: 15,
             cursor: 'pointer',
           },
-          '.mkui_accordion_panel': {
+          '.mkui-accordion-panel': {
             overflow: 'hidden',
             willChange: animate ? 'height' : undefined,
             transition:
@@ -104,7 +104,7 @@ export const Accordion = ({
         }}
       />
       <div
-        className={cn(['mkui_accordion_group', state.id, className])}
+        className={cn(['mkui-accordion-group', state.id, className])}
         {...props}>
         {children}
       </div>

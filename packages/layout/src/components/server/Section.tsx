@@ -28,7 +28,7 @@ export const Section = ({
       style={background ? { background } : undefined}>
       {container ? (
         <div
-          className="mkui_container"
+          className="mkui-container"
           style={maxWidth ? { maxWidth } : undefined}
           {...props}>
           {children}

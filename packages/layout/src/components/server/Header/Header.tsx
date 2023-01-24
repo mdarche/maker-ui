@@ -52,7 +52,7 @@ export const Header = ({
   return (
     <header
       className={cn([
-        'mkui_header',
+        'mkui-header',
         stickyUpScroll ? 'sticky-scroll' : stickyClass(sticky, stickyOnMobile),
         absolute ? 'abs width-100' : undefined,
         className,
@@ -60,7 +60,7 @@ export const Header = ({
       role="banner"
       {...props}>
       <div
-        className={cn(['mkui_nav', navType, `m-${navTypeMobile}`, className])}>
+        className={cn(['mkui-nav', navType, `m-${navTypeMobile}`, className])}>
         <div className="nav-area button-slot">{menuButton}</div>
         {navType === 'split' ? (
           <div className="nav-area menu-slot split">{menu}</div>

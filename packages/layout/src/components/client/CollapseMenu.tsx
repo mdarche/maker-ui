@@ -28,7 +28,7 @@ export const CollapseMenu = React.forwardRef<HTMLUListElement, CollapseProps>(
     return (
       <ul
         ref={ref}
-        className={cn(['mkui_collapse_menu', className])}
+        className={cn(['mkui-collapse-menu', className])}
         role="navigation"
         {...props}>
         {items.map((item, index) => (

@@ -25,7 +25,7 @@ export default function TabsPage() {
         css={{
           marginTop: 100,
           marginBottom: 200,
-          '.mkui_tab_btn': {
+          '.mkui-tab-btn': {
             background: '#fff',
             // color: '#000',
             padding: 10,

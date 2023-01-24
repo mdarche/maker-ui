@@ -33,13 +33,13 @@ export const MobileMenu = ({
     <>
       {closeOnBlur && !fullWidth.includes(transition) ? (
         <div
-          className="mkui_overlay mkui_overlay_m fixed cover"
+          className="mkui-overlay mkui-overlay-m fixed cover"
           role="button"
         />
       ) : null}
       <div
         className={cn([
-          'mkui_mobile_menu',
+          'mkui-mobile-menu',
           center ? 'center' : undefined,
           fullWidth.includes(transition) ? 'width-100' : undefined,
           transition.includes('fade') ? 't-fade' : undefined,
