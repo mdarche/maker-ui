@@ -33,7 +33,7 @@ export const Topbar = ({
     <aside
       id={id}
       className={cn([
-        styles.topbar,
+        styles['topbar'],
         stickyClass(sticky, stickyOnMobile),
         hideOnMobile ? 'm-hide' : '',
         className,

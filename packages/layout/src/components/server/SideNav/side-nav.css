@@ -8,13 +8,13 @@
 }
 
 .mkui-sn-init {
-  visibility: hidden;
   transition: none !important;
 }
 
 .mkui-sn-inner {
   top: 0px;
   height: 100vh;
+  width: 'var(--width-side-nav)';
   position: sticky;
   overflow-y: auto;
 }

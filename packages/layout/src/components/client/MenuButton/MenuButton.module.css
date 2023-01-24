@@ -1,4 +1,4 @@
-.btn_menu {
+.btn-menu {
   display: block;
   margin: 0;
   border: none;
@@ -9,10 +9,11 @@
     display: flex;
     align-items: center;
     margin: 0 auto;
+    fill: var(--color-text);
   }
 }
 
-.btn_menu_icon {
+.btn-menu-icon {
   height: 27px;
 
   &:global.close {

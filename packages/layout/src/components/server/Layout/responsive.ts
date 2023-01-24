@@ -94,7 +94,16 @@ function getStyles(
       .mkui-sn.sn-hide {
         transform: translateX(${direction});
       }
+      .mkui-sn-init {
+        display: none;
+      }
       @media screen and (min-width: ${breakpoint}) {
+        .mkui-sn.mkui-carousel {
+          max-width: calc(100vw - var(--width-side-nav)) !important;
+        }
+        .mkui-sn-init {
+          display: flex;
+        }
         .mkui-btn-collapse {
           display: none;
         }

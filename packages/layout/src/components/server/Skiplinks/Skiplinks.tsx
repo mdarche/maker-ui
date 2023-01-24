@@ -24,7 +24,7 @@ export const Skiplinks = ({ links }: SkipLinkProps) => {
   }
 
   return links === false ? null : (
-    <ul className={styles.skiplinks}>
+    <ul className={styles['skiplinks']}>
       {linkMenu.map(({ id, label }) => (
         <li key={id}>
           <a href={id}>{label}</a>

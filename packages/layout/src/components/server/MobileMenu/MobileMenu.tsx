@@ -6,6 +6,7 @@ export interface MobileMenuProps
   extends Partial<MobileMenuOptions>,
     React.HTMLAttributes<HTMLDivElement> {
   _type?: 'mobileMenu'
+  closeButton?: React.ReactNode
 }
 
 /* Utility for mobile nav transitions that require a full-width window */

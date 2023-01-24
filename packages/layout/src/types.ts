@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 /** All configurations for `<Content>` layouts. */
 export const contentTypes = [
   'content-sidebar',
@@ -73,7 +71,6 @@ export interface HeaderOptions {
     scrollTop: number
     className: string
   }
-  menuButton?: React.ReactNode
 }
 
 export interface MobileMenuOptions {
@@ -82,7 +79,6 @@ export interface MobileMenuOptions {
   closeOnBlur: boolean
   closeOnRouteChange: boolean
   center: boolean
-  closeButton?: React.ReactNode
   closeButtonPosition?:
     | 'top-left'
     | 'top-right'
@@ -97,7 +93,6 @@ export interface SideNavOptions {
   closeOnBlur: boolean
   closeOnRouteChange: boolean
   collapse: boolean
-  collapseButton?: React.ReactNode
   showCollapseOnMobile: boolean
   cssTransition?: string
 }

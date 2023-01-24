@@ -5,7 +5,7 @@ import type { SideNavOptions } from '@/types'
 export interface SideNavProps
   extends Partial<SideNavOptions>,
     React.HTMLAttributes<HTMLDivElement> {
-  toggleButton?: React.ReactNode
+  collapseButton?: React.ReactNode
   _type?: 'sideNav'
 }
 

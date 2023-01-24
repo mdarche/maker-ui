@@ -114,7 +114,7 @@ export const Slider = (props: CanvasProps) => {
     <div ref={ref} className={cn(['mkui-slider', props?.classNames?.slider])}>
       <div
         className={cn(['mkui-slide-track'])}
-        data-cy="slidetrack"
+        data-cy="slide-track"
         {...swipeProps}
         style={{
           transform: `translateX(${props.transform - drag.drag}px)`,

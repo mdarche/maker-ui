@@ -27,24 +27,10 @@
 
 .mkui-layout.sidenav-content .mkui-sn {
   left: 0;
-  /* #toggle-sidenav {
-      right: 30px;
-    }
-    .default-collapse:not(.rotate) {
-      transform: rotate(180deg);
-    } */
 }
 
 .mkui-layout.content-sidenav .mkui-sn {
   right: 0;
-  /* 
-    :global #toggle-sidenav {
-      right: 0;
-    }
-
-    :global .default-collapse.rotate {
-      right: 0;
-    } */
 }
 
 .mkui-overlay {

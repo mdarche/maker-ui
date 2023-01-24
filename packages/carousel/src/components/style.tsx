@@ -5,7 +5,7 @@ export const css: ResponsiveCSS = {
   width: '100%',
   maxWidth: '100vw',
   outline: 'none',
-  '.mkuislider': {
+  '.mkui-slider': {
     // cursor: 'pointer',
     overflow: 'hidden',
     width: '100%',
@@ -14,7 +14,9 @@ export const css: ResponsiveCSS = {
     height: '100%',
     display: 'flex',
   },
-  '.mkui-slide': {},
+  '.mkui-slide': {
+    height: '100%',
+  },
   '.mkui-carousel-nav': {},
   '.mkui-carousel-page': {},
   '.mkui-carousel-arrow': {

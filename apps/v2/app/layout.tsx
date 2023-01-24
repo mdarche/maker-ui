@@ -62,7 +62,12 @@ export default function RootLayout({
             <Layout.Main>{children}</Layout.Main>
             <Layout.Sidebar primary>Sidebar</Layout.Sidebar>
             <Layout.Sidebar>Sidebar</Layout.Sidebar>
-            <Layout.SideNav collapseButton={<MenuButton sideNav />}>
+            <Layout.SideNav
+              collapseButton={
+                <MenuButton sideNav style={{ bottom: 30, right: 30 }}>
+                  Collapse
+                </MenuButton>
+              }>
               <CustomCollapseMenu menu={menu} />
             </Layout.SideNav>
             {/* <Layout.Footer>Footer stuff</Layout.Footer> */}

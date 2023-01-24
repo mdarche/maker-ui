@@ -8,7 +8,7 @@ import CosmosImage from '@/public/cosmos.jpeg'
 export default function CarouselPage() {
   const colors = ['red', 'orange', 'purple', 'blue']
   return (
-    <Section>
+    <Section style={{ padding: 20, maxWidth: '100vw', overflow: 'hidden' }}>
       <Carousel
         hideArrows
         // hidePagination
@@ -20,7 +20,6 @@ export default function CarouselPage() {
             key={c}
             className="flex align-center justify-center"
             style={{
-              marginTop: 50,
               color: 'white',
               position: 'relative',
               height: 600,
