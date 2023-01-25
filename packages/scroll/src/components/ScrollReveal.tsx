@@ -1,9 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import { cn } from '@maker-ui/utils'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 type TranslateObject = {
   opacity?: number
@@ -121,73 +117,73 @@ export const ScrollReveal = ({
   ...props
 }: ScrollRevealProps) => {
   const ref = useRef(null)
-  const translate = getTranslation(fade, distance, direction)
+  // const translate = getTranslation(fade, distance, direction)
 
-  useEffect(() => {
-    if (scrollEffect && !group) {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: trigger ? trigger : ref.current || undefined,
-          toggleActions:
-            !scrub && reverse
-              ? 'play none none reverse'
-              : 'play none none none',
-          markers,
-          start,
-          end,
-          scrub,
-          ...advancedSettings,
-        },
-      })
-      tl.from(ref.current, effect ? effect : translate)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   if (scrollEffect && !group) {
+  //     const tl = gsap.timeline({
+  //       scrollTrigger: {
+  //         trigger: trigger ? trigger : ref.current || undefined,
+  //         toggleActions:
+  //           !scrub && reverse
+  //             ? 'play none none reverse'
+  //             : 'play none none none',
+  //         markers,
+  //         start,
+  //         end,
+  //         scrub,
+  //         ...advancedSettings,
+  //       },
+  //     })
+  //     tl.from(ref.current, effect ? effect : translate)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
-  useEffect(() => {
-    if (scrollEffect && group) {
-      // Set initial state
-      gsap.set(`.${group}`, {
-        ...(effect ? effect : translate),
-      })
+  // useEffect(() => {
+  //   if (scrollEffect && group) {
+  //     // Set initial state
+  //     gsap.set(`.${group}`, {
+  //       ...(effect ? effect : translate),
+  //     })
 
-      ScrollTrigger.batch(`.${group}`, {
-        // @ts-ignore
-        markers,
-        onEnter: (batch) =>
-          gsap.to(batch, {
-            ...(effect
-              ? effect
-              : {
-                  opacity: 1,
-                  y: 0,
-                  x: 0,
-                  rotation: 0,
-                  scale: 1,
-                  scaleX: 1,
-                  scaleY: 1,
-                  yPercent: 0,
-                  xPercent: 0,
-                }),
-            stagger,
-          }),
-        onLeaveBack: reverse
-          ? (batch) =>
-              gsap.to(batch, {
-                ...(effect ? effect : translate),
-                stagger,
-              })
-          : undefined,
-        start,
-        end,
-        ...advancedSettings,
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  //     ScrollTrigger.batch(`.${group}`, {
+  //       // @ts-ignore
+  //       markers,
+  //       onEnter: (batch) =>
+  //         gsap.to(batch, {
+  //           ...(effect
+  //             ? effect
+  //             : {
+  //                 opacity: 1,
+  //                 y: 0,
+  //                 x: 0,
+  //                 rotation: 0,
+  //                 scale: 1,
+  //                 scaleX: 1,
+  //                 scaleY: 1,
+  //                 yPercent: 0,
+  //                 xPercent: 0,
+  //               }),
+  //           stagger,
+  //         }),
+  //       onLeaveBack: reverse
+  //         ? (batch) =>
+  //             gsap.to(batch, {
+  //               ...(effect ? effect : translate),
+  //               stagger,
+  //             })
+  //         : undefined,
+  //       start,
+  //       end,
+  //       ...advancedSettings,
+  //     })
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   return (
-    <div className={cn(['mkui-scroll', className])} ref={ref} {...props}>
+    <div className={cn(['mkui-scroll-reveal', className])} ref={ref} {...props}>
       {children}
     </div>
   )

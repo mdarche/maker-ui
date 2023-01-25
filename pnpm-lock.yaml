@@ -114,11 +114,11 @@ importers:
       '@maker-ui/carousel': workspace:*
       '@maker-ui/forms': workspace:*
       '@maker-ui/generative': workspace:*
-      '@maker-ui/gsap': workspace:*
       '@maker-ui/lightbox': workspace:*
       '@maker-ui/modal': workspace:*
       '@maker-ui/notifications': workspace:*
       '@maker-ui/popovers': workspace:*
+      '@maker-ui/scroll': workspace:*
       '@maker-ui/social': workspace:*
       '@maker-ui/spinners': workspace:*
       '@maker-ui/tabs': workspace:*
@@ -134,11 +134,11 @@ importers:
       '@maker-ui/carousel': link:../../packages/carousel
       '@maker-ui/forms': link:../../packages/forms
       '@maker-ui/generative': link:../../packages/generative
-      '@maker-ui/gsap': link:../../packages/gsap
       '@maker-ui/lightbox': link:../../packages/lightbox
       '@maker-ui/modal': link:../../packages/modal
       '@maker-ui/notifications': link:../../packages/notifications
       '@maker-ui/popovers': link:../../packages/popovers
+      '@maker-ui/scroll': link:../../packages/scroll
       '@maker-ui/social': link:../../packages/social
       '@maker-ui/spinners': link:../../packages/spinners
       '@maker-ui/tabs': link:../../packages/tabs
@@ -157,12 +157,12 @@ importers:
       '@maker-ui/carousel': workspace:*
       '@maker-ui/forms': workspace:*
       '@maker-ui/generative': workspace:*
-      '@maker-ui/gsap': workspace:*
       '@maker-ui/layout': workspace:*
       '@maker-ui/lightbox': workspace:*
       '@maker-ui/modal': workspace:*
       '@maker-ui/notifications': workspace:*
       '@maker-ui/popovers': workspace:*
+      '@maker-ui/scroll': workspace:*
       '@maker-ui/social': workspace:*
       '@maker-ui/spinners': workspace:*
       '@maker-ui/style': workspace:*
@@ -181,12 +181,12 @@ importers:
       '@maker-ui/carousel': link:../../packages/carousel
       '@maker-ui/forms': link:../../packages/forms
       '@maker-ui/generative': link:../../packages/generative
-      '@maker-ui/gsap': link:../../packages/gsap
       '@maker-ui/layout': link:../../packages/layout
       '@maker-ui/lightbox': link:../../packages/lightbox
       '@maker-ui/modal': link:../../packages/modal
       '@maker-ui/notifications': link:../../packages/notifications
       '@maker-ui/popovers': link:../../packages/popovers
+      '@maker-ui/scroll': link:../../packages/scroll
       '@maker-ui/social': link:../../packages/social
       '@maker-ui/spinners': link:../../packages/spinners
       '@maker-ui/style': link:../../packages/style
@@ -341,7 +341,7 @@ importers:
       react-dom: 18.2.0
       typescript: ^4.8.4
     dependencies:
-      eslint-config-next: 13.1.2_3rubbgt5ekhqrcgx4uwls3neim
+      eslint-config-next: 13.1.5_3rubbgt5ekhqrcgx4uwls3neim
       eslint-config-prettier: 8.5.0_eslint@7.32.0
       eslint-config-turbo: 0.0.7_eslint@7.32.0
       eslint-plugin-react: 7.32.1_eslint@7.32.0
@@ -399,7 +399,6 @@ importers:
       '@maker-ui/style': link:../style
       '@maker-ui/transition': link:../transition
       '@maker-ui/utils': link:../utils
-      zod: 3.20.2
     devDependencies:
       '@maker-ui/build-tools': link:../build-tools
       eslint-config-library: link:../eslint-config-library
@@ -409,6 +408,7 @@ importers:
       tsconfig: link:../tsconfig
       tsup: 5.12.1_typescript@4.8.4
       typescript: 4.8.4
+      zod: 3.20.2
 
   packages/generative:
     specifiers:
@@ -422,37 +422,6 @@ importers:
     devDependencies:
       '@maker-ui/build-tools': link:../build-tools
       eslint-config-library: link:../eslint-config-library
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      tsconfig: link:../tsconfig
-      tsup: 5.12.1_typescript@4.8.4
-      typescript: 4.8.4
-
-  packages/gsap:
-    specifiers:
-      '@maker-ui/build-tools': workspace:*
-      '@maker-ui/style': workspace:*
-      '@maker-ui/utils': workspace:*
-      '@types/lodash.debounce': ^4.0.6
-      '@use-gesture/react': ^10.2.10
-      eslint-config-library: workspace:*
-      gsap: ^3.9.1
-      lodash.debounce: ^4.0.8
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      tsconfig: workspace:*
-      tsup: ^5.12.0
-      typescript: ^4.8.4
-    dependencies:
-      '@maker-ui/style': link:../style
-      '@maker-ui/utils': link:../utils
-      '@use-gesture/react': 10.2.10_react@18.2.0
-      lodash.debounce: 4.0.8
-    devDependencies:
-      '@maker-ui/build-tools': link:../build-tools
-      '@types/lodash.debounce': 4.0.6
-      eslint-config-library: link:../eslint-config-library
-      gsap: 3.9.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       tsconfig: link:../tsconfig
@@ -655,6 +624,33 @@ importers:
       csstype: 3.0.11
     devDependencies:
       eslint-config-library: link:../eslint-config-library
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      tsconfig: link:../tsconfig
+      tsup: 5.12.1_typescript@4.8.4
+      typescript: 4.8.4
+
+  packages/scroll:
+    specifiers:
+      '@maker-ui/build-tools': workspace:*
+      '@maker-ui/hooks': workspace:*
+      '@maker-ui/style': workspace:*
+      '@maker-ui/utils': workspace:*
+      eslint-config-library: workspace:*
+      next: ^13.0.6
+      react: ^18.2.0
+      react-dom: ^18.2.0
+      tsconfig: workspace:*
+      tsup: ^5.12.0
+      typescript: ^4.8.4
+    dependencies:
+      '@maker-ui/hooks': link:../hooks
+      '@maker-ui/style': link:../style
+      '@maker-ui/utils': link:../utils
+    devDependencies:
+      '@maker-ui/build-tools': link:../build-tools
+      eslint-config-library: link:../eslint-config-library
+      next: 13.0.6_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       tsconfig: link:../tsconfig
@@ -3277,8 +3273,8 @@ packages:
   /@next/env/13.0.6:
     resolution: {integrity: sha512-yceT6DCHKqPRS1cAm8DHvDvK74DLIkDQdm5iV+GnIts8h0QbdHvkUIkdOvQoOODgpr6018skbmSQp12z5OWIQQ==}
 
-  /@next/eslint-plugin-next/13.1.2:
-    resolution: {integrity: sha512-WGaNVvIYphdriesP6r7jq/8l7u38tzotnVQuxc1RYKLqYYApSsrebti3OCPoT3Gx0pw2smPIFHH98RzcsgW5GQ==}
+  /@next/eslint-plugin-next/13.1.5:
+    resolution: {integrity: sha512-3kvLTX35bOWOCKU8KY74Ygczc55Qk/kB2TQy0tH7Rti6hzZ6Aij7WQ8zHdIVjmnlD0n/zXWXrIf5y56RKcLQkQ==}
     dependencies:
       glob: 7.1.7
     dev: false
@@ -4167,16 +4163,6 @@ packages:
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
-  /@types/lodash.debounce/4.0.6:
-    resolution: {integrity: sha512-4WTmnnhCfDvvuLMaF3KV4Qfki93KebocUF45msxhYyjMttZDQYzHkO639ohhk8+oco2cluAFL3t5+Jn4mleylQ==}
-    dependencies:
-      '@types/lodash': 4.14.180
-    dev: true
-
-  /@types/lodash/4.14.180:
-    resolution: {integrity: sha512-XOKXa1KIxtNXgASAnwj7cnttJxS4fksBRywK/9LzRV5YxrF80BXZIGeQSuoESQ/VkUj30Ae0+YcuHc15wJCB2g==}
-    dev: true
-
   /@types/mdast/3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
     dependencies:
@@ -4787,19 +4773,6 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.44.0
       eslint-visitor-keys: 3.3.0
-    dev: false
-
-  /@use-gesture/core/10.2.10:
-    resolution: {integrity: sha512-7WFIDfeTB+7RBui8YOrB2xbgmvMsvaCDjyzrdvECKkgOpIynNSdhlLXjiFuqQMtnK71IL/9WNZNU0P8xuaLuUQ==}
-    dev: false
-
-  /@use-gesture/react/10.2.10_react@18.2.0:
-    resolution: {integrity: sha512-znChnKVAMMGXD9J7fCKN686BJNBlUJaRtCu92IQXVWdcxg4MqS0SgsBslGnTWXTlsHVkg5zcGjKYf7qYkOf0Rg==}
-    peerDependencies:
-      react: '>= 16.8.0'
-    dependencies:
-      '@use-gesture/core': 10.2.10
-      react: 18.2.0
     dev: false
 
   /@webassemblyjs/ast/1.11.1:
@@ -8539,8 +8512,8 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /eslint-config-next/13.1.2_3rubbgt5ekhqrcgx4uwls3neim:
-    resolution: {integrity: sha512-zdRAQOr8v69ZwJRtBrGqAqm160ONqKxU/pV1FB1KlgfyqveGsLZmlQ7l31otwtw763901J7xdiTVkj2y3YxXZA==}
+  /eslint-config-next/13.1.5_3rubbgt5ekhqrcgx4uwls3neim:
+    resolution: {integrity: sha512-7FqkjkvGCQfvYUiPTFRiRYPR1uI6Ew+4f4mVp16lLSWcaChtWoZxQCZHM5n0yxzKKVmuEg1aM4uvDQfSXSjTww==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -8548,7 +8521,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@next/eslint-plugin-next': 13.1.2
+      '@next/eslint-plugin-next': 13.1.5
       '@rushstack/eslint-patch': 1.2.0
       '@typescript-eslint/parser': 5.44.0_3rubbgt5ekhqrcgx4uwls3neim
       eslint: 7.32.0
@@ -10130,10 +10103,6 @@ packages:
     resolution: {integrity: sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=}
     dev: true
     optional: true
-
-  /gsap/3.9.1:
-    resolution: {integrity: sha512-JSGVYoC6da4pIjdF/yxFU6Rz8OojOIDkbooveZlfNg0+JIoFoRruyfWAEi6R/gUeNcuOiTqUIb0gi1nCNrHf8w==}
-    dev: true
 
   /gzip-size/5.1.1:
     resolution: {integrity: sha512-FNHi6mmoHvs1mxZAds4PpdCS6QG8B4C1krxJsMutgxl5t3+GlRTzzI3NEkifXx2pVsOvJdOGSmIgDhQ55FwdPA==}
@@ -18796,7 +18765,6 @@ packages:
 
   /zod/3.20.2:
     resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
-    dev: false
 
   /zwitch/1.0.5:
     resolution: {integrity: sha512-V50KMwwzqJV0NpZIZFwfOD5/lyny3WlSzRiXgA0G7VUnRlqttta1L6UQIHzd6EuBY/cHGfwTIck7w1yH6Q5zUw==}

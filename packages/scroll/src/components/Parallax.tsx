@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Style } from '@maker-ui/style'
 import { merge, cn, generateId } from '@maker-ui/utils'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger)
-
-export interface ParallaxProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ParallaxSectionProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   /** An object of <img /> tag props or a custom component like Next/Image
    * @remark If using Next.js Image, make sure you set the Image props to
    * `layout='fill'` and `objectFit='cover'`
@@ -57,7 +54,7 @@ const defaultEffect = {
   custom: {},
 }
 
-export const Parallax = ({
+export const ParallaxSection = ({
   image,
   className,
   background,
@@ -73,41 +70,41 @@ export const Parallax = ({
   parallax = true,
   children,
   ...props
-}: ParallaxProps) => {
+}: ParallaxSectionProps) => {
   const [styleId] = useState(generateId())
   const ref = useRef(null)
   const sectionRef = useRef(null)
   const containerRef = useRef(null)
-  const t = merge(defaultEffect, effect)
+  // const t = merge(defaultEffect, effect)
 
-  useEffect(() => {
-    if (parallax) {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current || undefined,
-          markers,
-          start: t.start,
-          end: t.end,
-          scrub: t.scrub,
-        },
-      })
+  // useEffect(() => {
+  //   if (parallax) {
+  //     const tl = gsap.timeline({
+  //       scrollTrigger: {
+  //         trigger: sectionRef.current || undefined,
+  //         markers,
+  //         start: t.start,
+  //         end: t.end,
+  //         scrub: t.scrub,
+  //       },
+  //     })
 
-      tl.to(ref.current, {
-        y: t.yPercent ? undefined : t.y,
-        yPercent: t.yPercent,
-        ...t.custom,
-      })
-      if (textEffect) {
-        tl.to(containerRef.current, textEffect, 0)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  //     tl.to(ref.current, {
+  //       y: t.yPercent ? undefined : t.y,
+  //       yPercent: t.yPercent,
+  //       ...t.custom,
+  //     })
+  //     if (textEffect) {
+  //       tl.to(containerRef.current, textEffect, 0)
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   return (
     <section
       ref={sectionRef}
-      className={cn(['mkui-parallax', styleId, className])}
+      className={cn(['mkui-parallax-section', styleId, className])}
       {...props}>
       <Style
         root={styleId}
@@ -165,4 +162,4 @@ export const Parallax = ({
   )
 }
 
-Parallax.displayName = 'Parallax'
+ParallaxSection.displayName = 'ParallaxSection'
