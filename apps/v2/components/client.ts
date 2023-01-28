@@ -11,3 +11,4 @@ export {
 export { Modal } from '@maker-ui/modal'
 export { Tabs } from '@maker-ui/tabs'
 export { Carousel } from '@maker-ui/carousel'
+export { CustomCollapseMenu } from './CustomCollapse'

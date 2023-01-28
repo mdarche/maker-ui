@@ -22,7 +22,8 @@
     "baseUrl": ".",
     "paths": {
       "@/client": ["components/client"],
-      "@/public/*": ["public/*"]
+      "@/public/*": ["public/*"],
+      "@/styles/*": ["styles/*"]
     }
   },
   "include": [
