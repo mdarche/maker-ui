@@ -35,7 +35,7 @@ export const Topbar = ({
       className={cn([
         styles['topbar'],
         stickyClass(sticky, stickyOnMobile),
-        hideOnMobile ? 'm-hide' : '',
+        hideOnMobile ? 'mobile-hide' : '',
         className,
       ])}>
       <div className="container" {...props}>

@@ -13,7 +13,7 @@
   &:global.sticky {
     position: sticky;
   }
-  &:global.m-hide {
+  &:global.mobile-hide {
     display: none;
   }
 }

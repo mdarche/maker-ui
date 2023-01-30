@@ -7,10 +7,6 @@
   transform: translateX(0);
 }
 
-.mkui-sn-init {
-  transition: none !important;
-}
-
 .mkui-sn-inner {
   top: 0px;
   height: 100vh;

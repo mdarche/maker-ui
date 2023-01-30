@@ -48,6 +48,11 @@
   opacity: 1;
 }
 
+.mkui-layout-init {
+  transition: none !important;
+  display: none;
+}
+
 .mkui-collapse-menu {
   list-style-type: none;
 }

@@ -7,7 +7,7 @@ import {
   NavMenu,
   Provider,
   MenuItemProps,
-  CustomCollapseMenu,
+  WorkspaceButton,
 } from '@/client'
 
 const menu: MenuItemProps[] = [
@@ -23,7 +23,6 @@ export default function WorkspaceLayout({
   return (
     <Provider options={options}>
       <Layout options={options}>
-        {/* <Layout.Topbar>Test</Layout.Topbar> */}
         <Layout.Header
           logo={<Link href="/">Logo</Link>}
           menu={<NavMenu menuItems={menu} />}
@@ -34,18 +33,13 @@ export default function WorkspaceLayout({
           <CollapseMenu items={menu} />
         </Layout.MobileMenu>
         <Layout.Workspace
-          settings={{
-            breakpoints: [800],
-            columns: ['1fr', '1fr 2fr 1fr'],
-            main: 'center',
-          }}
           left={<div>Left Panel Menus</div>}
           center={children}
           right={<div>Right Panel Details</div>}
-          toggleButtons={{
-            left: <WorkspaceButton left />,
-            right: <WorkspaceButton right hideOnMobile />,
-          }}
+          // toggles={{
+          //   left: <WorkspaceButton left />,
+          //   right: <WorkspaceButton right hideOnMobile />,
+          // }}
         />
       </Layout>
     </Provider>
@@ -54,7 +48,7 @@ export default function WorkspaceLayout({
 
 export const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
-  layout: 'sidenav-content',
+  layout: 'workspace',
   topbar: {
     sticky: false,
     stickyOnMobile: false,

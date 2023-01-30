@@ -12,6 +12,7 @@ type Action =
   | { type: 'SET_MENU'; value?: boolean }
   | { type: 'SET_SIDENAV'; value?: boolean }
   | { type: 'SET_SIDENAV_COLLAPSE'; value?: boolean }
+  | { type: 'SET_PANEL'; value: { active: boolean; type: 'left' | 'right' } }
   | { type: 'SET_COLOR_THEME'; value: string }
   | { type: 'RESET' }
 
@@ -20,6 +21,8 @@ interface LayoutState {
     menu: boolean
     sideNav: boolean
     sideNavCollapse: boolean
+    leftPanel: boolean
+    rightPanel: boolean
   }
   colorTheme?: string
   options?: Options
@@ -89,10 +92,21 @@ function reducer(state: LayoutState, action: Action): LayoutState {
         },
       })
     }
+    case 'SET_PANEL': {
+      return merge(state, {
+        active: { [action.value.type + 'Panel']: action.value.active },
+      })
+    }
     case 'RESET': {
       return {
         ...state,
-        active: { sideNav: false, menu: false, sideNavCollapse: false },
+        active: {
+          sideNav: false,
+          menu: false,
+          sideNavCollapse: false,
+          leftPanel: true,
+          rightPanel: true,
+        },
       }
     }
     case 'SET_COLOR_THEME': {
@@ -112,6 +126,8 @@ export const Provider = (props: LayoutProviderProps) => {
       menu: false,
       sideNav: false,
       sideNavCollapse: false,
+      leftPanel: true,
+      rightPanel: true,
     },
     options,
   })
@@ -209,12 +225,18 @@ export const useMenu = () => {
     dispatch,
   } = React.useContext(LayoutContext)
 
-  function setMenu(type: 'menu' | 'sidenav' | 'collapse', value: boolean) {
+  function setMenu(
+    type: 'menu' | 'sidenav' | 'collapse' | 'left-panel' | 'right-panel',
+    value: boolean
+  ) {
     // Find elements in DOM to manipulate
     const menu = document.querySelector('.mkui-mobile-menu')
     const sidenav = document.querySelector('.mkui-sn')
     const overlay_m = document.querySelector('.mkui-overlay-m')
     const overlay_s = document.querySelector('.mkui-overlay-s')
+    const workspace = document.querySelector('.mkui-workspace')
+    const panel_left = document.querySelector('.mkui-panel-left')
+    const panel_right = document.querySelector('.mkui-panel-right')
 
     const handleMobileMenu = () => {
       if (value) {
@@ -255,6 +277,22 @@ export const useMenu = () => {
       handleSideNav()
       dispatch({
         type: 'SET_SIDENAV_COLLAPSE',
+      })
+    }
+    if (type.includes('panel')) {
+      const side = type === 'left-panel' ? 'left' : 'right'
+      if (value) {
+        workspace?.classList.add(`${side}-active`)
+        ;(side === 'left' ? panel_left : panel_right)?.classList.add('active')
+      } else {
+        workspace?.classList.remove(`${side}-active`)
+        ;(side === 'left' ? panel_left : panel_right)?.classList.remove(
+          'active'
+        )
+      }
+      dispatch({
+        type: 'SET_PANEL',
+        value: { active: value, type: side },
       })
     }
   }

@@ -97,9 +97,6 @@ function getStyles(
       .mkui-sn.sn-hide {
         transform: translateX(${direction});
       }
-      .mkui-sn-init {
-        display: none;
-      }
       @media screen and (min-width: ${breakpoint}) {
         .l-sn .mkui-carousel {
           max-width: calc(100vw - var(--width-side-nav));
@@ -107,7 +104,7 @@ function getStyles(
         .l-sn:has(.sn-collapse) .mkui-carousel {
           max-width: 100vw;
         }
-        .mkui-sn-init {
+        .mkui-layout-init {
           display: flex;
         }
         .mkui-btn-collapse {
@@ -136,6 +133,38 @@ function getStyles(
         }
       }
     `
+  }
+
+  /** Workspace styles */
+  if (layout === 'workspace') {
+    styles = `
+      @media screen and (min-width: ${breakpoint}) {
+        .mkui-layout-init {
+          display: grid;
+        }
+        .mkui-panel-left, .mkui-panel-right {
+          position: relative;
+          width: 100%;
+          z-index: 0;
+        }
+        .mkui-panel-left .mkui-panel-inner, .mkui-panel-right .mkui-panel-inner {
+          top: calc(${getTop()});
+          height: calc(100vh - ${getTop(true)});
+        }
+        .mkui-workspace.left-active {
+          grid-template-columns: var(--width-left-panel) 1fr 0;
+        }
+        .mkui-workspace.right-active {
+          grid-template-columns: 0 1fr var(--width-right-panel);
+        }
+        .mkui-workspace.left-active.right-active {
+          grid-template-columns: var(--width-left-panel) 1fr var(--width-right-panel);
+        }
+        .mkui-overlay-w {
+          display: none;
+        }
+      }
+      `
   }
 
   return styles

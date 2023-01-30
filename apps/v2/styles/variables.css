@@ -1,21 +1,34 @@
 :root {
+  /* Workspace */
+  --width-right-panel: 300px;
+  --width-left-panel: 200px;
+  --width-left-panel-collapse: 0px;
+  --width-right-panel-collapse: 0px;
+  --width-mobile-left-panel: 300px;
+  --width-mobile-right-panel: 300px;
+  /* Topbar */
   --height-topbar: 50px;
+  /* Header */
   --height-header: 70px;
+  --max-width-header: 1300px;
   --width-mobile-menu: 300px;
+  /* Sidebars */
   --width-sidebar: 300px;
   --width-sidebar-secondary: 100px;
+  --gap-content: 50px;
+  /* SideNav */
   --width-side-nav: 300px;
-  --max-width-header: 1300px;
+  /* Content */
   --max-width-content: 1300px;
   --max-width-section: 1300px;
+  /* Footer */
   --max-width-footer: 1300px;
-  --gap-content: 50px;
   --font-body: itc-avant-garde-gothic-pro, Helvetica, Arial, sans-serif;
   --font-heading: itc-avant-garde-gothic-pro, Helvetica, Arial, sans-serif;
   --font-monospace: lexia-mono, monospace;
   --transition-side-nav: transform ease 0.3s;
   --color-modes: light, dark, system;
-  /* Add media queries for heights, widths, and gaps here*/
+  /* Add media queries for heights, widths, and gaps here */
 }
 
 body[data-theme='dark'] {

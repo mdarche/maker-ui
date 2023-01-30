@@ -155,7 +155,7 @@ function getStyles(
             : '0px'
         };
       }
-      .mkui-topbar.m-hide {
+      .mkui-topbar.mobile-hide {
         display: block;
       }
       .mkui-nav { 

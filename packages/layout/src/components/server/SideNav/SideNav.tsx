@@ -38,12 +38,11 @@ export const SideNav = ({
         className="mkui-overlay mkui-overlay-s fixed cover"
         role={closeOnBlur ? 'button' : undefined}
       />
-      <Container
-        isHeader={isHeader}
-        className={cn(['mkui-sn mkui-sn-init', className])}
-        {...props}>
+      {React.createElement(
+        isHeader ? 'header' : 'div',
+        { className: cn(['mkui-sn mkui-layout-init', className]), ...props },
         <div className={cn(['mkui-sn-inner', 'container'])}>{children}</div>
-      </Container>
+      )}
       {collapseButton}
     </>
   )
@@ -52,10 +51,10 @@ export const SideNav = ({
 SideNav.displayName = 'SideNav'
 SideNav.defaultProps = { _type: 'sideNav' }
 
-interface ContainerProps {
-  isHeader: boolean
-  [key: string]: any
-}
+// interface ContainerProps {
+//   isHeader: boolean
+//   [key: string]: any
+// }
 
-const Container = ({ isHeader, ...props }: ContainerProps) =>
-  isHeader ? <header {...props} /> : <div {...props} />
+// const Container = ({ isHeader, ...props }: ContainerProps) =>
+//   isHeader ? <header {...props} /> : <div {...props} />

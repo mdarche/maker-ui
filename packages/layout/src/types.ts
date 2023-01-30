@@ -6,6 +6,7 @@ export const contentTypes = [
   'sidebar-content',
   'sidebar-content-sidebar',
   'sidenav-content',
+  'workspace',
 ] as const
 
 /** All configurations for `<Navbar>` layouts. */

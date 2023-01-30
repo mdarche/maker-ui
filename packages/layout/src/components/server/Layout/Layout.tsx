@@ -6,6 +6,7 @@ import { Topbar } from '../Topbar'
 import { Main } from '../Main'
 import { SideNav } from '../SideNav'
 import { Sidebar } from '../Sidebar'
+import { Workspace } from '../Workspace'
 import { Skiplinks } from '../Skiplinks'
 import { Header } from '../Header'
 import { defaults } from '@/defaults'
@@ -59,37 +60,41 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
           }
         />
       ) : null}
-      <div
-        className={cn([
-          'mkui-layout',
-          opts.layout,
-          isSideNav ? 'l-sn' : isSidebar ? 'l-sb' : undefined,
-        ])}>
-        <>
-          {isLeft ? (
-            <>
-              {isSidebar && <Sidebar {...slots?.sidebar?.props} />}
-              {isSideNav && (
-                <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
-              )}
-            </>
-          ) : null}
-          <Main {...slots?.main?.props} />
-          {isRight ? (
-            <>
-              {isSidebar && (
-                <Sidebar
-                  {...slots?.sidebar?.props}
-                  primary={!(opts.layout === 'sidebar-content-sidebar')}
-                />
-              )}
-              {isSideNav && (
-                <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
-              )}
-            </>
-          ) : null}
-        </>
-      </div>
+      {slots?.workspace ? (
+        <Workspace {...slots.workspace.props} />
+      ) : (
+        <div
+          className={cn([
+            'mkui-layout',
+            opts.layout,
+            isSideNav ? 'l-sn' : isSidebar ? 'l-sb' : undefined,
+          ])}>
+          <>
+            {isLeft ? (
+              <>
+                {isSidebar && <Sidebar {...slots?.sidebar?.props} />}
+                {isSideNav && (
+                  <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
+                )}
+              </>
+            ) : null}
+            <Main {...slots?.main?.props} />
+            {isRight ? (
+              <>
+                {isSidebar && (
+                  <Sidebar
+                    {...slots?.sidebar?.props}
+                    primary={!(opts.layout === 'sidebar-content-sidebar')}
+                  />
+                )}
+                {isSideNav && (
+                  <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
+                )}
+              </>
+            ) : null}
+          </>
+        </div>
+      )}
       {slots?.footer && <Footer {...slots.footer.props} />}
     </>
   )
@@ -102,5 +107,6 @@ Layout.Main = Main
 Layout.Footer = Footer
 Layout.Sidebar = Sidebar
 Layout.SideNav = SideNav
+Layout.Workspace = Workspace
 
 Layout.displayName = 'Layout'

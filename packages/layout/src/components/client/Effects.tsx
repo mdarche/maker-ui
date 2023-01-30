@@ -21,11 +21,12 @@ export const Effects = ({
   options: {
     layout,
     header: { stickyUpScroll, scrollClass },
+    content,
     mobileMenu,
     sideNav,
   },
 }: EffectsProps) => {
-  const { reset, setMenu } = useMenu()
+  const { reset, setMenu, active } = useMenu()
   const { width } = useWindowSize()
   const [selector, setSelector] = useState('')
   const [show, setShow] = useState(true)
@@ -58,7 +59,7 @@ export const Effects = ({
     if (width) {
       // TODO make this timeout dynamic based on sidenav.cssTransition
       setTimeout(() => {
-        sn?.classList.remove('mkui-sn-init')
+        sn?.classList.remove('mkui-layout-init')
       }, 350)
     }
 
@@ -113,6 +114,47 @@ export const Effects = ({
     return () => o.removeEventListener('click', click)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  /**
+   * Handle workspace overlay clicks
+   */
+  useEffect(() => {
+    const o = document.querySelector('.mkui-overlay-w')
+    if (!o) return
+    const click = (e: any) => {
+      e.preventDefault()
+      if (!width || width > content.breakpoint) return
+      if (active?.leftPanel) {
+        setMenu('left-panel', false)
+      } else {
+        setMenu('right-panel', false)
+      }
+    }
+    o.addEventListener('click', click)
+    return () => o.removeEventListener('click', click)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  /**
+   * Collapse Workspace Panels on mobile or when window is resized
+   */
+  useEffect(() => {
+    if (!layout.includes('workspace')) return
+    const workspace = document.querySelector('.mkui-workspace')
+
+    if (width && width < content.breakpoint) {
+      setMenu('left-panel', false)
+      setMenu('right-panel', false)
+    }
+
+    if (width) {
+      setTimeout(() => {
+        workspace?.classList.remove('mkui-layout-init')
+      }, 350)
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width])
 
   /**
    * Handle sidenav overlay clicks

@@ -1,0 +1,31 @@
+.mkui-workspace {
+  display: grid;
+  grid-template-columns: 1fr;
+  transition: grid-template-columns 0.3s ease-in-out;
+}
+
+.mkui-panel-inner {
+  position: sticky;
+  top: 0px;
+  height: 100vh;
+  position: sticky;
+  overflow-y: auto;
+}
+
+.mkui-panel-left,
+.mkui-panel-right {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 101;
+}
+
+.mkui-panel-left {
+  width: var(--width-mobile-left-panel, --width-left-panel);
+  left: 0;
+}
+
+.mkui-panel-right {
+  width: var(--width-mobile-right-panel, --width-right-panel);
+  right: 0;
+}
