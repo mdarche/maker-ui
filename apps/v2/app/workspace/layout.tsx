@@ -35,7 +35,6 @@ export default function WorkspaceLayout({
         </Layout.MobileMenu>
         <Layout.Workspace
           left={<div>Left Panel Menus</div>}
-          center={children}
           right={<div>Right Panel Details</div>}
           toggles={{
             left: (
@@ -61,15 +60,16 @@ export default function WorkspaceLayout({
                 Right
               </WorkspaceButton>
             ),
-          }}
-        />
+          }}>
+          {children}
+        </Layout.Workspace>
         <Layout.Footer>Footer</Layout.Footer>
       </Layout>
     </Provider>
   )
 }
 
-export const options: MakerUIOptions = {
+const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
   layout: 'workspace',
   topbar: {

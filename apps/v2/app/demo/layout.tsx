@@ -76,7 +76,7 @@ export default function RootLayout({
   )
 }
 
-export const options: MakerUIOptions = {
+const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
   layout: 'sidenav-content',
   topbar: {

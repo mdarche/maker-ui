@@ -128,4 +128,8 @@ export interface Options {
   content: {
     breakpoint: string | number
   }
+  workspace: {
+    main: boolean
+    closeOnBlur: boolean
+  }
 }

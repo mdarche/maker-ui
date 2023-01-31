@@ -12,6 +12,10 @@
   overflow-y: auto;
 }
 
+.mkui-panel-center {
+  width: 100%;
+}
+
 .mkui-panel-left,
 .mkui-panel-left .mkui-slot {
   width: var(

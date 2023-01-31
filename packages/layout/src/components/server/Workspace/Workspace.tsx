@@ -7,7 +7,6 @@ export interface WorkspaceProps extends React.HTMLAttributes<HTMLDivElement> {
   closeOnBlur?: boolean
   left?: React.ReactNode
   right?: React.ReactNode
-  center?: React.ReactNode
   toggles?: {
     left?: React.ReactNode
     right?: React.ReactNode
@@ -22,14 +21,13 @@ export interface WorkspaceProps extends React.HTMLAttributes<HTMLDivElement> {
  * @link https://maker-ui.com/docs/layout/workspace
  */
 export const Workspace = ({
-  main = true,
-  closeOnBlur = true,
+  main,
+  closeOnBlur,
   left,
   right,
-  center,
+  children,
   toggles,
   className,
-  children,
   _type,
   ...props
 }: WorkspaceProps) => {
@@ -58,9 +56,7 @@ export const Workspace = ({
             className: cn(['mkui-panel mkui-panel-center', className]),
             ...props,
           },
-          <div className="mkui-panel mkui-panel-inner">
-            <div className="mkui-slot">{children}</div>
-          </div>
+          children
         )}
         <div className={cn(['mkui-panel-right'])}>
           <div className="mkui-panel-inner">
@@ -68,8 +64,12 @@ export const Workspace = ({
           </div>
         </div>
       </div>
-      {toggles?.left ?? null}
-      {toggles?.right ?? null}
+      {toggles ? (
+        <div className="mkui-workspace-toggles">
+          {toggles?.left ?? null}
+          {toggles?.right ?? null}
+        </div>
+      ) : null}
     </>
   )
 }

@@ -39,6 +39,7 @@ function assign(children: React.ReactNode) {
 export const Layout = ({ options = {}, children }: LayoutProps) => {
   const opts = merge(defaults, options) as Options
   const slots = assign(children)
+  // Helpers
   const isSidebar = slots.sidebar && opts.layout.includes('sidebar')
   const isSideNav = slots.sideNav && opts.layout.includes('sidenav')
   const isLeft = opts.layout.includes('-content')
@@ -61,7 +62,7 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
         />
       ) : null}
       {slots?.workspace ? (
-        <Workspace {...slots.workspace.props} />
+        <Workspace {...merge(opts.workspace, slots.workspace.props)} />
       ) : (
         <div
           className={cn([
