@@ -1,6 +1,7 @@
 .topbar {
   height: var(--height-topbar);
-  background: var(--color-bg-topbar, #fff);
+  background: var(--color-bg-topbar);
+  border-bottom: var(--border-topbar);
   top: 0px;
   z-index: 100;
   display: block;

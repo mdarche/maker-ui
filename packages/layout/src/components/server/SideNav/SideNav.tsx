@@ -35,7 +35,7 @@ export const SideNav = ({
   return (
     <>
       <div
-        className="mkui-overlay mkui-overlay-s fixed cover"
+        className="mkui-overlay mkui-overlay-s"
         role={closeOnBlur ? 'button' : undefined}
       />
       {React.createElement(

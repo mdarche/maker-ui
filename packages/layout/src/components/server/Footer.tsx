@@ -1,3 +1,4 @@
+import { cn } from '@maker-ui/utils'
 import * as React from 'react'
 
 export interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,9 +12,17 @@ export interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
  *
  * @link https://maker-ui.com/docs/layout/footer
  */
-export const Footer = ({ children, _type, ...props }: FooterProps) => {
+export const Footer = ({
+  children,
+  _type,
+  className,
+  ...props
+}: FooterProps) => {
   return (
-    <footer role="contentinfo" {...props}>
+    <footer
+      role="contentinfo"
+      className={cn(['mkui-footer', className])}
+      {...props}>
       <div className="container">{children}</div>
     </footer>
   )

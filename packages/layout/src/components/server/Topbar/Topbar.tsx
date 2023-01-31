@@ -38,7 +38,7 @@ export const Topbar = ({
         hideOnMobile ? 'mobile-hide' : '',
         className,
       ])}>
-      <div className="container" {...props}>
+      <div className="mkui-container" {...props}>
         {children}
       </div>
     </aside>

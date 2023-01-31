@@ -138,12 +138,18 @@ function getStyles(
   /** Workspace styles */
   if (layout === 'workspace') {
     styles = `
+      @media screen and (max-width: ${breakpoint}) { 
+        .mkui-btn-workspace.mobile-hide {
+          display: none;
+        }
+      }
       @media screen and (min-width: ${breakpoint}) {
         .mkui-layout-init {
           display: grid;
         }
         .mkui-panel-left, .mkui-panel-right {
           position: relative;
+          transform: translateX(0);
           width: 100%;
           z-index: 0;
         }
@@ -151,14 +157,17 @@ function getStyles(
           top: calc(${getTop()});
           height: calc(100vh - ${getTop(true)});
         }
+        .mkui-workspace {
+          grid-template-columns: var(--width-left-panel-collapse, 0) 1fr var(--width-right-panel-collapse, 0);
+        }
         .mkui-workspace.left-active {
-          grid-template-columns: var(--width-left-panel) 1fr 0;
+          grid-template-columns: var(--width-left-panel, var(--width-panel)) 1fr var(--width-right-panel-collapse, 0);
         }
         .mkui-workspace.right-active {
-          grid-template-columns: 0 1fr var(--width-right-panel);
+          grid-template-columns: var(--width-left-panel-collapse, 0) 1fr var(--width-right-panel, var(--width-panel));
         }
         .mkui-workspace.left-active.right-active {
-          grid-template-columns: var(--width-left-panel) 1fr var(--width-right-panel);
+          grid-template-columns: var(--width-left-panel, var(--width-panel)) 1fr var(--width-right-panel, var(--width-panel));
         }
         .mkui-overlay-w {
           display: none;

@@ -23,6 +23,7 @@ export default function WorkspaceLayout({
   return (
     <Provider options={options}>
       <Layout options={options}>
+        <Layout.Topbar>Test topbar</Layout.Topbar>
         <Layout.Header
           logo={<Link href="/">Logo</Link>}
           menu={<NavMenu menuItems={menu} />}
@@ -36,11 +37,33 @@ export default function WorkspaceLayout({
           left={<div>Left Panel Menus</div>}
           center={children}
           right={<div>Right Panel Details</div>}
-          // toggles={{
-          //   left: <WorkspaceButton left />,
-          //   right: <WorkspaceButton right hideOnMobile />,
-          // }}
+          toggles={{
+            left: (
+              <WorkspaceButton
+                left
+                fixed
+                position={{
+                  top: 'calc(var(--height-header) + 100px)',
+                  left: 30,
+                }}>
+                Left Panel
+              </WorkspaceButton>
+            ),
+            right: (
+              <WorkspaceButton
+                right
+                fixed
+                hideOnMobile
+                position={{
+                  top: 'calc(var(--height-header) + 100px)',
+                  right: 30,
+                }}>
+                Right
+              </WorkspaceButton>
+            ),
+          }}
         />
+        <Layout.Footer>Footer</Layout.Footer>
       </Layout>
     </Provider>
   )
@@ -50,7 +73,7 @@ export const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
   layout: 'workspace',
   topbar: {
-    sticky: false,
+    sticky: true,
     stickyOnMobile: false,
     hideOnMobile: false,
   },

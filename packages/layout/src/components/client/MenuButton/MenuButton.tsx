@@ -13,10 +13,10 @@ interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * The `MenuButton` controls opening / closing the `MobileMenu`. It is included
- * inside the Navbar component but can be used anywhere inside your layout.
+ * The `MenuButton` controls opening / closing the `MobileMenu`. It should be used in
+ * the `menuButton` slot for the Header component but can also be used anywhere inside your layout.
  *
- * @link https://maker-ui.com/docs/layout/buttons/#menuButton
+ * @link https://maker-ui.com/docs/layout/header
  */
 export const MenuButton = ({
   className,
@@ -27,11 +27,11 @@ export const MenuButton = ({
   ...props
 }: MenuButtonProps) => {
   const {
-    options: { sideNav: sn, mobileMenu: mm },
+    options: { sideNav: side, mobileMenu: mobile },
   } = useLayout()
   const { width } = useWindowSize()
   const { active, setMenu } = useMenu()
-  const positions = mm?.closeButtonPosition?.split('-')
+  const positions = mobile?.closeButtonPosition?.split('-')
 
   const attrs = sideNav
     ? {
@@ -48,7 +48,7 @@ export const MenuButton = ({
   }
 
   function toggleSideMenu() {
-    if (width && width > sn.breakpoint && sn.collapse) {
+    if (width && width > side.breakpoint && side.collapse) {
       setMenu('collapse', !active?.sideNavCollapse)
     } else {
       setMenu('sidenav', !active?.sideNav)
@@ -60,8 +60,8 @@ export const MenuButton = ({
     className: cn([
       styles['btn-menu'],
       sideNav ? 'mkui-btn-collapse fixed' : undefined,
-      sideNav && !sn.showCollapseOnMobile ? 'mobile-hide' : undefined,
-      sideNav && sn.collapse ? 'desktop' : undefined,
+      sideNav && !side.showCollapseOnMobile ? 'mobile-hide' : undefined,
+      sideNav && side.collapse ? 'desktop' : undefined,
       !sideNav && close ? 'mkui-btn-close fixed' : undefined,
       ...(sideNav || close ? positions || [] : []),
       className,
@@ -74,7 +74,7 @@ export const MenuButton = ({
   return renderProps ? (
     <>
       {renderProps(
-        sideNav && sn.isPrimaryMobileNav ? active?.sideNav : active?.menu,
+        sideNav && side.isPrimaryMobileNav ? active?.sideNav : active?.menu,
         attributes
       )}
     </>

@@ -33,8 +33,24 @@
   right: 0;
 }
 
+.mkui-overlay-w {
+  background: var(--color-overlay-workspace, var(--color-overlay));
+}
+
+.mkui-overlay-s {
+  background: var(--color-overlay-side-nav, var(--color-overlay));
+}
+
+.mkui-overlay-m {
+  background: var(--color-overlay-mobile-menu, var(--color-overlay));
+}
+
 .mkui-overlay {
-  background: var(--color-bg-overlay);
+  position: fixed;
+  top: 0 !important;
+  bottom: 0;
+  right: 0;
+  left: 0;
   z-index: 100;
   cursor: pointer;
   will-change: opacity;
@@ -63,6 +79,7 @@ main {
   margin: 0 auto;
 }
 
-footer {
+.mkui-footer {
   background: var(--color-bg-footer);
+  border-top: var(--border-footer);
 }

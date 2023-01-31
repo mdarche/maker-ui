@@ -26,7 +26,7 @@ export const Effects = ({
     sideNav,
   },
 }: EffectsProps) => {
-  const { reset, setMenu, active } = useMenu()
+  const { reset, setMenu } = useMenu()
   const { width } = useWindowSize()
   const [selector, setSelector] = useState('')
   const [show, setShow] = useState(true)
@@ -123,12 +123,12 @@ export const Effects = ({
     if (!o) return
     const click = (e: any) => {
       e.preventDefault()
+      const container = document.querySelector('.mkui-workspace')
       if (!width || width > content.breakpoint) return
-      if (active?.leftPanel) {
-        setMenu('left-panel', false)
-      } else {
-        setMenu('right-panel', false)
-      }
+      const side = container?.classList.contains('left-active')
+        ? 'left-panel'
+        : 'right-panel'
+      setMenu(side, false)
     }
     o.addEventListener('click', click)
     return () => o.removeEventListener('click', click)
@@ -145,6 +145,9 @@ export const Effects = ({
     if (width && width < content.breakpoint) {
       setMenu('left-panel', false)
       setMenu('right-panel', false)
+    } else if (width) {
+      setMenu('left-panel', true)
+      setMenu('right-panel', true)
     }
 
     if (width) {

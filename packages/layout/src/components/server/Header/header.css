@@ -2,6 +2,8 @@
   z-index: 100;
   height: var(--height-header);
   background: var(--color-bg-header);
+  border-bottom: var(--border-header);
+  box-shadow: var(--shadow-header);
 }
 .mkui-header.d-sticky,
 .mkui-header.m-sticky {

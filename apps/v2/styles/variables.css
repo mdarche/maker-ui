@@ -1,9 +1,10 @@
 :root {
   /* Workspace */
+  --width-panel: 300px;
+  --width-left-panel: 300px;
+  --width-left-panel-collapse: 40px;
   --width-right-panel: 300px;
-  --width-left-panel: 200px;
-  --width-left-panel-collapse: 0px;
-  --width-right-panel-collapse: 0px;
+  /* --width-right-panel-collapse: 10px; */
   --width-mobile-left-panel: 300px;
   --width-mobile-right-panel: 300px;
   /* Topbar */
@@ -38,10 +39,20 @@ body[data-theme='dark'] {
   --color-bg-topbar: #000;
   --color-bg-mobile-menu: #000;
   --color-bg-footer: #000;
-  --color-bg-overlay: rgba(0, 0, 0, 0.7);
+  --color-bg-panel-left: #1f1f1f;
+  --color-bg-panel-right: #1f1f1f;
+  --color-overlay: rgba(0, 0, 0, 0.7);
+  --color-overlay-side-nav: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-overlay-mobile-menu: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-overlay-workspace: rgba(0, 0, 0, 0.7); /* Optional */
   --color-logo: #fff;
   --color-text: #fff;
   --color-background: #000;
+  --border-topbar: 1px solid var(--color-border-200); /* Optional */
+  --border-header: 1px solid var(--color-border-200); /* Optional */
+  --border-panel: 1px solid var(--color-border-200); /* Optional */
+  --border-footer: 1px solid var(--color-border-200); /* Optional */
+  --shadow-header: none; /* Optional */
   /* Project specific */
   --color-gray-100: #111;
   --color-gray-200: #1f1f1f;
@@ -59,10 +70,20 @@ body[data-theme='light'] {
   --color-bg-side-nav: #fbfbfb;
   --color-bg-topbar: #fff;
   --color-bg-mobile-menu: #fff;
-  --color-bg-overlay: rgba(0, 0, 0, 0.7);
+  --color-bg-panel-left: #fbfbfb;
+  --color-bg-panel-right: #fbfbfb;
+  --color-overlay: rgba(0, 0, 0, 0.7);
+  --color-overlay-side-nav: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-overlay-mobile-menu: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-overlay-workspace: rgba(0, 0, 0, 0.7); /* Optional */
   --color-logo: #000;
   --color-text: #000;
   --color-background: #fff;
+  --border-topbar: 1px solid var(--color-border-200); /* Optional */
+  --border-header: 1px solid var(--color-border-200); /* Optional */
+  --border-panel: 1px solid var(--color-border-200); /* Optional */
+  --border-footer: 1px solid var(--color-border-200); /* Optional */
+  --shadow-header: none;
   /* Project specific */
   --color-gray-100: #fafafa;
   --color-gray-200: #ebebeb;
@@ -71,6 +92,5 @@ body[data-theme='light'] {
   --color-gray-500: #6f6f6f;
   --color-border-100: #e5e9ea;
   --color-border-200: #a2a2a2;
-  --color-shadow: 1px 3px 5px rgba(122, 115, 144, 0.06);
   /* Add media queries for heights, widths, and gaps here*/
 }

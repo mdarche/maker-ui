@@ -34,33 +34,43 @@ export const Workspace = ({
   ...props
 }: WorkspaceProps) => {
   return (
-    <div
-      className={cn([
-        'mkui-workspace left-active right-active',
-        'mkui-layout-init',
-        className,
-      ])}
-      {...props}>
+    <>
       <div
-        className="mkui-overlay mkui-overlay-w fixed cover"
-        role={closeOnBlur ? 'button' : undefined}
-      />
-      <div className={cn(['mkui-panel-left'])}>
-        <div className="mkui-panel-inner">{left}</div>
+        className={cn([
+          'mkui-workspace left-active right-active',
+          'mkui-layout-init',
+          className,
+        ])}
+        {...props}>
+        <div
+          className="mkui-overlay mkui-overlay-w"
+          role={closeOnBlur ? 'button' : undefined}
+        />
+        <div className={cn(['mkui-panel mkui-panel-left'])}>
+          <div className="mkui-panel-inner">
+            <div className="mkui-slot">{left}</div>
+          </div>
+        </div>
+        {React.createElement(
+          main ? 'main' : 'div',
+          {
+            id: main ? 'content' : props?.id,
+            className: cn(['mkui-panel mkui-panel-center', className]),
+            ...props,
+          },
+          <div className="mkui-panel mkui-panel-inner">
+            <div className="mkui-slot">{children}</div>
+          </div>
+        )}
+        <div className={cn(['mkui-panel-right'])}>
+          <div className="mkui-panel-inner">
+            <div className="mkui-slot">{right}</div>
+          </div>
+        </div>
       </div>
-      {React.createElement(
-        main ? 'main' : 'div',
-        {
-          id: main ? 'content' : props?.id,
-          className: cn(['mkui-panel-center', className]),
-          ...props,
-        },
-        <div className="mkui-panel-inner">{children}</div>
-      )}
-      <div className={cn(['mkui-panel-right'])}>
-        <div className="mkui-panel-inner">{right}</div>
-      </div>
-    </div>
+      {toggles?.left ?? null}
+      {toggles?.right ?? null}
+    </>
   )
 }
 

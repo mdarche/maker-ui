@@ -13,19 +13,48 @@
 }
 
 .mkui-panel-left,
+.mkui-panel-left .mkui-slot {
+  width: var(
+    --width-mobile-left-panel,
+    var(--width-left-panel),
+    var(--width-panel)
+  );
+}
+
+.mkui-panel-right,
+.mkui-panel-right .mkui-slot {
+  width: var(
+    --width-mobile-right-panel,
+    var(--width-right-panel),
+    var(--width-panel)
+  );
+}
+
+.mkui-panel-left,
 .mkui-panel-right {
+  transform: translateX(-100%);
   position: fixed;
   top: 0;
   bottom: 0;
   z-index: 101;
+  transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+}
+
+.left-active .mkui-panel-left,
+.right-active .mkui-panel-right {
+  transform: translateX(0);
 }
 
 .mkui-panel-left {
-  width: var(--width-mobile-left-panel, --width-left-panel);
+  transform: translateX(-100%);
+  background: var(--color-bg-panel-left);
+  border-right: var(--border-panel-left, var(--border-panel));
   left: 0;
 }
 
 .mkui-panel-right {
-  width: var(--width-mobile-right-panel, --width-right-panel);
+  transform: translateX(100%);
+  background: var(--color-bg-panel-right);
+  border-left: var(--border-panel-right, var(--border-panel));
   right: 0;
 }

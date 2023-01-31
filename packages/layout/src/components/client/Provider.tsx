@@ -234,6 +234,7 @@ export const useMenu = () => {
     const sidenav = document.querySelector('.mkui-sn')
     const overlay_m = document.querySelector('.mkui-overlay-m')
     const overlay_s = document.querySelector('.mkui-overlay-s')
+    const overlay_w = document.querySelector('.mkui-overlay-w')
     const workspace = document.querySelector('.mkui-workspace')
     const panel_left = document.querySelector('.mkui-panel-left')
     const panel_right = document.querySelector('.mkui-panel-right')
@@ -279,13 +280,16 @@ export const useMenu = () => {
         type: 'SET_SIDENAV_COLLAPSE',
       })
     }
+
     if (type.includes('panel')) {
       const side = type === 'left-panel' ? 'left' : 'right'
       if (value) {
         workspace?.classList.add(`${side}-active`)
+        overlay_w?.classList.add('active')
         ;(side === 'left' ? panel_left : panel_right)?.classList.add('active')
       } else {
         workspace?.classList.remove(`${side}-active`)
+        overlay_w?.classList.remove('active')
         ;(side === 'left' ? panel_left : panel_right)?.classList.remove(
           'active'
         )
