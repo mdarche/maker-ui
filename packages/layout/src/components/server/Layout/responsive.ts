@@ -79,6 +79,10 @@ function getStyles(
     layout === 'sidenav-content' ? `margin-left: ${val};` : ''
   const mr = (val: string) =>
     layout === 'content-sidenav' ? `margin-right: ${val};` : ''
+  const bl =
+    layout === 'sidenav-content' ? 'border-right: var(--border-side-nav);' : ''
+  const br =
+    layout === 'content-sidenav' ? 'border-left: var(--border-side-nav);' : ''
 
   if (isSidenav) {
     styles = `
@@ -86,6 +90,8 @@ function getStyles(
         position: fixed;
         z-index: 101;
         transition: ${sideNav.cssTransition};
+        ${bl}
+        ${br}
       }
       .mkui-sn.sn-collapse {
         margin-left: 0;

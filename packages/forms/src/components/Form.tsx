@@ -3,6 +3,7 @@ import { merge } from '@maker-ui/utils'
 
 import { initialState } from '@/helpers'
 import { FormRenderer } from './FormRenderer'
+import { FieldError } from './FieldError'
 import {
   FormHeader,
   FormFooter,
@@ -19,7 +20,6 @@ import type {
   FormState,
   FormValues,
 } from '@/types'
-import { FieldError } from './FieldError'
 
 export type Action =
   | { type: 'SET_FIELDS'; value: FieldProps[] }
@@ -42,11 +42,26 @@ interface FormHelpers {
 
 export interface FormProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
+  /** React Node inserted before the form renderer. Helpful if you need to access state
+   * from the form provider */
+  preFormSlot?: React.ReactNode
+  /** React Node inserted after the form renderer. Helpful if you need to access state
+   * from the form provider */
+  postFormSlot?: React.ReactNode
+  /** Any generic children that will be appended to the DOM inside of the Form element. */
   children: React.ReactNode
+  /** An array of all form fields or pages / groups with subfields */
   fields: FieldProps[]
+  /** Global form layout and validation settings. */
   settings?: Partial<FormSettings>
+  /** When true, this prop will trigger the <Form.Error /> component to render. */
   error?: boolean
+  /** When true, this prop will trigger the <Form.Success /> component to render, replacing
+   * the form element with a custom success message.
+   */
   success?: boolean
+  /** A callback that executes when the form is submitted. Prior to calling this function, the
+   * form will validate all fields. */
   onSubmit: (values: FormValues, helpers: FormHelpers) => void | Promise<any>
 }
 
@@ -123,6 +138,8 @@ function getFieldData(fields: FieldProps[], index = 0) {
 
 export const Form = ({
   children,
+  preFormSlot,
+  postFormSlot,
   settings = {},
   success,
   error,
@@ -191,9 +208,11 @@ export const Form = ({
 
   return (
     <FormContext.Provider value={{ state, dispatch }}>
+      {preFormSlot}
       <FormRenderer onSubmit={onSubmit} {...props}>
         {children}
       </FormRenderer>
+      {postFormSlot}
     </FormContext.Provider>
   )
 }

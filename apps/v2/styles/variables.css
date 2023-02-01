@@ -2,7 +2,7 @@
   /* Workspace */
   --width-panel: 300px;
   --width-left-panel: 300px;
-  --width-left-panel-collapse: 40px;
+  /* --width-left-panel-collapse: 40px; */
   --width-right-panel: 300px;
   /* --width-right-panel-collapse: 10px; */
   --width-mobile-left-panel: 300px;
@@ -52,7 +52,9 @@ body[data-theme='dark'] {
   --border-header: 1px solid var(--color-border-200); /* Optional */
   --border-panel: 1px solid var(--color-border-200); /* Optional */
   --border-footer: 1px solid var(--color-border-200); /* Optional */
+  --border-side-nav: 1px solid var(--color-border-200); /* Optional */
   --shadow-header: none; /* Optional */
+  --shadow-side-nav: none; /* Optional */
   /* Project specific */
   --color-gray-100: #111;
   --color-gray-200: #1f1f1f;
@@ -83,7 +85,9 @@ body[data-theme='light'] {
   --border-header: 1px solid var(--color-border-200); /* Optional */
   --border-panel: 1px solid var(--color-border-200); /* Optional */
   --border-footer: 1px solid var(--color-border-200); /* Optional */
-  --shadow-header: none;
+  --border-side-nav: 1px solid var(--color-border-200); /* Optional */
+  --shadow-header: none; /* Optional */
+  --shadow-side-nav: none; /* Optional */
   /* Project specific */
   --color-gray-100: #fafafa;
   --color-gray-200: #ebebeb;

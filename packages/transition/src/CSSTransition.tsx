@@ -1,13 +1,14 @@
 'use client'
 
 import React, { useRef } from 'react'
-import { mergeRefs, Conditional } from '@maker-ui/utils'
+import { mergeRefs, Conditional, generateId } from '@maker-ui/utils'
 import {
   CSSTransition as ReactCSSTransition,
   SwitchTransition,
   type CSSTransition as ReactCSSTransitionProps,
 } from 'react-transition-group'
 import { getStyles } from './styles'
+import { Style } from '@maker-ui/style'
 
 export type TransitionType =
   | 'fade'
@@ -20,8 +21,13 @@ export interface CSSTransitionProps
   extends Partial<ReactCSSTransitionProps<HTMLDivElement>> {
   /** ID is a required unique string (necessary for client hydration and local scoping) */
   id?: string
+  /** Switch mode for the CSSTransition
+   * @link https://reactcommunity.org/react-transition-group/switch-transition
+   */
   switchMode?: 'out-in' | 'in-out'
+  /** If true, you do not have to supply explicit strings for the `show` prop */
   isSwitch?: boolean
+
   show: boolean | string | number
   type?: TransitionType
   classNamePrefix?: string
@@ -53,11 +59,12 @@ export const CSSTransition = ({
   children,
   ...props
 }: CSSTransitionProps) => {
+  const [styleId] = React.useState(id || generateId())
   const ref = useRef(null)
-  const styles = getStyles(type, distance, timeout, easing, id)
+  const styles = getStyles(type, distance, timeout, easing, styleId)
   const isShowBool = typeof show === 'boolean'
   const isSwitchTransition = isSwitch || !isShowBool
-  const t = id ? `${id}-${type}` : type
+  const t = styleId ? `${styleId}-${type}` : type
   const switchKey =
     isSwitchTransition && isShowBool
       ? show
@@ -68,7 +75,7 @@ export const CSSTransition = ({
   return (
     <>
       {className || noStyles ? undefined : (
-        <style id={`mkui-style-${id}`}>{styles}</style>
+        <Style root={styleId}>{styles}</Style>
       )}
       <Conditional
         wrapper={(c) => (

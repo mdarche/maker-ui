@@ -24,7 +24,7 @@ export default function TransitionPage() {
         <button onClick={() => set2(!show2)}>
           {show2 ? 'Component 2' : 'Component 1'}
         </button>
-        <CSSTransition id="two" isSwitch show={show2}>
+        <CSSTransition isSwitch show={show2}>
           {show2 ? (
             <div style={{ height: 400, background: 'gainsboro' }}>
               <h2>Component 1</h2>

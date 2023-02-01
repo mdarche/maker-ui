@@ -16,8 +16,8 @@ export const comparators: Comparators = {
   gt: (a, b) => a > b,
   lt: (a, b) => a < b,
   contains: (a: string | string[], b) => a.includes(b),
-  exists: (a, b) => (a ? true : false),
-  notExists: (a, b) => (!a ? true : false),
+  exists: (a, _) => (a ? true : false),
+  notExists: (a, _) => (!a ? true : false),
 }
 
 const containsBool = (arr: boolean[], b: boolean) =>

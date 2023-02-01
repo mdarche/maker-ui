@@ -123,8 +123,8 @@ export const Effects = ({
     if (!o) return
     const click = (e: any) => {
       e.preventDefault()
-      const container = document.querySelector('.mkui-workspace')
       if (!width || width > content.breakpoint) return
+      const container = document.querySelector('.mkui-workspace')
       const side = container?.classList.contains('left-active')
         ? 'left-panel'
         : 'right-panel'
@@ -153,7 +153,7 @@ export const Effects = ({
     if (width) {
       setTimeout(() => {
         workspace?.classList.remove('mkui-layout-init')
-      }, 350)
+      }, 100)
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

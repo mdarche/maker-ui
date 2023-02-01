@@ -7,6 +7,7 @@ import headerStyles from '../server/Header/responsive'
 import layoutStyles from '../server/Layout/responsive'
 import type { MakerUIOptions, Options } from '@/types'
 import { defaults } from '@/defaults'
+import { useWindowSize } from '@maker-ui/hooks'
 
 type Action =
   | { type: 'SET_MENU'; value?: boolean }
@@ -220,6 +221,7 @@ export const useLayout = () => {
 }
 
 export const useMenu = () => {
+  const { width } = useWindowSize()
   const {
     state: { options, active },
     dispatch,
@@ -285,8 +287,10 @@ export const useMenu = () => {
       const side = type === 'left-panel' ? 'left' : 'right'
       if (value) {
         workspace?.classList.add(`${side}-active`)
-        overlay_w?.classList.add('active')
         ;(side === 'left' ? panel_left : panel_right)?.classList.add('active')
+        if (width && width < options?.content.breakpoint!) {
+          overlay_w?.classList.add('active')
+        }
       } else {
         workspace?.classList.remove(`${side}-active`)
         overlay_w?.classList.remove('active')

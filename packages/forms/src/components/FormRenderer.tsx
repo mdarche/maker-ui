@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { cn, Conditional } from '@maker-ui/utils'
+import { cn, Conditional, generateId } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
+import { Style } from '@maker-ui/style'
 
 import { useForm } from '@/hooks'
 import { sortChildren } from '@/helpers'
@@ -16,8 +17,10 @@ interface FormRendererProps
 export const FormRenderer = ({
   children,
   onSubmit,
+  className,
   ...props
 }: FormRendererProps) => {
+  const [styleId] = React.useState(generateId())
   const components = sortChildren(children)
   const {
     totalPages,
@@ -44,6 +47,7 @@ export const FormRenderer = ({
         </CSSTransition>
       )}>
       <form
+        className={cn(['mkui-form', className, styleId])}
         {...props}
         onSubmit={(e) => {
           e.preventDefault()
@@ -53,6 +57,7 @@ export const FormRenderer = ({
             onSubmit(values, { setIsSubmitting, resetForm, submitCount })
           }
         }}>
+        <Style root={styleId} css={{}} />
         {isPaginated && components.progress}
         {components.header}
         {isPaginated ? (

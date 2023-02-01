@@ -3,6 +3,7 @@
   bottom: 0;
   width: var(--width-side-nav);
   background: var(--color-bg-side-nav);
+  box-shadow: var(--shadow-side-nav);
   will-change: transform;
   transform: translateX(0);
 }
