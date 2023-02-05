@@ -104,6 +104,7 @@ export function useField(name: string) {
     if (!isEmpty(errors)) {
       dispatch({ type: 'SET_ERRORS', value: merge(s.errors, errors) })
     }
+    // TODO remove error if it no longer exists
 
     return isValid
   }

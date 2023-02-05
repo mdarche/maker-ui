@@ -103,7 +103,7 @@ export const FormSubmit = React.forwardRef<
   }
   // Check if all required fields have been filled out
   const hasErrors = Object.keys(errors).length ? true : false
-  const hasRequiredVals = checkRequired()
+  const hasRequiredVals = settings?.disableSubmit && checkRequired()
   const isDisabled = settings?.disableSubmit && (hasErrors || !hasRequiredVals)
 
   const renderLifecycle = () =>

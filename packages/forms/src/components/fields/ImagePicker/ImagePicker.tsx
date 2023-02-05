@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import { cn, merge } from '@maker-ui/utils'
 
-import { UploadIcon } from '../Icons'
+import { UploadIcon } from '../../Icons'
 import { DragAndDrop } from './DragAndDrop'
 import type { FileValidations } from '@/types'
 import styles from './ImagePicker.styles'

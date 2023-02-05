@@ -5,6 +5,7 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
+      "@/fields": ["src/components/fields/index.ts"],
       "@/components": ["src/components/index.ts"],
       "@/helpers": ["src/helpers/index.ts"],
       "@/hooks": ["src/hooks/index.ts"],

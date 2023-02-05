@@ -3,7 +3,7 @@ import { merge, cn, Conditional } from '@maker-ui/utils'
 
 import { useField, useForm } from '@/hooks'
 import { FieldProps } from '@/types'
-import { HideIcon, RevealIcon } from './Icons'
+import { HideIcon, RevealIcon } from '../Icons'
 
 const passwordSettings: FieldProps['password'] = {
   hideIcon: <HideIcon />,
