@@ -24,14 +24,32 @@ export function FormDemo() {
             name: 'temp',
             subFields: [
               {
-                type: 'text',
-                name: 'first_name',
-                label: 'First Name',
-                required: true,
-                colSpan: 2,
-                validation: z
-                  .string()
-                  .min(2, { message: 'String must contain 2 chars' }),
+                type: 'group',
+                name: 'group1',
+                label: 'Group 1',
+                subFields: [
+                  {
+                    type: 'text',
+                    name: 'first_name',
+                    label: 'First Name',
+                    labelPosition: 'top-left',
+                    required: true,
+                    colSpan: 2,
+                    validation: z
+                      .string()
+                      .min(2, { message: 'String must contain 2 chars' }),
+                  },
+                  {
+                    type: 'text',
+                    name: 'last_name',
+                    label: 'Last Name',
+                    required: true,
+                    colSpan: 2,
+                    validation: z
+                      .string()
+                      .min(2, { message: 'String must contain 2 chars' }),
+                  },
+                ],
               },
             ],
           },
@@ -40,16 +58,17 @@ export function FormDemo() {
             name: 'temp2',
             subFields: [
               {
-                type: 'text',
-                name: 'last_name',
-                label: 'Last Name',
+                type: 'email',
+                name: 'email',
+                label: 'Email Address',
                 required: true,
                 colSpan: 2,
-                validation: z.string().min(2),
+                validation: z.string().email(),
               },
             ],
           },
         ]}
+        settings={{ columns: 4, validateFieldOnBlur: false }}
         onSubmit={(vals, { submitCount }) => {
           submitHandler(vals)
           console.log('Submit count: ' + submitCount)

@@ -29,8 +29,11 @@ export function validate({
       isValid = false
       errors[field] = `Field is required`
     } else if (schema[field]?.validation) {
-      const parsed = schema[field].validation?.safeParse(values[field])
-      console.log('parsed is', parsed)
+      const res = schema[field].validation?.safeParse(values[field])
+      if (!res?.success && res?.error) {
+        errors[field] = res?.error
+        isValid = false
+      }
     }
   }
 

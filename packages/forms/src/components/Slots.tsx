@@ -17,6 +17,9 @@ export interface FormProgressProps extends SlotProps {
     active?: string
   }
   component?: React.ReactNode
+  /** Custom render props for the pagination button. Don't forget to set your custom button's
+   * type attribute to 'button' to prevent the form from submitting when clicked.
+   */
   renderProps?: (
     active?: boolean,
     setPage?: (n: number) => void,
@@ -26,7 +29,19 @@ export interface FormProgressProps extends SlotProps {
 
 export const FormProgress = forwardRef<HTMLDivElement, FormProgressProps>(
   ({ className, classNames, component, renderProps, _type, ...props }, ref) => {
-    const { currentPage, setPage, totalPages } = useForm()
+    const { currentPage, setPage, totalPages, validatePage } = useForm()
+    /**
+     * Validate the current page before moving to the next page
+     */
+    const handlePageClick = (i: number) => {
+      if (i > currentPage) {
+        const valid = validatePage(currentPage)
+        if (valid) setPage(i)
+      } else {
+        setPage(i)
+      }
+    }
+
     return (
       <div
         ref={ref}
@@ -40,9 +55,10 @@ export const FormProgress = forwardRef<HTMLDivElement, FormProgressProps>(
                 renderProps(isActive, setPage, currentPage)
               ) : (
                 <button
-                  onClick={() => setPage(i + 1)}
+                  type="button"
+                  onClick={() => handlePageClick(i + 1)}
                   className={cn([
-                    'mkui-form-page',
+                    'mkui-btn-form-progress',
                     classNames?.indicator,
                     isActive ? 'active' : '',
                     isActive ? classNames?.active : '',
@@ -73,8 +89,22 @@ export const FormSubmit = React.forwardRef<
   HTMLButtonElement,
   FormSubmitButtonProps
 >(({ onClick, lifecycle, children, className, ...props }, ref) => {
-  const { isSubmitting, errors, settings } = useForm()
+  const { isSubmitting, errors, settings, schema, values } = useForm()
+
+  function checkRequired() {
+    let res = true
+    Object.keys(schema).forEach((name) => {
+      if (!res) return
+      if (schema[name].required && !values[name]) {
+        res = false
+      }
+    })
+    return res
+  }
+  // Check if all required fields have been filled out
   const hasErrors = Object.keys(errors).length ? true : false
+  const hasRequiredVals = checkRequired()
+  const isDisabled = settings?.disableSubmit && (hasErrors || !hasRequiredVals)
 
   const renderLifecycle = () =>
     lifecycle && isSubmitting ? lifecycle.submitting : children
@@ -85,7 +115,7 @@ export const FormSubmit = React.forwardRef<
       ref={ref}
       className={cn(['mkui-form-submit', className])}
       onClick={onClick ? (e) => onClick(e, isSubmitting) : undefined}
-      disabled={settings?.disableSubmit && hasErrors}
+      disabled={isDisabled}
       {...props}>
       {renderLifecycle()}
     </button>

@@ -3,7 +3,7 @@ import { FormDemo } from './forms'
 
 export default function FormPage() {
   return (
-    <Section>
+    <Section style={{ padding: '0 10%' }}>
       <FormDemo />
     </Section>
   )

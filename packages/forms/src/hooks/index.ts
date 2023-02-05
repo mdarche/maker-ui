@@ -19,9 +19,7 @@ export function useForm() {
       values: s.values,
     })
 
-    if (!isEmpty(errors)) {
-      dispatch({ type: 'SET_ERRORS', value: errors })
-    }
+    dispatch({ type: 'SET_ERRORS', value: !isEmpty(errors) ? errors : {} })
 
     return isValid
   }
@@ -34,9 +32,7 @@ export function useForm() {
       page,
     })
 
-    if (!isEmpty(errors)) {
-      dispatch({ type: 'SET_ERRORS', value: merge(s.errors, errors) })
-    }
+    dispatch({ type: 'SET_ERRORS', value: !isEmpty(errors) ? errors : {} })
 
     return isValid
   }
@@ -54,7 +50,6 @@ export function useForm() {
   }
 
   function setPage(n: number) {
-    // Validate current page and change page if it succeeds.
     dispatch({ type: 'SET_PAGE', value: n })
   }
 

@@ -5,12 +5,11 @@ import type { FormState } from '@/types'
 export const initialState: FormState = {
   settings: {
     validateIcon: <ValidateIcon />,
-    columns: '1fr',
-    gap: 30,
+    columns: 'repeat(2, 1fr)',
+    gap: 15,
     placeholderColor: '#b7b7b7',
     labelPosition: 'top-left',
     errorPosition: 'bottom-right',
-    validateFormOnBlur: false,
     validateFieldOnBlur: true,
     autoSave: false,
   },

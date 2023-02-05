@@ -1,17 +1,33 @@
 import * as React from 'react'
 import { cn, Conditional, generateId } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
-import { Style } from '@maker-ui/style'
+import { ResponsiveCSS, Style } from '@maker-ui/style'
 
 import { useForm } from '@/hooks'
 import { sortChildren } from '@/helpers'
 import { Field } from './Field'
 import type { FormProps } from './Form'
+import { styles } from './styles'
+import { FieldProps } from '@/types'
 
 interface FormRendererProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
   onSubmit: FormProps['onSubmit']
   children: React.ReactNode
+}
+
+function findAllByKey(obj: object, target: string): any {
+  return (
+    Object.entries(obj).reduce(
+      (acc, [key, value]) =>
+        key === target
+          ? acc.concat(value)
+          : typeof value === 'object' && value
+          ? acc.concat(findAllByKey(value, target))
+          : acc,
+      []
+    ) || []
+  )
 }
 
 export const FormRenderer = ({
@@ -38,6 +54,42 @@ export const FormRenderer = ({
   } = useForm()
   const isPaginated = totalPages > 1
 
+  function getColumnStyles() {
+    const cols = [...new Set(findAllByKey({ fields }, 'colSpan') || [])]
+    if (cols.length) {
+      let css: { [key: string]: any } = {}
+      cols.forEach((c) => {
+        css[`.colspan-${c}`] = {
+          gridColumn: c ? ['1 / -1', `span ${c}`] : '1 / -1',
+        }
+      })
+      return css
+    }
+    return {}
+  }
+
+  const renderGroup = (p: FieldProps, i: number) => {
+    return p?.type === 'group' && p?.subFields ? (
+      <div
+        key={p?.name || i}
+        className={cn([
+          'mkui-field-group',
+          p?.className,
+          settings?.classNames?.fieldGroup,
+        ])}>
+        {p?.label ?? null}
+        {p?.instructions ?? null}
+        <div className="mkui-form-grid">
+          {p.subFields?.map((p) => (
+            <Field key={p.name} {...p} />
+          ))}
+        </div>
+      </div>
+    ) : (
+      <Field key={p.name} {...p} />
+    )
+  }
+
   return (
     <Conditional
       condition={!!components.success}
@@ -57,7 +109,25 @@ export const FormRenderer = ({
             onSubmit(values, { setIsSubmitting, resetForm, submitCount })
           }
         }}>
-        <Style root={styleId} css={{}} />
+        <Style
+          root={styleId}
+          breakpoints={settings?.breakpoints}
+          css={{
+            ...styles,
+            ...getColumnStyles(),
+            '.mkui-form-grid': {
+              display: 'grid',
+              gridTemplateColumns: [
+                '1fr',
+                `repeat(${settings?.columns}, 1fr)`,
+              ] || ['1fr', 'repeat(2, 1fr)'],
+              gap: settings?.gap || '1rem',
+            } as ResponsiveCSS,
+            '.mkui-field-group': {
+              gridColumn: '1 / -1',
+            },
+          }}
+        />
         {isPaginated && components.progress}
         {components.header}
         {isPaginated ? (
@@ -73,9 +143,7 @@ export const FormRenderer = ({
                       settings?.classNames?.page,
                     ])}>
                     <div className="mkui-form-grid">
-                      {subFields?.map((p) => (
-                        <Field key={p.name} {...p} />
-                      ))}
+                      {subFields?.map((p) => renderGroup(p, i))}
                     </div>
                   </div>
                 ) : null}
@@ -85,21 +153,7 @@ export const FormRenderer = ({
           </CSSTransition>
         ) : (
           <div className="mkui-form-grid">
-            {fields?.map((p) =>
-              p?.type === 'group' && p?.subFields ? (
-                <div
-                  className={cn([
-                    'mkui-field-group',
-                    settings?.classNames?.fieldGroup,
-                  ])}>
-                  {p.subFields?.map((p) => (
-                    <Field key={p.name} {...p} />
-                  ))}
-                </div>
-              ) : (
-                <Field key={p.name} {...p} />
-              )
-            )}
+            {fields?.map((p, i) => renderGroup(p, i))}
           </div>
         )}
         {components.children?.map((child, i) => (

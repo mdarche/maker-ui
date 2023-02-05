@@ -70,6 +70,7 @@ export const Field = (p: FieldProps) => {
         p.className,
         'label-' + labelPos,
         'error-' + errorPos,
+        p?.colSpan ? 'colspan-' + p.colSpan : undefined,
         s?.classNames?.fieldContainer,
         hasError ? 'error' : undefined,
         touched ? 'touched' : '',

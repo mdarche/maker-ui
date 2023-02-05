@@ -1,3 +1,4 @@
+import { Breakpoints } from '@maker-ui/style'
 import * as React from 'react'
 import type { Schema, ZodError } from 'zod'
 
@@ -185,7 +186,7 @@ export interface FieldProps {
   component?: React.ReactElement
   placeholder?: string
   required?: boolean
-  /** Custom Zod validation that will be run during validation */
+  /** Custom Zod validation schema that will be run during validation */
   validation?: Schema
   labelPosition?: LabelPosition
   errorPosition?: ErrorPosition
@@ -227,9 +228,8 @@ export interface AutoSaveSettings {
 export interface FormSettings {
   /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
   validateFieldOnBlur: boolean
-  /** Validates all touched fields when an input is blurred  */
-  validateFormOnBlur: boolean
   validateIcon: React.ReactElement
+  breakpoints?: Breakpoints
   columns: string | string[] | number
   gap: string | number | (string | number)[]
   labelPosition: LabelPosition
@@ -237,8 +237,7 @@ export interface FormSettings {
   classNames?: FormClassNames
   placeholderColor?: string | string[]
   autoSave?: boolean | AutoSaveSettings
-  /** If true, the submit button will be disabled until form validation passes. This
-   * prop requires validateFormOnBlur to be `true`.
+  /** If true, the submit button will be disabled until form validation passes. // FIgure this out by finding if all required fields have values
    */
   disableSubmit?: boolean
 }
