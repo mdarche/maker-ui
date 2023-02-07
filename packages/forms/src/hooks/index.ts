@@ -2,11 +2,32 @@ import { useContext } from 'react'
 import { merge } from '@maker-ui/utils'
 import { FormContext } from '@/components'
 import { validate } from '@/helpers'
+import { FieldProps } from '@/types'
 
 function isEmpty(obj: object) {
   return Object.values(obj as object).every(
     (el) => el === undefined || el === null
   )
+}
+
+function deepSearch(
+  collection: FieldProps[],
+  key: string,
+  value: string | number
+): FieldProps | undefined {
+  for (const o of collection) {
+    for (const [k, v] of Object.entries(o)) {
+      if (k === key && v === value) {
+        return o
+      }
+      if (Array.isArray(v)) {
+        const _o = deepSearch(v, key, value)
+        if (_o) {
+          return _o
+        }
+      }
+    }
+  }
 }
 
 export function useForm() {
@@ -110,10 +131,7 @@ export function useField(name: string) {
   }
 
   return {
-    field:
-      page > 1
-        ? s.fields[page]?.subFields?.find((p) => p.name === name)
-        : s.fields.find((p) => p.name === name),
+    field: deepSearch(s.fields, 'name', name),
     touched: s.touched.includes(name),
     error: s.errors[name] || false,
     value: s.values[name],

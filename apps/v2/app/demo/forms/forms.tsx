@@ -49,6 +49,18 @@ export function FormDemo() {
                       .string()
                       .min(2, { message: 'String must contain 2 chars' }),
                   },
+                  {
+                    type: 'range',
+                    name: 'price',
+                    label: 'Price',
+                    required: true,
+                    range: {
+                      multi: true,
+                      min: 5,
+                      max: 100,
+                      step: 5,
+                    },
+                  },
                 ],
               },
             ],
@@ -78,7 +90,7 @@ export function FormDemo() {
         {/* <Form.BackButton />
         <Form.NextButton /> */}
         <Form.Submit>Submit</Form.Submit>
-        <Form.Footer>Form 2 Footer</Form.Footer>
+        {/* <Form.Footer>Form 2 Footer</Form.Footer> */}
         <Form.Error>There was an error. Please try to submit again.</Form.Error>
         <Form.Success>Successful Form</Form.Success>
       </Form>

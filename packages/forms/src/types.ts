@@ -165,6 +165,16 @@ export type InputOption = {
   className?: string
   id?: string
   disabled?: boolean
+  group?: string
+}
+
+export interface FieldInputProps {
+  name: string
+}
+
+interface MinMax {
+  min: number
+  max: number
 }
 
 // type OptionalName = string | undefined
@@ -198,9 +208,26 @@ export interface FieldProps {
   // For Radio, Checkbox, Select
   options?: InputOption[] | { [key: string]: string }
   // For range
-  min?: number
-  // For range
-  max?: number
+  range?: {
+    multi?: boolean
+    textInput?: boolean
+    min?: number
+    max?: number
+    step?: number
+    minLabel?: string | React.ReactElement
+    maxLabel?: string | React.ReactElement
+    beforeInput?: string | React.ReactElement
+    afterInput?: string | React.ReactElement
+    /** A callback for accessing values as they change */
+    onChange?: (m: MinMax) => void
+  }
+  select?: {
+    multi?: boolean
+    search?: boolean
+    creatable?: boolean
+    clearable?: boolean
+    fixed?: InputOption[]
+  }
   // For switch
   switch?: SwitchSettings
   // For image

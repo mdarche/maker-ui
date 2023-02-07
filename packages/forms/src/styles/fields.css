@@ -1,0 +1,142 @@
+/* Switch */
+.mkui-switch {
+  position: relative;
+  display: inline-block;
+}
+
+.mkui-switch input {
+  position: absolute;
+  top: -5;
+  left: -5;
+  opacity: 0;
+  outline: 0;
+  z-index: 100;
+}
+
+.mkui-switch label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 1px 5px;
+  transition: all ease 0.3s;
+  outline: 0;
+}
+
+.mkui-switch-slider {
+  display: block;
+  position: absolute;
+  background: #fff;
+  z-index: 1;
+  right: 50%;
+  transition: all ease 0.3s;
+  transition-property: left, right;
+}
+
+.mkui-switch-slider.on {
+  left: 50%;
+}
+
+/* Range */
+
+.mkui-range-input {
+  flex: 1;
+}
+
+.mkui-range-input input {
+  width: 100%;
+}
+
+.mkui-range-input label {
+  text-align: center;
+}
+
+.mkui-range-slider {
+  width: 100%;
+  position: relative;
+  margin: 30px 0 20px;
+}
+
+.mkui-thumb,
+.mkui-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  border: none;
+}
+
+.mkui-thumb::-webkit-slider-thumb {
+  background-color: var(--color-background);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px var(--color-text);
+  cursor: pointer;
+  height: 23px;
+  width: 23px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+.mkui-thumb::-moz-range-thumb {
+  background-color: #f1f5f7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px var(--color-text);
+  cursor: pointer;
+  height: 23px;
+  width: 23px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+.mkui-thumb {
+  pointer-events: none;
+  height: 0px;
+  width: 100%;
+  outline: none;
+}
+
+.mkui-slider {
+  width: 100%;
+  position: relative;
+}
+
+.mkui-thumb-track,
+.mkui-thumb-progress {
+  border-radius: 3px;
+  height: 5px;
+}
+
+.mkui-thumb-track {
+  width: 100%;
+  z-index: 1;
+  background-color: gainsboro;
+}
+
+.mkui-thumb-progress {
+  z-index: 2;
+  background-color: var(--color-text);
+}
+
+.z-3 {
+  z-index: 3;
+}
+
+.z-4 {
+  z-index: 4;
+}
+
+.z-5 {
+  z-index: 5;
+}
+
+/* Select */
+
+/* ImagePicker */
+
+/* Datepicker */
+
+/* Gallery */

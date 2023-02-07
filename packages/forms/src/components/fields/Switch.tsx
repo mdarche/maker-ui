@@ -2,11 +2,7 @@ import * as React from 'react'
 import { cn, merge } from '@maker-ui/utils'
 
 import { useField } from '@/hooks'
-import type { SwitchSettings } from '@/types'
-
-interface SwitchProps {
-  name: string
-}
+import type { FieldInputProps, SwitchSettings } from '@/types'
 
 const defaultSettings: SwitchSettings = {
   inner_label: false,
@@ -26,7 +22,7 @@ const defaultSettings: SwitchSettings = {
  * the iOS switch Switch.
  */
 
-export const Switch = ({ name }: SwitchProps) => {
+export const Switch = ({ name }: FieldInputProps) => {
   const { field, value, setValue } = useField(name)
   const config = merge(defaultSettings, field?.switch || {})
   // const hasError = !!error
@@ -44,7 +40,7 @@ export const Switch = ({ name }: SwitchProps) => {
       className={cn(['mkui-switch', value ? 'active' : ''])}
       aria-labelledby={`${name}-label`}>
       <label
-        className="switch-label"
+        className="mkui-switch-label"
         htmlFor={name}
         tabIndex={config.disabled ? -1 : 1}
         onKeyDown={(e) => handleKeyPress(e)}>

@@ -1,14 +1,12 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { useField } from '@/hooks'
+import { FieldInputProps } from '@/types'
 
-export interface OptionsProps {
-  name: string
-}
 // For the radio and checkbox input components
 // TODO add setting for vertical options + columns
 
-export const Options = ({ name }: OptionsProps) => {
+export const Options = ({ name }: FieldInputProps) => {
   const { field, error, setValue } = useField(name)
   // TODO use value to set active className
   return (

@@ -1,3 +1,5 @@
-export { Form } from '@/components'
+import './styles/fields.css'
+import './styles/form.css'
+export { Form, ImagePicker } from '@/components'
 export * from '@/hooks'
 export * from '@/types'

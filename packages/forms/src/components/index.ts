@@ -1,3 +1,3 @@
 export { Form, FormContext } from './Form'
-// export { ImagePicker, type ImagePickerProps } from './ImagePicker'
+export { ImagePicker } from '@/fields'
 export * from './Icons'

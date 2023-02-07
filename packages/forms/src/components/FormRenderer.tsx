@@ -7,8 +7,7 @@ import { useForm } from '@/hooks'
 import { sortChildren } from '@/helpers'
 import { Field } from './Field'
 import type { FormProps } from './Form'
-import { styles } from './styles'
-import { FieldProps } from '@/types'
+import type { FieldProps } from '@/types'
 
 interface FormRendererProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
@@ -56,11 +55,12 @@ export const FormRenderer = ({
 
   function getColumnStyles() {
     const cols = [...new Set(findAllByKey({ fields }, 'colSpan') || [])]
+    const full = '1 / -1'
     if (cols.length) {
       let css: { [key: string]: any } = {}
       cols.forEach((c) => {
         css[`.colspan-${c}`] = {
-          gridColumn: c ? ['1 / -1', `span ${c}`] : '1 / -1',
+          gridColumn: c ? [full, `span ${c}`] : full,
         }
       })
       return css
@@ -113,19 +113,14 @@ export const FormRenderer = ({
           root={styleId}
           breakpoints={settings?.breakpoints}
           css={{
-            ...styles,
             ...getColumnStyles(),
             '.mkui-form-grid': {
-              display: 'grid',
               gridTemplateColumns: [
                 '1fr',
                 `repeat(${settings?.columns}, 1fr)`,
               ] || ['1fr', 'repeat(2, 1fr)'],
               gap: settings?.gap || '1rem',
             } as ResponsiveCSS,
-            '.mkui-field-group': {
-              gridColumn: '1 / -1',
-            },
           }}
         />
         {isPaginated && components.progress}
@@ -149,7 +144,7 @@ export const FormRenderer = ({
                 ) : null}
               </React.Fragment>
             ))}
-            <div>Render pagination buttons</div>
+            {/* <div>Render pagination buttons</div> */}
           </CSSTransition>
         ) : (
           <div className="mkui-form-grid">

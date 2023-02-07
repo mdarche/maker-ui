@@ -6,7 +6,7 @@ import { useForm, useField } from '@/hooks'
 import { evaluateConditions } from '@/helpers'
 import type { FieldProps } from '@/types'
 import { Label } from './Label'
-import { Input, Options, Switch } from '@/fields'
+import { Input, Options, Switch, Range, Select } from '@/fields'
 import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
 
 const basicInputs = [
@@ -59,7 +59,7 @@ export const Field = (p: FieldProps) => {
     }
     /* Basic HTML Inputs */
     if (basicInputs.includes(p.type)) {
-      return <Input name={p.name} />
+      return p?.range?.multi ? <Range name={p.name} /> : <Input name={p.name} />
     }
     /* Radio and Checkbox group inputs*/
     if (p.type === 'radio' || p.type === 'checkbox') {
@@ -68,6 +68,10 @@ export const Field = (p: FieldProps) => {
     /* Switch Toggle input*/
     if (p.type === 'switch') {
       return <Switch name={p.name} />
+    }
+    /* Radio and Checkbox group inputs*/
+    if (p.type === 'select') {
+      return <Select name={p.name} />
     }
   }
 
