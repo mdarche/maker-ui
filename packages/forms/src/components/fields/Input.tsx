@@ -6,13 +6,13 @@ import { FieldInputProps, FieldProps } from '@/types'
 import { HideIcon, RevealIcon } from '../Icons'
 
 const passwordSettings: FieldProps['password'] = {
-  hideIcon: <HideIcon />,
-  revealIcon: <RevealIcon />,
+  iconHide: <HideIcon />,
+  iconReveal: <RevealIcon />,
   toggleCharacters: true,
 }
 
 export const Input = ({ name }: FieldInputProps) => {
-  const { fields, settings } = useForm()
+  const { settings } = useForm()
   const { field, error, value, setValue, validateField } = useField(name)
   const [showPass, setShowPass] = useState(false)
 
@@ -21,7 +21,6 @@ export const Input = ({ name }: FieldInputProps) => {
   )
   const ps = isPass ? merge(passwordSettings, field?.password || {}) : undefined
 
-  console.log('Fields are', fields)
   const el = field?.type === 'textarea' ? 'textarea' : 'input'
   const attrs = {
     id: `field-${field?.name}`,
@@ -48,7 +47,7 @@ export const Input = ({ name }: FieldInputProps) => {
             className="mkui-btn-password"
             type="button"
             onClick={() => setShowPass(!showPass)}>
-            {showPass ? ps?.hideIcon : ps?.revealIcon}
+            {showPass ? ps?.iconHide : ps?.iconReveal}
           </button>
         </div>
       )}>

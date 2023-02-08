@@ -25,6 +25,7 @@
 .mkui-form input[type='email'],
 .mkui-form input[type='tel'],
 .mkui-form input[type='time'],
+.mkui-form input[type='date'],
 .mkui-form input[type='url'],
 .mkui-form input[type='number'] {
   height: var(--form-height-input, 36px);
@@ -204,6 +205,65 @@
 /* Select */
 
 /* ImagePicker */
+.mkui-image-picker {
+  position: relative;
+}
+
+.mkui-image-picker img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.mkui-dropzone.preview .mkui-drag-area {
+  cursor: poiner;
+  border: none;
+  backgroundcolor: transparent;
+  opacity: 0;
+  transition: all ease 0.3s;
+}
+
+.mkui-preview .mkui-drag-area svg {
+  fill: '#fff';
+}
+
+.mkui-preview .mkui-drag-area.drag-active {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.mkui-btn-remove {
+  z-index: 10;
+}
+
+.mkui-dropzone input {
+  display: none;
+}
+
+.mkui-drag-area {
+  padding: 30px;
+  border: var(--form-border-dropzone, 2px dashed #ddd);
+  background: var(--form-bg-dropzone, #f5f5f5);
+  transition: all ease 0.3s;
+}
+
+.mkui-hitbox {
+  position: absolute;
+  cursor: pointer;
+}
+
+.mkui-dropzone {
+}
+
+.mkui-dropzone:not(.preview-dropzone) {
+  position: relative;
+  width: var(--form-width-dropzone, var(--form-size-dropzone, 260px));
+  height: var(--form-height-dropzone, var(--form-size-dropzone, 260px));
+}
+
+.mkui-dropzone-hitbox {
+}
 
 /* Datepicker */
 

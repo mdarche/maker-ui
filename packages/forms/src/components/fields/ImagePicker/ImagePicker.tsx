@@ -4,7 +4,6 @@ import { cn, merge } from '@maker-ui/utils'
 import { UploadIcon } from '../../Icons'
 import { DragAndDrop } from './DragAndDrop'
 import type { FileValidations } from '@/types'
-import styles from './ImagePicker.styles'
 
 export interface ImagePickerState {
   dropDepth: number
@@ -261,49 +260,23 @@ export const ImagePicker = ({
   return (
     <div
       id={id}
-      className={cn(['image-picker', getPosition(), className])}
-      // css={
-      //   dropzone && !dropzone.naked
-      //     ? {
-      //         '.preview-image': {
-      //           position: 'relative',
-      //           ...(typeof previewSize === 'object' &&
-      //           !Array.isArray(previewSize)
-      //             ? previewSize
-      //             : {
-      //                 height: previewSize,
-      //                 width: previewSize,
-      //               }),
-      //         },
-      //         '.dropzone:not(.preview-dropzone)': {
-      //           position: 'relative',
-      //           width: dropzone && dropzone.width,
-      //           height:
-      //             dropzone && dropzone.height ? dropzone.height : previewSize,
-      //           alignItems:
-      //             dropzone && !dropzone.height ? 'stretch' : undefined,
-      //         },
-      //         ...(styles as object),
-      //         ...(css as object),
-      //       }
-      //     : css
-      // }
+      className={cn(['mkui-image-picker', getPosition(), className])}
       {...props}>
       {preview !== false && (placeholder || data.fileList.length || preview) ? (
         <div
           className={cn([
-            'preview-container',
+            'mkui-preview',
             isPreviewPrimary ? 'is-primary-dropzone' : undefined,
           ])}>
           <div className="preview flex flex-col">
             {image && typeof image === 'string' ? (
-              <img src={image} className="preview-image" alt="Preview" />
+              <img src={image} className="mkui-preview-image" alt="Preview" />
             ) : preview ? (
-              <div className="preview-image">{image}</div>
+              <div className="mkui-preview-image">{image}</div>
             ) : (
-              <div className="preview-image">{placeholder}</div>
+              <div className="mkui-preview-image">{placeholder}</div>
             )}
-            {isPreviewDropzone ? (
+            {isPreviewDropzone && (
               <DragAndDrop
                 inputId={inputId}
                 settings={{
@@ -318,12 +291,12 @@ export const ImagePicker = ({
                 setErrors={setErrors}
                 fileValidations={validations}
               />
-            ) : null}
+            )}
           </div>
           {data.fileList[0] || canRemoveImage ? (
             <button
               type="button"
-              className="btn-remove width-100"
+              className="mkui-btn-remove"
               onClick={removeImage}>
               {removeImageComponent}
             </button>
@@ -341,13 +314,13 @@ export const ImagePicker = ({
           cy={cy}
         />
       ) : null}
-      {errors ? (
-        <div className={cn(['upload-error absolute', errorPosition])}>
+      {errors && (
+        <div className={cn(['mkui-upload-error absolute', errorPosition])}>
           {errors.map((message, i) => (
             <div key={i}>{message}</div>
           ))}
         </div>
-      ) : null}
+      )}
     </div>
   )
 }

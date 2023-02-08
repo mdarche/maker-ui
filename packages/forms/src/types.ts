@@ -102,7 +102,7 @@ export type FieldType =
   | 'select'
   | 'date'
   | 'date-picker' // TODO
-  | 'color-picker' // TODO
+  | 'color-picker' // TODO custom
   | 'switch'
   | 'radio'
   | 'checkbox'
@@ -117,17 +117,6 @@ export type FieldType =
 export interface ImageSettings
   extends Omit<ImagePickerProps, 'setFile' | 'setFiles'> {
   returnUrl?: boolean
-}
-
-export interface SwitchSettings {
-  /** A custom label for the switch `on` state. Must have `innerLabel` active. */
-  labelOn?: string | React.ReactNode
-  /** A custom label for the switch `off` state. Must have `innerLabel` active. */
-  labelOff?: string | React.ReactNode
-  /** Renders the switch as disabled */
-  disabled?: boolean
-  /** The switch style can be `circle` or `box` */
-  style?: 'circle' | 'box'
 }
 
 export type CompareOperator =
@@ -200,8 +189,8 @@ export interface FieldProps {
     min?: number
     max?: number
     step?: number
-    minLabel?: string | React.ReactElement
-    maxLabel?: string | React.ReactElement
+    labelMin?: string | React.ReactElement
+    labelMax?: string | React.ReactElement
     beforeInput?: string | React.ReactElement
     afterInput?: string | React.ReactElement
     /** A callback for accessing values as they change */
@@ -227,11 +216,11 @@ export interface FieldProps {
   }
   // For image
   image?: ImageSettings
+  // For Password
   password?: {
     toggleCharacters?: boolean
-    hideIcon?: React.ReactElement
-    revealIcon?: React.ReactElement
-    padding?: string | number | (string | number)[]
+    iconHide?: React.ReactElement
+    iconReveal?: React.ReactElement
   }
   subFields?: FieldProps[]
 }

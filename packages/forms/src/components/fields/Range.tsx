@@ -100,7 +100,7 @@ export const Range = ({ name }: FieldInputProps) => {
       {r?.textInput ? (
         <div className="flex align-center justify-between">
           <div className="mkui-range-input">
-            <label htmlFor={`${id}-min`}>{r?.minLabel}</label>
+            <label htmlFor={`${id}-min`}>{r?.labelMin}</label>
             <div className="flex align-center">
               {r?.beforeInput}
               <input
@@ -114,7 +114,7 @@ export const Range = ({ name }: FieldInputProps) => {
             </div>
           </div>
           <div className="mkui-range-input">
-            <label htmlFor={`${id}-max`}>{r?.maxLabel}</label>
+            <label htmlFor={`${id}-max`}>{r?.labelMax}</label>
             <div className="flex align-center">
               {r?.beforeInput}
               <input

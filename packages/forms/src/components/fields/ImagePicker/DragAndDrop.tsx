@@ -119,16 +119,16 @@ export const DragAndDrop = ({
   return (
     <div
       className={cn([
-        'dropzone flex',
+        'mkui-dropzone flex',
         isHoverPreview
-          ? 'preview-dropzone absolute cover flex align-center justify-center'
+          ? 'mkui-preview absolute cover align-center justify-center'
           : undefined,
         settings.className,
       ])}>
-      <label className="hitbox cover flex" htmlFor={inputId}>
+      <label className="mkui-dropzone-hitbox cover flex" htmlFor={inputId}>
         <div
           className={cn([
-            'drag-area',
+            'mkui-drag-area',
             'flex align-center justify-center flex-col width-100',
             data.inDropZone && dropArea === data.dropArea
               ? 'drag-active'
@@ -138,23 +138,24 @@ export const DragAndDrop = ({
           onDragOver={(e) => handleDragOver(e)}
           onDragEnter={(e) => handleDragEnter(e)}
           onDragLeave={(e) => handleDragLeave(e)}>
-          {settings.icon ? (
-            <div className="dropzone-icon">{settings.icon}</div>
-          ) : null}
+          {settings.icon && (
+            <div className="mkui-dropzone-icon">{settings.icon}</div>
+          )}
           {data.inDropZone
             ? settings.activeComponent
             : data.fileList[0] && settings.showFileName === true
             ? data.fileList[0].name
             : settings.component}
-          {settings.showFileName === 'bottom' && data.fileList[0] ? (
-            <div className="dropzone-filename">{data.fileList[0].name}</div>
-          ) : null}
+          {settings.showFileName === 'bottom' && data.fileList[0] && (
+            <div className="mkui-dropzone-filename">
+              {data.fileList[0].name}
+            </div>
+          )}
         </div>
       </label>
       <input
         id={inputId}
         type="file"
-        className="hidden"
         accept="image/png, image/jpeg, image/jpg, image/webp"
         onChange={onUpdateImage}
         data-cy={cy}

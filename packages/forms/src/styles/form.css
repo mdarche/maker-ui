@@ -2,6 +2,16 @@
 / -------------------------------------------------- /
 / --form-gap
 / --form-columns
+/ --form-color-error
+/ --form-color-instructions
+/ --form-color-label
+/ --form-font-size-error
+/ --form-font-size-instructions
+/ --form-font-size-label
+/ --form-padding-error
+/ --form-padding-instructions
+/ --form-padding-label
+/ -------------------------------------------------- 
 */
 
 .mkui-form-grid {
@@ -21,11 +31,13 @@
 }
 /* Instructions */
 .mkui-field-instructions {
+  color: var(--form-color-instructions, var(--color-text));
   font-size: var(--form-font-size-instructions, 0.8rem);
   padding: var(--form-padding-instructions, 5px 0 10px);
 }
 /* Labels */
 .mkui-field-label {
+  color: var(--form-color-instructions, var(--color-text));
   font-size: var(--form-font-size-label, 1rem);
   padding: var(--form-padding-label, 0 0 5px);
 }
