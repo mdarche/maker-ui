@@ -19,7 +19,16 @@
 .mkui-field-group {
   grid-column: 1 / -1;
 }
+/* Instructions */
+.mkui-field-instructions {
+  font-size: var(--form-font-size-instructions, 0.8rem);
+  padding: var(--form-padding-instructions, 5px 0 10px);
+}
 /* Labels */
+.mkui-field-label {
+  font-size: var(--form-font-size-label, 1rem);
+  padding: var(--form-padding-label, 0 0 5px);
+}
 .label-top-left,
 .label-top-right,
 .label-top-center,
@@ -43,41 +52,33 @@
 /* Errors */
 .mkui-field-error {
   position: absolute;
+  color: var(--form-color-error, red);
+  font-size: var(--form-font-size-error, 0.75rem);
 }
-.error-top-right .mkui-field-error {
-  top: 0;
-  right: 0;
-}
-.error-top-right.label-top-right .mkui-field-error {
-  top: initial;
-  bottom: 100%;
-}
-.error-top-left .mkui-field-error {
-  top: 0;
-  left: 0;
-}
+.error-top-right.label-top-right .mkui-field-error,
 .error-top-left.label-top-left .mkui-field-error {
   top: initial;
-  bottom: 100%;
 }
+.error-top-right .mkui-field-error,
+.error-top-left .mkui-field-error,
 .error-top-center .mkui-field-error {
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: calc(100% + var(--form-padding-error, 5px));
 }
-.error-top-center.label-top-center .mkui-field-error {
-  bottom: 100%;
+.error-bottom-right .mkui-field-error,
+.error-bottom-left .mkui-field-error,
+.error-bottom-center .mkui-field-error {
+  top: calc(100% + var(--form-padding-error, 5px));
 }
+.error-top-right .mkui-field-error,
 .error-bottom-right .mkui-field-error {
-  top: 100%;
   right: 0;
 }
+.error-top-left .mkui-field-error,
 .error-bottom-left .mkui-field-error {
-  top: 100%;
   left: 0;
 }
+.error-top-center .mkui-field-error,
 .error-bottom-center .mkui-field-error {
-  top: 100%;
   left: 50%;
   transform: translateX(-50%);
 }

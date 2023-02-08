@@ -66,10 +66,12 @@ export function FormDemo() {
                     type: 'switch',
                     name: 'switch',
                     label: 'Are you ready?',
+                    instructions:
+                      'If you are ready to rock, leave this marked as true.',
                     colSpan: 2,
-                    // switch: {
-                    //   style: 'circle',
-                    // },
+                    switch: {
+                      style: 'circle',
+                    },
                   },
                 ],
               },
