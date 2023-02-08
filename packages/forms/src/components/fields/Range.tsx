@@ -12,11 +12,7 @@ import { merge, cn, generateId } from '@maker-ui/utils'
 export const Range = ({ name }: FieldInputProps) => {
   const [id] = useState(generateId())
   const { field, setValue } = useField(name)
-  const {
-    // range: { min, max, step, minLabel, maxLabel, onChange },
-    range: r,
-    initialValue,
-  }: Required<FieldProps> = merge(
+  const { range: r, initialValue }: Required<FieldProps> = merge(
     {
       range: {
         min: 1,
@@ -29,8 +25,6 @@ export const Range = ({ name }: FieldInputProps) => {
     },
     field || {}
   )
-
-  console.log('Range is', r)
 
   const [minVal, setMinVal] = useState(r.min!)
   const [maxVal, setMaxVal] = useState(r.max!)

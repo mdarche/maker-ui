@@ -1,4 +1,42 @@
+/* Text Inputs 
+/ -------------------------------------------------- /
+/ --form-height-input
+/ --form-padding-input
+
+/* Range Inputs 
+/ -------------------------------------------------- /
+/ --form-width-range-input
+/ --form-height-range-input
+] --form-color-thumb
+/ --form-color-thumb-shadow
+/ --form-border-radius-thumb
+/ --form-size-thumb
+/ --form-height-thumb
+/ --form-width-thumb
+/ --form-height-thumb-track
+/ --form-color-thumb-track
+/ --form-color-thumb-track-active
+*/
+
+/* Text Inputs */
+
+.mkui-form input[type='text'],
+.mkui-form input[type='password'],
+.mkui-form input[type='email'],
+.mkui-form input[type='tel'],
+.mkui-form input[type='time'],
+.mkui-form input[type='url'],
+.mkui-form input[type='number'] {
+  height: var(--form-height-input, 36px);
+  padding: var(--form-padding-input, 0 10px);
+}
+
+.mkui-form textara {
+  padding: var(--form-padding-input, 0 10px);
+}
+
 /* Switch */
+
 .mkui-switch {
   position: relative;
   display: inline-block;
@@ -6,14 +44,18 @@
 
 .mkui-switch input {
   position: absolute;
-  top: -5;
-  left: -5;
+  top: -5px;
+  left: -5px;
   opacity: 0;
   outline: 0;
   z-index: 100;
 }
 
-.mkui-switch label {
+.mkui-switch-label.active {
+  background: var(--form-bg-switch-active, var(--color-text));
+}
+
+.mkui-switch-label {
   position: relative;
   display: flex;
   align-items: center;
@@ -21,32 +63,62 @@
   overflow: hidden;
   cursor: pointer;
   padding: 1px 5px;
-  transition: all ease 0.3s;
+  transition: background ease 0.3s;
   outline: 0;
+  height: var(--form-height-switch, 36px);
+  width: calc(var(--form-height-switch, 36px) * 4);
+  background: var(--form-bg-switch, #d1d1d1);
+  border-radius: var(--form-border-radius-switch, 3px);
+}
+
+.mkui-switch-label span {
+  color: var(--form-color-switch-label, var(--color-text));
+  width: 50%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.mkui-switch-label.active span {
+  color: var(--form-color-switch-label-active, var(--color-background));
 }
 
 .mkui-switch-slider {
   display: block;
   position: absolute;
-  background: #fff;
+  background: var(--color-background);
   z-index: 1;
   right: 50%;
   transition: all ease 0.3s;
   transition-property: left, right;
+  top: var(--form-padding-switch, 4px);
+  bottom: var(--form-padding-switch, 4px);
+  left: var(--form-padding-switch, 4px);
+  height: calc(100% - (var(--form-padding-switch, 4px) * 2));
+}
+
+.mkui-switch.circle .mkui-switch-label {
+  border-radius: var(--form-height-switch, 36px);
+  width: calc(
+    (var(--form-height-switch, 36px) * 2) -
+      (var(--form-padding-switch, 4px) * 2)
+  );
+}
+.mkui-switch.circle .mkui-switch-slider {
+  width: calc(
+    var(--form-height-switch, 36px) - (var(--form-padding-switch, 4px) * 2)
+  );
+  border-radius: 50%;
 }
 
 .mkui-switch-slider.on {
+  right: var(--form-padding-switch, 4px);
   left: 50%;
 }
 
 /* Range */
 
-.mkui-range-input {
-  flex: 1;
-}
-
 .mkui-range-input input {
-  width: 100%;
+  width: var(--form-width-range-input, 70px);
 }
 
 .mkui-range-input label {
@@ -67,26 +139,22 @@
 }
 
 .mkui-thumb::-webkit-slider-thumb {
-  background-color: var(--color-background);
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 0 1px 1px var(--color-text);
-  cursor: pointer;
-  height: 23px;
-  width: 23px;
+  background-color: var(--form-color-thumb, var(--color-background));
+  box-shadow: 0 0 1px 1px var(--form-color-thumb-shadow, var(--color-text));
+  border-radius: var(--border-radius-thumb, 50%);
+  height: var(--form-size-thumb, var(--form-height-thumb, 20px));
+  width: var(--form-size-thumb, var(--form-width-thumb, 20px));
   margin-top: 4px;
   pointer-events: all;
   position: relative;
 }
 
 .mkui-thumb::-moz-range-thumb {
-  background-color: #f1f5f7;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 0 1px 1px var(--color-text);
-  cursor: pointer;
-  height: 23px;
-  width: 23px;
+  background-color: var(--form-color-thumb, var(--color-background));
+  box-shadow: 0 0 1px 1px var(--form-color-thumb-shadow, var(--color-text));
+  border-radius: var(--form-border-radius-thumb, 50%);
+  height: var(--form-size-thumb, var(--form-height-thumb, 20px));
+  width: var(--form-size-thumb, var(--form-width-thumb, 20px));
   margin-top: 4px;
   pointer-events: all;
   position: relative;
@@ -106,19 +174,19 @@
 
 .mkui-thumb-track,
 .mkui-thumb-progress {
-  border-radius: 3px;
-  height: 5px;
+  height: var(--form-height-thumb-track, 3px);
 }
 
 .mkui-thumb-track {
   width: 100%;
   z-index: 1;
-  background-color: gainsboro;
+  opacity: 0.25;
+  background-color: var(--form-color-thumb-track, var(--color-text));
 }
 
 .mkui-thumb-progress {
   z-index: 2;
-  background-color: var(--color-text);
+  background-color: var(--form-color-thumb-track-active, var(--color-text));
 }
 
 .z-3 {

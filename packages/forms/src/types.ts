@@ -120,26 +120,12 @@ export interface ImageSettings
 }
 
 export interface SwitchSettings {
-  /** If true, the switch will show `on` and `off` text values */
-  inner_label?: boolean
   /** A custom label for the switch `on` state. Must have `innerLabel` active. */
-  label_on?: string | React.ReactNode
+  labelOn?: string | React.ReactNode
   /** A custom label for the switch `off` state. Must have `innerLabel` active. */
-  label_off?: string | React.ReactNode
-  /** The switch background color for `on` state */
-  color_active?: string
-  /** The switch background color for `off` state */
-  color_muted?: string
+  labelOff?: string | React.ReactNode
   /** Renders the switch as disabled */
   disabled?: boolean
-  /** The total height of the switch input */
-  height?: number
-  /** The padding between the switch slider and the edge of the input */
-  padding?: number
-  /** The radius of the switch container and slider if no `innerBorderRadius` is defined. This only applies to the `box` style. */
-  border_radius?: number
-  /** The radius of the slider. This only applies to the `box` style. */
-  inner_border_radius?: number
   /** The switch style can be `circle` or `box` */
   style?: 'circle' | 'box'
 }
@@ -229,7 +215,16 @@ export interface FieldProps {
     fixed?: InputOption[]
   }
   // For switch
-  switch?: SwitchSettings
+  switch?: {
+    /** A custom label for the switch `on` state. */
+    labelOn?: string | React.ReactNode | boolean
+    /** A custom label for the switch `off` state. */
+    labelOff?: string | React.ReactNode | boolean
+    /** Renders the switch as disabled */
+    disabled?: boolean
+    /** The switch style can be `circle` or `box` */
+    style?: 'circle' | 'box'
+  }
   // For image
   image?: ImageSettings
   password?: {

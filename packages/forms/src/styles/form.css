@@ -1,10 +1,20 @@
+/* Form Inputs 
+/ -------------------------------------------------- /
+/ --form-gap
+/ --form-columns
+*/
+
 .mkui-form-grid {
   display: grid;
+  gap: var(--form-gap, 1rem);
+  grid-template-columns: var(--form-columns, 1fr);
 }
 .mkui-field-container {
   display: flex;
   position: relative;
 }
+
+.mkui-field-container,
 .mkui-form-divider,
 .mkui-field-group {
   grid-column: 1 / -1;

@@ -54,12 +54,22 @@ export function FormDemo() {
                     name: 'price',
                     label: 'Price',
                     required: true,
+                    colSpan: 2,
                     range: {
                       multi: true,
                       min: 5,
                       max: 100,
                       step: 5,
                     },
+                  },
+                  {
+                    type: 'switch',
+                    name: 'switch',
+                    label: 'Are you ready?',
+                    colSpan: 2,
+                    // switch: {
+                    //   style: 'circle',
+                    // },
                   },
                 ],
               },
