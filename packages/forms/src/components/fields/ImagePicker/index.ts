@@ -1,1 +1,2 @@
-export { ImagePicker, type ImagePickerProps } from './ImagePicker'
+export { ImagePicker } from './ImagePicker'
+export { ImageField } from './ImageField'

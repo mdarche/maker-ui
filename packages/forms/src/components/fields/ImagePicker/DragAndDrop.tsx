@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { cn, generateId } from '@maker-ui/utils'
+
 import { validateFile } from '@/helpers'
-import { FileValidations } from '@/types'
-import type { ImagePickerState, Action, DropzoneSettings } from './ImagePicker'
+import type { FileValidation, DropzoneSettings } from '@/types'
+import type { ImagePickerState, Action } from './ImagePicker'
 
 interface DragAndDropProps {
-  inputId?: string
+  inputProps?: any
   data: ImagePickerState
   isHoverPreview?: boolean
   settings: DropzoneSettings
   dispatch: React.Dispatch<Action>
   setErrors: (e: string[]) => void
-  fileValidations?: FileValidations
-  cy?: string
+  fileValidation?: FileValidation
 }
 
 /**
@@ -20,16 +20,15 @@ interface DragAndDropProps {
  * the traditional file input element.
  */
 export const DragAndDrop = ({
+  inputProps,
   data,
-  inputId: customInputId,
   dispatch,
   setErrors,
-  fileValidations,
+  fileValidation,
   isHoverPreview = false,
   settings,
-  cy,
 }: DragAndDropProps) => {
-  const [inputId] = useState(customInputId || generateId())
+  const [inputId] = useState(inputProps?.id || generateId())
   const dropArea = isHoverPreview ? 'preview' : 'dropzone'
 
   /**
@@ -37,7 +36,7 @@ export const DragAndDrop = ({
    */
   async function onUpdateImage(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
-      const v = validateFile(e.target.files[0], fileValidations)
+      const v = validateFile(e.target.files[0], fileValidation)
       if (v.status) {
         dispatch({ type: 'ADD_FILE_TO_LIST', value: [e.target.files[0]] })
         setErrors([])
@@ -100,7 +99,7 @@ export const DragAndDrop = ({
       // Run Validation and save to state if successful
       let errors: string[] = []
       files.forEach((f) => {
-        const v = validateFile(f, fileValidations)
+        const v = validateFile(f, fileValidation)
         errors = [...errors, ...v.errors]
       })
 
@@ -125,7 +124,9 @@ export const DragAndDrop = ({
           : undefined,
         settings.className,
       ])}>
-      <label className="mkui-dropzone-hitbox cover flex" htmlFor={inputId}>
+      <label
+        className="mkui-dropzone-hitbox absolute cover flex"
+        htmlFor={inputId}>
         <div
           className={cn([
             'mkui-drag-area',
@@ -156,9 +157,9 @@ export const DragAndDrop = ({
       <input
         id={inputId}
         type="file"
-        accept="image/png, image/jpeg, image/jpg, image/webp"
+        accept="image/png,image/jpeg,image/jpg,image/webp,image/gif"
         onChange={onUpdateImage}
-        data-cy={cy}
+        {...inputProps}
       />
     </div>
   )

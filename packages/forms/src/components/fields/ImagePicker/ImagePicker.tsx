@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer, isValidElement } from 'react'
 import { cn, merge } from '@maker-ui/utils'
 
-import { UploadIcon } from '../../Icons'
 import { DragAndDrop } from './DragAndDrop'
-import type { FileValidations } from '@/types'
+import { UploadIcon } from '@/components'
+import type { DropzoneSettings, ImagePickerProps } from '@/types'
 
 export interface ImagePickerState {
   dropDepth: number
@@ -12,8 +12,6 @@ export interface ImagePickerState {
   dropArea: 'preview' | 'dropzone'
   fileList: File[]
 }
-
-type ResponsiveScale = string | number | (string | number)[]
 
 export type Action =
   | {
@@ -33,69 +31,10 @@ export type Action =
       type: 'REMOVE_FILES'
     }
 
-export interface DropzoneSettings {
-  className?: string
-  component?: string | React.ReactElement
-  activeComponent?: string | React.ReactElement
-  position?: 'right' | 'left' | 'top' | 'bottom'
-  showFileName?: boolean | 'bottom'
-  width?: ResponsiveScale
-  height?: ResponsiveScale
-  icon?: false | React.ReactElement
-  replaceWithPreview?: boolean
-  hoverPreview?: boolean
-  naked?: boolean
-}
-
-export interface ImagePickerProps {
-  /** A className selector for the outermost image picker container */
-  className?: string
-  /** An ID selector for the outermost image picker container */
-  id?: string
-  /** An ID selector for the file upload input */
-  inputId?: string
-  /** An image URL or React component */
-  preview?: string | React.ReactElement | false
-  /** The size of the image preview. If square, use a number or array of numbers or an object
-   * with responsive height and width values. */
-  previewSize?:
-    | ResponsiveScale
-    | { height: ResponsiveScale; width: ResponsiveScale }
-  /** Placeholder image, component, or SVG */
-  placeholder?: React.ReactElement | string
-  /** The file storage setter hook for single file uploads */
-  setFile?: (f: File | undefined) => void
-  /** The file storage setter hook for multiple file uploads */
-  setFiles?: (f: File[] | undefined) => void
-  /** A boolean that determines if the image preview should also be a hover dropzone.
-   * Or an object of configurations for advanced layouts.
-   */
-  previewDropzone?:
-    | false
-    | { className?: string; component?: React.ReactElement }
-  /** The position of the upload error message. */
-  errorPosition?: 'bottom' | 'top' | 'side'
-  /** Set to false if you don't need a dropzone. Otherwise you can use a configuration object
-   * for advanced layouts.
-   */
-  dropzone?: false | DropzoneSettings
-  /** A configuration object for file upload requirements. */
-  validations?: FileValidations
-  /** A custom component or string to be used inside the Remove Image button */
-  removeImageComponent?: React.ReactElement | string
-  /** Optional effect that runs when the image is removed. Helpful for removing cloudbased images as well. */
-  onRemoveImage?: () => any
-  /** Optional effect that runs when image files are added to state. */
-  onUploadImage?: (url: Promise<string>) => any
-  /** A custom cypress `data-cy` selector for the file input */
-  cy?: string
-}
-
-const defaultDropzone: Partial<ImagePickerProps['dropzone']> = {
+const defaultDropzone: Partial<DropzoneSettings> = {
   component: 'Add image',
   activeComponent: 'Drop file',
   showFileName: true,
-  width: 260,
   position: 'right',
   icon: <UploadIcon />,
   replaceWithPreview: false,
@@ -128,20 +67,17 @@ const reducer = (state: ImagePickerState, action: Action) => {
  * It supports drag-and-drop functionality as well as file size / type validation.
  */
 export const ImagePicker = ({
-  id,
-  inputId,
   className,
   preview,
-  previewSize = 150,
   errorPosition = 'bottom',
   placeholder,
   setFile,
   setFiles,
-  validations,
+  fileValidation,
   removeImageComponent = 'Remove Image',
   onRemoveImage,
   onUploadImage,
-  cy,
+  inputProps,
   ...props
 }: ImagePickerProps) => {
   const [image, setImage] = useState(preview || placeholder)
@@ -174,7 +110,7 @@ export const ImagePicker = ({
   }
 
   /**
-   * Effect that saves a new image picker preview and sends data to parent component
+   * Function that saves a new image picker preview and sends data to parent component
    */
   async function onUpload() {
     if (data.fileList.length && !errors.length) {
@@ -217,7 +153,7 @@ export const ImagePicker = ({
    * Reset component when the parent issues a new preview URL
    */
   useEffect(() => {
-    if (preview !== false) {
+    if (preview) {
       setImage(preview)
     }
     setErrors([])
@@ -248,48 +184,48 @@ export const ImagePicker = ({
    */
   function getPosition() {
     if (!dropzone) return ''
-    let classNames: string[] = ['inline-flex', `position-${dropzone.position}`]
+    let cns: string[] = ['inline-flex', `position-${dropzone.position}`]
 
     if (dropzone.position === 'top' || dropzone.position === 'bottom') {
-      classNames.push('flex-col')
+      cns.push('flex-col')
     }
 
-    return classNames.join(' ')
+    return cns.join(' ')
   }
 
+  console.log('Image is', image)
   return (
     <div
-      id={id}
       className={cn(['mkui-image-picker', getPosition(), className])}
       {...props}>
-      {preview !== false && (placeholder || data.fileList.length || preview) ? (
+      {preview !== false && (preview || placeholder || data.fileList.length) ? (
         <div
           className={cn([
-            'mkui-preview',
-            isPreviewPrimary ? 'is-primary-dropzone' : undefined,
+            'mkui-preview-area',
+            isPreviewPrimary ? 'dz-primary' : undefined,
           ])}>
-          <div className="preview flex flex-col">
-            {image && typeof image === 'string' ? (
-              <img src={image} className="mkui-preview-image" alt="Preview" />
-            ) : preview ? (
+          <div className="mkui-preview flex">
+            {/* {image && typeof image === 'string' ? (
+              <img src={image} className="mkui-preview-image" alt="preview" />
+            ) : image && isValidElement(image) ? (
               <div className="mkui-preview-image">{image}</div>
-            ) : (
-              <div className="mkui-preview-image">{placeholder}</div>
-            )}
+            ) : null} */}
+            {image && typeof image === 'string' ? (
+              <img src={image} className="mkui-preview-image" alt="preview" />
+            ) : null}
+
             {isPreviewDropzone && (
               <DragAndDrop
-                inputId={inputId}
+                inputProps={inputProps}
                 settings={{
                   showFileName: false,
-                  height: '100%',
-                  width: '100%',
                   icon: <UploadIcon />,
                 }}
                 isHoverPreview
                 data={data}
                 dispatch={dispatch}
                 setErrors={setErrors}
-                fileValidations={validations}
+                fileValidation={fileValidation}
               />
             )}
           </div>
@@ -305,13 +241,12 @@ export const ImagePicker = ({
       ) : null}
       {showDropzone() ? (
         <DragAndDrop
-          inputId={inputId}
+          inputProps={inputProps}
           settings={dropzone as DropzoneSettings}
           data={data}
           dispatch={dispatch}
           setErrors={setErrors}
-          fileValidations={validations}
-          cy={cy}
+          fileValidation={fileValidation}
         />
       ) : null}
       {errors && (

@@ -133,7 +133,7 @@ export const FormRenderer = ({
                   <div
                     className={cn([
                       'mkui-form-page',
-                      `page-${i}`,
+                      `page-${i + 1}`,
                       className,
                       settings?.classNames?.page,
                     ])}>

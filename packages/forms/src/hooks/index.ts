@@ -103,13 +103,13 @@ export function useField(name: string) {
   const { state: s, dispatch } = useContext(FormContext)
   const page = s.schema[name].page
 
-  function setTouch() {
+  function setTouched() {
     dispatch({ type: 'SET_TOUCHED', value: name })
   }
 
   function setValue(val: any, touch?: boolean) {
     if (touch && !s.touched.includes(name)) {
-      setTouch()
+      setTouched()
     }
     dispatch({ type: 'SET_VALUE', value: { [name]: val } })
   }
@@ -137,7 +137,7 @@ export function useField(name: string) {
     value: s.values[name],
     page,
     setValue,
-    setTouch,
+    setTouched,
     validateField,
   }
 }

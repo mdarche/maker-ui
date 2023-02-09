@@ -2,9 +2,7 @@ import { Breakpoints } from '@maker-ui/style'
 import * as React from 'react'
 import type { Schema, ZodError } from 'zod'
 
-type ResponsiveScale = string | number | (string | number)[]
-
-export interface FileValidations {
+export interface FileValidation {
   size: number
   types: string[]
 }
@@ -15,40 +13,24 @@ export interface DropzoneSettings {
   activeComponent?: string | React.ReactElement
   position?: 'right' | 'left' | 'top' | 'bottom'
   showFileName?: boolean | 'bottom'
-  width?: ResponsiveScale
-  height?: ResponsiveScale
   icon?: false | React.ReactElement
   replaceWithPreview?: boolean
   hoverPreview?: boolean
   naked?: boolean
 }
 
-export interface ImagePickerProps {
-  /** A className selector for the outermost image picker container */
-  className?: string
-  /** An ID selector for the outermost image picker container */
-  id?: string
+export interface ImagePickerProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'placeholder'> {
   /** An ID selector for the file upload input */
-  inputId?: string
-  /** An image URL or React component */
+  inputProps?: any
+  /** A custom image URL or React component. If false, the image preview will not render. */
   preview?: string | React.ReactElement | false
-  /** The size of the image preview. If square, use a number or array of numbers or an object
-   * with responsive height and width values. */
-  previewSize?:
-    | ResponsiveScale
-    | { height: ResponsiveScale; width: ResponsiveScale }
-  /** Placeholder image, component, or SVG */
+  /** A custom image URL or React component that is displayed before a file is selected and if the `preview` prop is undefined. */
   placeholder?: React.ReactElement | string
-  /** The file storage setter hook for single file uploads */
-  setFile?: (f: File | undefined) => void
-  /** The file storage setter hook for multiple file uploads */
-  setFiles?: (f: File[] | undefined) => void
   /** A boolean that determines if the image preview should also be a hover dropzone.
-   * Or an object of configurations for advanced layouts.
+   * You can also supply a React component that will be used as the hover overlay.
    */
-  previewDropzone?:
-    | false
-    | { className?: string; component?: React.ReactElement }
+  previewDropzone?: React.ReactElement | false
   /** The position of the upload error message. */
   errorPosition?: 'bottom' | 'top' | 'side'
   /** Set to false if you don't need a dropzone. Otherwise you can use a configuration object
@@ -56,15 +38,17 @@ export interface ImagePickerProps {
    */
   dropzone?: false | DropzoneSettings
   /** A configuration object for file upload requirements. */
-  validations?: FileValidations
+  fileValidation?: FileValidation
   /** A custom component or string to be used inside the Remove Image button */
   removeImageComponent?: React.ReactElement | string
+  /** The file storage setter hook for single file uploads */
+  setFile?: (f: File | undefined) => void
+  /** The file storage setter hook for multiple file uploads */
+  setFiles?: (f: File[] | undefined) => void
   /** Optional effect that runs when the image is removed. Helpful for removing cloudbased images as well. */
   onRemoveImage?: () => any
   /** Optional effect that runs when image files are added to state. */
   onUploadImage?: (url: Promise<string>) => any
-  /** A custom cypress `data-cy` selector for the file input */
-  cy?: string
 }
 
 type LabelPosition =
@@ -113,11 +97,6 @@ export type FieldType =
   | 'file'
   | 'image-picker'
   | 'custom'
-
-export interface ImageSettings
-  extends Omit<ImagePickerProps, 'setFile' | 'setFiles'> {
-  returnUrl?: boolean
-}
 
 export type CompareOperator =
   | 'eq'
@@ -215,7 +194,7 @@ export interface FieldProps {
     style?: 'circle' | 'box'
   }
   // For image
-  image?: ImageSettings
+  image?: ImagePickerProps
   // For Password
   password?: {
     toggleCharacters?: boolean

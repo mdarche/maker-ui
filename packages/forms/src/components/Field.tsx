@@ -6,7 +6,7 @@ import { useForm, useField } from '@/hooks'
 import { evaluateConditions } from '@/helpers'
 import type { FieldProps } from '@/types'
 import { Label } from './Label'
-import { Input, Options, Switch, Range, Select } from '@/fields'
+import { Input, Options, Switch, Range, Select, ImageField } from '@/fields'
 import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
 
 const basicInputs = [
@@ -72,6 +72,10 @@ export const Field = (p: FieldProps) => {
     /* Radio and Checkbox group inputs*/
     if (p.type === 'select') {
       return <Select name={p.name} />
+    }
+    /* Image picker field*/
+    if (p.type === 'image-picker') {
+      return <ImageField name={p.name} />
     }
   }
 

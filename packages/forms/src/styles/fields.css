@@ -1,21 +1,34 @@
-/* Text Inputs 
+/* Form variables
 / -------------------------------------------------- /
-/ --form-height-input
-/ --form-padding-input
-
-/* Range Inputs 
-/ -------------------------------------------------- /
-/ --form-width-range-input
-/ --form-height-range-input
-] --form-color-thumb
-/ --form-color-thumb-shadow
+/ --form-bg-dropzone
+/ --form-bg-switch
+/ --form-bg-switch-active
+/ --form-bg-thumb-track
+/ --form-bg-thumb-track-active
+/ --form-border-dropzone
+/ --form-border-radius-switch
 / --form-border-radius-thumb
-/ --form-size-thumb
+/ --form-color-upload-icon
+/ --form-color-switch-label
+/ --form-color-switch-label-active
+/ --form-color-thumb
+/ --form-height-dropzone
+/ --form-height-input
+/ --form-height-switch
 / --form-height-thumb
-/ --form-width-thumb
 / --form-height-thumb-track
-/ --form-color-thumb-track
-/ --form-color-thumb-track-active
+/ --form-height-range-input
+/ --form-height-preview
+/ --form-width-dropzone
+/ --form-width-thumb
+/ --form-width-range-input
+/ --form-width-preview
+/ --form-padding-input
+/ --form-padding-switch
+/ --form-shadow-thumb
+/ --form-size-thumb
+/ --form-size-dropzone
+/ --form-size-preview
 */
 
 /* Text Inputs */
@@ -32,7 +45,7 @@
   padding: var(--form-padding-input, 0 10px);
 }
 
-.mkui-form textara {
+.mkui-form textarea {
   padding: var(--form-padding-input, 0 10px);
 }
 
@@ -141,7 +154,7 @@
 
 .mkui-thumb::-webkit-slider-thumb {
   background-color: var(--form-color-thumb, var(--color-background));
-  box-shadow: 0 0 1px 1px var(--form-color-thumb-shadow, var(--color-text));
+  box-shadow: var(--form-shadow-thumb, 0 0 1px 1px var(--color-text));
   border-radius: var(--border-radius-thumb, 50%);
   height: var(--form-size-thumb, var(--form-height-thumb, 20px));
   width: var(--form-size-thumb, var(--form-width-thumb, 20px));
@@ -152,7 +165,7 @@
 
 .mkui-thumb::-moz-range-thumb {
   background-color: var(--form-color-thumb, var(--color-background));
-  box-shadow: 0 0 1px 1px var(--form-color-thumb-shadow, var(--color-text));
+  box-shadow: var(--form-shadow-thumb, 0 0 1px 1px var(--color-text));
   border-radius: var(--form-border-radius-thumb, 50%);
   height: var(--form-size-thumb, var(--form-height-thumb, 20px));
   width: var(--form-size-thumb, var(--form-width-thumb, 20px));
@@ -182,12 +195,12 @@
   width: 100%;
   z-index: 1;
   opacity: 0.25;
-  background-color: var(--form-color-thumb-track, var(--color-text));
+  background-color: var(--form-bg-thumb-track, var(--color-text));
 }
 
 .mkui-thumb-progress {
   z-index: 2;
-  background-color: var(--form-color-thumb-track-active, var(--color-text));
+  background-color: var(--form-bg-thumb-track-active, var(--color-text));
 }
 
 .z-3 {
@@ -205,8 +218,14 @@
 /* Select */
 
 /* ImagePicker */
+
 .mkui-image-picker {
   position: relative;
+}
+
+.mkui-preview {
+  width: var(--form-width-preview, var(--form-size-preview, 150px));
+  height: var(--form-height-preview, var(--form-size-preview, 150px));
 }
 
 .mkui-image-picker img {
@@ -216,25 +235,36 @@
   object-position: center;
 }
 
-.mkui-dropzone.preview .mkui-drag-area {
+.mkui-dropzone.mkui-preview .mkui-drag-area {
   cursor: poiner;
   border: none;
-  backgroundcolor: transparent;
+  background-color: transparent;
   opacity: 0;
-  transition: all ease 0.3s;
+  transition: background ease 0.3s, opacity ease 0.3s;
 }
 
-.mkui-preview .mkui-drag-area svg {
-  fill: '#fff';
+.mkui-preview-area.dz-primary {
+  margin: auto;
+}
+.mkui-preview-area .mkui-drag-area svg {
+  fill: #fff;
 }
 
-.mkui-preview .mkui-drag-area.drag-active {
+.mkui-preview-area .mkui-drag-area.drag-active {
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
 .mkui-btn-remove {
+  position: relative;
   z-index: 10;
+}
+
+.mkui-dropzone-icon svg {
+  display: block;
+  fill: var(--form-color-upload-icon, var(--color-text));
+  height: var(--form-height-upload-icon, 36px);
+  margin-bottom: 10px;
 }
 
 .mkui-dropzone input {
@@ -245,24 +275,42 @@
   padding: 30px;
   border: var(--form-border-dropzone, 2px dashed #ddd);
   background: var(--form-bg-dropzone, #f5f5f5);
-  transition: all ease 0.3s;
-}
-
-.mkui-hitbox {
-  position: absolute;
-  cursor: pointer;
+  transition: background ease 0.3s;
 }
 
 .mkui-dropzone {
+  font-size: var(--form-font-size-dropzone, 0.8rem);
 }
 
-.mkui-dropzone:not(.preview-dropzone) {
+.mkui-dropzone:not(.mkui-preview) {
   position: relative;
-  width: var(--form-width-dropzone, var(--form-size-dropzone, 260px));
-  height: var(--form-height-dropzone, var(--form-size-dropzone, 260px));
+  width: var(--form-width-dropzone, var(--form-size-dropzone, 150px));
+  height: var(--form-height-dropzone, var(--form-size-dropzone, 150px));
 }
 
 .mkui-dropzone-hitbox {
+  cursor: pointer;
+}
+
+.mkui-upload-error {
+  color: var(--form-color-error, red);
+  font-size: var(--form-font-size-error, 0.75rem);
+  margin-top: 5px;
+}
+
+.mkui-upload-error.top {
+  bottom: calc(100% + 10px);
+}
+
+.mkui-upload-error.bottom {
+  top: calc(100% + 10px);
+}
+
+.mkui-upload-error.bottom,
+.mkui-upload-error.top {
+  left: 0px;
+  width: 100%;
+  text-align: center;
 }
 
 /* Datepicker */

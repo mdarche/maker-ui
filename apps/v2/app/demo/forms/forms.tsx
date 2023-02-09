@@ -73,6 +73,17 @@ export function FormDemo() {
                       style: 'circle',
                     },
                   },
+                  {
+                    type: 'image-picker',
+                    name: 'image_upload',
+                    label: 'Please upload a file',
+                    // initialValue: 'https://picsum.photos/id/237/200/300',
+                    colSpan: 2,
+                    image: {
+                      placeholder: 'https://picsum.photos/id/237/200/300',
+                      // preview: 'https://picsum.photos/id/237/200/300',
+                    },
+                  },
                 ],
               },
             ],
