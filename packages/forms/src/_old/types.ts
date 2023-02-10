@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { FormikHelpers, FormikValues } from 'formik'
 import type { Props as ReactSelectProps } from 'react-select'
-import { ImagePickerProps } from '../components/fields/ImagePicker'
+import { ImagePickerProps } from '../components/fields/uploaders'
 import { ResponsiveScale } from '@maker-ui/css'
 
 export interface FormValues extends FormikValues {}

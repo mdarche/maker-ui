@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useField, useFormikContext } from 'formik'
-import { ImagePicker } from '../../components/fields/ImagePicker'
+import { ImagePicker } from '../../components/fields/uploaders'
 import type { InputProps, FieldSettings } from '../types'
 
 interface ImageFieldProps extends InputProps {
