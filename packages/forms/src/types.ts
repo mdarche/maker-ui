@@ -8,15 +8,22 @@ export interface FileValidation {
 }
 
 export interface DropzoneSettings {
+  /** Classname for the root dropzone component */
   className?: string
+  /** A component to be rendered below the `icon` prop when the dropzone is inactive. */
   component?: string | React.ReactElement
+  /** A component to be rendered below the `icon` prop when the dropzone is active */
   activeComponent?: string | React.ReactElement
+  /** The position of the dropzone relative to the placeholder or preview component */
   position?: 'right' | 'left' | 'top' | 'bottom'
-  showFileName?: boolean | 'bottom'
+  /** Renders the name of the file that was just added to the dropzone */
+  showFileName?: boolean
+  /** Renders a default upload icon or a custom React element */
   icon?: false | React.ReactElement
   replaceWithPreview?: boolean
-  hoverPreview?: boolean
-  naked?: boolean
+  overlay?: boolean
+  fileValidation?: FileValidation
+  inputProps?: any
 }
 
 export interface ImagePickerProps
@@ -24,13 +31,13 @@ export interface ImagePickerProps
   /** An ID selector for the file upload input */
   inputProps?: any
   /** A custom image URL or React component. If false, the image preview will not render. */
-  preview?: string | React.ReactElement | false
+  preview?: React.ReactElement | string | false
   /** A custom image URL or React component that is displayed before a file is selected and if the `preview` prop is undefined. */
   placeholder?: React.ReactElement | string
   /** A boolean that determines if the image preview should also be a hover dropzone.
    * You can also supply a React component that will be used as the hover overlay.
    */
-  previewDropzone?: React.ReactElement | false
+  previewDropzone?: React.ReactElement | boolean
   /** The position of the upload error message. */
   errorPosition?: 'bottom' | 'top' | 'side'
   /** Set to false if you don't need a dropzone. Otherwise you can use a configuration object
@@ -40,7 +47,10 @@ export interface ImagePickerProps
   /** A configuration object for file upload requirements. */
   fileValidation?: FileValidation
   /** A custom component or string to be used inside the Remove Image button */
-  removeImageComponent?: React.ReactElement | string
+  componentRemove?:
+    | React.ReactElement
+    | string
+    | ((attrs: any) => React.ReactElement)
   /** The file storage setter hook for single file uploads */
   setFile?: (f: File | undefined) => void
   /** The file storage setter hook for multiple file uploads */

@@ -1,66 +1,9 @@
-import React, { useState, useEffect, useReducer, isValidElement } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { cn, merge } from '@maker-ui/utils'
 
-import { DragAndDrop } from './DragAndDrop'
-import { UploadIcon } from '@/components'
-import type { DropzoneSettings, ImagePickerProps } from '@/types'
-
-export interface ImagePickerState {
-  dropDepth: number
-  multiFiles: boolean
-  inDropZone: boolean
-  dropArea: 'preview' | 'dropzone'
-  fileList: File[]
-}
-
-export type Action =
-  | {
-      type: 'SET_DROP_DEPTH'
-      value: ImagePickerState['dropDepth']
-    }
-  | {
-      type: 'SET_IN_DROP_ZONE'
-      value: ImagePickerState['inDropZone']
-      dropArea: ImagePickerState['dropArea']
-    }
-  | {
-      type: 'ADD_FILE_TO_LIST'
-      value: ImagePickerState['fileList']
-    }
-  | {
-      type: 'REMOVE_FILES'
-    }
-
-const defaultDropzone: Partial<DropzoneSettings> = {
-  component: 'Add image',
-  activeComponent: 'Drop file',
-  showFileName: true,
-  position: 'right',
-  icon: <UploadIcon />,
-  replaceWithPreview: false,
-  hoverPreview: true,
-}
-
-const reducer = (state: ImagePickerState, action: Action) => {
-  switch (action.type) {
-    case 'SET_DROP_DEPTH':
-      return { ...state, dropDepth: action.value }
-    case 'SET_IN_DROP_ZONE':
-      return { ...state, inDropZone: action.value, dropArea: action.dropArea }
-    case 'ADD_FILE_TO_LIST':
-      return {
-        ...state,
-        removeImage: false,
-        fileList: state.multiFiles
-          ? state.fileList.concat(action.value)
-          : [...action.value],
-      }
-    case 'REMOVE_FILES':
-      return { ...state, removeImage: true, fileList: [] }
-    default:
-      return state
-  }
-}
+import { Dropzone } from './Dropzone'
+import type { ImagePickerProps } from '@/types'
+import { defaultSettings, uploadReducer } from './state'
 
 /**
  * Renders a flexible UI for uploading and previewing image files.
@@ -69,51 +12,47 @@ const reducer = (state: ImagePickerState, action: Action) => {
 export const ImagePicker = ({
   className,
   preview,
+  previewDropzone = true,
   errorPosition = 'bottom',
   placeholder,
   setFile,
   setFiles,
   fileValidation,
-  removeImageComponent = 'Remove Image',
+  componentRemove = 'Remove',
   onRemoveImage,
   onUploadImage,
   inputProps,
   ...props
 }: ImagePickerProps) => {
   const [image, setImage] = useState(preview || placeholder)
-  const [errors, setErrors] = useState<string[]>([])
-  const [data, dispatch] = useReducer(reducer, {
+  const [data, dispatch] = useReducer(uploadReducer, {
+    errors: [],
     multiFiles: setFiles ? true : false,
     dropDepth: 0,
     inDropZone: false,
     dropArea: 'dropzone',
     fileList: [],
   })
-
-  /** Merge prop settings with defaults */
-  const dropzone =
-    props.dropzone === false
-      ? false
-      : props.dropzone === undefined
-      ? defaultDropzone
-      : merge(defaultDropzone, props.dropzone)
+  /* Merge prop settings with defaults */
+  const dropzone = props?.dropzone
+    ? merge(defaultSettings, { ...props.dropzone, fileValidation, inputProps })
+    : { ...defaultSettings, fileValidation, inputProps }
 
   /* Boolean layout helpers */
-  const canRemoveImage = preview && !data.fileList.length ? true : false
-  const isPreviewDropzone = dropzone !== false && dropzone.hoverPreview
-  const isPreviewPrimary = dropzone !== false && dropzone.replaceWithPreview
-  const showDropzone = () => {
-    if (isPreviewPrimary) {
-      return data.fileList.length || preview ? false : true
-    }
-    if (dropzone) return true
-  }
+  const canRemoveImage = data.fileList.length ? true : false
+  const showPreview =
+    preview !== false && (placeholder || data.fileList.length || preview)
+  const showDropzone =
+    (dropzone.replaceWithPreview && data.fileList.length) ||
+    props?.dropzone === false
+      ? false
+      : true
 
   /**
    * Function that saves a new image picker preview and sends data to parent component
    */
   async function onUpload() {
-    if (data.fileList.length && !errors.length) {
+    if (data.fileList.length && !data.errors.length) {
       // Set the preview image to the uploaded file
       const url: Promise<string> = new Promise((resolve, reject) => {
         const reader = new FileReader()
@@ -143,7 +82,7 @@ export const ImagePicker = ({
    */
   useEffect(() => {
     if (data.fileList.length) {
-      setErrors([])
+      dispatch({ type: 'SET_ERRORS', value: [] })
       onUpload()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -156,7 +95,7 @@ export const ImagePicker = ({
     if (preview) {
       setImage(preview)
     }
-    setErrors([])
+    dispatch({ type: 'SET_ERRORS', value: [] })
   }, [preview])
 
   /**
@@ -170,7 +109,6 @@ export const ImagePicker = ({
     if (canRemoveImage || data.fileList.length) {
       dispatch({ type: 'REMOVE_FILES' })
       setImage(placeholder)
-      setErrors([])
       return setFile
         ? setFile(undefined)
         : setFiles
@@ -193,65 +131,60 @@ export const ImagePicker = ({
     return cns.join(' ')
   }
 
-  console.log('Image is', image)
+  const removeAttrs: React.HTMLAttributes<HTMLButtonElement> = {
+    // @ts-ignore
+    type: 'button',
+    className: 'mkui-btn-remove naked',
+    onClick: removeImage,
+  }
+
   return (
     <div
       className={cn(['mkui-image-picker', getPosition(), className])}
       {...props}>
-      {preview !== false && (preview || placeholder || data.fileList.length) ? (
+      {showPreview ? (
         <div
           className={cn([
             'mkui-preview-area',
-            isPreviewPrimary ? 'dz-primary' : undefined,
+            dropzone?.replaceWithPreview ? 'main-dropzone' : undefined,
           ])}>
-          <div className="mkui-preview flex">
-            {/* {image && typeof image === 'string' ? (
-              <img src={image} className="mkui-preview-image" alt="preview" />
-            ) : image && isValidElement(image) ? (
+          <div className="mkui-preview flex flex-col">
+            {typeof image === 'string' ? (
+              <img
+                src={image as string}
+                className="mkui-preview-image"
+                alt="preview"
+              />
+            ) : image ? (
               <div className="mkui-preview-image">{image}</div>
-            ) : null} */}
-            {image && typeof image === 'string' ? (
-              <img src={image} className="mkui-preview-image" alt="preview" />
             ) : null}
-
-            {isPreviewDropzone && (
-              <DragAndDrop
-                inputProps={inputProps}
-                settings={{
-                  showFileName: false,
-                  icon: <UploadIcon />,
-                }}
-                isHoverPreview
+            {previewDropzone && (
+              <Dropzone
                 data={data}
                 dispatch={dispatch}
-                setErrors={setErrors}
-                fileValidation={fileValidation}
+                settings={{
+                  ...dropzone,
+                  showFileName: false,
+                  overlay: true,
+                }}
               />
             )}
           </div>
           {data.fileList[0] || canRemoveImage ? (
-            <button
-              type="button"
-              className="mkui-btn-remove"
-              onClick={removeImage}>
-              {removeImageComponent}
-            </button>
+            typeof componentRemove === 'function' ? (
+              componentRemove(removeAttrs)
+            ) : (
+              <button {...removeAttrs}>{componentRemove}</button>
+            )
           ) : null}
         </div>
       ) : null}
-      {showDropzone() ? (
-        <DragAndDrop
-          inputProps={inputProps}
-          settings={dropzone as DropzoneSettings}
-          data={data}
-          dispatch={dispatch}
-          setErrors={setErrors}
-          fileValidation={fileValidation}
-        />
+      {showDropzone ? (
+        <Dropzone data={data} dispatch={dispatch} settings={dropzone} />
       ) : null}
-      {errors && (
+      {data.errors && (
         <div className={cn(['mkui-upload-error absolute', errorPosition])}>
-          {errors.map((message, i) => (
+          {data.errors.map((message, i) => (
             <div key={i}>{message}</div>
           ))}
         </div>
@@ -259,5 +192,4 @@ export const ImagePicker = ({
     </div>
   )
 }
-
 ImagePicker.displayName = 'ImagePicker'

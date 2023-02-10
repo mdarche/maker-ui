@@ -55,6 +55,10 @@
 .absolute {
   position: absolute;
 }
+.naked {
+  border: none;
+  background: none;
+}
 .relative {
   position: relative;
 }
