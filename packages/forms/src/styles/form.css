@@ -5,9 +5,11 @@
 / --form-color-error
 / --form-color-instructions
 / --form-color-label
+/ --form-color-input
 / --form-font-size-error
 / --form-font-size-instructions
 / --form-font-size-label
+/ --form-font-size-input
 / --form-padding-error
 / --form-padding-instructions
 / --form-padding-label
@@ -19,11 +21,6 @@
   gap: var(--form-gap, 1rem);
   grid-template-columns: var(--form-columns, 1fr);
 }
-.mkui-field-container {
-  display: flex;
-  position: relative;
-}
-
 .mkui-field-container,
 .mkui-form-divider,
 .mkui-field-group {
@@ -41,14 +38,6 @@
   font-size: var(--form-font-size-label, 1rem);
   padding: var(--form-padding-label, 0 0 5px);
 }
-.label-top-left,
-.label-top-right,
-.label-top-center,
-.label-bottom-left,
-.label-bottom-center,
-.label-bottom-right {
-  flex-direction: column;
-}
 .label-bottom-center .mkui-field-label,
 .label-top-center .mkui-field-label {
   text-align: center;
@@ -62,6 +51,10 @@
   flex: auto;
 }
 /* Errors */
+.error .mkui-input {
+  border-color: var(--form-color-error, red);
+}
+
 .mkui-field-error {
   position: absolute;
   color: var(--form-color-error, red);

@@ -82,10 +82,13 @@ export const Field = (p: FieldProps) => {
   return shouldRender ? (
     <div
       className={cn([
-        'mkui-field-container',
+        'mkui-field-container flex relative',
         p.className,
         'label-' + labelPos,
         'error-' + errorPos,
+        top.includes(labelPos) || bottom.includes(labelPos)
+          ? 'flex-col'
+          : undefined,
         p?.colSpan ? 'colspan-' + p.colSpan : undefined,
         s?.classNames?.fieldContainer,
         hasError ? 'error' : undefined,

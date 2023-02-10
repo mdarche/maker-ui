@@ -12,7 +12,8 @@
 / --form-color-upload-icon
 / --form-color-switch-label
 / --form-color-switch-label-active
-/ --form-color-thumb
+/ --form-color-thumb  
+/ --form-color-input
 / --form-height-dropzone
 / --form-height-input
 / --form-height-switch
@@ -34,22 +35,17 @@
 
 /* Text Inputs */
 
-.mkui-form input[type='text'],
-.mkui-form input[type='password'],
-.mkui-form input[type='email'],
-.mkui-form input[type='tel'],
-.mkui-form input[type='time'],
-.mkui-form input[type='date'],
-.mkui-form input[type='url'],
-.mkui-form input[type='number'] {
-  height: var(--form-height-input, 36px);
-  padding: var(--form-padding-input, 0 10px);
-  border: var(--form-border-input, 1px solid var(--color-text));
+.mkui-input {
+  height: var(--form-height-input, 40px);
 }
 
-.mkui-form textarea {
+.mkui-input,
+.mkui-textarea {
+  color: var(--color-text);
+  font-size: var(--form-font-size-input, 1em);
   padding: var(--form-padding-input, 0 10px);
   border: var(--form-border-input, 1px solid var(--color-text));
+  background: var(--form-bg-input, var(--color-background));
 }
 
 /* Switch */
@@ -222,10 +218,6 @@
 
 /* ImagePicker */
 
-.mkui-image-picker {
-  position: relative;
-}
-
 .mkui-preview {
   width: var(--form-width-preview, var(--form-size-preview, 150px));
   height: var(--form-height-preview, var(--form-size-preview, 150px));
@@ -243,12 +235,8 @@
   border: none;
   background-color: transparent;
   opacity: 0;
-  transition: background ease 0.3s, opacity ease 0.3s;
+  transition: background-color ease 0.3s, opacity ease 0.3s;
 }
-
-/* .mkui-preview-area.main-dropzone {
-  margin: auto;
-} */
 
 .mkui-preview-area .mkui-drag-area svg {
   fill: #fff;
@@ -276,20 +264,24 @@
 }
 
 .mkui-drag-area {
-  padding: 30px;
+  padding: 10px;
   border: var(--form-border-dropzone, 2px dashed #ddd);
   background: var(--form-bg-dropzone, #f5f5f5);
   transition: background ease 0.3s;
 }
 
 .mkui-dropzone {
-  font-size: var(--form-font-size-dropzone, 0.8rem);
+  position: relative;
 }
 
-.mkui-dropzone:not(.mkui-preview) {
-  position: relative;
+.mkui-dropzone:not(.custom) {
+  font-size: var(--form-font-size-dropzone, 0.8rem);
   width: var(--form-width-dropzone, var(--form-size-dropzone, 150px));
   height: var(--form-height-dropzone, var(--form-size-dropzone, 150px));
+}
+
+.mkui-dropzone-overlay {
+  position: absolute;
 }
 
 .mkui-dropzone-hitbox {

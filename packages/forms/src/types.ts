@@ -8,12 +8,16 @@ export interface FileValidation {
 }
 
 export interface DropzoneSettings {
+  /** Custom component that replaces all dropzone styles as well as the `icon`, `label`,
+   * and `activeLabel` props. This is useful for adding a custom Upload button, however,
+   * you should use a regular div to achieve this effect because the dropzone already acts as a button.  */
+  component?: string | React.ReactElement
   /** Classname for the root dropzone component */
   className?: string
-  /** A component to be rendered below the `icon` prop when the dropzone is inactive. */
-  component?: string | React.ReactElement
-  /** A component to be rendered below the `icon` prop when the dropzone is active */
-  activeComponent?: string | React.ReactElement
+  /** An inner label to be rendered below the `icon` prop when the dropzone is inactive. */
+  label?: string | React.ReactElement
+  /** An inner label to be rendered below the `icon` prop when the user is about to drop a file */
+  activeLabel?: string | React.ReactElement
   /** The position of the dropzone relative to the placeholder or preview component */
   position?: 'right' | 'left' | 'top' | 'bottom'
   /** Renders the name of the file that was just added to the dropzone */
@@ -24,6 +28,8 @@ export interface DropzoneSettings {
   overlay?: boolean
   fileValidation?: FileValidation
   inputProps?: any
+  /** The position of the upload error message. */
+  errorPosition?: 'bottom' | 'top' | 'side'
 }
 
 export interface ImagePickerProps

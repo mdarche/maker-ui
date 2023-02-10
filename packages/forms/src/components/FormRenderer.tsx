@@ -21,7 +21,7 @@ function findAllByKey(obj: object, target: string): any {
       (acc, [key, value]) =>
         key === target
           ? acc.concat(value)
-          : typeof value === 'object' && value
+          : typeof value === 'object' && value && !React.isValidElement(value)
           ? acc.concat(findAllByKey(value, target))
           : acc,
       []

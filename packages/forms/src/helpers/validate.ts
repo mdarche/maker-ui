@@ -1,6 +1,6 @@
 import type {
   FormSchema,
-  FileValidations,
+  FileValidation,
   FormValues,
   FormErrors,
 } from '@/types'
@@ -68,7 +68,7 @@ interface Validation {
   errors: string[]
 }
 
-const defaultReqs: FileValidations = {
+const defaultReqs: FileValidation = {
   size: 4097152, // 4MB
   types: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
 }

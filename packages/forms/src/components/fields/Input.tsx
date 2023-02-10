@@ -25,6 +25,7 @@ export const Input = ({ name }: FieldInputProps) => {
   const attrs = {
     id: `field-${field?.name}`,
     name: field?.name,
+    placeholder: field?.placeholder,
     className: cn(['mkui-input', error ? 'error' : undefined]),
     type: isPass && showPass ? 'text' : field?.type,
     value,

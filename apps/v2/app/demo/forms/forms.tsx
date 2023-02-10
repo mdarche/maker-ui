@@ -24,67 +24,66 @@ export function FormDemo() {
             name: 'temp',
             subFields: [
               {
-                type: 'group',
-                name: 'group1',
-                label: 'Group 1',
-                subFields: [
-                  {
-                    type: 'text',
-                    name: 'first_name',
-                    label: 'First Name',
-                    labelPosition: 'top-left',
-                    required: true,
-                    colSpan: 2,
-                    validation: z
-                      .string()
-                      .min(2, { message: 'String must contain 2 chars' }),
+                type: 'text',
+                name: 'first_name',
+                label: 'First Name',
+                placeholder: 'First Name',
+                labelPosition: 'top-left',
+                required: true,
+                colSpan: 2,
+                validation: z
+                  .string()
+                  .min(2, { message: 'String must contain 2 chars' }),
+              },
+              {
+                type: 'text',
+                name: 'last_name',
+                label: 'Last Name',
+                required: true,
+                colSpan: 2,
+                validation: z
+                  .string()
+                  .min(2, { message: 'String must contain 2 chars' }),
+              },
+              {
+                type: 'range',
+                name: 'price',
+                label: 'Price',
+                required: true,
+                colSpan: 2,
+                range: {
+                  multi: true,
+                  min: 5,
+                  max: 100,
+                  step: 5,
+                },
+              },
+              {
+                type: 'switch',
+                name: 'switch',
+                label: 'Are you ready?',
+                instructions:
+                  'If you are ready to rock, leave this marked as true.',
+                colSpan: 2,
+                switch: {
+                  style: 'circle',
+                },
+              },
+              {
+                type: 'image-picker',
+                name: 'image_upload',
+                label: 'Please upload a file',
+                initialValue: 'https://picsum.photos/id/237/200/300',
+                colSpan: 2,
+                image: {
+                  // preview: false,
+                  // preview: 'https://picsum.photos/id/237/200/300',
+                  dropzone: {
+                    // component: <span id="test">Test</span>,
+                    // label: "Drop it like it's hot",
+                    // activeLabel: 'Dropped',
                   },
-                  {
-                    type: 'text',
-                    name: 'last_name',
-                    label: 'Last Name',
-                    required: true,
-                    colSpan: 2,
-                    validation: z
-                      .string()
-                      .min(2, { message: 'String must contain 2 chars' }),
-                  },
-                  {
-                    type: 'range',
-                    name: 'price',
-                    label: 'Price',
-                    required: true,
-                    colSpan: 2,
-                    range: {
-                      multi: true,
-                      min: 5,
-                      max: 100,
-                      step: 5,
-                    },
-                  },
-                  {
-                    type: 'switch',
-                    name: 'switch',
-                    label: 'Are you ready?',
-                    instructions:
-                      'If you are ready to rock, leave this marked as true.',
-                    colSpan: 2,
-                    switch: {
-                      style: 'circle',
-                    },
-                  },
-                  {
-                    type: 'image-picker',
-                    name: 'image_upload',
-                    label: 'Please upload a file',
-                    initialValue: 'https://picsum.photos/id/237/200/300',
-                    colSpan: 2,
-                    image: {
-                      // placeholder: 'lets go',
-                      // preview: 'https://picsum.photos/id/237/200/300',
-                    },
-                  },
-                ],
+                },
               },
             ],
           },

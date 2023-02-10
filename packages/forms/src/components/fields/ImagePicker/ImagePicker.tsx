@@ -34,14 +34,14 @@ export const ImagePicker = ({
     fileList: [],
   })
   /* Merge prop settings with defaults */
+  const shared = { fileValidation, inputProps, errorPosition }
   const dropzone = props?.dropzone
-    ? merge(defaultSettings, { ...props.dropzone, fileValidation, inputProps })
-    : { ...defaultSettings, fileValidation, inputProps }
+    ? merge(defaultSettings, { ...props.dropzone, ...shared })
+    : { ...defaultSettings, ...shared }
 
   /* Boolean layout helpers */
   const canRemoveImage = data.fileList.length ? true : false
-  const showPreview =
-    preview !== false && (placeholder || data.fileList.length || preview)
+  const showPreview = preview !== false && (image || data.fileList.length)
   const showDropzone =
     (dropzone.replaceWithPreview && data.fileList.length) ||
     props?.dropzone === false
@@ -62,7 +62,6 @@ export const ImagePicker = ({
           resolve(reader.result as string)
         }
       })
-
       // Emit callback function if included in props
       if (onUploadImage) {
         onUploadImage(url)
@@ -108,7 +107,7 @@ export const ImagePicker = ({
     }
     if (canRemoveImage || data.fileList.length) {
       dispatch({ type: 'REMOVE_FILES' })
-      setImage(placeholder)
+      setImage(undefined)
       return setFile
         ? setFile(undefined)
         : setFiles
@@ -131,7 +130,7 @@ export const ImagePicker = ({
     return cns.join(' ')
   }
 
-  const removeAttrs: React.HTMLAttributes<HTMLButtonElement> = {
+  const attrs: React.HTMLAttributes<HTMLButtonElement> = {
     // @ts-ignore
     type: 'button',
     className: 'mkui-btn-remove naked',
@@ -140,7 +139,7 @@ export const ImagePicker = ({
 
   return (
     <div
-      className={cn(['mkui-image-picker', getPosition(), className])}
+      className={cn(['mkui-image-picker relative', getPosition(), className])}
       {...props}>
       {showPreview ? (
         <div
@@ -172,9 +171,9 @@ export const ImagePicker = ({
           </div>
           {data.fileList[0] || canRemoveImage ? (
             typeof componentRemove === 'function' ? (
-              componentRemove(removeAttrs)
+              componentRemove(attrs)
             ) : (
-              <button {...removeAttrs}>{componentRemove}</button>
+              <button {...attrs}>{componentRemove}</button>
             )
           ) : null}
         </div>
@@ -182,13 +181,6 @@ export const ImagePicker = ({
       {showDropzone ? (
         <Dropzone data={data} dispatch={dispatch} settings={dropzone} />
       ) : null}
-      {data.errors && (
-        <div className={cn(['mkui-upload-error absolute', errorPosition])}>
-          {data.errors.map((message, i) => (
-            <div key={i}>{message}</div>
-          ))}
-        </div>
-      )}
     </div>
   )
 }

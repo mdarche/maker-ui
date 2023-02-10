@@ -105,8 +105,9 @@ export const Dropzone = ({ data, dispatch, settings: s }: DropzoneProps) => {
     <div
       className={cn([
         'mkui-dropzone flex',
+        s?.component ? 'custom' : undefined,
         s?.overlay
-          ? 'mkui-dropzone-overlay absolute cover align-center justify-center'
+          ? 'mkui-dropzone-overlay cover align-center justify-center'
           : undefined,
         s?.className,
       ])}>
@@ -125,21 +126,32 @@ export const Dropzone = ({ data, dispatch, settings: s }: DropzoneProps) => {
           onDragOver={(e) => handleDragOver(e)}
           onDragEnter={(e) => handleDragEnter(e)}
           onDragLeave={(e) => handleDragLeave(e)}>
-          {s?.icon && <div className="mkui-dropzone-icon">{s?.icon}</div>}
-          {data.inDropZone
-            ? s?.activeComponent
-            : data.fileList[0] && s?.showFileName
-            ? data.fileList[0].name
-            : s?.component}
+          {s?.component ?? (
+            <>
+              {s?.icon && <div className="mkui-dropzone-icon">{s?.icon}</div>}
+              {data.inDropZone
+                ? s?.activeLabel
+                : data.fileList[0] && s?.showFileName
+                ? data.fileList[0].name
+                : s?.label}
+            </>
+          )}
         </div>
       </label>
       <input
         id={inputId}
         type="file"
-        accept="image/png,image/jpeg,image/jpg,image/webp,image/gif"
+        accept={s?.fileValidation?.types.join(',')}
         onChange={onUpdateImage}
         {...s?.inputProps}
       />
+      {data.errors && (
+        <div className={cn(['mkui-upload-error absolute', s?.errorPosition])}>
+          {data.errors.map((message, i) => (
+            <div key={i}>{message}</div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

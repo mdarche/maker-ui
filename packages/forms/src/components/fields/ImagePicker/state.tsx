@@ -34,8 +34,9 @@ export type UploadAction =
     }
 
 export const defaultSettings: Partial<DropzoneSettings> = {
-  component: 'Add image',
-  activeComponent: 'Drop file',
+  component: undefined,
+  label: 'Add image',
+  activeLabel: 'Drop file',
   showFileName: true,
   position: 'right',
   icon: <UploadIcon />,
