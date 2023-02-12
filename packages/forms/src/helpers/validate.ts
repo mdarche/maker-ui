@@ -27,7 +27,8 @@ export function validate({
   if (field && type === 'field') {
     if (schema[field].required && !values[field]) {
       isValid = false
-      errors[field] = `Field is required`
+      const r = schema[field].required
+      errors[field] = typeof r === 'string' ? r : 'Required'
     } else if (schema[field]?.validation) {
       const res = schema[field].validation?.safeParse(values[field])
       if (!res?.success && res?.error) {
@@ -46,8 +47,9 @@ export function validate({
       }
       if (schema[name].required && !values[name]) {
         // Check for required
+        const r = schema[name].required
         isValid = false
-        errors[name] = `Field is required`
+        errors[name] = typeof r === 'string' ? r : 'Required'
       } else if (schema[name]?.validation) {
         // Check for custom validation
         const res = schema[name].validation?.safeParse(values[name])

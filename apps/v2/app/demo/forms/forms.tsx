@@ -29,7 +29,7 @@ export function FormDemo() {
                 label: 'First Name',
                 placeholder: 'First Name',
                 labelPosition: 'top-left',
-                required: true,
+                required: 'First name is required',
                 colSpan: 2,
                 validation: z
                   .string()
@@ -49,7 +49,7 @@ export function FormDemo() {
                 type: 'range',
                 name: 'price',
                 label: 'Price',
-                required: true,
+                // required: true,
                 colSpan: 2,
                 range: {
                   multi: true,

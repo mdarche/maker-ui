@@ -165,7 +165,7 @@ export interface FieldProps {
   instructions?: string | React.ReactElement
   component?: React.ReactElement
   placeholder?: string
-  required?: boolean
+  required?: boolean | string
   /** Custom Zod validation schema that will be run during validation */
   validation?: Schema
   labelPosition?: LabelPosition
@@ -279,7 +279,7 @@ export type FormSchema = {
   [key: string]: {
     type: FieldType
     page: number
-    required: boolean
+    required: boolean | string
     validation?: Schema
   }
 }

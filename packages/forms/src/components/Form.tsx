@@ -127,7 +127,7 @@ function getFieldData(fields: FieldProps[], index = 0) {
       values[f.name] = f.initialValue || getDefault(f.type)
       schema[f.name] = {
         type: f.type,
-        required: !!f.required,
+        required: typeof f?.required === 'string' ? f.required : !!f.required,
         page: index + 1,
         validation: f?.validation,
       }
