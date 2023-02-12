@@ -133,9 +133,11 @@ export const MenuItem = React.memo(
       <li
         className={cn([
           'menu-item',
-          megamenu ? 'has-megamenu' : undefined,
-          submenu ? 'has-submenu' : undefined,
-          submenu && isHeader && !caret ? 'mkui-caret' : undefined,
+          megamenu || submenu ? 'has-submenu' : undefined,
+          // submenu ? 'has-submenu' : undefined,
+          (megamenu || submenu) && isHeader && !caret
+            ? 'mkui-caret'
+            : undefined,
           show ? 'expanded' : undefined,
           className,
         ])}
@@ -184,26 +186,34 @@ export const MenuItem = React.memo(
             ) : null}
           </>
         </Conditional>
-        {submenu ? (
+        {submenu || (isHeader && megamenu) ? (
           <>
-            {isHeader || (!isHeader && show) ? (
+            {megamenu ? (
+              <div
+                className={cn(['megamenu', 'submenu', `depth-${depth}`])}
+                role="menu"
+                aria-label="submenu">
+                {megamenu}
+              </div>
+            ) : isHeader || (!isHeader && show) ? (
               <ul
                 className={cn(['submenu', `depth-${depth}`])}
                 role="menu"
                 aria-label="submenu">
-                {submenu.map((item, index) => (
-                  <MenuItem
-                    {...{
-                      key: index,
-                      data: item,
-                      caret,
-                      expandButton,
-                      pathname,
-                      isHeader,
-                      depth: depth + 1,
-                    }}
-                  />
-                ))}
+                {submenu &&
+                  submenu.map((item, index) => (
+                    <MenuItem
+                      {...{
+                        key: index,
+                        data: item,
+                        caret,
+                        expandButton,
+                        pathname,
+                        isHeader,
+                        depth: depth + 1,
+                      }}
+                    />
+                  ))}
               </ul>
             ) : null}
           </>

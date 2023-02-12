@@ -105,6 +105,7 @@ export const Range = ({ name }: FieldInputProps) => {
               {r?.beforeInput}
               <input
                 id={`${id}-min`}
+                className="mkui-input"
                 type="number"
                 name="input-min"
                 value={minVal}
@@ -119,6 +120,7 @@ export const Range = ({ name }: FieldInputProps) => {
               {r?.beforeInput}
               <input
                 id={`${id}-max`}
+                className="mkui-input"
                 type="number"
                 name="input-max"
                 value={maxVal}

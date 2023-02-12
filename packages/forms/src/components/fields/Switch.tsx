@@ -2,9 +2,9 @@ import * as React from 'react'
 import { cn, merge } from '@maker-ui/utils'
 
 import { useField } from '@/hooks'
-import type { FieldInputProps, SwitchSettings } from '@/types'
+import type { FieldInputProps, FieldProps } from '@/types'
 
-const defaultSettings: SwitchSettings = {
+const defaultSettings: FieldProps['switch'] = {
   labelOn: 'Yes',
   labelOff: 'No',
   disabled: false,

@@ -35,6 +35,15 @@ const menu: MenuItemProps[] = [
   },
   { label: 'News', path: '/about' },
   { label: 'Contact', path: '/about' },
+  {
+    label: 'Megamenu',
+    path: '/about',
+    megamenu: (
+      <div style={{ height: 200, width: 200, background: '#000' }}>
+        Lets go!
+      </div>
+    ),
+  },
 ]
 
 export default function RootLayout({

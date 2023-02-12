@@ -55,8 +55,18 @@ export type Partial<T> = {
 export type MakerUIOptions = Partial<Options>
 
 export interface TopbarOptions {
+  /** Determines if the topbar should be visible on mobile. This breakpoint abides by
+   * the value from `header.breakpoint`.
+   * @default true
+   */
   hideOnMobile: boolean
+  /** Determines if the topbar is sticky on desktop.
+   * @default false
+   */
   sticky: boolean
+  /** Determines if the topbar is sticky on mobile.
+   * @default false
+   */
   stickyOnMobile: boolean
 }
 
@@ -120,7 +130,6 @@ export interface Options {
   skiplinks: boolean | { label: string; id: string }[]
   /** Make sure you use all of these themes in your css variable declaration file */
   colorThemes: string[]
-  // Can be applied as props to the relevant child
   topbar: TopbarOptions
   header: HeaderOptions
   mobileMenu: MobileMenuOptions
