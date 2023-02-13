@@ -1,13 +1,8 @@
-import React, {
-  useCallback,
-  useState,
-  type MouseEvent,
-  type TouchEvent,
-} from 'react'
+import React, { useState, type MouseEvent, type TouchEvent } from 'react'
+import useResizeObserver from 'use-resize-observer'
 import { cn } from '@maker-ui/utils'
 import { type SlideItem, SlideDirection, type CarouselClasses } from '@/types'
 import { getPageX } from '@/helpers'
-import { useWindowWidthChange } from '@/hooks'
 
 export interface CanvasProps {
   items: SlideItem[]
@@ -28,21 +23,15 @@ export interface CanvasProps {
 
 export const Slider = (props: CanvasProps) => {
   const [width, setWidth] = useState(200)
-  const ref = useCallback(
-    (node: any) => {
-      if (node !== null) {
-        const calculated = node.getBoundingClientRect().width / props.show
-        setWidth(calculated)
-        props.widthCallBack(calculated)
+  const { ref } = useResizeObserver<HTMLDivElement>({
+    onResize: ({ width: w }) => {
+      if (w) {
+        const calcWidth = w / props.show
+        setWidth(calcWidth)
+        props.widthCallBack(calcWidth)
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [width]
-  )
-
-  useWindowWidthChange((change: number) => {
-    setWidth(width - change)
-  }, props.responsive)
+  })
 
   const [drag, setDrag] = useState({
     initial: props.transform,

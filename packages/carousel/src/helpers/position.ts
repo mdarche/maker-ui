@@ -1,10 +1,8 @@
-import type { Position } from '@/types'
-
 /**
  * Returns a ResponsiveCSS object that contains style rules for the navigation dots
  */
 export function getDotPosition(
-  pos: Position,
+  pos: 'top' | 'bottom' | 'right' | 'left',
   gap: string | number | (string | number)[]
 ): object {
   if (pos === 'left' || pos === 'right') {

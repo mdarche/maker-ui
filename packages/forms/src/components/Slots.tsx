@@ -29,13 +29,12 @@ export interface FormProgressProps extends SlotProps {
 
 export const FormProgress = forwardRef<HTMLDivElement, FormProgressProps>(
   ({ className, classNames, component, renderProps, _type, ...props }, ref) => {
-    const { values, currentPage, setPage, totalPages, validatePage } = useForm()
+    const { currentPage, setPage, totalPages, validatePage } = useForm()
     /**
      * Validate the current page before moving to the next page
      */
     const handlePageClick = (i: number) => {
       if (i > currentPage) {
-        console.log('values are', values)
         const valid = validatePage(currentPage)
         if (valid) setPage(i)
       } else {

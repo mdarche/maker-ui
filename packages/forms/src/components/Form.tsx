@@ -3,7 +3,6 @@ import { merge } from '@maker-ui/utils'
 
 import { initialState } from '@/helpers'
 import { FormRenderer } from './FormRenderer'
-import { FieldError } from './FieldError'
 import {
   FormHeader,
   FormFooter,
@@ -223,4 +222,3 @@ Form.Footer = FormFooter
 Form.Error = FormError
 Form.Success = FormSuccess
 Form.Progress = FormProgress
-Form.FieldError = FieldError

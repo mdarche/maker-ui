@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@maker-ui/style": "workspace:*",
-    "@maker-ui/utils": "workspace:*"
+    "@maker-ui/utils": "workspace:*",
+    "use-resize-observer": "^9.1.0"
   },
   "peerDependencies": {
     "react": "^17.x || ^18.x",

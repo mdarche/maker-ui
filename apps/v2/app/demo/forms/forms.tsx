@@ -108,7 +108,6 @@ export function FormDemo() {
           console.log('Submit count: ' + submitCount)
         }}>
         <Form.Progress />
-        <Form.FieldError />
         {/* <Form.BackButton />
         <Form.NextButton /> */}
         <Form.Submit>Submit</Form.Submit>
