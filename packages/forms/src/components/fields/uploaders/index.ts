@@ -1,2 +1,2 @@
 export { ImagePicker } from './ImagePicker'
-export { ImageField } from './ImageField'
+export { MediaField } from './MediaField'

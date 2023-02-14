@@ -5,7 +5,7 @@ import { ImagePicker } from './ImagePicker'
 import { useField, useForm } from '@/hooks'
 import type { FieldInputProps } from '@/types'
 
-export const ImageField = ({ name }: FieldInputProps) => {
+export const MediaField = ({ name }: FieldInputProps) => {
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)
   const [imageUrl, setImageUrl] = useState('')
   const { isSubmitting } = useForm()

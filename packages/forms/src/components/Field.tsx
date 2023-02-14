@@ -6,7 +6,7 @@ import { useForm, useField } from '@/hooks'
 import { evaluateConditions } from '@/helpers'
 import type { FieldProps } from '@/types'
 import { Label } from './Label'
-import { Input, Options, Switch, Range, Select, ImageField } from '@/fields'
+import { Input, Options, Switch, Range, Select, MediaField } from '@/fields'
 import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
 
 const basicInputs = [
@@ -75,7 +75,7 @@ export const Field = (p: FieldProps) => {
     }
     /* Image picker field*/
     if (p.type === 'image-picker') {
-      return <ImageField name={p.name} />
+      return <MediaField name={p.name} />
     }
   }
 
