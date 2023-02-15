@@ -6,7 +6,7 @@ import {
   type TransitionStatus,
   type Transition as ReactTransitionProps,
 } from 'react-transition-group'
-import { mergeRefs } from '@maker-ui/utils'
+import { merge, mergeRefs } from '@maker-ui/utils'
 
 export type TransitionState = {
   [key in TransitionStatus | 'start']?: {
@@ -70,12 +70,11 @@ export const Transition = ({
         <div
           ref={nodeRef ? mergeRefs([ref, nodeRef]) : ref}
           {...containerProps}
-          style={{
+          style={merge(containerProps?.style || {}, {
             ...transitionState?.start,
             transition: `all ${timeout}ms ${easing}`,
             ...transitionState[state],
-            ...(containerProps?.style ? containerProps.style : {}),
-          }}>
+          })}>
           {children}
         </div>
       )}

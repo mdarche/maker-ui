@@ -1,47 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { cn } from '@maker-ui/utils'
-import type { ResponsiveCSS, Breakpoints } from '@maker-ui/style'
+import { cn, generateId } from '@maker-ui/utils'
+import { Style } from '@maker-ui/style'
 
 import { Popover, PopoverProps } from './Popover'
 
-interface DropdownProps {
-  breakpoints?: Breakpoints
-  /** ID selector for the dropdown container */
-  id?: string
-  /** className selector for the dropdown container */
-  className?: string
-  /** A slot that lets you supply a custom button or use a callback function that lets you
+interface DropdownProps
+  extends Omit<PopoverProps, 'show' | 'set' | 'anchorRef'> {
+  classNames?: {
+    container?: string
+    button?: string
+    dropdown?: string
+  }
+  /** A slot that lets you supply a custom button or callback function to render
    * construct a button with the open state.
    * @default "Dropdown"
    */
   button?:
     | React.ReactNode
     | ((isOpen?: boolean, attributes?: object) => React.ReactNode)
-  /** If true, the dropdown content will match the width of the button.
-   * @default false
-   */
-  matchWidth?: boolean
-  /** If true, the dropdown container will trap the keyboard focus until the dropdown is closed.
-   * @default false
-   */
-  trapFocus?: boolean
-  /** If true, the Dropdown will close when keyboard focus leaves the component.
-   * @default true
-   */
-  closeOnBlur?: boolean
-  /** Predefined transition styles that you can use to toggle the Dropdown.
-   * @default "fade"
-   */
-  transition?: PopoverProps['transition']
-  /** Responsive styles that are applied to the button if a custom button is not supplied */
-  buttonCss?: ResponsiveCSS
-  /** Responsive styles that are applied to the dropdown container. */
-  _css?: ResponsiveCSS
-  /** Responsive styles that are applied to the nested popover container. */
-  css?: ResponsiveCSS
-  /** The contents of your dropdown component */
-  children: React.ReactNode
-  /** Allows you to control the dropdown from an external React.useState hook*/
+  /** Allows you to control the dropdown from an external `useState` hook*/
   controls?: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 }
 
@@ -49,7 +26,6 @@ interface DropdownProps {
  * The `Dropdown` component is a pre-built popover for revealing a menu or supplemental
  * content. It returns a customizable button and the corresponding dropdown content.
  *
- * @todo - clean up external `controls` implementation
  * @todo - known issue with scale transition and height measurements
  *
  * @link https://maker-ui.com/docs/elements/popovers
@@ -63,20 +39,21 @@ export const Dropdown = ({
   transition = 'fade',
   id,
   className,
-  buttonCss,
+  classNames,
   controls,
-  _css,
   css,
   children,
 }: DropdownProps) => {
-  const buttonRef = useRef(null)
-  const dropdownRef = useRef(null)
-  const [show, set] = useState(transition === 'scale' ? true : false)
+  const [styleId] = useState(generateId())
+  const [show, set] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
-  const buttonAttributes = {
+  const attrs = {
     ref: buttonRef,
     className: cn([
-      'dropdown-btn',
+      'mkui-btn-dropdown',
+      classNames?.button,
       (controls ? controls[0] : show) ? 'active' : '',
     ]),
     'aria-haspopup': 'listbox' as 'listbox',
@@ -89,56 +66,51 @@ export const Dropdown = ({
    * dropdown menu (if active)
    */
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    if (!closeOnBlur) return
+    function handleClickOutside(e: MouseEvent) {
       if (
-        closeOnBlur &&
         dropdownRef.current &&
-        // @ts-ignore
-        !dropdownRef.current.contains(event.target) &&
-        // @ts-ignore
-        !buttonRef.current.contains(event.target)
+        buttonRef.current &&
+        !dropdownRef?.current.contains(e.target as Node) &&
+        !buttonRef?.current.contains(e.target as Node)
       ) {
         return controls ? controls[1](false) : set(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [closeOnBlur, controls])
 
   return (
     <div
       id={id}
-      className={cn(['dropdown', className])}
-      // css={{
-      //   display: 'inline-block',
-      //   ...(_css as object),
-      // }}
-    >
+      className={cn([
+        'mkui-dropdown',
+        styleId,
+        className,
+        classNames?.container,
+      ])}>
       {typeof button === 'function' ? (
-        button(controls ? controls[0] : show, buttonAttributes)
+        button(controls ? controls[0] : show, attrs)
       ) : (
-        <button
-          {...buttonAttributes}
-          // css={{ ...(buttonCss as object) }}
-        >
-          {button}
-        </button>
+        <button {...attrs}>{button}</button>
       )}
-      <div className="dropdown-container" ref={dropdownRef}>
+      {css && <Style root={styleId} css={css} />}
+      <div className="mkui-dropdown-inner" ref={dropdownRef}>
         <Popover
-          appendTo={dropdownRef.current}
-          role="listbox"
+          _type="dropdown"
           show={controls ? controls[0] : show}
           set={controls ? controls[1] : set}
-          css={css}
-          trapFocus={trapFocus}
-          anchorRef={buttonRef}
-          anchorWidth={matchWidth}
-          closeOnBlur={closeOnBlur}
-          transition={transition}
-          _type="dropdown">
+          {...{
+            role: 'listbox',
+            appendTo: dropdownRef.current,
+            anchorRef: buttonRef,
+            className: classNames?.dropdown,
+            matchWidth,
+            trapFocus,
+            closeOnBlur,
+            transition,
+          }}>
           {children}
         </Popover>
       </div>

@@ -1,3 +1,5 @@
+import { Offset } from './Popover'
+
 export interface Position {
   x: 'left' | 'center' | 'right' | 'origin'
   y: 'top' | 'center' | 'bottom'
@@ -9,7 +11,6 @@ export type TransitionType =
   | 'fade-up'
   | 'fade-left'
   | 'fade-right'
-  | 'scale'
   | 'none'
 
 /**
@@ -29,21 +30,13 @@ function getTransform(type: string) {
   }
 }
 
-export function getTransition(transition: string, height: number) {
+export function getTransition(transition: string) {
   // No transition
   if (transition === 'none') {
     return {
       start: { visibility: 'hidden' },
       enter: { visibility: 'visible' },
       leave: { visibility: 'hidden' },
-    }
-  }
-  // Scale transition
-  if (transition === 'scale') {
-    return {
-      start: { height: '0px' },
-      enter: { height: `${height}px` },
-      leave: { height: '0px' },
     }
   }
   // Fade transition & default
@@ -67,55 +60,31 @@ export function getTransition(transition: string, height: number) {
  * Format the simpler Tooltip API to work with the `Popover` parent.
  */
 
-export function convertPosition(
+export function getPosition(
   pos: string,
-  bg: string[] | string,
-  gap: number
-): { position: Position; styles: object; gap: { x: number; y: number } } {
-  const vertical = { left: '50%', marginLeft: '-5px' }
-  const horizontal = { top: '50%', marginTop: '-5px' }
-
+  offset: number
+): { position: Position; offset: Offset } {
   switch (pos) {
     case 'top':
       return {
         position: { x: 'center', y: 'top' },
-        gap: { x: 0, y: gap },
-        styles: {
-          top: '100%',
-          ...vertical,
-          borderColor: `${bg} transparent transparent transparent`,
-        },
+        offset: { x: 0, y: offset },
       }
     case 'bottom':
       return {
         position: { x: 'center', y: 'bottom' },
-        gap: { x: 0, y: gap },
-        styles: {
-          bottom: '100%',
-          ...vertical,
-          borderColor: `transparent transparent ${bg} transparent`,
-        },
+        offset: { x: 0, y: offset },
       }
     case 'left':
       return {
         position: { x: 'left', y: 'center' },
-        gap: { x: gap, y: 0 },
-        styles: {
-          left: '100%',
-          ...horizontal,
-          borderColor: `transparent transparent transparent ${bg}`,
-        },
+        offset: { x: offset, y: 0 },
       }
     case 'right':
     default:
       return {
         position: { x: 'right', y: 'center' },
-        gap: { x: gap, y: 0 },
-        styles: {
-          right: '100%',
-          ...horizontal,
-          borderColor: `transparent ${bg} transparent transparent`,
-        },
+        offset: { x: offset, y: 0 },
       }
   }
 }

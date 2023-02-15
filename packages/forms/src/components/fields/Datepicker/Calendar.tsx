@@ -1,5 +1,5 @@
 import { cn } from '@maker-ui/utils'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   getCalendar,
   isDate,
@@ -18,6 +18,7 @@ import {
  * - Disabled Days (specific + weekend boolean)
  * - Localized month / day names
  * - Range, maximum range
+ *
  * TODO - Parameters for time input
  * - Start Time, End Time
  * - Time increment for schedule (by 15 mins)
@@ -25,9 +26,33 @@ import {
  * - Disabled days, disabled days + times, weekend boolean
  */
 
-interface CalendarProps {
+interface DateSelection {
   date: Date
-  onDateChanged: (date: Date) => void
+  startDate?: Date
+  endDate?: Date
+}
+
+interface CalendarProps {
+  /** Earliest date that will be visible in the Calendar. Required if `range` is true.  */
+  startDate?: Date
+  /** Latest date that will be visible in the Calendar. Required if `range` is true. */
+  endDate?: Date
+  /** If true, users can select a start and end date. */
+  range?: boolean
+  /** The maximum number of days that a user can select in their date range. */
+  rangeMax?: number
+  /** An array of unavailable dates or date strings that will render disabled calendar days. */
+  unavailable?: Date | string[]
+  /** An array of days (1-7) that will render disabled calendar days each week.
+   * 1 is Monday and 7 is Sunday.
+   * @example
+   * To disable weekends, use: [6, 7]
+   */
+  unavailableDays?: number[]
+  /** @todo Localization helper. Coming soon... */
+  localization?: {}
+  /** Callback function that is invoked any time a date is changed or selected. */
+  onDateChange: (selection: DateSelection) => void
 }
 
 interface CalendarState {
@@ -36,12 +61,13 @@ interface CalendarState {
   year: number
 }
 
-export const Calendar = ({ date, onDateChanged }: CalendarProps) => {
-  const [today] = useState(new Date())
+export const Calendar = ({ onDateChange }: CalendarProps) => {
+  const now = new Date()
+  const [today] = useState(now)
   const [state, setState] = useState<CalendarState>({
-    current: new Date(),
-    month: 0,
-    year: 0,
+    current: now,
+    month: now.getMonth() + 1,
+    year: now.getFullYear(),
   })
   const month =
     Object.keys(CALENDAR_MONTHS)[Math.max(0, Math.min(state.month - 1, 11))]
@@ -66,7 +92,7 @@ export const Calendar = ({ date, onDateChanged }: CalendarProps) => {
 
   const goToDate = (d: Date) => {
     !(state.current && isSameDay(d, state.current)) && addDateToState(d)
-    onDateChanged(d)
+    // onDateChange(d)
   }
 
   const changeMonth = (isNext = true) => {
@@ -102,11 +128,6 @@ export const Calendar = ({ date, onDateChanged }: CalendarProps) => {
 
   /** Lifecycle Methods */
 
-  useEffect(() => {
-    addDateToState(date)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   const Day = ({ date }: { date: Date }) => {
     const isToday = isSameDay(date, today)
     // Check if calendar date is same day as currently selected date
@@ -116,7 +137,9 @@ export const Calendar = ({ date, onDateChanged }: CalendarProps) => {
     //   month &&
     //   state.year &&
     //   isSameMonth(date, new Date([state.year, state.month, 1].join('-')))
-    // todo - ensure date is in the accepted range
+    // TODO - Check if calendar date is inside of the date range
+    const inRange = false
+    // TODO - ensure date is in the accepted range. Disable all past days by default
     const isDisabled = false
 
     return (
@@ -124,6 +147,7 @@ export const Calendar = ({ date, onDateChanged }: CalendarProps) => {
         className={cn([
           'mkui-btn-date mkui-calendar-date',
           isDisabled ? 'disabled' : '',
+          inRange ? 'in-range' : '',
           isCurrent ? 'selected' : '',
           isToday ? 'today' : '',
         ])}

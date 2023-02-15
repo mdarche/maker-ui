@@ -28,6 +28,7 @@ const menu: MenuItemProps[] = [
       { label: 'Modal', path: '/demo/modal' },
       { label: 'Notifications', path: '/demo/notifications' },
       { label: 'Transition', path: '/demo/transition' },
+      { label: 'Popovers', path: '/demo/popovers' },
       { label: 'Spinners', path: '/demo/spinners' },
       { label: 'Social', path: '/demo/social' },
       { label: 'Style', path: '/demo/style' },
