@@ -18,7 +18,7 @@ export default function PopoverPage() {
           </button>
         )}
       />
-      <div style={{ height: 20 }} />
+      <div style={{ height: 200 }} />
       <Tooltip label="Hover or Focus on me">
         <div>Info!</div>
       </Tooltip>

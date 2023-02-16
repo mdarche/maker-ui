@@ -22,7 +22,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "react-use-measure": "^2.0.4"
+    "use-resize-observer": "^9.1.0"
   },
   "peerDependencies": {
     "react": "^17.x || ^18.x",

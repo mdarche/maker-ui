@@ -1,29 +1,44 @@
 import React, { useState, useEffect } from 'react'
 
+interface IntersectionSettings {
+  ref: React.RefObject<HTMLDivElement>
+  offset?: string | number
+  root?: React.RefObject<HTMLDivElement>
+  onIntersect?: (isVisible: boolean) => void
+}
+
 /**
  * A React hook for identifying when an element is visible in the viewport
  *
- * @param {HTMLDivElement} element - A react ref
- * @param {string} rootMargin - an offset measurement value in pixels
+ * @param {HTMLDivElement} ref - A react ref
+ * @param {string} offset - an offset measurement value in pixels
  * @param {HTMLDivElement} root - an optional container (defaults to window)
+ * @param {function} onIntersect - a callback function that is invoked any time
+ * the intersection fires
+ *
  */
-export const useIntersection = (
-  ref: React.RefObject<HTMLDivElement>,
-  rootMargin: string,
-  root?: React.RefObject<HTMLDivElement>
-) => {
-  const [isVisible, setState] = useState(false)
+export const useIntersection = ({
+  ref,
+  offset = 0,
+  root,
+  onIntersect,
+}: IntersectionSettings) => {
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     if (!ref.current) return
 
-    const callbackFunction = (entries: IntersectionObserverEntry[]) => {
+    const callback = (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries
-      setState(entry.isIntersecting)
+      setVisible(entry.isIntersecting)
+
+      if (onIntersect) {
+        onIntersect(entry.isIntersecting)
+      }
     }
 
-    const observer = new IntersectionObserver(callbackFunction, {
-      rootMargin,
+    const observer = new IntersectionObserver(callback, {
+      rootMargin: typeof offset === 'number' ? `${offset}px` : offset,
       root: root?.current,
     })
 
@@ -31,11 +46,10 @@ export const useIntersection = (
       observer.observe(ref.current)
     }
 
-    return () => {
-      observer.disconnect()
-    }
+    return () => observer.disconnect()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return isVisible
+  return visible
 }

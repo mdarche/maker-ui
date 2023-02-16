@@ -1,5 +1,5 @@
 import React, { useState, type MouseEvent, type TouchEvent } from 'react'
-import useResizeObserver from 'use-resize-observer'
+import { useResizeObserver } from '@maker-ui/hooks'
 import { cn } from '@maker-ui/utils'
 import { type SlideItem, SlideDirection, type CarouselClasses } from '@/types'
 import { getPageX } from '@/helpers'

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { generateId, cn } from '@maker-ui/utils'
-import { useMeasure } from '@maker-ui/hooks'
+import { useResizeObserver } from '@maker-ui/hooks'
 
 import { useAccordion } from './Accordion'
 
@@ -39,7 +39,7 @@ export const AccordionPanel = React.forwardRef<
   const [show, set] = React.useState(
     state.showSingle && state.activeKey === eventKey ? true : open
   )
-  const [measure, { height: viewHeight }] = useMeasure()
+  const { ref: measureRef, height: viewHeight } = useResizeObserver()
 
   React.useEffect(() => {
     registerPanel(panelKey)
@@ -107,7 +107,7 @@ export const AccordionPanel = React.forwardRef<
         style={{
           height: show ? (isAnimated ? viewHeight : '100%') : 0,
         }}>
-        <div ref={measure} className="mkui-accordion-inner">
+        <div ref={measureRef} className="mkui-accordion-inner">
           {children}
         </div>
       </div>

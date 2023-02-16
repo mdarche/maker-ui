@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useLayoutEffect, useEffect, useRef } from 'react'
 import { cn, generateId } from '@maker-ui/utils'
-import { useFocus } from '@maker-ui/hooks'
+import { useFocus, useResizeObserver, useWindowSize } from '@maker-ui/hooks'
 import { Portal } from '@maker-ui/modal'
 import { Transition, type TransitionState } from '@maker-ui/transition'
-import { ResponsiveCSS, Breakpoints, Style } from '@maker-ui/style'
+import { type ResponsiveCSS, type Breakpoints, Style } from '@maker-ui/style'
 
 import { getTransition, Position, TransitionType } from './position'
 
@@ -77,6 +77,8 @@ export interface PopoverProps extends React.HTMLAttributes<HTMLDivElement> {
  * @link https://maker-ui.com/docs/elements/popovers
  */
 
+/** TODO _ we need a state machine that re-measures the box anytime show is true */
+
 export const Popover = ({
   show,
   set,
@@ -98,10 +100,10 @@ export const Popover = ({
   _type = 'popover',
   ...rest
 }: PopoverProps) => {
-  const popoverRef = useRef<any>(null)
+  const [styleId] = React.useState(generateId())
+  const popoverRef = useRef<HTMLDivElement>(null)
   // Inner contents height and width
   const [state, setState] = React.useState({
-    styleId: generateId(),
     height: 0,
     width: 0,
   })
@@ -117,12 +119,23 @@ export const Popover = ({
     width: 0,
     documentTop: 0,
     measured: false,
+    isMeasuring: true,
+  })
+  useResizeObserver({ ref: anchorRef, onResize: resize })
+  useWindowSize(resize)
+  const { ref } = useResizeObserver({
+    onResize: ({ height, width }) => {
+      if (height && width) {
+        setState({ height, width: matchWidth ? box?.width : width })
+      }
+    },
   })
 
   /** Configure animation states based on `transition` and `transitionState` props */
 
-  const animations = getTransition(transition)
-  const popoverTransition: TransitionState = transitionState || {
+  const animations = getTransition(state.height ? transition : 'none')
+  const popoverTransition: TransitionState = (state.height &&
+    transitionState) || {
     start: animations.start,
     entering: animations.enter,
     entered: animations.enter,
@@ -130,12 +143,16 @@ export const Popover = ({
     exited: animations.leave,
   }
 
-  /** Grab the latest getBoundingClientRect for a given React ref */
+  /** Grab the latest getBoundingClientRect for a the anchor React ref */
 
   function resize() {
     if (anchorRef.current) {
       const { top, bottom, left, right, x, y, height, width } =
         anchorRef.current.getBoundingClientRect()
+      if (!height && !width) return
+      if (matchWidth) {
+        setState((s) => ({ ...s, width }))
+      }
       setBox({
         top,
         bottom,
@@ -147,43 +164,10 @@ export const Popover = ({
         width,
         documentTop: top + document.documentElement.scrollTop,
         measured: true,
+        isMeasuring: false,
       })
     }
   }
-
-  // Initial Measurement or changing Anchor Ref
-
-  useEffect(() => {
-    if (anchorRef.current) {
-      resize()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [anchorRef])
-
-  // Browser Resize
-
-  useEffect(() => {
-    window.addEventListener('resize', resize)
-    return () => window.removeEventListener('resize', resize)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  /**
-   * Measure the popover's child container to calculate its height and width for
-   * positioning & the `scale` transition.
-   */
-  const measuredRef = useCallback(
-    (node: any) => {
-      if (node && state.height === 0) {
-        setState((s) => ({
-          ...s,
-          height: node.offsetHeight,
-          width: node.offsetWidth,
-        }))
-      }
-    },
-    [state.height]
-  )
 
   /**
    * Get all relevant focusable elements.
@@ -193,16 +177,6 @@ export const Popover = ({
     focusRef: anchorRef,
     show,
   })
-
-  /**
-   * Set anchor width measurement
-   */
-  useEffect(() => {
-    if (!box.measured) return
-    if (matchWidth) {
-      setState((s) => ({ ...s, width: box.width }))
-    }
-  }, [box, matchWidth])
 
   /**
    * Add focus trap and update tab sequence for popovers attached to body
@@ -259,6 +233,22 @@ export const Popover = ({
     [anchorRef, closeOnBlur, focusable, set, trapFocus, _type]
   )
 
+  // Lifecycle events
+
+  useLayoutEffect(() => {
+    if (show && !box.isMeasuring) {
+      setBox({ ...box, measured: false, isMeasuring: true })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show])
+
+  useLayoutEffect(() => {
+    if (box.isMeasuring) {
+      resize()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [box.isMeasuring])
+
   useEffect(() => {
     const ref = popoverRef.current
     ref?.addEventListener(`keydown`, handleKeyDown)
@@ -267,40 +257,54 @@ export const Popover = ({
   }, [handleKeyDown])
 
   /**
-   * Get the popover's X position by calculating its distance to the anchor ref element.
+   * Get the popover's X and Y position by calculating its distance to the anchor ref element.
+   * This effect only fires if the anchor ref has already been measured and the `appendTo`
+   * prop is not set.
    */
-  const gapX = typeof offset === 'object' ? offset.x : offset
-  const gapY = typeof offset === 'object' ? offset.y : offset
+  function getPosition() {
+    if (appendTo || !box.measured) return {}
+    const gapX = typeof offset === 'object' ? offset.x : offset
+    const gapY = typeof offset === 'object' ? offset.y : offset
 
-  const getX = () => {
-    if (!box.measured) return
-    return position.x === 'center'
-      ? box.left + box.width / 2 - state.width / 2
-      : position.x === 'left'
-      ? box.left - state.width - gapX
-      : position.x === 'right'
-      ? box.right + gapX
-      : box.left
+    const x =
+      position.x === 'center'
+        ? box.left + box.width / 2 - state.width / 2
+        : position.x === 'left'
+        ? box.left - state.width - gapX
+        : position.x === 'right'
+        ? box.right + gapX
+        : box.left
+
+    const y =
+      position.y === 'top'
+        ? box.documentTop - state.height - gapY
+        : position.y === 'bottom'
+        ? box.documentTop + box.height + gapY
+        : position.y === 'center'
+        ? box.documentTop + box.height / 2 - state.height / 2
+        : 0
+
+    const offscreenX = x < 0 || x + state.width > window.innerWidth
+    const offscreenY = y < 0 || y + state.height > window.innerHeight
+
+    return {
+      left: offscreenX
+        ? position.x === 'left'
+          ? 0
+          : window.innerWidth - state.width
+        : x,
+      top: offscreenY
+        ? position.y === 'top'
+          ? 0
+          : window.innerHeight - state.height
+        : y,
+    }
   }
 
-  /**
-   * Get the popover's Y position by calculating its distance to the anchor ref element.
-   */
-  const getY = () => {
-    if (!box.measured) return
-    return position.y === 'top'
-      ? box.documentTop - state.height - gapY
-      : position.y === 'bottom'
-      ? box.documentTop + box.height + gapY
-      : position.y === 'center'
-      ? box.documentTop + box.height / 2 - state.height / 2
-      : 0
-  }
-
-  return typeof window !== 'undefined' && box.measured ? (
+  return (
     <Portal root={appendTo}>
       <Transition
-        show={show}
+        show={!state.height ? true : show}
         nodeRef={popoverRef}
         timeout={duration}
         transitionState={popoverTransition}
@@ -310,27 +314,28 @@ export const Popover = ({
             'mkui-popover',
             className,
             show ? 'active' : undefined,
-            state.styleId,
+            styleId,
             'absolute',
           ]),
           style: {
-            left: !appendTo ? getX() : undefined,
-            top: !appendTo ? getY() : undefined,
+            ...getPosition(),
             width: matchWidth ? state.width : undefined,
+            visibility: !state.height ? 'hidden' : undefined,
+            opacity: !state.height ? 0 : undefined,
           },
           ...rest,
         }}>
         <Style
-          root={state.styleId}
+          root={styleId}
           breakpoints={breakpoints}
           css={{ display: 'block', zIndex: 99, ...css }}
         />
-        <div ref={measuredRef} className="mkui-popover-inner">
+        <div ref={ref} className="mkui-popover-inner">
           {children}
         </div>
       </Transition>
     </Portal>
-  ) : null
+  )
 }
 
 Popover.displayName = 'Popover'

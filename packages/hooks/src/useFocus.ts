@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 const focusElements = [
   '[href]',
   'button:not([disabled])',
-  'input',
-  'textarea',
-  'select',
+  'input:not([disabled])',
+  'textarea:not([disabled])',
+  'select:not([disabled])',
   '[tabIndex]:not([tabIndex="-1"])',
 ].join(', ')
 

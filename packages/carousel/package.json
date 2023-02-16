@@ -17,9 +17,9 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
+    "@maker-ui/hooks": "workspace:*",
     "@maker-ui/style": "workspace:*",
-    "@maker-ui/utils": "workspace:*",
-    "use-resize-observer": "^9.1.0"
+    "@maker-ui/utils": "workspace:*"
   },
   "peerDependencies": {
     "react": "^17.x || ^18.x",

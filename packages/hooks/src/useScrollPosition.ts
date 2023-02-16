@@ -9,7 +9,7 @@ function getScrollPosition(): number {
 /**
  * A browser hook that returns the user's current and previous scroll position via callback
  *
- * @param effect - A callback function that shows the user's previous and current positions
+ * @param onScroll - A callback function that shows the user's previous and current positions
  * @param wait - The timeout delay for obtaining new position values
  * @param active - A boolean that determines if the effect should be run
  *
@@ -19,7 +19,7 @@ function getScrollPosition(): number {
  *
  */
 export function useScrollPosition(
-  effect: (props: { prevPos: number; currPos: number }) => void,
+  onScroll: (props: { prevPos: number; currPos: number }) => void,
   wait: number,
   active: boolean = true
 ): void {
@@ -31,9 +31,9 @@ export function useScrollPosition(
 
     let throttleTimeout: any
 
-    const callBack = () => {
+    const callback = () => {
       const currPos = getScrollPosition()
-      effect({ prevPos: position.current, currPos })
+      onScroll({ prevPos: position.current, currPos })
       position.current = currPos
       throttleTimeout = undefined
     }
@@ -41,15 +41,15 @@ export function useScrollPosition(
     const handleScroll = () => {
       if (wait) {
         if (throttleTimeout === undefined) {
-          throttleTimeout = setTimeout(callBack, wait)
+          throttleTimeout = setTimeout(callback, wait)
         }
       } else {
-        callBack()
+        callback()
       }
     }
 
     window.addEventListener('scroll', handleScroll)
 
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [effect, wait, active])
+  }, [onScroll, wait, active])
 }

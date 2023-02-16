@@ -1,4 +1,4 @@
-import useMeasure from 'react-use-measure'
+import useResizeObserver from 'use-resize-observer'
 
 export { useFocus } from './useFocus'
 export { useTracker } from './useTracker'
@@ -7,4 +7,4 @@ export { useWindowSize } from './useWindowSize'
 export { useTimer } from './useTimer'
 export { useIntersection } from './useIntersection'
 
-export { useMeasure }
+export { useResizeObserver }

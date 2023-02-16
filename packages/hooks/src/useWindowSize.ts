@@ -18,16 +18,23 @@ const getWindowWidth = () => {
 /**
  * A React hook that adds a resize event-listener to the window and returns
  * the current window size
+ *
+ * @param callback - a callback function that is invoked each time the window is resized
+ *
  */
-export function useWindowSize() {
+export function useWindowSize(callback?: (w?: WindowState) => void) {
   const [windowSize, setWindowSize] = useState<WindowState>(getWindowWidth())
 
   useEffect(() => {
-    function handleResize() {
+    function resize() {
+      if (callback) {
+        callback(windowSize)
+      }
       setWindowSize(getWindowWidth())
     }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    window.addEventListener('resize', resize)
+    return () => window.removeEventListener('resize', resize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return windowSize
