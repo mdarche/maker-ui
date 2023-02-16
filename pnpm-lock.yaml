@@ -157,6 +157,7 @@ importers:
       '@maker-ui/carousel': workspace:*
       '@maker-ui/forms': workspace:*
       '@maker-ui/generative': workspace:*
+      '@maker-ui/hooks': workspace:*
       '@maker-ui/layout': workspace:*
       '@maker-ui/lightbox': workspace:*
       '@maker-ui/modal': workspace:*
@@ -181,6 +182,7 @@ importers:
       '@maker-ui/carousel': link:../../packages/carousel
       '@maker-ui/forms': link:../../packages/forms
       '@maker-ui/generative': link:../../packages/generative
+      '@maker-ui/hooks': link:../../packages/hooks
       '@maker-ui/layout': link:../../packages/layout
       '@maker-ui/lightbox': link:../../packages/lightbox
       '@maker-ui/modal': link:../../packages/modal

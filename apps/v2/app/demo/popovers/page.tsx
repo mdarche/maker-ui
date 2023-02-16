@@ -2,11 +2,25 @@
 import { useState, useRef } from 'react'
 import { Section } from '@maker-ui/layout'
 import { Popover, Dropdown, Tooltip } from '@maker-ui/popovers'
+import { useKeyboardShortcut } from '@maker-ui/hooks'
 import { ColorButton } from '@/client'
 
 export default function PopoverPage() {
   const [show, set] = useState(false)
   const ref = useRef(null)
+  const [count, setCount] = useState(0)
+
+  const incrementCount = () => {
+    setCount(count + 1)
+  }
+
+  useKeyboardShortcut([
+    { key: 'Digit1', shiftKey: true, callback: incrementCount },
+    // {
+    //   keys: ['Control', 'Shift', 'Digit2'],
+    //   callback: () => alert('Shortcut 2'),
+    // },
+  ])
 
   return (
     <Section>
@@ -18,6 +32,7 @@ export default function PopoverPage() {
           </button>
         )}
       />
+      <div>Count is {count}</div>
       <div style={{ height: 200 }} />
       <Tooltip label="Hover or Focus on me">
         <div>Info!</div>

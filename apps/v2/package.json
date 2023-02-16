@@ -12,6 +12,7 @@
     "@maker-ui/carousel": "workspace:*",
     "@maker-ui/forms": "workspace:*",
     "@maker-ui/generative": "workspace:*",
+    "@maker-ui/hooks": "workspace:*",
     "@maker-ui/layout": "workspace:*",
     "@maker-ui/lightbox": "workspace:*",
     "@maker-ui/modal": "workspace:*",

@@ -6,5 +6,6 @@ export { useScrollPosition } from './useScrollPosition'
 export { useWindowSize } from './useWindowSize'
 export { useTimer } from './useTimer'
 export { useIntersection } from './useIntersection'
+export { useKeyboardShortcut } from './useKeyboardShortcut'
 
 export { useResizeObserver }
