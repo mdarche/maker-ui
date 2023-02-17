@@ -1,6 +1,6 @@
-import React, { useCallback, useLayoutEffect, useEffect, useRef } from 'react'
+import React, { useState, useLayoutEffect, useRef } from 'react'
 import { cn, generateId } from '@maker-ui/utils'
-import { useResizeObserver, useWindowSize } from '@maker-ui/hooks'
+import { useFocusTrap, useResizeObserver, useWindowSize } from '@maker-ui/hooks'
 import { Portal } from '@maker-ui/modal'
 import { Transition, type TransitionState } from '@maker-ui/transition'
 import { type ResponsiveCSS, type Breakpoints, Style } from '@maker-ui/style'
@@ -69,15 +69,13 @@ export interface PopoverProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * The `Popover` component lets you add supplemental views like a Tooltip or Dropdown
- * to a specified DOM node or the document body.
+ * to a specified DOM node or directly to the document body.
  *
  * Use the `Popover` to customize your own components, otherwise try out the pre-configured
  * `Tooltip` or `Dropdown` components.
  *
  * @link https://maker-ui.com/docs/elements/popovers
  */
-
-/** TODO _ we need a state machine that re-measures the box anytime show is true */
 
 export const Popover = ({
   show,
@@ -100,15 +98,15 @@ export const Popover = ({
   _type = 'popover',
   ...rest
 }: PopoverProps) => {
-  const [styleId] = React.useState(generateId())
+  const [styleId] = useState(generateId())
   const popoverRef = useRef<HTMLDivElement>(null)
   // Inner contents height and width
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     height: 0,
     width: 0,
   })
   // Anchor element measurements
-  const [box, setBox] = React.useState({
+  const [box, setBox] = useState({
     top: 0,
     bottom: 0,
     left: 0,
@@ -121,8 +119,8 @@ export const Popover = ({
     measured: false,
     isMeasuring: true,
   })
-  useResizeObserver({ ref: anchorRef, onResize: resize })
   useWindowSize(resize)
+  useResizeObserver({ ref: anchorRef, onResize: resize })
   const { ref } = useResizeObserver({
     onResize: ({ height, width }) => {
       if (height && width) {
@@ -177,6 +175,8 @@ export const Popover = ({
   //   focusRef: anchorRef,
   //   show,
   // })
+
+  useFocusTrap(popoverRef, trapFocus && show)
 
   /**
    * Add focus trap and update tab sequence for popovers attached to body

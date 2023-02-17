@@ -15,27 +15,26 @@ import '@maker-ui/layout/dist/client.css'
 
 const menu: MenuItemProps[] = [
   { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
   {
     label: 'Demo',
     path: '/about',
     openNested: true,
     submenu: [
       { label: 'Accordion', path: '/demo/accordion' },
-      { label: 'Forms', path: '/demo/forms' },
-      { label: 'Tabs', path: '/demo/tabs' },
       { label: 'Carousel', path: '/demo/carousel' },
+      { label: 'Forms', path: '/demo/forms' },
+      { label: 'Lightbox', path: '/demo/lightbox' },
       { label: 'Modal', path: '/demo/modal' },
       { label: 'Notifications', path: '/demo/notifications' },
-      { label: 'Transition', path: '/demo/transition' },
       { label: 'Popovers', path: '/demo/popovers' },
-      { label: 'Spinners', path: '/demo/spinners' },
       { label: 'Social', path: '/demo/social' },
+      { label: 'Spinners', path: '/demo/spinners' },
       { label: 'Style', path: '/demo/style' },
+      { label: 'Tabs', path: '/demo/tabs' },
+      { label: 'Transition', path: '/demo/transition' },
     ],
   },
-  { label: 'News', path: '/about' },
-  { label: 'Contact', path: '/about' },
+  { label: 'Workspace', path: '/workspace' },
   {
     label: 'Megamenu',
     path: '/about',
