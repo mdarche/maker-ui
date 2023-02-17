@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { useTracker } from '@maker-ui/hooks'
+import { useStorage } from '@maker-ui/hooks'
 import { CloseIcon } from './Icons'
 
 export interface AnnouncementProps
@@ -67,7 +67,10 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
     ref
   ) => {
     const [show, set] = React.useState(true)
-    const active = useTracker({ type, storageKey, show, expiration })
+    const active = useStorage(storageKey, show.toString(), {
+      type,
+      expires: expiration,
+    })
 
     const btnAttributes = {
       className: 'announcement-close',
@@ -83,7 +86,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       },
     }
 
-    return active ? (
+    return active !== 'true' ? (
       <div
         ref={ref}
         className={cn(['mkui-announcement flex align-center', className])}

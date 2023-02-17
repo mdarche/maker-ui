@@ -14,52 +14,37 @@ export type TransitionType =
   | 'none'
 
 /**
+ * Utility for parsing transition strings and setting positive or negative value
+ */
+export const getSign = (type: string) =>
+  type.includes('right') || type.includes('down') ? '-' : ''
+
+/**
  * Configure the the transition animations
  */
-function getTransform(type: string) {
-  switch (type) {
-    case 'fade-up':
-    case 'fade-down':
-      return `translate3d(0,${getSign(type)}10px,0)`
-    case 'fade-left':
-    case 'fade-right':
-      return `translate3d(${getSign(type)}10px, 0, 0)`
-    case 'fade':
-    default:
-      return `translate3d(0px,0px,0px)`
-  }
-}
+const getTransform = (type: string) =>
+  type === 'fade-up' || type === 'fade-down'
+    ? `translate3d(0,${getSign(type)}10px,0)`
+    : type === 'fade-left' || type === 'fade-right'
+    ? `translate3d(${getSign(type)}10px, 0, 0)`
+    : 'translate3d(0px,0px,0px)'
 
-export function getTransition(transition: string) {
-  // No transition
-  if (transition === 'none') {
-    return {
-      start: { visibility: 'hidden' },
-      enter: { visibility: 'visible' },
-      leave: { visibility: 'hidden' },
-    }
-  }
-  // Fade transition & default
-  return {
-    start: {
-      opacity: 0,
-      transform: getTransform(transition),
-    },
-    enter: {
-      opacity: 1,
-      transform: `translate3d(0px,0px,0px)`,
-    },
-    leave: {
-      opacity: 0,
-      transform: getTransform(transition),
-    },
-  }
-}
+export const getTransition = (transition: string) =>
+  transition === 'none'
+    ? {
+        start: { visibility: 'hidden' },
+        enter: { visibility: 'visible' },
+        leave: { visibility: 'hidden' },
+      }
+    : {
+        start: { opacity: 0, transform: getTransform(transition) },
+        enter: { opacity: 1, transform: `translate3d(0px,0px,0px)` },
+        leave: { opacity: 0, transform: getTransform(transition) },
+      }
 
 /**
  * Format the simpler Tooltip API to work with the `Popover` parent.
  */
-
 export function getPosition(
   pos: string,
   offset: number
@@ -88,12 +73,3 @@ export function getPosition(
       }
   }
 }
-
-/**
- * Utility for parsing transition strings and setting positive or negative value
- *
- * @param {string} type - A transition string ('fade-up', 'slide-right', etc.)
- *
- */
-export const getSign = (type: string): string =>
-  type.includes('right') || type.includes('down') ? '-' : ''

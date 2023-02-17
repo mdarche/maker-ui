@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { cn } from '@maker-ui/utils'
 import { useToast } from '@/hooks'
-import { ToastProps } from '@/types'
+import type { ToastProps } from '@/types'
 
 export const Toast = ({ id, type, message, ...p }: ToastProps) => {
   const ref = useRef<HTMLDivElement>(null)

@@ -107,10 +107,7 @@ export const Tabs = ({
           eventKey === activeEventKey.toString() && !disabled
       )
 
-      setState((s) => ({
-        ...s,
-        activeKey: tab ? tab.id : state.activeKey,
-      }))
+      setState((s) => ({ ...s, activeKey: tab ? tab.id : state.activeKey }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeEventKey])

@@ -25,16 +25,6 @@ export function generateId(length: number = 6, type: IDType = 'mixed'): string {
 }
 
 /**
- * Check to see if value is an object else return an empty object
- *
- * @param obj - any value to be evaluated
- *
- */
-export function validate(obj: any) {
-  return obj !== undefined && typeof obj === 'object' ? obj : {}
-}
-
-/**
  * Returns a formatted selector string for `id` or `className` attributes that
  * merges user generated classNames with MakerUI defaults.
  *
