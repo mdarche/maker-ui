@@ -13,8 +13,6 @@ function getScrollPosition(): number {
  * @param wait - The timeout delay for obtaining new position values
  * @param active - A boolean that determines if the effect should be run
  *
- * @link https://maker-ui.com/docs/hooks/#useScrollPosition
- *
  * Inspired by n8tb1t's https://github.com/n8tb1t/use-scroll-position
  *
  */
