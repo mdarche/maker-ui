@@ -16,7 +16,7 @@ export type TransitionState = {
 
 export interface TransitionProps
   extends Partial<ReactTransitionProps<HTMLDivElement>> {
-  nodeRef?: React.MutableRefObject<any>
+  nodeRef?: React.RefObject<HTMLElement>
   show: boolean
   containerProps?: React.HTMLAttributes<HTMLDivElement>
   unmountOnExit?: boolean

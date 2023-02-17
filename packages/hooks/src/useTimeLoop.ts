@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useWindowFocus } from './useWindowFocus'
 
 interface TimerSettings {
   duration: number
@@ -30,6 +31,7 @@ export const useTimeLoop = ({
 }: TimerSettings) => {
   const [isActive, setIsActive] = useState(true)
   const [effectCount, setEffectCount] = useState(0)
+  useWindowFocus((isFocused) => (isFocused ? resume() : pause()), pauseOnBlur)
 
   useEffect(() => {
     let timer: null | ReturnType<typeof setTimeout> = null
@@ -41,17 +43,6 @@ export const useTimeLoop = ({
     }
     return () => (timer ? clearInterval(timer) : undefined)
   }, [duration, callback, params, maxRuns, isActive, effectCount])
-
-  useEffect(() => {
-    if (!pauseOnBlur) return
-    window.addEventListener('blur', pause)
-    window.addEventListener('focus', resume)
-
-    return () => {
-      window.removeEventListener('blur', pause)
-      window.removeEventListener('focus', resume)
-    }
-  })
 
   function pause() {
     if (isActive) {

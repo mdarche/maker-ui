@@ -17,8 +17,13 @@ type KeyboardShortcut = {
  * A browser hook that allows you to register keyboard shortcuts for your application.
  *
  * @param shortcuts{KeyboardShortcut[]} - An array of keyboard shortcuts to match against
+ * @param ref{React.RefObject<any>} - A React ref object that will be bound to the keyboard
+ * event listener. If no ref is provided, the listener will be attached to the document.
  */
-export function useKeyboardShortcut(shortcuts: KeyboardShortcut[]) {
+export function useKeyboardShortcut(
+  shortcuts: KeyboardShortcut[],
+  ref?: React.RefObject<any>
+) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const matchedShortcut = shortcuts.find((s) => {
@@ -41,8 +46,9 @@ export function useKeyboardShortcut(shortcuts: KeyboardShortcut[]) {
         matchedShortcut.callback()
       }
     }
+    const target = (ref && ref.current) || document
 
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [shortcuts])
+    target.addEventListener('keydown', handleKeyDown)
+    return () => target.removeEventListener('keydown', handleKeyDown)
+  }, [shortcuts, ref])
 }

@@ -1,8 +1,8 @@
 'use client'
 
-import * as React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { cn } from '@maker-ui/utils'
-import { useFocus } from '@maker-ui/hooks'
+import { useFocusTrap, useKeyboardShortcut } from '@maker-ui/hooks'
 import { Transition, type TransitionState } from '@maker-ui/transition'
 
 import { Portal } from './Portal'
@@ -29,7 +29,7 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   closeOnBlur?: boolean
   /** A ref that tells the modal where to direct focus when exited */
-  focusRef?: React.MutableRefObject<any> | any
+  focusRef?: React.RefObject<HTMLElement> | null
   /** Vertically centers your modal content in the center of the page. Only useful for content
    *  that doesn't fill the viewport.
    * @default false
@@ -80,28 +80,22 @@ export const Modal = ({
   children,
   ...props
 }: ModalProps) => {
-  const modalRef = React.useRef<any>(null)
-
-  const closeModal = React.useCallback(() => {
+  const ref = useRef<HTMLElement | null>(null)
+  const [closed, setClosed] = useState(true)
+  const closeModal = () => {
     if (set) {
       set(false)
+      setClosed(false)
     }
-    focusRef?.current.focus()
-  }, [set, focusRef])
+  }
 
-  /**
-   * Get important focusable elements.
-   */
-  const { focusable } = useFocus({
-    containerRef: modalRef,
-    focusRef,
-    show,
-  })
+  const { count } = useFocusTrap(ref, show)
+  useKeyboardShortcut([{ key: 'Escape', callback: closeModal }])
 
   /**
    * Lock body when modal is active
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (show) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -109,50 +103,19 @@ export const Modal = ({
     }
   }, [show])
 
-  /**
-   * Add accessible keyboard shortcuts
-   */
-  const handleKeyDown = React.useCallback(
-    (e: KeyboardEvent) => {
-      function previous(e: KeyboardEvent) {
-        if (document.activeElement === focusable.first) {
-          focusable.last?.focus()
-          e.preventDefault()
-        }
+  useEffect(() => {
+    if (!closed) {
+      setClosed(true)
+      if (focusRef?.current) {
+        focusRef.current.focus()
       }
-
-      function next(e: KeyboardEvent) {
-        if (document.activeElement === focusable.last) {
-          focusable.first?.focus()
-          e.preventDefault()
-        }
-      }
-      switch (e.code) {
-        case 'Esc':
-        case 'Escape':
-          return closeModal()
-        case 'Tab':
-          if (show && !modalRef?.current.contains(document.activeElement)) {
-            return focusable.first?.focus()
-          }
-          e.shiftKey ? previous(e) : next(e)
-          return
-        default:
-          return
-      }
-    },
-    [closeModal, focusable, show]
-  )
-
-  React.useEffect(() => {
-    window.addEventListener(`keydown`, handleKeyDown)
-    return () => window.removeEventListener(`keydown`, handleKeyDown)
-  }, [handleKeyDown])
+    }
+  }, [closed, focusRef])
 
   return (
     <Portal root={appendTo}>
       <Transition
-        nodeRef={modalRef}
+        nodeRef={ref}
         show={show as boolean}
         easing={easing}
         timeout={duration}
@@ -162,7 +125,7 @@ export const Modal = ({
           className: cn(['modal fixed cover flex justify-center', className]),
           'aria-label': title,
           'aria-modal': 'true',
-          tabIndex: focusable.count === 0 ? 0 : undefined,
+          tabIndex: count === 0 ? 0 : undefined,
           style: {
             alignItems: center ? 'center' : undefined,
             zIndex: 101,

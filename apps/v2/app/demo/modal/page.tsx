@@ -5,7 +5,7 @@ import { Modal } from '@maker-ui/modal'
 
 export default function ModalPage() {
   const [showModal, setModal] = useState(false)
-  const ref = useRef(null)
+  const ref = useRef<HTMLButtonElement>(null)
 
   return (
     <>

@@ -1,6 +1,6 @@
 import React, { useCallback, useLayoutEffect, useEffect, useRef } from 'react'
 import { cn, generateId } from '@maker-ui/utils'
-import { useFocus, useResizeObserver, useWindowSize } from '@maker-ui/hooks'
+import { useResizeObserver, useWindowSize } from '@maker-ui/hooks'
 import { Portal } from '@maker-ui/modal'
 import { Transition, type TransitionState } from '@maker-ui/transition'
 import { type ResponsiveCSS, type Breakpoints, Style } from '@maker-ui/style'
@@ -17,7 +17,7 @@ export interface PopoverProps extends React.HTMLAttributes<HTMLDivElement> {
   /** A setter for the show boolean that lets the popover close itself. */
   set: React.Dispatch<React.SetStateAction<boolean>>
   /** A React ref that is used to anchor the position of the Popover. */
-  anchorRef: React.MutableRefObject<any>
+  anchorRef: React.RefObject<HTMLElement>
   /** If true, the Popover will match the width of the anchorRef element. Useful for
    * dropdown menus.
    */
@@ -172,66 +172,66 @@ export const Popover = ({
   /**
    * Get all relevant focusable elements.
    */
-  const { focusable } = useFocus({
-    containerRef: popoverRef,
-    focusRef: anchorRef,
-    show,
-  })
+  // const { focusable } = useFocus({
+  //   containerRef: popoverRef,
+  //   focusRef: anchorRef,
+  //   show,
+  // })
 
   /**
    * Add focus trap and update tab sequence for popovers attached to body
    */
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      const setFocus = (
-        close?: boolean,
-        focus?: 'anchor' | 'next' | 'first' | 'last',
-        preventDefault?: boolean
-      ) => {
-        if (close) set(false)
-        if (preventDefault) e.preventDefault()
+  // const handleKeyDown = useCallback(
+  //   (e: KeyboardEvent) => {
+  //     const setFocus = (
+  //       close?: boolean,
+  //       focus?: 'anchor' | 'next' | 'first' | 'last',
+  //       preventDefault?: boolean
+  //     ) => {
+  //       if (close) set(false)
+  //       if (preventDefault) e.preventDefault()
 
-        return focus === 'anchor'
-          ? anchorRef.current.focus()
-          : focus === 'next'
-          ? focusable.next?.focus()
-          : focus === 'first'
-          ? focusable.first?.focus()
-          : focus === 'last'
-          ? focusable.last?.focus()
-          : anchorRef.current.focus()
-      }
+  //       return focus === 'anchor'
+  //         ? anchorRef.current.focus()
+  //         : focus === 'next'
+  //         ? focusable.next?.focus()
+  //         : focus === 'first'
+  //         ? focusable.first?.focus()
+  //         : focus === 'last'
+  //         ? focusable.last?.focus()
+  //         : anchorRef.current.focus()
+  //     }
 
-      switch (e.code) {
-        case 'Esc':
-        case 'Escape':
-          return trapFocus
-            ? setFocus(true, _type === 'dropdown' ? 'anchor' : 'next')
-            : null
-        case 'Tab':
-          if (e.shiftKey && document.activeElement === focusable.first) {
-            return trapFocus
-              ? setFocus(false, 'last', true)
-              : closeOnBlur
-              ? setFocus(true, 'anchor', true)
-              : null
-          }
-          if (!e.shiftKey && document.activeElement === focusable.last) {
-            return trapFocus
-              ? setFocus(false, 'first', true)
-              : setFocus(
-                  closeOnBlur ? true : false,
-                  _type === 'dropdown' ? 'anchor' : 'next',
-                  true
-                )
-          }
-          return
-        default:
-          return
-      }
-    },
-    [anchorRef, closeOnBlur, focusable, set, trapFocus, _type]
-  )
+  //     switch (e.code) {
+  //       case 'Esc':
+  //       case 'Escape':
+  //         return trapFocus
+  //           ? setFocus(true, _type === 'dropdown' ? 'anchor' : 'next')
+  //           : null
+  //       case 'Tab':
+  //         if (e.shiftKey && document.activeElement === focusable.first) {
+  //           return trapFocus
+  //             ? setFocus(false, 'last', true)
+  //             : closeOnBlur
+  //             ? setFocus(true, 'anchor', true)
+  //             : null
+  //         }
+  //         if (!e.shiftKey && document.activeElement === focusable.last) {
+  //           return trapFocus
+  //             ? setFocus(false, 'first', true)
+  //             : setFocus(
+  //                 closeOnBlur ? true : false,
+  //                 _type === 'dropdown' ? 'anchor' : 'next',
+  //                 true
+  //               )
+  //         }
+  //         return
+  //       default:
+  //         return
+  //     }
+  //   },
+  //   [anchorRef, closeOnBlur, focusable, set, trapFocus, _type]
+  // )
 
   // Lifecycle events
 
@@ -249,12 +249,12 @@ export const Popover = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [box.isMeasuring])
 
-  useEffect(() => {
-    const ref = popoverRef.current
-    ref?.addEventListener(`keydown`, handleKeyDown)
+  // useEffect(() => {
+  //   const ref = popoverRef.current
+  //   ref?.addEventListener(`keydown`, handleKeyDown)
 
-    return () => ref?.removeEventListener(`keydown`, handleKeyDown)
-  }, [handleKeyDown])
+  //   return () => ref?.removeEventListener(`keydown`, handleKeyDown)
+  // }, [handleKeyDown])
 
   /**
    * Get the popover's X and Y position by calculating its distance to the anchor ref element.

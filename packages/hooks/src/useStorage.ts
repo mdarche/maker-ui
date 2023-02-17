@@ -71,5 +71,5 @@ function getCookie(name: string): string | null {
 
 function setCookie(name: string, value: string, expireTime: number): void {
   const expireDate = new Date(expireTime).toUTCString()
-  document.cookie = `${name}=${value}; expires=${expireDate}; path=/`
+  document.cookie = `${name}=${value};expires=${expireDate};path=/`
 }

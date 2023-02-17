@@ -26,6 +26,14 @@ export const useCountdown = (
   endDate: Date,
   onCountdownEnd: () => void
 ): Countdown => {
+  if (!endDate) {
+    throw new Error('endDate is required')
+  }
+
+  if (typeof onCountdownEnd !== 'function') {
+    throw new Error('onCountdownEnd must be a function')
+  }
+
   const [countdown, setCountdown] = useState<Countdown>({
     days: 0,
     hours: 0,
