@@ -16,10 +16,10 @@ export default function PopoverPage() {
 
   useKeyboardShortcut([
     { key: 'Digit1', shiftKey: true, callback: incrementCount },
-    // {
-    //   keys: ['Control', 'Shift', 'Digit2'],
-    //   callback: () => alert('Shortcut 2'),
-    // },
+    {
+      key: 'Digit2',
+      callback: () => alert('Shortcut 2'),
+    },
   ])
 
   return (

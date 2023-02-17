@@ -14,9 +14,11 @@ export const css: ResponsiveCSS = {
   '.mkui-slide-track': {
     height: '100%',
     display: 'flex',
+    overflow: 'hidden',
   },
   '.mkui-slide': {
     height: '100%',
+    width: '100%',
   },
   '.mkui-carousel-nav': {},
   '.mkui-carousel-page': {},
