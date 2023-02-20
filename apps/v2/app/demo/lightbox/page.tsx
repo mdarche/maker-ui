@@ -1,9 +1,9 @@
 'use client'
 import { useRef, useState } from 'react'
 import { Section } from '@maker-ui/layout'
-import { Lightbox } from '@maker-ui/lightbox'
+// import { Lightbox } from '@maker-ui/lightbox'
 
-import CosmosImage from '../public/cosmos.jpeg'
+import CosmosImage from '@/public/cosmos.jpeg'
 import Image from 'next/image'
 
 const galleryData = [
@@ -33,7 +33,7 @@ export default function LightboxPage() {
         Focus Ref
       </button>
       {/* Test with Clickable lightbox items */}
-      <Lightbox focusRef={ref}>
+      {/* <Lightbox focusRef={ref}>
         <Lightbox.Link>
           <div style={{ position: 'relative', height: 300 }}>
             <Image
@@ -58,8 +58,8 @@ export default function LightboxPage() {
         </Lightbox.Link>
       </Lightbox>
       {/* Test with data array */}
-      <button onClick={() => set(true)}>Show lightbox 2</button>
-      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} />
+      {/* <button onClick={() => set(true)}>Show lightbox 2</button>
+      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} />  */}
     </Section>
   )
 }

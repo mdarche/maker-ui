@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 interface Countdown {
   /** The number of days remaining */
@@ -9,7 +9,7 @@ interface Countdown {
   minutes: number
   /** The number of seconds remaining */
   seconds: number
-  /** Whether the countdown has expired */
+  /** A boolean that indicates if the countdown has expired */
   expired: boolean
 }
 
@@ -22,54 +22,73 @@ interface Countdown {
  *
  * @returns a Countdown object containing the days, hours, minutes, seconds, and expired properties
  */
-export const useCountdown = (
-  endDate: Date,
-  onCountdownEnd: () => void
-): Countdown => {
+export const useCountdown = (endDate: Date, onCountdownEnd?: () => void) => {
   if (!endDate) {
-    throw new Error('endDate is required')
+    throw new Error('endDate parameter is required')
   }
 
-  if (typeof onCountdownEnd !== 'function') {
+  if (onCountdownEnd !== undefined && typeof onCountdownEnd !== 'function') {
     throw new Error('onCountdownEnd must be a function')
   }
 
-  const [countdown, setCountdown] = useState<Countdown>({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    expired: false,
-  })
+  const intervalRef = useRef<number | null>(null)
+  const [countdown, setCountdown] = useState<Countdown>(
+    calculateCountdown(endDate)
+  )
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-
-  const calculateCountdown = (): Countdown => {
-    const timeLeft = endDate.getTime() - Date.now()
-    if (timeLeft <= 0) {
-      onCountdownEnd()
-      return {
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-        expired: true,
-      }
+  const clearTimer = useCallback(() => {
+    // Only clear if the timer is running
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
     }
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
-    const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24)
-    const minutes = Math.floor((timeLeft / 1000 / 60) % 60)
-    const seconds = Math.floor((timeLeft / 1000) % 60)
-    return { days, hours, minutes, seconds, expired: false }
-  }
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setCountdown(calculateCountdown())
-    }, 1000)
-    return () => clearInterval(intervalRef.current as NodeJS.Timeout)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (countdown.expired) return
+
+    //@ts-ignore
+    intervalRef.current = setInterval(() => {
+      setCountdown(calculateCountdown(endDate))
+    }, 1000)
+
+    return () => clearTimer()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clearTimer])
+
+  useEffect(() => {
+    if (countdown.expired && intervalRef.current) {
+      clearTimer()
+      onCountdownEnd && onCountdownEnd()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countdown.expired])
+
   return countdown
+}
+
+const calculateCountdown = (endDate: Date) => {
+  const timeLeft = endDate.getTime() - Date.now()
+
+  if (timeLeft <= 0) {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      expired: true,
+    }
+  }
+
+  const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24)
+  const minutes = Math.floor((timeLeft / 1000 / 60) % 60)
+  const seconds = Math.floor((timeLeft / 1000) % 60)
+
+  return {
+    days,
+    hours,
+    minutes,
+    seconds,
+    expired: false,
+  }
 }

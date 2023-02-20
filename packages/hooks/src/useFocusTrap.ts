@@ -10,8 +10,9 @@ const focusElements = [
 ]
 
 /**
- * The `useFocus` hook queries the DOM for nearby focusable elements and
- * returns an object that can be used for dynamic focus management and focus traps.
+ * The `useFocus` hook allows you to trap focus within a container. This is useful for
+ * creating modal dialogs or other components that require focus to remain within the
+ * container.
  *
  * @param containerRef - A React ref that points to the focus container
  * @param active - A boolean that determines whether the effect should run
@@ -37,10 +38,10 @@ export function useFocusTrap(
 
     const els = container.querySelectorAll(focusElements.join(','))
     setCount(els.length)
-    const firstFocusableElement = els[0] as HTMLElement
-    const lastFocusableElement = els[els.length - 1] as HTMLElement
-    firstRef.current = firstFocusableElement
-    lastRef.current = lastFocusableElement
+    const firstFocusable = els[0] as HTMLElement
+    const lastFocusable = els[els.length - 1] as HTMLElement
+    firstRef.current = firstFocusable
+    lastRef.current = lastFocusable
 
     const handleFocus = (e: FocusEvent) => {
       if (
@@ -53,21 +54,16 @@ export function useFocusTrap(
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Trap focus inside the container
       if (e.key === 'Tab') {
         if (e.shiftKey) {
-          if (document.activeElement === firstRef.current) {
-            if (lastRef.current) {
-              lastRef.current?.focus()
-              e.preventDefault()
-            }
+          if (document.activeElement === firstRef.current && lastRef.current) {
+            lastRef.current?.focus()
+            e.preventDefault()
           }
         } else {
-          if (document.activeElement === lastRef.current) {
-            if (firstRef.current) {
-              firstRef.current?.focus()
-              e.preventDefault()
-            }
+          if (document.activeElement === lastRef.current && firstRef.current) {
+            firstRef.current?.focus()
+            e.preventDefault()
           }
         }
       }

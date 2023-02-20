@@ -61,7 +61,7 @@ export function useStorage(
     return false
   }
 
-  return storedValue
+  return storedValue as string
 }
 
 function getCookie(name: string): string | null {

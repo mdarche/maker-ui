@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react'
 
 function getScrollPosition(): number {
+  if (typeof window === 'undefined') return 0
   const pos = document.body.getBoundingClientRect()
-
   return Math.abs(pos.top)
 }
 
@@ -13,26 +13,24 @@ function getScrollPosition(): number {
  * @param wait - The timeout delay for obtaining new position values
  * @param active - A boolean that determines if the effect should be run
  *
- * Inspired by n8tb1t's https://github.com/n8tb1t/use-scroll-position
- *
  */
 export function useScrollPosition(
   onScroll: (props: { prevPos: number; currPos: number }) => void,
   wait: number,
-  active: boolean = true
-): void {
-  const position = useRef(getScrollPosition())
+  active = true
+) {
+  const position = useRef<number | null>(null)
 
   useEffect(() => {
     // Exit if the effect is not active
     if (!active) return
 
-    let throttleTimeout: any
+    let throttleTimeout: NodeJS.Timeout | undefined
 
     const callback = () => {
       const currPos = getScrollPosition()
-      onScroll({ prevPos: position.current, currPos })
-      position.current = currPos
+      onScroll({ prevPos: position?.current || 0, currPos })
+      position.current = currPos || 0
       throttleTimeout = undefined
     }
 
