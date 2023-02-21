@@ -62,7 +62,7 @@ export const Wrapper = ({
 }: WrapperProps) => {
   return (
     <Layout options={options} styles={styles}>
-      {header ? <TestHeader /> : null}
+      {header ? <Layout.Header /> : null}
       {!isFooter && !isContent ? children : null}
       {isContent ? <InnerContent>{children}</InnerContent> : null}
       {content ? <TestContent /> : null}

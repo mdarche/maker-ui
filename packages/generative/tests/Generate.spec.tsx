@@ -1,5 +1,5 @@
-import { mount } from '@cypress/react'
-import { Generate } from '@maker-ui/generative'
+import * as React from 'react'
+import { Generate } from '../src'
 
 /**
  * @component
@@ -31,14 +31,14 @@ describe('Generate', () => {
   /* Prop: `data` (children) */
 
   it('randomly orders a basic component template', () => {
-    mount(
+    cy.mount(
       <Generate data={cardProps}>
         <Card />
       </Generate>
     )
     cy.get('.card').should('have.length', 3)
     cardProps.forEach(({ title }) => cy.contains(title))
-    mount(
+    cy.mount(
       <Generate data={cardProps}>
         <Card />
       </Generate>
@@ -49,7 +49,7 @@ describe('Generate', () => {
   /* Prop: `count` (children) */
 
   it('randomly orders a basic component template with a specified count', () => {
-    mount(
+    cy.mount(
       <Generate data={cardProps} count={2}>
         <Card />
       </Generate>
@@ -60,14 +60,14 @@ describe('Generate', () => {
   /* Prop: `data` (no children) */
 
   it('randomly orders an array of components', () => {
-    mount(<Generate data={cardArray} />)
+    cy.mount(<Generate data={cardArray} />)
     cy.get('.card').should('have.length', 3)
   })
 
   /* Prop: `count` (no children) */
 
   it('randomly orders an array of components with a specified count', () => {
-    mount(<Generate data={cardArray} count={2} />)
+    cy.mount(<Generate data={cardArray} count={2} />)
     cy.get('.card').should('have.length', 2)
   })
 })

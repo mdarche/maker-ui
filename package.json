@@ -11,16 +11,13 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "build": "turbo run build --filter=*maker-ui* --no-deps --include-dependencies",
-    "cy": "cypress open",
-    "cy:headless": "cypress run",
-    "cy:unit": "cypress open-ct",
-    "cy:unit:headless": "cypress run-ct",
+    "cy:open": "cypress open --component",
+    "cy:run": "cypress run --component",
     "postinstall": "pnpm build",
     "changeset": "changeset",
     "release": "changeset publish"
   },
   "workspaces": [
-    "examples/*",
     "packages/*",
     "apps/*"
   ],
@@ -33,12 +30,11 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/react-test-renderer": "^17.0.0",
-    "babel-plugin-istanbul": "^6.0.0",
-    "cypress": "^9.5.1",
+    "cypress": "^12.6.0",
     "eslint": "7.32.0",
     "eslint-config-app": "workspace:*",
-    "html-webpack-plugin": "5",
     "husky": "^7.0.1",
+    "next": "^13.1.6",
     "prettier": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -48,5 +44,5 @@
     "typedoc": "^0.22.13",
     "typescript": "^4.8.4"
   },
-  "packageManager": "pnpm@6.32.3"
+  "packageManager": "pnpm@7.1.7"
 }

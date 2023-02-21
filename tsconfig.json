@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "baseUrl": ".",
+    "types": ["cypress", "node"],
     "paths": {
       "maker-ui": ["packages/maker-ui/src"],
       "@maker-ui/*": ["packages/*/src"]
