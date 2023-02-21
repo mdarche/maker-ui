@@ -1,9 +1,8 @@
 'use client'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useRef } from 'react'
 import { Section } from '@maker-ui/layout'
 import { Modal } from '@maker-ui/modal'
-import { useCountdown } from '@maker-ui/hooks'
-// import { useCountdown } from '@maker-ui/hooks'
+import { useIntersection } from '@maker-ui/hooks'
 
 interface Time {
   days: number
@@ -15,51 +14,15 @@ interface Time {
 export default function ModalPage() {
   const [showModal, setModal] = useState(false)
   const ref = useRef<HTMLButtonElement>(null)
-  const countdown = useCountdown(new Date(Date.now() + 10000))
 
-  console.log(countdown)
-  // const intervalRef = useRef<number | null>(null)
-
-  // // const countdown = useCountdown(new Date(Date.now() + 1000000))
-
-  // // console.log('Countdown is', countdown)
-  // const [timeLeft, setTimeLeft] = useState<Time | undefined>(undefined)
-  // const [timeRemaining, setTimeRemaining] = useState(new Date(0, 0, 0, 0, 5))
-
-  // console.log('TimeRemaining is', timeRemaining)
-
-  // const clearTimer = useCallback(() => {
-  //   // Only clear if the timer is running
-  //   if (intervalRef.current) {
-  //     clearInterval(intervalRef.current)
-  //   }
-  // }, [])
-
-  // const startTimer = () => {
-  //   // Ignore if there's already a timer running
-  //   // if (intervalRef.current) return
-
-  //   intervalRef.current = window.setInterval(() => {
-  //     setTimeRemaining((t) => new Date(t.getTime() - 1000))
-  //   }, 1000)
-  // }
-
-  // useEffect(() => {},[])
-
-  // useEffect(() => {
-  //   intervalRef.current = window.setInterval(() => {
-  //     setTimeRemaining((t) => new Date(t.getTime() - 1000))
-  //   }, 1000)
-
-  //   return () => clearTimer()
-  // }, [clearTimer])
+  const isvisible = useIntersection({
+    ref,
+    onIntersect: () => console.log('Yo!'),
+  })
 
   return (
     <>
       <Section>
-        {/* <h1>{formatDate(timeRemaining)}</h1>
-        <button onClick={startTimer}>Start</button>
-        <button onClick={clearTimer}>Stop</button> */}
         <br />
         <br />
         <br />

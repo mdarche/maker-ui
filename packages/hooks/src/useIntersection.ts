@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 interface IntersectionSettings {
   threshold?: number
-  ref: React.RefObject<HTMLDivElement>
+  ref: React.RefObject<HTMLElement>
   offset?: string | number
   root?: React.RefObject<HTMLDivElement>
   onIntersect?: (isVisible: boolean) => void
@@ -31,7 +31,7 @@ export const useIntersection = ({
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const refCurrent = ref.current
+    const refCurrent = ref?.current
     if (!refCurrent) return
 
     const callback = (entries: IntersectionObserverEntry[]) => {
