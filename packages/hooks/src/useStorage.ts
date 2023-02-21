@@ -25,10 +25,10 @@ type StorageOptions = {
 export function useStorage(
   key: string,
   initialValue: string,
-  options: StorageOptions
+  options?: StorageOptions
 ): string | false {
   const now = new Date()
-  const { type = 'session', expireDays = 1 } = options
+  const { type = 'session', expireDays = 1 } = options || {}
   const expiration =
     options?.expires || now.getTime() + expireDays * 24 * 60 * 60 * 1000
 

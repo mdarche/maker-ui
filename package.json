@@ -5,8 +5,6 @@
     "git-reset": "git reset --hard HEAD",
     "docs:dev": "pnpm recursive run dev --filter docs",
     "docs:build": "pnpm recursive run build --filter docs",
-    "e2e:dev": "pnpm -F e2e dev",
-    "e2e:build": "pnpm -F e2e build",
     "docgen": "turbo run docgen --parallel",
     "postdocgen": "rm -rf apps/docs/temp",
     "start": "turbo run start --parallel --continue",
@@ -30,9 +28,6 @@
     "@babel/core": "^7.0.0-0",
     "@changesets/changelog-github": "^0.4.3",
     "@changesets/cli": "^2.21.1",
-    "@cypress/code-coverage": "^3.9.5",
-    "@cypress/react": "^5.12.4",
-    "@cypress/webpack-dev-server": "^1.8.2",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.21",
     "@types/react": "^18.0.21",
@@ -40,7 +35,6 @@
     "@types/react-test-renderer": "^17.0.0",
     "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^9.5.1",
-    "cypress-plugin-tab": "^1.0.5",
     "eslint": "7.32.0",
     "eslint-config-app": "workspace:*",
     "html-webpack-plugin": "5",
@@ -48,19 +42,11 @@
     "prettier": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "^4.0.3",
     "tsconfig-paths": "^3.13.0",
     "tslib": "^2.3.1",
     "turbo": "latest",
     "typedoc": "^0.22.13",
-    "typescript": "^4.8.4",
-    "webpack": "5",
-    "webpack-dev-server": "3"
-  },
-  "pnpm": {
-    "overrides": {
-      "react-select>@emotion/react": "11.8.2"
-    }
+    "typescript": "^4.8.4"
   },
   "packageManager": "pnpm@6.32.3"
 }

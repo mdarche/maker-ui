@@ -1,45 +1,49 @@
 import * as React from 'react'
-import { render, fireEvent, renderHook } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import { useFocusTrap } from '../src/useFocusTrap'
 
-test('focus stays within the container', async () => {
-  let ref = React.createRef<any>()
-  const { getByTestId } = render(
-    <div data-testid="container">
-      <input data-testid="first" />
+const MockComponent = ({ active = true }: { active?: boolean }) => {
+  const ref = React.useRef(null)
+  useFocusTrap(ref)
+
+  return (
+    <div ref={ref} data-testid="container">
+      <button data-testid="first">First</button>
       <button data-testid="second">Second</button>
-      <a data-testid="third" href="#">
+      <a data-testid="third" href="/">
         Third
       </a>
       <button data-testid="last">Last</button>
     </div>
   )
-  //@ts-ignore
-  document?.activeElement?.blur()
-  const container = getByTestId('container')
-  //@ts-ignore
-  ref.current = container
-  // const { result } = renderHook(() => useFocusTrap(ref, true))
-  // console.log('First is', result)
-  fireEvent.keyDown(container, { code: 'Tab' })
-  console.log('Active 1', document.activeElement)
-  fireEvent.keyDown(container, { code: 'Tab' })
-  console.log('Active 2', document.activeElement)
-  fireEvent.keyDown(container, { code: 'Tab' })
-  console.log('Active 3', document.activeElement)
-  fireEvent.keyDown(container, { code: 'Tab' })
-  console.log('Active 4', document.activeElement)
+}
 
-  // expect(document.activeElement).toEqual(result.current.first)
+test('focus stays within the container', async () => {
+  const { getByTestId, container } = render(<MockComponent />)
+  // fireEvent.keyDown(document.body, { key: 'Tab', code: 'Tab' })
+  // console.log('Active 1', document.activeElement)
+  // fireEvent.keyDown(document.body, { key: 'Tab', code: 'Tab' })
+  // console.log('Active 2', document.activeElement)
+  // fireEvent.keyDown(document.body, { key: 'Tab', code: 'Tab' })
+  // console.log('Active 3', document.activeElement)
+  // fireEvent.keyDown(document.body, { key: 'Tab', code: 'Tab' })
+  // console.log('Active 4', document.activeElement)
 
-  // fireEvent.keyDown(document, { key: 'Tab', shiftKey: true })
-  // expect(document.activeElement).toEqual(result.current.last)
+  // waitFor(() => {
+  //   expect(container).to
+  // })
 
-  // fireEvent.keyDown(document, { key: 'Tab', shiftKey: true })
-  // expect(document.activeElement).toEqual(getByTestId('third'))
+  fireEvent.keyDown(container, { code: 'Tab' })
+  expect(document.activeElement).toEqual(getByTestId('first'))
 
-  // fireEvent.keyDown(document, { key: 'Tab' })
-  // expect(document.activeElement).toEqual(getByTestId('last'))
+  fireEvent.keyDown(document, { code: 'Tab', shiftKey: true })
+  expect(document.activeElement).toEqual(getByTestId('last'))
+
+  fireEvent.keyDown(document, { code: 'Tab', shiftKey: true })
+  expect(document.activeElement).toEqual(getByTestId('third'))
+
+  fireEvent.keyDown(document, { code: 'Tab' })
+  expect(document.activeElement).toEqual(getByTestId('last'))
 })
 
 // test('focus trap is inactive when `active` is false', () => {
