@@ -33,7 +33,6 @@
     "@babel/preset-env": "^7.20.2",
     "@maker-ui/build-tools": "workspace:*",
     "@testing-library/react": "^14.0.0",
-    "@testing-library/react-hooks": "^8.0.1",
     "babel-jest": "^29.4.3",
     "eslint-config-library": "workspace:*",
     "jest": "^29.4.3",

@@ -18,6 +18,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "test": "jest",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },

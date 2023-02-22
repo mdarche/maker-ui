@@ -10,7 +10,7 @@ interface ConditionalProps {
 }
 
 /**
- * Conditional uses a render prop to wrap children with a wrapper component if a condition is true.
+ * Conditionally wraps children with a wrapper component.
  */
 export const Conditional = ({
   condition,

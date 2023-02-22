@@ -40,7 +40,7 @@ export function cn(selectors: (string | undefined)[]): string | undefined {
         .trim()
     : undefined
 
-  return s === '' ? undefined : s
+  return s !== '' ? s : undefined
 }
 
 /**

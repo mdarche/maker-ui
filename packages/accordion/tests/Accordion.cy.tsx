@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { Accordion } from '../src'
+import * as React from 'react'
+// import { Accordion } from '../src'
+import { Accordion } from '@maker-ui/accordion'
 
 /**
  * @component
@@ -129,7 +130,7 @@ describe('Accordion', () => {
 
   it('lets outside components control the accordion panels via `eventKey`', () => {
     const EventKeyTest = () => {
-      const [key, setKey] = useState('1')
+      const [key, setKey] = React.useState('1')
 
       const keyValues = ['1', '2', '3']
       const handleClick = (i: string) => setKey(i)
@@ -225,8 +226,9 @@ describe('AccordionPanel component', () => {
       <Accordion>
         <Accordion.Panel
           title="CSS Test"
-          css={{ margin: 10 }}
-          buttonCss={{ padding: 20 }}>
+          // css={{ margin: 10 }}
+          // buttonCss={{ padding: 20 }}
+        >
           Content 1
         </Accordion.Panel>
       </Accordion>

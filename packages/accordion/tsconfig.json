@@ -2,6 +2,6 @@
   "extends": "tsconfig/react-library.json",
   "include": ["src"],
   "compilerOptions": {
-    "types": ["cypress", "node"]
+    "types": ["cypress"]
   }
 }
