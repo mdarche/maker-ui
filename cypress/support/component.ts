@@ -17,6 +17,7 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 
+import 'cypress-plugin-tab'
 import { mount } from 'cypress/react18'
 
 // Add code coverage helper

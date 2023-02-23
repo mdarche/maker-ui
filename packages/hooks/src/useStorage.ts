@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
+import { merge } from '@maker-ui/utils'
 
 type StorageType = 'session' | 'cookie'
 
-type StorageOptions = {
+export type StorageOptions = {
   /** The browser tracking method, session or cookie */
   type: StorageType
   /** A number in milliseconds that determines how long the tracker is active. Use this if you don't want to use the `expireDays` options */
@@ -25,12 +26,14 @@ type StorageOptions = {
 export function useStorage(
   key: string,
   initialValue: string,
-  options?: StorageOptions
+  options?: Partial<StorageOptions>
 ): string | false {
   const now = new Date()
-  const { type = 'session', expireDays = 1 } = options || {}
-  const expiration =
-    options?.expires || now.getTime() + expireDays * 24 * 60 * 60 * 1000
+  const { type, expireDays, expires } = merge(
+    { type: 'session', expireDays: 1 },
+    options || {}
+  ) as Required<StorageOptions>
+  const exp = expires || now.getTime() + expireDays * 24 * 60 * 60 * 1000
 
   const [value] = useState(() => {
     if (type === 'session') {
@@ -44,12 +47,22 @@ export function useStorage(
     if (type === 'session') {
       window.sessionStorage.setItem(key, value)
     } else {
-      setCookie(key, value, expiration)
+      setCookie(key, value, exp)
     }
-  }, [key, value, type, expiration])
+  }, [key, value, type, exp])
 
   const savedValue =
     type === 'session' ? window.sessionStorage.getItem(key) : getCookie(key)
+
+  console.log(
+    'From inside hook',
+    type,
+    expireDays,
+    expires,
+    key,
+    initialValue,
+    window.sessionStorage
+  )
 
   if (!savedValue) {
     return false

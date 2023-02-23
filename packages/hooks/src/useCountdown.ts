@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 
-interface Countdown {
+export interface Countdown {
   /** The number of days remaining */
   days: number
   /** The number of hours remaining */

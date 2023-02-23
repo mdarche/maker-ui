@@ -16,7 +16,7 @@ function getScrollPosition(): number {
  */
 export function useScrollPosition(
   onScroll: (props: { prevPos: number; currPos: number }) => void,
-  wait: number,
+  wait = 0,
   active = true
 ) {
   const position = useRef<number | null>(null)

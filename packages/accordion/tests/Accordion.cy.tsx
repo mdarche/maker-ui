@@ -1,6 +1,5 @@
 import * as React from 'react'
-// import { Accordion } from '../src'
-import { Accordion } from '@maker-ui/accordion'
+import { Accordion } from '../src'
 
 /**
  * @component

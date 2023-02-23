@@ -1,25 +1,20 @@
-type IDType = 'mixed' | 'letters' | 'numbers'
-
+const regex = /^[a-zA-Z0-9]+$/
 /**
  * Returns a randomly generated alphanumeric ID.
  *
  * @param length - an integer that determines the length of the random string
- * @param type - 'mixed' | 'letters' | 'numbers'
  *
  */
-export function generateId(length: number = 6, type: IDType = 'mixed'): string {
+export function generateId(length: number = 6): string {
   let result = ''
-  const letters = 'abcdefghijklmnopqrstuvwxyz',
-    nums = '1234567890',
-    chars =
-      type === 'mixed' ? letters + nums : type === 'numbers' ? nums : letters
-  for (let i = 0; i < length; i++) {
-    if (i === 0 && type !== 'numbers') {
-      // Ensure first character is a letter to prevent className errors
-      result += letters.charAt(Math.floor(Math.random() * letters.length))
-    } else {
-      result += chars.charAt(Math.floor(Math.random() * chars.length))
-    }
+  // Always add a letter as the first character
+  result += String.fromCharCode(Math.floor(Math.random() * 26) + 65)
+  for (let i = 1; i < length; i++) {
+    let char
+    do {
+      char = Math.floor(Math.random() * 256)
+    } while (!regex.test(String.fromCharCode(char)))
+    result += String.fromCharCode(char)
   }
   return result
 }

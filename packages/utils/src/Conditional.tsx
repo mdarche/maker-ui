@@ -4,7 +4,7 @@ interface ConditionalProps {
   /** If this condition is true, this component will wrap all children with the `wrapper` prop. */
   condition: boolean
   /** A render prop JSX container that will wrap all children if `condition` is true */
-  wrapper: (children: React.ReactNode) => React.ReactElement
+  wrapper?: (children: React.ReactNode) => React.ReactElement
   /** Main content that will always display, regardless of condition truthiness*/
   children: React.ReactElement
 }
@@ -17,4 +17,4 @@ export const Conditional = ({
   wrapper,
   children,
 }: ConditionalProps): React.ReactElement =>
-  condition ? wrapper(children) : children
+  condition && wrapper ? wrapper(children) : children

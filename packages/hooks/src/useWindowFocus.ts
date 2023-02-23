@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react'
  * @returns a boolean that indicates if the window is focused
  */
 export function useWindowFocus(
-  callback: (isFocused: boolean) => void,
+  callback?: (isFocused: boolean) => void,
   active = true
 ) {
   const [isFocused, setIsFocused] = useState(true)
@@ -20,12 +20,12 @@ export function useWindowFocus(
 
     const onFocus = (e: WindowEventMap['focus']) => {
       setIsFocused(true)
-      callback(true)
+      callback && callback(true)
     }
 
     const onBlur = (e: WindowEventMap['blur']) => {
       setIsFocused(false)
-      callback(false)
+      callback && callback(false)
     }
 
     window.addEventListener('focus', onFocus)
@@ -40,7 +40,7 @@ export function useWindowFocus(
   useEffect(() => {
     if (!active) return
     if (!isFocused) {
-      callback(false)
+      callback && callback(false)
     }
   }, [isFocused, callback, active])
 
