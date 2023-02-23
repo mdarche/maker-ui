@@ -20,12 +20,13 @@ const focusElements = [
  */
 export function useFocusTrap(
   containerRef: React.RefObject<HTMLElement> | null,
-  active = true,
+  active: boolean,
   exitCallback?: () => void
 ) {
   const firstRef = useRef<HTMLElement | null>(null)
   const lastRef = useRef<HTMLElement | null>(null)
   const [count, setCount] = useState(0)
+  const [activated, setActivated] = useState(false)
 
   /**
    * Query DOM for the next focusable element
@@ -76,7 +77,16 @@ export function useFocusTrap(
       document.removeEventListener('keydown', handleKeyDown)
       document.removeEventListener('focus', handleFocus, true)
     }
-  }, [containerRef, exitCallback, active])
+  }, [containerRef, active])
+
+  useEffect(() => {
+    if (!active && !activated) {
+      setActivated(true)
+    }
+    if (!active && activated && exitCallback) {
+      exitCallback()
+    }
+  }, [active, activated, exitCallback])
 
   return {
     count,

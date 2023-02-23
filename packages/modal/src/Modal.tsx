@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { cn } from '@maker-ui/utils'
 import { useFocusTrap, useKeyboardShortcut } from '@maker-ui/hooks'
 import { Transition, type TransitionState } from '@maker-ui/transition'
@@ -9,7 +9,7 @@ import { Portal } from './Portal'
 
 export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   /** A boolean that indicates if the modal is active or unmounted */
-  show?: boolean
+  show: boolean
   /** A boolean toggle function that controls the modal's visibility */
   set?: React.Dispatch<React.SetStateAction<boolean>> | (() => void)
   /** The modal's background overlay color
@@ -81,16 +81,13 @@ export const Modal = ({
   ...props
 }: ModalProps) => {
   const ref = useRef<HTMLElement | null>(null)
-  const [closed, setClosed] = useState(true)
-  const closeModal = () => {
-    if (set) {
-      set(false)
-      setClosed(false)
-    }
-  }
 
-  const { count } = useFocusTrap(ref, show)
-  useKeyboardShortcut([{ key: 'Escape', callback: closeModal }])
+  const { count } = useFocusTrap(ref, show, () => focusRef?.current?.focus())
+  useKeyboardShortcut(
+    [{ key: 'Escape', callback: () => set && set(false) }],
+    undefined,
+    show
+  )
 
   /**
    * Lock body when modal is active
@@ -102,15 +99,6 @@ export const Modal = ({
       document.body.style.removeProperty('overflow')
     }
   }, [show])
-
-  useEffect(() => {
-    if (!closed) {
-      setClosed(true)
-      if (focusRef?.current) {
-        focusRef.current.focus()
-      }
-    }
-  }, [closed, focusRef])
 
   return (
     <Portal root={appendTo}>
@@ -136,7 +124,7 @@ export const Modal = ({
         <div
           role="button"
           data-cy="modal-overlay"
-          onClick={() => (closeOnBlur ? closeModal() : undefined)}
+          onClick={() => (closeOnBlur ? () => set && set(false) : undefined)}
           className="modal-overlay fixed cover"
           style={{ zIndex: -1, background }}
         />

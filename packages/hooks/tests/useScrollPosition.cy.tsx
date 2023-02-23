@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useScrollPosition } from '../src/useScrollPosition'
+import { useScrollPosition } from '../src'
 
 interface TestComponentProps {
   onScroll?: (props: { prevPos: number; currPos: number }) => void
@@ -57,7 +57,7 @@ describe('useScrollPosition', () => {
     // First scroll
     cy.scrollTo(0, 100)
     cy.wait(200)
-    // Hard to trust Cypress scroll position so we'll use approximations
+    // Hard to trust Cypress scroll precision so we'll use approximations
     cy.wrap(onScroll).should('have.been.calledOnce')
     cy.wrap(onScroll).should(() => {
       const [args] = onScroll.getCall(0).args

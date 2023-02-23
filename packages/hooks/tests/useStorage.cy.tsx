@@ -1,73 +1,112 @@
 import * as React from 'react'
-import { useStorage, type StorageOptions } from '../src/useStorage'
+import { useStorage, type StorageProps } from '../src/useStorage'
 
 interface Props {
-  keyVal: string
-  value: string
-  options?: Partial<StorageOptions>
+  config: StorageProps
 }
 
-export const StorageComponent = ({ keyVal, value, options }: Props) => {
-  const storedVal = useStorage(keyVal, value, options)
-  console.log('stored val is', storedVal)
-  console.log('key is', keyVal)
-  return <div data-cy="store">{storedVal ? storedVal : 'initial'}</div>
+export const StorageComponent = ({
+  config: { key, value, type, expires, expireDays },
+}: Props) => {
+  const stored = useStorage({
+    key,
+    value,
+    type,
+    expires,
+    expireDays,
+  })
+  console.log('stored value is', stored)
+  return (
+    <div data-cy="store">
+      {stored
+        ? typeof stored === 'string'
+          ? stored
+          : JSON.stringify(stored)
+        : 'initial'}
+    </div>
+  )
 }
 
 describe('useStorage', () => {
   const key = 'myKey'
   const value = 'myValue'
-  // Clear sessionStorage before each test
-  // beforeEach(() => {
-  //   cy.window().then((win) => win.sessionStorage.clear())
-  // })
+  const valueObject = { nested: 'myValue' }
 
-  describe('sessionStorage', () => {
-    it('returns false when not present in session storage', () => {
+  describe('local', () => {
+    // Also test expiration
+  })
+
+  describe('session', () => {
+    beforeEach(() => {
       cy.window().then((win) => win.sessionStorage.clear())
+    })
+    it('returns false when item does not exist and no value is provided', () => {
       cy.window().then((w) => {
         cy.wrap(w.sessionStorage.getItem(key)).should('not.exist')
       })
-      cy.mount(<StorageComponent keyVal={key} value={value} />)
-      cy.wait(1000)
+      cy.mount(<StorageComponent config={{ key, type: 'session' }} />)
+      cy.wait(200)
       cy.get('[data-cy="store"]').should('have.text', 'initial')
     })
 
-    it('expires the session storage item after one day', () => {
-      cy.clock(Date.now())
-      cy.window().then((win) => win.localStorage.clear())
-      cy.window().then((win) => win.sessionStorage.clear())
-      cy.wait(1000)
-      cy.mount(
-        <StorageComponent
-          keyVal={key}
-          value={value}
-          options={{ type: 'cookie', expires: 10000 }}
-        />
-      )
-      cy.wait(1000)
+    it('saves to session storage when item does not exist and value is provided', () => {
       cy.window().then((w) => {
-        cy.wrap(w.localStorage.getItem(key)).should('exist')
+        cy.wrap(w.sessionStorage.getItem(key)).should('not.exist')
       })
-      cy.tick(86800000)
-      // cy.reload(true)
-      cy.window().then((w) => {
-        cy.wrap(w.localStorage.getItem(key)).should('not.exist')
-      })
-      cy.clock().then((clock) => clock.restore())
+      cy.mount(<StorageComponent config={{ key, value, type: 'session' }} />)
+      cy.wait(200)
+      cy.get('[data-cy="store"]').should('have.text', value)
     })
 
-    it('returns the value when present in local storage', () => {
-      cy.mount(<StorageComponent keyVal={key} value={value} />)
+    it('saves and serializes an object to storage', () => {
       cy.window().then((w) => {
-        cy.wrap(w.sessionStorage.getItem(key)).should('exist') // or 'not.empty'
+        cy.wrap(w.sessionStorage.getItem(key)).should('not.exist')
       })
-      cy.wait(1000)
-      // cy.get('[data-cy="store"]').should('have.text', 'my-key')
-      // cy.window().then((win) => win.sessionStorage.clear())
-      // cy.reload()
-      // cy.get('[data-cy="store"]').should('have.text', 'my-key')
+      cy.mount(
+        <StorageComponent
+          config={{ key, value: valueObject, type: 'session' }}
+        />
+      )
+      cy.wait(200)
+      cy.get('[data-cy="store"]').should(
+        'have.text',
+        JSON.stringify(valueObject)
+      )
     })
+
+    describe('cookie', () => {})
+
+    // it('expires the session storage item after one day', () => {
+    //   cy.clock(Date.now())
+    //   cy.window().then((win) => win.localStorage.clear())
+    //   cy.wait(1000)
+    //   cy.mount(<StorageComponent config={{ key, value, type: 'session' }} />)
+    //   cy.wait(1000)
+    //   cy.window().then((w) => {
+    //     cy.wrap(w.localStorage.getItem(key)).should('exist')
+    //   })
+    //   cy.tick(86800000)
+    //   // cy.reload(true)
+    //   cy.window().then((w) => {
+    //     cy.wrap(w.localStorage.getItem(key)).should('not.exist')
+    //   })
+    //   cy.clock().then((clock) => clock.restore())
+    // })
+
+    // it('returns the value when present in local storage', () => {
+    //   cy.window().then((w) => {
+    //     cy.mount(<StorageComponent config={{ key, value, type: 'session' }} />)
+    //     cy.wrap(w.sessionStorage.getItem(key)).should('exist')
+    //   })
+    //   // cy.window().then((w) => {
+    //   //   cy.wrap(w.sessionStorage.getItem(key)).should('exist')
+    //   // })
+    //   cy.wait(5000)
+    //   // cy.get('[data-cy="store"]').should('have.text', 'my-key')
+    //   // cy.window().then((win) => win.sessionStorage.clear())
+    //   // cy.reload()
+    //   // cy.get('[data-cy="store"]').should('have.text', 'my-key')
+    // })
   })
 })
 

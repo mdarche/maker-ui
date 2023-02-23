@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react'
 import { merge } from '@maker-ui/utils'
 
-type StorageType = 'session' | 'cookie'
+type StorageType = 'session' | 'local' | 'cookie'
 
-export type StorageOptions = {
+export type StorageProps = {
+  /** The key used to store the value in the browser */
+  key: string
+  /** The initial value of the storage item */
+  value?: string | object
   /** The browser tracking method, session or cookie */
-  type: StorageType
-  /** A number in milliseconds that determines how long the tracker is active. Use this if you don't want to use the `expireDays` options */
+  type?: StorageType
+  /** A time in milliseconds that determines when the item will expire. Not used for
+   * session storage.
+   */
   expires?: number
-  /** The number of days that this item should be stored. */
+  /** The number of days that this item should be stored. Not used for session storage.  */
   expireDays?: number
 }
 
@@ -23,66 +29,86 @@ export type StorageOptions = {
  * @returns {string | false} - The value of the storage item or false if it has expired
  *
  */
-export function useStorage(
-  key: string,
-  initialValue: string,
-  options?: Partial<StorageOptions>
-): string | false {
+export function useStorage(props: StorageProps): string | object | false {
   const now = new Date()
-  const { type, expireDays, expires } = merge(
-    { type: 'session', expireDays: 1 },
-    options || {}
-  ) as Required<StorageOptions>
-  const exp = expires || now.getTime() + expireDays * 24 * 60 * 60 * 1000
+  const { key, value, type, expires, expireDays } = merge(
+    { type: 'local', expireDays: 30 },
+    props
+  ) as StorageProps
 
-  const [value] = useState(() => {
+  const exp =
+    expires || now.getTime() + (expireDays as number) * 24 * 60 * 60 * 1000
+
+  const [saved, setSaved] = useState<string | null>(() => getItem())
+
+  function getItem() {
     if (type === 'session') {
-      return window.sessionStorage.getItem(key) ?? initialValue
-    } else {
-      return getCookie(key) ?? initialValue
+      return getSessionStorage(key)
     }
-  })
+    if (type === 'local') {
+      return getLocalStorage(key)
+    }
+    return getCookie(key)
+  }
 
   useEffect(() => {
-    if (type === 'session') {
-      window.sessionStorage.setItem(key, value)
-    } else {
-      setCookie(key, value, exp)
+    if (saved !== null) return
+    if (value) {
+      const v = typeof value === 'object' ? JSON.stringify(value) : value
+      if (type === 'session') {
+        window.sessionStorage.setItem(key, v)
+      }
+      if (type === 'local') {
+        localStorage.setItem(key, JSON.stringify({ value, expires: exp }))
+      }
+      if (type === 'cookie') {
+        const expDate = new Date(exp).toUTCString()
+        document.cookie = `${key}=${v};expires=${expDate};path=/`
+      }
+
+      setSaved(v)
     }
-  }, [key, value, type, exp])
 
-  const savedValue =
-    type === 'session' ? window.sessionStorage.getItem(key) : getCookie(key)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saved])
 
-  console.log(
-    'From inside hook',
-    type,
-    expireDays,
-    expires,
-    key,
-    initialValue,
-    window.sessionStorage
-  )
+  useEffect(() => {
+    if (saved === null) return
+    setSaved(getItem())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, type])
 
-  if (!savedValue) {
-    return false
+  // Format back to object if necessary, otherwise return string
+  try {
+    return saved ? JSON.parse(saved) : false
+  } catch (err) {
+    return saved || false
   }
-
-  const { value: storedValue, expireTime } = JSON.parse(savedValue)
-
-  if (expireTime && new Date().getTime() > expireTime) {
-    return false
-  }
-
-  return storedValue as string
 }
 
-function getCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`))
-  return match ? match[2] : null
+function isExpired(expires: number | string) {
+  return new Date(expires) < new Date()
 }
 
-function setCookie(name: string, value: string, expireTime: number): void {
-  const expireDate = new Date(expireTime).toUTCString()
-  document.cookie = `${name}=${value};expires=${expireDate};path=/`
+function getSessionStorage(key: string) {
+  const item = window.sessionStorage.getItem(key)
+  return item || null
+}
+
+function getLocalStorage(key: string) {
+  const item = window.localStorage.getItem(key)
+  if (!item) return null
+  const { value, expires } = JSON.parse(item)
+  if (isExpired(expires)) return null
+  return JSON.stringify(value)
+}
+
+function getCookie(key: string) {
+  const cookies = document.cookie.split(';').map((cookie) => cookie.trim())
+  const cookie = cookies.find((cookie) => cookie.startsWith(`${key}=`))
+  if (!cookie) return null
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, value, expires] = cookie.split('=')
+  if (isExpired(expires)) return null
+  return value
 }

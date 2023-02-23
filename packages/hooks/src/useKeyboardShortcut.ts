@@ -19,12 +19,15 @@ type KeyboardShortcut = {
  * @param shortcuts{KeyboardShortcut[]} - An array of keyboard shortcuts to match against
  * @param ref{React.RefObject<any>} - A React ref object that will be bound to the keyboard
  * event listener. If no ref is provided, the listener will be attached to the document.
+ * @param active{boolean} - A boolean that determines whether the effect should run
  */
 export function useKeyboardShortcut(
   shortcuts: KeyboardShortcut[],
-  ref?: React.RefObject<any>
+  ref?: React.RefObject<any>,
+  active = true
 ) {
   useEffect(() => {
+    if (!active) return
     const handleKeyDown = (e: KeyboardEvent) => {
       const matchedShortcut = shortcuts.find((s) => {
         if (s.key === e.code) {
@@ -50,5 +53,5 @@ export function useKeyboardShortcut(
 
     target.addEventListener('keydown', handleKeyDown)
     return () => target.removeEventListener('keydown', handleKeyDown)
-  }, [shortcuts, ref])
+  }, [shortcuts, ref, active])
 }

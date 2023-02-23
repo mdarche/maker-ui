@@ -11,9 +11,12 @@ interface IntersectionSettings {
 /**
  * A React hook for identifying when an element is visible in the viewport
  *
- * @param {number} threshold - a number between 0 and 1 that indicates the intersection ratio
- * @param {HTMLDivElement} ref - A react ref
- * @param {string} offset - an offset measurement value in pixels
+ * @param {number} threshold - a number between 0 and 1 that indicates the intersection ratio.
+ * 0 means the element enters the bottom of the viewport and 1 means the whole element
+ * must be visible.
+ * @param {HTMLDivElement} ref - The target react ref
+ * @param {string | number} offset - an offset measurement value that is used as the
+ * IntersectionObserver's `rootMargin`
  * @param {HTMLDivElement} root - an optional container (defaults to window)
  * @param {function} onIntersect - a callback function that is invoked any time
  * the intersection fires
@@ -22,9 +25,9 @@ interface IntersectionSettings {
  *
  */
 export const useIntersection = ({
-  threshold = 1,
+  threshold = 0,
   ref = { current: null },
-  offset = 0,
+  offset = '0px 0px 0px 0px', // Bottom of the viewport
   root,
   onIntersect,
 }: IntersectionSettings) => {
@@ -37,14 +40,14 @@ export const useIntersection = ({
     const callback = (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries
       setVisible(entry.isIntersecting)
-
       if (onIntersect) {
         onIntersect(entry.isIntersecting)
       }
     }
 
+    const rootMargin = typeof offset === 'number' ? `${offset}px` : offset
     const observer = new IntersectionObserver(callback, {
-      rootMargin: typeof offset === 'number' ? `${offset}px` : offset,
+      rootMargin,
       root: root?.current,
       threshold,
     })

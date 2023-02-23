@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { useFocusTrap } from '../src/useFocusTrap'
 
-const TestComponent = ({ active }: { active?: boolean }) => {
+const TestComponent = ({ callback }: { callback?: () => void }) => {
+  const [active, setActive] = React.useState(true)
   const ref = React.useRef<HTMLDivElement>(null)
-  useFocusTrap(ref, active)
+  useFocusTrap(ref, active, callback)
 
   return (
     <div data-cy="component">
@@ -20,12 +21,15 @@ const TestComponent = ({ active }: { active?: boolean }) => {
         </div>
       </div>
       <button>Outside button 2</button>
+      <button data-cy="activate" onClick={() => setActive(!active)}>
+        {active ? 'Deactivate' : 'Activate'}
+      </button>
     </div>
   )
 }
 
 describe('useFocusTrap', () => {
-  it('traps focus within the container by default', () => {
+  it('traps focus within the container when active', () => {
     cy.mount(<TestComponent />)
     cy.tab()
     cy.tab()
@@ -54,8 +58,9 @@ describe('useFocusTrap', () => {
     cy.focused().should('have.attr', 'placeholder', 'Input 2')
   })
 
-  it('does not trap focus when `active` is false', () => {
-    cy.mount(<TestComponent active={false} />)
+  it('does not trap focus when not active', () => {
+    cy.mount(<TestComponent />)
+    cy.get('[data-cy="activate"]').click()
     cy.get('body').tab()
     cy.focused().should('have.text', 'Outside button 1')
     cy.tab()
@@ -65,5 +70,15 @@ describe('useFocusTrap', () => {
     cy.tab()
     cy.tab()
     cy.focused().should('have.text', 'Outside button 2')
+  })
+
+  it('calls an exit callback function when active changes to false after previously being true', () => {
+    const callback = cy.stub()
+    cy.mount(<TestComponent callback={callback} />)
+    cy.get('[data-cy="activate"]').click()
+    cy.wrap(callback).should('have.been.calledOnce')
+    cy.get('[data-cy="activate"]').click()
+    cy.get('[data-cy="activate"]').click()
+    cy.wrap(callback).should('have.been.calledTwice')
   })
 })
