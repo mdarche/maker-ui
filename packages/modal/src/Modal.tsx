@@ -110,12 +110,15 @@ export const Modal = ({
         transitionState={transitionState}
         containerProps={{
           role: 'dialog',
-          className: cn(['modal fixed cover flex justify-center', className]),
+          className: cn([
+            'mkui-modal fixed cover flex',
+            center ? 'justify-center align-center' : undefined,
+            className,
+          ]),
           'aria-label': title,
           'aria-modal': 'true',
           tabIndex: count === 0 ? 0 : undefined,
           style: {
-            alignItems: center ? 'center' : undefined,
             zIndex: 101,
             overflowY: 'scroll',
           },
@@ -124,7 +127,7 @@ export const Modal = ({
         <div
           role="button"
           data-cy="modal-overlay"
-          onClick={() => (closeOnBlur ? () => set && set(false) : undefined)}
+          onClick={() => (closeOnBlur ? set && set(false) : undefined)}
           className="modal-overlay fixed cover"
           style={{ zIndex: -1, background }}
         />

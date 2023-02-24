@@ -184,7 +184,7 @@ describe('useStorage', () => {
   })
 
   // BROWSER COOKIES
-  describe.only('cookie', () => {
+  describe('cookie', () => {
     beforeEach(() => {
       cy.clearCookies()
     })
@@ -202,7 +202,7 @@ describe('useStorage', () => {
       cy.get('[data-cy="store"]').should('have.text', value)
       // Check for the default expiry within 2 second range
       cy.getCookie(key).should((t) => {
-        // t.expiry returns as unix timestamp, so * 1000
+        // t.expiry returns as unix timestamp, so we have to multiply by 1000
         expect(t.expiry * 1000).to.be.within(
           defaultExpiry - 2000,
           defaultExpiry + 2000
@@ -251,7 +251,7 @@ describe('useStorage', () => {
       cy.getCookie(key).should('not.exist')
     })
 
-    it.only('sets a new value with expiry when item has expired and value is present', () => {
+    it('sets a new value with expiry when item has expired and value is present', () => {
       const firstExpiry = new Date().getTime() + 500
       cy.mount(
         <StorageComponent

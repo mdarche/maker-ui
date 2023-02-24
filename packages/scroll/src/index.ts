@@ -1,1 +1,1 @@
-export * from '@/components'
+export { ParallaxSection, ScrollReveal } from '@/components'

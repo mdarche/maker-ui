@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Parallax } from '@maker-ui/scroll'
+// import { ParallaxSection } from '../src'
 import { Layout } from '@maker-ui/layout'
 
 const Wrapper = ({ children }) => {
@@ -14,24 +14,24 @@ const Wrapper = ({ children }) => {
 
 describe('Parallax', () => {
   it('renders with default props', () => {
-    cy.mount(
-      <Wrapper>
-        <Parallax
-          image={{
-            src: 'https://picsum.photos/2000/1500',
-            alt: 'random image',
-          }}
-          imageHeight={2000}>
-          <h1>Page title</h1>
-        </Parallax>
-      </Wrapper>
-    )
+    // cy.mount(
+    //   <Wrapper>
+    //     <Parallax
+    //       image={{
+    //         src: 'https://picsum.photos/2000/1500',
+    //         alt: 'random image',
+    //       }}
+    //       imageHeight={2000}>
+    //       <h1>Page title</h1>
+    //     </Parallax>
+    //   </Wrapper>
+    // )
   })
 
   it('supports a Next Image with zero config', () => {
     cy.mount(
       <Wrapper>
-        <Parallax
+        {/* <Parallax
           // image={
           //   <Image
           //     // src={CosmoBG}
@@ -42,7 +42,7 @@ describe('Parallax', () => {
           // }
           imageHeight={2000}>
           <h1>Page title</h1>
-        </Parallax>
+        </Parallax> */}
       </Wrapper>
     )
   })

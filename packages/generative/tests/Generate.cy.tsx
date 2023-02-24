@@ -13,7 +13,7 @@ import { Generate } from '../src'
  */
 
 const Card = ({ title }: { title?: string }) => (
-  <div className="card">{title}</div>
+  <div data-cy="card">{title}</div>
 )
 const cardProps = [
   { title: 'Card 1' },
@@ -36,7 +36,7 @@ describe('Generate', () => {
         <Card />
       </Generate>
     )
-    cy.get('.card').should('have.length', 3)
+    cy.get('[data-cy="card"]').should('have.length', 3)
     cardProps.forEach(({ title }) => cy.contains(title))
     cy.mount(
       <Generate data={cardProps}>
@@ -54,20 +54,20 @@ describe('Generate', () => {
         <Card />
       </Generate>
     )
-    cy.get('.card').should('have.length', 2)
+    cy.get('[data-cy="card"]').should('have.length', 2)
   })
 
   /* Prop: `data` (no children) */
 
   it('randomly orders an array of components', () => {
     cy.mount(<Generate data={cardArray} />)
-    cy.get('.card').should('have.length', 3)
+    cy.get('[data-cy="card"]').should('have.length', 3)
   })
 
   /* Prop: `count` (no children) */
 
   it('randomly orders an array of components with a specified count', () => {
     cy.mount(<Generate data={cardArray} count={2} />)
-    cy.get('.card').should('have.length', 2)
+    cy.get('[data-cy="card"]').should('have.length', 2)
   })
 })

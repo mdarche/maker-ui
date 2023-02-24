@@ -20,6 +20,8 @@ import './commands'
 import 'cypress-plugin-tab'
 import { mount } from 'cypress/react18'
 
+import '../../packages/layout/dist/index.css'
+
 // Add code coverage helper
 declare global {
   namespace Cypress {
