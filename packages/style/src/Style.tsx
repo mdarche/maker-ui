@@ -9,17 +9,8 @@ export interface StyleProps
   root: string
 }
 
-export const Style = ({
-  id,
-  root,
-  global = false,
-  breakpoints = [768, 1440],
-  css,
-  ...props
-}: StyleProps) => {
-  const cssString = css
-    ? parseCSS({ root, global, breakpoints, css })
-    : undefined
+export const Style = ({ id, root, breakpoints, css, ...props }: StyleProps) => {
+  const cssString = css ? parseCSS({ root, breakpoints, css }) : undefined
   const children = cssString ?? props.children
 
   return <style id={`css-${root}`} {...{ ...props, children }} />

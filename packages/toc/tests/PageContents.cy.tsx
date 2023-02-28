@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { TableofContents } from '@maker-ui/toc'
+import { PageContents } from '../src'
 import { Layout, MakerUIOptions } from '@maker-ui/layout'
 
 /**
  * @component
- * TableofContents
+ * PageContents
  *
  * @tests
  * - Render with defaults
@@ -54,12 +54,12 @@ const TestLayout = ({
   )
 }
 
-describe('TableofContents component', () => {
+describe('PageContents component', () => {
   /* Render with defaults */
   it('renders with default props', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents />
+        <PageContents />
       </TestLayout>
     )
     cy.get('.toc-headings li').should('have.length', 5)
@@ -73,7 +73,7 @@ describe('TableofContents component', () => {
   it('supports a custom title component', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents title={<h2>Table of Contents</h2>} />
+        <PageContents title={<h2>Table of Contents</h2>} />
       </TestLayout>
     )
     cy.get('.toc h2').contains('Table of Contents')
@@ -84,7 +84,7 @@ describe('TableofContents component', () => {
   it('searches for specific heading tags', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents headings={['h2']} />
+        <PageContents headings={['h2']} />
       </TestLayout>
     )
     cy.get('.toc-headings li').should('have.length', 3)
@@ -93,7 +93,7 @@ describe('TableofContents component', () => {
   it('searches for all heading tags', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents headings="all" />
+        <PageContents headings="all" />
       </TestLayout>
     )
     cy.get('.toc-headings li').should('have.length', 7)
@@ -104,7 +104,7 @@ describe('TableofContents component', () => {
   it("highlights the viewport's active section heading", () => {
     cy.mount(
       <TestLayout>
-        <TableofContents activeColor="#3efd83" />
+        <PageContents activeColor="#3efd83" />
       </TestLayout>
     )
     cy.scrollTo('bottom')
@@ -119,7 +119,7 @@ describe('TableofContents component', () => {
   it('can flatten headings and remove indentation', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents indent={false} />
+        <PageContents indent={false} />
       </TestLayout>
     )
     cy.get('.level-1 a').should('have.css', 'padding-left', '0px')
@@ -130,7 +130,7 @@ describe('TableofContents component', () => {
   it('supports custom indentation', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents indentSize={5} />
+        <PageContents indentSize={5} />
       </TestLayout>
     )
     cy.get('.level-1').should('have.css', 'padding-left', '5px')
@@ -142,7 +142,7 @@ describe('TableofContents component', () => {
   it('renders a marker `before` the ToC link', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents marker="before" />
+        <PageContents marker="before" />
       </TestLayout>
     )
     cy.scrollTo('bottom')
@@ -159,7 +159,7 @@ describe('TableofContents component', () => {
   it('renders a marker `after` the ToC link', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents marker="after" />
+        <PageContents marker="after" />
       </TestLayout>
     )
     cy.scrollTo('bottom')
@@ -178,7 +178,7 @@ describe('TableofContents component', () => {
   it('adds smooth scroll to document when `smoothScroll` is true', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents smoothScroll />
+        <PageContents smoothScroll />
       </TestLayout>
     )
     cy.get('html').should('have.css', 'scroll-behavior', 'smooth')
@@ -189,7 +189,7 @@ describe('TableofContents component', () => {
   it('supports `css` and `pseudoCss` props with default props', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents
+        <PageContents
           marker="before"
           css={{ top: 80, li: { listStyleType: 'none' } }}
           pseudoCss={{ borderColor: '#c53030' }}
@@ -205,7 +205,7 @@ describe('TableofContents component', () => {
   it('adds the correct ID destination to each ToC link', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents />
+        <PageContents />
       </TestLayout>
     )
     cy.get('.toc-headings li')
@@ -222,7 +222,7 @@ describe('TableofContents component', () => {
   it('rescans DOM on route change with the `pathname` prop', () => {
     cy.mount(
       <TestLayout>
-        <TableofContents
+        <PageContents
           marker="before"
           css={{ top: 80, li: { listStyleType: 'none' } }}
           pseudoCss={{ borderColor: '#c53030' }}

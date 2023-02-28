@@ -313,7 +313,7 @@ importers:
       react-dom: 18.2.0
       typescript: ^4.8.4
     dependencies:
-      eslint-config-next: 13.1.6_3rubbgt5ekhqrcgx4uwls3neim
+      eslint-config-next: 13.2.1_3rubbgt5ekhqrcgx4uwls3neim
       eslint-config-prettier: 8.5.0_eslint@7.32.0
       eslint-config-turbo: 0.0.8_eslint@7.32.0
       eslint-plugin-react: 7.32.2_eslint@7.32.0
@@ -611,6 +611,7 @@ importers:
   packages/social:
     specifiers:
       '@maker-ui/build-tools': workspace:*
+      '@maker-ui/style': workspace:*
       '@maker-ui/utils': workspace:*
       '@svgr/cli': ^6.2.1
       eslint-config-library: workspace:*
@@ -620,6 +621,7 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.8.4
     dependencies:
+      '@maker-ui/style': link:../style
       '@maker-ui/utils': link:../utils
     devDependencies:
       '@maker-ui/build-tools': link:../build-tools
@@ -3867,8 +3869,8 @@ packages:
   /@next/env/13.1.6:
     resolution: {integrity: sha512-s+W9Fdqh5MFk6ECrbnVmmAOwxKQuhGMT7xXHrkYIBMBcTiOqNWhv5KbJIboKR5STXxNXl32hllnvKaffzFaWQg==}
 
-  /@next/eslint-plugin-next/13.1.6:
-    resolution: {integrity: sha512-o7cauUYsXjzSJkay8wKjpKJf2uLzlggCsGUkPu3lP09Pv97jYlekTC20KJrjQKmSv5DXV0R/uks2ZXhqjNkqAw==}
+  /@next/eslint-plugin-next/13.2.1:
+    resolution: {integrity: sha512-r0i5rcO6SMAZtqiGarUVMr3k256X0R0j6pEkKg4PxqUW+hG0qgMxRVAJsuoRG5OBFkCOlSfWZJ0mP9fQdCcyNg==}
     dependencies:
       glob: 7.1.7
     dev: false
@@ -6966,8 +6968,8 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /eslint-config-next/13.1.6_3rubbgt5ekhqrcgx4uwls3neim:
-    resolution: {integrity: sha512-0cg7h5wztg/SoLAlxljZ0ZPUQ7i6QKqRiP4M2+MgTZtxWwNKb2JSwNc18nJ6/kXBI6xYvPraTbQSIhAuVw6czw==}
+  /eslint-config-next/13.2.1_3rubbgt5ekhqrcgx4uwls3neim:
+    resolution: {integrity: sha512-2GAx7EjSiCzJN6H2L/v1kbYrNiwQxzkyjy6eWSjuhAKt+P6d3nVNHGy9mON8ZcYd72w/M8kyMjm4UB9cvijgrw==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -6975,7 +6977,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@next/eslint-plugin-next': 13.1.6
+      '@next/eslint-plugin-next': 13.2.1
       '@rushstack/eslint-patch': 1.2.0
       '@typescript-eslint/parser': 5.44.0_3rubbgt5ekhqrcgx4uwls3neim
       eslint: 7.32.0

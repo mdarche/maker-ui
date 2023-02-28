@@ -1,9 +1,11 @@
 import { ResponsiveCSS } from './types'
 
+type CSSRootSelector = string
+
 /**
  * CSS attributes that accept an integer
  */
-const numberProps = [
+const numberProps = new Set([
   'zIndex',
   'opacity',
   'lineHeight',
@@ -11,19 +13,29 @@ const numberProps = [
   'order',
   'tabSize',
   'columnCount',
-]
+])
 
 /**
  * Converts camelcase JS property name into dashed CSS attribute
  */
 const formatName = (n: string) =>
-  n.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())
+  n.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 
 /**
  * Converts integer values into pixels if necessary
  */
-const formatValue = (v: any, n: string) =>
-  typeof v === 'number' ? (numberProps.includes(n) ? v : `${v}px`) : v
+const formatValue = (v: any, n: string) => {
+  switch (typeof v) {
+    case 'number':
+      return numberProps.has(n) ? v : `${v}px`
+    case 'string':
+      return v
+    default:
+      throw new Error(
+        `Unsupported data type for value "${v}" of property "${n}"`
+      )
+  }
+}
 
 /**
  * Sorts an object that includes media query keys, nested object values, and
@@ -53,10 +65,8 @@ const formatKey = (p: string) =>
 /**
  * Checks for empty style object
  */
-function isEmpty(obj: ResponsiveCSS) {
-  return Object.values(obj as object).every(
-    (el) => el === undefined || el === null
-  )
+function isObjectEmpty(obj: ResponsiveCSS) {
+  return Object.keys(obj).length === 0
 }
 
 /**
@@ -70,7 +80,7 @@ function isEmpty(obj: ResponsiveCSS) {
  *
  */
 export function objectToCSS(
-  root: string,
+  root: CSSRootSelector,
   obj: { [key: string]: any },
   parentSelector = '',
   depth = 0,
@@ -79,11 +89,12 @@ export function objectToCSS(
   let res = '',
     propCount = 0,
     mq = 0
-  const keys = Object.keys(obj).sort((a, b) => ruleSort(a, b, obj))
+  const keyList = Object.keys(obj).sort((a, b) => ruleSort(a, b, obj))
   const parent = formatKey(parentSelector)
-  const empty = isEmpty(obj)
+  const empty = isObjectEmpty(obj)
 
-  for (let k of keys) {
+  // Determine if this rule is a media query or a style rule
+  for (let k of keyList) {
     if (k.startsWith('@media')) {
       mq++
     }
@@ -101,20 +112,17 @@ export function objectToCSS(
     res += ` .${root}${parent} {`
   }
 
-  keys.forEach((k, i) => {
+  keyList.forEach((k, i) => {
     const value = obj[k]
 
     if (k.startsWith('@media')) {
       // Handle Media Query
-      res += `} ${k} { .${root}${depth !== 0 ? parent : ''} { ${objectToCSS(
-        root,
-        value,
-        parent,
-        depth + 1,
-        true
-      )}`
+      res += `${res.endsWith('}}') ? ' ' : '} '}${k} { .${root}${
+        depth !== 0 ? parent : ''
+      } { ${objectToCSS(root, value, parent, depth + 1, true)}`
+
       // Close Object if there are no other media queries
-      if (mq === keys.length - propCount) {
+      if (depth !== 0 && mq === keyList.length - propCount) {
         res += '}'
       }
       // Close final rule of depth === 0 when media queries are present

@@ -17,7 +17,7 @@ export interface PageContentsProps
   /** The application's current pathname, supplied via router hook or parent component.
    * This value ensures the DOM scanning effect reruns on each page load.
    */
-  pathname: string
+  pathname?: string
   /** A string title or custom React Element that sits above the ToC links
    * @default "Content"
    */
@@ -91,7 +91,7 @@ export const PageContents = ({
   hideOnMobile = true,
   css,
   breakpoints,
-  pathname,
+  pathname = '/',
   footerComponent,
 }: PageContentsProps) => {
   const [styleId] = React.useState(generateId())
@@ -251,12 +251,6 @@ export const PageContents = ({
               position: 'absolute',
               height: '100%',
               top: 0,
-              // left:
-              //   marker === 'before' && indent
-              //     ? 0 - indentSize * level
-              //     : marker === 'before'
-              //     ? 0
-              //     : undefined,
               right: marker === 'after' ? 0 : undefined,
               borderLeft: marker === 'before' ? `2px solid` : undefined,
               borderRight: marker === 'after' ? `2px solid` : undefined,

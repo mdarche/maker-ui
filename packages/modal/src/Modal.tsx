@@ -55,6 +55,7 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default 300
    */
   duration?: number
+  /** The modal's inner contents */
   children?: React.ReactNode
 }
 
@@ -128,7 +129,7 @@ export const Modal = ({
           role="button"
           data-cy="modal-overlay"
           onClick={() => (closeOnBlur ? set && set(false) : undefined)}
-          className="modal-overlay fixed cover"
+          className="mkui-modal-overlay fixed cover"
           style={{ zIndex: -1, background }}
         />
         {children}
