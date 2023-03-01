@@ -2,7 +2,7 @@ import * as React from 'react'
 import { SocialAccounts } from '../src'
 
 describe('SocialAccounts', () => {
-  it.only('renders all automatically supported social media platforms with default props', () => {
+  it('renders all automatically supported social media platforms with default props', () => {
     cy.mount(
       <SocialAccounts
         accounts={{

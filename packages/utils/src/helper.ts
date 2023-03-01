@@ -69,17 +69,17 @@ export function mergeRefs<T = any>(
  * Checks if an object is empty using recursion
  *
  * @param obj - the object to check
- * @param maxDepth - the maximum depth to check
+ * @param maxDepth - the maximum depth to check. Default = 0
  * @param depth - the current depth
- * @param checkFalsy - check for falsy values
+ * @param checkFalsy - check for falsy values. Default = false
  *
  * @returns boolean
  */
 export function isObjectEmpty(
   obj?: Record<string, any>,
-  maxDepth: number = 2,
-  depth: number = 0,
-  checkFalsy: boolean = false
+  maxDepth = 0,
+  depth = 0,
+  checkFalsy = false
 ): boolean {
   if (!obj) return true
   const result = Object.keys(obj).length === 0
@@ -87,10 +87,7 @@ export function isObjectEmpty(
     if (obj.hasOwnProperty(key)) {
       const value = obj[key]
       if (checkFalsy) {
-        if (
-          !value ||
-          (isObjectEmpty(value) && Object.keys(value).length === 0)
-        ) {
+        if (!value) {
           return true
         }
       } else {

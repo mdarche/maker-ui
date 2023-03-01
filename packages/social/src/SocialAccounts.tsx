@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn, generateId } from '@maker-ui/utils'
+import { cn, generateId, merge } from '@maker-ui/utils'
 import { Style, type MakerCSS } from '@maker-ui/style'
 
 import { AccountLinks, LinkType } from './types'
@@ -62,7 +62,7 @@ export const SocialAccounts = ({
   breakpoints,
   mediaQuery,
   color,
-  css,
+  css = {},
   iconSize = 22,
   justify = 'left',
   spacing = 10,
@@ -82,48 +82,50 @@ export const SocialAccounts = ({
         root={styleId}
         mediaQuery={mediaQuery}
         breakpoints={breakpoints}
-        css={{
-          ul: {
-            flexDirection: vertical ? 'column' : undefined,
-            justifyContent:
-              justify === 'right'
-                ? 'flex-end'
-                : justify === 'center'
-                ? 'center'
-                : undefined,
-            alignItems: justify === 'center' ? 'center' : undefined,
-            listStyleType: 'none',
-            padding: 0,
-            margin: 0,
-          },
-          svg: {
-            height: iconSize,
-            width: iconSize,
-            fill: isColorObject ? color?.default : color,
-            transition: 'fill ease 0.3s',
-          },
-          'li:first-of-type a': {
-            paddingTop: vertical ? leading : undefined,
-            paddingLeft: !vertical ? leading : undefined,
-          },
-          'li:last-of-type a': {
-            paddingBottom: vertical ? trailing : undefined,
-            paddingRight: !vertical ? trailing : undefined,
-          },
-          a: {
-            display: 'block',
-            paddingTop: vertical ? spacing : undefined,
-            paddingBottom: vertical ? spacing : undefined,
-            paddingLeft: !vertical ? spacing : undefined,
-            paddingRight: !vertical ? spacing : undefined,
-            '&:hover svg': {
-              svg: {
-                fill: isColorObject ? color?.active : undefined,
+        css={merge(
+          {
+            ul: {
+              flexDirection: vertical ? 'column' : undefined,
+              justifyContent:
+                justify === 'right'
+                  ? 'flex-end'
+                  : justify === 'center'
+                  ? 'center'
+                  : undefined,
+              alignItems: justify === 'center' ? 'center' : undefined,
+              listStyleType: 'none',
+              padding: 0,
+              margin: 0,
+            },
+            svg: {
+              height: iconSize,
+              width: iconSize,
+              fill: isColorObject ? color?.default : color,
+              transition: 'fill ease 0.3s',
+            },
+            'li:first-of-type a': {
+              paddingTop: vertical ? leading : undefined,
+              paddingLeft: !vertical ? leading : undefined,
+            },
+            'li:last-of-type a': {
+              paddingBottom: vertical ? trailing : undefined,
+              paddingRight: !vertical ? trailing : undefined,
+            },
+            a: {
+              display: 'block',
+              paddingTop: vertical ? spacing : undefined,
+              paddingBottom: vertical ? spacing : undefined,
+              paddingLeft: !vertical ? spacing : undefined,
+              paddingRight: !vertical ? spacing : undefined,
+              '&:hover svg': {
+                svg: {
+                  fill: isColorObject ? color?.active : undefined,
+                },
               },
             },
           },
-          ...css,
-        }}
+          css
+        )}
       />
       <ul className="mkui-icon-list inline-flex">
         {Object.keys(accounts).map((key) => (
