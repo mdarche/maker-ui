@@ -1,8 +1,10 @@
 import { merge } from '@maker-ui/utils'
-import type { ResponsiveCSS, Breakpoints } from './types'
+import { objectToCSS } from './transformer'
+import type { ResponsiveCSS, Breakpoints, StyleSettings } from './types'
 
-const formatBreakpoint = (value: any) => (isNaN(value) ? value : `${value}px`)
-const defaultBreakpoints: Breakpoints = ['768px', '960px', '1440px']
+const formatBreakpoint = (value: any) =>
+  typeof value === 'string' ? value : `${value}px`
+const defaultBreakpoints: Breakpoints = [768, 960, 1440]
 
 /**
  * Formats array values in the CSS object as responsive media queries
@@ -16,8 +18,9 @@ const defaultBreakpoints: Breakpoints = ['768px', '960px', '1440px']
  */
 export function parseArrays(
   styles: ResponsiveCSS,
-  breakpoints = defaultBreakpoints
-) {
+  breakpoints = defaultBreakpoints,
+  mediaQuery = 'min-width'
+): CSSObject {
   let parsed: ResponsiveCSS = {}
   for (const [key, value] of Object.entries(styles as object)) {
     if (value === null) continue
@@ -32,12 +35,10 @@ export function parseArrays(
         `The number of style rules must be equal to or less than the number of breakpoints`
       )
     }
-    /** If value is a responsive array, add rule in reverse order so we don't overwrite
-     * cascading min-width media queries.
-     */
+
     parsed[key] = value[0]
     for (let i = 0; i < value.length - 1; i++) {
-      const mq = `@media screen and (min-width: ${formatBreakpoint(
+      const mq = `@media screen and (${mediaQuery}: ${formatBreakpoint(
         breakpoints[i]
       )})`
       if (parsed[mq]) {
@@ -50,21 +51,25 @@ export function parseArrays(
     }
   }
 
-  return sortMediaQueries(parsed)
+  // return parsed
+  return sort(parsed)
 }
 
 type CSSObject = {
   [key: string]: any
 }
 
-function sortMediaQueries(css: CSSObject): CSSObject {
-  const mediaQueryEntries = Object.entries(css).filter(([key]) =>
+/**
+ * Sorts media queries in a CSS object by min-width so styles cascade properly
+ */
+function sort(css: CSSObject): CSSObject {
+  const mediaQueries = Object.entries(css).filter(([key]) =>
     key.startsWith('@media')
   )
-  const otherEntries = Object.entries(css).filter(
+  const others = Object.entries(css).filter(
     ([key]) => !key.startsWith('@media')
   )
-  const sortedMediaQueryEntries = mediaQueryEntries.sort(([a], [b]) => {
+  const sortedMQs = mediaQueries.sort(([a], [b]) => {
     const aMatch = a.match(/\d+/)
     const bMatch = b.match(/\d+/)
     if (aMatch && bMatch) {
@@ -74,34 +79,61 @@ function sortMediaQueries(css: CSSObject): CSSObject {
     }
     return 0
   })
-  const sorted = [...otherEntries, ...sortedMediaQueryEntries]
+  const sorted = [...others, ...sortedMQs]
   return Object.fromEntries(sorted)
 }
 
 /**
- * Formats a user-generated CSS object and generates media queries for each item
+ * Recursively parses a user-generated CSS object and generates media queries for each item
  * in the breakpoint array.
  *
- * @param styles - a CSS style object
+ * @param css - a CSS style object
  * @param breakpoints - an array of breakpoints
- * @returns A CSS object
+ * @returns A new CSS object that replaces arrays with media queries
  *
  * @internal
  *
  */
-export const formatCSS = (css: ResponsiveCSS, breakpoints?: Breakpoints) => {
+const formatStyleObject = (
+  css: ResponsiveCSS,
+  breakpoints?: Breakpoints,
+  mediaQuery?: StyleSettings['mediaQuery']
+) => {
   let result: ResponsiveCSS = {}
 
-  const styles = parseArrays(css, breakpoints)
+  const styles = parseArrays(css, breakpoints, mediaQuery)
 
   for (const [key, val] of Object.entries(styles)) {
     if (val && typeof val === 'object') {
       /** Recursively format nested objects */
-      result[key] = formatCSS(val as ResponsiveCSS, breakpoints)
+      result[key] = formatStyleObject(
+        val as ResponsiveCSS,
+        breakpoints,
+        mediaQuery
+      )
       continue
     }
     result[key] = val
   }
 
   return result
+}
+
+/**
+ *  Generates CSS from a user-generated CSS object
+ *
+ * @param styles{ResponsiveCSS} a responsive CSS object
+ * @param root{string} the root selector
+ * @param breakpoints{Breakpoints} an array of breakpoints
+ *
+ * @returns a string of CSS for style tag insertion
+ */
+export function generateCSS({
+  css: styles = {},
+  root = 'global',
+  breakpoints,
+  mediaQuery,
+}: StyleSettings) {
+  const styleObject = formatStyleObject(styles, breakpoints, mediaQuery)
+  return objectToCSS(root, styleObject)
 }

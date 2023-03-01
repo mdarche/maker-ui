@@ -86,6 +86,8 @@ export function objectToCSS(
   depth = 0,
   isMediaQuery = false
 ): string {
+  const base = root === 'global' ? '' : `.${root}`
+  const isGlobal = root === 'global'
   let res = '',
     propCount = 0,
     mq = 0
@@ -105,11 +107,11 @@ export function objectToCSS(
 
   if (depth === 0) {
     // Initial check at depth === 0 to open style rule
-    if (propCount > 0) {
-      res += `.${root} {`
+    if (propCount > 0 && !isGlobal) {
+      res += `${base} {`
     }
   } else if (!isMediaQuery && !empty) {
-    res += ` .${root}${parent} {`
+    res += ` ${base}${parent} {`
   }
 
   keyList.forEach((k, i) => {
@@ -117,12 +119,17 @@ export function objectToCSS(
 
     if (k.startsWith('@media')) {
       // Handle Media Query
-      res += `${res.endsWith('}}') ? ' ' : '} '}${k} { .${root}${
+      res += `${res.endsWith('}}') ? ' ' : '} '}${k} { ${base}${
         depth !== 0 ? parent : ''
       } { ${objectToCSS(root, value, parent, depth + 1, true)}`
 
-      // Close Object if there are no other media queries
-      if (depth !== 0 && mq === keyList.length - propCount) {
+      // Close media query when all properties have been processed
+      const closeBracket =
+        mq === keyList.length - propCount ||
+        mq === keyList.length - mq ||
+        mq === 1
+
+      if (depth !== 0 && closeBracket) {
         res += '}'
       }
       // Close final rule of depth === 0 when media queries are present
@@ -134,7 +141,7 @@ export function objectToCSS(
       const current = parent ? `${parent}${k.includes(':') ? '' : ' '}${k}` : k
       const nested = objectToCSS(root, value, current, depth + 1)
       res += nested
-    } else {
+    } else if (!(depth === 0 && isGlobal)) {
       // Handle CSS attribute / value
       if (value !== undefined) {
         res += `${formatName(k)}: ${formatValue(value, k)};`
@@ -145,5 +152,5 @@ export function objectToCSS(
       }
     }
   })
-  return res
+  return res.replace(/\s+/g, ' ').trim()
 }

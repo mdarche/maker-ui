@@ -1,6 +1,6 @@
 /// <reference types="jest" />
 
-import { parseArrays, formatCSS } from '../src/css'
+import { parseArrays } from '../src/css'
 import { objectToCSS } from '../src/transformer'
 
 describe('parseArrays', () => {
@@ -76,15 +76,136 @@ describe('parseArrays', () => {
       color: ['red', 'blue', 'green', 'purple'],
     }
     const output = parseArrays(input, [500, 700, 800])
-    console.log('output', output)
-    // expect(output).toEqual({
-    //   color: 'red',
-    //   '@media screen and (min-width: 500px)': { color: 'blue' },
-    //   '@media screen and (min-width: 700px)': { color: 'green' },
-    // })
+    expect(output).toEqual({
+      color: 'red',
+      '@media screen and (min-width: 800px)': { color: 'purple' },
+      '@media screen and (min-width: 700px)': { color: 'green' },
+      '@media screen and (min-width: 500px)': { color: 'blue' },
+    })
+  })
+
+  it('ignores nested / deeply nested objects and non-array values', () => {
+    const input = {
+      color: ['red', 'blue'],
+      fontSize: 16,
+      a: {
+        color: 'green',
+        svg: {
+          color: ['red', 'blue'],
+        },
+      },
+    }
+    const output = parseArrays(input)
+    expect(output).toEqual({
+      color: 'red',
+      fontSize: 16,
+      a: {
+        color: 'green',
+        svg: {
+          color: ['red', 'blue'],
+        },
+      },
+      '@media screen and (min-width: 768px)': { color: 'blue' },
+    })
   })
 })
 
-describe('formatCSS', () => {})
+describe('objectToCSS', () => {
+  const root = 'test'
+  it('converts a basic style object to a CSS string', () => {
+    const input = {
+      color: 'red',
+    }
+    const output = objectToCSS(root, input)
+    expect(output).toEqual('.test {color: red;}')
+  })
 
-describe('objectToCSS', () => {})
+  it('converts numbers to pixels except for supported CSS attributes', () => {
+    const input = {
+      fontSize: 13,
+      zIndex: 1,
+      lineHeight: 1.5,
+      order: 2,
+      tabSize: 4,
+      height: 500,
+      margin: 30,
+      columnCount: 3,
+      width: 222,
+    }
+    const output = objectToCSS(root, input)
+    expect(output).toEqual(
+      '.test {font-size: 13px;z-index: 1;line-height: 1.5;order: 2;tab-size: 4;height: 500px;margin: 30px;column-count: 3;width: 222px;}'
+    )
+  })
+
+  it('properly appends pseudo specified styles to the parent selector', () => {
+    const input = {
+      color: 'red',
+      '&:hover': {
+        color: 'blue',
+      },
+    }
+    const output = objectToCSS(root, input)
+    expect(output).toEqual('.test {color: red;}.test:hover {color: blue;}')
+  })
+
+  it('converts a deeply nested object to a CSS string', () => {
+    const input = {
+      color: 'rgb(0,100,0)',
+      a: {
+        fontSize: 12,
+        '&:hover': {
+          color: 'rgb(881,88,88)',
+        },
+        span: {
+          color: 'rgb(100,0,0)',
+          fontFamily: 'Arial',
+          '@media screen and (min-width: 500px)': {
+            color: 'rgb(0,0,100)',
+          },
+        },
+      },
+      '@media screen and (min-width: 960px)': {
+        color: 'rgb(0,0,100)',
+      },
+      '@media screen and (min-width: 500px)': {
+        color: 'rgb(100,0,0)',
+      },
+    }
+    const output = objectToCSS(root, input)
+    expect(output).toEqual(
+      '.test {color: rgb(0,100,0);} @media screen and (min-width: 500px) { .test { color: rgb(100,0,0);}} @media screen and (min-width: 960px) { .test { color: rgb(0,0,100);}}.test a {font-size: 12px;}.test a:hover {color: rgb(881,88,88);}.test a span {color: rgb(100,0,0);font-family: Arial;} @media screen and (min-width: 500px) { .test a span { color: rgb(0,0,100);}}'
+    )
+  })
+
+  it('converts a deeply nested object to a CSS string', () => {
+    const input = {
+      color: 'red',
+      fontSize: 16,
+      a: {
+        color: 'green',
+        '&:hover': {
+          color: 'blue',
+          '@media screen and (min-width: 768px)': { color: 'red' },
+        },
+        '@media screen and (min-width: 768px)': { color: 'blue' },
+        svg: {
+          fill: 'red',
+          '@media screen and (min-width: 768px)': { fill: 'blue' },
+          '@media screen and (min-width: 960px)': { fill: 'orange' },
+          path: {
+            stroke: 'white',
+            '@media screen and (min-width: 768px)': { stroke: 'pink' },
+          },
+        },
+      },
+      span: {
+        fontSize: 20,
+      },
+    }
+    const output = objectToCSS(root, input)
+    expect(output).toEqual(
+      '.test {color: red;font-size: 16px;}.test a {color: green;} @media screen and (min-width: 768px) { .test a { color: blue;}}.test a:hover {color: blue;} @media screen and (min-width: 768px) { .test a:hover { color: red;}}.test a svg {fill: red;} @media screen and (min-width: 960px) { .test a svg { fill: orange;}} @media screen and (min-width: 768px) { .test a svg { fill: blue;}}.test a svg path {stroke: white;} @media screen and (min-width: 768px) { .test a svg path { stroke: pink;}}.test span {font-size: 20px;}'
+    )
+  })
+})

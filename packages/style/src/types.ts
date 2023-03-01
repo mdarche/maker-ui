@@ -14,8 +14,18 @@ export type ResponsiveCSS = {
 export type Breakpoints = (string | number)[]
 
 export interface StyleSettings {
-  root: string
-  global?: boolean
+  /** The root selector that all nested styles will be appended to. This should be a className
+   * and should not include a leading dot.
+   * @example
+   * 'my-component'
+   */
+  root?: string
+  /** A CSS object that will be converted to a string of CSS. This can be deeply nested, include
+   * pseudo selectors, as well as array-based media queries.
+   */
   css?: ResponsiveCSS
+  /** An array of breakpoints that will be used to generate media queries. */
   breakpoints?: Breakpoints
+  /** The type of CSS size media query */
+  mediaQuery?: 'min-width' | 'max-width' | 'min-height' | 'max-height'
 }

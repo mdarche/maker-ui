@@ -1,24 +1,34 @@
 import * as React from 'react'
-import { formatCSS } from './css'
-import { objectToCSS } from './transformer'
+import { generateCSS } from './css'
 import { StyleSettings } from './types'
 
 export interface StyleProps
   extends React.HTMLAttributes<HTMLStyleElement>,
-    StyleSettings {
-  root: string
-}
+    StyleSettings {}
 
-export const Style = ({ id, root, breakpoints, css, ...props }: StyleProps) => {
-  const cssString = css ? parseCSS({ root, breakpoints, css }) : undefined
-  const children = cssString ?? props.children
-
-  return <style id={`css-${root}`} {...{ ...props, children }} />
-}
-
-function parseCSS({ root, css, breakpoints }: StyleSettings): string {
-  let res = ''
-  if (!css) return res
-  const responsive = formatCSS(css, breakpoints)
-  return objectToCSS(root, responsive).replace(/\s+/g, ' ').trim()
+/**
+ * The Style component is used to generate CSS styles for a component. You can pass a deeply
+ * nested object of CSS style rules and the Style component will generate the equivalent
+ * CSS string.
+ *
+ * The Style component generates media queries for array-based styles using optional breakpoints
+ * from the `breakpoints` prop or the default breakpoints, `[768, 960, 1440]`.
+ */
+export const Style = ({
+  id,
+  breakpoints,
+  css,
+  root = 'global',
+  mediaQuery = 'min-width',
+  ...props
+}: StyleProps) => {
+  const cssString = css
+    ? generateCSS({ css, root, breakpoints, mediaQuery })
+    : undefined
+  return (
+    <style
+      id={`css-${root}`}
+      {...{ ...props, children: cssString ?? props.children }}
+    />
+  )
 }
