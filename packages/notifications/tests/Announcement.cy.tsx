@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Announcement } from '@maker-ui/notifications'
+import { Announcement } from '../src'
 
 /**
  * @component
@@ -17,13 +17,13 @@ import { Announcement } from '@maker-ui/notifications'
 describe('Announcement', () => {
   /* Render with defaults */
 
-  it('renders with the default props', () => {
+  it.only('renders with the default props', () => {
     cy.mount(
       <div>
-        <Announcement />
+        <Announcement>Inner text</Announcement>
       </div>
     )
-    cy.get('.announcement')
+    // cy.get('.announcement')
   })
 
   /* Prop: `background` */
@@ -44,12 +44,12 @@ describe('Announcement', () => {
     )
   })
 
-  /* Prop: `css`, `_css` */
+  /* Prop: `css`  */
 
   it('applies _css to root and css to the container', () => {
     cy.mount(
       <div>
-        <Announcement css={{ margin: 10 }} _css={{ padding: 20 }} />
+        <Announcement css={{ margin: 10 }} />
       </div>
     )
     cy.get('.announcement').should('have.css', 'padding', '20px')

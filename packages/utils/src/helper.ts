@@ -5,7 +5,10 @@ const regex = /^[a-zA-Z0-9]+$/
  * @param length - an integer that determines the length of the random string
  *
  */
-export function generateId(length: number = 6): string {
+export function generateId(
+  length: number = 6,
+  casing: 'lower' | 'upper' | 'mixed' = 'lower'
+): string {
   let result = ''
   // Always add a letter as the first character
   result += String.fromCharCode(Math.floor(Math.random() * 26) + 65)
@@ -16,7 +19,14 @@ export function generateId(length: number = 6): string {
     } while (!regex.test(String.fromCharCode(char)))
     result += String.fromCharCode(char)
   }
-  return result
+  switch (casing) {
+    case 'lower':
+      return result.toLowerCase()
+    case 'upper':
+      return result.toUpperCase()
+    default:
+      return result
+  }
 }
 
 /**
@@ -53,4 +63,47 @@ export function mergeRefs<T = any>(
       }
     })
   }
+}
+
+/**
+ * Checks if an object is empty using recursion
+ *
+ * @param obj - the object to check
+ * @param maxDepth - the maximum depth to check
+ * @param depth - the current depth
+ * @param checkFalsy - check for falsy values
+ *
+ * @returns boolean
+ */
+export function isObjectEmpty(
+  obj?: Record<string, any>,
+  maxDepth: number = 2,
+  depth: number = 0,
+  checkFalsy: boolean = false
+): boolean {
+  if (!obj) return true
+  const result = Object.keys(obj).length === 0
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key]
+      if (checkFalsy) {
+        if (!value) {
+          return true
+        }
+      } else {
+        if (value === null || value === undefined) {
+          return true
+        }
+      }
+      if (typeof value === 'object' && !Array.isArray(value)) {
+        if (
+          depth < maxDepth &&
+          isObjectEmpty(value, maxDepth, depth + 1, checkFalsy)
+        ) {
+          return true
+        }
+      }
+    }
+  }
+  return result
 }

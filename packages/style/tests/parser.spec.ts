@@ -39,6 +39,19 @@ describe('parseArrays', () => {
     })
   })
 
+  it('supports custom media query expressions', () => {
+    const input = {
+      color: ['red', 'blue', 'green', 'orange'],
+    }
+    const output = parseArrays(input, ['500px', '700px', '900px'], 'max-width')
+    expect(output).toEqual({
+      color: 'red',
+      '@media screen and (max-width: 900px)': { color: 'orange' },
+      '@media screen and (max-width: 700px)': { color: 'green' },
+      '@media screen and (max-width: 500px)': { color: 'blue' },
+    })
+  })
+
   it('throws an error if the style rule exceeds the number of breakpoints', () => {
     const input = {
       color: ['red', 'blue', 'green', 'orange'],
@@ -207,5 +220,16 @@ describe('objectToCSS', () => {
     expect(output).toEqual(
       '.test {color: red;font-size: 16px;}.test a {color: green;} @media screen and (min-width: 768px) { .test a { color: blue;}}.test a:hover {color: blue;} @media screen and (min-width: 768px) { .test a:hover { color: red;}}.test a svg {fill: red;} @media screen and (min-width: 960px) { .test a svg { fill: orange;}} @media screen and (min-width: 768px) { .test a svg { fill: blue;}}.test a svg path {stroke: white;} @media screen and (min-width: 768px) { .test a svg path { stroke: pink;}}.test span {font-size: 20px;}'
     )
+  })
+
+  it('supports global styles and removes any CSS styles from the root object', () => {
+    const input = {
+      background: 'red',
+      a: {
+        color: 'blue',
+      },
+    }
+    const output = objectToCSS('global', input)
+    expect(output).toEqual('a {color: blue;}')
   })
 })

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { isObjectEmpty } from '@maker-ui/utils'
 import { generateCSS } from './css'
 import { StyleSettings } from './types'
 
@@ -20,15 +21,16 @@ export const Style = ({
   css,
   root = 'global',
   mediaQuery = 'min-width',
+  children,
   ...props
 }: StyleProps) => {
-  const cssString = css
+  const cssString = !isObjectEmpty(css)
     ? generateCSS({ css, root, breakpoints, mediaQuery })
     : undefined
-  return (
+  return cssString || children ? (
     <style
       id={`css-${root}`}
-      {...{ ...props, children: cssString ?? props.children }}
+      {...{ ...props, children: cssString ?? children }}
     />
-  )
+  ) : null
 }

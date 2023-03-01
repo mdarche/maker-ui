@@ -13,6 +13,11 @@ export type ResponsiveCSS = {
 
 export type Breakpoints = (string | number)[]
 
+export interface MakerCSS {
+  css?: ResponsiveCSS
+  breakpoints?: Breakpoints
+}
+
 export interface StyleSettings {
   /** The root selector that all nested styles will be appended to. This should be a className
    * and should not include a leading dot.

@@ -2,12 +2,6 @@
   "extends": "tsconfig/react-library.json",
   "include": ["src"],
   "compilerOptions": {
-    "jsx": "react",
-    "baseUrl": ".",
-    "paths": {
-      "@/types": ["src/types.ts"],
-      "@/components": ["src/components"],
-      "@/hooks": ["src/hooks"]
-    }
+    "jsx": "react"
   }
 }

@@ -12,7 +12,7 @@ import { Style } from '@maker-ui/style'
 
 import { ErrorIcon, SuccessIcon, InfoIcon } from './Icons'
 import { Toast } from './Toast'
-import type { ToastState, Action, ToastProps, ToastSettings } from '@/types'
+import type { ToastState, Action, ToastProps, ToastSettings } from '../types'
 
 export const ToastContext = createContext<{
   state: Partial<ToastState>

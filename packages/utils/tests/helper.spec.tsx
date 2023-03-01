@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { render } from '@testing-library/react'
-import { generateId, cn, mergeRefs } from '../src'
+import { generateId, cn, mergeRefs, isObjectEmpty } from '../src'
 
 describe('generateId', () => {
   test('returns a string of the correct length', () => {
@@ -22,6 +22,21 @@ describe('generateId', () => {
     const firstChar = result.charAt(0)
     const regex = /^[a-zA-Z]+$/
     expect(regex.test(firstChar)).toBe(true)
+  })
+
+  it('should generate a lowercase id by default', () => {
+    const id = generateId()
+    expect(id).toMatch(/^[a-z][a-z0-9]{5}$/)
+  })
+
+  it('should generate an uppercase id when casing is "upper"', () => {
+    const id = generateId(8, 'upper')
+    expect(id).toMatch(/^[A-Z][A-Z0-9]{7}$/)
+  })
+
+  it('should generate a mixed case id when casing is "mixed"', () => {
+    const id = generateId(10, 'mixed')
+    expect(id).toMatch(/^[A-Za-z][A-Za-z0-9]{9}$/)
   })
 })
 
@@ -85,5 +100,102 @@ describe('mergeRefs', () => {
     render(<CombinedComponent />)
 
     expect(ref1.current).toBeDefined()
+  })
+})
+
+describe('isObjectEmpty', () => {
+  it('should return true for an empty object', () => {
+    const obj = {}
+    expect(isObjectEmpty(obj)).toBe(true)
+  })
+
+  it('should return true for an object with null values', () => {
+    const obj = {
+      a: null,
+      b: { c: null },
+    }
+    expect(isObjectEmpty(obj)).toBe(true)
+  })
+
+  it('should return true for an object with undefined values', () => {
+    const obj = {
+      a: undefined,
+      b: { c: undefined },
+    }
+    expect(isObjectEmpty(obj)).toBe(true)
+  })
+
+  it('should return false for an object with non-empty values', () => {
+    const obj = {
+      a: 1,
+      b: { c: 'hello' },
+      d: [true],
+      e: false,
+    }
+    expect(isObjectEmpty(obj)).toBe(false)
+  })
+
+  it('should return true for a deeply nested empty object', () => {
+    const obj = {
+      a: { b: { c: {} } },
+    }
+    expect(isObjectEmpty(obj, 10)).toBe(true)
+  })
+
+  it('should return false for a deeply nested non-empty object', () => {
+    const obj = {
+      a: { b: { c: { d: 1 } } },
+    }
+    expect(isObjectEmpty(obj, 10)).toBe(false)
+  })
+
+  it('should return true for an object with falsy values when checkFalsy is true', () => {
+    const obj = {
+      a: '',
+      b: { c: 0 },
+      d: false,
+    }
+    expect(isObjectEmpty(obj, 10, 0, true)).toBe(true)
+  })
+
+  it('should return false for an object with non-empty values when checkFalsy is true', () => {
+    const obj = {
+      a: 1,
+      b: { c: 'hello' },
+      d: [true],
+    }
+    expect(isObjectEmpty(obj, undefined, undefined, true)).toBe(false)
+  })
+
+  it('should return true for a deeply nested object with falsy values when checkFalsy is true', () => {
+    const obj = {
+      a: { b: { c: { d: '' } } },
+    }
+    expect(isObjectEmpty(obj, 10, 0, true)).toBe(true)
+  })
+
+  it('should return false for a deeply nested object with non-empty values when checkFalsy is true', () => {
+    const obj = {
+      a: { b: { c: { d: 1 } } },
+    }
+    expect(isObjectEmpty(obj, undefined, undefined, true)).toBe(false)
+  })
+
+  it('should limit recursion depth to maxDepth', () => {
+    const obj = {
+      a: {
+        b: {
+          c: {
+            d: {
+              e: {
+                f: {},
+              },
+            },
+          },
+        },
+      },
+    }
+    expect(isObjectEmpty(obj, 10)).toBe(true)
+    expect(isObjectEmpty(obj, 3)).toBe(false)
   })
 })

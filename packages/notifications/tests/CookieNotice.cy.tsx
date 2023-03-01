@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { CookieNotice } from '@maker-ui/notifications'
+import { CookieNotice } from '../src'
 
 /**
  * @component

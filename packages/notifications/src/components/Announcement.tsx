@@ -1,12 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { cn } from '@maker-ui/utils'
+import { cn, generateId } from '@maker-ui/utils'
 import { useStorage } from '@maker-ui/hooks'
+import { Style, type MakerCSS } from '@maker-ui/style'
 import { CloseIcon } from './Icons'
 
 export interface AnnouncementProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+  extends MakerCSS,
+    React.HTMLAttributes<HTMLDivElement> {
   /** The browser storage key that stores the dismiss expiration value
    * @default "maker_dismiss_announce"
    */
@@ -51,50 +53,53 @@ export interface AnnouncementProps
 export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
   (
     {
-      storageKey = 'maker_dismiss_announce',
-      background = 'var(--color-primary)',
-      className,
-      color = '#fff',
-      fixed = false,
-      type = 'session',
-      expiration = 2592000, // 30 days
       allowClose = true,
-      closeButton = <CloseIcon style={{ height: 27, fill: color }} />,
+      background,
+      breakpoints,
       bottom = false,
       children,
+      className,
+      color,
+      closeButton = <CloseIcon style={{ height: 27, fill: color }} />,
+      css,
+      expiration = 2592000, // 30 days
+      fixed = false,
+      storageKey = 'mkui_announcement',
+      type = 'cookie',
       ...props
     },
     ref
   ) => {
+    const [styleID] = React.useState(generateId())
     const [show, set] = React.useState(true)
-    const active = useStorage(storageKey, show.toString(), {
+    const active = useStorage({
+      key: storageKey,
+      value: { show },
       type,
       expires: expiration,
     })
 
     const btnAttributes = {
-      className: 'announcement-close',
+      className: 'mkui-btn-close-announcement',
       title: 'Dismiss',
       'aria-label': 'Dismiss',
       onClick: () => set(false),
-      style: {
-        cursor: 'pointer',
-        border: 'none',
-        background: 'none',
-        padding: '0 15px',
-        color,
-      },
     }
 
     return active !== 'true' ? (
       <div
         ref={ref}
-        className={cn(['mkui-announcement flex align-center', className])}
-        style={{
-          background,
-          color,
-          ...fixedPartial(fixed, bottom),
-        }}>
+        className={cn([
+          'mkui-announcement flex align-center',
+          styleID,
+          fixed ? 'fixed' : '',
+          className,
+        ])}>
+        <Style
+          root={styleID}
+          breakpoints={breakpoints}
+          css={{ background, color, ...css }}
+        />
         <div className="container flex align-center width-100">
           <div
             className="mkui-announcement-text flex flex-1 flex-wrap"
@@ -116,22 +121,3 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 )
 
 Announcement.displayName = 'Announcement'
-
-/**
- * Returns a CSS object that positions the announcement bar
- *
- * @param fixed - boolean that determines fixed position
- * @param bottom - boolean that indicates bottom position
- *
- */
-const fixedPartial = (fixed: boolean, bottom: boolean): object | undefined =>
-  fixed
-    ? {
-        position: 'fixed',
-        left: 0,
-        right: 0,
-        top: !bottom && 0,
-        bottom: bottom && 0,
-        zIndex: 1000,
-      }
-    : undefined

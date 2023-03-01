@@ -1,2 +1,2 @@
 export { Style } from './Style'
-export type { ResponsiveCSS, Breakpoints } from './types'
+export type { ResponsiveCSS, Breakpoints, MakerCSS } from './types'
