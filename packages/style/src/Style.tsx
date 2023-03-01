@@ -24,6 +24,7 @@ export const Style = ({
   children,
   ...props
 }: StyleProps) => {
+  console.log('Is object empty', isObjectEmpty(css), css)
   const cssString = !isObjectEmpty(css)
     ? generateCSS({ css, root, breakpoints, mediaQuery })
     : undefined

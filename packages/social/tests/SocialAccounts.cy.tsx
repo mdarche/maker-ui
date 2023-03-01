@@ -2,7 +2,7 @@ import * as React from 'react'
 import { SocialAccounts } from '../src'
 
 describe('SocialAccounts', () => {
-  it('renders all automatically supported social media platforms with default props', () => {
+  it.only('renders all automatically supported social media platforms with default props', () => {
     cy.mount(
       <SocialAccounts
         accounts={{
@@ -79,7 +79,7 @@ describe('SocialAccounts', () => {
     cy.get('[data-cy="custom-icon"]').contains('custom icon!')
   })
 
-  it.only('properly trims icon padding', () => {
+  it('properly trims icon padding', () => {
     // Horizontal
     cy.mount(
       <SocialAccounts

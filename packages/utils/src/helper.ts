@@ -87,7 +87,10 @@ export function isObjectEmpty(
     if (obj.hasOwnProperty(key)) {
       const value = obj[key]
       if (checkFalsy) {
-        if (!value) {
+        if (
+          !value ||
+          (isObjectEmpty(value) && Object.keys(value).length === 0)
+        ) {
           return true
         }
       } else {

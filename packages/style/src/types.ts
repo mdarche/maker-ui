@@ -13,10 +13,12 @@ export type ResponsiveCSS = {
 
 export type Breakpoints = (string | number)[]
 
-export interface MakerCSS {
-  css?: ResponsiveCSS
-  breakpoints?: Breakpoints
-}
+/**
+ * Acess to the `css` prop that accepts a responsive CSS object to generate a valid <Style> tag.
+ * This type also extends access to the `breakpoints` and `mediaQuery` properties for additional
+ * customizations.
+ */
+export interface MakerCSS extends Omit<StyleSettings, 'root'> {}
 
 export interface StyleSettings {
   /** The root selector that all nested styles will be appended to. This should be a className

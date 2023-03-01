@@ -1,16 +1,13 @@
 import * as React from 'react'
 import { cn, generateId } from '@maker-ui/utils'
-import { Style, type Breakpoints, type ResponsiveCSS } from '@maker-ui/style'
+import { Style, type MakerCSS } from '@maker-ui/style'
 
 import { AccountLinks, LinkType } from './types'
 import { logos } from './defaults'
 
 export interface SocialAccountsProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
-  /** Custom responsive CSS (renders a style tag) */
-  css?: ResponsiveCSS
-  /** Custom breakpoints for your `css` prop rules */
-  breakpoints?: Breakpoints
+  extends MakerCSS,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
   /** A dictionary of social media accounts to display */
   accounts: AccountLinks
   /** The size of the social media icons. Can be a responsive value.
@@ -63,6 +60,7 @@ export interface SocialAccountsProps
 export const SocialAccounts = ({
   accounts,
   breakpoints,
+  mediaQuery,
   color,
   css,
   iconSize = 22,
@@ -82,6 +80,7 @@ export const SocialAccounts = ({
     <div className={cn(['mkui-social-accounts', styleId])} {...props}>
       <Style
         root={styleId}
+        mediaQuery={mediaQuery}
         breakpoints={breakpoints}
         css={{
           ul: {
