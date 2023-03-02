@@ -99,7 +99,13 @@ export const CSSTransition = ({
 }: CSSTransitionProps) => {
   const [styleId] = React.useState(id || generateId())
   const ref = useRef(null)
-  const styles = getStyles(type, distance, timeout, easing, styleId)
+  const styles = getStyles(
+    type,
+    distance,
+    timeout,
+    easing,
+    className || styleId
+  )
   const isShowBool = typeof show === 'boolean'
   const isSwitchTransition = isSwitch || !isShowBool
   const t = styleId ? `${styleId}-${type}` : type
@@ -109,12 +115,9 @@ export const CSSTransition = ({
         ? 'key-1'
         : 'key-0'
       : (show as string | number)
-
   return (
     <>
-      {className || noStyles ? undefined : (
-        <Style root={styleId}>{styles}</Style>
-      )}
+      {noStyles ? null : <Style root={styleId}>{styles}</Style>}
       <Conditional
         wrapper={(c) => (
           <SwitchTransition mode={switchMode}>
