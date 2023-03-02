@@ -1,12 +1,25 @@
-import * as React from 'react'
-import { cn, generateId } from '@maker-ui/utils'
-import { Style, type Breakpoints, type ResponsiveCSS } from '@maker-ui/style'
+import React, { useState, useEffect, useContext, createContext } from 'react'
+import { cn, merge, generateId } from '@maker-ui/utils'
+import { Style, type MakerCSS } from '@maker-ui/style'
+
 import { AccordionPanel } from './AccordionPanel'
 
+interface AccordionClasses {
+  /** Root Accordion component container */
+  group?: string
+  /** Accordion panel outer wrapper. This class handles the collapsing functionality. */
+  panel?: string
+  /** Accordion panel inner wrapper. This wraps your `Accordion.Panel` child content. */
+  panelInner?: string
+  /** The outermost wrapper for the `Accordion.Panel` component. */
+  panelGroup?: string
+  /** The `Accordion.Panel` button. */
+  button?: string
+}
+
 export interface AccordionProps
-  extends React.HtmlHTMLAttributes<HTMLDivElement> {
-  css?: ResponsiveCSS
-  breakpoints?: Breakpoints
+  extends MakerCSS,
+    React.HtmlHTMLAttributes<HTMLDivElement> {
   /** If true, the Accordion button will render an icon that shows expand / collapse status.
    * @default true
    */
@@ -21,6 +34,10 @@ export interface AccordionProps
         collapse: React.ReactElement
       }
     | ((isExpanded: boolean) => React.ReactNode)
+  /** A custom class name to apply to the accordion button when it is active.
+   * @default 'expanded'
+   */
+  activeClass?: string
   /** The currently active accordion panel key if controlled by an external or parent component.
    * Make sure the key exists as an `eventKey` prop on a nested `<Accordion.Panel>`.
    */
@@ -35,6 +52,10 @@ export interface AccordionProps
    * @default false
    */
   animate?: boolean | string
+  /** Custom class selectors for all accordion HTML elements. */
+  classNames?: AccordionClasses
+  /** Nested AccordionPanel children. */
+  children?: React.ReactElement[] | React.ReactNode
 }
 
 interface AccordionState extends Omit<AccordionProps, 'children'> {
@@ -42,7 +63,7 @@ interface AccordionState extends Omit<AccordionProps, 'children'> {
   panelKeys: string[]
 }
 
-const AccordionContext = React.createContext<{
+const AccordionContext = createContext<{
   state: Partial<AccordionState>
   setState: React.Dispatch<React.SetStateAction<AccordionState>>
 }>({ state: { panelKeys: [] }, setState: (b) => {} })
@@ -57,17 +78,22 @@ export const Accordion = ({
   icon = true,
   customIcon,
   activeKey = 0,
+  activeClass = 'expanded',
   showSingle = false,
   className,
-  css,
+  classNames,
+  css = {},
   breakpoints,
+  mediaQuery,
   animate = false,
   children,
   ...props
 }: AccordionProps) => {
-  const [state, setState] = React.useState<AccordionState>({
+  const [state, setState] = useState<AccordionState>({
     id: generateId(),
     activeKey,
+    activeClass,
+    classNames,
     panelKeys: [],
     icon,
     customIcon,
@@ -75,7 +101,7 @@ export const Accordion = ({
     animate,
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     setState((state) => ({ ...state, activeKey }))
   }, [activeKey])
 
@@ -84,27 +110,34 @@ export const Accordion = ({
       <Style
         root={state.id}
         breakpoints={breakpoints}
-        css={{
-          '.mkui-accordion-btn': {
-            border: 'none',
-            padding: 15,
-            cursor: 'pointer',
+        mediaQuery={mediaQuery}
+        css={merge(
+          {
+            button: {
+              border: 'none',
+              cursor: 'pointer',
+            },
+            '.mkui-accordion-panel': {
+              overflow: 'hidden',
+              willChange: animate ? 'height' : undefined,
+              transition:
+                animate && typeof animate === 'string'
+                  ? animate
+                  : animate
+                  ? 'height 0.3s ease 0s'
+                  : undefined,
+            },
           },
-          '.mkui-accordion-panel': {
-            overflow: 'hidden',
-            willChange: animate ? 'height' : undefined,
-            transition:
-              animate && typeof animate === 'string'
-                ? animate
-                : animate
-                ? 'height 0.3s ease'
-                : undefined,
-          },
-          ...css,
-        }}
+          css
+        )}
       />
       <div
-        className={cn(['mkui-accordion-group', state.id, className])}
+        className={cn([
+          'mkui-accordion-group',
+          state.classNames?.group,
+          state.id,
+          className,
+        ])}
         {...props}>
         {children}
       </div>
@@ -116,7 +149,7 @@ Accordion.displayName = 'Accordion'
 Accordion.Panel = AccordionPanel
 
 export function useAccordion() {
-  const { state, setState } = React.useContext(AccordionContext)
+  const { state, setState } = useContext(AccordionContext)
 
   if (typeof state === undefined) {
     throw new Error(

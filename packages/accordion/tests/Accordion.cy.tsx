@@ -9,17 +9,17 @@ import { Accordion } from '../src'
  * @tests
  * Accordion
  * - Render with defaults
+ * - Successfully toggles open and closed
+ * - Prop: `classNames`
+ * - Prop: `activeClass`
+ * - Prop: `animate`
  * - Prop: `css`
  * - Prop: `showSingle`
- * - Prop: `icon`
- * - Prop: `customIcon` (component, {expand, collapse}, callback)
- * - Prop: `spring`
+ * - Prop: `icon`, `customIcon`
  * - Prop: `activeKey`, `eventKey`
- * - Behavior: toggles the accordion via clicking title button
  * Accordion.Panel
  * - Prop: `title`
  * - Prop: `open`
- * - Prop: `css`, `_css`
  * - Behavior: correctly measures and uses child height
  *
  * @todo
@@ -28,28 +28,130 @@ import { Accordion } from '../src'
 
 describe('Accordion', () => {
   /* Render with defaults */
-
-  it('renders with default props', () => {
+  it('renders the accordion with default / required props', () => {
     cy.mount(
       <Accordion>
-        <Accordion.Panel title="Panel 1">Content 1</Accordion.Panel>
-        <Accordion.Panel title="Panel 2">Content 2</Accordion.Panel>
-        <Accordion.Panel title="Panel 3">Content 3</Accordion.Panel>
+        <Accordion.Panel data-cy="panel" title="Panel 1">
+          Content 1
+        </Accordion.Panel>
+        <Accordion.Panel data-cy="panel" title="Panel 2">
+          Content 2
+        </Accordion.Panel>
+        <Accordion.Panel data-cy="panel" title="Panel 3">
+          Content 3
+        </Accordion.Panel>
       </Accordion>
     )
-    cy.get('.accordion-container .accordion').should('have.length', 3)
+    cy.get('[data-cy="panel"]').should('have.length', 3)
     cy.get('.expanded').should('not.exist')
+    cy.get('[data-cy="panel"]').each((el, index) => {
+      cy.wrap(el)
+        .find('button')
+        .should('contain', `Panel ${index + 1}`)
+      cy.wrap(el)
+        .find('.mkui-accordion-inner')
+        .should('contain', `Content ${index + 1}`)
+    })
+  })
+
+  it('toggles accordion with by clicking accordion button', () => {
+    cy.mount(
+      <Accordion>
+        <Accordion.Panel data-cy="panel" title="Panel 1">
+          Content 1
+        </Accordion.Panel>
+      </Accordion>
+    )
+    cy.get('button').click()
+    cy.get('[data-cy="panel"]').should('have.class', 'expanded')
+  })
+
+  /** Prop: classNames */
+
+  it('supports custom classNames', () => {
+    const classNames = {
+      group: 'group',
+      panel: 'panel',
+      button: 'button',
+      panelInner: 'panel-inner',
+      panelGroup: 'panel-group',
+    }
+
+    cy.mount(
+      <Accordion data-cy="accordion" classNames={classNames}>
+        <Accordion.Panel data-cy="panel" title="Panel 1">
+          Test Panel
+        </Accordion.Panel>
+      </Accordion>
+    )
+    cy.get('[data-cy="accordion"]').should('have.class', 'group')
+    cy.get('[data-cy="panel"]').should('have.class', 'panel-group')
+    cy.get('button').should('have.class', 'button')
+    cy.get('.mkui-accordion-panel').should('have.class', 'panel')
+    cy.get('.mkui-accordion-inner').should('have.class', 'panel-inner')
+  })
+
+  /* Prop: `activeClass` */
+
+  it('supports custom a custom active / expanded class selector', () => {
+    cy.mount(
+      <Accordion data-cy="accordion" activeClass="active">
+        <Accordion.Panel data-cy="panel" title="Panel 1">
+          Test Panel
+        </Accordion.Panel>
+      </Accordion>
+    )
+    cy.get('button').click()
+    cy.get('[data-cy="panel"]').should('have.class', 'active')
+  })
+
+  /* Prop: `animate` */
+
+  it('supports the `animate` prop', () => {
+    // Default animate if true
+    cy.mount(
+      <Accordion data-cy="accordion" animate>
+        <Accordion.Panel data-cy="panel" title="Panel 1">
+          <div style={{ height: 500 }}>Content</div>
+        </Accordion.Panel>
+      </Accordion>
+    )
+    cy.get('button').click()
+    cy.get('.mkui-accordion-panel').should('have.css', 'will-change', 'height')
+    cy.get('.mkui-accordion-panel').should(
+      'have.css',
+      'transition',
+      'height 0.3s ease 0s'
+    )
+    // Custom animate
+    cy.mount(
+      <Accordion data-cy="accordion" animate="height 1s ease 0.3s">
+        <Accordion.Panel data-cy="panel" title="Panel 1">
+          <div style={{ height: 500 }}>Content</div>
+        </Accordion.Panel>
+      </Accordion>
+    )
+    cy.get('button').click()
+    cy.get('.mkui-accordion-panel').should('have.css', 'will-change', 'height')
+    cy.get('.mkui-accordion-panel').should(
+      'have.css',
+      'transition',
+      'height 1s ease 0.3s'
+    )
   })
 
   /* Prop: `css` */
 
   it('supports `css` prop', () => {
     cy.mount(
-      <Accordion css={{ background: '#e90266' }}>
+      <Accordion
+        data-cy="accordion"
+        css={{ background: '#e90266', button: { background: '#000' } }}>
         <Accordion.Panel title="Panel 1">Content 1</Accordion.Panel>
       </Accordion>
     )
-    cy.get('.accordion-container').should('have.backgroundColor', '#e90266')
+    cy.get('[data-cy="accordion"]').should('have.backgroundColor', '#e90266')
+    cy.get('button').should('have.backgroundColor', '#000')
   })
 
   /* Prop: `showSingle` */
@@ -57,7 +159,7 @@ describe('Accordion', () => {
   it('only expands one accordion at a time with `showSingle`', () => {
     cy.mount(
       <Accordion showSingle>
-        <Accordion.Panel open id="p1" title="Panel 1">
+        <Accordion.Panel id="p1" title="Panel 1">
           Content 1
         </Accordion.Panel>
         <Accordion.Panel id="p2" title="Panel 2">
@@ -66,38 +168,31 @@ describe('Accordion', () => {
         <Accordion.Panel title="Panel 3">Content 3</Accordion.Panel>
       </Accordion>
     )
-    cy.get('#p1 .accordion-toggle').click()
+    cy.get('#p1 button').click()
     cy.get('#p1').should('have.class', 'expanded')
-    cy.get('#p2 .accordion-toggle').click()
+    cy.get('#p2 button').click()
     cy.get('#p1').should('not.have.class', 'expanded')
     cy.get('#p2').should('have.class', 'expanded')
   })
 
-  /* Prop: `icon` */
+  /* Props: `icon`, `customIcon` */
 
-  it('can hide icon', () => {
+  it('supports the icon and custom icon props', () => {
+    // icon = false
     cy.mount(
       <Accordion icon={false}>
         <Accordion.Panel title="Panel 1">Content 1</Accordion.Panel>
       </Accordion>
     )
-    cy.get('.accordion-toggle svg').should('not.exist')
-  })
-
-  /* Prop: `customIcon` (component) */
-
-  it('accepts a custom component icon', () => {
+    cy.get('button svg').should('not.exist')
+    // customIcon as a React component
     cy.mount(
       <Accordion customIcon={<div id="custom-icon">Custom</div>}>
         <Accordion.Panel title="Panel 1">Content 1</Accordion.Panel>
       </Accordion>
     )
     cy.get('#custom-icon')
-  })
-
-  /* Prop: `customIcon` ({expand, collapse}) */
-
-  it('accepts distinct open and close icon components', () => {
+    // customIcon as an object with expand and collapse components
     cy.mount(
       <Accordion
         customIcon={{ expand: <div>Open!</div>, collapse: <div>Close!</div> }}>
@@ -105,13 +200,9 @@ describe('Accordion', () => {
       </Accordion>
     )
     cy.contains('Open!')
-    cy.get('.accordion-toggle').click()
+    cy.get('button').click()
     cy.contains('Close!')
-  })
-
-  /* Prop: `customIcon` (callback) */
-
-  it('accepts a jsx callback component icon', () => {
+    // customIcon as a callback function
     cy.mount(
       <Accordion
         customIcon={(isExpanded) => (
@@ -121,69 +212,57 @@ describe('Accordion', () => {
       </Accordion>
     )
     cy.contains('Expand!')
-    cy.get('.accordion-toggle').click()
+    cy.get('button').click()
     cy.contains('Close!')
   })
+})
 
-  /* Prop: `activeKey`, `eventKey` */
+/* Props: `activeKey`, `eventKey` */
 
-  it('lets outside components control the accordion panels via `eventKey`', () => {
-    const EventKeyTest = () => {
-      const [key, setKey] = React.useState('1')
+it('lets outside components control the accordion panels via `eventKey`', () => {
+  const EventKeyTest = () => {
+    const [key, setKey] = React.useState('1')
 
-      const keyValues = ['1', '2', '3']
-      const handleClick = (i: string) => setKey(i)
+    const keyValues = ['1', '2', '3']
+    const handleClick = (i: string) => setKey(i)
 
-      return (
-        <>
-          <div>
-            {keyValues.map((i) => (
-              <button key={i} id={`btn-${i}`} onClick={() => handleClick(i)}>
-                Open Panel {i}
-              </button>
-            ))}
-          </div>
-          <Accordion activeKey={key} showSingle>
-            <Accordion.Panel id="p1" title="Accordion Title 1" eventKey="1">
-              Yo 1!
-            </Accordion.Panel>
-            <Accordion.Panel id="p2" title="Accordion Title 2" eventKey="2">
-              Yo 2!
-            </Accordion.Panel>
-            <Accordion.Panel id="p3" title="Accordion Title 3" eventKey="3">
-              Yo 3!
-            </Accordion.Panel>
-          </Accordion>
-        </>
-      )
-    }
-    cy.mount(<EventKeyTest />)
-    cy.get('#btn-1').click()
-    cy.get('.accordion.expanded').should('have.length', 1)
-    cy.get('#p1').should('have.class', 'expanded')
-    cy.get('#btn-3').click()
-    cy.get('#p3').should('have.class', 'expanded')
-    cy.get('.accordion.expanded').should('have.length', 1)
-  })
-
-  /* Behavior: toggles the accordion via clicking title button */
-
-  it('toggles accordion with by clicking title button', () => {
-    cy.mount(
-      <Accordion>
-        <Accordion.Panel title="Panel 1">Content 1</Accordion.Panel>
-      </Accordion>
+    return (
+      <>
+        <div>
+          {keyValues.map((i) => (
+            <button key={i} id={`btn-${i}`} onClick={() => handleClick(i)}>
+              Open Panel {i}
+            </button>
+          ))}
+        </div>
+        <Accordion activeKey={key} showSingle>
+          <Accordion.Panel id="p1" title="Accordion Title 1" eventKey="1">
+            Yo 1!
+          </Accordion.Panel>
+          <Accordion.Panel id="p2" title="Accordion Title 2" eventKey="2">
+            Yo 2!
+          </Accordion.Panel>
+          <Accordion.Panel id="p3" title="Accordion Title 3" eventKey="3">
+            Yo 3!
+          </Accordion.Panel>
+        </Accordion>
+      </>
     )
-    cy.get('.accordion-toggle').click()
-    cy.get('.accordion').should('have.class', 'expanded')
-  })
+  }
+  cy.mount(<EventKeyTest />)
+  cy.get('#btn-1').click()
+  cy.get('.mkui-accordion.expanded').should('have.length', 1)
+  cy.get('#p1').should('have.class', 'expanded')
+  cy.get('#btn-3').click()
+  cy.get('#p3').should('have.class', 'expanded')
+  cy.get('.mkui-accordion.expanded').should('have.length', 1)
 })
 
 /**
  * Accordion.Panel
  */
 
-describe('AccordionPanel component', () => {
+describe('Accordion.Panel', () => {
   /* Prop: `title` */
 
   it('uses a custom title component', () => {
@@ -207,31 +286,13 @@ describe('AccordionPanel component', () => {
   it('is open by default with the `open` prop', () => {
     cy.mount(
       <Accordion>
-        <Accordion.Panel title="Title 1" open>
+        <Accordion.Panel data-cy="open-panel" title="Title 1" open>
           Content 1
         </Accordion.Panel>
         <Accordion.Panel title="Title 2">Content 2</Accordion.Panel>
       </Accordion>
     )
-    cy.get('.accordion-container .accordion')
-      .eq(0)
-      .should('have.class', 'expanded')
-  })
-
-  /* Prop: `css`, `_css` */
-
-  it('adds `_css` prop to title button and `css` to content wrapper', () => {
-    cy.mount(
-      <Accordion>
-        <Accordion.Panel
-          title="CSS Test"
-          // css={{ margin: 10 }}
-          // buttonCss={{ padding: 20 }}
-        >
-          Content 1
-        </Accordion.Panel>
-      </Accordion>
-    )
+    cy.get('[data-cy="open-panel"]').should('have.class', 'expanded')
   })
 
   /* Behavior: correctly measures and uses child height */
@@ -239,12 +300,14 @@ describe('AccordionPanel component', () => {
   it('adapts to child height', () => {
     cy.mount(
       <Accordion>
-        <Accordion.Panel title="Dot Syntax">
+        <Accordion.Panel data-cy="panel" title="Dot Syntax">
           <div style={{ height: 500 }}>Lots of content</div>
           <div>More text</div>
         </Accordion.Panel>
       </Accordion>
     )
-    cy.get('.accordion-panel').invoke('height').should('gte', 500)
+    cy.get('.mkui-accordion-panel').should('have.css', 'height', '0px')
+    cy.get('button').click()
+    cy.get('.mkui-accordion-panel').invoke('height').should('gte', 500)
   })
 })

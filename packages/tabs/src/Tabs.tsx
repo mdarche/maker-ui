@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { cn, generateId, merge } from '@maker-ui/utils'
-import { Style, type ResponsiveCSS, type Breakpoints } from '@maker-ui/style'
+import { Style, type MakerCSS } from '@maker-ui/style'
 
 import { TabNavigation, getNavPosition } from './TabNavigation'
 import { TabPanel } from './TabPanel'
@@ -10,9 +10,9 @@ export interface TabState {
   activeKey: number
 }
 
-export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
-  css?: ResponsiveCSS
-  breakpoints?: Breakpoints
+export interface TabsProps
+  extends MakerCSS,
+    React.HTMLAttributes<HTMLDivElement> {
   /** The position of the tab buttons relative to the tab container.
    * @default "top"
    */
@@ -54,6 +54,7 @@ export const Tabs = ({
   tabKeyNavigate = false,
   className,
   css = {},
+  mediaQuery,
   breakpoints,
   children,
   ...props
@@ -119,10 +120,13 @@ export const Tabs = ({
     : []
 
   return (
-    <>
+    <div
+      className={cn(['mkui-tabgroup flex', state.styleId, className])}
+      {...props}>
       <Style
         root={state.styleId}
         breakpoints={breakpoints}
+        mediaQuery={mediaQuery}
         css={merge(
           {
             flexDirection: isVertical ? 'column' : undefined,
@@ -144,42 +148,38 @@ export const Tabs = ({
           css
         )}
       />
-      <div
-        className={cn(['mkui-tabgroup flex', state.styleId, className])}
-        {...props}>
-        <TabNavigation
-          activeKey={state.activeKey}
-          setActiveKey={(k) => setState((s) => ({ ...s, activeKey: k }))}
-          tabs={tabs}
-          settings={{
-            isVertical,
-            navPosition,
-            overflow,
-            breakpoints,
-            tabKeyNavigate,
-          }}
-        />
-        {panels?.map(
-          (
-            { props: { className, title, eventKey, open, disabled, ...rest } },
-            index
-          ) => (
-            <div
-              key={index}
-              className={cn([
-                'mkui-tab',
-                state.activeKey === index ? 'active' : undefined,
-                className,
-              ])}
-              role="tabpanel"
-              id={`panel-${index}`}
-              aria-labelledby={`control-${index}`}
-              {...rest}
-            />
-          )
-        )}
-      </div>
-    </>
+      <TabNavigation
+        activeKey={state.activeKey}
+        setActiveKey={(k) => setState((s) => ({ ...s, activeKey: k }))}
+        tabs={tabs}
+        settings={{
+          isVertical,
+          navPosition,
+          overflow,
+          breakpoints,
+          tabKeyNavigate,
+        }}
+      />
+      {panels?.map(
+        (
+          { props: { className, title, eventKey, open, disabled, ...rest } },
+          index
+        ) => (
+          <div
+            key={index}
+            className={cn([
+              'mkui-tab',
+              state.activeKey === index ? 'active' : undefined,
+              className,
+            ])}
+            role="tabpanel"
+            id={`panel-${index}`}
+            aria-labelledby={`control-${index}`}
+            {...rest}
+          />
+        )
+      )}
+    </div>
   )
 }
 

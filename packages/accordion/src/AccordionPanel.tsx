@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import { generateId, cn } from '@maker-ui/utils'
 import { useResizeObserver } from '@maker-ui/hooks'
 
@@ -27,25 +27,25 @@ export const AccordionPanel = React.forwardRef<
   HTMLDivElement,
   AccordionPanelProps
 >(({ title, open = false, eventKey, children, className, ...props }, ref) => {
-  const [buttonId] = React.useState(generateId())
-  const [panelId] = React.useState(generateId())
-  const [panelKey] = React.useState(() => (eventKey ? eventKey : generateId()))
+  const [buttonId] = useState(generateId())
+  const [panelId] = useState(generateId())
+  const [panelKey] = useState(() => (eventKey ? eventKey : generateId()))
   const { state, registerPanel, setActivePanel } = useAccordion()
 
   /**
    * @todo - Add default support for an initial `open` when showSingle is active too
    * @todo - Support `eventKey` in any scenario, not just showSingle
    */
-  const [show, set] = React.useState(
+  const [show, set] = useState(
     state.showSingle && state.activeKey === eventKey ? true : open
   )
-  const { ref: measureRef, height: viewHeight } = useResizeObserver()
+  const { ref: measureRef, height } = useResizeObserver()
 
-  React.useEffect(() => {
+  useEffect(() => {
     registerPanel(panelKey)
   }, [registerPanel, panelKey])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (state.showSingle) {
       return state.activeKey !== panelKey ? set(false) : set(true)
     }
@@ -73,14 +73,13 @@ export const AccordionPanel = React.forwardRef<
     return null
   }
 
-  const isAnimated = state.animate
-
   return (
     <div
       ref={ref}
       className={cn([
-        show ? 'expanded ' : undefined,
+        show ? state.activeClass : undefined,
         'mkui-accordion',
+        state?.classNames?.panelGroup,
         className,
       ])}
       {...props}>
@@ -89,6 +88,7 @@ export const AccordionPanel = React.forwardRef<
           'mkui-accordion-btn',
           'flex align-center width-100',
           state.icon ? 'justify-between' : undefined,
+          state?.classNames?.button,
           show ? 'active' : undefined,
         ])}
         title={`${show ? 'Collapse' : 'Expand'} content`}
@@ -102,12 +102,17 @@ export const AccordionPanel = React.forwardRef<
       <div
         id={panelId}
         role="region"
-        className="mkui-accordion-panel"
+        className={cn(['mkui-accordion-panel', state?.classNames?.panel])}
         aria-labelledby={buttonId}
         style={{
-          height: show ? (isAnimated ? viewHeight : '100%') : 0,
+          height: show ? (state.animate ? height : '100%') : 0,
         }}>
-        <div ref={measureRef} className="mkui-accordion-inner">
+        <div
+          ref={measureRef}
+          className={cn([
+            'mkui-accordion-inner',
+            state.classNames?.panelInner,
+          ])}>
           {children}
         </div>
       </div>
