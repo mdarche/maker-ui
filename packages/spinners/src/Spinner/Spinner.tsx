@@ -37,7 +37,7 @@ export interface SpinnerProps extends React.SVGAttributes<SVGElement> {
    * Each spinner is a perfect square.
    */
   size?: number
-  /** A dictionary of colors that are applied to various parts of each Spinner SVG */
+  /** A dictionary of colors that is applied to various parts of each Spinner SVG */
   colors: {
     primary?: string
     secondary?: string
@@ -51,8 +51,6 @@ export interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
 /**
  * The `Spinner` component gives you easy access to common loading indicators for a better
  * user experience during network requests.
- *
- * @todo add transition to this component for smooth entry and exit
  *
  * @link https://maker-ui.com/docs/elements/spinner
  */
