@@ -1,11 +1,7 @@
 import * as React from 'react'
 import { SpinnerSVGProps } from './Spinner'
 
-export const Basic = ({
-  size,
-  colors: { primary },
-  ...props
-}: SpinnerSVGProps) => {
+export const Basic = ({ size, colors, ...props }: SpinnerSVGProps) => {
   return (
     <svg
       viewBox="0 0 100 100"
@@ -16,7 +12,7 @@ export const Basic = ({
         cx="50"
         cy="50"
         fill="none"
-        stroke={primary}
+        stroke={colors[0]}
         strokeWidth="9"
         r="37"
         strokeDasharray="174.35839227423352 60.119464091411174">

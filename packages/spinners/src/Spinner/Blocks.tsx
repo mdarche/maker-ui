@@ -1,15 +1,11 @@
 import * as React from 'react'
 import { SpinnerSVGProps } from './Spinner'
 
-export const Blocks = ({
-  size,
-  colors: { primary, secondary, third },
-  ...props
-}: SpinnerSVGProps) => {
+export const Blocks = ({ size, colors, ...props }: SpinnerSVGProps) => {
   const points = [
-    { x: '9', y: '9', fill: primary, b1: '-1.83', b2: '-1.33' },
-    { x: '34.8', y: '56', fill: secondary, b1: '-1.16', b2: '-0.66' },
-    { x: '56', y: '9', fill: third, b1: '-0.5', b2: '0' },
+    { x: '9', y: '9', fill: colors[0], b1: '-1.83', b2: '-1.33' },
+    { x: '34.8', y: '56', fill: colors[1], b1: '-1.16', b2: '-0.66' },
+    { x: '56', y: '9', fill: colors[2], b1: '-0.5', b2: '0' },
   ]
 
   const getAttributes = (x: boolean) => ({

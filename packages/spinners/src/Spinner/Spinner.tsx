@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { merge } from '@maker-ui/utils'
 // Spinners
 import { Bars } from './Bars'
 import { Basic } from './Basic'
@@ -10,16 +9,7 @@ import { Gear } from './Gear'
 import { Pulse } from './Pulse'
 import { Classic } from './Classic'
 
-const defaults: SpinnerProps = {
-  type: 'default',
-  size: 80,
-  colors: {
-    primary: '#0e94d4',
-    secondary: '#58c5fa',
-    third: '#9ad8f6',
-    fourth: '#d2d2d2',
-  },
-}
+const defaultColors = ['#0e94d4', '#58c5fa', '#9ad8f6', '#d2d2d2']
 
 export interface SpinnerProps extends React.SVGAttributes<SVGElement> {
   /** All prebuilt spinner types */
@@ -37,13 +27,8 @@ export interface SpinnerProps extends React.SVGAttributes<SVGElement> {
    * Each spinner is a perfect square.
    */
   size?: number
-  /** A dictionary of colors that is applied to various parts of each Spinner SVG */
-  colors: {
-    primary?: string
-    secondary?: string
-    third?: string
-    fourth?: string
-  }
+  /** An array of colors that is applied to various parts of each Spinner SVG */
+  colors: string[]
 }
 
 export interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
@@ -55,7 +40,12 @@ export interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
  * @link https://maker-ui.com/docs/elements/spinner
  */
 export const Spinner = (p: Partial<SpinnerProps>) => {
-  const props = merge(defaults, p || {})
+  const props = {
+    type: p.type || 'default',
+    colors: p.colors || defaultColors,
+    size: p.size || 80,
+    ...p,
+  }
 
   switch (p.type) {
     case 'bars':

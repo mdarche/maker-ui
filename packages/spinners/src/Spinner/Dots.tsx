@@ -1,15 +1,11 @@
 import * as React from 'react'
 import { SpinnerSVGProps } from './Spinner'
 
-export const Dots = ({
-  size,
-  colors: { primary, secondary, third, fourth },
-  ...props
-}: SpinnerSVGProps) => {
+export const Dots = ({ size, colors, ...props }: SpinnerSVGProps) => {
   const points = [
-    { translate: '25 50', scale: '.81144', begin: '-0.4166', color: primary },
-    { translate: '50 50', scale: '.35566', begin: '-0.2083', color: secondary },
-    { translate: '75 50', scale: '.01406', begin: '0', color: third },
+    { translate: '25 50', scale: '.81144', begin: '-0.4166', color: colors[0] },
+    { translate: '50 50', scale: '.35566', begin: '-0.2083', color: colors[1] },
+    { translate: '75 50', scale: '.01406', begin: '0', color: colors[2] },
   ]
 
   return (

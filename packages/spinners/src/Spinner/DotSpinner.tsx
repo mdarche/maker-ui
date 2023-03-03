@@ -3,11 +3,7 @@ import { SpinnerSVGProps } from './Spinner'
 
 // Circular Dots
 
-export const DotSpinner = ({
-  size,
-  colors: { primary, secondary },
-  ...props
-}: SpinnerSVGProps) => {
+export const DotSpinner = ({ size, colors, ...props }: SpinnerSVGProps) => {
   const points = [
     { cx: '75', cy: '50', r: '3', begin: '-0.9166' },
     { cx: '71.651', cy: '62.5', r: '3', begin: '-0.8333' },
@@ -27,7 +23,7 @@ export const DotSpinner = ({
     attributeName: r ? 'r' : 'fill',
     values: r
       ? '3;3;5;3;3'
-      : `${secondary};${secondary};${primary};${secondary};${secondary};`,
+      : `${colors[1]};${colors[1]};${colors[0]};${colors[1]};${colors[1]};`,
     repeatCount: 'indefinite',
     dur: '1s',
   })
@@ -39,7 +35,7 @@ export const DotSpinner = ({
       style={{ height: size, width: size }}
       {...props}>
       {points.map(({ cy, cx, r, begin }, index) => (
-        <circle key={index} cx={cx} cy={cy} fill={secondary} r={r}>
+        <circle key={index} cx={cx} cy={cy} fill={colors[1]} r={r}>
           <animate {...getAttributes(true)} begin={begin} />
           <animate {...getAttributes(false)} begin={begin} />
         </circle>

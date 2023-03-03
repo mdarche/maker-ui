@@ -1,14 +1,10 @@
 import * as React from 'react'
 import { SpinnerSVGProps } from './Spinner'
 
-export const Classic = ({
-  size,
-  colors: { primary },
-  ...props
-}: SpinnerSVGProps) => {
+export const Classic = ({ size, colors, ...props }: SpinnerSVGProps) => {
   const attributes = {
     rect: {
-      fill: primary,
+      fill: colors[0],
       x: '45.5',
       y: '4.5',
       rx: '2.31',

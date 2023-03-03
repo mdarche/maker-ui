@@ -1,11 +1,7 @@
 import * as React from 'react'
 import { SpinnerSVGProps } from './Spinner'
 
-export const Bars = ({
-  size,
-  colors: { primary, secondary, third, fourth },
-  ...props
-}: SpinnerSVGProps) => {
+export const Bars = ({ size, colors, ...props }: SpinnerSVGProps) => {
   const attributes = {
     attributeName: 'opacity',
     dur: '1.25s',
@@ -16,11 +12,13 @@ export const Bars = ({
     values: '1;0.2;1',
   }
 
+  console.log('colors are,', colors)
+
   const dynamic = [
-    { color: primary, begin: '-.75', d: 'M13.5 30h13v40h-13z' },
-    { color: secondary, begin: '-.5', d: 'M33.5 30h13v40h-13z' },
-    { color: third, begin: '-.25', d: 'M53.5 30h13v40h-13z' },
-    { color: fourth, begin: '-1.25', d: 'M73.5 30h13v40h-13z' },
+    { color: colors[0], begin: '-.75', d: 'M13.5 30h13v40h-13z' },
+    { color: colors[1], begin: '-.5', d: 'M33.5 30h13v40h-13z' },
+    { color: colors[2], begin: '-.25', d: 'M53.5 30h13v40h-13z' },
+    { color: colors[3], begin: '-1.25', d: 'M73.5 30h13v40h-13z' },
   ]
 
   return (

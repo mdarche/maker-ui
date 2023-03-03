@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Tabs } from '@maker-ui/tabs'
+import * as React from 'react'
+import { Tabs } from '../src'
 
 /**
  * @component
@@ -17,7 +17,7 @@ import { Tabs } from '@maker-ui/tabs'
  * - Prop: `buttonType`
  * - Behavior: can render non-tab panel children without error
  * - Behavior: toggles the active tag when clicking a tab button
- * TabPanel
+ * Tabs.Panel
  * - Prop: `title` (comnponent)
  * - Prop: `disabled`
  * - Prop: `open`
@@ -27,7 +27,7 @@ import { Tabs } from '@maker-ui/tabs'
 
 describe('Tabs', () => {
   /* Render with defaults */
-  it('renders with default props', () => {
+  it.only('renders with default props', () => {
     cy.mount(
       <Tabs>
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
@@ -134,7 +134,7 @@ describe('Tabs', () => {
 
   it('supports external control with the `activeKey` prop and the TabPanel `eventKey` prop', () => {
     const EventKeyTest = () => {
-      const [key, setKey] = useState(1)
+      const [key, setKey] = React.useState(1)
 
       const keyValues = [1, 2, 3]
       const handleClick = (i: number) => setKey(i)

@@ -3,12 +3,7 @@ import { Spinner } from '../src'
 
 describe('Spinner component', () => {
   const defaultProps = {
-    colors: {
-      primary: '#0e94d4',
-      secondary: '#58c5fa',
-      third: '#9ad8f6',
-      fourth: '#d2d2d2',
-    },
+    colors: ['#0e94d4', '#58c5fa', '#9ad8f6', '#d2d2d2'],
   }
 
   it('renders the default spinner', () => {
@@ -60,23 +55,10 @@ describe('Spinner component', () => {
   })
 
   it('applies the specified colors to multi-colored spinners', () => {
-    const colors = {
-      primary: '#ff0000',
-      secondary: '#00ff00',
-      third: '#0000ff',
-      fourth: '#000',
-    }
-    cy.mount(<Spinner type="bars" {...defaultProps} colors={colors} />)
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#000']
+    cy.mount(<Spinner type="bars" colors={colors} />)
     cy.get('svg path').each((path, i) => {
-      const color =
-        i === 0
-          ? colors.primary
-          : i === 1
-          ? colors.secondary
-          : i === 2
-          ? colors.third
-          : colors.fourth
-      cy.wrap(path).should('have.attr', 'fill', color)
+      cy.wrap(path).should('have.attr', 'fill', colors[i])
     })
   })
 })

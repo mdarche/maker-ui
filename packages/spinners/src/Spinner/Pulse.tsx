@@ -1,14 +1,10 @@
 import * as React from 'react'
 import { SpinnerSVGProps } from './Spinner'
 
-export const Pulse = ({
-  size,
-  colors: { primary, secondary },
-  ...props
-}: SpinnerSVGProps) => {
+export const Pulse = ({ size, colors, ...props }: SpinnerSVGProps) => {
   const points = [
-    { r: '24', begin: '-0.8', color: primary },
-    { r: '39.6', begin: '0', color: secondary },
+    { r: '24', begin: '-0.8', color: colors[0] },
+    { r: '39.6', begin: '0', color: colors[1] },
   ]
 
   const getAttributes = (r: boolean) => ({
