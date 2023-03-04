@@ -20,6 +20,8 @@ export type Breakpoints = (string | number)[]
  */
 export interface MakerCSS extends Omit<StyleSettings, 'root'> {}
 
+export type MediaQuery = 'min-width' | 'max-width' | 'min-height' | 'max-height'
+
 export interface StyleSettings {
   /** The root selector that all nested styles will be appended to. This should be a className
    * and should not include a leading dot.
@@ -34,5 +36,5 @@ export interface StyleSettings {
   /** An array of breakpoints that will be used to generate media queries. */
   breakpoints?: Breakpoints
   /** The type of CSS size media query */
-  mediaQuery?: 'min-width' | 'max-width' | 'min-height' | 'max-height'
+  mediaQuery?: MediaQuery
 }

@@ -155,7 +155,7 @@ describe('isObjectEmpty', () => {
       b: { c: 0 },
       d: false,
     }
-    expect(isObjectEmpty(obj, 10, 0, true)).toBe(true)
+    expect(isObjectEmpty(obj, 2, 0, true)).toBe(true)
   })
 
   it('should return false for an object with non-empty values when checkFalsy is true', () => {

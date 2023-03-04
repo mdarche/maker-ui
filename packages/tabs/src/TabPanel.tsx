@@ -14,6 +14,10 @@ export interface TabPanelProps
    * @default false
    */
   disabled?: boolean
+  /** Used to validate children. Internal only
+   * @internal
+   */
+  _type: 'panel'
 }
 
 /**
@@ -25,4 +29,5 @@ export const TabPanel = ({ children }: TabPanelProps) => {
   return <>{children}</>
 }
 
+TabPanel.defaultProps = { _type: 'panel' }
 TabPanel.displayName = 'TabPanel'

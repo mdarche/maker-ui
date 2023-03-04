@@ -1,7 +1,7 @@
 {
-  "name": "@maker-ui/tabs",
-  "description": "A Maker UI tab component",
-  "version": "1.2.5",
+  "name": "@maker-ui/cms",
+  "description": "All types, API requests, and components for a customizable CMS.",
+  "version": "1.0.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
   "types": "dist/index.d.ts",
   "private": false,
   "publishConfig": {
-    "access": "public",
+    "access": "restricted",
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
@@ -22,21 +22,26 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/hooks": "workspace:*",
-    "@maker-ui/style": "workspace:*",
-    "@maker-ui/utils": "workspace:*"
+    "@maker-ui/elements": "workspace:*",
+    "@maker-ui/forms": "workspace:*",
+    "@maker-ui/notifications": "workspace:*",
+    "maker-ui": "workspace:*"
   },
   "peerDependencies": {
+    "next": "^12.x || ^13.x",
     "react": "^17.x || ^18.x",
-    "react-dom": "^17.x || ^18.x"
+    "react-dom": "^17.x || ^18.x",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@maker-ui/build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
+    "next": "^13.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",
     "tsup": "^5.12.0",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "zod": "^3.20.2"
   }
 }

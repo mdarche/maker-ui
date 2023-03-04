@@ -4,6 +4,7 @@ import { Style, type MakerCSS } from '@maker-ui/style'
 
 import { TabNavigation, getNavPosition } from './TabNavigation'
 import { TabPanel } from './TabPanel'
+import { useKeyboardShortcut } from '@maker-ui/hooks'
 
 export interface TabState {
   styleId: string
@@ -34,8 +35,21 @@ export interface TabsProps
    * @default false
    */
   tabKeyNavigate?: boolean
+  /** A custom class name to apply to the accordion button when it is active.
+   * @default 'active'
+   */
+  activeClass?: string
   /** Nested `<Tab.Panel>` or auxiliary components. */
   children?: React.ReactElement[]
+}
+
+function validate(children: React.ReactNode) {
+  React.Children.toArray(children).forEach((child: any) => {
+    const type = child.props._type
+    if (!type) {
+      throw new Error('Tabs must contain only Tabs.Panel components.')
+    }
+  })
 }
 
 /**
@@ -52,6 +66,7 @@ export const Tabs = ({
   overflow = 'stack',
   renderInactive = true,
   tabKeyNavigate = false,
+  activeClass = 'active',
   className,
   css = {},
   mediaQuery,
@@ -63,17 +78,27 @@ export const Tabs = ({
     styleId: generateId(),
     activeKey: 0,
   })
-  const tabs = children
-    ? children.map(({ props }, index) => ({
-        id: index,
-        title: props.title,
-        disabled: props?.disabled,
-        eventKey: props?.eventKey?.toString(),
-        open: props?.open,
-      }))
-    : []
+  if (!children || (children && !Array.isArray(children))) {
+    throw new Error('Tabs must contain at least two Tabs.Panel components.')
+  } else {
+    validate(children)
+  }
+  const tabs = children.map(({ props }, index) => ({
+    id: index,
+    title: props.title,
+    disabled: props?.disabled,
+    eventKey: props?.eventKey?.toString(),
+    open: props?.open,
+  }))
   const isVertical = ['top', 'bottom'].includes(navPosition) ? true : false
   const position = getNavPosition({ isVertical, navPosition, overflow })
+
+  const navigate = (type: 'next' | 'prev') => {
+    const index = tabs.findIndex(({ id }) => id === state.activeKey)
+    const next = index === tabs.length - 1 ? 0 : index + 1
+    const prev = index === 0 ? tabs.length - 1 : index - 1
+    return setState((s) => ({ ...s, activeKey: type === 'prev' ? prev : next }))
+  }
 
   /**
    * Set the default open tab if none is specified
@@ -135,7 +160,7 @@ export const Tabs = ({
               flex: 1,
               order: 1,
               display: renderInactive ? 'none' : undefined,
-              '&.active': renderInactive
+              [`&.${activeClass}`]: renderInactive
                 ? {
                     display: 'block',
                   }
@@ -148,7 +173,24 @@ export const Tabs = ({
           css
         )}
       />
-      <TabNavigation
+      <div className="mkui-tab-navigation flex" role="tablist">
+        {tabs.map((item) => (
+          <TabButton
+            key={item.id}
+            tab={item}
+            activeKey={state.activeKey}
+            setActiveKey={(k) => setState((s) => ({ ...s, activeKey: k }))}
+            navigate={navigate}
+            settings={{
+              isVertical,
+              tabKeyNavigate,
+              activeClass,
+              length: tabs.length,
+            }}
+          />
+        ))}
+      </div>
+      {/* <TabNavigation
         activeKey={state.activeKey}
         setActiveKey={(k) => setState((s) => ({ ...s, activeKey: k }))}
         tabs={tabs}
@@ -158,28 +200,126 @@ export const Tabs = ({
           overflow,
           breakpoints,
           tabKeyNavigate,
+          activeClass,
         }}
-      />
+      /> */}
       {panels?.map(
         (
-          { props: { className, title, eventKey, open, disabled, ...rest } },
+          { props: { title, className, eventKey, open, disabled, ...rest } },
           index
         ) => (
           <div
+            id={`tabpanel-${index}`}
             key={index}
             className={cn([
               'mkui-tab',
-              state.activeKey === index ? 'active' : undefined,
+              state.activeKey === index ? activeClass : undefined,
               className,
             ])}
             role="tabpanel"
-            id={`panel-${index}`}
-            aria-labelledby={`control-${index}`}
+            hidden={state.activeKey !== index}
+            tabIndex={-1}
+            aria-labelledby={`tab-${index}`}
             {...rest}
           />
         )
       )}
     </div>
+  )
+}
+
+interface TabButtonProps {
+  index: number
+  activeKey: string | number
+  setActiveKey: (s: number) => void
+  navigate: (type: 'next' | 'prev') => void
+  tab: {
+    id: number
+    title: string | React.ReactElement
+    disabled?: boolean
+  }
+  settings: {
+    tabKeyNavigate?: boolean
+    isVertical?: boolean
+    length: number
+    activeClass: string
+  }
+}
+
+const TabButton = ({
+  index,
+  activeKey,
+  setActiveKey,
+  navigate,
+  tab,
+  settings,
+}: TabButtonProps) => {
+  const ref = React.useRef<HTMLButtonElement>(null)
+  const isActive = activeKey === tab.id
+  // Accessibility shortcuts
+  useKeyboardShortcut(
+    [
+      {
+        key: 'Tab',
+        callback: (e: KeyboardEvent) => {
+          if (settings?.tabKeyNavigate) {
+            if (e.shiftKey) {
+              if (index === 0) return
+              e.preventDefault()
+              navigate('prev')
+            } else {
+              if (index === length - 1) return
+              e.preventDefault()
+              return navigate('next')
+            }
+          }
+        },
+      },
+      {
+        key: 'ArrowUp',
+        callback: (e: KeyboardEvent) => {
+          if (!settings?.isVertical) {
+            e.preventDefault()
+            navigate('prev')
+          }
+        },
+      },
+      {
+        key: 'ArrowDown',
+        callback: (e: KeyboardEvent) => {
+          if (!settings?.isVertical) {
+            e.preventDefault()
+            navigate('next')
+          }
+        },
+      },
+      {
+        key: 'ArrowRight',
+        callback: () => navigate('next'),
+      },
+      { key: 'ArrowLeft', callback: () => navigate('prev') },
+    ],
+    ref
+  )
+
+  return (
+    <button
+      ref={ref}
+      role="tab"
+      type="button"
+      tabIndex={activeKey === tab.id ? undefined : -1}
+      id={`tab-${tab.id}`}
+      className={cn([
+        'mkui-tab-btn',
+        isActive ? settings.activeClass : undefined,
+        tab.disabled ? 'disabled' : undefined,
+      ])}
+      disabled={tab.disabled}
+      title={typeof tab.title === 'string' ? tab.title : undefined}
+      aria-selected={isActive ? 'true' : undefined}
+      onClick={() => setActiveKey(tab.id)}>
+      {tab.title}
+    </button>
   )
 }
 

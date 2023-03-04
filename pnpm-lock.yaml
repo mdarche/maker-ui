@@ -692,6 +692,7 @@ importers:
   packages/tabs:
     specifiers:
       '@maker-ui/build-tools': workspace:*
+      '@maker-ui/hooks': workspace:*
       '@maker-ui/style': workspace:*
       '@maker-ui/utils': workspace:*
       eslint-config-library: workspace:*
@@ -701,6 +702,7 @@ importers:
       tsup: ^5.12.0
       typescript: ^4.8.4
     dependencies:
+      '@maker-ui/hooks': link:../hooks
       '@maker-ui/style': link:../style
       '@maker-ui/utils': link:../utils
     devDependencies:

@@ -71,13 +71,26 @@ export interface TopbarOptions {
 }
 
 export interface HeaderOptions {
+  /** The breakpoint where the header navigation collapses to its mobile state */
   breakpoint: string | number
+  /** Desktop navigation type */
   navType: typeof navTypes[number]
+  /** Mobile navigation type */
   navTypeMobile: typeof mobileNavTypes[number]
+  /** If true, the header will use absolute and fixed positioning instead of the default
+   * relative and sticky positioning. This is useful if you want to show content behind the header
+   * like a hero image or video.
+   */
   absolute: boolean
+  /** Determines if the header is sticky on desktop. */
   sticky: boolean
+  /** Determines if the header is sticky on mobile. */
   stickyOnMobile: boolean
+  /** Hides the header on downscroll and reveals it when scrolling back up. */
   stickyUpScroll: boolean | { delay: number; start: number }
+  /** Applies a custom class to the header once the user scrolls beyond a specified
+   * scrollTop position. This is useful for changing header content or adding a background color.
+   */
   scrollClass?: {
     scrollTop: number
     className: string

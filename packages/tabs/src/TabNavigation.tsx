@@ -1,5 +1,5 @@
-import { cn } from '@maker-ui/utils'
 import * as React from 'react'
+import { cn } from '@maker-ui/utils'
 import { TabsProps } from './Tabs'
 
 export interface TabNavigationProps {
@@ -16,6 +16,7 @@ export interface TabNavigationProps {
     overflow?: TabsProps['overflow']
     navPosition?: TabsProps['navPosition']
     breakpoints?: (string | number)[]
+    activeClass: string
   }
 }
 
@@ -33,70 +34,6 @@ export const TabNavigation = ({
 }: TabNavigationProps) => {
   const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([])
 
-  /**
-   * Handle keyboard arrow controls
-   */
-  const handleKeyDown = React.useCallback(
-    (e: KeyboardEvent) => {
-      if (
-        tabs?.some(({ id }) =>
-          document.activeElement?.id.includes(id.toString())
-        )
-      ) {
-        const index = tabs.findIndex(({ id }) => id === activeKey)
-
-        const next = index === tabs.length - 1 ? 0 : index + 1
-        const prev = index === 0 ? tabs.length - 1 : index - 1
-
-        switch (e.code) {
-          case 'ArrowUp':
-            if (!settings.isVertical) {
-              e.preventDefault()
-              return setActiveKey(prev)
-            }
-            return
-          case 'ArrowDown':
-            if (!settings.isVertical) {
-              e.preventDefault()
-              return setActiveKey(next)
-            }
-            return
-          case 'ArrowRight':
-            return setActiveKey(next)
-          case 'ArrowLeft':
-            return setActiveKey(next)
-          case 'Tab':
-            if (settings?.tabKeyNavigate) {
-              if (e.shiftKey) {
-                if (index === 0) return
-                e.preventDefault()
-                return setActiveKey(prev)
-              } else {
-                if (index === tabs.length - 1) return
-                e.preventDefault()
-                return setActiveKey(next)
-              }
-            }
-            return
-          default:
-            return
-        }
-      }
-    },
-    [
-      activeKey,
-      setActiveKey,
-      settings.isVertical,
-      settings?.tabKeyNavigate,
-      tabs,
-    ]
-  )
-
-  React.useEffect(() => {
-    window.addEventListener(`keydown`, handleKeyDown)
-    return () => window.removeEventListener(`keydown`, handleKeyDown)
-  }, [handleKeyDown])
-
   React.useEffect(() => {
     // Get active key index and focus to that button ref
     const index = tabs?.findIndex((t) => t.id === activeKey)
@@ -113,17 +50,16 @@ export const TabNavigation = ({
           key={item.id}
           role="tab"
           type="button"
-          tabIndex={activeKey === item.id ? 0 : -1}
-          id={`control-${item.id}`}
+          tabIndex={activeKey === item.id ? undefined : -1}
+          id={`tab-${item.id}`}
           className={cn([
             'mkui-tab-btn',
-            activeKey === item.id ? 'active' : undefined,
+            activeKey === item.id ? settings.activeClass : undefined,
             item.disabled ? 'disabled' : undefined,
           ])}
           disabled={item.disabled}
           title={typeof item.title === 'string' ? item.title : undefined}
-          aria-controls={`panel-${item.id}`}
-          aria-selected={activeKey === item.id ? 'true' : 'false'}
+          aria-selected={activeKey === item.id ? 'true' : undefined}
           onClick={() => setActiveKey(item.id)}>
           {item.title}
         </button>
@@ -160,13 +96,13 @@ export const getNavPosition = ({
 
   return isVertical
     ? {
+        ...shared,
         flexDirection: overflow === 'stack' ? ['column', 'row'] : 'row',
         order: navPosition === 'top' ? 1 : 2,
-        ...shared,
       }
     : {
+        ...shared,
         flexDirection: overflow === 'stack' ? 'column' : ['row', 'column'],
         order: navPosition === 'left' ? 1 : 2,
-        ...shared,
       }
 }

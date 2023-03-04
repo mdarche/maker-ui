@@ -9,16 +9,17 @@ import { Tabs } from '../src'
  * @tests
  * Tabs
  * - Render with defaults
+ * - Error: invalid children
+ * - Error: too few children
  * - Prop: `css`
  * - Prop: `renderInactive`
  * - Prop: `overflow`
  * - Prop: `navPosition`
  * - Prop: `activeKey`, `eventKey`
- * - Prop: `buttonType`
- * - Behavior: can render non-tab panel children without error
+ * - Prop: `activeClass`
  * - Behavior: toggles the active tag when clicking a tab button
  * Tabs.Panel
- * - Prop: `title` (comnponent)
+ * - Prop: `title` (component)
  * - Prop: `disabled`
  * - Prop: `open`
  *
@@ -27,7 +28,7 @@ import { Tabs } from '../src'
 
 describe('Tabs', () => {
   /* Render with defaults */
-  it.only('renders with default props', () => {
+  it('renders with default props', () => {
     cy.mount(
       <Tabs>
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
@@ -36,20 +37,70 @@ describe('Tabs', () => {
       </Tabs>
     )
 
-    cy.get('.tab-panel').should('have.length', 3)
-    cy.get('.tab-button').should('have.length', 3)
-    cy.get('.tab-panel.active').should('have.length', 1)
+    cy.get('[role="tabpanel"]').should('have.length', 3)
+    cy.get('button').should('have.length', 3)
+    cy.get('[role="tabpanel"].active').should('have.length', 1)
+  })
+
+  /* Error: invalid children */
+
+  it('throws an error if children are not Tabs.Panel components', () => {
+    const msg = 'Tabs must contain only Tabs.Panel components.'
+    // Invalid children
+    cy.mount(
+      <Tabs>
+        <div>Non Panel 1</div>
+        <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
+        <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
+        <div>Non Panel 2</div>
+      </Tabs>
+    )
+    cy.on('uncaught:exception', (err) => {
+      expect(err.message).to.include(msg)
+      return false
+    })
+  })
+
+  /* Error: too few children */
+
+  it('throws an error if there are no children or less than two items', () => {
+    const msg = 'Tabs must contain at least two Tabs.Panel components.'
+    // No children
+    cy.mount(<Tabs></Tabs>)
+    cy.on('uncaught:exception', (err) => {
+      expect(err.message).to.include(msg)
+      return false
+    })
+    // Not enough children
+    cy.mount(
+      //@ts-ignore
+      <Tabs>
+        <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
+      </Tabs>
+    )
+    cy.on('uncaught:exception', (err) => {
+      expect(err.message).to.include(msg)
+      return false
+    })
   })
 
   /* Prop: `css` */
 
   it('supports the `css` prop', () => {
     cy.mount(
-      <Tabs className="test-class" css={{ background: '#e90266' }}>
+      <Tabs
+        className="test-class"
+        css={{
+          background: '#e90266',
+          button: { padding: 0, margin: 0 },
+        }}>
+        <Tabs.Panel title="Panel 1">Content 1</Tabs.Panel>
         <Tabs.Panel title="Panel 1">Content 1</Tabs.Panel>
       </Tabs>
     )
     cy.get('.test-class').should('have.backgroundColor', '#e90266')
+    cy.get('button').should('have.css', 'padding', '0px')
+    cy.get('button').should('have.css', 'margin', '0px')
   })
 
   /* Prop: `renderInactive` */
@@ -61,14 +112,14 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-panel').should('have.length', 2)
+    cy.get('[role="tabpanel"]').should('have.length', 2)
     cy.mount(
       <Tabs renderInactive={false}>
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-panel').should('have.length', 1)
+    cy.get('[role="tabpanel"]').should('have.length', 1)
   })
 
   /* Prop: `overflow` */
@@ -81,16 +132,20 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-navigation').should('have.css', 'flex-direction', 'column')
-    cy.get('.tab-navigation').should('have.css', 'flex-wrap', 'wrap')
+    cy.get('.mkui-tab-navigation').should(
+      'have.css',
+      'flex-direction',
+      'column'
+    )
+    cy.get('.mkui-tab-navigation').should('have.css', 'flex-wrap', 'wrap')
     cy.mount(
       <Tabs overflow="scroll">
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-navigation').should('have.css', 'overflow-x', 'scroll')
-    cy.get('.tab-navigation').should('have.css', 'flex-wrap', 'nowrap')
+    cy.get('.mkui-tab-navigation').should('have.css', 'overflow-x', 'scroll')
+    cy.get('.mkui-tab-navigation').should('have.css', 'flex-wrap', 'nowrap')
   })
 
   /* Prop: `navPosition` */
@@ -103,7 +158,7 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-navigation').should('have.css', 'order', '1')
+    cy.get('.mkui-tab-navigation').should('have.css', 'order', '1')
     // Bottom
     cy.mount(
       <Tabs navPosition="bottom">
@@ -111,7 +166,7 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-navigation').should('have.css', 'order', '2')
+    cy.get('.mkui-tab-navigation').should('have.css', 'order', '2')
     // Left
     cy.mount(
       <Tabs navPosition="left">
@@ -119,7 +174,7 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-navigation').should('have.css', 'order', '1')
+    cy.get('.mkui-tab-navigation').should('have.css', 'order', '1')
     // Right
     cy.mount(
       <Tabs navPosition="right">
@@ -127,10 +182,10 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-navigation').should('have.css', 'order', '2')
+    cy.get('.mkui-tab-navigation').should('have.css', 'order', '2')
   })
 
-  /* Prop: `activeKey`, `eventKey` */
+  /* Prop: `activeEventKey`, `eventKey` */
 
   it('supports external control with the `activeKey` prop and the TabPanel `eventKey` prop', () => {
     const EventKeyTest = () => {
@@ -151,11 +206,11 @@ describe('Tabs', () => {
               </button>
             ))}
           </div>
-          <Tabs activeKey={key}>
-            <Tabs.Panel disabled eventKey="1" title="Title 1">
+          <Tabs activeEventKey={key}>
+            <Tabs.Panel eventKey="1" title="Title 1">
               First Text
             </Tabs.Panel>
-            <Tabs.Panel open eventKey="2" title="Title 2">
+            <Tabs.Panel eventKey="2" title="Title 2">
               Second Text
             </Tabs.Panel>
             <Tabs.Panel eventKey="3" title="Title 3">
@@ -166,44 +221,38 @@ describe('Tabs', () => {
       )
     }
     cy.mount(<EventKeyTest />)
-    cy.get('.external-1').click()
-    cy.get('.tab-panel').first().should('not.have.class', 'active')
+    cy.get('[role="tabpanel"]').first().should('have.class', 'active')
     cy.get('.external-2').click()
-    cy.get('.tab-panel').eq(1).should('have.class', 'active')
-    cy.get('.tab-button').last().click()
-    cy.get('.tab-panel').last().should('have.class', 'active')
+    cy.get('[role="tabpanel"]').eq(1).should('have.class', 'active')
+    cy.get('.external-3').last().click()
+    cy.get('[role="tabpanel"]').last().should('have.class', 'active')
+    cy.get('.mkui-tab-btn').first().click()
+    cy.get('[role="tabpanel"]').first().should('have.class', 'active')
   })
 
-  /* Prop: `buttonType` */
+  /* Prop: `activeClass` */
 
   it('adds buttonType to tab button', () => {
     cy.mount(
-      <Tabs buttonType="button">
+      <Tabs activeClass="expanded">
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-button').first().should('have.attr', 'type', 'button')
-  })
-
-  /* Behavior: can render non-tab panel children without error */
-
-  it('renders non TabPanel children without conflict', () => {
-    cy.mount(
-      <Tabs>
-        <div>Non Panel 1</div>
-        <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
-        <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
-        <div>Non Panel 2</div>
-      </Tabs>
-    )
-    cy.contains('Non Panel 1')
-    cy.contains('Non Panel 2')
+    cy.get('[role="tabpanel"]').first().should('have.class', 'expanded')
+    cy.get('button').first().should('have.class', 'expanded')
+    cy.get('[role="tabpanel"]').last().should('not.have.class', 'expanded')
+    cy.get('button').last().should('not.have.class', 'expanded')
+    cy.get('button').last().click()
+    cy.get('[role="tabpanel"]').first().should('not.have.class', 'expanded')
+    cy.get('button').first().should('not.have.class', 'expanded')
+    cy.get('[role="tabpanel"]').last().should('have.class', 'expanded')
+    cy.get('button').last().should('have.class', 'expanded')
   })
 
   /* Behavior: toggles the active tag when clicking a tab button */
 
-  it('toggles the active tab when a tab button is clicked', () => {
+  it.only('toggles the active tab when a tab button is clicked', () => {
     cy.mount(
       <Tabs>
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
@@ -211,27 +260,28 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 3">Panel content 3</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-panel').first().should('have.css', 'display', 'block')
-    cy.get('.tab-button').first().should('have.attr', 'tabindex', '0')
-    cy.get('.tab-button').last().click()
-    cy.get('.tab-button').first().should('have.attr', 'tabindex', '-1')
-    cy.get('.tab-button').last().should('have.class', 'active')
-    cy.get('.tab-panel').last().should('have.class', 'active')
-    cy.get('.tab-panel.active').should('have.length', 1)
-    cy.get('.tab-panel').first().should('have.css', 'display', 'none')
+    cy.get('[role="tabpanel"]').first().should('have.css', 'display', 'block')
+    cy.get('button').first().should('have.attr', 'tabindex', '0')
+    cy.get('button').last().click()
+    cy.get('button').first().should('have.attr', 'tabindex', '-1')
+    cy.get('button').last().should('have.class', 'active')
+    cy.get('[role="tabpanel"]').last().should('have.class', 'active')
+    cy.get('[role="tabpanel"].active').should('have.length', 1)
+    cy.get('[role="tabpanel"]').first().should('have.css', 'display', 'none')
   })
 })
 
-describe('TabPanel component', () => {
-  /* Prop: `title` (comnponent) */
+describe('Tabs.Panel component', () => {
+  /* Prop: `title` (component) */
 
   it('accepts a custom title component', () => {
     cy.mount(
       <Tabs>
         <Tabs.Panel title={<h4>Custom!</h4>}>Tab Content</Tabs.Panel>
+        <Tabs.Panel title="Tab 2">Tab Content</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-button h4').contains('Custom!')
+    cy.get('button h4').contains('Custom!')
   })
 
   /* Prop: `disabled` */
@@ -243,20 +293,20 @@ describe('TabPanel component', () => {
           Tab Content 1
         </Tabs.Panel>
         <Tabs.Panel title="Panel 2">Tab Content 2</Tabs.Panel>
-        <Tabs.Panel disabled title="Panel 3">
-          Tab Content 3
-        </Tabs.Panel>
+        <Tabs.Panel title="Panel 3">Tab Content 3</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-button').first().should('be.disabled')
-    cy.get('.tab-button').last().should('be.disabled')
-    cy.get('.tab-button').eq(1).should('have.class', 'active')
+    cy.get('button').first().should('be.disabled')
+    cy.get('button').eq(1).should('have.class', 'active')
+    cy.get('[role="tabpanel"]').eq(1).should('have.class', 'active')
+    cy.get('button').last().click()
+    cy.get('[role="tabpanel"]').last().should('have.class', 'active')
   })
 
   /* Prop: `open` */
 
   it('sets a default open tab panel with the `open` prop', () => {
-    // Adds `open` to 2 panels and ensures that the 3rd panel is active
+    // Adds `open` to 2 panels and ensures that 2nd panel is active
     cy.mount(
       <Tabs>
         <Tabs.Panel title="Panel 1">Content 1</Tabs.Panel>
@@ -268,6 +318,6 @@ describe('TabPanel component', () => {
         </Tabs.Panel>
       </Tabs>
     )
-    cy.get('.tab-panel').last().should('have.class', 'active')
+    cy.get('[role="tabpanel"]').eq(1).should('have.class', 'active')
   })
 })

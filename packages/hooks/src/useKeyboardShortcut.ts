@@ -10,7 +10,7 @@ type KeyboardShortcut = {
   /** If true, the shortcut will only match if the Alt key is also pressed. */
   altKey?: boolean
   /** A callback function that is invoked anytime this shortcut is matched to a keyboard event. */
-  callback: () => void
+  callback: (e: KeyboardEvent) => void
 }
 
 /**
@@ -46,7 +46,7 @@ export function useKeyboardShortcut(
 
       if (matchedShortcut) {
         e.preventDefault()
-        matchedShortcut.callback()
+        matchedShortcut.callback(e)
       }
     }
     const target = (ref && ref.current) || document

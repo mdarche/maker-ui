@@ -77,30 +77,39 @@ export function mergeRefs<T = any>(
  */
 export function isObjectEmpty(
   obj?: Record<string, any>,
-  maxDepth = 0,
+  maxDepth = 2,
   depth = 0,
   checkFalsy = false
 ): boolean {
-  if (!obj) return true
-  const result = Object.keys(obj).length === 0
+  if (!obj || Object.keys(obj).length === 0) return true
+  let result = true
+
   for (const key in obj) {
+    // If depth requirements are met and result is false, exit loop and return false
+    if (depth <= maxDepth && !result) return false
     if (obj.hasOwnProperty(key)) {
       const value = obj[key]
       if (checkFalsy) {
-        if (!value) {
-          return true
+        if (!value || value === 0) {
+          result = true
         }
       } else {
         if (value === null || value === undefined) {
-          return true
+          result = true
         }
       }
-      if (typeof value === 'object' && !Array.isArray(value)) {
-        if (
-          depth < maxDepth &&
-          isObjectEmpty(value, maxDepth, depth + 1, checkFalsy)
-        ) {
-          return true
+      if (value) {
+        if (typeof value === 'object' && !Array.isArray(value)) {
+          if (
+            depth <= maxDepth &&
+            isObjectEmpty(value, maxDepth, depth + 1, checkFalsy)
+          ) {
+            result = true
+          } else {
+            result = false
+          }
+        } else {
+          result = false
         }
       }
     }
