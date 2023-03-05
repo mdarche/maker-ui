@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { Div, type DivProps } from '@maker-ui/primitives'
 import { Modal } from '@maker-ui/modal'
 
 import { Canvas } from './Canvas'
@@ -8,8 +7,8 @@ import { Toolbar } from './Toolbar'
 import { Preview } from './Preview'
 import { useLightbox } from './LightboxContext'
 
-interface LightboxModalProps extends DivProps {
-  focusRef?: React.MutableRefObject<any>
+interface LightboxModalProps extends React.HTMLAttributes<HTMLDivElement> {
+  focusRef?: any
   show?: boolean
   background?: string | string
 }
@@ -27,7 +26,7 @@ export const LightboxModal = ({
   show,
   background = 'rgba(0, 0, 0, 0.8)',
   children,
-  css,
+  // css,
   ...props
 }: LightboxModalProps) => {
   const { index, active, data, settings, setIndex, toggleLightbox } =
@@ -124,16 +123,17 @@ export const LightboxModal = ({
         background={background}
         closeOnBlur={settings.closeOnBlur}
         {...props}>
-        <Div
+        <div
           onMouseEnter={showControls}
           className={`lb-controls ${controlsActive ? 'visible' : 'hidden'}`}
-          css={{
-            opacity: 0,
-            transition: 'all ease .25s',
-            '&.visible': {
-              opacity: 1,
-            },
-          }}>
+          // css={{
+          //   opacity: 0,
+          //   transition: 'all ease .25s',
+          //   '&.visible': {
+          //     opacity: 1,
+          //   },
+          // }}
+        >
           <Toolbar
             preview={{ show: preview, set: setPreview }}
             // zoom={{ show: settings.showZoom, set: setZoom }}
@@ -148,7 +148,7 @@ export const LightboxModal = ({
               <Preview show={preview} />
             </>
           ) : null}
-        </Div>
+        </div>
         {data.length ? (
           <Canvas
           // zoom={zoom}

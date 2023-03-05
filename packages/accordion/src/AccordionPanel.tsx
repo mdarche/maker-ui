@@ -19,7 +19,7 @@ export interface AccordionPanelProps
   /** Used to validate children. Internal only
    * @internal
    */
-  _type: 'AccordionPanel'
+  _type?: 'AccordionPanel'
 }
 
 /**

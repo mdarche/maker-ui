@@ -1,5 +1,5 @@
 'use client'
-import { Section } from '@maker-ui/layout'
+import { Section } from 'maker-ui'
 import { Tabs } from '@/client'
 import { useState } from 'react'
 

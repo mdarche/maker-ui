@@ -1,9 +1,8 @@
 import * as React from 'react'
-import type { MakerProps } from '@maker-ui/css'
 
 import { useLightbox, type LightboxData } from './LightboxContext'
 
-export interface LightboxLinkProps extends MakerProps, LightboxData {
+export interface LightboxLinkProps extends LightboxData {
   trigger?: boolean
   component?: boolean
   children?: React.ReactNode

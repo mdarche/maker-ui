@@ -4,12 +4,21 @@
   "version": "1.2.5",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./client": {
+      "import": "./dist/client.mjs",
+      "require": "./dist/client.js",
+      "types": "./dist/client.d.ts"
+    },
+    "./layout.css": "./dist/index.css",
+    "./client.css": "./dist/client.css",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "tsup",
     "start": "tsup --watch",
@@ -29,7 +38,7 @@
   "devDependencies": {
     "@maker-ui/build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
-    "next": "^13.0.6",
+    "next": "^13.2.3",
     "postcss": "^8.4.18",
     "postcss-modules": "^5.0.0",
     "postcss-nested": "^6.0.0",

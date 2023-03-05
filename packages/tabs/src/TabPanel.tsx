@@ -17,7 +17,7 @@ export interface TabPanelProps
   /** Used to validate children. Internal only
    * @internal
    */
-  _type: 'TabPanel'
+  _type?: 'TabPanel'
 }
 
 /**

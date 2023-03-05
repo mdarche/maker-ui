@@ -1,4 +1,4 @@
-import { Layout, type MakerUIOptions } from '@maker-ui/layout'
+import { Layout, type MakerUIOptions } from 'maker-ui'
 import Link from 'next/link'
 import {
   CollapseMenu,
@@ -9,9 +9,6 @@ import {
   MenuItemProps,
   CustomCollapseMenu,
 } from '@/client'
-
-import '@maker-ui/layout/dist/index.css'
-import '@maker-ui/layout/dist/client.css'
 
 const menu: MenuItemProps[] = [
   { label: 'Home', path: '/' },

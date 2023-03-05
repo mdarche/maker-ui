@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState } from 'react'
-import { Section } from '@maker-ui/layout'
+import { Section } from 'maker-ui'
 // import { Lightbox } from '@maker-ui/lightbox'
 
 import CosmosImage from '@/public/cosmos.jpeg'

@@ -1,11 +1,9 @@
 import * as React from 'react'
-import { Button } from '@maker-ui/primitives'
-import type { MakerProps } from '@maker-ui/css'
 
 import { useLightbox } from './LightboxContext'
 import { DefaultArrow } from './icons'
 
-interface NavButtonProps extends MakerProps {
+interface NavButtonProps {
   type: 'prev' | 'next'
 }
 
@@ -19,34 +17,35 @@ export const NavButton = ({ type }: NavButtonProps) => {
   const isNext = type === 'next' ? true : false
 
   return (
-    <Button
+    <button
       title={isNext ? 'Next' : 'Previous'}
       aria-label={isNext ? 'Next' : 'Previous'}
       className={`lb-nav-button ${isNext ? 'next-button' : 'prev-button'}`}
       onClick={() => setIndex(isNext ? 'next' : 'previous')}
-      css={{
-        cursor: 'pointer',
-        background: 'rgba(0, 0, 0, 0.25)',
-        padding: ['20px 40px', '20px'],
-        width: ['calc(50% - 15px)', 'auto'],
-        border: 'none',
-        position: 'absolute',
-        height: ['auto', '10vh'],
-        top: ['initial', '50%'],
-        bottom: ['10px', 'initial'],
-        zIndex: 1,
-        transition: 'background-color ease .3s',
-        ...transform(isNext),
-        ...position(isNext),
-        '&:hover, &:focus': {
-          background: 'rgba(0, 0, 0, 0.66)',
-        },
-        '&:focus': {
-          outline: '2px solid rgba(255, 255, 255, 0.35)',
-        },
-      }}>
+      // css={{
+      //   cursor: 'pointer',
+      //   background: 'rgba(0, 0, 0, 0.25)',
+      //   padding: ['20px 40px', '20px'],
+      //   width: ['calc(50% - 15px)', 'auto'],
+      //   border: 'none',
+      //   position: 'absolute',
+      //   height: ['auto', '10vh'],
+      //   top: ['initial', '50%'],
+      //   bottom: ['10px', 'initial'],
+      //   zIndex: 1,
+      //   transition: 'background-color ease .3s',
+      //   ...transform(isNext),
+      //   ...position(isNext),
+      //   '&:hover, &:focus': {
+      //     background: 'rgba(0, 0, 0, 0.66)',
+      //   },
+      //   '&:focus': {
+      //     outline: '2px solid rgba(255, 255, 255, 0.35)',
+      //   },
+      // }}
+    >
       {settings.customArrow || <DefaultArrow />}
-    </Button>
+    </button>
   )
 }
 

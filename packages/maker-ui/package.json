@@ -4,29 +4,98 @@
   "version": "1.2.5",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./accordion": {
+      "import": "./dist/accordion.mjs",
+      "require": "./dist/accordion.js",
+      "types": "./dist/accordion.d.ts"
+    },
+    "./carousel": {
+      "import": "./dist/carousel.mjs",
+      "require": "./dist/carousel.js",
+      "types": "./dist/carousel.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks.mjs",
+      "require": "./dist/hooks.js",
+      "types": "./dist/hooks.d.ts"
+    },
+    "./layout": {
+      "import": "./dist/layout.mjs",
+      "require": "./dist/layout.js",
+      "types": "./dist/layout.d.ts"
+    },
+    "./modal": {
+      "import": "./dist/modal.mjs",
+      "require": "./dist/modal.js",
+      "types": "./dist/modal.d.ts"
+    },
+    "./notifications": {
+      "import": "./dist/notifications.mjs",
+      "require": "./dist/notifications.js",
+      "types": "./dist/notifications.d.ts"
+    },
+    "./popovers": {
+      "import": "./dist/popovers.mjs",
+      "require": "./dist/popovers.js",
+      "types": "./dist/popovers.d.ts"
+    },
+    "./spinners": {
+      "import": "./dist/spinners.mjs",
+      "require": "./dist/spinners.js",
+      "types": "./dist/spinners.d.ts"
+    },
+    "./tabs": {
+      "import": "./dist/tabs.mjs",
+      "require": "./dist/tabs.js",
+      "types": "./dist/tabs.d.ts"
+    },
+    "./transition": {
+      "import": "./dist/transition.mjs",
+      "require": "./dist/transition.js",
+      "types": "./dist/transition.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils.mjs",
+      "require": "./dist/utils.js",
+      "types": "./dist/utils.d.ts"
+    },
+    "./layout.css": "@maker-ui/layout/layout.css",
+    "./client.css": "@maker-ui/layout/client.css",
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "build": "tsup",
+    "start": "tsup --watch",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
+    "@maker-ui/accordion": "workspace:*",
+    "@maker-ui/carousel": "workspace:*",
     "@maker-ui/hooks": "workspace:*",
     "@maker-ui/layout": "workspace:*",
+    "@maker-ui/modal": "workspace:*",
+    "@maker-ui/notifications": "workspace:*",
+    "@maker-ui/popovers": "workspace:*",
+    "@maker-ui/spinners": "workspace:*",
     "@maker-ui/style": "workspace:*",
+    "@maker-ui/tabs": "workspace:*",
+    "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
   "peerDependencies": {
+    "next": "^13.x",
     "react": "^17.x || ^18.x",
     "react-dom": "^17.x || ^18.x"
   },
   "devDependencies": {
+    "@maker-ui/build-tools": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "^6.6.3",
     "typescript": "^4.8.4"

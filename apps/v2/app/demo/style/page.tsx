@@ -1,6 +1,5 @@
-import { Section } from '@maker-ui/layout'
-import { Style } from '@maker-ui/style'
-import { generateId } from '@maker-ui/utils'
+import { Section, Style } from 'maker-ui'
+import { generateId } from 'maker-ui/utils'
 
 export default function LoaderPage() {
   const id = generateId()

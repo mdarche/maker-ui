@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Div, Image } from '@maker-ui/primitives'
 import { Spinner } from '@maker-ui/spinners'
 
 import { useLightbox, LightboxData } from './LightboxContext'
@@ -50,11 +49,11 @@ const MediaFrame = ({
 
   if (src) {
     return (
-      <Image
+      <img
         src={src}
         alt={alt ? alt : 'Lightbox image'}
         onLoad={() => set(true)}
-        css={{ objectFit: 'contain' }}
+        style={{ objectFit: 'contain' }}
       />
     )
   }
@@ -78,48 +77,49 @@ export const Canvas = () => {
   const item = data[index]
 
   return (
-    <Div
+    <div
       className="lb-canvas"
-      css={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        height: '100%',
-        width: '100%',
-        overflowY: 'scroll',
-        maxHeight: ['68vh', '88vh'],
-        maxWidth: ['90vw', '75vw'],
-        transform: 'translate(-50%, -50%)',
-        'img, video, iframe': {
-          height:
-            item.title && settings.showInfo
-              ? ['calc(100% - 100px)', 'calc(100% - 50px)']
-              : '100%',
-          width: '100%',
-        },
-        '.lightbox-info': {
-          color: '#fff',
-          h4: {
-            marginTop: 20,
-            fontSize: '18px',
-            textAlign: 'center',
-          },
-        },
-        '.description': {
-          marginTop: 20,
-        },
-        '#media-spinner': {
-          left: '50%',
-          top: '50%',
-          transform: 'translate3d(-50%, -50%, 0)',
-          position: 'absolute',
-          zIndex: -1,
-        },
-      }}>
+      // css={{
+      //   position: 'absolute',
+      //   top: '50%',
+      //   left: '50%',
+      //   height: '100%',
+      //   width: '100%',
+      //   overflowY: 'scroll',
+      //   maxHeight: ['68vh', '88vh'],
+      //   maxWidth: ['90vw', '75vw'],
+      //   transform: 'translate(-50%, -50%)',
+      //   'img, video, iframe': {
+      //     height:
+      //       item.title && settings.showInfo
+      //         ? ['calc(100% - 100px)', 'calc(100% - 50px)']
+      //         : '100%',
+      //     width: '100%',
+      //   },
+      //   '.lightbox-info': {
+      //     color: '#fff',
+      //     h4: {
+      //       marginTop: 20,
+      //       fontSize: '18px',
+      //       textAlign: 'center',
+      //     },
+      //   },
+      //   '.description': {
+      //     marginTop: 20,
+      //   },
+      //   '#media-spinner': {
+      //     left: '50%',
+      //     top: '50%',
+      //     transform: 'translate3d(-50%, -50%, 0)',
+      //     position: 'absolute',
+      //     zIndex: -1,
+      //   },
+      // }}
+    >
       <Spinner
         id="media-spinner"
         type={settings.spinnerType}
-        colors={{ primary: '#fff' }}
+        colors={['#fff']}
         size={50}
       />
       <MediaFrame item={item} />
@@ -131,7 +131,7 @@ export const Canvas = () => {
           )}
         </div>
       )}
-    </Div>
+    </div>
   )
 }
 

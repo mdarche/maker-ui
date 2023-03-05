@@ -1,4 +1,4 @@
-import { Layout, type MakerUIOptions } from '@maker-ui/layout'
+import { Layout, type MakerUIOptions } from 'maker-ui'
 import Link from 'next/link'
 import {
   CollapseMenu,

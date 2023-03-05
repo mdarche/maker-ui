@@ -176,7 +176,7 @@ export const Popover = ({
   //   show,
   // })
 
-  useFocusTrap(popoverRef, trapFocus && show)
+  useFocusTrap(popoverRef, trapFocus && show ? true : false)
 
   /**
    * Add focus trap and update tab sequence for popovers attached to body

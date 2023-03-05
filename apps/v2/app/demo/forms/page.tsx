@@ -1,4 +1,4 @@
-import { Section } from '@maker-ui/layout'
+import { Section } from 'maker-ui'
 import { FormDemo } from './forms'
 import '@maker-ui/forms/dist/index.css'
 

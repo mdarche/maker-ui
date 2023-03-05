@@ -1,5 +1,5 @@
 {
-  "name": "@maker-ui/cms",
+  "name": "cms",
   "description": "All types, API requests, and components for a customizable CMS.",
   "version": "1.0.0",
   "license": "Apache-2.0",
@@ -22,9 +22,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/elements": "workspace:*",
     "@maker-ui/forms": "workspace:*",
-    "@maker-ui/notifications": "workspace:*",
     "maker-ui": "workspace:*"
   },
   "peerDependencies": {
@@ -36,7 +34,7 @@
   "devDependencies": {
     "@maker-ui/build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
-    "next": "^13.0.6",
+    "next": "^13.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",

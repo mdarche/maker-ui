@@ -1,6 +1,6 @@
 'use client'
-import { Section } from '@maker-ui/layout'
-import { Accordion } from '@maker-ui/accordion'
+import { Section } from 'maker-ui'
+import { Accordion } from 'maker-ui/accordion'
 
 export default function SocialPage() {
   return (

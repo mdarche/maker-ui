@@ -1,5 +1,5 @@
 'use client'
-import { Section } from '@maker-ui/layout'
+import { Section } from 'maker-ui'
 import Image from 'next/image'
 import { Carousel } from '@/client'
 

@@ -1,8 +1,8 @@
 'use client'
 import { useState, useRef } from 'react'
-import { Section } from '@maker-ui/layout'
-import { Modal } from '@maker-ui/modal'
-import { useIntersection } from '@maker-ui/hooks'
+import { Section } from 'maker-ui'
+import { Modal } from 'maker-ui/modal'
+import { useIntersection } from 'maker-ui/hooks'
 
 interface Time {
   days: number
