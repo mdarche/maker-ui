@@ -17,8 +17,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/spinners": "workspace:*",
     "@maker-ui/modal": "workspace:*",
+    "@maker-ui/spinners": "workspace:*",
     "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
@@ -32,7 +32,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",
-    "tsup": "^5.12.0",
+    "tsup": "^6.6.3",
     "typescript": "^4.8.4"
   }
 }

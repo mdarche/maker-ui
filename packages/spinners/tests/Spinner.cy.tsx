@@ -1,6 +1,23 @@
 import * as React from 'react'
 import { Spinner } from '../src'
 
+/**
+ * @component
+ * Spinner
+ *
+ * @tests
+ * - Renders with defaults
+ * - Type: `classic`
+ * - Type: `pulse`
+ * - Type: `dot-spinner`
+ * - Type: `blocks`
+ * - Type: `dots`
+ * - Type: `gear`
+ * - Type: `basic`
+ * - Prop: `size`
+ * - Prop: `colors`
+ */
+
 describe('Spinner component', () => {
   const defaultProps = {
     colors: ['#0e94d4', '#58c5fa', '#9ad8f6', '#d2d2d2'],

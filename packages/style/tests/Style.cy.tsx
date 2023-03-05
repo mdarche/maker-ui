@@ -1,6 +1,30 @@
 import * as React from 'react'
 import { Style, type StyleProps } from '../src/Style'
 
+/**
+ * @component
+ * Style
+ *
+ * @tests
+ * Local Scope
+ * - Render with defaults
+ * - Prop: `children`
+ * - Prop: `root`
+ * - Prop: `breakpoints`
+ * - Behavior: handles complex nested selectors and responsive style rules
+ *
+ * Global Scope
+ * - Render with defaults
+ * - Prop: `mediaQuery`
+ * - Behavior: ignores style rules on the object root for global scope
+ * - Behavior: handles complex nested selectors and responsive style rules
+ *
+ * @notes
+ * The algorithm for generating CSS is thoroughly tested in the `parser.spec.ts`
+ * Jest test suite. This file is more concerned with the rendered output in a client side
+ * environment.
+ */
+
 const defaultRoot = 'test'
 
 const TestComponent = ({ root, ...props }: Partial<StyleProps>) => {
@@ -37,10 +61,14 @@ const GlobalComponent = (props: Partial<StyleProps>) => {
 
 describe('Style', () => {
   describe('locally scoped', () => {
+    /* Render with defaults */
+
     it('renders a style tag with default props', () => {
       cy.mount(<TestComponent />)
       cy.get('[data-cy="style"]')
     })
+
+    /* Prop: `children` */
 
     it('renders any nested style rules as children (normal style tag behavior)', () => {
       cy.mount(
@@ -53,6 +81,8 @@ describe('Style', () => {
       )
     })
 
+    /* Prop: `root` */
+
     it('renders a style tag and appends CSS to the root with a custom selector', () => {
       cy.mount(<TestComponent css={{ '.inner': { color: 'rgb(100,0,0)' } }} />)
       expect(
@@ -61,6 +91,8 @@ describe('Style', () => {
           .should('have.css', 'color', 'rgb(100, 0, 0)')
       )
     })
+
+    /* Prop: `breakpoints` */
 
     it('uses the default breakpoints for array-based media queries', () => {
       // Defaults are [768, 960, 1440] - 2/28/23
@@ -108,6 +140,8 @@ describe('Style', () => {
       cy.viewport(400, 600)
       cy.get('[data-cy="inner"]').should('have.css', 'color', 'rgb(0, 100, 0)')
     })
+
+    /* Behavior: handles complex nested selectors and responsive style rules */
 
     it('can print complex style objects', () => {
       cy.viewport(1300, 600)
@@ -174,12 +208,16 @@ describe('Style', () => {
   })
 
   describe('global', () => {
+    /* Render with defaults */
+
     it('renders a style tag with default props', () => {
       cy.mount(<GlobalComponent />)
       cy.get('[data-cy="style"]')
     })
 
-    it('supports a custom css expression', () => {
+    /* Prop: `mediaQuery` */
+
+    it('supports a custom css expression via `mediaQuery` prop', () => {
       cy.mount(
         <GlobalComponent
           mediaQuery="max-width"
@@ -192,6 +230,8 @@ describe('Style', () => {
       expect(cy.get('button').should('have.css', 'font-size', '12px'))
     })
 
+    /* Behavior: ignores styles on the root css object */
+
     it('ignores any styles on the root css object', () => {
       cy.mount(
         <GlobalComponent css={{ color: 'rgb(100, 0, 0)', fontSize: 12 }} />
@@ -199,6 +239,8 @@ describe('Style', () => {
       expect(cy.get('body').should('not.have.css', 'color', 'rgb(100, 0, 0)'))
       expect(cy.get('body').should('not.have.css', 'font-size', '12px'))
     })
+
+    /* Behavior: handles complex nested selectors and responsive style rules */
 
     it('applies nested style rules properly', () => {
       cy.mount(

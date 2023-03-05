@@ -10,7 +10,7 @@ export function generateId(
   casing: 'lower' | 'upper' | 'mixed' = 'lower'
 ): string {
   let result = ''
-  // Always add a letter as the first character
+  // Always add a letter as the first character (important for CSS selectors)
   result += String.fromCharCode(Math.floor(Math.random() * 26) + 65)
   for (let i = 1; i < length; i++) {
     let char

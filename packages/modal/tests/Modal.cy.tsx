@@ -17,9 +17,6 @@ import { Modal } from '../src'
  *
  * @notes
  * See useFocusTrap.cy.tsx for more detailed tests on the focus trap behavior
- *
- * @todo
- * Test all keyboard navigation scenarios
  */
 
 const TestModal = (props) => {

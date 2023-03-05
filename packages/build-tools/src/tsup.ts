@@ -1,5 +1,5 @@
 import type { Options } from 'tsup'
-import { clientPlugin, PluginCSSCombine, PluginCSSModule } from './plugins'
+import { PluginCSSModule } from './plugins'
 
 export interface BuildSettings extends Options {
   /** - If true, all `.module.css` files will include scoped hashes at the end of the selector

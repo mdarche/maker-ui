@@ -1,7 +1,20 @@
 import * as React from 'react'
 import { SocialAccounts } from '../src'
 
+/**
+ * @component
+ * SocialAccounts
+ *
+ * @tests
+ * - Renders supported social media platforms
+ * - Prop: `color`, `iconSize`, `spacing`, `justify`, `vertical`
+ * - Prop: `accounts`
+ * - Prop: `trim`
+ */
+
 describe('SocialAccounts', () => {
+  /* Renders supported social media platforms */
+
   it('renders all automatically supported social media platforms with default props', () => {
     cy.mount(
       <SocialAccounts
@@ -24,6 +37,8 @@ describe('SocialAccounts', () => {
     cy.get('a').first().should('have.css', 'padding-left', '10px')
     cy.get('a').last().should('have.css', 'padding-right', '10px')
   })
+
+  /* Prop: `color`, `iconSize`, `spacing`, `justify`, `vertical` */
 
   it('renders all automatically supported social media platforms with custom props', () => {
     cy.mount(
@@ -56,6 +71,8 @@ describe('SocialAccounts', () => {
     cy.get('a').last().should('have.css', 'padding-bottom', '0px')
   })
 
+  /* Prop: `accounts` */
+
   it('supports custom icons when necessary', () => {
     cy.mount(
       <SocialAccounts
@@ -78,6 +95,8 @@ describe('SocialAccounts', () => {
     cy.get('a').should('have.length', 3)
     cy.get('[data-cy="custom-icon"]').contains('custom icon!')
   })
+
+  /* Prop: `trim` */
 
   it('properly trims icon padding', () => {
     // Horizontal
