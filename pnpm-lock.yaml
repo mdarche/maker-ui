@@ -108,7 +108,6 @@ importers:
   apps/v2:
     specifiers:
       '@maker-ui/generative': workspace:*
-      '@maker-ui/social': workspace:*
       '@maker-ui/toc': workspace:*
       '@next/bundle-analyzer': ^13.2.3
       eslint-config-app: workspace:*
@@ -121,7 +120,6 @@ importers:
       zod: ^3.20.2
     dependencies:
       '@maker-ui/generative': link:../../packages/generative
-      '@maker-ui/social': link:../../packages/social
       '@maker-ui/toc': link:../../packages/toc
       '@next/bundle-analyzer': 13.2.3
       maker-ui: link:../../packages/maker-ui
@@ -427,6 +425,7 @@ importers:
       '@maker-ui/modal': workspace:*
       '@maker-ui/notifications': workspace:*
       '@maker-ui/popovers': workspace:*
+      '@maker-ui/social': workspace:*
       '@maker-ui/spinners': workspace:*
       '@maker-ui/style': workspace:*
       '@maker-ui/tabs': workspace:*
@@ -444,6 +443,7 @@ importers:
       '@maker-ui/modal': link:../modal
       '@maker-ui/notifications': link:../notifications
       '@maker-ui/popovers': link:../popovers
+      '@maker-ui/social': link:../social
       '@maker-ui/spinners': link:../spinners
       '@maker-ui/style': link:../style
       '@maker-ui/tabs': link:../tabs

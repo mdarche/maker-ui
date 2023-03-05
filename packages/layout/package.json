@@ -15,8 +15,6 @@
       "require": "./dist/client.js",
       "types": "./dist/client.d.ts"
     },
-    "./layout.css": "./dist/index.css",
-    "./client.css": "./dist/client.css",
     "./package.json": "./package.json"
   },
   "scripts": {

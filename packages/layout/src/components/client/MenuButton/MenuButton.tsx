@@ -4,7 +4,6 @@ import * as React from 'react'
 import { useWindowSize } from '@maker-ui/hooks'
 import { cn } from '@maker-ui/utils'
 import { useLayout, useMenu } from '../Provider'
-import styles from './MenuButton.module.css'
 
 interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   close?: boolean
@@ -58,7 +57,7 @@ export const MenuButton = ({
   const attributes = {
     title: 'Menu',
     className: cn([
-      styles['btn-menu'],
+      'mkui-btn-menu',
       sideNav ? 'mkui-btn-collapse fixed' : undefined,
       sideNav && !side.showCollapseOnMobile ? 'mobile-hide' : undefined,
       sideNav && side.collapse ? 'desktop' : undefined,
@@ -86,10 +85,7 @@ export const MenuButton = ({
         <svg
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
-          className={cn([
-            styles['btn-menu-icon'],
-            close ? 'close' : undefined,
-          ])}>
+          className={cn(['mkui-btn-menu-icon', close ? 'close' : undefined])}>
           {close ? (
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
           ) : (

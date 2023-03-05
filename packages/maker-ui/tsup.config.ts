@@ -17,6 +17,7 @@ const config = buildConfig({
     modal: 'src/modal.ts',
     notifications: 'src/notifications.ts',
     popovers: 'src/popovers.ts',
+    social: 'src/social.ts',
     spinners: 'src/spinners.ts',
     tabs: 'src/tabs.ts',
     transition: 'src/transition.ts',

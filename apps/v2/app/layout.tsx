@@ -1,5 +1,4 @@
-// import 'maker-ui/layout.css'
-// import 'maker-ui/client.css'
+import 'maker-ui/layout.css'
 
 import '@/styles/variables.css'
 import '@/styles/global.css'

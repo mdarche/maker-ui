@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@maker-ui/generative": "workspace:*",
-    "@maker-ui/social": "workspace:*",
     "@maker-ui/toc": "workspace:*",
     "@next/bundle-analyzer": "^13.2.3",
     "maker-ui": "workspace:*",
