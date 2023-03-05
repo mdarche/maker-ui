@@ -10,6 +10,7 @@ const config = buildConfig({
   entry: {
     accordion: 'src/accordion.ts',
     carousel: 'src/carousel.ts',
+    forms: 'src/forms.ts',
     hooks: 'src/hooks.ts',
     index: 'src/index.ts',
     layout: 'src/layout.ts',

@@ -1,6 +1,6 @@
 import { Section } from 'maker-ui'
 import { FormDemo } from './forms'
-import '@maker-ui/forms/dist/index.css'
+// import '@maker-ui/forms/dist/index.css'
 
 export default function FormPage() {
   return (

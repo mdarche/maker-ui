@@ -20,6 +20,11 @@
       "require": "./dist/carousel.js",
       "types": "./dist/carousel.d.ts"
     },
+    "./forms": {
+      "import": "./dist/forms.mjs",
+      "require": "./dist/forms.js",
+      "types": "./dist/forms.d.ts"
+    },
     "./hooks": {
       "import": "./dist/hooks.mjs",
       "require": "./dist/hooks.js",
@@ -78,6 +83,7 @@
   "dependencies": {
     "@maker-ui/accordion": "workspace:*",
     "@maker-ui/carousel": "workspace:*",
+    "@maker-ui/forms": "workspace:*",
     "@maker-ui/hooks": "workspace:*",
     "@maker-ui/layout": "workspace:*",
     "@maker-ui/modal": "workspace:*",

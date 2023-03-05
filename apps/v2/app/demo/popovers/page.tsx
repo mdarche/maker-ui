@@ -1,7 +1,7 @@
 'use client'
 import { useState, useRef } from 'react'
 import { Section } from 'maker-ui'
-import { Popover, Dropdown, Tooltip } from '@maker-ui/elements'
+import { Popover, Dropdown, Tooltip } from 'maker-ui/popovers'
 import { useKeyboardShortcut } from 'maker-ui/hooks'
 import { ColorButton } from '@/client'
 

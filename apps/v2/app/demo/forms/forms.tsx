@@ -1,7 +1,7 @@
 'use client'
 import * as React from 'react'
 import { z } from 'zod'
-import { Form } from '@maker-ui/forms'
+import { Form } from 'maker-ui/forms'
 
 export function FormDemo() {
   const [success, setSuccess] = React.useState(false)

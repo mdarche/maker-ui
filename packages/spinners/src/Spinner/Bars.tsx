@@ -12,8 +12,6 @@ export const Bars = ({ size, colors, ...props }: SpinnerSVGProps) => {
     values: '1;0.2;1',
   }
 
-  console.log('colors are,', colors)
-
   const dynamic = [
     { color: colors[0], begin: '-.75', d: 'M13.5 30h13v40h-13z' },
     { color: colors[1], begin: '-.5', d: 'M33.5 30h13v40h-13z' },

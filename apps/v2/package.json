@@ -5,17 +5,19 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "analyze": "ANALYZE=true yarn build",
     "start": "next start"
   },
   "dependencies": {
-    "@maker-ui/forms": "workspace:*",
     "@maker-ui/generative": "workspace:*",
     "@maker-ui/social": "workspace:*",
     "@maker-ui/toc": "workspace:*",
+    "@next/bundle-analyzer": "^13.2.3",
     "maker-ui": "workspace:*",
     "next": "^13.2.3",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
+    "sharp": "^0.31.3",
     "zod": "^3.20.2"
   },
   "devDependencies": {
