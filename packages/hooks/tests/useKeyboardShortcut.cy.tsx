@@ -1,6 +1,18 @@
 import * as React from 'react'
 import { useKeyboardShortcut } from '../src'
 
+/**
+ * @hook
+ * useKeyboardShortcut
+ *
+ * @tests
+ * - Does not register any keyboard shortcuts if active is false
+ * - Triggers a callback when a matching keyboard shortcut is pressed
+ * - Does not trigger a callback when a non-matching keyboard shortcut is pressed
+ * - Properly handles modifier keys
+ * - Assigns keyboard shortcuts to a custom ref
+ */
+
 const MockComponent = ({
   shortcuts,
   customRef,
@@ -21,6 +33,8 @@ const MockComponent = ({
 }
 
 describe('useKeyboardShortcut', () => {
+  /* Does not register any keyboard shortcuts if active is false */
+
   it('does not register any keyboard shortcuts if active is false', () => {
     const callback = cy.stub().as('callback')
     const shortcuts = [{ key: 'KeyA', callback }]
@@ -29,6 +43,8 @@ describe('useKeyboardShortcut', () => {
     cy.get('body').type('a')
     cy.get('@callback').should('not.have.been.called')
   })
+
+  /* Triggers a callback when a matching keyboard shortcut is pressed */
 
   it('triggers a callback when a matching keyboard shortcut is pressed', () => {
     const callback = cy.stub().as('callback')
@@ -39,6 +55,8 @@ describe('useKeyboardShortcut', () => {
     cy.get('@callback').should('have.been.calledOnce')
   })
 
+  /* Does not trigger a callback when a non-matching keyboard shortcut is pressed */
+
   it('does not trigger callback when a non-matching keyboard shortcut is pressed', () => {
     const callback = cy.stub().as('callback')
     const shortcuts = [{ key: 'KeyA', callback }]
@@ -47,6 +65,8 @@ describe('useKeyboardShortcut', () => {
     cy.get('body').type('b')
     cy.get('@callback').should('not.have.been.calledOnce')
   })
+
+  /* Properly handles modifier keys */
 
   it('does not trigger callback when modifier keys do not match', () => {
     const callback = cy.stub().as('callback')
@@ -77,6 +97,8 @@ describe('useKeyboardShortcut', () => {
     cy.get('body').type('{ctrl}c')
     cy.get('@callback').should('have.been.calledThrice')
   })
+
+  /* Assigns keyboard shortcuts to a custom ref */
 
   it('only listens to keydown events on the ref element if provided', () => {
     const callback = cy.stub().as('callback')

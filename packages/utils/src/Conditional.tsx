@@ -10,7 +10,19 @@ interface ConditionalProps {
 }
 
 /**
- * Conditionally wraps children with a wrapper component.
+ * Conditionally wraps children with a custom component.
+ *
+ * @example
+ * <Conditional
+ *    condition={true}
+ *    wrapper={(children) => (
+ *      <div>
+ *        <span>This is only visible if the condition is true</span>
+ *        {children}
+ *      </div>
+ *    )}>
+ *    <div>This will always be visible</div>
+ * </Conditional>
  */
 export const Conditional = ({
   condition,

@@ -1,6 +1,16 @@
 import * as React from 'react'
 import { useFocusTrap } from '../src/useFocusTrap'
 
+/**
+ * @hook
+ * useFocusTrap
+ *
+ * @tests
+ * - Traps focus within the container when active
+ * - Does not trap focus when inactive
+ * - Invokes callback when focus is trapped
+ */
+
 const TestComponent = ({ callback }: { callback?: () => void }) => {
   const [active, setActive] = React.useState(true)
   const ref = React.useRef<HTMLDivElement>(null)
@@ -27,6 +37,8 @@ const TestComponent = ({ callback }: { callback?: () => void }) => {
     </div>
   )
 }
+
+/* Traps focus within the container when active */
 
 describe('useFocusTrap', () => {
   it('traps focus within the container when active', () => {
@@ -58,6 +70,8 @@ describe('useFocusTrap', () => {
     cy.focused().should('have.attr', 'placeholder', 'Input 2')
   })
 
+  /* Does not trap focus when inactive */
+
   it('does not trap focus when not active', () => {
     cy.mount(<TestComponent />)
     cy.get('[data-cy="activate"]').click()
@@ -71,6 +85,8 @@ describe('useFocusTrap', () => {
     cy.tab()
     cy.focused().should('have.text', 'Outside button 2')
   })
+
+  /* Invokes callback when focus is trapped */
 
   it('calls an exit callback function when active changes to false after previously being true', () => {
     const callback = cy.stub()

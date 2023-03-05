@@ -1,6 +1,15 @@
 import * as React from 'react'
 import { useWindowSize } from '../src/useWindowSize'
 
+/**
+ * @hook
+ * useWindowSize
+ *
+ * @tests
+ * - Returns the window size on every resize
+ * - Invokes a callback function on resize
+ */
+
 const TestComponent = ({ callback }: { callback?: () => void }) => {
   const { height, width } = useWindowSize(callback)
 
@@ -13,6 +22,8 @@ const TestComponent = ({ callback }: { callback?: () => void }) => {
 }
 
 describe('useWindowSize', () => {
+  /* Returns the window size on every resize */
+
   it('returns the window size on every resize', () => {
     cy.mount(<TestComponent />)
     cy.get('[data-cy="width"]').should('not.have.text', '500')
@@ -25,6 +36,8 @@ describe('useWindowSize', () => {
     cy.get('[data-cy="width"]').should('have.text', '800')
     cy.get('[data-cy="height"]').should('have.text', '1200')
   })
+
+  /* Invokes a callback function on resize */
 
   it('invokes a callback function on resize', () => {
     const callback = cy.stub()

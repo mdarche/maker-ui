@@ -1,6 +1,17 @@
 import * as React from 'react'
 import { useTimeLoop } from '../src'
 
+/**
+ * @hook
+ * useTimeLoop
+ *
+ * @tests
+ * - Invokes a callback function on timer completion
+ * - Passes the params array to the callback function
+ * - Can be paused, resumed, and restarted
+ * - Pauses the timer when the window is blurred
+ */
+
 const TestComponent = ({
   duration = 1,
   maxRuns = 2,
@@ -38,6 +49,8 @@ const TestComponent = ({
 }
 
 describe('useTimeLoop', () => {
+  /* Invokes a callback function on timer completion */
+
   it('invokes a callback function on timer completion', () => {
     const callback = cy.stub()
     const maxRuns = 2
@@ -47,6 +60,8 @@ describe('useTimeLoop', () => {
     cy.wrap(callback).should('have.been.calledTwice')
     cy.get('[data-cy="runs"]').should('have.text', maxRuns)
   })
+
+  /* Passes the params array to the callback function */
 
   it('passes the params array to the callback function', () => {
     const callback = cy.stub()
@@ -58,6 +73,8 @@ describe('useTimeLoop', () => {
       expect(args).to.equal(params)
     })
   })
+
+  /* Can be paused, resumed, and restarted */
 
   it('can be paused, resumed, and restarted', () => {
     cy.mount(<TestComponent />)
@@ -72,6 +89,8 @@ describe('useTimeLoop', () => {
     cy.get('[data-cy="restart"]').click()
     cy.get('[data-cy="runs"]').should('have.text', '0')
   })
+
+  /* Pauses the timer when the window is blurred with `pauseOnBlur` */
 
   it('pauses the timer when the window is blurred with pauseOnBlur', () => {
     cy.mount(<TestComponent pauseOnBlur />)

@@ -1,6 +1,17 @@
 import * as React from 'react'
 import { useCountdown } from '../src/useCountdown'
 
+/**
+ * @hook
+ * useCountdown
+ *
+ * @tests
+ * - Error: endDate parameter is required
+ * - Error: `onCountdownEnd` must be a function
+ * - Handles `endDate` that has passed
+ * - Invokes callback when countdown ends
+ */
+
 const TestComponent = ({
   time,
   onCountdownEnd,
@@ -24,6 +35,8 @@ const TestComponent = ({
 }
 
 describe('useCountdown', () => {
+  /* Error: endDate parameter is required */
+
   it('throws an error when no endDate is provided', () => {
     cy.mount(<TestComponent />)
     cy.on('uncaught:exception', (err) => {
@@ -31,6 +44,8 @@ describe('useCountdown', () => {
       return false
     })
   })
+
+  /* Error: `onCountdownEnd` must be a function */
 
   it('throws an error when onCountdownEnd is not a function', () => {
     const date = new Date()
@@ -42,6 +57,8 @@ describe('useCountdown', () => {
     })
   })
 
+  /* Returns the correct time difference */
+
   it('mounts a count down with the correct time', () => {
     cy.clock(Date.now())
     let endDate = new Date(Date.now() + 86400000) // 1 day from now
@@ -51,6 +68,8 @@ describe('useCountdown', () => {
     cy.get('[data-cy="hours"]').should('have.text', '23')
     cy.clock().then((clock) => clock.restore())
   })
+
+  /* Handles endDate that has passed */
 
   it('counts down to 0', () => {
     cy.clock(Date.now())
@@ -64,6 +83,8 @@ describe('useCountdown', () => {
     cy.get('[data-cy="expired"]').should('have.text', 'true')
     cy.clock().then((clock) => clock.restore())
   })
+
+  /* Invokes callback when countdown ends */
 
   it('calls onCountdownEnd when the countdown ends', () => {
     let onCountdownEnd = cy.stub().as('onCountdownEnd')

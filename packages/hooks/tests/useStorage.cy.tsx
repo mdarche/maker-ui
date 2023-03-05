@@ -1,6 +1,34 @@
 import * as React from 'react'
 import { useStorage, type StorageProps } from '../src/useStorage'
 
+/**
+ * @hook
+ * useStorage
+ *
+ * @tests
+ * Local Storage
+ * - Returns false when item does not exist and no value is provided
+ * - Saves to local storage when item does not exist and value is provided
+ * - Saves and serializes objects to local storage
+ * - Updates local storage when value changes
+ * - Returns false when item does not exist and no value is provided
+ * - Sets a new value with expiry when item has expired and value is provided
+ *
+ * Session Storage
+ * - Returns false when item does not exist and no value is provided
+ * - Saves to session storage when item does not exist and value is provided
+ * - Saves and serializes objects to session storage
+ * - Updates session storage when value changes
+ *
+ * Cookie Storage
+ * - Returns false when item does not exist and no value is provided
+ * - Saves to cookie storage when item does not exist and value is provided
+ * - Saves and serializes objects to cookie storage
+ * - Updates cookie storage when value changes
+ * - Returns false when item does not exist and no value is provided
+ * - Sets a new value with expiry when item has expired and value is provided
+ */
+
 interface Props {
   config: StorageProps
   toggleValue?: boolean

@@ -18,6 +18,7 @@ import { Tabs } from '../src'
  * - Prop: `activeKey`, `eventKey`
  * - Prop: `activeClass`
  * - Behavior: toggles the active tag when clicking a tab button
+ * - Behavior: properly handles keyboard interactions
  * Tabs.Panel
  * - Prop: `title` (component)
  * - Prop: `disabled`
@@ -252,7 +253,38 @@ describe('Tabs', () => {
 
   /* Behavior: toggles the active tag when clicking a tab button */
 
-  it.only('toggles the active tab when a tab button is clicked', () => {
+  it('toggles the active tab when a tab button is clicked', () => {
+    cy.mount(
+      <Tabs>
+        <Tabs.Panel title="Panel 1">
+          <p>
+            Panel content 1 <a href="#">Demo link 1</a>
+          </p>
+        </Tabs.Panel>
+        <Tabs.Panel title="Panel 2">
+          <p>
+            Panel content 2 <a href="#">Demo link 2</a>
+          </p>
+        </Tabs.Panel>
+        <Tabs.Panel title="Panel 3">
+          <p>
+            Panel content 3 <a href="#">Demo link</a>
+          </p>
+        </Tabs.Panel>
+      </Tabs>
+    )
+    cy.get('[role="tabpanel"]').first().should('have.css', 'display', 'block')
+    cy.get('button').first().should('not.have.attr', 'tabindex')
+    cy.get('button').last().click()
+    cy.get('button').first().should('have.attr', 'tabindex', '-1')
+    cy.get('button').last().should('have.class', 'active')
+    cy.get('[role="tabpanel"]').last().should('have.class', 'active')
+    cy.get('[role="tabpanel"].active').should('have.length', 1)
+    cy.get('[role="tabpanel"]').first().should('have.css', 'display', 'none')
+  })
+
+  /* Behavior: properly handles keyboard interactions */
+  it.only('properly handles keyboard interactions', () => {
     cy.mount(
       <Tabs>
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
@@ -260,14 +292,6 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 3">Panel content 3</Tabs.Panel>
       </Tabs>
     )
-    cy.get('[role="tabpanel"]').first().should('have.css', 'display', 'block')
-    cy.get('button').first().should('have.attr', 'tabindex', '0')
-    cy.get('button').last().click()
-    cy.get('button').first().should('have.attr', 'tabindex', '-1')
-    cy.get('button').last().should('have.class', 'active')
-    cy.get('[role="tabpanel"]').last().should('have.class', 'active')
-    cy.get('[role="tabpanel"].active').should('have.length', 1)
-    cy.get('[role="tabpanel"]').first().should('have.css', 'display', 'none')
   })
 })
 

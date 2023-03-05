@@ -14,6 +14,15 @@ type CamelToSnake<T extends string> = T extends `${infer Head}${infer Rest}`
 
 type CaseFormat = 'snake' | 'camel'
 
+/**
+ * Converts a deeply nested object from snake_case to camelCase or vice versa.
+ * Useful for converting API responses to a more JavaScript-friendly format.
+ *
+ * @param obj {T} the object to convert
+ * @param caseFormat {CaseFormat} the case format to convert to
+ * @returns {SnakeToCamel<T>} the converted object
+ *
+ */
 export function convertCase<T>(
   obj: T,
   caseFormat: CaseFormat

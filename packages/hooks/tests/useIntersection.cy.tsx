@@ -1,6 +1,17 @@
 import * as React from 'react'
 import { useIntersection } from '../src'
 
+/**
+ * @hook
+ * useIntersection
+ *
+ * @tests
+ * - Detects when an element is visible
+ * - Detects when an element is not visible
+ * - Detects when an element is visible with a custom offset
+ * - Invokes a callback when the element is visible
+ */
+
 interface Props {
   customRoot?: boolean
   offset?: number | string
@@ -39,6 +50,8 @@ const TestComponent = ({
 }
 
 describe('useIntersection', () => {
+  /* Detects when the target is visible */
+
   it('detects when the target is visible', () => {
     cy.mount(
       <>
@@ -48,6 +61,8 @@ describe('useIntersection', () => {
     )
     cy.get('[data-cy="target"]').should('have.text', 'Visible')
   })
+
+  /* Detects when the target is not visible */
 
   it('detects when the target is not visible', () => {
     cy.mount(
@@ -60,6 +75,8 @@ describe('useIntersection', () => {
     cy.wait(200)
     cy.get('[data-cy="target"]').should('have.text', 'Not visible')
   })
+
+  /* Handles the offset value */
 
   it('accounts for the offset value if provided', () => {
     cy.viewport(1280, 800)
@@ -75,6 +92,8 @@ describe('useIntersection', () => {
     cy.wait(200)
     cy.get('[data-cy="target"]').should('have.text', 'Visible')
   })
+
+  /* Handles the threshold value */
 
   it('accounts for the threshold value if provided', () => {
     // The intersection will only fire if the target is 100% visible
@@ -98,6 +117,8 @@ describe('useIntersection', () => {
     cy.wait(200)
     cy.get('[data-cy="target"]').should('have.text', 'Visible')
   })
+
+  /* Invokes callback when target is visible */
 
   it('calls the onIntersect callback when the target is visible', () => {
     const onIntersect = cy.stub()

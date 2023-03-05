@@ -10,6 +10,8 @@ import { Accordion } from '../src'
  * Accordion
  * - Render with defaults
  * - Successfully toggles open and closed
+ * - Error: invalid children
+ * - Error: no children
  * - Prop: `classNames`
  * - Prop: `activeClass`
  * - Prop: `animate`
@@ -64,6 +66,36 @@ describe('Accordion', () => {
     )
     cy.get('button').click()
     cy.get('[data-cy="panel"]').should('have.class', 'expanded')
+  })
+
+  /* Error: invalid children */
+
+  it('throws an error if children are not Accordion.Panel components', () => {
+    const msg = 'Accordion must only contain Accordion.Panel components.'
+    // Invalid children
+    cy.mount(
+      <Accordion>
+        <div>Non Panel 1</div>
+        <Accordion.Panel title="Panel 1">Panel content 1</Accordion.Panel>
+      </Accordion>
+    )
+    cy.on('uncaught:exception', (err) => {
+      expect(err.message).to.include(msg)
+      return false
+    })
+  })
+
+  /* Error: too few children */
+
+  it('throws an error if there are no children or less than two items', () => {
+    const msg = 'Accordion must contain a nested Accordion.Panel component.'
+    // No children
+    cy.mount(<Accordion></Accordion>)
+    cy.on('uncaught:exception', (err) => {
+      expect(err.message).to.include(msg)
+      return false
+    })
+    // Not enough children
   })
 
   /** Prop: classNames */

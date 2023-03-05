@@ -1,6 +1,17 @@
 import * as React from 'react'
 import { useScrollPosition } from '../src'
 
+/**
+ * @hook
+ * useScrollPosition
+ *
+ * @tests
+ * - Calls the onScroll callback on scroll
+ * - Does not call the onScroll callback when inactive
+ * - Properly throttles the onScroll callback with `wait` parameter
+ * - Tracks the correct scroll position
+ */
+
 interface TestComponentProps {
   onScroll?: (props: { prevPos: number; currPos: number }) => void
   wait?: number
@@ -17,6 +28,8 @@ const TestComponent = ({ onScroll, wait, active }: TestComponentProps) => {
 }
 
 describe('useScrollPosition', () => {
+  /* Calls the onScroll callback on scroll */
+
   it('calls the onScroll callback on scroll', () => {
     const onScroll = cy.stub().as('onScroll')
     const wait = 100
@@ -32,6 +45,8 @@ describe('useScrollPosition', () => {
     cy.get('@onScroll').should('have.been.calledOnce')
   })
 
+  /* Does not call the onScroll callback when inactive */
+
   it('does not call the onScroll callback when inactive', () => {
     const onScroll = cy.stub().as('onScroll')
     cy.mount(<TestComponent onScroll={onScroll} />)
@@ -39,6 +54,8 @@ describe('useScrollPosition', () => {
     cy.scrollTo(0, 500)
     cy.get('@onScroll').should('not.have.been.called')
   })
+
+  /* Properly throttles the onScroll callback with `wait` parameter */
 
   it('throttles the onScroll callback with the wait prop', async () => {
     const onScroll = cy.stub().as('onScroll')
@@ -49,6 +66,8 @@ describe('useScrollPosition', () => {
     cy.wait(3000)
     cy.wrap(onScroll).should('have.been.calledOnce')
   })
+
+  /* Tracks the correct scroll position */
 
   it('should update position.current with current position', () => {
     const onScroll = cy.stub().as('onScroll')

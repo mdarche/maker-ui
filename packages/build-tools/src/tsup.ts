@@ -17,6 +17,12 @@ const defaults: BuildSettings = {
   clean: false,
 }
 
+/**
+ * A simple wrapper around tsup to provide some default settings.
+ *
+ * @param settings {BuildSettings} - The settings to use when building the project
+ * @returns {Options} - Build options for tsup
+ */
 export const buildConfig = (p?: BuildSettings): Options => {
   const { global, ...props } = p || {}
   const settings: Options = { ...defaults, ...props }

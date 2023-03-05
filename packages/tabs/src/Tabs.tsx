@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { cn, generateId, merge } from '@maker-ui/utils'
 import { Style, type MakerCSS } from '@maker-ui/style'
-
-import { TabNavigation, getNavPosition } from './TabNavigation'
-import { TabPanel } from './TabPanel'
 import { useKeyboardShortcut } from '@maker-ui/hooks'
+
+import { TabPanel } from './TabPanel'
 
 export interface TabState {
   styleId: string
@@ -31,10 +30,6 @@ export interface TabsProps
    * @default true
    */
   renderInactive?: boolean
-  /** If true, the tab key and tab key + shift will navigate the tab buttons like the arrow keys.
-   * @default false
-   */
-  tabKeyNavigate?: boolean
   /** A custom class name to apply to the accordion button when it is active.
    * @default 'active'
    */
@@ -46,7 +41,7 @@ export interface TabsProps
 function validate(children: React.ReactNode) {
   React.Children.toArray(children).forEach((child: any) => {
     const type = child.props._type
-    if (!type) {
+    if (!type || type !== 'TabPanel') {
       throw new Error('Tabs must contain only Tabs.Panel components.')
     }
   })
@@ -65,7 +60,6 @@ export const Tabs = ({
   navPosition = 'top',
   overflow = 'stack',
   renderInactive = true,
-  tabKeyNavigate = false,
   activeClass = 'active',
   className,
   css = {},
@@ -94,9 +88,14 @@ export const Tabs = ({
   const position = getNavPosition({ isVertical, navPosition, overflow })
 
   const navigate = (type: 'next' | 'prev') => {
+    if (window === undefined) return
     const index = tabs.findIndex(({ id }) => id === state.activeKey)
     const next = index === tabs.length - 1 ? 0 : index + 1
     const prev = index === 0 ? tabs.length - 1 : index - 1
+    const navigation = document.querySelectorAll('.mkui-tabs-navigation button')
+    if (navigation.length) {
+      ;(navigation[type === 'next' ? next : prev] as HTMLButtonElement)?.focus()
+    }
     return setState((s) => ({ ...s, activeKey: type === 'prev' ? prev : next }))
   }
 
@@ -173,7 +172,7 @@ export const Tabs = ({
           css
         )}
       />
-      <div className="mkui-tab-navigation flex" role="tablist">
+      <div className="mkui-tabs-navigation flex" role="tablist">
         {tabs.map((item) => (
           <TabButton
             key={item.id}
@@ -183,26 +182,11 @@ export const Tabs = ({
             navigate={navigate}
             settings={{
               isVertical,
-              tabKeyNavigate,
               activeClass,
-              length: tabs.length,
             }}
           />
         ))}
       </div>
-      {/* <TabNavigation
-        activeKey={state.activeKey}
-        setActiveKey={(k) => setState((s) => ({ ...s, activeKey: k }))}
-        tabs={tabs}
-        settings={{
-          isVertical,
-          navPosition,
-          overflow,
-          breakpoints,
-          tabKeyNavigate,
-          activeClass,
-        }}
-      /> */}
       {panels?.map(
         (
           { props: { title, className, eventKey, open, disabled, ...rest } },
@@ -229,7 +213,6 @@ export const Tabs = ({
 }
 
 interface TabButtonProps {
-  index: number
   activeKey: string | number
   setActiveKey: (s: number) => void
   navigate: (type: 'next' | 'prev') => void
@@ -239,15 +222,12 @@ interface TabButtonProps {
     disabled?: boolean
   }
   settings: {
-    tabKeyNavigate?: boolean
     isVertical?: boolean
-    length: number
     activeClass: string
   }
 }
 
 const TabButton = ({
-  index,
   activeKey,
   setActiveKey,
   navigate,
@@ -260,25 +240,9 @@ const TabButton = ({
   useKeyboardShortcut(
     [
       {
-        key: 'Tab',
-        callback: (e: KeyboardEvent) => {
-          if (settings?.tabKeyNavigate) {
-            if (e.shiftKey) {
-              if (index === 0) return
-              e.preventDefault()
-              navigate('prev')
-            } else {
-              if (index === length - 1) return
-              e.preventDefault()
-              return navigate('next')
-            }
-          }
-        },
-      },
-      {
         key: 'ArrowUp',
         callback: (e: KeyboardEvent) => {
-          if (!settings?.isVertical) {
+          if (!settings.isVertical) {
             e.preventDefault()
             navigate('prev')
           }
@@ -287,7 +251,7 @@ const TabButton = ({
       {
         key: 'ArrowDown',
         callback: (e: KeyboardEvent) => {
-          if (!settings?.isVertical) {
+          if (settings?.isVertical) {
             e.preventDefault()
             navigate('next')
           }
@@ -297,7 +261,10 @@ const TabButton = ({
         key: 'ArrowRight',
         callback: () => navigate('next'),
       },
-      { key: 'ArrowLeft', callback: () => navigate('prev') },
+      {
+        key: 'ArrowLeft',
+        callback: () => navigate('prev'),
+      },
     ],
     ref
   )
@@ -325,3 +292,40 @@ const TabButton = ({
 
 Tabs.displayName = 'Tabs'
 Tabs.Panel = TabPanel
+
+interface PositionProps {
+  isVertical?: boolean
+  overflow?: TabsProps['overflow']
+  navPosition?: TabsProps['navPosition']
+}
+/**
+ * Generate positioning and overflow CSS styles
+ */
+export const getNavPosition = ({
+  isVertical,
+  navPosition,
+  overflow,
+}: PositionProps): object => {
+  const shared = {
+    overflowX: overflow === 'scroll' ? 'scroll' : undefined,
+    flexWrap: overflow === 'stack' ? 'wrap' : 'nowrap',
+    button:
+      overflow === 'scroll'
+        ? {
+            flex: ['1 0 auto', 'none'],
+          }
+        : undefined,
+  }
+
+  return isVertical
+    ? {
+        ...shared,
+        flexDirection: overflow === 'stack' ? ['column', 'row'] : 'row',
+        order: navPosition === 'top' ? 1 : 2,
+      }
+    : {
+        ...shared,
+        flexDirection: overflow === 'stack' ? 'column' : ['row', 'column'],
+        order: navPosition === 'left' ? 1 : 2,
+      }
+}
