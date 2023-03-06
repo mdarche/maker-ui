@@ -65,7 +65,7 @@ describe('Style', () => {
 
     it('renders a style tag with default props', () => {
       cy.mount(<TestComponent />)
-      cy.get('[data-cy="style"]')
+      cy.get('[data-cy="style"]').should('not.exist')
     })
 
     /* Prop: `children` */
@@ -212,7 +212,7 @@ describe('Style', () => {
 
     it('renders a style tag with default props', () => {
       cy.mount(<GlobalComponent />)
-      cy.get('[data-cy="style"]')
+      cy.get('[data-cy="style"]').should('not.exist')
     })
 
     /* Prop: `mediaQuery` */

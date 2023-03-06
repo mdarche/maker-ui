@@ -165,7 +165,7 @@ export const Tabs = ({
                   }
                 : undefined,
             },
-            '.mkui-tab-navigation': {
+            '[role="tablist"]': {
               ...position,
             },
           },

@@ -133,20 +133,16 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.mkui-tab-navigation').should(
-      'have.css',
-      'flex-direction',
-      'column'
-    )
-    cy.get('.mkui-tab-navigation').should('have.css', 'flex-wrap', 'wrap')
+    cy.get('[role="tablist"]').should('have.css', 'flex-direction', 'column')
+    cy.get('[role="tablist"]').should('have.css', 'flex-wrap', 'wrap')
     cy.mount(
       <Tabs overflow="scroll">
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.mkui-tab-navigation').should('have.css', 'overflow-x', 'scroll')
-    cy.get('.mkui-tab-navigation').should('have.css', 'flex-wrap', 'nowrap')
+    cy.get('[role="tablist"]').should('have.css', 'overflow-x', 'scroll')
+    cy.get('[role="tablist"]').should('have.css', 'flex-wrap', 'nowrap')
   })
 
   /* Prop: `navPosition` */
@@ -159,7 +155,7 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.mkui-tab-navigation').should('have.css', 'order', '1')
+    cy.get('[role="tablist"]').should('have.css', 'order', '1')
     // Bottom
     cy.mount(
       <Tabs navPosition="bottom">
@@ -167,7 +163,7 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.mkui-tab-navigation').should('have.css', 'order', '2')
+    cy.get('[role="tablist"]').should('have.css', 'order', '2')
     // Left
     cy.mount(
       <Tabs navPosition="left">
@@ -175,7 +171,7 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.mkui-tab-navigation').should('have.css', 'order', '1')
+    cy.get('[role="tablist"]').should('have.css', 'order', '1')
     // Right
     cy.mount(
       <Tabs navPosition="right">
@@ -183,7 +179,7 @@ describe('Tabs', () => {
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
       </Tabs>
     )
-    cy.get('.mkui-tab-navigation').should('have.css', 'order', '2')
+    cy.get('[role="tablist"]').should('have.css', 'order', '2')
   })
 
   /* Prop: `activeEventKey`, `eventKey` */
@@ -284,7 +280,7 @@ describe('Tabs', () => {
   })
 
   /* Behavior: properly handles keyboard interactions */
-  it.only('properly handles keyboard interactions', () => {
+  it('properly handles keyboard interactions', () => {
     cy.mount(
       <Tabs>
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>

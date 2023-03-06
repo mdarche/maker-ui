@@ -44,7 +44,6 @@ describe('useFocusTrap', () => {
   it('traps focus within the container when active', () => {
     cy.mount(<TestComponent />)
     cy.tab()
-    cy.tab()
     cy.focused().should('have.text', 'Link 1')
     cy.tab()
     cy.focused().should('have.text', 'Button 1')

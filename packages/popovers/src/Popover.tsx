@@ -1,17 +1,22 @@
 import React, { useState, useLayoutEffect, useRef } from 'react'
 import { cn, generateId } from '@maker-ui/utils'
-import { useFocusTrap, useResizeObserver, useWindowSize } from '@maker-ui/hooks'
+import {
+  useFocusTrap,
+  useKeyboardShortcut,
+  useResizeObserver,
+  useWindowSize,
+} from '@maker-ui/hooks'
 import { Portal } from '@maker-ui/modal'
 import { Transition, type TransitionState } from '@maker-ui/transition'
-import { type ResponsiveCSS, type Breakpoints, Style } from '@maker-ui/style'
+import { type MakerCSS, Style } from '@maker-ui/style'
 
 import { getTransition, Position, TransitionType } from './position'
 
 export type Offset = { x: number; y: number } | number
 
-export interface PopoverProps extends React.HTMLAttributes<HTMLDivElement> {
-  css?: ResponsiveCSS
-  breakpoints?: Breakpoints
+export interface PopoverProps
+  extends MakerCSS,
+    React.HTMLAttributes<HTMLDivElement> {
   /** A boolean that indicates if the popover is active. */
   show: boolean
   /** A setter for the show boolean that lets the popover close itself. */
@@ -102,37 +107,48 @@ export const Popover = ({
   const popoverRef = useRef<HTMLDivElement>(null)
   // Inner contents height and width
   const [state, setState] = useState({
-    height: 0,
-    width: 0,
-  })
-  // Anchor element measurements
-  const [box, setBox] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    x: 0,
-    y: 0,
-    height: 0,
-    width: 0,
-    documentTop: 0,
+    popover: {
+      height: 0,
+      width: 0,
+    },
+    anchor: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      documentTop: 0,
+    },
     measured: false,
     isMeasuring: true,
   })
-  useWindowSize(resize)
-  useResizeObserver({ ref: anchorRef, onResize: resize })
+
+  // Trap focus and handle keyboard esc key
+  useKeyboardShortcut([{ key: 'Escape', callback: () => set(false) }])
+  useFocusTrap(popoverRef, trapFocus && show ? true : false)
+  // Observe window resize
+  useWindowSize(measureAnchor)
+  // Observe anchor resize
+  useResizeObserver({ ref: anchorRef, onResize: measureAnchor })
+  // Observe popover inner content resize (when active)
   const { ref } = useResizeObserver({
     onResize: ({ height, width }) => {
       if (height && width) {
-        setState({ height, width: matchWidth ? box?.width : width })
+        setState((s) => ({
+          ...s,
+          popover: { height, width: matchWidth ? s.anchor?.width : width },
+        }))
       }
     },
   })
 
   /** Configure animation states based on `transition` and `transitionState` props */
 
-  const animations = getTransition(state.height ? transition : 'none')
-  const popoverTransition: TransitionState = (state.height &&
+  const animations = getTransition(state.popover.height ? transition : 'none')
+  const popoverTransition: TransitionState = (state.popover.height &&
     transitionState) || {
     start: animations.start,
     entering: animations.enter,
@@ -143,7 +159,7 @@ export const Popover = ({
 
   /** Grab the latest getBoundingClientRect for a the anchor React ref */
 
-  function resize() {
+  function measureAnchor() {
     if (anchorRef.current) {
       const { top, bottom, left, right, x, y, height, width } =
         anchorRef.current.getBoundingClientRect()
@@ -151,152 +167,89 @@ export const Popover = ({
       if (matchWidth) {
         setState((s) => ({ ...s, width }))
       }
-      setBox({
-        top,
-        bottom,
-        left,
-        right,
-        x,
-        y,
-        height,
-        width,
-        documentTop: top + document.documentElement.scrollTop,
+      setState((s) => ({
+        ...s,
+        anchor: {
+          top,
+          bottom,
+          left,
+          right,
+          x,
+          y,
+          height,
+          width,
+          documentTop: top + document.documentElement.scrollTop,
+        },
         measured: true,
         isMeasuring: false,
-      })
+      }))
     }
   }
 
   /**
-   * Get all relevant focusable elements.
+   * Measure the anchor ref element if it has not already been measured.
    */
-  // const { focusable } = useFocus({
-  //   containerRef: popoverRef,
-  //   focusRef: anchorRef,
-  //   show,
-  // })
-
-  useFocusTrap(popoverRef, trapFocus && show ? true : false)
-
-  /**
-   * Add focus trap and update tab sequence for popovers attached to body
-   */
-  // const handleKeyDown = useCallback(
-  //   (e: KeyboardEvent) => {
-  //     const setFocus = (
-  //       close?: boolean,
-  //       focus?: 'anchor' | 'next' | 'first' | 'last',
-  //       preventDefault?: boolean
-  //     ) => {
-  //       if (close) set(false)
-  //       if (preventDefault) e.preventDefault()
-
-  //       return focus === 'anchor'
-  //         ? anchorRef.current.focus()
-  //         : focus === 'next'
-  //         ? focusable.next?.focus()
-  //         : focus === 'first'
-  //         ? focusable.first?.focus()
-  //         : focus === 'last'
-  //         ? focusable.last?.focus()
-  //         : anchorRef.current.focus()
-  //     }
-
-  //     switch (e.code) {
-  //       case 'Esc':
-  //       case 'Escape':
-  //         return trapFocus
-  //           ? setFocus(true, _type === 'dropdown' ? 'anchor' : 'next')
-  //           : null
-  //       case 'Tab':
-  //         if (e.shiftKey && document.activeElement === focusable.first) {
-  //           return trapFocus
-  //             ? setFocus(false, 'last', true)
-  //             : closeOnBlur
-  //             ? setFocus(true, 'anchor', true)
-  //             : null
-  //         }
-  //         if (!e.shiftKey && document.activeElement === focusable.last) {
-  //           return trapFocus
-  //             ? setFocus(false, 'first', true)
-  //             : setFocus(
-  //                 closeOnBlur ? true : false,
-  //                 _type === 'dropdown' ? 'anchor' : 'next',
-  //                 true
-  //               )
-  //         }
-  //         return
-  //       default:
-  //         return
-  //     }
-  //   },
-  //   [anchorRef, closeOnBlur, focusable, set, trapFocus, _type]
-  // )
-
-  // Lifecycle events
-
   useLayoutEffect(() => {
-    if (show && !box.isMeasuring) {
-      setBox({ ...box, measured: false, isMeasuring: true })
+    if (show && !state.isMeasuring) {
+      setState((s) => ({ ...s, measured: false, isMeasuring: true }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show])
 
+  /**
+   * Fire the resize function if the anchor ref is being measured.
+   */
   useLayoutEffect(() => {
-    if (box.isMeasuring) {
-      resize()
+    if (state.isMeasuring) {
+      measureAnchor()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [box.isMeasuring])
-
-  // useEffect(() => {
-  //   const ref = popoverRef.current
-  //   ref?.addEventListener(`keydown`, handleKeyDown)
-
-  //   return () => ref?.removeEventListener(`keydown`, handleKeyDown)
-  // }, [handleKeyDown])
+  }, [state.isMeasuring])
 
   /**
    * Get the popover's X and Y position by calculating its distance to the anchor ref element.
+   *
    * This effect only fires if the anchor ref has already been measured and the `appendTo`
    * prop is not set.
    */
   function getPosition() {
-    if (appendTo || !box.measured) return {}
+    if (appendTo || !state.measured) return {}
     const gapX = typeof offset === 'object' ? offset.x : offset
     const gapY = typeof offset === 'object' ? offset.y : offset
 
     const x =
       position.x === 'center'
-        ? box.left + box.width / 2 - state.width / 2
+        ? state.anchor.left + state.anchor.width / 2 - state.popover.width / 2
         : position.x === 'left'
-        ? box.left - state.width - gapX
+        ? state.anchor.left - state.popover.width - gapX
         : position.x === 'right'
-        ? box.right + gapX
-        : box.left
+        ? state.anchor.right + gapX
+        : state.anchor.left
 
     const y =
       position.y === 'top'
-        ? box.documentTop - state.height - gapY
+        ? state.anchor.documentTop - state.popover.height - gapY
         : position.y === 'bottom'
-        ? box.documentTop + box.height + gapY
+        ? state.anchor.documentTop + state.anchor.height + gapY
         : position.y === 'center'
-        ? box.documentTop + box.height / 2 - state.height / 2
+        ? state.anchor.documentTop +
+          state.anchor.height / 2 -
+          state.popover.height / 2
         : 0
 
-    const offscreenX = x < 0 || x + state.width > window.innerWidth
-    const offscreenY = y < 0 || y + state.height > window.innerHeight
+    const offscreenX = x < 0 || x + state.popover.width > window.innerWidth
+    const offscreenY = y < 0 || y + state.popover.height > window.innerHeight
 
     return {
       left: offscreenX
         ? position.x === 'left'
           ? 0
-          : window.innerWidth - state.width
+          : window.innerWidth - state.popover.width
         : x,
       top: offscreenY
         ? position.y === 'top'
           ? 0
-          : window.innerHeight - state.height
+          : window.innerHeight - state.popover.height
         : y,
     }
   }
@@ -304,7 +257,7 @@ export const Popover = ({
   return (
     <Portal root={appendTo}>
       <Transition
-        show={!state.height ? true : show}
+        show={!state.popover.height ? true : show}
         nodeRef={popoverRef}
         timeout={duration}
         transitionState={popoverTransition}
@@ -319,9 +272,9 @@ export const Popover = ({
           ]),
           style: {
             ...getPosition(),
-            width: matchWidth ? state.width : undefined,
-            visibility: !state.height ? 'hidden' : undefined,
-            opacity: !state.height ? 0 : undefined,
+            width: matchWidth ? state.popover.width : undefined,
+            visibility: !state.popover.height ? 'hidden' : undefined,
+            opacity: !state.popover.height ? 0 : undefined,
           },
           ...rest,
         }}>
