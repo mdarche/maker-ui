@@ -1,1 +1,1 @@
-export { MobileMenu } from './MobileMenu'
+export { MobileMenu, type MobileMenuProps } from './MobileMenu'

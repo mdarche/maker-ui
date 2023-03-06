@@ -2,12 +2,14 @@
 
 import * as React from 'react'
 import { merge } from '@maker-ui/utils'
+import { useWindowSize } from '@maker-ui/hooks'
+import { usePathname } from 'next/navigation'
+
 import { Effects } from './Effects'
 import headerStyles from '../server/Header/responsive'
-import layoutStyles from '../server/Layout/responsive'
+import { getLayoutStyles } from '../server/Layout/responsive'
 import type { MakerUIOptions, Options } from '@/types'
 import { defaults } from '@/defaults'
-import { useWindowSize } from '@maker-ui/hooks'
 
 type Action =
   | { type: 'SET_MENU'; value?: boolean }
@@ -120,6 +122,7 @@ function reducer(state: LayoutState, action: Action): LayoutState {
 }
 
 export const Provider = (props: LayoutProviderProps) => {
+  const pathname = usePathname()
   const [initialized, setInitialized] = React.useState(false)
   const options = merge(defaults, props.options || {}) as Options
   const [state, dispatch] = React.useReducer(reducer, {
@@ -167,7 +170,9 @@ export const Provider = (props: LayoutProviderProps) => {
    */
   React.useEffect(() => {
     const exists = document.getElementById('mkui-responsive')
-    if (exists) return
+    if (exists) {
+      exists.remove()
+    }
 
     let header = false
     let topbar = false
@@ -185,14 +190,14 @@ export const Provider = (props: LayoutProviderProps) => {
     const style = document.createElement('style')
     let css = ''
     css += headerStyles(options, { topbar, header })
-    css += layoutStyles(options, { topbar, header })
+    css += getLayoutStyles(options, { topbar, header })
 
     style.textContent = css
     style.id = 'mkui-responsive'
 
     document.head.appendChild(style)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [pathname])
 
   React.useEffect(() => {
     if (initialized) return

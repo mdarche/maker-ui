@@ -50,11 +50,3 @@ export const SideNav = ({
 
 SideNav.displayName = 'SideNav'
 SideNav.defaultProps = { _type: 'sideNav' }
-
-// interface ContainerProps {
-//   isHeader: boolean
-//   [key: string]: any
-// }
-
-// const Container = ({ isHeader, ...props }: ContainerProps) =>
-//   isHeader ? <header {...props} /> : <div {...props} />

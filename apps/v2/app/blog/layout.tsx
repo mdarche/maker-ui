@@ -12,35 +12,7 @@ import {
 
 const menu: MenuItemProps[] = [
   { label: 'Home', path: '/' },
-  {
-    label: 'Demo',
-    path: '/about',
-    openNested: true,
-    submenu: [
-      { label: 'Accordion', path: '/demo/accordion' },
-      { label: 'Carousel', path: '/demo/carousel' },
-      { label: 'Forms', path: '/demo/forms' },
-      { label: 'Lightbox', path: '/demo/lightbox' },
-      { label: 'Modal', path: '/demo/modal' },
-      { label: 'Notifications', path: '/demo/notifications' },
-      { label: 'Popovers', path: '/demo/popovers' },
-      { label: 'Social', path: '/demo/social' },
-      { label: 'Spinners', path: '/demo/spinners' },
-      { label: 'Style', path: '/demo/style' },
-      { label: 'Tabs', path: '/demo/tabs' },
-      { label: 'Transition', path: '/demo/transition' },
-    ],
-  },
   { label: 'Workspace', path: '/workspace' },
-  {
-    label: 'Megamenu',
-    path: '/about',
-    megamenu: (
-      <div style={{ height: 200, width: 200, background: '#000' }}>
-        Lets go!
-      </div>
-    ),
-  },
 ]
 
 export default function RootLayout({
@@ -86,7 +58,7 @@ const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
   layout: 'sidenav-content',
   topbar: {
-    sticky: true,
+    sticky: false,
     stickyOnMobile: false,
     hideOnMobile: false,
   },

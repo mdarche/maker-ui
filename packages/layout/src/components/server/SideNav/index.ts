@@ -1,1 +1,1 @@
-export { SideNav } from './SideNav'
+export { SideNav, type SideNavProps } from './SideNav'

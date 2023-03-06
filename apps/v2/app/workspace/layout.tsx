@@ -23,7 +23,7 @@ export default function WorkspaceLayout({
   return (
     <Provider options={options}>
       <Layout options={options}>
-        <Layout.Topbar>Test topbar</Layout.Topbar>
+        {/* <Layout.Topbar>Test topbar</Layout.Topbar> */}
         <Layout.Header
           logo={<Link href="/">Logo</Link>}
           menu={<NavMenu menuItems={menu} />}

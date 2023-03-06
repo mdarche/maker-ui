@@ -1,23 +1,40 @@
 import * as React from 'react'
 import { cn, merge } from '@maker-ui/utils'
-import { MobileMenu } from '../MobileMenu'
-import { Footer } from '../Footer'
-import { Topbar } from '../Topbar'
-import { Main } from '../Main'
-import { SideNav } from '../SideNav'
-import { Sidebar } from '../Sidebar'
-import { Workspace } from '../Workspace'
+
 import { Skiplinks } from '../Skiplinks'
-import { Header } from '../Header'
-import { defaults } from '@/defaults'
+import { Footer, type FooterProps } from '../Footer'
+import { Topbar, type TopbarProps } from '../Topbar'
+import { MobileMenu, type MobileMenuProps } from '../MobileMenu'
+import { Main, type MainProps } from '../Main'
+import { SideNav, type SideNavProps } from '../SideNav'
+import { Sidebar, type SidebarProps } from '../Sidebar'
+import { Workspace, type WorkspaceProps } from '../Workspace'
+import { Header, type HeaderProps } from '../Header'
 import type { MakerUIOptions, Options } from '@/types'
+import { defaults } from '@/defaults'
 
 interface LayoutProps {
   children: React.ReactNode
   /** A valid Maker UI Options configuration object */
   options?: MakerUIOptions
+  /** All Layout dot props in object form. This comes in handy if you have many layouts
+   * or if you need to fetch layouts with network requests. */
+  slots?: {
+    topbar?: Partial<TopbarProps>
+    header?: Partial<HeaderProps>
+    mobileMenu?: Partial<MobileMenuProps>
+    main?: Partial<MainProps>
+    sidebar?: Partial<SidebarProps>
+    sideNav?: Partial<SideNavProps>
+    footer?: Partial<FooterProps>
+    workspace?: Partial<WorkspaceProps>
+  }
 }
 
+/**
+ * This function sorts all Layout dot children into an object with corresponding keys.
+ * We use this to merge JSX with the slots prop and MakerUIOptions.
+ */
 function assign(children: React.ReactNode) {
   let c: { [k: string]: any } = {}
 
@@ -36,9 +53,10 @@ function assign(children: React.ReactNode) {
  *
  * @link https://maker-ui.com/docs/layout/layout
  */
-export const Layout = ({ options = {}, children }: LayoutProps) => {
+export const Layout = ({ options = {}, children, ...props }: LayoutProps) => {
   const opts = merge(defaults, options) as Options
   const slots = assign(children)
+  // const slots = merge(assign(children), props?.slots || {})
   // Helpers
   const isSidebar = slots.sidebar && opts.layout.includes('sidebar')
   const isSideNav = slots.sideNav && opts.layout.includes('sidenav')

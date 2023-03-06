@@ -1,6 +1,6 @@
 import { Options } from '@/types'
 
-function getStyles(
+export function getLayoutStyles(
   { layout, topbar, header, content, sideNav }: Options,
   children: { topbar: boolean; header: boolean }
 ) {
@@ -161,7 +161,7 @@ function getStyles(
         }
         .mkui-panel-left .mkui-panel-inner, .mkui-panel-right .mkui-panel-inner {
           top: calc(${getTop()});
-          height: calc(100vh - ${getTop(true)});
+          height: calc(100vh - ${() => getTop(true)});
         }
         .mkui-workspace {
           grid-template-columns: var(--width-left-panel-collapse, 0) 1fr var(--width-right-panel-collapse, 0);
@@ -184,5 +184,3 @@ function getStyles(
 
   return styles
 }
-
-export default getStyles
