@@ -67,7 +67,6 @@ export interface PopoverProps
    */
   duration?: number
   /** @internal */
-  _type?: 'popover' | 'dropdown' | 'tooltip'
   /** The child component of the Popover */
   children: React.ReactNode
 }
@@ -101,7 +100,6 @@ export const Popover = ({
   duration = 200,
   transitionState,
   children,
-  _type = 'popover',
   ...rest
 }: PopoverProps) => {
   const [styleId] = useState(generateId())
@@ -148,6 +146,13 @@ export const Popover = ({
   // Observe popover inner content resize (when active)
   const { ref } = useResizeObserver({
     onResize: ({ height, width }) => {
+      console.log(
+        'Match width is ',
+        matchWidth,
+        height,
+        width,
+        state.anchor?.width
+      )
       if (height && width) {
         setState((s) => ({
           ...s,
@@ -176,11 +181,12 @@ export const Popover = ({
       const { top, bottom, left, right, x, y, height, width } =
         anchorRef.current.getBoundingClientRect()
       if (!height && !width) return
-      if (matchWidth) {
-        setState((s) => ({ ...s, width }))
-      }
       setState((s) => ({
         ...s,
+        popover: {
+          ...s.popover,
+          width: matchWidth ? width : s.popover.width,
+        },
         anchor: {
           top,
           bottom,

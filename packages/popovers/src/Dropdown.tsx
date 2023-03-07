@@ -41,6 +41,7 @@ export const Dropdown = ({
   controls,
   css,
   children,
+  ...props
 }: DropdownProps) => {
   const [styleId] = useState(generateId())
   const [show, set] = useState(false)
@@ -87,16 +88,16 @@ export const Dropdown = ({
         styleId,
         className,
         classNames?.container,
-      ])}>
+      ])}
+      {...props}>
       {typeof button === 'function' ? (
         button(controls ? controls[0] : show, attrs)
       ) : (
         <button {...attrs}>{button}</button>
       )}
-      {css && <Style root={styleId} css={css} />}
+      <Style root={styleId} css={css} />
       <div className="mkui-dropdown-inner" ref={dropdownRef}>
         <Popover
-          _type="dropdown"
           show={controls ? controls[0] : show}
           set={controls ? controls[1] : set}
           {...{

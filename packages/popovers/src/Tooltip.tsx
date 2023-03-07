@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { cn, generateId } from '@maker-ui/utils'
+import { cn, generateId, merge } from '@maker-ui/utils'
 import { Style, type ResponsiveCSS } from '@maker-ui/style'
 
 import { Popover, PopoverProps } from './Popover'
@@ -25,6 +25,10 @@ interface TooltipProps
   position?: 'top' | 'bottom' | 'left' | 'right'
   /** Responsive CSS that is applied to the Tooltip button. */
   cssButton?: ResponsiveCSS
+  /** The Tooltip background color */
+  background?: string
+  /** The Tooltip text color */
+  color?: string
 }
 
 /**
@@ -43,6 +47,8 @@ export const Tooltip = ({
   css,
   cssButton = {},
   transition = 'fade',
+  background = 'rgba(0,0,0,0.9)',
+  color = '#fff',
   children,
   ...props
 }: TooltipProps) => {
@@ -57,7 +63,7 @@ export const Tooltip = ({
       onMouseOver={() => set(true)}
       onMouseOut={() => set(false)}
       {...props}>
-      {cssButton && <Style root={styleId} css={cssButton} />}
+      {<Style root={styleId} css={cssButton} />}
       <button
         ref={ref}
         className={cn(['mkui-btn-tooltip', classNames?.button, styleId])}
@@ -69,7 +75,6 @@ export const Tooltip = ({
         {label}
       </button>
       <Popover
-        _type="tooltip"
         id={`tooltip-${styleId}`}
         className={cn(['mkui-tooltip', classNames?.tooltip])}
         {...{
@@ -80,7 +85,7 @@ export const Tooltip = ({
           transition,
           show,
           set,
-          css,
+          css: merge({ background, color }, css || {}),
         }}>
         {children}
       </Popover>

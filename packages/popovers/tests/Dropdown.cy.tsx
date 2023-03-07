@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import * as React from 'react'
 import { Dropdown } from '../src'
 
 /**
@@ -7,8 +7,7 @@ import { Dropdown } from '../src'
  *
  * @tests
  * - Render with defaults
- * - Prop: `buttonCss`
- * - Prop: `css`, `_css`
+ * - Prop: `css`
  * - Prop: `button` (string, component, callback)
  * - Prop: `matchWidth`
  * - Prop: `trapFocus`
@@ -24,27 +23,29 @@ describe('Dropdown', () => {
 
   it('renders with default props', () => {
     cy.mount(<Dropdown>test content</Dropdown>)
+    cy.get('test content').should('not.exist')
     cy.get('button').click()
     cy.contains('test content')
   })
 
-  /* Prop: `buttonCss` */
-  it('applies styles to button with `buttonCss`', () => {
-    cy.mount(<Dropdown buttonCss={{ color: 'red' }}>test content</Dropdown>)
-    cy.get('button').should('have.color', 'red')
-  })
-
-  /* Prop: `css`, `_css` */
+  /* Prop: `css` */
 
   it('applies styles the direct content wrapper with `css`', () => {
     cy.mount(
-      <Dropdown css={{ background: 'purple' }} _css={{ background: 'green' }}>
-        test content
+      <Dropdown
+        data-cy="dropdown"
+        css={{
+          background: '#000',
+          button: { fontSize: 72 },
+          '.content': { padding: 30 },
+        }}>
+        <div className="content">test content</div>
       </Dropdown>
     )
+    cy.get('button').should('have.css', 'font-size', '72px')
     cy.get('button').click()
-    cy.get('.dropdown').should('have.backgroundColor', 'green')
-    cy.get('.popover .container').should('have.backgroundColor', 'purple')
+    cy.get('[data-cy="dropdown"]').should('have.backgroundColor', '#000')
+    cy.get('.content').should('have.css', 'padding', '30px')
   })
 
   /* Prop: `button` (string) */
@@ -81,62 +82,60 @@ describe('Dropdown', () => {
         test content
       </Dropdown>
     )
+    cy.contains('Open')
     cy.get('#custom-btn').click()
-    cy.contains('test content')
+    cy.contains('Close')
   })
 
   /* Prop: `matchWidth` */
 
   it('matches the container width to the button width', () => {
     cy.mount(
-      <Dropdown matchWidth buttonCss={{ width: 500 }}>
+      <Dropdown matchWidth css={{ button: { width: 500 } }}>
         test content
       </Dropdown>
     )
     cy.get('button').click()
     cy.contains('test content')
-    cy.get('.popover').should('have.css', 'width', '500px')
+    cy.get('[role="listbox"]').should('have.css', 'width', '500px')
 
     cy.mount(
       <Dropdown
         matchWidth
-        buttonCss={{ border: 'none', padding: 0 }}
+        css={{ button: { border: 'none', padding: 0 } }}
         button={<div style={{ width: 303 }}>Button inner</div>}>
         new content
       </Dropdown>
     )
     cy.contains('Button inner').click()
     cy.contains('new content')
-    cy.get('.popover').should('have.css', 'width', '303px')
+    cy.get('[role="listbox"]').should('have.css', 'width', '303px')
   })
 
   /* Prop: `trapFocus` */
 
   it('traps focus in the dropdown with the `trapFocus` prop', () => {
     cy.mount(
-      <Dropdown trapFocus>
-        <button id="btn-1">Popover button</button>
-        <button id="btn-2">Popover button</button>
-        <button id="btn-3">Popover button</button>
+      <Dropdown trapFocus button="Dropdown">
+        <button data-cy="btn-1">Popover button</button>
+        <button data-cy="btn-2">Popover button</button>
+        <button data-cy="btn-3">Popover button</button>
       </Dropdown>
     )
-    cy.get('button').click()
-    // @ts-ignore
-    cy.get('#btn-1').tab()
-    // @ts-ignore
-    cy.get('#btn-2').tab()
-    // @ts-ignore
-    cy.get('#btn-3').tab()
-    cy.get('#btn-1').should('have.focus')
+    cy.contains('Dropdown').click()
+    cy.tab()
+    cy.tab()
+    cy.tab()
+    cy.get('[data-cy="btn-1"]').should('have.focus')
     cy.get('body').type('{esc}')
-    cy.get('.popover').should('not.exist')
+    cy.get('[role="listbox"]').should('not.exist')
   })
 
   /* Prop: `controls` */
 
   it('allows toggle control via outside useState hook', () => {
     const ExternalControl = () => {
-      const [show, set] = useState(false)
+      const [show, set] = React.useState(false)
       return (
         <>
           <button id="external-btn" onClick={() => set(!show)}>
@@ -150,7 +149,7 @@ describe('Dropdown', () => {
     cy.get('#external-btn').click()
     cy.contains('test content')
     cy.get('#external-btn').click()
-    cy.get('.popover').should('not.exist')
+    cy.get('[role="listbox"]').should('not.exist')
   })
 
   /* Behavior: closes on focus blur for keyboard users */
@@ -166,14 +165,12 @@ describe('Dropdown', () => {
         <button id="new-focus">Blur</button>
       </>
     )
-    cy.contains('Button Inner').click()
-    // @ts-ignore
-    cy.get('#btn-1').tab()
-    // @ts-ignore
-    cy.get('#btn-2').tab()
-    // @ts-ignore
-    cy.get('#btn-3').tab()
-    cy.get('.dropdown-btn').should('have.focus')
-    cy.get('.popover').should('not.exist')
+    cy.contains('Button Inner').click().focus()
+    cy.tab()
+    cy.tab()
+    cy.tab()
+    cy.tab()
+    cy.get('#new-focus').should('have.focus')
+    cy.get('[role="listbox"]').should('not.exist')
   })
 })

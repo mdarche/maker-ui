@@ -22,6 +22,7 @@ interface FocusTrapProps {
    * external state changes
    */
   exitCallback?: (next?: HTMLElement | null) => void
+  /** The element to focus when exiting the container. Defaults to 'none' */
   exitFocus?: 'next' | 'anchor' | 'dynamic' | 'none'
 }
 

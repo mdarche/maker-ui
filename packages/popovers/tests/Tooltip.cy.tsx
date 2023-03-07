@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { Tooltip } from '../src'
 
 /**
@@ -51,7 +52,7 @@ describe('Tooltip', () => {
   it('applies `buttonCss` to the button label and `css` to the tooltip content container', () => {
     cy.mount(
       <TestTooltip
-        buttonCss={{ padding: 10 }}
+        cssButton={{ padding: 10 }}
         css={{ padding: 20 }}
         label="label">
         Tooltip content
@@ -59,7 +60,7 @@ describe('Tooltip', () => {
     )
     cy.get('button').should('have.css', 'padding', '10px')
     cy.get('button').focus()
-    cy.get('.tooltip').should('have.css', 'padding', '20px')
+    cy.get('[role="tooltip"]').should('have.css', 'padding', '20px')
   })
 
   /* Prop: `background`, `color` */
@@ -71,8 +72,8 @@ describe('Tooltip', () => {
       </TestTooltip>
     )
     cy.get('button').focus()
-    cy.get('.tooltip').should('have.backgroundColor', '#e3e333')
-    cy.get('.tooltip').should('have.color', '#e23353')
+    cy.get('[role="tooltip"]').should('have.backgroundColor', '#e3e333')
+    cy.get('[role="tooltip"]').should('have.color', '#e23353')
   })
 
   /* Prop: `noArrow` */

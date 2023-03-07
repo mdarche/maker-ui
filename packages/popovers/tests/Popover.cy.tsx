@@ -104,7 +104,7 @@ describe('Popover', () => {
     cy.get('[data-cy="btn-activate"]').click()
   })
 
-  it.only('does not trap focus inside the popover by default', () => {
+  it('does not trap focus inside the popover by default', () => {
     // trapFocus = false
     cy.mount(
       <>
@@ -243,7 +243,6 @@ describe('Popover', () => {
   /* Behavior: closes on tab when focus leaves the popover */
 
   it('closes the popover when focus leaves its inner contents with `closeOnBlur` (keyboard)', () => {
-    // closeOnBlur = true
     cy.mount(
       <>
         <TestPopover>
@@ -252,9 +251,8 @@ describe('Popover', () => {
         <button id="new-focus">Blur</button>
       </>
     )
-    cy.get('.test-btn').click()
-    // @ts-ignore
-    cy.get('[data-cy="popover"] button').tab()
+    cy.get('[data-cy="btn-activate"]').click()
+    cy.tab()
     cy.get('[data-cy="popover"]').should('not.exist')
   })
 })
