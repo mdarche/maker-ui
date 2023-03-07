@@ -83,7 +83,13 @@ export const Modal = ({
 }: ModalProps) => {
   const ref = useRef<HTMLElement | null>(null)
 
-  const { count } = useFocusTrap(ref, show, () => focusRef?.current?.focus())
+  const { count } = useFocusTrap({
+    ref,
+    anchor: focusRef,
+    active: show,
+    trap: true,
+    exitFocus: 'anchor',
+  })
   useKeyboardShortcut(
     [{ key: 'Escape', callback: () => set && set(false) }],
     undefined,

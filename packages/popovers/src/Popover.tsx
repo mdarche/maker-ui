@@ -20,7 +20,7 @@ export interface PopoverProps
   /** A boolean that indicates if the popover is active. */
   show: boolean
   /** A setter for the show boolean that lets the popover close itself. */
-  set: React.Dispatch<React.SetStateAction<boolean>>
+  set?: React.Dispatch<React.SetStateAction<boolean>>
   /** A React ref that is used to anchor the position of the Popover. */
   anchorRef: React.RefObject<HTMLElement>
   /** If true, the Popover will match the width of the anchorRef element. Useful for
@@ -90,13 +90,14 @@ export const Popover = ({
   matchWidth,
   position = { x: 'origin', y: 'bottom' },
   appendTo,
-  trapFocus,
+  trapFocus = false,
   offset = 0,
   closeOnBlur = true,
   transition = 'fade-down',
   className,
   breakpoints,
   css,
+  mediaQuery,
   duration = 200,
   transitionState,
   children,
@@ -127,8 +128,19 @@ export const Popover = ({
   })
 
   // Trap focus and handle keyboard esc key
-  useKeyboardShortcut([{ key: 'Escape', callback: () => set(false) }])
-  useFocusTrap(popoverRef, trapFocus && show ? true : false)
+  useKeyboardShortcut(
+    [{ key: 'Escape', callback: () => set && set(false) }],
+    undefined,
+    set ? true : false
+  )
+  useFocusTrap({
+    ref: popoverRef,
+    anchor: anchorRef,
+    active: show,
+    trap: trapFocus,
+    exitFocus: 'dynamic',
+    exitCallback: () => set && set(false),
+  })
   // Observe window resize
   useWindowSize(measureAnchor)
   // Observe anchor resize
@@ -281,6 +293,7 @@ export const Popover = ({
         <Style
           root={styleId}
           breakpoints={breakpoints}
+          mediaQuery={mediaQuery}
           css={{ display: 'block', zIndex: 99, ...css }}
         />
         <div ref={ref} className="mkui-popover-inner">

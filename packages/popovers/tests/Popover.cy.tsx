@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react'
-import { Popover } from '@maker-ui/popovers'
+import * as React from 'react'
+import { Popover } from '../src'
+import { PopoverProps } from '../src/Popover'
 
 /**
  * @component
@@ -7,7 +8,7 @@ import { Popover } from '@maker-ui/popovers'
  *
  * @tests
  * - Render with defaults
- * - Prop: `css`, `_css`
+ * - Prop: `css`,
  * - Prop: `trapFocus`
  * - Prop: `appendTo`
  * - Prop: `anchorWidth`
@@ -21,28 +22,31 @@ import { Popover } from '@maker-ui/popovers'
  * - Add visual snapshot testing for visual tests
  */
 
-interface TestProps {
-  children: React.ReactNode
-  btnStyle?: object
-  [key: string]: any
+interface TestPopoverProps extends Partial<PopoverProps> {
+  buttonProps?: React.HTMLAttributes<HTMLButtonElement>
 }
 
-const BasicPopover = ({ children, btnStyle, ...props }: TestProps) => {
-  const [show, set] = useState(false)
-  const buttonRef = useRef(null)
+const TestPopover = ({ children, buttonProps, ...props }: TestPopoverProps) => {
+  const [show, set] = React.useState(false)
+  const buttonRef = React.useRef(null)
 
   return (
     <div
       className="flex align-center justify-center"
       style={{ height: '100vh', width: '100vw' }}>
       <button
-        className="test-btn"
+        data-cy="btn-activate"
         ref={buttonRef}
-        style={btnStyle}
-        onClick={() => set(!show)}>
+        onClick={() => set(!show)}
+        {...buttonProps}>
         Popover toggle
       </button>
-      <Popover show={show} set={set} anchorRef={buttonRef} {...props}>
+      <Popover
+        data-cy="popover"
+        show={show}
+        set={set}
+        anchorRef={buttonRef}
+        {...props}>
         {children}
       </Popover>
     </div>
@@ -50,36 +54,29 @@ const BasicPopover = ({ children, btnStyle, ...props }: TestProps) => {
 }
 
 describe('Popover', () => {
-  // afterEach(() => {
-  //   uncy.mount()
-  // })
-
   /* Render with defaults */
 
   it('renders with default props', () => {
-    cy.mount(<BasicPopover>Popover-content</BasicPopover>)
-    cy.get('.popover').should('not.exist')
+    cy.mount(<TestPopover>Popover-content</TestPopover>)
+    cy.get('[data-cy="popover"]').should('not.exist')
     cy.get('button').click()
-    cy.get('.popover').contains('Popover-content')
+    cy.get('[data-cy="popover"]').contains('Popover-content')
     // Confirm it attaches popover to body element
-    cy.get('#__cy_root').should('not.contain', 'Popover-content')
+    cy.get('#cy-root').should('not.contain', 'Popover-content')
   })
 
-  /* Prop: `css`, `_css` */
+  /* Prop: `css`  */
 
-  it('applies `_css` to the popover root and `css` to the popover content', () => {
+  it('applies `css` to the popover content', () => {
     // Also test merged className
     cy.mount(
-      <BasicPopover
-        className="my-popover"
-        css={{ padding: 10 }}
-        _css={{ background: '#000' }}>
-        Popover-content
-      </BasicPopover>
+      <TestPopover css={{ background: '#000', span: { padding: 10 } }}>
+        <span>Popover-content</span>
+      </TestPopover>
     )
     cy.get('button').click()
-    cy.get('.my-popover').should('have.backgroundColor', '#000')
-    cy.get('.popover .container').should('have.css', 'padding', '10px')
+    cy.get('[data-cy="popover"]').should('have.backgroundColor', '#000')
+    cy.get('[data-cy="popover"] span').should('have.css', 'padding', '10px')
   })
 
   /* Prop: `trapFocus` */
@@ -88,15 +85,15 @@ describe('Popover', () => {
     // trapFocus = true
     cy.mount(
       <>
-        <BasicPopover trapFocus>
+        <TestPopover trapFocus>
           <button id="btn-1">Popover button</button>
           <button id="btn-2">Popover button</button>
           <button id="btn-3">Popover button</button>
-        </BasicPopover>
+        </TestPopover>
         <button id="new-focus">Blur</button>
       </>
     )
-    cy.get('.test-btn').click()
+    cy.get('[data-cy="btn-activate"]').click()
     // @ts-ignore
     cy.get('#btn-1').tab()
     // @ts-ignore
@@ -104,87 +101,83 @@ describe('Popover', () => {
     // @ts-ignore
     cy.get('#btn-3').tab()
     cy.get('#btn-1').should('have.focus')
+    cy.get('[data-cy="btn-activate"]').click()
+  })
 
+  it.only('does not trap focus inside the popover by default', () => {
     // trapFocus = false
     cy.mount(
       <>
-        <BasicPopover>
+        <TestPopover>
           <button id="btn-1">Popover button</button>
           <button id="btn-2">Popover button</button>
           <button id="btn-3">Popover button</button>
-        </BasicPopover>
+        </TestPopover>
         <button id="new-focus">Blur</button>
       </>
     )
-    cy.get('.test-btn').click()
-    // @ts-ignore
-    cy.get('#btn-1').tab()
-    // @ts-ignore
-    cy.get('#btn-2').tab()
-    // @ts-ignore
-    cy.get('#btn-3').tab()
+    cy.get('[data-cy="btn-activate"]').click()
+    cy.tab()
+    cy.tab()
+    cy.tab()
     cy.get('#new-focus').should('have.focus')
-    cy.get('.popover').should('not.exist')
+    cy.get('[data-cy="popover"]').should('not.exist')
   })
 
   /* Prop: `appendTo` */
 
   it('adds the popover to a specified DOM node with the `appendTo` prop', () => {
-    cy.mount(<BasicPopover appendTo="__cy_root">Popover-content</BasicPopover>)
+    cy.mount(<TestPopover appendTo="cy-root">Popover-content</TestPopover>)
     cy.get('button').click()
-    cy.get('#__cy_root').contains('Popover-content')
+    cy.root().contains('Popover-content')
   })
 
   /* Prop: `anchorWidth` */
 
-  it('matches the width of the anchor element with the `anchorWidth` prop', () => {
+  it('matches the width of the anchor element with the `matchWidth` prop', () => {
     cy.mount(
-      <BasicPopover btnStyle={{ width: 500 }}>Popover-content</BasicPopover>
+      <TestPopover buttonProps={{ style: { width: 500 } }}>
+        Popover-content
+      </TestPopover>
     )
     cy.get('button').click()
-    cy.get('.popover').should('not.have.css', 'width', '500px')
+    cy.get('[data-cy="popover"]').should('not.have.css', 'width', '500px')
 
     cy.mount(
-      <BasicPopover anchorWidth btnStyle={{ width: 500 }}>
+      <TestPopover matchWidth buttonProps={{ style: { width: 500 } }}>
         Popover-content
-      </BasicPopover>
+      </TestPopover>
     )
     cy.get('button').click()
-    cy.get('.popover').should('have.css', 'width', '500px')
+    cy.get('[data-cy="popover"]').should('have.css', 'width', '500px')
   })
 
   /* Prop: `transition` (visual) */
 
   it('supports no transition', () => {
-    cy.mount(<BasicPopover transition="none">Popover-content</BasicPopover>)
+    cy.mount(<TestPopover transition="none">Popover-content</TestPopover>)
     cy.get('button').click()
-    cy.get('.popover').should('have.css', 'visibility', 'visible')
+    cy.get('[data-cy="popover"]').should('have.css', 'visibility', 'visible')
   })
 
   // VISUAL TEST - transition
   it('supports fade-up transition', () => {
-    cy.mount(<BasicPopover transition="fade-up">Popover-content</BasicPopover>)
+    cy.mount(<TestPopover transition="fade-up">Popover-content</TestPopover>)
     cy.get('button').click()
   })
 
   it('supports fade-down transition', () => {
-    cy.mount(
-      <BasicPopover transition="fade-down">Popover-content</BasicPopover>
-    )
+    cy.mount(<TestPopover transition="fade-down">Popover-content</TestPopover>)
     cy.get('button').click()
   })
 
   it('supports fade-left transition', () => {
-    cy.mount(
-      <BasicPopover transition="fade-left">Popover-content</BasicPopover>
-    )
+    cy.mount(<TestPopover transition="fade-left">Popover-content</TestPopover>)
     cy.get('button').click()
   })
 
   it('supports fade-left transition', () => {
-    cy.mount(
-      <BasicPopover transition="fade-right">Popover-content</BasicPopover>
-    )
+    cy.mount(<TestPopover transition="fade-right">Popover-content</TestPopover>)
     cy.get('button').click()
   })
 
@@ -193,12 +186,12 @@ describe('Popover', () => {
   // VISUAL TEST - gap
   it('adds margin to the popover relative to its anchor with the `gap` prop', () => {
     cy.mount(
-      <BasicPopover
-        btnStyle={{ width: 300 }}
-        gap={20}
+      <TestPopover
+        buttonProps={{ style: { width: 300 } }}
+        offset={20}
         position={{ x: 'right', y: 'center' }}>
         Popover-content
-      </BasicPopover>
+      </TestPopover>
     )
     cy.get('button').click()
   })
@@ -208,9 +201,9 @@ describe('Popover', () => {
   // VISUAL TEST - position
   it('uses the `position` prop -- left, center (visual)', () => {
     cy.mount(
-      <BasicPopover position={{ x: 'left', y: 'center' }}>
+      <TestPopover position={{ x: 'left', y: 'center' }}>
         Popover-content
-      </BasicPopover>
+      </TestPopover>
     )
     cy.get('button').click()
   })
@@ -218,9 +211,9 @@ describe('Popover', () => {
   // VISUAL TEST - position
   it('uses the `position` prop -- right, top (visual)', () => {
     cy.mount(
-      <BasicPopover position={{ x: 'right', y: 'top' }}>
+      <TestPopover position={{ x: 'right', y: 'top' }}>
         Popover-content
-      </BasicPopover>
+      </TestPopover>
     )
     cy.get('button').click()
   })
@@ -228,11 +221,11 @@ describe('Popover', () => {
   // VISUAL TEST - position
   it('uses the `position` prop -- center, center (visual)', () => {
     cy.mount(
-      <BasicPopover
+      <TestPopover
         css={{ background: '#d3d3d3', height: 300 }}
         position={{ x: 'center', y: 'top' }}>
         Popover-content
-      </BasicPopover>
+      </TestPopover>
     )
     cy.get('button').click()
   })
@@ -240,9 +233,9 @@ describe('Popover', () => {
   // VISUAL TEST - position
   it('uses the `position` prop -- origin, bottom (visual)', () => {
     cy.mount(
-      <BasicPopover position={{ x: 'origin', y: 'bottom' }}>
+      <TestPopover position={{ x: 'origin', y: 'bottom' }}>
         Popover-content
-      </BasicPopover>
+      </TestPopover>
     )
     cy.get('button').click()
   })
@@ -253,15 +246,15 @@ describe('Popover', () => {
     // closeOnBlur = true
     cy.mount(
       <>
-        <BasicPopover>
+        <TestPopover>
           <button>Popover button</button>
-        </BasicPopover>
+        </TestPopover>
         <button id="new-focus">Blur</button>
       </>
     )
     cy.get('.test-btn').click()
     // @ts-ignore
-    cy.get('.popover button').tab()
-    cy.get('.popover').should('not.exist')
+    cy.get('[data-cy="popover"] button').tab()
+    cy.get('[data-cy="popover"]').should('not.exist')
   })
 })

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Dropdown } from '@maker-ui/popovers'
+import { Dropdown } from '../src'
 
 /**
  * @component

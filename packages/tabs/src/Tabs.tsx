@@ -34,7 +34,7 @@ export interface TabsProps
    * @default 'active'
    */
   activeClass?: string
-  /** Nested `<Tab.Panel>` or auxiliary components. */
+  /** Nested `<Tab.Panel>` components. */
   children?: React.ReactElement[]
 }
 

@@ -1,4 +1,4 @@
-import { Tooltip } from '@maker-ui/popovers'
+import { Tooltip } from '../src'
 
 /**
  * @component

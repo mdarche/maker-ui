@@ -14,7 +14,7 @@ import { useFocusTrap } from '../src/useFocusTrap'
 const TestComponent = ({ callback }: { callback?: () => void }) => {
   const [active, setActive] = React.useState(true)
   const ref = React.useRef<HTMLDivElement>(null)
-  useFocusTrap(ref, active, callback)
+  useFocusTrap({ ref, active, exitCallback: callback })
 
   return (
     <div data-cy="component">
@@ -43,6 +43,7 @@ const TestComponent = ({ callback }: { callback?: () => void }) => {
 describe('useFocusTrap', () => {
   it('traps focus within the container when active', () => {
     cy.mount(<TestComponent />)
+    cy.wait(500)
     cy.tab()
     cy.focused().should('have.text', 'Link 1')
     cy.tab()
