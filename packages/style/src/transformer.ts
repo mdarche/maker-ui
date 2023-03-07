@@ -78,6 +78,10 @@ function isObjectEmpty(obj: ResponsiveCSS) {
  * @param depth - The current level of recursion
  * @param isMediaQuery - If the current iteration is a media query
  *
+ * @todo - Check for selectors separated by commas and ::before, ::after, etc.
+ * @todo - Check for style objects that are undefined at the top level but include
+ * nested / child rules
+ *
  */
 export function objectToCSS(
   root: CSSRootSelector,

@@ -23,8 +23,6 @@ import { Tabs } from '../src'
  * - Prop: `title` (component)
  * - Prop: `disabled`
  * - Prop: `open`
- *
- * @todo - Test all keyboard navigation scenarios
  */
 
 describe('Tabs', () => {
@@ -254,17 +252,17 @@ describe('Tabs', () => {
       <Tabs>
         <Tabs.Panel title="Panel 1">
           <p>
-            Panel content 1 <a href="#">Demo link 1</a>
+            Panel content 1 <a href="/#">Demo link 1</a>
           </p>
         </Tabs.Panel>
         <Tabs.Panel title="Panel 2">
           <p>
-            Panel content 2 <a href="#">Demo link 2</a>
+            Panel content 2 <a href="/#">Demo link 2</a>
           </p>
         </Tabs.Panel>
         <Tabs.Panel title="Panel 3">
           <p>
-            Panel content 3 <a href="#">Demo link</a>
+            Panel content 3 <a href="/#">Demo link</a>
           </p>
         </Tabs.Panel>
       </Tabs>
@@ -280,14 +278,31 @@ describe('Tabs', () => {
   })
 
   /* Behavior: properly handles keyboard interactions */
+
   it('properly handles keyboard interactions', () => {
+    // Horizontal Navigation
     cy.mount(
       <Tabs>
         <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
         <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
-        <Tabs.Panel title="Panel 3">Panel content 3</Tabs.Panel>
+        <Tabs.Panel title="Panel 3">
+          Panel content 3<button>focusable</button>
+        </Tabs.Panel>
       </Tabs>
     )
+    cy.get('button').first().focus()
+    cy.get('body').type('{rightarrow}')
+    cy.focused().should('have.text', 'Panel 2')
+    cy.get('body').type('{rightarrow}')
+    cy.focused().should('have.text', 'Panel 3')
+    cy.get('body').type('{rightarrow}')
+    cy.focused().should('have.text', 'Panel 1')
+    cy.get('body').type('{leftarrow}')
+    cy.focused().should('have.text', 'Panel 3')
+    cy.tab()
+    cy.focused().should('have.text', 'focusable')
+    cy.tab({ shift: true })
+    cy.focused().should('have.text', 'Panel 3')
   })
 })
 

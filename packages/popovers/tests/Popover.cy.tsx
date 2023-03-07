@@ -18,7 +18,6 @@ import { PopoverProps } from '../src/Popover'
  * - Behavior: closes on tab when focus leaves the popover
  *
  * @todo
- * - Add test for defer measurements fix. Or remove all together
  * - Add visual snapshot testing for visual tests
  */
 

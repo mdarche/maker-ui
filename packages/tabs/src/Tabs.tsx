@@ -240,24 +240,6 @@ const TabButton = ({
   useKeyboardShortcut(
     [
       {
-        key: 'ArrowUp',
-        callback: (e: KeyboardEvent) => {
-          if (!settings.isVertical) {
-            e.preventDefault()
-            navigate('prev')
-          }
-        },
-      },
-      {
-        key: 'ArrowDown',
-        callback: (e: KeyboardEvent) => {
-          if (settings?.isVertical) {
-            e.preventDefault()
-            navigate('next')
-          }
-        },
-      },
-      {
         key: 'ArrowRight',
         callback: () => navigate('next'),
       },

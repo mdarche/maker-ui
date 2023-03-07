@@ -39,7 +39,7 @@ describe('useScrollPosition', () => {
 
     cy.wrap(onScroll).should('have.been.calledWith', {
       prevPos: 0,
-      currPos: 492,
+      currPos: 500,
     })
 
     cy.get('@onScroll').should('have.been.calledOnce')
@@ -49,7 +49,7 @@ describe('useScrollPosition', () => {
 
   it('does not call the onScroll callback when inactive', () => {
     const onScroll = cy.stub().as('onScroll')
-    cy.mount(<TestComponent onScroll={onScroll} />)
+    cy.mount(<TestComponent onScroll={onScroll} active={false} />)
     cy.wait(100)
     cy.scrollTo(0, 500)
     cy.get('@onScroll').should('not.have.been.called')

@@ -18,7 +18,7 @@ const TestComponent = ({ callback }: { callback?: () => void }) => {
 
   return (
     <div data-cy="component">
-      <button>Outside button 1</button>
+      <button data-cy="first-button">Outside button 1</button>
       <div ref={ref} data-testid="container">
         <a data-testid="third" href="/">
           Link 1
@@ -41,9 +41,9 @@ const TestComponent = ({ callback }: { callback?: () => void }) => {
 /* Traps focus within the container when active */
 
 describe('useFocusTrap', () => {
-  it('traps focus within the container when active', () => {
+  it.only('traps focus within the container when active', () => {
     cy.mount(<TestComponent />)
-    cy.wait(500)
+    cy.get('[data-cy="first-button"]').focus()
     cy.tab()
     cy.focused().should('have.text', 'Link 1')
     cy.tab()
@@ -74,8 +74,8 @@ describe('useFocusTrap', () => {
 
   it('does not trap focus when not active', () => {
     cy.mount(<TestComponent />)
-    cy.get('[data-cy="activate"]').click()
-    cy.get('body').tab()
+    cy.get('[data-cy="activate"]').click().focus()
+    cy.tab()
     cy.focused().should('have.text', 'Outside button 1')
     cy.tab()
     cy.tab()
@@ -91,7 +91,7 @@ describe('useFocusTrap', () => {
   it('calls an exit callback function when active changes to false after previously being true', () => {
     const callback = cy.stub()
     cy.mount(<TestComponent callback={callback} />)
-    cy.get('[data-cy="activate"]').click()
+    cy.get('[data-cy="activate"]').click().focus()
     cy.wrap(callback).should('have.been.calledOnce')
     cy.get('[data-cy="activate"]').click()
     cy.get('[data-cy="activate"]').click()

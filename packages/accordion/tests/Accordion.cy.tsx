@@ -24,8 +24,6 @@ import { Accordion } from '../src'
  * - Prop: `open`
  * - Behavior: correctly measures and uses child height
  *
- * @todo
- * Test all keyboard navigation scenarios
  */
 
 describe('Accordion', () => {

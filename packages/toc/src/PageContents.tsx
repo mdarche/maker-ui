@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { generateId, cn } from '@maker-ui/utils'
 import { useScrollPosition } from '@maker-ui/hooks'
-import { Style, type ResponsiveCSS, type Breakpoints } from '@maker-ui/style'
+import { Style, type MakerCSS } from '@maker-ui/style'
 
 interface MenuItem {
   id: string
@@ -11,9 +11,8 @@ interface MenuItem {
 }
 
 export interface PageContentsProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
-  breakpoints?: Breakpoints
-  css?: ResponsiveCSS
+  extends MakerCSS,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   /** The application's current pathname, supplied via router hook or parent component.
    * This value ensures the DOM scanning effect reruns on each page load.
    */
@@ -40,7 +39,7 @@ export interface PageContentsProps
   activeColor?: string | string[]
   /** Responsive CSS styles that will be applied to the marker pseudo styles if
    * using the `marker` prop. */
-  pseudoCss?: ResponsiveCSS
+  pseudoCss?: MakerCSS['css']
   /** When true, the window will animate the scroll to each section.
    * @remark This is a global `scroll-behavior` style rule that is applied to the document body.
    * Use with caution and ensure it doesn't break your page transitions.
@@ -58,7 +57,7 @@ export interface PageContentsProps
    */
   hideOnMobile?: boolean
   /** An optional component that will sit below the heading navigation list. */
-  footerComponent?: React.ReactElement
+  footer?: React.ReactElement
 }
 
 /**
@@ -92,7 +91,8 @@ export const PageContents = ({
   css,
   breakpoints,
   pathname = '/',
-  footerComponent,
+  footer,
+  ...props
 }: PageContentsProps) => {
   const [styleId] = React.useState(generateId())
   const [menuItems, setMenu] = React.useState<MenuItem[]>([])
@@ -208,7 +208,7 @@ export const PageContents = ({
 
   return (
     <>
-      <div className={cn(['mkui-contents', styleId, className])}>
+      <div className={cn(['mkui-contents', styleId, className])} {...props}>
         <div>{title}</div>
         <ul className="mkui-contents-list">
           {menuItems.length
@@ -229,7 +229,7 @@ export const PageContents = ({
               ))
             : null}
         </ul>
-        {footerComponent}
+        {footer}
       </div>
       <Style
         root={styleId}
@@ -238,25 +238,28 @@ export const PageContents = ({
           display: hideOnMobile ? ['none', 'block'] : 'block',
           position: sticky ? 'sticky' : undefined,
           top: sticky ? 0 : undefined,
-          ...(css as object),
           '.mkui-contents-list': {
             padding: 0,
             listStyle: 'none',
           },
+          ...css,
           a: { position: 'relative' },
-          'a.active, a:hover': { color: activeColor || undefined },
-          'a.active': marker && {
-            ':before': {
-              content: '""',
-              position: 'absolute',
-              height: '100%',
-              top: 0,
-              right: marker === 'after' ? 0 : undefined,
-              borderLeft: marker === 'before' ? `2px solid` : undefined,
-              borderRight: marker === 'after' ? `2px solid` : undefined,
-              ...(pseudoCss as object),
-            },
+          'a.active': {
+            color: activeColor || undefined,
+            '&::before': marker
+              ? {
+                  content: '""',
+                  position: 'absolute',
+                  height: '100%',
+                  top: 0,
+                  right: marker === 'after' ? 0 : undefined,
+                  borderLeft: marker === 'before' ? `2px solid` : undefined,
+                  borderRight: marker === 'after' ? `2px solid` : undefined,
+                  ...(pseudoCss as object),
+                }
+              : undefined,
           },
+          'a:hover': { color: activeColor || undefined },
         }}
       />
     </>
