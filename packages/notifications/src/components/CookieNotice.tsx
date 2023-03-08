@@ -17,8 +17,7 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       color,
       storageKey = 'mkui-cookie-notice',
       expiration,
-      closeButton = 'Got it!',
-      bottom = true,
+      closeButton = 'Accept',
       className,
       children,
       ...props
@@ -30,7 +29,6 @@ export const CookieNotice = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         ref={ref}
         className={cn(['mkui-cookie-notice', className])}
         fixed
-        bottom={bottom}
         background={background}
         color={color}
         type="cookie"
