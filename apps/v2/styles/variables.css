@@ -10,8 +10,8 @@
   /* Topbar */
   --height-topbar: 50px;
   /* Header */
-  --height-header: 70px;
-  --max-width-header: 1300px;
+  --height-header: 75px;
+  --max-width-header: 100%;
   --width-mobile-menu: 300px;
   /* Sidebars */
   --width-sidebar: 300px;
@@ -20,7 +20,7 @@
   /* SideNav */
   --width-side-nav: 300px;
   /* Content */
-  --max-width-content: 1300px;
+  --max-width-content: 100%;
   --max-width-section: 1300px;
   /* Footer */
   --max-width-footer: 1300px;
@@ -72,6 +72,7 @@ body[data-theme='light'] {
   --color-bg-side-nav: #fbfbfb;
   --color-bg-topbar: #fff;
   --color-bg-mobile-menu: #fff;
+  --color-bg-footer: #fff;
   --color-bg-panel-left: #fbfbfb;
   --color-bg-panel-right: #fbfbfb;
   --color-overlay: rgba(0, 0, 0, 0.7);

@@ -13,7 +13,6 @@ import { Announcement } from '../src'
  * - Prop: `css`
  * - Prop: `fixed`
  * - Prop: `storageKey`, `type`, `expiration`
- *
  */
 
 describe('Announcement', () => {

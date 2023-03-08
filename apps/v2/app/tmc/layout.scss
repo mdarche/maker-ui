@@ -1,0 +1,85 @@
+header {
+  padding: 0 30px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45px;
+
+  .container {
+    height: 100%;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+.tmc-logo {
+  height: 65px;
+}
+
+.icon-menu {
+  width: 45px;
+}
+
+.icon-account {
+  height: 38px;
+}
+
+.icon-close {
+  height: 28px;
+  margin: 25px 36px 20px;
+}
+
+.right-menu {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  top: var(--height-header);
+
+  // .icon-close {
+
+  // }
+}
+
+.mkui-collapse-menu {
+  margin: 80px 0 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--color-border-200);
+  }
+
+  li:first-of-type {
+    border-top: 1px solid var(--color-border-200);
+  }
+
+  a {
+    padding: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+}
+
+.mkui-mobile-menu {
+  border-right: 1px solid var(--color-border-200);
+}
+
+@media screen and (min-width: 768px) {
+  .mkui-mobile-menu {
+    top: var(--height-header) !important;
+    .icon-close {
+    }
+  }
+
+  .mkui-overlay-m {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
+}

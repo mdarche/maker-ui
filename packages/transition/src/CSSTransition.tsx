@@ -18,7 +18,8 @@ export type TransitionType =
   | 'fade-right'
 
 export interface CSSTransitionProps
-  extends Partial<ReactCSSTransitionProps<HTMLDivElement>> {
+  extends Partial<ReactCSSTransitionProps<HTMLDivElement>>,
+    React.HTMLAttributes<HTMLDivElement> {
   /** A custom, unique ID for the transition styles */
   id?: string
   /** Switch mode for the CSSTransition
