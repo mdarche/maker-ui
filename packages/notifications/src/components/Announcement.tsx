@@ -38,10 +38,6 @@ export interface AnnouncementProps
    *  the default close button.
    */
   closeButton?: React.ReactNode | ((attributes?: object) => React.ReactNode)
-  /** When true, the announcement will appear at the bottom of the screen. This only has
-   * an effect if `fixed` is set to `true`.
-   */
-  bottom?: boolean
 }
 
 /**
@@ -56,12 +52,12 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       allowClose = true,
       background,
       breakpoints,
-      bottom = false,
       children,
       className,
       color,
       closeButton = <CloseIcon style={{ height: 27, fill: color }} />,
       css,
+      mediaQuery,
       expiration = 2592000, // 30 days
       fixed = false,
       storageKey = 'mkui_announcement',
@@ -86,7 +82,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
       onClick: () => set(false),
     }
 
-    return active !== 'true' ? (
+    return active !== 'true' && show ? (
       <div
         ref={ref}
         className={cn([
@@ -94,19 +90,19 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
           styleID,
           fixed ? 'fixed' : '',
           className,
-        ])}>
+        ])}
+        {...props}>
         <Style
           root={styleID}
           breakpoints={breakpoints}
+          mediaQuery={mediaQuery}
           css={{ background, color, ...css }}
         />
         <div className="container flex align-center width-100">
-          <div
-            className="mkui-announcement-text flex flex-1 flex-wrap"
-            {...props}>
+          <div className="mkui-announcement-text flex flex-1 flex-wrap">
             {children}
           </div>
-          {allowClose && !closeButton ? (
+          {allowClose ? (
             typeof closeButton === 'function' ? (
               // @ts-ignore
               closeButton(btnAttributes)

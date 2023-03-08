@@ -10,7 +10,7 @@ import { Portal } from '../src'
  * - Prop: `root`
  */
 
-describe('Portal (internal)', () => {
+describe('Portal', () => {
   /* Render with defaults */
 
   it('attaches to the body element by default', () => {

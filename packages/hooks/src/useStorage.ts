@@ -35,6 +35,7 @@ export function useStorage({
   expires,
   expireDays = 30,
 }: StorageProps) {
+  const exp = expires || new Date().getTime() + expireDays * 24 * 60 * 60 * 1000
   const getItem = () =>
     type === 'session'
       ? getSessionStorage(key)
@@ -42,7 +43,6 @@ export function useStorage({
       ? getLocalStorage(key)
       : getCookie(key)
   const [saved, setSaved] = useState<string | null>(() => getItem())
-  const exp = expires || new Date().getTime() + expireDays * 24 * 60 * 60 * 1000
   const setItem = () => {
     if (!value) return
     const v = typeof value === 'object' ? JSON.stringify(value) : value
