@@ -1,9 +1,8 @@
 // Combine all global CSS files
 import './styles/global.css'
 import './styles/utility.css'
+import './styles/client.css'
 import './components/server/Header/header.css'
-import './components/client/NavMenu/nav-menu.css'
-import './components/client/MenuButton/menu-button.css'
 import './components/server/Layout/layout.css'
 import './components/server/MobileMenu/mobile-menu.css'
 import './components/server/SideNav/side-nav.css'
