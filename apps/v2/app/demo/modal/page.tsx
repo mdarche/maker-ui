@@ -2,23 +2,10 @@
 import { useState, useRef } from 'react'
 import { Section } from 'maker-ui'
 import { Modal } from 'maker-ui/modal'
-import { useIntersection } from 'maker-ui/hooks'
-
-interface Time {
-  days: number
-  hours: number
-  minutes: number
-  seconds: number
-}
 
 export default function ModalPage() {
   const [showModal, setModal] = useState(false)
   const ref = useRef<HTMLButtonElement>(null)
-
-  const isvisible = useIntersection({
-    ref,
-    onIntersect: () => console.log('Yo!'),
-  })
 
   return (
     <>

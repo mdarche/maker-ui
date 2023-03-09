@@ -1,2 +1,2 @@
-export { Accordion, type AccordionProps } from './Accordion'
-export type { AccordionPanelProps } from './AccordionPanel'
+export { Accordion } from './Accordion'
+export { AccordionPanel } from './AccordionPanel'

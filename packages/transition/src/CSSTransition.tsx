@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useRef } from 'react'
 import { mergeRefs, Conditional, generateId } from '@maker-ui/utils'
 import {

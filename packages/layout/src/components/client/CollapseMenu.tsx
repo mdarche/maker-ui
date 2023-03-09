@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { usePathname } from 'next/navigation'

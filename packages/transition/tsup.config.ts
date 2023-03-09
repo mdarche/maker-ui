@@ -9,6 +9,9 @@ const config = buildConfig({
   entry: {
     index: 'src/index.ts',
   },
+  banner: {
+    js: `'use client'`,
+  },
 })
 
 export default defineConfig(config)

@@ -68,15 +68,6 @@ const AccordionContext = createContext<{
   setState: React.Dispatch<React.SetStateAction<AccordionState>>
 }>({ state: { panelKeys: [] }, setState: (b) => {} })
 
-function validate(children: React.ReactNode) {
-  React.Children.toArray(children).forEach((child: any) => {
-    const type = child.props._type
-    if (!type || type !== 'AccordionPanel') {
-      throw new Error('Accordion must only contain Accordion.Panel components.')
-    }
-  })
-}
-
 /**
  * The `Accordion` shows collapsible panel content that can be toggled via
  * `activeKey` prop or the panel title buttle.
@@ -114,8 +105,6 @@ export const Accordion = ({
     throw new Error(
       'Accordion must contain a nested Accordion.Panel component.'
     )
-  } else {
-    validate(children)
   }
 
   useEffect(() => {

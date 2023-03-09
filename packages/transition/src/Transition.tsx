@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useRef } from 'react'
 import {
   Transition as ReactTransition,

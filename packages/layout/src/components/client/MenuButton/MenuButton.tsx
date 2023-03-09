@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import { useWindowSize } from '@maker-ui/hooks'
 import { cn } from '@maker-ui/utils'

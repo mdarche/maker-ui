@@ -1,2 +1,2 @@
 export { Tabs, type TabsProps } from './Tabs'
-export { type TabPanelProps } from './TabPanel'
+export { TabPanel, type TabPanelProps } from './TabPanel'

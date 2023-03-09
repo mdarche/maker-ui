@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import { cn, Conditional } from '@maker-ui/utils'
 import Link from 'next/link'

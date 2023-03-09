@@ -1,4 +1,3 @@
-'use client'
 export { CollapseMenu } from './CollapseMenu'
 export { ColorButton } from './ColorButton'
 export { MenuButton } from './MenuButton'

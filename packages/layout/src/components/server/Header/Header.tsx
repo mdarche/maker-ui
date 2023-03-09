@@ -1,12 +1,28 @@
 import * as React from 'react'
-import { cn } from '@maker-ui/utils'
+import { cn, merge } from '@maker-ui/utils'
+import { type MakerCSS } from '@maker-ui/style'
 import type { HeaderOptions } from '@/types'
+import Link from 'next/link'
+
+type Style = string | number | (string | number)[]
+
+interface LogoProps extends MakerCSS {
+  image?: React.ReactNode | string
+  path?: string
+  height?: Style
+  width?: Style
+  margin?: Style
+  padding?: Style
+  fill?: Style
+  stroke?: Style
+  renderProps?: () => React.ReactNode | React.ReactNode
+}
 
 export interface HeaderProps
   extends React.HTMLAttributes<HTMLDivElement>,
     Partial<HeaderOptions> {
   /** Replaces the Navbar logo-slot grid area with your own custom component.    */
-  logo?: React.ReactNode
+  logo?: LogoProps
   /** Replaces the Navbar widget-slot grid area with your own custom component.    */
   widgets?: React.ReactNode
   /** Replaces the Navbar menu-slot grid area with your own custom component.    */
@@ -49,6 +65,7 @@ export const Header = ({
   children,
   ...props
 }: HeaderProps) => {
+  const logoSettings = merge({ path: '/' }, logo || {})
   return (
     <header
       className={cn([
@@ -65,7 +82,13 @@ export const Header = ({
         {navType === 'split' ? (
           <div className="nav-area menu-slot split">{menu}</div>
         ) : null}
-        <div className="nav-area logo-slot">{logo}</div>
+        <div className="nav-area logo-slot">
+          {logo?.renderProps ? (
+            logo.renderProps()
+          ) : (
+            <Link href={logoSettings.path}>{logo?.image || null}</Link>
+          )}
+        </div>
         <div className="nav-area menu-slot">
           {navType === 'split' ? menuSplit : menu}
         </div>

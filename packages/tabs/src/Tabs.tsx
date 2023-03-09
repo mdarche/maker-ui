@@ -38,15 +38,6 @@ export interface TabsProps
   children?: React.ReactElement[]
 }
 
-function validate(children: React.ReactNode) {
-  React.Children.toArray(children).forEach((child: any) => {
-    const type = child.props._type
-    if (!type || type !== 'TabPanel') {
-      throw new Error('Tabs must contain only Tabs.Panel components.')
-    }
-  })
-}
-
 /**
  * The root component for building a tab container. The Tabs wrapper component contains
  * all settings for responsive behaviors, keyboard navigation, positioning, and nested
@@ -74,9 +65,8 @@ export const Tabs = ({
   })
   if (!children || (children && !Array.isArray(children))) {
     throw new Error('Tabs must contain at least two Tabs.Panel components.')
-  } else {
-    validate(children)
   }
+
   const tabs = children.map(({ props }, index) => ({
     id: index,
     title: props.title,

@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import { cn, generateId } from '@maker-ui/utils'
 import { type Breakpoints, type ResponsiveCSS, Style } from '@maker-ui/style'

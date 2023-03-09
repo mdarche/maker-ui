@@ -32,7 +32,15 @@ export const AccordionPanel = React.forwardRef<
   AccordionPanelProps
 >(
   (
-    { title, open = false, eventKey, children, className, _type, ...props },
+    {
+      title,
+      open = false,
+      eventKey,
+      children,
+      className,
+      _type = 'AccordionPanel',
+      ...props
+    },
     ref
   ) => {
     const [buttonId] = useState(generateId())

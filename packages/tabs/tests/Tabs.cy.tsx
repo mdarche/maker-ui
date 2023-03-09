@@ -9,7 +9,6 @@ import { Tabs } from '../src'
  * @tests
  * Tabs
  * - Render with defaults
- * - Error: invalid children
  * - Error: too few children
  * - Prop: `css`
  * - Prop: `renderInactive`
@@ -39,25 +38,6 @@ describe('Tabs', () => {
     cy.get('[role="tabpanel"]').should('have.length', 3)
     cy.get('button').should('have.length', 3)
     cy.get('[role="tabpanel"].active').should('have.length', 1)
-  })
-
-  /* Error: invalid children */
-
-  it('throws an error if children are not Tabs.Panel components', () => {
-    const msg = 'Tabs must contain only Tabs.Panel components.'
-    // Invalid children
-    cy.mount(
-      <Tabs>
-        <div>Non Panel 1</div>
-        <Tabs.Panel title="Panel 1">Panel content 1</Tabs.Panel>
-        <Tabs.Panel title="Panel 2">Panel content 2</Tabs.Panel>
-        <div>Non Panel 2</div>
-      </Tabs>
-    )
-    cy.on('uncaught:exception', (err) => {
-      expect(err.message).to.include(msg)
-      return false
-    })
   })
 
   /* Error: too few children */

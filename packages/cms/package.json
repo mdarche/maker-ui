@@ -23,7 +23,10 @@
   },
   "dependencies": {
     "@maker-ui/forms": "workspace:*",
-    "maker-ui": "workspace:*"
+    "maker-ui": "workspace:*",
+    "dompurify": "^3.0.1",
+    "slate": "^0.91.4",
+    "slate-react": "^0.91.10"
   },
   "peerDependencies": {
     "next": "^12.x || ^13.x",
@@ -33,6 +36,7 @@
   },
   "devDependencies": {
     "@maker-ui/build-tools": "workspace:*",
+    "@types/dompurify": "^2.4.0",
     "eslint-config-library": "workspace:*",
     "next": "^13.2.3",
     "react": "^18.2.0",

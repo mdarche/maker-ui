@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useEffect, useRef } from 'react'
 import { cn } from '@maker-ui/utils'
 import { useFocusTrap, useKeyboardShortcut } from '@maker-ui/hooks'

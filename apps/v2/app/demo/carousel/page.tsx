@@ -1,7 +1,7 @@
 'use client'
 import { Section } from 'maker-ui'
 import Image from 'next/image'
-import { Carousel } from '@/client'
+import { Carousel } from 'maker-ui/carousel'
 
 import CosmosImage from '@/public/cosmos.jpeg'
 

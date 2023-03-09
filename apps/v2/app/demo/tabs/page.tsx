@@ -1,6 +1,6 @@
 'use client'
 import { Section } from 'maker-ui'
-import { Tabs } from '@/client'
+import { Tabs } from 'maker-ui/tabs'
 import { useState } from 'react'
 
 export default function TabsPage() {

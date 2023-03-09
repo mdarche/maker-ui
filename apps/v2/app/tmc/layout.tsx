@@ -9,6 +9,7 @@ import {
   MenuItemProps,
   WorkspaceButton,
 } from '@/client'
+// import { MenuButton } from 'maker-ui/layout'
 import { CloseIcon, MenuIcon, TMCLogo } from './icons'
 import { Footer } from './Footer'
 import './layout.scss'
@@ -34,25 +35,21 @@ export default function VaultLayout({
       <Layout options={options}>
         {/* <Layout.Topbar>Test topbar</Layout.Topbar> */}
         <Layout.Header
-          logo={
-            <Link href="/">
-              <TMCLogo />
-            </Link>
-          }
+          logo={{ image: <TMCLogo />, path: '/demo' }}
           widgets={<RightMenu />}
-          menuButton={
-            <MenuButton>
-              <MenuIcon />
-            </MenuButton>
-          }
+          menuButton={<MenuButton />}
+          // menuButton={{
+          //   icon: <MenuIcon />,
+          //   // height: null,
+          //   // width: null,
+          //   padding: null,
+          //   margin: null,
+          //   fill: null,
+          //   stroke: null,
+          //   renderProps: null,
+          // }}
         />
-        <Layout.MobileMenu
-          closeButtonPosition="top-left"
-          closeButton={
-            <MenuButton close>
-              <CloseIcon />
-            </MenuButton>
-          }>
+        <Layout.MobileMenu>
           <CollapseMenu items={leftMenu} />
         </Layout.MobileMenu>
         <Layout.Main>{children}</Layout.Main>

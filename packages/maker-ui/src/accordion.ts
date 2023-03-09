@@ -1,1 +1,1 @@
-export { Accordion } from '@maker-ui/accordion'
+export { Accordion, AccordionPanel } from '@maker-ui/accordion'

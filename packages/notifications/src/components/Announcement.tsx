@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import { cn, generateId } from '@maker-ui/utils'
 import { useStorage } from '@maker-ui/hooks'

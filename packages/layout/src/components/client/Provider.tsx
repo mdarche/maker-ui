@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import { merge } from '@maker-ui/utils'
 import { useWindowSize } from '@maker-ui/hooks'
