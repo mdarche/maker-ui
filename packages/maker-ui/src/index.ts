@@ -2,3 +2,5 @@
 // see maker-ui/layout for client components
 export * from '@maker-ui/style'
 // export * from '@maker-ui/layout'
+export { Style, generateCSS } from '@maker-ui/style'
+export { Layout, Section, type MakerUIOptions } from '@maker-ui/layout'

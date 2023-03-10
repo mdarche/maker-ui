@@ -14,7 +14,9 @@ export {
   MenuButton,
   CollapseMenu,
   Provider,
+  NavMenu,
+  WorkspaceButton,
 } from '@maker-ui/layout-client'
 
 /* Export Layout component and types */
-export { type MakerUIOptions, Section } from '@maker-ui/layout-server'
+export { type MakerUIOptions, Layout, Section } from '@maker-ui/layout-server'
