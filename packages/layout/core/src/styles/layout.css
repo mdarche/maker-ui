@@ -1,0 +1,110 @@
+/* Skiplinks */
+
+.mkui-skiplinks {
+  list-style: none;
+  position: relative;
+  z-index: 1000;
+  padding: 0;
+  margin: 0;
+}
+
+.mkui-skiplinks a {
+  background: var(--color-bg-header);
+  display: block;
+  position: absolute;
+  font-family: var(--font-body);
+  left: -9999px;
+  padding: 1em;
+}
+
+.mkui-skiplinks a:focus {
+  left: 0px;
+}
+
+/* Layout */
+
+.mkui-layout {
+  position: relative;
+}
+
+.mkui-layout.content {
+  display: block;
+  max-width: var(--max-width-content, 100%);
+  margin: 0 auto;
+}
+
+.mkui-layout.l-sb {
+  display: grid;
+  gap: var(--gap-content);
+  max-width: var(--max-width-content, 100%);
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.mkui-layout.l-sn {
+  display: inline-flex;
+  width: 100%;
+}
+
+.mkui-layout.l-sn main {
+  max-width: var(--max-width-content, 100%);
+}
+
+.mkui-layout.sidenav-content .mkui-sn {
+  left: 0;
+}
+
+.mkui-layout.content-sidenav .mkui-sn {
+  right: 0;
+}
+
+.mkui-overlay-w {
+  background: var(--color-overlay-workspace, var(--color-overlay));
+}
+
+.mkui-overlay-s {
+  background: var(--color-overlay-side-nav, var(--color-overlay));
+}
+
+.mkui-overlay-m {
+  background: var(--color-overlay-mobile-menu, var(--color-overlay));
+}
+
+.mkui-overlay {
+  position: fixed;
+  top: 0 !important;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  cursor: pointer;
+  will-change: opacity;
+  transition: all ease 0.4s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.mkui-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.mkui-layout-init {
+  transition: none !important;
+  display: none;
+}
+
+.mkui-collapse-menu {
+  list-style-type: none;
+}
+
+main {
+  position: relative;
+  flex: 1;
+  margin: 0 auto;
+}
+
+.mkui-footer {
+  background: var(--color-bg-footer);
+  border-top: var(--border-footer);
+}
