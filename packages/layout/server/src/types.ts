@@ -1,3 +1,6 @@
+import type { MakerCSS } from '@maker-ui/style'
+import type { ImageProps } from 'next/image'
+
 /** All configurations for `<Content>` layouts. */
 export const contentTypes = [
   'content-sidebar',
@@ -70,6 +73,11 @@ export interface TopbarOptions {
   stickyOnMobile: boolean
 }
 
+export interface LogoProps extends MakerCSS, LayoutButtonProps {
+  path?: string
+  image?: ImageProps
+}
+
 export interface HeaderOptions {
   /** The breakpoint where the header navigation collapses to its mobile state */
   breakpoint: string | number
@@ -95,6 +103,16 @@ export interface HeaderOptions {
     scrollTop: number
     className: string
   }
+  /** Replaces the Navbar logo-slot grid area with your own custom component.    */
+  logo?: React.ReactNode | LogoProps
+  /** Replaces the Navbar widget-slot grid area with your own custom component.    */
+  widgets?: React.ReactNode
+  /** Replaces the Navbar menu-slot grid area with your own custom component.    */
+  menu?: React.ReactNode | MenuItemProps[]
+  /** Renders the second menu for "split" nav types   */
+  menuSplit?: React.ReactNode | MenuItemProps[]
+  /** Replaces the Navbar button-slot grid area with your own custom component.    */
+  menuButton?: React.ReactNode | LayoutButtonProps
 }
 
 export interface MobileMenuOptions {
@@ -103,11 +121,8 @@ export interface MobileMenuOptions {
   closeOnBlur: boolean
   closeOnRouteChange: boolean
   center: boolean
-  closeButtonPosition?:
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right'
+  closeButton?: React.ReactNode | LayoutButtonProps
+  menu?: React.ReactNode | MenuItemProps[]
 }
 
 export interface SideNavOptions {
@@ -154,4 +169,31 @@ export interface Options {
     main: boolean
     closeOnBlur: boolean
   }
+}
+
+export interface MenuItemProps {
+  label: string
+  path?: string
+  className?: string
+  icon?: React.ReactElement | string
+  newTab?: boolean
+  submenu?: MenuItemProps[]
+  openNested?: boolean
+  divider?: boolean
+  isExpandButton?: boolean
+  megamenu?: React.ReactElement
+  liAttributes?: object
+}
+
+type Style = string | number | (string | number)[]
+
+export interface LayoutButtonProps extends MakerCSS {
+  icon?: React.ReactNode | string
+  height?: Style
+  width?: Style
+  margin?: Style
+  padding?: Style
+  fill?: Style
+  stroke?: Style
+  position?: Style // for fixed and absolute positioning
 }

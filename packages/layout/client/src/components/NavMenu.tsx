@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
+import type { MenuItemProps } from '@maker-ui/layout-server'
 import { usePathname } from 'next/navigation'
-import { MenuItem, type MenuItemProps } from './MenuItem'
+import { MenuItem } from './MenuItem'
 
 interface NavMenuProps {
   transition?: 'scale' | 'fade' | 'fade-down' | 'fade-up' | 'none'
   caret?: boolean | React.ReactElement
   menuItems?: MenuItemProps[]
-  pathname?: string
 }
 
 /**

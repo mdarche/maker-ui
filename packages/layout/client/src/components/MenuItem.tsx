@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { cn, Conditional } from '@maker-ui/utils'
+import type { MenuItemProps } from '@maker-ui/layout-server'
 import Link from 'next/link'
 
 /**
@@ -25,19 +26,6 @@ import Link from 'next/link'
  *  },
  * ]
  */
-export interface MenuItemProps {
-  label: string
-  path?: string
-  className?: string
-  icon?: React.ReactElement | string
-  newTab?: boolean
-  submenu?: MenuItemProps[]
-  openNested?: boolean
-  divider?: boolean
-  isExpandButton?: boolean
-  megamenu?: React.ReactElement
-  liAttributes?: object
-}
 
 export type ExpandButtonProps =
   | boolean
@@ -142,7 +130,7 @@ export const MenuItem = React.memo(
         {...liAttributes}>
         <Conditional
           condition={!isHeader && submenu ? true : false}
-          wrapper={(children) => <div className="flex">{children}</div>}>
+          trueWrapper={(children) => <div className="flex">{children}</div>}>
           <>
             {!isHeader && divider ? (
               label

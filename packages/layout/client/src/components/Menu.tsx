@@ -1,13 +1,10 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
 import { usePathname } from 'next/navigation'
-import {
-  MenuItem,
-  type ExpandButtonProps,
-  type MenuItemProps,
-} from './MenuItem'
+import type { MenuItemProps } from '@maker-ui/layout-server'
+import { MenuItem, type ExpandButtonProps } from './MenuItem'
 
-interface CollapseProps extends React.HTMLAttributes<HTMLUListElement> {
+interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
   items: MenuItemProps[]
   expandButton?: ExpandButtonProps
   children?: React.ReactElement
@@ -19,14 +16,14 @@ interface CollapseProps extends React.HTMLAttributes<HTMLUListElement> {
  *
  * @link https://maker-ui.com/docs/layout/collapse-menu
  */
-export const CollapseMenu = React.forwardRef<HTMLUListElement, CollapseProps>(
+export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
   ({ items = [], expandButton, className, ...props }, ref) => {
     const pathname = usePathname()
 
     return (
       <ul
         ref={ref}
-        className={cn(['mkui-collapse-menu', className])}
+        className={cn(['mkui-menu', className])}
         role="navigation"
         {...props}>
         {items.map((item, index) => (
@@ -42,4 +39,4 @@ export const CollapseMenu = React.forwardRef<HTMLUListElement, CollapseProps>(
   }
 )
 
-CollapseMenu.displayName = 'CollapseMenu'
+Menu.displayName = 'Menu'

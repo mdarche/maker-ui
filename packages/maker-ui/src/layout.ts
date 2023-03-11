@@ -1,9 +1,9 @@
-// export * from '@maker-ui/layout-client'
 export {
   CollapseMenu,
   MenuButton,
   ColorButton,
-  Provider,
+  LayoutProvider,
   NavMenu, // Todo remove this
   WorkspaceButton, // Todo remove this
+  type MenuItemProps,
 } from '@maker-ui/layout'

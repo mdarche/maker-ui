@@ -1,34 +1,40 @@
+/**
+ * Similar to Server layout but includes essential nested client components and
+ * more direct props
+ */
 import * as React from 'react'
 import { cn, merge } from '@maker-ui/utils'
-
-import { Skiplinks } from './Skiplinks'
-import { Footer, type FooterProps } from './Footer'
-import { Topbar, type TopbarProps } from './Topbar'
-import { MobileMenu, type MobileMenuProps } from './MobileMenu'
-import { Main, type MainProps } from './Main'
-import { SideNav, type SideNavProps } from './SideNav'
-import { Sidebar, type SidebarProps } from './Sidebar'
-import { Workspace, type WorkspaceProps } from './Workspace'
-import { Header, type HeaderProps } from './Header'
-import type { MakerUIOptions, Options } from '@/types'
-import { defaultSettings } from '@/defaults'
+import {
+  Skiplinks,
+  Header,
+  Footer,
+  Topbar,
+  MobileMenu,
+  Main,
+  Sidebar,
+  SideNav,
+  Workspace,
+  type MakerUIOptions,
+  type Options,
+  defaultSettings,
+  MenuItemProps,
+  LayoutButtonProps,
+} from '@maker-ui/layout-server'
+import { Menu, MenuButton, NavMenu } from '@maker-ui/layout-client'
+import { Style, generateCSS } from '@maker-ui/style'
 
 interface LayoutProps {
   children: React.ReactNode
   /** A valid Maker UI Options configuration object */
   options?: MakerUIOptions
-  /** All Layout dot props in object form. This comes in handy if you have many layouts
-   * or if you need to fetch layouts with network requests. */
-  slots?: {
-    topbar?: Partial<TopbarProps>
-    header?: Partial<HeaderProps>
-    mobileMenu?: Partial<MobileMenuProps>
-    main?: Partial<MainProps>
-    sidebar?: Partial<SidebarProps>
-    sideNav?: Partial<SideNavProps>
-    footer?: Partial<FooterProps>
-    workspace?: Partial<WorkspaceProps>
-  }
+}
+
+function isMenu(i: any): i is MenuItemProps[] {
+  return !!(i && typeof i[0] === 'object' && i[0].label)
+}
+
+function isIcon(i: any): i is LayoutButtonProps {
+  return !!(i && typeof i === 'object' && 'icon' in i)
 }
 
 /**
@@ -53,10 +59,9 @@ function assign(children: React.ReactNode) {
  *
  * @link https://maker-ui.com/docs/layout/layout
  */
-export const Layout = ({ options = {}, children, ...props }: LayoutProps) => {
+export const Layout = ({ options = {}, children }: LayoutProps) => {
   const opts = merge(defaultSettings, options) as Options
   const slots = assign(children)
-  // const slots = merge(assign(children), props?.slots || {})
   // Helpers
   const isSidebar = slots.sidebar && opts.layout.includes('sidebar')
   const isSideNav = slots.sideNav && opts.layout.includes('sidenav')
@@ -69,11 +74,42 @@ export const Layout = ({ options = {}, children, ...props }: LayoutProps) => {
       {slots?.topbar && <Topbar {...merge(opts.topbar, slots.topbar.props)} />}
       {slots?.header ? (
         <Header
-          {...merge(opts.header, slots?.header?.props)}
+          {...merge(opts.header, {
+            ...slots?.header?.props,
+            menu: isMenu(slots?.header?.props?.menu) ? (
+              <NavMenu menuItems={slots.header.props.menu} />
+            ) : (
+              slots?.header?.props?.menu
+            ),
+            menuSplit: isMenu(slots?.header?.props?.menuSplit) ? (
+              <NavMenu menuItems={slots.header.props.menuSplit} />
+            ) : (
+              slots?.header?.props?.menuSplit
+            ),
+            menuButton: isIcon(slots?.header?.props?.menuButton) ? (
+              <MenuButton>{slots.header.props.menuButton.icon}</MenuButton>
+            ) : (
+              slots?.header?.props?.menuButton
+            ),
+          })}
           _mobileMenu={
             slots?.mobileMenu ? (
               <MobileMenu
-                {...merge(opts.mobileMenu, slots?.mobileMenu?.props)}
+                {...merge(opts.mobileMenu, {
+                  ...slots?.mobileMenu?.props,
+                  closeButton: isIcon(slots?.mobileMenu?.props?.closeButton) ? (
+                    <MenuButton close>
+                      {slots.mobileMenu.props.closeButton.icon}
+                    </MenuButton>
+                  ) : (
+                    slots?.mobileMenu?.props?.closeButton
+                  ),
+                  children: isMenu(slots?.mobileMenu?.props?.menu) ? (
+                    <Menu items={slots.mobileMenu.props.menu} />
+                  ) : (
+                    slots?.mobileMenu?.props?.children
+                  ),
+                })}
               />
             ) : null
           }

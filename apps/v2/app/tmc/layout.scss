@@ -46,7 +46,7 @@ button {
   // }
 }
 
-.mkui-collapse-menu {
+.mkui-menu {
   margin: 80px 0 0;
   padding: 0;
 
@@ -75,8 +75,6 @@ button {
 @media screen and (min-width: 768px) {
   .mkui-mobile-menu {
     top: var(--height-header) !important;
-    .icon-close {
-    }
   }
 
   .mkui-overlay-m {

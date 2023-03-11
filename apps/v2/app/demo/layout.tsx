@@ -1,14 +1,14 @@
 import { Layout, type MakerUIOptions } from 'maker-ui'
-import Link from 'next/link'
 import {
+  LayoutProvider,
+  type MenuItemProps,
   CollapseMenu,
   ColorButton,
   MenuButton,
   NavMenu,
-  Provider,
-  MenuItemProps,
-  CustomCollapseMenu,
-} from '@/client'
+} from 'maker-ui/layout'
+import Link from 'next/link'
+import { CustomCollapseMenu } from '@/client'
 
 const menu: MenuItemProps[] = [
   { label: 'Home', path: '/' },
@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Provider options={options}>
+        <LayoutProvider options={options}>
           <Layout options={options}>
             {/* <Layout.Topbar>Test</Layout.Topbar> */}
             <Layout.Header
@@ -76,7 +76,7 @@ export default function RootLayout({
             </Layout.SideNav>
             {/* <Layout.Footer>Footer stuff</Layout.Footer> */}
           </Layout>
-        </Provider>
+        </LayoutProvider>
       </body>
     </html>
   )

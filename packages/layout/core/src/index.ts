@@ -12,11 +12,20 @@ import './styles/workspace.css'
 export {
   ColorButton,
   MenuButton,
-  CollapseMenu,
-  Provider,
+  Menu,
+  LayoutProvider,
+  useColorTheme,
+  useMenu,
+  useLayout,
   NavMenu,
   WorkspaceButton,
 } from '@maker-ui/layout-client'
 
-/* Export Layout component and types */
-export { type MakerUIOptions, Layout, Section } from '@maker-ui/layout-server'
+/* Export standalone Server components and types */
+export {
+  Section,
+  type MakerUIOptions,
+  type MenuItemProps,
+} from '@maker-ui/layout-server'
+
+export { Layout } from './components'

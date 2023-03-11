@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useScrollPosition, useWindowSize } from '@maker-ui/hooks'
 
 import type { Options } from '@maker-ui/layout-server'
-import { useMenu } from './Provider'
+import { useMenu } from './LayoutProvider'
 
 interface EffectsProps {
   options: Options
@@ -72,7 +72,7 @@ export const Effects = ({
   useEffect(() => {
     if (!sideNav.closeOnRouteChange) return
     if (!width || width > sideNav.breakpoint) return
-    const menu = document.querySelector('.mkui-sn .mkui-collapse-menu')
+    const menu = document.querySelector('.mkui-sn .mkui-menu')
     const click = (e: any) => {
       if (els.includes(e?.target?.localName)) {
         setMenu('sidenav', false)
@@ -88,7 +88,7 @@ export const Effects = ({
    */
   useEffect(() => {
     if (!mobileMenu.closeOnRouteChange) return
-    const menu = document.querySelector('.mkui-mobile-menu .mkui-collapse-menu')
+    const menu = document.querySelector('.mkui-mobile-menu .mkui-menu')
     const click = (e: any) => {
       if (els.includes(e?.target?.localName)) {
         setMenu('menu', false)

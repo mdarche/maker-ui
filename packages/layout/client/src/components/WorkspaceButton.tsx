@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cn, generateId } from '@maker-ui/utils'
 import { type MakerCSS, Style } from '@maker-ui/style'
-import { useMenu } from './Provider'
+import { useMenu } from './LayoutProvider'
 
 type Responsive = string | number | (string | number)[]
 interface WorkspaceButtonProps

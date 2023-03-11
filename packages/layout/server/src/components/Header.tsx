@@ -1,42 +1,27 @@
 import * as React from 'react'
-import { cn, merge } from '@maker-ui/utils'
-import { type MakerCSS } from '@maker-ui/style'
-import type { HeaderOptions } from '@/types'
 import Link from 'next/link'
-
-type Style = string | number | (string | number)[]
-
-interface LogoProps extends MakerCSS {
-  image?: React.ReactNode | string
-  path?: string
-  height?: Style
-  width?: Style
-  margin?: Style
-  padding?: Style
-  fill?: Style
-  stroke?: Style
-  renderProps?: () => React.ReactNode | React.ReactNode
-}
+import Image from 'next/image'
+import { cn, Conditional, merge } from '@maker-ui/utils'
+import type { HeaderOptions, LogoProps } from '@/types'
+import { renderNode } from '../utils'
 
 export interface HeaderProps
   extends React.HTMLAttributes<HTMLDivElement>,
     Partial<HeaderOptions> {
-  /** Replaces the Navbar logo-slot grid area with your own custom component.    */
-  logo?: LogoProps
-  /** Replaces the Navbar widget-slot grid area with your own custom component.    */
-  widgets?: React.ReactNode
-  /** Replaces the Navbar menu-slot grid area with your own custom component.    */
-  menu?: React.ReactNode
-  /** Renders the second menu for "split" nav types   */
-  menuSplit?: React.ReactNode
-  /** Replaces the Navbar button-slot grid area with your own custom component.    */
-  menuButton?: React.ReactNode
   _mobileMenu?: React.ReactNode
   _type: 'header'
 }
 
 function stickyClass(d?: boolean, m?: boolean) {
   return d && m ? 'sticky' : d ? 'd-sticky' : m ? 'm-sticky' : undefined
+}
+
+function isLocal(path?: string) {
+  return !!path?.startsWith('/')
+}
+
+function isObject(i: any): i is LogoProps {
+  return i && typeof i === 'object' && (i.image || i.icon)
 }
 
 /**
@@ -65,7 +50,10 @@ export const Header = ({
   children,
   ...props
 }: HeaderProps) => {
-  const logoSettings = merge({ path: '/' }, logo || {})
+  const _logo = isObject(logo)
+    ? (merge({ path: '/' }, logo) as LogoProps)
+    : (logo as React.ReactNode)
+
   return (
     <header
       className={cn([
@@ -78,19 +66,34 @@ export const Header = ({
       {...props}>
       <div
         className={cn(['mkui-nav', navType, `m-${navTypeMobile}`, className])}>
-        <div className="nav-area button-slot">{menuButton}</div>
+        <div className="nav-area button-slot">{renderNode(menuButton)}</div>
         {navType === 'split' ? (
-          <div className="nav-area menu-slot split">{menu}</div>
+          <div className="nav-area menu-slot split">{renderNode(menu)}</div>
         ) : null}
         <div className="nav-area logo-slot">
-          {logo?.renderProps ? (
-            logo.renderProps()
-          ) : (
-            <Link href={logoSettings.path}>{logo?.image || null}</Link>
-          )}
+          {React.isValidElement(_logo) ? (
+            _logo
+          ) : isObject(_logo) ? (
+            <Conditional
+              condition={isLocal(_logo.path)}
+              trueWrapper={(c) => <Link href={_logo.path as string}>{c}</Link>}
+              falseWrapper={(c) => (
+                <a href={_logo.path} target="_blank" rel="noreferrer">
+                  {c}
+                </a>
+              )}>
+              <>
+                {_logo?.image ? (
+                  <Image {..._logo.image} />
+                ) : _logo.icon ? (
+                  _logo.icon
+                ) : null}
+              </>
+            </Conditional>
+          ) : null}
         </div>
         <div className="nav-area menu-slot">
-          {navType === 'split' ? menuSplit : menu}
+          {navType === 'split' ? renderNode(menuSplit) : renderNode(menu)}
         </div>
         <div className="nav-area widget-slot">{widgets}</div>
       </div>

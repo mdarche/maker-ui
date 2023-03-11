@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useWindowSize } from '@maker-ui/hooks'
 import { cn } from '@maker-ui/utils'
-import { useLayout, useMenu } from './Provider'
+import { useLayout, useMenu } from './LayoutProvider'
 
 interface MenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   close?: boolean
@@ -28,7 +28,6 @@ export const MenuButton = ({
   } = useLayout()
   const { width } = useWindowSize()
   const { active, setMenu } = useMenu()
-  const positions = mobile?.closeButtonPosition?.split('-')
 
   const attrs = sideNav
     ? {
@@ -60,7 +59,6 @@ export const MenuButton = ({
       sideNav && !side.showCollapseOnMobile ? 'mobile-hide' : undefined,
       sideNav && side.collapse ? 'desktop' : undefined,
       !sideNav && close ? 'mkui-btn-close fixed' : undefined,
-      ...(sideNav || close ? positions || [] : []),
       className,
     ]),
     'aria-label': 'Toggle Menu',

@@ -4,8 +4,9 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
+      "@/defaults": ["src/defaults.ts"],
       "@/types": ["src/types.ts"],
-      "@/defaults": ["src/defaults.ts"]
+      "@/utils": ["src/utils.ts"]
     }
   }
 }

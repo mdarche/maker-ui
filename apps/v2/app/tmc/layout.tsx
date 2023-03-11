@@ -1,15 +1,6 @@
 import { Layout, type MakerUIOptions } from 'maker-ui'
-import Link from 'next/link'
-import {
-  CollapseMenu,
-  ColorButton,
-  MenuButton,
-  NavMenu,
-  Provider,
-  MenuItemProps,
-  WorkspaceButton,
-} from '@/client'
-// import { MenuButton } from 'maker-ui/layout'
+import { LayoutProvider, MenuItemProps } from 'maker-ui/layout'
+
 import { CloseIcon, MenuIcon, TMCLogo } from './icons'
 import { Footer } from './Footer'
 import './layout.scss'
@@ -31,33 +22,26 @@ export default function VaultLayout({
   children: React.ReactNode
 }) {
   return (
-    <Provider options={options}>
+    <LayoutProvider options={options}>
       <Layout options={options}>
         {/* <Layout.Topbar>Test topbar</Layout.Topbar> */}
         <Layout.Header
-          logo={{ image: <TMCLogo />, path: '/demo' }}
+          logo={{ icon: <TMCLogo />, path: '/demo' }}
           widgets={<RightMenu />}
-          menuButton={<MenuButton />}
-          // menuButton={{
-          //   icon: <MenuIcon />,
-          //   // height: null,
-          //   // width: null,
-          //   padding: null,
-          //   margin: null,
-          //   fill: null,
-          //   stroke: null,
-          //   renderProps: null,
-          // }}
+          menuButton={{
+            icon: <MenuIcon />,
+          }}
         />
-        <Layout.MobileMenu>
-          <CollapseMenu items={leftMenu} />
-        </Layout.MobileMenu>
+        <Layout.MobileMenu
+          menu={leftMenu}
+          closeButton={{ icon: <CloseIcon /> }}
+        />
         <Layout.Main>{children}</Layout.Main>
         <Layout.Footer>
           <Footer />
         </Layout.Footer>
       </Layout>
-    </Provider>
+    </LayoutProvider>
   )
 }
 

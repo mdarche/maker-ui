@@ -118,7 +118,7 @@ export const CSSTransition = ({
     <>
       {noStyles ? null : <Style root={styleId}>{styles}</Style>}
       <Conditional
-        wrapper={(c) => (
+        trueWrapper={(c) => (
           <SwitchTransition mode={switchMode}>
             {c as React.ReactElement}
           </SwitchTransition>

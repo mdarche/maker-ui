@@ -24,7 +24,6 @@ export const defaultSettings: Options = {
     closeOnBlur: true,
     closeOnRouteChange: true,
     center: true,
-    closeButtonPosition: 'top-right',
   },
   sideNav: {
     breakpoint: 960,

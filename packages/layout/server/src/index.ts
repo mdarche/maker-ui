@@ -1,7 +1,21 @@
 // Default export Server Components
-export { Layout } from './components/Layout'
 export { Section } from './components/Section'
+export { Header, type HeaderProps } from './components/Header'
+export { Skiplinks } from './components/Skiplinks'
+export { Topbar, type TopbarProps } from './components/Topbar'
+export { MobileMenu, type MobileMenuProps } from './components/MobileMenu'
+export { Main, type MainProps } from './components/Main'
+export { Sidebar, type SidebarProps } from './components/Sidebar'
+export { SideNav, type SideNavProps } from './components/SideNav'
+export { Footer, type FooterProps } from './components/Footer'
+export { Workspace, type WorkspaceProps } from './components/Workspace'
+
 // Types
-export type { MakerUIOptions, Options } from '@/types'
+export type {
+  MakerUIOptions,
+  Options,
+  MenuItemProps,
+  LayoutButtonProps,
+} from '@/types'
 // For client
 export { defaultSettings } from '@/defaults'

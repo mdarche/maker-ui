@@ -1,6 +1,10 @@
-// Server side components that should not be combined with client bundle
-// see maker-ui/layout for client components
-export * from '@maker-ui/style'
+export {
+  Style,
+  generateCSS,
+  type ResponsiveCSS,
+  type Breakpoints,
+  type MediaQuery,
+  type MakerCSS,
+} from '@maker-ui/style'
 // export * from '@maker-ui/layout'
-export { Style, generateCSS } from '@maker-ui/style'
 export { Layout, Section, type MakerUIOptions } from '@maker-ui/layout'

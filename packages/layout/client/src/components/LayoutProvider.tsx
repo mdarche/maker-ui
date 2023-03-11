@@ -121,7 +121,7 @@ function reducer(state: LayoutState, action: Action): LayoutState {
   }
 }
 
-export const Provider = (props: LayoutProviderProps) => {
+export const LayoutProvider = (props: LayoutProviderProps) => {
   const pathname = usePathname()
   const [initialized, setInitialized] = React.useState(false)
   const options = merge(defaultSettings, props.options || {}) as Options
