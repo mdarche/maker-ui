@@ -1,7 +1,3 @@
-/**
- * Similar to Server layout but includes essential nested client components and
- * more direct props
- */
 import * as React from 'react'
 import { cn, merge } from '@maker-ui/utils'
 import {
@@ -14,14 +10,14 @@ import {
   Sidebar,
   SideNav,
   Workspace,
+  defaultSettings,
   type MakerUIOptions,
   type Options,
-  defaultSettings,
-  MenuItemProps,
-  LayoutButtonProps,
+  type MenuItemProps,
+  type LayoutButtonProps,
 } from '@maker-ui/layout-server'
 import { Menu, MenuButton, NavMenu } from '@maker-ui/layout-client'
-import { Style, generateCSS } from '@maker-ui/style'
+// import { Style, generateCSS } from '@maker-ui/style'
 
 interface LayoutProps {
   children: React.ReactNode

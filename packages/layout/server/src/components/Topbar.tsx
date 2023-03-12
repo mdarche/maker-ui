@@ -1,15 +1,12 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
+import { stickyClass } from '../utils'
 import type { TopbarOptions } from '@/types'
 
 export interface TopbarProps
   extends React.HTMLAttributes<HTMLDivElement>,
     Partial<TopbarOptions> {
   _type: 'topbar'
-}
-
-function stickyClass(d?: boolean, m?: boolean) {
-  return d && m ? 'sticky' : d ? 'd-sticky' : m ? 'm-sticky' : undefined
 }
 
 /**

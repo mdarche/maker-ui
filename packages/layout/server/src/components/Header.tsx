@@ -3,25 +3,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { cn, Conditional, merge } from '@maker-ui/utils'
 import type { HeaderOptions, LogoProps } from '@/types'
-import { renderNode } from '../utils'
+import { renderNode, stickyClass, isLocal, isObject } from '../utils'
 
 export interface HeaderProps
   extends React.HTMLAttributes<HTMLDivElement>,
     Partial<HeaderOptions> {
   _mobileMenu?: React.ReactNode
   _type: 'header'
-}
-
-function stickyClass(d?: boolean, m?: boolean) {
-  return d && m ? 'sticky' : d ? 'd-sticky' : m ? 'm-sticky' : undefined
-}
-
-function isLocal(path?: string) {
-  return !!path?.startsWith('/')
-}
-
-function isObject(i: any): i is LogoProps {
-  return i && typeof i === 'object' && (i.image || i.icon)
 }
 
 /**

@@ -17,7 +17,6 @@ export {
   useColorTheme,
   useMenu,
   useLayout,
-  NavMenu,
   WorkspaceButton,
 } from '@maker-ui/layout-client'
 
