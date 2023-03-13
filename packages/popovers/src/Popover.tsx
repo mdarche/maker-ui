@@ -146,13 +146,6 @@ export const Popover = ({
   // Observe popover inner content resize (when active)
   const { ref } = useResizeObserver({
     onResize: ({ height, width }) => {
-      console.log(
-        'Match width is ',
-        matchWidth,
-        height,
-        width,
-        state.anchor?.width
-      )
       if (height && width) {
         setState((s) => ({
           ...s,

@@ -30,7 +30,7 @@ function isMenu(i: any): i is MenuItemProps[] {
 }
 
 function isIcon(i: any): i is LayoutButtonProps {
-  return !!(i && typeof i === 'object' && 'icon' in i)
+  return !!(i && typeof i === 'object' && ('icon' in i || 'defaultIcon' in i))
 }
 
 /**
@@ -83,7 +83,10 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
               slots?.header?.props?.menuSplit
             ),
             menuButton: isIcon(slots?.header?.props?.menuButton) ? (
-              <MenuButton>{slots.header.props.menuButton.icon}</MenuButton>
+              <MenuButton
+                type="mobile-menu"
+                {...slots.header.props.menuButton}
+              />
             ) : (
               slots?.header?.props?.menuButton
             ),
@@ -94,9 +97,10 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
                 {...merge(opts.mobileMenu, {
                   ...slots?.mobileMenu?.props,
                   closeButton: isIcon(slots?.mobileMenu?.props?.closeButton) ? (
-                    <MenuButton close>
-                      {slots.mobileMenu.props.closeButton.icon}
-                    </MenuButton>
+                    <MenuButton
+                      type="mobile-menu"
+                      {...slots.mobileMenu.props.closeButton}
+                    />
                   ) : (
                     slots?.mobileMenu?.props?.closeButton
                   ),

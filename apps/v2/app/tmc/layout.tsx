@@ -1,5 +1,5 @@
-import { Layout, type MakerUIOptions } from 'maker-ui'
-import { LayoutProvider, MenuItemProps } from 'maker-ui/layout'
+import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
+import { type MenuItemProps } from 'maker-ui/layout'
 
 import { CloseIcon, MenuIcon, TMCLogo } from './icons'
 import { Footer } from './Footer'

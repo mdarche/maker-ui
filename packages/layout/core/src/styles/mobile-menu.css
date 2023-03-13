@@ -57,19 +57,3 @@
   left: 0;
   transform: translateX(-100%);
 }
-
-.mkui-btn-close.top {
-  top: 0;
-}
-
-.mkui-btn-close.bottom {
-  bottom: 0;
-}
-
-.mkui-btn-close.left {
-  left: 0;
-}
-
-.mkui-btn-close.right {
-  right: 0;
-}

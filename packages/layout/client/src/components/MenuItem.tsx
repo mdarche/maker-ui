@@ -82,7 +82,7 @@ export const MenuItem = React.memo(
       ]),
       target: newTab ? '_blank' : undefined,
       rel: newTab ? 'noopener noreferrer' : undefined,
-      'aria-label': icon ? label : undefined,
+      'aria-label': icon && typeof label === 'string' ? label : undefined,
       'aria-haspopup':
         isHeader && submenu
           ? ('true' as 'true')

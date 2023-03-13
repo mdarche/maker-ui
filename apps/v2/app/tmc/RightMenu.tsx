@@ -2,7 +2,7 @@
 
 import { Style } from 'maker-ui'
 import { Form } from 'maker-ui/forms'
-import { CollapseMenu, ColorButton, type MenuItemProps } from 'maker-ui/layout'
+import { ColorButton, type MenuItemProps } from 'maker-ui/layout'
 import { CSSTransition } from 'maker-ui/transition'
 import { generateId, cn } from 'maker-ui/utils'
 import { useState } from 'react'

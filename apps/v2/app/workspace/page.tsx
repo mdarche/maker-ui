@@ -1,8 +1,8 @@
 'use client'
 
-import { Popover } from 'maker-ui/popovers'
-import { WorkspaceButton } from '@/client'
 import { useRef, useState } from 'react'
+import { Popover } from 'maker-ui/popovers'
+import { MenuButton } from 'maker-ui/layout'
 
 export default function WorkspacePage() {
   const [show, set] = useState(false)
@@ -10,7 +10,7 @@ export default function WorkspacePage() {
   return (
     <div>
       <h1>About Page</h1>
-      <WorkspaceButton right>Right Panel</WorkspaceButton>
+      <MenuButton type="ws-right">Right Panel</MenuButton>
       <p>Lorem ipsum</p>
       <button ref={ref} onClick={(e) => set(!show)} style={{ marginRight: 10 }}>
         Popover toggle

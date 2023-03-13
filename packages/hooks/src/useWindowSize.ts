@@ -20,6 +20,19 @@ export function useWindowSize(callback?: (w?: WindowState) => void) {
     height: window?.innerHeight,
   })
 
+  /**
+   * Invoke the callback function on first render if it is defined
+   */
+  useEffect(() => {
+    if (callback) {
+      callback(windowSize)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  /**
+   * Add a resize event-listener to the window and update the windowSize state
+   */
   useEffect(() => {
     function resize() {
       if (callback) {

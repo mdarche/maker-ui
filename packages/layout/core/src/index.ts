@@ -13,11 +13,11 @@ export {
   ColorButton,
   MenuButton,
   Menu,
+  NavMenu,
   LayoutProvider,
   useColorTheme,
   useMenu,
   useLayout,
-  WorkspaceButton,
 } from '@maker-ui/layout-client'
 
 /* Export standalone Server components and types */
@@ -27,4 +27,5 @@ export {
   type MenuItemProps,
 } from '@maker-ui/layout-server'
 
+/* Export the blended server + client Layout component */
 export { Layout } from './components'

@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { Section } from 'maker-ui'
 import { Popover, Dropdown, Tooltip } from 'maker-ui/popovers'
 import { useKeyboardShortcut } from 'maker-ui/hooks'
-import { ColorButton } from '@/client'
+import { ColorButton } from 'maker-ui/layout'
 
 export default function PopoverPage() {
   const [show, set] = useState(false)

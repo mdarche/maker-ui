@@ -45,7 +45,7 @@ export const MobileMenu = ({
           className,
         ])}
         {...props}>
-        <div className="container height-100 width-100">
+        <div className="container height-100 width-100 relative">
           <>{renderNode(closeButton)}</>
           <>{children}</>
         </div>

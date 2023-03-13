@@ -1,9 +1,10 @@
 'use client'
-import { CollapseMenu, MenuItemProps } from './client'
+
+import { Menu, type MenuItemProps } from 'maker-ui/layout'
 
 export const CustomCollapseMenu = ({ menu }: { menu: MenuItemProps[] }) => {
   return (
-    <CollapseMenu
+    <Menu
       items={menu}
       expandButton={(s, atts) => (
         <button {...atts}>{s ? 'close' : 'open'}</button>

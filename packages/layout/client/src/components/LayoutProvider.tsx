@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { merge } from '@maker-ui/utils'
-import { useWindowSize } from '@maker-ui/hooks'
 import {
   defaultSettings,
   type MakerUIOptions,
@@ -10,22 +9,26 @@ import { usePathname } from 'next/navigation'
 
 import { Effects } from './Effects'
 import { getHeaderStyles, getLayoutStyles } from '../styles'
+import { setBrowserTheme } from '../utils'
 
 type Action =
-  | { type: 'SET_MENU'; value?: boolean }
-  | { type: 'SET_SIDENAV'; value?: boolean }
-  | { type: 'SET_SIDENAV_COLLAPSE'; value?: boolean }
-  | { type: 'SET_PANEL'; value: { active: boolean; type: 'left' | 'right' } }
+  | { type: 'SET_MOBILE_MENU'; value?: boolean }
+  | { type: 'SET_SIDE_NAV_MOBILE'; value?: boolean }
+  | { type: 'SET_SIDE_NAV_DESKTOP'; value?: boolean }
+  | {
+      type: 'SET_WORKSPACE'
+      value: { value: boolean; type: 'workspaceLeft' | 'workspaceRight' }
+    }
   | { type: 'SET_COLOR_THEME'; value: string }
   | { type: 'RESET' }
 
-interface LayoutState {
+export interface LayoutState {
   active: {
-    menu: boolean
-    sideNav: boolean
-    sideNavCollapse: boolean
-    leftPanel: boolean
-    rightPanel: boolean
+    mobileMenu: boolean
+    sideNavMobile: boolean
+    sideNavDesktop: boolean
+    workspaceLeft: boolean
+    workspaceRight: boolean
   }
   colorTheme?: string
   options?: Options
@@ -37,80 +40,48 @@ interface LayoutProviderProps {
 }
 
 type LayoutContextType = {
-  state: Partial<LayoutState>
+  state: LayoutState
   dispatch: (a: Action) => void
 }
 
-const LayoutContext = React.createContext<LayoutContextType>({
-  state: {},
+// Assumes desktop screen size by default
+const initialActive = {
+  mobileMenu: false,
+  sideNavMobile: false,
+  sideNavDesktop: true,
+  workspaceLeft: true,
+  workspaceRight: true,
+}
+
+export const LayoutContext = React.createContext<LayoutContextType>({
+  state: { active: initialActive },
   dispatch: (a) => {},
 })
 
-/**
- * Utility that ensures all values in an array exist in a target array.
- */
-function allExist(arr: string[], values: string[]) {
-  return values.every((value) => {
-    return arr.indexOf(value) !== -1
-  })
-}
-
-function setBrowserTheme(
-  value: string | 'default',
-  themes: string[],
-  setStorage = true
-) {
-  if (window === undefined) return
-  const key = 'color-theme'
-  let t = ''
-  const dark = window?.matchMedia('(prefers-color-scheme: dark)').matches
-
-  if (value === 'system' && allExist(themes, ['system', 'dark', 'light'])) {
-    t = dark ? 'dark' : 'light'
-  } else if (value === 'default') {
-    t = themes[0]
-  } else {
-    t = value
-  }
-  document.body.dataset.theme = t
-  if (setStorage) {
-    localStorage.setItem(key, JSON.stringify({ theme: value }))
-  }
-}
-
 function reducer(state: LayoutState, action: Action): LayoutState {
   switch (action.type) {
-    case 'SET_MENU': {
-      return merge(state, { active: { menu: !state.active.menu } })
+    case 'SET_MOBILE_MENU': {
+      return merge(state, { active: { mobileMenu: !state.active.mobileMenu } })
     }
-    case 'SET_SIDENAV': {
+    case 'SET_SIDE_NAV_MOBILE': {
       return merge(state, {
-        active: { sideNav: action.value || !state.active.sideNav },
+        active: { sideNavMobile: action.value || !state.active.sideNavMobile },
       })
     }
-    case 'SET_SIDENAV_COLLAPSE': {
+    case 'SET_SIDE_NAV_DESKTOP': {
       return merge(state, {
         active: {
-          sideNavCollapse: action.value || !state.active.sideNavCollapse,
+          sideNavDesktop: action.value || !state.active.sideNavDesktop,
         },
       })
     }
-    case 'SET_PANEL': {
+    case 'SET_WORKSPACE': {
       return merge(state, {
-        active: { [action.value.type + 'Panel']: action.value.active },
+        active: { [action.value.type]: action.value.value },
       })
     }
     case 'RESET': {
-      return {
-        ...state,
-        active: {
-          sideNav: false,
-          menu: false,
-          sideNavCollapse: false,
-          leftPanel: true,
-          rightPanel: true,
-        },
-      }
+      return { ...state, active: initialActive }
     }
     case 'SET_COLOR_THEME': {
       return { ...state, colorTheme: action.value }
@@ -126,13 +97,7 @@ export const LayoutProvider = (props: LayoutProviderProps) => {
   const [initialized, setInitialized] = React.useState(false)
   const options = merge(defaultSettings, props.options || {}) as Options
   const [state, dispatch] = React.useReducer(reducer, {
-    active: {
-      menu: false,
-      sideNav: false,
-      sideNavCollapse: false,
-      leftPanel: true,
-      rightPanel: true,
-    },
+    active: initialActive,
     options,
   })
 
@@ -215,132 +180,4 @@ export const LayoutProvider = (props: LayoutProviderProps) => {
       ) : null}
     </LayoutContext.Provider>
   )
-}
-
-export const useLayout = () => {
-  const {
-    state: { options },
-  } = React.useContext(LayoutContext)
-
-  return { options: options as Options }
-}
-
-export const useMenu = () => {
-  const { width } = useWindowSize()
-  const {
-    state: { options, active },
-    dispatch,
-  } = React.useContext(LayoutContext)
-
-  function setMenu(
-    type: 'menu' | 'sidenav' | 'collapse' | 'left-panel' | 'right-panel',
-    value: boolean
-  ) {
-    // Find elements in DOM to manipulate
-    const menu = document.querySelector('.mkui-mobile-menu')
-    const sidenav = document.querySelector('.mkui-sn')
-    const overlay_m = document.querySelector('.mkui-overlay-m')
-    const overlay_s = document.querySelector('.mkui-overlay-s')
-    const overlay_w = document.querySelector('.mkui-overlay-w')
-    const workspace = document.querySelector('.mkui-workspace')
-    const panel_left = document.querySelector('.mkui-panel-left')
-    const panel_right = document.querySelector('.mkui-panel-right')
-
-    const handleMobileMenu = () => {
-      if (value) {
-        menu?.classList.add('active')
-        overlay_m?.classList.add('active')
-      } else {
-        menu?.classList.remove('active')
-        overlay_m?.classList.remove('active')
-      }
-    }
-
-    const handleSideNav = () => {
-      const c = type === 'collapse' ? 'sn-collapse' : 'sn-hide'
-      if (!value) {
-        sidenav?.classList.add(c)
-        overlay_s?.classList.remove('active')
-      } else {
-        sidenav?.classList.remove(c)
-        overlay_s?.classList.add('active')
-      }
-    }
-
-    /** Handle mobile menu */
-    if (type === 'menu' && !options?.sideNav.isPrimaryMobileNav) {
-      handleMobileMenu()
-      dispatch({ type: 'SET_MENU' })
-    }
-    /** Handle sidenav and mobile menu when sidenav is primary */
-    if (
-      (type === 'menu' && options?.sideNav.isPrimaryMobileNav) ||
-      type === 'sidenav'
-    ) {
-      handleSideNav()
-      dispatch({ type: 'SET_SIDENAV' })
-    }
-
-    if (type === 'collapse') {
-      handleSideNav()
-      dispatch({
-        type: 'SET_SIDENAV_COLLAPSE',
-      })
-    }
-
-    if (type.includes('panel')) {
-      const side = type === 'left-panel' ? 'left' : 'right'
-      if (value) {
-        workspace?.classList.add(`${side}-active`)
-        ;(side === 'left' ? panel_left : panel_right)?.classList.add('active')
-        if (width && width < options?.content.breakpoint!) {
-          overlay_w?.classList.add('active')
-        }
-      } else {
-        workspace?.classList.remove(`${side}-active`)
-        overlay_w?.classList.remove('active')
-        ;(side === 'left' ? panel_left : panel_right)?.classList.remove(
-          'active'
-        )
-      }
-      dispatch({
-        type: 'SET_PANEL',
-        value: { active: value, type: side },
-      })
-    }
-  }
-
-  function reset(mobile = true) {
-    const sidenav = document.querySelector('.mkui-sn')
-    const overlay_s = document.querySelector('.mkui-overlay-s')
-
-    dispatch({ type: 'RESET' })
-    if (mobile) {
-      sidenav?.classList.add('sn-hide')
-      overlay_s?.classList.remove('active')
-    } else {
-      sidenav?.classList.remove('sn-hide')
-      sidenav?.classList.remove('sn-collapse')
-    }
-  }
-
-  return { active, setMenu, reset }
-}
-
-export function useColorTheme() {
-  const {
-    state: { colorTheme, options },
-    dispatch,
-  } = React.useContext(LayoutContext)
-
-  function setColorTheme(theme: string) {
-    setBrowserTheme(theme, options?.colorThemes || [])
-    dispatch({ type: 'SET_COLOR_THEME', value: theme })
-  }
-
-  return {
-    themes: options?.colorThemes || [],
-    current: colorTheme,
-    setColorTheme,
-  }
 }

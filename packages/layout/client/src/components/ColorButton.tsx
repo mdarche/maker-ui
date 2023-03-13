@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { useColorTheme } from './LayoutProvider'
+import { useColorTheme } from '../hooks'
 
 interface ColorProps extends React.HTMLAttributes<HTMLButtonElement> {
   renderProps?: (currentMode?: string, attrs?: object) => React.ReactNode

@@ -35,7 +35,7 @@ export const Workspace = ({
     <>
       <div
         className={cn([
-          'mkui-workspace left-active right-active',
+          'mkui-workspace ws-left-active ws-right-active',
           'mkui-layout-init',
           className,
         ])}

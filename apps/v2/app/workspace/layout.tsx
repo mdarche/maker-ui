@@ -1,14 +1,12 @@
-import { Layout, type MakerUIOptions } from 'maker-ui'
+import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
 import Link from 'next/link'
 import {
-  CollapseMenu,
+  Menu,
   ColorButton,
   MenuButton,
   NavMenu,
-  Provider,
-  MenuItemProps,
-  WorkspaceButton,
-} from '@/client'
+  type MenuItemProps,
+} from 'maker-ui/layout'
 
 const menu: MenuItemProps[] = [
   { label: 'Home', path: '/' },
@@ -21,51 +19,48 @@ export default function WorkspaceLayout({
   children: React.ReactNode
 }) {
   return (
-    <Provider options={options}>
+    <LayoutProvider options={options}>
       <Layout options={options}>
         {/* <Layout.Topbar>Test topbar</Layout.Topbar> */}
         <Layout.Header
           logo={<Link href="/">Logo</Link>}
           menu={<NavMenu menuItems={menu} />}
           widgets={<ColorButton />}
-          menuButton={<MenuButton />}
+          menuButton={{ defaultIcon: 'menu' }}
         />
-        <Layout.MobileMenu closeButton={<MenuButton close />}>
-          <CollapseMenu items={menu} />
-        </Layout.MobileMenu>
+        <Layout.MobileMenu closeButton={{ defaultIcon: 'close' }} menu={menu} />
         <Layout.Workspace
           left={<div>Left Panel Menus</div>}
           right={<div>Right Panel Details</div>}
           toggles={{
             left: (
-              <WorkspaceButton
-                left
+              <MenuButton
+                type="ws-left"
+                icon="Left Panel"
                 fixed
                 position={{
                   top: 'calc(var(--height-header) + 100px)',
                   left: 30,
-                }}>
-                Left Panel
-              </WorkspaceButton>
+                }}
+              />
             ),
             right: (
-              <WorkspaceButton
-                right
+              <MenuButton
+                type="ws-right"
+                icon="Right Panel"
                 fixed
-                hideOnMobile
                 position={{
                   top: 'calc(var(--height-header) + 100px)',
                   right: 30,
-                }}>
-                Right
-              </WorkspaceButton>
+                }}
+              />
             ),
           }}>
           {children}
         </Layout.Workspace>
         <Layout.Footer>Footer</Layout.Footer>
       </Layout>
-    </Provider>
+    </LayoutProvider>
   )
 }
 

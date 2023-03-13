@@ -74,33 +74,50 @@ export interface TopbarOptions {
 }
 
 export interface LogoProps extends MakerCSS, LayoutButtonProps {
+  /** The destination path or URL applied to the logo */
   path?: string
+  /** If not using the `icon` prop for SVGs, you can use Next Image props here. */
   image?: ImageProps
 }
 
 export interface HeaderOptions {
-  /** The breakpoint where the header navigation collapses to its mobile state */
+  /** The breakpoint where the header navigation collapses to its mobile state
+   * @default 960
+   */
   breakpoint: string | number
-  /** Desktop navigation type */
+  /** Desktop navigation type
+   * @default basic
+   */
   navType: typeof navTypes[number]
-  /** Mobile navigation type */
+  /** Mobile navigation type
+   * @default basic
+   */
   navTypeMobile: typeof mobileNavTypes[number]
   /** If true, the header will use absolute and fixed positioning instead of the default
    * relative and sticky positioning. This is useful if you want to show content behind the header
    * like a hero image or video.
+   * @default false
    */
   absolute: boolean
-  /** Determines if the header is sticky on desktop. */
+  /** Determines if the header is sticky on desktop.
+   * @default false
+   */
   sticky: boolean
-  /** Determines if the header is sticky on mobile. */
+  /** Determines if the header is sticky on mobile.
+   * @default false
+   */
   stickyOnMobile: boolean
-  /** Hides the header on downscroll and reveals it when scrolling back up. */
+  /** Hides the header on downscroll and reveals it when scrolling back up.
+   * @default false
+   */
   stickyUpScroll: boolean | { delay: number; start: number }
   /** Applies a custom class to the header once the user scrolls beyond a specified
    * scrollTop position. This is useful for changing header content or adding a background color.
    */
   scrollClass?: {
+    /** The scrollTop position to apply the class */
     scrollTop: number
+    /** The class to apply */
     className: string
   }
   /** Replaces the Navbar logo-slot grid area with your own custom component.    */
@@ -116,13 +133,31 @@ export interface HeaderOptions {
 }
 
 export interface MobileMenuOptions {
+  /** The MobileMenu's entrance / exit transition
+   * @default fade
+   */
   transition: typeof transitionTypes[number]
+  /** If true, the menuButton will display on desktop, regardless of header type.
+   * @default false
+   */
   visibleOnDesktop: boolean
+  /** If true, the mobile menu will render an overlay that can be used to toggle the menu off.
+   * @default true
+   */
   closeOnBlur: boolean
+  /** If true, the mobile menu will dismiss itself after navigating to a new page route.
+   * @default true
+   */
   closeOnRouteChange: boolean
+  /** If true, all nested children will be centered in the MobileMenu.
+   * @default true
+   */
   center: boolean
+  /** A custom MenuButton or LayoutButtonProps that can be used to position and style the
+   * close button. */
   closeButton?: React.ReactNode | LayoutButtonProps
-  menu?: React.ReactNode | MenuItemProps[]
+  /** An optional array of MenuItems that will be rendered as a Menu. */
+  menu?: MenuItemProps[]
 }
 
 export interface SideNavOptions {
@@ -156,44 +191,99 @@ export interface Options {
    * ]
    */
   skiplinks: boolean | { label: string; id: string }[]
-  /** Make sure you use all of these themes in your css variable declaration file */
+  /** Make sure you use all of these themes in your CSS variable declaration file */
   colorThemes: string[]
   topbar: TopbarOptions
   header: HeaderOptions
   mobileMenu: MobileMenuOptions
   sideNav: SideNavOptions
   content: {
+    /** The breakpoint at which main and sidebar layouts break down into a single column
+     * for mobile. */
     breakpoint: string | number
   }
   workspace: {
+    /** If true, the center panel will be rendered as a `main` element instead of a `div`.
+     * @default true
+     */
     main: boolean
+    /** If true, the workspace layout will render an overlay on mobile that can be used to
+     * collapse any active workspace panels.
+     * @default true
+     */
     closeOnBlur: boolean
   }
 }
 
 export interface MenuItemProps {
-  label: string
+  /** The menu item label. Can be a React Element. */
+  label: string | React.ReactElement
+  /** The destination path for the menu item. */
   path?: string
+  /** An optional class selector for the menu item. */
   className?: string
+  /** An optional icon for the menu item that will be displayed to the left of the label. */
   icon?: React.ReactElement | string
+  /** If true, the destination URL will open in a new tab. */
   newTab?: boolean
+  /** A nested array of MenuItems for generating submenus. */
   submenu?: MenuItemProps[]
+  /** If true, the submenu will be visible by default. */
   openNested?: boolean
+  /** If true, this menu item will not render a link and instead be used as a divider. */
   divider?: boolean
+  /** If true, the entire menu item will serve as an expand or collapse button for the nested
+   * submenu.
+   */
   isExpandButton?: boolean
+  /** If true, the menu item will render a nested custom component in place of a submenu. */
   megamenu?: React.ReactElement
+  /** Props that will be applied directly to the `<li>` element for this menu item. */
   liAttributes?: object
 }
 
 type Style = string | number | (string | number)[]
 
 export interface LayoutButtonProps extends MakerCSS {
+  /** A string or SVG element that will be used as the button's inner content */
   icon?: React.ReactNode | string
+  /** An aria-label for improved accessibility */
+  label?: string
+  /** The menu that this button controls. */
+  type?: 'mobile-menu' | 'side-nav' | 'ws-left' | 'ws-right'
+  /** An optional default icon that you can use instead of providing your own. */
+  defaultIcon?: 'menu' | 'close'
+  /** If true, the button will have fixed positioning */
+  fixed?: boolean
+  /** If true, the button will have absolute positioning */
+  absolute?: boolean
+  /** If true, the button will have sticky positioning */
+  sticky?: boolean
+  /** Quick access to responsive CSS `height` attribute for the icon. */
   height?: Style
+  /** Quick access to responsive CSS `width` attribute for the icon. */
   width?: Style
+  /** Quick access to responsive CSS `margin` attribute for the icon. */
   margin?: Style
+  /** Quick access to responsive CSS `padding` attribute for the icon. */
   padding?: Style
+  /** Quick access to responsive CSS `fill` attribute for the SVG icon. */
   fill?: Style
+  /** Quick access to responsive CSS `stroke` attribute for the SVG icon. */
   stroke?: Style
-  position?: Style // for fixed and absolute positioning
+  /** Quick access to responsive CSS `strokeWidth` attribute for the SVG icon. */
+  strokeWidth?: Style
+  /** Quick access to responsive CSS `top`, `right`, `bottom`, and `left` attributes
+   * for easy fixed, absolute, or sticky positioning.
+   */
+  position?: {
+    /** The button's top position. */
+    top?: Style
+    /** The button's right position. */
+    right?: Style
+    /** The button's bottom position. */
+    bottom?: Style
+    /** The button's left position. */
+    left?: Style
+  }
 }

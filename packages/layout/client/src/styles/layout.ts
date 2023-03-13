@@ -1,4 +1,4 @@
-import type { Options } from '../../../server/dist'
+import type { Options } from '@maker-ui/layout-server'
 
 export function getLayoutStyles(
   { layout, topbar, header, content, sideNav }: Options,
@@ -97,7 +97,7 @@ export function getLayoutStyles(
         margin-left: 0;
         margin-right: 0;
       }
-      .mkui-btn-collapse.mobile-hide {
+      .mkui-btn-side-nav.mobile-hide {
         display: none;
       }
       .mkui-sn.sn-hide {
@@ -113,10 +113,10 @@ export function getLayoutStyles(
         .mkui-layout-init {
           display: flex;
         }
-        .mkui-btn-collapse {
+        .mkui-btn-side-nav {
           display: none;
         }
-        .mkui-btn-collapse.desktop {
+        .mkui-btn-side-nav.desktop {
           display: block;
         }
         .mkui-sn {
@@ -145,7 +145,7 @@ export function getLayoutStyles(
   if (layout === 'workspace') {
     styles = `
       @media screen and (max-width: ${breakpoint}) { 
-        .mkui-btn-workspace.mobile-hide {
+        .mkui-btn-ws-left.mobile-hide, .mkui-btn-ws-right.mobile-hide {
           display: none;
         }
       }
@@ -166,13 +166,13 @@ export function getLayoutStyles(
         .mkui-workspace {
           grid-template-columns: var(--width-left-panel-collapse, 0) 1fr var(--width-right-panel-collapse, 0);
         }
-        .mkui-workspace.left-active {
+        .mkui-workspace.ws-left-active {
           grid-template-columns: var(--width-left-panel, var(--width-panel)) 1fr var(--width-right-panel-collapse, 0);
         }
-        .mkui-workspace.right-active {
+        .mkui-workspace.ws-right-active {
           grid-template-columns: var(--width-left-panel-collapse, 0) 1fr var(--width-right-panel, var(--width-panel));
         }
-        .mkui-workspace.left-active.right-active {
+        .mkui-workspace.ws-left-active.ws-right-active {
           grid-template-columns: var(--width-left-panel, var(--width-panel)) 1fr var(--width-right-panel, var(--width-panel));
         }
         .mkui-overlay-w {

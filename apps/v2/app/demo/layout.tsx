@@ -1,13 +1,5 @@
-import { Layout, type MakerUIOptions } from 'maker-ui'
-import {
-  LayoutProvider,
-  type MenuItemProps,
-  CollapseMenu,
-  ColorButton,
-  MenuButton,
-  NavMenu,
-} from 'maker-ui/layout'
-import Link from 'next/link'
+import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
+import { ColorButton, MenuButton, type MenuItemProps } from 'maker-ui/layout'
 import { CustomCollapseMenu } from '@/client'
 
 const menu: MenuItemProps[] = [
@@ -55,20 +47,24 @@ export default function RootLayout({
           <Layout options={options}>
             {/* <Layout.Topbar>Test</Layout.Topbar> */}
             <Layout.Header
-              logo={<Link href="/">Logo</Link>}
-              menu={<NavMenu menuItems={menu} />}
+              logo={{ icon: 'Logo', path: '/' }}
+              menu={menu}
               widgets={<ColorButton />}
-              menuButton={<MenuButton />}
+              menuButton={{ defaultIcon: 'menu' }}
             />
-            <Layout.MobileMenu closeButton={<MenuButton close />}>
-              <CollapseMenu items={menu} />
-            </Layout.MobileMenu>
+            <Layout.MobileMenu
+              closeButton={{ defaultIcon: 'close' }}
+              menu={menu}
+            />
             <Layout.Main>{children}</Layout.Main>
             <Layout.Sidebar primary>Sidebar</Layout.Sidebar>
             <Layout.Sidebar>Sidebar</Layout.Sidebar>
             <Layout.SideNav
               collapseButton={
-                <MenuButton sideNav style={{ bottom: 30, right: 30 }}>
+                <MenuButton
+                  type="side-nav"
+                  fixed
+                  position={{ bottom: 30, right: 30 }}>
                   Collapse
                 </MenuButton>
               }>
@@ -104,14 +100,13 @@ const options: MakerUIOptions = {
   },
   mobileMenu: {
     transition: 'fade',
-    visibleOnDesktop: false,
     closeOnBlur: true,
     closeOnRouteChange: true,
   },
   sideNav: {
     isHeader: false,
     collapse: true,
-    showCollapseOnMobile: false,
+    showCollapseOnMobile: true,
     closeOnBlur: true,
     closeOnRouteChange: true,
     // isPrimaryMobileNav: true,

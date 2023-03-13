@@ -12,6 +12,11 @@
   overflow-y: auto;
 }
 
+.mkui-layout-init .mkui-panel-left,
+.mkui-layout-init .mkui-panel-right {
+  display: none;
+}
+
 .mkui-panel-center {
   width: 100%;
 }
@@ -44,8 +49,8 @@
   transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
 }
 
-.left-active .mkui-panel-left,
-.right-active .mkui-panel-right {
+.ws-left-active .mkui-panel-left,
+.ws-right-active .mkui-panel-right {
   transform: translateX(0);
 }
 

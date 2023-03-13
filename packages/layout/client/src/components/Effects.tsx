@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useScrollPosition, useWindowSize } from '@maker-ui/hooks'
-
 import type { Options } from '@maker-ui/layout-server'
-import { useMenu } from './LayoutProvider'
+
+import { useMenu } from '../hooks'
+import { usePathname } from 'next/navigation'
 
 interface EffectsProps {
   options: Options
@@ -24,13 +25,40 @@ export const Effects = ({
     content,
     mobileMenu,
     sideNav,
+    workspace,
   },
 }: EffectsProps) => {
-  const { reset, setMenu } = useMenu()
-  const { width } = useWindowSize()
-  const [selector, setSelector] = useState('')
+  // Refs
+  const headerRef = useRef<HTMLDivElement | null>(null)
+  const overlayMobileRef = useRef<HTMLDivElement | null>(null)
+  const overlaySideNavRef = useRef<HTMLDivElement | null>(null)
+  const overlayWorkspaceRef = useRef<HTMLDivElement | null>(null)
+  // Hooks
+  const pathname = usePathname()
+  const { reset, active, setMenu } = useMenu()
+  const { width } = useWindowSize(() => {
+    // Handle SideNav on resize
+    if (layout.includes('sidenav')) {
+      if (width && width < sideNav.breakpoint) {
+        reset(true)
+      } else if (width && width > sideNav.breakpoint) {
+        reset()
+      }
+    }
+    // Handle Workspace panels on resize
+    if (layout.includes('workspace')) {
+      if (width && width < content.breakpoint) {
+        setMenu(false, 'ws-left')
+        setMenu(false, 'ws-right')
+      } else if (width) {
+        setMenu(true, 'ws-left')
+        setMenu(true, 'ws-right')
+      }
+    }
+  })
+  const [scrollSelector, setScrollSelector] = useState('')
   const [show, setShow] = useState(true)
-  const els = ['span', 'a', 'li']
+  // Helpers
   const upScroll: UpScrollSettings =
     typeof stickyUpScroll === 'object'
       ? {
@@ -44,135 +72,69 @@ export const Effects = ({
   const limit = upScroll?.start || 500
 
   /**
-   * Collapse SideNav on mobile or when window is resized
+   * Set all necessary HTML element references
    */
   useEffect(() => {
-    if (!layout.includes('sidenav')) return
-    const sn = document.querySelector('.mkui-sn')
-
-    if (width && width < sideNav.breakpoint) {
-      reset(true)
-    } else if (width && width > sideNav.breakpoint) {
-      reset()
-    }
-
-    if (width) {
-      // TODO make this timeout dynamic based on sidenav.cssTransition
-      setTimeout(() => {
-        sn?.classList.remove('mkui-layout-init')
-      }, 350)
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [width])
+    headerRef.current = document.querySelector('.mkui-header')
+    overlayMobileRef.current = document.querySelector('.mkui-overlay-m')
+    overlaySideNavRef.current = document.querySelector('.mkui-overlay-s')
+    overlayWorkspaceRef.current = document.querySelector('.mkui-overlay-w')
+  }, [])
 
   /**
-   * Dismiss mobile side nav on route change
+   * Remove all instances of mkui-layout-init class on first render
    */
   useEffect(() => {
-    if (!sideNav.closeOnRouteChange) return
+    const init = document.querySelectorAll('.mkui-layout-init')
+    init.forEach((el) => el.classList.remove('mkui-layout-init'))
+  }, [])
+
+  /**
+   * Dismiss MobileMenu and mobile SideNav on route change
+   */
+  useEffect(() => {
     if (!width || width > sideNav.breakpoint) return
-    const menu = document.querySelector('.mkui-sn .mkui-menu')
-    const click = (e: any) => {
-      if (els.includes(e?.target?.localName)) {
-        setMenu('sidenav', false)
+
+    if (sideNav.closeOnRouteChange && active?.sideNavMobile) {
+      setMenu(false, 'side-nav-mobile')
+    }
+
+    if (mobileMenu.closeOnRouteChange && active?.mobileMenu) {
+      setMenu(false, 'mobile-menu')
+    }
+  }, [pathname])
+
+  /**
+   * Handle overlay clicks
+   */
+  useEffect(() => {
+    const mobileClick = () => {
+      if (mobileMenu.closeOnBlur) {
+        setMenu(false, 'mobile-menu')
       }
     }
-    menu?.addEventListener('click', click)
-    return () => menu?.removeEventListener('click', click)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
-  /**
-   * Dismiss mobile menu on route change
-   */
-  useEffect(() => {
-    if (!mobileMenu.closeOnRouteChange) return
-    const menu = document.querySelector('.mkui-mobile-menu .mkui-menu')
-    const click = (e: any) => {
-      if (els.includes(e?.target?.localName)) {
-        setMenu('menu', false)
+    const sideNavClick = () => {
+      if (sideNav.closeOnBlur) {
+        setMenu(false, 'side-nav-mobile')
       }
     }
-    menu?.addEventListener('click', click)
-    return () => menu?.removeEventListener('click', click)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
-  /**
-   * Handle mobile menu overlay clicks
-   */
-  useEffect(() => {
-    const o = document.querySelector('.mkui-overlay-m')
-    if (!o) return
-    if (!mobileMenu.closeOnBlur) return
-    const click = (e: any) => {
-      e.preventDefault()
-      setMenu('menu', false)
-    }
-    o.addEventListener('click', click)
-    return () => o.removeEventListener('click', click)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  /**
-   * Handle workspace overlay clicks
-   */
-  useEffect(() => {
-    const o = document.querySelector('.mkui-overlay-w')
-    if (!o) return
-    const click = (e: any) => {
-      e.preventDefault()
-      if (!width || width > content.breakpoint) return
-      const container = document.querySelector('.mkui-workspace')
-      const side = container?.classList.contains('left-active')
-        ? 'left-panel'
-        : 'right-panel'
-      setMenu(side, false)
-    }
-    o.addEventListener('click', click)
-    return () => o.removeEventListener('click', click)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  /**
-   * Collapse Workspace Panels on mobile or when window is resized
-   */
-  useEffect(() => {
-    if (!layout.includes('workspace')) return
-    const workspace = document.querySelector('.mkui-workspace')
-
-    if (width && width < content.breakpoint) {
-      setMenu('left-panel', false)
-      setMenu('right-panel', false)
-    } else if (width) {
-      setMenu('left-panel', true)
-      setMenu('right-panel', true)
+    const workspaceClick = () => {
+      if (workspace.closeOnBlur) {
+        setMenu(false, 'ws-left')
+        setMenu(false, 'ws-right')
+      }
     }
 
-    if (width) {
-      setTimeout(() => {
-        workspace?.classList.remove('mkui-layout-init')
-      }, 100)
+    overlayMobileRef?.current?.addEventListener('click', mobileClick)
+    overlaySideNavRef?.current?.addEventListener('click', sideNavClick)
+    overlayWorkspaceRef?.current?.addEventListener('click', workspaceClick)
+    return () => {
+      overlayMobileRef?.current?.removeEventListener('click', mobileClick)
+      overlaySideNavRef?.current?.removeEventListener('click', sideNavClick)
+      overlayWorkspaceRef?.current?.removeEventListener('click', workspaceClick)
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [width])
-
-  /**
-   * Handle sidenav overlay clicks
-   */
-  useEffect(() => {
-    const o = document.querySelector('.mkui-overlay-s')
-    if (!o) return
-    if (!sideNav.closeOnBlur) return
-    const click = (e: any) => {
-      e.preventDefault()
-      setMenu('sidenav', false)
-    }
-    o.addEventListener('click', click)
-    return () => o.removeEventListener('click', click)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   /**
@@ -180,16 +142,16 @@ export const Effects = ({
    */
   useEffect(() => {
     if (!scrollClass) return
-    const header = document.querySelector('.mkui-header')
-    if (!header) return
-    if (selector.length) {
-      header?.classList.add(selector)
+    if (scrollSelector.length) {
+      headerRef?.current?.classList.add(scrollSelector)
     }
-    if (!selector.length && header.classList.contains(scrollClass.className)) {
-      header.classList.remove(scrollClass.className)
+    if (
+      !scrollSelector.length &&
+      headerRef?.current?.classList.contains(scrollClass.className)
+    ) {
+      headerRef?.current?.classList.remove(scrollClass.className)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selector])
+  }, [scrollSelector])
 
   /**
    * Handle sticky upscroll effect
@@ -238,8 +200,8 @@ export const Effects = ({
       if (scrollClass) {
         const { scrollTop, className } = scrollClass || {}
         const isActive = currPos > scrollTop ? className : ''
-        if (isActive !== selector) {
-          setSelector(isActive)
+        if (isActive !== scrollSelector) {
+          setScrollSelector(isActive)
         }
       }
     },

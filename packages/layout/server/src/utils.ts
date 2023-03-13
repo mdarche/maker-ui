@@ -19,12 +19,18 @@ export function renderNode(node: any): React.ReactNode {
 /**
  * Retuns a string of class names based on the boolean sticky values passed
  *
- * @param d{boolean} - Desktop sticky
- * @param m{boolean} - Mobile sticky
+ * @param desktop{boolean} - Desktop sticky
+ * @param mobile{boolean} - Mobile sticky
  * @returns string
  */
-export function stickyClass(d?: boolean, m?: boolean) {
-  return d && m ? 'sticky' : d ? 'd-sticky' : m ? 'm-sticky' : undefined
+export function stickyClass(desktop?: boolean, mobile?: boolean) {
+  return desktop && mobile
+    ? 'sticky'
+    : desktop
+    ? 'd-sticky'
+    : mobile
+    ? 'm-sticky'
+    : undefined
 }
 
 /**
