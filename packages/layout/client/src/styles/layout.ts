@@ -161,7 +161,7 @@ export function getLayoutStyles(
         }
         .mkui-panel-left .mkui-panel-inner, .mkui-panel-right .mkui-panel-inner {
           top: calc(${getTop()});
-          height: calc(100vh - ${() => getTop(true)});
+          height: calc(100vh - ${getTop(true)});
         }
         .mkui-workspace {
           grid-template-columns: var(--width-left-panel-collapse, 0) 1fr var(--width-right-panel-collapse, 0);

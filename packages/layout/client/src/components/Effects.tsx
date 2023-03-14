@@ -18,17 +18,27 @@ type UpScrollSettings = {
   delay?: number
 }
 
+interface DesktopState {
+  sideNav: boolean
+  workspace: boolean
+  measured: boolean
+}
+
 export const Effects = ({
   options: {
     layout,
     header: { stickyUpScroll, scrollClass },
-    content,
     mobileMenu,
     sideNav,
     workspace,
   },
 }: EffectsProps) => {
   // Refs
+  const [isDesktop, setIsDesktop] = useState<DesktopState>({
+    sideNav: true,
+    workspace: true,
+    measured: false,
+  })
   const headerRef = useRef<HTMLDivElement | null>(null)
   const overlayMobileRef = useRef<HTMLDivElement | null>(null)
   const overlaySideNavRef = useRef<HTMLDivElement | null>(null)
@@ -37,23 +47,27 @@ export const Effects = ({
   const pathname = usePathname()
   const { reset, active, setMenu } = useMenu()
   const { width } = useWindowSize(() => {
+    console.log('Calling thisss')
+    if (!width) return
     // Handle SideNav on resize
-    if (layout.includes('sidenav')) {
-      if (width && width < sideNav.breakpoint) {
-        reset(true)
-      } else if (width && width > sideNav.breakpoint) {
-        reset()
-      }
+    if (
+      layout.includes('sidenav') &&
+      width < sideNav.breakpoint &&
+      isDesktop.sideNav
+    ) {
+      setIsDesktop({ ...isDesktop, sideNav: false })
+    } else if (width > sideNav.breakpoint && !isDesktop.sideNav) {
+      setIsDesktop({ ...isDesktop, sideNav: true })
     }
-    // Handle Workspace panels on resize
-    if (layout.includes('workspace')) {
-      if (width && width < content.breakpoint) {
-        setMenu(false, 'ws-left')
-        setMenu(false, 'ws-right')
-      } else if (width) {
-        setMenu(true, 'ws-left')
-        setMenu(true, 'ws-right')
-      }
+    // Handle Workspace on resize
+    if (
+      layout === 'workspace' &&
+      width < workspace.breakpoint &&
+      isDesktop.workspace
+    ) {
+      setIsDesktop({ ...isDesktop, workspace: false })
+    } else if (width > workspace.breakpoint && !isDesktop.workspace) {
+      setIsDesktop({ ...isDesktop, workspace: true })
     }
   })
   const [scrollSelector, setScrollSelector] = useState('')
@@ -70,6 +84,16 @@ export const Effects = ({
       ? { active: true }
       : { active: false }
   const limit = upScroll?.start || 500
+
+  useEffect(() => {
+    if (layout.includes('sidenav')) {
+      reset('side-nav', isDesktop.sideNav ? 'desktop' : 'mobile')
+    }
+
+    if (layout === 'workspace') {
+      reset('workspace', isDesktop.workspace ? 'desktop' : 'mobile')
+    }
+  }, [isDesktop])
 
   /**
    * Set all necessary HTML element references

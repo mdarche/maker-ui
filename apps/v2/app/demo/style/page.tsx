@@ -19,6 +19,9 @@ export default function LoaderPage() {
           // color: ['red', 'blue'],
           '.test-selector': {
             opacity: 20,
+            '&.chained': { color: 'red' },
+            '.test.chained': { color: 'black' },
+            '.className, .test': { color: 'blue' },
             '&:hover': {
               color: 'orange',
             },

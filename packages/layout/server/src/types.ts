@@ -203,6 +203,10 @@ export interface Options {
     breakpoint: string | number
   }
   workspace: {
+    /** The breakpoint where the header navigation collapses to its mobile state
+     * @default 960
+     */
+    breakpoint: string | number
     /** If true, the center panel will be rendered as a `main` element instead of a `div`.
      * @default true
      */

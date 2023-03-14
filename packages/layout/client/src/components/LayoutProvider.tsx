@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation'
 
 import { Effects } from './Effects'
 import { getHeaderStyles, getLayoutStyles } from '../styles'
-import { setBrowserTheme } from '../utils'
+import { setBrowserTheme } from '../hooks/useColorTheme'
 
 type Action =
   | { type: 'SET_MOBILE_MENU'; value?: boolean }
@@ -20,7 +20,7 @@ type Action =
       value: { value: boolean; type: 'workspaceLeft' | 'workspaceRight' }
     }
   | { type: 'SET_COLOR_THEME'; value: string }
-  | { type: 'RESET' }
+  | { type: 'RESET'; value?: LayoutState['active'] }
 
 export interface LayoutState {
   active: {
@@ -81,7 +81,7 @@ function reducer(state: LayoutState, action: Action): LayoutState {
       })
     }
     case 'RESET': {
-      return { ...state, active: initialActive }
+      return { ...state, active: action?.value || initialActive }
     }
     case 'SET_COLOR_THEME': {
       return { ...state, colorTheme: action.value }

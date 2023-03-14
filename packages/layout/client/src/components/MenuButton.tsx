@@ -53,8 +53,6 @@ export const MenuButton = ({
   const { width: windowWidth } = useWindowSize()
   const { active, setMenu } = useMenu()
 
-  console.log('active', active)
-
   const attrs =
     type === 'side-nav'
       ? {

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useRef } from 'react'
+import { useCallback, useContext, useMemo, useRef } from 'react'
 import { LayoutContext } from '../components'
 
 type MenuType =
@@ -9,57 +9,80 @@ type MenuType =
   | 'ws-right'
 
 export const useMenu = () => {
-  const menuRef = useRef<HTMLDivElement | null>(null)
-  const overlayRef = useRef<HTMLDivElement | null>(null)
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null)
+  const sideNavRef = useRef<HTMLDivElement | null>(null)
   const workspaceRef = useRef<HTMLDivElement | null>(null)
+  const overlayMobileRef = useRef<HTMLDivElement | null>(null)
+  const overlaySideNavRef = useRef<HTMLDivElement | null>(null)
+  const overlayWorkspaceRef = useRef<HTMLDivElement | null>(null)
+  const leftPanelRef = useRef<HTMLDivElement | null>(null)
+  const rightPanelRef = useRef<HTMLDivElement | null>(null)
 
   const {
     state: { options, active },
     dispatch,
   } = useContext(LayoutContext)
 
-  function setRefs(type: MenuType) {
-    switch (type) {
-      case 'mobile-menu':
-        menuRef.current = document.querySelector('.mkui-mobile-menu')
-        overlayRef.current = document.querySelector('.mkui-overlay-m')
-        break
-      case 'side-nav-mobile':
-      case 'side-nav-desktop':
-        menuRef.current = document.querySelector('.mkui-sn')
-        overlayRef.current = document.querySelector('.mkui-overlay-s')
-        break
-      case 'ws-left':
-      case 'ws-right':
-        workspaceRef.current = document.querySelector('.mkui-workspace')
-        overlayRef.current = document.querySelector('.mkui-overlay-w')
-        if (type === 'ws-left') {
-          menuRef.current = document.querySelector('.mkui-panel-left')
-        } else {
-          menuRef.current = document.querySelector('.mkui-panel-right')
-        }
-        break
-      default:
-        break
+  const setRefs = useCallback(() => {
+    mobileMenuRef.current = document.querySelector('.mkui-mobile-menu')
+    overlayMobileRef.current = document.querySelector('.mkui-overlay-m')
+    sideNavRef.current = document.querySelector('.mkui-sn')
+    overlaySideNavRef.current = document.querySelector('.mkui-overlay-s')
+    workspaceRef.current = document.querySelector('.mkui-workspace')
+    overlayWorkspaceRef.current = document.querySelector('.mkui-overlay-w')
+    leftPanelRef.current = document.querySelector('.mkui-panel-left')
+    rightPanelRef.current = document.querySelector('.mkui-panel-right')
+  }, [])
+
+  function toggleMobileMenu(value: boolean) {
+    if (value) {
+      mobileMenuRef?.current?.classList.add('active')
+      overlayMobileRef?.current?.classList.add('active')
+    } else {
+      mobileMenuRef?.current?.classList.remove('active')
+      overlayMobileRef?.current?.classList.remove('active')
+    }
+  }
+
+  function toggleSideNav(value: boolean, selector: string) {
+    if (value) {
+      sideNavRef?.current?.classList.remove(selector)
+      overlaySideNavRef?.current?.classList.add('active')
+    } else {
+      sideNavRef?.current?.classList.add(selector)
+      overlaySideNavRef?.current?.classList.remove('active')
+    }
+  }
+
+  function togglePanel(value: boolean, type: MenuType) {
+    if (value) {
+      workspaceRef?.current?.classList.add(`${type}-active`)
+      ;(type === 'ws-left'
+        ? leftPanelRef
+        : rightPanelRef
+      )?.current?.classList.add('active')
+      overlayWorkspaceRef?.current?.classList.add('active')
+    } else {
+      workspaceRef?.current?.classList.remove(`${type}-active`)
+      overlayWorkspaceRef?.current?.classList.remove('active')
+      ;(type === 'ws-left'
+        ? leftPanelRef
+        : rightPanelRef
+      )?.current?.classList.remove('active')
     }
   }
 
   const setMenu = useMemo(() => {
     function setMenu(value: boolean, type: MenuType) {
-      setRefs(type)
+      setRefs()
       /**
        * MobileMenu
        */
       if (type === 'mobile-menu' && !options?.sideNav.isPrimaryMobileNav) {
+        toggleMobileMenu(value)
         dispatch({ type: 'SET_MOBILE_MENU' })
-        if (value) {
-          menuRef?.current?.classList.add('active')
-          overlayRef?.current?.classList.add('active')
-        } else {
-          menuRef?.current?.classList.remove('active')
-          overlayRef?.current?.classList.remove('active')
-        }
       }
+
       /**
        * SideNav
        */
@@ -69,32 +92,18 @@ export const useMenu = () => {
         type === 'side-nav-desktop'
       ) {
         const c = type === 'side-nav-desktop' ? 'sn-collapse' : 'sn-hide'
-        console.log('here now', c, value)
-        if (!value) {
-          menuRef?.current?.classList.add(c)
-          overlayRef?.current?.classList.remove('active')
-        } else {
-          menuRef?.current?.classList.remove(c)
-          overlayRef?.current?.classList.add('active')
-        }
-
+        toggleSideNav(value, c)
         if (type === 'side-nav-desktop') {
           dispatch({ type: 'SET_SIDE_NAV_DESKTOP', value })
         } else {
           dispatch({ type: 'SET_SIDE_NAV_MOBILE', value })
         }
       }
-      /** Handle workspace */
+      /**
+       * Workspace
+       */
       if (type.includes('ws')) {
-        if (value) {
-          workspaceRef?.current?.classList.add(`${type}-active`)
-          menuRef?.current?.classList.add('active')
-          overlayRef?.current?.classList.add('active')
-        } else {
-          workspaceRef?.current?.classList.remove(`${type}-active`)
-          overlayRef?.current?.classList.remove('active')
-          menuRef?.current?.classList.remove('active')
-        }
+        togglePanel(value, type)
         dispatch({
           type: 'SET_WORKSPACE',
           value: {
@@ -108,21 +117,47 @@ export const useMenu = () => {
   }, [])
 
   const reset = useMemo(() => {
-    function reset(mobile = true) {
-      const sidenav = document.querySelector('.mkui-sn')
-      const overlay_s = document.querySelector('.mkui-overlay-s')
-
-      dispatch({ type: 'RESET' })
-      if (mobile) {
-        // Desktop to mobile
-        console.log('Shrinking')
-        sidenav?.classList.add('sn-hide')
-        overlay_s?.classList.remove('active')
+    function reset(type: 'side-nav' | 'workspace', size: 'mobile' | 'desktop') {
+      setRefs()
+      // Desktop to mobile
+      if (size === 'mobile') {
+        if (type === 'side-nav') {
+          toggleSideNav(false, 'sn-hide')
+        }
+        if (type === 'workspace') {
+          togglePanel(false, 'ws-left')
+          togglePanel(false, 'ws-right')
+        }
+        dispatch({
+          type: 'RESET',
+          value: {
+            mobileMenu: false,
+            sideNavMobile: false,
+            sideNavDesktop: false,
+            workspaceLeft: false,
+            workspaceRight: false,
+          },
+        })
       } else {
         // Mobile to desktop
-        console.log('Growing')
-        sidenav?.classList.remove('sn-hide')
-        sidenav?.classList.remove('sn-collapse')
+        if (type === 'side-nav') {
+          sideNavRef?.current?.classList.remove('sn-hide')
+          sideNavRef?.current?.classList.remove('sn-collapse')
+        }
+        if (type === 'workspace') {
+          togglePanel(true, 'ws-left')
+          togglePanel(true, 'ws-right')
+        }
+        dispatch({
+          type: 'RESET',
+          value: {
+            mobileMenu: false,
+            sideNavMobile: false,
+            sideNavDesktop: true,
+            workspaceLeft: true,
+            workspaceRight: true,
+          },
+        })
       }
     }
     return reset

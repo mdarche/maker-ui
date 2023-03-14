@@ -39,6 +39,7 @@ export const defaultSettings: Options = {
     breakpoint: 960,
   },
   workspace: {
+    breakpoint: 960,
     main: true,
     closeOnBlur: true,
   },
