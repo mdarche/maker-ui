@@ -5,5 +5,5 @@ export {
   useLayout,
   useMenu,
   useColorTheme,
-  type MenuItemProps,
+  type MenuItemProps as MenuItem,
 } from '@maker-ui/layout'

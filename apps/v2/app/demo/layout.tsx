@@ -1,7 +1,7 @@
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
-import { ColorButton, Menu, type MenuItemProps } from 'maker-ui/layout'
+import { ColorButton, Menu, type MenuItem } from 'maker-ui/layout'
 
-const menu: MenuItemProps[] = [
+const menu: MenuItem[] = [
   { label: 'Home', path: '/' },
   {
     label: 'Demo',
@@ -44,7 +44,6 @@ export default function RootLayout({
       <body>
         <LayoutProvider options={options}>
           <Layout options={options}>
-            {/* <Layout.Topbar>Test</Layout.Topbar> */}
             <Layout.Header
               logo={{ icon: 'Logo', path: '/' }}
               menu={menu}
@@ -81,16 +80,10 @@ const options: MakerUIOptions = {
     hideOnMobile: false,
   },
   header: {
-    // absolute: true,
     navType: 'basic',
     navTypeMobile: 'logo-center',
     sticky: true,
     stickyOnMobile: true,
-    // stickyUpScroll: true,
-    // scrollClass: {
-    //   scrollTop: 1000,
-    //   className: 'testss',
-    // },
   },
   mobileMenu: {
     transition: 'fade',
@@ -103,7 +96,5 @@ const options: MakerUIOptions = {
     showCollapseOnMobile: true,
     closeOnBlur: true,
     closeOnRouteChange: true,
-    // isPrimaryMobileNav: true,
-    // cssTransition?: string;
   },
 }

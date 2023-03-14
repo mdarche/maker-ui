@@ -17,7 +17,6 @@ import {
   type LayoutButtonProps,
 } from '@maker-ui/layout-server'
 import { Menu, MenuButton } from '@maker-ui/layout-client'
-// import { Style, generateCSS } from '@maker-ui/style'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -64,59 +63,96 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
   const isLeft = opts.layout.includes('-content')
   const isRight = opts.layout.includes('content-')
 
+  /**
+   * Merged and formatted props for the Header component.
+   */
+  const headerProps = merge(opts.header, {
+    ...slots?.header?.props,
+    menu: isMenu(slots?.header?.props?.menu) ? (
+      <Menu nav items={slots.header.props.menu} />
+    ) : (
+      slots?.header?.props?.menu
+    ),
+    menuSplit: isMenu(slots?.header?.props?.menuSplit) ? (
+      <Menu nav items={slots.header.props.menuSplit} />
+    ) : (
+      slots?.header?.props?.menuSplit
+    ),
+    menuButton: isIcon(slots?.header?.props?.menuButton) ? (
+      <MenuButton type="mobile-menu" {...slots.header.props.menuButton} />
+    ) : (
+      slots?.header?.props?.menuButton
+    ),
+  })
+
+  /**
+   * Merged and formatted props for the MobileMenu component.
+   */
+  const mobileMenuProps = merge(opts.mobileMenu, {
+    ...slots?.mobileMenu?.props,
+    closeButton: isIcon(slots?.mobileMenu?.props?.closeButton) ? (
+      <MenuButton type="mobile-menu" {...slots.mobileMenu.props.closeButton} />
+    ) : (
+      slots?.mobileMenu?.props?.closeButton
+    ),
+    children: isMenu(slots?.mobileMenu?.props?.menu) ? (
+      <Menu items={slots.mobileMenu.props.menu} />
+    ) : (
+      slots?.mobileMenu?.props?.children
+    ),
+  })
+
+  /**
+   * Merged and formatted props for the SideNav component.
+   */
+  const sideNavProps = merge(opts.sideNav, {
+    ...slots?.sideNav?.props,
+    menuButton: isIcon(slots?.sideNav?.props?.menuButton) ? (
+      <MenuButton type="side-nav" {...slots.sideNav.props.menuButton} />
+    ) : (
+      slots?.sideNav?.props?.menuButton
+    ),
+  })
+
+  /**
+   * Merged and formatted props for the Workspace component.
+   */
+  const workspaceProps = merge(opts.workspace, {
+    ...slots?.workspace?.props,
+    menuButtons: {
+      left: isIcon(slots?.workspace?.props?.menuButtons?.left) ? (
+        <MenuButton
+          type="ws-left"
+          {...slots.workspace.props.menuButtons.left}
+        />
+      ) : (
+        slots?.workspace?.props?.menuButtons?.left
+      ),
+      right: isIcon(slots?.workspace?.props?.menuButtons?.right) ? (
+        <MenuButton
+          type="ws-right"
+          {...slots.workspace.props.menuButtons.right}
+        />
+      ) : (
+        slots?.workspace?.props?.menuButtons?.right
+      ),
+    },
+  })
+
   return (
     <>
       <Skiplinks links={opts.skiplinks} />
       {slots?.topbar && <Topbar {...merge(opts.topbar, slots.topbar.props)} />}
       {slots?.header ? (
         <Header
-          {...merge(opts.header, {
-            ...slots?.header?.props,
-            menu: isMenu(slots?.header?.props?.menu) ? (
-              <Menu nav items={slots.header.props.menu} />
-            ) : (
-              slots?.header?.props?.menu
-            ),
-            menuSplit: isMenu(slots?.header?.props?.menuSplit) ? (
-              <Menu nav items={slots.header.props.menuSplit} />
-            ) : (
-              slots?.header?.props?.menuSplit
-            ),
-            menuButton: isIcon(slots?.header?.props?.menuButton) ? (
-              <MenuButton
-                type="mobile-menu"
-                {...slots.header.props.menuButton}
-              />
-            ) : (
-              slots?.header?.props?.menuButton
-            ),
-          })}
+          {...headerProps}
           _mobileMenu={
-            slots?.mobileMenu ? (
-              <MobileMenu
-                {...merge(opts.mobileMenu, {
-                  ...slots?.mobileMenu?.props,
-                  closeButton: isIcon(slots?.mobileMenu?.props?.closeButton) ? (
-                    <MenuButton
-                      type="mobile-menu"
-                      {...slots.mobileMenu.props.closeButton}
-                    />
-                  ) : (
-                    slots?.mobileMenu?.props?.closeButton
-                  ),
-                  children: isMenu(slots?.mobileMenu?.props?.menu) ? (
-                    <Menu items={slots.mobileMenu.props.menu} />
-                  ) : (
-                    slots?.mobileMenu?.props?.children
-                  ),
-                })}
-              />
-            ) : null
+            slots?.mobileMenu ? <MobileMenu {...mobileMenuProps} /> : null
           }
         />
       ) : null}
       {slots?.workspace ? (
-        <Workspace {...merge(opts.workspace, slots.workspace.props)} />
+        <Workspace {...workspaceProps} />
       ) : (
         <div
           className={cn([
@@ -128,21 +164,7 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
             {isLeft ? (
               <>
                 {isSidebar && <Sidebar {...slots?.sidebar?.props} />}
-                {isSideNav && (
-                  <SideNav
-                    {...merge(opts.sideNav, {
-                      ...slots?.sideNav?.props,
-                      menuButton: isIcon(slots?.sideNav?.props.menuButton) ? (
-                        <MenuButton
-                          type="side-nav"
-                          {...slots.sideNav.props.menuButton}
-                        />
-                      ) : (
-                        slots?.sideNav.props.menuButton
-                      ),
-                    })}
-                  />
-                )}
+                {isSideNav && <SideNav {...sideNavProps} />}
               </>
             ) : null}
             <Main {...slots?.main?.props} />
@@ -154,21 +176,7 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
                     primary={!(opts.layout === 'sidebar-content-sidebar')}
                   />
                 )}
-                {isSideNav && (
-                  <SideNav
-                    {...merge(opts.sideNav, {
-                      ...slots?.sideNav?.props,
-                      menuButton: isIcon(slots?.sideNav?.props.menuButton) ? (
-                        <MenuButton
-                          type="side-nav"
-                          {...slots.sideNav.props.menuButton}
-                        />
-                      ) : (
-                        slots?.sideNav.props.menuButton
-                      ),
-                    })}
-                  />
-                )}
+                {isSideNav && <SideNav {...sideNavProps} />}
               </>
             ) : null}
           </>

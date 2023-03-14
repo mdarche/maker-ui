@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useScrollPosition, useWindowSize } from '@maker-ui/hooks'
+import { usePathname } from 'next/navigation'
 import type { Options } from '@maker-ui/layout-server'
 
 import { useMenu } from '../hooks'
-import { usePathname } from 'next/navigation'
 
 interface EffectsProps {
   options: Options
@@ -47,7 +47,6 @@ export const Effects = ({
   const pathname = usePathname()
   const { reset, active, setMenu } = useMenu()
   const { width } = useWindowSize(() => {
-    console.log('Calling thisss')
     if (!width) return
     // Handle SideNav on resize
     if (

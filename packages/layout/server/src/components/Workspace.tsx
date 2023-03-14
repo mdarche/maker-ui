@@ -1,16 +1,12 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
+import { WorkspaceOptions } from '@/types'
+import { renderNode } from '../utils'
 
-export interface WorkspaceProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface WorkspaceProps
+  extends Partial<WorkspaceOptions>,
+    React.HTMLAttributes<HTMLDivElement> {
   _type?: 'workspace'
-  main?: boolean
-  closeOnBlur?: boolean
-  left?: React.ReactNode
-  right?: React.ReactNode
-  toggles?: {
-    left?: React.ReactNode
-    right?: React.ReactNode
-  }
 }
 
 /**
@@ -23,10 +19,11 @@ export interface WorkspaceProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Workspace = ({
   main,
   closeOnBlur,
-  left,
-  right,
+  leftPanel,
+  rightPanel,
   children,
-  toggles,
+  menuButtons,
+  defaultOpen,
   className,
   _type,
   ...props
@@ -46,7 +43,7 @@ export const Workspace = ({
         />
         <div className={cn(['mkui-panel mkui-panel-left'])}>
           <div className="mkui-panel-inner">
-            <div className="mkui-slot">{left}</div>
+            <div className="mkui-slot">{leftPanel}</div>
           </div>
         </div>
         {React.createElement(
@@ -60,14 +57,14 @@ export const Workspace = ({
         )}
         <div className={cn(['mkui-panel-right'])}>
           <div className="mkui-panel-inner">
-            <div className="mkui-slot">{right}</div>
+            <div className="mkui-slot">{rightPanel}</div>
           </div>
         </div>
       </div>
-      {toggles ? (
+      {menuButtons ? (
         <div className="mkui-workspace-toggles">
-          {toggles?.left ?? null}
-          {toggles?.right ?? null}
+          {renderNode(menuButtons?.left)}
+          {renderNode(menuButtons?.right)}
         </div>
       ) : null}
     </>

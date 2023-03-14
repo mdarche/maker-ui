@@ -1,14 +1,8 @@
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
 import Link from 'next/link'
-import {
-  Menu,
-  ColorButton,
-  MenuButton,
-  NavMenu,
-  type MenuItemProps,
-} from 'maker-ui/layout'
+import { ColorButton, type MenuItem } from 'maker-ui/layout'
 
-const menu: MenuItemProps[] = [
+const menu: MenuItem[] = [
   { label: 'Home', path: '/' },
   { label: 'Demo', path: '/demo' },
 ]
@@ -21,40 +15,30 @@ export default function WorkspaceLayout({
   return (
     <LayoutProvider options={options}>
       <Layout options={options}>
-        {/* <Layout.Topbar>Test topbar</Layout.Topbar> */}
         <Layout.Header
           logo={<Link href="/">Logo</Link>}
-          menu={<NavMenu menuItems={menu} />}
+          menu={menu}
           widgets={<ColorButton />}
           menuButton={{ defaultIcon: 'menu' }}
         />
         <Layout.MobileMenu closeButton={{ defaultIcon: 'close' }} menu={menu} />
         <Layout.Workspace
-          left={<div>Left Panel Menus</div>}
-          right={<div>Right Panel Details</div>}
-          toggles={{
-            left: (
-              <MenuButton
-                type="ws-left"
-                icon="Left Panel"
-                fixed
-                position={{
-                  top: 'calc(var(--height-header) + 100px)',
-                  left: 30,
-                }}
-              />
-            ),
-            right: (
-              <MenuButton
-                type="ws-right"
-                icon="Right Panel"
-                fixed
-                position={{
-                  top: 'calc(var(--height-header) + 100px)',
-                  right: 30,
-                }}
-              />
-            ),
+          leftPanel={<div>Left Panel Menus</div>}
+          rightPanel={<div>Right Panel Details</div>}
+          menuButtons={{
+            right: {
+              icon: 'Right Panel',
+              fixed: true,
+              position: {
+                top: 'calc(var(--height-header) + 100px)',
+                right: 30,
+              },
+            },
+            left: {
+              icon: 'Left Panel',
+              fixed: true,
+              position: { top: 'calc(var(--height-header) + 100px)', left: 30 },
+            },
           }}>
           {children}
         </Layout.Workspace>

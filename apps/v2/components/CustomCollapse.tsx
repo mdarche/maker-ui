@@ -1,8 +1,8 @@
 'use client'
 
-import { Menu, type MenuItemProps } from 'maker-ui/layout'
+import { Menu, type MenuItem } from 'maker-ui/layout'
 
-export const CustomCollapseMenu = ({ menu }: { menu: MenuItemProps[] }) => {
+export const CustomCollapseMenu = ({ menu }: { menu: MenuItem[] }) => {
   return (
     <Menu
       items={menu}

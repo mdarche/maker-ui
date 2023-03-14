@@ -29,6 +29,7 @@ export const MenuButton = ({
   icon,
   label,
   defaultIcon = 'menu',
+  activeClass = 'active',
   css,
   breakpoints,
   mediaQuery,

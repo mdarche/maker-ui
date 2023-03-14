@@ -1,12 +1,12 @@
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
-import { type MenuItemProps } from 'maker-ui/layout'
+import { type MenuItem } from 'maker-ui/layout'
 
 import { CloseIcon, MenuIcon, TMCLogo } from './icons'
 import { Footer } from './Footer'
 import './layout.scss'
 import { RightMenu } from './RightMenu'
 
-const leftMenu: MenuItemProps[] = [
+const leftMenu: MenuItem[] = [
   { label: 'Home', path: '/tmc' },
   { label: 'TMC NFT', path: '/tmc/nft' },
   { label: 'Experience', path: '/tmc/experience' },
@@ -34,7 +34,14 @@ export default function VaultLayout({
         />
         <Layout.MobileMenu
           menu={leftMenu}
-          closeButton={{ icon: <CloseIcon /> }}
+          closeButton={{
+            icon: <CloseIcon />,
+            absolute: true,
+            position: {
+              top: 20,
+              left: 20,
+            },
+          }}
         />
         <Layout.Main>{children}</Layout.Main>
         <Layout.Footer>
@@ -48,11 +55,6 @@ export default function VaultLayout({
 const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
   layout: 'content',
-  topbar: {
-    sticky: true,
-    stickyOnMobile: false,
-    hideOnMobile: false,
-  },
   header: {
     navType: 'minimal-center',
     navTypeMobile: 'logo-center',
@@ -61,7 +63,7 @@ const options: MakerUIOptions = {
   },
   mobileMenu: {
     transition: 'slide-left',
-    closeOnBlur: true,
+    closeOnBlur: false,
     closeOnRouteChange: true,
   },
 }

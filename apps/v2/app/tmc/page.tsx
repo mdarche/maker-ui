@@ -4,7 +4,7 @@ export default function TMCHomePage() {
   return (
     <Section
       background="#1C43AA"
-      style={{
+      css={{
         height: '100vh',
         display: 'flex',
         alignItems: 'center',

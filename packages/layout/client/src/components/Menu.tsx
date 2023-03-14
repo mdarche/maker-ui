@@ -6,11 +6,14 @@ import { MenuItem, type ExpandButtonProps } from './MenuItem'
 
 interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
   items: MenuItemProps[]
+  /** Only use this prop if your menu is intended for the header component and should be wrapped
+   * in a `<nav>` tag.
+   * @default false
+   */
   nav?: boolean
   caret?: boolean | React.ReactElement
   transition?: 'scale' | 'fade' | 'fade-down' | 'fade-up' | 'none'
   expandButton?: ExpandButtonProps
-  children?: React.ReactElement
 }
 
 /**

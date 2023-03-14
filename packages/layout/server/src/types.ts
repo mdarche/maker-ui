@@ -120,15 +120,15 @@ export interface HeaderOptions {
     /** The class to apply */
     className: string
   }
-  /** Replaces the Navbar logo-slot grid area with your own custom component.    */
+  /** Replaces the Navbar logo-slot grid area with your own custom component. */
   logo?: React.ReactNode | LogoProps
-  /** Replaces the Navbar widget-slot grid area with your own custom component.    */
+  /** Replaces the Navbar widget-slot grid area with your own custom component. */
   widgets?: React.ReactNode
-  /** Replaces the Navbar menu-slot grid area with your own custom component.    */
+  /** Replaces the Navbar menu-slot grid area with your own custom component. */
   menu?: React.ReactNode | MenuItemProps[]
   /** Renders the second menu for "split" nav types   */
   menuSplit?: React.ReactNode | MenuItemProps[]
-  /** Replaces the Navbar button-slot grid area with your own custom component.    */
+  /** Renders a custom button that controls the MobileMenu.  */
   menuButton?: React.ReactNode | LayoutButtonProps
 }
 
@@ -192,12 +192,39 @@ export interface SideNavOptions {
    * @default true
    */
   showCollapseOnMobile: boolean
+  /** Renders a custom button that controls the SideNav. */
   menuButton?: React.ReactNode | LayoutButtonProps
   /** Quick access to the CSS transition property that controls the SideNav's exit / entrance
    * animation.
    * @default 'margin ease 0.3s, transform ease 0.3s'
    */
   cssTransition?: string
+}
+
+export interface WorkspaceOptions {
+  /** The breakpoint where the header navigation collapses to its mobile state
+   * @default 960
+   */
+  breakpoint: string | number
+  /** If true, the center panel will be rendered as a `main` element instead of a `div`.
+   * @default true
+   */
+  main: boolean
+  /** If true, the workspace layout will render an overlay on mobile that can be used to
+   * collapse any active workspace panels.
+   * @default true
+   */
+  closeOnBlur: boolean
+  defaultOpen?: {
+    left?: boolean
+    right?: boolean
+  }
+  leftPanel?: React.ReactNode
+  rightPanel?: React.ReactNode
+  menuButtons?: {
+    left?: React.ReactNode | LayoutButtonProps
+    right?: React.ReactNode | LayoutButtonProps
+  }
 }
 
 /**
@@ -231,21 +258,7 @@ export interface Options {
      * for mobile. */
     breakpoint: string | number
   }
-  workspace: {
-    /** The breakpoint where the header navigation collapses to its mobile state
-     * @default 960
-     */
-    breakpoint: string | number
-    /** If true, the center panel will be rendered as a `main` element instead of a `div`.
-     * @default true
-     */
-    main: boolean
-    /** If true, the workspace layout will render an overlay on mobile that can be used to
-     * collapse any active workspace panels.
-     * @default true
-     */
-    closeOnBlur: boolean
-  }
+  workspace: WorkspaceOptions
 }
 
 export interface MenuItemProps {
@@ -286,6 +299,10 @@ export interface LayoutButtonProps extends MakerCSS {
   type?: 'mobile-menu' | 'side-nav' | 'ws-left' | 'ws-right'
   /** An optional default icon that you can use instead of providing your own. */
   defaultIcon?: 'menu' | 'close'
+  /** An optional class selector for when the content it controls is considered active.
+   * @default active
+   */
+  activeClass?: string
   /** If true, the button will have fixed positioning */
   fixed?: boolean
   /** If true, the button will have absolute positioning */
