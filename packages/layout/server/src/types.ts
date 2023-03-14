@@ -161,13 +161,42 @@ export interface MobileMenuOptions {
 }
 
 export interface SideNavOptions {
+  /** The breakpoints where the SideNav collapses into its mobile form
+   * @default 960
+   */
   breakpoint: string | number
+  /** If true, the SideNav will be wrapped in a `<header>` tag. Only use this
+   * if the SideNav is used for your primary navigation.
+   * @default false
+   */
   isHeader: boolean
+  /** If true, all instances of the mobile-menu MenuButton will be used to toggle the
+   * SideNav instead of the MobileMenu.
+   * @default false
+   */
   isPrimaryMobileNav: boolean
+  /** If true, the SideNav will also render an overlay that can be used to escape the menu on
+   * mobile devices.
+   * @default true
+   */
   closeOnBlur: boolean
+  /** If true, the SideNav will dismiss itself after navigating to a new page route.
+   * @default true
+   */
   closeOnRouteChange: boolean
+  /** If true, the SideNav will be collapsible on desktop devices using the `menuButton` prop.
+   * @default false
+   */
   collapse: boolean
+  /** If true, the menuButton prop will be visible on mobile devices.
+   * @default true
+   */
   showCollapseOnMobile: boolean
+  menuButton?: React.ReactNode | LayoutButtonProps
+  /** Quick access to the CSS transition property that controls the SideNav's exit / entrance
+   * animation.
+   * @default 'margin ease 0.3s, transform ease 0.3s'
+   */
   cssTransition?: string
 }
 

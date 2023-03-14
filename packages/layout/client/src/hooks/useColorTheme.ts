@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { LayoutContext } from '../components/LayoutProvider'
+import { LayoutContext } from '../components'
 
 /**
  * Utility that ensures all values in an array exist in a target array.

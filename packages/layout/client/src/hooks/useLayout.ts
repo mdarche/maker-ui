@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import type { Options } from '@maker-ui/layout-server'
 
-import { LayoutContext } from '../components/LayoutProvider'
+import { LayoutContext } from '../components'
 
 export const useLayout = () => {
   const {

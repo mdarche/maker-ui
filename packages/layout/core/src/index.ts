@@ -13,7 +13,6 @@ export {
   ColorButton,
   MenuButton,
   Menu,
-  NavMenu,
   LayoutProvider,
   useColorTheme,
   useMenu,

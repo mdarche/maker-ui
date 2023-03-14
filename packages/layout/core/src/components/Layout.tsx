@@ -16,7 +16,7 @@ import {
   type MenuItemProps,
   type LayoutButtonProps,
 } from '@maker-ui/layout-server'
-import { Menu, MenuButton, NavMenu } from '@maker-ui/layout-client'
+import { Menu, MenuButton } from '@maker-ui/layout-client'
 // import { Style, generateCSS } from '@maker-ui/style'
 
 interface LayoutProps {
@@ -73,12 +73,12 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
           {...merge(opts.header, {
             ...slots?.header?.props,
             menu: isMenu(slots?.header?.props?.menu) ? (
-              <NavMenu menuItems={slots.header.props.menu} />
+              <Menu nav items={slots.header.props.menu} />
             ) : (
               slots?.header?.props?.menu
             ),
             menuSplit: isMenu(slots?.header?.props?.menuSplit) ? (
-              <NavMenu menuItems={slots.header.props.menuSplit} />
+              <Menu nav items={slots.header.props.menuSplit} />
             ) : (
               slots?.header?.props?.menuSplit
             ),
@@ -129,7 +129,19 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
               <>
                 {isSidebar && <Sidebar {...slots?.sidebar?.props} />}
                 {isSideNav && (
-                  <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
+                  <SideNav
+                    {...merge(opts.sideNav, {
+                      ...slots?.sideNav?.props,
+                      menuButton: isIcon(slots?.sideNav?.props.menuButton) ? (
+                        <MenuButton
+                          type="side-nav"
+                          {...slots.sideNav.props.menuButton}
+                        />
+                      ) : (
+                        slots?.sideNav.props.menuButton
+                      ),
+                    })}
+                  />
                 )}
               </>
             ) : null}
@@ -143,7 +155,19 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
                   />
                 )}
                 {isSideNav && (
-                  <SideNav {...merge(opts.sideNav, slots?.sideNav?.props)} />
+                  <SideNav
+                    {...merge(opts.sideNav, {
+                      ...slots?.sideNav?.props,
+                      menuButton: isIcon(slots?.sideNav?.props.menuButton) ? (
+                        <MenuButton
+                          type="side-nav"
+                          {...slots.sideNav.props.menuButton}
+                        />
+                      ) : (
+                        slots?.sideNav.props.menuButton
+                      ),
+                    })}
+                  />
                 )}
               </>
             ) : null}

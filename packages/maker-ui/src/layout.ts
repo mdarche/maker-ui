@@ -2,9 +2,8 @@ export {
   Menu,
   MenuButton,
   ColorButton,
-  NavMenu, // Todo remove this
-  type MenuItemProps,
   useLayout,
   useMenu,
   useColorTheme,
+  type MenuItemProps,
 } from '@maker-ui/layout'

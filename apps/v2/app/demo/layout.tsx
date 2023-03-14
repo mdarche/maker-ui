@@ -1,6 +1,5 @@
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
-import { ColorButton, MenuButton, type MenuItemProps } from 'maker-ui/layout'
-import { CustomCollapseMenu } from '@/client'
+import { ColorButton, Menu, type MenuItemProps } from 'maker-ui/layout'
 
 const menu: MenuItemProps[] = [
   { label: 'Home', path: '/' },
@@ -57,18 +56,13 @@ export default function RootLayout({
               menu={menu}
             />
             <Layout.Main>{children}</Layout.Main>
-            <Layout.Sidebar primary>Sidebar</Layout.Sidebar>
-            <Layout.Sidebar>Sidebar</Layout.Sidebar>
             <Layout.SideNav
-              collapseButton={
-                <MenuButton
-                  type="side-nav"
-                  fixed
-                  position={{ bottom: 30, right: 30 }}>
-                  Collapse
-                </MenuButton>
-              }>
-              <CustomCollapseMenu menu={menu} />
+              menuButton={{
+                icon: 'Collapse',
+                fixed: true,
+                position: { bottom: 30, right: 30 },
+              }}>
+              <Menu items={menu} />
             </Layout.SideNav>
             {/* <Layout.Footer>Footer stuff</Layout.Footer> */}
           </Layout>

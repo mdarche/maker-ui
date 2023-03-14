@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { merge } from '@maker-ui/utils'
 import {
   defaultSettings,
@@ -108,7 +108,7 @@ export const LayoutProvider = (props: LayoutProviderProps) => {
    * set color modes with `light` and `dark` keys.
    *
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const themes = options.colorThemes
     //  If there are multiple color themes, save the active one to local storage
     if (themes.length) {
@@ -133,7 +133,7 @@ export const LayoutProvider = (props: LayoutProviderProps) => {
    * @TODO - ALL STYLES ADDED TO HEAD WILL BE MOVED TO SERVER WHEN
    * NEXT.JS LAYOUT API SUPPORTS <style> TAGS
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const exists = document.getElementById('mkui-responsive')
     if (exists) {
       exists.remove()

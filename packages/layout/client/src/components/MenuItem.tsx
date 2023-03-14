@@ -40,7 +40,7 @@ interface MenuInternalProps {
   caret?: boolean | React.ReactElement
   expandButton?: ExpandButtonProps
   pathname?: string | null
-  isHeader?: boolean
+  nav?: boolean
   depth?: number
 }
 
@@ -69,7 +69,7 @@ export const MenuItem = React.memo(
     caret = false,
     expandButton,
     pathname,
-    isHeader = false,
+    nav = false,
     depth = 0,
   }: MenuInternalProps) => {
     const [show, set] = React.useState(openNested)
@@ -84,9 +84,9 @@ export const MenuItem = React.memo(
       rel: newTab ? 'noopener noreferrer' : undefined,
       'aria-label': icon && typeof label === 'string' ? label : undefined,
       'aria-haspopup':
-        isHeader && submenu
+        nav && submenu
           ? ('true' as 'true')
-          : isHeader && megamenu
+          : nav && megamenu
           ? ('true' as 'true')
           : undefined,
       'aria-current': pathname === path ? ('page' as 'page') : undefined,
@@ -121,20 +121,18 @@ export const MenuItem = React.memo(
           'menu-item',
           megamenu || submenu ? 'has-submenu' : undefined,
           // submenu ? 'has-submenu' : undefined,
-          (megamenu || submenu) && isHeader && !caret
-            ? 'mkui-caret'
-            : undefined,
+          (megamenu || submenu) && nav && !caret ? 'mkui-caret' : undefined,
           show ? 'expanded' : undefined,
           className,
         ])}
         {...liAttributes}>
         <Conditional
-          condition={!isHeader && submenu ? true : false}
+          condition={!nav && submenu ? true : false}
           trueWrapper={(children) => <div className="flex">{children}</div>}>
           <>
-            {!isHeader && divider ? (
+            {!nav && divider ? (
               label
-            ) : !isHeader && isExpandButton && submenu ? (
+            ) : !nav && isExpandButton && submenu ? (
               <button onClick={() => set(!show)}>{label}</button>
             ) : isLocal ? (
               <Link href={path} {...linkAttrs}>
@@ -145,7 +143,7 @@ export const MenuItem = React.memo(
                 <InnerLink />
               </a>
             )}
-            {!isHeader && submenu ? (
+            {!nav && submenu ? (
               <>
                 {expandButton && typeof expandButton === 'function' ? (
                   expandButton(show, buttonAttrs)
@@ -172,7 +170,7 @@ export const MenuItem = React.memo(
             ) : null}
           </>
         </Conditional>
-        {submenu || (isHeader && megamenu) ? (
+        {submenu || (nav && megamenu) ? (
           <>
             {megamenu ? (
               <div
@@ -181,7 +179,7 @@ export const MenuItem = React.memo(
                 aria-label="submenu">
                 {megamenu}
               </div>
-            ) : isHeader || (!isHeader && show) ? (
+            ) : nav || (!nav && show) ? (
               <ul
                 className={cn(['submenu', `depth-${depth}`])}
                 role="menu"
@@ -195,7 +193,7 @@ export const MenuItem = React.memo(
                         caret,
                         expandButton,
                         pathname,
-                        isHeader,
+                        nav,
                         depth: depth + 1,
                       }}
                     />

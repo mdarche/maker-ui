@@ -5,7 +5,6 @@ import type { SideNavOptions } from '@/types'
 export interface SideNavProps
   extends Partial<SideNavOptions>,
     React.HTMLAttributes<HTMLDivElement> {
-  collapseButton?: React.ReactNode
   _type?: 'sideNav'
 }
 
@@ -22,9 +21,9 @@ export const SideNav = ({
   isPrimaryMobileNav,
   closeOnBlur,
   closeOnRouteChange,
-  collapse,
   showCollapseOnMobile,
-  collapseButton,
+  collapse,
+  menuButton,
   cssTransition,
   className,
   breakpoint,
@@ -43,7 +42,7 @@ export const SideNav = ({
         { className: cn(['mkui-sn mkui-layout-init', className]), ...props },
         <div className={cn(['mkui-sn-inner', 'container'])}>{children}</div>
       )}
-      {collapseButton}
+      {menuButton}
     </>
   )
 }
