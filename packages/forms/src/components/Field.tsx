@@ -104,7 +104,7 @@ export const Field = (p: FieldProps) => {
       ) : null}
       <Conditional
         condition={hasAutoSave === true}
-        wrapper={(c) => (
+        trueWrapper={(c) => (
           <AutoSaveWrapper
             name={p.name}
             formError={!!formError}

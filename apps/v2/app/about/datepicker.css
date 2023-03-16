@@ -1,0 +1,42 @@
+.mkui-calendar-grid {
+  display: grid;
+  grid-template: repeat(7, auto) / repeat(7, auto);
+}
+
+.mkui-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mkui-month {
+  text-align: center;
+  margin: 0 20px;
+}
+
+.mkui-day-label {
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid;
+}
+
+/* Date Buttons */
+
+.mkui-calendar-date {
+  border: none;
+  outline: none;
+  background: none;
+  aspect-ratio: 1;
+  opacity: 0.3;
+}
+
+.mkui-calendar-date.in-month {
+  opacity: 1;
+}
+
+/* TimePicker */
+
+.mkui-time-list {
+  list-style: none;
+}

@@ -34,7 +34,7 @@ export const Input = ({
   return (
     <Conditional
       condition={isPass}
-      wrapper={(children) => (
+      trueWrapper={(children) => (
         <Div
           className="input-wrapper"
           css={{

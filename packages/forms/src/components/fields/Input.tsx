@@ -41,7 +41,7 @@ export const Input = ({ name }: FieldInputProps) => {
   return (
     <Conditional
       condition={isPass}
-      wrapper={(children) => (
+      trueWrapper={(children) => (
         <div className="mkui-password-wrapper">
           {children}
           <button

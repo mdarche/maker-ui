@@ -219,7 +219,7 @@ export const Field = (props: FieldComponentProps) => {
       ) : null}
       <Conditional
         condition={hasAutoSave === true}
-        wrapper={(c) => (
+        trueWrapper={(c) => (
           <AutoSave
             name={name}
             formError={formError ? true : false}

@@ -93,7 +93,7 @@ export const FormRenderer = ({
   return (
     <Conditional
       condition={!!components.success}
-      wrapper={(c) => (
+      trueWrapper={(c) => (
         <CSSTransition isSwitch show={!!success}>
           {success ? components.success : c}
         </CSSTransition>
