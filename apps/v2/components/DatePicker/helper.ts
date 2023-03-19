@@ -153,3 +153,8 @@ export const getCalendar = (month = THIS_MONTH, year = THIS_YEAR) => {
   // Combines all dates from previous, current and next months
   return [...prevMonthDates, ...thisMonthDates, ...nextMonthDates]
 }
+
+export function timeHash(date?: Date | null) {
+  if (!date) return ''
+  return `${date.getHours()}-${date.getMinutes()}`
+}

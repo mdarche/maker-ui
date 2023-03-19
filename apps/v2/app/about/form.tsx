@@ -9,7 +9,8 @@ export const Form = () => {
     <div className="flex">
       <DatePicker />
       <TimePicker
-        interval={120}
+        interval={60}
+        duration={120}
         onTimeChange={() => console.log('Changed')}
         unavailableTimes={unavailableTimes}
       />
