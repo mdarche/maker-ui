@@ -23,16 +23,21 @@
 
 /* Date Buttons */
 
-.mkui-calendar-date {
+.mkui-date {
   border: none;
   outline: none;
   background: none;
+  cursor: pointer;
   aspect-ratio: 1;
   opacity: 0.3;
 }
 
-.mkui-calendar-date.in-month {
+.mkui-date.valid {
   opacity: 1;
+}
+
+.mkui-date.hidden {
+  opacity: 0;
 }
 
 /* TimePicker */

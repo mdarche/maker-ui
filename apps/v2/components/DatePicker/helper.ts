@@ -1,7 +1,9 @@
 /** The current year */
 export const THIS_YEAR = +new Date().getFullYear()
+
 /** The current month starting from 1 */
 export const THIS_MONTH = +new Date().getMonth() + 1
+
 /** Week days names and shortnames */
 export const WEEK_DAYS = {
   Sunday: 'Sun',
@@ -12,6 +14,7 @@ export const WEEK_DAYS = {
   Friday: 'Fri',
   Saturday: 'Sat',
 }
+
 /** Calendar months names and short names */
 export const CALENDAR_MONTHS = {
   January: 'Jan',
@@ -27,6 +30,7 @@ export const CALENDAR_MONTHS = {
   November: 'Nov',
   December: 'Dec',
 }
+
 /** Number of weeks displayed on calendar */
 export const CALENDAR_WEEKS = 6
 /**
@@ -36,12 +40,14 @@ export const CALENDAR_WEEKS = 6
 export const zeroPad = (value: number, length: number) => {
   return `${value}`.padStart(length, '0')
 }
+
 /** Number days in a month for a given year from 28 - 31 */
 export const getMonthDays = (month = THIS_MONTH, year = THIS_YEAR) => {
   const months30 = [4, 6, 9, 11]
   const leapYear = year % 4 === 0
   return month === 2 ? (leapYear ? 29 : 28) : months30.includes(month) ? 30 : 31
 }
+
 /**
  * First day of the month for a given year from 1 - 7 where
  * Sunday = 1 and Saturday = 7
@@ -49,6 +55,7 @@ export const getMonthDays = (month = THIS_MONTH, year = THIS_YEAR) => {
 export const getMonthFirstDay = (month = THIS_MONTH, year = THIS_YEAR) => {
   return +new Date(`${year}-${zeroPad(month, 2)}-01`).getDay() + 1
 }
+
 /** Checks if a value is a date - this is just a simple check  */
 export const isDate = (date: Date) => {
   const isDate = Object.prototype.toString.call(date) === '[object Date]'
@@ -56,6 +63,7 @@ export const isDate = (date: Date) => {
 
   return isDate && isValidDate
 }
+
 /** Checks if two date values are of the same month and year */
 export const isSameMonth = (date: Date, basedate = new Date()) => {
   if (!(isDate(date) && isDate(basedate))) return false
@@ -65,6 +73,7 @@ export const isSameMonth = (date: Date, basedate = new Date()) => {
   const dateYear = date.getFullYear()
   return +basedateMonth === +dateMonth && +basedateYear === +dateYear
 }
+
 /** Checks if two date values are the same day */
 export const isSameDay = (date: Date, basedate = new Date()) => {
   if (!(isDate(date) && isDate(basedate))) return false
@@ -80,6 +89,7 @@ export const isSameDay = (date: Date, basedate = new Date()) => {
     +basedateYear === +dateYear
   )
 }
+
 /** Formats the given date as YYYY-MM-DD. Months and Days are zero padded */
 export const getDateISO = (date = new Date()) => {
   if (!isDate(date)) return null
@@ -89,6 +99,7 @@ export const getDateISO = (date = new Date()) => {
     zeroPad(+date.getDate(), 2),
   ].join('-')
 }
+
 /**
  * Returns the month and year before the given month and year
  * @example
@@ -100,6 +111,7 @@ export const getPreviousMonth = (month: number, year: number) => {
   const prevMonthYear = month > 1 ? year : year - 1
   return { month: prevMonth, year: prevMonthYear }
 }
+
 /**
  * Returns the month and year after the given month and year
  * @example
@@ -132,19 +144,19 @@ export const getCalendar = (month = THIS_MONTH, year = THIS_YEAR) => {
   const { month: nextMonth, year: nextMonthYear } = getNextMonth(month, year)
   const prevMonthDays = getMonthDays(prevMonth, prevMonthYear)
 
-  // Builds dates to be displayed from previous month
+  /** Builds dates to be displayed from previous month */
   const prevMonthDates = [...new Array(daysFromPrevMonth)].map((n, index) => {
     const day = index + 1 + (prevMonthDays - daysFromPrevMonth)
     return [prevMonthYear, zeroPad(prevMonth, 2), zeroPad(day, 2)]
   })
 
-  // Builds dates to be displayed from current month
+  /** Builds dates to be displayed from current month */
   const thisMonthDates = [...new Array(monthDays)].map((n, index) => {
     const day = index + 1
     return [year, zeroPad(month, 2), zeroPad(day, 2)]
   })
 
-  // Builds dates to be displayed from next month
+  /** Builds dates to be displayed from next month */
   const nextMonthDates = [...new Array(daysFromNextMonth)].map((n, index) => {
     const day = index + 1
     return [nextMonthYear, zeroPad(nextMonth, 2), zeroPad(day, 2)]
@@ -154,7 +166,27 @@ export const getCalendar = (month = THIS_MONTH, year = THIS_YEAR) => {
   return [...prevMonthDates, ...thisMonthDates, ...nextMonthDates]
 }
 
+/** Creates a string using the time hours and minutes */
 export function timeHash(date?: Date | null) {
   if (!date) return ''
   return `${date.getHours()}-${date.getMinutes()}`
+}
+
+/** Returns a boolean that indicates if a day falls on a weekend */
+export function isWeekend(date: Date): boolean {
+  const dayOfWeek = date.getDay()
+  return dayOfWeek === 0 || dayOfWeek === 6
+}
+
+/** Returns a boolean that indicates if a date is within a range */
+export function isDateInRange(
+  date: Date,
+  startDate: Date,
+  endDate?: Date
+): boolean {
+  const timestamp = date.getTime()
+  const startTimestamp = startDate.getTime()
+  if (!endDate) return timestamp >= startTimestamp
+  const endTimestamp = endDate.getTime()
+  return timestamp >= startTimestamp && timestamp <= endTimestamp
 }

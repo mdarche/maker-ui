@@ -18,11 +18,11 @@ interface TimePickerProps {
    */
   endTime?: Date | number[]
   /** The frequency at which times can be scheduled. This must be divisible by 15.
-   * @default 30 // 30 minutes
+   * @default 30 // Meeting slots begin every 30 minutes
    */
   interval?: number
   /** The duration in minutes of each time slot. This must be divisible by 15.
-   * @default 30 // 30 minutes
+   * @default 30 // Meetings last 30 minutes
    */
   duration?: number
   /** An optional message that will display above the time picker. */
@@ -87,9 +87,10 @@ export const TimePicker = ({
     unavailable.push(t)
     const divisible = durationValue / intervalValue
     if (durationValue > intervalValue) {
-      // Remove earlier schedule times if it will overlap with the unavailable time
-      unavailable.push(t - intervalValue * divisible)
       ;[...new Array(divisible - 1)].forEach((_, i) => {
+        // Removes times before the unavailable time since they will overlap
+        unavailable.push(t - intervalValue * (i + 1))
+        // Removes all intervals during the unavailable time
         unavailable.push(t + intervalValue * (i + 1))
       })
     }

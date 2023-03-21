@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { cn } from 'maker-ui/utils'
+import { cn, generateId, merge } from 'maker-ui/utils'
 import {
   getCalendar,
   isDate,
@@ -10,7 +10,9 @@ import {
   WEEK_DAYS,
   CALENDAR_MONTHS,
   isSameMonth,
+  isDateInRange,
 } from './helper'
+import { MakerCSS, Style } from 'maker-ui'
 
 interface DateSelection {
   date: Date
@@ -18,7 +20,7 @@ interface DateSelection {
   endDate?: Date
 }
 
-interface CalendarProps {
+interface CalendarProps extends MakerCSS {
   /** Earliest date that will be visible in the Calendar. Required if `range` is true.  */
   startDate?: Date
   /** Latest date that will be visible in the Calendar. Required if `range` is true. */
@@ -30,7 +32,7 @@ interface CalendarProps {
   /** The minimum number of days that a user can select in their date range. */
   rangeMin?: number
   /** An array of unavailable dates or date strings that will render disabled calendar days. */
-  unavailable?: Date | string[]
+  unavailable?: string[]
   /** An array of days (1-7) that will render disabled calendar days each week.
    * 1 is Monday and 7 is Sunday.
    * @example
@@ -41,12 +43,15 @@ interface CalendarProps {
   localization?: {}
   /** Callback function that is invoked any time a date is changed or selected. */
   onDateChange: (selection: DateSelection) => void
+  /** If true, all days outside of the `startDate` and `endDate` props will be hidden. */
+  showRangeOnly?: boolean
   style?: {
     border?: boolean
     width: number | string | (number | string)[]
     fontSize?: number | string | (number | string)[]
     arrowLeft?: string | React.ReactElement
     arrowRight?: string | React.ReactElement
+    arrowPos?: 'left' | 'right' | 'split'
   }
   classNames?: {
     calendar?: string
@@ -60,6 +65,8 @@ interface CalendarProps {
 
 interface CalendarState {
   current?: Date | null
+  dateStart?: Date
+  dateEnd?: Date
   month: number
   year: number
 }
@@ -70,19 +77,28 @@ export const Calendar = ({
   range,
   rangeMax,
   rangeMin,
-  unavailable,
-  unavailableDays,
+  unavailable = [],
+  unavailableDays = [],
   onDateChange,
+  showRangeOnly,
+  classNames,
+  css,
+  breakpoints,
+  mediaQuery,
 }: CalendarProps) => {
   const now = new Date()
   const [today] = useState(now)
+  const [styleId] = useState(generateId())
+  const [unavailableDates] = useState(unavailable.map((d) => new Date(d)) || [])
   const [state, setState] = useState<CalendarState>({
     current: now,
-    month: now.getMonth() + 1,
+    dateStart: undefined,
+    dateEnd: undefined,
+    month: now.getMonth(),
     year: now.getFullYear(),
   })
   const month =
-    Object.keys(CALENDAR_MONTHS)[Math.max(0, Math.min(state.month - 1, 11))]
+    Object.keys(CALENDAR_MONTHS)[Math.max(0, Math.min(state.month, 11))]
 
   const addDateToState = (d: Date) => {
     const isDateObject = isDate(d)
@@ -95,14 +111,15 @@ export const Calendar = ({
   }
 
   const getDates = () => {
-    const calMonth = state.month || +state.current?.getMonth()! + 1
+    const calMonth = state.month || +state.current?.getMonth()!
     const calYear = state.year || state.current?.getFullYear()
     return getCalendar(calMonth, calYear)
   }
 
   /** Event Handlers */
 
-  const goToDate = (d: Date) => {
+  const selectDate = (d: Date) => {
+    // handle range selection or single date selection
     !(state.current && isSameDay(d, state.current)) && addDateToState(d)
     // onDateChange(d)
   }
@@ -138,8 +155,6 @@ export const Calendar = ({
     return e?.shiftKey ? changeYear() : changeMonth()
   }
 
-  /** Lifecycle Methods */
-
   const Day = ({ date }: { date: Date }) => {
     const isToday = isSameDay(date, today)
     // Check if calendar date is same day as currently selected date
@@ -149,43 +164,66 @@ export const Calendar = ({
       state.month &&
       state.year &&
       isSameMonth(date, new Date([state.year, state.month, 1].join('-')))
-    // TODO - Check if calendar date is inside of the date range
-    const inRange = false
-    // TODO - ensure date is in the accepted range. Disable all past days by default
-    const isDisabled = false
-    // Check that the date is not unavailable, is in the current month, is in the acceptable range, and is not disabled
-    const valid = true
+    const isUnavailable =
+      unavailableDates.includes(date) ||
+      unavailableDays.includes(date.getDay() + 1)
+
+    const isRangeStart = state.dateStart && isSameDay(date, state.dateStart)
+    const isRangeEnd = state.dateEnd && isSameDay(date, state.dateEnd)
+    const isInRange =
+      state.dateStart && isDateInRange(date, state.dateStart, state.dateEnd)
+
+    const inCalendarRange =
+      showRangeOnly && isDateInRange(date, startDate as Date, endDate as Date)
+
+    const valid = !isUnavailable && inMonth
+
+    const dayClasses = [
+      'mkui-btn-date mkui-date',
+      classNames?.day,
+      isUnavailable ? 'disabled' : '',
+      valid ? 'valid' : '',
+      isCurrent ? 'selected' : '',
+      isToday ? 'today' : '',
+      range && isRangeStart ? 'range-start' : '',
+      range && isRangeEnd ? 'range-end' : '',
+      range && isInRange ? 'range-inner' : '',
+      showRangeOnly && !inCalendarRange ? 'hidden' : '',
+    ]
 
     return (
       <button
-        className={cn([
-          'mkui-btn-date mkui-calendar-date',
-          isDisabled ? 'disabled' : '',
-          inMonth ? 'in-month' : '',
-          inRange ? 'in-range' : '',
-          isCurrent ? 'selected' : '',
-          isToday ? 'today' : '',
-        ])}
+        className={cn(dayClasses)}
         title={date.toDateString()}
-        disabled={isDisabled}
-        onClick={() => goToDate(date)}>
+        disabled={isUnavailable}
+        onClick={() => selectDate(date)}>
         {date.getDate()}
       </button>
     )
   }
 
   return (
-    <div className="mkui-calendar">
-      <div className="mkui-calendar-header">
+    <div className={cn(['mkui-calendar', classNames?.calendar, styleId])}>
+      <Style
+        root={styleId}
+        css={{ ...css }}
+        breakpoints={breakpoints}
+        mediaQuery={mediaQuery}
+      />
+      <div className={cn(['mkui-calendar-header', classNames?.header])}>
         <button
-          className="mkui-btn-month previous"
+          className={cn(['mkui-btn-month previous', classNames?.headerButton])}
           onClick={handlePrevious}
           title="Previous Month">
           Prev
         </button>
-        <div className="mkui-month">{`${month} ${state.year}`}</div>
+        <div
+          className={cn([
+            'mkui-month',
+            classNames?.headerMonth,
+          ])}>{`${month} ${state.year}`}</div>
         <button
-          className="mkui-btn-month next"
+          className={cn(['mkui-btn-month next', classNames?.headerButton])}
           onClick={handleNext}
           title="Next Month">
           Next
@@ -193,7 +231,9 @@ export const Calendar = ({
       </div>
       <div className="mkui-calendar-grid">
         {Object.keys(WEEK_DAYS).map((day) => (
-          <div key={day} className="mkui-day-label">
+          <div
+            key={day}
+            className={cn(['mkui-day-label', classNames?.dayName])}>
             {/* @ts-ignore */}
             {WEEK_DAYS[day]}
           </div>
