@@ -19,7 +19,8 @@ import {
 import { Menu, MenuButton } from '@maker-ui/layout-client'
 
 interface LayoutProps {
-  children: React.ReactNode
+  /** You can use Layout dot children to build layouts with JSX */
+  children?: React.ReactNode
   /** A valid Maker UI Options configuration object */
   options?: MakerUIOptions
 }
