@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import { cn, generateId, merge } from 'maker-ui/utils'
 import {
@@ -15,7 +16,7 @@ import {
 import { MakerCSS, Style } from 'maker-ui'
 
 interface DateSelection {
-  date: Date
+  date?: Date
   startDate?: Date
   endDate?: Date
 }
@@ -45,20 +46,43 @@ interface CalendarProps extends MakerCSS {
   onDateChange: (selection: DateSelection) => void
   /** If true, all days outside of the `startDate` and `endDate` props will be hidden. */
   showRangeOnly?: boolean
+  /** Style customizations for the date picker */
   style?: {
+    /** A custom border style that will be applied to the edges of the calendar, as well as
+     * date cells. */
     border?: boolean
+    /** The width of the calendar. Note that the grid contains 7 columns and will auto-fill the
+     * available width space.
+     * @default '100%' // 100% of the container
+     */
     width: number | string | (number | string)[]
+    /** Font size of the calendar dates */
     fontSize?: number | string | (number | string)[]
+    /** A custom icon for the left month arrow. */
     arrowLeft?: string | React.ReactElement
+    /** A custom icon for the right month arrow. */
     arrowRight?: string | React.ReactElement
+    /**  Determines where the month navigation arrows should be positioned.
+     * @default 'split'
+     */
     arrowPos?: 'left' | 'right' | 'split'
+    /** If true, the bottom of the calendar will show selected dates.
+     * @default true
+     */
+    showSelections?: boolean
   }
   classNames?: {
+    /** Root calendar className */
     calendar?: string
+    /** Calendar heading / month navigation container */
     header?: string
+    /** The month label  */
     headerMonth?: string
+    /** The month previous / next buttons */
     headerButton?: string
+    /** The month name cells across the top row of the calendar */
     dayName?: string
+    /** The actual date cell */
     day?: string
   }
 }
@@ -82,6 +106,7 @@ export const Calendar = ({
   onDateChange,
   showRangeOnly,
   classNames,
+  style,
   css,
   breakpoints,
   mediaQuery,
@@ -94,24 +119,14 @@ export const Calendar = ({
     current: now,
     dateStart: undefined,
     dateEnd: undefined,
-    month: now.getMonth(),
+    month: now.getMonth() + 1,
     year: now.getFullYear(),
   })
   const month =
-    Object.keys(CALENDAR_MONTHS)[Math.max(0, Math.min(state.month, 11))]
-
-  const addDateToState = (d: Date) => {
-    const isDateObject = isDate(d)
-    const _date = isDateObject ? d : new Date()
-    setState({
-      current: isDateObject ? d : null,
-      month: +_date.getMonth() + 1,
-      year: _date.getFullYear(),
-    })
-  }
+    Object.keys(CALENDAR_MONTHS)[Math.max(0, Math.min(state.month - 1, 11))]
 
   const getDates = () => {
-    const calMonth = state.month || +state.current?.getMonth()!
+    const calMonth = state.month || +state.current?.getMonth()! + 1
     const calYear = state.year || state.current?.getFullYear()
     return getCalendar(calMonth, calYear)
   }
@@ -119,9 +134,48 @@ export const Calendar = ({
   /** Event Handlers */
 
   const selectDate = (d: Date) => {
-    // handle range selection or single date selection
-    !(state.current && isSameDay(d, state.current)) && addDateToState(d)
-    // onDateChange(d)
+    const isDateObject = isDate(d)
+    const date = isDateObject ? d : new Date()
+    const isInRange =
+      startDate && endDate ? isDateInRange(date, startDate, endDate) : true
+    const isEarlier =
+      state.dateStart && date.getTime() < state?.dateStart?.getTime()
+
+    if (range && isInRange) {
+      // If no start date
+      if (!state.dateStart) {
+        setState((s) => ({ ...s, dateStart: date }))
+      }
+
+      // If start date but no end date yet & invoke callback
+      if (state.dateStart && !state.dateEnd) {
+        if (isSameDay(state.dateStart, date)) {
+          setState((s) => ({ ...s, dateStart: undefined }))
+        } else if (isEarlier) {
+          setState((s) => ({ ...s, dateStart: date }))
+        } else {
+          console.log('Earlier', isEarlier, state.dateStart, date)
+          setState((s) => ({ ...s, dateEnd: date }))
+          onDateChange({ startDate: state.dateStart, endDate: date })
+        }
+      }
+
+      // if start date and end date, reset end and set new start date
+      if (state.dateStart && state.dateEnd) {
+        setState((s) => ({ ...s, dateStart: date, dateEnd: undefined }))
+      }
+
+      // If start date and selected date is same as start date -> reset
+    } else {
+      if (state.current && !isSameDay(d, state.current)) {
+        setState({
+          current: d,
+          month: +d.getMonth() + 1,
+          year: d.getFullYear(),
+        })
+        onDateChange({ date: d })
+      }
+    }
   }
 
   const changeMonth = (isNext = true) => {
@@ -158,7 +212,7 @@ export const Calendar = ({
   const Day = ({ date }: { date: Date }) => {
     const isToday = isSameDay(date, today)
     // Check if calendar date is same day as currently selected date
-    const isCurrent = state.current && isSameDay(date, state.current)
+    const isCurrent = !range && state.current && isSameDay(date, state.current)
     // Check if calendar date is in the same month as the state month and year
     const inMonth =
       state.month &&
@@ -171,7 +225,9 @@ export const Calendar = ({
     const isRangeStart = state.dateStart && isSameDay(date, state.dateStart)
     const isRangeEnd = state.dateEnd && isSameDay(date, state.dateEnd)
     const isInRange =
-      state.dateStart && isDateInRange(date, state.dateStart, state.dateEnd)
+      state.dateStart &&
+      state.dateEnd &&
+      isDateInRange(date, state.dateStart, state.dateEnd)
 
     const inCalendarRange =
       showRangeOnly && isDateInRange(date, startDate as Date, endDate as Date)
@@ -187,7 +243,7 @@ export const Calendar = ({
       isToday ? 'today' : '',
       range && isRangeStart ? 'range-start' : '',
       range && isRangeEnd ? 'range-end' : '',
-      range && isInRange ? 'range-inner' : '',
+      range && !isRangeStart && !isRangeEnd && isInRange ? 'range-inner' : '',
       showRangeOnly && !inCalendarRange ? 'hidden' : '',
     ]
 
@@ -243,6 +299,7 @@ export const Calendar = ({
           return <Day key={getDateISO(date)} date={date} />
         })}
       </div>
+      {range ? <div></div> : null}
     </div>
   )
 }

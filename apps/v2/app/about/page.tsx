@@ -11,8 +11,6 @@ export default function AboutPage() {
           width: 500,
         },
       }}>
-      <h1>About Page</h1>
-      <p>Lorem ipsum</p>
       <Form />
     </Section>
   )

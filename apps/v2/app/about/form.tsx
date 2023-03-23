@@ -8,12 +8,12 @@ export const Form = () => {
   return (
     <div className="flex">
       <DatePicker />
-      <TimePicker
+      {/* <TimePicker
         interval={60}
         duration={120}
         onTimeChange={() => console.log('Changed')}
         unavailableTimes={unavailableTimes}
-      />
+      /> */}
     </div>
   )
 }
