@@ -17,9 +17,12 @@ export const TimePicker = ({
   header,
   unavailableTimes = [],
   onChangeTime,
+  initialValue,
   classNames,
 }: TimePickerProps) => {
-  const [selectedTime, setSelectedTime] = React.useState<Date | null>(null)
+  const [selectedTime, setSelectedTime] = React.useState<Date | null>(
+    initialValue ? new Date(initialValue) : null
+  )
   const formatted = timeHash(selectedTime)
   const intervalValue =
     interval !== undefined && isDivisibleBy15(interval) ? interval : 30

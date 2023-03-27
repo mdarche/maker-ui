@@ -8,6 +8,7 @@ import { TimePicker } from './TimePicker'
 /**
  *
  * @todo - determine type and set up initial state (local)
+ * @todo - Combine date and time - ask GPT
  */
 export const DateTimePicker = ({ name }: FieldInputProps) => {
   const { field, error, setValue } = useField(name)
@@ -26,9 +27,17 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
 
   return (
     <div className={cn(['mkui-datetime', error ? 'error' : undefined])}>
-      <Calendar {...field?.datetime?.date} onDateChange={onChangeDate} />
+      <Calendar
+        {...field?.datetime?.date}
+        initialValue={field?.initialValue}
+        onChangeDate={onChangeDate}
+      />
       {isBoth ? (
-        <TimePicker {...field?.datetime?.time} onChangeTime={onChangeTime} />
+        <TimePicker
+          {...field?.datetime?.time}
+          initialValue={field?.initialValue?.date}
+          onChangeTime={onChangeTime}
+        />
       ) : null}
     </div>
   )

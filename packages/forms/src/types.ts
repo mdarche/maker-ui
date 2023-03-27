@@ -98,7 +98,7 @@ export interface CalendarProps extends MakerCSS {
   /** @todo Localization helper. Coming soon... */
   localization?: {}
   /** Callback function that is invoked any time a date is changed or selected. */
-  onDateChange: (selection: DateSelection) => void
+  onChangeDate: (selection: DateSelection) => void
   /** If true, all days outside of the `startDate` and `endDate` props will be hidden. */
   showRangeOnly?: boolean
   /** Style customizations for the date picker */

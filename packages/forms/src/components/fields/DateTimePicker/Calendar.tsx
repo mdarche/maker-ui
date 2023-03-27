@@ -32,7 +32,7 @@ export const Calendar = ({
   rangeMin,
   unavailable = [],
   unavailableDays = [],
-  onDateChange,
+  onChangeDate,
   showRangeOnly = false,
   classNames,
   style,
@@ -99,7 +99,7 @@ export const Calendar = ({
           setState((s) => ({ ...s, dateStart: date }))
         } else {
           setState((s) => ({ ...s, dateEnd: date }))
-          onDateChange({ startDate: state.dateStart, endDate: date })
+          onChangeDate({ startDate: state.dateStart, endDate: date })
         }
       }
 
@@ -116,7 +116,7 @@ export const Calendar = ({
           month: +d.getMonth() + 1,
           year: d.getFullYear(),
         })
-        onDateChange({ date: d })
+        onChangeDate({ date: d })
       }
     }
   }
