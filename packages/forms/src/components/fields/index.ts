@@ -4,4 +4,4 @@ export { Switch } from './Switch'
 export { Options } from './Options'
 export { Range } from './Range'
 export { ImagePicker, MediaField } from './uploaders'
-// TODO - Date picker
+export { DateTimePicker } from './DateTimePicker'

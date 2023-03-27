@@ -1,4 +1,4 @@
-import { Breakpoints } from '@maker-ui/style'
+import { Breakpoints, MakerCSS } from '@maker-ui/style'
 import * as React from 'react'
 import type { Schema, ZodError } from 'zod'
 
@@ -67,6 +67,120 @@ export interface ImagePickerProps
   onUploadImage?: (url: Promise<string>) => any
 }
 
+export interface DateSelection {
+  date?: Date | string
+  startDate?: Date | string
+  endDate?: Date | string
+  time?: Date | string
+}
+
+export interface CalendarProps extends MakerCSS {
+  /** The initial values for the calendar */
+  initialValue?: DateSelection
+  /** Earliest date that will be visible in the Calendar. Required if `range` is true.  */
+  startDate?: Date
+  /** Latest date that will be visible in the Calendar. Required if `range` is true. */
+  endDate?: Date
+  /** If true, users can select a start and end date. */
+  range?: boolean
+  /** The maximum number of days that a user can select in their date range. */
+  rangeMax?: number
+  /** The minimum number of days that a user can select in their date range. */
+  rangeMin?: number
+  /** An array of unavailable dates or date strings that will render disabled calendar days. */
+  unavailable?: string[]
+  /** An array of days (0 - 6) that will render disabled calendar days each week.
+   * 0 is Sunday and 1 is Monday.
+   * @example
+   * To disable weekends, use: [0, 6]
+   */
+  unavailableDays?: number[]
+  /** @todo Localization helper. Coming soon... */
+  localization?: {}
+  /** Callback function that is invoked any time a date is changed or selected. */
+  onDateChange: (selection: DateSelection) => void
+  /** If true, all days outside of the `startDate` and `endDate` props will be hidden. */
+  showRangeOnly?: boolean
+  /** Style customizations for the date picker */
+  style?: {
+    /** A custom border radius for selected dates. Note this does not work for the
+     * range picker, only single dates.
+     * @default 50%
+     */
+    borderRadius: number | string | (number | string)[]
+    /** A custom border style that will be applied to the edges of the calendar, as well as
+     * date cells. */
+    border?: boolean
+    /** The width of the calendar. Note that the grid contains 7 columns and will auto-fill the
+     * available width space.
+     * @default '100%' // 100% of the container
+     */
+    width: number | string | (number | string)[]
+    /** Font size of the calendar dates */
+    fontSize?: number | string | (number | string)[]
+    /** A custom icon for the left month arrow. */
+    arrowLeft?: string | React.ReactElement
+    /** A custom icon for the right month arrow. */
+    arrowRight?: string | React.ReactElement
+    /**  Determines where the month navigation arrows should be positioned.
+     * @default 'split'
+     */
+    arrowPos?: 'left' | 'right' | 'split'
+    /** If true, the bottom of the calendar will show selected dates.
+     * @default true
+     */
+    showSelections?: boolean
+  }
+  classNames?: {
+    /** Root calendar className */
+    calendar?: string
+    /** Calendar heading / month navigation container */
+    header?: string
+    /** The month label  */
+    headerMonth?: string
+    /** The month previous / next buttons */
+    headerButton?: string
+    /** The month name cells across the top row of the calendar */
+    dayName?: string
+    /** The actual date cell */
+    day?: string
+  }
+}
+
+export interface TimePickerProps {
+  /** The start time for the time picker.
+   * @default [9, 0] // 9:00 AM ([Hour,  Minute])
+   */
+  startTime?: Date | number[]
+  /** The last possible start time for the time picker.
+   * @default [18, 0] // 6:00 PM ([Hour,  Minute])
+   */
+  endTime?: Date | number[]
+  /** The frequency at which times can be scheduled. This must be divisible by 15.
+   * @default 30 // Meeting slots begin every 30 minutes
+   */
+  interval?: number
+  /** The duration in minutes of each time slot. This must be divisible by 15.
+   * @default 30 // Meetings last 30 minutes
+   */
+  duration?: number
+  /** An optional message that will display above the time picker. */
+  header?: string
+  /** An array of times that should not be available for selection. */
+  unavailableTimes?: Date[]
+  /** A callback that will be called when a time is selected. */
+  onChangeTime: (time: Date) => void
+  classNames?: {
+    root?: string
+    selected?: string
+    ul?: string
+    li?: string
+    button?: string
+  }
+  /** The initial time selection date */
+  initialValue?: Date | string
+}
+
 type LabelPosition =
   | 'top-right'
   | 'top-left'
@@ -101,13 +215,15 @@ export type FieldType =
   | 'url'
   | 'select'
   | 'date'
-  | 'date-picker' // TODO
-  | 'color-picker' // TODO custom
+  | 'date-picker'
+  | 'date-time-picker'
   | 'switch'
   | 'radio'
   | 'checkbox'
   | 'slider'
   | 'repeater' // TODO
+  | 'color-picker' // TODO
+  | 'gallery' // TODO
   | 'color'
   | 'range'
   | 'file'
@@ -147,17 +263,8 @@ interface MinMax {
   max: number
 }
 
-// type OptionalName = string | undefined
-// type FieldName<T> = T extends 'page'
-//   ? OptionalName
-//   : T extends 'group'
-//   ? OptionalName
-//   : string
-
 export interface FieldProps {
-  key?: string
   type: FieldType
-  // name: FieldName<FieldProps['type']> // TODO - FIgure this out
   name: string
   initialValue?: any
   className?: string
@@ -174,31 +281,49 @@ export interface FieldProps {
   showValidation?: boolean
   inputProps?: any // for Cypress or any other custom props
   autoSave?: boolean | AutoSaveSettings
+
   colSpan?: number
-  // For Radio, Checkbox, Select
+  /**  Options for the `radio`, `checkbox`, and `select` field types */
   options?: InputOption[] | { [key: string]: string }
-  // For range
+  /** Custom settings for the `range` field type */
   range?: {
+    /** If true, the field value will be a min/max range powered by 2 slider buttons.     */
     multi?: boolean
+    /** Renders an interactive text input that shows the range value(s)*/
     textInput?: boolean
+    /** The range minimum  */
     min?: number
+    /** The range maximum */
     max?: number
+    /** The range input's step attribute  */
     step?: number
+    /** A custom string or React element for the Min label.  */
     labelMin?: string | React.ReactElement
+    /** A custom string or React element for the Max label.  */
     labelMax?: string | React.ReactElement
+    /** A slot to render a custom element before the input */
     beforeInput?: string | React.ReactElement
+    /** A slot to render a custom element after the input */
     afterInput?: string | React.ReactElement
     /** A callback for accessing values as they change */
     onChange?: (m: MinMax) => void
   }
+  /** Custom settings for the `select` field type */
   select?: {
+    /** Allows you to select multiple options
+     * @default false
+     */
     multi?: boolean
+    /** Renders a simple search bar to find a specific option */
     search?: boolean
+    /**Allows the user to create their own option value */
     creatable?: boolean
+    /** Renders a clear button that removes all selections. */
     clearable?: boolean
+    /** Default values that cannot be removed by the user (only useful for `multi` select) */
     fixed?: InputOption[]
   }
-  // For switch
+  /** Custom settings for the switch field type  */
   switch?: {
     /** A custom label for the switch `on` state. */
     labelOn?: string | React.ReactNode | boolean
@@ -209,14 +334,25 @@ export interface FieldProps {
     /** The switch style can be `circle` or `box` */
     style?: 'circle' | 'box'
   }
-  // For image
+  /** Custom settings for the `date-picker` and `date-time-picker` field types */
+  datetime?: {
+    /** Time picker props for complete control over the TimePicker component */
+    time: TimePickerProps
+    /** Calendar props for complete control over the Calendar component */
+    date: CalendarProps
+  }
+  /** Custom settings for the image-picker field type */
   image?: ImagePickerProps
-  // For Password
+  /** Custom settings for the password field type */
   password?: {
+    /** Renders a toggle that allows the user to see a non-masked version of the password. */
     toggleCharacters?: boolean
+    /** Custom icon for the hide password button */
     iconHide?: React.ReactElement
+    /** Custom icon forthe reveal password button */
     iconReveal?: React.ReactElement
   }
+  /** Nested fields if the field type is `group` or `page` */
   subFields?: FieldProps[]
 }
 
@@ -234,14 +370,24 @@ export interface AutoSaveSettings {
 export interface FormSettings {
   /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
   validateFieldOnBlur: boolean
+  /** A custom React element that will be used instead of the default checkmark for  */
   validateIcon: React.ReactElement
   breakpoints?: Breakpoints
   columns: string | string[] | number
   gap: string | number | (string | number)[]
+  /** The form's default field label position
+   * @default 'top-left'
+   */
   labelPosition: LabelPosition
+  /** The form's default field error position
+   * @default 'bottom-right'
+   */
   errorPosition: ErrorPosition
+  /** Custom className selectors for various form elements. */
   classNames?: FormClassNames
+  /** The color of the placeholder text for text inputs */
   placeholderColor?: string | string[]
+  /** Custom settings or a simple boolean that enables instant field validation and auto-submit */
   autoSave?: boolean | AutoSaveSettings
   /** If true, the submit button will be disabled until form validation passes. // FIgure this out by finding if all required fields have values
    */

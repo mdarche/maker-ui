@@ -126,9 +126,10 @@ export const Field = (props: FieldComponentProps) => {
       )
     }
     /* Datepicker that supports ranges */
-    // if (props.type === 'datepicker') {
-    //   return <DatePicker {...attributes} />
-    // }
+    if (props.type === 'date-picker' || props.type === 'date-time-picker') {
+      return <DatePicker {...attributes} />
+    }
+
     /* Imagepicker  */
     if (props.type === 'image-picker') {
       return (

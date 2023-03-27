@@ -28,12 +28,15 @@
   outline: none;
   background: none;
   cursor: pointer;
-  height: 100%;
-  width: 100%;
   aspect-ratio: 1;
-  opacity: 0.3;
+  opacity: 0.4;
 
   font-size: 14px;
+}
+
+.mkui-date.range {
+  height: 100%;
+  width: 100%;
 }
 
 .mkui-date.selected {
@@ -52,14 +55,20 @@
 .mkui-date.range-start,
 .mkui-date.range-end {
   background: #aedcff;
+  opacity: 1;
 }
 
 .mkui-date.range-inner {
   border-radius: 0;
+  opacity: 1;
 }
 
-.mkui-date.valid {
+.mkui-date.available {
   opacity: 1;
+}
+
+.mkui-date.unavailable {
+  pointer-events: none;
 }
 
 .mkui-date.hidden {

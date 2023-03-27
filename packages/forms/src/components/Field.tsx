@@ -6,7 +6,15 @@ import { useForm, useField } from '@/hooks'
 import { evaluateConditions } from '@/helpers'
 import type { FieldProps } from '@/types'
 import { Label } from './Label'
-import { Input, Options, Switch, Range, Select, MediaField } from '@/fields'
+import {
+  Input,
+  Options,
+  Switch,
+  Range,
+  Select,
+  MediaField,
+  DateTimePicker,
+} from '@/fields'
 import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
 
 const basicInputs = [
@@ -56,6 +64,10 @@ export const Field = (p: FieldProps) => {
     /* Custom React inputs */
     if (p.type === 'custom' && p?.component) {
       return p.component
+    }
+    /* DatePicker and DateTimePicker */
+    if (p.type === 'date-picker' || p.type === 'date-time-picker') {
+      return <DateTimePicker name={p.name} />
     }
     /* Basic HTML Inputs */
     if (basicInputs.includes(p.type)) {

@@ -15,9 +15,7 @@ interface AutoSaveWrapperProps {
 type StatusType = 'active' | 'inactive' | 'success' | 'error'
 
 export const initial: AutoSaveSettings = {
-  saveIcon: (
-    <Spinner type="classic" size={20} colors={{ primary: '#d2d2d2' }} />
-  ),
+  saveIcon: <Spinner type="classic" size={20} colors={['#d2d2d2']} />,
   successIcon: <ValidateIcon style={{ height: 20, fill: '#3aca3a' }} />,
   errorIcon: <ErrorIcon style={{ height: 20, fill: '#e93030' }} />,
   timeout: 2500,

@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
-import { cn, generateId, merge } from 'maker-ui/utils'
+import { cn, generateId, merge } from '@maker-ui/utils'
+import { Style } from '@maker-ui/style'
 import {
   getCalendar,
   isDate,
@@ -8,89 +9,12 @@ import {
   getDateISO,
   getNextMonth,
   getPreviousMonth,
-  WEEK_DAYS,
-  CALENDAR_MONTHS,
   isSameMonth,
   isDateInRange,
+  WEEK_DAYS,
+  CALENDAR_MONTHS,
 } from './helper'
-import { type MakerCSS, Style } from 'maker-ui'
-
-interface DateSelection {
-  date?: Date
-  startDate?: Date
-  endDate?: Date
-}
-
-interface CalendarProps extends MakerCSS {
-  /** Earliest date that will be visible in the Calendar. Required if `range` is true.  */
-  startDate?: Date
-  /** Latest date that will be visible in the Calendar. Required if `range` is true. */
-  endDate?: Date
-  /** If true, users can select a start and end date. */
-  range?: boolean
-  /** The maximum number of days that a user can select in their date range. */
-  rangeMax?: number
-  /** The minimum number of days that a user can select in their date range. */
-  rangeMin?: number
-  /** An array of unavailable dates or date strings that will render disabled calendar days. */
-  unavailable?: string[]
-  /** An array of days (0 - 6) that will render disabled calendar days each week.
-   * 0 is Sunday and 1 is Monday.
-   * @example
-   * To disable weekends, use: [0, 6]
-   */
-  unavailableDays?: number[]
-  /** @todo Localization helper. Coming soon... */
-  localization?: {}
-  /** Callback function that is invoked any time a date is changed or selected. */
-  onDateChange: (selection: DateSelection) => void
-  /** If true, all days outside of the `startDate` and `endDate` props will be hidden. */
-  showRangeOnly?: boolean
-  /** Style customizations for the date picker */
-  style?: {
-    /** A custom border radius for selected dates. Note this does not work for the
-     * range picker, only single dates.
-     * @default 50%
-     */
-    borderRadius: number | string | (number | string)[]
-    /** A custom border style that will be applied to the edges of the calendar, as well as
-     * date cells. */
-    border?: boolean
-    /** The width of the calendar. Note that the grid contains 7 columns and will auto-fill the
-     * available width space.
-     * @default '100%' // 100% of the container
-     */
-    width: number | string | (number | string)[]
-    /** Font size of the calendar dates */
-    fontSize?: number | string | (number | string)[]
-    /** A custom icon for the left month arrow. */
-    arrowLeft?: string | React.ReactElement
-    /** A custom icon for the right month arrow. */
-    arrowRight?: string | React.ReactElement
-    /**  Determines where the month navigation arrows should be positioned.
-     * @default 'split'
-     */
-    arrowPos?: 'left' | 'right' | 'split'
-    /** If true, the bottom of the calendar will show selected dates.
-     * @default true
-     */
-    showSelections?: boolean
-  }
-  classNames?: {
-    /** Root calendar className */
-    calendar?: string
-    /** Calendar heading / month navigation container */
-    header?: string
-    /** The month label  */
-    headerMonth?: string
-    /** The month previous / next buttons */
-    headerButton?: string
-    /** The month name cells across the top row of the calendar */
-    dayName?: string
-    /** The actual date cell */
-    day?: string
-  }
-}
+import { CalendarProps } from '@/types'
 
 interface CalendarState {
   current?: Date | null
@@ -115,15 +39,20 @@ export const Calendar = ({
   css,
   breakpoints,
   mediaQuery,
+  initialValue,
 }: CalendarProps) => {
-  const now = new Date()
+  const now = initialValue?.date ? new Date(initialValue.date) : new Date()
   const [today] = useState(now)
   const [styleId] = useState(generateId())
   const [unavailableDates] = useState(unavailable.map((d) => new Date(d)) || [])
   const [state, setState] = useState<CalendarState>({
     current: now,
-    dateStart: undefined,
-    dateEnd: undefined,
+    dateStart: initialValue?.startDate
+      ? new Date(initialValue.startDate)
+      : undefined,
+    dateEnd: initialValue?.endDate
+      ? new Date(initialValue?.endDate)
+      : undefined,
     month: now.getMonth() + 1,
     year: now.getFullYear(),
   })
@@ -274,12 +203,12 @@ export const Calendar = ({
 
   return (
     <div className={cn(['mkui-calendar', classNames?.calendar])}>
-      {/* <Style
+      <Style
         root={styleId}
         css={merge(calendarStyles, css || {})}
         breakpoints={breakpoints}
         mediaQuery={mediaQuery}
-      /> */}
+      />
       <div className={cn(['mkui-calendar-header', classNames?.header])}>
         <button
           className={cn(['mkui-btn-month previous', classNames?.headerButton])}

@@ -4,7 +4,11 @@ import { Calendar } from './Calendar'
 export const DatePicker = () => {
   return (
     <div>
-      <Calendar onDateChange={(d) => console.log(d)} range />
+      <Calendar
+        unavailableDays={[0, 6]}
+        onDateChange={(d) => console.log(d)}
+        range
+      />
     </div>
   )
 }

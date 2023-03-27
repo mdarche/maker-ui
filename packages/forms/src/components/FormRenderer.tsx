@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cn, Conditional, generateId } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
-import { ResponsiveCSS, Style } from '@maker-ui/style'
+import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
 import { useForm } from '@/hooks'
 import { sortChildren } from '@/helpers'

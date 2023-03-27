@@ -40,34 +40,27 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
-        <LayoutProvider options={options}>
-          <Layout options={options}>
-            <Layout.Header
-              logo={{ icon: 'Logo', path: '/' }}
-              menu={menu}
-              widgets={<ColorButton />}
-              menuButton={{ defaultIcon: 'menu' }}
-            />
-            <Layout.MobileMenu
-              closeButton={{ defaultIcon: 'close' }}
-              menu={menu}
-            />
-            <Layout.Main>{children}</Layout.Main>
-            <Layout.SideNav
-              menuButton={{
-                icon: 'Collapse',
-                fixed: true,
-                position: { bottom: 30, right: 30 },
-              }}>
-              <Menu items={menu} />
-            </Layout.SideNav>
-            {/* <Layout.Footer>Footer stuff</Layout.Footer> */}
-          </Layout>
-        </LayoutProvider>
-      </body>
-    </html>
+    <LayoutProvider options={options}>
+      <Layout options={options}>
+        <Layout.Header
+          logo={{ icon: 'Logo', path: '/' }}
+          menu={menu}
+          widgets={<ColorButton />}
+          menuButton={{ defaultIcon: 'menu' }}
+        />
+        <Layout.MobileMenu closeButton={{ defaultIcon: 'close' }} menu={menu} />
+        <Layout.Main>{children}</Layout.Main>
+        <Layout.SideNav
+          menuButton={{
+            icon: 'Collapse',
+            fixed: true,
+            position: { bottom: 30, right: 30 },
+          }}>
+          <Menu items={menu} />
+        </Layout.SideNav>
+        {/* <Layout.Footer>Footer stuff</Layout.Footer> */}
+      </Layout>
+    </LayoutProvider>
   )
 }
 
