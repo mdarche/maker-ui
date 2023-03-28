@@ -32,6 +32,15 @@
   /* Add media queries for heights, widths, and gaps here */
 }
 
+:root {
+  --form-color-placeholder: #888;
+  --form-color-icon: #888;
+  --form-border-input: 1px solid #d2d2d2;
+  --form-border-radius-input: 4px;
+  --form-select-highlight: #d8f4ff;
+  --form-select-border-active: 1px solid blue;
+}
+
 body[data-theme='dark'] {
   /* Required */
   --color-bg-header: #000;

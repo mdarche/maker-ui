@@ -59,3 +59,24 @@ export const UploadIcon = (props: React.HTMLAttributes<SVGElement>) => (
     <path d="M77.34 151.2a7 7 0 007-7V84.07l24.36 24.36a7 7 0 109.9-9.9L82.29 62.22c-.15-.14-.31-.29-.47-.42l-.25-.19-.3-.22-.3-.18-.33-.21c-.1-.06-.21-.1-.31-.15L80 60.7l-.3-.11-.35-.12-.3-.08-.36-.08-.34-.06H76.29l-.33.06-.37.08-.3.08-.35.12-.3.11-.31.15c-.1 0-.21.09-.31.15l-.29.17c-.1.06-.2.11-.3.18l-.3.22-.25.19c-.16.13-.32.28-.47.42L36.08 98.53a7 7 0 009.9 9.9l24.36-24.36v60.13a7 7 0 007 7z" />
   </svg>
 )
+
+export const CloseIcon = (props: React.HTMLAttributes<SVGElement>) => (
+  <svg
+    className="icon-close"
+    viewBox="0 0 14 14"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}>
+    <path d="M13.3.71a.996.996 0 0 0-1.41 0L7 5.59 2.11.7A.997.997 0 1 0 .7 2.11L5.59 7 .7 11.89a.997.997 0 0 0 1.41 1.41L7 8.41l4.89 4.89a.997.997 0 0 0 1.41-1.41L8.41 7l4.89-4.89c.38-.38.38-1.02 0-1.4Z" />
+  </svg>
+)
+
+export const ArrowIcon = (props: React.HTMLAttributes<SVGElement>) => (
+  <svg
+    className="icon-arrow"
+    viewBox="0 0 12 8"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ height: 12 }}
+    {...props}>
+    <path d="M2.12 1.29 6 5.17l3.88-3.88a.997.997 0 1 1 1.41 1.41L6.7 7.29a.996.996 0 0 1-1.41 0L.7 2.7a.996.996 0 0 1 0-1.41c.39-.38 1.03-.39 1.42 0Z" />
+  </svg>
+)

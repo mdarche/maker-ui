@@ -6,6 +6,7 @@
     "baseUrl": ".",
     "paths": {
       "@/fields": ["src/components/fields/index.ts"],
+      "@/icons": ["src/components/Icons.tsx"],
       "@/components": ["src/components/index.ts"],
       "@/helpers": ["src/helpers/index.ts"],
       "@/hooks": ["src/hooks/index.ts"],

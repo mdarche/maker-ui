@@ -59,6 +59,23 @@ export function FormDemo() {
                 },
               },
               {
+                type: 'select',
+                name: 'selector',
+                label: 'Choose a number',
+                required: true,
+                options: [
+                  { label: 'One', value: 'one' },
+                  { label: 'Two', value: 'two' },
+                  { label: 'Three', value: 'three' },
+                  { label: 'Four', value: 'four', disabled: true },
+                  { label: 'A', value: 'a', group: 'Letters' },
+                  { label: 'B', value: 'b', group: 'Letters' },
+                ],
+                select: {
+                  search: false,
+                },
+              },
+              {
                 type: 'switch',
                 name: 'switch',
                 label: 'Are you ready?',

@@ -322,6 +322,19 @@ export interface FieldProps {
     clearable?: boolean
     /** Default values that cannot be removed by the user (only useful for `multi` select) */
     fixed?: InputOption[]
+    /** Custom className selectors for nested Select components */
+    classNames?: {
+      root?: string
+      control?: string
+      selectedValue?: string
+      search?: string
+      options?: string
+      optionValue?: string
+      group?: string
+      groupLabel?: string
+      clear?: string
+      arrow?: string
+    }
   }
   /** Custom settings for the switch field type  */
   switch?: {

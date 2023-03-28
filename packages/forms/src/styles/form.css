@@ -6,6 +6,7 @@
 / --form-color-instructions
 / --form-color-label
 / --form-color-input
+/ --form-color-icon
 / --form-font-size-error
 / --form-font-size-instructions
 / --form-font-size-label
@@ -21,10 +22,29 @@
   gap: var(--form-gap, 1rem);
   grid-template-columns: var(--form-columns, 1fr);
 }
+
+.mkui-field-container {
+  position: relative;
+  display: flex;
+}
+
 .mkui-field-container,
 .mkui-form-divider,
 .mkui-field-group {
   grid-column: 1 / -1;
+}
+
+/* Placeholder */
+.mkui-form .placeholder,
+.mkui-form ::placeholder {
+  color: var(--form-color-placeholder, var(--color-text));
+}
+.mkui-form :-moz-placeholder {
+  color: var(--form-color-placeholder, var(--color-text));
+  opacity: 1;
+}
+.mkui-form ::-webkit-input-placeholder {
+  color: var(--form-color-placeholder, var(--color-text));
 }
 /* Instructions */
 .mkui-field-instructions {
