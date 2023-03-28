@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { CSSTransition } from '@maker-ui/transition'
 import { Spinner } from '@maker-ui/spinners'
 import { AutoSaveSettings } from '@/types'
-import { useField, useForm } from 'src/hooks/useForm'
+import { useField, useForm } from '@/hooks'
 import { ErrorIcon, ValidateIcon } from './Icons'
 
 interface AutoSaveWrapperProps {

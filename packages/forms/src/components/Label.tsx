@@ -7,6 +7,11 @@ interface LabelProps {
   type: FieldProps['type']
 }
 
+/**
+ * Renders a label for a field. If the field is a checkbox or radio, the label
+ * will be rendered as a group label. If the field is a switch, the label will
+ * be rendered as a switch label.
+ */
 export const Label = ({ name, children, type }: LabelProps) => {
   const isSwitch = type === 'switch'
   if (type === 'checkbox' || type === 'radio' || isSwitch) {

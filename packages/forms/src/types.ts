@@ -200,7 +200,7 @@ type ErrorPosition =
   | 'bottom-right'
   | 'bottom-center'
 
-// Field Types
+// --------- Field Types ----------
 
 export type FieldType =
   | 'group'
@@ -264,14 +264,28 @@ interface MinMax {
 }
 
 export interface FieldProps {
+  /** The field type. */
   type: FieldType
+  /** The field name. This will be used as the key in all form data so it must be unique. */
   name: string
+  /** The initial or default value for this field. */
   initialValue?: any
+  /** A custom className selector for the field input. */
   className?: string
+  /** A label for the field. This can be a string or a custom React element. */
   label?: string | React.ReactElement
+  /** Instructions to be rendered below the label that further explain the field. */
   instructions?: string | React.ReactElement
+  /** If `type` is set to `custom`, you can use this prop to supply your custom component field.
+   * Make sure you properly set the custom component's value by using `setValue` from the
+   * `useField` hook.
+   */
   component?: React.ReactElement
+  /** A placeholder string that can be used in basic text inputs or a select box. */
   placeholder?: string
+  /** Whether or not the field is required. You can also use a string to set a custom required
+   * validation error.
+   */
   required?: boolean | string
   /** Custom Zod validation schema that will be run during validation */
   validation?: Schema
@@ -376,7 +390,7 @@ export interface FieldProps {
   subFields?: FieldProps[]
 }
 
-// Form Types
+// -------- Form Types --------
 
 export interface AutoSaveSettings {
   saveIcon?: React.ReactElement
@@ -390,8 +404,9 @@ export interface AutoSaveSettings {
 export interface FormSettings {
   /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
   validateFieldOnBlur: boolean
-  /** A custom React element that will be used instead of the default checkmark for  */
+  /** A custom React element that will be used instead of the default checkmark for valid fields. */
   validateIcon: React.ReactElement
+  /** Breakpoints that dictate when form columns will collapse according to the `columns` prop. */
   breakpoints?: Breakpoints
   columns: string | string[] | number
   gap: string | number | (string | number)[]

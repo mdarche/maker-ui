@@ -2,6 +2,9 @@ import * as React from 'react'
 import { ValidateIcon } from '../components/Icons'
 import type { FormState } from '@/types'
 
+/**
+ * The initial state of the form. This is used to reset the form.
+ */
 export const initialState: FormState = {
   settings: {
     validateIcon: <ValidateIcon />,

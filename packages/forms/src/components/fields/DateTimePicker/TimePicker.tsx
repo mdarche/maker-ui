@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { TimePickerProps } from '@/types'
-import { timeHash } from './helper'
+import type { TimePickerProps } from '@/types'
+import { timeHash } from './date-helpers'
 
 type DivisibleBy15 = number & { __divisibleBy15: never }
 

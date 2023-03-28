@@ -3,30 +3,16 @@ import { cn, Conditional, generateId } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
 import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
-import { useForm } from 'src/hooks/useForm'
-import { sortChildren } from '@/helpers'
+import { useForm } from '@/hooks'
+import { findAllByKey, sortChildren } from '@/helpers'
+import type { FieldProps } from '@/types'
 import { Field } from './Field'
 import type { FormProps } from './Form'
-import type { FieldProps } from '@/types'
 
 interface FormRendererProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
   onSubmit: FormProps['onSubmit']
   children: React.ReactNode
-}
-
-function findAllByKey(obj: object, target: string): any {
-  return (
-    Object.entries(obj).reduce(
-      (acc, [key, value]) =>
-        key === target
-          ? acc.concat(value)
-          : typeof value === 'object' && value && !React.isValidElement(value)
-          ? acc.concat(findAllByKey(value, target))
-          : acc,
-      []
-    ) || []
-  )
 }
 
 export const FormRenderer = ({

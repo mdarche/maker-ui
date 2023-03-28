@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { useField } from 'src/hooks/useForm'
+import { useField } from '@/hooks'
 import { FieldInputProps } from '@/types'
 
 // For the radio and checkbox input components

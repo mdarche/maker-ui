@@ -17,6 +17,9 @@ export interface Slots {
   children: ReactElement[]
 }
 
+/**
+ * The default component slots for a form.
+ */
 export const defaultSlots: Slots = {
   header: null,
   footer: null,
@@ -28,6 +31,23 @@ export const defaultSlots: Slots = {
   children: [],
 }
 
+/**
+ * Separates React children elements into distinct slots based on the `_type` prop
+ *
+ * @param children - The React children to sort into slots
+ * @returns An object with the sorted React elements in their respective slots
+ * @example
+ * ```tsx
+ * const slots = sortChildren(
+ *   <>
+ *     <div>Some content</div>
+ *     <Button _type="submit">Submit</Button>
+ *   </>
+ * );
+ *
+ * console.log(slots.submit); // logs the submit button element
+ * ```
+ */
 export function sortChildren(children: ReactNode): Slots {
   let sorted: { [k: string]: any } = {
     children: [],

@@ -7,6 +7,6 @@ import './components/fields/Input/input.css'
 import './components/fields/Media/media.css'
 import './components/fields/DateTimePicker/date-time-picker.css'
 
-export { Form, ImagePicker } from '@/components'
-export { useForm } from '@/hooks'
+export { Form } from '@/components'
+export { useForm, useField } from '@/hooks'
 export * from '@/types'

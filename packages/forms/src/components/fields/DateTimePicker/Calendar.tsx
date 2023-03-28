@@ -13,7 +13,7 @@ import {
   isDateInRange,
   WEEK_DAYS,
   CALENDAR_MONTHS,
-} from './helper'
+} from './date-helpers'
 import { CalendarProps } from '@/types'
 
 interface CalendarState {

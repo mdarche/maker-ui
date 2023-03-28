@@ -13,6 +13,12 @@ interface ValidateProps {
   page?: number
 }
 
+/**
+ * Validates a form or form field based on a given schema and values.
+ *
+ * @param {ValidateProps} props - The properties for the validation
+ * @returns {Object} An object containing the validation result and errors
+ */
 export function validate({
   type,
   schema,
@@ -22,7 +28,6 @@ export function validate({
 }: ValidateProps): { isValid: boolean; errors: FormErrors } {
   let isValid = true
   let errors: FormErrors = {}
-  // const src = type === 'field' ? field : type === 'page' ? page :
   // Validate specific field
   if (field && type === 'field') {
     if (schema[field].required && !values[field]) {

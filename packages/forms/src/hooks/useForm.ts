@@ -1,35 +1,12 @@
 import { useContext } from 'react'
-import { merge } from '@maker-ui/utils'
 import { FormContext } from '@/components'
-import { validate } from '@/helpers'
-import { FieldProps } from '@/types'
+import { isEmpty, validate } from '@/helpers'
 
-function isEmpty(obj: object) {
-  return Object.values(obj as object).every(
-    (el) => el === undefined || el === null
-  )
-}
-
-function deepSearch(
-  collection: FieldProps[],
-  key: string,
-  value: string | number
-): FieldProps | undefined {
-  for (const o of collection) {
-    for (const [k, v] of Object.entries(o)) {
-      if (k === key && v === value) {
-        return o
-      }
-      if (Array.isArray(v)) {
-        const _o = deepSearch(v, key, value)
-        if (_o) {
-          return _o
-        }
-      }
-    }
-  }
-}
-
+/**
+ * A hook that provides a set of functions and properties to interact with the form.
+ *
+ * @returns {Object} An object containing the form's properties and functions.
+ */
 export function useForm() {
   const { state: s, dispatch } = useContext(FormContext)
 
@@ -96,48 +73,5 @@ export function useForm() {
     resetForm,
     validateForm,
     validatePage,
-  }
-}
-
-export function useField(name: string) {
-  const { state: s, dispatch } = useContext(FormContext)
-  const page = s.schema[name].page
-
-  function setTouched() {
-    dispatch({ type: 'SET_TOUCHED', value: name })
-  }
-
-  function setValue(val: any, touch?: boolean) {
-    if (touch && !s.touched.includes(name)) {
-      setTouched()
-    }
-    dispatch({ type: 'SET_VALUE', value: { [name]: val } })
-  }
-
-  function validateField(): boolean {
-    const { isValid, errors } = validate({
-      type: 'field',
-      schema: s.schema,
-      values: s.values,
-      field: name,
-    })
-
-    if (!isEmpty(errors)) {
-      dispatch({ type: 'SET_ERRORS', value: merge(s.errors, errors) })
-    }
-    // TODO remove error if it no longer exists
-
-    return isValid
-  }
-
-  return {
-    field: deepSearch(s.fields, 'name', name),
-    touched: s.touched.includes(name),
-    error: s.errors[name] || false,
-    value: s.values[name],
-    page,
-    setValue,
-    setTouched,
-    validateField,
   }
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { cn } from '@maker-ui/utils'
-import { useField } from 'src/hooks/useForm'
+import { useField } from '@/hooks'
 import { FieldInputProps, InputOption } from '@/types'
 import { ArrowIcon, CloseIcon } from '../../Icons'
 

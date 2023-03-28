@@ -1,6 +1,6 @@
 import React, { forwardRef, Fragment } from 'react'
 import { cn } from '@maker-ui/utils'
-import { useForm } from 'src/hooks/useForm'
+import { useForm } from '@/hooks'
 
 export interface SlotProps extends React.HTMLAttributes<HTMLDivElement> {
   _type?: string
