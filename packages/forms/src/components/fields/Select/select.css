@@ -1,0 +1,127 @@
+/* Config variables
+/ -------------------------------------------------- /
+/ --form-select-border-active
+/ --form-select-color-value
+/ --form-select-bg-value
+/ --form-select-columns
+/ --form-select-padding
+/ --form-select-bg-highlight
+/ --form-select-color-highlight
+/ --------------------------------------------------
+*/
+
+.mkui-select {
+  position: relative;
+}
+
+.mkui-select:focus-within .mkui-select-control {
+  outline: var(--form-select-border-active);
+}
+
+.mkui-select-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  height: var(--form-height-input, 40px);
+  border: var(--form-border-input, 1px solid var(--color-text));
+  border-radius: var(--form-border-radius-input, 0px);
+  font-size: var(--form-font-size-input, 1em);
+  padding: var(--form-padding-input, 0 10px);
+  background: var(--form-bg-input, var(--color-background));
+  transition: border ease 0.3s;
+}
+
+.mkui-select-search {
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+  font-size: var(--form-font-size-input, 1em);
+}
+
+.mkui-select-arrow {
+  border-left: var(--form-border-input, 1px solid var(--color-text));
+  padding-left: 10px;
+}
+
+.mkui-select-options {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 100%;
+  max-height: 260px;
+  overflow-y: auto;
+  border: var(--form-border-input, 1px solid var(--color-text));
+  border-radius: var(--form-border-radius-input, 0px);
+  background: var(--form-bg-input, var(--color-background));
+  z-index: 10;
+}
+
+.mkui-select-indicators {
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.mkui-select-indicators svg {
+  fill: var(--form-color-icon, var(--color-text));
+}
+
+.mkui-select-clear {
+  height: 15px;
+  margin-right: 10px;
+  outline: none;
+}
+
+.mkui-select-clear svg {
+  height: 100%;
+}
+
+.mkui-select-value-container {
+  display: flex;
+  flex: 1;
+}
+
+.mkui-select-value {
+  display: flex;
+  align-items: center;
+  color: var(--form-select-color-value, var(--color-text));
+  background: var(--form-select-bg-value, #e6e6e6);
+  padding-left: 5px;
+  border-radius: 2px;
+  font-size: calc(var(--form-font-size-input, 1em) - 2px);
+  margin-right: 5px;
+}
+
+.mkui-select-value-clear {
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
+.mkui-select-value-clear:hover {
+}
+
+.mkui-select-value-clear:hover svg {
+}
+
+.mkui-select ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: var(--form-select-columns, 1);
+}
+
+.mkui-select-option {
+  padding: var(--form-select-padding, 10px);
+}
+
+.mkui-select-option.disabled {
+  opacity: 0.5;
+}
+
+.mkui-select-option:not(.disabled):hover {
+  color: var(--form-select-color-highlight, var(--color-text));
+  background: var(--form-select-highlight, #ebf9ff);
+}

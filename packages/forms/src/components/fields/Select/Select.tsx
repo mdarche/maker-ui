@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { cn } from '@maker-ui/utils'
-import { useField } from '@/hooks'
+import { useField } from 'src/hooks/useForm'
 import { FieldInputProps, InputOption } from '@/types'
-import { ArrowIcon, CloseIcon } from '../Icons'
+import { ArrowIcon, CloseIcon } from '../../Icons'
 
 function convertToKey(input: string): string {
   const cleanedInput = input.replace(/[^a-zA-Z0-9\s]/g, '').trim()
@@ -26,6 +26,7 @@ function formatOptions(
 
 // Select and Select-search
 export const Select = ({ name }: FieldInputProps) => {
+  const ref = useRef<HTMLDivElement>(null)
   const { field, error, setValue, validateField } = useField(name)
   const options = formatOptions(field?.options)
   // Local state for search input and keyboard mgmt
@@ -59,8 +60,17 @@ export const Select = ({ name }: FieldInputProps) => {
     setIsOpen(!isOpen)
   }
 
-  const handleClear = () => {
-    setSelectedOptions([])
+  const handleClear = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    value?: string
+  ) => {
+    e.stopPropagation()
+    if (value) {
+      setSelectedOptions((s) => s.filter((option) => option.value !== value))
+    } else {
+      setSelectedOptions([])
+    }
+    ref.current?.focus()
     setIsOpen(false)
   }
 
@@ -99,6 +109,7 @@ export const Select = ({ name }: FieldInputProps) => {
   return (
     <div
       id={`field-${name}`}
+      ref={ref}
       className={cn(['mkui-select', classNames?.root])}
       onKeyDown={handleKeyDown}
       tabIndex={0}>
@@ -106,19 +117,28 @@ export const Select = ({ name }: FieldInputProps) => {
         className={cn(['mkui-select-control', classNames?.control])}
         onClick={handleSelectClick}>
         <div className={cn(['mkui-select-value-container'])}>
-          {selectedOptions.length ? (
-            <div className={cn(['mkui-select-value'])}>
-              {/* <div className={cn(['mkui-select-value-label'])}>
-                {selectedOptions.map((option) => option.label).join(', ')}
-              </div> */}
+          {selectedOptions.map((option, i) => (
+            <div
+              key={option.value}
+              className={cn(['mkui-select-value selected', option?.className])}>
+              {option.label}
+              <button
+                className="mkui-select-value-clear naked"
+                onClick={(e) => handleClear(e, option.value)}>
+                <CloseIcon style={{ height: 8 }} />
+              </button>
             </div>
-          ) : null}
+          ))}
           {field?.select?.search || field?.select?.creatable ? (
             <input
               className={cn(['mkui-select-search', classNames?.search])}
               type="text"
               value={searchText}
-              placeholder={field?.placeholder || 'Select an option'}
+              placeholder={
+                !selectedOptions.length
+                  ? field?.placeholder || 'Select an option'
+                  : undefined
+              }
               onChange={handleInputChange}
             />
           ) : !selectedOptions.length ? (
@@ -129,11 +149,11 @@ export const Select = ({ name }: FieldInputProps) => {
         </div>
         <div className="mkui-select-indicators">
           {searchText.length || selectedOptions.length ? (
-            <div
-              className={cn(['mkui-select-clear', classNames?.clear])}
-              onClick={handleClear}>
+            <button
+              className={cn(['mkui-select-clear naked', classNames?.clear])}
+              onClick={(e) => handleClear(e)}>
               <CloseIcon />
-            </div>
+            </button>
           ) : null}
           <div className={cn(['mkui-select-arrow', classNames?.arrow])}>
             <ArrowIcon />
@@ -144,11 +164,14 @@ export const Select = ({ name }: FieldInputProps) => {
         <div className={cn(['mkui-select-options', classNames?.options])}>
           {filteredOptions.length ? (
             groups.map((group, i) => {
-              const filteredGroupOptions = filteredOptions.filter(
-                (option) => option.group === group || !option.group
+              const groupOptions = filteredOptions.filter(
+                (option) =>
+                  option.group === group && !selectedOptions.includes(option)
               )
               return (
-                <div key={`${group}-${i}`} className={classNames?.group}>
+                <div
+                  key={`${group}-${i}`}
+                  className={cn(['mkui-select-group', classNames?.group])}>
                   {group && (
                     <div
                       className={cn([
@@ -156,16 +179,18 @@ export const Select = ({ name }: FieldInputProps) => {
                         classNames?.groupLabel,
                       ])}>
                       <span>{group}</span>
-                      <div className="group-count"></div>
+                      <div className="group-count">{groupOptions.length}</div>
                     </div>
                   )}
                   <ul>
-                    {filteredGroupOptions.map((option) => (
+                    {groupOptions.map((option) => (
                       <li
+                        id={option?.id}
                         key={option.value}
                         className={cn([
                           'mkui-select-option',
                           classNames?.optionValue,
+                          option?.className,
                           option?.disabled ? 'disabled' : '',
                         ])}
                         value={option.value}
@@ -182,7 +207,8 @@ export const Select = ({ name }: FieldInputProps) => {
               )
             })
           ) : searchText.length && field?.select?.creatable ? (
-            <li
+            <div
+              className="mkui-select-option"
               onClick={() =>
                 handleOptionSelect({
                   label: searchText,
@@ -190,9 +216,11 @@ export const Select = ({ name }: FieldInputProps) => {
                 })
               }>
               Create "{searchText}"
-            </li>
+            </div>
           ) : (
-            <li>No options found</li>
+            <div className="mkui-select-option flex justify-center">
+              No options
+            </div>
           )}
         </div>
       )}

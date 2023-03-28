@@ -314,12 +314,18 @@ export interface FieldProps {
      * @default false
      */
     multi?: boolean
-    /** Renders a simple search bar to find a specific option */
+    /** Renders a simple search bar to find a specific option
+     * @default true
+     */
     search?: boolean
-    /**Allows the user to create their own option value */
+    /**Allows the user to create their own option value
+     * @default false
+     */
     creatable?: boolean
-    /** Renders a clear button that removes all selections. */
-    clearable?: boolean
+    /** Hides the select dropdown when the user clicks or focuses off the select element.
+     * @default true
+     */
+    hideOnBlur?: boolean
     /** Default values that cannot be removed by the user (only useful for `multi` select) */
     fixed?: InputOption[]
     /** Custom className selectors for nested Select components */
@@ -332,6 +338,7 @@ export interface FieldProps {
       optionValue?: string
       group?: string
       groupLabel?: string
+      groupCount?: string
       clear?: string
       arrow?: string
     }

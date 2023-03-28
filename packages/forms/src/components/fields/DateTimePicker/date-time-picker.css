@@ -1,0 +1,80 @@
+.mkui-calendar-grid {
+  display: grid;
+  grid-template: repeat(7, auto) / repeat(7, auto);
+}
+
+.mkui-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mkui-month {
+  text-align: center;
+  margin: 0 20px;
+}
+
+.mkui-day-label {
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid;
+}
+
+.mkui-date {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  aspect-ratio: 1;
+  opacity: 0.4;
+
+  font-size: 14px;
+}
+
+.mkui-date.range {
+  height: 100%;
+  width: 100%;
+}
+
+.mkui-date.selected {
+  border-radius: 50%;
+}
+
+.mkui-date.selected,
+.mkui-date.range-start,
+.mkui-date.range-end,
+.mkui-date.range-inner {
+  color: blue;
+  background: #dcf0ff;
+  font-weight: 700;
+}
+
+.mkui-date.range-start,
+.mkui-date.range-end {
+  background: #aedcff;
+  opacity: 1;
+}
+
+.mkui-date.range-inner {
+  border-radius: 0;
+  opacity: 1;
+}
+
+.mkui-date.available {
+  opacity: 1;
+}
+
+.mkui-date.unavailable {
+  pointer-events: none;
+}
+
+.mkui-date.hidden {
+  opacity: 0;
+}
+
+/* TimePicker */
+
+.mkui-timepicker ul {
+  list-style: none;
+}

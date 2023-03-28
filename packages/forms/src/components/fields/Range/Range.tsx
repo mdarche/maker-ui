@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import { merge, cn, generateId } from '@maker-ui/utils'
 import { FieldInputProps, FieldProps } from '@/types'
-import { useField } from '@/hooks'
+import { useField } from 'src/hooks/useForm'
 
 export const Range = ({ name }: FieldInputProps) => {
   const [id] = useState(generateId())

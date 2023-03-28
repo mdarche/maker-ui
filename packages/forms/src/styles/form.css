@@ -1,19 +1,17 @@
-/* Form Inputs 
+/* Config Variables
 / -------------------------------------------------- /
 / --form-gap
 / --form-columns
-/ --form-color-error
-/ --form-color-instructions
-/ --form-color-label
-/ --form-color-input
-/ --form-color-icon
-/ --form-font-size-error
-/ --form-font-size-instructions
-/ --form-font-size-label
-/ --form-font-size-input
-/ --form-padding-error
-/ --form-padding-instructions
-/ --form-padding-label
+/ --form-placeholder-color
+/ --form-error-color
+/ --form-error-font-size
+/ --form-error-padding
+/ --form-label-color
+/ --form-label-font-size
+/ --form-label-padding
+/ --form-instructions-color
+/ --form-instructions-font-size
+/ --form-instructions-padding
 / -------------------------------------------------- 
 */
 
@@ -37,26 +35,26 @@
 /* Placeholder */
 .mkui-form .placeholder,
 .mkui-form ::placeholder {
-  color: var(--form-color-placeholder, var(--color-text));
+  color: var(--form-placeholder-color, var(--color-text));
 }
 .mkui-form :-moz-placeholder {
-  color: var(--form-color-placeholder, var(--color-text));
+  color: var(--form-placeholder-color, var(--color-text));
   opacity: 1;
 }
 .mkui-form ::-webkit-input-placeholder {
-  color: var(--form-color-placeholder, var(--color-text));
+  color: var(--form-placeholder-color, var(--color-text));
 }
 /* Instructions */
 .mkui-field-instructions {
-  color: var(--form-color-instructions, var(--color-text));
-  font-size: var(--form-font-size-instructions, 0.8rem);
-  padding: var(--form-padding-instructions, 5px 0 10px);
+  color: var(--form-instructions-color, var(--color-text));
+  font-size: var(--form-instructions-font-size, 0.8rem);
+  padding: var(--form-instructions-padding, 5px 0 10px);
 }
 /* Labels */
 .mkui-field-label {
-  color: var(--form-color-instructions, var(--color-text));
-  font-size: var(--form-font-size-label, 1rem);
-  padding: var(--form-padding-label, 0 0 5px);
+  color: var(--form-label-color, var(--color-text));
+  font-size: var(--form-label-font-size, 1rem);
+  padding: var(--form-label-padding, 0 0 5px);
 }
 .label-bottom-center .mkui-field-label,
 .label-top-center .mkui-field-label {
@@ -72,13 +70,13 @@
 }
 /* Errors */
 .error .mkui-input {
-  border-color: var(--form-color-error, red);
+  border-color: var(--form-error-color, red);
 }
 
 .mkui-field-error {
   position: absolute;
-  color: var(--form-color-error, red);
-  font-size: var(--form-font-size-error, 0.75rem);
+  color: var(--form-error-color, red);
+  font-size: var(--form-error-font-size, 0.75rem);
 }
 .error-top-right.label-top-right .mkui-field-error,
 .error-top-left.label-top-left .mkui-field-error {
@@ -87,12 +85,12 @@
 .error-top-right .mkui-field-error,
 .error-top-left .mkui-field-error,
 .error-top-center .mkui-field-error {
-  bottom: calc(100% + var(--form-padding-error, 5px));
+  bottom: calc(100% + var(--form-error-padding, 5px));
 }
 .error-bottom-right .mkui-field-error,
 .error-bottom-left .mkui-field-error,
 .error-bottom-center .mkui-field-error {
-  top: calc(100% + var(--form-padding-error, 5px));
+  top: calc(100% + var(--form-error-padding, 5px));
 }
 .error-top-right .mkui-field-error,
 .error-bottom-right .mkui-field-error {

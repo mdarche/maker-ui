@@ -1,0 +1,90 @@
+/* Config variables
+/ -------------------------------------------------- /
+/ --form-switch-bg
+/ --form-switch-bg-active
+/ --form-switch-border-radius
+/ --form-switch-color-label
+/ --form-switch-color-label-active
+/ --form-switch-height
+/ --form-switch-padding
+/ --------------------------------------------------
+*/
+
+.mkui-switch {
+  position: relative;
+  display: inline-block;
+}
+
+.mkui-switch input {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  opacity: 0;
+  outline: 0;
+  z-index: 100;
+}
+
+.mkui-switch-label.active {
+  background: var(--form-switch-bg-active, var(--color-text));
+}
+
+.mkui-switch-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 1px 5px;
+  transition: background ease 0.3s;
+  outline: 0;
+  height: var(--form-switch-height, 36px);
+  width: calc(var(--form-switch-height, 36px) * 4);
+  background: var(--form-switch-bg, #d1d1d1);
+  border-radius: var(--form-switch-border-radius, 3px);
+}
+
+.mkui-switch-label span {
+  color: var(--form-switch-color-label, var(--color-text));
+  width: 50%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.mkui-switch-label.active span {
+  color: var(--form-switch-color-label-active, var(--color-background));
+}
+
+.mkui-switch-slider {
+  display: block;
+  position: absolute;
+  background: var(--color-background);
+  z-index: 1;
+  right: 50%;
+  transition: all ease 0.3s;
+  transition-property: left, right;
+  top: var(--form-switch-padding, 4px);
+  bottom: var(--form-switch-padding, 4px);
+  left: var(--form-switch-padding, 4px);
+  height: calc(100% - (var(--form-switch-padding, 4px) * 2));
+}
+
+.mkui-switch.circle .mkui-switch-label {
+  border-radius: var(--form-switch-height, 36px);
+  width: calc(
+    (var(--form-switch-height, 36px) * 2) -
+      (var(--form-switch-padding, 4px) * 2)
+  );
+}
+
+.mkui-switch.circle .mkui-switch-slider {
+  width: calc(
+    var(--form-switch-height, 36px) - (var(--form-switch-padding, 4px) * 2)
+  );
+  border-radius: 50%;
+}
+
+.mkui-switch-slider.on {
+  right: var(--form-switch-padding, 4px);
+  left: 50%;
+}

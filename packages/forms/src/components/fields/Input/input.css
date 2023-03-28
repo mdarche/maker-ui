@@ -1,0 +1,24 @@
+/* Config variables
+/ -------------------------------------------------- /
+/ --form-input-height
+/ --form-input-font-size
+/ --form-input-padding
+/ --form-input-border
+/ --form-input-border-radius
+/ --form-input-bg
+/ --------------------------------------------------
+*/
+
+.mkui-input {
+  height: var(--form-input-height, 40px);
+}
+
+.mkui-input,
+.mkui-textarea {
+  color: var(--color-text);
+  font-size: var(--form-input-font-size, 1em);
+  padding: var(--form-input-padding, 0 10px);
+  border: var(--form-input-border, 1px solid var(--color-text));
+  border-radius: var(--form-input-border-radius, 0px);
+  background: var(--form-input-bg, var(--color-background));
+}

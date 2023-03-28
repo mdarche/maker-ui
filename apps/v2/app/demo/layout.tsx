@@ -4,6 +4,15 @@ import { ColorButton, Menu, type MenuItem } from 'maker-ui/layout'
 const menu: MenuItem[] = [
   { label: 'Home', path: '/' },
   {
+    label: 'Megamenu',
+    path: '/about',
+    megamenu: (
+      <div style={{ height: 200, width: 200, background: '#000' }}>
+        Lets go!
+      </div>
+    ),
+  },
+  {
     label: 'Demo',
     path: '/about',
     openNested: true,
@@ -23,15 +32,6 @@ const menu: MenuItem[] = [
     ],
   },
   { label: 'Workspace', path: '/workspace' },
-  {
-    label: 'Megamenu',
-    path: '/about',
-    megamenu: (
-      <div style={{ height: 200, width: 200, background: '#000' }}>
-        Lets go!
-      </div>
-    ),
-  },
 ]
 
 export default function RootLayout({

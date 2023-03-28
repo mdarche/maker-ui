@@ -72,7 +72,8 @@ export function FormDemo() {
                   { label: 'B', value: 'b', group: 'Letters' },
                 ],
                 select: {
-                  search: false,
+                  search: true,
+                  multi: true,
                 },
               },
               {

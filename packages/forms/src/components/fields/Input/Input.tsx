@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { merge, cn, Conditional } from '@maker-ui/utils'
 
-import { useField, useForm } from '@/hooks'
+import { useField, useForm } from 'src/hooks/useForm'
 import { FieldInputProps, FieldProps } from '@/types'
-import { HideIcon, RevealIcon } from '../Icons'
+import { HideIcon, RevealIcon } from '../../Icons'
 
 const passwordSettings: FieldProps['password'] = {
   iconHide: <HideIcon />,

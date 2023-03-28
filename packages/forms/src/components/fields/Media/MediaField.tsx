@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { merge } from '@maker-ui/utils'
 
-import { ImagePicker } from './ImagePicker'
-import { useField, useForm } from '@/hooks'
+import { useField, useForm } from 'src/hooks/useForm'
 import type { FieldInputProps } from '@/types'
+import { ImagePicker } from './ImagePicker'
 
 export const MediaField = ({ name }: FieldInputProps) => {
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)

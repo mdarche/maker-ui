@@ -1,0 +1,98 @@
+/* Config variables
+/ -------------------------------------------------- /
+/ --form-range-width-input
+/ --form-range-color-thumb
+/ --form-range-shadow-thumb
+/ --form-range-border-radius-thumb
+/ --form-range-size-thumb
+/ --form-range-height-thumb
+/ --form-range-width-thumb
+/ --form-range-height-track
+/ --form-range-bg-track
+/ --form-range-bg-track-active
+/ --------------------------------------------------
+*/
+
+.mkui-range-input input {
+  width: var(--form-range-width-input, 70px);
+}
+
+.mkui-range-input label {
+  text-align: center;
+}
+
+.mkui-range-slider {
+  width: 100%;
+  position: relative;
+  margin: 30px 0 20px;
+}
+
+.mkui-thumb,
+.mkui-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  border: none;
+}
+
+.mkui-thumb::-webkit-slider-thumb {
+  background-color: var(--form-range-color-thumb, var(--color-background));
+  box-shadow: var(--form-range-shadow-thumb, 0 0 1px 1px var(--color-text));
+  border-radius: var(--form-range-border-radius-thumb, 50%);
+  height: var(--form-range-size-thumb, var(--form-range-height-thumb, 20px));
+  width: var(--form-range-size-thumb, var(--form-range-width-thumb, 20px));
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+.mkui-thumb::-moz-range-thumb {
+  background-color: var(--form-range-color-thumb, var(--color-background));
+  box-shadow: var(--form-range-shadow-thumb, 0 0 1px 1px var(--color-text));
+  border-radius: var(--form-range-border-radius-thumb, 50%);
+  height: var(--form-range-size-thumb, var(--form-range-height-thumb, 20px));
+  width: var(--form-range-size-thumb, var(--form-range-width-thumb, 20px));
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+.mkui-thumb {
+  pointer-events: none;
+  height: 0px;
+  width: 100%;
+  outline: none;
+}
+
+.mkui-slider {
+  width: 100%;
+  position: relative;
+}
+
+.mkui-thumb-track,
+.mkui-thumb-progress {
+  height: var(--form-range-height-track, 3px);
+}
+
+.mkui-thumb-track {
+  width: 100%;
+  z-index: 1;
+  opacity: 0.25;
+  background-color: var(--form-range-bg-track, var(--color-text));
+}
+
+.mkui-thumb-progress {
+  z-index: 2;
+  background-color: var(--form-range-bg-track-active, var(--color-text));
+}
+
+.z-3 {
+  z-index: 3;
+}
+
+.z-4 {
+  z-index: 4;
+}
+
+.z-5 {
+  z-index: 5;
+}
