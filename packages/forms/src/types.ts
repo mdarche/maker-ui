@@ -336,6 +336,11 @@ export interface FieldProps {
      * @default false
      */
     creatable?: boolean
+    /** Determines the form output. For `value` it returns a string value (or array of string
+     * values if `multi` is true) and for `object` the form returns the original `InputOption`
+     * @default 'object'
+     */
+    returnType?: 'value' | 'object'
     /** Hides the select dropdown when the user clicks or focuses off the select element.
      * @default true
      */

@@ -1,40 +1,37 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { cn } from '@maker-ui/utils'
+import { cn, merge } from '@maker-ui/utils'
 import { useField } from '@/hooks'
-import { FieldInputProps, InputOption } from '@/types'
+import { FieldInputProps, FieldProps, InputOption } from '@/types'
 import { ArrowIcon, CloseIcon } from '../../Icons'
+import { containsValue, convertValue, formatOptions } from './helper'
 
-function convertToKey(input: string): string {
-  const cleanedInput = input.replace(/[^a-zA-Z0-9\s]/g, '').trim()
-  const key = cleanedInput.replace(/\s+/g, '-')
-  return key
+const defaultSettings: FieldProps['select'] = {
+  multi: false,
+  search: true,
+  creatable: false,
+  returnType: 'object',
+  hideOnBlur: true,
 }
 
-function formatOptions(
-  options?: InputOption[] | { [key: string]: string }
-): InputOption[] {
-  if (!options) return []
-  if (options && Array.isArray(options) && options.length) {
-    return options
-  }
-
-  return Object.entries(options).map(([key, value]) => ({
-    label: value,
-    value: key,
-  }))
-}
-
-// Select and Select-search
+/**
+ * Renders a select field with optional search and multi-select capabilities
+ *
+ * @note The initial value must be InputOption or InputOption[] for select
+ * @todo Persist returnType `value` for multi page forms
+ */
 export const Select = ({ name }: FieldInputProps) => {
   const ref = useRef<HTMLDivElement>(null)
-  const { field, error, setValue, validateField } = useField(name)
+  const { field, error, value, setValue, validateField } = useField(name)
   const options = formatOptions(field?.options)
+  const settings = merge(defaultSettings, field?.select || {})
   // Local state for search input and keyboard mgmt
   const [isOpen, setIsOpen] = useState(false)
   const [searchText, setSearchText] = useState('')
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
-  const [selectedOptions, setSelectedOptions] = useState<InputOption[]>([])
-  const classNames = field?.select?.classNames
+  const [selectedOptions, setSelectedOptions] = useState<InputOption[]>(
+    value ? (Array.isArray(value) ? value : [value]) : []
+  )
+  const classNames = settings?.classNames
   const filteredOptions = searchText?.length
     ? options.filter(
         ({ label }) =>
@@ -74,21 +71,24 @@ export const Select = ({ name }: FieldInputProps) => {
     setIsOpen(false)
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    switch (event.key) {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLDivElement | HTMLInputElement>
+  ) => {
+    switch (e.key) {
       case 'ArrowUp':
-        event.preventDefault()
+        e.preventDefault()
         setHighlightedIndex(
           (highlightedIndex - 1 + filteredOptions.length) %
             filteredOptions.length
         )
         break
       case 'ArrowDown':
-        event.preventDefault()
+        console.log('here')
+        e.preventDefault()
         setHighlightedIndex((highlightedIndex + 1) % filteredOptions.length)
         break
       case 'Enter':
-        event.preventDefault()
+        e.preventDefault()
         if (filteredOptions.length > 0 && highlightedIndex !== -1) {
           const selectedOption = filteredOptions[highlightedIndex]
           handleOptionSelect(selectedOption)
@@ -97,7 +97,7 @@ export const Select = ({ name }: FieldInputProps) => {
         }
         break
       case 'Escape':
-        event.preventDefault()
+        e.preventDefault()
         setIsOpen(false)
         setHighlightedIndex(-1)
         break
@@ -105,6 +105,18 @@ export const Select = ({ name }: FieldInputProps) => {
         break
     }
   }
+
+  /**
+   * Save value to the form provider
+   */
+  useEffect(() => {
+    if (selectedOptions.length) {
+      setValue(
+        convertValue(settings.multi, settings.returnType, selectedOptions)
+      )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedOptions])
 
   return (
     <div
@@ -129,11 +141,12 @@ export const Select = ({ name }: FieldInputProps) => {
               </button>
             </div>
           ))}
-          {field?.select?.search || field?.select?.creatable ? (
+          {settings?.search || settings?.creatable ? (
             <input
               className={cn(['mkui-select-search', classNames?.search])}
               type="text"
               value={searchText}
+              onKeyDown={handleKeyDown}
               placeholder={
                 !selectedOptions.length
                   ? field?.placeholder || 'Select an option'
@@ -163,14 +176,16 @@ export const Select = ({ name }: FieldInputProps) => {
       {isOpen && (
         <div className={cn(['mkui-select-options', classNames?.options])}>
           {filteredOptions.length ? (
-            groups.map((group, i) => {
+            groups.map((group, groupIndex) => {
               const groupOptions = filteredOptions.filter(
                 (option) =>
-                  option.group === group && !selectedOptions.includes(option)
+                  option.group === group &&
+                  !containsValue([option], selectedOptions)
               )
+              const groupCount = groupOptions.length
               return (
                 <div
-                  key={`${group}-${i}`}
+                  key={`${group}-${groupIndex}`}
                   className={cn(['mkui-select-group', classNames?.group])}>
                   {group && (
                     <div
@@ -179,11 +194,11 @@ export const Select = ({ name }: FieldInputProps) => {
                         classNames?.groupLabel,
                       ])}>
                       <span>{group}</span>
-                      <div className="group-count">{groupOptions.length}</div>
+                      <div className="group-count">{groupCount}</div>
                     </div>
                   )}
                   <ul>
-                    {groupOptions.map((option) => (
+                    {groupOptions.map((option, optionIndex) => (
                       <li
                         id={option?.id}
                         key={option.value}
@@ -191,6 +206,8 @@ export const Select = ({ name }: FieldInputProps) => {
                           'mkui-select-option',
                           classNames?.optionValue,
                           option?.className,
+                          // Need to figure this out
+                          // highlightedIndex === optionIndex ? 'highlighted' : '',
                           option?.disabled ? 'disabled' : '',
                         ])}
                         value={option.value}
@@ -212,7 +229,7 @@ export const Select = ({ name }: FieldInputProps) => {
               onClick={() =>
                 handleOptionSelect({
                   label: searchText,
-                  value: convertToKey(searchText),
+                  value: searchText,
                 })
               }>
               Create "{searchText}"
