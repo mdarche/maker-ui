@@ -246,12 +246,15 @@ export interface Condition {
 }
 
 export type InputOption = {
-  label: string | React.ReactNode
+  label: string
   value: string
+  icon?: React.ReactElement
   className?: string
   id?: string
   disabled?: boolean
   group?: string
+  /** @internal only */
+  index?: number
 }
 
 export interface FieldInputProps {
@@ -328,11 +331,13 @@ export interface FieldProps {
      * @default false
      */
     multi?: boolean
+    /** The maximum number of options that can be selected */
+    max?: number
     /** Renders a simple search bar to find a specific option
      * @default true
      */
     search?: boolean
-    /**Allows the user to create their own option value
+    /**Allows the user to create their own option value. You must also set `search` to true.
      * @default false
      */
     creatable?: boolean
@@ -345,8 +350,8 @@ export interface FieldProps {
      * @default true
      */
     hideOnBlur?: boolean
-    /** Default values that cannot be removed by the user (only useful for `multi` select) */
-    fixed?: InputOption[]
+    /** A callback for accessing values as they change */
+    onChange?: (i: string | string[] | InputOption | InputOption[]) => void
     /** Custom className selectors for nested Select components */
     classNames?: {
       root?: string

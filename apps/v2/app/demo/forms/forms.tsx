@@ -68,12 +68,17 @@ export function FormDemo() {
                   { label: 'Two', value: 'two' },
                   { label: 'Three', value: 'three' },
                   { label: 'Four', value: 'four', disabled: true },
+                  { label: 'Five', value: 'five' },
+                  { label: 'Six', value: 'six' },
+                  { label: 'Seven', value: 'seven' },
                   { label: 'A', value: 'a', group: 'Letters' },
                   { label: 'B', value: 'b', group: 'Letters' },
                 ],
                 select: {
-                  search: false,
+                  search: true,
                   multi: true,
+                  creatable: true,
+                  max: 3,
                 },
               },
               {
@@ -120,7 +125,7 @@ export function FormDemo() {
             ],
           },
         ]}
-        settings={{ columns: 4, validateFieldOnBlur: false }}
+        settings={{ columns: 4, validateFieldOnBlur: true }}
         onSubmit={(vals, { submitCount }) => {
           submitHandler(vals)
           console.log('Submit count: ' + submitCount)

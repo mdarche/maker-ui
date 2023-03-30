@@ -12,6 +12,7 @@
 / --form-instructions-color
 / --form-instructions-font-size
 / --form-instructions-padding
+/ --form-icon-fill
 / -------------------------------------------------- 
 */
 
@@ -69,7 +70,8 @@
   flex: auto;
 }
 /* Errors */
-.error .mkui-input {
+.error .mkui-input,
+.error .mkui-select-control {
   border-color: var(--form-error-color, red);
 }
 

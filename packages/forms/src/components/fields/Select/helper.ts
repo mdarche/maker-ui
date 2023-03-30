@@ -8,8 +8,14 @@ type SelectValue = string | string[] | InputOption | InputOption[]
 export function convertValue(
   multi: boolean,
   returnType: 'object' | 'value',
-  value: SelectValue
+  value: InputOption | InputOption[]
 ): SelectValue {
+  if (Array.isArray(value)) {
+    value = value.map(({ index, ...rest }) => rest)
+  } else {
+    const { index, ...rest } = value as InputOption
+    value = rest
+  }
   return multi
     ? returnType === 'value'
       ? (value as InputOption[]).map((option) => option.value)
@@ -29,6 +35,17 @@ export function containsValue(
     }
   }
   return false
+}
+
+export const addIndexToOptions = (options: InputOption[]) => {
+  let index = 0
+  return options.map((option) => {
+    if (!option.disabled) {
+      option.index = index
+      index++
+    }
+    return option
+  })
 }
 
 export function formatOptions(

@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { cn, merge } from '@maker-ui/utils'
-import { useField } from '@/hooks'
+import { useField, useForm } from '@/hooks'
 import { FieldInputProps, FieldProps, InputOption } from '@/types'
+import {
+  addIndexToOptions,
+  containsValue,
+  convertValue,
+  formatOptions,
+} from './helper'
 import { ArrowIcon, CloseIcon } from '../../Icons'
-import { containsValue, convertValue, formatOptions } from './helper'
 
 const defaultSettings: FieldProps['select'] = {
   multi: false,
@@ -16,45 +21,86 @@ const defaultSettings: FieldProps['select'] = {
 /**
  * Renders a select field with optional search and multi-select capabilities
  *
- * @note The initial value must be InputOption or InputOption[] for select
+ * @note The `initialValue` must be InputOption or InputOption[]
  * @todo Persist returnType `value` for multi page forms
  */
 export const Select = ({ name }: FieldInputProps) => {
-  const ref = useRef<HTMLDivElement>(null)
+  const { settings: { validateFieldOnBlur } = {} } = useForm()
   const { field, error, value, setValue, validateField } = useField(name)
+  const ref = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const optionsRef = useRef<HTMLDivElement>(null)
   const options = formatOptions(field?.options)
   const settings = merge(defaultSettings, field?.select || {})
-  // Local state for search input and keyboard mgmt
-  const [isOpen, setIsOpen] = useState(false)
-  const [searchText, setSearchText] = useState('')
-  const [highlightedIndex, setHighlightedIndex] = useState(-1)
-  const [selectedOptions, setSelectedOptions] = useState<InputOption[]>(
-    value ? (Array.isArray(value) ? value : [value]) : []
+  const [state, setState] = useState({
+    isOpen: false,
+    searchText: '',
+    highlightedIndex: -1,
+    selectedOptions: value ? (Array.isArray(value) ? value : [value]) : [],
+    touched: false,
+  })
+  const filteredOptions = addIndexToOptions(
+    state.searchText?.length
+      ? options
+          .filter(({ label }) =>
+            label.toLowerCase().includes(state.searchText.toLowerCase())
+          )
+          .filter(
+            ({ value }) =>
+              !state.selectedOptions.some(
+                ({ value: selectedValue }) => selectedValue === value
+              )
+          )
+      : options.filter(
+          ({ value }) =>
+            !state.selectedOptions.some(
+              ({ value: selectedValue }) => selectedValue === value
+            )
+        )
   )
-  const classNames = settings?.classNames
-  const filteredOptions = searchText?.length
-    ? options.filter(
-        ({ label }) =>
-          typeof label === 'string' &&
-          label.toLowerCase().includes(searchText.toLowerCase())
-      )
-    : options
+  const highlighted =
+    state.highlightedIndex !== -1
+      ? filteredOptions.find(({ index }) => index === state.highlightedIndex)
+      : undefined
   const groups = [...new Set(filteredOptions.map((option) => option.group))]
+  const classNames = settings?.classNames
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value)
-    setIsOpen(true)
-    setHighlightedIndex(-1)
+    setState((s) => ({
+      ...s,
+      searchText: event.target.value,
+      isOpen: true,
+      highlightedIndex: -1,
+      touched: true,
+    }))
   }
 
   const handleOptionSelect = (option: InputOption) => {
-    setSearchText('')
-    setSelectedOptions((s) => [...s, option])
-    setIsOpen(false)
+    const exists = state.selectedOptions.find(
+      ({ value }) => value === option.value
+    )
+    setState((s) => ({
+      ...s,
+      searchText: '',
+      isOpen: false,
+      selectedOptions:
+        exists || option.disabled
+          ? s.selectedOptions
+          : settings?.multi
+          ? settings?.max && s.selectedOptions.length === settings?.max
+            ? [...s.selectedOptions.slice(0, -1), option]
+            : [...s.selectedOptions, option]
+          : [option],
+    }))
   }
 
   const handleSelectClick = () => {
-    setIsOpen(!isOpen)
+    setState((s) => ({
+      ...s,
+      isOpen: !s.isOpen,
+      highlightedIndex: -1,
+      touched: true,
+    }))
   }
 
   const handleClear = (
@@ -62,13 +108,14 @@ export const Select = ({ name }: FieldInputProps) => {
     value?: string
   ) => {
     e.stopPropagation()
-    if (value) {
-      setSelectedOptions((s) => s.filter((option) => option.value !== value))
-    } else {
-      setSelectedOptions([])
-    }
-    ref.current?.focus()
-    setIsOpen(false)
+    setState((s) => ({
+      ...s,
+      selectedOptions: value
+        ? s.selectedOptions.filter((option) => option.value !== value)
+        : [],
+      isOpen: false,
+    }))
+    ;(settings?.search ? inputRef : ref).current?.focus()
   }
 
   const handleKeyDown = (
@@ -77,29 +124,52 @@ export const Select = ({ name }: FieldInputProps) => {
     switch (e.key) {
       case 'ArrowUp':
         e.preventDefault()
-        setHighlightedIndex(
-          (highlightedIndex - 1 + filteredOptions.length) %
-            filteredOptions.length
-        )
+        if (!state.isOpen) return
+        setState((s) => ({
+          ...s,
+          highlightedIndex:
+            (s.highlightedIndex - 1 + filteredOptions.length) %
+            filteredOptions.length,
+        }))
         break
       case 'ArrowDown':
-        console.log('here')
         e.preventDefault()
-        setHighlightedIndex((highlightedIndex + 1) % filteredOptions.length)
+        if (!state.isOpen) return
+        setState((s) => ({
+          ...s,
+          highlightedIndex: (s.highlightedIndex + 1) % filteredOptions.length,
+        }))
         break
       case 'Enter':
         e.preventDefault()
-        if (filteredOptions.length > 0 && highlightedIndex !== -1) {
-          const selectedOption = filteredOptions[highlightedIndex]
-          handleOptionSelect(selectedOption)
-          setIsOpen(false)
-          setHighlightedIndex(-1)
+        if (state.isOpen && filteredOptions.length === 1 && settings?.search) {
+          handleOptionSelect(filteredOptions[0])
+        } else if (
+          state.isOpen &&
+          filteredOptions.length > 0 &&
+          state.highlightedIndex !== -1
+        ) {
+          setState((s) => ({ ...s, highlightedIndex: -1, isOpen: false }))
+          if (highlighted) {
+            handleOptionSelect(highlighted)
+          }
+        } else {
+          setState((s) => ({ ...s, isOpen: !s.isOpen }))
+        }
+        break
+      case 'Backspace':
+      case 'Delete':
+        if (state.selectedOptions.length && !state.searchText.length) {
+          e.preventDefault()
+          handleClear(
+            e as any,
+            state.selectedOptions[state.selectedOptions.length - 1].value
+          )
         }
         break
       case 'Escape':
         e.preventDefault()
-        setIsOpen(false)
-        setHighlightedIndex(-1)
+        setState((s) => ({ ...s, isOpen: false, highlightedIndex: -1 }))
         break
       default:
         break
@@ -110,26 +180,80 @@ export const Select = ({ name }: FieldInputProps) => {
    * Save value to the form provider
    */
   useEffect(() => {
-    if (selectedOptions.length) {
-      setValue(
-        convertValue(settings.multi, settings.returnType, selectedOptions)
+    const vals = state.selectedOptions.length
+      ? convertValue(settings.multi, settings.returnType, state.selectedOptions)
+      : []
+    setValue(vals)
+    settings?.onChange?.(vals)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.selectedOptions, settings.onChange])
+
+  /**
+   * Handle options scrollbox for keyboard navigation
+   */
+  useEffect(() => {
+    if (optionsRef.current && state.highlightedIndex >= 0) {
+      const items = Array.from(
+        optionsRef.current.querySelectorAll('.mkui-select-option') || []
       )
+      const item = items.find(
+        (item) => item.getAttribute('value') === highlighted?.value
+      )
+      if (!item) return
+      const rect = item.getBoundingClientRect()
+      const listRect = optionsRef.current.getBoundingClientRect()
+      const top = rect.top - listRect.top
+      const bottom = rect.bottom - listRect.bottom
+      if (top < 0) {
+        optionsRef.current.scrollTop += top
+      } else if (bottom > 0) {
+        optionsRef.current.scrollTop += bottom
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedOptions])
+  }, [state.highlightedIndex])
+
+  /**
+   * Handle click outside of the select component
+   */
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Handle blur validation
+      if (state.touched && validateFieldOnBlur) {
+        validateField()
+      }
+      if (settings.hideOnBlur) {
+        if (ref.current && !ref.current.contains(event.target as Node)) {
+          setState((s) => ({ ...s, isOpen: false }))
+        }
+      }
+    }
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [
+    ref,
+    settings.hideOnBlur,
+    state.touched,
+    validateField,
+    validateFieldOnBlur,
+  ])
 
   return (
     <div
       id={`field-${name}`}
       ref={ref}
-      className={cn(['mkui-select', classNames?.root])}
-      onKeyDown={handleKeyDown}
+      className={cn([
+        'mkui-select',
+        error ? 'error' : undefined,
+        classNames?.root,
+      ])}
+      onKeyDown={!settings?.search ? handleKeyDown : undefined}
       tabIndex={0}>
       <div
         className={cn(['mkui-select-control', classNames?.control])}
         onClick={handleSelectClick}>
         <div className={cn(['mkui-select-value-container'])}>
-          {selectedOptions.map((option, i) => (
+          {state.selectedOptions.map((option, i) => (
             <div
               key={option.value}
               className={cn(['mkui-select-value selected', option?.className])}>
@@ -143,25 +267,26 @@ export const Select = ({ name }: FieldInputProps) => {
           ))}
           {settings?.search || settings?.creatable ? (
             <input
+              ref={inputRef}
               className={cn(['mkui-select-search', classNames?.search])}
               type="text"
-              value={searchText}
+              value={state.searchText}
               onKeyDown={handleKeyDown}
               placeholder={
-                !selectedOptions.length
+                !state.selectedOptions.length
                   ? field?.placeholder || 'Select an option'
                   : undefined
               }
               onChange={handleInputChange}
             />
-          ) : !selectedOptions.length ? (
+          ) : !state.selectedOptions.length ? (
             <span className="placeholder">
               {field?.placeholder || 'Select an option'}
             </span>
           ) : null}
         </div>
         <div className="mkui-select-indicators">
-          {searchText.length || selectedOptions.length ? (
+          {state.searchText.length || state.selectedOptions.length ? (
             <button
               className={cn(['mkui-select-clear naked', classNames?.clear])}
               onClick={(e) => handleClear(e)}>
@@ -173,16 +298,17 @@ export const Select = ({ name }: FieldInputProps) => {
           </div>
         </div>
       </div>
-      {isOpen && (
-        <div className={cn(['mkui-select-options', classNames?.options])}>
+      {state.isOpen && (
+        <div
+          ref={optionsRef}
+          className={cn(['mkui-select-options', classNames?.options])}>
           {filteredOptions.length ? (
             groups.map((group, groupIndex) => {
               const groupOptions = filteredOptions.filter(
                 (option) =>
                   option.group === group &&
-                  !containsValue([option], selectedOptions)
+                  !containsValue([option], state.selectedOptions)
               )
-              const groupCount = groupOptions.length
               return (
                 <div
                   key={`${group}-${groupIndex}`}
@@ -194,20 +320,22 @@ export const Select = ({ name }: FieldInputProps) => {
                         classNames?.groupLabel,
                       ])}>
                       <span>{group}</span>
-                      <div className="group-count">{groupCount}</div>
+                      <div className="group-count">{groupOptions.length}</div>
                     </div>
                   )}
                   <ul>
-                    {groupOptions.map((option, optionIndex) => (
+                    {groupOptions.map((option) => (
                       <li
                         id={option?.id}
                         key={option.value}
                         className={cn([
-                          'mkui-select-option',
+                          'mkui-select-option flex align-center',
+                          state.highlightedIndex === option.index &&
+                          !option.disabled
+                            ? 'active'
+                            : undefined,
                           classNames?.optionValue,
                           option?.className,
-                          // Need to figure this out
-                          // highlightedIndex === optionIndex ? 'highlighted' : '',
                           option?.disabled ? 'disabled' : '',
                         ])}
                         value={option.value}
@@ -216,6 +344,7 @@ export const Select = ({ name }: FieldInputProps) => {
                             ? undefined
                             : () => handleOptionSelect(option)
                         }>
+                        {option.icon || null}
                         {option.label}
                       </li>
                     ))}
@@ -223,17 +352,17 @@ export const Select = ({ name }: FieldInputProps) => {
                 </div>
               )
             })
-          ) : searchText.length && field?.select?.creatable ? (
-            <div
-              className="mkui-select-option"
+          ) : state.searchText.length && field?.select?.creatable ? (
+            <button
+              className="mkui-select-option naked"
               onClick={() =>
                 handleOptionSelect({
-                  label: searchText,
-                  value: searchText,
+                  label: state.searchText,
+                  value: state.searchText,
                 })
               }>
-              Create "{searchText}"
-            </div>
+              Create "{state.searchText}"
+            </button>
           ) : (
             <div className="mkui-select-option flex justify-center">
               No options

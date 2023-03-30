@@ -30,7 +30,10 @@ export function validate({
   let errors: FormErrors = {}
   // Validate specific field
   if (field && type === 'field') {
-    if (schema[field].required && !values[field]) {
+    const isEmpty =
+      !values[field] || (Array.isArray(values[field]) && !values[field].length)
+
+    if (schema[field].required && isEmpty) {
       isValid = false
       const r = schema[field].required
       errors[field] = typeof r === 'string' ? r : 'Required'

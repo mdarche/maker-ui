@@ -32,10 +32,17 @@ export function useField(name: string) {
       field: name,
     })
 
+    console.log('isValid', isValid, errors)
+
     if (!isEmpty(errors)) {
       dispatch({ type: 'SET_ERRORS', value: merge(s.errors, errors) })
     }
-    // TODO remove error if it no longer exists
+
+    if (isValid && s.errors[name]) {
+      const newErrors = { ...s.errors }
+      delete newErrors[name]
+      dispatch({ type: 'SET_ERRORS', value: newErrors })
+    }
 
     return isValid
   }
