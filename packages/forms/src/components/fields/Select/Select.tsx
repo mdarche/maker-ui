@@ -319,8 +319,10 @@ export const Select = ({ name }: FieldInputProps) => {
                         'mkui-group-label flex align-center justify-between',
                         classNames?.groupLabel,
                       ])}>
-                      <span>{group}</span>
-                      <div className="group-count">{groupOptions.length}</div>
+                      <span className="mkui-select-group-title">{group}</span>
+                      <div className="mkui-select-group-count">
+                        {groupOptions.length}
+                      </div>
                     </div>
                   )}
                   <ul>
@@ -332,7 +334,7 @@ export const Select = ({ name }: FieldInputProps) => {
                           'mkui-select-option flex align-center',
                           state.highlightedIndex === option.index &&
                           !option.disabled
-                            ? 'active'
+                            ? 'highlight'
                             : undefined,
                           classNames?.optionValue,
                           option?.className,

@@ -64,6 +64,8 @@ export function FormDemo() {
                 label: 'Choose a number',
                 required: true,
                 options: [
+                  { label: 'A', value: 'a', group: 'Letters' },
+                  { label: 'B', value: 'b', group: 'Letters' },
                   { label: 'One', value: 'one' },
                   { label: 'Two', value: 'two' },
                   { label: 'Three', value: 'three' },
@@ -71,8 +73,6 @@ export function FormDemo() {
                   { label: 'Five', value: 'five' },
                   { label: 'Six', value: 'six' },
                   { label: 'Seven', value: 'seven' },
-                  { label: 'A', value: 'a', group: 'Letters' },
-                  { label: 'B', value: 'b', group: 'Letters' },
                 ],
                 select: {
                   search: true,
@@ -125,7 +125,7 @@ export function FormDemo() {
             ],
           },
         ]}
-        settings={{ columns: 4, validateFieldOnBlur: true }}
+        settings={{ columns: 4, validateFieldOnBlur: false }}
         onSubmit={(vals, { submitCount }) => {
           submitHandler(vals)
           console.log('Submit count: ' + submitCount)

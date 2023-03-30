@@ -32,8 +32,6 @@ export function useField(name: string) {
       field: name,
     })
 
-    console.log('isValid', isValid, errors)
-
     if (!isEmpty(errors)) {
       dispatch({ type: 'SET_ERRORS', value: merge(s.errors, errors) })
     }

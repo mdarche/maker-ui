@@ -350,7 +350,8 @@ export interface FieldProps {
      * @default true
      */
     hideOnBlur?: boolean
-    /** A callback for accessing values as they change */
+    /** A callback for accessing values as they change. This will return a value or object
+     *  (potentially as an array) depending on the `multi` and `returnType` settings. */
     onChange?: (i: string | string[] | InputOption | InputOption[]) => void
     /** Custom className selectors for nested Select components */
     classNames?: {

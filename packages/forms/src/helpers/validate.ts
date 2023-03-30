@@ -53,7 +53,10 @@ export function validate({
       if (type === 'page' && schema[name].page !== page) {
         return
       }
-      if (schema[name].required && !values[name]) {
+      const isEmpty =
+        !values[name] || (Array.isArray(values[name]) && !values[name].length)
+
+      if (schema[name].required && isEmpty) {
         // Check for required
         const r = schema[name].required
         isValid = false
