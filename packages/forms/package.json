@@ -13,6 +13,7 @@
   "scripts": {
     "build": "tsup",
     "start": "tsup --watch",
+    "test": "jest",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },

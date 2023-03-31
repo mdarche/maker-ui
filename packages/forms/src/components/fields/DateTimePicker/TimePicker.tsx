@@ -40,7 +40,7 @@ export const TimePicker = ({
 
   const handleTimeChange = (newTime: Date) => {
     setSelectedTime(newTime)
-    onChangeTime(newTime)
+    onChangeTime?.(newTime)
   }
 
   const timeOptions: Date[] = []

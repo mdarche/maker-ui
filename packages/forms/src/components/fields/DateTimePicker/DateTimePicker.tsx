@@ -15,7 +15,7 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
   const [val, setVal] = useState<DateSelection>({})
 
   const isBoth = field?.type === 'date-time-picker'
-  const isRange = field?.datetime?.date?.range
+  const isRange = field?.calendar?.date?.range
 
   const onChangeDate = (selection: DateSelection) => {
     // if is not range and is both, combine date with time
@@ -28,13 +28,13 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
   return (
     <div className={cn(['mkui-datetime', error ? 'error' : undefined])}>
       <Calendar
-        {...field?.datetime?.date}
+        {...field?.calendar?.date}
         initialValue={field?.initialValue}
         onChangeDate={onChangeDate}
       />
       {isBoth ? (
         <TimePicker
-          {...field?.datetime?.time}
+          {...field?.calendar?.time}
           initialValue={field?.initialValue?.date}
           onChangeTime={onChangeTime}
         />

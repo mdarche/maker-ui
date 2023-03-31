@@ -98,7 +98,7 @@ export interface CalendarProps extends MakerCSS {
   /** @todo Localization helper. Coming soon... */
   localization?: {}
   /** Callback function that is invoked any time a date is changed or selected. */
-  onChangeDate: (selection: DateSelection) => void
+  onChangeDate?: (selection: DateSelection) => void
   /** If true, all days outside of the `startDate` and `endDate` props will be hidden. */
   showRangeOnly?: boolean
   /** Style customizations for the date picker */
@@ -169,7 +169,7 @@ export interface TimePickerProps {
   /** An array of times that should not be available for selection. */
   unavailableTimes?: Date[]
   /** A callback that will be called when a time is selected. */
-  onChangeTime: (time: Date) => void
+  onChangeTime?: (time: Date) => void
   classNames?: {
     root?: string
     selected?: string
@@ -380,11 +380,11 @@ export interface FieldProps {
     style?: 'circle' | 'box'
   }
   /** Custom settings for the `date-picker` and `date-time-picker` field types */
-  datetime?: {
+  calendar?: {
     /** Time picker props for complete control over the TimePicker component */
-    time: TimePickerProps
+    time?: TimePickerProps
     /** Calendar props for complete control over the Calendar component */
-    date: CalendarProps
+    date?: CalendarProps
   }
   /** Custom settings for the image-picker field type */
   image?: ImagePickerProps

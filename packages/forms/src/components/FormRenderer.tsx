@@ -4,7 +4,7 @@ import { CSSTransition } from '@maker-ui/transition'
 import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
 import { useForm } from '@/hooks'
-import { findAllByKey, sortChildren } from '@/helpers'
+import { findAllValuesByKey, sortChildren } from '@/helpers'
 import type { FieldProps } from '@/types'
 import { Field } from './Field'
 import type { FormProps } from './Form'
@@ -40,7 +40,7 @@ export const FormRenderer = ({
   const isPaginated = totalPages > 1
 
   function getColumnStyles() {
-    const cols = [...new Set(findAllByKey({ fields }, 'colSpan') || [])]
+    const cols = [...new Set(findAllValuesByKey({ fields }, 'colSpan') || [])]
     const full = '1 / -1'
     if (cols.length) {
       let css: { [key: string]: any } = {}

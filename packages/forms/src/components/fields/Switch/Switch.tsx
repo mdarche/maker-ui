@@ -14,11 +14,13 @@ const defaultSettings: FieldProps['switch'] = {
 /**
  * The `Switch` component is a custom boolean form field that simulates
  * the iOS switch Switch.
+ *
+ * @todo style this for better keyboard management
  */
 export const Switch = ({ name }: FieldInputProps) => {
   const { field, value, setValue } = useField(name)
-  const config = merge(defaultSettings, field?.switch || {})
-  const isCircle = config?.style === 'circle'
+  const settings = merge(defaultSettings, field?.switch || {})
+  const isCircle = settings?.style === 'circle'
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLLabelElement>) {
     if (e.code !== 'Space') return
@@ -26,12 +28,12 @@ export const Switch = ({ name }: FieldInputProps) => {
   }
   return (
     <div
-      className={cn(['mkui-switch', config.style])}
+      className={cn(['mkui-switch', settings.style])}
       aria-labelledby={`${name}-label`}>
       <label
         className={cn(['mkui-switch-label', value ? 'active' : undefined])}
         htmlFor={name}
-        tabIndex={config.disabled ? -1 : 1}
+        tabIndex={settings.disabled ? -1 : 1}
         onKeyDown={(e) => handleKeyPress(e)}>
         <input
           id={name}
@@ -40,14 +42,14 @@ export const Switch = ({ name }: FieldInputProps) => {
           value={value}
           onClick={() => setValue(!value)}
           {...field?.inputProps}
-          disabled={config.disabled}
+          disabled={settings.disabled}
         />
 
-        {!isCircle && config?.labelOn && (
-          <span className="mkui-switch-on">{config.labelOn}</span>
+        {!isCircle && settings?.labelOn && (
+          <span className="mkui-switch-on">{settings.labelOn}</span>
         )}
-        {!isCircle && config?.labelOff && (
-          <span className="mkui-switch-off">{config.labelOff}</span>
+        {!isCircle && settings?.labelOff && (
+          <span className="mkui-switch-off">{settings.labelOff}</span>
         )}
         <div className={cn(['mkui-switch-slider', value ? 'on' : 'off'])} />
       </label>

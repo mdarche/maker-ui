@@ -3,7 +3,6 @@ import type {
   CompareOperator,
   InputOption,
   FormSchema,
-  FormValues,
 } from '@/types'
 
 type Comparators = {
@@ -57,7 +56,7 @@ const formatSelect = (b: FormatSelectProps) =>
  */
 export const evaluateConditions = (
   rules: Array<Condition[]>,
-  values: FormValues,
+  values: { [key: string]: any },
   fields?: FormSchema
 ): boolean => {
   if (!fields) return false

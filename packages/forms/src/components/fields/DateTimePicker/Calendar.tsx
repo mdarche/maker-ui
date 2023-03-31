@@ -99,7 +99,7 @@ export const Calendar = ({
           setState((s) => ({ ...s, dateStart: date }))
         } else {
           setState((s) => ({ ...s, dateEnd: date }))
-          onChangeDate({ startDate: state.dateStart, endDate: date })
+          onChangeDate?.({ startDate: state.dateStart, endDate: date })
         }
       }
 
@@ -116,7 +116,7 @@ export const Calendar = ({
           month: +d.getMonth() + 1,
           year: d.getFullYear(),
         })
-        onChangeDate({ date: d })
+        onChangeDate?.({ date: d })
       }
     }
   }
