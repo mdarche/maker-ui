@@ -18,6 +18,7 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
   const isRange = field?.calendar?.date?.range
 
   const onChangeDate = (selection: DateSelection) => {
+    // console.log('Selection is', selection)
     // if is not range and is both, combine date with time
   }
 
@@ -30,13 +31,13 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
       <Calendar
         {...field?.calendar?.date}
         initialValue={field?.initialValue}
-        onChangeDate={onChangeDate}
+        onChange={onChangeDate}
       />
       {isBoth ? (
         <TimePicker
           {...field?.calendar?.time}
           initialValue={field?.initialValue?.date}
-          onChangeTime={onChangeTime}
+          onChange={onChangeTime}
         />
       ) : null}
     </div>

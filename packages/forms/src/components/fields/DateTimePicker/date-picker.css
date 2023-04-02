@@ -1,3 +1,28 @@
+/* Config variables
+/ -------------------------------------------------- /
+/ --form-calendar-width
+/ --form-calendar-border-radius
+/ --form-calendar-border-radius-range
+/ --form-calendar-border
+/ --form-calendar-bg-today
+/ --form-calendar-bg-selected
+/ --form-calendar-bg-hover
+/ --form-calendar-bg-disabled
+/ --form-calendar-color-today
+/ --form-calendar-color
+/ --form-calendar-color-selected
+/ --form-calendar-color-disabled
+/ --form-calendar-font-size
+/ --form-calendar-font-size-month
+/ --form-calendar-font-size-day
+/ --form-calendar-arrow-height
+/ --------------------------------------------------
+*/
+
+.mkui-calendar {
+  width: var(--form-calendar-width, 100%);
+}
+
 .mkui-calendar-grid {
   display: grid;
   grid-template: repeat(7, auto) / repeat(7, auto);
@@ -13,12 +38,21 @@
 .mkui-month {
   text-align: center;
   margin: 0 20px;
+  font-size: var(
+    --form-calendar-font-size-month,
+    calc(var(--form-input-font-size, 16px) * 1.2)
+  );
 }
 
 .mkui-day-label {
   text-align: center;
   padding: 10px 0;
-  border-bottom: 1px solid;
+  font-weight: 700;
+}
+
+.mkui-day-label,
+.mkui-date {
+  font-size: var(--form-calendar-font-size, 1.65ch);
 }
 
 .mkui-date {
@@ -27,9 +61,6 @@
   background: none;
   cursor: pointer;
   aspect-ratio: 1;
-  opacity: 0.4;
-
-  font-size: 14px;
 }
 
 .mkui-date.range {
@@ -38,7 +69,7 @@
 }
 
 .mkui-date.selected {
-  border-radius: 50%;
+  border-radius: var(--form-calendar-border-radius, 50%);
 }
 
 .mkui-date.selected,
@@ -71,6 +102,21 @@
 
 .mkui-date.hidden {
   opacity: 0;
+}
+
+.mkui-btn-month {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mkui-btn-month svg {
+  height: var(--form-calendar-arrow-height, 10px);
+  fill: var(--form-color-selected, blue);
 }
 
 /* TimePicker */

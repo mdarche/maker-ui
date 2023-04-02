@@ -297,6 +297,7 @@ importers:
       '@maker-ui/style': workspace:*
       '@maker-ui/transition': workspace:*
       '@maker-ui/utils': workspace:*
+      dayjs: ^1.11.7
       eslint-config-library: workspace:*
       next: ^13.2.3
       react: ^18.2.0
@@ -310,6 +311,7 @@ importers:
       '@maker-ui/style': link:../style
       '@maker-ui/transition': link:../transition
       '@maker-ui/utils': link:../utils
+      dayjs: 1.11.7
     devDependencies:
       '@maker-ui/build-tools': link:../build-tools
       eslint-config-library: link:../eslint/eslint-config-library
@@ -6245,6 +6247,10 @@ packages:
   /dayjs/1.11.0:
     resolution: {integrity: sha512-JLC809s6Y948/FuCZPm5IX8rRhQwOiyMb2TfVVQEixG7P8Lm/gt5S7yoQZmC8x1UehI9Pb7sksEt4xx14m+7Ug==}
     dev: true
+
+  /dayjs/1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
+    dev: false
 
   /debug/3.1.0:
     resolution: {integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==}

@@ -111,10 +111,23 @@ export function FormDemo() {
               {
                 type: 'date-picker',
                 name: 'calendar',
-                label: 'Externship date',
                 required: true,
+                colSpan: 2,
                 calendar: {
-                  date: {},
+                  date: {
+                    range: true,
+                    // rangeMax: 5,
+                    // rangeMin: 3,
+                    showRangeOnly: true,
+                    autoSelect: true,
+                    startDate: '2023-06-08T00:00:00-04:00',
+                    endDate: '2023-07-14T00:00:00-04:00',
+                    unavailable: [
+                      '2023-06-08T00:00:00-04:00',
+                      '2023-06-09T00:00:00-04:00',
+                    ],
+                    unavailableDays: [0, 6],
+                  },
                   time: {},
                 },
               },

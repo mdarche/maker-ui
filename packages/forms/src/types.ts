@@ -77,10 +77,16 @@ export interface DateSelection {
 export interface CalendarProps extends MakerCSS {
   /** The initial values for the calendar */
   initialValue?: DateSelection
-  /** Earliest date that will be visible in the Calendar. Required if `range` is true.  */
-  startDate?: Date
-  /** Latest date that will be visible in the Calendar. Required if `range` is true. */
-  endDate?: Date
+  /** Earliest date that will be visible in the Calendar. Can be a Date or ISO string.
+   * Required if `range` is true.  */
+  startDate?: string | Date
+  /** Latest date that will be visible in the Calendar. Can be a Date or ISO string.
+   * Required if `range` is true. */
+  endDate?: string | Date
+  /** If true, the calendar will autoselect the next available date
+   * @default false
+   */
+  autoSelect?: boolean
   /** If true, users can select a start and end date. */
   range?: boolean
   /** The maximum number of days that a user can select in their date range. */
@@ -95,42 +101,23 @@ export interface CalendarProps extends MakerCSS {
    * To disable weekends, use: [0, 6]
    */
   unavailableDays?: number[]
-  /** @todo Localization helper. Coming soon... */
-  localization?: {}
   /** Callback function that is invoked any time a date is changed or selected. */
-  onChangeDate?: (selection: DateSelection) => void
+  onChange?: (selection: DateSelection) => void
   /** If true, all days outside of the `startDate` and `endDate` props will be hidden. */
   showRangeOnly?: boolean
-  /** Style customizations for the date picker */
-  style?: {
-    /** A custom border radius for selected dates. Note this does not work for the
-     * range picker, only single dates.
-     * @default 50%
-     */
-    borderRadius: number | string | (number | string)[]
-    /** A custom border style that will be applied to the edges of the calendar, as well as
-     * date cells. */
-    border?: boolean
-    /** The width of the calendar. Note that the grid contains 7 columns and will auto-fill the
-     * available width space.
-     * @default '100%' // 100% of the container
-     */
-    width: number | string | (number | string)[]
-    /** Font size of the calendar dates */
-    fontSize?: number | string | (number | string)[]
-    /** A custom icon for the left month arrow. */
-    arrowLeft?: string | React.ReactElement
-    /** A custom icon for the right month arrow. */
-    arrowRight?: string | React.ReactElement
-    /**  Determines where the month navigation arrows should be positioned.
-     * @default 'split'
-     */
-    arrowPos?: 'left' | 'right' | 'split'
-    /** If true, the bottom of the calendar will show selected dates.
-     * @default true
-     */
-    showSelections?: boolean
-  }
+  /** A custom icon for the left month arrow. */
+  arrowLeft?: string | React.ReactElement
+  /** A custom icon for the right month arrow. */
+  arrowRight?: string | React.ReactElement
+  /**  Determines where the month navigation arrows should be positioned.
+   * @default 'split'
+   * @todo
+   */
+  arrowPos?: 'left' | 'right' | 'split'
+  /** If true, the bottom of the calendar will show selected dates.
+   * @default true
+   */
+  showSelections?: boolean
   classNames?: {
     /** Root calendar className */
     calendar?: string
@@ -169,7 +156,7 @@ export interface TimePickerProps {
   /** An array of times that should not be available for selection. */
   unavailableTimes?: Date[]
   /** A callback that will be called when a time is selected. */
-  onChangeTime?: (time: Date) => void
+  onChange?: (time: Date) => void
   classNames?: {
     root?: string
     selected?: string
@@ -381,10 +368,10 @@ export interface FieldProps {
   }
   /** Custom settings for the `date-picker` and `date-time-picker` field types */
   calendar?: {
-    /** Time picker props for complete control over the TimePicker component */
-    time?: TimePickerProps
     /** Calendar props for complete control over the Calendar component */
     date?: CalendarProps
+    /** Time picker props for complete control over the TimePicker component */
+    time?: TimePickerProps
   }
   /** Custom settings for the image-picker field type */
   image?: ImagePickerProps

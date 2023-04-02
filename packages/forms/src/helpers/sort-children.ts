@@ -13,7 +13,6 @@ export interface Slots {
   success: ReactElement | null
   progress: ReactElement | null
   submit: ReactElement | null
-  fieldError: ReactElement | null
   children: ReactElement[]
 }
 
@@ -27,7 +26,6 @@ export const defaultSlots: Slots = {
   success: null,
   submit: null,
   progress: null,
-  fieldError: null,
   children: [],
 }
 

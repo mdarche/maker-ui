@@ -259,6 +259,7 @@ export const Select = ({ name }: FieldInputProps) => {
               className={cn(['mkui-select-value selected', option?.className])}>
               {option.label}
               <button
+                type="button"
                 className="mkui-select-value-clear naked"
                 onClick={(e) => handleClear(e, option.value)}>
                 <CloseIcon style={{ height: 8 }} />
@@ -288,6 +289,7 @@ export const Select = ({ name }: FieldInputProps) => {
         <div className="mkui-select-indicators">
           {state.searchText.length || state.selectedOptions.length ? (
             <button
+              type="button"
               className={cn(['mkui-select-clear naked', classNames?.clear])}
               onClick={(e) => handleClear(e)}>
               <CloseIcon />
@@ -356,6 +358,7 @@ export const Select = ({ name }: FieldInputProps) => {
             })
           ) : state.searchText.length && field?.select?.creatable ? (
             <button
+              type="button"
               className="mkui-select-option naked"
               onClick={() =>
                 handleOptionSelect({

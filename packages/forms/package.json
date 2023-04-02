@@ -21,7 +21,8 @@
     "@maker-ui/spinners": "workspace:*",
     "@maker-ui/style": "workspace:*",
     "@maker-ui/transition": "workspace:*",
-    "@maker-ui/utils": "workspace:*"
+    "@maker-ui/utils": "workspace:*",
+    "dayjs": "^1.11.7"
   },
   "peerDependencies": {
     "next": "^12.x || ^13.x",

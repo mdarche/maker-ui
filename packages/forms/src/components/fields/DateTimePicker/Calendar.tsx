@@ -1,25 +1,25 @@
-'use client'
 import React, { useState } from 'react'
-import { cn, generateId, merge } from '@maker-ui/utils'
-import { Style } from '@maker-ui/style'
+import { cn } from '@maker-ui/utils'
 import {
   getCalendar,
-  isDate,
   isSameDay,
   getDateISO,
   getNextMonth,
   getPreviousMonth,
   isSameMonth,
   isDateInRange,
+  getNextAvailableDate,
+  getTotalDays,
   WEEK_DAYS,
   CALENDAR_MONTHS,
 } from './date-helpers'
 import { CalendarProps } from '@/types'
+import { ArrowIcon } from '@/icons'
 
 interface CalendarState {
-  current?: Date | null
-  dateStart?: Date
-  dateEnd?: Date
+  selected?: Date
+  rangeStart?: Date
+  rangeEnd?: Date
   month: number
   year: number
 }
@@ -28,95 +28,108 @@ export const Calendar = ({
   startDate,
   endDate,
   range,
-  rangeMax,
   rangeMin,
+  rangeMax,
   unavailable = [],
   unavailableDays = [],
-  onChangeDate,
+  onChange,
   showRangeOnly = false,
   classNames,
-  style,
-  css,
-  breakpoints,
-  mediaQuery,
+  arrowLeft = <ArrowIcon style={{ transform: 'rotate(90deg)' }} />,
+  arrowRight = <ArrowIcon style={{ transform: 'rotate(-90deg)' }} />,
+  arrowPos = 'split',
+  showSelections = true,
+  autoSelect = false,
   initialValue,
 }: CalendarProps) => {
-  const now = initialValue?.date ? new Date(initialValue.date) : new Date()
-  const [today] = useState(now)
-  const [styleId] = useState(generateId())
+  const initialDate = getNextAvailableDate(
+    autoSelect,
+    startDate,
+    endDate,
+    unavailable,
+    unavailableDays
+  )
   const [unavailableDates] = useState(unavailable.map((d) => new Date(d)) || [])
   const [state, setState] = useState<CalendarState>({
-    current: now,
-    dateStart: initialValue?.startDate
-      ? new Date(initialValue.startDate)
-      : undefined,
-    dateEnd: initialValue?.endDate
-      ? new Date(initialValue?.endDate)
-      : undefined,
-    month: now.getMonth() + 1,
-    year: now.getFullYear(),
+    selected: !range ? initialDate : undefined,
+    rangeStart:
+      range && initialValue?.startDate
+        ? new Date(initialValue.startDate)
+        : range
+        ? initialDate
+        : undefined,
+    rangeEnd:
+      range && initialValue?.endDate
+        ? new Date(initialValue?.endDate)
+        : undefined,
+    month: (initialDate ? initialDate : new Date()).getMonth() + 1,
+    year: (initialDate ? initialDate : new Date()).getFullYear(),
   })
   const month =
     Object.keys(CALENDAR_MONTHS)[Math.max(0, Math.min(state.month - 1, 11))]
 
   const getDates = () => {
-    const calMonth = state.month || +state.current?.getMonth()! + 1
-    const calYear = state.year || state.current?.getFullYear()
+    const calMonth = state.month || +state.selected?.getMonth()! + 1
+    const calYear = state.year || state.selected?.getFullYear()
     return getCalendar(calMonth, calYear)
-  }
-
-  const calendarStyles = {
-    width: style?.width || '100%',
-    '.mkui-date.single': {
-      borderRadius: style?.borderRadius || '50%',
-      border: 'none',
-    },
   }
 
   /**
    * Select a date from the calendar
-   * @todo account for maxRange and minRange
    */
   const selectDate = (d: Date) => {
-    const isDateObject = isDate(d)
-    const date = isDateObject ? d : new Date()
+    const date = new Date(d)
     const isInRange =
       startDate && endDate ? isDateInRange(date, startDate, endDate) : true
     const isEarlier =
-      state.dateStart && date.getTime() < state?.dateStart?.getTime()
+      state.rangeStart && date.getTime() < state?.rangeStart?.getTime()
 
     if (range && isInRange) {
       // If no start date
-      if (!state.dateStart) {
-        setState((s) => ({ ...s, dateStart: date }))
+      if (!state.rangeStart) {
+        setState((s) => ({ ...s, rangeStart: date }))
       }
 
       // If start date but no end date yet & invoke callback
-      if (state.dateStart && !state.dateEnd) {
-        if (isSameDay(state.dateStart, date)) {
-          setState((s) => ({ ...s, dateStart: undefined }))
+      if (state.rangeStart && !state.rangeEnd) {
+        if (isSameDay(state.rangeStart, date)) {
+          setState((s) => ({ ...s, rangeStart: undefined }))
         } else if (isEarlier) {
-          setState((s) => ({ ...s, dateStart: date }))
+          setState((s) => ({ ...s, rangeStart: date }))
         } else {
-          setState((s) => ({ ...s, dateEnd: date }))
-          onChangeDate?.({ startDate: state.dateStart, endDate: date })
+          // Check for range min and max
+          const disableWeekends =
+            unavailableDays?.includes(0) && unavailableDays?.includes(6)
+          const totalDays = getTotalDays(
+            state.rangeStart,
+            date,
+            disableWeekends
+          )
+          const start = new Date(state.rangeStart)
+          const rangeEnd =
+            rangeMax && totalDays > rangeMax
+              ? new Date(start.setDate(start.getDate() + rangeMax - 1))
+              : rangeMin && totalDays < rangeMin
+              ? new Date(start.setDate(start.getDate() + rangeMin - 1))
+              : date
+
+          setState((s) => ({ ...s, rangeEnd }))
+          onChange?.({ startDate: state.rangeStart, endDate: date })
         }
       }
 
-      // if start date and end date, reset end and set new start date
-      if (state.dateStart && state.dateEnd) {
-        setState((s) => ({ ...s, dateStart: date, dateEnd: undefined }))
+      // If start date and end date, reset end and set new start date
+      if (state.rangeStart && state.rangeEnd) {
+        setState((s) => ({ ...s, rangeStart: date, rangeEnd: undefined }))
       }
-
-      // If start date and selected date is same as start date -> reset
     } else {
-      if (state.current && !isSameDay(d, state.current)) {
+      if (state.selected && !isSameDay(d, state.selected) && isInRange) {
         setState({
-          current: d,
+          selected: d,
           month: +d.getMonth() + 1,
           year: d.getFullYear(),
         })
-        onChangeDate?.({ date: d })
+        onChange?.({ date: d })
       }
     }
   }
@@ -153,37 +166,35 @@ export const Calendar = ({
   }
 
   const Day = ({ date }: { date: Date }) => {
-    const isToday = isSameDay(date, today)
-    // Check if calendar date is same day as currently selected date
-    const isCurrent = !range && state.current && isSameDay(date, state.current)
+    const isToday = isSameDay(date, new Date())
+    const isSelected =
+      !range && state.selected && isSameDay(date, state.selected)
     // Check if calendar date is in the same month as the state month and year
     const inMonth =
       state.month &&
       state.year &&
       isSameMonth(date, new Date([state.year, state.month, 1].join('-')))
-    const isUnavailable =
-      unavailableDates.includes(date) || unavailableDays.includes(date.getDay())
 
-    const isRangeStart = state.dateStart && isSameDay(date, state.dateStart)
-    const isRangeEnd = state.dateEnd && isSameDay(date, state.dateEnd)
+    const isRangeStart = state.rangeStart && isSameDay(date, state.rangeStart)
+    const isRangeEnd = state.rangeEnd && isSameDay(date, state.rangeEnd)
     const isInRange =
-      state.dateStart &&
-      state.dateEnd &&
-      isDateInRange(date, state.dateStart, state.dateEnd)
+      state.rangeStart &&
+      state.rangeEnd &&
+      isDateInRange(date, state.rangeStart, state.rangeEnd)
 
     const inCalendarRange =
       showRangeOnly &&
       !(startDate && endDate && isDateInRange(date, startDate, endDate))
-
-    const isAvailable = !isUnavailable && inMonth
+    const isUnavailable =
+      unavailableDates.includes(date) || unavailableDays.includes(date.getDay())
 
     const dayClasses = [
-      'mkui-btn-date mkui-date',
+      'mkui-date',
       classNames?.day,
       range ? 'range' : 'single',
+      !inMonth ? 'diff-month' : '',
       isUnavailable ? 'unavailable' : '',
-      isAvailable ? 'available' : '',
-      isCurrent ? 'selected' : '',
+      isSelected ? 'selected' : '',
       isToday ? 'today' : '',
       range && isRangeStart ? 'range-start' : '',
       range && isRangeEnd ? 'range-end' : '',
@@ -193,6 +204,7 @@ export const Calendar = ({
 
     return (
       <button
+        type="button"
         className={cn(dayClasses)}
         title={date.toDateString()}
         onClick={() => selectDate(date)}>
@@ -201,32 +213,63 @@ export const Calendar = ({
     )
   }
 
+  const MonthButton = ({ isNext = false }: { isNext?: boolean }) => {
+    let show = true
+
+    if (showRangeOnly && startDate && endDate) {
+      const rangeMonth = new Date(isNext ? endDate : startDate).getMonth() + 1
+      const buttonMonth = (
+        isNext
+          ? getNextMonth(state.month, state.year)
+          : getPreviousMonth(state.month, state.year)
+      ).month
+      show = isNext ? buttonMonth <= rangeMonth : buttonMonth >= rangeMonth
+    }
+
+    return show ? (
+      <button
+        type="button"
+        className={cn([
+          'mkui-btn-month',
+          isNext ? 'next' : 'previous',
+          classNames?.headerButton,
+        ])}
+        onClick={isNext ? handleNext : handlePrevious}
+        title={`${isNext ? 'Next' : 'Previous'} Month`}>
+        {isNext ? arrowRight : arrowLeft}
+      </button>
+    ) : (
+      <div className="mkui-btn-month placeholder" />
+    )
+  }
+
   return (
     <div className={cn(['mkui-calendar', classNames?.calendar])}>
-      <Style
-        root={styleId}
-        css={merge(calendarStyles, css || {})}
-        breakpoints={breakpoints}
-        mediaQuery={mediaQuery}
-      />
-      <div className={cn(['mkui-calendar-header', classNames?.header])}>
-        <button
-          className={cn(['mkui-btn-month previous', classNames?.headerButton])}
-          onClick={handlePrevious}
-          title="Previous Month">
-          Prev
-        </button>
-        <div
-          className={cn([
-            'mkui-month',
-            classNames?.headerMonth,
-          ])}>{`${month} ${state.year}`}</div>
-        <button
-          className={cn(['mkui-btn-month next', classNames?.headerButton])}
-          onClick={handleNext}
-          title="Next Month">
-          Next
-        </button>
+      <div
+        className={cn(['mkui-calendar-header', arrowPos, classNames?.header])}>
+        {arrowPos === 'split' ? (
+          <>
+            <MonthButton />
+            <div
+              className={cn([
+                'mkui-month',
+                classNames?.headerMonth,
+              ])}>{`${month} ${state.year}`}</div>
+            <MonthButton isNext />
+          </>
+        ) : (
+          <>
+            <div className="mkui-month-buttons flex align-center">
+              <MonthButton />
+              <MonthButton isNext />
+            </div>
+            <div
+              className={cn([
+                'mkui-month',
+                classNames?.headerMonth,
+              ])}>{`${month} ${state.year}`}</div>
+          </>
+        )}
       </div>
       <div className="mkui-calendar-grid">
         {Object.keys(WEEK_DAYS).map((day) => (

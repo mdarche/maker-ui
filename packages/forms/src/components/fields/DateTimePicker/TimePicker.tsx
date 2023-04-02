@@ -16,7 +16,7 @@ export const TimePicker = ({
   interval,
   header,
   unavailableTimes = [],
-  onChangeTime,
+  onChange,
   initialValue,
   classNames,
 }: TimePickerProps) => {
@@ -40,7 +40,7 @@ export const TimePicker = ({
 
   const handleTimeChange = (newTime: Date) => {
     setSelectedTime(newTime)
-    onChangeTime?.(newTime)
+    onChange?.(newTime)
   }
 
   const timeOptions: Date[] = []
