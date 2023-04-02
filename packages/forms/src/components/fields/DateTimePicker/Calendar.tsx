@@ -38,7 +38,7 @@ export const Calendar = ({
   arrowLeft = <ArrowIcon style={{ transform: 'rotate(90deg)' }} />,
   arrowRight = <ArrowIcon style={{ transform: 'rotate(-90deg)' }} />,
   arrowPos = 'split',
-  showSelections = true,
+  showSelections = false,
   autoSelect = false,
   initialValue,
 }: CalendarProps) => {
@@ -106,6 +106,7 @@ export const Calendar = ({
             disableWeekends
           )
           const start = new Date(state.rangeStart)
+          // TODO - account for weekends in this range
           const rangeEnd =
             rangeMax && totalDays > rangeMax
               ? new Date(start.setDate(start.getDate() + rangeMax - 1))
@@ -265,7 +266,7 @@ export const Calendar = ({
             </div>
             <div
               className={cn([
-                'mkui-month',
+                'mkui-month flex-1',
                 classNames?.headerMonth,
               ])}>{`${month} ${state.year}`}</div>
           </>
@@ -285,7 +286,27 @@ export const Calendar = ({
           return <Day key={getDateISO(date)} date={date} />
         })}
       </div>
-      {range ? <div></div> : null}
+      {showSelections ? (
+        <div className="mkui-date-selection flex">
+          {range ? (
+            <>
+              <div className="mkui-date-start">
+                <strong>Start Date</strong>
+                <div>{state.rangeStart && state.rangeStart.toDateString()}</div>
+              </div>
+              <div className="mkui-date-end">
+                <strong>End Date</strong>
+                <div>{state.rangeEnd && state.rangeEnd.toDateString()}</div>
+              </div>
+            </>
+          ) : (
+            <div className="mkui-date-selected">
+              <strong>Date Selected</strong>
+              <div>{state.selected && state.selected.toDateString()}</div>
+            </div>
+          )}
+        </div>
+      ) : null}
     </div>
   )
 }

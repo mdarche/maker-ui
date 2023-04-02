@@ -35,6 +35,10 @@
   margin-bottom: 20px;
 }
 
+.mkui-calendar-header.right .mkui-month-buttons {
+  order: 2;
+}
+
 .mkui-month {
   text-align: center;
   margin: 0 20px;
