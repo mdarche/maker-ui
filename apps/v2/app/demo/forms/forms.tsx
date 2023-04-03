@@ -3,13 +3,18 @@ import * as React from 'react'
 import { z } from 'zod'
 import { Form } from 'maker-ui/forms'
 
+const unavailableTimes = [
+  '2023-06-12T11:00:00-04:00',
+  '2023-06-12T15:00:00-04:00',
+  '2023-06-14T09:00:00-04:00',
+]
+
 export function FormDemo() {
   const [success, setSuccess] = React.useState(false)
   const [error, setError] = React.useState(false)
 
   const submitHandler = (values: any) => {
     console.log(values)
-    // setError(true)
     setSuccess(true)
   }
 
@@ -109,18 +114,18 @@ export function FormDemo() {
                 },
               },
               {
-                type: 'date-picker',
+                type: 'date-time-picker',
                 name: 'calendar',
                 required: true,
-                colSpan: 2,
+                // initialValue: { date: '2023-06-12T13:00:00-04:00' },
                 calendar: {
                   date: {
-                    range: true,
+                    // range: true,
                     // rangeMax: 5,
                     // rangeMin: 3,
                     arrowPos: 'split',
                     // showRangeOnly: true,
-                    autoSelect: true,
+                    // autoSelect: true,
                     startDate: '2023-06-08T00:00:00-04:00',
                     endDate: '2023-07-14T00:00:00-04:00',
                     unavailable: [
@@ -129,7 +134,13 @@ export function FormDemo() {
                     ],
                     unavailableDays: [0, 6],
                   },
-                  time: {},
+                  time: {
+                    startTime: [9, 0],
+                    endTime: [17, 0],
+                    interval: 60,
+                    duration: 120,
+                    unavailableTimes,
+                  },
                 },
               },
             ],

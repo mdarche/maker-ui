@@ -39,6 +39,8 @@
   --form-input-border-radius: 4px;
   /* --form-select-bg-highlight: #d8f4ff; */
   --form-select-border-active: 1px solid blue;
+  --form-calendar-width: 400px;
+  --form-calendar-width-time: 300px;
 }
 
 body[data-theme='dark'] {

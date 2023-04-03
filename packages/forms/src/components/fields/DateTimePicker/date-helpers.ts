@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import utc from 'dayjs/plugin/utc'
+dayjs.extend(utc)
 dayjs.extend(isSameOrAfter)
 dayjs.extend(isSameOrBefore)
 
@@ -304,4 +306,13 @@ function countWeekends(start: dayjs.Dayjs, end: dayjs.Dayjs): number {
   }
 
   return numWeekends
+}
+
+export function getDatesOnSameDay(date: Date, arr: string[]): string[] {
+  const targetDate = dayjs(date).format('YYYY-MM-DD')
+
+  return arr.filter((takenDate) => {
+    const d = dayjs(takenDate)
+    return d.format('YYYY-MM-DD') === targetDate
+  })
 }

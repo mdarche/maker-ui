@@ -1,12 +1,17 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import { cn } from '@maker-ui/utils'
-import type { TimePickerProps } from '@/types'
-import { timeHash } from './date-helpers'
+import type { DateSelection, TimePickerProps } from '@/types'
+import { isSameDay, timeHash } from './date-helpers'
 
 type DivisibleBy15 = number & { __divisibleBy15: never }
 
 function isDivisibleBy15(value: number): value is DivisibleBy15 {
   return value % 15 === 0
+}
+
+interface TimePickerFormProps extends TimePickerProps {
+  initialValue?: DateSelection['date']
+  currentValue?: DateSelection['date']
 }
 
 export const TimePicker = ({
@@ -18,24 +23,26 @@ export const TimePicker = ({
   unavailableTimes = [],
   onChange,
   initialValue,
+  currentValue,
   classNames,
-}: TimePickerProps) => {
-  const [selectedTime, setSelectedTime] = React.useState<Date | null>(
-    initialValue ? new Date(initialValue) : null
-  )
+}: TimePickerFormProps) => {
+  const [initial, setInitial] = useState<Date | null>(null)
+  const [selectedTime, setSelectedTime] = useState<Date | null>(null)
   const formatted = timeHash(selectedTime)
   const intervalValue =
     interval !== undefined && isDivisibleBy15(interval) ? interval : 30
   const durationValue =
     duration !== undefined && isDivisibleBy15(duration) ? duration : 30
 
+  const base = currentValue ? new Date(currentValue) : new Date()
+
   const start =
     startTime && Array.isArray(startTime)
-      ? new Date(new Date().setHours(startTime[0], startTime[1] || 0))
+      ? new Date(base.setHours(startTime[0], startTime[1] || 0))
       : startTime
   const end =
     endTime && Array.isArray(endTime)
-      ? new Date(new Date().setHours(endTime[0], endTime[1] || 0))
+      ? new Date(base.setHours(endTime[0], endTime[1] || 0))
       : endTime
 
   const handleTimeChange = (newTime: Date) => {
@@ -55,7 +62,8 @@ export const TimePicker = ({
   let unavailable: number[] = []
 
   unavailableTimes.forEach((time) => {
-    const t = time.getHours() * 60 + time.getMinutes()
+    const _time = new Date(time)
+    const t = _time.getHours() * 60 + _time.getMinutes()
     unavailable.push(t)
     const divisible = durationValue / intervalValue
     if (durationValue > intervalValue) {
@@ -73,31 +81,59 @@ export const TimePicker = ({
     return !unavailable.includes(timeInMinutes)
   })
 
+  useEffect(() => {
+    if (initialValue) {
+      const v = new Date(initialValue)
+      setInitial(v)
+      setSelectedTime(v)
+    } else {
+      setInitial(null)
+    }
+  }, [initialValue])
+
+  useEffect(() => {
+    if (currentValue && initial) {
+      setSelectedTime(
+        isSameDay(initial, new Date(currentValue)) ? initial : null
+      )
+    } else {
+      setSelectedTime(null)
+    }
+  }, [currentValue, initial])
+
   return (
     <div className={cn(['mkui-timepicker', classNames?.root])}>
-      {header && <div>{header}</div>}
-      <ul className={classNames?.ul}>
-        {filtered.map((option) => {
-          const s = timeHash(option)
-          return (
-            <li key={s} className={classNames?.li}>
-              <button
-                className={cn([
-                  'mkui-time-option',
-                  classNames?.button,
-                  s === formatted
-                    ? classNames?.selected || 'selected'
-                    : undefined,
-                ])}
-                onClick={(e) => handleTimeChange(option)}>
-                {option.toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
-              </button>
-            </li>
-          )
-        })}
+      <div>
+        {header && <div className="mkui-time-header">{header}</div>}
+        <div className="mkui-current-date flex justify-center">
+          {currentValue && new Date(currentValue).toDateString()}
+        </div>
+      </div>
+      <ul className={cn(['mkui-time-options', classNames?.ul])}>
+        {currentValue
+          ? filtered.map((option) => {
+              const s = timeHash(option)
+              return (
+                <li key={s} className={classNames?.li}>
+                  <button
+                    type="button"
+                    className={cn([
+                      'mkui-time-option',
+                      classNames?.button,
+                      s === formatted
+                        ? classNames?.selected || 'selected'
+                        : undefined,
+                    ])}
+                    onClick={(e) => handleTimeChange(option)}>
+                    {option.toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </button>
+                </li>
+              )
+            })
+          : null}
       </ul>
     </div>
   )

@@ -13,7 +13,7 @@ import {
   WEEK_DAYS,
   CALENDAR_MONTHS,
 } from './date-helpers'
-import { CalendarProps } from '@/types'
+import { CalendarProps, DateSelection } from '@/types'
 import { ArrowIcon } from '@/icons'
 
 interface CalendarState {
@@ -22,6 +22,10 @@ interface CalendarState {
   rangeEnd?: Date
   month: number
   year: number
+}
+
+interface CalendarFormProps extends CalendarProps {
+  initialValue?: DateSelection
 }
 
 export const Calendar = ({
@@ -41,7 +45,7 @@ export const Calendar = ({
   showSelections = false,
   autoSelect = false,
   initialValue,
-}: CalendarProps) => {
+}: CalendarFormProps) => {
   const initialDate = getNextAvailableDate(
     autoSelect,
     startDate,
@@ -51,7 +55,11 @@ export const Calendar = ({
   )
   const [unavailableDates] = useState(unavailable.map((d) => new Date(d)) || [])
   const [state, setState] = useState<CalendarState>({
-    selected: !range ? initialDate : undefined,
+    selected: !range
+      ? initialValue?.date
+        ? new Date(initialValue.date)
+        : initialDate
+      : undefined,
     rangeStart:
       range && initialValue?.startDate
         ? new Date(initialValue.startDate)
@@ -62,8 +70,19 @@ export const Calendar = ({
       range && initialValue?.endDate
         ? new Date(initialValue?.endDate)
         : undefined,
-    month: (initialDate ? initialDate : new Date()).getMonth() + 1,
-    year: (initialDate ? initialDate : new Date()).getFullYear(),
+    month:
+      (initialDate
+        ? initialDate
+        : startDate
+        ? new Date(startDate)
+        : new Date()
+      ).getMonth() + 1,
+    year: (initialDate
+      ? initialDate
+      : startDate
+      ? new Date(startDate)
+      : new Date()
+    ).getFullYear(),
   })
   const month =
     Object.keys(CALENDAR_MONTHS)[Math.max(0, Math.min(state.month - 1, 11))]
@@ -124,7 +143,7 @@ export const Calendar = ({
         setState((s) => ({ ...s, rangeStart: date, rangeEnd: undefined }))
       }
     } else {
-      if (state.selected && !isSameDay(d, state.selected) && isInRange) {
+      if (isInRange) {
         setState({
           selected: d,
           month: +d.getMonth() + 1,
@@ -184,23 +203,27 @@ export const Calendar = ({
       isDateInRange(date, state.rangeStart, state.rangeEnd)
 
     const inCalendarRange =
-      showRangeOnly &&
-      !(startDate && endDate && isDateInRange(date, startDate, endDate))
+      startDate && endDate && isDateInRange(date, startDate, endDate)
+        ? true
+        : false
     const isUnavailable =
-      unavailableDates.includes(date) || unavailableDays.includes(date.getDay())
+      unavailableDates.includes(date) ||
+      unavailableDays.includes(date.getDay()) ||
+      !inCalendarRange
+    const isAvailable = !isUnavailable && inMonth && inCalendarRange
 
     const dayClasses = [
       'mkui-date',
       classNames?.day,
       range ? 'range' : 'single',
       !inMonth ? 'diff-month' : '',
-      isUnavailable ? 'unavailable' : '',
+      isUnavailable ? 'unavailable' : isAvailable ? 'available' : '',
       isSelected ? 'selected' : '',
       isToday ? 'today' : '',
       range && isRangeStart ? 'range-start' : '',
       range && isRangeEnd ? 'range-end' : '',
       range && !isRangeStart && !isRangeEnd && isInRange ? 'range-inner' : '',
-      inCalendarRange ? 'hidden' : '',
+      showRangeOnly && !inCalendarRange ? 'hidden' : '',
     ]
 
     return (
@@ -272,7 +295,7 @@ export const Calendar = ({
           </>
         )}
       </div>
-      <div className="mkui-calendar-grid">
+      <div className={cn(['mkui-calendar-grid', range ? 'range' : 'single'])}>
         {Object.keys(WEEK_DAYS).map((day) => (
           <div
             key={day}

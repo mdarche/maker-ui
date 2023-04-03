@@ -1,4 +1,4 @@
-import { Breakpoints, MakerCSS } from '@maker-ui/style'
+import { Breakpoints } from '@maker-ui/style'
 import * as React from 'react'
 import type { Schema, ZodError } from 'zod'
 
@@ -71,12 +71,9 @@ export interface DateSelection {
   date?: Date | string
   startDate?: Date | string
   endDate?: Date | string
-  time?: Date | string
 }
 
-export interface CalendarProps extends MakerCSS {
-  /** The initial values for the calendar */
-  initialValue?: DateSelection
+export interface CalendarProps {
   /** Earliest date that will be visible in the Calendar. Can be a Date or ISO string.
    * Required if `range` is true.  */
   startDate?: string | Date
@@ -118,6 +115,7 @@ export interface CalendarProps extends MakerCSS {
    * @default true
    */
   showSelections?: boolean
+  /** Custom class selectors for the calendar and its inner components. */
   classNames?: {
     /** Root calendar className */
     calendar?: string
@@ -154,9 +152,10 @@ export interface TimePickerProps {
   /** An optional message that will display above the time picker. */
   header?: string
   /** An array of times that should not be available for selection. */
-  unavailableTimes?: Date[]
+  unavailableTimes?: string[]
   /** A callback that will be called when a time is selected. */
   onChange?: (time: Date) => void
+  /** Custom class selectors for the time picker and its inner components */
   classNames?: {
     root?: string
     selected?: string
@@ -164,8 +163,6 @@ export interface TimePickerProps {
     li?: string
     button?: string
   }
-  /** The initial time selection date */
-  initialValue?: Date | string
 }
 
 type LabelPosition =
