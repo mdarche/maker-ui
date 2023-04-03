@@ -14,6 +14,7 @@ const config = buildConfig({
     hooks: 'src/hooks.ts',
     index: 'src/index.ts',
     layout: 'src/layout.ts',
+    lightbox: 'src/lightbox.ts',
     modal: 'src/modal.ts',
     notifications: 'src/notifications.ts',
     popovers: 'src/popovers.ts',

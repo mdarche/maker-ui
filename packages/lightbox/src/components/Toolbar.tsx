@@ -1,7 +1,8 @@
 import * as React from 'react'
+import { cn } from '@maker-ui/utils'
 
-import { useLightbox } from './LightboxContext'
-import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from './icons'
+import { useLightbox } from './Provider'
+import { ZoomIcon, PreviewIcon, PlayIcon, CloseIcon } from './Icons'
 
 interface ToolbarProps {
   count?: boolean
@@ -30,7 +31,7 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
   const { index, data, settings, toggleLightbox } = useLightbox()
   return (
     <div
-      className="lb-toolbar flex"
+      className="mkui-lightbox-toolbar flex align-center"
       // css={{
       //   alignItems: 'center',
       //   justifyContent: data.length > 1 ? 'space-between' : 'flex-end',
@@ -43,7 +44,7 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
     >
       {settings.showCount && data.length > 1 && (
         <div
-          className="lb-pagination"
+          className="mkui-lightbox-pagination"
           // css={{
           //   background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
           //   padding: '14px 20px',
@@ -55,7 +56,7 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
         </div>
       )}
       <div
-        className="lb-button-group flex"
+        className="mkui-lightbox-buttons flex"
         // css={{
         //   background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
         //   button: {
@@ -80,30 +81,38 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
       >
         {zoom?.show ? (
           <button
-            className="lb-zoom"
+            className="mkui-lightbox-btn-zoom"
             disabled={
               data[index].src && !data[index].htmlVideo ? true : undefined
             }
             onClick={() => zoom?.set((z) => !z)}>
-            <ZoomIcon height="18" />
+            <ZoomIcon style={{ height: 18 }} />
           </button>
         ) : null}
         {settings.showAutoPlay && data.length > 1 ? (
           <button
-            className={`${autoPlay?.show ? 'active ' : ''}lb-autoplay`}
+            className={cn([
+              'mkui-lightbox-btn-autoplay',
+              autoPlay?.show ? 'active ' : '',
+            ])}
             onClick={() => autoPlay?.set((a) => !a)}>
-            <PlayIcon height="24" />
+            <PlayIcon style={{ height: 24 }} />
           </button>
         ) : null}
         {data.length > 1 ? (
           <button
-            className={`${preview?.show ? 'active ' : ''}lb-preview`}
+            className={cn([
+              'mkui-lightbox-btn-preview',
+              preview?.show ? 'active ' : '',
+            ])}
             onClick={() => preview?.set((p) => !p)}>
-            <PreviewIcon height="21" />
+            <PreviewIcon style={{ height: 21 }} />
           </button>
         ) : null}
-        <button className="lb-close" onClick={() => toggleLightbox()}>
-          <CloseIcon height="24" />
+        <button
+          className="mkui-lightbox-bn-close"
+          onClick={() => toggleLightbox()}>
+          <CloseIcon style={{ height: 24 }} />
         </button>
       </div>
     </div>

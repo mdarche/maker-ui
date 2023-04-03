@@ -1,25 +1,12 @@
-import * as React from 'react'
+import React, { useEffect, useState } from 'react'
 import { generateId, merge } from '@maker-ui/utils'
 import type { SpinnerProps } from '@maker-ui/spinners'
 
-import { LightboxProps } from './Lightbox'
-
-export interface LightboxData {
-  id?: string
-  src?: string
-  alt?: string
-  title?: string
-  description?: string
-  youtubeId?: string
-  htmlVideo?: boolean
-  vimeoId?: string
-  poster?: string
-  component?: React.ReactNode
-}
+import type { LightboxItem, LightboxProps, LightboxSettings } from '@/types'
 
 interface LightboxContextProps {
-  data?: LightboxData[]
-  settings: LightboxProps['settings']
+  data?: LightboxItem[]
+  settings: LightboxSettings
   show?: boolean
   set?: LightboxProps['set']
   children: React.ReactNode
@@ -28,17 +15,17 @@ interface LightboxContextProps {
 interface LightboxState {
   index: number
   active: boolean
-  data: LightboxData[]
-  settings: LightboxProps['settings']
+  data: LightboxItem[]
+  settings: LightboxSettings
   set: LightboxProps['set']
 }
 
 const videoFormats = ['.mp4', '.ogg', '.webm']
 
-const LightboxDataContext = React.createContext<Partial<LightboxState>>({})
-const LightboxUpdateContext = React.createContext<
-  React.Dispatch<React.SetStateAction<LightboxState>>
->(() => {})
+const LightboxContext = React.createContext<{
+  state: Partial<LightboxState>
+  setState: React.Dispatch<React.SetStateAction<LightboxState>>
+}>({ state: {}, setState: () => {} })
 
 /**
  * The `LightboxContext` component is a Provider that handles stores all of the data
@@ -48,37 +35,35 @@ const LightboxUpdateContext = React.createContext<
  *
  * @internal
  */
-export const LightboxContext = ({
+export const LightboxProvider = ({
   data = [],
   settings = {},
   show,
   set,
   children,
 }: LightboxContextProps) => {
-  const [state, setState] = React.useState<LightboxState>({
+  const [state, setState] = useState<LightboxState>({
     index: 0,
     active: false,
-    data: data.map((i) => formatData(i)),
+    data: data.map((i) => formatItem(i)),
     settings: mergeSettings(settings),
     set,
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (show) {
       setState((s) => ({ ...s, active: show }))
     }
   }, [show])
 
   return (
-    <LightboxDataContext.Provider value={state}>
-      <LightboxUpdateContext.Provider value={setState}>
-        {children}
-      </LightboxUpdateContext.Provider>
-    </LightboxDataContext.Provider>
+    <LightboxContext.Provider value={{ state, setState }}>
+      {children}
+    </LightboxContext.Provider>
   )
 }
 
-LightboxContext.displayName = 'LightboxContext'
+LightboxProvider.displayName = 'LightboxProvider'
 
 /**
  * React hook that registers all lightbox links and data as well as control
@@ -87,9 +72,10 @@ LightboxContext.displayName = 'LightboxContext'
  * @internal
  */
 export function useLightbox(): any {
-  const { active, index, data, settings, set } =
-    React.useContext(LightboxDataContext)
-  const setState = React.useContext(LightboxUpdateContext)
+  const {
+    state: { active, index, data, settings, set },
+    setState,
+  } = React.useContext(LightboxContext)
 
   if (typeof data === undefined) {
     throw new Error('useLightbox must be used within a Lightbox component')
@@ -107,15 +93,15 @@ export function useLightbox(): any {
   }
 
   /**
-   * Registers a `LightboxData` object to the Lightbox context
+   * Registers a `LightboxItem` object to the Lightbox context
    */
-  function addToGallery(item: LightboxData) {
+  function addToGallery(item: LightboxItem) {
     const exists = data
-      ? data.find((e: LightboxData) => e.id === item.id)
+      ? data.find((e: LightboxItem) => e.id === item.id)
       : false
 
     if (!exists) {
-      setState((s) => ({ ...s, data: [...s.data, formatData(item)] }))
+      setState((s) => ({ ...s, data: [...s.data, formatItem(item)] }))
     }
   }
 
@@ -145,7 +131,7 @@ export function useLightbox(): any {
 /**
  * Utility that formats LightboxLink prop data and assigns an ID
  */
-function formatData(original: LightboxData) {
+function formatItem(original: LightboxItem) {
   return merge(
     {
       id: generateId(),
@@ -167,7 +153,7 @@ function formatData(original: LightboxData) {
 /**
  * Utility that merges user settings with `Lightbox` defaults.
  */
-function mergeSettings(settings: LightboxProps['settings']) {
+function mergeSettings(settings: LightboxSettings) {
   return merge(
     {
       closeOnBlur: true,

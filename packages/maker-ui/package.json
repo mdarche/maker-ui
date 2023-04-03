@@ -35,6 +35,11 @@
       "require": "./dist/layout.js",
       "types": "./dist/layout.d.ts"
     },
+    "./lightbox": {
+      "import": "./dist/lightbox.mjs",
+      "require": "./dist/lightbox.js",
+      "types": "./dist/lightbox.d.ts"
+    },
     "./modal": {
       "import": "./dist/modal.mjs",
       "require": "./dist/modal.js",
@@ -91,6 +96,7 @@
     "@maker-ui/forms": "workspace:*",
     "@maker-ui/hooks": "workspace:*",
     "@maker-ui/layout": "workspace:*",
+    "@maker-ui/lightbox": "workspace:*",
     "@maker-ui/modal": "workspace:*",
     "@maker-ui/notifications": "workspace:*",
     "@maker-ui/popovers": "workspace:*",

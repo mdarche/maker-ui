@@ -1,6 +1,8 @@
 import * as React from 'react'
+import { cn } from '@maker-ui/utils'
 
-import { useLightbox, LightboxData } from './LightboxContext'
+import { useLightbox } from './Provider'
+import type { LightboxItem } from '@/types'
 
 interface PreviewProps {
   show?: boolean
@@ -26,7 +28,7 @@ export const Preview = ({ show }: PreviewProps) => {
     }
   }, [show])
 
-  const getBackground = (i: LightboxData) => {
+  const getBackground = (i: LightboxItem) => {
     if (i.youtubeId || i.vimeoId || i.htmlVideo) {
       // TODO - add play button back
       return {
@@ -47,7 +49,7 @@ export const Preview = ({ show }: PreviewProps) => {
   return (
     <div
       ref={ref}
-      className={`${show ? 'active ' : ''}lb-preview`}
+      className={cn(['mkui-lightbox-preview', show ? 'active ' : ''])}
       // css={{
       //   display: 'grid',
       //   gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
@@ -73,7 +75,7 @@ export const Preview = ({ show }: PreviewProps) => {
       //   },
       // }}
     >
-      {data.map((item: LightboxData, i: number) => (
+      {data.map((item: LightboxItem, i: number) => (
         <button
           key={i}
           title={item.title}

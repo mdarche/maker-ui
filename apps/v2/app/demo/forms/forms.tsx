@@ -117,10 +117,10 @@ export function FormDemo() {
                 type: 'date-time-picker',
                 name: 'calendar',
                 required: true,
-                // initialValue: { date: '2023-06-12T13:00:00-04:00' },
+                initialValue: { date: '2023-06-12T13:00:00-04:00' },
                 calendar: {
                   date: {
-                    // range: true,
+                    range: true,
                     // rangeMax: 5,
                     // rangeMin: 3,
                     arrowPos: 'split',

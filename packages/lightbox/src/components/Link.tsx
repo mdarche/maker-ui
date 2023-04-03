@@ -1,8 +1,10 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
+import { generateId } from '@maker-ui/utils'
 
-import { useLightbox, type LightboxData } from './LightboxContext'
+import { useLightbox } from './Provider'
+import type { LightboxItem } from '@/types'
 
-export interface LightboxLinkProps extends LightboxData {
+export interface LightboxLinkProps extends LightboxItem {
   trigger?: boolean
   component?: boolean
   children?: React.ReactNode
@@ -12,7 +14,7 @@ export interface LightboxLinkProps extends LightboxData {
  * The `LightboxLink` renders clickable elements that toggle the Lightbox detail view.
  * Must be wrapped inside a `Lightbox` component.
  *
- * @link https://maker-ui.com/docs/components/lightbox
+ * @link https://maker-ui.com/docs/lightbox
  */
 export const LightboxLink = React.forwardRef<
   HTMLAnchorElement,
@@ -34,7 +36,7 @@ export const LightboxLink = React.forwardRef<
     },
     ref
   ) => {
-    const id = React.useId()
+    const [id] = useState(generateId())
     const { addToGallery, toggleLightbox } = useLightbox()
 
     const emptyProps = !src && !youtubeId && !vimeoId
@@ -66,13 +68,13 @@ export const LightboxLink = React.forwardRef<
       ]
     )
 
-    React.useEffect(() => {
+    useEffect(() => {
       addToGallery(config)
     }, [config, addToGallery])
 
     const handleClick = (e: React.MouseEvent) => {
       e.preventDefault()
-      return toggleLightbox(id)
+      toggleLightbox(id)
     }
 
     return (

@@ -1,11 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react'
+import { cn } from '@maker-ui/utils'
+import { Spinner } from '@maker-ui/spinners'
 import { Modal } from '@maker-ui/modal'
 
-import { Canvas } from './Canvas'
 import { NavButton } from './NavButton'
 import { Toolbar } from './Toolbar'
 import { Preview } from './Preview'
-import { useLightbox } from './LightboxContext'
+import { useLightbox } from './Provider'
+import { MediaFrame } from './MediaFrame'
 
 interface LightboxModalProps extends React.HTMLAttributes<HTMLDivElement> {
   focusRef?: any
@@ -35,6 +37,7 @@ export const LightboxModal = ({
   const [preview, setPreview] = useState(false)
   // const [zoom, setZoom] = React.useState(false)
   const [controlsActive, setControlsActive] = useState(true)
+  const item = data[index]
 
   /**
    * Handle autoPlay controls
@@ -68,6 +71,7 @@ export const LightboxModal = ({
 
   /**
    * Handle accesible key strokes
+   * @TODO replace this with useKeydown hook
    */
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -76,9 +80,9 @@ export const LightboxModal = ({
       }
       if (active) {
         switch (e.code) {
-          case 'ArrowRight': // right arrow
+          case 'ArrowRight':
             return !preview && setIndex('next')
-          case 'ArrowLeft': // left arrow
+          case 'ArrowLeft':
             return !preview && setIndex('previous')
           default:
             return
@@ -125,7 +129,10 @@ export const LightboxModal = ({
         {...props}>
         <div
           onMouseEnter={showControls}
-          className={`lb-controls ${controlsActive ? 'visible' : 'hidden'}`}
+          className={cn([
+            'mkui-lightbox-controls',
+            controlsActive ? 'visible' : 'hidden',
+          ])}
           // css={{
           //   opacity: 0,
           //   transition: 'all ease .25s',
@@ -136,12 +143,11 @@ export const LightboxModal = ({
         >
           <Toolbar
             preview={{ show: preview, set: setPreview }}
-            // zoom={{ show: settings.showZoom, set: setZoom }}
             autoPlay={{ show: play, set: setPlay }}
           />
           {data.length > 1 ? (
             <>
-              <div className="lb-navigation">
+              <div className="mkui-lightbox-navigation">
                 <NavButton type="prev" />
                 <NavButton type="next" />
               </div>
@@ -150,10 +156,61 @@ export const LightboxModal = ({
           ) : null}
         </div>
         {data.length ? (
-          <Canvas
-          // zoom={zoom}
-          // onmouseenter={showControls}
-          />
+          <div
+            className="mkui-lightbox-canvas"
+            // css={{
+            //   position: 'absolute',
+            //   top: '50%',
+            //   left: '50%',
+            //   height: '100%',
+            //   width: '100%',
+            //   overflowY: 'scroll',
+            //   maxHeight: ['68vh', '88vh'],
+            //   maxWidth: ['90vw', '75vw'],
+            //   transform: 'translate(-50%, -50%)',
+            //   'img, video, iframe': {
+            //     height:
+            //       item.title && settings.showInfo
+            //         ? ['calc(100% - 100px)', 'calc(100% - 50px)']
+            //         : '100%',
+            //     width: '100%',
+            //   },
+            //   '.lightbox-info': {
+            //     color: '#fff',
+            //     h4: {
+            //       marginTop: 20,
+            //       fontSize: '18px',
+            //       textAlign: 'center',
+            //     },
+            //   },
+            //   '.description': {
+            //     marginTop: 20,
+            //   },
+            //   '#media-spinner': {
+            //     left: '50%',
+            //     top: '50%',
+            //     transform: 'translate3d(-50%, -50%, 0)',
+            //     position: 'absolute',
+            //     zIndex: -1,
+            //   },
+            // }}
+          >
+            <Spinner
+              className="mkui-lightbox-spinner"
+              type={settings.spinnerType}
+              colors={['#fff']}
+              size={50}
+            />
+            <MediaFrame item={item} />
+            {settings.showInfo && item.title && (
+              <div className="mkui-lightbox-info">
+                <h4>{item.title}</h4>
+                {item.description && (
+                  <div className="description">{item.description}</div>
+                )}
+              </div>
+            )}
+          </div>
         ) : null}
       </Modal>
     </>

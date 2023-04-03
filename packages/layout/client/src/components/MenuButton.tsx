@@ -20,6 +20,7 @@ interface MenuButtonProps
  * The `MenuButton` controls opening / closing all Maker UI layout menus including, the
  * MobileMenu, SideNav, and Workspace panels.
  *
+ * @TODO - make this a simpler button component that can handle all menu types
  * @link https://maker-ui.com/docs/layout/header
  */
 export const MenuButton = ({
@@ -82,7 +83,6 @@ export const MenuButton = ({
 
   function toggleSideNav() {
     if (windowWidth && windowWidth > sideNav.breakpoint && sideNav.collapse) {
-      console.log('collapsing here')
       setMenu(!active.sideNavDesktop, 'side-nav-desktop')
     } else {
       setMenu(!active.sideNavMobile, 'side-nav-mobile')

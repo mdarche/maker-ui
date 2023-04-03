@@ -1,12 +1,12 @@
 'use client'
 import { useRef, useState } from 'react'
 import { Section } from 'maker-ui'
-// import { Lightbox } from '@maker-ui/lightbox'
+import { Lightbox, type LightboxItem } from 'maker-ui/lightbox'
 
 import CosmosImage from '@/public/cosmos.jpeg'
 import Image from 'next/image'
 
-const galleryData = [
+const galleryData: LightboxItem[] = [
   {
     src: 'https://images.unsplash.com/photo-1585127366945-8249097d15fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
     alt: 'Image',
@@ -33,15 +33,15 @@ export default function LightboxPage() {
         Focus Ref
       </button>
       {/* Test with Clickable lightbox items */}
-      {/* <Lightbox focusRef={ref}>
+      <Lightbox focusRef={ref}>
         <Lightbox.Link>
           <div style={{ position: 'relative', height: 300 }}>
             <Image
               src={CosmosImage}
               placeholder="blur"
               alt="cosmos"
-              objectFit="cover"
-              layout="fill"
+              // objectFit="cover"
+              // layout="fill"
             />
           </div>
         </Lightbox.Link>
@@ -58,8 +58,8 @@ export default function LightboxPage() {
         </Lightbox.Link>
       </Lightbox>
       {/* Test with data array */}
-      {/* <button onClick={() => set(true)}>Show lightbox 2</button>
-      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} />  */}
+      <button onClick={() => set(true)}>Show lightbox 2</button>
+      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} />
     </Section>
   )
 }

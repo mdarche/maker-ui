@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { useLightbox } from './LightboxContext'
-import { DefaultArrow } from './icons'
+import { useLightbox } from './Provider'
+import { DefaultArrow } from './Icons'
 
 interface NavButtonProps {
   type: 'prev' | 'next'
