@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { cn } from '@maker-ui/utils'
+import { cn, merge } from '@maker-ui/utils'
 import { Spinner } from '@maker-ui/spinners'
 import { Modal } from '@maker-ui/modal'
+import { MakerCSS, Style } from '@maker-ui/style'
 
 import { NavButton } from './NavButton'
 import { Toolbar } from './Toolbar'
@@ -9,7 +10,9 @@ import { Preview } from './Preview'
 import { useLightbox } from './Provider'
 import { MediaFrame } from './MediaFrame'
 
-interface LightboxModalProps extends React.HTMLAttributes<HTMLDivElement> {
+interface LightboxModalProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    MakerCSS {
   focusRef?: any
   show?: boolean
   background?: string | string
@@ -18,17 +21,17 @@ interface LightboxModalProps extends React.HTMLAttributes<HTMLDivElement> {
  * The `LightboxModal` houses all views for the Lightbox component.
  *
  * @todo - implement zoom feature
- * @todo - add Carousel for slider
- *
  * @internal
  */
 export const LightboxModal = ({
   id,
+  className,
   focusRef,
   show,
   background = 'rgba(0, 0, 0, 0.8)',
   children,
-  // css,
+  css,
+  breakpoints,
   ...props
 }: LightboxModalProps) => {
   const { index, active, data, settings, setIndex, toggleLightbox } =
@@ -119,6 +122,46 @@ export const LightboxModal = ({
   return (
     <>
       {children}
+      <Style
+        breakpoints={breakpoints}
+        css={merge(
+          {
+            '.mkui-lightbox-canvas': {
+              maxHeight: ['68vh', '88vh'],
+              maxWidth: ['90vw', '75vw'],
+            },
+            '.with-info .mkui-lightbox-media': {
+              height: ['calc(100% - 100px)', 'calc(100% - 50px)'],
+            },
+            '.mkui-lightbox-toolbar': {
+              background: ['rgba(0, 0, 0, 0.25)', 'transparent'],
+            },
+            '.mkui-lightbox-pagination': {
+              background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
+            },
+            '.mkui-lightbox-btn-group': {
+              background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
+            },
+            '.mkui-lightbox-btn-nav': {
+              padding: ['20px 40px', '20px'],
+              width: ['calc(50% - 15px)', 'auto'],
+              height: ['auto', '10vh'],
+              top: ['initial', '50%'],
+              bottom: ['10px', 'initial'],
+              '&.prev': {
+                transform: [
+                  'translateY(0) rotate(180deg)',
+                  'translateY(-50%) rotate(180deg)',
+                ],
+              },
+              '&.next': {
+                transform: ['translateY(0)', 'translateY(-50%)'],
+              },
+            },
+          },
+          css || {}
+        )}
+      />
       <Modal
         id={id}
         show={active}
@@ -126,21 +169,14 @@ export const LightboxModal = ({
         focusRef={focusRef}
         background={background}
         closeOnBlur={settings.closeOnBlur}
+        className={cn(['mkui-lightbox', className])}
         {...props}>
         <div
           onMouseEnter={showControls}
           className={cn([
             'mkui-lightbox-controls',
             controlsActive ? 'visible' : 'hidden',
-          ])}
-          // css={{
-          //   opacity: 0,
-          //   transition: 'all ease .25s',
-          //   '&.visible': {
-          //     opacity: 1,
-          //   },
-          // }}
-        >
+          ])}>
           <Toolbar
             preview={{ show: preview, set: setPreview }}
             autoPlay={{ show: play, set: setPlay }}
@@ -157,44 +193,10 @@ export const LightboxModal = ({
         </div>
         {data.length ? (
           <div
-            className="mkui-lightbox-canvas"
-            // css={{
-            //   position: 'absolute',
-            //   top: '50%',
-            //   left: '50%',
-            //   height: '100%',
-            //   width: '100%',
-            //   overflowY: 'scroll',
-            //   maxHeight: ['68vh', '88vh'],
-            //   maxWidth: ['90vw', '75vw'],
-            //   transform: 'translate(-50%, -50%)',
-            //   'img, video, iframe': {
-            //     height:
-            //       item.title && settings.showInfo
-            //         ? ['calc(100% - 100px)', 'calc(100% - 50px)']
-            //         : '100%',
-            //     width: '100%',
-            //   },
-            //   '.lightbox-info': {
-            //     color: '#fff',
-            //     h4: {
-            //       marginTop: 20,
-            //       fontSize: '18px',
-            //       textAlign: 'center',
-            //     },
-            //   },
-            //   '.description': {
-            //     marginTop: 20,
-            //   },
-            //   '#media-spinner': {
-            //     left: '50%',
-            //     top: '50%',
-            //     transform: 'translate3d(-50%, -50%, 0)',
-            //     position: 'absolute',
-            //     zIndex: -1,
-            //   },
-            // }}
-          >
+            className={cn([
+              'mkui-lightbox-canvas',
+              settings?.showInfo ? 'with-info' : undefined,
+            ])}>
             <Spinner
               className="mkui-lightbox-spinner"
               type={settings.spinnerType}

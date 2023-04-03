@@ -1,5 +1,6 @@
 import { ModalProps } from '@maker-ui/modal'
 import { SpinnerProps } from '@maker-ui/spinners'
+import { MakerCSS } from '@maker-ui/style'
 
 /**
  * Interface for data passed to a lightbox component to display media content.
@@ -70,10 +71,15 @@ export interface LightboxSettings {
    * @default 'dots'
    */
   spinnerType?: SpinnerProps['type']
+  /** A custom arrow that will be used instead of the default. The arrow should be pointing right.
+   * For the left arrow (previous), it will be rotated 180 degrees.
+   */
+  arrowIcon?: React.ReactNode
 }
 
 export interface LightboxProps
-  extends Omit<Partial<ModalProps>, 'closeOnBlur' | 'center' | 'appendTo'> {
+  extends Omit<Partial<ModalProps>, 'closeOnBlur' | 'center' | 'appendTo'>,
+    MakerCSS {
   /** An array of LightboxItems to render in the Lightbox if you are not using the LightboxLink component */
   data?: LightboxItem[]
   /** Custom settings for the Lightbox modal. */

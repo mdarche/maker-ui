@@ -76,8 +76,8 @@ export const Dropdown = ({
         return controls ? controls[1](false) : set(false)
       }
     }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
   }, [closeOnBlur, controls])
 
   return (

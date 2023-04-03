@@ -4,19 +4,16 @@ import type { SpinnerProps } from '@maker-ui/spinners'
 
 import type { LightboxItem, LightboxProps, LightboxSettings } from '@/types'
 
-interface LightboxContextProps {
-  data?: LightboxItem[]
-  settings: LightboxSettings
-  show?: boolean
-  set?: LightboxProps['set']
-  children: React.ReactNode
-}
-
 interface LightboxState {
+  /** The active index. */
   index: number
+  /** Whether or not the modal is currently active. */
   active: boolean
+  /** All LightboxItem data for this instance of the Lightbox. */
   data: LightboxItem[]
+  /** All settings for controlling various UI components of the Lightbox. */
   settings: LightboxSettings
+  /** A reference to the `set` property that is supplied to the Lightbox as props. */
   set: LightboxProps['set']
 }
 
@@ -41,7 +38,7 @@ export const LightboxProvider = ({
   show,
   set,
   children,
-}: LightboxContextProps) => {
+}: LightboxProps) => {
   const [state, setState] = useState<LightboxState>({
     index: 0,
     active: false,
@@ -66,12 +63,12 @@ export const LightboxProvider = ({
 LightboxProvider.displayName = 'LightboxProvider'
 
 /**
- * React hook that registers all lightbox links and data as well as control
- * of the lightbox state.
+ * React hook that registers all LightboxLink data as well as controlling the
+ * Lightbox visibility.
  *
  * @internal
  */
-export function useLightbox(): any {
+export function useLightbox() {
   const {
     state: { active, index, data, settings, set },
     setState,
@@ -125,6 +122,14 @@ export function useLightbox(): any {
     toggleLightbox,
     addToGallery,
     setIndex,
+  } as {
+    index: number
+    active: boolean
+    data: LightboxItem[]
+    settings: LightboxSettings
+    toggleLightbox: (id?: string) => void
+    addToGallery: (item: LightboxItem) => void
+    setIndex: (type: 'previous' | 'next' | 'index', index?: number) => void
   }
 }
 

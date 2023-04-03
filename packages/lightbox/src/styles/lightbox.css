@@ -1,0 +1,139 @@
+/* LightboxModal */
+
+.mkui-lightbox-controls {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.mkui-lightbox-controls.visible {
+  opacity: 1;
+}
+.mkui-lightbox-canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  transform: translate(-50%, -50%);
+}
+.mkui-lightbox-info {
+  color: #fff;
+}
+.mkui-lightbox-info h4 {
+  margin-top: 20px;
+  font-size: 18px;
+  text-align: center;
+}
+.mkui-lightbox-info .description {
+  margin-top: 20px;
+}
+.mkui-lightbox-spinner {
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  position: absolute;
+  z-index: -1;
+}
+.mkui-lightbox-media {
+  width: 100%;
+  height: 100%;
+}
+
+/* Toolbar */
+
+.mkui-lightbox-toolbar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.mkui-lightbox-pagination {
+  color: #fff;
+  font-size: 14px;
+  padding: 14px 20px;
+}
+
+.mkui-lightbox-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px 20px;
+  margin: 2px;
+  transition: all ease 0.3s;
+}
+.mkui-lightbox-btn:hover,
+.mkui-lightbox-btn.active,
+.mkui-lightbox-btn:active {
+  background: var(--color-primary);
+}
+.mkui-lightbox-btn:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+}
+.mkui-lightbox-btn svg {
+  fill: #fff;
+}
+.mkui-lightbox-btn.btn-close {
+  margin-right: 5px;
+}
+
+/* NavButton */
+
+.mkui-lightbox-btn-nav {
+  position: absolute;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.25);
+  border: none;
+  z-index: 1;
+  transition: background-color ease 0.3s;
+}
+.mkui-lightbox-btn-nav.prev {
+  left: 10px;
+}
+.mkui-lightbox-btn-nav.next {
+  right: 10px;
+}
+.mkui-lightbox-btn-nav:focus,
+.mkui-lightbox-btn-nav:hover {
+  background: rgba(0, 0, 0, 0.66);
+}
+.mkui-lightbox-btn-nav:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+}
+
+/* Preview */
+
+.mkui-lightbox-preview {
+  display: grid;
+  position: fixed;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.66);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 85vh;
+  overflow: scroll;
+  transform: translateY(100%);
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+  transition: all ease 0.3s;
+  z-index: 100;
+}
+.mkui-lightbox-preview.active {
+  transform: translateY(0);
+  visibility: visible;
+  opacity: 1;
+}
+.mkui-lightbox-btn-item {
+  cursor: pointer;
+  height: 80px;
+  border-color: #ababab;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.mkui-lightbox-btn-item.active {
+  outline: 2px solid #fff;
+}

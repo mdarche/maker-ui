@@ -32,56 +32,18 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
   return (
     <div
       className="mkui-lightbox-toolbar flex align-center"
-      // css={{
-      //   alignItems: 'center',
-      //   justifyContent: data.length > 1 ? 'space-between' : 'flex-end',
-      //   position: 'absolute',
-      //   top: 0,
-      //   left: 0,
-      //   right: 0,
-      //   background: ['rgba(0, 0, 0, 0.25)', 'transparent'],
-      // }}
-    >
-      {settings.showCount && data.length > 1 && (
-        <div
-          className="mkui-lightbox-pagination"
-          // css={{
-          //   background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
-          //   padding: '14px 20px',
-          //   fontSize: '14px',
-          //   color: '#fff',
-          // }}
-        >
+      style={{
+        justifyContent: data.length > 1 ? 'space-between' : 'flex-end',
+      }}>
+      {settings?.showCount && data.length > 1 && (
+        <div className="mkui-lightbox-pagination">
           {index + 1} / {data.length}
         </div>
       )}
-      <div
-        className="mkui-lightbox-buttons flex"
-        // css={{
-        //   background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
-        //   button: {
-        //     cursor: 'pointer',
-        //     background: 'none',
-        //     border: 'none',
-        //     padding: '8px 20px',
-        //     margin: 2,
-        //     transition: 'all ease .3s',
-        //     '&:hover, &:active, &.active': {
-        //       background: 'var(--color-primary)',
-        //     },
-        //     '&:focus': {
-        //       outline: '2px solid rgba(255,255,255,0.35)',
-        //     },
-        //   },
-        //   'button:last-of-type': {
-        //     marginRight: [0, '5px'],
-        //   },
-        //   svg: { fill: '#fff' },
-        // }}
-      >
+      <div className="mkui-lightbox-btn-group flex">
         {zoom?.show ? (
           <button
-            className="mkui-lightbox-btn-zoom"
+            className="mkui-lightbox-btn btn-zoom"
             disabled={
               data[index].src && !data[index].htmlVideo ? true : undefined
             }
@@ -92,7 +54,7 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
         {settings.showAutoPlay && data.length > 1 ? (
           <button
             className={cn([
-              'mkui-lightbox-btn-autoplay',
+              'mkui-lightbox-btn btn-autoplay',
               autoPlay?.show ? 'active ' : '',
             ])}
             onClick={() => autoPlay?.set((a) => !a)}>
@@ -102,7 +64,7 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
         {data.length > 1 ? (
           <button
             className={cn([
-              'mkui-lightbox-btn-preview',
+              'mkui-lightbox-btn btn-preview',
               preview?.show ? 'active ' : '',
             ])}
             onClick={() => preview?.set((p) => !p)}>
@@ -110,7 +72,7 @@ export const Toolbar = ({ preview, zoom, autoPlay }: ToolbarProps) => {
           </button>
         ) : null}
         <button
-          className="mkui-lightbox-bn-close"
+          className="mkui-lightbox-btn btn-close"
           onClick={() => toggleLightbox()}>
           <CloseIcon style={{ height: 24 }} />
         </button>

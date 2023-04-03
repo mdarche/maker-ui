@@ -26,7 +26,7 @@ export const MediaFrame = ({
   if (youtubeId || vimeoId) {
     return (
       <iframe
-        title="mkui-lightbox-video"
+        className="mkui-lightbox-media"
         src={youtubeId ? youtubeRoot + youtubeId : vimeoRoot + vimeoId}
         onLoad={() => set(true)}
         style={{ opacity: show ? 1 : 0, transition: 'opacity .3s ease' }}
@@ -37,7 +37,10 @@ export const MediaFrame = ({
 
   if (htmlVideo) {
     return (
-      <video controls poster={poster ? poster : undefined}>
+      <video
+        controls
+        poster={poster ? poster : undefined}
+        className="mkui-lightbox-media">
         <source src={src} type={`video/mp4`} />
         Your browser does not support the video tag.
       </video>
@@ -48,6 +51,7 @@ export const MediaFrame = ({
     return (
       <img
         src={src}
+        className="mkui-lightbox-media"
         alt={alt ? alt : 'Lightbox image'}
         onLoad={() => set(true)}
         style={{ objectFit: 'contain' }}

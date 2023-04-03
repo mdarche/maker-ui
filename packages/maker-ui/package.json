@@ -82,6 +82,7 @@
     },
     "./layout.css": "./node_modules/@maker-ui/layout/dist/index.css",
     "./forms.css": "./node_modules/@maker-ui/forms/dist/index.css",
+    "./lightbox.css": "./node_modules/@maker-ui/lightbox/dist/index.css",
     "./package.json": "./package.json"
   },
   "scripts": {
