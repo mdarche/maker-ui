@@ -30,7 +30,6 @@ const MediaFrame = ({
       <iframe
         title="lightbox-video"
         src={youtubeId ? youtubeRoot + youtubeId : vimeoRoot + vimeoId}
-        frameBorder="0"
         onLoad={() => set(true)}
         style={{ opacity: show ? 1 : 0, transition: 'opacity .3s ease' }}
         allow="accelerometer; autoplay; fullscreen; encrypted-media; gyroscope; picture-in-picture"
