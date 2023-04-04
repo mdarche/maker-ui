@@ -59,7 +59,7 @@ export const AccordionPanel = React.forwardRef<
 
     useEffect(() => {
       registerPanel(panelKey)
-    }, [registerPanel, panelKey])
+    }, [panelKey])
 
     useEffect(() => {
       if (state.showSingle) {

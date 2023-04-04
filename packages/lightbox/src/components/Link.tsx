@@ -37,40 +37,26 @@ export const LightboxLink = React.forwardRef<
     ref
   ) => {
     const [id] = useState(generateId())
-    const { addToGallery, toggleLightbox } = useLightbox()
+    const { registerItem, toggleLightbox } = useLightbox()
 
     const emptyProps = !src && !youtubeId && !vimeoId
     const isComponent = children && (component || emptyProps)
 
-    const config = React.useMemo(
-      () => ({
-        id,
-        src,
-        alt,
-        title,
-        description,
-        youtubeId,
-        vimeoId,
-        poster,
-        component: isComponent ? children : undefined,
-      }),
-      [
-        id,
-        src,
-        alt,
-        title,
-        description,
-        youtubeId,
-        vimeoId,
-        poster,
-        isComponent,
-        children,
-      ]
-    )
+    const config = {
+      id,
+      src,
+      alt,
+      title,
+      description,
+      youtubeId,
+      vimeoId,
+      poster,
+      component: isComponent ? children : undefined,
+    }
 
     useEffect(() => {
-      addToGallery(config)
-    }, [config, addToGallery])
+      registerItem(config)
+    }, [config])
 
     const handleClick = (e: React.MouseEvent) => {
       e.preventDefault()

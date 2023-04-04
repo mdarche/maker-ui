@@ -38,6 +38,9 @@
   width: 100%;
   height: 100%;
 }
+.mkui-lightbox-media {
+  border: none;
+}
 
 /* Toolbar */
 

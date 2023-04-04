@@ -13,8 +13,21 @@ interface LightboxState {
   data: LightboxItem[]
   /** All settings for controlling various UI components of the Lightbox. */
   settings: LightboxSettings
-  /** A reference to the `set` property that is supplied to the Lightbox as props. */
-  set: LightboxProps['set']
+}
+
+function dedupeById(array: LightboxItem[]) {
+  const idSet = new Set<string>()
+  const result = []
+
+  for (const item of array) {
+    const id = item.id!
+    if (!idSet.has(id)) {
+      idSet.add(id)
+      result.push(item)
+    }
+  }
+
+  return result
 }
 
 const videoFormats = ['.mp4', '.ogg', '.webm']
@@ -25,10 +38,8 @@ const LightboxContext = React.createContext<{
 }>({ state: {}, setState: () => {} })
 
 /**
- * The `LightboxContext` component is a Provider that handles stores all of the data
+ * The `LightboxProvider` component is a Provider that handles stores all of the data
  * for a lightbox gallery.
- *
- * @todo combine this with lightbox component and simplify
  *
  * @internal
  */
@@ -44,14 +55,37 @@ export const LightboxProvider = ({
     active: false,
     data: data.map((i) => formatItem(i)),
     settings: mergeSettings(settings),
-    set,
   })
 
+  /**
+   * Dedupe state.data if using the LightboxLink method
+   */
+  useEffect(() => {
+    if (!data.length && state.data.length) {
+      const deduped = dedupeById(state.data)
+      if (deduped.length !== state.data.length) {
+        setState((s) => ({ ...s, data: deduped }))
+      }
+    }
+  }, [state.data])
+
+  /**
+   * Handle external `show` prop
+   */
   useEffect(() => {
     if (show) {
       setState((s) => ({ ...s, active: show }))
     }
   }, [show])
+
+  /**
+   * Handle external `set` prop
+   */
+  useEffect(() => {
+    if (set) {
+      set(state.active)
+    }
+  }, [state.active])
 
   return (
     <LightboxContext.Provider value={{ state, setState }}>
@@ -69,12 +103,9 @@ LightboxProvider.displayName = 'LightboxProvider'
  * @internal
  */
 export function useLightbox() {
-  const {
-    state: { active, index, data, settings, set },
-    setState,
-  } = React.useContext(LightboxContext)
+  const { state, setState } = React.useContext(LightboxContext)
 
-  if (typeof data === undefined) {
+  if (typeof state === undefined) {
     throw new Error('useLightbox must be used within a Lightbox component')
   }
 
@@ -82,19 +113,19 @@ export function useLightbox() {
    * Accepts an option `ID` string and opens or closes the lightbox modal
    */
   function toggleLightbox(id?: string) {
-    if (id && data) {
-      const current = data.findIndex((i) => i.id === id)
+    if (id && state.data) {
+      const current = state.data.findIndex((i) => i.id === id)
       return setState((s) => ({ ...s, active: !s.active, index: current }))
     }
-    return set ? set(false) : setState((s) => ({ ...s, active: false }))
+    return setState((s) => ({ ...s, active: false }))
   }
 
   /**
    * Registers a `LightboxItem` object to the Lightbox context
    */
-  function addToGallery(item: LightboxItem) {
-    const exists = data
-      ? data.find((e: LightboxItem) => e.id === item.id)
+  function registerItem(item: LightboxItem) {
+    const exists = state.data
+      ? state.data.find(({ id }: LightboxItem) => id === item.id)
       : false
 
     if (!exists) {
@@ -115,12 +146,12 @@ export function useLightbox() {
   }
 
   return {
-    index,
-    active,
-    data,
-    settings,
+    index: state.index,
+    active: state.active,
+    data: state.data,
+    settings: state.settings,
     toggleLightbox,
-    addToGallery,
+    registerItem,
     setIndex,
   } as {
     index: number
@@ -128,7 +159,7 @@ export function useLightbox() {
     data: LightboxItem[]
     settings: LightboxSettings
     toggleLightbox: (id?: string) => void
-    addToGallery: (item: LightboxItem) => void
+    registerItem: (item: LightboxItem) => void
     setIndex: (type: 'previous' | 'next' | 'index', index?: number) => void
   }
 }

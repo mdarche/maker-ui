@@ -29,7 +29,7 @@ export default function LightboxPage() {
   const ref = useRef(null)
 
   return (
-    <Section>
+    <Section css={{ '.test-btn': { color: 'red' } }}>
       <button ref={ref} onClick={(e) => set(true)}>
         Focus Ref
       </button>
@@ -38,9 +38,11 @@ export default function LightboxPage() {
         <Lightbox.Link>
           <div style={{ position: 'relative', height: 300 }}>
             <Image
+              fill
               src={CosmosImage}
               placeholder="blur"
               alt="cosmos"
+              style={{ objectFit: 'cover' }}
               // objectFit="cover"
               // layout="fill"
             />
@@ -59,7 +61,9 @@ export default function LightboxPage() {
         </Lightbox.Link>
       </Lightbox>
       {/* Test with data array */}
-      <button onClick={() => set(true)}>Show lightbox 2</button>
+      <button className="test-btn" onClick={() => set(true)}>
+        Show lightbox 2
+      </button>
       <Lightbox show={show} set={set} data={galleryData} focusRef={ref} />
     </Section>
   )

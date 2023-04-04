@@ -200,7 +200,7 @@ export const LightboxModal = ({
             <Spinner
               className="mkui-lightbox-spinner"
               type={settings.spinnerType}
-              colors={['#fff']}
+              colors={['#fff', '#fff', '#fff']}
               size={50}
             />
             <MediaFrame item={item} />
