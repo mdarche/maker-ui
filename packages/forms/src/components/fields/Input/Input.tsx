@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useDeferredValue, useEffect, useState } from 'react'
 import { merge, cn, Conditional } from '@maker-ui/utils'
 
 import { useField, useForm } from '@/hooks'
@@ -14,6 +14,8 @@ const passwordSettings: FieldProps['password'] = {
 export const Input = ({ name }: FieldInputProps) => {
   const { settings } = useForm()
   const { field, error, value, setValue, validateField } = useField(name)
+  const [inputValue, setInputValue] = useState(value)
+  const deferredValue = useDeferredValue(inputValue)
   const [showPass, setShowPass] = useState(false)
 
   const isPass = !!(
@@ -22,14 +24,25 @@ export const Input = ({ name }: FieldInputProps) => {
   const ps = isPass ? merge(passwordSettings, field?.password || {}) : undefined
 
   const el = field?.type === 'textarea' ? 'textarea' : 'input'
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+  }
+
+  useEffect(() => {
+    if (deferredValue === inputValue) {
+      setValue(deferredValue, true)
+    }
+  }, [deferredValue])
+
   const attrs = {
     id: `field-${field?.name}`,
     name: field?.name,
     placeholder: field?.placeholder,
     className: cn(['mkui-input', error ? 'error' : undefined]),
     type: isPass && showPass ? 'text' : field?.type,
-    value,
-    onChange: (e: any) => setValue(e.target.value, true),
+    value: inputValue,
+    onChange: handleChange,
     onBlur: settings?.validateFieldOnBlur ? () => validateField() : undefined,
     ...(field?.type === 'range' && {
       min: field?.range?.min,

@@ -8,6 +8,7 @@ import { findAllValuesByKey, sortChildren } from '@/helpers'
 import type { FieldProps } from '@/types'
 import { Field } from './Field'
 import type { FormProps } from './Form'
+import { Pagination } from './Pagination'
 
 interface FormRendererProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
@@ -21,9 +22,9 @@ export const FormRenderer = ({
   className,
   ...props
 }: FormRendererProps) => {
-  const [styleId] = React.useState(generateId())
   const components = sortChildren(children)
   const {
+    formId,
     totalPages,
     fields,
     error,
@@ -85,7 +86,7 @@ export const FormRenderer = ({
         </CSSTransition>
       )}>
       <form
-        className={cn(['mkui-form', className, styleId])}
+        className={cn(['mkui-form', className, formId])}
         {...props}
         onSubmit={(e) => {
           e.preventDefault()
@@ -96,7 +97,7 @@ export const FormRenderer = ({
           }
         }}>
         <Style
-          root={styleId}
+          root={formId}
           breakpoints={settings?.breakpoints}
           css={{
             ...getColumnStyles(),
@@ -130,7 +131,6 @@ export const FormRenderer = ({
                 ) : null}
               </React.Fragment>
             ))}
-            {/* <div>Render pagination buttons</div> */}
           </CSSTransition>
         ) : (
           <div className="mkui-form-grid">
@@ -140,6 +140,7 @@ export const FormRenderer = ({
         {components.children?.map((child, i) => (
           <React.Fragment key={i}>{child}</React.Fragment>
         ))}
+        <Pagination submitButton={components.submit} />
         {!isPaginated && components.submit}
         {error && components.error}
         {components.footer}

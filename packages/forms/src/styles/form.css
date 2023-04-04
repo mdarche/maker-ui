@@ -107,6 +107,19 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+/* Pagination */
+.mkui-form-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.mkui-form-pagination .next,
+.mkui-form-pagination .mkui-form-submit {
+  margin-left: auto;
+}
 /* Misc */
 /* 
   .validate-icon {

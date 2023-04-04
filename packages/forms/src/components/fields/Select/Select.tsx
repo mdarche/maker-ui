@@ -113,6 +113,7 @@ export const Select = ({ name }: FieldInputProps) => {
       selectedOptions: value
         ? s.selectedOptions.filter((option) => option.value !== value)
         : [],
+      searchText: '',
       isOpen: false,
     }))
     ;(settings?.search ? inputRef : ref).current?.focus()

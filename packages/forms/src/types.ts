@@ -422,6 +422,10 @@ export interface FormSettings {
   /** If true, the submit button will be disabled until form validation passes. // FIgure this out by finding if all required fields have values
    */
   disableSubmit?: boolean
+  /** Inner contents of the Previous page button */
+  prevButton?: string | React.ReactElement
+  /** Inner contents of the Next page button */
+  nextButton?: string | React.ReactElement
 }
 
 export interface FormClassNames {
@@ -435,6 +439,8 @@ export interface FormClassNames {
   page?: string
   /** Applied to the page progress bar container */
   progress?: string
+  /** Applied to the pagination button container */
+  pagination?: string
   /** Applied to all pagination buttons */
   pageButton?: string
   /** Applied to the submit button. */
@@ -464,6 +470,7 @@ export type FormSchema = {
 }
 
 export interface FormState {
+  formId: string
   settings: FormSettings
   fields: FieldProps[]
   schema: FormSchema

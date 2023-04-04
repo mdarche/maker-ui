@@ -1,16 +1,11 @@
 import React, { useMemo, useEffect, useReducer, useState } from 'react'
-import { merge } from '@maker-ui/utils'
+import { generateId, merge } from '@maker-ui/utils'
 
 import { initialState, findDuplicateKey } from '@/helpers'
 import { FormRenderer } from './FormRenderer'
-import {
-  FormHeader,
-  FormFooter,
-  FormError,
-  FormSuccess,
-  FormSubmit,
-  FormProgress,
-} from './Slots'
+import { FormHeader, FormFooter, FormError, FormSuccess } from './FormSlots'
+import { SubmitButton } from './SubmitButton'
+import { Progress } from './Progress'
 import type {
   FieldProps,
   FormConditions,
@@ -169,6 +164,7 @@ export const Form = ({
   const [state, dispatch] = useReducer(
     formReducer,
     merge(initialState, {
+      formId: generateId(),
       settings,
       fields: memoFields,
       formSuccess: success,
@@ -235,9 +231,9 @@ export const Form = ({
   )
 }
 
-Form.Submit = FormSubmit
 Form.Header = FormHeader
 Form.Footer = FormFooter
 Form.Error = FormError
 Form.Success = FormSuccess
-Form.Progress = FormProgress
+Form.Progress = Progress
+Form.Submit = SubmitButton

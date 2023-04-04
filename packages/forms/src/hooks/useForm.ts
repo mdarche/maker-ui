@@ -50,11 +50,19 @@ export function useForm() {
   }
 
   function setPage(n: number) {
+    // Go to top of page
+    const form = document.querySelector(`.${s.formId}`)
+    if (form) {
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
     dispatch({ type: 'SET_PAGE', value: n })
   }
 
   return {
     // Static
+    formId: s.formId,
     success: s.formSuccess,
     error: s.formError,
     currentPage: s.currentPage,
