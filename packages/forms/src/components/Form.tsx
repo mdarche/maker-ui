@@ -109,9 +109,7 @@ function getDefault(type: FieldProps['type']) {
     ? []
     : type === 'image-picker'
     ? null
-    : type === 'date-picker' // Todo - test
-    ? ''
-    : type === 'date-time-picker' // Todo - test
+    : type === 'date-picker' || type === 'date-time-picker'
     ? ''
     : ''
 }
@@ -128,9 +126,9 @@ function getFieldData(fields: FieldProps[], index = 0) {
     if (nonFields.includes(f.type) && f?.subFields) {
       // Recursively get nested field data
       const nested = getFieldData(f.subFields, i)
-      const commonKey = findDuplicateKey(values, nested.values)
-      if (commonKey) {
-        console.error(error(commonKey))
+      const usedKey = findDuplicateKey(values, nested.values)
+      if (usedKey) {
+        console.error(error(usedKey))
       }
       values = merge(values, nested.values)
       schema = merge(schema, nested.schema)
@@ -183,6 +181,7 @@ export const Form = ({
   )
 
   console.log('Errors', state.errors)
+  console.log('Values', state.values)
 
   if (isPaginated) {
     if (fields.find((f) => f.type !== 'page')) {
@@ -203,10 +202,6 @@ export const Form = ({
    * Listen for changes to error and success
    */
   useEffect(() => {
-    setRendered(true)
-  }, [])
-
-  useEffect(() => {
     if (!rendered) return
     if (error !== undefined) {
       dispatch({ type: 'SET_FORM_ERROR', value: error })
@@ -216,6 +211,9 @@ export const Form = ({
     }
   }, [error, success, rendered])
 
+  /**
+   * Listen for changes to fields
+   */
   useEffect(() => {
     if (!rendered) return
     dispatch({ type: 'SET_FIELDS', value: fields })

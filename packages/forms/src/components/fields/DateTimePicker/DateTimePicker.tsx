@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { cn } from '@maker-ui/utils'
-import { FieldInputProps, DateSelection } from '@/types'
+import type { FieldInputProps, DateSelection } from '@/types'
 import { useField } from '@/hooks'
 import { Calendar } from './Calendar'
 import { TimePicker } from './TimePicker'

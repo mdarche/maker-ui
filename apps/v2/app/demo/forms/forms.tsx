@@ -134,8 +134,9 @@ export function FormDemo() {
               {
                 type: 'date-time-picker',
                 name: 'calendar',
-                required: true,
-                initialValue: { date: '2023-06-12T13:00:00-04:00' },
+                required: 'Externship date is required',
+                errorPosition: 'bottom-left',
+                // initialValue: { date: '2023-06-12T13:00:00-04:00' },
                 // conditions: [
                 //   [
                 //     // { field: 'switch', compare: 'eq', value: true }

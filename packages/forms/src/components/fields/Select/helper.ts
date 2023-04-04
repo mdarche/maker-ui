@@ -11,7 +11,7 @@ export function formatReturn(
   value: InputOption[]
 ): SelectValue {
   if (Array.isArray(value)) {
-    value = value.map(({ index, ...rest }) => rest)
+    value = value.map(({ label, value }) => ({ label, value }))
   }
   return multi
     ? returnType === 'value'
