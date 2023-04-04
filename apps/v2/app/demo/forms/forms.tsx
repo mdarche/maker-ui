@@ -136,7 +136,11 @@ export function FormDemo() {
                 name: 'calendar',
                 required: 'Externship date is required',
                 errorPosition: 'bottom-left',
-                // initialValue: { date: '2023-06-12T13:00:00-04:00' },
+                // initialValue: '2023-06-12T13:00:00-04:00',
+                // initialValue: {
+                //   startDate: '2023-06-12T13:00:00-04:00',
+                //   endDate: '2023-06-13T13:00:00-04:00',
+                // },
                 // conditions: [
                 //   [
                 //     // { field: 'switch', compare: 'eq', value: true }

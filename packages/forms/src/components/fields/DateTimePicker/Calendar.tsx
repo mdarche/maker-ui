@@ -55,20 +55,19 @@ export const Calendar = ({
   )
   const [unavailableDates] = useState(unavailable.map((d) => new Date(d)) || [])
   const [state, setState] = useState<CalendarState>({
-    selected:
-      !range && typeof initialValue === 'string'
-        ? initialValue
-          ? new Date(initialValue)
-          : initialDate
-        : undefined,
+    selected: !range
+      ? initialValue?.date
+        ? new Date(initialValue.date)
+        : initialDate
+      : undefined,
     rangeStart:
-      range && typeof initialValue === 'object' && initialValue?.startDate
+      range && initialValue?.startDate
         ? new Date(initialValue.startDate)
         : range
         ? initialDate
         : undefined,
     rangeEnd:
-      range && typeof initialValue === 'object' && initialValue?.endDate
+      range && initialValue?.endDate
         ? new Date(initialValue?.endDate)
         : undefined,
     month:

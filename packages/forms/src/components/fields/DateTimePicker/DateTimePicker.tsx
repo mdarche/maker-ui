@@ -6,10 +6,19 @@ import { Calendar } from './Calendar'
 import { TimePicker } from './TimePicker'
 import { getDatesOnSameDay } from './date-helpers'
 
+function initValue(val?: string | Date | DateSelection): DateSelection {
+  if (!val) return {}
+  if (typeof val === 'string' || val instanceof Date) return { date: val }
+  if (val.startDate && val.endDate) {
+    return val as DateSelection
+  }
+  return {}
+}
+
 export const DateTimePicker = ({ name }: FieldInputProps) => {
   const { field, error, setValue } = useField(name)
   const [currentValue, setCurrentValue] = useState<DateSelection>(
-    field?.initialValue
+    initValue(field?.initialValue)
   )
   const [unavailableTimes, setUnavailableTimes] = useState<string[]>([])
 
@@ -38,7 +47,7 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
 
     // Set the field value if this field is not a range or a date-time-picker
     if (selection.date && !isTimePicker) {
-      setValue({ date: selection.date })
+      setValue(selection.date)
     }
 
     // Set the field value if this field is a range
@@ -50,12 +59,17 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
   const onChangeTime = (time: Date) => {
     // Invoke callback if it exists
     field?.calendar?.time?.onChange?.(time)
-    setValue({ date: time })
+    setValue(time)
   }
 
   useEffect(() => {
-    if (field?.initialValue?.date) {
-      getUnavailableTimes(new Date(field?.initialValue?.date))
+    if (
+      isTimePicker &&
+      field?.initialValue &&
+      (typeof field?.initialValue === 'string' ||
+        field?.initialValue instanceof Date)
+    ) {
+      getUnavailableTimes(new Date(field?.initialValue))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -64,13 +78,13 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
     <div className={cn(['mkui-datetime', error ? 'error' : undefined])}>
       <Calendar
         {...field?.calendar?.date}
-        initialValue={field?.initialValue}
+        initialValue={initValue(field?.initialValue)}
         onChange={onChangeDate}
       />
       {isTimePicker && !isRange ? (
         <TimePicker
           {...field?.calendar?.time}
-          initialValue={field.initialValue?.date}
+          initialValue={field?.initialValue}
           currentValue={currentValue?.date}
           unavailableTimes={unavailableTimes}
           onChange={onChangeTime}
