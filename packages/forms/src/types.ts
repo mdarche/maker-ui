@@ -440,6 +440,9 @@ export interface FormClassNames {
   /** Applied to the submit button. */
   submitButton?: string
 }
+export interface FormConditions {
+  [key: string]: Array<Condition[]> | undefined
+}
 
 export interface FormValues {
   [key: string]: any
@@ -464,6 +467,7 @@ export interface FormState {
   settings: FormSettings
   fields: FieldProps[]
   schema: FormSchema
+  conditions: FormConditions
   currentPage: number
   totalPages: number
   formSuccess?: boolean

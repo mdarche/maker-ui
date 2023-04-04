@@ -3,14 +3,31 @@ import type {
   FileValidation,
   FormValues,
   FormErrors,
+  FormConditions,
 } from '@/types'
+import { evaluateConditions } from './conditional-logic'
 
 interface ValidateProps {
   type: 'field' | 'page' | 'form'
   schema: FormSchema
   values: FormValues
+  conditions: FormConditions
   field?: string
   page?: number
+}
+
+function basicValidate(
+  field: string,
+  values: FormValues,
+  conditions: FormConditions,
+  schema: FormSchema
+) {
+  const isVisible = conditions[field]
+    ? evaluateConditions(conditions[field]!, values, schema)
+    : true
+  const isEmpty =
+    !values[field] || (Array.isArray(values[field]) && !values[field].length)
+  return { isVisible, isEmpty }
 }
 
 /**
@@ -23,6 +40,7 @@ export function validate({
   type,
   schema,
   values,
+  conditions,
   page,
   field,
 }: ValidateProps): { isValid: boolean; errors: FormErrors } {
@@ -30,9 +48,13 @@ export function validate({
   let errors: FormErrors = {}
   // Validate specific field
   if (field && type === 'field') {
-    const isEmpty =
-      !values[field] || (Array.isArray(values[field]) && !values[field].length)
-
+    const { isVisible, isEmpty } = basicValidate(
+      field,
+      values,
+      conditions,
+      schema
+    )
+    if (!isVisible) return { isValid, errors: {} }
     if (schema[field].required && isEmpty) {
       isValid = false
       const r = schema[field].required
@@ -53,8 +75,14 @@ export function validate({
       if (type === 'page' && schema[name].page !== page) {
         return
       }
-      const isEmpty =
-        !values[name] || (Array.isArray(values[name]) && !values[name].length)
+      const { isVisible, isEmpty } = basicValidate(
+        name,
+        values,
+        conditions,
+        schema
+      )
+
+      if (!isVisible) return
 
       if (schema[name].required && isEmpty) {
         // Check for required

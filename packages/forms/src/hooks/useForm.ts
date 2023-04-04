@@ -15,6 +15,7 @@ export function useForm() {
       type: 'form',
       schema: s.schema,
       values: s.values,
+      conditions: s.conditions,
     })
 
     dispatch({ type: 'SET_ERRORS', value: !isEmpty(errors) ? errors : {} })
@@ -27,6 +28,7 @@ export function useForm() {
       type: 'page',
       schema: s.schema,
       values: s.values,
+      conditions: s.conditions,
       page,
     })
 

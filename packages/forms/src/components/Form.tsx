@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useReducer, useState } from 'react'
 import { merge } from '@maker-ui/utils'
 
-import { initialState } from '@/helpers'
+import { initialState, findDuplicateKey } from '@/helpers'
 import { FormRenderer } from './FormRenderer'
 import {
   FormHeader,
@@ -13,6 +13,7 @@ import {
 } from './Slots'
 import type {
   FieldProps,
+  FormConditions,
   FormErrors,
   FormSchema,
   FormSettings,
@@ -108,22 +109,38 @@ function getDefault(type: FieldProps['type']) {
     ? []
     : type === 'image-picker'
     ? null
+    : type === 'date-picker' // Todo - test
+    ? ''
+    : type === 'date-time-picker' // Todo - test
+    ? ''
     : ''
 }
+const error = (name: string) =>
+  `Each field should have a unique name. The field "${name}" is used more than once. This will lead to unexpected errors in your form.`
 
 function getFieldData(fields: FieldProps[], index = 0) {
   const nonFields = ['page', 'group', 'divider']
   let values: FormValues = {}
   let schema: FormSchema = {}
+  let conditions: FormConditions = {}
 
   fields.forEach((f, i) => {
     if (nonFields.includes(f.type) && f?.subFields) {
       // Recursively get nested field data
       const nested = getFieldData(f.subFields, i)
+      const commonKey = findDuplicateKey(values, nested.values)
+      if (commonKey) {
+        console.error(error(commonKey))
+      }
       values = merge(values, nested.values)
       schema = merge(schema, nested.schema)
+      conditions = merge(conditions, nested.conditions)
     } else {
+      if (values[f.name]) {
+        console.error(error(f.name))
+      }
       values[f.name] = f.initialValue || getDefault(f.type)
+      conditions[f.name] = f?.conditions
       schema[f.name] = {
         type: f.type,
         required: typeof f?.required === 'string' ? f.required : !!f.required,
@@ -132,7 +149,8 @@ function getFieldData(fields: FieldProps[], index = 0) {
       }
     }
   })
-  return { values, schema }
+
+  return { values, schema, conditions }
 }
 
 export const Form = ({
@@ -148,7 +166,7 @@ export const Form = ({
 }: FormProps) => {
   const memoFields = useMemo(() => fields, [fields])
   const isPaginated = !!fields.find((f) => f.type === 'page')
-  const { values, schema } = getFieldData(fields)
+  const { values, schema, conditions } = getFieldData(fields)
   const [rendered, setRendered] = useState(false)
   const [state, dispatch] = useReducer(
     formReducer,
@@ -160,8 +178,11 @@ export const Form = ({
       totalPages: isPaginated ? fields.length : 1,
       schema,
       values,
+      conditions,
     }) as FormState
   )
+
+  console.log('Errors', state.errors)
 
   if (isPaginated) {
     if (fields.find((f) => f.type !== 'page')) {

@@ -114,13 +114,41 @@ export function FormDemo() {
                 },
               },
               {
+                type: 'url',
+                name: 'website',
+                label: 'Website',
+                placeholder: 'Website',
+                required: true,
+                validation: z.string().url('Must be a valid website'),
+                conditions: [
+                  [
+                    // { field: 'switch', compare: 'eq', value: true }
+                    {
+                      field: 'selector',
+                      compare: 'contains',
+                      value: 'two',
+                    },
+                  ],
+                ],
+              },
+              {
                 type: 'date-time-picker',
                 name: 'calendar',
                 required: true,
                 initialValue: { date: '2023-06-12T13:00:00-04:00' },
+                // conditions: [
+                //   [
+                //     // { field: 'switch', compare: 'eq', value: true }
+                //     {
+                //       field: 'selector',
+                //       compare: 'contains',
+                //       value: 'two',
+                //     },
+                //   ],
+                // ],
                 calendar: {
                   date: {
-                    range: true,
+                    // range: true,
                     // rangeMax: 5,
                     // rangeMin: 3,
                     arrowPos: 'split',

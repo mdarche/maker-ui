@@ -33,7 +33,17 @@ export const comparators: Comparators = {
 const containsBool = (arr: boolean[], b: boolean) =>
   arr.some((item) => item === b)
 
-type FormatSelectProps = InputOption | InputOption[]
+type FormatSelectProps = InputOption | InputOption[] | string | string[]
+
+/**
+ * Determines whether an array contains only string values.
+ *
+ * @param array An array of unknown values to check.
+ * @returns `true` if every element in the array is a string, `false` otherwise.
+ */
+function isArrayOfStrings(array: unknown[]): array is string[] {
+  return array.every((item) => typeof item === 'string')
+}
 
 /**
  * Formats a select field value to a string or an array of strings.
@@ -42,7 +52,13 @@ type FormatSelectProps = InputOption | InputOption[]
  * @returns A string or an array of strings representing the selected options.
  */
 const formatSelect = (b: FormatSelectProps) =>
-  Array.isArray(b) ? b.map(({ value }) => value) : b.value
+  typeof b === 'string'
+    ? b
+    : Array.isArray(b)
+    ? isArrayOfStrings(b)
+      ? b
+      : b.map(({ value }) => value)
+    : b.value
 
 /**
  * Evaluates a set of conditions against a set of form values and returns

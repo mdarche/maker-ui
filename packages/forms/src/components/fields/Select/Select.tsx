@@ -5,8 +5,9 @@ import { FieldInputProps, FieldProps, InputOption } from '@/types'
 import {
   addIndexToOptions,
   containsValue,
-  convertValue,
+  formatReturn,
   formatOptions,
+  initValue,
 } from './helper'
 import { ArrowIcon, CloseIcon } from '../../Icons'
 
@@ -22,7 +23,6 @@ const defaultSettings: FieldProps['select'] = {
  * Renders a select field with optional search and multi-select capabilities
  *
  * @note The `initialValue` must be InputOption or InputOption[]
- * @todo Persist returnType `value` for multi page forms
  */
 export const Select = ({ name }: FieldInputProps) => {
   const { settings: { validateFieldOnBlur } = {} } = useForm()
@@ -36,7 +36,7 @@ export const Select = ({ name }: FieldInputProps) => {
     isOpen: false,
     searchText: '',
     highlightedIndex: -1,
-    selectedOptions: value ? (Array.isArray(value) ? value : [value]) : [],
+    selectedOptions: initValue(value, options),
     touched: false,
   })
   const filteredOptions = addIndexToOptions(
@@ -181,7 +181,7 @@ export const Select = ({ name }: FieldInputProps) => {
    */
   useEffect(() => {
     const vals = state.selectedOptions.length
-      ? convertValue(settings.multi, settings.returnType, state.selectedOptions)
+      ? formatReturn(settings.multi, settings.returnType, state.selectedOptions)
       : []
     setValue(vals)
     settings?.onChange?.(vals)

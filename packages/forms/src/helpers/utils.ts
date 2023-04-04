@@ -62,3 +62,13 @@ export function findAllValuesByKey(obj: object, target: string): any {
     ) || []
   )
 }
+
+export function findDuplicateKey<T extends Record<string, unknown>>(
+  obj1: T,
+  obj2: T
+): string | undefined {
+  const obj1Keys = Object.keys(obj1)
+  const obj2Keys = Object.keys(obj2)
+  const set = new Set<string>(obj1Keys)
+  return obj2Keys.find((key) => set.has(key))
+}
