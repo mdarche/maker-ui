@@ -1,5 +1,16 @@
 # @maker-ui/toc
 
+## 2.0.1
+
+### Patch Changes
+
+- [#88](https://github.com/mdarche/maker-ui/pull/88) [`843c2487`](https://github.com/mdarche/maker-ui/commit/843c24871009fd53dff9557276042e01fcd7bcf7) Thanks [@mdarche](https://github.com/mdarche)! - Update bundle issue and link libraries to latest v2 release
+
+- Updated dependencies [[`843c2487`](https://github.com/mdarche/maker-ui/commit/843c24871009fd53dff9557276042e01fcd7bcf7)]:
+  - @maker-ui/hooks@2.0.1
+  - @maker-ui/style@2.0.1
+  - @maker-ui/utils@2.0.1
+
 ## 2.0.0
 
 ### Major Changes
