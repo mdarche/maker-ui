@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/hooks",
   "description": "Helpful hooks for client side React",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
