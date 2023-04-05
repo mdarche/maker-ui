@@ -53,7 +53,10 @@ export function useForm() {
     // Go to top of page
     const form = document.querySelector(`.${s.formId}`)
     if (form) {
-      form.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const buffer = 100
+      const offsetTop =
+        form.getBoundingClientRect().top + window.pageYOffset - buffer
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' })
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }

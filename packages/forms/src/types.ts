@@ -108,7 +108,6 @@ export interface CalendarProps {
   arrowRight?: string | React.ReactElement
   /**  Determines where the month navigation arrows should be positioned.
    * @default 'split'
-   * @todo
    */
   arrowPos?: 'left' | 'right' | 'split'
   /** If true, the bottom of the calendar will show selected dates.

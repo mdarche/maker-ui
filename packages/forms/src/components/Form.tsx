@@ -176,9 +176,6 @@ export const Form = ({
     }) as FormState
   )
 
-  console.log('Errors', state.errors)
-  console.log('Values', state.values)
-
   if (isPaginated) {
     if (fields.find((f) => f.type !== 'page')) {
       // Err if the form is paginated but not all fields are of type `page`

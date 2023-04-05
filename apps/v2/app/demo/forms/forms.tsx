@@ -14,12 +14,13 @@ export function FormDemo() {
   const [error, setError] = React.useState(false)
 
   const submitHandler = (values: any) => {
-    console.log(values)
+    console.log('Submitted values are', values)
     setSuccess(true)
   }
 
   return (
     <>
+      <div style={{ height: 100 }} />
       <Form
         success={success}
         error={error}
@@ -136,7 +137,7 @@ export function FormDemo() {
                 name: 'calendar',
                 required: 'Externship date is required',
                 errorPosition: 'bottom-left',
-                // initialValue: '2023-06-12T13:00:00-04:00',
+                initialValue: '2023-06-12T13:00:00-04:00',
                 // initialValue: {
                 //   startDate: '2023-06-12T13:00:00-04:00',
                 //   endDate: '2023-06-13T13:00:00-04:00',

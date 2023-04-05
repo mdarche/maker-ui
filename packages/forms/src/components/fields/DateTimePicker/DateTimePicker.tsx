@@ -16,9 +16,9 @@ function initValue(val?: string | Date | DateSelection): DateSelection {
 }
 
 export const DateTimePicker = ({ name }: FieldInputProps) => {
-  const { field, error, setValue } = useField(name)
+  const { field, value, error, setValue } = useField(name)
   const [currentValue, setCurrentValue] = useState<DateSelection>(
-    initValue(field?.initialValue)
+    initValue(value)
   )
   const [unavailableTimes, setUnavailableTimes] = useState<string[]>([])
 
@@ -65,11 +65,10 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
   useEffect(() => {
     if (
       isTimePicker &&
-      field?.initialValue &&
-      (typeof field?.initialValue === 'string' ||
-        field?.initialValue instanceof Date)
+      value &&
+      (typeof value === 'string' || value instanceof Date)
     ) {
-      getUnavailableTimes(new Date(field?.initialValue))
+      getUnavailableTimes(new Date(value))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -78,13 +77,13 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
     <div className={cn(['mkui-datetime', error ? 'error' : undefined])}>
       <Calendar
         {...field?.calendar?.date}
-        initialValue={initValue(field?.initialValue)}
+        initialValue={initValue(value)}
         onChange={onChangeDate}
       />
       {isTimePicker && !isRange ? (
         <TimePicker
           {...field?.calendar?.time}
-          initialValue={field?.initialValue}
+          initialValue={value}
           currentValue={currentValue?.date}
           unavailableTimes={unavailableTimes}
           onChange={onChangeTime}
