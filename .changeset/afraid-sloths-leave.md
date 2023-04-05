@@ -5,6 +5,9 @@
 '@maker-ui/forms': patch
 '@maker-ui/generative': patch
 '@maker-ui/hooks': patch
+'@maker-ui/layout-client': patch
+'@maker-ui/layout-server': patch
+'@maker-ui/layout': patch
 '@maker-ui/lightbox': patch
 'maker-ui': patch
 '@maker-ui/modal': patch

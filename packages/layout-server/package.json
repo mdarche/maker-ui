@@ -1,7 +1,7 @@
 {
-  "name": "@maker-ui/layout",
+  "name": "@maker-ui/layout-server",
   "description": "The fastest way to build themeable, responsive layouts in React",
-  "version": "1.2.5",
+  "version": "2.0.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
@@ -15,8 +15,6 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/layout-client": "workspace:*",
-    "@maker-ui/layout-server": "workspace:*",
     "@maker-ui/style": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
@@ -29,6 +27,9 @@
     "@maker-ui/build-tools": "workspace:*",
     "eslint-config-library": "workspace:*",
     "next": "^13.2.3",
+    "postcss": "^8.4.18",
+    "postcss-modules": "^5.0.0",
+    "postcss-nested": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",
