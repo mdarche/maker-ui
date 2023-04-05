@@ -1,2 +1,10 @@
 export { SocialAccounts } from './SocialAccounts'
-export * from './svgr'
+export {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  TiktokIcon,
+  TwitterIcon,
+  WebsiteIcon,
+  YoutubeIcon,
+} from './svgr'

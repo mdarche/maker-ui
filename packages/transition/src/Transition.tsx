@@ -4,9 +4,7 @@ import {
   type TransitionStatus,
   type Transition as ReactTransitionProps,
 } from 'react-transition-group'
-import { StyleObject } from '@maker-ui/css'
-import { Div, type DivProps } from '@maker-ui/primitives'
-import { mergeRefs } from '@maker-ui/utils'
+import { merge, mergeRefs } from '@maker-ui/utils'
 
 export type TransitionState = {
   [key in TransitionStatus | 'start']?: {
@@ -16,11 +14,19 @@ export type TransitionState = {
 
 export interface TransitionProps
   extends Partial<ReactTransitionProps<HTMLDivElement>> {
-  nodeRef?: React.MutableRefObject<any>
+  /** An optional nodeRef for React Transition Group's Transition component that will be merged
+   * with the component default node ref.
+   */
+  nodeRef?: React.RefObject<HTMLElement>
+  /** Determines whether the Transition's children should show or hide */
   show: boolean
-  containerProps?: DivProps
-  css?: StyleObject
+  /** Props to pass to the container div that directly wraps any child elements. */
+  containerProps?: React.HTMLAttributes<HTMLDivElement>
+  /** If true, the component will unmount when the transition is complete */
   unmountOnExit?: boolean
+  /** CSS easing function
+   * @default 'ease-in-out'
+   */
   easing?: string
   /** Lets you customize the different states of the mount / unmount transition
    * @default
@@ -37,6 +43,7 @@ export interface TransitionProps
    * @default 300
    */
   timeout?: number
+  /** The child elements to be transitioned */
   children: React.ReactNode
 }
 
@@ -48,6 +55,12 @@ const defaultTransitions: TransitionState = {
   exited: { opacity: 0 },
 }
 
+/**
+ * The Transition component is a wrapper for the React Transition Group's Transition component
+ * that makes the transition styles more flexible and easier to use.
+ *
+ * @see https://reactcommunity.org/react-transition-group/transition
+ */
 export const Transition = ({
   show = false,
   nodeRef,
@@ -55,7 +68,6 @@ export const Transition = ({
   timeout = 300,
   unmountOnExit = true,
   transitionState = defaultTransitions,
-  css,
   containerProps,
   children,
   ...props
@@ -69,18 +81,16 @@ export const Transition = ({
       unmountOnExit={unmountOnExit}
       {...props}>
       {(state) => (
-        <Div
+        <div
           ref={nodeRef ? mergeRefs([ref, nodeRef]) : ref}
           {...containerProps}
-          style={{
+          style={merge(containerProps?.style || {}, {
             ...transitionState?.start,
             transition: `all ${timeout}ms ${easing}`,
             ...transitionState[state],
-            ...(containerProps?.style ? containerProps.style : {}),
-          }}
-          css={css}>
+          })}>
           {children}
-        </Div>
+        </div>
       )}
     </ReactTransition>
   )

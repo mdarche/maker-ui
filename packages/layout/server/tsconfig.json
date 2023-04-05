@@ -1,0 +1,12 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/defaults": ["src/defaults.ts"],
+      "@/types": ["src/types.ts"],
+      "@/utils": ["src/utils.ts"]
+    }
+  }
+}

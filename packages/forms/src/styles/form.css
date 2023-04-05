@@ -1,0 +1,139 @@
+/* Config Variables
+/ -------------------------------------------------- /
+/ --form-gap
+/ --form-columns
+/ --form-placeholder-color
+/ --form-error-color
+/ --form-error-font-size
+/ --form-error-padding
+/ --form-label-color
+/ --form-label-font-size
+/ --form-label-padding
+/ --form-instructions-color
+/ --form-instructions-font-size
+/ --form-instructions-padding
+/ --form-icon-fill
+/ -------------------------------------------------- 
+*/
+
+.mkui-form-grid {
+  display: grid;
+  gap: var(--form-gap, 1rem);
+  grid-template-columns: var(--form-columns, 1fr);
+}
+
+.mkui-field-container {
+  position: relative;
+  display: flex;
+}
+
+.mkui-field-container,
+.mkui-form-divider,
+.mkui-field-group {
+  grid-column: 1 / -1;
+}
+
+/* Placeholder */
+.mkui-form .placeholder,
+.mkui-form ::placeholder {
+  color: var(--form-placeholder-color, var(--color-text));
+}
+.mkui-form :-moz-placeholder {
+  color: var(--form-placeholder-color, var(--color-text));
+  opacity: 1;
+}
+.mkui-form ::-webkit-input-placeholder {
+  color: var(--form-placeholder-color, var(--color-text));
+}
+/* Instructions */
+.mkui-field-instructions {
+  color: var(--form-instructions-color, var(--color-text));
+  font-size: var(--form-instructions-font-size, 0.8rem);
+  padding: var(--form-instructions-padding, 5px 0 10px);
+}
+/* Labels */
+.mkui-field-label {
+  color: var(--form-label-color, var(--color-text));
+  font-size: var(--form-label-font-size, 1rem);
+  padding: var(--form-label-padding, 0 0 5px);
+}
+.label-bottom-center .mkui-field-label,
+.label-top-center .mkui-field-label {
+  text-align: center;
+}
+.label-bottom-right .mkui-field-label,
+.label-top-right .mkui-field-label {
+  text-align: right;
+}
+.label-left,
+.label-right input {
+  flex: auto;
+}
+/* Errors */
+.error .mkui-input,
+.error .mkui-select-control {
+  border-color: var(--form-error-color, red);
+}
+
+.mkui-field-error {
+  position: absolute;
+  color: var(--form-error-color, red);
+  font-size: var(--form-error-font-size, 0.75rem);
+}
+.error-top-right.label-top-right .mkui-field-error,
+.error-top-left.label-top-left .mkui-field-error {
+  top: initial;
+}
+.error-top-right .mkui-field-error,
+.error-top-left .mkui-field-error,
+.error-top-center .mkui-field-error {
+  bottom: calc(100% + var(--form-error-padding, 5px));
+}
+.error-bottom-right .mkui-field-error,
+.error-bottom-left .mkui-field-error,
+.error-bottom-center .mkui-field-error {
+  top: calc(100% + var(--form-error-padding, 5px));
+}
+.error-top-right .mkui-field-error,
+.error-bottom-right .mkui-field-error {
+  right: 0;
+}
+.error-top-left .mkui-field-error,
+.error-bottom-left .mkui-field-error {
+  left: 0;
+}
+.error-top-center .mkui-field-error,
+.error-bottom-center .mkui-field-error {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Pagination */
+.mkui-form-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.mkui-form-pagination .next,
+.mkui-form-pagination .mkui-form-submit {
+  margin-left: auto;
+}
+/* Misc */
+/* 
+  .validate-icon {
+    display: 'flex',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 10,
+    top: 0,
+    bottom: 0,
+    opacity: 0,
+    visibility: 'hidden',
+    transition: 'all ease 0.2',
+    '&.valid': {
+      opacity: 1,
+      visibility: 'visible',
+    }
+  } */

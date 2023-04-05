@@ -25,9 +25,7 @@ export const Portal = ({ children, root }: PortalProps) => {
         : null
     const targetNode =
       root && idTarget ? idTarget : (document.querySelector('body') as Element)
-
-    // @ts-ignore
-    return createPortal(children, targetNode)
+    return createPortal(children, targetNode as Element)
   }
   return <>{children}</>
 }

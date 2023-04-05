@@ -1,8 +1,0 @@
-{
-  "extends": "tsconfig/docgen.json",
-  "include": ["src"],
-  "typedocOptions": {
-    "entryPoints": ["src"],
-    "json": "../../apps/docs/docgen/gsap.json"
-  }
-}

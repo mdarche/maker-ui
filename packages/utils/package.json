@@ -16,21 +16,26 @@
     "dist/**"
   ],
   "scripts": {
-    "docgen": "npx typedoc --tsconfig tsconfig.docs.json",
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "build": "tsup",
+    "start": "tsup --watch",
+    "test": "jest",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "deepmerge": "^4.2.2",
-    "react-use-measure": "^2.0.4"
+    "deepmerge": "^4.2.2"
+  },
+  "peerDependencies": {
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x"
   },
   "devDependencies": {
-    "eslint": "7.32.0",
-    "eslint-preset": "workspace:*",
+    "@maker-ui/build-tools": "workspace:*",
+    "eslint-config-library": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tsconfig": "workspace:*",
-    "tsup": "^5.12.0",
-    "typescript": "^4.6.2"
+    "tsup": "^6.6.3",
+    "typescript": "^4.8.4"
   }
 }

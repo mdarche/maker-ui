@@ -1,0 +1,45 @@
+/* Include a variables file like this in the root of your Next.js project */
+
+:root {
+  --height-topbar: 50px;
+  --height-header: 70px;
+  --width-mobile-menu: 300px;
+  --width-sidebar: 300px;
+  --width-sidebar-secondary: 100px;
+  --width-side-nav: 300px;
+  --max-width-header: 1300px;
+  --max-width-content: 1300px;
+  --max-width-section: 1300px;
+  --max-width-footer: 1300px;
+  --gap-content: 50px;
+  --font-body: itc-avant-garde-gothic-pro, Helvetica, Arial, sans-serif;
+  --font-heading: itc-avant-garde-gothic-pro, Helvetica, Arial, sans-serif;
+  --font-monospace: lexia-mono, monospace;
+  --transition-side-nav: transform ease 0.3s;
+  --color-modes: light, dark, system;
+  /* Add media queries for heights, widths, and gaps here*/
+}
+
+body[data-theme='dark'] {
+  /* Required */
+  --color-text: #fff;
+  --color-background: #000;
+  --color-bg-topbar: #000;
+  --color-bg-header: #000;
+  --color-bg-side-nav: #000;
+  --color-bg-mobile-menu: #000;
+  --color-bg-footer: #000;
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme='light'] {
+  /* Required */
+  --color-text: #000;
+  --color-background: #fff;
+  --color-bg-topbar: #d2d2d2;
+  --color-bg-header: #fff;
+  --color-bg-mobile-menu: #fff;
+  --color-bg-side-nav: #fbfbfb;
+  --color-bg-footer: #000;
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+}

@@ -1,22 +1,32 @@
-import React, { useCallback, useEffect, useRef } from 'react'
-import { Div, DivProps } from '@maker-ui/primitives'
-import { mergeSelectors, useFocus } from '@maker-ui/utils'
-import { Portal, Transition, type TransitionState } from '@maker-ui/modal'
-import type { MakerProps } from '@maker-ui/css'
+import React, { useState, useLayoutEffect, useRef } from 'react'
+import { cn, generateId } from '@maker-ui/utils'
+import {
+  useFocusTrap,
+  useKeyboardShortcut,
+  useResizeObserver,
+  useWindowSize,
+} from '@maker-ui/hooks'
+import { Portal } from '@maker-ui/modal'
+import { Transition, type TransitionState } from '@maker-ui/transition'
+import { type MakerCSS, Style } from '@maker-ui/style'
 
 import { getTransition, Position, TransitionType } from './position'
 
-export interface PopoverProps extends DivProps {
+export type Offset = { x: number; y: number } | number
+
+export interface PopoverProps
+  extends MakerCSS,
+    React.HTMLAttributes<HTMLDivElement> {
   /** A boolean that indicates if the popover is active. */
   show: boolean
   /** A setter for the show boolean that lets the popover close itself. */
-  set: React.Dispatch<React.SetStateAction<boolean>>
+  set?: React.Dispatch<React.SetStateAction<boolean>>
   /** A React ref that is used to anchor the position of the Popover. */
-  anchorRef: React.MutableRefObject<any>
+  anchorRef: React.RefObject<HTMLElement>
   /** If true, the Popover will match the width of the anchorRef element. Useful for
    * dropdown menus.
    */
-  anchorWidth?: boolean
+  matchWidth?: boolean
   /** The {x, y} position of the popover.
    * @default { x: "origin", y: "bottom" }
    */
@@ -24,7 +34,7 @@ export interface PopoverProps extends DivProps {
   /** The amount of space (in pixels) between the popover and its anchor element.
    * @default 0
    */
-  gap?: { x: number; y: number } | number
+  offset?: Offset
   /** An optional ID selector or React ref that the popover will attach to. Defaults to
    * the document body.
    * @default 0
@@ -36,23 +46,10 @@ export interface PopoverProps extends DivProps {
    * @default true
    */
   closeOnBlur?: boolean
-  /** Resonse CSS styles that are applied to Popover container */
-  _css?: MakerProps['css']
   /** Predefined transition styles that you can use to toggle the Popover.
    * @default "fade"
    */
   transition?: TransitionType
-  /** A number in milliseconds that indicates how long React should wait to calculate the
-   * position of the Popover. This is helpful if your page uses a Page Transition on each load.
-   * @default 200
-   * @remark this will be deprecated in the next major release
-   */
-  defer?: number
-  /** Linear easing curve or cubic bezier from css `transition` declaration
-   * (ease, ease-in-out, etc.).
-   * @default "ease"
-   */
-  easing?: string
   /** Lets you customize the different states of the mount / unmount transition instead of using
    * the `transition` prop.
    * @example
@@ -70,19 +67,17 @@ export interface PopoverProps extends DivProps {
    */
   duration?: number
   /** @internal */
-  _type?: 'popover' | 'dropdown' | 'tooltip'
   /** The child component of the Popover */
   children: React.ReactNode
 }
 
 /**
  * The `Popover` component lets you add supplemental views like a Tooltip or Dropdown
- * to a specified DOM node or the document body.
+ * to a specified DOM node or directly to the document body.
  *
  * Use the `Popover` to customize your own components, otherwise try out the pre-configured
  * `Tooltip` or `Dropdown` components.
  *
- * @todo - transition animations
  * @link https://maker-ui.com/docs/elements/popovers
  */
 
@@ -91,280 +86,221 @@ export const Popover = ({
   set,
   id,
   anchorRef,
-  anchorWidth,
+  matchWidth,
   position = { x: 'origin', y: 'bottom' },
   appendTo,
-  trapFocus,
-  gap = 0,
+  trapFocus = false,
+  offset = 0,
   closeOnBlur = true,
-  transition = 'fade',
-  defer = 100,
+  transition = 'fade-down',
   className,
-  _css,
+  breakpoints,
   css,
-  easing = 'ease',
+  mediaQuery,
   duration = 200,
   transitionState,
   children,
-  _type = 'popover',
   ...rest
 }: PopoverProps) => {
-  const popoverRef = useRef<any>(null)
-  const [width, setWidth] = React.useState(0)
-  const [height, setHeight] = React.useState(0)
-  const [initialRender, setInitialRender] = React.useState(true)
-  const [box, setBox] = React.useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    x: 0,
-    y: 0,
-    height: 0,
-    width: 0,
-    documentTop: 0,
+  const [styleId] = useState(generateId())
+  const popoverRef = useRef<HTMLDivElement>(null)
+  // Inner contents height and width
+  const [state, setState] = useState({
+    popover: {
+      height: 0,
+      width: 0,
+    },
+    anchor: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      documentTop: 0,
+    },
     measured: false,
+    isMeasuring: true,
+  })
+
+  // Trap focus and handle keyboard esc key
+  useKeyboardShortcut(
+    [{ key: 'Escape', callback: () => set && set(false) }],
+    undefined,
+    set ? true : false
+  )
+  useFocusTrap({
+    ref: popoverRef,
+    anchor: anchorRef,
+    active: show,
+    trap: trapFocus,
+    exitFocus: 'dynamic',
+    exitCallback: () => set && set(false),
+  })
+  // Observe window resize
+  useWindowSize(measureAnchor)
+  // Observe anchor resize
+  useResizeObserver({ ref: anchorRef, onResize: measureAnchor })
+  // Observe popover inner content resize (when active)
+  const { ref } = useResizeObserver({
+    onResize: ({ height, width }) => {
+      if (height && width) {
+        setState((s) => ({
+          ...s,
+          popover: { height, width: matchWidth ? s.anchor?.width : width },
+        }))
+      }
+    },
   })
 
   /** Configure animation states based on `transition` and `transitionState` props */
 
-  const animationStates = getTransition(transition, height)
-  const popoverTransition: TransitionState = transitionState || {
-    start: animationStates.start,
-    entering: animationStates.enter,
-    entered: animationStates.enter,
-    exiting: animationStates.leave,
-    exited: animationStates.leave,
+  const animations = getTransition(state.popover.height ? transition : 'none')
+  const popoverTransition: TransitionState = (state.popover.height &&
+    transitionState) || {
+    start: animations.start,
+    entering: animations.enter,
+    entered: animations.enter,
+    exiting: animations.leave,
+    exited: animations.leave,
   }
 
-  /** Grab the latest getBoundingClientRect for a given React ref */
+  /** Grab the latest getBoundingClientRect for a the anchor React ref */
 
-  function resize() {
+  function measureAnchor() {
     if (anchorRef.current) {
       const { top, bottom, left, right, x, y, height, width } =
         anchorRef.current.getBoundingClientRect()
-      setBox({
-        top,
-        bottom,
-        left,
-        right,
-        x,
-        y,
-        height,
-        width,
-        documentTop: top + document.documentElement.scrollTop,
+      if (!height && !width) return
+      setState((s) => ({
+        ...s,
+        popover: {
+          ...s.popover,
+          width: matchWidth ? width : s.popover.width,
+        },
+        anchor: {
+          top,
+          bottom,
+          left,
+          right,
+          x,
+          y,
+          height,
+          width,
+          documentTop: top + document.documentElement.scrollTop,
+        },
         measured: true,
-      })
+        isMeasuring: false,
+      }))
     }
   }
 
-  // Initial Measurement or changing Anchor Ref
-
-  useEffect(() => {
-    if (anchorRef.current) {
-      setTimeout(() => {
-        resize()
-      }, defer)
+  /**
+   * Measure the anchor ref element if it has not already been measured.
+   */
+  useLayoutEffect(() => {
+    if (show && !state.isMeasuring) {
+      setState((s) => ({ ...s, measured: false, isMeasuring: true }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defer, anchorRef])
+  }, [show])
 
-  // Browser Resize
-
-  useEffect(() => {
-    window.addEventListener('resize', resize)
-    return () => {
-      window.removeEventListener('resize', resize)
+  /**
+   * Fire the resize function if the anchor ref is being measured.
+   */
+  useLayoutEffect(() => {
+    if (state.isMeasuring) {
+      measureAnchor()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [state.isMeasuring])
 
   /**
-   * Measure the popover's child container to calculate its height and width for
-   * positioning & the `scale` transition.
+   * Get the popover's X and Y position by calculating its distance to the anchor ref element.
+   *
+   * This effect only fires if the anchor ref has already been measured and the `appendTo`
+   * prop is not set.
    */
+  function getPosition() {
+    if (appendTo || !state.measured) return {}
+    const gapX = typeof offset === 'object' ? offset.x : offset
+    const gapY = typeof offset === 'object' ? offset.y : offset
 
-  const measuredRef = useCallback(
-    (node) => {
-      if (node !== null && height === 0) {
-        setHeight(node.offsetHeight)
-        setWidth(node.offsetWidth)
-      }
-    },
-    [height]
-  )
+    const x =
+      position.x === 'center'
+        ? state.anchor.left + state.anchor.width / 2 - state.popover.width / 2
+        : position.x === 'left'
+        ? state.anchor.left - state.popover.width - gapX
+        : position.x === 'right'
+        ? state.anchor.right + gapX
+        : state.anchor.left
 
-  /**
-   * Get all relevant focusable elements.
-   */
+    const y =
+      position.y === 'top'
+        ? state.anchor.documentTop - state.popover.height - gapY
+        : position.y === 'bottom'
+        ? state.anchor.documentTop + state.anchor.height + gapY
+        : position.y === 'center'
+        ? state.anchor.documentTop +
+          state.anchor.height / 2 -
+          state.popover.height / 2
+        : 0
 
-  const { focusable } = useFocus({
-    containerRef: popoverRef,
-    focusRef: anchorRef,
-    show,
-  })
+    const offscreenX = x < 0 || x + state.popover.width > window.innerWidth
+    const offscreenY = y < 0 || y + state.popover.height > window.innerHeight
 
-  /**
-   * If transition = 'scale', activate the popover with `visibility: hidden`
-   * to capture height measurement
-   */
-
-  useEffect(() => {
-    if (transition === 'scale' && initialRender) {
-      setInitialRender(false)
+    return {
+      left: offscreenX
+        ? position.x === 'left'
+          ? 0
+          : window.innerWidth - state.popover.width
+        : x,
+      top: offscreenY
+        ? position.y === 'top'
+          ? 0
+          : window.innerHeight - state.popover.height
+        : y,
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transition, set])
-
-  /**
-   * Set anchor width measurement
-   */
-
-  useEffect(() => {
-    if (!box.measured) return
-    if (anchorWidth) {
-      setWidth(box.width)
-    }
-  }, [box, anchorWidth])
-
-  /**
-   * Add focus trap and update tab sequence for popovers attached to body
-   */
-
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      const setFocus = (
-        close?: boolean,
-        focus?: 'anchor' | 'nextEl' | 'first' | 'last',
-        preventDefault?: boolean
-      ) => {
-        if (close) set(false)
-        if (preventDefault) e.preventDefault()
-
-        return focus === 'anchor'
-          ? anchorRef.current.focus()
-          : focus === 'nextEl'
-          ? focusable.next?.focus()
-          : focus === 'first'
-          ? focusable.first?.focus()
-          : focus === 'last'
-          ? focusable.last?.focus()
-          : anchorRef.current.focus()
-      }
-
-      switch (e.code) {
-        case 'Esc':
-        case 'Escape':
-          return trapFocus
-            ? setFocus(true, _type === 'dropdown' ? 'anchor' : 'nextEl')
-            : null
-        case 'Tab':
-          if (e.shiftKey && document.activeElement === focusable.first) {
-            return trapFocus
-              ? setFocus(false, 'last', true)
-              : closeOnBlur
-              ? setFocus(true, 'anchor', true)
-              : null
-          }
-          if (!e.shiftKey && document.activeElement === focusable.last) {
-            return trapFocus
-              ? setFocus(false, 'first', true)
-              : setFocus(
-                  closeOnBlur ? true : false,
-                  _type === 'dropdown' ? 'anchor' : 'nextEl',
-                  true
-                )
-          }
-          return
-        default:
-          return
-      }
-    },
-    [anchorRef, closeOnBlur, focusable, set, trapFocus, _type]
-  )
-
-  useEffect(() => {
-    const ref = popoverRef.current
-    ref?.addEventListener(`keydown`, handleKeyDown)
-
-    return () => ref?.removeEventListener(`keydown`, handleKeyDown)
-  }, [handleKeyDown])
-
-  /**
-   * Get the popover's X position by calculating its distance to the anchor ref element.
-   */
-
-  const gapX = typeof gap === 'object' ? gap.x : gap
-  const gapY = typeof gap === 'object' ? gap.y : gap
-
-  const getX = () => {
-    if (!box.measured) return
-    return position.x === 'center'
-      ? box.left + box.width / 2 - width / 2
-      : position.x === 'left'
-      ? box.left - width - gapX
-      : position.x === 'right'
-      ? box.right + gapX
-      : box.left
   }
 
-  /**
-   * Get the popover's Y position by calculating its distance to the anchor ref element.
-   */
-
-  const getY = () => {
-    if (!box.measured) return
-    return position.y === 'top'
-      ? box.documentTop - height - gapY
-      : position.y === 'bottom'
-      ? box.documentTop + box.height + gapY
-      : position.y === 'center'
-      ? box.documentTop + box.height / 2 - height / 2
-      : 0
-  }
-
-  return typeof window !== 'undefined' && box.measured ? (
+  return (
     <Portal root={appendTo}>
       <Transition
-        show={show}
+        show={!state.popover.height ? true : show}
         nodeRef={popoverRef}
         timeout={duration}
         transitionState={popoverTransition}
         containerProps={{
           id,
-          className: mergeSelectors([
-            'popover',
-            show ? 'active' : undefined,
+          className: cn([
+            'mkui-popover',
             className,
+            show ? 'active' : undefined,
+            styleId,
+            'absolute',
           ]),
           style: {
-            left: !appendTo ? getX() : undefined,
-            top: !appendTo ? getY() : undefined,
-            width: anchorWidth ? width : undefined,
-            overflow: transition.includes('scale') ? 'hidden' : undefined,
+            ...getPosition(),
+            width: matchWidth ? state.popover.width : undefined,
+            visibility: !state.popover.height ? 'hidden' : undefined,
+            opacity: !state.popover.height ? 0 : undefined,
           },
           ...rest,
-        }}
-        css={{
-          position: 'absolute',
-          display: 'block',
-          zIndex: 99,
-          ...(_css as object),
         }}>
-        <Div
-          ref={measuredRef}
-          className="container"
-          style={{
-            opacity: transition === 'scale' && initialRender ? 0 : undefined,
-            visibility:
-              transition === 'scale' && initialRender ? 'hidden' : undefined,
-          }}
-          css={css}>
+        <Style
+          root={styleId}
+          breakpoints={breakpoints}
+          mediaQuery={mediaQuery}
+          css={{ display: 'block', zIndex: 99, ...css }}
+        />
+        <div ref={ref} className="mkui-popover-inner">
           {children}
-        </Div>
+        </div>
       </Transition>
     </Portal>
-  ) : null
+  )
 }
 
 Popover.displayName = 'Popover'

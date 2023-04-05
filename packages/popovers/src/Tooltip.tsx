@@ -1,58 +1,34 @@
-import * as React from 'react'
-import type { MakerProps, ResponsiveScale } from '@maker-ui/css'
-import { Button, Div, DivProps } from '@maker-ui/primitives'
-import { generateId } from '@maker-ui/utils'
+import React, { useState, useRef } from 'react'
+import { cn, generateId, merge } from '@maker-ui/utils'
+import { Style, type ResponsiveCSS } from '@maker-ui/style'
 
 import { Popover, PopoverProps } from './Popover'
-import { convertPosition, TransitionType } from './position'
+import { getPosition } from './position'
 
-interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
-  /** The inner contents of the Tooltip button */
-  label: React.ReactNode
-  /** The background color of the Tooltip
-   * @default "#333"
-   */
-  background?: ResponsiveScale
-  /** The color of the Tooltip text
-   * @default "#fff"
-   */
-  color?: ResponsiveScale
-  /** The padding between the Tooltip button and the Tooltip content
+interface TooltipProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'color'>,
+    Omit<PopoverProps, 'show' | 'set' | 'anchorRef' | 'position' | 'offset'> {
+  classNames?: {
+    tooltip?: string
+    button?: string
+    wrapper?: string
+  }
+  /** The amount of space (in pixels) between the tooltip and its anchor element.
    * @default 5
    */
-  gap?: number
-  /** If true, the Tooltip will prevent keyboard focus from exiting the component.
-   * @default false
-   */
-  trapFocus?: boolean
-  /** If true, the Tooltip will close when keyboard focus leaves the component.
-   * @default true
-   */
-  closeOnBlur?: boolean
-  /** If true, the Tooltip box will not show an arrow.
-   * @default false
-   */
-  noArrow?: boolean
+  offset?: number
+  /** The inner contents of the Tooltip button */
+  label: React.ReactNode
   /** The position of the Tooltip relative to the Tooltip button.
-   * @default "right"
+   * @default "bottom"
    */
   position?: 'top' | 'bottom' | 'left' | 'right'
-  /**Responsive CSS that is applied to the tooltip button. */
-  buttonCss?: MakerProps['css']
-  /** Responsive CSS that is applied to the Popover container. */
-  _css?: MakerProps['css']
-  /** A number in milliseconds that indicates how long React should wait to calculate the
-   * position of the Popover. This is helpful if your page uses a Page Transition on each load.
-   * @default 200
-   * @remark this will be deprecated in the next major release
-   */
-  defer?: PopoverProps['defer']
-  /** Predefined transition styles that you can use to toggle the Popover.
-   * @default "fade"
-   */
-  transition?: TransitionType
-  /** The contents of your Tooltip component. */
-  children: React.ReactNode
+  /** Responsive CSS that is applied to the Tooltip button. */
+  cssButton?: ResponsiveCSS
+  /** The Tooltip background color */
+  background?: string
+  /** The Tooltip text color */
+  color?: string
 }
 
 /**
@@ -64,71 +40,56 @@ interface TooltipProps extends Omit<DivProps, 'children' | 'color'> {
  */
 
 export const Tooltip = ({
+  classNames,
   label,
-  noArrow = false,
-  position = 'right',
-  background = '#333',
-  color = '#fff',
-  gap = 5,
-  defer,
-  buttonCss,
+  position = 'bottom',
+  offset = 5,
   css,
-  transition,
+  cssButton = {},
+  transition = 'fade',
+  background = 'rgba(0,0,0,0.9)',
+  color = '#fff',
   children,
   ...props
 }: TooltipProps) => {
-  const buttonRef = React.useRef(null)
-  const [show, set] = React.useState(false)
-  const [tooltipId] = React.useState(generateId())
-
-  const positionData = convertPosition(position, background, gap)
-
-  const styles: object = {
-    background,
-    color,
-    padding: 5,
-    borderRadius: 3,
-    '&:after': !noArrow && {
-      content: '""',
-      position: 'absolute',
-      borderWidth: 5,
-      borderStyle: 'solid',
-      ...positionData.styles,
-    },
-    ...(css as object),
-  }
+  const [styleId] = useState(generateId())
+  const [show, set] = useState(false)
+  const ref = useRef<HTMLButtonElement>(null)
+  const pos = getPosition(position, offset)
 
   return (
-    <Div
-      css={{ display: 'inline-block' }}
+    <div
+      className={cn(['mkui-tooltip-wrapper inline-flex', classNames?.wrapper])}
       onMouseOver={() => set(true)}
       onMouseOut={() => set(false)}
       {...props}>
-      <Button
-        ref={buttonRef}
+      {<Style root={styleId} css={cssButton} />}
+      <button
+        ref={ref}
+        className={cn(['mkui-btn-tooltip', classNames?.button, styleId])}
         type="button"
         onFocus={() => set(true)}
         onBlur={() => typeof label === 'string' && set(false)}
         onClick={() => set(!show)}
-        css={buttonCss}
-        aria-describedby={tooltipId}>
+        aria-describedby={`tooltip-${styleId}`}>
         {label}
-      </Button>
+      </button>
       <Popover
-        id={tooltipId}
-        className="tooltip"
-        role="tooltip"
-        anchorRef={buttonRef}
-        transition={transition}
-        position={positionData.position}
-        gap={positionData.gap}
-        show={show}
-        set={set}
-        defer={defer}
-        _css={styles}>
+        id={`tooltip-${styleId}`}
+        className={cn(['mkui-tooltip', classNames?.tooltip])}
+        {...{
+          role: 'tooltip',
+          anchorRef: ref,
+          position: pos.position,
+          offset: pos.offset,
+          transition,
+          show,
+          set,
+          css: merge({ background, color }, css || {}),
+        }}>
         {children}
       </Popover>
-    </Div>
+    </div>
   )
 }
 

@@ -1,47 +1,32 @@
-/**
- * Evaluates a MakerOptions breakpoint and formats the `breakpoints` prop array
- *
- * @param bp - a breakpoint value
- * @param bpArray - the MakerOptions breakpoints array
- *
- */
-export const setBreakpoint = (
-  bp: string | number,
-  bpArray: (string | number)[]
-) =>
-  typeof bp === 'string' ? [bp] : bp < bpArray.length ? [bpArray[bp]] : [bp]
-
-/**
- * Utility for adding pixel value to numbers for transitions and animations
- */
-export const format = (value: any) => (isNaN(value) ? value : `${value}px`)
-
+const regex = /^[a-zA-Z0-9]+$/
 /**
  * Returns a randomly generated alphanumeric ID.
  *
- * @internal
+ * @param length - an integer that determines the length of the random string
  *
  */
-export function generateId(length: number = 5): string {
+export function generateId(
+  length: number = 6,
+  casing: 'lower' | 'upper' | 'mixed' = 'lower'
+): string {
   let result = ''
-  let chars = 'abcdefghijklmnopqrstuv1234567890'
-  let charLength = chars.length
-
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * charLength))
+  // Always add a letter as the first character (important for CSS selectors)
+  result += String.fromCharCode(Math.floor(Math.random() * 26) + 65)
+  for (let i = 1; i < length; i++) {
+    let char
+    do {
+      char = Math.floor(Math.random() * 256)
+    } while (!regex.test(String.fromCharCode(char)))
+    result += String.fromCharCode(char)
   }
-
-  return result
-}
-
-/**
- * Check to see if value is an object else return an empty object
- *
- * @param obj - any value to be evaluated
- *
- */
-export function validate(obj: any) {
-  return obj !== undefined && typeof obj === 'object' ? obj : {}
+  switch (casing) {
+    case 'lower':
+      return result.toLowerCase()
+    case 'upper':
+      return result.toUpperCase()
+    default:
+      return result
+  }
 }
 
 /**
@@ -52,9 +37,7 @@ export function validate(obj: any) {
  * Can be dynamically generated
  *
  */
-export function mergeSelectors(
-  selectors: (string | undefined)[]
-): string | undefined {
+export function cn(selectors: (string | undefined)[]): string | undefined {
   let s = selectors
     ? selectors
         .join(' ')
@@ -62,7 +45,7 @@ export function mergeSelectors(
         .trim()
     : undefined
 
-  return s === '' ? undefined : s
+  return s !== '' ? s : undefined
 }
 
 /**
@@ -80,4 +63,56 @@ export function mergeRefs<T = any>(
       }
     })
   }
+}
+
+/**
+ * Checks if an object is empty using recursion
+ *
+ * @param obj - the object to check
+ * @param maxDepth - the maximum depth to check. Default = 0
+ * @param depth - the current depth
+ * @param checkFalsy - check for falsy values. Default = false
+ *
+ * @returns boolean
+ */
+export function isObjectEmpty(
+  obj?: Record<string, any>,
+  maxDepth = 2,
+  depth = 0,
+  checkFalsy = false
+): boolean {
+  if (!obj || Object.keys(obj).length === 0) return true
+  let result = true
+
+  for (const key in obj) {
+    // If depth requirements are met and result is false, exit loop and return false
+    if (depth <= maxDepth && !result) return false
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key]
+      if (checkFalsy) {
+        if (!value || value === 0) {
+          result = true
+        }
+      } else {
+        if (value === null || value === undefined) {
+          result = true
+        }
+      }
+      if (value) {
+        if (typeof value === 'object' && !Array.isArray(value)) {
+          if (
+            depth <= maxDepth &&
+            isObjectEmpty(value, maxDepth, depth + 1, checkFalsy)
+          ) {
+            result = true
+          } else {
+            result = false
+          }
+        } else {
+          result = false
+        }
+      }
+    }
+  }
+  return result
 }

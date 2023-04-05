@@ -1,0 +1,25 @@
+.mkui-sn {
+  top: 0;
+  bottom: 0;
+  width: var(--width-side-nav);
+  background: var(--color-bg-side-nav);
+  box-shadow: var(--shadow-side-nav);
+  will-change: transform;
+  transform: translateX(0);
+}
+
+.mkui-sn-inner {
+  top: 0px;
+  height: 100vh;
+  width: var(--width-side-nav);
+  position: sticky;
+  overflow-y: auto;
+}
+
+.mkui-overlay-s {
+  display: block;
+}
+
+.mkui-btn-side-nav {
+  z-index: 1;
+}

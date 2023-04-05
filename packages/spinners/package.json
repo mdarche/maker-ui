@@ -1,0 +1,41 @@
+{
+  "name": "@maker-ui/spinners",
+  "description": "A variety of common SVG loading spinners",
+  "version": "1.2.5",
+  "license": "Apache-2.0",
+  "author": "Mike Darche <mike@newcreative.io>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "start": "tsup --watch",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "@maker-ui/transition": "workspace:*",
+    "@maker-ui/utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x"
+  },
+  "devDependencies": {
+    "@maker-ui/build-tools": "workspace:*",
+    "eslint-config-library": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.6.3",
+    "typescript": "^4.8.4"
+  }
+}

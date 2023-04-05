@@ -1,0 +1,49 @@
+{
+  "name": "cms",
+  "description": "All types, API requests, and components for a customizable CMS.",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "author": "Mike Darche <mike@newcreative.io>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "private": false,
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "start": "tsup --watch",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "@maker-ui/forms": "workspace:*",
+    "maker-ui": "workspace:*",
+    "dompurify": "^3.0.1",
+    "slate": "^0.91.4",
+    "slate-react": "^0.91.10"
+  },
+  "peerDependencies": {
+    "next": "^12.x || ^13.x",
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x",
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@maker-ui/build-tools": "workspace:*",
+    "@types/dompurify": "^2.4.0",
+    "eslint-config-library": "workspace:*",
+    "next": "^13.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.6.3",
+    "typescript": "^4.8.4",
+    "zod": "^3.20.2"
+  }
+}

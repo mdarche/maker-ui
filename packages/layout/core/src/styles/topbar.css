@@ -1,0 +1,21 @@
+.mkui-topbar {
+  height: var(--height-topbar);
+  background: var(--color-bg-topbar);
+  border-bottom: var(--border-topbar);
+  top: 0px;
+  z-index: 100;
+  display: block;
+  position: relative;
+}
+
+.mkui-topbar .container {
+  max-width: var(--max-width-topbar);
+}
+
+.mkui-topbar.sticky {
+  position: sticky;
+}
+
+.mkui-topbar.mobile-hide {
+  display: none;
+}

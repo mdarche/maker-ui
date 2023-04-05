@@ -4,27 +4,119 @@
   "version": "1.2.5",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./accordion": {
+      "import": "./dist/accordion.mjs",
+      "require": "./dist/accordion.js",
+      "types": "./dist/accordion.d.ts"
+    },
+    "./carousel": {
+      "import": "./dist/carousel.mjs",
+      "require": "./dist/carousel.js",
+      "types": "./dist/carousel.d.ts"
+    },
+    "./forms": {
+      "import": "./dist/forms.mjs",
+      "require": "./dist/forms.js",
+      "types": "./dist/forms.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks.mjs",
+      "require": "./dist/hooks.js",
+      "types": "./dist/hooks.d.ts"
+    },
+    "./layout": {
+      "import": "./dist/layout.mjs",
+      "require": "./dist/layout.js",
+      "types": "./dist/layout.d.ts"
+    },
+    "./lightbox": {
+      "import": "./dist/lightbox.mjs",
+      "require": "./dist/lightbox.js",
+      "types": "./dist/lightbox.d.ts"
+    },
+    "./modal": {
+      "import": "./dist/modal.mjs",
+      "require": "./dist/modal.js",
+      "types": "./dist/modal.d.ts"
+    },
+    "./notifications": {
+      "import": "./dist/notifications.mjs",
+      "require": "./dist/notifications.js",
+      "types": "./dist/notifications.d.ts"
+    },
+    "./popovers": {
+      "import": "./dist/popovers.mjs",
+      "require": "./dist/popovers.js",
+      "types": "./dist/popovers.d.ts"
+    },
+    "./social": {
+      "import": "./dist/social.mjs",
+      "require": "./dist/social.js",
+      "types": "./dist/social.d.ts"
+    },
+    "./spinners": {
+      "import": "./dist/spinners.mjs",
+      "require": "./dist/spinners.js",
+      "types": "./dist/spinners.d.ts"
+    },
+    "./tabs": {
+      "import": "./dist/tabs.mjs",
+      "require": "./dist/tabs.js",
+      "types": "./dist/tabs.d.ts"
+    },
+    "./transition": {
+      "import": "./dist/transition.mjs",
+      "require": "./dist/transition.js",
+      "types": "./dist/transition.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils.mjs",
+      "require": "./dist/utils.js",
+      "types": "./dist/utils.d.ts"
+    },
+    "./layout.css": "./node_modules/@maker-ui/layout/dist/index.css",
+    "./forms.css": "./node_modules/@maker-ui/forms/dist/index.css",
+    "./lightbox.css": "./node_modules/@maker-ui/lightbox/dist/index.css",
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "start": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "build": "tsup",
+    "start": "tsup --watch",
     "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/css": "workspace:*",
+    "@maker-ui/accordion": "workspace:*",
+    "@maker-ui/carousel": "workspace:*",
+    "@maker-ui/forms": "workspace:*",
+    "@maker-ui/hooks": "workspace:*",
     "@maker-ui/layout": "workspace:*",
-    "@maker-ui/primitives": "workspace:*",
+    "@maker-ui/lightbox": "workspace:*",
+    "@maker-ui/modal": "workspace:*",
+    "@maker-ui/notifications": "workspace:*",
+    "@maker-ui/popovers": "workspace:*",
+    "@maker-ui/social": "workspace:*",
+    "@maker-ui/spinners": "workspace:*",
+    "@maker-ui/style": "workspace:*",
+    "@maker-ui/tabs": "workspace:*",
+    "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
+  "peerDependencies": {
+    "next": "^13.x",
+    "react": "^17.x || ^18.x",
+    "react-dom": "^17.x || ^18.x"
+  },
   "devDependencies": {
+    "@maker-ui/build-tools": "workspace:*",
     "tsconfig": "workspace:*",
-    "tsup": "^5.12.0",
-    "typescript": "^4.3.5"
+    "tsup": "^6.6.3",
+    "typescript": "^4.8.4"
   }
 }

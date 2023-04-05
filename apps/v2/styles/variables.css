@@ -1,0 +1,112 @@
+:root {
+  /* Workspace */
+  --width-panel: 300px;
+  --width-left-panel: 300px;
+  /* --width-left-panel-collapse: 40px; */
+  --width-right-panel: 300px;
+  /* --width-right-panel-collapse: 10px; */
+  --width-mobile-left-panel: 300px;
+  --width-mobile-right-panel: 300px;
+  /* Topbar */
+  --height-topbar: 50px;
+  /* Header */
+  --height-header: 75px;
+  --max-width-header: 100%;
+  --width-mobile-menu: 300px;
+  /* Sidebars */
+  --width-sidebar: 300px;
+  --width-sidebar-secondary: 100px;
+  --gap-content: 50px;
+  /* SideNav */
+  --width-side-nav: 300px;
+  /* Content */
+  --max-width-content: 100%;
+  --max-width-section: 1300px;
+  /* Footer */
+  --max-width-footer: 1300px;
+  --font-body: itc-avant-garde-gothic-pro, Helvetica, Arial, sans-serif;
+  --font-heading: itc-avant-garde-gothic-pro, Helvetica, Arial, sans-serif;
+  --font-monospace: lexia-mono, monospace;
+  --transition-side-nav: transform ease 0.3s;
+  --color-modes: light, dark, system;
+  /* Add media queries for heights, widths, and gaps here */
+}
+
+:root {
+  --form-placeholder-color: #888;
+  --form-icon-fill: #888;
+  --form-input-border: 1px solid #d2d2d2;
+  --form-input-border-radius: 4px;
+  /* --form-select-bg-highlight: #d8f4ff; */
+  --form-select-border-active: 1px solid blue;
+  --form-calendar-width: 400px;
+  --form-calendar-width-time: 300px;
+}
+
+body[data-theme='dark'] {
+  /* Required */
+  --color-bg-header: #000;
+  --color-bg-side-nav: #000;
+  --color-bg-topbar: #000;
+  --color-bg-mobile-menu: #000;
+  --color-bg-footer: #000;
+  --color-bg-panel-left: #1f1f1f;
+  --color-bg-panel-right: #1f1f1f;
+  --color-overlay: rgba(0, 0, 0, 0.7);
+  --color-overlay-side-nav: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-overlay-mobile-menu: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-overlay-workspace: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-logo: #fff;
+  --color-text: #fff;
+  --color-background: #000;
+  --border-topbar: 1px solid var(--color-border-200); /* Optional */
+  --border-header: 1px solid var(--color-border-200); /* Optional */
+  --border-panel: 1px solid var(--color-border-200); /* Optional */
+  --border-footer: 1px solid var(--color-border-200); /* Optional */
+  --border-side-nav: 1px solid var(--color-border-200); /* Optional */
+  --shadow-header: none; /* Optional */
+  --shadow-side-nav: none; /* Optional */
+  /* Project specific */
+  --color-gray-100: #111;
+  --color-gray-200: #1f1f1f;
+  --color-gray-300: #616161;
+  --color-gray-400: #7a7a7a;
+  --color-gray-500: #adadad;
+  --color-border-100: #2a2a2a;
+  --color-border-200: #818181;
+  --color-shadow: 1px 3px 5px rgba(122, 115, 144, 0.06);
+}
+
+body[data-theme='light'] {
+  /* Required */
+  --color-bg-header: #fff;
+  --color-bg-side-nav: #fbfbfb;
+  --color-bg-topbar: #fff;
+  --color-bg-mobile-menu: #fff;
+  --color-bg-footer: #fff;
+  --color-bg-panel-left: #fbfbfb;
+  --color-bg-panel-right: #fbfbfb;
+  --color-overlay: rgba(0, 0, 0, 0.7);
+  --color-overlay-side-nav: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-overlay-mobile-menu: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-overlay-workspace: rgba(0, 0, 0, 0.7); /* Optional */
+  --color-logo: #000;
+  --color-text: #000;
+  --color-background: #fff;
+  --border-topbar: 1px solid var(--color-border-200); /* Optional */
+  --border-header: 1px solid var(--color-border-200); /* Optional */
+  --border-panel: 1px solid var(--color-border-200); /* Optional */
+  --border-footer: 1px solid var(--color-border-200); /* Optional */
+  --border-side-nav: 1px solid var(--color-border-200); /* Optional */
+  --shadow-header: none; /* Optional */
+  --shadow-side-nav: none; /* Optional */
+  /* Project specific */
+  --color-gray-100: #fafafa;
+  --color-gray-200: #ebebeb;
+  --color-gray-300: #c4c4c4;
+  --color-gray-400: #979797;
+  --color-gray-500: #6f6f6f;
+  --color-border-100: #e5e9ea;
+  --color-border-200: #a2a2a2;
+  /* Add media queries for heights, widths, and gaps here*/
+}

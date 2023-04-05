@@ -30,7 +30,7 @@ export function getStyles(
   const name = prefix ? `.${prefix}-${type}` : `.${type}`
   const dist = typeof distance === 'number' ? `${distance}px` : distance
   const format = dist.endsWith('%') ? '%' : ''
-  return {
+  const styles = {
     [name + '-enter']: {
       opacity: 0,
       transform: getTransform(type, dist),
@@ -50,4 +50,18 @@ export function getStyles(
       transition: `all ${easing} ${duration}ms`,
     },
   }
+  return makeCSS(styles)
+}
+
+function makeCSS(styles: { [key: string]: { [key: string]: any } }): string {
+  let cssString = ''
+  for (const key in styles) {
+    cssString += `${key} {`
+    const innerStyles = styles[key]
+    for (const innerKey in innerStyles) {
+      cssString += `${innerKey}: ${innerStyles[innerKey]};`
+    }
+    cssString += '}'
+  }
+  return cssString
 }

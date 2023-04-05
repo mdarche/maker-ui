@@ -1,3 +1,0 @@
-# @maker-ui/loaders
-
-Coming soon...

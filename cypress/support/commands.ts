@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -32,11 +33,11 @@ Cypress.Commands.overwrite(
     }
 
     // See if the expectation is a string and if it is a member of Jest's expect
-    // @ts-ignore
     if (typeof expectation === 'string' && customMatchers[expectation]) {
       // @ts-ignore
       return originalFn(subject, customMatchers[expectation])
     }
+    // @ts-ignore
     return originalFn(subject, expectation, ...args)
   }
 )

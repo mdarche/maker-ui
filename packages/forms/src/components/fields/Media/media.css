@@ -1,0 +1,106 @@
+/* Config variables
+/ -------------------------------------------------- /
+/ --form-preview-size
+/ --form-preview-width
+/ --form-preview-height
+/ --form-upload-icon-fill
+/ --form-upload-icon-height
+/ --form-dropzone-border
+/ --form-dropzone-bg
+/ --form-dropzone-font-size
+/ --form-dropzone-width
+/ --form-dropzone-height
+/ --form-dropzone-size
+/ --------------------------------------------------
+*/
+
+.mkui-preview {
+  width: var(--form-preview-size, var(--form-preview-width, 150px));
+  height: var(--form-preview-size, var(--form-preview-height, 150px));
+}
+
+.mkui-image-picker img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.mkui-dropzone-overlay .mkui-drag-area {
+  cursor: poiner;
+  border: none;
+  background-color: transparent;
+  opacity: 0;
+  transition: background-color ease 0.3s, opacity ease 0.3s;
+}
+
+.mkui-preview-area .mkui-drag-area svg {
+  fill: #fff;
+}
+
+.mkui-preview-area .mkui-drag-area.drag-active {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.mkui-btn-remove {
+  position: relative;
+  z-index: 10;
+}
+
+.mkui-dropzone-icon svg {
+  display: block;
+  fill: var(--form-upload-icon-fill, var(--color-text));
+  height: var(--form-upload-icon-height, 32px);
+  margin-bottom: 10px;
+}
+
+.mkui-dropzone input {
+  display: none;
+}
+
+.mkui-drag-area {
+  padding: 10px;
+  border: var(--form-dropzone-border, 2px dashed #ddd);
+  background: var(--form-dropzone-bg, #f5f5f5);
+  transition: background ease 0.3s;
+}
+
+.mkui-dropzone {
+  position: relative;
+}
+
+.mkui-dropzone:not(.custom) {
+  font-size: var(--form-dropzone-font-size, 0.8rem);
+  width: var(--form-dropzone-width, var(--form-dropzone-size, 150px));
+  height: var(--form-dropzone-height, var(--form-dropzone-size, 150px));
+}
+
+.mkui-dropzone-overlay {
+  position: absolute;
+}
+
+.mkui-dropzone-hitbox {
+  cursor: pointer;
+}
+
+.mkui-upload-error {
+  color: var(--form-error-color, red);
+  font-size: var(--form-error-font-size, 0.75rem);
+  margin-top: 5px;
+}
+
+.mkui-upload-error.top {
+  bottom: calc(100% + 10px);
+}
+
+.mkui-upload-error.bottom {
+  top: calc(100% + 10px);
+}
+
+.mkui-upload-error.bottom,
+.mkui-upload-error.top {
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}

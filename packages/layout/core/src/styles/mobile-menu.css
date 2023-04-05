@@ -1,0 +1,59 @@
+.mkui-mobile-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  background: var(--color-bg-mobile-menu);
+  will-change: transform, opacity;
+  visibility: hidden;
+  transition: all ease 0.3s;
+}
+
+.mkui-mobile-menu.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.mkui-mobile-menu.width-100 {
+  left: 0;
+}
+
+.mkui-mobile-menu:not(.width-100) {
+  width: var(--width-mobile-menu);
+}
+
+.mkui-mobile-menu.t-fade {
+  opacity: 0;
+}
+
+.mkui-mobile-menu.t-fade.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0px);
+}
+
+.mkui-mobile-menu.fade-up {
+  transform: translateY(20px);
+}
+
+.mkui-mobile-menu.fade-down {
+  transform: translateY(-20px);
+}
+
+.mkui-mobile-menu.slide-right.active,
+.mkui-mobile-menu.slide-left.active {
+  visibility: visible;
+  transform: translateX(0px);
+}
+
+.mkui-mobile-menu.slide-right {
+  right: 0;
+  transform: translateX(100%);
+}
+
+.mkui-mobile-menu.slide-left {
+  left: 0;
+  transform: translateX(-100%);
+}
