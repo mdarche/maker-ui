@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/modal",
   "description": "An all-purpose Maker UI modal component",
-  "version": "1.2.5",
+  "version": "2.0.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",
