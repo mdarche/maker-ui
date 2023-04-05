@@ -286,55 +286,6 @@ importers:
         specifier: ^4.8.4
         version: 4.8.4
 
-  packages/cms:
-    dependencies:
-      '@maker-ui/forms':
-        specifier: workspace:*
-        version: link:../forms
-      dompurify:
-        specifier: ^3.0.1
-        version: 3.0.1
-      maker-ui:
-        specifier: workspace:*
-        version: link:../maker-ui
-      slate:
-        specifier: ^0.91.4
-        version: 0.91.4
-      slate-react:
-        specifier: ^0.91.10
-        version: 0.91.10(react-dom@18.2.0)(react@18.2.0)(slate@0.91.4)
-    devDependencies:
-      '@maker-ui/build-tools':
-        specifier: workspace:*
-        version: link:../build-tools
-      '@types/dompurify':
-        specifier: ^2.4.0
-        version: 2.4.0
-      eslint-config-library:
-        specifier: workspace:*
-        version: link:../eslint/eslint-config-library
-      next:
-        specifier: ^13.2.3
-        version: 13.2.3(@babel/core@7.17.8)(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-      tsup:
-        specifier: ^6.6.3
-        version: 6.6.3(postcss@8.4.18)(typescript@4.9.5)
-      typescript:
-        specifier: ^4.8.4
-        version: 4.9.5
-      zod:
-        specifier: ^3.20.2
-        version: 3.21.0
-
   packages/eslint/eslint-config-app:
     dependencies:
       eslint-config-next:
@@ -504,67 +455,27 @@ importers:
         specifier: ^4.8.4
         version: 4.8.4
 
-  packages/layout/client:
-    dependencies:
-      '@maker-ui/hooks':
-        specifier: workspace:*
-        version: link:../../hooks
-      '@maker-ui/layout-server':
-        specifier: workspace:*
-        version: link:../server
-      '@maker-ui/style':
-        specifier: workspace:*
-        version: link:../../style
-      '@maker-ui/utils':
-        specifier: workspace:*
-        version: link:../../utils
-    devDependencies:
-      '@maker-ui/build-tools':
-        specifier: workspace:*
-        version: link:../../build-tools
-      eslint-config-library:
-        specifier: workspace:*
-        version: link:../../eslint/eslint-config-library
-      next:
-        specifier: ^13.2.3
-        version: 13.2.3(@babel/core@7.17.8)(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
-      tsup:
-        specifier: ^6.6.3
-        version: 6.6.3(postcss@8.4.18)(typescript@4.9.5)
-      typescript:
-        specifier: ^4.8.4
-        version: 4.9.5
-
-  packages/layout/core:
+  packages/layout:
     dependencies:
       '@maker-ui/layout-client':
         specifier: workspace:*
-        version: link:../client
+        version: link:../layout-client
       '@maker-ui/layout-server':
         specifier: workspace:*
-        version: link:../server
+        version: link:../layout-server
       '@maker-ui/style':
         specifier: workspace:*
-        version: link:../../style
+        version: link:../style
       '@maker-ui/utils':
         specifier: workspace:*
-        version: link:../../utils
+        version: link:../utils
     devDependencies:
       '@maker-ui/build-tools':
         specifier: workspace:*
-        version: link:../../build-tools
+        version: link:../build-tools
       eslint-config-library:
         specifier: workspace:*
-        version: link:../../eslint/eslint-config-library
+        version: link:../eslint/eslint-config-library
       next:
         specifier: ^13.2.3
         version: 13.2.3(@babel/core@7.17.8)(react-dom@18.2.0)(react@18.2.0)
@@ -576,7 +487,7 @@ importers:
         version: 18.2.0(react@18.2.0)
       tsconfig:
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../tsconfig
       tsup:
         specifier: ^6.6.3
         version: 6.6.3(postcss@8.4.18)(typescript@4.9.5)
@@ -584,21 +495,61 @@ importers:
         specifier: ^4.8.4
         version: 4.9.5
 
-  packages/layout/server:
+  packages/layout-client:
     dependencies:
+      '@maker-ui/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@maker-ui/layout-server':
+        specifier: workspace:*
+        version: link:../layout-server
       '@maker-ui/style':
         specifier: workspace:*
-        version: link:../../style
+        version: link:../style
       '@maker-ui/utils':
         specifier: workspace:*
-        version: link:../../utils
+        version: link:../utils
     devDependencies:
       '@maker-ui/build-tools':
         specifier: workspace:*
-        version: link:../../build-tools
+        version: link:../build-tools
       eslint-config-library:
         specifier: workspace:*
-        version: link:../../eslint/eslint-config-library
+        version: link:../eslint/eslint-config-library
+      next:
+        specifier: ^13.2.3
+        version: 13.2.3(@babel/core@7.17.8)(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      tsup:
+        specifier: ^6.6.3
+        version: 6.6.3(postcss@8.4.18)(typescript@4.9.5)
+      typescript:
+        specifier: ^4.8.4
+        version: 4.9.5
+
+  packages/layout-server:
+    dependencies:
+      '@maker-ui/style':
+        specifier: workspace:*
+        version: link:../style
+      '@maker-ui/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@maker-ui/build-tools':
+        specifier: workspace:*
+        version: link:../build-tools
+      eslint-config-library:
+        specifier: workspace:*
+        version: link:../eslint/eslint-config-library
       next:
         specifier: ^13.2.3
         version: 13.2.3(@babel/core@7.17.8)(react-dom@18.2.0)(react@18.2.0)
@@ -619,7 +570,7 @@ importers:
         version: 18.2.0(react@18.2.0)
       tsconfig:
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../tsconfig
       tsup:
         specifier: ^6.6.3
         version: 6.6.3(postcss@8.4.18)(typescript@4.9.5)
@@ -686,7 +637,7 @@ importers:
         version: link:../hooks
       '@maker-ui/layout':
         specifier: workspace:*
-        version: link:../layout/core
+        version: link:../layout
       '@maker-ui/lightbox':
         specifier: workspace:*
         version: link:../lightbox
@@ -1306,7 +1257,7 @@ packages:
       convert-source-map: 1.8.0
       debug: 4.3.4(supports-color@8.1.1)
       gensync: 1.0.0-beta.2
-      json5: 2.2.1
+      json5: 2.2.3
       lodash: 4.17.21
       resolve: 1.22.1
       semver: 5.7.1
@@ -4837,12 +4788,6 @@ packages:
     dependencies:
       '@babel/types': 7.17.0
 
-  /@types/dompurify@2.4.0:
-    resolution: {integrity: sha512-IDBwO5IZhrKvHFUl+clZxgf3hn2b/lU6H1KaBShPkQyGJUQ0xwebezIPSuiyGwfz1UzJWQl4M7BDxtHtCCPlTg==}
-    dependencies:
-      '@types/trusted-types': 2.0.2
-    dev: true
-
   /@types/eslint-scope@3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
@@ -4889,10 +4834,6 @@ packages:
       ci-info: 3.3.0
     dev: true
 
-  /@types/is-hotkey@0.1.7:
-    resolution: {integrity: sha512-yB5C7zcOM7idwYZZ1wKQ3pTfjA9BbvFqRWvKB46GFddxnJtHwi/b9y84ykQtxQPg5qhdpg4Q/kWU3EGoCTmLzQ==}
-    dev: false
-
   /@types/istanbul-lib-coverage@2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
 
@@ -4927,10 +4868,6 @@ packages:
 
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
-
-  /@types/lodash@4.14.191:
-    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
-    dev: false
 
   /@types/mdast@3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
@@ -5046,6 +4983,7 @@ packages:
 
   /@types/trusted-types@2.0.2:
     resolution: {integrity: sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==}
+    dev: false
 
   /@types/unist@2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
@@ -5618,7 +5556,7 @@ packages:
     dev: false
 
   /array-union@1.0.2:
-    resolution: {integrity: sha1-mjRBDk9OPaI96jdb5b5w8kd47Dk=}
+    resolution: {integrity: sha512-Dxr6QJj/RdU/hCaBjOfxW+q6lyuVE6JFWIrAUpuOOhoJJoQ99cUn3igRaHVB5P9WrgFVN0FfArM3x0cueOU8ng==}
     engines: {node: '>=0.10.0'}
     dependencies:
       array-uniq: 1.0.3
@@ -6391,10 +6329,6 @@ packages:
     resolution: {integrity: sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=}
     dev: false
 
-  /compute-scroll-into-view@1.0.20:
-    resolution: {integrity: sha512-UCB0ioiyj8CRjtrvaceBLqqhZCVP+1B8+NWQhmdsm0VXOJtobBCf1dBQmebCCo34qZmUwZfIH2MZLqNHazrfjg==}
-    dev: false
-
   /concat-map@0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
 
@@ -6837,11 +6771,6 @@ packages:
     dependencies:
       path-type: 4.0.0
 
-  /direction@1.0.4:
-    resolution: {integrity: sha512-GYqKi1aH7PJXxdhTeZBFrg8vUBeKXi+cNprXsC1kpJcbcVnV9wBsrOu1cQEdG0WeQwlfHiy3XvnKfIrJ2R0NzQ==}
-    hasBin: true
-    dev: false
-
   /doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
@@ -6891,10 +6820,6 @@ packages:
     dependencies:
       domelementtype: 2.2.0
     dev: true
-
-  /dompurify@3.0.1:
-    resolution: {integrity: sha512-60tsgvPKwItxZZdfLmamp0MTcecCta3avOhsLgPZ0qcWt96OasFfhkeIRbJ6br5i0fQawT1/RBGB5L58/Jpwuw==}
-    dev: false
 
   /domutils@2.8.0:
     resolution: {integrity: sha512-w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==}
@@ -7662,16 +7587,6 @@ packages:
   /fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
-  /fast-glob@3.2.11:
-    resolution: {integrity: sha512-xrO3+1bxSo3ZVHAnqzyuewYT6aMFHRAd4Kcs92MAonjwQZLsK9d0SF1IyQ3k5PoirxTW0Oe/RqFgMQ6TcNE5Ew==}
-    engines: {node: '>=8.6.0'}
-    dependencies:
-      '@nodelib/fs.stat': 2.0.5
-      '@nodelib/fs.walk': 1.2.8
-      glob-parent: 5.1.2
-      merge2: 1.4.1
-      micromatch: 4.0.4
-
   /fast-glob@3.2.12:
     resolution: {integrity: sha512-DVj4CQIYYow0BlaelwK1pHl5n5cRSJfM60UA0zK891sVInoPri2Ekj7+e1CT3/3qxXenpI+nBBmQAcJPJgaj4w==}
     engines: {node: '>=8.6.0'}
@@ -7681,7 +7596,6 @@ packages:
       glob-parent: 5.1.2
       merge2: 1.4.1
       micromatch: 4.0.5
-    dev: false
 
   /fast-json-stable-stringify@2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
@@ -7761,7 +7675,7 @@ packages:
   /find-yarn-workspace-root2@1.2.16:
     resolution: {integrity: sha512-hr6hb1w8ePMpPVUK39S4RlwJzi+xPLuVuG8XlwXU3KD5Yn3qgBWVfy3AzNlDhWvE1EORCE65/Qm26rFQt3VLVA==}
     dependencies:
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       pkg-dir: 4.2.0
     dev: true
 
@@ -7820,7 +7734,7 @@ packages:
     resolution: {integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==}
     engines: {node: '>=6 <7 || >=8'}
     dependencies:
-      graceful-fs: 4.2.9
+      graceful-fs: 4.2.10
       jsonfile: 4.0.0
       universalify: 0.1.2
     dev: true
@@ -7830,7 +7744,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       at-least-node: 1.0.0
-      graceful-fs: 4.2.9
+      graceful-fs: 4.2.10
       jsonfile: 6.1.0
       universalify: 2.0.0
 
@@ -8014,8 +7928,8 @@ packages:
     dependencies:
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.11
-      ignore: 5.2.0
+      fast-glob: 3.2.12
+      ignore: 5.2.4
       merge2: 1.4.1
       slash: 3.0.0
 
@@ -8285,14 +8199,9 @@ packages:
     resolution: {integrity: sha512-cyFDKrqc/YdcWFniJhzI42+AzS+gNwmUzOSFcRCQYwySuBBBy/KjuxWLZ/FHEH6Moq1NizMOBWyTcv8O4OZIMg==}
     engines: {node: '>= 4'}
 
-  /ignore@5.2.0:
-    resolution: {integrity: sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==}
-    engines: {node: '>= 4'}
-
   /ignore@5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
-    dev: false
 
   /image-size@0.5.5:
     resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
@@ -8301,10 +8210,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /immer@9.0.19:
-    resolution: {integrity: sha512-eY+Y0qcsB4TZKwgQzLaE/lqYMlKhv5J9dyd2RhhtGhNo2njPXDqU9XPfcNfa3MIDsdtZt5KlkIsirlo4dHsWdQ==}
-    dev: false
 
   /immutable@4.1.0:
     resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
@@ -8481,10 +8386,6 @@ packages:
     resolution: {integrity: sha512-gyPJuv83bHMpocVYoqof5VDiZveEoGoFL8m3BXNb2VW8Xs+rz9kqO8LOQ5DH6EsuvilT1ApazU0pyl+ytbPtlw==}
     dev: false
 
-  /is-hotkey@0.1.8:
-    resolution: {integrity: sha512-qs3NZ1INIS+H+yeo7cD9pDfwYV/jqRh1JG9S9zYrNudkoUQg7OL7ziXqRKu+InFjUIDoP2o6HIkLYMh1pcWgyQ==}
-    dev: false
-
   /is-installed-globally@0.4.0:
     resolution: {integrity: sha512-iwGqO3J21aaSkC7jWnHP/difazwS7SFeIqxv6wEtLU8Y5KlzFTjyqcSIT0d8s4+dDhKytsk9PJZ2BkS5eZwQRQ==}
     engines: {node: '>=10'}
@@ -8554,11 +8455,6 @@ packages:
   /is-plain-obj@2.1.0:
     resolution: {integrity: sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==}
     engines: {node: '>=8'}
-    dev: false
-
-  /is-plain-object@5.0.0:
-    resolution: {integrity: sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==}
-    engines: {node: '>=0.10.0'}
     dev: false
 
   /is-potential-custom-element-name@1.0.1:
@@ -8827,7 +8723,7 @@ packages:
       jest-runner: 29.4.3
       jest-util: 29.4.3
       jest-validate: 29.4.3
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       parse-json: 5.2.0
       pretty-format: 29.4.3
       slash: 3.0.0
@@ -8926,7 +8822,7 @@ packages:
       jest-regex-util: 29.4.3
       jest-util: 29.4.3
       jest-worker: 29.4.3
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       walker: 1.0.8
     optionalDependencies:
       fsevents: 2.3.2
@@ -8966,7 +8862,7 @@ packages:
       '@types/stack-utils': 2.0.1
       chalk: 4.1.2
       graceful-fs: 4.2.10
-      micromatch: 4.0.4
+      micromatch: 4.0.5
       pretty-format: 29.4.3
       slash: 3.0.0
       stack-utils: 2.0.5
@@ -9324,7 +9220,7 @@ packages:
     resolution: {integrity: sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==}
     hasBin: true
     dependencies:
-      minimist: 1.2.6
+      minimist: 1.2.8
     dev: true
 
   /json5@1.0.2:
@@ -9332,12 +9228,6 @@ packages:
     hasBin: true
     dependencies:
       minimist: 1.2.8
-    dev: false
-
-  /json5@2.2.1:
-    resolution: {integrity: sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==}
-    engines: {node: '>=6'}
-    hasBin: true
     dev: false
 
   /json5@2.2.3:
@@ -9516,7 +9406,7 @@ packages:
     dependencies:
       big.js: 5.2.2
       emojis-list: 3.0.0
-      json5: 2.2.1
+      json5: 2.2.3
     dev: false
 
   /loader-utils@2.0.2:
@@ -9525,7 +9415,7 @@ packages:
     dependencies:
       big.js: 5.2.2
       emojis-list: 3.0.0
-      json5: 2.2.1
+      json5: 2.2.3
     dev: false
 
   /loader-utils@3.2.0:
@@ -9755,7 +9645,6 @@ packages:
     dependencies:
       braces: 3.0.2
       picomatch: 2.3.1
-    dev: false
 
   /mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
@@ -9816,7 +9705,6 @@ packages:
 
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-    dev: false
 
   /mixme@0.5.4:
     resolution: {integrity: sha512-3KYa4m4Vlqx98GPdOHghxSdNtTvcP8E0kkaJ5Dlh+h2DRzF7zpuVVcA8B0QpKd11YJeP9QQ7ASkKzOeu195Wzw==}
@@ -10702,7 +10590,7 @@ packages:
     resolution: {integrity: sha512-VIMnQi/Z4HT2Fxuwg5KrY174U1VdUIASQVWXXyqtNRtxSr9IYkn1rsI6Tb6HsrHCmB7gVpNwX6JxPTHcH6IoTA==}
     engines: {node: '>=6'}
     dependencies:
-      graceful-fs: 4.2.9
+      graceful-fs: 4.2.10
       js-yaml: 3.14.1
       pify: 4.0.1
       strip-bom: 3.0.0
@@ -11065,12 +10953,6 @@ packages:
       ajv-keywords: 3.5.2(ajv@6.12.6)
     dev: false
 
-  /scroll-into-view-if-needed@2.2.31:
-    resolution: {integrity: sha512-dGCXy99wZQivjmjIqihaBQNjryrz5rueJY7eHfTdyWEiR4ttYpsajb14rn9s5d4DY4EcY6+4+U/maARBXJedkA==}
-    dependencies:
-      compute-scroll-into-view: 1.0.20
-    dev: false
-
   /semver@5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
     hasBin: true
@@ -11200,35 +11082,6 @@ packages:
   /slash@4.0.0:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
     engines: {node: '>=12'}
-    dev: false
-
-  /slate-react@0.91.10(react-dom@18.2.0)(react@18.2.0)(slate@0.91.4):
-    resolution: {integrity: sha512-GEOpXNucqnJIQXBd06TETKxth/erbU+nVcxdSk1ijG/hZTlK86eVZzvAHma20+BPHhiNI2Qt2unHnrpLDzWHFQ==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-      slate: '>=0.65.3'
-    dependencies:
-      '@juggle/resize-observer': 3.4.0
-      '@types/is-hotkey': 0.1.7
-      '@types/lodash': 4.14.191
-      direction: 1.0.4
-      is-hotkey: 0.1.8
-      is-plain-object: 5.0.0
-      lodash: 4.17.21
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      scroll-into-view-if-needed: 2.2.31
-      slate: 0.91.4
-      tiny-invariant: 1.0.6
-    dev: false
-
-  /slate@0.91.4:
-    resolution: {integrity: sha512-aUJ3rpjrdi5SbJ5G1Qjr3arytfRkEStTmHjBfWq2A2Q8MybacIzkScSvGJjQkdTk3djCK9C9SEOt39sSeZFwTw==}
-    dependencies:
-      immer: 9.0.19
-      is-plain-object: 5.0.0
-      tiny-warning: 1.0.3
     dev: false
 
   /slice-ansi@3.0.0:
@@ -11743,14 +11596,6 @@ packages:
     dependencies:
       globalyzer: 0.1.0
       globrex: 0.1.2
-    dev: false
-
-  /tiny-invariant@1.0.6:
-    resolution: {integrity: sha512-FOyLWWVjG+aC0UqG76V53yAWdXfH8bO6FNmyZOuUrzDzK8DI3/JRY25UD7+g49JWM1LXwymsKERB+DzI0dTEQA==}
-    dev: false
-
-  /tiny-warning@1.0.3:
-    resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
     dev: false
 
   /tmp@0.0.33:
@@ -12936,10 +12781,6 @@ packages:
 
   /zod@3.20.2:
     resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
-
-  /zod@3.21.0:
-    resolution: {integrity: sha512-UYdykTcVxB6lfdyLzAqLyyYAlOcpoluECvjsdoaqfQmz9p+3LRaIqYcNiL/J2kFYp66fBM8wwBvIGVEjq7KtZw==}
-    dev: true
 
   /zwitch@1.0.5:
     resolution: {integrity: sha512-V50KMwwzqJV0NpZIZFwfOD5/lyny3WlSzRiXgA0G7VUnRlqttta1L6UQIHzd6EuBY/cHGfwTIck7w1yH6Q5zUw==}
