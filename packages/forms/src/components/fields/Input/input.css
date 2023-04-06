@@ -1,6 +1,7 @@
 /* Config variables
 / -------------------------------------------------- /
 / --form-input-height
+/ --form-textarea-height
 / --form-input-font-size
 / --form-input-padding
 / --form-input-border
@@ -9,8 +10,12 @@
 / --------------------------------------------------
 */
 
-.mkui-input {
+.mkui-input:not(.mkui-textarea) {
   height: var(--form-input-height, 40px);
+}
+
+.mkui-textarea {
+  height: var(--form-textarea-height, 200px);
 }
 
 .mkui-input,
