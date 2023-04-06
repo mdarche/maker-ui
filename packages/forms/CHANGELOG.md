@@ -1,5 +1,16 @@
 # @maker-ui/forms
 
+## 2.0.2
+
+### Patch Changes
+
+- [#92](https://github.com/mdarche/maker-ui/pull/92) [`e8aeb98c`](https://github.com/mdarche/maker-ui/commit/e8aeb98c5fea0e55fbfea43dc84e58a88a6fe0a3) Thanks [@mdarche](https://github.com/mdarche)! - Fixes include:
+
+  - Next Image support in lightbox
+  - CSS styles for toast provider
+  - Better types for `forms` library
+  - Fixed pagination bug in multi-page forms
+
 ## 2.0.1
 
 ### Patch Changes
