@@ -10,6 +10,7 @@ import type {
   FieldProps,
   FormConditions,
   FormErrors,
+  FormHelpers,
   FormSchema,
   FormSettings,
   FormState,
@@ -28,12 +29,6 @@ export type Action =
   | { type: 'UPDATE_SETTINGS'; value: Partial<FormSettings> }
   | { type: 'RESET_FORM' }
   | { type: 'SET_SUBMIT_COUNT' }
-
-interface FormHelpers {
-  submitCount: number
-  setIsSubmitting: (value: boolean) => void
-  resetForm: () => void
-}
 
 export interface FormProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {

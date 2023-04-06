@@ -61,6 +61,7 @@ export const MediaFrame = ({
           src={src}
           blurDataURL={blur ? blur : undefined}
           alt={alt || 'lightbox image'}
+          style={{ objectFit: 'contain' }}
         />
       </div>
     ) : (
@@ -68,7 +69,6 @@ export const MediaFrame = ({
         src={src}
         className="mkui-lightbox-media"
         alt={alt ? alt : 'Lightbox image'}
-        onLoad={() => set(true)}
         style={{ objectFit: 'contain' }}
       />
     )
