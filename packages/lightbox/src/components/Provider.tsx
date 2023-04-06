@@ -200,6 +200,7 @@ function mergeSettings(settings: LightboxSettings) {
       showAutoPlay: true,
       autoPlayDuration: 6000,
       disableHideControls: false,
+      nextImage: true,
       spinnerType: 'dots' as SpinnerProps['type'],
     },
     settings as object
