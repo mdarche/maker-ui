@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { ToastContext } from '../components'
-import type { ToastProps } from '../types'
+import { ToastContext } from '@/components'
+import type { ToastProps } from '@/types'
 
 /**
  * React hook for using the Toast component throughout the application

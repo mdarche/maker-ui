@@ -1,11 +1,14 @@
 import * as React from 'react'
+import Image from 'next/image'
 import type { LightboxItem } from '@/types'
 
 const youtubeRoot = 'https://youtube.com/embed/'
 const vimeoRoot = 'https://player.vimeo.com/video/'
 
 interface MediaFrameProps {
+  index: number
   item: LightboxItem
+  nextImage?: boolean
 }
 
 /**
@@ -15,7 +18,9 @@ interface MediaFrameProps {
  * @internal
  */
 export const MediaFrame = ({
-  item: { src, alt, youtubeId, vimeoId, htmlVideo, poster, component },
+  index,
+  nextImage,
+  item: { src, blur, alt, youtubeId, vimeoId, htmlVideo, poster, component },
 }: MediaFrameProps) => {
   const [show, set] = React.useState(false)
 
@@ -26,6 +31,7 @@ export const MediaFrame = ({
   if (youtubeId || vimeoId) {
     return (
       <iframe
+        title={`media-frame-${index}`}
         className="mkui-lightbox-media"
         src={youtubeId ? youtubeRoot + youtubeId : vimeoRoot + vimeoId}
         onLoad={() => set(true)}
@@ -48,12 +54,21 @@ export const MediaFrame = ({
   }
 
   if (src) {
-    return (
+    return nextImage ? (
+      <div className="mkui-lightbox-media mkui-lightbox-next-image">
+        <Image
+          fill
+          src={src}
+          blurDataURL={blur ? blur : undefined}
+          alt={alt || 'lightbox image'}
+          style={{ objectFit: 'contain' }}
+        />
+      </div>
+    ) : (
       <img
         src={src}
         className="mkui-lightbox-media"
         alt={alt ? alt : 'Lightbox image'}
-        onLoad={() => set(true)}
         style={{ objectFit: 'contain' }}
       />
     )

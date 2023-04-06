@@ -203,7 +203,11 @@ export const LightboxModal = ({
               colors={['#fff', '#fff', '#fff']}
               size={50}
             />
-            <MediaFrame item={item} />
+            <MediaFrame
+              index={index}
+              item={item}
+              nextImage={settings.nextImage}
+            />
             {settings.showInfo && item.title && (
               <div className="mkui-lightbox-info">
                 <h4>{item.title}</h4>

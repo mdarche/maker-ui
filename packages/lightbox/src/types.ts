@@ -10,6 +10,8 @@ export interface LightboxItem {
   id?: string
   /** The source URL of the media content. */
   src?: string
+  /** A blur image URL for Next Image, if applicable */
+  blur?: string
   /** The alternative text description of the media content. */
   alt?: string
   /** The title of the media content. */
@@ -75,6 +77,10 @@ export interface LightboxSettings {
    * For the left arrow (previous), it will be rotated 180 degrees.
    */
   arrowIcon?: React.ReactNode
+  /** If true, the lightbox modal will render image files with Next Image instead of a standard img tag
+   * @default true
+   */
+  nextImage?: boolean
 }
 
 export interface LightboxProps

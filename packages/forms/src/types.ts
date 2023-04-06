@@ -449,12 +449,25 @@ export interface FormConditions {
   [key: string]: Array<Condition[]> | undefined
 }
 
-export interface FormValues {
-  [key: string]: any
+export type FormValues<T = Record<string, any>> = {
+  [K in keyof T]: T[K]
 }
 
 export interface FormErrors {
   [key: string]: ZodError | string
+}
+
+export interface FormHelpers {
+  /** The number of times the form has been submitted */
+  submitCount: number
+  /** A function that sets the submit state to true or false. This is useful if your
+   * Form.SubmitButton uses the lifecycle prop.
+   */
+  setIsSubmitting: (value: boolean) => void
+  /** Calling this function will remove data from the form's current session and revert back
+   * to the initial field props.
+   */
+  resetForm: () => void
 }
 
 // Form State

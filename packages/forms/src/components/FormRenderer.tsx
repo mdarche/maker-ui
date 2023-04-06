@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn, Conditional, generateId } from '@maker-ui/utils'
+import { cn, Conditional } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
 import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
@@ -140,8 +140,12 @@ export const FormRenderer = ({
         {components.children?.map((child, i) => (
           <React.Fragment key={i}>{child}</React.Fragment>
         ))}
-        <Pagination submitButton={components.submit} />
-        {!isPaginated && components.submit}
+
+        {isPaginated ? (
+          <Pagination submitButton={components.submit} />
+        ) : (
+          components.submit
+        )}
         {error && components.error}
         {components.footer}
       </form>

@@ -41,6 +41,9 @@
 .mkui-lightbox-media {
   border: none;
 }
+.mkui-lightbox-next-image {
+  position: relative;
+}
 
 /* Toolbar */
 

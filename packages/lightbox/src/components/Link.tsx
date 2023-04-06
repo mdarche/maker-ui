@@ -56,6 +56,7 @@ export const LightboxLink = React.forwardRef<
 
     useEffect(() => {
       registerItem(config)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [config])
 
     const handleClick = (e: React.MouseEvent) => {
