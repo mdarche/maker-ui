@@ -18,29 +18,12 @@ export interface ToastSettings {
     | 'bottom-center'
     | 'bottom-left'
     | 'bottom-right'
-  toast?: {
-    color?: string
-    background?: string
-    padding?: string | number | (string | number)[]
-    border?: string
-    boxShadow?: string
-    borderRadius?: string | number
-    iconHeight?: string | number | (string | number)[]
-  }
   /** Custom classnames mapping for the toast component */
   classNames: Partial<ToastClassNames>
   /** Custom SVG icon mapping */
   icons: {
     [key: string]: React.ReactNode
   }
-  /** Duration of a toasts visibility in seconds */
-  duration?: number
-  /** Distance of a toasts transform @default '5vh' */
-  distance?: string
-  /** Distance of the toast from the edge of the screen @default '5vh' */
-  padding?: string | number | (string | number)[]
-  /** Distance between stacked toasts */
-  gap?: string | number | (string | number)[]
 }
 
 export interface ToastProps {

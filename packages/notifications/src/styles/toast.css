@@ -1,0 +1,80 @@
+/* Config Variables
+/ -------------------------------------------------- /
+/ --toast-gap
+/ --toast-padding-container
+/ --toast-color
+/ --toast-background
+/ --toast-padding
+/ --toast-border-radius
+/ --toast-box-shadow
+/ --toast-font-size
+/ --toast-icon-fill
+/ --toast-icon-height
+/ --toast-distance
+/ --toast-duration
+/ -------------------------------------------------- 
+*/
+
+.mkui-toast-container {
+  display: grid;
+  position: fixed;
+  z-index: 1000;
+  gap: var(--toast-gap, 1vh);
+}
+
+.mkui-toast-container.top {
+  top: var(--toast-padding-container, 20px);
+}
+.mkui-toast-container.bottom {
+  bottom: var(--toast-padding-container, 20px);
+}
+.mkui-toast-container.center {
+  inset-inline: 0px;
+}
+.mkui-toast-container.left {
+  left: var(--toast-padding-container, 20px);
+}
+.mkui-toast-container.right {
+  right: var(--toast-padding-container, 20px);
+}
+
+.mkui-toast {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: var(--toast-color);
+  background: var(--toast-background);
+  font-size: var(--toast-font-size, 0.9em);
+  padding: var(--toast-padding, 15px 20px);
+  border: var(--toast-border);
+  border-radius: var(--toast-border-radius, 2px);
+  box-shadow: var(--toast-box-shadow);
+  will-change: transform;
+  animation: toast-fade-in 0.3s ease,
+    toast-fade-out 0.3s ease var(--toast-duration, 3s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mkui-toast {
+    --toast-distance: 0;
+  }
+}
+
+.mkui-toast-icon svg {
+  height: var(--toast-icon-height, 12px);
+  fill: var(--toast-icon-fill, var(--color-text));
+  margin-right: 12px;
+}
+
+@keyframes toast-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--toast-distance, 4vh));
+  }
+}
+
+@keyframes toast-fade-out {
+  to {
+    opacity: 0;
+  }
+}
