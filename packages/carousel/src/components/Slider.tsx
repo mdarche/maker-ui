@@ -4,7 +4,7 @@ import { cn } from '@maker-ui/utils'
 import { type SlideItem, SlideDirection, type CarouselClasses } from '@/types'
 import { getPageX } from '@/helpers'
 
-export interface CanvasProps {
+export interface SliderProps {
   items: SlideItem[]
   show: number
   slide: number
@@ -18,10 +18,11 @@ export interface CanvasProps {
   responsive: boolean
   infinite: boolean
   triggerClickOn: number
+  overlay?: React.ReactNode
   classNames: CarouselClasses | null
 }
 
-export const Slider = (props: CanvasProps) => {
+export const Slider = (props: SliderProps) => {
   const [width, setWidth] = useState(200)
   const { ref } = useResizeObserver<HTMLDivElement>({
     onResize: ({ width: w }) => {
@@ -110,6 +111,9 @@ export const Slider = (props: CanvasProps) => {
           transition: `transform ${props.transition}s ease 0s`,
           width: width * props.items.length,
         }}>
+        {props.overlay ? (
+          <div className="mkui-carousel-overlay">{props.overlay}</div>
+        ) : null}
         {props.items.map((item, i) => (
           <div
             key={i}

@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@maker-ui/hooks": "workspace:*",
-    "@maker-ui/style": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },
   "peerDependencies": {

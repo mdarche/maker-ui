@@ -2,6 +2,7 @@
 import { Section } from 'maker-ui'
 import Image from 'next/image'
 import { Carousel } from 'maker-ui/carousel'
+import 'maker-ui/carousel.css'
 
 import CosmosImage from '@/public/cosmos.jpeg'
 
@@ -10,11 +11,13 @@ export default function CarouselPage() {
   return (
     <Section style={{ maxWidth: '100vw', overflow: 'hidden' }}>
       <Carousel
-        hideArrows
+        navPosition="top"
+        // hideArrows
         // hidePagination
-        navigation={(active, attrs) => (
-          <button {...attrs}>{active ? 'y' : 'n'}</button>
-        )}>
+        // navigation={(active, attrs) => (
+        //   <button {...attrs}>{active ? 'y' : 'n'}</button>
+        // )}
+      >
         {colors.map((c, i) => (
           <div
             key={c}

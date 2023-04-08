@@ -1,12 +1,13 @@
 import React from 'react'
 import { cn } from '@maker-ui/utils'
-import type { CarouselClasses } from '@/types'
+import type { CarouselClasses, CarouselProps } from '@/types'
 
 export interface PaginationProps {
   isDefault?: boolean
   length: number
   current: number
   classNames?: CarouselClasses | null
+  position?: CarouselProps['navPosition']
   factory: (
     selected: boolean,
     attrs: object,
@@ -19,23 +20,26 @@ export const Pagination = ({
   isDefault,
   length,
   current,
+  position = 'bottom',
   factory,
   onClick,
   classNames,
 }: PaginationProps) => {
   return (
-    <div className={cn(['mkui-carousel-nav', classNames?.navigation])}>
+    <div
+      className={cn(['mkui-carousel-nav', position, classNames?.navigation])}>
       {[...Array(length)].map((_: any, i) => {
         const attrs: object = {
           role: 'tab',
           className: cn([
-            'mkui-carousel-page',
+            'mkui-carousel-dot',
             isDefault ? 'default' : '',
             classNames?.page,
             i === current ? 'active' : '',
           ]),
           onClick: () => onClick(i),
-          'aria-label': `page ${i + 1}`,
+          title: `Slide ${i + 1}`,
+          'aria-label': `Slide ${i + 1}`,
           'aria-selected': i === current ? 'true' : 'false',
         }
         return (

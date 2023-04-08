@@ -1,0 +1,129 @@
+/* Config Variables
+/ -------------------------------------------------- /
+/ --carousel-arrow-fill
+/ --carousel-arrow-height
+/ --carousel-dot-background
+/ --carousel-dot-background-active
+/ --carousel-dot-height
+/ --carousel-dot-width
+/ --carousel-dot-border-radius
+/ --carousel-dot-margin
+/ --carousel-nav-padding
+/ --carousel-overlay-background
+/ -------------------------------------------------- 
+*/
+
+.mkui-carousel {
+  position: relative;
+  width: 100%;
+  margin: auto;
+  max-width: 100vw;
+  outline: none;
+}
+
+.mkui-slide-track {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.mkui-slider {
+  overflow: hidden;
+  width: 100%;
+}
+
+.mkui-slide {
+  height: 100%;
+  width: 100%;
+}
+
+/* Arrows */
+
+.mkui-carousel-arrow {
+  position: absolute;
+  cursor: pointer;
+  background: none;
+  border: none;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.mkui-carousel-arrow svg {
+  height: var(--carousel-arrow-height, 30px);
+  fill: var(--carousel-arrow-fill, #fff);
+}
+
+.mkui-carousel-arrow.right {
+  right: 0px;
+}
+
+.mkui-carousel-arrow.left {
+  left: 0px;
+}
+
+.mkui-carousel-arrow.right .default-arrow {
+  transform: translateY(-50%);
+}
+
+.mkui-carousel-arrow.left .default-arrow {
+  transform: translateY(-50%) scaleX(-1);
+}
+
+/* Page dots */
+
+.mkui-carousel-dot {
+  cursor: pointer;
+  margin: var(--carousel-dot-margin, 5px);
+}
+
+.mkui-carousel-dot.default {
+  height: var(--carousel-dot-height, 12px);
+  width: var(--carousel-dot-width, 12px);
+  border: none;
+  border-radius: var(--carousel-dot-border-radius, 50%);
+  background: var(--carousel-dot-background, rgba(255, 255, 255, 0.3));
+}
+
+.mkui-carousel-dot.default.active {
+  background: var(--carousel-dot-background-active, #fff);
+}
+
+.mkui-carousel-nav {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mkui-carousel-nav.top,
+.mkui-carousel-nav.bottom {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mkui-carousel-nav.left,
+.mkui-carousel-nav.right {
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+}
+
+.mkui-carousel-nav.bottom {
+  bottom: var(--carousel-nav-padding, 10px);
+}
+.mkui-carousel-nav.top {
+  top: var(--carousel-nav-padding, 10px);
+}
+.mkui-carousel-nav.left {
+  left: var(--carousel-nav-padding, 10px);
+}
+.mkui-carousel-nav.right {
+  right: var(--carousel-nav-padding, 10px);
+}
+
+/* Overlay */
+.mkui-carousel-overlay {
+}
