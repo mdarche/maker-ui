@@ -10,7 +10,7 @@
 / --------------------------------------------------
 */
 
-.mkui-input:not(.mkui-textarea) {
+.mkui-input {
   height: var(--form-input-height, 40px);
 }
 

@@ -58,7 +58,7 @@ export interface FormProps
 export const FormContext = React.createContext<{
   state: FormState
   dispatch: (a: Action) => void
-}>({ state: initialState, dispatch: (a) => {} })
+}>({ state: initialState as FormState, dispatch: (a) => {} })
 
 function formReducer(state: FormState, action: Action): FormState {
   switch (action.type) {
@@ -78,12 +78,26 @@ function formReducer(state: FormState, action: Action): FormState {
       return { ...state, settings: merge(state.settings, action.value) }
     case 'RESET_FORM':
       const { values, schema } = getFieldData(state.fields || [])
-      return { ...state, values, schema, errors: {}, touched: [] }
+      return {
+        ...state,
+        values,
+        resetCount: state.resetCount + 1,
+        schema,
+        errors: {},
+        touched: [],
+      }
     case 'SET_SUBMIT_COUNT':
-      return { ...state, submitCount: state.submitCount + 1 }
+      return {
+        ...state,
+        isSubmitting: true,
+        submitCount: state.submitCount + 1,
+      }
+    case 'SET_STATUS':
+      return { ...state, isSubmitting: action.value }
     case 'SET_FIELDS':
       return { ...state, fields: action.value }
     default: {
+      //@ts-ignore
       throw new Error(`Unhandled action type: ${action.type}`)
     }
   }

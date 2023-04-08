@@ -16,7 +16,7 @@ export interface FormSubmitButtonProps
 export const SubmitButton = forwardRef<
   HTMLButtonElement,
   FormSubmitButtonProps
->(({ onClick, lifecycle, children, className, ...props }, ref) => {
+>(({ onClick, lifecycle, children, className, _type, ...props }, ref) => {
   const { isSubmitting, errors, settings, schema, values } = useForm()
 
   function checkRequired() {

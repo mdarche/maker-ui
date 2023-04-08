@@ -20,7 +20,6 @@ interface LightboxModalProps
 /**
  * The `LightboxModal` houses all views for the Lightbox component.
  *
- * @todo - implement zoom feature
  * @internal
  */
 export const LightboxModal = ({
@@ -38,7 +37,6 @@ export const LightboxModal = ({
     useLightbox()
   const [play, setPlay] = useState(false)
   const [preview, setPreview] = useState(false)
-  // const [zoom, setZoom] = React.useState(false)
   const [controlsActive, setControlsActive] = useState(true)
   const item = data[index]
 

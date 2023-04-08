@@ -71,6 +71,7 @@ export function useForm() {
     currentPage: s.currentPage,
     totalPages: s.totalPages,
     settings: s.settings,
+    resetCount: s.resetCount,
     submitCount: s.submitCount,
     isSubmitting: s.isSubmitting,
     fields: s.fields,

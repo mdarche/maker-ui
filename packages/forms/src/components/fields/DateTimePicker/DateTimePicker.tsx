@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { cn } from '@maker-ui/utils'
 import type { FieldInputProps, DateSelection } from '@/types'
-import { useField } from '@/hooks'
+import { useField, useForm } from '@/hooks'
 import { Calendar } from './Calendar'
 import { TimePicker } from './TimePicker'
 import { getDatesOnSameDay } from './date-helpers'
@@ -16,6 +16,7 @@ function initValue(val?: string | Date | DateSelection): DateSelection {
 }
 
 export const DateTimePicker = ({ name }: FieldInputProps) => {
+  const { resetCount } = useForm()
   const { field, value, error, setValue } = useField(name)
   const [currentValue, setCurrentValue] = useState<DateSelection>(
     initValue(value)
@@ -72,6 +73,16 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  /**
+   * Handle local state when form reset
+   */
+  useEffect(() => {
+    if (resetCount > 0) {
+      setCurrentValue(initValue(value))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetCount])
 
   return (
     <div className={cn(['mkui-datetime', error ? 'error' : undefined])}>

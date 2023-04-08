@@ -275,13 +275,27 @@ export interface FieldProps {
   required?: boolean | string
   /** Custom Zod validation schema that will be run during validation */
   validation?: Schema
+  /** Field specific label positioning. */
   labelPosition?: LabelPosition
+  /** Field specific error positioning. */
   errorPosition?: ErrorPosition
+  /** A custom set of conditions that determine if a field should render based on the value
+   * of another field. This prop takes an array of arrays where the first array will be
+   * evaluated as AND conditions and the second array will be evaluated as OR.
+   */
   conditions?: Array<Condition[]>
+  /** Renders a small validation icon next to the field if the field has no errors and has
+   * been previously touched. */
   showValidation?: boolean
+  /** Props applied directly to the form input which might be useful for testing libraries
+   * like Cypress. */
   inputProps?: any // for Cypress or any other custom props
+  /** If true and the field type is `input` honeypot styling will be automatically applied
+   * to this field. */
+  honeypot?: boolean
+  /** If true, the form will automatically submit after this field has been touched. */
   autoSave?: boolean | AutoSaveSettings
-
+  /** The number of columns this field should span. */
   colSpan?: number
   /**  Options for the `radio`, `checkbox`, and `select` field types */
   options?: InputOption[] | { [key: string]: string }
@@ -461,11 +475,11 @@ export interface FormHelpers {
   /** The number of times the form has been submitted */
   submitCount: number
   /** A function that sets the submit state to true or false. This is useful if your
-   * Form.SubmitButton uses the lifecycle prop.
+   * Form.SubmitButton uses the lifecycle prop and your submit handler is asynchronous.
    */
   setIsSubmitting: (value: boolean) => void
   /** Calling this function will remove data from the form's current session and revert back
-   * to the initial field props.
+   * to the initial field props, or the new initial fields if generated dynamically.
    */
   resetForm: () => void
 }
@@ -495,6 +509,7 @@ export interface FormState {
   values: FormValues
   touched: string[]
   submitCount: number
+  resetCount: number
   isSubmitting: boolean
   isValidating: boolean
 }

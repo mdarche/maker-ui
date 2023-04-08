@@ -5,7 +5,7 @@ import type { FormState } from '@/types'
 /**
  * The initial state of the form. This is used to reset the form.
  */
-export const initialState: FormState = {
+export const initialState: Partial<FormState> = {
   settings: {
     validateIcon: <ValidateIcon />,
     columns: 'repeat(2, 1fr)',
@@ -20,10 +20,12 @@ export const initialState: FormState = {
   totalPages: 1,
   errors: {},
   values: {},
+  conditions: {},
   touched: [],
   fields: [],
   schema: {},
   submitCount: 1,
+  resetCount: 0,
   isSubmitting: false,
   isValidating: false,
 }

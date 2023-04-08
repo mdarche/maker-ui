@@ -27,6 +27,15 @@
   display: flex;
 }
 
+.form-safe input,
+.form-safe textarea,
+.form-safe .mkui-field-label,
+.mkui-field-container.form-safe {
+  opacity: 0;
+  height: 0px;
+  padding: 0px;
+}
+
 .mkui-field-container,
 .mkui-form-divider,
 .mkui-field-group {
@@ -34,6 +43,7 @@
 }
 
 /* Placeholder */
+
 .mkui-form .placeholder,
 .mkui-form ::placeholder {
   color: var(--form-placeholder-color, var(--color-text));
@@ -52,6 +62,7 @@
   padding: var(--form-instructions-padding, 5px 0 10px);
 }
 /* Labels */
+
 .mkui-field-label {
   color: var(--form-label-color, var(--color-text));
   font-size: var(--form-label-font-size, 1rem);
@@ -70,7 +81,9 @@
   flex: auto;
 }
 /* Errors */
+
 .error .mkui-input,
+.error .mkui-textarea,
 .error .mkui-select-control {
   border-color: var(--form-error-color, red);
 }
@@ -109,6 +122,7 @@
 }
 
 /* Pagination */
+
 .mkui-form-pagination {
   display: flex;
   justify-content: space-between;
@@ -120,7 +134,7 @@
 .mkui-form-pagination .mkui-form-submit {
   margin-left: auto;
 }
-/* Misc */
+
 /* 
   .validate-icon {
     display: 'flex',

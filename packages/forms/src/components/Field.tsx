@@ -103,6 +103,7 @@ export const Field = (p: FieldProps) => {
           : undefined,
         p?.colSpan ? 'colspan-' + p.colSpan : undefined,
         s?.classNames?.fieldContainer,
+        p?.honeypot ? 'form-safe' : undefined,
         hasError ? 'error' : undefined,
         touched ? 'touched' : '',
       ])}>

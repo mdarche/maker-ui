@@ -25,7 +25,7 @@ const defaultSettings: FieldProps['select'] = {
  * @note The `initialValue` must be InputOption or InputOption[]
  */
 export const Select = ({ name }: FieldInputProps) => {
-  const { settings: { validateFieldOnBlur } = {} } = useForm()
+  const { resetCount, settings: { validateFieldOnBlur } = {} } = useForm()
   const { field, error, value, setValue, validateField } = useField(name)
   const ref = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -176,6 +176,13 @@ export const Select = ({ name }: FieldInputProps) => {
         break
     }
   }
+
+  useEffect(() => {
+    if (resetCount > 0) {
+      setState((s) => ({ ...s, selectedOptions: initValue(value, options) }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetCount])
 
   /**
    * Save value to the form provider
