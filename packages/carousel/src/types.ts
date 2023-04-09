@@ -17,8 +17,6 @@ export interface CarouselClasses {
 
 export type SlideItem = React.ReactElement
 
-type ResponsiveValue = string | number | (string | number)[]
-
 export interface CarouselProps {
   /** The carousel must contain child nodes that will be registered as slides. */
   children: React.ReactElement[]
@@ -54,7 +52,7 @@ export interface CarouselProps {
   infinite?: boolean
   /** Custom classNames for all carousel sub-components. You can use these classNames to add
    * custom styles.*/
-  classNames?: CarouselClasses | null
+  classNames?: CarouselClasses
   /** If true, the left and right arrow keys can be used to navigate slides.
    * @default false
    */
@@ -74,14 +72,6 @@ export interface CarouselProps {
   hideArrows?: boolean
   /** Settings for carousel arrows */
   arrows?: {
-    /** Padding applied to each navigation button
-     * @default 20
-     */
-    padding?: ResponsiveValue
-    /** Margin applied to each button
-     * @default 0
-     */
-    margin?: ResponsiveValue
     /** A custom React element that will be rendered as the Left (previous) arrow. */
     left?: React.ReactElement | null
     /** A custom React element that will be rendered as the Right (next) arrow. */
@@ -95,49 +85,14 @@ export interface CarouselProps {
    * @default false
    */
   hidePagination?: boolean
-  /** Settings for carousel page indicators. Note that many of these style and positioning settings
-   * only apply if the `navigation` prop is undefined.
+  /** The position of the pagination container in the carousel. The `absolute` setting must
+   * be true to achieve this effect.
+   * @default 'bottom'
    */
-  pagination?: {
-    /** If true, the carousel navigation container will be absolutely positioned
-     * inside the carousel.
-     * @default true
-     * */
-    absolute?: boolean
-    /** The position of the pagination container in the carousel. The `absolute` setting must
-     * be true to achieve this effect.
-     * @default 'bottom'
-     */
-    position?: 'top' | 'bottom' | 'right' | 'left'
-    /** Margin of the pagination container relative to the edge of the carousel
-     * @default 30
-     */
-    margin?: ResponsiveValue
-    /** Distance between each page indicator
-     * @default 10
-     */
-    spacing?: ResponsiveValue
-    /** The height of page indicator (default only)
-     * @default 10
-     */
-    height?: ResponsiveValue
-    /** The width of page indicator (default only)
-     * @default 10
-     */
-    width?: ResponsiveValue
-    /** The page indicator's border radius value. Default is 50% for a circle
-     * @default '50%''
-     */
-    borderRadius?: ResponsiveValue
-    /** The color of the active page indicator
-     * @default '#fff'
-     */
-    colorActive?: string
-    /** The color of muted / inactive page indicators
-     * @default 'rgba(0, 0, 0, 0.25)''
-     */
-    colorMuted?: string
-  }
+  navPosition?: 'top' | 'bottom' | 'right' | 'left'
+  /** A custom React element that will be rendered on top of the carousel slides. It will
+   * be absolutely positioned relative to the slider component. */
+  overlay?: React.ReactNode
   navigate?: number
   /** A number in seconds that determines how long a slide will stay visible until changing. */
   autoPlay?: number

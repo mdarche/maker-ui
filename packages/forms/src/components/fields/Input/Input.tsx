@@ -12,7 +12,7 @@ const passwordSettings: FieldProps['password'] = {
 }
 
 export const Input = ({ name }: FieldInputProps) => {
-  const { settings } = useForm()
+  const { settings, resetCount } = useForm()
   const { field, error, value, setValue, validateField } = useField(name)
   const [inputValue, setInputValue] = useState(value)
   const deferredValue = useDeferredValue(inputValue)
@@ -29,17 +29,34 @@ export const Input = ({ name }: FieldInputProps) => {
     setInputValue(e.target.value)
   }
 
+  /**
+   * Handle local state on form reset
+   */
+  useEffect(() => {
+    if (resetCount > 0) {
+      setInputValue(value)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetCount])
+
+  /**
+   * Handle form input speed by saving via deferred value in the background
+   */
   useEffect(() => {
     if (deferredValue === inputValue) {
       setValue(deferredValue, true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deferredValue])
 
   const attrs = {
     id: `field-${field?.name}`,
     name: field?.name,
     placeholder: field?.placeholder,
-    className: cn(['mkui-input', error ? 'error' : undefined]),
+    className: cn([
+      el === 'textarea' ? 'mkui-textarea' : 'mkui-input',
+      error ? 'error' : undefined,
+    ]),
     type: isPass && showPass ? 'text' : field?.type,
     value: inputValue,
     onChange: handleChange,

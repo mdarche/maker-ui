@@ -67,7 +67,7 @@ export const LightboxProvider = ({
         setState((s) => ({ ...s, data: deduped }))
       }
     }
-  }, [state.data])
+  }, [data.length, state.data])
 
   /**
    * Handle external `show` prop
@@ -85,6 +85,7 @@ export const LightboxProvider = ({
     if (set) {
       set(state.active)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.active])
 
   return (
@@ -196,7 +197,6 @@ function mergeSettings(settings: LightboxSettings) {
       customArrow: undefined,
       showInfo: true,
       showCount: true,
-      showZoom: false,
       showAutoPlay: true,
       autoPlayDuration: 6000,
       disableHideControls: false,

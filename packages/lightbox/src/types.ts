@@ -47,12 +47,6 @@ export interface LightboxSettings {
    */
   showCount?: boolean
   /**
-   * Flag indicating if the lightbox should display a zoom button for the media content.
-   * @default false
-   * @todo Implement zoom functionality.
-   */
-  showZoom?: boolean
-  /**
    * Flag indicating if the lightbox should automatically play videos when they are displayed.
    * @default true
    */

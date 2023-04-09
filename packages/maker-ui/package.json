@@ -84,6 +84,7 @@
     "./forms.css": "./node_modules/@maker-ui/forms/dist/index.css",
     "./lightbox.css": "./node_modules/@maker-ui/lightbox/dist/index.css",
     "./toast.css": "./node_modules/@maker-ui/notifications/dist/index.css",
+    "./carousel.css": "./node_modules/@maker-ui/carousel/dist/index.css",
     "./package.json": "./package.json"
   },
   "scripts": {

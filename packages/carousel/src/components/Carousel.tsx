@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, type KeyboardEvent } from 'react'
-import { cn, generateId, merge } from '@maker-ui/utils'
-import { Style } from '@maker-ui/style'
+import { cn, merge } from '@maker-ui/utils'
 import {
   rotateItems,
   getTransformAmount,
@@ -19,8 +18,6 @@ import { Slider } from './Slider'
 import { Pagination } from './Pagination'
 import { defaultProps } from '../default-props'
 
-import { css } from './style'
-
 export interface CarouselState {
   items: SlideItem[]
   width: number
@@ -31,8 +28,7 @@ export interface CarouselState {
 }
 
 export const Carousel = (userProps: CarouselProps) => {
-  const { ...props }: Required<CarouselProps> = merge(defaultProps, userProps)
-  const [styleId] = useState(generateId())
+  const props: Required<CarouselProps> = merge(defaultProps, userProps)
   const containerRef = useRef<HTMLDivElement>(null)
   const initialItems = initItems(
     props.children,
@@ -61,7 +57,6 @@ export const Carousel = (userProps: CarouselProps) => {
   const [page, setPage] = useState(0)
   const [autoCount, setAutoCount] = useState(0)
   const isPaginating = useRef(false)
-  const slideButtonRef = useRef<HTMLButtonElement>(null)
   const autoPlayTimer = useRef<number>()
 
   useEffect(() => {
@@ -266,19 +261,10 @@ export const Carousel = (userProps: CarouselProps) => {
   return (
     <div
       ref={containerRef}
-      className={cn(['mkui-carousel', props.classNames?.root, styleId])}
+      className={cn(['mkui-carousel', props.classNames?.root])}
       data-cy="mkui-carousel"
       tabIndex={0}
       {...(props.useArrowKeys ? { onKeyDown: handleOnKeyDown } : {})}>
-      <Style root={styleId} css={css} />
-      {showArrow.left && (
-        <Arrow
-          direction="left"
-          className={props?.classNames?.arrow}
-          custom={props.arrows?.left}
-          onClick={onLeftArrowClick}
-        />
-      )}
       <Slider
         {...props}
         items={itemsRef.current}
@@ -289,10 +275,17 @@ export const Carousel = (userProps: CarouselProps) => {
         dragCallback={dragCallback}
         widthCallBack={widthCallBack}
       />
+      {showArrow.left && (
+        <Arrow
+          direction="left"
+          className={props?.classNames?.arrow}
+          custom={props.arrows?.left}
+          onClick={onLeftArrowClick}
+        />
+      )}
       {showArrow.right && (
         <Arrow
           direction="right"
-          ref={slideButtonRef}
           className={props?.classNames?.arrow}
           custom={props.arrows?.right}
           onClick={onRightArrowClick}
@@ -301,6 +294,7 @@ export const Carousel = (userProps: CarouselProps) => {
       {!props.hidePagination && (
         <Pagination
           isDefault={props?.navigation === undefined}
+          position={props?.navPosition}
           factory={props.navigation || ((_, attrs) => <button {...attrs} />)}
           classNames={props?.classNames}
           length={props.children.length}

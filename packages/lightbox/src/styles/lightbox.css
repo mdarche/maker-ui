@@ -136,10 +136,12 @@
 .mkui-lightbox-btn-item {
   cursor: pointer;
   height: 80px;
-  border-color: #ababab;
+  border: 1px solid #ababab;
+  outline: none;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
 }
 .mkui-lightbox-btn-item.active {
-  outline: 2px solid #fff;
+  border-color: #fff;
 }

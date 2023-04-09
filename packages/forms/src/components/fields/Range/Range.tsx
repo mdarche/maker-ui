@@ -6,11 +6,12 @@ import React, {
   ChangeEvent,
 } from 'react'
 import { merge, cn, generateId } from '@maker-ui/utils'
-import { useField } from '@/hooks'
+import { useField, useForm } from '@/hooks'
 import type { FieldInputProps, FieldProps } from '@/types'
 
 export const Range = ({ name }: FieldInputProps) => {
   const [id] = useState(generateId())
+  const { resetCount } = useForm()
   const { field, setValue } = useField(name)
   const { range: r, initialValue }: Required<FieldProps> = merge(
     {
@@ -25,7 +26,6 @@ export const Range = ({ name }: FieldInputProps) => {
     },
     field || {}
   )
-
   const [minVal, setMinVal] = useState(r.min!)
   const [maxVal, setMaxVal] = useState(r.max!)
   const minValRef = useRef<HTMLInputElement>(null)
@@ -43,6 +43,17 @@ export const Range = ({ name }: FieldInputProps) => {
     (value: number) => Math.round(((value - r.min!) / (r.max! - r.min!)) * 100),
     [r?.min, r?.max]
   )
+
+  /**
+   * Handle local state when form is reset
+   */
+  useEffect(() => {
+    if (resetCount > 0) {
+      setMaxVal(initialValue?.max || r.max)
+      setMinVal(initialValue?.min || r.min)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetCount])
 
   useEffect(() => {
     setMaxVal(initialValue?.max || r.max)

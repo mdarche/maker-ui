@@ -16,19 +16,5 @@ export const defaultProps: CarouselProps = {
   hideArrows: false,
   hidePagination: false,
   autoPlayLimit: -1, // infinitely
-  arrows: {
-    padding: 20,
-    margin: 0,
-  },
-  pagination: {
-    absolute: true,
-    position: 'bottom',
-    height: 10,
-    width: 10,
-    borderRadius: '50%',
-    spacing: 10,
-    margin: 10,
-    colorActive: '',
-    colorMuted: '',
-  },
+  navPosition: 'bottom',
 }
