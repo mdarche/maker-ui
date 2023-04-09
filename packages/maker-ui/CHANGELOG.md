@@ -1,5 +1,23 @@
 # maker-ui
 
+## 2.0.3
+
+### Patch Changes
+
+- [#95](https://github.com/mdarche/maker-ui/pull/95) [`1a7b0544`](https://github.com/mdarche/maker-ui/commit/1a7b0544ba7e9a18cda9fd6c579b6de9806e8ee7) Thanks [@mdarche](https://github.com/mdarche)! - Summary of edits:
+
+  - Fixed forms `resetForm` and `setIsSubmitting` helpers
+  - Add honeypot field option to text inputs w/ styling
+  - Updated styles for lightbox
+  - Removed unused zoom code from lightbox
+  - Added stylesheet to carousel and removed runtime style tag
+  - Added overlay prop to carousel
+
+- Updated dependencies [[`1a7b0544`](https://github.com/mdarche/maker-ui/commit/1a7b0544ba7e9a18cda9fd6c579b6de9806e8ee7)]:
+  - @maker-ui/carousel@2.0.2
+  - @maker-ui/forms@2.0.3
+  - @maker-ui/lightbox@2.0.3
+
 ## 2.0.2
 
 ### Patch Changes
