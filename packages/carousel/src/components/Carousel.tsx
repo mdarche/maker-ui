@@ -57,7 +57,6 @@ export const Carousel = (userProps: CarouselProps) => {
   const [page, setPage] = useState(0)
   const [autoCount, setAutoCount] = useState(0)
   const isPaginating = useRef(false)
-  const slideButtonRef = useRef<HTMLButtonElement>(null)
   const autoPlayTimer = useRef<number>()
 
   useEffect(() => {
@@ -287,7 +286,6 @@ export const Carousel = (userProps: CarouselProps) => {
       {showArrow.right && (
         <Arrow
           direction="right"
-          ref={slideButtonRef}
           className={props?.classNames?.arrow}
           custom={props.arrows?.right}
           onClick={onRightArrowClick}

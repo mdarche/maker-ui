@@ -105,15 +105,12 @@ export const Slider = (props: SliderProps) => {
       <div
         className={cn(['mkui-slide-track'])}
         data-cy="slide-track"
-        {...swipeProps}
+        {...(props?.overlay ? {} : swipeProps)}
         style={{
           transform: `translateX(${props.transform - drag.drag}px)`,
           transition: `transform ${props.transition}s ease 0s`,
           width: width * props.items.length,
         }}>
-        {props.overlay ? (
-          <div className="mkui-carousel-overlay">{props.overlay}</div>
-        ) : null}
         {props.items.map((item, i) => (
           <div
             key={i}
@@ -123,6 +120,13 @@ export const Slider = (props: SliderProps) => {
           </div>
         ))}
       </div>
+      {props.overlay ? (
+        <div
+          className="mkui-carousel-overlay"
+          {...(props?.overlay ? swipeProps : {})}>
+          {props.overlay}
+        </div>
+      ) : null}
     </div>
   )
 }

@@ -52,7 +52,7 @@ export interface CarouselProps {
   infinite?: boolean
   /** Custom classNames for all carousel sub-components. You can use these classNames to add
    * custom styles.*/
-  classNames?: CarouselClasses | null
+  classNames?: CarouselClasses
   /** If true, the left and right arrow keys can be used to navigate slides.
    * @default false
    */

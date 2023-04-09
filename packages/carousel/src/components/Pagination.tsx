@@ -6,7 +6,7 @@ export interface PaginationProps {
   isDefault?: boolean
   length: number
   current: number
-  classNames?: CarouselClasses | null
+  classNames?: CarouselClasses
   position?: CarouselProps['navPosition']
   factory: (
     selected: boolean,
@@ -20,7 +20,7 @@ export const Pagination = ({
   isDefault,
   length,
   current,
-  position = 'bottom',
+  position,
   factory,
   onClick,
   classNames,

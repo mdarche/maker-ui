@@ -23,6 +23,7 @@
 
 .mkui-slide-track {
   height: 100%;
+  position: relative;
   display: flex;
   overflow: hidden;
 }
@@ -48,6 +49,7 @@
   bottom: 0;
   display: flex;
   align-items: center;
+  z-index: 1;
 }
 
 .mkui-carousel-arrow svg {
@@ -95,6 +97,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 .mkui-carousel-nav.top,
@@ -126,4 +129,11 @@
 
 /* Overlay */
 .mkui-carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background: var(--carousel-overlay-background);
 }

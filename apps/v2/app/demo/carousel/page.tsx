@@ -1,17 +1,36 @@
 'use client'
+
 import { Section } from 'maker-ui'
 import Image from 'next/image'
 import { Carousel } from 'maker-ui/carousel'
 import 'maker-ui/carousel.css'
 
 import CosmosImage from '@/public/cosmos.jpeg'
+import { useState } from 'react'
 
 export default function CarouselPage() {
+  const [show, set] = useState(false)
   const colors = ['red', 'orange', 'purple', 'blue']
   return (
     <Section style={{ maxWidth: '100vw', overflow: 'hidden' }}>
       <Carousel
-        navPosition="top"
+        useArrowKeys
+        // overlay={
+        //   <div
+        //     style={{
+        //       position: 'absolute',
+        //       left: 20,
+        //       top: 100,
+        //       width: 500,
+        //       height: 200,
+        //       background: 'blue',
+        //     }}>
+        //     <button onClick={() => set(!show)}>
+        //       status {show ? 'active' : 'inactive'}
+        //     </button>
+        //   </div>
+        // }
+        // navPosition="left"
         // hideArrows
         // hidePagination
         // navigation={(active, attrs) => (
