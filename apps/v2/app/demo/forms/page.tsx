@@ -6,6 +6,10 @@ import { DynamicForm } from './dynamic'
 import 'maker-ui/forms.css'
 import { Tabs } from 'maker-ui/tabs'
 import { AllFieldsForm } from './allFields'
+import { PaginatedForm } from './pagination'
+import { CustomForm } from './custom'
+import './forms.scss'
+import { GroupedForm } from './groups'
 
 export default function FormPage() {
   return (
@@ -19,6 +23,15 @@ export default function FormPage() {
         </Tabs.Panel>
         <Tabs.Panel title="All Fields">
           <AllFieldsForm />
+        </Tabs.Panel>
+        <Tabs.Panel title="Paginated">
+          <PaginatedForm />
+        </Tabs.Panel>
+        <Tabs.Panel title="Custom Field">
+          <CustomForm />
+        </Tabs.Panel>
+        <Tabs.Panel title="Grouped Form">
+          <GroupedForm />
         </Tabs.Panel>
       </Tabs>
       {/* <SimpleForm /> */}

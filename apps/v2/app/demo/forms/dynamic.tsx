@@ -75,7 +75,11 @@ export function DynamicForm() {
       <Form
         error={error}
         fields={fields}
-        settings={{ columns: 2, validateFieldOnBlur: false }}
+        settings={{
+          columns: 2,
+          validateFieldOnBlur: false,
+          requiredSymbol: true,
+        }}
         onSubmit={submitHandler}>
         <Form.Submit lifecycle={{ submitting: 'Submitting...' }}>
           Submit

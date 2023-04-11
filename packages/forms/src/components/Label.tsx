@@ -1,10 +1,11 @@
 import * as React from 'react'
-import type { FieldProps } from '@/types'
+import type { FieldProps, FormSettings } from '@/types'
 
 interface LabelProps {
   name: FieldProps['name']
   children: FieldProps['label']
   type: FieldProps['type']
+  symbol?: FormSettings['requiredSymbol']
 }
 
 /**
@@ -12,21 +13,28 @@ interface LabelProps {
  * will be rendered as a group label. If the field is a switch, the label will
  * be rendered as a switch label.
  */
-export const Label = ({ name, children, type }: LabelProps) => {
+export const Label = ({ name, children, symbol, type }: LabelProps) => {
   const isSwitch = type === 'switch'
-  if (type === 'checkbox' || type === 'radio' || isSwitch) {
-    return (
-      <div
-        id={isSwitch ? `${name}-label` : `${name}-group`}
-        className="mkui-field-label">
-        {children}
-      </div>
+  const isGroup = type === 'checkbox' || type === 'radio' || isSwitch
+
+  const renderSymbol = () => {
+    return symbol === true ? (
+      <span className="mkui-required-symbol">*</span>
+    ) : (
+      symbol
     )
   }
 
-  return (
-    <label htmlFor={`field-${name}`} className="mkui-field-label">
+  return isGroup ? (
+    <div
+      id={isSwitch ? `${name}-label` : `${name}-group`}
+      className="mkui-field-label">
       {children}
+      {symbol && renderSymbol()}
+    </div>
+  ) : (
+    <label htmlFor={`field-${name}`} className="mkui-field-label">
+      {children} {symbol && renderSymbol()}
     </label>
   )
 }

@@ -80,7 +80,6 @@ export function SimpleForm() {
             name: 'message',
             label: 'Message',
             placeholder: 'Your message...',
-            required: true,
             validation: z.string(),
           },
           {

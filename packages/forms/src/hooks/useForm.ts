@@ -50,16 +50,21 @@ export function useForm() {
   }
 
   function setPage(n: number) {
-    // Go to top of page
     const form = document.querySelector(`.${s.formId}`)
     if (form) {
       const buffer = 100
-      const offsetTop =
-        form.getBoundingClientRect().top + window.pageYOffset - buffer
-      window.scrollTo({ top: offsetTop, behavior: 'smooth' })
+      const formRect = form.getBoundingClientRect()
+      const formTop = formRect.top
+      // Check if the form top is not visible
+      if (formTop < 0 || formTop > window.innerHeight) {
+        const offsetTop = formTop + window.pageYOffset - buffer
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' })
+      }
     } else {
+      // If form is not found, scroll to the top of the page
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
+
     dispatch({ type: 'SET_PAGE', value: n })
   }
 

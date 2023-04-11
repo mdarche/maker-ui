@@ -5,10 +5,10 @@ import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
 import { useForm } from '@/hooks'
 import { evaluateConditions, findAllValuesByKey, sortChildren } from '@/helpers'
-import type { FieldProps } from '@/types'
 import { Field } from './Field'
 import type { FormProps } from './Form'
 import { Pagination } from './Pagination'
+import type { FieldProps } from '@/types'
 
 interface FormRendererProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
@@ -24,6 +24,7 @@ export const FormRenderer = ({
 }: FormRendererProps) => {
   const components = sortChildren(children)
   const {
+    isSubmitting,
     formId,
     totalPages,
     fields,
@@ -66,6 +67,7 @@ export const FormRenderer = ({
         className={cn([
           'mkui-field-group',
           p?.className,
+          p?.colSpan ? 'colspan-' + p.colSpan : undefined,
           settings?.classNames?.fieldGroup,
         ])}>
         {p?.label ?? null}
@@ -85,7 +87,10 @@ export const FormRenderer = ({
     <Conditional
       condition={!!components.success}
       trueWrapper={(c) => (
-        <CSSTransition isSwitch show={!!success}>
+        <CSSTransition
+          isSwitch
+          show={!!success}
+          type={settings?.successTransition}>
           {success ? components.success : c}
         </CSSTransition>
       )}>
@@ -95,8 +100,9 @@ export const FormRenderer = ({
         onSubmit={(e) => {
           e.preventDefault()
           const valid = validateForm()
-          if (valid) {
+          if (valid && !isSubmitting) {
             setSubmitCount()
+            setIsSubmitting(true)
             onSubmit(values, { setIsSubmitting, resetForm, submitCount })
           }
         }}>
@@ -117,7 +123,7 @@ export const FormRenderer = ({
         {isPaginated && components.progress}
         {components.header}
         {isPaginated ? (
-          <CSSTransition show={currentPage} type="fade">
+          <CSSTransition show={currentPage} type={settings?.pageTransition}>
             {fields?.map(({ label, subFields, className }, i) => (
               <React.Fragment key={i}>
                 {currentPage === i + 1 ? (
