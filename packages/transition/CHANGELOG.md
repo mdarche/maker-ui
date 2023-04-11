@@ -1,5 +1,23 @@
 # @maker-ui/transition
 
+## 2.0.2
+
+### Patch Changes
+
+- [#97](https://github.com/mdarche/maker-ui/pull/97) [`897b5bae`](https://github.com/mdarche/maker-ui/commit/897b5baeb15310330f435dcbea5466e5245ba6f6) Thanks [@mdarche](https://github.com/mdarche)! - Improves the overall developer experience of @maker-ui/forms:
+
+  - Adds required symbol support
+  - Adds access to custom success and page transitions
+  - Fixes various form styles and labels
+  - Adds previous `className` to form progress indicator
+  - Enables page titles
+  - Applies column classes to groups
+  - Applies conditional logic to groups
+  - Removes `divider` type from form schema
+  - Exports `TransitionType` from `@maker-ui/transitions`
+  - Fixes broken `radio` and `checkbox` field types
+  - Exports new `findDifferences` and `createUpdateObject` as submit helpers
+
 ## 2.0.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@maker-ui/notifications",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "author": "Mike Darche <mike@newcreative.io>",
   "license": "Apache-2.0",
   "main": "dist/index.js",
