@@ -76,15 +76,17 @@ function formReducer(state: FormState, action: Action): FormState {
       return { ...state, formError: action.value }
     case 'UPDATE_SETTINGS':
       return { ...state, settings: merge(state.settings, action.value) }
+    case 'SET_FIELDS':
     case 'RESET_FORM':
-      const { values, schema } = getFieldData(state.fields || [])
+      const fields =
+        action.type === 'SET_FIELDS' ? action.value : state.fields || []
       return {
         ...state,
-        values,
         resetCount: state.resetCount + 1,
-        schema,
+        fields,
         errors: {},
         touched: [],
+        ...getFieldData(fields),
       }
     case 'SET_SUBMIT_COUNT':
       return {
@@ -94,8 +96,6 @@ function formReducer(state: FormState, action: Action): FormState {
       }
     case 'SET_STATUS':
       return { ...state, isSubmitting: action.value }
-    case 'SET_FIELDS':
-      return { ...state, fields: action.value }
     default: {
       //@ts-ignore
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -128,6 +128,10 @@ function getFieldData(fields: FieldProps[], index = 0) {
 
   fields.forEach((f, i) => {
     if (nonFields.includes(f.type) && f?.subFields) {
+      // If group has conditions, add this to the conditions object
+      if (f.type === 'group' && f.conditions) {
+        conditions[f.name] = f.conditions
+      }
       // Recursively get nested field data
       const nested = getFieldData(f.subFields, i)
       const usedKey = findDuplicateKey(values, nested.values)
@@ -141,13 +145,15 @@ function getFieldData(fields: FieldProps[], index = 0) {
       if (values[f.name]) {
         console.error(error(f.name))
       }
-      values[f.name] = f.initialValue || getDefault(f.type)
-      conditions[f.name] = f?.conditions
-      schema[f.name] = {
-        type: f.type,
-        required: typeof f?.required === 'string' ? f.required : !!f.required,
-        page: index + 1,
-        validation: f?.validation,
+      if (f.type !== 'divider') {
+        values[f.name] = f.initialValue || getDefault(f.type)
+        conditions[f.name] = f?.conditions
+        schema[f.name] = {
+          type: f.type,
+          required: typeof f?.required === 'string' ? f.required : !!f.required,
+          page: index + 1,
+          validation: f?.validation,
+        }
       }
     }
   })

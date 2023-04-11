@@ -12,17 +12,19 @@
 
 .mkui-input {
   height: var(--form-input-height, 40px);
+  padding: var(--form-input-padding, 0 10px);
 }
 
 .mkui-textarea {
   height: var(--form-textarea-height, 200px);
+  padding: var(--form-textarea-padding, 10px);
 }
 
 .mkui-input,
 .mkui-textarea {
   color: var(--color-text);
   font-size: var(--form-input-font-size, 1em);
-  padding: var(--form-input-padding, 0 10px);
+  font-family: var(--form-input-font, var(--font-body));
   border: var(--form-input-border, 1px solid var(--color-text));
   border-radius: var(--form-input-border-radius, 0px);
   background: var(--form-input-bg, var(--color-background));

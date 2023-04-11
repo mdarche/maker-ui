@@ -8,3 +8,4 @@ export {
   findAllValuesByKey,
   findDuplicateKey,
 } from './utils'
+export { findDifferences, createUpdateObject } from './find-differences'

@@ -44,6 +44,7 @@
   background: none;
   width: 100%;
   font-size: var(--form-input-font-size, 1em);
+  font-family: var(--form-input-font, var(--font-body));
 }
 
 .mkui-select-arrow {
@@ -97,7 +98,9 @@
   padding-left: 5px;
   border-radius: 2px;
   font-size: calc(var(--form-input-font-size, 1em) - 2px);
+  font-family: var(--form-input-font, var(--font-body));
   margin-right: 5px;
+  white-space: nowrap;
 }
 
 .mkui-select-value-clear {

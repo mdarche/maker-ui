@@ -4,7 +4,7 @@ import { CSSTransition } from '@maker-ui/transition'
 import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
 import { useForm } from '@/hooks'
-import { findAllValuesByKey, sortChildren } from '@/helpers'
+import { evaluateConditions, findAllValuesByKey, sortChildren } from '@/helpers'
 import type { FieldProps } from '@/types'
 import { Field } from './Field'
 import type { FormProps } from './Form'
@@ -27,6 +27,7 @@ export const FormRenderer = ({
     formId,
     totalPages,
     fields,
+    schema,
     error,
     values,
     success,
@@ -56,7 +57,10 @@ export const FormRenderer = ({
   }
 
   const renderGroup = (p: FieldProps, i: number) => {
-    return p?.type === 'group' && p?.subFields ? (
+    const shouldRender =
+      !p.conditions || evaluateConditions(p.conditions, values, schema)
+
+    return p?.type === 'group' && p?.subFields && shouldRender ? (
       <div
         key={p?.name || i}
         className={cn([
@@ -114,7 +118,7 @@ export const FormRenderer = ({
         {components.header}
         {isPaginated ? (
           <CSSTransition show={currentPage} type="fade">
-            {fields?.map(({ subFields, className }, i) => (
+            {fields?.map(({ label, subFields, className }, i) => (
               <React.Fragment key={i}>
                 {currentPage === i + 1 ? (
                   <div
@@ -124,6 +128,9 @@ export const FormRenderer = ({
                       className,
                       settings?.classNames?.page,
                     ])}>
+                    {label && (
+                      <div className="mkui-form-page-label">{label}</div>
+                    )}
                     <div className="mkui-form-grid">
                       {subFields?.map((p) => renderGroup(p, i))}
                     </div>
