@@ -3,4 +3,8 @@ export {
   type TransitionProps,
   type TransitionState,
 } from './Transition'
-export { CSSTransition, type CSSTransitionProps } from './CSSTransition'
+export {
+  CSSTransition,
+  type CSSTransitionProps,
+  type TransitionType,
+} from './CSSTransition'

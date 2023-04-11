@@ -11,7 +11,7 @@ import { deepSearch, isEmpty, validate } from '@/helpers'
  */
 export function useField(name: string) {
   const { state: s, dispatch } = useContext(FormContext)
-  const page = s.schema[name].page
+  const page = s.schema ? s.schema[name]?.page : 1
 
   function setTouched() {
     dispatch({ type: 'SET_TOUCHED', value: name })

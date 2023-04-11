@@ -49,6 +49,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
         {...props}>
         {[...Array(totalPages)].map((_, i) => {
           const isActive = i + 1 === currentPage
+          const isPrevious = i + 1 < currentPage
           return (
             <Fragment key={i}>
               {renderProps ? (
@@ -61,6 +62,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
                     'mkui-btn-form-progress',
                     classNames?.indicator,
                     isActive ? 'active' : '',
+                    isPrevious ? 'previous' : '',
                     isActive ? classNames?.active : '',
                   ])}>
                   {component ?? null}

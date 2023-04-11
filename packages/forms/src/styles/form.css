@@ -64,6 +64,7 @@
 /* Labels */
 
 .mkui-field-label {
+  display: flex;
   color: var(--form-label-color, var(--color-text));
   font-size: var(--form-label-font-size, 1rem);
   padding: var(--form-label-padding, 0 0 5px);
@@ -126,13 +127,19 @@
 .mkui-form-pagination {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   margin-top: 3rem;
 }
 
 .mkui-form-pagination .next,
 .mkui-form-pagination .mkui-form-submit {
   margin-left: auto;
+}
+
+/* Submit */
+
+.mkui-form-submit {
+  margin-top: var(--form-submit-margin-top, 2rem);
 }
 
 /* 

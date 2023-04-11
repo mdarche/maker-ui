@@ -1,4 +1,5 @@
 import { Breakpoints } from '@maker-ui/style'
+import { TransitionType } from '@maker-ui/transition'
 import * as React from 'react'
 import type { Schema, ZodError } from 'zod'
 
@@ -426,6 +427,17 @@ export interface FormSettings {
    * @default 'bottom-right'
    */
   errorPosition: ErrorPosition
+  /** If you include this, required fields labels will have a custom required indicator
+   * appended to the text. */
+  requiredSymbol?: boolean | React.ReactElement
+  /** Customize the pagination page transition
+   * @default 'fade'
+   */
+  pageTransition?: TransitionType
+  /** Customize the success page transition
+   * @default 'fade'
+   */
+  successTransition?: TransitionType
   /** Custom className selectors for various form elements. */
   classNames?: FormClassNames
   /** The color of the placeholder text for text inputs */
