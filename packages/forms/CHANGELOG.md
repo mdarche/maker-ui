@@ -1,5 +1,16 @@
 # @maker-ui/forms
 
+## 2.0.5
+
+### Patch Changes
+
+- [#99](https://github.com/mdarche/maker-ui/pull/99) [`7880debd`](https://github.com/mdarche/maker-ui/commit/7880debdec34bf350bc397cd3e14863f0da896a5) Thanks [@mdarche](https://github.com/mdarche)! - This patch version includes a number of small fixes and improvements:
+
+  - Date range passes validation with only one date
+  - Calendar CSS variable names have been fixed to fit MKUI conventions
+  - New `onPageChange` callback function is available in form.settings for paginated forms
+  - Only renders the required symbol inside a label if the field is actually required (bugfix)
+
 ## 2.0.4
 
 ### Patch Changes
