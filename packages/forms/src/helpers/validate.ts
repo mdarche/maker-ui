@@ -66,12 +66,12 @@ export function validate({
       schema
     )
     if (!isVisible) return { isValid, errors: {} }
-    if (schema[field].required && isEmpty) {
+    if (schema[field]?.required && isEmpty) {
       isValid = false
-      const r = schema[field].required
+      const r = schema[field]?.required
       errors[field] = typeof r === 'string' ? r : 'Required'
     } else if (schema[field]?.validation) {
-      const res = schema[field].validation?.safeParse(values[field])
+      const res = schema[field]?.validation?.safeParse(values[field])
       if (!res?.success && res?.error) {
         errors[field] = res?.error
         isValid = false
@@ -83,7 +83,7 @@ export function validate({
 
   if (type === 'form' || type === 'page') {
     Object.keys(schema).forEach((name) => {
-      if (type === 'page' && schema[name].page !== page) {
+      if (type === 'page' && schema[name]?.page !== page) {
         return
       }
       const { isVisible, isEmpty } = basicValidate(
@@ -95,14 +95,14 @@ export function validate({
 
       if (!isVisible) return
 
-      if (schema[name].required && isEmpty) {
+      if (schema[name]?.required && isEmpty) {
         // Check for required
-        const r = schema[name].required
+        const r = schema[name]?.required
         isValid = false
         errors[name] = typeof r === 'string' ? r : 'Required'
       } else if (schema[name]?.validation) {
         // Check for custom validation
-        const res = schema[name].validation?.safeParse(values[name])
+        const res = schema[name]?.validation?.safeParse(values[name])
         if (!res?.success && res?.error) {
           errors[name] = res?.error
           isValid = false
