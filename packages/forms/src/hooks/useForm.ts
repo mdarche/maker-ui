@@ -64,7 +64,7 @@ export function useForm() {
       // If form is not found, scroll to the top of the page
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-
+    s?.settings?.onPageChange?.(n, s.values)
     dispatch({ type: 'SET_PAGE', value: n })
   }
 

@@ -96,8 +96,8 @@ export const Calendar = ({
   /**
    * Select a date from the calendar
    */
-  const selectDate = (d: Date) => {
-    const date = new Date(d)
+  const selectDate = (date: Date) => {
+    // const date = new Date(d)
     const isInRange =
       startDate && endDate ? isDateInRange(date, startDate, endDate) : true
     const isEarlier =
@@ -107,14 +107,17 @@ export const Calendar = ({
       // If no start date
       if (!state.rangeStart) {
         setState((s) => ({ ...s, rangeStart: date }))
+        onChange?.({ startDate: date, endDate: undefined })
       }
 
       // If start date but no end date yet & invoke callback
       if (state.rangeStart && !state.rangeEnd) {
         if (isSameDay(state.rangeStart, date)) {
           setState((s) => ({ ...s, rangeStart: undefined }))
+          onChange?.({ startDate: undefined, endDate: undefined })
         } else if (isEarlier) {
           setState((s) => ({ ...s, rangeStart: date }))
+          onChange?.({ startDate: date, endDate: undefined })
         } else {
           // Check for range min and max
           const disableWeekends =
@@ -141,15 +144,16 @@ export const Calendar = ({
       // If start date and end date, reset end and set new start date
       if (state.rangeStart && state.rangeEnd) {
         setState((s) => ({ ...s, rangeStart: date, rangeEnd: undefined }))
+        onChange?.({ startDate: date, endDate: undefined })
       }
     } else {
       if (isInRange) {
         setState({
-          selected: d,
-          month: +d.getMonth() + 1,
-          year: d.getFullYear(),
+          selected: date,
+          month: +date.getMonth() + 1,
+          year: date.getFullYear(),
         })
-        onChange?.({ date: d })
+        onChange?.({ date })
       }
     }
   }
