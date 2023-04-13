@@ -128,13 +128,17 @@ export const SocialAccounts = ({
         )}
       />
       <ul className="mkui-icon-list inline-flex">
-        {Object.keys(accounts).map((key) => (
-          <SocialIcon
-            key={key}
-            name={key}
-            account={accounts[key] as LinkType}
-          />
-        ))}
+        {Object.keys(accounts).map((key) =>
+          accounts[key] !== undefined &&
+          accounts[key] !== null &&
+          accounts[key] !== '' ? (
+            <SocialIcon
+              key={key}
+              name={key}
+              account={accounts[key] as LinkType}
+            />
+          ) : null
+        )}
       </ul>
     </div>
   ) : null
