@@ -28,7 +28,11 @@ function basicValidate(
   let isEmpty
 
   if (typeof values[field] === 'object' && !Array.isArray(values[field])) {
-    isEmpty = Object.values(values[field]).every((value) => !value)
+    if (values[field] instanceof Date) {
+      isEmpty = isNaN(values[field].getTime())
+    } else {
+      isEmpty = Object.values(values[field]).every((value) => !value)
+    }
   } else {
     isEmpty =
       !values[field] || (Array.isArray(values[field]) && !values[field].length)
