@@ -1,5 +1,11 @@
 # @maker-ui/social
 
+## 2.0.2
+
+### Patch Changes
+
+- [#99](https://github.com/mdarche/maker-ui/pull/99) [`7880debd`](https://github.com/mdarche/maker-ui/commit/7880debdec34bf350bc397cd3e14863f0da896a5) Thanks [@mdarche](https://github.com/mdarche)! - Allows `SocialAccounts` to accept null, undefined, or empty string values without throwing an error.
+
 ## 2.0.1
 
 ### Patch Changes

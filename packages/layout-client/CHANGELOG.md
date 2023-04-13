@@ -1,5 +1,14 @@
 # @maker-ui/layout-client
 
+## 2.0.2
+
+### Patch Changes
+
+- [#99](https://github.com/mdarche/maker-ui/pull/99) [`7880debd`](https://github.com/mdarche/maker-ui/commit/7880debdec34bf350bc397cd3e14863f0da896a5) Thanks [@mdarche](https://github.com/mdarche)! - Accounts for safari safe inset for fixed items that had bottom: 0 values.
+
+- Updated dependencies [[`7880debd`](https://github.com/mdarche/maker-ui/commit/7880debdec34bf350bc397cd3e14863f0da896a5)]:
+  - @maker-ui/layout-server@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

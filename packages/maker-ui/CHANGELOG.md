@@ -1,5 +1,15 @@
 # maker-ui
 
+## 2.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`7880debd`](https://github.com/mdarche/maker-ui/commit/7880debdec34bf350bc397cd3e14863f0da896a5), [`7880debd`](https://github.com/mdarche/maker-ui/commit/7880debdec34bf350bc397cd3e14863f0da896a5), [`7880debd`](https://github.com/mdarche/maker-ui/commit/7880debdec34bf350bc397cd3e14863f0da896a5), [`7880debd`](https://github.com/mdarche/maker-ui/commit/7880debdec34bf350bc397cd3e14863f0da896a5)]:
+  - @maker-ui/social@2.0.2
+  - @maker-ui/notifications@2.0.4
+  - @maker-ui/layout@2.0.2
+  - @maker-ui/forms@2.0.5
+
 ## 2.0.4
 
 ### Patch Changes

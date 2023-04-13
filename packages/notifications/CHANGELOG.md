@@ -1,5 +1,11 @@
 # @maker-ui/notifications
 
+## 2.0.4
+
+### Patch Changes
+
+- [#99](https://github.com/mdarche/maker-ui/pull/99) [`7880debd`](https://github.com/mdarche/maker-ui/commit/7880debdec34bf350bc397cd3e14863f0da896a5) Thanks [@mdarche](https://github.com/mdarche)! - Updates variable names to match MKUI conventions.
+
 ## 2.0.3
 
 ### Patch Changes
