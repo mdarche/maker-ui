@@ -129,7 +129,7 @@ function getFieldData(fields: FieldProps[], index = 0) {
   fields.forEach((f, i) => {
     if (nonFields.includes(f.type) && f?.subFields) {
       // If group has conditions, add this to the conditions object
-      if (f.type === 'group' && f.conditions) {
+      if (f.type === 'group' && f?.conditions) {
         conditions[f.name] = f.conditions
       }
       // Recursively get nested field data

@@ -50,7 +50,7 @@ export function useForm() {
   }
 
   function setPage(n: number) {
-    const form = document.querySelector(`.${s.formId}`)
+    const form = document?.querySelector(`.${s.formId}`)
     if (form) {
       const buffer = 100
       const formRect = form.getBoundingClientRect()

@@ -164,7 +164,7 @@ export const Select = ({ name }: FieldInputProps) => {
           e.preventDefault()
           handleClear(
             e as any,
-            state.selectedOptions[state.selectedOptions.length - 1].value
+            state.selectedOptions[state.selectedOptions.length - 1]?.value
           )
         }
         break

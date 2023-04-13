@@ -10,6 +10,7 @@ import { CustomForm } from './custom'
 import './forms.scss'
 import { GroupedForm } from './groups'
 import { CalendarForm } from './calendar'
+import { TestForm } from './test'
 
 export default function FormPage() {
   return (
@@ -35,6 +36,9 @@ export default function FormPage() {
         </Tabs.Panel>
         <Tabs.Panel title="Calendar Form">
           <CalendarForm />
+        </Tabs.Panel>
+        <Tabs.Panel title="Test Form">
+          <TestForm />
         </Tabs.Panel>
       </Tabs>
       {/* <SimpleForm /> */}

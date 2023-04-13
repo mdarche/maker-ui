@@ -23,7 +23,7 @@ export const SubmitButton = forwardRef<
     let res = true
     Object.keys(schema).forEach((name) => {
       if (!res) return
-      if (schema[name].required && !values[name]) {
+      if (schema[name]?.required && !values[name]) {
         res = false
       }
     })
