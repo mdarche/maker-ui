@@ -43,7 +43,7 @@
   align-items: center;
   width: 100%;
   color: var(--toast-color);
-  background: var(--toast-background);
+  background: var(--toast-bg);
   font-size: var(--toast-font-size, 0.9em);
   padding: var(--toast-padding, 15px 20px);
   border: var(--toast-border);
