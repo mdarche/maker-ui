@@ -1,7 +1,7 @@
 .mkui-mobile-menu {
   position: fixed;
   top: 0;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   z-index: 100;
   background: var(--color-bg-mobile-menu);
   will-change: transform, opacity;

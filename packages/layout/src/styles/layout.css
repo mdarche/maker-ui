@@ -73,7 +73,7 @@
 .mkui-overlay {
   position: fixed;
   top: 0 !important;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   right: 0;
   left: 0;
   z-index: 100;

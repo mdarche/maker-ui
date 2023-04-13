@@ -44,7 +44,7 @@
   transform: translateX(-100%);
   position: fixed;
   top: 0;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   z-index: 101;
   transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
 }
