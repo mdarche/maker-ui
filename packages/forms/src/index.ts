@@ -10,5 +10,5 @@ import './components/fields/DateTimePicker/date-picker.css'
 
 export { Form } from '@/components'
 export { useForm, useField } from '@/hooks'
-export { findDifferences, createUpdateObject } from '@/helpers'
+export { findDifferences } from '@/helpers'
 export * from '@/types'

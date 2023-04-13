@@ -25,8 +25,15 @@ function basicValidate(
   const isVisible = conditions[field]
     ? evaluateConditions(conditions[field]!, values, schema)
     : true
-  const isEmpty =
-    !values[field] || (Array.isArray(values[field]) && !values[field].length)
+  let isEmpty
+
+  if (typeof values[field] === 'object' && !Array.isArray(values[field])) {
+    isEmpty = Object.values(values[field]).every((value) => !value)
+  } else {
+    isEmpty =
+      !values[field] || (Array.isArray(values[field]) && !values[field].length)
+  }
+
   return { isVisible, isEmpty }
 }
 

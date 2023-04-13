@@ -52,7 +52,7 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
     }
 
     // Set the field value if this field is a range
-    if (isRange && selection.startDate && selection.endDate) {
+    if (isRange) {
       setValue({ startDate: selection.startDate, endDate: selection.endDate })
     }
   }

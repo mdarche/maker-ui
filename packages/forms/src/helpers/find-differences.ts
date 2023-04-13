@@ -17,9 +17,10 @@ export function findDifferences<T>(
   if (typeof values !== 'object' || typeof initialValues !== 'object') {
     return differences
   }
-
-  const keys1 = Object.keys(values as object)
-  const keys2 = Object.keys(initialValues as object)
+  //@ts-ignore
+  const keys1 = Object.keys(values)
+  //@ts-ignore
+  const keys2 = Object.keys(initialValues)
 
   for (const key of keys1) {
     if (!keys2.includes(key)) {
@@ -30,49 +31,29 @@ export function findDifferences<T>(
     const val1 = (values as any)[key]
     const val2 = (initialValues as any)[key]
 
-    if (typeof val1 === 'object' || typeof val2 === 'object') {
-      differences.push(...findDifferences(val1, val2, [...path, key]))
-    } else if (val1 !== val2) {
+    // Treat empty strings and undefined as equal
+    const normalizedVal1 = val1 === '' ? undefined : val1
+    const normalizedVal2 = val2 === '' ? undefined : val2
+
+    if (Array.isArray(normalizedVal1) && Array.isArray(normalizedVal2)) {
+      const arraysAreDifferent =
+        normalizedVal1.length !== normalizedVal2.length ||
+        normalizedVal1.some((value, index) => value !== normalizedVal2[index])
+
+      if (arraysAreDifferent) {
+        differences.push([...path, key].join('.'))
+      }
+    } else if (
+      typeof normalizedVal1 === 'object' ||
+      typeof normalizedVal2 === 'object'
+    ) {
+      differences.push(
+        ...findDifferences(normalizedVal1, normalizedVal2, [...path, key])
+      )
+    } else if (normalizedVal1 !== normalizedVal2) {
       differences.push([...path, key].join('.'))
     }
   }
 
   return differences
-}
-
-/**
- * Creates an object with updated properties based on the given differences
- *
- * @param {T} originalObject the original object
- * @param {string[]} differences an array of keys with different values
- *
- * @returns Partial<T>
- */
-export function createUpdateObject<T>(
-  originalObject: T,
-  differences: string[]
-): Partial<T> {
-  const updateObject: any = {}
-
-  differences.forEach((diff) => {
-    const keys = diff.split('.')
-    let currentObj = originalObject
-    let currentUpdateObj = updateObject
-
-    keys.forEach((key, index) => {
-      // @ts-ignore
-      currentObj = currentObj[key]
-
-      if (index === keys.length - 1) {
-        currentUpdateObj[key] = currentObj
-      } else {
-        if (!currentUpdateObj[key]) {
-          currentUpdateObj[key] = {}
-        }
-        currentUpdateObj = currentUpdateObj[key]
-      }
-    })
-  })
-
-  return updateObject
 }

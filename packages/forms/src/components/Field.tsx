@@ -108,7 +108,11 @@ export const Field = (p: FieldProps) => {
         touched ? 'touched' : '',
       ])}>
       {top.includes(labelPos) ? (
-        <Label name={p.name} type={p.type} symbol={s?.requiredSymbol}>
+        <Label
+          name={p.name}
+          type={p.type}
+          symbol={s?.requiredSymbol}
+          required={p.required}>
           {p.label}
         </Label>
       ) : null}
@@ -128,7 +132,11 @@ export const Field = (p: FieldProps) => {
         <>{renderFieldType()}</>
       </Conditional>
       {bottom.includes(labelPos) ? (
-        <Label name={p.name} type={p.type} symbol={s?.requiredSymbol}>
+        <Label
+          name={p.name}
+          type={p.type}
+          symbol={s?.requiredSymbol}
+          required={p.required}>
           {p.label}
         </Label>
       ) : null}

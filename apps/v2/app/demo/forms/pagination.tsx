@@ -123,6 +123,8 @@ export function PaginatedForm() {
           columns: 4,
           validateFieldOnBlur: true,
           pageTransition: 'fade-up',
+          onPageChange: (page, values) =>
+            console.log('Page changed to', page, values),
         }}
         onSubmit={onSubmit}>
         <Form.Progress />

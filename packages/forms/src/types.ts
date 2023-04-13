@@ -438,6 +438,8 @@ export interface FormSettings {
    * @default 'fade'
    */
   successTransition?: TransitionType
+  /** Custom function that is invoked each time a form page changes */
+  onPageChange?: (page: number, values: FormValues) => void
   /** Custom className selectors for various form elements. */
   classNames?: FormClassNames
   /** The color of the placeholder text for text inputs */
