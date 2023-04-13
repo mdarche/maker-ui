@@ -1,5 +1,12 @@
 # docs
 
+## 1.1.16
+
+### Patch Changes
+
+- Updated dependencies []:
+  - maker-ui@2.0.6
+
 ## 1.1.15
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @maker-ui/forms
 
+## 2.0.6
+
+### Patch Changes
+
+- [#101](https://github.com/mdarche/maker-ui/pull/101) [`0cb2e500`](https://github.com/mdarche/maker-ui/commit/0cb2e500ec52e6af4b3cf0bbc50844fb45a92301) Thanks [@mdarche](https://github.com/mdarche)! - Fix required validation for date-time-picker field
+
 ## 2.0.5
 
 ### Patch Changes
