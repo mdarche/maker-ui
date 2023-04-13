@@ -1,5 +1,11 @@
 # @maker-ui/forms
 
+## 2.0.7
+
+### Patch Changes
+
+- [#103](https://github.com/mdarche/maker-ui/pull/103) [`e29bd270`](https://github.com/mdarche/maker-ui/commit/e29bd2708a5eac34f836ed27d5ae516c34bbd195) Thanks [@mdarche](https://github.com/mdarche)! - Add type safety and undefined checks to form helper functions
+
 ## 2.0.6
 
 ### Patch Changes
