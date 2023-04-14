@@ -1,5 +1,11 @@
 # @maker-ui/forms
 
+## 2.0.8
+
+### Patch Changes
+
+- [#105](https://github.com/mdarche/maker-ui/pull/105) [`be80956b`](https://github.com/mdarche/maker-ui/commit/be80956bdacca7fab33ebf221ca79fd6d6334cae) Thanks [@mdarche](https://github.com/mdarche)! - Persist media field data and fix media validation bug
+
 ## 2.0.7
 
 ### Patch Changes
