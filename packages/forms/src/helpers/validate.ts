@@ -27,15 +27,20 @@ function basicValidate(
     : true
   let isEmpty
 
-  if (typeof values[field] === 'object' && !Array.isArray(values[field])) {
-    if (values[field] instanceof Date) {
-      isEmpty = isNaN(values[field].getTime())
+  if (values[field] !== null && values[field] !== undefined) {
+    if (typeof values[field] === 'object' && !Array.isArray(values[field])) {
+      if (values[field] instanceof Date) {
+        isEmpty = isNaN(values[field].getTime())
+      } else {
+        isEmpty = Object.values(values[field]).every((value) => !value)
+      }
     } else {
-      isEmpty = Object.values(values[field]).every((value) => !value)
+      isEmpty =
+        !values[field] ||
+        (Array.isArray(values[field]) && !values[field].length)
     }
   } else {
-    isEmpty =
-      !values[field] || (Array.isArray(values[field]) && !values[field].length)
+    isEmpty = true
   }
 
   return { isVisible, isEmpty }
@@ -57,6 +62,12 @@ export function validate({
 }: ValidateProps): { isValid: boolean; errors: FormErrors } {
   let isValid = true
   let errors: FormErrors = {}
+
+  if (!schema || !values || !conditions) {
+    // Return early if any of the required objects are not provided
+    return { isValid: false, errors: {} }
+  }
+
   // Validate specific field
   if (field && type === 'field') {
     const { isVisible, isEmpty } = basicValidate(

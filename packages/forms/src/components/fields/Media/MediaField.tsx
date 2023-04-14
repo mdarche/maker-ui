@@ -9,11 +9,17 @@ export const MediaField = ({ name }: FieldInputProps) => {
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)
   const [imageUrl, setImageUrl] = useState('')
   const { isSubmitting } = useForm()
-  const { field, touched, setTouched, setValue } = useField(name)
+  const { field, value, touched, setTouched, setValue } = useField(name)
   // Map field props into component props where applicable
+  const val =
+    value && typeof value === 'object'
+      ? value?.url
+      : value && typeof value === 'string'
+      ? value
+      : undefined
   const props = merge(
     {
-      preview: field?.initialValue ?? field?.image?.preview,
+      preview: val ?? field?.image?.preview,
       inputProps: { ...(field?.inputProps || {}), id: `field-${name}` },
     },
     field?.image || {}

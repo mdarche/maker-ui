@@ -9,162 +9,172 @@ import {
 
 const fields: FieldProps[] = [
   {
-    name: 'logo',
-    type: 'image-picker',
-    label: 'Company Logo',
-    initialValue: undefined,
-  },
-  {
-    name: 'company_name',
-    label: 'Company Name',
-    placeholder: 'Company name',
-    type: 'text',
-    required: true,
-    initialValue: undefined,
-
-    colSpan: 2,
-  },
-  {
-    name: 'website',
-    label: 'Website',
-    placeholder: 'Website URL',
-    type: 'text',
-    required: true,
-    initialValue: undefined,
-
-    colSpan: 2,
-  },
-  {
-    name: 'company_description',
-    label: 'Company Description',
-    placeholder: 'What does your company do?',
-    type: 'textarea',
-    initialValue: undefined,
-
-    required: true,
-  },
-  {
-    name: 'categories',
-    instructions:
-      'Please select up to 3 categories that best describe your industry.',
-    label: 'Business Categories',
-    type: 'select',
-    required: true,
-    initialValue: undefined,
-    errorPosition: 'bottom-left',
-    options: [
+    type: 'page',
+    name: 'page-1',
+    subFields: [
       {
-        label: 'Accounting',
-        value: 'ACCOUNTING',
+        name: 'logo',
+        type: 'image-picker',
+        label: 'Company Logo',
+        initialValue: undefined,
       },
       {
-        label: 'Agriculture',
-        value: 'AGRICULTURE',
+        name: 'company_name',
+        label: 'Company Name',
+        placeholder: 'Company name',
+        type: 'text',
+        required: true,
+        initialValue: undefined,
+        colSpan: 2,
       },
       {
-        label: 'Computer Science',
-        value: 'COMPUTER_SCIENCE',
-      },
-      {
-        label: 'Construction',
-        value: 'CONSTRUCTION',
-      },
-      {
-        label: 'Consulting',
-        value: 'CONSULTING',
-      },
-      {
-        label: 'Education',
-        value: 'EDUCATION',
-      },
-      {
-        label: 'Engineering',
-        value: 'ENGINEERING',
-      },
-      {
-        label: 'Entrepreneurship',
-        value: 'ENTREPRENEURSHIP',
-      },
-      {
-        label: 'Finance',
-        value: 'FINANCE',
-      },
-      {
-        label: 'Goverment',
-        value: 'GOVERNMENT',
-      },
-      {
-        label: 'Healthcare',
-        value: 'HEALTHCARE',
-      },
-      {
-        label: 'Law & Law Enforcement',
-        value: 'LAW_AND_LAW_ENFORCEMENT',
-      },
-      {
-        label: 'Media & Entertainment',
-        value: 'MEDIA_AND_ENTERTAINMENT',
-      },
-      {
-        label: 'Military',
-        value: 'MILITARY',
-      },
-      {
-        label: 'Politics',
-        value: 'POLITICS',
-      },
-      {
-        label: 'Real Estate',
-        value: 'REAL_ESTATE',
-      },
-      {
-        label: 'Retail',
-        value: 'RETAIL',
-      },
-      {
-        label: 'Sales & Trading',
-        value: 'SALES_AND_TRADING',
-      },
-      {
-        label: 'Science',
-        value: 'SCIENCE',
-      },
-      {
-        label: 'Software',
-        value: 'SOFTWARE',
-      },
-      {
-        label: 'Sports',
-        value: 'SPORTS',
+        name: 'website',
+        label: 'Website',
+        placeholder: 'Website URL',
+        type: 'text',
+        required: true,
+        initialValue: undefined,
+        colSpan: 2,
       },
     ],
-    select: {
-      multi: true,
-      max: 3,
-      returnType: 'value',
-    },
-    colSpan: 3,
   },
   {
-    name: 'host-divider',
-    type: 'divider',
-  },
-  {
-    name: 'job_position',
-    label: 'Job Position',
-    placeholder: 'What is your role in the company?',
-    type: 'text',
-    initialValue: null,
-    required: true,
-    colSpan: 2,
-  },
-  {
-    name: 'job_description',
-    label: 'Job Description',
-    placeholder: 'What are your typical responsibilities in your role?',
-    type: 'textarea',
-    initialValue: null,
-    required: true,
+    type: 'page',
+    name: 'page-2',
+    subFields: [
+      {
+        name: 'company_description',
+        label: 'Company Description',
+        placeholder: 'What does your company do?',
+        type: 'textarea',
+        initialValue: undefined,
+
+        required: true,
+      },
+      {
+        name: 'categories',
+        instructions:
+          'Please select up to 3 categories that best describe your industry.',
+        label: 'Business Categories',
+        type: 'select',
+        required: true,
+        initialValue: undefined,
+        errorPosition: 'bottom-left',
+        options: [
+          {
+            label: 'Accounting',
+            value: 'ACCOUNTING',
+          },
+          {
+            label: 'Agriculture',
+            value: 'AGRICULTURE',
+          },
+          {
+            label: 'Computer Science',
+            value: 'COMPUTER_SCIENCE',
+          },
+          {
+            label: 'Construction',
+            value: 'CONSTRUCTION',
+          },
+          {
+            label: 'Consulting',
+            value: 'CONSULTING',
+          },
+          {
+            label: 'Education',
+            value: 'EDUCATION',
+          },
+          {
+            label: 'Engineering',
+            value: 'ENGINEERING',
+          },
+          {
+            label: 'Entrepreneurship',
+            value: 'ENTREPRENEURSHIP',
+          },
+          {
+            label: 'Finance',
+            value: 'FINANCE',
+          },
+          {
+            label: 'Goverment',
+            value: 'GOVERNMENT',
+          },
+          {
+            label: 'Healthcare',
+            value: 'HEALTHCARE',
+          },
+          {
+            label: 'Law & Law Enforcement',
+            value: 'LAW_AND_LAW_ENFORCEMENT',
+          },
+          {
+            label: 'Media & Entertainment',
+            value: 'MEDIA_AND_ENTERTAINMENT',
+          },
+          {
+            label: 'Military',
+            value: 'MILITARY',
+          },
+          {
+            label: 'Politics',
+            value: 'POLITICS',
+          },
+          {
+            label: 'Real Estate',
+            value: 'REAL_ESTATE',
+          },
+          {
+            label: 'Retail',
+            value: 'RETAIL',
+          },
+          {
+            label: 'Sales & Trading',
+            value: 'SALES_AND_TRADING',
+          },
+          {
+            label: 'Science',
+            value: 'SCIENCE',
+          },
+          {
+            label: 'Software',
+            value: 'SOFTWARE',
+          },
+          {
+            label: 'Sports',
+            value: 'SPORTS',
+          },
+        ],
+        select: {
+          multi: true,
+          max: 3,
+          returnType: 'value',
+        },
+        colSpan: 3,
+      },
+      {
+        name: 'host-divider',
+        type: 'divider',
+      },
+      {
+        name: 'job_position',
+        label: 'Job Position',
+        placeholder: 'What is your role in the company?',
+        type: 'text',
+        initialValue: null,
+        required: true,
+        colSpan: 2,
+      },
+      {
+        name: 'job_description',
+        label: 'Job Description',
+        placeholder: 'What are your typical responsibilities in your role?',
+        type: 'textarea',
+        initialValue: null,
+        required: true,
+      },
+    ],
   },
 ]
 
