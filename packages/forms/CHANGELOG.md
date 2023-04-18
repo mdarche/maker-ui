@@ -1,5 +1,11 @@
 # @maker-ui/forms
 
+## 2.0.9
+
+### Patch Changes
+
+- [#107](https://github.com/mdarche/maker-ui/pull/107) [`ea71682c`](https://github.com/mdarche/maker-ui/commit/ea71682cc2573206be86e2fb06019a56a22f1828) Thanks [@mdarche](https://github.com/mdarche)! - Fix range initial start date value and enable calendar to default to initial value month.
+
 ## 2.0.8
 
 ### Patch Changes
