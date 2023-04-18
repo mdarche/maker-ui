@@ -9,7 +9,7 @@ import { getDatesOnSameDay } from './date-helpers'
 function initValue(val?: string | Date | DateSelection): DateSelection {
   if (!val) return {}
   if (typeof val === 'string' || val instanceof Date) return { date: val }
-  if (val.startDate && val.endDate) {
+  if (typeof val === 'object' && val.startDate) {
     return val as DateSelection
   }
   return {}

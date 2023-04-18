@@ -53,6 +53,16 @@ export const Calendar = ({
     unavailable,
     unavailableDays
   )
+
+  function getInitialValueMonth() {
+    if (initialValue?.date) {
+      return new Date(initialValue.date).getMonth() + 1
+    }
+    if (initialValue?.startDate) {
+      return new Date(initialValue.startDate).getMonth() + 1
+    }
+    return undefined
+  }
   const [unavailableDates] = useState(unavailable.map((d) => new Date(d)) || [])
   const [state, setState] = useState<CalendarState>({
     selected: !range
@@ -71,6 +81,7 @@ export const Calendar = ({
         ? new Date(initialValue?.endDate)
         : undefined,
     month:
+      getInitialValueMonth() ||
       (initialDate
         ? initialDate
         : startDate
@@ -318,17 +329,19 @@ export const Calendar = ({
           {range ? (
             <>
               <div className="mkui-date-start">
-                <strong>Start Date</strong>
+                <strong>{state?.rangeEnd ? 'Start Date' : 'Date'}</strong>
                 <div>{state.rangeStart && state.rangeStart.toDateString()}</div>
               </div>
-              <div className="mkui-date-end">
-                <strong>End Date</strong>
-                <div>{state.rangeEnd && state.rangeEnd.toDateString()}</div>
-              </div>
+              {state?.rangeEnd ? (
+                <div className="mkui-date-end">
+                  <strong>End Date</strong>
+                  <div>{state.rangeEnd && state.rangeEnd.toDateString()}</div>
+                </div>
+              ) : null}
             </>
           ) : (
             <div className="mkui-date-selected">
-              <strong>Date Selected</strong>
+              <strong>Date</strong>
               <div>{state.selected && state.selected.toDateString()}</div>
             </div>
           )}
