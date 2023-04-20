@@ -43,33 +43,33 @@ export function CalendarForm() {
               },
             },
           },
-          // {
-          //   type: 'date-time-picker',
-          //   name: 'calendar',
-          //   label: 'Date / Time Picker',
-          //   errorPosition: 'bottom-left',
-          //   initialValue: '2023-07-12T13:00:00-04:00',
-          //   required: true,
-          //   calendar: {
-          //     date: {
-          //       startDate: '2023-06-08T00:00:00-04:00',
-          //       endDate: '2023-07-14T00:00:00-04:00',
-          //       unavailable: [
-          //         '2023-06-08T00:00:00-04:00',
-          //         '2023-06-09T00:00:00-04:00',
-          //       ],
-          //       unavailableDays: [0, 6],
-          //       showSelections: true,
-          //     },
-          //     time: {
-          //       startTime: [9, 0],
-          //       endTime: [17, 0],
-          //       interval: 60,
-          //       duration: 120,
-          //       unavailableTimes,
-          //     },
-          //   },
-          // },
+          {
+            type: 'date-time-picker',
+            name: 'calendar',
+            label: 'Date / Time Picker',
+            errorPosition: 'bottom-left',
+            initialValue: '2023-07-12T13:00:00-04:00',
+            required: true,
+            calendar: {
+              date: {
+                startDate: '2023-06-08T00:00:00-04:00',
+                endDate: '2023-07-14T00:00:00-04:00',
+                unavailable: [
+                  '2023-06-08T00:00:00-04:00',
+                  '2023-06-09T00:00:00-04:00',
+                ],
+                unavailableDays: [0, 6],
+                showSelections: true,
+              },
+              time: {
+                startTime: [9, 0],
+                endTime: [17, 0],
+                interval: 60,
+                duration: 120,
+                unavailableTimes,
+              },
+            },
+          },
         ]}
         settings={{ columns: 2, validateFieldOnBlur: false }}
         onSubmit={submitHandler}>
