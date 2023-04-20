@@ -208,7 +208,7 @@ export const Calendar = ({
     const inMonth =
       state.month &&
       state.year &&
-      isSameMonth(date, new Date([state.year, state.month, 1].join('-')))
+      isSameMonth(date, new Date(state.year, state.month - 1, 1))
 
     const isRangeStart = state.rangeStart && isSameDay(date, state.rangeStart)
     const isRangeEnd = state.rangeEnd && isSameDay(date, state.rangeEnd)

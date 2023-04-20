@@ -22,9 +22,9 @@ export default function FormPage() {
         <Tabs.Panel title="Dynamic Form">
           <DynamicForm />
         </Tabs.Panel>
-        <Tabs.Panel title="All Fields">
+        {/* <Tabs.Panel title="All Fields">
           <AllFieldsForm />
-        </Tabs.Panel>
+        </Tabs.Panel> */}
         <Tabs.Panel title="Paginated">
           <PaginatedForm />
         </Tabs.Panel>

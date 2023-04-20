@@ -66,7 +66,9 @@
   outline: none;
   background: none;
   cursor: pointer;
-  aspect-ratio: 1;
+  padding: 0;
+  width: calc(var(--form-calendar-width, 100%) / 7);
+  height: calc(var(--form-calendar-width, 100%) / 7);
   color: var(--color-text);
 }
 
@@ -77,8 +79,6 @@
 }
 
 .mkui-date.range {
-  height: 100%;
-  width: 100%;
   border-radius: var(--form-calendar-border-radius-range, 2px);
 }
 
