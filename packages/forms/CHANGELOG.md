@@ -1,5 +1,11 @@
 # @maker-ui/forms
 
+## 2.0.10
+
+### Patch Changes
+
+- [#109](https://github.com/mdarche/maker-ui/pull/109) [`e96078d2`](https://github.com/mdarche/maker-ui/commit/e96078d2bf2e1b5af0b060cfe163bbaa11aad8e3) Thanks [@mdarche](https://github.com/mdarche)! - Fixed date constructor to work with safari and replaced aspect ratio style
+
 ## 2.0.9
 
 ### Patch Changes
