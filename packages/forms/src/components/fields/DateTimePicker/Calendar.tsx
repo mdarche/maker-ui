@@ -12,6 +12,7 @@ import {
   getTotalDays,
   WEEK_DAYS,
   CALENDAR_MONTHS,
+  isDateUnavailable,
 } from './date-helpers'
 import { CalendarProps, DateSelection } from '@/types'
 import { ArrowIcon } from '@/icons'
@@ -63,7 +64,6 @@ export const Calendar = ({
     }
     return undefined
   }
-  const [unavailableDates] = useState(unavailable.map((d) => new Date(d)) || [])
   const [state, setState] = useState<CalendarState>({
     selected: !range
       ? initialValue?.date
@@ -222,7 +222,7 @@ export const Calendar = ({
         ? true
         : false
     const isUnavailable =
-      unavailableDates.includes(date) ||
+      isDateUnavailable(unavailable, date) ||
       unavailableDays.includes(date.getDay()) ||
       !inCalendarRange
     const isAvailable = !isUnavailable && inMonth && inCalendarRange

@@ -91,7 +91,11 @@ export interface CalendarProps {
   rangeMax?: number
   /** The minimum number of days that a user can select in their date range. */
   rangeMin?: number
-  /** An array of unavailable dates or date strings that will render disabled calendar days. */
+  /** An array of unavailable dates or date strings that will render disabled calendar days.
+   *
+   * For best results, format each date string as `YYYY-MM-DD` so the calendar does not consider
+   * the time of day and timezone.
+   */
   unavailable?: string[]
   /** An array of days (0 - 6) that will render disabled calendar days each week.
    * 0 is Sunday and 1 is Monday.
@@ -133,6 +137,10 @@ export interface CalendarProps {
 }
 
 export interface TimePickerProps {
+  /** An IANA timezone identifier for validating available / unavailable time slots.
+   * @default 'America/New_York'
+   */
+  timezone?: string
   /** The start time for the time picker.
    * @default [9, 0] // 9:00 AM ([Hour,  Minute])
    */

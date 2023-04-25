@@ -316,3 +316,15 @@ export function getDatesOnSameDay(date: Date, arr: string[]): string[] {
     return d.format('YYYY-MM-DD') === targetDate
   })
 }
+
+export function isDateUnavailable(
+  dateStrings: string[],
+  currentDate: Date
+): boolean {
+  const currentDayjsDate = dayjs(currentDate).startOf('day')
+
+  return dateStrings.some((dateString) => {
+    const inputDayjsDate = dayjs(dateString).startOf('day')
+    return inputDayjsDate.isSame(currentDayjsDate)
+  })
+}
