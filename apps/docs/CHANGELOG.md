@@ -1,5 +1,12 @@
 # docs
 
+## 1.1.21
+
+### Patch Changes
+
+- Updated dependencies [[`f0a3b1d7`](https://github.com/mdarche/maker-ui/commit/f0a3b1d7451bd962e52f9583d95c52dc98f22e76)]:
+  - maker-ui@2.0.11
+
 ## 1.1.20
 
 ### Patch Changes

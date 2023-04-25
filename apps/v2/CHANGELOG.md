@@ -1,5 +1,12 @@
 # v2
 
+## 1.1.23
+
+### Patch Changes
+
+- Updated dependencies [[`f0a3b1d7`](https://github.com/mdarche/maker-ui/commit/f0a3b1d7451bd962e52f9583d95c52dc98f22e76)]:
+  - maker-ui@2.0.11
+
 ## 1.1.22
 
 ### Patch Changes
