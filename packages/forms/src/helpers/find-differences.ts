@@ -14,7 +14,12 @@ export function findDifferences<T>(
 ): string[] {
   const differences: string[] = []
 
-  if (typeof values !== 'object' || typeof initialValues !== 'object') {
+  if (
+    typeof values !== 'object' ||
+    typeof initialValues !== 'object' ||
+    values === null ||
+    initialValues === null
+  ) {
     return differences
   }
   //@ts-ignore
