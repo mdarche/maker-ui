@@ -1,5 +1,14 @@
 # maker-ui
 
+## 2.0.11
+
+### Patch Changes
+
+- [#111](https://github.com/mdarche/maker-ui/pull/111) [`f0a3b1d7`](https://github.com/mdarche/maker-ui/commit/f0a3b1d7451bd962e52f9583d95c52dc98f22e76) Thanks [@mdarche](https://github.com/mdarche)! - Fix unavailable date bug in @maker-ui/forms calendar
+
+- Updated dependencies [[`f0a3b1d7`](https://github.com/mdarche/maker-ui/commit/f0a3b1d7451bd962e52f9583d95c52dc98f22e76)]:
+  - @maker-ui/forms@2.0.11
+
 ## 2.0.10
 
 ### Patch Changes
