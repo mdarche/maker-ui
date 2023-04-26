@@ -2,15 +2,19 @@ import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 dayjs.extend(utc)
 dayjs.extend(isSameOrAfter)
 dayjs.extend(isSameOrBefore)
+dayjs.extend(timezone)
+
+export type Dayjs = dayjs.Dayjs
 
 /** The current year */
-export const THIS_YEAR = +new Date().getFullYear()
+export const THIS_YEAR = new Date().getFullYear()
 
 /** The current month starting from 1 */
-export const THIS_MONTH = +new Date().getMonth() + 1
+export const THIS_MONTH = new Date().getMonth() + 1
 
 /** Week days names and shortnames */
 export const WEEK_DAYS = {
@@ -41,51 +45,25 @@ export const CALENDAR_MONTHS = {
 
 /** Number of weeks displayed on calendar */
 export const CALENDAR_WEEKS = 6
-/**
- * Pads a string value with leading zeroes(0) until length is reached
- * @example zeroPad(5, 2) => "05"
- */
-export const zeroPad = (value: number, length: number) => {
-  return `${value}`.padStart(length, '0')
-}
 
-/**
- * Number days in a month for a given year from 28 - 31
- */
-export const getMonthDays = (month = THIS_MONTH, year = THIS_YEAR) => {
-  const months30 = [4, 6, 9, 11]
-  const leapYear = year % 4 === 0
-  return month === 2 ? (leapYear ? 29 : 28) : months30.includes(month) ? 30 : 31
-}
-
-/**
- * First day of the month for a given year from 1 - 7 where
- * Sunday = 1 and Saturday = 7
- */
-export const getMonthFirstDay = (month = THIS_MONTH, year = THIS_YEAR) => {
-  return +new Date(`${year}-${zeroPad(month, 2)}-01`).getDay() + 1
-}
+/** Returns a UTC compliant DayJS date */
+export const utcDate = (d: string | Date) => dayjs.utc(d)
 
 /**
  * Checks if a value is a date - this is just a simple check
  */
-export const isDate = (date: Date) => {
-  const isDate = Object.prototype.toString.call(date) === '[object Date]'
-  const isValidDate = date && !Number.isNaN(date.valueOf())
-
-  return isDate && isValidDate
-}
+export const isDate = (date: any) => dayjs(date).isValid()
 
 /**
  * Checks if two date values are of the same month and year
  */
 export const isSameMonth = (date: Date, basedate = new Date()) => {
   if (!(isDate(date) && isDate(basedate))) return false
-  const basedateMonth = +basedate.getMonth() + 1
-  const basedateYear = basedate.getFullYear()
-  const dateMonth = +date.getMonth() + 1
-  const dateYear = date.getFullYear()
-  return +basedateMonth === +dateMonth && +basedateYear === +dateYear
+
+  const dayjsDate = dayjs(date)
+  const dayjsBasedate = dayjs(basedate)
+
+  return dayjsDate.isSame(dayjsBasedate, 'month')
 }
 
 /**
@@ -93,29 +71,11 @@ export const isSameMonth = (date: Date, basedate = new Date()) => {
  */
 export const isSameDay = (date: Date, basedate = new Date()) => {
   if (!(isDate(date) && isDate(basedate))) return false
-  const basedateDate = basedate.getDate()
-  const basedateMonth = +basedate.getMonth() + 1
-  const basedateYear = basedate.getFullYear()
-  const dateDate = date.getDate()
-  const dateMonth = +date.getMonth() + 1
-  const dateYear = date.getFullYear()
-  return (
-    +basedateDate === +dateDate &&
-    +basedateMonth === +dateMonth &&
-    +basedateYear === +dateYear
-  )
-}
 
-/**
- * Formats the given date as YYYY-MM-DD. Months and Days are zero padded
- */
-export const getDateISO = (date = new Date()) => {
-  if (!isDate(date)) return null
-  return [
-    date.getFullYear(),
-    zeroPad(+date.getMonth() + 1, 2),
-    zeroPad(+date.getDate(), 2),
-  ].join('-')
+  const dayjsDate = dayjs(date)
+  const dayjsBasedate = dayjs(basedate)
+
+  return dayjsDate.isSame(dayjsBasedate, 'day')
 }
 
 /**
@@ -125,9 +85,14 @@ export const getDateISO = (date = new Date()) => {
  * getPreviousMonth(12, 2000) => {month: 11, year: 2000}
  */
 export const getPreviousMonth = (month: number, year: number) => {
-  const prevMonth = month > 1 ? month - 1 : 12
-  const prevMonthYear = month > 1 ? year : year - 1
-  return { month: prevMonth, year: prevMonthYear }
+  const dayjsDate = dayjs()
+    .year(year)
+    .month(month - 1) // Month is zero-based in Day.js
+  const previousMonthDate = dayjsDate.subtract(1, 'month')
+  return {
+    month: previousMonthDate.month() + 1,
+    year: previousMonthDate.year(),
+  }
 }
 
 /**
@@ -137,9 +102,11 @@ export const getPreviousMonth = (month: number, year: number) => {
  * getNextMonth(12, 2000) => {month: 1, year: 2001}
  */
 export const getNextMonth = (month: number, year: number) => {
-  const nextMonth = month < 12 ? month + 1 : 1
-  const nextMonthYear = month < 12 ? year : year + 1
-  return { month: nextMonth, year: nextMonthYear }
+  const dayjsDate = dayjs()
+    .year(year)
+    .month(month - 1) // Month is zero-based in Day.js
+  const nextMonthDate = dayjsDate.add(1, 'month')
+  return { month: nextMonthDate.month() + 1, year: nextMonthDate.year() }
 }
 
 /**
@@ -147,50 +114,50 @@ export const getNextMonth = (month: number, year: number) => {
  * Each calendar date is represented as an array => [YYYY, MM, DD]
  * */
 export const getCalendar = (month = THIS_MONTH, year = THIS_YEAR) => {
-  const monthDays = getMonthDays(month, year)
-  const monthFirstDay = getMonthFirstDay(month, year)
+  const monthStart = dayjs()
+    .year(year)
+    .month(month - 1)
+    .startOf('month')
+  const monthDays = monthStart.daysInMonth()
+  const monthFirstDay = monthStart.day()
 
-  // Get number of days to be displayed from previous and next months
-  // These ensure a total of 42 days (6 weeks) displayed on the calendar
-  const daysFromPrevMonth = monthFirstDay - 1
-  const daysFromNextMonth = CALENDAR_WEEKS * 7 - (daysFromPrevMonth + monthDays)
+  const daysFromPrevMonth = monthFirstDay === 0 ? 0 : monthFirstDay
+  const daysFromNextMonth =
+    (CALENDAR_WEEKS * 7 - (daysFromPrevMonth + monthDays)) % 7
 
-  const { month: prevMonth, year: prevMonthYear } = getPreviousMonth(
-    month,
-    year
-  )
-  const { month: nextMonth, year: nextMonthYear } = getNextMonth(month, year)
-  const prevMonthDays = getMonthDays(prevMonth, prevMonthYear)
+  const prevMonthStart = monthStart.subtract(1, 'month')
+  const nextMonthStart = monthStart.add(1, 'month')
+  const prevMonthDays = prevMonthStart.daysInMonth()
+
+  const formatDate = (date: dayjs.Dayjs) => {
+    return date.format('YYYY-MM-DD')
+  }
 
   /** Builds dates to be displayed from previous month */
-  const prevMonthDates = [...new Array(daysFromPrevMonth)].map((n, index) => {
-    const day = index + 1 + (prevMonthDays - daysFromPrevMonth)
-    return [prevMonthYear, zeroPad(prevMonth, 2), zeroPad(day, 2)]
-  })
+  const prevMonthDates = Array.from(
+    { length: daysFromPrevMonth },
+    (_, index) => {
+      const day = index + 1 + (prevMonthDays - daysFromPrevMonth)
+      return formatDate(prevMonthStart.date(day))
+    }
+  )
 
   /** Builds dates to be displayed from current month */
-  const thisMonthDates = [...new Array(monthDays)].map((n, index) => {
+  const thisMonthDates = Array.from({ length: monthDays }, (_, index) => {
     const day = index + 1
-    return [year, zeroPad(month, 2), zeroPad(day, 2)]
+    return formatDate(monthStart.date(day))
   })
 
   /** Builds dates to be displayed from next month */
-  const nextMonthDates = [...new Array(daysFromNextMonth)].map((n, index) => {
-    const day = index + 1
-    return [nextMonthYear, zeroPad(nextMonth, 2), zeroPad(day, 2)]
-  })
-
-  // Combines all dates from previous, current and next months
-  const allDates = [...prevMonthDates, ...thisMonthDates, ...nextMonthDates]
-
-  // Remove the last week if it has no dates in the current month
-  const lastWeek = allDates.slice(-7)
-  const hasCurrentMonthDates = lastWeek.some(
-    (date) => date[1] === zeroPad(month, 2)
+  const nextMonthDates = Array.from(
+    { length: daysFromNextMonth },
+    (_, index) => {
+      const day = index + 1
+      return formatDate(nextMonthStart.date(day))
+    }
   )
-  if (!hasCurrentMonthDates) {
-    allDates.splice(-7)
-  }
+
+  const allDates = [...prevMonthDates, ...thisMonthDates, ...nextMonthDates]
 
   return allDates
 }
@@ -206,8 +173,8 @@ export function timeHash(date?: Date | null) {
 /**
  * Returns a boolean that indicates if a day falls on a weekend
  */
-export function isWeekend(date: Date): boolean {
-  const dayOfWeek = date.getDay()
+export function isWeekend(date: dayjs.Dayjs): boolean {
+  const dayOfWeek = date.day()
   return dayOfWeek === 0 || dayOfWeek === 6
 }
 

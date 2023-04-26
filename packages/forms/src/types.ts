@@ -75,6 +75,10 @@ export interface DateSelection {
 }
 
 export interface CalendarProps {
+  /** Allows the user to select dates that occurred before today.
+   * @default false
+   */
+  allowPastDates?: boolean
   /** Earliest date that will be visible in the Calendar. Can be a Date or ISO string.
    * Required if `range` is true.  */
   startDate?: string | Date
@@ -391,6 +395,10 @@ export interface FieldProps {
     date?: CalendarProps
     /** Time picker props for complete control over the TimePicker component */
     time?: TimePickerProps
+    /** The return value format on form submission. Can be a date object or an ISO date string.
+     * @default 'date'
+     */
+    returnType?: 'date' | 'iso'
   }
   /** Custom settings for the image-picker field type */
   image?: ImagePickerProps

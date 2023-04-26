@@ -95,6 +95,14 @@
 .mkui-date.unavailable {
   pointer-events: none;
 }
+
+.mkui-date.range-start.unavailable,
+.mkui-date.range-end.unavailable,
+.mkui-date.range-inner.unavailable {
+  opacity: 1;
+  pointer-events: initial;
+}
+
 .single .mkui-date.selected,
 .mkui-date.range-start,
 .mkui-date.range-end {
@@ -104,6 +112,7 @@
 }
 .mkui-date.range-inner {
   border-radius: 0;
+  font-weight: 400;
 }
 .mkui-date.hidden {
   opacity: 0;

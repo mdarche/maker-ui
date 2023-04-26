@@ -31,10 +31,10 @@ export function CalendarForm() {
             name: 'calendar-range',
             label: 'Date Range Picker',
             required: true,
-            // initialValue: {
-            //   startDate: '2023-07-08T00:00:00+00:00',
-            //   endDate: undefined,
-            // },
+            initialValue: {
+              startDate: '2023-07-08T00:00:00+00:00',
+              endDate: undefined,
+            },
             calendar: {
               date: {
                 range: true,
@@ -42,8 +42,8 @@ export function CalendarForm() {
                 // rangeMin: 3,
                 // showRangeOnly: true,
                 unavailable,
-                startDate: '2023-06-08T00:00:00-04:00',
-                endDate: '2023-07-14T00:00:00-04:00',
+                startDate: '2023-06-08',
+                endDate: '2023-07-14',
                 showSelections: true,
               },
             },
@@ -56,9 +56,10 @@ export function CalendarForm() {
             // initialValue: '2023-07-12T13:00:00-04:00',
             required: true,
             calendar: {
+              // returnType: 'iso',
               date: {
-                startDate: '2023-06-08T00:00:00-04:00',
-                endDate: '2023-07-14T00:00:00-04:00',
+                // startDate: '2023-06-08T00:00:00-04:00',
+                // endDate: '2023-07-14T00:00:00-04:00',
                 unavailable,
                 unavailableDays: [0, 6],
                 showSelections: true,

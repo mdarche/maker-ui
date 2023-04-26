@@ -15,6 +15,12 @@ function initValue(val?: string | Date | DateSelection): DateSelection {
   return {}
 }
 
+function formatReturn(type: 'date' | 'iso', v?: string | Date) {
+  if (!v) return v
+  const date = new Date(v)
+  return type === 'date' ? date : date.toISOString()
+}
+
 export const DateTimePicker = ({ name }: FieldInputProps) => {
   const { resetCount } = useForm()
   const { field, value, error, setValue } = useField(name)
@@ -25,6 +31,7 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
 
   const isTimePicker = field?.type === 'date-time-picker'
   const isRange = field?.calendar?.date?.range
+  const returnType = field?.calendar?.returnType || 'date'
 
   function getUnavailableTimes(selection?: Date) {
     const takenDates = field?.calendar?.time?.unavailableTimes
@@ -48,19 +55,22 @@ export const DateTimePicker = ({ name }: FieldInputProps) => {
 
     // Set the field value if this field is not a range or a date-time-picker
     if (selection.date && !isTimePicker) {
-      setValue(selection.date)
+      setValue(formatReturn(returnType, selection.date))
     }
 
     // Set the field value if this field is a range
     if (isRange) {
-      setValue({ startDate: selection.startDate, endDate: selection.endDate })
+      setValue({
+        startDate: formatReturn(returnType, selection.startDate),
+        endDate: formatReturn(returnType, selection.endDate),
+      })
     }
   }
 
   const onChangeTime = (time: Date) => {
     // Invoke callback if it exists
     field?.calendar?.time?.onChange?.(time)
-    setValue(time)
+    setValue(formatReturn(returnType, time))
   }
 
   useEffect(() => {

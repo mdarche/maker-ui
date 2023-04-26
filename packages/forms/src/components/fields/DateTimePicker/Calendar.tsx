@@ -3,7 +3,6 @@ import { cn } from '@maker-ui/utils'
 import {
   getCalendar,
   isSameDay,
-  getDateISO,
   getNextMonth,
   getPreviousMonth,
   isSameMonth,
@@ -13,20 +12,46 @@ import {
   WEEK_DAYS,
   CALENDAR_MONTHS,
   isDateUnavailable,
+  utcDate,
+  type Dayjs,
 } from './date-helpers'
 import { CalendarProps, DateSelection } from '@/types'
 import { ArrowIcon } from '@/icons'
 
 interface CalendarState {
-  selected?: Date
-  rangeStart?: Date
-  rangeEnd?: Date
+  selected?: Dayjs
+  rangeStart?: Dayjs
+  rangeEnd?: Dayjs
   month: number
   year: number
 }
 
 interface CalendarFormProps extends CalendarProps {
   initialValue?: DateSelection
+}
+
+interface InitializerProps {
+  startDate: CalendarProps['startDate']
+  endDate: CalendarProps['endDate']
+  unavailable: CalendarProps['unavailable']
+  unavailableDays: CalendarProps['unavailableDays']
+  autoSelect: CalendarProps['autoSelect']
+}
+
+function initState({
+  startDate,
+  endDate,
+  unavailable,
+  unavailableDays,
+  autoSelect,
+}: InitializerProps): CalendarState {
+  return {
+    selected: '',
+    rangeStart: '',
+    rangeEnd: '',
+    month: 0,
+    year: 0,
+  }
 }
 
 export const Calendar = ({
@@ -39,6 +64,7 @@ export const Calendar = ({
   unavailableDays = [],
   onChange,
   showRangeOnly = false,
+  allowPastDates = false,
   classNames,
   arrowLeft = <ArrowIcon style={{ transform: 'rotate(90deg)' }} />,
   arrowRight = <ArrowIcon style={{ transform: 'rotate(-90deg)' }} />,
@@ -56,14 +82,15 @@ export const Calendar = ({
   )
 
   function getInitialValueMonth() {
-    if (initialValue?.date) {
-      return new Date(initialValue.date).getMonth() + 1
-    }
-    if (initialValue?.startDate) {
-      return new Date(initialValue.startDate).getMonth() + 1
-    }
-    return undefined
+    const date = initialValue?.date
+      ? utcDate(initialValue.date)
+      : initialValue?.startDate
+      ? utcDate(initialValue.startDate)
+      : undefined
+
+    return date ? date.month() + 1 : undefined
   }
+
   const [state, setState] = useState<CalendarState>({
     selected: !range
       ? initialValue?.date
@@ -99,8 +126,10 @@ export const Calendar = ({
     Object.keys(CALENDAR_MONTHS)[Math.max(0, Math.min(state.month - 1, 11))]
 
   const getDates = () => {
-    const calMonth = state.month || +state.selected?.getMonth()! + 1
-    const calYear = state.year || state.selected?.getFullYear()
+    const calMonth =
+      state.month ?? (state.selected?.getMonth() ?? new Date().getMonth()) + 1
+    const calYear =
+      state.year ?? state.selected?.getFullYear() ?? new Date().getFullYear()
     return getCalendar(calMonth, calYear)
   }
 
@@ -108,7 +137,6 @@ export const Calendar = ({
    * Select a date from the calendar
    */
   const selectDate = (date: Date) => {
-    // const date = new Date(d)
     const isInRange =
       startDate && endDate ? isDateInRange(date, startDate, endDate) : true
     const isEarlier =
@@ -169,42 +197,37 @@ export const Calendar = ({
     }
   }
 
-  const changeMonth = (isNext = true) => {
+  const changeMonth = (isNext = true, isYear = false) => {
     setState((s) => {
-      const target = isNext
-        ? getNextMonth(s.month, s.year)
-        : getPreviousMonth(s.month, s.year)
-      return {
-        ...s,
-        month: target.month,
-        year: target.year,
+      if (isYear) {
+        return {
+          ...s,
+          year: isNext ? s.year + 1 : s.year - 1,
+        }
+      } else {
+        const target = isNext
+          ? getNextMonth(s.month, s.year)
+          : getPreviousMonth(s.month, s.year)
+        return {
+          ...s,
+          month: target.month,
+          year: target.year,
+        }
       }
     })
   }
 
-  const changeYear = (isNext = true) => {
-    setState((s) => ({
-      ...s,
-      month: s.month,
-      year: isNext ? s.year + 1 : s.year - 1,
-    }))
-  }
-
-  const handlePrevious = (e: React.MouseEvent) => {
+  const handleMonthChange = (e: React.MouseEvent, isNext: boolean) => {
     e?.preventDefault()
-    return e?.shiftKey ? changeYear(false) : changeMonth(false)
+    return changeMonth(isNext, e?.shiftKey)
   }
 
-  const handleNext = (e: React.MouseEvent) => {
-    e?.preventDefault()
-    return e?.shiftKey ? changeYear() : changeMonth()
-  }
+  const Day = (props: { date: string }) => {
+    const utc = utcDate(props.date)
+    const date = utc.toDate()
 
-  const Day = ({ date }: { date: Date }) => {
-    const isToday = isSameDay(date, new Date())
     const isSelected =
       !range && state.selected && isSameDay(date, state.selected)
-    // Check if calendar date is in the same month as the state month and year
     const inMonth =
       state.month &&
       state.year &&
@@ -218,13 +241,18 @@ export const Calendar = ({
       isDateInRange(date, state.rangeStart, state.rangeEnd)
 
     const inCalendarRange =
-      startDate && endDate && isDateInRange(date, startDate, endDate)
-        ? true
-        : false
+      startDate && endDate
+        ? isDateInRange(date, startDate, endDate)
+          ? true
+          : false
+        : true
+    // TODO - add allowPastDates check here
+    // TODO - remove any unavailable dates if type === range, rangeStart exists, and date occurs after range start
     const isUnavailable =
       isDateUnavailable(unavailable, date) ||
-      unavailableDays.includes(date.getDay()) ||
+      unavailableDays.includes(utc.day()) ||
       !inCalendarRange
+
     const isAvailable = !isUnavailable && inMonth && inCalendarRange
 
     const dayClasses = [
@@ -234,7 +262,7 @@ export const Calendar = ({
       !inMonth ? 'diff-month' : '',
       isUnavailable ? 'unavailable' : isAvailable ? 'available' : '',
       isSelected ? 'selected' : '',
-      isToday ? 'today' : '',
+      isSameDay(date, new Date()) ? 'today' : '',
       range && isRangeStart ? 'range-start' : '',
       range && isRangeEnd ? 'range-end' : '',
       range && !isRangeStart && !isRangeEnd && isInRange ? 'range-inner' : '',
@@ -245,9 +273,9 @@ export const Calendar = ({
       <button
         type="button"
         className={cn(dayClasses)}
-        title={date.toDateString()}
+        title={utc.format('MM/DD/YYYY')}
         onClick={() => selectDate(date)}>
-        {date.getDate()}
+        {utc.date()}
       </button>
     )
   }
@@ -256,7 +284,7 @@ export const Calendar = ({
     let show = true
 
     if (showRangeOnly && startDate && endDate) {
-      const rangeMonth = new Date(isNext ? endDate : startDate).getMonth() + 1
+      const rangeMonth = utcDate(isNext ? endDate : startDate).month() + 1
       const buttonMonth = (
         isNext
           ? getNextMonth(state.month, state.year)
@@ -273,7 +301,7 @@ export const Calendar = ({
           isNext ? 'next' : 'previous',
           classNames?.headerButton,
         ])}
-        onClick={isNext ? handleNext : handlePrevious}
+        onClick={(e) => handleMonthChange(e, isNext)}
         title={`${isNext ? 'Next' : 'Previous'} Month`}>
         {isNext ? arrowRight : arrowLeft}
       </button>
@@ -319,10 +347,9 @@ export const Calendar = ({
             {WEEK_DAYS[day]}
           </div>
         ))}
-        {getDates().map((d) => {
-          const date = new Date(d.join('-'))
-          return <Day key={getDateISO(date)} date={date} />
-        })}
+        {getDates().map((d) => (
+          <Day key={d} date={d} />
+        ))}
       </div>
       {showSelections ? (
         <div className="mkui-date-selection flex">

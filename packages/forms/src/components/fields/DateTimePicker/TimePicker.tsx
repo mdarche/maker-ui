@@ -15,14 +15,15 @@ interface TimePickerFormProps extends TimePickerProps {
 }
 
 export const TimePicker = ({
-  startTime = [9, 0],
-  endTime = [18, 0],
+  timezone, // Default to "guess"
+  startTime = [9, 0], // Use 24hr clock, ie. 9:00 TODO
+  endTime = [18, 0], // Use 24hr clock, ie. 16:00 TODO
   duration,
   interval,
   header,
-  unavailableTimes = [],
+  unavailableTimes = [], // UTC time strings and we will handle the conversion
   onChange,
-  initialValue,
+  initialValue, // UTC
   currentValue,
   classNames,
 }: TimePickerFormProps) => {
