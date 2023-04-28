@@ -136,6 +136,19 @@
   margin-left: auto;
 }
 
+.mkui-form-btn-page .icon-prev {
+  margin-right: var(--form-margin-icon, 5px);
+}
+
+.mkui-form-btn-page .icon-next {
+  margin-left: var(--form-margin-icon, 5px);
+}
+
+.mkui-form-btn-page .icon-prev,
+.mkui-form-btn-page .icon-next {
+  height: var(--form-page-icon-height, 10px);
+}
+
 /* Submit */
 
 .mkui-form-submit {
