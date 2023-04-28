@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { cn } from '@maker-ui/utils'
-import type { DateSelection, TimePickerProps } from '@/types'
-import { isSameDay, timeHash } from './date-helpers'
+import type { TimePickerProps } from '@/types'
+import { dayjs, type Dayjs } from './date-helpers'
 
 type DivisibleBy15 = number & { __divisibleBy15: never }
 
@@ -9,14 +9,25 @@ function isDivisibleBy15(value: number): value is DivisibleBy15 {
   return value % 15 === 0
 }
 
+const parseTime = (time: string): [number, number] => {
+  if (typeof time !== 'string') {
+    throw new Error('Invalid startTime or endTime format')
+  }
+  const [hours, minutes] = time.split(':').map(Number)
+  return [hours, minutes || 0]
+}
+
 interface TimePickerFormProps extends TimePickerProps {
-  initialValue?: DateSelection['date']
-  currentValue?: DateSelection['date']
+  initialValue?: Dayjs
+  currentValue?: Dayjs
+  onChange?: (time: Dayjs) => void
 }
 
 export const TimePicker = ({
-  startTime = [9, 0],
-  endTime = [18, 0],
+  timezone,
+  startTime = '9:00',
+  endTime = '17:00',
+  showSelectedDate = true,
   duration,
   interval,
   header,
@@ -24,39 +35,51 @@ export const TimePicker = ({
   onChange,
   initialValue,
   currentValue,
+  timeFormat = 'h:mm A',
+  dateFormat = 'ddd MMM DD YYYY',
   classNames,
 }: TimePickerFormProps) => {
-  const [initial, setInitial] = useState<Date | null>(null)
-  const [selectedTime, setSelectedTime] = useState<Date | null>(null)
-  const formatted = timeHash(selectedTime)
+  const [selectedTime, setSelectedTime] = useState<Dayjs | undefined>(
+    initialValue
+  )
+
   const intervalValue =
     interval !== undefined && isDivisibleBy15(interval) ? interval : 30
   const durationValue =
     duration !== undefined && isDivisibleBy15(duration) ? duration : 30
 
-  const base = currentValue ? new Date(currentValue) : new Date()
+  const base = currentValue?.utc() || dayjs.utc()
+  const parsedStart = parseTime(startTime)
+  const parsedEnd = parseTime(endTime)
+  const tz = timezone || dayjs.tz.guess()
 
-  const start =
-    startTime && Array.isArray(startTime)
-      ? new Date(base.setHours(startTime[0], startTime[1] || 0))
-      : startTime
-  const end =
-    endTime && Array.isArray(endTime)
-      ? new Date(base.setHours(endTime[0], endTime[1] || 0))
-      : endTime
+  const start = dayjs
+    .utc(base)
+    .tz(tz)
+    .set('hour', parsedStart[0])
+    .set('minute', parsedStart[1])
 
-  const handleTimeChange = (newTime: Date) => {
-    setSelectedTime(newTime)
-    onChange?.(newTime)
+  const end = dayjs
+    .utc(base)
+    .tz(tz)
+    .set('hour', parsedEnd[0])
+    .set('minute', parsedEnd[1])
+
+  const handleTimeChange = (newTime: Dayjs) => {
+    const t = selectedTime && selectedTime.isSame(newTime) ? undefined : newTime
+    setSelectedTime(t)
+    if (t) {
+      onChange?.(t)
+    }
   }
 
-  const timeOptions: Date[] = []
-  let currentTime = new Date(start)
+  const timeOptions: Dayjs[] = []
+  let currentTime = start
   while (currentTime <= end) {
-    if (isDivisibleBy15(currentTime.getMinutes())) {
-      timeOptions.push(new Date(currentTime))
+    if (isDivisibleBy15(currentTime.minute())) {
+      timeOptions.push(currentTime)
     }
-    currentTime.setTime(currentTime.getTime() + intervalValue * 60 * 1000)
+    currentTime = currentTime.add(intervalValue, 'minute')
   }
 
   let unavailable: number[] = []
@@ -77,64 +100,38 @@ export const TimePicker = ({
   })
 
   const filtered = timeOptions.filter((option) => {
-    const timeInMinutes = option.getHours() * 60 + option.getMinutes()
+    const timeInMinutes = option.hour() * 60 + option.minute()
     return !unavailable.includes(timeInMinutes)
   })
 
-  useEffect(() => {
-    if (initialValue) {
-      const v = new Date(initialValue)
-      setInitial(v)
-      setSelectedTime(v)
-    } else {
-      setInitial(null)
-    }
-  }, [initialValue])
-
-  useEffect(() => {
-    if (currentValue && initial) {
-      setSelectedTime(
-        isSameDay(initial, new Date(currentValue)) ? initial : null
-      )
-    } else {
-      setSelectedTime(null)
-    }
-  }, [currentValue, initial])
-
-  return (
+  return currentValue ? (
     <div className={cn(['mkui-timepicker', classNames?.root])}>
       <div>
+        {showSelectedDate && (
+          <div className="mkui-current-date flex justify-center">
+            {currentValue && currentValue.format(dateFormat)}
+          </div>
+        )}
         {header && <div className="mkui-time-header">{header}</div>}
-        <div className="mkui-current-date flex justify-center">
-          {currentValue && new Date(currentValue).toDateString()}
-        </div>
       </div>
       <ul className={cn(['mkui-time-options', classNames?.ul])}>
-        {currentValue
-          ? filtered.map((option) => {
-              const s = timeHash(option)
-              return (
-                <li key={s} className={classNames?.li}>
-                  <button
-                    type="button"
-                    className={cn([
-                      'mkui-time-option',
-                      classNames?.button,
-                      s === formatted
-                        ? classNames?.selected || 'selected'
-                        : undefined,
-                    ])}
-                    onClick={(e) => handleTimeChange(option)}>
-                    {option.toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </button>
-                </li>
-              )
-            })
-          : null}
+        {filtered.map((option, i) => (
+          <li key={`${option.millisecond()}-${i}`} className={classNames?.li}>
+            <button
+              type="button"
+              className={cn([
+                'mkui-time-option',
+                classNames?.button,
+                selectedTime?.isSame(option)
+                  ? classNames?.selected || 'selected'
+                  : undefined,
+              ])}
+              onClick={(e) => handleTimeChange(option)}>
+              {option.format(timeFormat)}
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
-  )
+  ) : null
 }

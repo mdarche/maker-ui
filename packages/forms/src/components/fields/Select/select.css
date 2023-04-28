@@ -128,6 +128,12 @@
   font-size: var(--form-input-font-size, 1em);
 }
 
+button.mkui-select-option span {
+  font-size: 12px;
+  margin-left: 5px;
+  opacity: 0.3;
+}
+
 .mkui-select-option.disabled {
   opacity: 0.5;
 }

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useForm } from '@/hooks'
 import { cn } from '@maker-ui/utils'
-import { ArrowIcon } from './Icons'
 
 interface PaginationProps extends React.HTMLAttributes<HTMLDivElement> {
   submitButton: React.ReactNode
@@ -37,13 +36,7 @@ export const Pagination = ({ submitButton }: PaginationProps) => {
           ])}>
           {settings?.prevButton || (
             <div className="mkui-prev-inner flex align-center">
-              <ArrowIcon
-                style={{
-                  transform: 'rotate(90deg)',
-                  height: 10,
-                  marginRight: 5,
-                }}
-              />
+              {settings?.icons?.prevArrow}
               Previous
             </div>
           )}
@@ -62,13 +55,7 @@ export const Pagination = ({ submitButton }: PaginationProps) => {
           {settings?.nextButton || (
             <div className="mkui-next-inner flex align-center">
               Next
-              <ArrowIcon
-                style={{
-                  height: 10,
-                  transform: 'rotate(-90deg)',
-                  marginLeft: 5,
-                }}
-              />
+              {settings?.icons?.nextArrow}
             </div>
           )}
         </button>

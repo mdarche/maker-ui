@@ -1,6 +1,4 @@
 import { Section } from 'maker-ui'
-import { Form } from './form'
-import './datepicker.css'
 
 export default function AboutPage() {
   return (
@@ -10,8 +8,6 @@ export default function AboutPage() {
         '.mkui-calendar': {
           width: 500,
         },
-      }}>
-      <Form />
-    </Section>
+      }}></Section>
   )
 }

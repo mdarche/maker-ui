@@ -143,7 +143,7 @@ export const Field = (p: FieldProps) => {
       {p?.showValidation ? (
         <div
           className={cn(['mkui-validate', !error && touched ? 'active' : ''])}>
-          {s?.validateIcon}
+          {s?.icons?.validate}
         </div>
       ) : null}
       {hasError ? (

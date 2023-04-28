@@ -5,6 +5,8 @@
 / --form-calendar-height-time
 / --form-calendar-border-radius
 / --form-calendar-border-radius-range
+/ --form-calendar-gap
+/ --form-calendar-time-gap
 
 / --form-calendar-color-active
 / --form-calendar-color-muted
@@ -18,14 +20,18 @@
 / --------------------------------------------------
 */
 
-/* accent, muted, background */
-
 .mkui-calendar {
   width: var(--form-calendar-width, 100%);
 }
 
-.mkui-calendar-grid.single {
-  gap: 5px;
+.mkui-calendar.single {
+  width: calc(
+    var(--form-calendar-width, 100%) + calc(var(--form-calendar-gap, 5px) * 6)
+  );
+}
+
+.mkui-calendar.single .mkui-calendar-grid {
+  gap: var(--form-calendar-gap, 5px);
 }
 
 .mkui-calendar-grid {
@@ -83,7 +89,7 @@
 }
 
 .mkui-date.range-inner,
-.single .mkui-date.available {
+.mkui-calendar.single .mkui-date.available {
   color: var(--form-calendar-color-active, blue);
   background: var(--form-calendar-color-muted, #e3f3ff);
 }
@@ -95,7 +101,15 @@
 .mkui-date.unavailable {
   pointer-events: none;
 }
-.single .mkui-date.selected,
+
+.mkui-date.range-start.unavailable,
+.mkui-date.range-end.unavailable,
+.mkui-date.range-inner.unavailable:not(.unavailable-day) {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.mkui-calendar.single .mkui-date.selected,
 .mkui-date.range-start,
 .mkui-date.range-end {
   color: var(--form-calendar-bg, var(--color-background));
@@ -104,6 +118,7 @@
 }
 .mkui-date.range-inner {
   border-radius: 0;
+  font-weight: 400;
 }
 .mkui-date.hidden {
   opacity: 0;
@@ -129,11 +144,11 @@
 
 .mkui-timepicker {
   width: var(--form-calendar-width-time, 100%);
-  margin-left: 20px;
+  margin-left: var(--form-calendar-time-gap, 30px);
 }
 
 .mkui-current-date {
-  padding: 20px;
+  padding: 10px;
 }
 
 .mkui-datetime {
@@ -167,4 +182,8 @@
 .mkui-time-option.selected {
   background: var(--form-calendar-color-active, blue);
   color: var(--form-calendar-bg, var(--color-background));
+}
+
+.mkui-datetime.error .mkui-calendar {
+  border: 1px solid var(--form-color-error, red);
 }

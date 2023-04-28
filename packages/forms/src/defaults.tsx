@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ValidateIcon } from './components/Icons'
+import { ValidateIcon, ArrowIcon, CloseIcon } from './components/Icons'
 import type { FormState } from '@/types'
 
 /**
@@ -7,7 +7,6 @@ import type { FormState } from '@/types'
  */
 export const initialState: Partial<FormState> = {
   settings: {
-    validateIcon: <ValidateIcon />,
     columns: 'repeat(2, 1fr)',
     gap: 25,
     placeholderColor: '#b7b7b7',
@@ -17,6 +16,23 @@ export const initialState: Partial<FormState> = {
     autoSave: false,
     pageTransition: 'fade',
     successTransition: 'fade',
+    icons: {
+      selectArrow: <ArrowIcon />,
+      selectClose: <CloseIcon />,
+      validate: <ValidateIcon />,
+      nextArrow: (
+        <ArrowIcon
+          className="icon-next"
+          style={{ transform: 'rotate(-90deg)' }}
+        />
+      ),
+      prevArrow: (
+        <ArrowIcon
+          className="icon-prev"
+          style={{ transform: 'rotate(90deg)' }}
+        />
+      ),
+    },
   },
   currentPage: 1,
   totalPages: 1,
