@@ -1,5 +1,12 @@
 # v2
 
+## 1.1.24
+
+### Patch Changes
+
+- Updated dependencies []:
+  - maker-ui@2.0.12
+
 ## 1.1.23
 
 ### Patch Changes

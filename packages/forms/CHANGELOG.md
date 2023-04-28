@@ -1,5 +1,11 @@
 # @maker-ui/forms
 
+## 2.0.12
+
+### Patch Changes
+
+- [#113](https://github.com/mdarche/maker-ui/pull/113) [`ca15f0a5`](https://github.com/mdarche/maker-ui/commit/ca15f0a58722276998bbcd89a1c1f2cd640b501d) Thanks [@mdarche](https://github.com/mdarche)! - Rewrite calendar and timepicker components with Dayjs to better support UTC and timezone management
+
 ## 2.0.11
 
 ### Patch Changes
