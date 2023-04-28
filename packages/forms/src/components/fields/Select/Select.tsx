@@ -9,7 +9,7 @@ import {
   formatOptions,
   initValue,
 } from './helper'
-import { ArrowIcon, CloseIcon } from '../../Icons'
+import { CloseIcon } from '../../Icons'
 
 const defaultSettings: FieldProps['select'] = {
   multi: false,
@@ -25,7 +25,8 @@ const defaultSettings: FieldProps['select'] = {
  * @note The `initialValue` must be InputOption or InputOption[]
  */
 export const Select = ({ name }: FieldInputProps) => {
-  const { resetCount, settings: { validateFieldOnBlur } = {} } = useForm()
+  const { resetCount, settings: { validateFieldOnBlur, icons } = {} } =
+    useForm()
   const { field, error, value, setValue, validateField } = useField(name)
   const ref = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -300,11 +301,11 @@ export const Select = ({ name }: FieldInputProps) => {
               type="button"
               className={cn(['mkui-select-clear naked', classNames?.clear])}
               onClick={(e) => handleClear(e)}>
-              <CloseIcon />
+              {icons?.selectClose}
             </button>
           ) : null}
           <div className={cn(['mkui-select-arrow', classNames?.arrow])}>
-            <ArrowIcon />
+            {icons?.selectArrow}
           </div>
         </div>
       </div>
@@ -374,7 +375,7 @@ export const Select = ({ name }: FieldInputProps) => {
                   value: state.searchText,
                 })
               }>
-              Create "{state.searchText}"
+              Create "{state.searchText}" <span>[Enter]</span>
             </button>
           ) : (
             <div className="mkui-select-option flex justify-center">

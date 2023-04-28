@@ -7,6 +7,7 @@ import './styles/side-nav.css'
 import './styles/topbar.css'
 import './styles/utility.css'
 import './styles/workspace.css'
+import './styles/components.css'
 
 /* Export standalone Client components */
 export {

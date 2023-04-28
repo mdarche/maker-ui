@@ -169,8 +169,6 @@ export function FormDemo() {
                 unavailableDays: [0, 6],
               },
               time: {
-                startTime: [9, 0],
-                endTime: [17, 0],
                 interval: 60,
                 duration: 120,
                 unavailableTimes,

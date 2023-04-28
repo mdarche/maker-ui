@@ -107,14 +107,8 @@ export interface CalendarProps {
    * To disable weekends, use: [0, 6]
    */
   unavailableDays?: number[]
-  /** Callback function that is invoked any time a date is changed or selected. */
-  onChange?: (selection: DateSelection) => void
   /** If true, all days outside of the `startDate` and `endDate` props will be hidden. */
   showRangeOnly?: boolean
-  /** A custom icon for the left month arrow. */
-  arrowLeft?: string | React.ReactElement
-  /** A custom icon for the right month arrow. */
-  arrowRight?: string | React.ReactElement
   /**  Determines where the month navigation arrows should be positioned.
    * @default 'split'
    */
@@ -123,6 +117,11 @@ export interface CalendarProps {
    * @default true
    */
   showSelections?: boolean
+  /** The format of the selected dates, if visible.
+   * @default 'ddd MMM DD YYYY'
+   * @link https://day.js.org/docs/en/display/format
+   */
+  dateFormat?: string
   /** Custom class selectors for the calendar and its inner components. */
   classNames?: {
     /** Root calendar className */
@@ -143,16 +142,23 @@ export interface CalendarProps {
 export interface TimePickerProps {
   /** An IANA timezone identifier for validating available / unavailable time slots.
    * @default 'America/New_York'
+   * @link https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
    */
   timezone?: string
-  /** The start time for the time picker.
-   * @default [9, 0] // 9:00 AM ([Hour,  Minute])
+  /** The start time for the time picker. Uses a 24 hour clock.
+   * @default '9:00'
    */
-  startTime?: Date | number[]
-  /** The last possible start time for the time picker.
-   * @default [18, 0] // 6:00 PM ([Hour,  Minute])
+  startTime?: string
+  /** The last possible start time for the time picker. Uses a 24 hour clock.
+   * @default '17:00'
    */
-  endTime?: Date | number[]
+  endTime?: string
+  /**
+   * Allows you to customize how the time button labels are formatted.
+   * @default 'h:mm A'
+   * @link https://day.js.org/docs/en/display/format
+   */
+  timeFormat?: string
   /** The frequency at which times can be scheduled. This must be divisible by 15.
    * @default 30 // Meeting slots begin every 30 minutes
    */
@@ -162,11 +168,18 @@ export interface TimePickerProps {
    */
   duration?: number
   /** An optional message that will display above the time picker. */
-  header?: string
+  header?: string | React.ReactElement
   /** An array of times that should not be available for selection. */
   unavailableTimes?: string[]
-  /** A callback that will be called when a time is selected. */
-  onChange?: (time: Date) => void
+  /** Renders the selected calendar date before the time picker.
+   * @default true
+   */
+  showSelectedDate?: boolean
+  /** The format of the selected date, if visible.
+   * @default 'ddd MMM DD YYYY'
+   * @link https://day.js.org/docs/en/display/format
+   */
+  dateFormat?: string
   /** Custom class selectors for the time picker and its inner components */
   classNames?: {
     root?: string
@@ -399,6 +412,8 @@ export interface FieldProps {
      * @default 'date'
      */
     returnType?: 'date' | 'iso'
+    /** Callback function that is invoked any time a date is changed or selected. */
+    onChange?: (selection: DateSelection) => void
   }
   /** Custom settings for the image-picker field type */
   image?: ImagePickerProps
@@ -429,8 +444,6 @@ export interface AutoSaveSettings {
 export interface FormSettings {
   /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
   validateFieldOnBlur: boolean
-  /** A custom React element that will be used instead of the default checkmark for valid fields. */
-  validateIcon: React.ReactElement
   /** Breakpoints that dictate when form columns will collapse according to the `columns` prop. */
   breakpoints?: Breakpoints
   columns: string | string[] | number
@@ -469,6 +482,15 @@ export interface FormSettings {
   prevButton?: string | React.ReactElement
   /** Inner contents of the Next page button */
   nextButton?: string | React.ReactElement
+  /** Replace the default field icons to make the form feel more custom  */
+  icons?: {
+    selectArrow?: React.ReactElement
+    selectClose?: React.ReactElement
+    upload?: React.ReactElement
+    nextArrow?: React.ReactElement
+    prevArrow?: React.ReactElement
+    validate?: React.ReactElement
+  }
 }
 
 export interface FormClassNames {
