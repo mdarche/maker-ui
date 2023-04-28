@@ -1,5 +1,11 @@
 # @maker-ui/layout
 
+## 2.0.3
+
+### Patch Changes
+
+- [#113](https://github.com/mdarche/maker-ui/pull/113) [`ca15f0a5`](https://github.com/mdarche/maker-ui/commit/ca15f0a58722276998bbcd89a1c1f2cd640b501d) Thanks [@mdarche](https://github.com/mdarche)! - Add component CSS file and tab component focus styles
+
 ## 2.0.2
 
 ### Patch Changes
