@@ -24,6 +24,7 @@ const menu: MenuItem[] = [
       { label: 'Modal', path: '/demo/modal' },
       { label: 'Notifications', path: '/demo/notifications' },
       { label: 'Popovers', path: '/demo/popovers' },
+      { label: 'Scroll', path: '/demo/scroll' },
       { label: 'Social', path: '/demo/social' },
       { label: 'Spinners', path: '/demo/spinners' },
       { label: 'Style', path: '/demo/style' },

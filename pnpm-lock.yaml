@@ -647,6 +647,9 @@ importers:
       '@maker-ui/popovers':
         specifier: workspace:*
         version: link:../popovers
+      '@maker-ui/scroll':
+        specifier: workspace:*
+        version: link:../scroll
       '@maker-ui/social':
         specifier: workspace:*
         version: link:../social
