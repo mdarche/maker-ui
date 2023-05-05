@@ -1,4 +1,5 @@
 .mkui-animate {
+  opacity: 0;
   animation-duration: var(--duration);
   animation-timing-function: var(--easing);
   animation-fill-mode: forwards;

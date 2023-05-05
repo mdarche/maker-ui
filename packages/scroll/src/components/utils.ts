@@ -20,7 +20,7 @@ export const getStyles = ({
     '--transform-origin': transformOrigin || 'center',
   } as CSSProperties)
 
-export function createLines(
+export function createMarkers(
   container: HTMLDivElement,
   bottom: number,
   isEnabled: boolean

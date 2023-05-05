@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { createLines, formatUnit, getStyles } from './utils'
+import { createMarkers, formatUnit, getStyles } from './utils'
 import { cn } from '@maker-ui/utils'
 
 type AnimationType =
@@ -90,13 +90,19 @@ export const Animate = ({
     if (!wrapper) return
 
     const s = `.${selector}`
-    console.log('s is', s)
     const rootMargin = `0px 0px ${formatUnit(bottom)} 0px`
-    const { intersectionLine: red, containerLine: green } = createLines(
+    // Handle markers for debugging
+    const { intersectionLine: red, containerLine: green } = createMarkers(
       wrapper,
       bottom,
       markers
     )
+    function removeMarkers() {
+      if (markers && red && green) {
+        document.body.removeChild(red)
+        document.body.removeChild(green)
+      }
+    }
 
     const animateObserver = new IntersectionObserver(
       (entries) => {
@@ -104,9 +110,7 @@ export const Animate = ({
           if (entry.isIntersecting) {
             const delay = index * stagger
             const element = entry.target as HTMLElement
-            if (!element.style.animationDelay) {
-              element.style.animationDelay = `${delay}ms`
-            }
+            element.style.animationDelay = `${delay}ms`
             element.classList.remove('mkui-not-animated')
             element.classList.add('mkui-animate', type)
           }
@@ -131,28 +135,17 @@ export const Animate = ({
             const isScrollingUp = prevScrollPos.current > currentScrollPos
 
             if (!entry.isIntersecting && isScrollingUp) {
+              // const parent = element.parentElement as HTMLElement
+              // const children = Array.from(parent.children)
+              // const index = children.indexOf(element)
+              // const reverseIndex = children.length - index - 1
+              // const delay = reverseIndex * stagger
+              // element.style.animationDelay = `${delay}ms`
               element.classList.remove(type)
               element.classList.add(`${type}-reverse`)
-              // if (selector) {
-              //   element.querySelectorAll(s).forEach((item) => {
-              //     item.classList.remove(type)
-              //     item.classList.add(`${type}-reverse`)
-              //   })
-              // } else {
-
-              // }
             } else {
               element.classList.remove(`${type}-reverse`)
               element.classList.add(type)
-              // if (selector) {
-              //   element.querySelectorAll(s).forEach((item) => {
-              //     item.classList.remove(`${type}-reverse`)
-              //     item.classList.add(type)
-              //   })
-              // } else {
-              //   element.classList.remove(`${type}-reverse`)
-              //   element.classList.add(type)
-              // }
             }
             prevScrollPos.current = currentScrollPos
           })
@@ -167,18 +160,12 @@ export const Animate = ({
       return () => {
         animateObserver.disconnect()
         reverseObserver.disconnect()
-        if (markers && red && green) {
-          document.body.removeChild(red)
-          document.body.removeChild(green)
-        }
+        removeMarkers()
       }
     } else {
       return () => {
         animateObserver.disconnect()
-        if (markers && red && green) {
-          document.body.removeChild(red)
-          document.body.removeChild(green)
-        }
+        removeMarkers()
       }
     }
   }, [selector, stagger, bottom, type, threshold, markers, distance, reverse])
