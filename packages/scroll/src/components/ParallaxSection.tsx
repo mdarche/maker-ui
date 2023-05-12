@@ -4,6 +4,8 @@ import { cn } from '@maker-ui/utils'
 interface ParallaxSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   imageUrl: string
   overlay?: string
+  speed?: number
+  backgroundPosition?: string
 }
 
 export const ParallaxSection = ({
@@ -11,19 +13,74 @@ export const ParallaxSection = ({
   title,
   className,
   overlay,
+  speed = 0.3,
+  backgroundPosition = 'center',
   children,
   ...props
 }: ParallaxSectionProps) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [scrollPosition, setScrollPosition] = useState(0)
+  const animationFrameId = useRef<number>()
+  const [isInitialRender, setIsInitialRender] = useState(true)
   const [isVisible, setIsVisible] = useState(false)
+  const [parallaxStyle, setParallaxStyle] = useState<{
+    height: string
+    top: string
+  }>({
+    height: '0%',
+    top: '0%',
+  })
 
-  const handleScroll = () => {
-    if (isVisible) {
-      const position = window.pageYOffset
-      setScrollPosition(position)
-    }
+  const computeStyle = (sectionHeight: number, speed: number) => {
+    const height = (sectionHeight * (1 + Math.abs(speed))).toFixed(2) + '%'
+    const top = (-sectionHeight * Math.abs(speed) * 0.5).toFixed(2) + '%'
+    setParallaxStyle({ height, top })
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isVisible) {
+        const position = window.pageYOffset
+        const sectionTop = sectionRef.current ? sectionRef.current.offsetTop : 0
+        const sectionHeight = sectionRef.current
+          ? sectionRef.current.clientHeight
+          : 0
+        const sectionBottom = sectionTop + sectionHeight
+
+        if (
+          position >= sectionTop - window.innerHeight &&
+          position <= sectionBottom
+        ) {
+          const relativeScrollPosition = position - sectionTop
+
+          if (isInitialRender && position > sectionTop) {
+            setIsInitialRender(false)
+          }
+
+          setScrollPosition(isInitialRender ? position : relativeScrollPosition)
+        }
+      }
+      animationFrameId.current = window.requestAnimationFrame(handleScroll)
+    }
+
+    if (isVisible) {
+      window.addEventListener('scroll', handleScroll, { passive: true })
+      animationFrameId.current = window.requestAnimationFrame(handleScroll)
+    } else {
+      window.removeEventListener('scroll', handleScroll)
+      if (animationFrameId.current) {
+        window.cancelAnimationFrame(animationFrameId.current)
+      }
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (animationFrameId.current) {
+        window.cancelAnimationFrame(animationFrameId.current)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVisible])
 
   useEffect(() => {
     const ref = sectionRef.current
@@ -38,6 +95,7 @@ export const ParallaxSection = ({
 
     if (ref) {
       observer.observe(sectionRef.current)
+      computeStyle(ref.clientHeight, speed)
     }
 
     return () => {
@@ -45,34 +103,30 @@ export const ParallaxSection = ({
         observer.unobserve(ref)
       }
     }
-  }, [])
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVisible])
-
-  const parallaxStyle = `translateY(${scrollPosition * 0.5}px)`
+  }, [])
 
   return (
     <section
       ref={sectionRef}
-      className={cn(['mkui-parallax-section relative', className])}
+      className={cn(['mkui-parallax-section', className])}
       {...props}>
       <div
         className="mkui-parallax-bg absolute"
         style={{
           backgroundImage: `url(${imageUrl})`,
-          transform: parallaxStyle,
-        }}>
-        {overlay && (
-          <div
-            className="mkui-parallax-overlay absolute cover"
-            style={{ background: overlay }}
-          />
-        )}
-      </div>
+          backgroundSize: 'cover',
+          backgroundPosition,
+          transform: `translateY(${scrollPosition * speed}px) translateZ(0)`,
+          height: parallaxStyle.height,
+          top: parallaxStyle.top,
+        }}></div>
+      {overlay && (
+        <div
+          className="mkui-parallax-overlay absolute cover"
+          style={{ background: overlay }}
+        />
+      )}
       {children}
     </section>
   )

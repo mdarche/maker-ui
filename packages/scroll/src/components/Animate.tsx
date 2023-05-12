@@ -15,7 +15,7 @@ export interface AnimateProps extends React.HTMLAttributes<HTMLDivElement> {
    * If empty, the `Animate` container component will be animated.
    */
   selector?: string
-  /** A number representing the duration in seconds between batch animations
+  /** A number representing the duration in milliseconds between batch animations
    * @default 0
    */
   stagger?: number
@@ -29,6 +29,7 @@ export interface AnimateProps extends React.HTMLAttributes<HTMLDivElement> {
   threshold?: number
   /** If true, the animation effect will reverse when the element enters and exits the viewport.
    * @default false
+   * @note This option is only available when `selector` is not set.
    */
   reverse?: boolean
   /** The type of animation to apply.
@@ -126,21 +127,14 @@ export const Animate = ({
       element.classList.remove('mkui-animate')
     })
 
-    if (reverse) {
+    if (reverse && !selector) {
       const reverseObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             const element = entry.target as HTMLElement
             const currentScrollPos = window.pageYOffset
             const isScrollingUp = prevScrollPos.current > currentScrollPos
-
             if (!entry.isIntersecting && isScrollingUp) {
-              // const parent = element.parentElement as HTMLElement
-              // const children = Array.from(parent.children)
-              // const index = children.indexOf(element)
-              // const reverseIndex = children.length - index - 1
-              // const delay = reverseIndex * stagger
-              // element.style.animationDelay = `${delay}ms`
               element.classList.remove(type)
               element.classList.add(`${type}-reverse`)
             } else {

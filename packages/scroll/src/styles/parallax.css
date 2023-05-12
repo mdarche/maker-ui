@@ -1,0 +1,11 @@
+.mkui-parallax-section {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.mkui-parallax-bg {
+  z-index: -1;
+  width: 100%;
+  will-change: transform;
+}

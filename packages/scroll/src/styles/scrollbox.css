@@ -8,6 +8,6 @@
 .mkui-scrollbox-inner {
   overflow: auto;
   height: 100%;
-  padding-right: var(--scroll-bar-width); /* Adjust for scrollbar */
+  padding-right: var(--scroll-bar-width);
   box-sizing: content-box;
 }
