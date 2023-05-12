@@ -116,3 +116,28 @@ export function isObjectEmpty(
   }
   return result
 }
+
+/**
+ * This function cleans an object by removing any key-value pairs
+ * where the value is null or undefined.
+ * If all key-value pairs are null or undefined, the function returns undefined.
+ *
+ * @param {Record<string, any>} obj - The object to be cleaned.
+ *
+ * @returns {Record<string, any> | undefined}
+ */
+export function cleanObject(
+  obj: Record<string, any>
+): Record<string, any> | undefined {
+  let cleanedObject: Record<string, any> = {}
+  let hasDefinedKeys = false
+
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] !== null && obj[key] !== undefined) {
+      cleanedObject[key] = obj[key]
+      hasDefinedKeys = true
+    }
+  })
+
+  return hasDefinedKeys ? cleanedObject : undefined
+}
