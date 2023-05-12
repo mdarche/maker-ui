@@ -41,7 +41,7 @@ export interface FilterConfig<T extends object> {
   defaultActive?: boolean
 }
 
-export interface FilterSortState<T extends object> {
+export interface SmartGridState<T extends object> {
   /** The original data. */
   data: T[]
   /** The result of a search operation on the data. */

@@ -283,6 +283,43 @@ importers:
         specifier: ^4.8.4
         version: 4.8.4
 
+  packages/data:
+    dependencies:
+      '@maker-ui/accordion':
+        specifier: workspace:*
+        version: link:../accordion
+      '@maker-ui/popovers':
+        specifier: workspace:*
+        version: link:../popovers
+      '@maker-ui/utils':
+        specifier: workspace:*
+        version: link:../utils
+      fuse.js:
+        specifier: ^6.5.3
+        version: 6.5.3
+    devDependencies:
+      '@maker-ui/build-tools':
+        specifier: workspace:*
+        version: link:../build-tools
+      eslint-config-library:
+        specifier: workspace:*
+        version: link:../eslint/eslint-config-library
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      tsup:
+        specifier: ^6.6.3
+        version: 6.6.3(postcss@8.4.18)(typescript@4.9.5)
+      typescript:
+        specifier: ^4.8.4
+        version: 4.8.4
+
   packages/eslint/eslint-config-app:
     dependencies:
       eslint-config-next:
@@ -672,10 +709,10 @@ importers:
         specifier: ^13.x
         version: 13.2.3(@babel/core@7.17.8)(react-dom@18.2.0)(react@18.2.0)
       react:
-        specifier: ^17.x || ^18.x
+        specifier: ^18.x
         version: 18.2.0
       react-dom:
-        specifier: ^17.x || ^18.x
+        specifier: ^18.x
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@maker-ui/build-tools':
@@ -7776,6 +7813,11 @@ packages:
 
   /functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
+    dev: false
+
+  /fuse.js@6.5.3:
+    resolution: {integrity: sha512-sA5etGE7yD/pOqivZRBvUBd/NaL2sjAu6QuSaFoe1H2BrJSkH/T/UXAJ8CdXdw7DvY3Hs8CXKYkDWX7RiP5KOg==}
+    engines: {node: '>=10'}
     dev: false
 
   /generic-names@1.0.3:
