@@ -59,6 +59,11 @@ export interface AnimateProps extends React.HTMLAttributes<HTMLDivElement> {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
    */
   easing?: string
+  /** Helper indicators for debugging purposes only. The red line indicates where the intersection
+   * threshold is set and the green line indicates the bottom of the viewport.
+   *
+   * @note do not use in production
+   */
   markers?: boolean
 }
 

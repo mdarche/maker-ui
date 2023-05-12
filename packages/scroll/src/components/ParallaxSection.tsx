@@ -2,12 +2,23 @@ import React, { useRef, useEffect, useState } from 'react'
 import { cn } from '@maker-ui/utils'
 
 interface ParallaxSectionProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** The URL of the image to be used as the parallax background. */
   imageUrl: string
+  /** An optional overlay for the parallax section, typically represented as a CSS color. */
   overlay?: string
+  /** The speed of the parallax effect.
+   * @default 0.3 */
   speed?: number
+  /** The position of the background image.
+   * @default 'center' */
   backgroundPosition?: string
 }
 
+/**
+ * `ParallaxSection` creates a section with a parallax scrolling effect using
+ * an image URL for the background. It supports customization of the parallax
+ * speed, background image position, and an optional color overlay.
+ */
 export const ParallaxSection = ({
   imageUrl,
   title,
@@ -120,7 +131,8 @@ export const ParallaxSection = ({
           transform: `translateY(${scrollPosition * speed}px) translateZ(0)`,
           height: parallaxStyle.height,
           top: parallaxStyle.top,
-        }}></div>
+        }}
+      />
       {overlay && (
         <div
           className="mkui-parallax-overlay absolute cover"

@@ -663,6 +663,9 @@ importers:
       '@maker-ui/carousel':
         specifier: workspace:*
         version: link:../carousel
+      '@maker-ui/data':
+        specifier: workspace:*
+        version: link:../data
       '@maker-ui/forms':
         specifier: workspace:*
         version: link:../forms
