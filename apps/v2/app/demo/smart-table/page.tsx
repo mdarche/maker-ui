@@ -10,10 +10,11 @@ export default function SmartTablePage() {
         data={users}
         columns={userColumns}
         settings={{
-          pagination: true,
-          search: true,
-          itemsPerPage: 10,
+          search: {
+            columns: ['name', 'age'],
+          },
         }}
+        onRowClick={(row) => console.log(row)}
         styles={
           {
             // stickyHeader: true,
@@ -27,6 +28,7 @@ export default function SmartTablePage() {
             // fontFamily: 'monospace',
             // borderColor: '#dee2e6',
             // altRowBackground: '#f8f9fa',
+            // hoverRowBackground: 'red',
           }
         }
       />

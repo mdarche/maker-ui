@@ -12,6 +12,11 @@
   overflow-x: auto;
 }
 
+.row-select tbody tr:hover td {
+  cursor: pointer;
+  background-color: var(--table-row-hover-bg, #f8f9fa);
+}
+
 .mkui-smart-table td {
   padding: var(--table-cell-padding, 8px);
 }

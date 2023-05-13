@@ -1,4 +1,33 @@
+import { PaginationType } from '../Pagination'
+
 export type SortDirection = 'asc' | 'desc'
+
+export type SmartTableState<T> = {
+  selectedRows: Set<string | number>
+  loading: boolean
+  localData: T[]
+  localTotalCount: number
+  page: number
+  reorderedColumns: ColumnConfig<T>[]
+  draggedColumn: keyof T | null
+  sortColumn: keyof T | null
+  sortDirection: SortDirection
+  searchColumns: (keyof T)[]
+  searchQuery: string
+}
+
+export type TableAction<T> =
+  | { type: 'SET_SELECTED_ROWS'; value: Set<string | number> }
+  | { type: 'SET_LOADING'; value: boolean }
+  | { type: 'SET_LOCAL_DATA'; value: T[] }
+  | { type: 'SET_LOCAL_TOTAL_COUNT'; value: number }
+  | { type: 'SET_PAGE'; value: number }
+  | { type: 'SET_REORDERED_COLUMNS'; value: ColumnConfig<T>[] }
+  | { type: 'SET_DRAGGED_COLUMN'; value: keyof T | null }
+  | { type: 'SET_SORT_COLUMN'; value: keyof T | null }
+  | { type: 'SET_SORT_DIRECTION'; value: SortDirection }
+  | { type: 'SET_SEARCH_COLUMNS'; value: (keyof T)[] }
+  | { type: 'SET_SEARCH_QUERY'; value: string }
 
 export interface ColumnConfig<T> {
   /** The key for the data property that corresponds to the column.*/
@@ -63,6 +92,8 @@ export interface TableStyles {
   borderColor?: string
   /** Background color for alternating rows.*/
   altRowBackground?: string
+  /** Background color for rows when hovered. */
+  hoverRowBackground?: string
 }
 
 interface DeleteButtonConfig {
@@ -76,9 +107,20 @@ interface DeleteButtonConfig {
   styles?: React.CSSProperties
 }
 
-export interface TableSettings {
+export interface TableSettings<T> {
   /** Indicates whether the table should include a search input. */
-  search?: boolean
+  search?: {
+    // Default search column keys (Required for search)
+    columns: (keyof T)[]
+    showOptions?: boolean
+    // All possible search columns (for showOptions)
+    options?: { label: string; value: keyof T }[]
+    optionsLabel?: string | React.ReactElement
+    placeholder?: string
+    clearLabel?: string | React.ReactElement
+    onSearch?: (query: string) => void
+    onReset?: () => void
+  }
   /** Indicates whether rows can be selected. */
   selectable?: boolean
   /** Indicates whether columns can be reordered by dragging.*/
@@ -86,7 +128,7 @@ export interface TableSettings {
   /** Indicates whether the table should include an "Export to CSV" button.*/
   exportToCSV?: boolean
   /** Indicates whether pagination should be enabled.*/
-  pagination?: boolean
+  pagination?: boolean | PaginationType
   /** The number of items to display per page when pagination is enabled. */
   itemsPerPage?: number
   /** A custom loading indicator to display when the table is loading data. */
@@ -106,7 +148,7 @@ export interface SmartTableProps<T> {
   totalCount?: number
   /** Custom styles for various table elements. */
   styles?: TableStyles
-  settings?: TableSettings
+  settings?: TableSettings<T>
   /** A function to fetch data when using server-side pagination, filtering, or sorting. */
   fetchData?: (params: FetchDataParams<T>) => Promise<T[]>
   /** A function called when a delete button is clicked in a 'delete' type column. */

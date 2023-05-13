@@ -180,7 +180,13 @@ export const userColumns: ColumnConfig<typeof users[0]>[] = [
     title: 'Action',
     dataType: 'custom',
     render: (item) => (
-      <button onClick={() => console.log(item.email)}>Log {item.name}</button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation()
+          console.log(item.email)
+        }}>
+        Log {item.name}
+      </button>
     ),
   },
   {

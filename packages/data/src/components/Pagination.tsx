@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { cn, merge } from '@maker-ui/utils'
 
+export type PaginationType = 'simple' | 'input' | 'numbered'
+
 interface PageIcons {
   /** The content for the "first" page button. Can be a string or a React element. */
   first?: React.ReactElement | string
@@ -34,8 +36,8 @@ interface PaginationProps
   icons?: PageIcons
   /** An optional object specifying custom labels for the input field. */
   input?: InputLabels
-  /** The type of pagination to display. Can be 'simple', 'input', or 'numbered'. */
-  type?: 'simple' | 'input' | 'numbered'
+  /** The type of pagination to display. Can be `simple`, `input`, or `numbered`. */
+  type?: PaginationType
   /** The number of pages to show in the pagination component. Only applicable for 'numbered' type*/
   showPages?: number
 }
@@ -71,7 +73,7 @@ export const Pagination = ({
 
   return (
     <div
-      className={cn(['mkui-pagination', `type-${input}`, className])}
+      className={cn(['mkui-pagination', `type-${type}`, className])}
       {...props}>
       {type === 'input' && <InputPagination {...{ ...attrs, inputLabels }} />}
       {type === 'numbered' && (

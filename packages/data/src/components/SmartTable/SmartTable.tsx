@@ -1,72 +1,18 @@
 import React, { useEffect, useMemo, useReducer, useRef } from 'react'
 import { cleanObject, cn, merge } from '@maker-ui/utils'
 import { ExportButton } from './ExportButton'
+import { formatNumber } from '@/utils'
+import { CaretIcon } from '@/icons'
+import { Search } from '../Search'
 import { Pagination } from '../Pagination'
-import { TableSearch } from './TableSearch'
+import { smartTableReducer } from './reducer'
 import type {
   SmartTableProps,
   ColumnConfig,
-  SortDirection,
   TableSettings,
+  SmartTableState,
+  TableAction,
 } from './types'
-import { formatNumber } from '@/utils'
-import { CaretIcon } from '@/icons'
-
-type Action<T> =
-  | { type: 'SET_SELECTED_ROWS'; value: Set<string | number> }
-  | { type: 'SET_LOADING'; value: boolean }
-  | { type: 'SET_LOCAL_DATA'; value: T[] }
-  | { type: 'SET_LOCAL_TOTAL_COUNT'; value: number }
-  | { type: 'SET_PAGE'; value: number }
-  | { type: 'SET_REORDERED_COLUMNS'; value: ColumnConfig<T>[] }
-  | { type: 'SET_DRAGGED_COLUMN'; value: keyof T | null }
-  | { type: 'SET_SORT_COLUMN'; value: keyof T | null }
-  | { type: 'SET_SORT_DIRECTION'; value: SortDirection }
-  | { type: 'SET_SEARCH_COLUMNS'; value: (keyof T)[] }
-  | { type: 'SET_SEARCH_QUERY'; value: string }
-
-type State<T> = {
-  selectedRows: Set<string | number>
-  loading: boolean
-  localData: T[]
-  localTotalCount: number
-  page: number
-  reorderedColumns: ColumnConfig<T>[]
-  draggedColumn: keyof T | null
-  sortColumn: keyof T | null
-  sortDirection: SortDirection
-  searchColumns: (keyof T)[]
-  searchQuery: string
-}
-
-function reducer<T>(state: State<T>, action: Action<T>): State<T> {
-  switch (action.type) {
-    case 'SET_SELECTED_ROWS':
-      return { ...state, selectedRows: action.value }
-    case 'SET_LOADING':
-      return { ...state, loading: action.value }
-    case 'SET_LOCAL_DATA':
-      return { ...state, localData: action.value }
-    case 'SET_LOCAL_TOTAL_COUNT':
-      return { ...state, localTotalCount: action.value }
-    case 'SET_PAGE':
-      return { ...state, page: action.value }
-    case 'SET_REORDERED_COLUMNS':
-      return { ...state, reorderedColumns: action.value }
-    case 'SET_DRAGGED_COLUMN':
-      return { ...state, draggedColumn: action.value }
-    case 'SET_SORT_COLUMN':
-      return { ...state, sortColumn: action.value }
-    case 'SET_SORT_DIRECTION':
-      return { ...state, sortDirection: action.value }
-    case 'SET_SEARCH_COLUMNS':
-      return { ...state, searchColumns: action.value }
-    case 'SET_SEARCH_QUERY':
-      return { ...state, searchQuery: action.value }
-    default:
-      throw new Error('Unsupported action type')
-  }
-}
 
 export const SmartTable = <T extends { id: string | number }>(
   props: SmartTableProps<T>
@@ -88,15 +34,14 @@ export const SmartTable = <T extends { id: string | number }>(
         pagination: false,
         itemsPerPage: 100,
         loadingIndicator: 'Loading...',
-        search: false,
         caretIcon: <CaretIcon />,
-      } as TableSettings,
+      } as TableSettings<T>,
     } as SmartTableProps<T>,
     props || {}
   )
   const prevColumns = useRef<typeof columns | null>(null)
   const prevData = useRef<typeof data | null>(null)
-  const initialState: State<T> = {
+  const initialState: SmartTableState<T> = {
     selectedRows: new Set(),
     loading: false,
     localData: data,
@@ -106,13 +51,12 @@ export const SmartTable = <T extends { id: string | number }>(
     draggedColumn: null,
     sortColumn: null,
     sortDirection: 'asc',
-    searchColumns: [],
+    searchColumns: settings?.search?.columns || [],
     searchQuery: '',
   }
-  const [state, dispatch] = useReducer<React.Reducer<State<T>, Action<T>>>(
-    reducer,
-    initialState
-  )
+  const [state, dispatch] = useReducer<
+    React.Reducer<SmartTableState<T>, TableAction<T>>
+  >(smartTableReducer, initialState)
 
   const handlePageChange = async (newPage: number) => {
     if (fetchData !== undefined) {
@@ -326,6 +270,9 @@ export const SmartTable = <T extends { id: string | number }>(
     dispatch({ type: 'SET_REORDERED_COLUMNS', value: newColumns })
   }
 
+  const searchPagination =
+    settings?.pagination && processedData.length < settings.itemsPerPage!
+
   return (
     <div
       className={cn(['mkui-smart-table'])}
@@ -342,6 +289,7 @@ export const SmartTable = <T extends { id: string | number }>(
         '--table-font-family': styles?.fontFamily,
         '--table-border-color': styles?.borderColor,
         '--table-alt-row-bg': styles?.altRowBackground,
+        '--table-row-hover-bg': styles?.hoverRowBackground,
       } as React.CSSProperties)}>
       {settings?.exportToCSV && (
         <ExportButton
@@ -351,15 +299,15 @@ export const SmartTable = <T extends { id: string | number }>(
         />
       )}
       {settings?.search && (
-        <TableSearch
-          columns={columns.filter((column) => column.filterable)}
-          searchColumns={state.searchColumns}
-          setSearchColumns={(columns) =>
-            dispatch({ type: 'SET_SEARCH_COLUMNS', value: columns })
-          }
-          searchQuery={state.searchQuery}
-          setSearchQuery={(query) =>
+        <Search
+          onSearch={(query) =>
             dispatch({ type: 'SET_SEARCH_QUERY', value: query })
+          }
+          onReset={() => dispatch({ type: 'SET_SEARCH_QUERY', value: '' })}
+          // allOptions={columns.filter((column) => column.filterable)}
+          currentOptions={state.searchColumns}
+          setOptions={(columns) =>
+            dispatch({ type: 'SET_SEARCH_COLUMNS', value: columns })
           }
         />
       )}
@@ -371,6 +319,7 @@ export const SmartTable = <T extends { id: string | number }>(
             'mkui-table-wrapper',
             styles?.stickyHeader ? 'sticky-header' : undefined,
             styles?.altRowBackground ? 'alt-row' : undefined,
+            onRowClick !== undefined ? 'row-select' : undefined,
           ])}>
           <table>
             <thead>
@@ -453,7 +402,10 @@ export const SmartTable = <T extends { id: string | number }>(
                             column.render(item, column.key)
                           ) : column.dataType === 'delete' ? (
                             <button
-                              onClick={() => deleteItem(item)}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                deleteItem(item)
+                              }}
                               className={column.deleteButton?.className}
                               style={column.deleteButton?.styles}>
                               {column.deleteButton?.icon}
@@ -473,8 +425,17 @@ export const SmartTable = <T extends { id: string | number }>(
       )}
       {settings.pagination && (
         <Pagination
-          page={state.page}
-          totalPages={Math.ceil(state.localTotalCount / settings.itemsPerPage!)}
+          type={
+            typeof settings.pagination === 'string'
+              ? settings.pagination
+              : undefined
+          }
+          page={searchPagination ? 1 : state.page}
+          totalPages={
+            searchPagination
+              ? 1
+              : Math.ceil(state.localTotalCount / settings.itemsPerPage!)
+          }
           onChange={handlePageChange}
         />
       )}
