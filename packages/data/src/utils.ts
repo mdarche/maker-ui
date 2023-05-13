@@ -37,7 +37,8 @@ export function getNonEmptyKeys(obj: Record<string, any>): string[] {
  *
  * @throws {Error} Throws an error if the value is neither a string nor a number.
  */
-export function formatNumber(value: string | number, template: string): string {
+export function formatNumber(value?: string | number, template = '%px') {
+  if (!value) return undefined
   if (typeof value === 'string') {
     return value
   } else if (typeof value === 'number') {

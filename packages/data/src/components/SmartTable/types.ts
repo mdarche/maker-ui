@@ -36,23 +36,33 @@ export interface FetchDataParams<T> {
   searchQuery?: string
 }
 
-interface TableStyles {
+export interface TableStyles {
   /** Indicates whether the table header should be sticky. */
   stickyHeader?: boolean
   /** The top position for the sticky header. */
   stickyHeaderTop?: string | number
-  /** Padding for table cells. */
-  cellPadding?: string
+  /** Padding of the table header cells. */
+  headerPadding?: string | number
   /** Color of the table header text. */
   headerColor?: string
   /** Background color of the table header. */
   headerBackground?: string
+  /** Font family for the table header. */
+  headerFontFamily?: string
+  /** Font size for the table header. */
+  headerFontSize?: string | number
+  /** Height of the SVG caret / arrow icon */
+  headerIconHeight?: string | number
+  /** Padding for table cells. */
+  cellPadding?: string | number
   /** Font size for the table. */
-  fontSize?: string
+  fontSize?: string | number
+  /** Font family for the table cells. */
+  fontFamily?: string
   /** Border color for the table and its cells. */
   borderColor?: string
   /** Background color for alternating rows.*/
-  alternateRowBackground?: string
+  altRowBackground?: string
 }
 
 interface DeleteButtonConfig {
@@ -66,25 +76,37 @@ interface DeleteButtonConfig {
   styles?: React.CSSProperties
 }
 
+export interface TableSettings {
+  /** Indicates whether the table should include a search input. */
+  search?: boolean
+  /** Indicates whether rows can be selected. */
+  selectable?: boolean
+  /** Indicates whether columns can be reordered by dragging.*/
+  reorder?: boolean
+  /** Indicates whether the table should include an "Export to CSV" button.*/
+  exportToCSV?: boolean
+  /** Indicates whether pagination should be enabled.*/
+  pagination?: boolean
+  /** The number of items to display per page when pagination is enabled. */
+  itemsPerPage?: number
+  /** A custom loading indicator to display when the table is loading data. */
+  loadingIndicator?: React.ReactNode
+  /** A custom arrow indicator that will be used to show column sort direction. */
+  caretIcon?: React.ReactNode
+  /** Allows you to show the total result count */
+  total?: boolean
+}
+
 export interface SmartTableProps<T> {
   /** The data array to be displayed in the table.*/
   data?: T[]
   /** An array of column configurations for the table.*/
   columns: ColumnConfig<T>[]
-  /** Indicates whether pagination should be enabled.*/
-  pagination?: boolean
-  /** The number of items to display per page when pagination is enabled. */
-  itemsPerPage?: number
-  /** Indicates whether the table should include a search input. */
-  search?: boolean
   /** The total number of data items, used for server-side pagination. */
   totalCount?: number
-  /** Indicates whether columns can be reordered by dragging.*/
-  reorder?: boolean
-  /** Indicates whether rows can be selected. */
-  selectable?: boolean
-  /** Indicates whether the table should include an "Export to CSV" button.*/
-  exportToCSV?: boolean
+  /** Custom styles for various table elements. */
+  styles?: TableStyles
+  settings?: TableSettings
   /** A function to fetch data when using server-side pagination, filtering, or sorting. */
   fetchData?: (params: FetchDataParams<T>) => Promise<T[]>
   /** A function called when a delete button is clicked in a 'delete' type column. */
@@ -96,10 +118,6 @@ export interface SmartTableProps<T> {
     selectedRows: Set<string | number>,
     clearSelection?: () => void
   ) => void
-  /** A custom loading indicator to display when the table is loading data. */
-  loadingIndicator?: React.ReactNode
-  /** Custom styles for various table elements. */
-  styles?: TableStyles
   /** A function to add a custom class to each row based on the item data. */
   rowClass?: (item: T) => string
 }

@@ -1,0 +1,73 @@
+.mkui-smart-table .sticky-header {
+  overflow: initial;
+}
+.mkui-smart-table .sticky-header th {
+  position: sticky;
+  top: var(--table-header-top, 0px);
+  z-index: 100;
+}
+
+.mkui-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mkui-smart-table td {
+  padding: var(--table-cell-padding, 8px);
+}
+
+.mkui-smart-table th,
+.mkui-smart-table td {
+  border: 1px solid var(--table-border-color, #dee2e6);
+}
+.mkui-smart-table table {
+  position: relative;
+  text-align: left;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--table-font-size, 14px);
+  font-family: var(--table-font-family, var(--font-body));
+}
+.mkui-smart-table th {
+  position: relative;
+  background-color: var(--table-header-bg, #007bff);
+  padding: var(--table-header-padding, var(--table-cell-padding, 8px));
+  color: var(--table-header-color, #fff);
+  font-family: var(--table-header-font-family, var(--font-body));
+  font-size: var(--table-header-font-size, 14px);
+}
+.mkui-smart-table th.sortable {
+  cursor: pointer;
+}
+.mkui-smart-table .alt-row tr:nth-child(even) {
+  background-color: var(--table-alt-row-bg, #f8f9fa);
+}
+.mkui-smart-table .sort-indicator svg {
+  display: inline-block;
+  margin-bottom: 2px;
+  margin-left: 5px;
+  height: 6px;
+  fill: var(--table-header-color, #fff);
+}
+
+.mkui-smart-table .sort-indicator.desc svg {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
+.mkui-smart-table .resize-handle {
+  display: inline-block;
+  position: absolute;
+  right: -3px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: col-resize;
+  z-index: 100;
+}
+.mkui-smart-table td:last-of-type {
+  text-align: center;
+}
+.mkui-smart-table .btn-primary {
+  margin: 0 auto;
+}

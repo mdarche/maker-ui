@@ -1,9 +1,16 @@
-import React, { useEffect, useMemo, useReducer } from 'react'
-import { cleanObject, cn } from '@maker-ui/utils'
+import React, { useEffect, useMemo, useReducer, useRef } from 'react'
+import { cleanObject, cn, merge } from '@maker-ui/utils'
 import { ExportButton } from './ExportButton'
 import { Pagination } from '../Pagination'
 import { TableSearch } from './TableSearch'
-import type { SmartTableProps, ColumnConfig, SortDirection } from './types'
+import type {
+  SmartTableProps,
+  ColumnConfig,
+  SortDirection,
+  TableSettings,
+} from './types'
+import { formatNumber } from '@/utils'
+import { CaretIcon } from '@/icons'
 
 type Action<T> =
   | { type: 'SET_SELECTED_ROWS'; value: Set<string | number> }
@@ -61,24 +68,34 @@ function reducer<T>(state: State<T>, action: Action<T>): State<T> {
   }
 }
 
-export const SmartTable = <T extends { id: string | number }>({
-  data = [],
-  columns,
-  pagination = false,
-  itemsPerPage = 100,
-  fetchData,
-  reorder,
-  selectable,
-  exportToCSV,
-  onDelete,
-  onRowClick,
-  onRowSelect,
-  totalCount,
-  rowClass,
-  loadingIndicator = 'Loading...',
-  search = false,
-  styles,
-}: SmartTableProps<T>) => {
+export const SmartTable = <T extends { id: string | number }>(
+  props: SmartTableProps<T>
+) => {
+  const {
+    data = [],
+    columns,
+    totalCount,
+    settings,
+    styles,
+    fetchData,
+    onDelete,
+    onRowClick,
+    onRowSelect,
+    rowClass,
+  } = merge(
+    {
+      settings: {
+        pagination: false,
+        itemsPerPage: 100,
+        loadingIndicator: 'Loading...',
+        search: false,
+        caretIcon: <CaretIcon />,
+      } as TableSettings,
+    } as SmartTableProps<T>,
+    props || {}
+  )
+  const prevColumns = useRef<typeof columns | null>(null)
+  const prevData = useRef<typeof data | null>(null)
   const initialState: State<T> = {
     selectedRows: new Set(),
     loading: false,
@@ -98,11 +115,11 @@ export const SmartTable = <T extends { id: string | number }>({
   )
 
   const handlePageChange = async (newPage: number) => {
-    if (fetchData) {
+    if (fetchData !== undefined) {
       dispatch({ type: 'SET_LOADING', value: true })
       const newData = await fetchData({
         page: newPage,
-        itemsPerPage,
+        itemsPerPage: settings.itemsPerPage!,
         sortColumn: state.sortColumn,
         sortDirection: state.sortDirection,
         searchColumns: state.searchColumns,
@@ -168,19 +185,19 @@ export const SmartTable = <T extends { id: string | number }>({
   ])
 
   const paginatedData = useMemo(() => {
-    if (!pagination) return processedData
-    return fetchData
+    if (!settings?.pagination) return processedData
+    return fetchData !== undefined
       ? state.localData
       : processedData.slice(
-          (state.page - 1) * itemsPerPage,
-          state.page * itemsPerPage
+          (state.page - 1) * settings.itemsPerPage!,
+          state.page * settings.itemsPerPage!
         )
   }, [
     processedData,
     state.localData,
-    pagination,
+    settings.pagination,
     state.page,
-    itemsPerPage,
+    settings.itemsPerPage,
     fetchData,
   ])
 
@@ -218,21 +235,27 @@ export const SmartTable = <T extends { id: string | number }>({
   }
 
   useEffect(() => {
-    dispatch({ type: 'SET_REORDERED_COLUMNS', value: columns })
+    if (JSON.stringify(prevColumns.current) !== JSON.stringify(columns)) {
+      dispatch({ type: 'SET_REORDERED_COLUMNS', value: columns })
+    }
+    prevColumns.current = columns
   }, [columns])
 
   useEffect(() => {
-    if (fetchData) {
+    if (fetchData !== undefined) {
       handlePageChange(1)
     } else {
-      dispatch({ type: 'SET_LOCAL_DATA', value: data })
-      dispatch({
-        type: 'SET_LOCAL_TOTAL_COUNT',
-        value: totalCount || data.length,
-      })
+      if (JSON.stringify(prevData.current) !== JSON.stringify(data)) {
+        dispatch({ type: 'SET_LOCAL_DATA', value: data })
+        dispatch({
+          type: 'SET_LOCAL_TOTAL_COUNT',
+          value: totalCount || data.length,
+        })
+      }
+      prevData.current = data
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchData, data, totalCount])
+  }, [data])
 
   const handleMouseDown = (e: React.MouseEvent, index: number) => {
     e.preventDefault()
@@ -305,23 +328,29 @@ export const SmartTable = <T extends { id: string | number }>({
 
   return (
     <div
+      className={cn(['mkui-smart-table'])}
       style={cleanObject({
-        '--cell-padding': styles?.cellPadding,
-        '--header-color': styles?.headerColor,
-        '--header-background': styles?.headerBackground,
-        '--header-top': styles?.stickyHeaderTop,
-        '--font-size': styles?.fontSize,
-        '--border-color': styles?.borderColor,
-        '--alternate-row-background': styles?.alternateRowBackground,
+        '--table-cell-padding': formatNumber(styles?.cellPadding),
+        '--table-header-color': styles?.headerColor,
+        '--table-header-padding': formatNumber(styles?.headerPadding),
+        '--table-header-bg': styles?.headerBackground,
+        '--table-header-top': formatNumber(styles?.stickyHeaderTop),
+        '--table-header-font-family': styles?.headerFontFamily,
+        '--table-header-font-size': formatNumber(styles?.headerFontSize),
+        '--table-header-icon-height': formatNumber(styles?.headerIconHeight),
+        '--table-font-size': formatNumber(styles?.fontSize),
+        '--table-font-family': styles?.fontFamily,
+        '--table-border-color': styles?.borderColor,
+        '--table-alt-row-bg': styles?.altRowBackground,
       } as React.CSSProperties)}>
-      {exportToCSV && (
+      {settings?.exportToCSV && (
         <ExportButton
           filename="export"
           data={paginatedData}
           columns={state.reorderedColumns}
         />
       )}
-      {search && (
+      {settings?.search && (
         <TableSearch
           columns={columns.filter((column) => column.filterable)}
           searchColumns={state.searchColumns}
@@ -335,34 +364,39 @@ export const SmartTable = <T extends { id: string | number }>({
         />
       )}
       {state.loading ? (
-        loadingIndicator
+        settings.loadingIndicator
       ) : (
         <div
           className={cn([
-            'mkui-smart-table',
+            'mkui-table-wrapper',
             styles?.stickyHeader ? 'sticky-header' : undefined,
+            styles?.altRowBackground ? 'alt-row' : undefined,
           ])}>
           <table>
             <thead>
               <tr>
-                {selectable && <th />}
+                {settings.selectable && <th />}
                 {state.reorderedColumns.map(
                   (column, index) =>
                     !column.hidden && (
                       <th
                         key={column.key.toString()}
                         onClick={() => handleColumnHeaderClick(column)}
-                        draggable={reorder}
+                        draggable={settings.reorder}
                         onDragStart={
-                          reorder
+                          settings.reorder
                             ? (e) => handleDragStart(e, column.key)
                             : undefined
                         }
                         onDragOver={
-                          reorder ? (e) => handleDragOver(e) : undefined
+                          settings.reorder
+                            ? (e) => handleDragOver(e)
+                            : undefined
                         }
                         onDrop={
-                          reorder ? (e) => handleDrop(e, column.key) : undefined
+                          settings.reorder
+                            ? (e) => handleDrop(e, column.key)
+                            : undefined
                         }
                         className={cn([
                           column.sortable ? 'sortable' : undefined,
@@ -378,8 +412,12 @@ export const SmartTable = <T extends { id: string | number }>({
                           {column.title}
                           {column.sortable &&
                             state.sortColumn === column.key && (
-                              <span className="sort-indicator">
-                                {state.sortDirection === 'asc' ? '▲' : '▼'}
+                              <span
+                                className={cn([
+                                  'sort-indicator',
+                                  state.sortDirection,
+                                ])}>
+                                {settings.caretIcon}
                               </span>
                             )}
                         </div>
@@ -398,7 +436,7 @@ export const SmartTable = <T extends { id: string | number }>({
                   key={item.id}
                   className={rowClass ? rowClass(item) : undefined}
                   onClick={() => onRowClick && onRowClick(item)}>
-                  {selectable && (
+                  {settings.selectable && (
                     <td>
                       <input
                         type="checkbox"
@@ -433,10 +471,10 @@ export const SmartTable = <T extends { id: string | number }>({
           </table>
         </div>
       )}
-      {pagination && (
+      {settings.pagination && (
         <Pagination
           page={state.page}
-          totalPages={Math.ceil(state.localTotalCount / itemsPerPage)}
+          totalPages={Math.ceil(state.localTotalCount / settings.itemsPerPage!)}
           onChange={handlePageChange}
         />
       )}

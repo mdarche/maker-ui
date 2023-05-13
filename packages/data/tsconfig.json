@@ -1,6 +1,6 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": ["src", "jest.config.js"],
+  "include": ["src"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

@@ -17,6 +17,22 @@ export const TableSearch = <T,>({
 }: TableSearchProps<T>) => {
   return (
     <div>
+      <div className={cn(['mkui-data-search', className])} {...props}>
+        <SearchIcon />
+        <input
+          type="text"
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+        />
+        {value.length ? (
+          <button
+            className="btn-clear btn-naked flex align-center"
+            onClick={onClear}>
+            {clearLabel}
+          </button>
+        ) : null}
+      </div>
       <label htmlFor="search-column">Search column:</label>
       <select
         id="search-column"
@@ -42,13 +58,6 @@ export const TableSearch = <T,>({
             </option>
           ))}
       </select>
-      <label htmlFor="search-query">Search:</label>
-      <input
-        id="search-query"
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
     </div>
   )
 }

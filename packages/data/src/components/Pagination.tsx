@@ -71,7 +71,7 @@ export const Pagination = ({
 
   return (
     <div
-      className={cn(['mkui-smart-grid-pagination', `type-${input}`, className])}
+      className={cn(['mkui-pagination', `type-${input}`, className])}
       {...props}>
       {type === 'input' && <InputPagination {...{ ...attrs, inputLabels }} />}
       {type === 'numbered' && (

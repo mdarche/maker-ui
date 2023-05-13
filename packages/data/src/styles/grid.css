@@ -1,0 +1,4 @@
+.mkui-smart-grid {
+  grid-template-columns: var(--smart-grid-columns, 1fr);
+  grid-gap: var(--smart-grid-gap, 20px);
+}

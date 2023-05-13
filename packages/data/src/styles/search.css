@@ -1,0 +1,41 @@
+.mkui-search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0px 10px;
+  border: 1px solid var(--color-border-100);
+  border-radius: 2px;
+}
+.mkui-search-bar svg {
+  height: 16px;
+  margin-right: 5px;
+  fill: var(--color-text);
+  opacity: 0.4;
+}
+.mkui-search-bar input {
+  height: 40px;
+  width: 100%;
+  min-width: 250px;
+  outline: none;
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+.mkui-search-bar .btn-clear {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+.mkui-search-bar .btn-clear svg {
+  fill: var(--color-text);
+  height: 14px;
+}
+.mkui-search-bar .btn-clear:hover {
+  opacity: 1;
+}

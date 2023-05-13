@@ -8,4 +8,10 @@ export {
   SortButton,
   type FilterConfig,
 } from './SmartGrid'
-export { SmartTable, type ColumnConfig } from './SmartTable'
+export {
+  SmartTable,
+  type ColumnConfig,
+  type TableStyles,
+  type TableSettings,
+  type FetchDataParams,
+} from './SmartTable'

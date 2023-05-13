@@ -96,6 +96,7 @@
     "./toast.css": "./node_modules/@maker-ui/notifications/dist/index.css",
     "./carousel.css": "./node_modules/@maker-ui/carousel/dist/index.css",
     "./scroll.css": "./node_modules/@maker-ui/scroll/dist/index.css",
+    "./data.css": "./node_modules/@maker-ui/data/dist/index.css",
     "./package.json": "./package.json"
   },
   "scripts": {

@@ -1,5 +1,6 @@
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
 import { ColorButton, Menu, type MenuItem } from 'maker-ui/layout'
+import 'maker-ui/data.css'
 
 const menu: MenuItem[] = [
   { label: 'Home', path: '/' },
@@ -21,6 +22,8 @@ const menu: MenuItem[] = [
       { label: 'Carousel', path: '/demo/carousel' },
       { label: 'Forms', path: '/demo/forms' },
       { label: 'Lightbox', path: '/demo/lightbox' },
+      { label: 'SmartGrid', path: '/demo/smart-grid' },
+      { label: 'SmartTable', path: '/demo/smart-table' },
       { label: 'Modal', path: '/demo/modal' },
       { label: 'Notifications', path: '/demo/notifications' },
       { label: 'Popovers', path: '/demo/popovers' },
