@@ -10,6 +10,9 @@ export default function SmartTablePage() {
         data={users}
         columns={userColumns}
         settings={{
+          pagination: 'input',
+          itemsPerPage: 10,
+          reorder: true,
           search: {
             columns: ['name', 'age'],
           },

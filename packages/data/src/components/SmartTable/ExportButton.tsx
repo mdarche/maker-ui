@@ -1,24 +1,33 @@
 import * as React from 'react'
-import { useExportCSV } from '@/hooks'
+import { cn } from '@maker-ui/utils'
+import { useExport } from '@/hooks'
 import { ColumnConfig } from './types'
 
 interface ExportButtonProps<T> extends React.HTMLAttributes<HTMLButtonElement> {
   filename: string
+  type?: 'csv' | 'json'
   data: T[]
   columns: ColumnConfig<T>[]
+  label?: string | React.ReactElement
 }
 
 export const ExportButton = <T,>({
+  className,
+  label = 'Export',
+  type,
   filename,
   data,
   columns,
   ...props
 }: ExportButtonProps<T>) => {
-  const exportToCSV = useExportCSV(filename, data, columns)
+  const exportData = useExport(filename, data, columns, type)
 
   return (
-    <button onClick={exportToCSV} {...props}>
-      Export to CSV
+    <button
+      className={cn(['mkui-btn-export', className])}
+      onClick={exportData}
+      {...props}>
+      {label}
     </button>
   )
 }

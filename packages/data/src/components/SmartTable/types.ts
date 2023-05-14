@@ -36,9 +36,9 @@ export interface ColumnConfig<T> {
   title: string
   /**  The data type of the column. Used for rendering and sorting.*/
   dataType: 'string' | 'number' | 'date' | 'delete' | 'custom'
-  /** Indicates whether the column can be sorted. */
+  /** Indicates whether the column can be sorted by clicking the table header. */
   sortable?: boolean
-  /** Indicates whether the column can be filtered.*/
+  /** Indicates whether the column can be filtered via search.*/
   filterable?: boolean
   /** The width of the column. */
   width?: string | number
@@ -46,7 +46,7 @@ export interface ColumnConfig<T> {
   hidden?: boolean
   /** Optional custom rendering function for the cell content. */
   render?: (item: T, key: keyof T) => React.ReactNode
-  /** Configuration for the delete button in the 'delete' type column. */
+  /** Configuration for the delete button in the `delete` type column. */
   deleteButton?: DeleteButtonConfig
 }
 
@@ -126,7 +126,13 @@ export interface TableSettings<T> {
   /** Indicates whether columns can be reordered by dragging.*/
   reorder?: boolean
   /** Indicates whether the table should include an "Export to CSV" button.*/
-  exportToCSV?: boolean
+  export?: {
+    output?: 'csv' | 'json'
+    filename?: string
+    label?: string | React.ReactElement
+    onExport?: (data: T[]) => void
+    className?: string
+  }
   /** Indicates whether pagination should be enabled.*/
   pagination?: boolean | PaginationType
   /** The number of items to display per page when pagination is enabled. */
@@ -162,4 +168,7 @@ export interface SmartTableProps<T> {
   ) => void
   /** A function to add a custom class to each row based on the item data. */
   rowClass?: (item: T) => string
+  classNames?: {
+    exportButton?: string
+  }
 }

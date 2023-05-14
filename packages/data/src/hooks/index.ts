@@ -1,2 +1,3 @@
-export { useExportCSV } from './useExportCSV'
+export { useExport } from './useExport'
 export { useSmartGrid } from './useSmartGrid'
+export { useSmartTable } from './useSmartTable'

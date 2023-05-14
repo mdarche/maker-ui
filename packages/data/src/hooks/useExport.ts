@@ -1,10 +1,13 @@
 import { useCallback } from 'react'
 import { ColumnConfig } from '../components/SmartTable'
 
-export const useExportCSV = <T>(
+type ExportType = 'csv' | 'json'
+
+export const useExport = <T>(
   filename: string,
   data: T[],
-  columns: ColumnConfig<T>[]
+  columns: ColumnConfig<T>[],
+  type: ExportType = 'csv'
 ) => {
   const convertToCSV = useCallback(() => {
     const filteredColumns = columns.filter((column) =>
@@ -23,9 +26,13 @@ export const useExportCSV = <T>(
     return headers + '\n' + rows
   }, [data, columns])
 
-  const downloadCSV = useCallback(
-    (csv: string) => {
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+  const convertToJSON = useCallback(() => {
+    return JSON.stringify(data, null, 2)
+  }, [data])
+
+  const downloadData = useCallback(
+    (data: string, mimeType: string) => {
+      const blob = new Blob([data], { type: mimeType })
 
       const link = document.createElement('a')
       const url = URL.createObjectURL(blob)
@@ -43,10 +50,23 @@ export const useExportCSV = <T>(
     [filename]
   )
 
-  const exportToCSV = useCallback(() => {
-    const csv = convertToCSV()
-    downloadCSV(csv)
-  }, [convertToCSV, downloadCSV])
+  const exportData = useCallback(() => {
+    let dataToExport: string
+    let mimeType: string
 
-  return exportToCSV
+    switch (type) {
+      case 'csv':
+        dataToExport = convertToCSV()
+        mimeType = 'text/csv;charset=utf-8;'
+        break
+      case 'json':
+        dataToExport = convertToJSON()
+        mimeType = 'application/json;charset=utf-8;'
+        break
+    }
+
+    downloadData(dataToExport, mimeType)
+  }, [type, convertToCSV, convertToJSON, downloadData])
+
+  return exportData
 }
