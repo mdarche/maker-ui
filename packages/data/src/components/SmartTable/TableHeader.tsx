@@ -20,6 +20,7 @@ export const TableHeader = <T,>({
   settings,
   styles,
   columns,
+  classNames,
 }: TableHeaderProps<T>) => {
   const { state, dispatch } = useSmartTable<T>()
 
@@ -131,6 +132,7 @@ export const TableHeader = <T,>({
                     : undefined
                 }
                 className={cn([
+                  classNames?.tableHeader,
                   column.sortable ? 'sortable' : undefined,
                   styles?.stickyHeader ? 'sticky' : undefined,
                 ])}
@@ -141,7 +143,11 @@ export const TableHeader = <T,>({
                   {column.title}
                   {column.sortable && state.sortColumn === column.key && (
                     <span
-                      className={cn(['sort-indicator', state.sortDirection])}>
+                      className={cn([
+                        'sort-indicator',
+                        classNames?.sortIcon,
+                        state.sortDirection,
+                      ])}>
                       {settings.caretIcon}
                     </span>
                   )}

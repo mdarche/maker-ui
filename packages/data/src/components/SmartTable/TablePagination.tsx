@@ -14,6 +14,7 @@ export const TablePagination = <T,>({
   settings,
   fetchData,
   count = 0,
+  classNames,
 }: TablePaginationProps<T>) => {
   const { state, dispatch } = useSmartTable<T>()
   const searchPagination =
@@ -38,6 +39,7 @@ export const TablePagination = <T,>({
 
   return (
     <Pagination
+      className={classNames?.pagination}
       type={
         typeof settings.pagination === 'string'
           ? settings.pagination

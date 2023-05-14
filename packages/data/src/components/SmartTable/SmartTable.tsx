@@ -8,13 +8,12 @@ import React, {
 import { cleanObject, cn, merge } from '@maker-ui/utils'
 import { formatNumber } from '@/utils'
 import { CaretIcon } from '@/icons'
-import { Search } from '../Search'
 import { smartTableReducer } from './reducer'
-import type { SmartTableProps, SmartTableState, TableAction } from './types'
 import { TablePagination } from './TablePagination'
 import { TableHeader } from './TableHeader'
 import { TableRow } from './TableRow'
-import { ExportButton } from './ExportButton'
+import { TableControls } from './TableControls'
+import type { SmartTableProps, SmartTableState, TableAction } from './types'
 
 const defaultProps = {
   settings: {
@@ -44,6 +43,7 @@ export const SmartTable = <T extends { id: string | number }>(
     onDelete,
     onRowClick,
     onRowSelect,
+    toolbar,
     rowClass,
   } = merge(defaultProps as SmartTableProps<T>, props || {})
   const prevColumns = useRef<typeof columns | null>(null)
@@ -139,7 +139,13 @@ export const SmartTable = <T extends { id: string | number }>(
   return (
     <TableContext.Provider value={{ state, dispatch } as any}>
       <div
-        className={cn(['mkui-smart-table'])}
+        className={cn([
+          'mkui-smart-table',
+          classNames?.root,
+          styles?.stickyHeader ? 'sticky-header' : undefined,
+          styles?.altRowBackground ? 'alt-row' : undefined,
+          onRowClick !== undefined ? 'row-select' : undefined,
+        ])}
         style={cleanObject({
           '--table-cell-padding': formatNumber(styles?.cellPadding),
           '--table-header-color': styles?.headerColor,
@@ -155,46 +161,21 @@ export const SmartTable = <T extends { id: string | number }>(
           '--table-alt-row-bg': styles?.altRowBackground,
           '--table-row-hover-bg': styles?.hoverRowBackground,
         } as React.CSSProperties)}>
-        {settings?.export && (
-          <ExportButton
-            filename={settings?.export?.filename || 'table-data'}
-            data={paginatedData}
-            columns={state.reorderedColumns}
-            className={classNames?.exportButton}
-            label={settings?.export?.label}
-            type={settings?.export?.output}
-          />
-        )}
-        {settings?.search && (
-          <Search
-            onSearch={(query) =>
-              dispatch({ type: 'SET_SEARCH_QUERY', value: query })
-            }
-            onReset={() => dispatch({ type: 'SET_SEARCH_QUERY', value: '' })}
-            // allOptions={columns.filter((column) => column.filterable)}
-            currentOptions={state.searchColumns}
-            setOptions={(columns) =>
-              dispatch({ type: 'SET_SEARCH_COLUMNS', value: columns })
-            }
-          />
-        )}
+        <TableControls
+          {...{
+            data: paginatedData,
+            classNames,
+            settings,
+            total: processedData?.length,
+            toolbar,
+          }}
+        />
         {state.loading ? (
           settings.loadingIndicator
         ) : (
-          <div
-            className={cn([
-              'mkui-table-wrapper',
-              styles?.stickyHeader ? 'sticky-header' : undefined,
-              styles?.altRowBackground ? 'alt-row' : undefined,
-              onRowClick !== undefined ? 'row-select' : undefined,
-            ])}>
-            <table>
-              <TableHeader
-                settings={settings}
-                styles={styles}
-                columns={columns}
-                classNames={classNames}
-              />
+          <div className={cn(['mkui-table-wrapper', classNames?.tableWrapper])}>
+            <table className={classNames?.table}>
+              <TableHeader {...{ settings, styles, columns, classNames }} />
               <tbody>
                 {paginatedData.map((item) => (
                   <TableRow
@@ -216,10 +197,12 @@ export const SmartTable = <T extends { id: string | number }>(
         )}
         {settings.pagination && (
           <TablePagination
-            settings={settings}
-            fetchData={fetchData}
-            count={processedData.length}
-            classNames={classNames}
+            {...{
+              settings,
+              fetchData,
+              count: processedData.length,
+              classNames,
+            }}
           />
         )}
       </div>

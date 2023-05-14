@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { cn } from '@maker-ui/utils'
 import { useSmartTable } from '@/hooks'
 import { SmartTableProps } from './types'
 
@@ -19,6 +20,7 @@ export const TableRow = <T extends { id: string | number }>({
   onRowSelect,
   onDelete,
   settings,
+  classNames,
 }: TableRowProps<T>) => {
   const { state, dispatch } = useSmartTable<T>()
 
@@ -62,12 +64,16 @@ export const TableRow = <T extends { id: string | number }>({
 
   return (
     <tr
-      className={rowClass ? rowClass(item) : undefined}
+      className={cn([
+        rowClass ? rowClass(item) : undefined,
+        classNames?.tableRow,
+      ])}
       onClick={() => onRowClick && onRowClick(item)}>
       {settings?.selectable && (
         <td>
           <input
             type="checkbox"
+            className={classNames?.tableSelect}
             checked={state.selectedRows.has(item.id)}
             onChange={() => handleRowSelect(item.id)}
           />
@@ -76,7 +82,7 @@ export const TableRow = <T extends { id: string | number }>({
       {state.reorderedColumns.map(
         (column) =>
           !column.hidden && (
-            <td key={column.key.toString()}>
+            <td className={classNames?.tableCell} key={column.key.toString()}>
               {column.render ? (
                 column.render(item, column.key)
               ) : column.dataType === 'delete' ? (
@@ -85,7 +91,10 @@ export const TableRow = <T extends { id: string | number }>({
                     e.stopPropagation()
                     deleteItem(item)
                   }}
-                  className={column.deleteButton?.className}
+                  className={cn([
+                    column.deleteButton?.className,
+                    classNames?.deleteButton,
+                  ])}
                   style={column.deleteButton?.styles}>
                   {column.deleteButton?.icon}
                   {column.deleteButton?.text || 'Delete'}

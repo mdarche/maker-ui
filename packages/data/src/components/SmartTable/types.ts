@@ -141,8 +141,14 @@ export interface TableSettings<T> {
   loadingIndicator?: React.ReactNode
   /** A custom arrow indicator that will be used to show column sort direction. */
   caretIcon?: React.ReactNode
-  /** Allows you to show the total result count */
-  total?: boolean
+  /** Customize the order of the table controls UI.
+   * @options
+   * - 'search'
+   * - 'total'
+   * - 'custom'
+   * - 'export'
+   */
+  controls?: string[]
 }
 
 export interface SmartTableProps<T> {
@@ -169,6 +175,19 @@ export interface SmartTableProps<T> {
   /** A function to add a custom class to each row based on the item data. */
   rowClass?: (item: T) => string
   classNames?: {
+    root?: string
+    table?: string
+    tableWrapper?: string
+    tableRow?: string
+    tableCell?: string
+    tableHeader?: string
+    tableSelect?: string
+    pagination?: string
+    sortIcon?: string
+    total?: string
     exportButton?: string
+    deleteButton?: string
+    controls?: string
   }
+  toolbar?: React.ReactNode
 }
