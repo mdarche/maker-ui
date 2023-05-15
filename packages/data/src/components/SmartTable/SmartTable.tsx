@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  useCallback,
   useEffect,
   useMemo,
   useReducer,
@@ -68,6 +69,10 @@ export const SmartTable = <T extends { id: string | number }>(
   const processedData = useMemo(() => {
     let result = state.localData
 
+    if (fetchData !== undefined) {
+      return state.localData
+    }
+
     // Sorting
     if (state.sortColumn) {
       result = [...result].sort((a, b) => {
@@ -97,6 +102,7 @@ export const SmartTable = <T extends { id: string | number }>(
     state.sortDirection,
     state.searchQuery,
     state.searchColumns,
+    fetchData,
   ])
 
   const paginatedData = useMemo(() => {
@@ -136,6 +142,38 @@ export const SmartTable = <T extends { id: string | number }>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
+  const fetchDataAndUpdateState = useCallback(async () => {
+    if (fetchData) {
+      dispatch({ type: 'SET_LOADING', value: true })
+      const data = await fetchData({
+        page: state.page,
+        itemsPerPage: settings.itemsPerPage!,
+        sortColumn: state.sortColumn,
+        sortDirection: state.sortDirection,
+        searchColumns: state.searchColumns,
+        searchQuery: state.searchQuery,
+      })
+      dispatch({ type: 'SET_LOCAL_DATA', value: data })
+      dispatch({ type: 'SET_LOADING', value: false })
+    }
+  }, [
+    fetchData,
+    state.page,
+    settings.itemsPerPage,
+    state.sortColumn,
+    state.sortDirection,
+    state.searchColumns,
+    state.searchQuery,
+  ])
+
+  useEffect(() => {
+    fetchDataAndUpdateState()
+  }, [fetchDataAndUpdateState])
+
+  useEffect(() => {
+    dispatch({ type: 'SET_LOCAL_TOTAL_COUNT', value: totalCount })
+  }, [totalCount])
+
   return (
     <TableContext.Provider value={{ state, dispatch } as any}>
       <div
@@ -171,7 +209,9 @@ export const SmartTable = <T extends { id: string | number }>(
           }}
         />
         {state.loading ? (
-          settings.loadingIndicator
+          <div className={cn(['mkui-table-loading', classNames?.loadScreen])}>
+            {settings?.loadingIndicator}
+          </div>
         ) : (
           <div className={cn(['mkui-table-wrapper', classNames?.tableWrapper])}>
             <table className={classNames?.table}>
@@ -199,8 +239,10 @@ export const SmartTable = <T extends { id: string | number }>(
           <TablePagination
             {...{
               settings,
-              fetchData,
-              count: processedData.length,
+              count:
+                fetchData !== undefined
+                  ? state.localData.length
+                  : processedData.length,
               classNames,
             }}
           />

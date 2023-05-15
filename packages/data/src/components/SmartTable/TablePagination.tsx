@@ -4,7 +4,6 @@ import { useSmartTable } from '@/hooks'
 import { SmartTableProps, TableSettings } from './types'
 
 interface TablePaginationProps<T> {
-  fetchData?: SmartTableProps<T>['fetchData']
   settings: TableSettings<T>
   classNames?: SmartTableProps<T>['classNames']
   count?: number
@@ -12,28 +11,14 @@ interface TablePaginationProps<T> {
 
 export const TablePagination = <T,>({
   settings,
-  fetchData,
   count = 0,
   classNames,
 }: TablePaginationProps<T>) => {
   const { state, dispatch } = useSmartTable<T>()
   const searchPagination =
-    settings?.pagination && count < settings.itemsPerPage!
+    state.searchQuery?.length > 2 && count < settings.itemsPerPage!
 
   const handlePageChange = async (newPage: number) => {
-    if (fetchData !== undefined) {
-      dispatch({ type: 'SET_LOADING', value: true })
-      const newData = await fetchData({
-        page: newPage,
-        itemsPerPage: settings.itemsPerPage!,
-        sortColumn: state.sortColumn,
-        sortDirection: state.sortDirection,
-        searchColumns: state.searchColumns,
-        searchQuery: state.searchQuery,
-      })
-      dispatch({ type: 'SET_LOCAL_DATA', value: newData })
-      dispatch({ type: 'SET_LOADING', value: false })
-    }
     dispatch({ type: 'SET_PAGE', value: newPage })
   }
 

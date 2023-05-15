@@ -1,6 +1,6 @@
 import type { FilterConfig, ColumnConfig, FetchDataParams } from 'maker-ui/data'
 
-interface ExampleUser {
+export interface ExampleUser {
   id: number
   name: string
   email: string

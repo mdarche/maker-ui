@@ -69,8 +69,14 @@ export const TableControls = <T,>({
   }
 
   return (
-    <div className={cn(['mkui-table-controls flex', classNames?.controls])}>
-      {o?.map((i) => items[i])}
+    <div
+      className={cn([
+        'mkui-table-controls flex align-center',
+        classNames?.controls,
+      ])}>
+      {o?.map((i, index) => (
+        <React.Fragment key={index}>{items[i]}</React.Fragment>
+      ))}
     </div>
   )
 }

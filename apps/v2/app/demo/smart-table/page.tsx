@@ -1,17 +1,66 @@
 'use client'
 import { Section } from 'maker-ui'
-import { SmartTable } from 'maker-ui/data'
-import { userColumns, users } from '../smart-grid/seed'
+import { FetchDataParams, SmartTable } from 'maker-ui/data'
+import { userColumns, users, type ExampleUser } from '../smart-grid/seed'
+
+// Fake network request
+function fetchData({
+  page,
+  sortColumn,
+  itemsPerPage,
+  sortDirection,
+  searchColumns,
+  searchQuery,
+}: FetchDataParams<ExampleUser>): Promise<ExampleUser[]> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      let result = [...users]
+
+      // Sorting
+      if (sortColumn) {
+        result.sort((a, b) => {
+          if (a[sortColumn] < b[sortColumn])
+            return sortDirection === 'asc' ? -1 : 1
+          if (a[sortColumn] > b[sortColumn])
+            return sortDirection === 'asc' ? 1 : -1
+          return 0
+        })
+      }
+
+      console.log('searchColumns', searchColumns)
+      console.log('searchQuery', searchQuery)
+
+      // Filtering
+      if (searchQuery && searchColumns.length > 0) {
+        const query = searchQuery.toLowerCase()
+        result = result.filter((item) =>
+          searchColumns.some((columnKey) =>
+            item[columnKey]?.toString().toLowerCase().includes(query)
+          )
+        )
+      }
+
+      // Pagination
+      const startIndex = (page - 1) * itemsPerPage
+      const endIndex = page * itemsPerPage
+      result = result.slice(startIndex, endIndex)
+
+      resolve(result)
+    }, 1000) // Adjust this to simulate different network conditions
+  })
+}
 
 export default function SmartTablePage() {
   return (
     <Section>
       <SmartTable
-        data={users}
+        // data={users}
+        fetchData={fetchData}
+        totalCount={users.length}
         columns={userColumns}
         settings={{
           pagination: 'input',
-          itemsPerPage: 10,
+          itemsPerPage: 3,
           reorder: true,
           search: {
             columns: ['name', 'age'],

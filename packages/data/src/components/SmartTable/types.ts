@@ -182,6 +182,7 @@ export interface SmartTableProps<T> {
     tableHeader?: string
     tableSelect?: string
     pagination?: string
+    loadScreen?: string
     sortIcon?: string
     total?: string
     exportButton?: string
