@@ -12,7 +12,7 @@ export function useSmartGrid<T extends object = any>() {
     dispatch: React.Dispatch<Action<T>>
   } | null>(SmartGridContext)
   if (context === null) {
-    throw new Error('useFilterSort must be used within a FilterProvider')
+    throw new Error('useSmartGrid must be used within a SmartGridProvider')
   }
   const { state, dispatch } = context
 

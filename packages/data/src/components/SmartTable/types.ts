@@ -115,8 +115,8 @@ export interface TableSettings<T> {
     showOptions?: boolean
     // All possible search columns (for showOptions)
     options?: { label: string; value: keyof T }[]
-    optionsLabel?: string | React.ReactElement
     placeholder?: string
+    optionsLabel?: string | React.ReactElement
     clearLabel?: string | React.ReactElement
     onSearch?: (query: string) => void
     onReset?: () => void
@@ -131,7 +131,6 @@ export interface TableSettings<T> {
     filename?: string
     label?: string | React.ReactElement
     onExport?: (data: T[]) => void
-    className?: string
   }
   /** Indicates whether pagination should be enabled.*/
   pagination?: boolean | PaginationType
