@@ -147,7 +147,7 @@ export interface TableSettings<T> {
    * - 'custom'
    * - 'export'
    */
-  controls?: string[]
+  controls?: ('search' | 'export' | 'total' | 'custom')[]
 }
 
 export interface SmartTableProps<T> {
