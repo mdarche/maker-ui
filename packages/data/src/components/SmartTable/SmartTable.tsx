@@ -239,10 +239,7 @@ export const SmartTable = <T extends { id: string | number }>(
           <TablePagination
             {...{
               settings,
-              count:
-                fetchData !== undefined
-                  ? state.localData.length
-                  : processedData.length,
+              count: paginatedData.length,
               classNames,
             }}
           />

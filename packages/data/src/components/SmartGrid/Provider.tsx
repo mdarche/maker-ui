@@ -117,7 +117,7 @@ function filterSortReducer<T extends object>(
       return { ...state, isLoading: action.value }
     case 'SET_LAYOUT':
       return { ...state, layout: action.value }
-    case 'SET_CURRENT_PAGE':
+    case 'SET_PAGE':
       return { ...state, currentPage: action.value }
     case 'SET_ITEMS_PER_PAGE':
       return { ...state, itemsPerPage: action.value }

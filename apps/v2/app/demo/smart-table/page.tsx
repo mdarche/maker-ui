@@ -65,8 +65,10 @@ export default function SmartTablePage() {
           search: {
             columns: ['name', 'age'],
           },
+          controls: ['custom', 'search', 'export', 'total'],
         }}
         onRowClick={(row) => console.log(row)}
+        toolbar={<button>Click me</button>}
         styles={
           {
             // stickyHeader: true,

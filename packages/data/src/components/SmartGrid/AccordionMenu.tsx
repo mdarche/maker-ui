@@ -7,6 +7,7 @@ interface FilterOption {
   // corresponds to the registered filter name in provider
   name: string
   className?: string
+  independent?: boolean // if true, each option will be interpreted as independent filters
   label?: string | React.ReactElement // optional if not using the one registered in provider
   options: {
     label: string
@@ -19,16 +20,16 @@ interface FilterOption {
   open?: boolean // if true accordion will be open by default
 }
 
-export interface FilterAccordionProps
+export interface AccordionMenuProps
   extends React.HTMLAttributes<HTMLDivElement> {
   filters: FilterOption[]
 }
 
-export const FilterAccordion = ({
+export const AccordionMenu = ({
   filters = [],
   className,
   ...props
-}: FilterAccordionProps) => {
+}: AccordionMenuProps) => {
   const { activeFilters, setFilter } = useSmartGrid()
 
   return (

@@ -3,7 +3,13 @@ import { cleanObject, cn } from '@maker-ui/utils'
 import { useSmartGrid } from '@/hooks'
 import { formatNumber } from '@/utils'
 // Set up Dot syntax
-import { FilterAccordion } from './FilterAccordion'
+import { AccordionMenu } from './AccordionMenu'
+import { SmartGridProvider } from './Provider'
+import { ActiveFilters } from './ActiveFilters'
+import { GridSearch } from './GridSearch'
+import { FilterGroup } from './FilterGroup'
+import { SortButton } from './SortButton'
+import { LayoutButtons } from './LayoutButtons'
 
 interface DataGridProps<T> extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -76,4 +82,10 @@ export const SmartGrid = <T,>({
   )
 }
 
-SmartGrid.FilterAccordion = FilterAccordion
+SmartGrid.Search = GridSearch
+SmartGrid.AccordionMenu = AccordionMenu
+SmartGrid.Provider = SmartGridProvider
+SmartGrid.ActiveFilters = ActiveFilters
+SmartGrid.FilterGroup = FilterGroup
+SmartGrid.SortButton = SortButton
+SmartGrid.LayoutButtons = LayoutButtons

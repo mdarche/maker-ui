@@ -18,7 +18,7 @@ interface FilterOption {
   activeDefault?: boolean
 }
 
-interface FilterGroupProps
+export interface FilterGroupProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /** An array of filter options to be displayed. Each option should be an object adhering
    * to the FilterOption interface. */
@@ -43,7 +43,7 @@ export const FilterGroup = ({
   const activeKeys = getNonEmptyKeys(activeFilters)
   const activeValues = activeKeys
     .map((key) => [].concat(activeFilters[key] as any))
-    .flat()
+    .flat() as string[]
 
   function onClick(option: FilterOption) {
     // Check if the option is a valid filter
@@ -73,13 +73,12 @@ export const FilterGroup = ({
   }, [options])
 
   return (
-    <div className={cn(['filters', className])} {...props}>
-      {options.map((o) => (
+    <div className={cn(['mkui-grid-filter-group', className])} {...props}>
+      {options.map((o, i) => (
         <button
-          key={o.name}
+          key={o.name + i}
           onClick={() => onClick(o)}
-          // @ts-ignore
-          className={activeValues.includes(o.value) ? 'active' : ''}>
+          className={activeValues.includes(String(o.value)) ? 'active' : ''}>
           {o?.icon}
           {o?.label}
         </button>

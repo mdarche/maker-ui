@@ -82,7 +82,7 @@ export type Action<T extends object> =
   | { type: 'RESET_ALL' }
   | { type: 'SET_LOADING'; value: boolean }
   | { type: 'SET_LAYOUT'; value: LayoutType }
-  | { type: 'SET_CURRENT_PAGE'; value: number }
+  | { type: 'SET_PAGE'; value: number }
   | { type: 'SET_ITEMS_PER_PAGE'; value: number }
   | { type: 'SET_LOADING_PAGE'; value: boolean }
   | { type: 'SET_TOTAL_PAGES'; value: number }

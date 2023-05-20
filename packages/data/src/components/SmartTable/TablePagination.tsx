@@ -1,7 +1,6 @@
-import * as React from 'react'
 import { Pagination } from '../Pagination'
 import { useSmartTable } from '@/hooks'
-import { SmartTableProps, TableSettings } from './types'
+import type { SmartTableProps, TableSettings } from './types'
 
 interface TablePaginationProps<T> {
   settings: TableSettings<T>
@@ -16,7 +15,7 @@ export const TablePagination = <T,>({
 }: TablePaginationProps<T>) => {
   const { state, dispatch } = useSmartTable<T>()
   const searchPagination =
-    state.searchQuery?.length > 2 && count < settings.itemsPerPage!
+    state.searchQuery?.length && count < settings.itemsPerPage!
 
   const handlePageChange = async (newPage: number) => {
     dispatch({ type: 'SET_PAGE', value: newPage })

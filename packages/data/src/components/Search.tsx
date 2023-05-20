@@ -1,5 +1,4 @@
 import React, { useDeferredValue, useEffect, useState } from 'react'
-import { cn } from '@maker-ui/utils'
 import { CloseIcon, SearchIcon } from '@/icons'
 
 interface SearchProps<T> extends React.HTMLAttributes<HTMLDivElement> {
@@ -59,8 +58,8 @@ export const Search = <T,>({
   }, [deferredValue])
 
   return (
-    <div className={cn(['mkui-search-container', className])}>
-      <div className="mkui-search-bar" {...props}>
+    <div className={className} {...props}>
+      <div className="mkui-search-bar">
         <SearchIcon />
         <input
           type="text"

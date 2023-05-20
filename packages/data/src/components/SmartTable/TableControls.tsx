@@ -28,22 +28,22 @@ export const TableControls = <T,>({
     React.ReactNode
   > = {
     search: (
-      <div className="ctrl-search" style={{ order: o.indexOf('search') }}>
-        <Search
-          onSearch={(query) =>
-            dispatch({ type: 'SET_SEARCH_QUERY', value: query })
-          }
-          onReset={() => dispatch({ type: 'SET_SEARCH_QUERY', value: '' })}
-          // allOptions={columns.filter((column) => column.filterable)}
-          currentOptions={state.searchColumns}
-          setOptions={(columns) =>
-            dispatch({ type: 'SET_SEARCH_COLUMNS', value: columns })
-          }
-        />
-      </div>
+      <Search
+        className="mkui-table-search"
+        style={{ order: o.indexOf('search') }}
+        onSearch={(query) =>
+          dispatch({ type: 'SET_SEARCH_QUERY', value: query })
+        }
+        onReset={() => dispatch({ type: 'SET_SEARCH_QUERY', value: '' })}
+        // allOptions={columns.filter((column) => column.filterable)}
+        currentOptions={state.searchColumns}
+        setOptions={(columns) =>
+          dispatch({ type: 'SET_SEARCH_COLUMNS', value: columns })
+        }
+      />
     ),
     export: (
-      <div className="ctrl-export" style={{ order: o.indexOf('export') }}>
+      <div className="mkui-table-export" style={{ order: o.indexOf('export') }}>
         <ExportButton
           filename={settings?.export?.filename || 'table-data'}
           data={data}
@@ -55,12 +55,14 @@ export const TableControls = <T,>({
       </div>
     ),
     custom: (
-      <div className="ctrl-toolbar" style={{ order: o.indexOf('custom') }}>
+      <div
+        className="mkui-table-toolbar"
+        style={{ order: o.indexOf('custom') }}>
         {toolbar}
       </div>
     ),
     total: (
-      <div className="ctrl-total" style={{ order: o.indexOf('total') }}>
+      <div className="mkui-table-total" style={{ order: o.indexOf('total') }}>
         <div className={cn(['mkui-table-total', classNames?.total])}>
           {total}
         </div>

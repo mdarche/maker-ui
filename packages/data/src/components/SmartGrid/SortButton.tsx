@@ -3,7 +3,7 @@ import { cn } from '@maker-ui/utils'
 import { CaretIcon } from '@/icons'
 import { useSmartGrid } from '@/hooks'
 
-interface SortButtonProps
+export interface SortButtonProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /**
    * Optional label to be displayed on the sort button.
@@ -35,7 +35,9 @@ export const SortButton = ({
   }
 
   return (
-    <div className={cn(['flex align-center', className])} {...props}>
+    <div
+      className={cn(['mkui-grid-sort flex align-center', className])}
+      {...props}>
       <label className="select-label" htmlFor="grid-sort">
         {label}
       </label>

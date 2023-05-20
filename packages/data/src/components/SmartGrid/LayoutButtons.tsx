@@ -10,7 +10,7 @@ interface LayoutButton {
   icon?: React.ReactNode
 }
 
-interface LayoutButtonsProps
+export interface LayoutButtonsProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /**
    * Optional icons to be displayed for the row and grid layout buttons.
@@ -49,7 +49,7 @@ export const LayoutButtons = ({
 
   return (
     <div
-      className={cn(['mkui-layout-buttons flex align-center', className])}
+      className={cn(['mkui-grid-layout flex align-center', className])}
       {...props}>
       {opts.map(({ label, value, icon }) => (
         <button

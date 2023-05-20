@@ -280,6 +280,24 @@ export const smartFilters: FilterConfig<ExampleUser>[] = [
     label: 'Age (desc)',
   },
   { name: 'gender', type: 'filter' },
+  {
+    name: 'age-20s',
+    key: 'age',
+    type: 'filter',
+    filterFunction: (i) => i.age <= 29 && i.age >= 20,
+  },
+  {
+    name: 'age-30s',
+    key: 'age',
+    type: 'filter',
+    filterFunction: (i) => i.age <= 39 && i.age >= 30,
+  },
+  {
+    name: 'age-40s',
+    key: 'age',
+    type: 'filter',
+    filterFunction: (i) => i.age <= 49 && i.age >= 40,
+  },
 ]
 
 export const renderRow = ({ name, age, email }: ExampleUser) => {
