@@ -64,7 +64,7 @@ export const SmartGrid = <T,>({
       {...props}
       style={cleanObject({
         '--smart-grid-columns': formatNumber(columns, 'repeat(%, 1fr)'),
-        '--smart-grid-gap': formatNumber(gap, '%px'),
+        '--smart-grid-gap': formatNumber(gap),
         ...(props.style || {}),
       })}>
       {isLoading

@@ -3,13 +3,14 @@
  * Each filter is defined by a name (string key) and its corresponding value.
  * Value type depends on the type of filter applied.
  */
+export type FilterValue =
+  | boolean
+  | string[]
+  | number[]
+  | number
+  | { min: number; max: number }
 export interface Filters {
-  [name: string]:
-    | boolean
-    | string[]
-    | number[]
-    | number
-    | { min: number; max: number }
+  [name: string]: FilterValue
 }
 
 /**

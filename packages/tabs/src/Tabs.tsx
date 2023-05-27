@@ -35,7 +35,7 @@ export interface TabsProps
    */
   activeClass?: string
   /** Nested `<Tab.Panel>` components. */
-  children?: React.ReactElement[]
+  children?: React.ReactElement | React.ReactElement[]
 }
 
 /**
@@ -63,11 +63,17 @@ export const Tabs = ({
     styleId: generateId(),
     activeKey: 0,
   })
-  if (!children || (children && !Array.isArray(children))) {
-    throw new Error('Tabs must contain at least two Tabs.Panel components.')
+  if (!children) {
+    throw new Error(
+      'Tabs must contain at least one child Tabs.Panel components.'
+    )
   }
 
-  const tabs = children.map(({ props }, index) => ({
+  const c = (
+    !Array.isArray(children) ? [children] : children
+  ) as React.ReactElement[]
+
+  const tabs = c.map(({ props }, index) => ({
     id: index,
     title: props.title,
     disabled: props?.disabled,
@@ -127,11 +133,7 @@ export const Tabs = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeEventKey])
 
-  const panels = renderInactive
-    ? children
-    : children
-    ? [children[state.activeKey]]
-    : []
+  const panels = renderInactive ? c : c ? [c[state.activeKey]] : []
 
   return (
     <div

@@ -158,7 +158,7 @@ export function useSmartGrid<T extends object = any>() {
   }
 
   function setPage(value: number) {
-    dispatch({ type: 'SET_CURRENT_PAGE', value })
+    dispatch({ type: 'SET_PAGE', value })
   }
 
   function setItemsPerPage(value: number) {

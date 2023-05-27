@@ -35,7 +35,7 @@ export default function SmartGridPage() {
           <SmartGrid.AccordionMenu
             filters={[
               {
-                name: 'gender',
+                filter: 'gender',
                 label: 'Gender',
                 options: [
                   { label: 'Male', value: 'male' },
@@ -43,12 +43,11 @@ export default function SmartGridPage() {
                 ],
               },
               {
-                name: 'age',
                 label: 'Age Group',
                 options: [
-                  { label: '20s', value: 'male' },
-                  { label: '30s', value: 'female' },
-                  { label: '40s', value: 'female' },
+                  { label: '20s', value: 'age-20s' },
+                  { label: '30s', value: 'age-30s' },
+                  { label: '40s', value: 'age-40s' },
                 ],
               },
             ]}
