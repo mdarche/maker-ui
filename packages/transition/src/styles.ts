@@ -1,3 +1,4 @@
+import { formatNumber } from '@maker-ui/utils'
 import type { TransitionType } from './CSSTransition'
 
 const getSign = (type: string): string =>
@@ -28,7 +29,7 @@ export function getStyles(
   prefix?: string
 ) {
   const name = prefix ? `.${prefix}-${type}` : `.${type}`
-  const dist = typeof distance === 'number' ? `${distance}px` : distance
+  const dist = formatNumber(distance) as string
   const format = dist.endsWith('%') ? '%' : ''
   const styles = {
     [name + '-enter']: {

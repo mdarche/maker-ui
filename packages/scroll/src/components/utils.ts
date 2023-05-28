@@ -1,8 +1,6 @@
 import { CSSProperties } from 'react'
+import { formatNumber } from '@maker-ui/utils'
 import { AnimateProps } from './Animate'
-
-export const formatUnit = (value?: number | string) =>
-  typeof value === 'number' ? `${value}px` : value
 
 export const getStyles = ({
   duration,
@@ -12,10 +10,10 @@ export const getStyles = ({
   transformOrigin,
 }: Partial<AnimateProps>) =>
   ({
-    '--duration': typeof duration === 'number' ? `${duration}s` : duration,
+    '--duration': formatNumber(duration, '%s'),
     '--easing': easing,
-    '--x-distance': formatUnit(distance),
-    '--y-distance': formatUnit(distance),
+    '--x-distance': formatNumber(distance),
+    '--y-distance': formatNumber(distance),
     '--scale-amount': scale || '1',
     '--transform-origin': transformOrigin || 'center',
   } as CSSProperties)

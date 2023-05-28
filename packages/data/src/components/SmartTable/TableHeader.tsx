@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn } from '@maker-ui/utils'
+import { cn, formatNumber } from '@maker-ui/utils'
 import type {
   ColumnConfig,
   TableSettings,
@@ -7,7 +7,6 @@ import type {
   TableStyles,
 } from './types'
 import { useSmartTable } from '@/hooks'
-import { formatNumber } from '@/utils'
 
 interface TableHeaderProps<T> {
   settings: TableSettings<T>

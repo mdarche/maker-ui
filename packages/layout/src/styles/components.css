@@ -1,3 +1,32 @@
+/* Accordion */
+
+.mkui-accordion-btn {
+  color: var(--accordion-btn-color, var(--color-text));
+  font-size: var(--accordion-btn-font-size, 1em);
+  padding: var(--accordion-btn-padding, 10px 20px);
+  border: var(--accordion-btn-border, none);
+  background: var(--accordion-btn-background);
+  cursor: pointer;
+}
+
+.mkui-accordion-btn.active {
+  color: var(--accordion-btn-color-active, var(--color-text));
+  background: var(--accordion-btn-bg-active);
+}
+
+.mkui-accordion-content {
+  padding: var(--accordion-panel-padding, 10px 20px);
+  font-size: var(--accordion-panel-font-size, 1em);
+}
+
+.mkui-accordion-icon svg {
+  display: block;
+  height: var(--accordion-icon-height, 15px);
+  fill: var(--accordion-icon-fill, var(--color-text));
+}
+
+/* Tabs */
+
 /* Remove the default focus outline for the tab container */
 .mkui-tab:focus {
   outline: none;
@@ -7,3 +36,7 @@
 .mkui-tab:focus-visible {
   outline: 2px solid blue;
 }
+
+/* Popovers */
+
+/* Modal */

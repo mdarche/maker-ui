@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { cleanObject, cn } from '@maker-ui/utils'
+import { cleanObject, formatNumber, cn } from '@maker-ui/utils'
 import { useSmartGrid } from '@/hooks'
-import { formatNumber } from '@/utils'
 // Set up Dot syntax
 import { AccordionMenu } from './AccordionMenu'
 import { SmartGridProvider } from './Provider'

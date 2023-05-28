@@ -1,4 +1,5 @@
 import type { Options } from '@maker-ui/layout-server'
+import { formatNumber } from '@maker-ui/utils'
 
 /**
  * Grid & flex justification styles for desktop
@@ -88,7 +89,7 @@ export function getHeaderStyles(
   const layout = options.header.navType
   const mobileLayout = options.header.navTypeMobile
   const bp = options.header.breakpoint
-  const breakpoint = typeof bp === 'number' ? `${bp}px` : bp
+  const breakpoint = formatNumber(bp)
 
   return `
     .mkui-header.d-sticky, .mkui-topbar.d-sticky {

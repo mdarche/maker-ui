@@ -59,6 +59,7 @@ export const AccordionPanel = React.forwardRef<
 
     useEffect(() => {
       registerPanel(panelKey)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [panelKey])
 
     useEffect(() => {
@@ -77,7 +78,8 @@ export const AccordionPanel = React.forwardRef<
         }
 
         if (typeof state.customIcon === 'object') {
-          return show ? state.customIcon?.collapse : state.customIcon?.expand
+          // @ts-ignore
+          return show ? state.customIcon.collapse : state.customIcon?.expand
         }
 
         if (typeof state.customIcon === 'function') {
@@ -115,7 +117,7 @@ export const AccordionPanel = React.forwardRef<
           <div>
             {React.isValidElement(title) ? title : <span>{title}</span>}
           </div>
-          {renderIcon()}
+          <div className="mkui-accordion-icon">{renderIcon()}</div>
         </button>
         <div
           id={panelId}
@@ -125,13 +127,14 @@ export const AccordionPanel = React.forwardRef<
           style={{
             height: show ? (state.animate ? height : '100%') : 0,
           }}>
-          <div
-            ref={measureRef}
-            className={cn([
-              'mkui-accordion-inner',
-              state.classNames?.panelInner,
-            ])}>
-            {children}
+          <div ref={measureRef} className="mkui-accordion-measure">
+            <div
+              className={cn([
+                'mkui-accordion-content',
+                state.classNames?.panelContent,
+              ])}>
+              {children}
+            </div>
           </div>
         </div>
       </div>
@@ -150,7 +153,6 @@ const CaretIcon = ({ show }: { show: boolean }) => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     style={{
-      width: 15,
       transition: 'all ease .3s',
       transform: !show ? 'rotate(0)' : 'rotate(180deg)',
     }}>

@@ -1,5 +1,5 @@
 /// <reference types="jest" />
-import { getNonEmptyKeys, formatNumber } from '../src/utils'
+import { getNonEmptyKeys } from '../src/utils'
 
 describe('getNonEmptyKeys', () => {
   it('returns keys of non-empty string, number, and boolean values', () => {
@@ -46,34 +46,5 @@ describe('getNonEmptyKeys', () => {
     const nonEmptyKeys = getNonEmptyKeys(obj)
 
     expect(nonEmptyKeys).toEqual([])
-  })
-})
-
-describe('formatNumber', () => {
-  it('should return the same string if the value is a string', () => {
-    const value = '12345'
-    const template = 'Your number is %'
-
-    const result = formatNumber(value, template)
-
-    expect(result).toEqual('12345')
-  })
-
-  it('should replace the % in the template with the value if it is a number', () => {
-    const value = 12345
-    const template = 'Your number is %'
-
-    const result = formatNumber(value, template)
-
-    expect(result).toEqual('Your number is 12345')
-  })
-
-  it('should throw an error if the value is not a string or a number', () => {
-    const value = true
-    const template = 'Your number is %'
-
-    expect(() => formatNumber(value as any, template)).toThrowError(
-      new Error('Invalid type for value: boolean')
-    )
   })
 })

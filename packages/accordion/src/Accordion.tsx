@@ -10,7 +10,7 @@ interface AccordionClasses {
   /** Accordion panel outer wrapper. This class handles the collapsing functionality. */
   panel?: string
   /** Accordion panel inner wrapper. This wraps your `Accordion.Panel` child content. */
-  panelInner?: string
+  panelContent?: string
   /** The outermost wrapper for the `Accordion.Panel` component. */
   panelGroup?: string
   /** The `Accordion.Panel` button. */
@@ -121,7 +121,6 @@ export const Accordion = ({
           {
             button: {
               border: 'none',
-              cursor: 'pointer',
             },
             '.mkui-accordion-panel': {
               overflow: 'hidden',

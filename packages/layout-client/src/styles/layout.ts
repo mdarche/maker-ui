@@ -1,4 +1,5 @@
 import type { Options } from '@maker-ui/layout-server'
+import { formatNumber } from '@maker-ui/utils'
 
 export function getLayoutStyles(
   { layout, topbar, header, content, sideNav }: Options,
@@ -8,7 +9,7 @@ export function getLayoutStyles(
   const isSidebar = layout.includes('sidebar')
   const isSidenav = layout.includes('sidenav')
   const bp = isSidebar ? content.breakpoint : sideNav.breakpoint
-  const breakpoint = typeof bp === 'number' ? `${bp}px` : bp
+  const breakpoint = formatNumber(bp)
 
   /** Sidebar styles */
 

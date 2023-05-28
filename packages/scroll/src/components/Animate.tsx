@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import { createMarkers, formatUnit, getStyles } from './utils'
-import { cn } from '@maker-ui/utils'
+import { createMarkers, getStyles } from './utils'
+import { cn, formatNumber } from '@maker-ui/utils'
 
 type AnimationType =
   | 'fade'
@@ -96,7 +96,7 @@ export const Animate = ({
     if (!wrapper) return
 
     const s = `.${selector}`
-    const rootMargin = `0px 0px ${formatUnit(bottom)} 0px`
+    const rootMargin = `0px 0px ${formatNumber(bottom, '%px')} 0px`
     // Handle markers for debugging
     const { intersectionLine: red, containerLine: green } = createMarkers(
       wrapper,

@@ -6,8 +6,7 @@ import React, {
   useReducer,
   useRef,
 } from 'react'
-import { cleanObject, cn, merge } from '@maker-ui/utils'
-import { formatNumber } from '@/utils'
+import { cleanObject, cn, merge, formatNumber } from '@maker-ui/utils'
 import { CaretIcon } from '@/icons'
 import { smartTableReducer } from './reducer'
 import { TablePagination } from './TablePagination'

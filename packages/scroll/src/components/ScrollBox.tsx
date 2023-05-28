@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { cleanObject } from '@maker-ui/utils'
-import { formatUnit } from './utils'
+import { cleanObject, formatNumber } from '@maker-ui/utils'
 
 interface ScrollBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The width of the scroll box. Accepts a number (interpreted as pixels) or a string
@@ -38,9 +37,9 @@ export const ScrollBox = ({
   ...props
 }: ScrollBoxProps) => {
   const styles = {
-    '--scroll-box-width': formatUnit(width),
-    '--scroll-box-height': formatUnit(height),
-    '--scroll-bar-width': formatUnit(barWidth),
+    '--scroll-box-width': formatNumber(width),
+    '--scroll-box-height': formatNumber(height),
+    '--scroll-bar-width': formatNumber(barWidth),
     border,
     boxShadow,
   } as React.CSSProperties
