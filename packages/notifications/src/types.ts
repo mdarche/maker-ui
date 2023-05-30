@@ -5,11 +5,14 @@ export interface ToastClassNames {
   toast_body: string
 }
 
-export interface ToastStyles {
+export interface ToastProviderStyles extends ToastStyles {
   gap?: string | number
   padding?: string | number
   distance?: string | number
   duration?: string | number
+}
+
+export interface ToastStyles {
   toast?: {
     color?: string
     background?: string
@@ -54,6 +57,7 @@ export interface ToastProps {
   dismiss: boolean | React.ReactElement
   created_at: number
   active: boolean
+  styles?: ToastStyles
 }
 
 export interface ToastState extends ToastSettings {

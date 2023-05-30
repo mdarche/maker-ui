@@ -1,7 +1,7 @@
 import { cleanObject, formatNumber } from '@maker-ui/utils'
-import type { ToastStyles } from './types'
+import type { ToastProviderStyles } from './types'
 
-export const cssVariables = (styles?: ToastStyles) =>
+export const cssVariables = (styles?: Partial<ToastProviderStyles>) =>
   cleanObject({
     // Container
     '--toast-container-padding': formatNumber(styles?.padding),

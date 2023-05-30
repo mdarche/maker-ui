@@ -3,10 +3,12 @@ import { cn } from '@maker-ui/utils'
 
 import { useToast } from '@/hooks'
 import type { ToastProps } from '@/types'
+import { cssVariables } from 'src/variables'
 
-export const Toast = ({ id, type, message, ...p }: ToastProps) => {
+export const Toast = ({ id, type, message, styles, ...p }: ToastProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const { icons, components, classNames, setInactive } = useToast()
+  const variables = cssVariables(styles)
   // Templates
   const _icon = p?.icon ? p.icon : icons && icons[type] ? icons[type] : null
   const _component = p?.component
@@ -38,7 +40,8 @@ export const Toast = ({ id, type, message, ...p }: ToastProps) => {
         classNames?.toast,
         type,
         !p.active ? 'inactive' : undefined,
-      ])}>
+      ])}
+      style={variables}>
       {_component ?? (
         <>
           {_icon ? (
