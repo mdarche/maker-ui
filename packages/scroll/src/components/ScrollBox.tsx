@@ -36,16 +36,16 @@ export const ScrollBox = ({
   children,
   ...props
 }: ScrollBoxProps) => {
-  const styles = {
+  const styles = cleanObject({
     '--scroll-box-width': formatNumber(width),
     '--scroll-box-height': formatNumber(height),
     '--scroll-bar-width': formatNumber(barWidth),
     border,
     boxShadow,
-  } as React.CSSProperties
+  }) as React.CSSProperties
 
   return (
-    <div className="mkui-scrollbox" style={cleanObject(styles)} {...props}>
+    <div className="mkui-scrollbox" style={styles} {...props}>
       <div className="mkui-scrollbox-inner">{children}</div>
     </div>
   )

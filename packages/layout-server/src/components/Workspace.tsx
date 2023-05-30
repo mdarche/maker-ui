@@ -25,6 +25,7 @@ export const Workspace = ({
   menuButtons,
   defaultOpen,
   className,
+  breakpoint,
   _type,
   ...props
 }: WorkspaceProps) => {

@@ -16,7 +16,8 @@
 .align-center {
   align-items: center;
 }
-.align-flex-end {
+.align-flex-end,
+.align-end {
   align-items: flex-end;
 }
 .align-stretch {
@@ -25,20 +26,16 @@
 .justify-center {
   justify-content: center;
 }
-.justify-flex-start {
+.justify-flex-start,
+.justify-start {
   justify-content: flex-start;
 }
-.justify-flex-end {
+.justify-flex-end,
+.justify-end {
   justify-content: flex-end;
 }
 .justify-between {
   justify-content: space-between;
-}
-.width-80 {
-  width: 80%;
-}
-.width-90 {
-  width: 90%;
 }
 .width-100 {
   width: 100%;

@@ -10,6 +10,8 @@ export interface AccordionPanelProps
    * for this panel.
    */
   title?: string | React.ReactElement
+  /** A custom callback function that is invoked when the user clicks the accordion button */
+  onClick?: () => void
   /** If true, the panel will be open by default
    * @default false
    */
@@ -36,6 +38,7 @@ export const AccordionPanel = React.forwardRef<
       title,
       open = false,
       eventKey,
+      onClick,
       children,
       className,
       _type = 'AccordionPanel',
@@ -68,8 +71,10 @@ export const AccordionPanel = React.forwardRef<
       }
     }, [state, eventKey, panelKey, set])
 
-    const setActive = () =>
-      !show && state.showSingle ? setActivePanel(panelKey) : set(!show)
+    const setActive = () => {
+      onClick?.()
+      return !show && state.showSingle ? setActivePanel(panelKey) : set(!show)
+    }
 
     function renderIcon() {
       if (state.icon) {
@@ -125,7 +130,14 @@ export const AccordionPanel = React.forwardRef<
           className={cn(['mkui-accordion-panel', state?.classNames?.panel])}
           aria-labelledby={buttonId}
           style={{
+            willChange: state.animate ? 'height' : undefined,
             height: show ? (state.animate ? height : '100%') : 0,
+            transition:
+              state.animate && typeof state.animate === 'string'
+                ? state.animate
+                : state.animate
+                ? 'height 0.3s ease 0s'
+                : undefined,
           }}>
           <div ref={measureRef} className="mkui-accordion-measure">
             <div

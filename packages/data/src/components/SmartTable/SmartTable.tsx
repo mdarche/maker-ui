@@ -173,6 +173,22 @@ export const SmartTable = <T extends { id: string | number }>(
     dispatch({ type: 'SET_LOCAL_TOTAL_COUNT', value: totalCount })
   }, [totalCount])
 
+  const variables = cleanObject({
+    '--table-cell-padding': formatNumber(styles?.cellPadding),
+    '--table-header-color': styles?.headerColor,
+    '--table-header-padding': formatNumber(styles?.headerPadding),
+    '--table-header-bg': styles?.headerBackground,
+    '--table-header-top': formatNumber(styles?.stickyHeaderTop),
+    '--table-header-font-family': styles?.headerFontFamily,
+    '--table-header-font-size': formatNumber(styles?.headerFontSize),
+    '--table-header-icon-height': formatNumber(styles?.headerIconHeight),
+    '--table-font-size': formatNumber(styles?.fontSize),
+    '--table-font-family': styles?.fontFamily,
+    '--table-border-color': styles?.borderColor,
+    '--table-alt-row-bg': styles?.altRowBackground,
+    '--table-row-hover-bg': styles?.hoverRowBackground,
+  })
+
   return (
     <TableContext.Provider value={{ state, dispatch } as any}>
       <div
@@ -183,21 +199,7 @@ export const SmartTable = <T extends { id: string | number }>(
           styles?.altRowBackground ? 'alt-row' : undefined,
           onRowClick !== undefined ? 'row-select' : undefined,
         ])}
-        style={cleanObject({
-          '--table-cell-padding': formatNumber(styles?.cellPadding),
-          '--table-header-color': styles?.headerColor,
-          '--table-header-padding': formatNumber(styles?.headerPadding),
-          '--table-header-bg': styles?.headerBackground,
-          '--table-header-top': formatNumber(styles?.stickyHeaderTop),
-          '--table-header-font-family': styles?.headerFontFamily,
-          '--table-header-font-size': formatNumber(styles?.headerFontSize),
-          '--table-header-icon-height': formatNumber(styles?.headerIconHeight),
-          '--table-font-size': formatNumber(styles?.fontSize),
-          '--table-font-family': styles?.fontFamily,
-          '--table-border-color': styles?.borderColor,
-          '--table-alt-row-bg': styles?.altRowBackground,
-          '--table-row-hover-bg': styles?.hoverRowBackground,
-        } as React.CSSProperties)}>
+        style={variables}>
         <TableControls
           {...{
             data: paginatedData,

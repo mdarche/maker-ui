@@ -1,5 +1,11 @@
-import * as React from 'react'
-import { cn, generateId, merge } from '@maker-ui/utils'
+import React, { useState, useEffect, useRef } from 'react'
+import {
+  cleanObject,
+  cn,
+  formatNumber,
+  generateId,
+  merge,
+} from '@maker-ui/utils'
 import { Style, type MakerCSS } from '@maker-ui/style'
 import { useKeyboardShortcut } from '@maker-ui/hooks'
 
@@ -30,10 +36,32 @@ export interface TabsProps
    * @default true
    */
   renderInactive?: boolean
-  /** A custom class name to apply to the accordion button when it is active.
-   * @default 'active'
-   */
-  activeClass?: string
+  styles?: {
+    button: {
+      color?: string
+      colorActive?: string
+      background?: string
+      backgroundActive?: string
+      border?: string
+      borderActive?: string
+      padding?: string | number
+      fontSize?: string | number
+      fontFamily?: string
+    }
+    panel?: {
+      background?: string
+      padding?: string | number
+      fontSize: string | number
+    }
+  }
+  /** Custom class names to apply to the accordion component HTML.*/
+  classNames?: {
+    root?: string
+    tab?: string
+    tablist?: string
+    button?: string
+    active?: string
+  }
   /** Nested `<Tab.Panel>` components. */
   children?: React.ReactElement | React.ReactElement[]
 }
@@ -51,21 +79,23 @@ export const Tabs = ({
   navPosition = 'top',
   overflow = 'stack',
   renderInactive = true,
-  activeClass = 'active',
+  styles,
   className,
+  classNames,
   css = {},
   mediaQuery,
   breakpoints,
   children,
   ...props
 }: TabsProps) => {
-  const [state, setState] = React.useState<TabState>({
+  const [state, setState] = useState<TabState>({
     styleId: generateId(),
     activeKey: 0,
   })
+  const activeClass = cn([classNames?.active || 'active']) as string
   if (!children) {
     throw new Error(
-      'Tabs must contain at least one child Tabs.Panel components.'
+      'Tabs must contain at least one child Tabs.Panel component.'
     )
   }
 
@@ -98,7 +128,7 @@ export const Tabs = ({
   /**
    * Set the default open tab if none is specified
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (tabs.length && !activeEventKey) {
       // Get first tab that's marked as open
       const opened = tabs.find((t) => t.open)
@@ -120,7 +150,7 @@ export const Tabs = ({
   /**
    * Watch props for a new activeKey (controlled by external components)
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeEventKey) {
       // Make sure the tab isn't disabled
       const tab = tabs.find(
@@ -135,21 +165,41 @@ export const Tabs = ({
 
   const panels = renderInactive ? c : c ? [c[state.activeKey]] : []
 
+  const variables = cleanObject({
+    // Button Styles
+    '--tab-btn-color': styles?.button?.color,
+    '--tab-btn-bg': styles?.button?.background,
+    '--tab-btn-border': styles?.button?.border,
+    '--tab-btn-padding': formatNumber(styles?.button?.padding),
+    '--tab-btn-font-size': formatNumber(styles?.button?.fontSize),
+    '--tab-btn-font-family': styles?.button?.fontFamily,
+    '--tab-btn-color-active': styles?.button?.colorActive,
+    '--tab-btn-bg-active': styles?.button?.backgroundActive,
+    '--tab-btn-border-active': styles?.button?.borderActive,
+    // Panel Styles
+    '--tab-panel-bg': styles?.panel?.background,
+    '--tab-panel-padding': formatNumber(styles?.panel?.padding),
+    '--tab-panel-font-size': formatNumber(styles?.panel?.fontSize),
+  })
+
   return (
     <div
-      className={cn(['mkui-tabgroup flex', state.styleId, className])}
-      {...props}>
+      className={cn([
+        'mkui-tabgroup flex',
+        isVertical ? 'vertical' : undefined,
+        state.styleId,
+        className,
+        classNames?.root,
+      ])}
+      {...props}
+      style={{ ...variables, ...(props.style || {}) }}>
       <Style
         root={state.styleId}
         breakpoints={breakpoints}
         mediaQuery={mediaQuery}
         css={merge(
           {
-            flexDirection: isVertical ? 'column' : undefined,
-            flexWrap: 'wrap',
             '.mkui-tab': {
-              flex: 1,
-              order: 1,
               display: renderInactive ? 'none' : undefined,
               [`&.${activeClass}`]: renderInactive
                 ? {
@@ -164,11 +214,14 @@ export const Tabs = ({
           css
         )}
       />
-      <div className="mkui-tabs-navigation flex" role="tablist">
+      <div
+        className={cn(['mkui-tabs-navigation flex', classNames?.tablist])}
+        role="tablist">
         {tabs.map((item) => (
           <TabButton
             key={item.id}
             tab={item}
+            className={classNames?.button}
             activeKey={state.activeKey}
             setActiveKey={(k) => setState((s) => ({ ...s, activeKey: k }))}
             navigate={navigate}
@@ -190,7 +243,7 @@ export const Tabs = ({
             className={cn([
               'mkui-tab',
               state.activeKey === index ? activeClass : undefined,
-              className,
+              classNames?.tab,
             ])}
             role="tabpanel"
             hidden={state.activeKey !== index}
@@ -208,6 +261,7 @@ interface TabButtonProps {
   activeKey: string | number
   setActiveKey: (s: number) => void
   navigate: (type: 'next' | 'prev') => void
+  className?: string
   tab: {
     id: number
     title: string | React.ReactElement
@@ -223,10 +277,11 @@ const TabButton = ({
   activeKey,
   setActiveKey,
   navigate,
+  className,
   tab,
   settings,
 }: TabButtonProps) => {
-  const ref = React.useRef<HTMLButtonElement>(null)
+  const ref = useRef<HTMLButtonElement>(null)
   const isActive = activeKey === tab.id
   // Accessibility shortcuts
   useKeyboardShortcut(
@@ -252,6 +307,7 @@ const TabButton = ({
       id={`tab-${tab.id}`}
       className={cn([
         'mkui-tab-btn',
+        className,
         isActive ? settings.activeClass : undefined,
         tab.disabled ? 'disabled' : undefined,
       ])}

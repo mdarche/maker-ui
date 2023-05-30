@@ -96,7 +96,7 @@ export const Animate = ({
     if (!wrapper) return
 
     const s = `.${selector}`
-    const rootMargin = `0px 0px ${formatNumber(bottom, '%px')} 0px`
+    const rootMargin = `0px 0px ${formatNumber(bottom)} 0px`
     // Handle markers for debugging
     const { intersectionLine: red, containerLine: green } = createMarkers(
       wrapper,

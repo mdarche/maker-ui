@@ -1,62 +1,8 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
-import { cn, merge, generateId } from '@maker-ui/utils'
-import { Style, type MakerCSS } from '@maker-ui/style'
+import { cn, generateId, cleanObject, formatNumber } from '@maker-ui/utils'
 
 import { AccordionPanel } from './AccordionPanel'
-
-interface AccordionClasses {
-  /** Root Accordion component container */
-  group?: string
-  /** Accordion panel outer wrapper. This class handles the collapsing functionality. */
-  panel?: string
-  /** Accordion panel inner wrapper. This wraps your `Accordion.Panel` child content. */
-  panelContent?: string
-  /** The outermost wrapper for the `Accordion.Panel` component. */
-  panelGroup?: string
-  /** The `Accordion.Panel` button. */
-  button?: string
-}
-
-export interface AccordionProps
-  extends MakerCSS,
-    React.HtmlHTMLAttributes<HTMLDivElement> {
-  /** If true, the Accordion button will render an icon that shows expand / collapse status.
-   * @default true
-   */
-  icon?: boolean
-  /** An optional icon, set of icons, or callback function that can be used to supply a custom
-   * accordion toggle icon.
-   */
-  customIcon?:
-    | React.ReactElement
-    | {
-        expand: React.ReactElement
-        collapse: React.ReactElement
-      }
-    | ((isExpanded: boolean) => React.ReactNode)
-  /** A custom class name to apply to the accordion button when it is active.
-   * @default 'expanded'
-   */
-  activeClass?: string
-  /** The currently active accordion panel key if controlled by an external or parent component.
-   * Make sure the key exists as an `eventKey` prop on a nested `<Accordion.Panel>`.
-   */
-  activeKey?: number | string
-  /** If true, the accordion will only display one open panel at a time.
-   * @default false
-   */
-  showSingle?: boolean
-  /** If true or if you supply a configuration object, the accordion will add a
-   * CSS transition to the accordion panel's height. NOTE: Animating height will force a repaint
-   * that may affect your app's performance.
-   * @default false
-   */
-  animate?: boolean | string
-  /** Custom class selectors for all accordion HTML elements. */
-  classNames?: AccordionClasses
-  /** Nested AccordionPanel children. */
-  children?: React.ReactElement[] | React.ReactNode
-}
+import type { AccordionProps } from './types'
 
 interface AccordionState extends Omit<AccordionProps, 'children'> {
   id: string
@@ -82,10 +28,8 @@ export const Accordion = ({
   showSingle = false,
   className,
   classNames,
-  css = {},
-  breakpoints,
-  mediaQuery,
   animate = false,
+  styles,
   children,
   ...props
 }: AccordionProps) => {
@@ -111,38 +55,35 @@ export const Accordion = ({
     setState((state) => ({ ...state, activeKey }))
   }, [activeKey])
 
+  const variables = cleanObject({
+    // Button Styles
+    '--accordion-btn-color': styles?.button?.color,
+    '--accordion-btn-bg': styles?.button?.background,
+    '--accordion-btn-border': styles?.button?.border,
+    '--accordion-btn-padding': formatNumber(styles?.button?.padding),
+    '--accordion-btn-font-size': formatNumber(styles?.button?.fontSize),
+    '--accordion-btn-font-family': styles?.button?.fontFamily,
+    '--accordion-btn-color-active': styles?.button?.colorActive,
+    '--accordion-btn-bg-active': styles?.button?.backgroundActive,
+    '--accordion-btn-border-active': styles?.button?.borderActive,
+    '--accordion-icon-fill': styles?.icon?.fill,
+    '--accordion-icon-fill-active': styles?.icon?.fillActive,
+    '--accordion-icon-height': formatNumber(styles?.icon?.height),
+    // Panel Styles
+    '--accordion-panel-bg': styles?.panel?.background,
+    '--accordion-panel-padding': formatNumber(styles?.panel?.padding),
+    '--accordion-panel-font-size': formatNumber(styles?.panel?.fontSize),
+  })
+
   return (
     <AccordionContext.Provider value={{ state, setState }}>
-      <Style
-        root={state.id}
-        breakpoints={breakpoints}
-        mediaQuery={mediaQuery}
-        css={merge(
-          {
-            button: {
-              border: 'none',
-            },
-            '.mkui-accordion-panel': {
-              overflow: 'hidden',
-              willChange: animate ? 'height' : undefined,
-              transition:
-                animate && typeof animate === 'string'
-                  ? animate
-                  : animate
-                  ? 'height 0.3s ease 0s'
-                  : undefined,
-            },
-          },
-          css
-        )}
-      />
       <div
         className={cn([
           'mkui-accordion-group',
           state.classNames?.group,
-          state.id,
           className,
         ])}
+        style={variables}
         {...props}>
         {children}
       </div>

@@ -2,21 +2,28 @@
 
 .mkui-accordion-btn {
   color: var(--accordion-btn-color, var(--color-text));
-  font-size: var(--accordion-btn-font-size, 1em);
+  font-family: var(--accordion-btn-font-family);
+  font-size: var(--accordion-btn-font-size);
   padding: var(--accordion-btn-padding, 10px 20px);
   border: var(--accordion-btn-border, none);
-  background: var(--accordion-btn-background);
+  background: var(--accordion-btn-bg);
   cursor: pointer;
 }
 
 .mkui-accordion-btn.active {
   color: var(--accordion-btn-color-active, var(--color-text));
-  background: var(--accordion-btn-bg-active);
+  background: var(--accordion-btn-bg-active, var(--accordion-btn-bg));
+  border: var(--accordion-btn-border-active);
+}
+
+.mkui-accordion-btn.active svg {
+  fill: var(--accordion-icon-active);
 }
 
 .mkui-accordion-content {
   padding: var(--accordion-panel-padding, 10px 20px);
-  font-size: var(--accordion-panel-font-size, 1em);
+  font-size: var(--accordion-panel-font-size);
+  background: var(--accordion-panel-bg);
 }
 
 .mkui-accordion-icon svg {
@@ -25,7 +32,43 @@
   fill: var(--accordion-icon-fill, var(--color-text));
 }
 
+.mkui-accordion-panel {
+  overflow: hidden;
+}
+
 /* Tabs */
+
+.mkui-tabgroup {
+  flex-wrap: wrap;
+}
+
+.mkui-tabgroup.vertical {
+  flex-direction: column;
+}
+
+.mkui-tab {
+  flex: 1;
+  order: 1;
+  background: var(--tab-panel-bg);
+  padding: var(--tab-panel-padding, 10px 20px);
+  font-size: var(--tab-panel-font-size);
+}
+
+.mkui-tab-btn {
+  color: var(--tab-btn-color, var(--color-text));
+  font-family: var(--tab-btn-font-family);
+  font-size: var(--tab-btn-font-size);
+  padding: var(--tab-btn-padding, 10px 20px);
+  border: var(--tab-btn-border, none);
+  background: var(--tab-btn-bg);
+  cursor: pointer;
+}
+
+.mkui-tab-btn.active {
+  color: var(--tab-btn-color-active, var(--color-text));
+  background: var(--tab-btn-bg-active, var(--tab-btn-bg));
+  border: var(--tab-btn-border-active);
+}
 
 /* Remove the default focus outline for the tab container */
 .mkui-tab:focus {
