@@ -3,7 +3,7 @@
 / --toast-gap
 / --toast-padding-container
 / --toast-color
-/ --toast-background
+/ --toast-bg
 / --toast-padding
 / --toast-border-radius
 / --toast-box-shadow
@@ -23,19 +23,19 @@
 }
 
 .mkui-toast-container.top {
-  top: var(--toast-padding-container, 20px);
+  top: var(--toast-container-padding, 20px);
 }
 .mkui-toast-container.bottom {
-  bottom: var(--toast-padding-container, 20px);
+  bottom: var(--toast-container-padding, 20px);
 }
 .mkui-toast-container.center {
   inset-inline: 0px;
 }
 .mkui-toast-container.left {
-  left: var(--toast-padding-container, 20px);
+  left: var(--toast-container-padding, 20px);
 }
 .mkui-toast-container.right {
-  right: var(--toast-padding-container, 20px);
+  right: var(--toast-container-padding, 20px);
 }
 
 .mkui-toast {

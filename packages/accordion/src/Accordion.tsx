@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
-import { cn, generateId, cleanObject, formatNumber } from '@maker-ui/utils'
+import { cn, generateId } from '@maker-ui/utils'
 
 import { AccordionPanel } from './AccordionPanel'
 import type { AccordionProps } from './types'
+import { cssVariables } from './variables'
 
 interface AccordionState extends Omit<AccordionProps, 'children'> {
   id: string
@@ -45,6 +46,8 @@ export const Accordion = ({
     animate,
   })
 
+  const variables = cssVariables(styles)
+
   if (!children) {
     throw new Error(
       'Accordion must contain a nested Accordion.Panel component.'
@@ -54,26 +57,6 @@ export const Accordion = ({
   useEffect(() => {
     setState((state) => ({ ...state, activeKey }))
   }, [activeKey])
-
-  const variables = cleanObject({
-    // Button Styles
-    '--accordion-btn-color': styles?.button?.color,
-    '--accordion-btn-bg': styles?.button?.background,
-    '--accordion-btn-border': styles?.button?.border,
-    '--accordion-btn-padding': formatNumber(styles?.button?.padding),
-    '--accordion-btn-font-size': formatNumber(styles?.button?.fontSize),
-    '--accordion-btn-font-family': styles?.button?.fontFamily,
-    '--accordion-btn-color-active': styles?.button?.colorActive,
-    '--accordion-btn-bg-active': styles?.button?.backgroundActive,
-    '--accordion-btn-border-active': styles?.button?.borderActive,
-    '--accordion-icon-fill': styles?.icon?.fill,
-    '--accordion-icon-fill-active': styles?.icon?.fillActive,
-    '--accordion-icon-height': formatNumber(styles?.icon?.height),
-    // Panel Styles
-    '--accordion-panel-bg': styles?.panel?.background,
-    '--accordion-panel-padding': formatNumber(styles?.panel?.padding),
-    '--accordion-panel-font-size': formatNumber(styles?.panel?.fontSize),
-  })
 
   return (
     <AccordionContext.Provider value={{ state, setState }}>

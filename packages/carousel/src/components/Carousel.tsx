@@ -17,6 +17,7 @@ import { Arrow } from './Arrow'
 import { Slider } from './Slider'
 import { Pagination } from './Pagination'
 import { defaultProps } from '../default-props'
+import { cssVariables } from '../variables'
 
 export interface CarouselState {
   items: SlideItem[]
@@ -58,6 +59,7 @@ export const Carousel = (userProps: CarouselProps) => {
   const [autoCount, setAutoCount] = useState(0)
   const isPaginating = useRef(false)
   const autoPlayTimer = useRef<number>()
+  const variables = cssVariables(props?.styles)
 
   useEffect(() => {
     if (!props.dynamic) return
@@ -264,6 +266,7 @@ export const Carousel = (userProps: CarouselProps) => {
       className={cn(['mkui-carousel', props.classNames?.root])}
       data-cy="mkui-carousel"
       tabIndex={0}
+      style={variables}
       {...(props.useArrowKeys ? { onKeyDown: handleOnKeyDown } : {})}>
       <Slider
         {...props}

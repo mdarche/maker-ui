@@ -3,7 +3,14 @@ import { cn, merge, generateId } from '@maker-ui/utils'
 
 import { ErrorIcon, SuccessIcon, InfoIcon } from './Icons'
 import { Toast } from './Toast'
-import type { ToastState, Action, ToastProps, ToastSettings } from '@/types'
+import type {
+  ToastState,
+  Action,
+  ToastProps,
+  ToastSettings,
+  ToastStyles,
+} from '@/types'
+import { cssVariables } from 'src/variables'
 
 function formatPositionClass(input: string): string {
   return input.replace(/-/g, ' ')
@@ -59,6 +66,7 @@ function toastReducer(state: ToastState, action: Action): ToastState {
 
 interface ToastProviderProps {
   settings?: Partial<ToastSettings>
+  styles?: ToastStyles
   children: React.ReactNode
 }
 
@@ -71,6 +79,7 @@ interface ToastProviderProps {
 export const ToastProvider = ({
   children,
   settings = {},
+  styles,
 }: ToastProviderProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const [state, dispatch] = useReducer(
@@ -98,6 +107,7 @@ export const ToastProvider = ({
   }, [state.history, settings?.clearCache])
 
   const toasts = state.history.sort((a, b) => a.created_at - b.created_at)
+  const variables = cssVariables(styles)
 
   return (
     <ToastContext.Provider value={{ state, dispatch }}>
@@ -108,7 +118,8 @@ export const ToastProvider = ({
           'mkui-toast-container',
           formatPositionClass(state.position),
           state.classNames?.container,
-        ])}>
+        ])}
+        style={variables}>
         {toasts?.map((props) => (
           <Toast key={props.id} {...props} />
         ))}

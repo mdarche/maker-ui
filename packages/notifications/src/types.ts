@@ -5,6 +5,25 @@ export interface ToastClassNames {
   toast_body: string
 }
 
+export interface ToastStyles {
+  gap?: string | number
+  padding?: string | number
+  distance?: string | number
+  duration?: string | number
+  toast?: {
+    color?: string
+    background?: string
+    padding?: string | number
+    borderRadius?: string
+    boxShadow?: string
+    fontSize?: string | number
+  }
+  icon?: {
+    fill?: string
+    height?: string | number
+  }
+}
+
 export interface ToastSettings {
   clearCache: boolean
   /** Custom component mapping for keyed types*/

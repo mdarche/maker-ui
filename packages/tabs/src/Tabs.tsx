@@ -1,19 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {
-  cleanObject,
-  cn,
-  formatNumber,
-  generateId,
-  merge,
-} from '@maker-ui/utils'
+import { cn, generateId, merge } from '@maker-ui/utils'
 import { Style, type MakerCSS } from '@maker-ui/style'
 import { useKeyboardShortcut } from '@maker-ui/hooks'
 
 import { TabPanel } from './TabPanel'
+import { cssVariables } from './variables'
 
 export interface TabState {
   styleId: string
   activeKey: number
+}
+
+export interface TabStyles {
+  button: {
+    color?: string
+    colorActive?: string
+    background?: string
+    backgroundActive?: string
+    border?: string
+    borderActive?: string
+    padding?: string | number
+    fontSize?: string | number
+    fontFamily?: string
+  }
+  panel?: {
+    background?: string
+    padding?: string | number
+    fontSize: string | number
+  }
 }
 
 export interface TabsProps
@@ -36,24 +50,7 @@ export interface TabsProps
    * @default true
    */
   renderInactive?: boolean
-  styles?: {
-    button: {
-      color?: string
-      colorActive?: string
-      background?: string
-      backgroundActive?: string
-      border?: string
-      borderActive?: string
-      padding?: string | number
-      fontSize?: string | number
-      fontFamily?: string
-    }
-    panel?: {
-      background?: string
-      padding?: string | number
-      fontSize: string | number
-    }
-  }
+  styles?: TabStyles
   /** Custom class names to apply to the accordion component HTML.*/
   classNames?: {
     root?: string
@@ -112,6 +109,7 @@ export const Tabs = ({
   }))
   const isVertical = ['top', 'bottom'].includes(navPosition) ? true : false
   const position = getNavPosition({ isVertical, navPosition, overflow })
+  const variables = cssVariables(styles)
 
   const navigate = (type: 'next' | 'prev') => {
     if (window === undefined) return
@@ -164,23 +162,6 @@ export const Tabs = ({
   }, [activeEventKey])
 
   const panels = renderInactive ? c : c ? [c[state.activeKey]] : []
-
-  const variables = cleanObject({
-    // Button Styles
-    '--tab-btn-color': styles?.button?.color,
-    '--tab-btn-bg': styles?.button?.background,
-    '--tab-btn-border': styles?.button?.border,
-    '--tab-btn-padding': formatNumber(styles?.button?.padding),
-    '--tab-btn-font-size': formatNumber(styles?.button?.fontSize),
-    '--tab-btn-font-family': styles?.button?.fontFamily,
-    '--tab-btn-color-active': styles?.button?.colorActive,
-    '--tab-btn-bg-active': styles?.button?.backgroundActive,
-    '--tab-btn-border-active': styles?.button?.borderActive,
-    // Panel Styles
-    '--tab-panel-bg': styles?.panel?.background,
-    '--tab-panel-padding': formatNumber(styles?.panel?.padding),
-    '--tab-panel-font-size': formatNumber(styles?.panel?.fontSize),
-  })
 
   return (
     <div
