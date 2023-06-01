@@ -84,4 +84,27 @@ export interface LightboxProps
   data?: LightboxItem[]
   /** Custom settings for the Lightbox modal. */
   settings?: LightboxSettings
+  /** Custom CSS variable declarations for the Lightbox modal. */
+  styles?: LightboxStyles
+}
+
+export interface LightboxStyles {
+  toolbar?: {
+    background?: string
+    padding?: string | number
+    fill?: string
+    height?: string | number
+    backgroundActive?: string
+    fillActive?: string
+  }
+  arrow?: {
+    background?: string
+    fill?: string
+    height?: string | number
+    border?: string
+    padding?: string | number
+  }
+  overlay?: {
+    background?: string
+  }
 }
