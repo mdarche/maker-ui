@@ -9,13 +9,16 @@ import { Toolbar } from './Toolbar'
 import { Preview } from './Preview'
 import { useLightbox } from './Provider'
 import { MediaFrame } from './MediaFrame'
+import { LightboxStyles } from '@/types'
+import { cssVariables } from '../variables'
 
 interface LightboxModalProps
   extends React.HTMLAttributes<HTMLDivElement>,
     MakerCSS {
   focusRef?: any
   show?: boolean
-  background?: string | string
+  background?: string
+  styles?: LightboxStyles
 }
 /**
  * The `LightboxModal` houses all views for the Lightbox component.
@@ -30,6 +33,7 @@ export const LightboxModal = ({
   background = 'rgba(0, 0, 0, 0.8)',
   children,
   css,
+  styles,
   breakpoints,
   ...props
 }: LightboxModalProps) => {
@@ -39,6 +43,7 @@ export const LightboxModal = ({
   const [preview, setPreview] = useState(false)
   const [controlsActive, setControlsActive] = useState(true)
   const item = data[index]
+  const variables = cssVariables(styles)
 
   /**
    * Handle autoPlay controls
