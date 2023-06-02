@@ -1,6 +1,7 @@
 import { ModalProps } from '@maker-ui/modal'
 import { SpinnerProps } from '@maker-ui/spinners'
 import { MakerCSS } from '@maker-ui/style'
+import type { StaticImageData } from 'next/image'
 
 /**
  * Interface for data passed to a lightbox component to display media content.
@@ -9,7 +10,7 @@ export interface LightboxItem {
   /** The ID of the media content. */
   id?: string
   /** The source URL of the media content. */
-  src?: string
+  src?: string | StaticImageData
   /** A blur image URL for Next Image, if applicable */
   blur?: string
   /** The alternative text description of the media content. */
@@ -97,14 +98,18 @@ export interface LightboxStyles {
     backgroundActive?: string
     fillActive?: string
   }
+  pagination?: {
+    color?: string
+    background?: string
+    fontSize?: string | number
+    fontFamily?: string
+  }
   arrow?: {
     background?: string
+    backgroundActive?: string
     fill?: string
     height?: string | number
     border?: string
     padding?: string | number
-  }
-  overlay?: {
-    background?: string
   }
 }

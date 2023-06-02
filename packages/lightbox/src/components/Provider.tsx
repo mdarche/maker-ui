@@ -180,7 +180,9 @@ function formatItem(original: LightboxItem) {
       vimeoId: null,
       poster: null,
       htmlVideo: original.src
-        ? videoFormats.some((v) => original.src?.includes(v))
+        ? videoFormats.some(
+            (v) => typeof original.src === 'string' && original.src?.includes(v)
+          )
         : false,
     },
     original

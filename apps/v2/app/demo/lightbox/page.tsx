@@ -35,7 +35,7 @@ export default function LightboxPage() {
       </button>
       {/* Test with Clickable lightbox items */}
       <Lightbox focusRef={ref}>
-        <Lightbox.Link>
+        <Lightbox.Link src={CosmosImage} alt="cosmos">
           <div style={{ position: 'relative', height: 300 }}>
             <Image
               fill
@@ -61,10 +61,10 @@ export default function LightboxPage() {
         </Lightbox.Link>
       </Lightbox>
       {/* Test with data array */}
-      <button className="test-btn" onClick={() => set(true)}>
+      {/* <button className="test-btn" onClick={() => set(true)}>
         Show lightbox 2
       </button>
-      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} />
+      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} /> */}
     </Section>
   )
 }

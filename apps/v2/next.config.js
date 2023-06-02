@@ -5,6 +5,9 @@ const config = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ['images.unsplash.com'],
+  },
 }
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

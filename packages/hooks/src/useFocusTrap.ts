@@ -71,6 +71,8 @@ export function useFocusTrap({
     setCount(els.length)
     const firstFocusable = els[0] as HTMLElement
     const lastFocusable = els[els.length - 1] as HTMLElement
+
+    console.log('Els are', els) // -- In here make sure the next / previous item is visible in the viewport else keep traversing until it is
     // Assign to refs
     firstRef.current = firstFocusable
     lastRef.current = lastFocusable

@@ -27,40 +27,40 @@ export const Toolbar = ({ preview, autoPlay }: ToolbarProps) => {
   const { index, data, settings, toggleLightbox } = useLightbox()
   return (
     <div
-      className="mkui-lightbox-toolbar flex align-center"
+      className="mkui-lbx-toolbar flex align-center"
       style={{
         justifyContent: data.length > 1 ? 'space-between' : 'flex-end',
       }}>
       {settings?.showCount && data.length > 1 && (
-        <div className="mkui-lightbox-pagination">
+        <div className="mkui-lbx-pagination">
           {index + 1} / {data.length}
         </div>
       )}
-      <div className="mkui-lightbox-btn-group flex">
+      <div className="mkui-lbx-btn-group flex">
         {settings.showAutoPlay && data.length > 1 ? (
           <button
             className={cn([
-              'mkui-lightbox-btn btn-autoplay',
+              'mkui-lbx-btn btn-autoplay',
               autoPlay?.show ? 'active ' : '',
             ])}
             onClick={() => autoPlay?.set((a) => !a)}>
-            <PlayIcon style={{ height: 24 }} />
+            <PlayIcon />
           </button>
         ) : null}
         {data.length > 1 ? (
           <button
             className={cn([
-              'mkui-lightbox-btn btn-preview',
+              'mkui-lbx-btn btn-preview',
               preview?.show ? 'active ' : '',
             ])}
             onClick={() => preview?.set((p) => !p)}>
-            <PreviewIcon style={{ height: 21 }} />
+            <PreviewIcon />
           </button>
         ) : null}
         <button
-          className="mkui-lightbox-btn btn-close"
+          className="mkui-lbx-btn btn-close"
           onClick={() => toggleLightbox()}>
-          <CloseIcon style={{ height: 24 }} />
+          <CloseIcon />
         </button>
       </div>
     </div>

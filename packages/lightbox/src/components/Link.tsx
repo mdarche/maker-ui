@@ -67,7 +67,7 @@ export const LightboxLink = React.forwardRef<
     return (
       <a
         ref={ref}
-        href={src || '#'}
+        href={typeof src === 'string' ? src : '#lightbox'}
         role="button"
         onClick={handleClick}
         {...props}>
