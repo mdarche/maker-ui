@@ -24,6 +24,21 @@ interface FocusTrapProps {
   exitCallback?: (next?: HTMLElement | null) => void
   /** The element to focus when exiting the container. Defaults to 'none' */
   exitFocus?: 'next' | 'anchor' | 'dynamic' | 'none'
+  /** Whether or not to limit focus elements to what is currently in the viewport */
+  trapVisibleOnly?: boolean
+  /** A boolean that forces the effect to recheck for focusable elements */
+  triggerFocusCheck?: boolean
+}
+
+function isInViewport(element: HTMLElement) {
+  const rect = element.getBoundingClientRect()
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  )
 }
 
 /**
@@ -42,6 +57,8 @@ export function useFocusTrap({
   trap = true,
   exitFocus = 'none',
   exitCallback,
+  trapVisibleOnly = false,
+  triggerFocusCheck,
 }: FocusTrapProps) {
   const firstRef = useRef<HTMLElement | null>(null)
   const lastRef = useRef<HTMLElement | null>(null)
@@ -56,18 +73,32 @@ export function useFocusTrap({
    */
   useEffect(() => {
     if (!ref?.current || !active) return
-
+    console.log('Checking for focusable elements')
     const container = ref.current
+    let els: HTMLElement[] = []
+    if (trapVisibleOnly) {
+      els = Array.from(
+        container.querySelectorAll<HTMLElement>(focusElements.join(','))
+      ).filter(isInViewport)
+    } else {
+      els = Array.from(
+        container.querySelectorAll<HTMLElement>(focusElements.join(','))
+      )
+    }
+
     const getNextElement = () => {
       if (!anchor?.current) return null
+
       const allFocusable = document.querySelectorAll<HTMLElement>(
         focusElements.join(',')
       )
+
       // @ts-ignore
       const index = [...allFocusable].indexOf(anchor.current)
       return allFocusable[index + 1]
     }
-    const els = container.querySelectorAll(focusElements.join(','))
+
+    // const els = container.querySelectorAll(focusElements.join(','))
     setCount(els.length)
     const firstFocusable = els[0] as HTMLElement
     const lastFocusable = els[els.length - 1] as HTMLElement
@@ -112,7 +143,15 @@ export function useFocusTrap({
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [ref, anchor, active, trap, exitCallback])
+  }, [
+    ref,
+    anchor,
+    active,
+    trap,
+    exitCallback,
+    trapVisibleOnly,
+    triggerFocusCheck,
+  ])
 
   useEffect(() => {
     if (!active && !activated) {

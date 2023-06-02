@@ -172,7 +172,9 @@ export const LightboxModal = ({
         focusRef={focusRef}
         background={background}
         closeOnBlur={settings.closeOnBlur}
+        trapVisibleOnly
         duration={250}
+        triggerFocusCheck={preview}
         className={cn(['mkui-lbx', className])}
         {...props}>
         <div

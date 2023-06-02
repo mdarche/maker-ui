@@ -53,6 +53,12 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default 300
    */
   duration?: number
+  /** When using Keyboard navigation, trap focus on elements visible in the viewport
+   * This is useful for modals that don't require scrolling.
+   * @default false
+   */
+  trapVisibleOnly?: boolean
+  triggerFocusCheck?: boolean
   /** The modal's inner contents */
   children?: React.ReactNode
 }
@@ -72,6 +78,8 @@ export const Modal = ({
   focusRef,
   center = false,
   background = 'rgba(0, 0, 0, 0.66)',
+  trapVisibleOnly = false,
+  triggerFocusCheck,
   className,
   easing,
   duration,
@@ -87,6 +95,8 @@ export const Modal = ({
     active: show,
     trap: true,
     exitFocus: 'anchor',
+    trapVisibleOnly,
+    triggerFocusCheck,
   })
   useKeyboardShortcut(
     [{ key: 'Escape', callback: () => set && set(false) }],
