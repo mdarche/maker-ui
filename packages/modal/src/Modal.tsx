@@ -57,8 +57,11 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
    * This is useful for modals that don't require scrolling.
    * @default false
    */
-  trapVisibleOnly?: boolean
-  triggerFocusCheck?: boolean
+  focusSettings?: {
+    trapVisibleOnly?: boolean
+    triggerFocusCheck?: boolean
+    triggerFocusDelay?: number
+  }
   /** The modal's inner contents */
   children?: React.ReactNode
 }
@@ -78,8 +81,7 @@ export const Modal = ({
   focusRef,
   center = false,
   background = 'rgba(0, 0, 0, 0.66)',
-  trapVisibleOnly = false,
-  triggerFocusCheck,
+  focusSettings,
   className,
   easing,
   duration,
@@ -95,8 +97,9 @@ export const Modal = ({
     active: show,
     trap: true,
     exitFocus: 'anchor',
-    trapVisibleOnly,
-    triggerFocusCheck,
+    trapVisibleOnly: focusSettings?.trapVisibleOnly,
+    triggerFocusCheck: focusSettings?.triggerFocusCheck,
+    triggerFocusDelay: focusSettings?.triggerFocusDelay,
   })
   useKeyboardShortcut(
     [{ key: 'Escape', callback: () => set && set(false) }],
