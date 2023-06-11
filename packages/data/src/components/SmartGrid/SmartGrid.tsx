@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cleanObject, formatNumber, cn } from '@maker-ui/utils'
+import { cleanObject, cn } from '@maker-ui/utils'
 import { useSmartGrid } from '@/hooks'
 // Set up Dot syntax
 import { AccordionMenu } from './AccordionMenu'
@@ -9,6 +9,7 @@ import { GridSearch } from './GridSearch'
 import { FilterGroup } from './FilterGroup'
 import { SortButton } from './SortButton'
 import { LayoutButtons } from './LayoutButtons'
+import { gridVariables } from 'src/variables'
 
 interface DataGridProps<T> extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -56,14 +57,14 @@ export const SmartGrid = <T,>({
   ...props
 }: DataGridProps<T>) => {
   const { isLoading, data, layout } = useSmartGrid()
+  const variables = gridVariables(columns, gap)
 
   return (
     <div
       className={cn(['mkui-smart-grid', layout, className])}
       {...props}
       style={cleanObject({
-        '--smart-grid-columns': formatNumber(columns, 'repeat(%, 1fr)'),
-        '--smart-grid-gap': formatNumber(gap),
+        ...(variables || {}),
         ...(props.style || {}),
       })}>
       {isLoading

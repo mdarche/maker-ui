@@ -48,7 +48,7 @@ export const TableControls = <T,>({
           filename={settings?.export?.filename || 'table-data'}
           data={data}
           columns={state.reorderedColumns}
-          className={classNames?.exportButton}
+          className={cn(['mkui-table-btn-export', classNames?.exportButton])}
           label={settings?.export?.label}
           type={settings?.export?.output}
         />

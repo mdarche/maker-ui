@@ -65,35 +65,135 @@ export interface FetchDataParams<T> {
   searchQuery?: string
 }
 
-export interface TableStyles {
-  /** Indicates whether the table header should be sticky. */
-  stickyHeader?: boolean
-  /** The top position for the sticky header. */
-  stickyHeaderTop?: string | number
-  /** Padding of the table header cells. */
-  headerPadding?: string | number
-  /** Color of the table header text. */
-  headerColor?: string
-  /** Background color of the table header. */
-  headerBackground?: string
-  /** Font family for the table header. */
-  headerFontFamily?: string
-  /** Font size for the table header. */
-  headerFontSize?: string | number
-  /** Height of the SVG caret / arrow icon */
-  headerIconHeight?: string | number
-  /** Padding for table cells. */
-  cellPadding?: string | number
-  /** Font size for the table. */
+export interface SearchStyles {
+  input: {
+    /** The margin for the search input. */
+    margin?: string | number
+    /** The font size for the search input. */
+    fontSize?: string | number
+    /** The font family for the search input. */
+    fontFamily?: string
+    /** The background color for the search input. */
+    background?: string
+    /** The color for the search input. */
+    color?: string
+    /** The border for the search input. */
+    border?: string
+    /** The border radius for the search input. */
+    borderRadius?: string | number
+    /** The height of the search input. */
+    height?: string | number
+    /** The minimum width of the search input. */
+    minWidth?: string | number
+  }
+  icon: {
+    fill: string
+    height: string | number
+  }
+  clear: {
+    fill: string
+    height: string | number
+    padding: string | number
+    background: string
+    borderRadius: string | number
+    border: string
+  }
+}
+
+export interface PaginationStyles {
+  /** The margin for the pagination button group. */
+  margin: string | number
+  /** The font size for the pagination buttons. */
   fontSize?: string | number
-  /** Font family for the table cells. */
+  /** The font family for the pagination buttons. */
   fontFamily?: string
-  /** Border color for the table and its cells. */
-  borderColor?: string
-  /** Background color for alternating rows.*/
-  altRowBackground?: string
-  /** Background color for rows when hovered. */
-  hoverRowBackground?: string
+  /** The background color for the pagination buttons. */
+  background?: string
+  /** The background color for the active pagination button (if applicable). */
+  backgroundActive?: string
+  /** The color for the pagination buttons. */
+  color?: string
+  /** The color for the active pagination button (if applicable). */
+  colorActive?: string
+  /** The fill for pagination button icons. */
+  iconFill?: string
+  /** The height for pagination button icons. */
+  iconHeight?: string | number
+  /** The border for the pagination buttons. */
+  border?: string
+  /** The border for the active pagination button (if applicable). */
+  borderActive?: string
+  /** The border radius for the pagination buttons. */
+  borderRadius?: string | number
+  /** The padding for the pagination buttons. */
+  padding?: string | number
+  /** The margin-right (gap) value for all pagination buttons. */
+  gap?: string | number
+  /** The background color for the pagination buttons when hovered. */
+  hoverBackground?: string
+  /** The color for the pagination buttons when hovered. */
+  hoverColor?: string
+  /** The border for the pagination buttons when hovered. */
+  hoverBorder?: string
+}
+
+export interface TableStyles {
+  table: {
+    /** Border color for the table and its cells. */
+    borderColor?: string
+    /** Font size for the table. */
+    fontSize?: string | number
+    /** Font family for the table cells. */
+    fontFamily?: string
+  }
+  header: {
+    /** Indicates whether the table header should be sticky. */
+    sticky?: boolean
+    /** The top position for the sticky header. */
+    top?: string | number
+    /** Padding of the table header cells. */
+    padding?: string | number
+    /** Color of the table header text. */
+    color?: string
+    /** Background color of the table header. */
+    background?: string
+    /** Font family for the table header. */
+    fontFamily?: string
+    /** Font size for the table header. */
+    fontSize?: string | number
+    /** Height of the SVG caret / arrow icon */
+    iconHeight?: string | number
+    /** Color of the SVG caret / arrow icon */
+    iconFill?: string
+  }
+  cell: {
+    /** Padding for table cells. */
+    padding?: string | number
+  }
+  row: {
+    /** Background color for alternating rows.*/
+    altBackground?: string
+    /** Background color for rows when hovered. */
+    hoverBackground?: string
+  }
+  export: {
+    /** Background color for the export button. */
+    background?: string
+    /** Color for the export button text. */
+    color?: string
+    /** Font family for the export button. */
+    fontFamily?: string
+    /** Font size for the export button. */
+    fontSize?: string | number
+    /** Padding for the export button. */
+    padding?: string | number
+    /** Border radius for the export button. */
+    borderRadius?: string | number
+    /** Border for the export button. */
+    border?: string
+  }
+  pagination: PaginationStyles
+  search: SearchStyles
 }
 
 interface DeleteButtonConfig {

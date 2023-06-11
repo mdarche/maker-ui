@@ -69,22 +69,22 @@ export default function SmartTablePage() {
         }}
         onRowClick={(row) => console.log(row)}
         toolbar={<button>Click me</button>}
-        styles={
-          {
-            // stickyHeader: true,
-            // stickyHeaderTop: 'var(--height-header)',
-            // cellPadding: 10,
-            // headerColor: '#fff',
-            // headerBackground: 'var(--color-secondary)',
-            // fontSize: 13,
-            // headerFontSize: 16,
-            // headerPadding: 20,
-            // fontFamily: 'monospace',
-            // borderColor: '#dee2e6',
-            // altRowBackground: '#f8f9fa',
-            // hoverRowBackground: 'red',
-          }
-        }
+        // styles={
+        //   {
+        //     // stickyHeader: true,
+        //     // stickyHeaderTop: 'var(--height-header)',
+        //     // cellPadding: 10,
+        //     // headerColor: '#fff',
+        //     // headerBackground: 'var(--color-secondary)',
+        //     // fontSize: 13,
+        //     // headerFontSize: 16,
+        //     // headerPadding: 20,
+        //     // fontFamily: 'monospace',
+        //     // borderColor: '#dee2e6',
+        //     // altRowBackground: '#f8f9fa',
+        //     // hoverRowBackground: 'red',
+        //   }
+        // }
       />
     </Section>
   )

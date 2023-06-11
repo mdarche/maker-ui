@@ -27,6 +27,17 @@ export interface LayoutButtonsProps
    * The new layout type (either 'row' or 'grid') is passed as an argument to this function.
    */
   onChange?: (value: LayoutType) => void
+  styles: {
+    height: string | number
+    width: string | number
+    padding: string | number
+    fill: string
+    fillActive: string
+    border: string
+    borderActive: string
+    background: string
+    backgroundActive: string
+  }
 }
 
 export const LayoutButtons = ({

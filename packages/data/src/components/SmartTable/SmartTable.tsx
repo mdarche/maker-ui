@@ -6,13 +6,14 @@ import React, {
   useReducer,
   useRef,
 } from 'react'
-import { cleanObject, cn, merge, formatNumber } from '@maker-ui/utils'
+import { cn, merge } from '@maker-ui/utils'
 import { CaretIcon } from '@/icons'
 import { smartTableReducer } from './reducer'
 import { TablePagination } from './TablePagination'
 import { TableHeader } from './TableHeader'
 import { TableRow } from './TableRow'
 import { TableControls } from './TableControls'
+import { tableVariables } from 'src/variables'
 import type { SmartTableProps, SmartTableState, TableAction } from './types'
 
 const defaultProps = {
@@ -61,6 +62,7 @@ export const SmartTable = <T extends { id: string | number }>(
     searchColumns: settings?.search?.columns || [],
     searchQuery: '',
   }
+  const variables = tableVariables(styles)
   const [state, dispatch] = useReducer<
     React.Reducer<SmartTableState<T>, TableAction<T>>
   >(smartTableReducer, initialState)
@@ -173,30 +175,14 @@ export const SmartTable = <T extends { id: string | number }>(
     dispatch({ type: 'SET_LOCAL_TOTAL_COUNT', value: totalCount })
   }, [totalCount])
 
-  const variables = cleanObject({
-    '--table-cell-padding': formatNumber(styles?.cellPadding),
-    '--table-header-color': styles?.headerColor,
-    '--table-header-padding': formatNumber(styles?.headerPadding),
-    '--table-header-bg': styles?.headerBackground,
-    '--table-header-top': formatNumber(styles?.stickyHeaderTop),
-    '--table-header-font-family': styles?.headerFontFamily,
-    '--table-header-font-size': formatNumber(styles?.headerFontSize),
-    '--table-header-icon-height': formatNumber(styles?.headerIconHeight),
-    '--table-font-size': formatNumber(styles?.fontSize),
-    '--table-font-family': styles?.fontFamily,
-    '--table-border-color': styles?.borderColor,
-    '--table-alt-row-bg': styles?.altRowBackground,
-    '--table-row-hover-bg': styles?.hoverRowBackground,
-  })
-
   return (
     <TableContext.Provider value={{ state, dispatch } as any}>
       <div
         className={cn([
           'mkui-smart-table',
           classNames?.root,
-          styles?.stickyHeader ? 'sticky-header' : undefined,
-          styles?.altRowBackground ? 'alt-row' : undefined,
+          styles?.header?.sticky ? 'sticky-header' : undefined,
+          styles?.row?.altBackground ? 'alt-row' : undefined,
           onRowClick !== undefined ? 'row-select' : undefined,
         ])}
         style={variables}>
@@ -209,16 +195,22 @@ export const SmartTable = <T extends { id: string | number }>(
             toolbar,
           }}
         />
-        {state.loading ? (
-          <div className={cn(['mkui-table-loading', classNames?.loadScreen])}>
-            {settings?.loadingIndicator}
-          </div>
-        ) : (
-          <div className={cn(['mkui-table-wrapper', classNames?.tableWrapper])}>
-            <table className={classNames?.table}>
-              <TableHeader {...{ settings, styles, columns, classNames }} />
-              <tbody>
-                {paginatedData.map((item) => (
+        <div className={cn(['mkui-table-wrapper', classNames?.tableWrapper])}>
+          <table className={classNames?.table}>
+            <TableHeader {...{ settings, styles, columns, classNames }} />
+            <tbody>
+              {state.loading ? (
+                <tr
+                  className={cn([
+                    'mkui-table-loading',
+                    classNames?.loadScreen,
+                  ])}>
+                  <td colSpan={columns.length} style={{ padding: 20 }}>
+                    {settings?.loadingIndicator}
+                  </td>
+                </tr>
+              ) : (
+                paginatedData.map((item) => (
                   <TableRow
                     {...{
                       key: item.id,
@@ -231,11 +223,11 @@ export const SmartTable = <T extends { id: string | number }>(
                       classNames,
                     }}
                   />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
         {settings.pagination && (
           <TablePagination
             {...{
