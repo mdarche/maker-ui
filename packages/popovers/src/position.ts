@@ -1,17 +1,4 @@
-import { Offset } from './Popover'
-
-export interface Position {
-  x: 'left' | 'center' | 'right' | 'origin'
-  y: 'top' | 'center' | 'bottom'
-}
-
-export type TransitionType =
-  | 'fade'
-  | 'fade-down'
-  | 'fade-up'
-  | 'fade-left'
-  | 'fade-right'
-  | 'none'
+import type { Position, Offset } from '@/types'
 
 /**
  * Utility for parsing transition strings and setting positive or negative value

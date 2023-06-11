@@ -34,10 +34,17 @@ export default function PopoverPage() {
       />
       <div>Count is {count}</div>
       <div style={{ height: 200 }} />
-      <Tooltip label="Hover or Focus on me">
+      <Tooltip
+        label="Hover or Focus on me"
+        offset={30}
+        position="right"
+        styles={{
+          tooltip: { color: '#fff', background: '#000', padding: 20 },
+          button: { background: 'red', color: '#fff' },
+        }}>
         <div>Info!</div>
       </Tooltip>
-      {/* <button ref={ref} onClick={(e) => set(!show)} style={{ marginRight: 10 }}>
+      <button ref={ref} onClick={(e) => set(!show)} style={{ marginRight: 10 }}>
         Popover toggle
       </button>
       <Popover
@@ -72,9 +79,19 @@ export default function PopoverPage() {
             </li>
           </ul>
         </div>
-      </Popover> */}
+      </Popover>
       <div style={{ height: 20 }} />
-      <Dropdown button="Dropdown" trapFocus>
+      <Dropdown
+        button="Dropdown"
+        transition="fade-down"
+        trapFocus
+        styles={{
+          dropdown: {
+            background: 'var(--color-background)',
+            border: '1px solid gray',
+            padding: 30,
+          },
+        }}>
         <div>
           <ul>
             <li>

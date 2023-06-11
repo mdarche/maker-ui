@@ -8,68 +8,11 @@ import {
 } from '@maker-ui/hooks'
 import { Portal } from '@maker-ui/modal'
 import { Transition, type TransitionState } from '@maker-ui/transition'
-import { type MakerCSS, Style } from '@maker-ui/style'
+import { Style } from '@maker-ui/style'
 
-import { getTransition, Position, TransitionType } from './position'
-
-export type Offset = { x: number; y: number } | number
-
-export interface PopoverProps
-  extends MakerCSS,
-    React.HTMLAttributes<HTMLDivElement> {
-  /** A boolean that indicates if the popover is active. */
-  show: boolean
-  /** A setter for the show boolean that lets the popover close itself. */
-  set?: React.Dispatch<React.SetStateAction<boolean>>
-  /** A React ref that is used to anchor the position of the Popover. */
-  anchorRef: React.RefObject<HTMLElement>
-  /** If true, the Popover will match the width of the anchorRef element. Useful for
-   * dropdown menus.
-   */
-  matchWidth?: boolean
-  /** The {x, y} position of the popover.
-   * @default { x: "origin", y: "bottom" }
-   */
-  position?: Position
-  /** The amount of space (in pixels) between the popover and its anchor element.
-   * @default 0
-   */
-  offset?: Offset
-  /** An optional ID selector or React ref that the popover will attach to. Defaults to
-   * the document body.
-   * @default 0
-   */
-  appendTo?: string | Element | null
-  /** If true, the Popover will prevent keyboard focus from exiting the component.*/
-  trapFocus?: boolean
-  /** If true, the Popover will close when keyboard focus leaves the component.
-   * @default true
-   */
-  closeOnBlur?: boolean
-  /** Predefined transition styles that you can use to toggle the Popover.
-   * @default "fade"
-   */
-  transition?: TransitionType
-  /** Lets you customize the different states of the mount / unmount transition instead of using
-   * the `transition` prop.
-   * @example
-   * const transitions: {
-   *   start: { opacity: 0 },
-   *   entering: { opacity: 1 },
-   *   entered: { opacity: 1 },
-   *   exiting: { opacity: 0 },
-   *   exited: { opacity: 0 },
-   * }
-   */
-  transitionState?: TransitionState
-  /** Animation duration in milliseconds
-   * @default 200
-   */
-  duration?: number
-  /** @internal */
-  /** The child component of the Popover */
-  children: React.ReactNode
-}
+import { getTransition } from '../position'
+import type { PopoverProps } from '@/types'
+import { cssVariables } from '../variables'
 
 /**
  * The `Popover` component lets you add supplemental views like a Tooltip or Dropdown
@@ -80,7 +23,6 @@ export interface PopoverProps
  *
  * @link https://maker-ui.com/docs/elements/popovers
  */
-
 export const Popover = ({
   show,
   set,
@@ -99,6 +41,7 @@ export const Popover = ({
   mediaQuery,
   duration = 200,
   transitionState,
+  styles,
   children,
   ...rest
 }: PopoverProps) => {
@@ -123,6 +66,11 @@ export const Popover = ({
     },
     measured: false,
     isMeasuring: true,
+  })
+  const variables = cssVariables({
+    tooltip: styles?.tooltip,
+    dropdown: styles?.dropdown,
+    popover: styles?.popover,
   })
 
   // Trap focus and handle keyboard esc key
@@ -282,6 +230,7 @@ export const Popover = ({
             'absolute',
           ]),
           style: {
+            ...(variables || {}),
             ...getPosition(),
             width: matchWidth ? state.popover.width : undefined,
             visibility: !state.popover.height ? 'hidden' : undefined,

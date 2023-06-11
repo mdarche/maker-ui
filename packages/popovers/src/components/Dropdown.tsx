@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { cn, generateId } from '@maker-ui/utils'
 import { Style } from '@maker-ui/style'
 
-import { Popover, PopoverProps } from './Popover'
+import { Popover } from './Popover'
+import type { PopoverProps } from '@/types'
+import { cssVariables } from '../variables'
 
 interface DropdownProps
   extends Omit<PopoverProps, 'show' | 'set' | 'anchorRef'> {
@@ -40,6 +42,7 @@ export const Dropdown = ({
   classNames,
   controls,
   css,
+  styles,
   children,
   ...props
 }: DropdownProps) => {
@@ -47,6 +50,7 @@ export const Dropdown = ({
   const [show, set] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const variables = cssVariables({ button: styles?.button }, 'dropdown')
 
   const attrs = {
     ref: buttonRef,
@@ -89,6 +93,7 @@ export const Dropdown = ({
         className,
         classNames?.container,
       ])}
+      style={{ ...(variables || {}), ...(props?.style || {}) }}
       {...props}>
       {typeof button === 'function' ? (
         button(controls ? controls[0] : show, attrs)
@@ -104,11 +109,12 @@ export const Dropdown = ({
             role: 'listbox',
             appendTo: dropdownRef.current,
             anchorRef: buttonRef,
-            className: classNames?.dropdown,
+            className: cn(['mkui-dropdown', classNames?.dropdown]),
             matchWidth,
             trapFocus,
             closeOnBlur,
             transition,
+            styles,
           }}>
           {children}
         </Popover>

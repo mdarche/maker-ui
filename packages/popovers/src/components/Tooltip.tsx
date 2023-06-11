@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react'
-import { cn, generateId, merge } from '@maker-ui/utils'
-import { Style, type ResponsiveCSS } from '@maker-ui/style'
+import { cn, generateId } from '@maker-ui/utils'
 
-import { Popover, PopoverProps } from './Popover'
-import { getPosition } from './position'
+import { Popover } from './Popover'
+import type { PopoverProps } from '@/types'
+import { getPosition } from '../position'
+import { cssVariables } from '../variables'
 
 interface TooltipProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'color'>,
@@ -23,12 +24,6 @@ interface TooltipProps
    * @default "bottom"
    */
   position?: 'top' | 'bottom' | 'left' | 'right'
-  /** Responsive CSS that is applied to the Tooltip button. */
-  cssButton?: ResponsiveCSS
-  /** The Tooltip background color */
-  background?: string
-  /** The Tooltip text color */
-  color?: string
 }
 
 /**
@@ -45,10 +40,8 @@ export const Tooltip = ({
   position = 'bottom',
   offset = 5,
   css,
-  cssButton = {},
   transition = 'fade',
-  background = 'rgba(0,0,0,0.9)',
-  color = '#fff',
+  styles,
   children,
   ...props
 }: TooltipProps) => {
@@ -56,14 +49,15 @@ export const Tooltip = ({
   const [show, set] = useState(false)
   const ref = useRef<HTMLButtonElement>(null)
   const pos = getPosition(position, offset)
+  const variables = cssVariables({ button: styles?.button }, 'tooltip')
 
   return (
     <div
       className={cn(['mkui-tooltip-wrapper inline-flex', classNames?.wrapper])}
       onMouseOver={() => set(true)}
       onMouseOut={() => set(false)}
+      style={{ ...(variables || {}), ...(props?.style || {}) }}
       {...props}>
-      {<Style root={styleId} css={cssButton} />}
       <button
         ref={ref}
         className={cn(['mkui-btn-tooltip', classNames?.button, styleId])}
@@ -85,7 +79,8 @@ export const Tooltip = ({
           transition,
           show,
           set,
-          css: merge({ background, color }, css || {}),
+          css,
+          styles,
         }}>
         {children}
       </Popover>

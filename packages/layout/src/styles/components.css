@@ -13,7 +13,7 @@
 .mkui-accordion-btn.active {
   color: var(--accordion-btn-color-active, var(--color-text));
   background: var(--accordion-btn-bg-active, var(--accordion-btn-bg));
-  border: var(--accordion-btn-border-active);
+  border: var(--accordion-btn-border-active, var(--accordion-btn-border));
 }
 
 .mkui-accordion-btn.active svg {
@@ -67,7 +67,7 @@
 .mkui-tab-btn.active {
   color: var(--tab-btn-color-active, var(--color-text));
   background: var(--tab-btn-bg-active, var(--tab-btn-bg));
-  border: var(--tab-btn-border-active);
+  border: var(--tab-btn-border-active, var(--tab-btn-border));
 }
 
 /* Remove the default focus outline for the tab container */
@@ -82,4 +82,61 @@
 
 /* Popovers */
 
-/* Modal */
+.mkui-btn-dropdown {
+  position: relative;
+  border: var(--dropdown-btn-border);
+  background: var(--dropdown-btn-bg);
+  color: var(--dropdown-btn-color);
+  font-family: var(--dropdown-btn-font-family);
+  font-size: var(--dropdown-btn-font-size);
+  padding: var(--dropdown-btn-padding);
+  cursor: pointer;
+}
+
+.mkui-btn-dropdown:hover {
+  background: var(--dropdown-btn-bg-hover, var(--dropdown-btn-bg));
+  color: var(--dropdown-btn-color-hover, var(--dropdown-btn-color));
+}
+
+.mkui-btn-tooltip {
+  position: relative;
+  border: var(--tooltip-btn-border);
+  background: var(--tooltip-btn-bg);
+  color: var(--tooltip-btn-color);
+  font-family: var(--tooltip-btn-font-family);
+  font-size: var(--tooltip-btn-font-size);
+  padding: var(--tooltip-btn-padding);
+  cursor: pointer;
+}
+
+.mkui-btn-tooltip:hover {
+  background: var(--tooltip-btn-bg-hover, var(--tooltip-btn-bg));
+  color: var(--tooltip-btn-color-hover, var(--tooltip-btn-color));
+}
+
+.mkui-popover {
+  padding: var(--popover-padding);
+  font-size: var(--popover-font-size);
+  font-family: var(--popover-font-family);
+  background: var(--popover-bg);
+  border: var(--popover-border);
+  color: var(--popover-color);
+}
+
+.mkui-tooltip {
+  padding: var(--tooltip-padding);
+  font-size: var(--tooltip-font-size);
+  font-family: var(--tooltip-font-family);
+  background: var(--tooltip-bg);
+  border: var(--tooltip-border);
+  color: var(--tooltip-color);
+}
+
+.mkui-dropdown {
+  padding: var(--dropdown-padding);
+  font-size: var(--dropdown-font-size);
+  font-family: var(--dropdown-font-family);
+  background: var(--dropdown-bg);
+  border: var(--dropdown-border);
+  color: var(--dropdown-color);
+}
