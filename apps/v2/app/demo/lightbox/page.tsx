@@ -34,7 +34,7 @@ export default function LightboxPage() {
         Focus Ref
       </button>
       {/* Test with Clickable lightbox items */}
-      <Lightbox focusRef={ref}>
+      <Lightbox focusRef={ref} settings={{ disableHideControls: true }}>
         <Lightbox.Link src={CosmosImage} alt="cosmos">
           <div style={{ position: 'relative', height: 300 }}>
             <Image
@@ -50,7 +50,8 @@ export default function LightboxPage() {
         </Lightbox.Link>
         <Lightbox.Link
           title="Hilarious stuff"
-          src="https://picsum.photos/id/214/2000/1500">
+          src="https://picsum.photos/id/214/2000/1500"
+          nextImage={false}>
           <div>Test!!</div>
         </Lightbox.Link>
         <Lightbox.Link title="Youtube video" youtubeId="4DTy32jdjP0">

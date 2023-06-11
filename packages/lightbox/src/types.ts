@@ -29,6 +29,10 @@ export interface LightboxItem {
   poster?: string
   /** The React component to render for the media content. */
   component?: React.ReactNode
+  /** Instructs the library to render the image as a Nextjs image vs a regular HTML image.
+   * This value defaults to the LightboxSettings for `nextImage` if not specified.
+   */
+  nextImage?: boolean
 }
 
 export interface LightboxSettings {
@@ -100,9 +104,9 @@ export interface LightboxStyles {
   }
   pagination?: {
     color?: string
-    background?: string
     fontSize?: string | number
     fontFamily?: string
+    padding: string | number
   }
   arrow?: {
     background?: string
@@ -111,5 +115,13 @@ export interface LightboxStyles {
     height?: string | number
     border?: string
     padding?: string | number
+  }
+  preview?: {
+    background?: string
+    iconFill?: string
+    iconHeight?: string | number
+    imageHeight?: string | number
+    imageWidth?: string | number
+    gap?: string | number
   }
 }

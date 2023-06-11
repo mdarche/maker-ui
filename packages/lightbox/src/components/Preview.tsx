@@ -5,6 +5,7 @@ import type { StaticImageData } from 'next/image'
 import { useLightbox } from './Provider'
 import type { LightboxItem } from '@/types'
 import Image from 'next/image'
+import { PlayIcon } from './Icons'
 
 interface PreviewProps {
   show?: boolean
@@ -46,6 +47,7 @@ export const Preview = ({ show }: PreviewProps) => {
     <div ref={ref} className={cn(['mkui-lbx-preview', show ? 'active ' : ''])}>
       {data?.map((item: LightboxItem, i: number) => {
         const isImage = isStaticImageData(item.src)
+        const isVideo = item.youtubeId || item.vimeoId || item.htmlVideo
         return (
           <button
             key={i}
@@ -53,7 +55,7 @@ export const Preview = ({ show }: PreviewProps) => {
             onClick={() => handleClick(i)}
             style={isImage ? undefined : getBackground(item)}
             className={cn([
-              'mkui-lbx-btn-item relative',
+              'mkui-lbx-btn-item relative flex align-center justify-center',
               i === index ? 'active' : undefined,
             ])}>
             {isImage && item.src ? (
@@ -65,6 +67,8 @@ export const Preview = ({ show }: PreviewProps) => {
                 style={{ objectFit: 'cover' }}
                 sizes="150px"
               />
+            ) : isVideo ? (
+              <PlayIcon />
             ) : null}
           </button>
         )

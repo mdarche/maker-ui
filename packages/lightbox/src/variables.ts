@@ -19,7 +19,14 @@ export const cssVariables = (styles?: LightboxStyles) =>
     '--lbx-arrow-padding': formatNumber(styles?.arrow?.padding),
     // Pagination
     '--lbx-pagination-color': styles?.pagination?.color,
-    '--lbx-pagination-bg': styles?.pagination?.background,
     '--lbx-pagination-font-size': formatNumber(styles?.pagination?.fontSize),
     '--lbx-pagination-font-family': styles?.pagination?.fontFamily,
+    '--lbx-pagination-padding': formatNumber(styles?.pagination?.padding),
+    // Preview
+    '--lbx-preview-bg': styles?.preview?.background,
+    '--lbx-preview-fill': styles?.preview?.iconFill,
+    '--lbx-preview-icon-height': formatNumber(styles?.preview?.iconHeight),
+    '--lbx-preview-image-height': formatNumber(styles?.preview?.imageHeight),
+    '--lbx-preview-image-width': formatNumber(styles?.preview?.imageWidth),
+    '--lbx-preview-gap': formatNumber(styles?.preview?.gap),
   })

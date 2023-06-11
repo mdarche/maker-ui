@@ -32,6 +32,7 @@ export const LightboxLink = React.forwardRef<
       poster,
       trigger = false,
       component = false,
+      nextImage,
       ...props
     },
     ref
@@ -51,6 +52,7 @@ export const LightboxLink = React.forwardRef<
       youtubeId,
       vimeoId,
       poster,
+      nextImage,
       component: isComponent ? children : undefined,
     }
 

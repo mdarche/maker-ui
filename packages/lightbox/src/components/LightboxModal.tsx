@@ -9,8 +9,8 @@ import { Toolbar } from './Toolbar'
 import { Preview } from './Preview'
 import { useLightbox } from './Provider'
 import { MediaFrame } from './MediaFrame'
-import { LightboxStyles } from '@/types'
 import { cssVariables } from '../variables'
+import type { LightboxStyles } from '@/types'
 
 interface LightboxModalProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -214,8 +214,13 @@ export const LightboxModal = ({
             />
             <MediaFrame
               index={index}
-              item={item}
-              nextImage={settings.nextImage}
+              item={{
+                ...item,
+                nextImage:
+                  item?.nextImage !== undefined
+                    ? Boolean(item.nextImage)
+                    : Boolean(settings?.nextImage),
+              }}
             />
             {settings.showInfo && item.title && (
               <div className="mkui-lbx-info">

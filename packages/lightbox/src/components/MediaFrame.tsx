@@ -8,7 +8,6 @@ const vimeoRoot = 'https://player.vimeo.com/video/'
 interface MediaFrameProps {
   index: number
   item: LightboxItem
-  nextImage?: boolean
 }
 
 /**
@@ -19,8 +18,17 @@ interface MediaFrameProps {
  */
 export const MediaFrame = ({
   index,
-  nextImage,
-  item: { src, blur, alt, youtubeId, vimeoId, htmlVideo, poster, component },
+  item: {
+    src,
+    blur,
+    alt,
+    youtubeId,
+    vimeoId,
+    htmlVideo,
+    poster,
+    component,
+    nextImage,
+  },
 }: MediaFrameProps) => {
   const [show, set] = React.useState(false)
 
@@ -47,7 +55,7 @@ export const MediaFrame = ({
         controls
         poster={poster ? poster : undefined}
         className="mkui-lbx-media">
-        <source src={src} type={`video/mp4`} />
+        <source src={src} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     )

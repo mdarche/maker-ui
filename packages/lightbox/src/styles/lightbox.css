@@ -55,9 +55,10 @@
 }
 
 .mkui-lbx-pagination {
-  color: #fff;
-  font-size: 14px;
-  padding: 14px 20px;
+  color: var(--lbx-toolbar-color, #fff);
+  font-size: var(--lbx-pagination-font-size, 14px);
+  font-family: var(--lbx-toolbar-font-family, inherit);
+  padding: var(--lbx-pagination-padding, 14px 20px);
 }
 
 .mkui-lbx-btn {
@@ -79,7 +80,7 @@
 .mkui-lbx-btn:active svg {
   fill: var(--lbx-toolbar-fill-active, #fff);
 }
-.mkui-lbx-btn:focus {
+.mkui-lbx-btn:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.35);
 }
 .mkui-lbx-btn svg {
@@ -122,8 +123,8 @@
 .mkui-lbx-btn-nav:hover {
   background: var(--lbx-arrow-bg-active, rgba(0, 0, 0, 0.66));
 }
-.mkui-lbx-btn-item:focus,
-.mkui-lbx-btn-nav:focus {
+.mkui-lbx-btn-item:focus-visible,
+.mkui-lbx-btn-nav:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.35);
 }
 
@@ -132,10 +133,13 @@
 .mkui-lbx-preview {
   display: grid;
   position: fixed;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--lbx-preview-image-width, 100px), 1fr)
+  );
+  gap: var(--lbx-preview-gap, 20px);
   padding: 20px;
-  background: rgba(0, 0, 0, 0.66);
+  background: var(--lbx-preview-bg, rgba(0, 0, 0, 0.66));
   bottom: 0;
   left: 0;
   right: 0;
@@ -145,9 +149,15 @@
   opacity: 0;
   visibility: hidden;
   will-change: opacity, transform;
-  transition: all ease 0.3s;
+  transition: all ease 0.2s;
   z-index: 100;
 }
+
+.mkui-lbx-preview .icon-play {
+  fill: var(--lbx-preview-fill, #fff);
+  height: var(--lbx-preview-height, 26px);
+}
+
 .mkui-lbx-preview.active {
   transform: translateY(0);
   visibility: visible;
@@ -155,7 +165,7 @@
 }
 .mkui-lbx-btn-item {
   cursor: pointer;
-  height: 80px;
+  height: var(--lbx-preview-image-height, 80px);
   border: none;
   outline: none;
   background-repeat: no-repeat;
