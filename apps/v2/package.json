@@ -20,7 +20,6 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "eslint-config-app": "workspace:*",
-    "typescript": "^4.8.4"
+    "eslint-config-next-app": "workspace:*"
   }
 }

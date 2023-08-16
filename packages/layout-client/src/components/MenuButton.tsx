@@ -82,7 +82,12 @@ export const MenuButton = ({
       : {}
 
   function toggleSideNav() {
-    if (windowWidth && windowWidth > sideNav.breakpoint && sideNav.collapse) {
+    if (
+      windowWidth &&
+      typeof sideNav.breakpoint === 'number' &&
+      windowWidth > sideNav.breakpoint &&
+      sideNav.collapse
+    ) {
       setMenu(!active.sideNavDesktop, 'side-nav-desktop')
     } else {
       setMenu(!active.sideNavMobile, 'side-nav-mobile')

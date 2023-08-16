@@ -11,7 +11,7 @@ export interface BuildSettings extends Options {
 
 const defaults: BuildSettings = {
   entry: ['src/index.ts'],
-  format: ['esm'],
+  format: ['esm', 'cjs'],
   external: ['react'],
   dts: true,
   clean: false,

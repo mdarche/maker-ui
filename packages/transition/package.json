@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@maker-ui/build-tools": "workspace:*",
-    "@types/react-transition-group": "^4.4.5",
+    "@types/react-transition-group": "^4.4.6",
     "eslint-config-library": "workspace:*",
     "tsconfig": "workspace:*"
   }

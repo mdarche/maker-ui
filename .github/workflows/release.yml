@@ -29,8 +29,11 @@ jobs:
       - name: setup pnpm config
         run: pnpm config set store-dir $PNPM_CACHE_FOLDER
 
-      - name: Install Dependencies and Build Packages
+      - name: Install Dependencies
         run: pnpm install
+
+      - name: Build Packages
+        run: pnpm build
 
       - name: Create Release PR or Publish to npm
         uses: changesets/action@master
