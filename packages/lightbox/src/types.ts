@@ -1,7 +1,6 @@
 import { ModalProps } from '@maker-ui/modal'
 import { SpinnerProps } from '@maker-ui/spinners'
 import { MakerCSS } from '@maker-ui/style'
-import type { StaticImageData } from 'next/image'
 
 /**
  * Interface for data passed to a lightbox component to display media content.
@@ -10,7 +9,7 @@ export interface LightboxItem {
   /** The ID of the media content. */
   id?: string
   /** The source URL of the media content. */
-  src?: string | StaticImageData
+  src?: string | React.ReactElement
   /** A blur image URL for Next Image, if applicable */
   blur?: string
   /** The alternative text description of the media content. */
@@ -29,10 +28,6 @@ export interface LightboxItem {
   poster?: string
   /** The React component to render for the media content. */
   component?: React.ReactNode
-  /** Instructs the library to render the image as a Nextjs image vs a regular HTML image.
-   * This value defaults to the LightboxSettings for `nextImage` if not specified.
-   */
-  nextImage?: boolean
 }
 
 export interface LightboxSettings {

@@ -212,16 +212,7 @@ export const LightboxModal = ({
               type={settings.spinnerType}
               colors="#fff"
             />
-            <MediaFrame
-              index={index}
-              item={{
-                ...item,
-                nextImage:
-                  item?.nextImage !== undefined
-                    ? Boolean(item.nextImage)
-                    : Boolean(settings?.nextImage),
-              }}
-            />
+            <MediaFrame index={index} item={item} />
             {settings.showInfo && item.title && (
               <div className="mkui-lbx-info">
                 <h4>{item.title}</h4>

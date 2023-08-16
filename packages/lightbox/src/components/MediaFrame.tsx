@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Image from 'next/image'
 import type { LightboxItem } from '@/types'
 
 const youtubeRoot = 'https://youtube.com/embed/'
@@ -18,17 +17,7 @@ interface MediaFrameProps {
  */
 export const MediaFrame = ({
   index,
-  item: {
-    src,
-    blur,
-    alt,
-    youtubeId,
-    vimeoId,
-    htmlVideo,
-    poster,
-    component,
-    nextImage,
-  },
+  item: { src, blur, alt, youtubeId, vimeoId, htmlVideo, poster, component },
 }: MediaFrameProps) => {
   const [show, set] = React.useState(false)
 
@@ -62,17 +51,8 @@ export const MediaFrame = ({
   }
 
   if (src) {
-    return nextImage ? (
-      <div className="mkui-lbx-media mkui-lbx-next-image">
-        <Image
-          fill
-          src={src}
-          blurDataURL={blur ? blur : undefined}
-          alt={alt || 'lightbox image'}
-          style={{ objectFit: 'contain' }}
-          sizes="(max-width: 768px) 100vw, 80vw"
-        />
-      </div>
+    return React.isValidElement(src) ? (
+      <div className="mkui-lbx-media mkui-lbx-next-image">{src}</div>
     ) : typeof src === 'string' ? (
       <img
         src={src}

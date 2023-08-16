@@ -28,6 +28,8 @@ export default function LightboxPage() {
   const [show, set] = useState(false)
   const ref = useRef(null)
 
+  console.log('cosmos image is', CosmosImage)
+
   return (
     <Section css={{ '.test-btn': { color: 'red' } }}>
       <button ref={ref} onClick={(e) => set(true)}>
@@ -35,7 +37,17 @@ export default function LightboxPage() {
       </button>
       {/* Test with Clickable lightbox items */}
       <Lightbox focusRef={ref} settings={{ disableHideControls: true }}>
-        <Lightbox.Link src={CosmosImage} alt="cosmos">
+        <Lightbox.Link
+          src={
+            <Image
+              fill
+              src={CosmosImage}
+              placeholder="blur"
+              alt="cosmos"
+              style={{ objectFit: 'cover' }}
+            />
+          }
+          alt="cosmos">
           <div style={{ position: 'relative', height: 300 }}>
             <Image
               fill
@@ -43,15 +55,12 @@ export default function LightboxPage() {
               placeholder="blur"
               alt="cosmos"
               style={{ objectFit: 'cover' }}
-              // objectFit="cover"
-              // layout="fill"
             />
           </div>
         </Lightbox.Link>
         <Lightbox.Link
           title="Hilarious stuff"
-          src="https://picsum.photos/id/214/2000/1500"
-          nextImage={false}>
+          src="https://picsum.photos/id/214/2000/1500">
           <div>Test!!</div>
         </Lightbox.Link>
         <Lightbox.Link title="Youtube video" youtubeId="4DTy32jdjP0">
@@ -62,10 +71,10 @@ export default function LightboxPage() {
         </Lightbox.Link>
       </Lightbox>
       {/* Test with data array */}
-      {/* <button className="test-btn" onClick={() => set(true)}>
+      <button className="test-btn" onClick={() => set(true)}>
         Show lightbox 2
       </button>
-      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} /> */}
+      <Lightbox show={show} set={set} data={galleryData} focusRef={ref} />
     </Section>
   )
 }
