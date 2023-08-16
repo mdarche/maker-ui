@@ -4,7 +4,7 @@ import { Section } from 'maker-ui'
 import { Lightbox, type LightboxItem } from 'maker-ui/lightbox'
 import 'maker-ui/lightbox.css'
 
-import CosmosImage from '@/public/cosmos.jpeg'
+import CosmosImage from '@/images/cosmos.jpeg'
 import Image from 'next/image'
 
 const galleryData: LightboxItem[] = [

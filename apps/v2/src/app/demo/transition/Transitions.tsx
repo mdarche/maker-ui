@@ -13,7 +13,7 @@ export const Transitions = () => {
     <>
       <Section>
         <button onClick={() => set(!show)}>{show ? 'Hide' : 'Reveal'}</button>
-        <CSSTransition id="one" show={show}>
+        <CSSTransition show={show}>
           <div style={{ height: 400, background: 'gainsboro' }}>
             <h2>Regular CSS Transition</h2>
           </div>

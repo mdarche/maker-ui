@@ -187,8 +187,8 @@ export const MenuItem = React.memo(
                 {submenu &&
                   submenu.map((item, index) => (
                     <MenuItem
+                      key={index}
                       {...{
-                        key: index,
                         data: item,
                         caret,
                         expandButton,

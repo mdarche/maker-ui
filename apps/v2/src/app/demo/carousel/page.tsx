@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Carousel } from 'maker-ui/carousel'
 import 'maker-ui/carousel.css'
 
-import CosmosImage from '@/public/cosmos.jpeg'
+import CosmosImage from '@/images/cosmos.jpeg'
 import { useState } from 'react'
 
 export default function CarouselPage() {
@@ -15,21 +15,24 @@ export default function CarouselPage() {
     <Section style={{ maxWidth: '100vw', overflow: 'hidden' }}>
       <Carousel
         useArrowKeys
-        // overlay={
-        //   <div
-        //     style={{
-        //       position: 'absolute',
-        //       left: 20,
-        //       top: 100,
-        //       width: 500,
-        //       height: 200,
-        //       background: 'blue',
-        //     }}>
-        //     <button onClick={() => set(!show)}>
-        //       status {show ? 'active' : 'inactive'}
-        //     </button>
-        //   </div>
-        // }
+        overlay={
+          <div
+            className="flex flex-col align-center justify-center"
+            style={{
+              color: '#fff',
+              position: 'absolute',
+              left: 20,
+              top: 100,
+              width: 500,
+              height: '50%',
+              background: '#00000061',
+            }}>
+            <h2>Overlay</h2>
+            <button onClick={() => set(!show)}>
+              {show ? 'Active' : 'Inactive'}
+            </button>
+          </div>
+        }
         // navPosition="left"
         // hideArrows
         // hidePagination

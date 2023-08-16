@@ -49,9 +49,7 @@ export const MenuButton = ({
   ...props
 }: MenuButtonProps) => {
   const [styleId] = React.useState(generateId())
-  const {
-    options: { sideNav, mobileMenu, workspace },
-  } = useLayout()
+  const { options } = useLayout()
   const { width: windowWidth } = useWindowSize()
   const { active, setMenu } = useMenu()
 
@@ -59,7 +57,7 @@ export const MenuButton = ({
     type === 'side-nav'
       ? {
           'aria-expanded':
-            width && width > sideNav?.breakpoint
+            width && width > options?.sideNav?.breakpoint
               ? active.sideNavDesktop
               : active.sideNavMobile,
           onClick: toggleSideNav,
@@ -84,9 +82,9 @@ export const MenuButton = ({
   function toggleSideNav() {
     if (
       windowWidth &&
-      typeof sideNav.breakpoint === 'number' &&
-      windowWidth > sideNav.breakpoint &&
-      sideNav.collapse
+      typeof options?.sideNav.breakpoint === 'number' &&
+      windowWidth > options?.sideNav.breakpoint &&
+      options?.sideNav.collapse
     ) {
       setMenu(!active.sideNavDesktop, 'side-nav-desktop')
     } else {
@@ -101,10 +99,10 @@ export const MenuButton = ({
       `mkui-btn-${type}`,
       styleId,
       fixed ? 'fixed' : absolute ? 'absolute' : sticky ? 'sticky' : undefined,
-      type === 'side-nav' && !sideNav.showCollapseOnMobile
+      type === 'side-nav' && !options?.sideNav.showCollapseOnMobile
         ? 'mobile-hide'
         : undefined,
-      type === 'side-nav' && sideNav.collapse ? 'desktop' : undefined,
+      type === 'side-nav' && options?.sideNav.collapse ? 'desktop' : undefined,
       type === 'ws-left' && active['workspaceLeft'] ? 'active' : undefined,
       type === 'ws-right' && active['workspaceRight'] ? 'active' : undefined,
       className,
@@ -117,7 +115,7 @@ export const MenuButton = ({
   return renderProps ? (
     <>
       {renderProps(
-        type === 'side-nav' && sideNav.isPrimaryMobileNav
+        type === 'side-nav' && options?.sideNav.isPrimaryMobileNav
           ? active?.sideNavMobile
           : active?.mobileMenu,
         attributes

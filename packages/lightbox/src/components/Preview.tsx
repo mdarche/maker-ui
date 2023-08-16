@@ -58,7 +58,7 @@ export const Preview = ({ show }: PreviewProps) => {
               'mkui-lbx-btn-item relative flex align-center justify-center',
               i === index ? 'active' : undefined,
             ])}>
-            {isImage && item.src ? (
+            {/* {isImage && item.src ? (
               <Image
                 fill
                 src={item.src}
@@ -69,7 +69,7 @@ export const Preview = ({ show }: PreviewProps) => {
               />
             ) : isVideo ? (
               <PlayIcon />
-            ) : null}
+            ) : null} */}
           </button>
         )
       })}
