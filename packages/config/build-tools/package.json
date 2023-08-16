@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsup src/index.ts --minify --format esm,cjs --dts",
     "start": "tsup src/index.ts --watch --format esm,cjs --dts",
-    "lint": "TIMING=1 eslint src --fix",
+    "lint": "eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {

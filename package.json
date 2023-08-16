@@ -49,6 +49,7 @@
     "ts-jest": "^29.0.5",
     "tsconfig-paths": "^3.13.0",
     "tslib": "^2.6.0",
+    "tsup": "^7.1.0",
     "turbo": "latest",
     "typescript": "^5.1.6"
   },
