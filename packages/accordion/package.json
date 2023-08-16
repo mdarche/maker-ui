@@ -32,12 +32,7 @@
   },
   "devDependencies": {
     "@maker-ui/build-tools": "workspace:*",
-    "cypress": "^12.6.0",
     "eslint-config-library": "workspace:*",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tsconfig": "workspace:*",
-    "tsup": "^6.6.3",
-    "typescript": "^4.8.4"
+    "tsconfig": "workspace:*"
   }
 }

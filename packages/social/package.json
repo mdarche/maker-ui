@@ -34,10 +34,6 @@
     "@maker-ui/build-tools": "workspace:*",
     "@svgr/cli": "^6.2.1",
     "eslint-config-library": "workspace:*",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tsconfig": "workspace:*",
-    "tsup": "^6.6.3",
-    "typescript": "^4.8.4"
+    "tsconfig": "workspace:*"
   }
 }

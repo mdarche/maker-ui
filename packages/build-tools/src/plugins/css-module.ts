@@ -37,8 +37,8 @@ export const PluginCSSModule: (global: boolean) => Plugin = (g) => {
               },
               exportGlobals: true,
               generateScopedName: g
-                ? 'mkui-[local]'
-                : 'mkui-[local]-[hash:base64:5]',
+                ? 'ofx-[local]'
+                : 'ofx-[local]-[hash:base64:5]',
             }),
           ]).process(source, { from: pluginData.pathDir })
 

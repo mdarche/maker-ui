@@ -13,11 +13,11 @@
     "@maker-ui/toc": "workspace:*",
     "@next/bundle-analyzer": "^13.2.3",
     "maker-ui": "workspace:*",
-    "next": "^13.2.3",
+    "next": "^13.4.10",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
-    "sharp": "^0.31.3",
-    "zod": "^3.20.2"
+    "sharp": "^0.32.2",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "eslint-config-app": "workspace:*",

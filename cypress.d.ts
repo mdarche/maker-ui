@@ -1,8 +1,9 @@
+import { mount } from 'cypress/react18'
 export {}
 declare global {
   namespace Cypress {
     interface Chainable<Subject> {
-      // Add custom commands
+      mount: typeof mount
     }
   }
 }

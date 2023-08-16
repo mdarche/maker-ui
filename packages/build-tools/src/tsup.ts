@@ -29,10 +29,6 @@ export const buildConfig = (p?: BuildSettings): Options => {
 
   return {
     ...settings,
-    esbuildPlugins: [
-      PluginCSSModule(global || false),
-      // PluginCSSCombine,
-      // clientPlugin([]),
-    ],
+    esbuildPlugins: [PluginCSSModule(global || false)],
   }
 }
