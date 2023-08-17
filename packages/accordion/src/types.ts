@@ -63,7 +63,7 @@ export interface AccordionProps
    * @default false
    */
   showSingle?: boolean
-  /** If true or if you supply a configuration object, the accordion will add a
+  /** If true or if you supply a string, the accordion will add a
    * CSS transition to the accordion panel's height. NOTE: Animating height will force a repaint
    * that may affect your app's performance.
    * @default false

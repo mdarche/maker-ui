@@ -80,7 +80,7 @@ Accordion.Panel = AccordionPanel
 export function useAccordion() {
   const { state, setState } = useContext(AccordionContext)
 
-  if (typeof state === undefined) {
+  if (typeof state === 'undefined') {
     throw new Error(
       'Accordion.Panel must be used within an Accordion component'
     )

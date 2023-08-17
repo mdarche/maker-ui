@@ -2,11 +2,11 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "React Library",
   "extends": "./base.json",
-  "exclude": ["dist", "build", "node_modules"],
-  "include": ["types.d.ts"],
+  "exclude": ["dist", "build"],
   "compilerOptions": {
-    "lib": ["es2015", "dom"],
+    "lib": ["es2016", "dom"],
     "module": "esnext",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["jest", "cypress"]
   }
 }

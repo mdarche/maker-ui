@@ -22,6 +22,5 @@
     "resolveJsonModule": true,
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
-  "include": ["types.d.ts"],
   "exclude": ["node_modules"]
 }
