@@ -23,10 +23,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/components": ["./src/components"],
-      "@/context": ["src/components/context"],
+      "@/components": ["temp/components"],
+      "@/context": ["temp/components/context"],
       "@/images/*": ["public/images/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/styles/*": ["./src/styles/*"],
+      "@packages/*": ["../../packages/*"]
     }
   },
   "include": [

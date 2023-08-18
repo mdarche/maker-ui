@@ -13,7 +13,7 @@ import {
 
 import { options } from './options'
 import { menu } from './menus'
-import { styles } from '../../styles'
+import { styles } from '../../../src/styles'
 import { Search } from '../Search'
 import { Logo } from '../Logo'
 import { NavWidgets } from '../NavWidgets'

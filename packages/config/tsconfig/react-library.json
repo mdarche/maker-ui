@@ -4,9 +4,8 @@
   "extends": "./base.json",
   "exclude": ["dist", "build"],
   "compilerOptions": {
-    "lib": ["es2016", "dom"],
+    "lib": ["esnext", "dom"],
     "module": "esnext",
-    "jsx": "react-jsx",
-    "types": ["jest", "cypress"]
+    "jsx": "react-jsx"
   }
 }
