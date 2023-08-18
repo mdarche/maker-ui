@@ -1,7 +1,29 @@
 // Code blocks
 
+code {
+  padding: 80px 30px 30px;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
 pre > code {
   display: grid;
+}
+
+.mkui-code-util {
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+  .copy button {
+    border: none;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

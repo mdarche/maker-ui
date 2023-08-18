@@ -1,19 +1,43 @@
 # Accordion
 
-The Accordion is a client side component used to display a list of items that can be expanded or collapsed. You can use supply the Accordion with an external `activeKey` to control which item is expanded, or you can rely on the default expand / collapse button logic.
+The Accordion is a client side component used to display a list of items that can be expanded or collapsed. You can use supply the Accordion with an external `activeKey` to control which item is expanded, and you can also rely on its own internal expand / collapse state.
 
-This component can also animate the height of the panel when it is expanded or collapsed using the optional `animate` prop.
+This component can animate the height of the panel when it is expanded or collapsed using the optional `animate` prop.
 
 ## Installation
 
 ```sh
-pnpm install maker-ui
+npm install maker-ui
 ```
 
 ## Usage
 
 ```jsx
+'use client'
+
 import { Accordion } from 'maker-ui/accordion'
+
+export const Faqs = () => (
+  <Accordion>
+    <Accordion.Panel title="Panel 1">Content area 1</Accordion.Panel>
+    <Accordion.Panel title="Panel 2">Content area 2</Accordion.Panel>
+    <Accordion.Panel title="Panel 3">Content area 3</Accordion.Panel>
+  </Accordion>
+)
+```
+
+If you would like to use the accordion in a server component, you can also import the AccordionPanel component:
+
+```jsx
+import { Accordion, AccordionPanel } from 'maker-ui/accordion'
+
+export const Faqs = () => (
+  <Accordion>
+    <AccordionPanel title="Panel 1">Content area 1</AccordionPanel>
+    <AccordionPanel title="Panel 2">Content area 2</AccordionPanel>
+    <AccordionPanel title="Panel 3">Content area 3</AccordionPanel>
+  </Accordion>
+)
 ```
 
 ## Props
@@ -46,6 +70,8 @@ Extends all native `div` element props but also includes:
 | `eventKey` | `string`                         | A unique key that can toggle the panel open and close from an external component.                |
 
 ## Theme Variables
+
+You can set theme variables for the `Accordion` component by supplying an object to the `styles` prop, or you can set them directly via CSS variables in your stylesheet.
 
 | Variable Name                   | Prop (optional)                  | Description                   |
 | ------------------------------- | -------------------------------- | ----------------------------- |
