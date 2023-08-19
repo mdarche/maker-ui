@@ -11,9 +11,10 @@ export const menu: MenuItem[] = [
   //     </div>
   //   ),
   // },
+  {label: 'Layout API', path: '/ref/layout'},
   {
-    label: 'API Reference',
-    path: '/docs',
+    label: 'Components API',
+    path: '/ref/components',
     openNested: true,
     submenu: [
       { label: 'Accordion', path: '/docs/accordion' },

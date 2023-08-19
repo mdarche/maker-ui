@@ -1,3 +1,16 @@
-.mkui-mdx > div > h1 {
+.mkui-mdx > h1 {
   display: none;
+}
+
+.mdx-container {
+  max-width: var(--max-width-section);
+  margin: 0 auto;
+}
+
+.mdx-grid {
+  display: grid;
+  grid-template-columns: auto 300px;
+  margin: 0 auto;
+  gap: 40px;
+
 }

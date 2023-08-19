@@ -3,7 +3,7 @@
 code {
   padding: 60px 30px 30px;
   line-height: 1.6;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 pre {
@@ -47,42 +47,42 @@ pre > code {
 
 // Tables
 
-table {
-  width: 100%;
-  margin: 40px 0;
-  font-size: 0.9em;
-}
+// table {
+//   width: 100%;
+//   margin: 40px 0;
+//   font-size: 0.9em;
+// }
 
-thead {
-  background: var(--color-table_th_bg);
-  color: #fff;
-  padding: 20px;
-}
+// thead {
+//   background: var(--color-table_th_bg);
+//   color: #fff;
+//   padding: 20px;
+// }
 
-th {
-  padding: 6px 15px;
+// th {
+//   padding: 6px 15px;
 
-  // &:first-of-type' {
-  //   minWidth: [120, 140]
-  // }
-}
+//   // &:first-of-type' {
+//   //   minWidth: [120, 140]
+//   // }
+// }
 
-td {
-  padding: 10px;
+// td {
+//   padding: 10px;
 
-  @media screen and (min-width: 768px) {
-    padding: 12px 20px;
-  }
-}
+//   @media screen and (min-width: 768px) {
+//     padding: 12px 20px;
+//   }
+// }
 
-tbody tr:nth-of-type(even) {
-  background: var(--color-bg_code);
+// tbody tr:nth-of-type(even) {
+//   background: var(--color-bg_code);
 
-  code {
-    background: var(--color-background);
-  }
-}
+//   code {
+//     background: var(--color-background);
+//   }
+// }
 
-tr td:first-of-type {
-  font-weight: 700;
-}
+// tr td:first-of-type {
+//   font-weight: 700;
+// }

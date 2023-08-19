@@ -5,17 +5,13 @@ const basePath = path.resolve(__dirname, '../../../../../../../packages')
 
 export async function getFileSize(filePath: string): Promise<string | null> {
   try {
-    // Resolve the path if it's in a different directory
+    // Resolve the path
     const absolutePath = path.join(basePath, filePath)
     const file = path.resolve(absolutePath)
 
-    // Get file stats
+    // Get file stats & size
     const stats = await fs.stat(file)
-
-    // Size is in bytes
     const sizeInBytes = stats.size
-
-    // You can convert to other units if needed
     const sizeInKilobytes = sizeInBytes / 1024
 
     console.log(`File size: ${sizeInKilobytes.toFixed(2)} KB`)

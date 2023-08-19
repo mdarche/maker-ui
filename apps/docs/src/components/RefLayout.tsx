@@ -1,4 +1,5 @@
 import { Section } from 'maker-ui'
+import { PageContents } from './PageContents'
 
 interface RefLayoutProps {
   title: string
@@ -26,7 +27,12 @@ export const RefLayout = ({
         {isComponent && fileSize && <div>{fileSize} kb</div>}
       </div>
       </Section>
-      {readme && <Section className="mkui-mdx">{readme}</Section>}
+      <div className="mdx-container">
+      {readme && <div className="mdx-grid">
+        <div className="mkui-mdx">{readme}</div>
+        <PageContents />
+      </div>}
+      </div>
       {children}
     </div>
   )
