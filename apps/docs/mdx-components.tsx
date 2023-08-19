@@ -1,5 +1,5 @@
 import type { MDXComponents } from 'mdx/types'
-import { CodeBlock } from '@/app/CodeBlock'
+import { CodeBlock } from '@/components'
 // This file is required to use MDX in `app` directory.
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {

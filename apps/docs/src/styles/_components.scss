@@ -1,9 +1,13 @@
 // Code blocks
 
 code {
-  padding: 80px 30px 30px;
+  padding: 60px 30px 30px;
   line-height: 1.6;
   font-size: 15px;
+}
+
+pre {
+  border-radius: 4px;
 }
 
 pre > code {
@@ -14,8 +18,9 @@ pre > code {
   top: 0;
   left: 0;
   right: 0;
-  padding: 10px;
+  padding: 10px 20px;
   color: #fff;
+  font-size: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 
   .copy button {
@@ -38,4 +43,46 @@ pre > code {
   code[data-theme='dark'] {
     display: none;
   }
+}
+
+// Tables
+
+table {
+  width: 100%;
+  margin: 40px 0;
+  font-size: 0.9em;
+}
+
+thead {
+  background: var(--color-table_th_bg);
+  color: #fff;
+  padding: 20px;
+}
+
+th {
+  padding: 6px 15px;
+
+  // &:first-of-type' {
+  //   minWidth: [120, 140]
+  // }
+}
+
+td {
+  padding: 10px;
+
+  @media screen and (min-width: 768px) {
+    padding: 12px 20px;
+  }
+}
+
+tbody tr:nth-of-type(even) {
+  background: var(--color-bg_code);
+
+  code {
+    background: var(--color-background);
+  }
+}
+
+tr td:first-of-type {
+  font-weight: 700;
 }

@@ -1,12 +1,10 @@
-import { Layout } from 'maker-ui'
+import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
 import { ColorButton, Menu } from 'maker-ui/layout'
-import { Providers } from './providers'
 
 import 'maker-ui/layout.css'
 import '@/styles/styles.scss'
 
 import { menu } from './menu'
-import { options } from './options'
 
 export const metadata = {
   title: 'Maker UI',
@@ -20,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
+        <LayoutProvider options={options}>
           <Layout options={options}>
             <Layout.Header
               logo={{ icon: 'Logo', path: '/' }}
@@ -37,14 +35,43 @@ export default function RootLayout({
               menuButton={{
                 icon: 'Collapse',
                 fixed: true,
-                position: { bottom: 30, right: 30 },
+                position: { bottom: 30, left: 30 },
               }}>
               <Menu items={menu} />
             </Layout.SideNav>
-            <Layout.Footer>Footer stuff</Layout.Footer>
+            {/* <Layout.Footer>Footer stuff</Layout.Footer> */}
           </Layout>
-        </Providers>
+        </LayoutProvider>
       </body>
     </html>
   )
 }
+
+const options: MakerUIOptions = {
+  colorThemes: ['light', 'dark', 'system'],
+  layout: 'sidenav-content',
+  topbar: {
+    sticky: true,
+    stickyOnMobile: false,
+    hideOnMobile: false,
+  },
+  header: {
+    navType: 'basic',
+    navTypeMobile: 'logo-center',
+    sticky: true,
+    stickyOnMobile: true,
+  },
+  mobileMenu: {
+    transition: 'fade',
+    closeOnBlur: true,
+    closeOnRouteChange: true,
+  },
+  sideNav: {
+    isHeader: false,
+    collapse: true,
+    showCollapseOnMobile: true,
+    closeOnBlur: true,
+    closeOnRouteChange: true,
+  },
+}
+

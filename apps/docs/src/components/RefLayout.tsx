@@ -1,4 +1,6 @@
-interface PageLayoutProps {
+import { Section } from 'maker-ui'
+
+interface RefLayoutProps {
   title: string
   library: string
   isComponent?: boolean
@@ -7,22 +9,24 @@ interface PageLayoutProps {
   children: React.ReactNode
 }
 
-export const PageLayout = ({
+export const RefLayout = ({
   title,
   library,
   fileSize,
   readme,
   isComponent = true,
   children,
-}: PageLayoutProps) => {
+}: RefLayoutProps) => {
   return (
     <div className="mkui-docs-page">
+      <Section>
       <h1>{title}</h1>
       <div>
         <div>{library}</div>
         {isComponent && fileSize && <div>{fileSize} kb</div>}
       </div>
-      {readme && <div className="mkui-mdx">{readme}</div>}
+      </Section>
+      {readme && <Section className="mkui-mdx">{readme}</Section>}
       {children}
     </div>
   )
