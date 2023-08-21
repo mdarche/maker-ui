@@ -5,12 +5,50 @@
 .mdx-container {
   max-width: var(--max-width-section);
   margin: 0 auto;
+
+  h2,
+  h3 {
+    text-decoration: none;
+
+    &:hover .h-icon {
+      color: var(--color-primary);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    span {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    a {
+      color: var(--color-text);
+    }
+  }
+
+  h2::before,
+  h3::before {
+    content: '';
+    display: block;
+    height: calc(var(--height-header) + 20px);
+    margin-top: calc(-1 * calc((var(--height-header)) + 20px));
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .h-icon {
+    margin-left: 5px;
+    transition: opacity ease 0.3s;
+  }
 }
 
 .mdx-grid {
   display: grid;
-  grid-template-columns: auto 300px;
+  grid-template-columns: 1fr;
   margin: 0 auto;
   gap: 40px;
 
+  @media screen and (min-width: 768px) {
+    grid-template-columns: auto 300px;
+  }
 }

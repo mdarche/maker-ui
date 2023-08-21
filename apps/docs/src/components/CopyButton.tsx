@@ -33,3 +33,5 @@ export const CopyButton = () => {
     <button onClick={handleCopyClick}>{isCopied ? 'Copied' : 'Copy'}</button>
   )
 }
+
+CopyButton.diiplayName = 'CopyButton'

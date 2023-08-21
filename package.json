@@ -3,8 +3,8 @@
   "scripts": {
     "clean": "turbo run clean",
     "git-reset": "git reset --hard HEAD",
-    "docs:dev": "pnpm recursive run dev --filter docs",
-    "docs:build": "pnpm recursive run build --filter docs",
+    "docs:dev": "pnpm -F docs dev",
+    "docs:build": "pnpm -F docs build",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "start": "turbo run start --filter=maker-ui* --parallel --continue",

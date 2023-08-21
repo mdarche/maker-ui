@@ -17,3 +17,5 @@ export const CodeBlock = (props: CodeBlockProps) => {
     </div>
   )
 }
+
+CodeBlock.displayName = 'CodeBlock'

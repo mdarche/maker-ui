@@ -1,16 +1,15 @@
 import Link from 'next/link'
 
-interface DocsLinkProps {
-  children: React.ReactNode
-  href: string
+interface MDXLinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
+  href?: string
 }
 
-export const DocsLink = ({ children, href }: DocsLinkProps) => {
-  if (href.startsWith('/')) {
+export const MDXLink = ({ href, children }: MDXLinkProps) => {
+  if (href?.startsWith('/')) {
     return <Link href={href}>{children}</Link>
   }
 
-  const onPage = href.startsWith('#')
+  const onPage = href?.startsWith('#')
 
   const attributes = !onPage
     ? {

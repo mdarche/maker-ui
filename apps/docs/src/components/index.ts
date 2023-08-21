@@ -1,2 +1,6 @@
 export { RefLayout } from './RefLayout'
 export { CodeBlock } from './CodeBlock'
+export { Heading } from './Heading'
+export { Callout } from './Callout'
+export { MDXLink } from './MDXLink'
+export * from './Icons'

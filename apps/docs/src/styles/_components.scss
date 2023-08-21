@@ -45,6 +45,71 @@ pre > code {
   }
 }
 
+// Page Contents
+
+.page-contents {
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
+}
+
+.page-contents-inner {
+  position: sticky;
+  top: calc(var(--height-header) + 30px);
+
+  .active {
+    font-weight: 700;
+  }
+}
+
+// Doc Search
+
+.doc-search {
+  button {
+    height: 46px;
+    margin: 5px 0 5px 150px;
+    width: 280px;
+    background: var(--color-bg_sideNav);
+    border: 1px solid var(--color-border_dark);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    color: var(--color-muted);
+    font-weight: 400;
+    padding: 0 15px;
+    transition: all ease 0.3s;
+
+    svg {
+      height: 22px;
+      fill: var(--color-header_fill);
+      margin-right: 10px;
+    }
+  }
+}
+
+.DocSearch-Button-Key {
+  border: 1px solid var(--color-border_dark);
+  height: 28px;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 13px;
+  background: var(--color-bg_header);
+  box-shadow: none;
+  padding: 0;
+}
+
+.DocSearch-Button-Keys,
+.DocSearch-Button-Placeholder {
+  display: none;
+}
+
 // Tables
 
 // table {

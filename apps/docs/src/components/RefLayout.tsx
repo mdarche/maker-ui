@@ -21,19 +21,23 @@ export const RefLayout = ({
   return (
     <div className="mkui-docs-page">
       <Section>
-      <h1>{title}</h1>
-      <div>
-        <div>{library}</div>
-        {isComponent && fileSize && <div>{fileSize} kb</div>}
-      </div>
+        <h1>{title}</h1>
+        <div>
+          <div>{library}</div>
+          {isComponent && fileSize && <div>{fileSize} kb</div>}
+        </div>
       </Section>
       <div className="mdx-container">
-      {readme && <div className="mdx-grid">
-        <div className="mkui-mdx">{readme}</div>
-        <PageContents />
-      </div>}
+        {readme && (
+          <div className="mdx-grid">
+            <div className="mkui-mdx">{readme}</div>
+            <PageContents />
+          </div>
+        )}
       </div>
       {children}
     </div>
   )
 }
+
+RefLayout.displayName = 'RefLayout'

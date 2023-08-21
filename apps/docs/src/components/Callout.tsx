@@ -1,4 +1,4 @@
-import { cn } from 'maker-ui'
+import { cn } from 'maker-ui/utils'
 
 interface CalloutProps {
   type: 'alert' | 'info' | 'suggestion'
