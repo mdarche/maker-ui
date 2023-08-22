@@ -1,13 +1,17 @@
 // Code blocks
 
 code {
-  padding: 60px 30px 30px;
-  line-height: 1.6;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 pre {
   border-radius: 4px;
+
+  code {
+    padding: 60px 30px 30px;
+    line-height: 1.6;
+    font-size: 14px;
+  }
 }
 
 pre > code {

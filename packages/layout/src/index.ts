@@ -15,10 +15,10 @@ export {
   MenuButton,
   Menu,
   LayoutProvider,
+  Div,
   useColorTheme,
   useMenu,
   useLayout,
-  Div,
 } from '@maker-ui/layout-client'
 
 /* Export standalone Server components and types */

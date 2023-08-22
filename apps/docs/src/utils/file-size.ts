@@ -11,8 +11,7 @@ export async function getFileSize(filePath: string): Promise<string | null> {
 
     // Get file stats & size
     const stats = await fs.stat(file)
-    const sizeInBytes = stats.size
-    const sizeInKilobytes = sizeInBytes / 1024
+    const sizeInKilobytes = stats.size / 1024
 
     console.log(`File size: ${sizeInKilobytes.toFixed(2)} KB`)
     return sizeInKilobytes.toFixed(2)

@@ -23,6 +23,7 @@
     "baseUrl": ".",
     "paths": {
       "@/components": ["src/components"],
+      "@/menus": ["src/app/menu.tsx"],
       "@/utils": ["src/utils"],
       "@/styles/*": ["src/styles/*"],
       "@/images/*": ["public/images/*"],
