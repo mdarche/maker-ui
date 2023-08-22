@@ -18,11 +18,15 @@ pre > code {
   display: grid;
 }
 
+.mkui-code-block {
+  margin: 30px 0;
+}
+
 .mkui-code-util {
   top: 0;
   left: 0;
   right: 0;
-  padding: 10px 20px;
+  padding: 10px 15px;
   color: #fff;
   font-size: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
@@ -53,9 +57,64 @@ pre > code {
 
 .page-contents {
   display: none;
+  padding-top: 30px;
+
+  h5 {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0 0 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-border-100);
+
+    svg {
+      fill: var(--color-text);
+      height: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  ul {
+    margin: 0 0 0 10px;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 10px 0;
+    opacity: 0.7;
+    transition: opacity ease 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  a {
+    font-size: 15px;
+    color: var(--color-text);
+  }
 
   @media screen and (min-width: 768px) {
     display: block;
+  }
+}
+
+.edit-github {
+  margin-top: 25px;
+  padding: 20px 10px;
+  border-top: 1px solid var(--color-border-100);
+  opacity: 0.7;
+  transition: opacity ease 0.2s;
+
+  svg {
+    height: 10px;
+    margin-left: 10px;
+    fill: var(--color-text);
+  }
+
+  &:hover {
+    opacity: 1;
   }
 }
 
@@ -64,6 +123,7 @@ pre > code {
   top: calc(var(--height-header) + 30px);
 
   .active {
+    opacity: 1;
     font-weight: 700;
   }
 }

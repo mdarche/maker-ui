@@ -46,3 +46,9 @@ export const CaretIcon = (props: SVGProps) => (
     <path d="M4 3L.536 0h6.928L4 3z" />
   </svg>
 )
+
+export const NewTabIcon = (props: SVGProps) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 11" {...props}>
+    <path d="M10 11a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v3.5a.5.5 0 1 0 1 0V1h9v9H6.5a.5.5 0 0 0 0 1H10ZM7 4.5v3a.5.5 0 1 1-1 0V5.707L.854 10.854a.5.5 0 1 1-.708-.708L5.293 5H3.5a.5.5 0 0 1 0-1h3a.498.498 0 0 1 .5.497" />
+  </svg>
+)

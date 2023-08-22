@@ -6,3 +6,33 @@ button {
   cursor: pointer;
   font-family: var(--font-body);
 }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 700;
+  font-family: var(--font-heading);
+}
+
+h1 {
+  font-size: 42px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.6;
+}

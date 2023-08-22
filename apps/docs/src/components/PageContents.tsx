@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useScrollPosition } from 'maker-ui/hooks'
 import { usePathname } from 'next/navigation'
+import { ContentIcon, NewTabIcon } from '@/components'
 
 type Heading = {
   id: string
@@ -11,10 +12,14 @@ type Heading = {
   offset: number
 }
 
-export const PageContents = () => {
-  const anchor = window.location.hash.substring(1)
+interface PageContentsProps {
+  github?: string
+}
+
+const githubBase = 'https://github.com/mdarche/maker-ui'
+
+export const PageContents = ({ github }: PageContentsProps) => {
   const [headings, setHeadings] = useState<Heading[]>([])
-  const [activeId, setActiveId] = useState<string | null>(anchor || null)
   const [activeNode, setActiveNode] = useState<number | null>(null)
   const pathname = usePathname()
 
@@ -114,6 +119,10 @@ export const PageContents = () => {
   return (
     <div className="page-contents">
       <div className="page-contents-inner">
+        <h5 className="flex align-center">
+          <ContentIcon />
+          Page Content
+        </h5>
         <ul>
           {headings.map((heading, index) => (
             <li
@@ -130,6 +139,14 @@ export const PageContents = () => {
             </li>
           ))}
         </ul>
+        {github && (
+          <a
+            href={githubBase + github}
+            className="edit-github flex align-center"
+            target="_blank">
+            Edit this page on GitHub <NewTabIcon />
+          </a>
+        )}
       </div>
     </div>
   )

@@ -6,6 +6,7 @@ import { Accordion } from 'maker-ui/accordion'
 export default function AccordionPage() {
   return (
     <Section>
+      <h2>Demo</h2>
       <Accordion
         showSingle
         animate="height ease-in-out 0.2s"

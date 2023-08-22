@@ -1,4 +1,96 @@
-.mkui-mdx > h1 {
+// Navbar
+
+header {
+  backdrop-filter: saturate(180%) blur(5px);
+
+  li {
+    margin: 0 10px;
+  }
+}
+
+// Sidenav
+
+.mkui-sn {
+  .mkui-menu {
+    padding: 20px 20px 30px 10px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .has-submenu > div {
+    justify-content: space-between;
+  }
+
+  .submenu {
+    border-left: 1px solid var(--color-border-100);
+  }
+
+  li {
+    margin: 12px 0 12px 5px;
+    padding-left: 20px;
+    font-size: 15px;
+
+    a {
+      color: var(--color-text);
+      opacity: 0.7;
+      transition: opacity ease 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &.current {
+        opacity: 1;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .nav-bold,
+  .nav-heading {
+    font-weight: 700;
+  }
+
+  .nav-heading {
+    margin-left: -5px;
+    opacity: 0.7;
+  }
+}
+
+// Reference Page Layout
+
+.mkui-ref-layout {
+  padding-top: 50px;
+
+  h1 {
+    margin: 0 0 20px;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  h2,
+  h3 {
+    margin-top: 50px;
+  }
+}
+
+.ref-meta {
+  margin-bottom: 30px;
+}
+
+.ref-type {
+  border: 1px solid var(--color-border-100);
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin-right: 10px;
+}
+
+.mkui-mdx h1:last-of-type {
   display: none;
 }
 

@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs/promises'
 
-const basePath = path.resolve(__dirname, '../../../../../../../packages')
+const basePath = path.resolve(__dirname, '../../../../../../../../packages')
 
 export async function getFileSize(filePath: string): Promise<string | null> {
   try {

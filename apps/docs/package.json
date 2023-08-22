@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "eslint-config-next-app": "workspace:*",
-    "next-sitemap": "^4.2.2",
     "tsconfig": "workspace:*"
   }
 }

@@ -7,27 +7,30 @@ const layout = `${root}/layout`
 const components = `${root}/components`
 const functions = `${root}/functions`
 
-export const menu: MenuItem[] = [
+export const headerMenu: MenuItem[] = [
   { label: 'Home', path: '/' },
-  // {
-  //   label: 'Megamenu',
-  //   path: '/about',
-  //   megamenu: (
-  //     <div style={{ height: 200, width: 200, background: '#000' }}>
-  //       Lets go!
-  //     </div>
-  //   ),
-  // },
-  { label: 'API Reference', divider: true },
+  { label: 'Guides', path: '/guides' },
+  { label: 'API Reference', path: '/api-reference' },
+]
+
+export const sideMenu: MenuItem[] = [
+  { label: 'Home', path: '/' },
+  { label: 'Guides', path: '/guides' },
+  {
+    label: 'API Reference',
+    path: '/api-reference',
+    className: 'nav-bold',
+  },
   {
     label: 'Layout System',
     path: `${root}/layout`,
     submenu: [
+      { label: 'Getting Started', className: 'nav-heading', divider: true },
       { label: 'Create a Layout', path: `${layout}/create-a-layout` },
-      { label: 'MakerUIOptions', path: `${layout}/maker-ui-options` },
+      { label: 'Layout Options', path: `${layout}/layout-options` },
       { label: 'CSS Variables', path: `${layout}/css-variables` },
       { label: 'Mobile Menu', path: `${layout}/mobile-menu` },
-      { label: 'Layout Demo', path: `${layout}/layout-demo` },
+      { label: 'Demo', path: `${layout}/demo` },
       { label: 'Components', className: 'nav-heading', divider: true },
       { label: '<ColorButton>', path: `${layout}/color-button` },
       { label: '<Layout>', path: `${layout}/layout` },
@@ -90,10 +93,17 @@ export const menu: MenuItem[] = [
         path: `${functions}/use-scroll-position`,
       },
       { label: 'useStorage', path: `${functions}/use-storage` },
+      { label: 'useTimeLoop', path: `${functions}/use-time-loop` },
       { label: 'useWindowFocus', path: `${functions}/use-window-focus` },
       { label: 'useWindowSize', path: `${functions}/use-window-size` },
       { label: 'Utilities', className: 'nav-heading', divider: true },
-      { label: 'Utilities', path: `${functions}/utilities` },
+      { label: 'cn', path: `${functions}/cn` },
+      { label: 'cleanObject', path: `${functions}/cleanObject` },
+      { label: 'generateId', path: `${functions}/generateId` },
+      { label: 'isObjectEmpty', path: `${functions}/isObjectEmpty` },
+      { label: 'merge', path: `${functions}/merge` },
+      { label: 'mergeRefs', path: `${functions}/mergeRefs` },
     ],
   },
+  { label: 'Credits', path: '/credits' },
 ]

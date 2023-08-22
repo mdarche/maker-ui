@@ -1,37 +1,43 @@
-import { Section } from 'maker-ui'
 import { PageContents } from './PageContents'
 
 interface RefLayoutProps {
   title: string
   library: string
-  isComponent?: boolean
+  type: 'Component' | 'Hook' | 'Function' | 'hidden'
   fileSize?: string | number | null
+  github?: string
   readme?: React.ReactElement
   children: React.ReactNode
 }
 
 export const RefLayout = ({
   title,
+  type = 'Component',
   library,
   fileSize,
+  github,
   readme,
-  isComponent = true,
   children,
 }: RefLayoutProps) => {
   return (
-    <div className="mkui-docs-page">
-      <Section>
-        <h1>{title}</h1>
-        <div>
-          <div>{library}</div>
-          {isComponent && fileSize && <div>{fileSize} kb</div>}
-        </div>
-      </Section>
+    <div className="mkui-ref-layout">
       <div className="mdx-container">
         {readme && (
           <div className="mdx-grid">
-            <div className="mkui-mdx">{readme}</div>
-            <PageContents />
+            <div className="mkui-mdx">
+              <h1>{title}</h1>
+              {type !== 'hidden' ? (
+                <div className="ref-meta inline-flex align-center">
+                  <div className="ref-type">{type}</div>
+                  <div className="ref-lib">
+                    {library}{' '}
+                    {fileSize && <span className="size">{fileSize} kb</span>}
+                  </div>
+                </div>
+              ) : null}
+              {readme}
+            </div>
+            <PageContents github={github} />
           </div>
         )}
       </div>
