@@ -33,18 +33,23 @@
 body[data-theme='dark'] {
   /* Required */
   --color-bg-header: rgba(0, 0, 0, 0.8);
-  --color-bg-side-nav: #000;
+  --color-bg-side-nav: #111111;
   --color-bg-mobile-menu: #000;
   --color-overlay: rgba(0, 0, 0, 0.7);
   --color-logo: #fff;
   --color-text: #fff;
   --color-background: #000;
-  --border-header: 1px solid #2e2e2e;
-  --border-side-nav: 1px solid #2e2e2e;
+  --border-header: 1px solid var(--color-border-100);
+  --border-side-nav: 1px solid var(--color-border-100);
   /* Project specific */
   --color-border-100: #2e2e2e;
   --color-border-200: #818181;
-  --color-shadow: 1px 3px 5px rgba(45, 35, 79, 0.06);
+  /* UI Colors */
+  --color-primary: #0392dd;
+  --color-secondary: #c50a3f;
+  --color-pink: #de01ca;
+  --color-gray-100: #313131;
+  --color-gray-200: #474747;
 }
 
 body[data-theme='light'] {
@@ -56,10 +61,16 @@ body[data-theme='light'] {
   --color-logo: #000;
   --color-text: #000;
   --color-background: #fff;
-  --border-header: 1px solid #e5e5e5;
-  --border-side-nav: 1px solid #e5e5e5;
+  --border-header: 1px solid var(--color-border-100);
+  --border-side-nav: 1px solid var(--color-border-100);
   /* Project specific */
   --color-border-100: #e5e9ea;
   --color-border-200: #a2a2a2;
+  /* UI Colors */
+  --color-primary: #0392dd;
+  --color-secondary: #c50a3f;
+  --color-pink: #de01ca;
+  --color-gray-100: #fafafa;
+  --color-gray-200: #e1e1e1;
   /* Add media queries for heights, widths, and gaps here*/
 }

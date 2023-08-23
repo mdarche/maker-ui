@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
 import { ColorButton, Menu } from 'maker-ui/layout'
+import { NavWidgets } from '../components/NavWidgets'
 
 import 'maker-ui/layout.css'
 import '@/styles/styles.scss'
@@ -30,42 +31,6 @@ export const metadata: Metadata = {
   themeColor: '#fff',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body>
-        <LayoutProvider options={options}>
-          <Layout options={options}>
-            <Layout.Header
-              logo={{ icon: 'Logo', path: '/' }}
-              menu={headerMenu}
-              widgets={<ColorButton />}
-              menuButton={{ defaultIcon: 'menu' }}
-            />
-            <Layout.MobileMenu
-              closeButton={{ defaultIcon: 'close' }}
-              menu={sideMenu}
-            />
-            <Layout.Main>{children}</Layout.Main>
-            <Layout.SideNav
-              menuButton={{
-                icon: 'Collapse',
-                fixed: true,
-                position: { bottom: 30, right: 30 },
-              }}>
-              <Menu items={sideMenu} />
-            </Layout.SideNav>
-          </Layout>
-        </LayoutProvider>
-      </body>
-    </html>
-  )
-}
-
 const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
   layout: 'sidenav-content',
@@ -87,9 +52,46 @@ const options: MakerUIOptions = {
   },
   sideNav: {
     isHeader: false,
+    isPrimaryMobileNav: true,
     collapse: true,
     showCollapseOnMobile: true,
     closeOnBlur: true,
     closeOnRouteChange: true,
   },
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <LayoutProvider options={options}>
+          <Layout options={options}>
+            <Layout.Header
+              logo={{ icon: 'Maker UI', path: '/' }}
+              menu={headerMenu}
+              widgets={<NavWidgets />}
+              menuButton={{ defaultIcon: 'menu' }}
+            />
+            <Layout.MobileMenu
+              closeButton={{ defaultIcon: 'close' }}
+              menu={sideMenu}
+            />
+            <Layout.Main>{children}</Layout.Main>
+            <Layout.SideNav
+              menuButton={{
+                icon: 'Collapse',
+                fixed: true,
+                position: { bottom: 30, right: 30 },
+              }}>
+              <Menu items={sideMenu} />
+            </Layout.SideNav>
+          </Layout>
+        </LayoutProvider>
+      </body>
+    </html>
+  )
 }

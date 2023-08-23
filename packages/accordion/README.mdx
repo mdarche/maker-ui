@@ -6,15 +6,21 @@ This component can animate the height of the panel when it is expanded or collap
 
 ## Installation
 
+Install the `maker-ui` library with your package manager of choice, and add the accordion styles to your app's layout file or any particular page layout:
+
 ```sh
 npm install maker-ui
 ```
 
-Go to [maker-ui.com](https://maker-ui.com/docs/getting-started) for full installation instructions.
+```tsx
+// app/layout.tsx
 
-Go to [local](/).
+import '@maker-ui/accordion/dist/index.css'
+```
 
 ## Usage
+
+When implemented alongside the `use client` directive, the Accordion can be accessed as a compound component. This offers a more declarative API and enhances readability:
 
 ```tsx
 'use client'
@@ -30,7 +36,7 @@ export const Faqs = () => (
 )
 ```
 
-If you would like to use the accordion in a server component, you can also import the AccordionPanel component:
+For server-side JSX, you should use direct imports for compatibility. Replace `Accordion.Panel` with the direct import of `AccordionPanel`:
 
 ```tsx
 import { Accordion, AccordionPanel } from 'maker-ui/accordion'
@@ -48,49 +54,83 @@ export const Faqs = () => (
 
 ### Accordion
 
-The Accordion wrapper acts as a context provider that stores shared settings for all Accordion panels. It extends all native `div` element props but also includes:
+The Accordion wrapper acts as a context provider that stores shared settings for all Accordion panels. It extends all `HTMLDivElement` props and also includes:
 
-| Prop Name     | Type                                                                                                                                              | Description                                                                                                                                                                                                                    |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `icon`        | `boolean`                                                                                                                                         | If true, the Accordion button will render an icon that shows expand/collapse status. <br/> **Default:** `true`                                                                                                                 |
-| `customIcon`  | `React.ReactElement`<br/> \| `{ expand: React.ReactElement, collapse: React.ReactElement }` <br/> \| `((isExpanded: boolean) => React.ReactNode)` | An optional icon, set of icons, or callback function that can be used to supply a custom accordion toggle icon.                                                                                                                |
-| `activeClass` | `string`                                                                                                                                          | A custom class name to apply to the accordion button when it is active. <br/> **Default:** `expanded`                                                                                                                          |
-| `activeKey`   | `number` \| `string`                                                                                                                              | The currently active accordion panel key if controlled by an external or parent component. Make sure the key exists as an `eventKey` prop on a nested `<Accordion.Panel>`.                                                     |
-| `showSingle`  | `boolean`                                                                                                                                         | If true, the accordion will only display one open panel at a time. <br/> **Default:** `false`                                                                                                                                  |
-| `animate`     | `boolean` \| `string`                                                                                                                             | If true or if you supply a string, the accordion will add a CSS transition to the accordion panel's height. **NOTE:** Animating height will force a repaint that may affect your app's performance. <br/> **Default:** `false` |
-| `styles`      | `AccordionStyles`                                                                                                                                 | Custom styles for all accordion HTML elements.                                                                                                                                                                                 |
-| `classNames`  | `AccordionClasses`                                                                                                                                | Custom class selectors for all accordion HTML elements.                                                                                                                                                                        |
-| `children`    | `React.ReactElement[]` \| `React.ReactNode`                                                                                                       | Nested AccordionPane(s) children.                                                                                                                                                                                              |
+<div className="prop-table prop-bold" >
+
+| Prop          | Type                                                                                                                            | Description                                                                                                                                                                                                                                                                              |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `icon`        | `boolean`                                                                                                                       | If true, the Accordion button will render an icon that shows expand/collapse status. <br/><br/> **Default:** `true`                                                                                                                                                                      |
+| `customIcon`  | `ReactElement`<br/> **\|** `{ expand: ReactElement, collapse: ReactElement }` <br/> **\|** `(isExpanded: boolean) => ReactNode` | An optional icon, set of icons, or a callback / render function that can be used to supply a custom accordion toggle icon.                                                                                                                                                               |
+| `activeClass` | `string`                                                                                                                        | A custom class name to apply to the accordion button when it is active. <br/><br/> **Default:** `'expanded'`                                                                                                                                                                             |
+| `activeKey`   | `number` **\|** `string`                                                                                                        | The currently active accordion panel key if controlled by an external or parent component. <br /><br />Make sure the key exists as an `eventKey` prop on a nested `<Accordion.Panel>`.                                                                                                   |
+| `showSingle`  | `boolean`                                                                                                                       | If true, the accordion will only display one open panel at a time. <br/><br/> **Default:** `false`                                                                                                                                                                                       |
+| `animate`     | `boolean` **\|** `string`                                                                                                       | If true or if you supply a CSS transition attribute (`string`), the accordion will add a CSS transition to animate the accordion panel's height. <br/><br/>Please note that animating height will force a repaint and may affect your app's performance. <br/><br/> **Default:** `false` |
+| `styles`      | `AccordionStyles`                                                                                                               | Custom styles for all accordion HTML elements.<br /><br />See [Theme Variables](#theme-variables) below.                                                                                                                                                                                 |
+| `classNames`  | `AccordionClasses`                                                                                                              | Custom class selectors for all accordion HTML elements.<br /><br />See [Class Selectors](#class-selectors) below.                                                                                                                                                                        |
+| `children`    | `ReactElement[]` **\|** `ReactNode`                                                                                             | Nested AccordionPanel children.                                                                                                                                                                                                                                                          |
+
+</div>
 
 ### Accordion.Panel
 
 Extends all native `div` element props but also includes:
 
-| Prop Name  | Type                             | Description                                                                                      |
-| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `title`    | `string` \| `React.ReactElement` | A title string or custom React element that will be used as the Accordion Button for this panel. |
-| `onClick`  | `() => void`                     | A custom callback function that is invoked when the user clicks the accordion button.            |
-| `open`     | `boolean`                        | If true, the panel will be open by default. <br/> **Default:** `false`                           |
-| `eventKey` | `string`                         | A unique key that can toggle the panel open and close from an external component.                |
+<div className="prop-table prop-bold">
 
-## Theme Variables
+| Prop       | Type                           | Description                                                                                                  |
+| ---------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `title`    | `string` **\|** `ReactElement` | A title string or custom React component slot that is rendered immediately inside the panel's toggle button. |
+| `onClick`  | `() => void`                   | A custom callback function that is invoked when the user clicks the accordion button.                        |
+| `open`     | `boolean`                      | If true, the panel will be open by default. <br/><br/>**Default:** `false`                                   |
+| `eventKey` | `string`                       | A unique key that can toggle the panel open and close from an external component.                            |
 
-You can set theme variables for the `Accordion` component by supplying an object to the `styles` prop, or you can set them directly via CSS variables in your stylesheet.
+</div>
 
-| Variable Name                   | Prop (optional)                  | Description                   |
-| ------------------------------- | -------------------------------- | ----------------------------- |
-| `--accordion-btn-color`         | `styles.button.color`            | Button color                  |
-| `--accordion-btn-bg`            | `styles.button.background`       | Button background             |
-| `--accordion-btn-border`        | `styles.button.border`           | Button border                 |
-| `--accordion-btn-padding`       | `styles.button.padding`          | Button padding                |
-| `--accordion-btn-font-size`     | `styles.button.fontSize`         | Button font size              |
-| `--accordion-btn-font-family`   | `styles.button.fontFamily`       | Button font family            |
-| `--accordion-btn-color-active`  | `styles.button.colorActive`      | Button color when active      |
-| `--accordion-btn-bg-active`     | `styles.button.backgroundActive` | Button background when active |
-| `--accordion-btn-border-active` | `styles.button.borderActive`     | Button border when active     |
-| `--accordion-icon-fill`         | `styles.icon.fill`               | Icon fill color               |
-| `--accordion-icon-fill-active`  | `styles.icon.fillActive`         | Icon fill color when active   |
-| `--accordion-icon-height`       | `styles.icon.height`             | Icon height                   |
-| `--accordion-panel-bg`          | `styles.panel.background`        | Panel background              |
-| `--accordion-panel-padding`     | `styles.panel.padding`           | Panel padding                 |
-| `--accordion-panel-font-size`   | `styles.panel.fontSize`          | Panel font size               |
+## Styling
+
+Maker UI components are very flexible when it comes to styling. You can use CSS variables, class selectors, or inline styles to customize the look and feel of your Accordion.
+
+If you are building a consistent design system for your app, consider the [**Theme Variables**](#theme-variables) approach and declare all colors as CSS variables in a global or shared stylesheet. Remember to account for multiple color modes if applicable (ie. dark, light, etc.).
+
+### Theme Variables
+
+You can set the `Accordion` component's CSS variables by supplying an object to the `styles` prop (locally scoped), or you can set them directly in your stylesheet.
+
+<div className="prop-table prop-bold">
+
+| CSS Variable                    | Styles Prop               | Description                   |
+| ------------------------------- | ------------------------- | ----------------------------- |
+| `--accordion-btn-color`         | `button.color`            | Button color                  |
+| `--accordion-btn-bg`            | `button.background`       | Button background             |
+| `--accordion-btn-border`        | `button.border`           | Button border                 |
+| `--accordion-btn-padding`       | `button.padding`          | Button padding                |
+| `--accordion-btn-font-size`     | `button.fontSize`         | Button font size              |
+| `--accordion-btn-font-family`   | `button.fontFamily`       | Button font family            |
+| `--accordion-btn-color-active`  | `button.colorActive`      | Button color when active      |
+| `--accordion-btn-bg-active`     | `button.backgroundActive` | Button background when active |
+| `--accordion-btn-border-active` | `button.borderActive`     | Button border when active     |
+| `--accordion-icon-fill`         | `icon.fill`               | Icon fill color               |
+| `--accordion-icon-fill-active`  | `icon.fillActive`         | Icon fill color when active   |
+| `--accordion-icon-height`       | `icon.height`             | Icon height                   |
+| `--accordion-panel-bg`          | `panel.background`        | Panel background              |
+| `--accordion-panel-padding`     | `panel.padding`           | Panel padding                 |
+| `--accordion-panel-font-size`   | `panel.fontSize`          | Panel font size               |
+
+</div>
+
+### Class Selectors
+
+By default, the Accordion component generates `mkui` class selectors for all of its nested HTML elements. You can add your own selectors by passing an object with any of the following keys to the Accordion's `classNames` prop.
+
+<div className="prop-table-sm">
+
+| Prop           | Description                                                                     |
+| -------------- | ------------------------------------------------------------------------------- |
+| `group`        | Root `Accordion` component container                                            |
+| `panel`        | Accordion panel outer wrapper. This class handles the collapsing functionality. |
+| `panelContent` | Accordion panel inner wrapper. This wraps your `Accordion.Panel` child content. |
+| `panelGroup`   | The outermost wrapper for the `Accordion.Panel` component.                      |
+| `button`       | The `Accordion.Panel` button element.                                           |
+
+</div>

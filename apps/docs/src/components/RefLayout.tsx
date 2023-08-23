@@ -1,3 +1,4 @@
+import { PostNavigation } from '.'
 import { PageContents } from './PageContents'
 
 interface RefLayoutProps {
@@ -42,6 +43,7 @@ export const RefLayout = ({
         )}
       </div>
       {children}
+      <PostNavigation />
     </div>
   )
 }

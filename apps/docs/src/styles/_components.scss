@@ -1,25 +1,52 @@
+// Nav Widgets
+
+.mkui-nav-widgets {
+  .btn-github svg {
+    height: 22px;
+    fill: var(--color-text);
+  }
+
+  .mkui-btn-color {
+    background: none;
+    border: none;
+    margin-left: 30px;
+
+    svg {
+      fill: var(--color-text);
+      height: 20px;
+    }
+  }
+}
+
 // Code blocks
 
 code {
   font-size: 13px;
 }
 
-pre {
-  border-radius: 4px;
+.mkui-code-block {
+  margin: 30px 0;
+
+  pre > code {
+    display: grid;
+  }
 
   code {
-    padding: 60px 30px 30px;
+    padding: 50px 20px 20px;
     line-height: 1.6;
     font-size: 14px;
   }
-}
 
-pre > code {
-  display: grid;
-}
+  pre {
+    border-radius: 4px;
+  }
 
-.mkui-code-block {
-  margin: 30px 0;
+  @media screen and (min-width: 768px) {
+    code {
+      padding: 60px 30px 30px;
+      font-size: 14px;
+    }
+  }
 }
 
 .mkui-code-util {
@@ -174,44 +201,82 @@ pre > code {
   display: none;
 }
 
+// Post Pagination
+
 // Tables
 
-// table {
-//   width: 100%;
-//   margin: 40px 0;
-//   font-size: 0.9em;
+/* Reset table defaults */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border-spacing: 0;
+  margin: 50px 0;
+  /* Use for scroll on mobile */
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+th,
+td {
+  padding: 0.75rem 1.25rem;
+  text-align: left;
+  border: 1px solid var(--color-gray-200);
+}
+
+td {
+  font-size: 14px;
+}
+
+thead {
+  background-color: var(--color-gray-100);
+}
+
+th {
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: var(--color-gray-100);
+}
+
+.prop-table td:nth-child(2) {
+  color: var(--color-secondary);
+  line-height: 1.4;
+
+  strong {
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.prop-table-sm td:nth-child(2),
+.prop-table td:last-of-type {
+  code {
+    color: var(--color-secondary);
+  }
+}
+
+.prop-table.prop-bold td:nth-child(2) {
+  font-weight: 700;
+}
+
+/* Hover effect for rows */
+// tbody tr:hover {
+//   background-color: #f0f0f0;
 // }
 
-// thead {
-//   background: var(--color-table_th_bg);
-//   color: #fff;
-//   padding: 20px;
-// }
+/* Focus styling for better accessibility */
+tbody tr:focus-within {
+  outline: 2px solid #007bff;
+  background-color: #e6f7ff;
+}
 
-// th {
-//   padding: 6px 15px;
+/* Optional: If you want the first column to be bolded for emphasis (like for labels or identifiers) */
+td:first-child {
+  font-weight: bold;
+}
 
-//   // &:first-of-type' {
-//   //   minWidth: [120, 140]
-//   // }
-// }
-
-// td {
-//   padding: 10px;
-
-//   @media screen and (min-width: 768px) {
-//     padding: 12px 20px;
-//   }
-// }
-
-// tbody tr:nth-of-type(even) {
-//   background: var(--color-bg_code);
-
-//   code {
-//     background: var(--color-background);
-//   }
-// }
-
-// tr td:first-of-type {
-//   font-weight: 700;
-// }
+.theme td:first-child {
+  color: blue;
+}

@@ -1,4 +1,5 @@
 import { type MenuItem } from 'maker-ui/layout'
+import { CodeIcon } from '../components/Icons'
 
 // Root path for all API Reference pages
 const root = '/api-reference'
@@ -10,7 +11,7 @@ const functions = `${root}/functions`
 export const headerMenu: MenuItem[] = [
   { label: 'Home', path: '/' },
   { label: 'Guides', path: '/guides' },
-  { label: 'API Reference', path: '/api-reference' },
+  { label: 'API Reference', icon: <CodeIcon />, path: '/api-reference' },
 ]
 
 export const sideMenu: MenuItem[] = [
