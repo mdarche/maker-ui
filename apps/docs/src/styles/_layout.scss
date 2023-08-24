@@ -40,6 +40,10 @@ header {
       fill: var(--color-text);
     }
   }
+
+  .icon-guide {
+    height: 14px;
+  }
 }
 
 .logo-slot a {
@@ -106,7 +110,7 @@ header {
 // Reference Page Layout
 
 .mkui-ref-layout {
-  padding-top: 50px;
+  padding: 50px 0 70px;
 
   h1 {
     margin: 0 0 20px;
@@ -172,6 +176,10 @@ header {
   max-width: var(--max-width-section);
   margin: 0 auto;
 
+  a {
+    color: var(--color-primary);
+  }
+
   h2,
   h3 {
     text-decoration: none;
@@ -203,7 +211,7 @@ header {
   }
 
   .h-icon {
-    margin-left: 5px;
+    margin-left: 10px;
     transition: opacity ease 0.3s;
   }
 }

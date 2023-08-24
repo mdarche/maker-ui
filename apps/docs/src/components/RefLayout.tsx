@@ -1,3 +1,4 @@
+import { Section } from 'maker-ui'
 import { PostNavigation } from '.'
 import { PageContents } from './PageContents'
 
@@ -43,7 +44,9 @@ export const RefLayout = ({
         )}
       </div>
       {children}
-      <PostNavigation />
+      <Section>
+        <PostNavigation />
+      </Section>
     </div>
   )
 }

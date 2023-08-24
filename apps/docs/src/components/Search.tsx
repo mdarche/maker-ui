@@ -1,3 +1,5 @@
+'use client'
+
 import { DocSearch } from '@docsearch/react'
 
 export const Search = () => {

@@ -55,7 +55,7 @@ export const PostNavigation = ({
   }, [pathname])
 
   return (
-    <div className="post-pagination">
+    <div className="post-pagination flex justify-between">
       {navButtons.prev?.path ? (
         <Link href={navButtons.prev.path} className="pagination prev">
           <span className="pagination-label">Previous</span>

@@ -60,13 +60,21 @@ export const HomeIcon = (props: SVGProps) => (
 )
 
 export const GuideIcon = (props: SVGProps) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon-guide"
+    viewBox="0 0 10 10"
+    {...props}>
     <path d="M.5 8.25V1.5A1.5 1.5 0 0 1 2 0h7a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5H2.25A1.75 1.75 0 0 1 .5 8.25Zm8 .75V7.5H2.25a.75.75 0 0 0 0 1.5H8.5Zm-7-2.332c.234-.11.49-.168.75-.168H8.5V1H2a.5.5 0 0 0-.5.5v5.168Z" />
   </svg>
 )
 
 export const CodeIcon = (props: SVGProps) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon-code"
+    viewBox="0 0 14 8"
+    {...props}>
     <path d="M4.43 7.873 0 4 4.43.127l.755.865L1.75 4l3.435 3.008-.756.865Zm5.14 0-.755-.865L12.25 4 8.815.992 9.57.127 14 4 9.57 7.873Z" />
   </svg>
 )

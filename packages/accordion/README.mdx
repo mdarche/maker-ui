@@ -74,7 +74,7 @@ The Accordion wrapper acts as a context provider that stores shared settings for
 
 ### Accordion.Panel
 
-Extends all native `div` element props but also includes:
+Extends all native `div` element props and also includes:
 
 <div className="prop-table prop-bold">
 
@@ -91,7 +91,7 @@ Extends all native `div` element props but also includes:
 
 Maker UI components are very flexible when it comes to styling. You can use CSS variables, class selectors, or inline styles to customize the look and feel of your Accordion.
 
-If you are building a consistent design system for your app, consider the [**Theme Variables**](#theme-variables) approach and declare all colors as CSS variables in a global or shared stylesheet. Remember to account for multiple color modes if applicable (ie. dark, light, etc.).
+If you are building a consistent design system for your app, consider the [Theme Variables](#theme-variables) approach and declare all colors as CSS variables in a global or shared stylesheet. Remember to account for multiple color modes if applicable (ie. dark, light, etc.).
 
 ### Theme Variables
 
@@ -125,12 +125,12 @@ By default, the Accordion component generates `mkui` class selectors for all of 
 
 <div className="prop-table-sm">
 
-| Prop           | Description                                                                     |
-| -------------- | ------------------------------------------------------------------------------- |
-| `group`        | Root `Accordion` component container                                            |
-| `panel`        | Accordion panel outer wrapper. This class handles the collapsing functionality. |
-| `panelContent` | Accordion panel inner wrapper. This wraps your `Accordion.Panel` child content. |
-| `panelGroup`   | The outermost wrapper for the `Accordion.Panel` component.                      |
-| `button`       | The `Accordion.Panel` button element.                                           |
+| Prop           | Description                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------- |
+| `group`        | Root `Accordion` component container                                                        |
+| `panel`        | Accordion panel outer wrapper. This class handles the collapsing functionality.             |
+| `panelContent` | Accordion panel inner wrapper. This wraps your `Accordion.Panel` child content.             |
+| `panelGroup`   | The outermost wrapper for the `Accordion.Panel` component. This wraps the panel and button. |
+| `button`       | The `Accordion.Panel` button element.                                                       |
 
 </div>

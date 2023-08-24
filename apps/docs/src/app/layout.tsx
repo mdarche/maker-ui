@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
-import { ColorButton, Menu } from 'maker-ui/layout'
+import { Menu } from 'maker-ui/layout'
 import { NavWidgets } from '../components/NavWidgets'
 
 import 'maker-ui/layout.css'
+import '@docsearch/css/dist/modal.css'
+import '@docsearch/css/dist/_variables.css'
 import '@/styles/styles.scss'
 
 import { headerMenu, sideMenu } from './menu'

@@ -12,6 +12,7 @@
     "next:start": "next start"
   },
   "dependencies": {
+    "@docsearch/css": "^3.5.2",
     "@docsearch/react": "^3.5.2",
     "@maker-ui/toc": "workspace:*",
     "@mdx-js/loader": "^2.3.0",

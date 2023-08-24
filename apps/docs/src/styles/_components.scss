@@ -3,6 +3,7 @@
 .mkui-nav-widgets {
   .btn-github svg {
     height: 22px;
+
     fill: var(--color-text);
   }
 
@@ -14,6 +15,7 @@
     svg {
       fill: var(--color-text);
       height: 20px;
+      width: 20px;
     }
   }
 }
@@ -158,12 +160,14 @@ code {
 // Doc Search
 
 .doc-search {
+  margin-right: 20px;
+
   button {
-    height: 46px;
-    margin: 5px 0 5px 150px;
+    height: 40px;
+    margin: 5px 0;
     width: 280px;
-    background: var(--color-bg_sideNav);
-    border: 1px solid var(--color-border_dark);
+    background: var(--color-bg-sidenav);
+    border: 1px solid var(--color-border-100);
     border-radius: 2px;
     display: flex;
     align-items: center;
@@ -171,37 +175,107 @@ code {
     font-size: 16px;
     color: var(--color-muted);
     font-weight: 400;
-    padding: 0 15px;
-    transition: all ease 0.3s;
+    padding: 0 10px;
+    // transition: all ease 0.3s;
 
     svg {
       height: 22px;
-      fill: var(--color-header_fill);
+      fill: var(--color-text);
       margin-right: 10px;
     }
   }
 }
 
+.DocSearch-Button-Container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.DocSearch-Button-Keys {
+  display: flex;
+  gap: 5px;
+}
+
 .DocSearch-Button-Key {
-  border: 1px solid var(--color-border_dark);
+  border: 1px solid var(--color-border-100);
   height: 28px;
   width: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: 2px;
   font-size: 13px;
-  background: var(--color-bg_header);
+  background: var(--color-bg-header);
   box-shadow: none;
   padding: 0;
 }
 
-.DocSearch-Button-Keys,
-.DocSearch-Button-Placeholder {
-  display: none;
-}
+// .DocSearch-Button-Keys,
+// .DocSearch-Button-Placeholder {
+//   display: none;
+// }
 
 // Post Pagination
+
+.post-pagination {
+  flex-direction: column;
+  margin-top: 40px;
+
+  a {
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &:hover {
+      background: var(--color-gray-100);
+      border-color: var(--color-border-200);
+
+      .pagination-label {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+
+    a {
+      max-width: calc(50% - 20px);
+      width: auto;
+    }
+  }
+}
+
+.pagination {
+  border: 1px solid var(--color-border-100);
+  margin: 10px 0;
+  padding: 15px 20px;
+  transition:
+    background ease 0.2s,
+    border ease 0.2s;
+
+  &.next {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.pagination-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.5;
+  margin-bottom: 5px;
+  transition: opacity ease 0.2s;
+}
+
+.pagination-title {
+  font-size: 16px;
+  font-weight: 700;
+}
 
 // Tables
 

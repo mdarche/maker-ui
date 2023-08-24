@@ -1,9 +1,11 @@
 import { ColorButton } from 'maker-ui/layout'
 import { GithubIcon, ContrastIcon, SunIcon, MoonIcon } from '@/components'
+import { Search } from './Search'
 
 export const NavWidgets = () => {
   return (
     <div className="mkui-nav-widgets flex align-center">
+      <Search />
       <a
         href="https://github.com/mdarche/maker-ui"
         className="btn-github"
