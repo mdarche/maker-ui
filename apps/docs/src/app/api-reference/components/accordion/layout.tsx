@@ -1,11 +1,8 @@
 import type { Metadata } from 'next'
 
-import { RefLayout } from '@/components'
 import Readme from '@/packages/accordion/README.mdx'
+import { RefLayout } from '@/components'
 import { getFileSize } from '@/utils'
-
-// Fetch file size of the package
-// Set up metadata
 
 export const metadata: Metadata = {
   title: 'Accordion',
@@ -22,7 +19,7 @@ export default async function AccordionLayout({
   return (
     <RefLayout
       title="Accordion"
-      type="Component"
+      type="component"
       library="maker-ui/accordion"
       github="/packages/accordion/README.mdx"
       fileSize={fileSize}

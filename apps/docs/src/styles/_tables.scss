@@ -14,7 +14,8 @@ td {
   border: 1px solid var(--color-gray-200);
 }
 
-td {
+td,
+table code {
   font-size: 12px;
 }
 
@@ -40,7 +41,8 @@ tr:nth-child(even) {
     font-size: 1em;
   }
 
-  td {
+  td,
+  table code {
     font-size: 14px;
   }
 

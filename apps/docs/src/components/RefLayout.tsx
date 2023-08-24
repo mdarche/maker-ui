@@ -5,7 +5,7 @@ import { PageContents } from './PageContents'
 interface RefLayoutProps {
   title: string
   library: string
-  type: 'Component' | 'Hook' | 'Function' | 'hidden'
+  type: 'component' | 'hook' | 'function' | 'hidden'
   fileSize?: string | number | null
   github?: string
   readme?: React.ReactElement
@@ -14,7 +14,7 @@ interface RefLayoutProps {
 
 export const RefLayout = ({
   title,
-  type = 'Component',
+  type = 'component',
   library,
   fileSize,
   github,
