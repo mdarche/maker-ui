@@ -2,7 +2,7 @@
 
 header {
   backdrop-filter: saturate(180%) blur(5px);
-  padding: 0 20px;
+  padding: 0 10px 0 15px;
 
   nav,
   .mkui-menu {
@@ -44,13 +44,21 @@ header {
   .icon-guide {
     height: 14px;
   }
+
+  @media screen and (min-width: 768px) {
+    padding: 0 20px;
+  }
 }
 
 .logo-slot a {
-  font-size: 26px;
+  font-size: 22px;
   letter-spacing: 1.2px;
   color: var(--color-text);
-  margin: 0 60px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 26px;
+    margin: 0 60px;
+  }
 }
 
 // Sidenav
@@ -110,18 +118,25 @@ header {
 // Reference Page Layout
 
 .mkui-ref-layout {
-  padding: 50px 0 70px;
+  padding: 40px 20px 30px;
 
   h1 {
     margin: 0 0 20px;
-    font-size: 42px;
-    font-weight: 700;
     line-height: 1.2;
   }
 
   h2,
   h3 {
-    margin-top: 50px;
+    margin-top: 30px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 50px 20px 70px;
+
+    h2,
+    h3 {
+      margin-top: 50px;
+    }
   }
 }
 
@@ -134,12 +149,17 @@ header {
   border: 1px solid;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0.5px;
   border-radius: 2px;
-  padding: 9px 10px 8px;
+  padding: 10px 10px 8px;
   height: 34px;
   margin-right: 10px;
+
+  @media screen and (min-width: 768px) {
+    padding: 9px 10px 8px;
+    font-size: 12px;
+  }
 }
 
 .ref-lib {
@@ -152,7 +172,7 @@ header {
   border: 1px solid var(--color-text);
   border-radius: 2px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 12px;
 
   .size {
     height: 100%;
@@ -165,6 +185,10 @@ header {
     border-top-right-radius: 1px;
     border-bottom-right-radius: 1px;
     font-weight: 400;
+  }
+
+  @media screen and (min-width: 768px) {
+    font-size: 15px;
   }
 }
 

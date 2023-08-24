@@ -1,6 +1,6 @@
 :root {
   /* Header */
-  --height-header: 60px;
+  --height-header: 52px;
   --max-width-header: 100%;
   --width-mobile-menu: 300px;
   /* SideNav */
@@ -17,6 +17,9 @@
     Liberation Mono, Courier New, monospace;
   --color-modes: light, dark, system;
   /* Add media queries for heights, widths, and gaps here */
+  @media screen and (min-width: 768px) {
+    --height-header: 60px;
+  }
 }
 
 :root {

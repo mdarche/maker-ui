@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
 import { Menu } from 'maker-ui/layout'
-import { NavWidgets } from '../components/NavWidgets'
+import { DesktopWidgets, SharedWidgets } from '../components/NavWidgets'
 
 import 'maker-ui/layout.css'
 import '@docsearch/css/dist/modal.css'
@@ -33,35 +33,6 @@ export const metadata: Metadata = {
   themeColor: '#fff',
 }
 
-const options: MakerUIOptions = {
-  colorThemes: ['light', 'dark', 'system'],
-  layout: 'sidenav-content',
-  topbar: {
-    sticky: true,
-    stickyOnMobile: false,
-    hideOnMobile: false,
-  },
-  header: {
-    navType: 'basic-left',
-    navTypeMobile: 'logo-center',
-    sticky: true,
-    stickyOnMobile: true,
-  },
-  mobileMenu: {
-    transition: 'fade',
-    closeOnBlur: true,
-    closeOnRouteChange: true,
-  },
-  sideNav: {
-    isHeader: false,
-    isPrimaryMobileNav: true,
-    collapse: true,
-    showCollapseOnMobile: true,
-    closeOnBlur: true,
-    closeOnRouteChange: true,
-  },
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -75,7 +46,7 @@ export default function RootLayout({
             <Layout.Header
               logo={{ icon: 'Maker UI', path: '/' }}
               menu={headerMenu}
-              widgets={<NavWidgets />}
+              widgets={<DesktopWidgets />}
               menuButton={{ defaultIcon: 'menu' }}
             />
             <Layout.MobileMenu
@@ -89,6 +60,7 @@ export default function RootLayout({
                 fixed: true,
                 position: { bottom: 30, right: 30 },
               }}>
+              <SharedWidgets />
               <Menu items={sideMenu} />
             </Layout.SideNav>
           </Layout>
@@ -96,4 +68,28 @@ export default function RootLayout({
       </body>
     </html>
   )
+}
+
+const options: MakerUIOptions = {
+  colorThemes: ['light', 'dark', 'system'],
+  layout: 'sidenav-content',
+  header: {
+    navType: 'basic-left',
+    navTypeMobile: 'basic',
+    sticky: true,
+    stickyOnMobile: true,
+  },
+  mobileMenu: {
+    transition: 'fade',
+    closeOnBlur: true,
+    closeOnRouteChange: true,
+  },
+  sideNav: {
+    isHeader: false,
+    isPrimaryMobileNav: true,
+    collapse: true,
+    showCollapseOnMobile: false,
+    closeOnBlur: true,
+    closeOnRouteChange: true,
+  },
 }

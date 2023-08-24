@@ -3,7 +3,6 @@
 .mkui-nav-widgets {
   .btn-github svg {
     height: 22px;
-
     fill: var(--color-text);
   }
 
@@ -18,34 +17,63 @@
       width: 20px;
     }
   }
+
+  &.shared {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+
+    @media screen and (min-width: 768px) {
+      padding: 0;
+      display: none;
+    }
+  }
+
+  &.desktop {
+    display: none;
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+    }
+  }
 }
 
 // Code blocks
+
+div[data-rehype-pretty-code-fragment] {
+  position: relative;
+  margin: 30px 0;
+}
 
 code {
   font-size: 13px;
 }
 
 .mkui-code-block {
-  margin: 30px 0;
+  width: 100%;
+  display: grid;
+  border-radius: 4px;
+  max-width: calc(100vw - 40px);
+  overflow-x: scroll;
 
   pre > code {
     display: grid;
   }
 
-  code {
-    padding: 50px 20px 20px;
-    line-height: 1.6;
-    font-size: 14px;
+  pre {
+    margin: 0;
   }
 
-  pre {
-    border-radius: 4px;
+  code {
+    padding: 50px 20px 20px;
+    line-height: 1.7;
+    font-size: 12px;
   }
 
   @media screen and (min-width: 768px) {
     code {
       padding: 60px 30px 30px;
+      line-height: 1.6;
       font-size: 14px;
     }
   }
@@ -160,12 +188,12 @@ code {
 // Doc Search
 
 .doc-search {
-  margin-right: 20px;
+  margin-right: 10px;
 
   button {
     height: 40px;
     margin: 5px 0;
-    width: 280px;
+    width: auto;
     background: var(--color-bg-sidenav);
     border: 1px solid var(--color-border-100);
     border-radius: 2px;
@@ -181,6 +209,17 @@ code {
     svg {
       height: 22px;
       fill: var(--color-text);
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    margin-right: 20px;
+
+    button {
+      width: 280px;
+    }
+
+    svg {
       margin-right: 10px;
     }
   }
@@ -211,10 +250,12 @@ code {
   padding: 0;
 }
 
-// .DocSearch-Button-Keys,
-// .DocSearch-Button-Placeholder {
-//   display: none;
-// }
+@media screen and (max-width: 768px) {
+  .DocSearch-Button-Keys,
+  .DocSearch-Button-Placeholder {
+    display: none;
+  }
+}
 
 // Post Pagination
 
@@ -275,82 +316,4 @@ code {
 .pagination-title {
   font-size: 16px;
   font-weight: 700;
-}
-
-// Tables
-
-/* Reset table defaults */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  border-spacing: 0;
-  margin: 50px 0;
-  /* Use for scroll on mobile */
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-th,
-td {
-  padding: 0.75rem 1.25rem;
-  text-align: left;
-  border: 1px solid var(--color-gray-200);
-}
-
-td {
-  font-size: 14px;
-}
-
-thead {
-  background-color: var(--color-gray-100);
-}
-
-th {
-  font-weight: 600;
-}
-
-tr:nth-child(even) {
-  background-color: var(--color-gray-100);
-}
-
-.prop-table td:nth-child(2) {
-  color: var(--color-secondary);
-  line-height: 1.4;
-
-  strong {
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.3);
-  }
-}
-
-.prop-table-sm td:nth-child(2),
-.prop-table td:last-of-type {
-  code {
-    color: var(--color-secondary);
-  }
-}
-
-.prop-table.prop-bold td:nth-child(2) {
-  font-weight: 700;
-}
-
-/* Hover effect for rows */
-// tbody tr:hover {
-//   background-color: #f0f0f0;
-// }
-
-/* Focus styling for better accessibility */
-tbody tr:focus-within {
-  outline: 2px solid #007bff;
-  background-color: #e6f7ff;
-}
-
-/* Optional: If you want the first column to be bolded for emphasis (like for labels or identifiers) */
-td:first-child {
-  font-weight: bold;
-}
-
-.theme td:first-child {
-  color: blue;
 }

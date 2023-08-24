@@ -1,0 +1,91 @@
+// Tables
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border-spacing: 0;
+  margin: 20px 0;
+}
+
+th,
+td {
+  padding: 0.5rem 1rem;
+  text-align: left;
+  border: 1px solid var(--color-gray-200);
+}
+
+td {
+  font-size: 12px;
+}
+
+thead {
+  background-color: var(--color-gray-100);
+}
+
+th {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: var(--color-gray-100);
+}
+
+@media screen and (min-width: 768px) {
+  table {
+    margin: 50px 0;
+  }
+
+  th {
+    font-size: 1em;
+  }
+
+  td {
+    font-size: 14px;
+  }
+
+  td,
+  th {
+    padding: 0.75rem 1.25rem;
+  }
+}
+
+.prop-table td:nth-child(2) {
+  color: var(--color-secondary);
+  line-height: 1.4;
+
+  strong {
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.prop-table-sm td:nth-child(2),
+.prop-table td:last-of-type {
+  code {
+    color: var(--color-secondary);
+  }
+}
+
+.prop-table.prop-bold td:nth-child(2) {
+  font-weight: 700;
+}
+
+/* Focus styling for better accessibility */
+tbody tr:focus-within {
+  outline: 2px solid #007bff;
+  background-color: #e6f7ff;
+}
+
+td:first-child {
+  font-weight: bold;
+}
+
+.theme td:first-child {
+  color: blue;
+}
+
+.prop-table {
+  overflow-x: scroll;
+  max-width: calc(100vw - 40px);
+}

@@ -10,10 +10,10 @@ interface MenuButtonProps
   extends MakerCSS,
     LayoutButtonProps,
     React.HTMLAttributes<HTMLButtonElement> {
-  /** A callback function that you can use to render your own menu button.
-   * Note that this prop is incompatible with the LayoutButtonProps so you are
-   * responsible for styling the button. */
-  renderProps?: (active?: boolean, attrs?: object) => React.ReactNode
+  themes?: {
+    default?: string | React.ReactElement
+    active?: string | React.ReactElement
+  }
 }
 
 /**
@@ -25,7 +25,6 @@ interface MenuButtonProps
  */
 export const MenuButton = ({
   className,
-  renderProps,
   type = 'mobile-menu',
   icon,
   label,
@@ -112,16 +111,7 @@ export const MenuButton = ({
     ...props,
   }
 
-  return renderProps ? (
-    <>
-      {renderProps(
-        type === 'side-nav' && options?.sideNav.isPrimaryMobileNav
-          ? active?.sideNavMobile
-          : active?.mobileMenu,
-        attributes
-      )}
-    </>
-  ) : (
+  return (
     <button {...attributes}>
       <Style
         root={styleId}
