@@ -2,13 +2,17 @@
 
 import { useEffect, useState } from 'react'
 
-export const CopyButton = () => {
+interface CopyButtonProps {
+  td?: boolean
+}
+
+export const CopyButton = ({ td }: CopyButtonProps) => {
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopyClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const buttonElement = event.currentTarget
     const preElement = buttonElement
-      .closest('.mkui-code-block')
+      .closest('[data-rehype-pretty-code-fragment]')
       ?.querySelector('pre')
 
     if (preElement) {
@@ -29,9 +33,11 @@ export const CopyButton = () => {
     }
   }, [isCopied])
 
-  return (
+  return td ? (
+    <div>copied</div>
+  ) : (
     <button onClick={handleCopyClick}>{isCopied ? 'Copied' : 'Copy'}</button>
   )
 }
 
-CopyButton.diiplayName = 'CopyButton'
+CopyButton.displayName = 'CopyButton'
