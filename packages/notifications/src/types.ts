@@ -5,21 +5,21 @@ export interface ToastClassNames {
   toast_body: string
 }
 
-export interface ToastProviderStyles extends ToastStyles {
-  gap?: string | number
-  padding?: string | number
-  distance?: string | number
-  duration?: string | number
-}
-
 export interface ToastStyles {
+  container?: {
+    gap?: string | number
+    padding?: string | number
+  }
   toast?: {
     color?: string
-    background?: string
+    bg?: string
     padding?: string | number
+    border?: string
     borderRadius?: string
     boxShadow?: string
     fontSize?: string | number
+    distance?: string | number
+    duration?: string | number
   }
   icon?: {
     fill?: string

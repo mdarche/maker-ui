@@ -75,6 +75,8 @@ interface ToastProviderProps {
  * disk / memory storage operations.
  *
  * @prop {React.ReactNode} children a React child node
+ *
+ * @link https://maker-ui.com/api-reference/components/toastprovider
  */
 export const ToastProvider = ({
   children,
@@ -120,9 +122,7 @@ export const ToastProvider = ({
           state.classNames?.container,
         ])}
         style={variables}>
-        {toasts?.map((props) => (
-          <Toast key={props.id} {...props} />
-        ))}
+        {toasts?.map((props) => <Toast key={props.id} {...props} />)}
       </div>
     </ToastContext.Provider>
   )

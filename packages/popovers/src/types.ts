@@ -17,7 +17,7 @@ export type TransitionType =
 export type Offset = { x: number; y: number } | number
 
 interface Styles {
-  background?: string
+  bg?: string
   border?: string
   color?: string
   fontSize?: number | string
@@ -26,7 +26,7 @@ interface Styles {
 }
 
 interface ButtonStyles extends Styles {
-  backgroundHover?: string
+  bgHover?: string
   colorHover?: string
 }
 

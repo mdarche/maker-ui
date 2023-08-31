@@ -1,10 +1,11 @@
 /* Config Variables
 / -------------------------------------------------- /
-/ --toast-gap
-/ --toast-padding-container
+/ --toast-container-gap
+/ --toast-container-padding
 / --toast-color
 / --toast-bg
 / --toast-padding
+/ --toast-border
 / --toast-border-radius
 / --toast-box-shadow
 / --toast-font-size
@@ -19,7 +20,7 @@
   display: grid;
   position: fixed;
   z-index: 1000;
-  gap: var(--toast-gap, 1vh);
+  gap: var(--toast-container-gap, 1vh);
 }
 
 .mkui-toast-container.top {
@@ -50,7 +51,8 @@
   border-radius: var(--toast-border-radius, 2px);
   box-shadow: var(--toast-box-shadow);
   will-change: transform;
-  animation: toast-fade-in 0.3s ease,
+  animation:
+    toast-fade-in 0.3s ease,
     toast-fade-out 0.3s ease var(--toast-duration, 3s);
 }
 

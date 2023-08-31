@@ -8,3 +8,4 @@ export {
   Div,
   type MenuItemProps as MenuItem,
 } from '@maker-ui/layout'
+import '../../layout/dist/index.css'

@@ -1,4 +1,22 @@
-/* Accordion */
+/* Config Variables
+/ -------------------------------------------------- /
+/ --accordion-btn-color
+/ --accordion-btn-font-family
+/ --accordion-btn-font-size
+/ --accordion-btn-padding
+/ --accordion-btn-border
+/ --accordion-btn-bg
+/ --accordion-btn-color-active
+/ --accordion-btn-bg-active
+/ --accordion-btn-border-active
+/ --accordion-icon-height
+/ --accordion-icon-fill
+/ --accordion-icon-fill-active
+/ --accordion-panel-padding
+/ --accordion-panel-font-size
+/ --accordion-panel-bg
+/ -------------------------------------------------- 
+*/
 
 .mkui-accordion-btn {
   color: var(--accordion-btn-color, var(--color-text));
@@ -17,7 +35,7 @@
 }
 
 .mkui-accordion-btn.active svg {
-  fill: var(--accordion-icon-active);
+  fill: var(--accordion-icon-fill-active);
 }
 
 .mkui-accordion-content {

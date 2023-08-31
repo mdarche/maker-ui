@@ -15,8 +15,8 @@ export interface TabStyles {
   button: {
     color?: string
     colorActive?: string
-    background?: string
-    backgroundActive?: string
+    bg?: string
+    bgActive?: string
     border?: string
     borderActive?: string
     padding?: string | number
@@ -24,7 +24,7 @@ export interface TabStyles {
     fontFamily?: string
   }
   panel?: {
-    background?: string
+    bg?: string
     padding?: string | number
     fontSize: string | number
   }

@@ -19,12 +19,12 @@ export interface CarouselStyles {
   arrow?: {
     fill?: string
     height?: string
-    background?: string
+    bg?: string
     border?: string
   }
   dot?: {
-    background?: string
-    backgroundActive?: string
+    bg?: string
+    bgActive?: string
     height?: string
     width?: string
     borderRadius?: string
@@ -32,7 +32,7 @@ export interface CarouselStyles {
     padding?: string
   }
   overlay?: {
-    background?: string
+    bg?: string
   }
 }
 

@@ -1,0 +1,58 @@
+/* Config Variables
+/ -------------------------------------------------- /
+/ --tab-panel-bg
+/ --tab-panel-padding
+/ --tab-panel-font-size
+/ --tab-btn-color
+/ --tab-btn-font-family
+/ --tab-btn-font-size
+/ --tab-btn-padding
+/ --tab-btn-border
+/ --tab-btn-bg
+/ --tab-btn-color-active
+/ --tab-btn-bg-active
+/ --tab-btn-border-active
+/ -------------------------------------------------- 
+*/
+
+.mkui-tabgroup {
+  flex-wrap: wrap;
+}
+
+.mkui-tabgroup.vertical {
+  flex-direction: column;
+}
+
+.mkui-tab {
+  flex: 1;
+  order: 1;
+  background: var(--tab-panel-bg);
+  padding: var(--tab-panel-padding, 10px 20px);
+  font-size: var(--tab-panel-font-size);
+}
+
+.mkui-tab-btn {
+  color: var(--tab-btn-color, var(--color-text));
+  font-family: var(--tab-btn-font-family);
+  font-size: var(--tab-btn-font-size);
+  padding: var(--tab-btn-padding, 10px 20px);
+  border: var(--tab-btn-border, none);
+  background: var(--tab-btn-bg);
+  cursor: pointer;
+}
+
+.mkui-tab-btn.active {
+  color: var(--tab-btn-color-active, var(--color-text));
+  background: var(--tab-btn-bg-active, var(--tab-btn-bg));
+  border: var(--tab-btn-border-active, var(--tab-btn-border));
+}
+
+/* Remove the default focus outline for the tab container */
+.mkui-tab:focus {
+  outline: none;
+}
+
+/* Add a 2px solid blue outline for keyboard users in the tab container */
+.mkui-tab:focus-visible {
+  outline: 2px solid blue;
+}

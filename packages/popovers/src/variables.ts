@@ -16,7 +16,7 @@ export const cssVariables = (
 
   return cleanObject({
     // Popover, Tooltip, Dropdown
-    [`--${root}-bg`]: popover?.background,
+    [`--${root}-bg`]: popover?.bg,
     [`--${root}-border`]: popover?.border,
     [`--${root}-color`]: popover?.color,
     [`--${root}-font-size`]: formatNumber(popover?.fontSize),
@@ -24,12 +24,12 @@ export const cssVariables = (
     [`--${root}-padding`]: formatNumber(popover?.padding),
     // Trigger button for tooltip and dropdown
     [`--${root}-btn-border`]: button?.border,
-    [`--${root}-btn-bg`]: button?.background,
+    [`--${root}-btn-bg`]: button?.bg,
     [`--${root}-btn-padding`]: formatNumber(button?.padding),
     [`--${root}-btn-color`]: button?.color,
     [`--${root}-btn-font-size`]: formatNumber(button?.fontSize),
     [`--${root}-btn-font-family`]: button?.fontFamily,
-    [`--${root}-btn-bg-hover`]: button?.backgroundHover,
+    [`--${root}-btn-bg-hover`]: button?.bgHover,
     [`--${root}-btn-color-hover`]: button?.colorHover,
   })
 }
