@@ -90,11 +90,11 @@ export interface LightboxProps
 
 export interface LightboxStyles {
   toolbar?: {
-    background?: string
+    bg?: string
     padding?: string | number
     fill?: string
     height?: string | number
-    backgroundActive?: string
+    bgActive?: string
     fillActive?: string
   }
   pagination?: {
@@ -104,15 +104,15 @@ export interface LightboxStyles {
     padding: string | number
   }
   arrow?: {
-    background?: string
-    backgroundActive?: string
+    bg?: string
+    bgActive?: string
     fill?: string
     height?: string | number
     border?: string
     padding?: string | number
   }
   preview?: {
-    background?: string
+    bg?: string
     iconFill?: string
     iconHeight?: string | number
     imageHeight?: string | number

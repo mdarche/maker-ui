@@ -1,4 +1,28 @@
-/* LightboxModal */
+/* Config Variables
+/ -------------------------------------------------- /
+/ --lbx-toolbar-color
+/ --lbx-pagination-font-size
+/ --lbx-toolbar-font-family
+/ --lbx-pagination-padding
+/ --lbx-toolbar-padding
+/ --lbx-toolbar-bg-active
+/ --lbx-toolbar-fill-active
+/ --lbx-toolbar-fill
+/ --lbx-toolbar-height
+/ --lbx-arrow-bg
+/ --lbx-arrow-padding
+/ --lbx-arrow-border
+/ --lbx-arrow-fill
+/ --lbx-arrow-height
+/ --lbx-arrow-bg-active
+/ --lbx-preview-gap
+/ --lbx-preview-bg
+/ --lbx-preview-icon-fill
+/ --lbx-preview-icon-height
+/ --lbx-preview-image-height
+/ --lbx-preview-image-width
+/ -------------------------------------------------- 
+*/
 
 .mkui-lbx-controls {
   opacity: 0;
@@ -154,8 +178,8 @@
 }
 
 .mkui-lbx-preview .icon-play {
-  fill: var(--lbx-preview-fill, #fff);
-  height: var(--lbx-preview-height, 26px);
+  fill: var(--lbx-preview-icon-fill, #fff);
+  height: var(--lbx-preview-icon-height, 26px);
 }
 
 .mkui-lbx-preview.active {

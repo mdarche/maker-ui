@@ -1,12 +1,10 @@
-import { cleanObject, formatNumber } from '@maker-ui/utils'
+import { getCssVariables } from '@maker-ui/utils'
 import type { PopoverStyles } from '@/types'
 
 export const cssVariables = (
   styles?: PopoverStyles,
   type?: 'tooltip' | 'dropdown'
 ) => {
-  const popover = styles?.tooltip || styles?.dropdown || styles?.popover
-  const button = styles?.button
   const root =
     type || styles?.tooltip
       ? 'tooltip'
@@ -14,22 +12,30 @@ export const cssVariables = (
       ? 'dropdown'
       : 'popover'
 
-  return cleanObject({
-    // Popover, Tooltip, Dropdown
-    [`--${root}-bg`]: popover?.bg,
-    [`--${root}-border`]: popover?.border,
-    [`--${root}-color`]: popover?.color,
-    [`--${root}-font-size`]: formatNumber(popover?.fontSize),
-    [`--${root}-font-family`]: popover?.fontFamily,
-    [`--${root}-padding`]: formatNumber(popover?.padding),
-    // Trigger button for tooltip and dropdown
-    [`--${root}-btn-border`]: button?.border,
-    [`--${root}-btn-bg`]: button?.bg,
-    [`--${root}-btn-padding`]: formatNumber(button?.padding),
-    [`--${root}-btn-color`]: button?.color,
-    [`--${root}-btn-font-size`]: formatNumber(button?.fontSize),
-    [`--${root}-btn-font-family`]: button?.fontFamily,
-    [`--${root}-btn-bg-hover`]: button?.bgHover,
-    [`--${root}-btn-color-hover`]: button?.colorHover,
+  return getCssVariables(styles, {
+    [root]: {
+      prefix: root,
+      properties: [
+        'bg',
+        'border',
+        'color',
+        'fontSize',
+        'fontFamily',
+        'padding',
+      ],
+    },
+    button: {
+      prefix: `${root}-btn`,
+      properties: [
+        'bg',
+        'border',
+        'color',
+        'fontSize',
+        'fontFamily',
+        'padding',
+        'bgHover',
+        'colorHover',
+      ],
+    },
   })
 }
