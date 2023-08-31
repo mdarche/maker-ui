@@ -1,8 +1,8 @@
 import { Section } from 'maker-ui'
-import { PostNavigation } from '.'
-import { PageContents } from './PageContents'
+import { PostNavigation } from '..'
+import { PageContents } from '../PageContents/PageContents'
 
-interface RefLayoutProps {
+interface ReferenceLayoutProps {
   title: string
   library: string
   type: 'component' | 'hook' | 'function' | 'hidden'
@@ -12,7 +12,7 @@ interface RefLayoutProps {
   children: React.ReactNode
 }
 
-export const RefLayout = ({
+export const ReferenceLayout = ({
   title,
   type = 'component',
   library,
@@ -20,7 +20,7 @@ export const RefLayout = ({
   github,
   readme,
   children,
-}: RefLayoutProps) => {
+}: ReferenceLayoutProps) => {
   return (
     <div className="mkui-ref-layout">
       <div className="mdx-container">
@@ -51,4 +51,4 @@ export const RefLayout = ({
   )
 }
 
-RefLayout.displayName = 'RefLayout'
+ReferenceLayout.displayName = 'ReferenceLayout'

@@ -1,7 +1,7 @@
 import { ColorButton } from 'maker-ui/layout'
 import { cn } from 'maker-ui/utils'
 import { GithubIcon, ContrastIcon, SunIcon, MoonIcon } from '@/components'
-import { Search } from './Search'
+import { Search } from '../Search'
 
 export const SharedWidgets = ({ className }: { className?: string }) => {
   return (

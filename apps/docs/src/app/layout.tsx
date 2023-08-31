@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
 import { Menu } from 'maker-ui/layout'
-import { DesktopWidgets, SharedWidgets } from '../components/NavWidgets'
+import { DesktopWidgets, SharedWidgets } from '../components/NavArea'
 
 import 'maker-ui/layout.css'
 import '@docsearch/css/dist/modal.css'

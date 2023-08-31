@@ -5,7 +5,7 @@ import type { MenuItem } from 'maker-ui/layout'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { sideMenu } from '@/menus'
-import { flattenMenu } from '../utils/flatten-menu'
+import { flattenMenu } from '../../utils/flatten-menu'
 
 interface ButtonProps {
   title: string

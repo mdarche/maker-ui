@@ -27,7 +27,7 @@ const options: ViewOption[] = [
     icon: <PaneIcon />,
   },
   {
-    label: 'Markdown',
+    label: 'Code',
     value: 'markdown',
     icon: <CodeIcon />,
   },
