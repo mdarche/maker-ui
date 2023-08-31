@@ -9,4 +9,5 @@ export {
   cleanObject,
   formatNumber,
 } from './helper'
+export { getCssVariables, type StyleConfig } from './internal'
 export { merge }

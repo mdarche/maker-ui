@@ -15,8 +15,8 @@ interface AccordionStyles {
   button?: {
     color?: string
     colorActive?: string
-    background?: string
-    backgroundActive?: string
+    bg?: string
+    bgActive?: string
     border?: string
     borderActive?: string
     padding?: string | number
@@ -25,7 +25,7 @@ interface AccordionStyles {
   }
   panel?: {
     padding?: string | number
-    background?: string
+    bg?: string
     fontSize?: string | number
   }
   icon?: {

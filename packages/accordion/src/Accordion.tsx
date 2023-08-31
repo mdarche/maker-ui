@@ -19,7 +19,7 @@ const AccordionContext = createContext<{
  * The `Accordion` shows collapsible panel content that can be toggled via
  * `activeKey` prop or the panel title buttle.
  *
- * @link https://maker-ui.com/docs/elements/accordion
+ * @link https://maker-ui.com/api-reference/components/accordion
  */
 export const Accordion = ({
   icon = true,

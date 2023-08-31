@@ -90,6 +90,7 @@
       "require": "./dist/utils.js",
       "types": "./dist/utils.d.ts"
     },
+    "./accordion.css": "./node_modules/@maker-ui/accordion/dist/index.css",
     "./layout.css": "./node_modules/@maker-ui/layout/dist/index.css",
     "./forms.css": "./node_modules/@maker-ui/forms/dist/index.css",
     "./lightbox.css": "./node_modules/@maker-ui/lightbox/dist/index.css",

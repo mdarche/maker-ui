@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import {
   Transition as ReactTransition,
   type TransitionStatus,
@@ -73,7 +73,13 @@ export const Transition = ({
   ...props
 }: TransitionProps) => {
   const ref = useRef(null)
-  return (
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  return mounted ? (
     <ReactTransition
       nodeRef={ref}
       in={show}
@@ -93,5 +99,5 @@ export const Transition = ({
         </div>
       )}
     </ReactTransition>
-  )
+  ) : null
 }

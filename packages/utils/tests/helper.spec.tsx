@@ -254,12 +254,12 @@ describe('cleanObject', () => {
     expect(cleanedObj).toBeUndefined()
   })
 
-  it('should return an empty object if input is an empty object', () => {
+  it('should return undefined if input is an empty object', () => {
     const obj = {}
 
     const cleanedObj = cleanObject(obj)
 
-    expect(cleanedObj).toEqual({})
+    expect(cleanedObj).toEqual(undefined)
   })
 })
 

@@ -1,0 +1,37 @@
+/* Accordion */
+
+.mkui-accordion-btn {
+  color: var(--accordion-btn-color, var(--color-text));
+  font-family: var(--accordion-btn-font-family);
+  font-size: var(--accordion-btn-font-size);
+  padding: var(--accordion-btn-padding, 10px 20px);
+  border: var(--accordion-btn-border, none);
+  background: var(--accordion-btn-bg);
+  cursor: pointer;
+}
+
+.mkui-accordion-btn.active {
+  color: var(--accordion-btn-color-active, var(--color-text));
+  background: var(--accordion-btn-bg-active, var(--accordion-btn-bg));
+  border: var(--accordion-btn-border-active, var(--accordion-btn-border));
+}
+
+.mkui-accordion-btn.active svg {
+  fill: var(--accordion-icon-active);
+}
+
+.mkui-accordion-content {
+  padding: var(--accordion-panel-padding, 10px 20px);
+  font-size: var(--accordion-panel-font-size);
+  background: var(--accordion-panel-bg);
+}
+
+.mkui-accordion-icon svg {
+  display: block;
+  height: var(--accordion-icon-height, 15px);
+  fill: var(--accordion-icon-fill, var(--color-text));
+}
+
+.mkui-accordion-panel {
+  overflow: hidden;
+}
