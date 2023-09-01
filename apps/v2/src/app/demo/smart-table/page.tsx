@@ -2,6 +2,7 @@
 import { Section } from 'maker-ui'
 import { FetchDataParams, SmartTable } from 'maker-ui/data'
 import { userColumns, users, type ExampleUser } from '../smart-grid/seed'
+import 'maker-ui/data.css'
 
 // Fake network request
 function fetchData({
@@ -31,11 +32,12 @@ function fetchData({
       console.log('searchQuery', searchQuery)
 
       // Filtering
-      if (searchQuery && searchColumns.length > 0) {
+      if (searchQuery && searchColumns && searchColumns.length > 0) {
         const query = searchQuery.toLowerCase()
         result = result.filter((item) =>
-          searchColumns.some((columnKey) =>
-            item[columnKey]?.toString().toLowerCase().includes(query)
+          searchColumns.some(
+            (columnKey) =>
+              item[columnKey]?.toString().toLowerCase().includes(query)
           )
         )
       }

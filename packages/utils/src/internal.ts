@@ -56,10 +56,12 @@ export const getCssVariables = (
   let result: { [key: string]: any } = {}
 
   for (const section in config) {
-    const { prefix, properties } = config[section]
-    result = {
-      ...result,
-      ...mapStyles(styles[section], prefix, properties),
+    if (styles?.hasOwnProperty(section)) {
+      const { prefix, properties } = config[section]
+      result = {
+        ...result,
+        ...mapStyles(styles[section], prefix, properties),
+      }
     }
   }
 

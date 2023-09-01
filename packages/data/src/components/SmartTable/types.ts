@@ -74,7 +74,7 @@ export interface SearchStyles {
     /** The font family for the search input. */
     fontFamily?: string
     /** The background color for the search input. */
-    background?: string
+    bg?: string
     /** The color for the search input. */
     color?: string
     /** The border for the search input. */
@@ -94,7 +94,7 @@ export interface SearchStyles {
     fill: string
     height: string | number
     padding: string | number
-    background: string
+    bg: string
     borderRadius: string | number
     border: string
   }
@@ -108,9 +108,9 @@ export interface PaginationStyles {
   /** The font family for the pagination buttons. */
   fontFamily?: string
   /** The background color for the pagination buttons. */
-  background?: string
+  bg?: string
   /** The background color for the active pagination button (if applicable). */
-  backgroundActive?: string
+  bgActive?: string
   /** The color for the pagination buttons. */
   color?: string
   /** The color for the active pagination button (if applicable). */
@@ -129,16 +129,12 @@ export interface PaginationStyles {
   padding?: string | number
   /** The margin-right (gap) value for all pagination buttons. */
   gap?: string | number
-  /** The background color for the pagination buttons when hovered. */
-  hoverBackground?: string
-  /** The color for the pagination buttons when hovered. */
-  hoverColor?: string
-  /** The border for the pagination buttons when hovered. */
-  hoverBorder?: string
 }
 
 export interface TableStyles {
   table: {
+    /** Background color for the table. */
+    bg?: string
     /** Border color for the table and its cells. */
     borderColor?: string
     /** Font size for the table. */
@@ -156,13 +152,15 @@ export interface TableStyles {
     /** Color of the table header text. */
     color?: string
     /** Background color of the table header. */
-    background?: string
+    bg?: string
     /** Font family for the table header. */
     fontFamily?: string
     /** Font size for the table header. */
     fontSize?: string | number
     /** Height of the SVG caret / arrow icon */
     iconHeight?: string | number
+    /** Width of the SVG caret / arrow icon */
+    iconWidth?: string | number
     /** Color of the SVG caret / arrow icon */
     iconFill?: string
   }
@@ -172,13 +170,13 @@ export interface TableStyles {
   }
   row: {
     /** Background color for alternating rows.*/
-    altBackground?: string
+    bgAlt?: string
     /** Background color for rows when hovered. */
-    hoverBackground?: string
+    bgHover?: string
   }
   export: {
     /** Background color for the export button. */
-    background?: string
+    bg?: string
     /** Color for the export button text. */
     color?: string
     /** Font family for the export button. */

@@ -1,9 +1,37 @@
-.mkui-smart-table .sticky-header {
+/* Config Variables
+/ -------------------------------------------------- /
+/ --table-font-size
+/ --table-font-family
+/ --table-border-color
+/ --table-bg
+/ --table-td-padding
+/ --table-th-bg
+/ --table-th-color
+/ --table-th-font-size
+/ --table-th-font-family
+/ --table-th-padding
+/ --table-th-top
+/ --table-th-icon-height
+/ --table-th-icon-width
+/ --table-th-icon-fill
+/ --table-tr-bg-alt
+/ --table-tr-bg-hover
+/ --table-btn-export-bg
+/ --table-btn-export-color
+/ --table-btn-export-font-family
+/ --table-btn-export-font-size
+/ --table-btn-export-padding
+/ --table-btn-export-border
+/ --table-btn-export-border-radius
+/ -------------------------------------------------- 
+*/
+
+.mkui-table .sticky-header {
   overflow: initial;
 }
-.mkui-smart-table .sticky-header th {
+.mkui-table .sticky-header th {
   position: sticky;
-  top: var(--table-header-top, 0px);
+  top: var(--table-th-top, 0px);
   z-index: 100;
 }
 
@@ -14,53 +42,54 @@
 
 .row-select tbody tr:hover td {
   cursor: pointer;
-  background-color: var(--table-row-hover-bg, #f8f9fa);
+  background-color: var(--table-tr-bg-hover, #f8f9fa);
 }
 
-.mkui-smart-table td {
-  padding: var(--table-cell-padding, 8px);
+.mkui-table td {
+  padding: var(--table-td-padding, 8px);
 }
 
-.mkui-smart-table th,
-.mkui-smart-table td {
+.mkui-table th,
+.mkui-table td {
   border: 1px solid var(--table-border-color, #dee2e6);
 }
-.mkui-smart-table table {
+.mkui-table table {
   position: relative;
   text-align: left;
   width: 100%;
   border-collapse: collapse;
   font-size: var(--table-font-size, 14px);
   font-family: var(--table-font-family, var(--font-body));
+  background: var(--table-bg);
 }
-.mkui-smart-table th {
+.mkui-table th {
   position: relative;
-  background-color: var(--table-header-bg, #007bff);
-  padding: var(--table-header-padding, var(--table-cell-padding, 8px));
-  color: var(--table-header-color, #fff);
-  font-family: var(--table-header-font-family, var(--font-body));
-  font-size: var(--table-header-font-size, 14px);
+  background-color: var(--table-th-bg, #007bff);
+  padding: var(--table-th-padding, var(--table-td-padding, 8px));
+  color: var(--table-th-color, #fff);
+  font-family: var(--table-th-font-family, var(--font-body));
+  font-size: var(--table-th-font-size, 14px);
 }
-.mkui-smart-table th.sortable {
+.mkui-table th.sortable {
   cursor: pointer;
 }
-.mkui-smart-table .alt-row tr:nth-child(even) {
-  background-color: var(--table-alt-row-bg, #f8f9fa);
+.mkui-table .alt-row tr:nth-child(even) {
+  background-color: var(--table-tr-bg-alt, #f8f9fa);
 }
-.mkui-smart-table .sort-indicator svg {
+.mkui-table .sort-indicator svg {
   display: inline-block;
   margin-bottom: 2px;
   margin-left: 5px;
   height: 6px;
-  fill: var(--table-header-color, #fff);
+  fill: var(--table-th-color, #fff);
 }
 
-.mkui-smart-table .sort-indicator.desc svg {
+.mkui-table .sort-indicator.desc svg {
   display: inline-block;
   transform: rotate(180deg);
 }
 
-.mkui-smart-table .resize-handle {
+.mkui-table .resize-handle {
   display: inline-block;
   position: absolute;
   right: -3px;
@@ -70,9 +99,9 @@
   cursor: col-resize;
   z-index: 100;
 }
-.mkui-smart-table td:last-of-type {
+.mkui-table td:last-of-type {
   text-align: center;
 }
-.mkui-smart-table .btn-primary {
+.mkui-table .btn-primary {
   margin: 0 auto;
 }

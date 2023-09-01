@@ -133,7 +133,7 @@ export const TableHeader = <T,>({
                 className={cn([
                   classNames?.tableHeader,
                   column.sortable ? 'sortable' : undefined,
-                  styles?.stickyHeader ? 'sticky' : undefined,
+                  styles?.header?.sticky ? 'sticky' : undefined,
                 ])}
                 style={{
                   width: formatNumber(column.width),

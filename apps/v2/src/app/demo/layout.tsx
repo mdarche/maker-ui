@@ -1,6 +1,5 @@
 import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
 import { ColorButton, Menu, type MenuItem } from 'maker-ui/layout'
-import 'maker-ui/data.css'
 
 const menu: MenuItem[] = [
   { label: 'Home', path: '/' },

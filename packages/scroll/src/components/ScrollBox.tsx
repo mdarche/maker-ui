@@ -33,6 +33,7 @@ export const ScrollBox = ({
   barWidth = 15,
   border,
   boxShadow,
+  style,
   children,
   ...props
 }: ScrollBoxProps) => {
@@ -42,6 +43,7 @@ export const ScrollBox = ({
     '--scroll-bar-width': formatNumber(barWidth),
     border,
     boxShadow,
+    ...style,
   }) as React.CSSProperties
 
   return (

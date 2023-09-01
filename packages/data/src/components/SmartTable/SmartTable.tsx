@@ -13,7 +13,7 @@ import { TablePagination } from './TablePagination'
 import { TableHeader } from './TableHeader'
 import { TableRow } from './TableRow'
 import { TableControls } from './TableControls'
-import { tableVariables } from 'src/variables'
+import { tableVars } from '../../variables'
 import type { SmartTableProps, SmartTableState, TableAction } from './types'
 
 const defaultProps = {
@@ -62,7 +62,7 @@ export const SmartTable = <T extends { id: string | number }>(
     searchColumns: settings?.search?.columns || [],
     searchQuery: '',
   }
-  const variables = tableVariables(styles)
+  const variables = tableVars(styles)
   const [state, dispatch] = useReducer<
     React.Reducer<SmartTableState<T>, TableAction<T>>
   >(smartTableReducer, initialState)
@@ -90,8 +90,9 @@ export const SmartTable = <T extends { id: string | number }>(
     if (state.searchQuery && state.searchColumns.length > 0) {
       const query = state.searchQuery.toLowerCase()
       result = result.filter((item) =>
-        state.searchColumns.some((columnKey) =>
-          item[columnKey]?.toString().toLowerCase().includes(query)
+        state.searchColumns.some(
+          (columnKey) =>
+            item[columnKey]?.toString().toLowerCase().includes(query)
         )
       )
     }
@@ -179,10 +180,10 @@ export const SmartTable = <T extends { id: string | number }>(
     <TableContext.Provider value={{ state, dispatch } as any}>
       <div
         className={cn([
-          'mkui-smart-table',
+          'mkui-table',
           classNames?.root,
           styles?.header?.sticky ? 'sticky-header' : undefined,
-          styles?.row?.altBackground ? 'alt-row' : undefined,
+          styles?.row?.bgAlt ? 'alt-row' : undefined,
           onRowClick !== undefined ? 'row-select' : undefined,
         ])}
         style={variables}>

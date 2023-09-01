@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import { createMarkers, getStyles } from './utils'
 import { cn, formatNumber } from '@maker-ui/utils'
+import { createMarkers, getStyles } from './utils'
 
 type AnimationType =
   | 'fade'
@@ -137,7 +137,7 @@ export const Animate = ({
         (entries) => {
           entries.forEach((entry) => {
             const element = entry.target as HTMLElement
-            const currentScrollPos = window.pageYOffset
+            const currentScrollPos = window.scrollY
             const isScrollingUp = prevScrollPos.current > currentScrollPos
             if (!entry.isIntersecting && isScrollingUp) {
               element.classList.remove(type)

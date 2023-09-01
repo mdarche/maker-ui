@@ -98,7 +98,7 @@
     "./lightbox.css": "./dist/lightbox.css",
     "./notifications.css": "./dist/notifications.css",
     "./popovers.css": "./dist/popovers.css",
-    "./scroll.css": "./dist/index.css",
+    "./scroll.css": "./dist/scroll.css",
     "./tabs.css": "./dist/tabs.css",
     "./package.json": "./package.json"
   },

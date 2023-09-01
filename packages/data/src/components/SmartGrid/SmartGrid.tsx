@@ -9,7 +9,7 @@ import { GridSearch } from './GridSearch'
 import { FilterGroup } from './FilterGroup'
 import { SortButton } from './SortButton'
 import { LayoutButtons } from './LayoutButtons'
-import { gridVariables } from 'src/variables'
+import { gridVars } from '../../variables'
 
 interface DataGridProps<T> extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -57,11 +57,11 @@ export const SmartGrid = <T,>({
   ...props
 }: DataGridProps<T>) => {
   const { isLoading, data, layout } = useSmartGrid()
-  const variables = gridVariables(columns, gap)
+  const variables = gridVars(columns, gap)
 
   return (
     <div
-      className={cn(['mkui-smart-grid', layout, className])}
+      className={cn(['mkui-data-grid', layout, className])}
       {...props}
       style={cleanObject({
         ...(variables || {}),
