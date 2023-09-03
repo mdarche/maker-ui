@@ -11,6 +11,7 @@ import './forms.scss'
 import { GroupedForm } from './groups'
 import { CalendarForm } from './calendar'
 import { TestForm } from './test'
+import 'maker-ui/tabs.css'
 
 export default function FormPage() {
   return (

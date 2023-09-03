@@ -73,9 +73,7 @@ export const FormRenderer = ({
         {p?.label ?? null}
         {p?.instructions ?? null}
         <div className="mkui-form-grid">
-          {p.subFields?.map((p) => (
-            <Field key={p.name} {...p} />
-          ))}
+          {p.subFields?.map((p) => <Field key={p.name} {...p} />)}
         </div>
       </div>
     ) : (

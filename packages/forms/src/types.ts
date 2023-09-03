@@ -565,3 +565,48 @@ export interface FormState {
   isSubmitting: boolean
   isValidating: boolean
 }
+
+export interface FormStyles {
+  form?: {
+    gap?: string | number
+    columns?: string
+    iconFill?: string
+  }
+  label?: {}
+  error?: {}
+  instructions?: {}
+  input?: {}
+  select?: {
+    columns?: number
+    padding?: string | number
+    borderActive?: string
+    // Value
+    valueColor?: string
+    valueBg?: string
+    // Highlight
+    highlightColor?: string
+    highlightBg?: string
+    // Count indicator
+    countColor?: string
+    countBg?: string
+    countFontSize?: string | number
+    // Group Label
+    groupColor?: string
+    groupBg?: string
+    groupPadding?: string | number
+    groupFontSize?: string | number
+  }
+  switch?: {
+    bg?: string
+    bgActive?: string
+    height?: string | number
+    padding?: string | number
+    borderRadius?: string | number
+    labelColor?: string
+    labelColorActive?: string
+  }
+  datePicker?: {}
+  range?: {}
+  options?: {}
+  pagination?: {}
+}
