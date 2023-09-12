@@ -1,20 +1,20 @@
 /* Config variables
 / -------------------------------------------------- /
-/ --form-range-width-input
-/ --form-range-color-thumb
-/ --form-range-shadow-thumb
-/ --form-range-border-radius-thumb
-/ --form-range-size-thumb
-/ --form-range-height-thumb
-/ --form-range-width-thumb
-/ --form-range-height-track
-/ --form-range-bg-track
-/ --form-range-bg-track-active
+/ --form-range-input-width
+/ --form-range-thumb-color
+/ --form-range-thumb-shadow
+/ --form-range-thumb-border-radius
+/ --form-range-thumb-size
+/ --form-range-thumb-height
+/ --form-range-thumb-width
+/ --form-range-track-height
+/ --form-range-track-bg
+/ --form-range-track-bg-active
 / --------------------------------------------------
 */
 
 .mkui-range-input input {
-  width: var(--form-range-width-input, 70px);
+  width: var(--form-range-input-width, 70px);
 }
 
 .mkui-range-input label {
@@ -35,11 +35,11 @@
 }
 
 .mkui-thumb::-webkit-slider-thumb {
-  background-color: var(--form-range-color-thumb, var(--color-background));
-  box-shadow: var(--form-range-shadow-thumb, 0 0 1px 1px var(--color-text));
-  border-radius: var(--form-range-border-radius-thumb, 50%);
-  height: var(--form-range-size-thumb, var(--form-range-height-thumb, 20px));
-  width: var(--form-range-size-thumb, var(--form-range-width-thumb, 20px));
+  background-color: var(--form-range-thumb-color, var(--color-background));
+  box-shadow: var(--form-range-thumb-shadow, 0 0 1px 1px var(--color-text));
+  border-radius: var(--form-range-thumb-border-radius, 50%);
+  height: var(--form-range-thumb-size, var(--form-range-thumb-height, 20px));
+  width: var(--form-range-thumb-size, var(--form-range-thumb-width, 20px));
   margin-top: 4px;
   pointer-events: all;
   position: relative;
@@ -48,9 +48,9 @@
 .mkui-thumb::-moz-range-thumb {
   background-color: var(--form-range-color-thumb, var(--color-background));
   box-shadow: var(--form-range-shadow-thumb, 0 0 1px 1px var(--color-text));
-  border-radius: var(--form-range-border-radius-thumb, 50%);
-  height: var(--form-range-size-thumb, var(--form-range-height-thumb, 20px));
-  width: var(--form-range-size-thumb, var(--form-range-width-thumb, 20px));
+  border-radius: var(--form-range-thumb-border-radius, 50%);
+  height: var(--form-range-thumb-size, var(--form-range-thumb-height, 20px));
+  width: var(--form-range-thumb-size, var(--form-range-thumb-width, 20px));
   margin-top: 4px;
   pointer-events: all;
   position: relative;
@@ -70,19 +70,19 @@
 
 .mkui-thumb-track,
 .mkui-thumb-progress {
-  height: var(--form-range-height-track, 3px);
+  height: var(--form-range-track-height, 3px);
 }
 
 .mkui-thumb-track {
   width: 100%;
   z-index: 1;
   opacity: 0.25;
-  background-color: var(--form-range-bg-track, var(--color-text));
+  background-color: var(--form-range-track-bg, var(--color-text));
 }
 
 .mkui-thumb-progress {
   z-index: 2;
-  background-color: var(--form-range-bg-track-active, var(--color-text));
+  background-color: var(--form-range-track-bg-active, var(--color-text));
 }
 
 .z-3 {

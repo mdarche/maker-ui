@@ -571,11 +571,34 @@ export interface FormStyles {
     gap?: string | number
     columns?: string
     iconFill?: string
+    placeholderColor?: string
   }
-  label?: {}
-  error?: {}
-  instructions?: {}
-  input?: {}
+  label?: {
+    color?: string
+    fontSize?: string | number
+    padding?: string | number
+  }
+  error?: {
+    color?: string
+    fontSize?: string | number
+    padding?: string | number
+  }
+  instructions?: {
+    color?: string
+    fontSize?: string | number
+    padding?: string | number
+  }
+  input?: {
+    bg?: string
+    height?: string | number
+    fontSize?: string | number
+    padding?: string | number
+    border?: string
+    borderRadius?: string | number
+  }
+  textArea?: {
+    height?: string | number
+  }
   select?: {
     columns?: number
     padding?: string | number
@@ -605,8 +628,44 @@ export interface FormStyles {
     labelColor?: string
     labelColorActive?: string
   }
-  datePicker?: {}
-  range?: {}
-  options?: {}
+  calendar?: {
+    width?: string | number
+    gap?: string | number
+    borderRadius?: string | number
+    rangeBorderRadius?: string | number
+    bg?: string
+    colorActive?: string
+    colorMuted?: string
+    fontSize?: string | number
+    monthFontSize?: string | number
+    dayFontSize?: string | number
+    timeFontSize?: string | number
+    timeGap?: string | number
+    timeWidth?: string | number
+    timeHeight?: string | number
+    arrowHeight?: string | number
+  }
+  range?: {
+    inputWidth?: string | number
+    thumbColor?: string
+  }
+  upload?: {
+    previewSize?: string | number
+    previewWidth?: string | number
+    previewHeight?: string | number
+    iconFill?: string
+    iconHeight?: string | number
+    dropzoneBorder?: string
+    dropzoneBorderRadius?: string | number
+    dropzoneBg?: string
+    dropzoneFontSize?: string | number
+    dropzoneWidth?: string | number
+    dropzoneHeight?: string | number
+    dropzoneSize?: string | number
+  }
+  option?: {
+    margin?: string | number
+    marginWrapper?: string | number
+  }
   pagination?: {}
 }
