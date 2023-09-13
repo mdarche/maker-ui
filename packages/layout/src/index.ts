@@ -23,6 +23,7 @@ export {
 /* Export standalone Server components and types */
 export {
   Section,
+  Skiplinks,
   type MakerUIOptions,
   type MenuItemProps,
 } from '@maker-ui/layout-server'

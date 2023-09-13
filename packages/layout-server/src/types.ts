@@ -84,15 +84,15 @@ export interface HeaderOptions {
   /** The breakpoint where the header navigation collapses to its mobile state
    * @default 960
    */
-  breakpoint: string | number
+  breakpoint: number
   /** Desktop navigation type
    * @default basic
    */
-  navType: typeof navTypes[number]
+  navType: (typeof navTypes)[number]
   /** Mobile navigation type
    * @default basic
    */
-  navTypeMobile: typeof mobileNavTypes[number]
+  navTypeMobile: (typeof mobileNavTypes)[number]
   /** If true, the header will use absolute and fixed positioning instead of the default
    * relative and sticky positioning. This is useful if you want to show content behind the header
    * like a hero image or video.
@@ -136,7 +136,7 @@ export interface MobileMenuOptions {
   /** The MobileMenu's entrance / exit transition
    * @default fade
    */
-  transition: typeof transitionTypes[number]
+  transition: (typeof transitionTypes)[number]
   /** If true, the menuButton will display on desktop, regardless of header type.
    * @default false
    */
@@ -164,7 +164,7 @@ export interface SideNavOptions {
   /** The breakpoints where the SideNav collapses into its mobile form
    * @default 960
    */
-  breakpoint: string | number
+  breakpoint: number
   /** If true, the SideNav will be wrapped in a `<header>` tag. Only use this
    * if the SideNav is used for your primary navigation.
    * @default false
@@ -205,7 +205,7 @@ export interface WorkspaceOptions {
   /** The breakpoint where the header navigation collapses to its mobile state
    * @default 960
    */
-  breakpoint: string | number
+  breakpoint: number
   /** If true, the center panel will be rendered as a `main` element instead of a `div`.
    * @default true
    */
@@ -235,7 +235,7 @@ export interface WorkspaceOptions {
  */
 export interface Options {
   // Can be applied as root props
-  layout: typeof contentTypes[number]
+  layout: (typeof contentTypes)[number]
   /**
    * Replaces the default Maker UI skiplinks with your own custom on-page links.
    * You don't need to add `#` to your id selectors:
@@ -256,7 +256,7 @@ export interface Options {
   content: {
     /** The breakpoint at which main and sidebar layouts break down into a single column
      * for mobile. */
-    breakpoint: string | number
+    breakpoint: number
   }
   workspace: WorkspaceOptions
 }

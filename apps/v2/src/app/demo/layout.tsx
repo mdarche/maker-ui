@@ -1,5 +1,11 @@
-import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
-import { ColorButton, Menu, type MenuItem } from 'maker-ui/layout'
+import {
+  Layout,
+  LayoutProvider,
+  ColorButton,
+  Menu,
+  type MenuItem,
+  type MakerUIOptions,
+} from 'maker-ui/layout'
 
 const menu: MenuItem[] = [
   { label: 'Home', path: '/' },
@@ -76,7 +82,7 @@ const options: MakerUIOptions = {
     hideOnMobile: false,
   },
   header: {
-    navType: 'basic',
+    navType: 'minimal',
     navTypeMobile: 'logo-center',
     sticky: true,
     stickyOnMobile: true,

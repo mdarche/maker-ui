@@ -56,7 +56,7 @@ export const MenuButton = ({
     type === 'side-nav'
       ? {
           'aria-expanded':
-            width && width > options?.sideNav?.breakpoint
+            windowWidth && windowWidth > options?.sideNav?.breakpoint
               ? active.sideNavDesktop
               : active.sideNavMobile,
           onClick: toggleSideNav,

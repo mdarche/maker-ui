@@ -92,7 +92,7 @@ export const Effects = ({
     if (layout === 'workspace') {
       reset('workspace', isDesktop.workspace ? 'desktop' : 'mobile')
     }
-  }, [isDesktop])
+  }, [isDesktop, layout, reset])
 
   /**
    * Set all necessary HTML element references
@@ -116,15 +116,17 @@ export const Effects = ({
    * Dismiss MobileMenu and mobile SideNav on route change
    */
   useEffect(() => {
+    if (mobileMenu.closeOnRouteChange && active?.mobileMenu) {
+      setMenu(false, 'mobile-menu')
+    }
+
     if (!width || width > sideNav.breakpoint) return
 
     if (sideNav.closeOnRouteChange && active?.sideNavMobile) {
       setMenu(false, 'side-nav-mobile')
     }
 
-    if (mobileMenu.closeOnRouteChange && active?.mobileMenu) {
-      setMenu(false, 'mobile-menu')
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   /**
@@ -158,6 +160,7 @@ export const Effects = ({
       overlaySideNavRef?.current?.removeEventListener('click', sideNavClick)
       overlayWorkspaceRef?.current?.removeEventListener('click', workspaceClick)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   /**
@@ -174,7 +177,7 @@ export const Effects = ({
     ) {
       headerRef?.current?.classList.remove(scrollClass.className)
     }
-  }, [scrollSelector])
+  }, [scrollSelector, scrollClass])
 
   /**
    * Handle sticky upscroll effect

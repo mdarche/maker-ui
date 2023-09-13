@@ -1,4 +1,4 @@
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { Accordion, AccordionPanel as Panel } from 'maker-ui/accordion'
 import 'maker-ui/accordion.css'
 
