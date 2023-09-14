@@ -1,4 +1,4 @@
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { ScrollBox, Animate, ParallaxSection } from 'maker-ui/scroll'
 import 'maker-ui/scroll.css'
 

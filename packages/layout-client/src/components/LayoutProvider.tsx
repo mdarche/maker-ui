@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation'
 
 import { Effects } from './Effects'
 import { getHeaderStyles, getLayoutStyles } from '../styles'
-import { setBrowserTheme } from '../hooks/useColorTheme'
+import { ThemeProvider } from './ThemeProvider'
 
 type Action =
   | { type: 'SET_MOBILE_MENU'; value?: boolean }
@@ -19,7 +19,6 @@ type Action =
       type: 'SET_WORKSPACE'
       value: { value: boolean; type: 'workspaceLeft' | 'workspaceRight' }
     }
-  | { type: 'SET_COLOR_THEME'; value: string }
   | { type: 'RESET'; value?: LayoutState['active'] }
 
 export interface LayoutState {
@@ -83,9 +82,6 @@ function reducer(state: LayoutState, action: Action): LayoutState {
     case 'RESET': {
       return { ...state, active: action?.value || initialActive }
     }
-    case 'SET_COLOR_THEME': {
-      return { ...state, colorTheme: action.value }
-    }
     default: {
       throw new Error(`Unhandled action type.`)
     }
@@ -100,34 +96,6 @@ export const LayoutProvider = (props: LayoutProviderProps) => {
     active: initialActive,
     options,
   })
-
-  /**
-   * Set the initial color theme
-   *
-   * @remark To conform with `prefers-color-scheme`, you must explicitly
-   * set color modes with `light` and `dark` keys.
-   *
-   */
-  useEffect(() => {
-    const themes = options.colorThemes
-    //  If there are multiple color themes, save the active one to local storage
-    if (themes.length) {
-      const key = 'color-theme'
-      const sessionCheck = localStorage.getItem(key)
-
-      if (sessionCheck) {
-        const { theme } = JSON.parse(localStorage.getItem(key) as string) || {}
-        const exists = themes.includes(theme)
-
-        setBrowserTheme(exists ? theme : 'default', themes, exists)
-        dispatch({ type: 'SET_COLOR_THEME', value: exists ? theme : themes[0] })
-      } else {
-        setBrowserTheme('default', themes)
-        dispatch({ type: 'SET_COLOR_THEME', value: themes[0] })
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   /**
    * @TODO - ALL STYLES ADDED TO HEAD WILL BE MOVED TO SERVER WHEN
@@ -172,12 +140,14 @@ export const LayoutProvider = (props: LayoutProviderProps) => {
 
   return (
     <LayoutContext.Provider value={{ state, dispatch }}>
-      {initialized ? (
-        <>
-          <Effects options={options} />
-          {props.children}
-        </>
-      ) : null}
+      <ThemeProvider options={props?.options?.colorThemes as string[]}>
+        {initialized ? (
+          <>
+            <Effects options={options} />
+            {props.children}
+          </>
+        ) : null}
+      </ThemeProvider>
     </LayoutContext.Provider>
   )
 }

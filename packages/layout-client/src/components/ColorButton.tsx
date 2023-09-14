@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { useColorTheme } from '../hooks'
+import { useTheme } from '../hooks'
 
 interface ThemeObject {
   [themeName: string]: string | React.ReactElement
@@ -22,7 +22,7 @@ export const ColorButton = ({
   children,
   ...props
 }: ColorProps) => {
-  const { current, themes: themeList, setColorTheme } = useColorTheme()
+  const { theme: current, options: themeList, setColorTheme } = useTheme()
 
   // Never render this component if themes are undefined
   if (!themeList || themeList.length === 1) return null

@@ -1,5 +1,5 @@
 'use client'
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { SimpleForm } from './simple'
 import { DynamicForm } from './dynamic'
 import 'maker-ui/forms.css'

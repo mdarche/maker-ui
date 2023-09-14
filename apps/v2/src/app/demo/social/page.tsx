@@ -1,4 +1,4 @@
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { SocialAccounts } from 'maker-ui/social'
 
 export default function SocialPage() {

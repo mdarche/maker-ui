@@ -1,8 +1,9 @@
 export {
   LayoutProvider,
+  ThemeProvider,
   ColorButton,
   Menu,
   MenuButton,
   Div,
 } from './components'
-export { useColorTheme, useLayout, useMenu } from './hooks'
+export { useTheme, useLayout, useMenu } from './hooks'

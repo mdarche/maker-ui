@@ -1,4 +1,4 @@
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { Spinner } from 'maker-ui/spinners'
 
 export default function LoaderPage() {

@@ -1,9 +1,8 @@
 'use client'
 import { useState, useRef } from 'react'
-import { Section } from 'maker-ui'
 import { Popover, Dropdown, Tooltip } from 'maker-ui/popovers'
 import { useKeyboardShortcut } from 'maker-ui/hooks'
-import { ColorButton } from 'maker-ui/layout'
+import { ColorButton, Section } from 'maker-ui/layout'
 
 export default function PopoverPage() {
   const [show, set] = useState(false)
@@ -25,13 +24,6 @@ export default function PopoverPage() {
   return (
     <Section>
       <ColorButton />
-      <ColorButton
-        renderProps={(currentMode, attributes) => (
-          <button {...attributes} style={{ marginLeft: 10 }}>
-            {currentMode} Custom
-          </button>
-        )}
-      />
       <div>Count is {count}</div>
       <div style={{ height: 200 }} />
       <Tooltip
@@ -39,8 +31,8 @@ export default function PopoverPage() {
         offset={30}
         position="right"
         styles={{
-          tooltip: { color: '#fff', background: '#000', padding: 20 },
-          button: { background: 'red', color: '#fff' },
+          tooltip: { color: '#fff', bg: '#000', padding: 20 },
+          button: { bg: 'red', color: '#fff' },
         }}>
         <div>Info!</div>
       </Tooltip>
@@ -87,7 +79,7 @@ export default function PopoverPage() {
         trapFocus
         styles={{
           dropdown: {
-            background: 'var(--color-background)',
+            bg: 'var(--color-background)',
             border: '1px solid gray',
             padding: 30,
           },

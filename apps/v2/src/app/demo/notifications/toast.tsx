@@ -1,5 +1,5 @@
 'use client'
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { useToast, ToastProvider } from 'maker-ui/notifications'
 
 const DynamicToast = ({ message }: { message: string }) => {

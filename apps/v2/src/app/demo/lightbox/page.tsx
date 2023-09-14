@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState } from 'react'
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { Lightbox, type LightboxItem } from 'maker-ui/lightbox'
 import 'maker-ui/lightbox.css'
 

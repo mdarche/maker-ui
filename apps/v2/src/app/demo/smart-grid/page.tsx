@@ -1,5 +1,5 @@
 'use client'
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { SmartGrid, SmartGridProvider } from 'maker-ui/data'
 import { renderGrid, renderRow, smartFilters, users } from './seed'
 
@@ -23,7 +23,7 @@ export default function SmartGridPage() {
               { name: 'gender', label: 'Female', value: 'female' },
             ]}
           />
-          <SmartGrid.LayoutButtons />
+          {/* <SmartGrid.LayoutButtons /> */}
           <SmartGrid.SortButton />
         </div>
         <div

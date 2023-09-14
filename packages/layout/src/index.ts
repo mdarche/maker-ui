@@ -14,8 +14,9 @@ export {
   MenuButton,
   Menu,
   LayoutProvider,
+  ThemeProvider,
   Div,
-  useColorTheme,
+  useTheme,
   useMenu,
   useLayout,
 } from '@maker-ui/layout-client'

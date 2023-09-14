@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef } from 'react'
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { Modal } from 'maker-ui/modal'
 
 export default function ModalPage() {

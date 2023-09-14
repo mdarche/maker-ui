@@ -114,7 +114,7 @@ export const useMenu = () => {
       }
     }
     return setMenu
-  }, [])
+  }, [dispatch, options?.sideNav.isPrimaryMobileNav, setRefs])
 
   const reset = useMemo(() => {
     function reset(type: 'side-nav' | 'workspace', size: 'mobile' | 'desktop') {
@@ -161,7 +161,7 @@ export const useMenu = () => {
       }
     }
     return reset
-  }, [])
+  }, [dispatch, setRefs])
 
   return useMemo(() => {
     return { active, setMenu, reset }
