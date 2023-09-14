@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { generateId, merge } from '@maker-ui/utils'
 import type { SpinnerProps } from '@maker-ui/spinners'
 
@@ -104,11 +104,13 @@ LightboxProvider.displayName = 'LightboxProvider'
  * @internal
  */
 export function useLightbox() {
-  const { state, setState } = React.useContext(LightboxContext)
+  const context = useContext(LightboxContext)
 
-  if (typeof state === undefined) {
+  if (!context) {
     throw new Error('useLightbox must be used within a Lightbox component')
   }
+
+  const { state, setState } = context
 
   /**
    * Accepts an option `ID` string and opens or closes the lightbox modal

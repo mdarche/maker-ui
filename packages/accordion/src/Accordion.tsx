@@ -78,13 +78,13 @@ Accordion.displayName = 'Accordion'
 Accordion.Panel = AccordionPanel
 
 export function useAccordion() {
-  const { state, setState } = useContext(AccordionContext)
+  const context = useContext(AccordionContext)
 
-  if (typeof state === 'undefined') {
-    throw new Error(
-      'Accordion.Panel must be used within an Accordion component'
-    )
+  if (!context) {
+    throw new Error('AccordionPanel must be used within an Accordion component')
   }
+
+  const { state, setState } = context
 
   function registerPanel(id: string) {
     const exists = state.panelKeys

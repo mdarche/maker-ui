@@ -18,10 +18,16 @@ export const useMenu = () => {
   const leftPanelRef = useRef<HTMLDivElement | null>(null)
   const rightPanelRef = useRef<HTMLDivElement | null>(null)
 
+  const context = useContext(LayoutContext)
+
+  if (!context) {
+    throw new Error('useMenu must be used within a LayoutProvider component')
+  }
+
   const {
     state: { options, active },
     dispatch,
-  } = useContext(LayoutContext)
+  } = context
 
   const setRefs = useCallback(() => {
     mobileMenuRef.current = document.querySelector('.mkui-mobile-menu')
