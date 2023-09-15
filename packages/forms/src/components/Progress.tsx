@@ -1,9 +1,9 @@
 import React, { forwardRef, Fragment } from 'react'
 import { cn } from '@maker-ui/utils'
 import { useForm } from '@/hooks'
-import { SlotProps } from './FormSlots'
+import { FormSlotProps } from '@/types'
 
-export interface ProgressProps extends SlotProps {
+export interface ProgressProps extends FormSlotProps {
   classNames?: {
     indicator?: string
     container?: string

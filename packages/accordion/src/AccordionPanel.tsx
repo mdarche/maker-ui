@@ -82,9 +82,11 @@ export const AccordionPanel = React.forwardRef<
           return state.customIcon
         }
 
-        if (typeof state.customIcon === 'object') {
-          // @ts-ignore
-          return show ? state.customIcon.collapse : state.customIcon?.expand
+        if (
+          typeof state.customIcon === 'object' &&
+          'expand' in state.customIcon
+        ) {
+          return show ? state.customIcon.collapse : state.customIcon.expand
         }
 
         if (typeof state.customIcon === 'function') {

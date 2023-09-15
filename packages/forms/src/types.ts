@@ -1,11 +1,15 @@
+import * as React from 'react'
 import { Breakpoints } from '@maker-ui/style'
 import { TransitionType } from '@maker-ui/transition'
-import * as React from 'react'
 import type { Schema, ZodError } from 'zod'
 
 export interface FileValidation {
   size: number
   types: string[]
+}
+
+export interface FormSlotProps extends React.HTMLAttributes<HTMLDivElement> {
+  _type?: string
 }
 
 export interface DropzoneSettings {
@@ -566,6 +570,9 @@ export interface FormState {
   isValidating: boolean
 }
 
+/**
+ * This seems dumb but we will someday need it to style forms visually with GUI page builder.
+ */
 export interface FormStyles {
   form?: {
     gap?: string | number

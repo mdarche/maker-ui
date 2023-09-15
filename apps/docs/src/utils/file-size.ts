@@ -16,8 +16,7 @@ export async function getFileSize(filePath: string): Promise<string | null> {
     console.log(`File size: ${sizeInKilobytes.toFixed(2)} KB`)
     return sizeInKilobytes.toFixed(2)
   } catch (error) {
-    //@ts-ignore
-    console.error('An error occurred:', error.message)
+    console.error('An error occurred:', error)
     return null
   }
 }

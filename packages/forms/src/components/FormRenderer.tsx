@@ -57,15 +57,17 @@ export const FormRenderer = ({
     return {}
   }
 
-  const renderGroup = (p: FieldProps, i: number) => {
+  const renderField = (p: FieldProps, i: number) => {
     const shouldRender =
       !p.conditions || evaluateConditions(p.conditions, values, schema)
+    const isGroup = p?.type === 'group'
+    const isRepeater = p?.type === 'repeater'
 
-    return p?.type === 'group' && p?.subFields && shouldRender ? (
+    return (isGroup || isRepeater) && p?.subFields && shouldRender ? (
       <div
         key={p?.name || i}
         className={cn([
-          'mkui-field-group',
+          `mkui-field-${p?.type}`,
           p?.className,
           p?.colSpan ? 'colspan-' + p.colSpan : undefined,
           settings?.classNames?.fieldGroup,
@@ -73,6 +75,7 @@ export const FormRenderer = ({
         {p?.label ?? null}
         {p?.instructions ?? null}
         <div className="mkui-form-grid">
+          {/* TODO - IF REPEATER, add Repeater wrapper to add and delete... Need to store these values in state and figure out the best way to initialize or control externally */}
           {p.subFields?.map((p) => <Field key={p.name} {...p} />)}
         </div>
       </div>
@@ -136,7 +139,7 @@ export const FormRenderer = ({
                       <div className="mkui-form-page-label">{label}</div>
                     )}
                     <div className="mkui-form-grid">
-                      {subFields?.map((p) => renderGroup(p, i))}
+                      {subFields?.map((p) => renderField(p, i))}
                     </div>
                   </div>
                 ) : null}
@@ -145,7 +148,7 @@ export const FormRenderer = ({
           </CSSTransition>
         ) : (
           <div className="mkui-form-grid">
-            {fields?.map((p, i) => renderGroup(p, i))}
+            {fields?.map((p, i) => renderField(p, i))}
           </div>
         )}
         {components.children?.map((child, i) => (

@@ -76,8 +76,7 @@ export const Dropzone = ({ data, dispatch, settings: s }: DropzoneProps) => {
     e.preventDefault()
     e.stopPropagation()
 
-    // @ts-ignore
-    let files = [...e.dataTransfer.files]
+    let files = Array.from(e.dataTransfer.files)
 
     if (files && files.length > 0) {
       const existingFiles = data.fileList.map((f) => f.name)

@@ -27,16 +27,3 @@ const withMDX = createMDX({
 })
 
 export default withMDX(nextConfig)
-
-// module.exports =
-//   // eslint-disable-next-line turbo/no-undeclared-env-vars
-//   process.env.NODE_ENV === 'production'
-//     ? withMDX({
-//         ...nextConfig,
-//         pwa: {
-//           dest: 'public',
-//           register: true,
-//           skipWaiting: true,
-//         },
-//       })
-//     : withMDX(nextConfig)

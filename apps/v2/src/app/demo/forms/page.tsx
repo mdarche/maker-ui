@@ -7,6 +7,7 @@ import { Tabs } from 'maker-ui/tabs'
 import { AllFieldsForm } from './allFields'
 import { PaginatedForm } from './pagination'
 import { CustomForm } from './custom'
+import { RepeaterForm } from './repeater'
 import './forms.scss'
 import { GroupedForm } from './groups'
 import { CalendarForm } from './calendar'
@@ -40,6 +41,9 @@ export default function FormPage() {
         </Tabs.Panel>
         <Tabs.Panel title="Test Form">
           <TestForm />
+        </Tabs.Panel>
+        <Tabs.Panel title="Repeater Form">
+          <RepeaterForm />
         </Tabs.Panel>
       </Tabs>
       {/* <SimpleForm /> */}

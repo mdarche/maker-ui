@@ -51,7 +51,6 @@ export const PostNavigation = ({
 
       setNavButtons({ prev, next })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   return (

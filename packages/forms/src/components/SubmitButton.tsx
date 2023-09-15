@@ -6,7 +6,10 @@ export interface FormSubmitButtonProps
   extends Omit<React.HTMLAttributes<HTMLButtonElement>, 'onClick'> {
   _type?: string
   children?: React.ReactNode
-  onClick?: (e: any, isSubmitting: boolean) => void
+  onClick?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    isSubmitting: boolean
+  ) => void
   lifecycle?: {
     submitting?: React.ReactNode
     disabled?: React.ReactNode

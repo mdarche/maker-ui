@@ -100,10 +100,9 @@ export const Carousel = (userProps: CarouselProps) => {
       return
 
     if (typeof props.autoPlay === 'number') {
-      //@ts-ignore
       autoPlayTimer.current = setTimeout(() => {
         onRightArrowClick()
-      }, props.autoPlay * 1000)
+      }, props.autoPlay * 1000) as unknown as number
     }
   }
 

@@ -18,7 +18,7 @@ export function SimpleForm() {
       setSuccess(true)
       setIsSubmitting(false)
       // resetForm()
-    }, 6000)
+    }, 1000)
 
     // resetForm()
   }

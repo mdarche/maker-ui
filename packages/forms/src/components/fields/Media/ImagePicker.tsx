@@ -130,8 +130,7 @@ export const ImagePicker = ({
     return cns.join(' ')
   }
 
-  const attrs: React.HTMLAttributes<HTMLButtonElement> = {
-    // @ts-ignore
+  const attrs: React.ButtonHTMLAttributes<HTMLButtonElement> = {
     type: 'button',
     className: 'mkui-btn-remove naked',
     onClick: removeImage,

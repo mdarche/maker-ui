@@ -38,6 +38,7 @@
 
 .mkui-field-container,
 .mkui-form-divider,
+.mkui-field-repeater,
 .mkui-field-group {
   grid-column: 1 / -1;
 }

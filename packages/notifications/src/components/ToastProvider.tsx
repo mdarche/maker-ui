@@ -57,10 +57,6 @@ function toastReducer(state: ToastState, action: Action): ToastState {
       return { ...state, history: newHistory }
     case 'CLEAR_CACHE':
       return { ...state, history: [] }
-    default: {
-      //@ts-ignore
-      throw new Error(`Unhandled action type: ${action.type}`)
-    }
   }
 }
 

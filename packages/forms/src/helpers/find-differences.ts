@@ -22,9 +22,8 @@ export function findDifferences<T>(
   ) {
     return differences
   }
-  //@ts-ignore
+
   const keys1 = Object.keys(values)
-  //@ts-ignore
   const keys2 = Object.keys(initialValues)
 
   for (const key of keys1) {

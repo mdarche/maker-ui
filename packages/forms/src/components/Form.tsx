@@ -1,9 +1,14 @@
-import React, { useMemo, useEffect, useReducer, useState } from 'react'
-import { generateId, merge } from '@maker-ui/utils'
+import React, {
+  useMemo,
+  useEffect,
+  useReducer,
+  useState,
+  forwardRef,
+} from 'react'
+import { cn, generateId, merge } from '@maker-ui/utils'
 
 import { initialState, findDuplicateKey } from '@/helpers'
 import { FormRenderer } from './FormRenderer'
-import { FormHeader, FormFooter, FormError, FormSuccess } from './FormSlots'
 import { SubmitButton } from './SubmitButton'
 import { Progress } from './Progress'
 import type {
@@ -15,6 +20,7 @@ import type {
   FormSettings,
   FormState,
   FormValues,
+  FormSlotProps,
 } from '@/types'
 
 export type Action =
@@ -96,10 +102,6 @@ function formReducer(state: FormState, action: Action): FormState {
       }
     case 'SET_STATUS':
       return { ...state, isSubmitting: action.value }
-    default: {
-      //@ts-ignore
-      throw new Error(`Unhandled action type: ${action.type}`)
-    }
   }
 }
 
@@ -242,6 +244,25 @@ export const Form = ({
     </FormContext.Provider>
   )
 }
+
+const createFormComponent = (type: string, defaultClass: string) => {
+  return forwardRef<HTMLDivElement, FormSlotProps>(
+    ({ className, _type, ...props }, ref) => (
+      <div ref={ref} className={cn([defaultClass, className])} {...props} />
+    )
+  )
+}
+
+export const FormSuccess = createFormComponent('success', 'mkui-form-success')
+export const FormError = createFormComponent('error', 'mkui-form-error')
+export const FormHeader = createFormComponent('header', 'mkui-form-header')
+export const FormFooter = createFormComponent('footer', 'mkui-form-footer')
+
+// Default props for slot layout
+FormSuccess.defaultProps = { _type: 'success' }
+FormError.defaultProps = { _type: 'error' }
+FormHeader.defaultProps = { _type: 'header' }
+FormFooter.defaultProps = { _type: 'footer' }
 
 Form.Header = FormHeader
 Form.Footer = FormFooter

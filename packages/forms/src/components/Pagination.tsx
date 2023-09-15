@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { useForm } from '@/hooks'
 import { cn } from '@maker-ui/utils'
+import { useForm } from '@/hooks'
 
 interface PaginationProps extends React.HTMLAttributes<HTMLDivElement> {
   submitButton: React.ReactNode
