@@ -430,7 +430,22 @@ export interface FieldProps {
     /** Custom icon forthe reveal password button */
     iconReveal?: React.ReactElement
   }
-  /** Nested fields if the field type is `group` or `page` */
+  /** Custom settings for the `repeater` field type */
+  repeater?: {
+    /** A custom label, icon, or React Element for the add button (inner content) */
+    iconAdd?: React.ReactElement
+    /** A custom label, icon, or React Element for the remove button (inner content) */
+    iconRemove?: React.ReactElement
+    /** The maximum number of rows that can be added */
+    max?: number
+    /** The minimum number of rows that must be added */
+    min?: number
+    /** Custom grid template columns for the repeater field. */
+    columns?: string | number
+    /** Custom grid template rows for the repeater field. */
+    rows?: string
+  }
+  /** Nested fields if the field type is `group`, `repeater`, or `page`. */
   subFields?: FieldProps[]
 }
 
@@ -494,6 +509,8 @@ export interface FormSettings {
     nextArrow?: React.ReactElement
     prevArrow?: React.ReactElement
     validate?: React.ReactElement
+    remove?: React.ReactElement
+    add?: React.ReactElement
   }
 }
 

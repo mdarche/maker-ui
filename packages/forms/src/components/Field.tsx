@@ -34,9 +34,14 @@ const basicInputs = [
 const top = ['top-right', 'top-left', 'top-center', 'left', 'floating']
 const bottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
 
-export const Field = (p: FieldProps) => {
+interface FieldPropsFull extends FieldProps {
+  index?: number // used for array fields like repeater
+}
+
+export const Field = ({ index, ...p }: FieldPropsFull) => {
   const { settings: s, values, schema, formError } = useForm()
   const { touched, error } = useField(p.name)
+
   // Helpers
   const labelPos = p?.labelPosition || s.labelPosition
   const errorPos = p?.errorPosition || s.errorPosition

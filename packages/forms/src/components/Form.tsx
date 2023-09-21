@@ -111,7 +111,7 @@ function getDefault(type: FieldProps['type']) {
     ? 0
     : type === 'switch'
     ? false
-    : type === 'checkbox' || type === 'select'
+    : type === 'checkbox' || type === 'select' || type === 'repeater'
     ? []
     : type === 'image-picker'
     ? null
@@ -128,6 +128,7 @@ function getFieldData(fields: FieldProps[], index = 0) {
   let schema: FormSchema = {}
   let conditions: FormConditions = {}
 
+  // TODO get initial values for Repeater
   fields.forEach((f, i) => {
     if (nonFields.includes(f.type) && f?.subFields) {
       // If group has conditions, add this to the conditions object
