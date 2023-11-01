@@ -33,6 +33,7 @@ export const Pagination = ({ submitButton }: PaginationProps) => {
           className={cn([
             'mkui-form-btn-page prev',
             settings?.classNames?.pageButton,
+            settings?.classNames?.prevButton,
           ])}>
           {settings?.prevButton || (
             <div className="mkui-prev-inner flex align-center">
@@ -51,6 +52,7 @@ export const Pagination = ({ submitButton }: PaginationProps) => {
           className={cn([
             'mkui-form-btn-page next',
             settings?.classNames?.pageButton,
+            settings?.classNames?.nextButton,
           ])}>
           {settings?.nextButton || (
             <div className="mkui-next-inner flex align-center">

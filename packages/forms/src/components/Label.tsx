@@ -7,6 +7,7 @@ interface LabelProps {
   type: FieldProps['type']
   required?: FieldProps['required']
   symbol?: FormSettings['requiredSymbol']
+  className?: string
 }
 
 /**

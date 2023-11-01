@@ -13,7 +13,7 @@
     "@maker-ui/toc": "workspace:*",
     "@next/bundle-analyzer": "^13.2.3",
     "maker-ui": "workspace:*",
-    "next": "^13.4.19",
+    "next": "^14.0.1",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
     "sharp": "^0.32.5",

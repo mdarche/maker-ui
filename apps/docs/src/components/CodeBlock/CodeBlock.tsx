@@ -1,4 +1,4 @@
-import { CopyButton } from '../CopyButton/CopyButton'
+import { CopyButton } from '../CopyButton'
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLPreElement> {
   'data-language'?: string

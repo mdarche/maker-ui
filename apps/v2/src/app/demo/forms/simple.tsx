@@ -4,7 +4,6 @@ import { z } from 'zod'
 import { Form, type FormHelpers, type FormValues } from 'maker-ui/forms'
 
 export function SimpleForm() {
-  const [success, setSuccess] = React.useState(false)
   const [error, setError] = React.useState(false)
 
   const onSubmit = (
@@ -15,9 +14,8 @@ export function SimpleForm() {
     console.log('values are', values)
 
     setTimeout(() => {
-      setSuccess(true)
       setIsSubmitting(false)
-      // resetForm()
+      resetForm()
     }, 1000)
 
     // resetForm()
@@ -27,7 +25,6 @@ export function SimpleForm() {
     <>
       <div style={{ height: 100 }} />
       <Form
-        success={success}
         error={error}
         fields={[
           {
@@ -35,7 +32,6 @@ export function SimpleForm() {
             name: 'first_name',
             label: 'First Name',
             placeholder: 'First Name',
-            labelPosition: 'top-left',
             required: 'First name is required',
             colSpan: 2,
             validation: z
@@ -90,7 +86,10 @@ export function SimpleForm() {
             honeypot: true,
           },
         ]}
-        settings={{ columns: 4, validateFieldOnBlur: true }}
+        settings={{
+          columns: 4,
+          requiredSymbol: true,
+        }}
         onSubmit={onSubmit}>
         <Form.Submit lifecycle={{ submitting: 'Submitting' }}>
           Submit

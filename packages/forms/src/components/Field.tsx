@@ -31,8 +31,8 @@ const basicInputs = [
   'range',
 ]
 
-const top = ['top-right', 'top-left', 'top-center', 'left', 'floating']
-const bottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
+const top = ['top-right', 'top-left', 'top-center']
+const bottom = ['bottom-right', 'bottom-left', 'bottom-center']
 
 interface FieldPropsFull extends FieldProps {
   index?: number // used for array fields like repeater
@@ -53,6 +53,7 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
       typeof s.autoSave === 'boolean' || !s.autoSave ? {} : s.autoSave
     return merge.all([initial, global, local])
   }
+
   const shouldRender =
     !p.conditions || evaluateConditions(p.conditions, values, schema)
 
@@ -112,9 +113,10 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
         hasError ? 'error' : undefined,
         touched ? 'touched' : '',
       ])}>
-      {top.includes(labelPos) ? (
+      {top.includes(labelPos) || labelPos === 'left' || labelPos === 'right' ? (
         <Label
           name={p.name}
+          className={s?.classNames?.fieldLabel}
           type={p.type}
           symbol={s?.requiredSymbol}
           required={p.required}>
@@ -122,7 +124,13 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
         </Label>
       ) : null}
       {p.instructions ? (
-        <div className="mkui-field-instructions">{p.instructions}</div>
+        <div
+          className={cn([
+            'mkui-field-instructions',
+            s?.classNames?.fieldInstructions,
+          ])}>
+          {p.instructions}
+        </div>
       ) : null}
       <Conditional
         condition={hasAutoSave === true}
@@ -152,7 +160,7 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
         </div>
       ) : null}
       {hasError ? (
-        <div className="mkui-field-error">
+        <div className={cn(['mkui-field-error', s?.classNames?.fieldError])}>
           {typeof error === 'string'
             ? error
             : (error as ZodError).issues[0]?.message}

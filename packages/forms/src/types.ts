@@ -233,7 +233,6 @@ export type FieldType =
   | 'switch'
   | 'radio'
   | 'checkbox'
-  | 'slider'
   | 'repeater' // TODO
   | 'color-picker' // TODO
   | 'gallery' // TODO
@@ -424,11 +423,32 @@ export interface FieldProps {
   /** Custom settings for the password field type */
   password?: {
     /** Renders a toggle that allows the user to see a non-masked version of the password. */
-    toggleCharacters?: boolean
+    toggle?: boolean
+    /** Determines if the password toggle is absolutely positioned.  */
+    absolute?: boolean
+    /** An optional class selector for the password toggle button */
+    className?: string
     /** Custom icon for the hide password button */
     iconHide?: React.ReactElement
     /** Custom icon forthe reveal password button */
     iconReveal?: React.ReactElement
+  }
+  text?: {
+    /** Appears before the input */
+    prepend?: string | React.ReactElement
+    /** Appears after the input */
+    append?: string | React.ReactElement
+    /** If true, the masked / formatted value will be returned on form submission. */
+    returnFormatted?: boolean
+    /** Applies formatting to the input */
+    format?:
+      | 'currency'
+      | 'currency-decimal-auto'
+      | 'phone'
+      | 'zip'
+      | 'ssn'
+      | 'credit-card'
+      | ((s: string) => string)
   }
   /** Custom settings for the `repeater` field type */
   repeater?: {
@@ -521,8 +541,18 @@ export interface FormClassNames {
   fieldGroup?: string
   /** Applied to all field containers (label and input) */
   fieldContainer?: string
+  /** Applied to all field labels */
+  fieldLabel?: string
+  /** Applied to all field instructions */
+  fieldInstructions?: string
+  /** Applied to all field errors */
+  fieldError?: string
   /** Applied to each form page container */
   page?: string
+  /** Applied to the previous page button */
+  prevButton?: string
+  /** Applied to the next page button */
+  nextButton?: string
   /** Applied to the page progress bar container */
   progress?: string
   /** Applied to the pagination button container */

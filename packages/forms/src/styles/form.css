@@ -72,16 +72,24 @@
 }
 .label-bottom-center .mkui-field-label,
 .label-top-center .mkui-field-label {
-  text-align: center;
+  justify-content: center;
 }
 .label-bottom-right .mkui-field-label,
 .label-top-right .mkui-field-label {
-  text-align: right;
+  justify-content: flex-end;
 }
 .label-left,
-.label-right input {
-  flex: auto;
+.label-right {
+  align-items: center;
 }
+.label-left input,
+.label-right input {
+  flex: 1;
+}
+.label-right .mkui-field-label {
+  order: 2;
+}
+
 /* Errors */
 
 .error .mkui-input,

@@ -29,3 +29,25 @@
   border-radius: var(--form-input-border-radius, 0px);
   background: var(--form-input-bg, var(--color-background));
 }
+
+.mkui-input-wrapper,
+.mkui-password-wrapper {
+  display: flex;
+  position: relative;
+}
+
+.mkui-input-wrapper {
+  align-items: center;
+}
+
+.mkui-input-wrapper input,
+.mkui-password-wrapper input {
+  flex: 1;
+}
+
+.mkui-btn-password.absolute {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}

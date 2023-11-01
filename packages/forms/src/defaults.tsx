@@ -7,7 +7,7 @@ import type { FormState } from '@/types'
  */
 export const initialState: Partial<FormState> = {
   settings: {
-    columns: 'repeat(2, 1fr)',
+    columns: 2,
     gap: 25,
     placeholderColor: '#b7b7b7',
     labelPosition: 'top-left',

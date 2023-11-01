@@ -154,7 +154,6 @@ export const FormRenderer = ({
         {components.children?.map((child, i) => (
           <React.Fragment key={i}>{child}</React.Fragment>
         ))}
-
         {isPaginated ? (
           <Pagination submitButton={components.submit} />
         ) : (
