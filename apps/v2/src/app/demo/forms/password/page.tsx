@@ -1,9 +1,10 @@
 'use client'
+
 import * as React from 'react'
 import { z } from 'zod'
 import { Form, type FormHelpers, type FormValues } from 'maker-ui/forms'
 
-export function PasswordForm() {
+export default function PasswordFormPage() {
   const [error, setError] = React.useState(false)
 
   const onSubmit = (
@@ -39,7 +40,7 @@ export function PasswordForm() {
             required: true,
           },
           {
-            type: 'number',
+            type: 'text',
             name: 'price',
             label: 'Retail Price',
             placeholder: '500.00',

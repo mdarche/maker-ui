@@ -27,7 +27,7 @@ const CustomField = () => {
   )
 }
 
-export function CustomForm() {
+export default function CustomFormPage() {
   const [success, setSuccess] = React.useState(false)
 
   const onSubmit = (

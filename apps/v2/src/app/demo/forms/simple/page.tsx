@@ -3,7 +3,7 @@ import * as React from 'react'
 import { z } from 'zod'
 import { Form, type FormHelpers, type FormValues } from 'maker-ui/forms'
 
-export function SimpleForm() {
+export default function SimpleFormPage() {
   const [error, setError] = React.useState(false)
 
   const onSubmit = (

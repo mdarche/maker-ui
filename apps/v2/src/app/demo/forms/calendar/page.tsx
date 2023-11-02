@@ -1,4 +1,5 @@
 'use client'
+
 import * as React from 'react'
 import { Form, FormHelpers, FormValues } from 'maker-ui/forms'
 
@@ -13,7 +14,7 @@ const unavailableTimes = [
   '2023-06-29 15:00:00.000000 +00:00',
 ]
 
-export function CalendarForm() {
+export default function CalendarFormPage() {
   const submitHandler = (
     values: FormValues,
     { setIsSubmitting }: FormHelpers

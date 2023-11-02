@@ -3,7 +3,7 @@ import * as React from 'react'
 import { z } from 'zod'
 import { Form, type FormHelpers, type FormValues } from 'maker-ui/forms'
 
-export function GroupedForm() {
+export default function GroupedFormPage() {
   const [success, setSuccess] = React.useState(false)
 
   const onSubmit = (

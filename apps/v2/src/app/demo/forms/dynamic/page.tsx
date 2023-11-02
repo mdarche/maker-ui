@@ -43,7 +43,7 @@ const getFields = (user?: User): FieldProps[] => {
   ]
 }
 
-export function DynamicForm() {
+export default function DynamicFormPage() {
   const [error, setError] = React.useState(false)
   const [user, setUser] = React.useState<User | undefined>({
     first_name: 'John',

@@ -1,9 +1,10 @@
 'use client'
+
 import * as React from 'react'
 import { z } from 'zod'
 import { Form, type FormHelpers, type FormValues } from 'maker-ui/forms'
 
-export function PaginatedForm() {
+export default function PaginatedFormPage() {
   const [success, setSuccess] = React.useState(false)
   const [error, setError] = React.useState(false)
 

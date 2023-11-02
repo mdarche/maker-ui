@@ -1,4 +1,5 @@
 'use client'
+
 import * as React from 'react'
 import { z } from 'zod'
 import { Form } from 'maker-ui/forms'
@@ -9,7 +10,7 @@ const unavailableTimes = [
   '2023-06-14T09:00:00-04:00',
 ]
 
-export function AllFieldsForm() {
+export default function AllFieldsFormPage() {
   const submitHandler = (values: any) => {
     console.log('Submitted values are', values)
   }
@@ -172,8 +173,6 @@ export function AllFieldsForm() {
                 unavailableDays: [0, 6],
               },
               time: {
-                startTime: [9, 0],
-                endTime: [17, 0],
                 interval: 60,
                 duration: 120,
                 unavailableTimes,
