@@ -9,6 +9,6 @@ import './components/fields/Options/options.css'
 import './components/fields/DateTimePicker/date-picker.css'
 
 export { Form } from '@/components'
-export { useForm, useField } from '@/hooks'
+export { useForm, useField } from '@/context'
 export { findDifferences } from '@/helpers'
 export * from '@/types'

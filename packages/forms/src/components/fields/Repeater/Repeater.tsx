@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import { FieldProps } from '@/types'
-import { Field } from './Field'
-import { useField, useForm } from '@/hooks'
+import { Field } from '../../Field'
+import { useField, useForm } from '@/context'
 
 export const Repeater = (p: FieldProps) => {
   const {

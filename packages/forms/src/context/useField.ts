@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { merge } from '@maker-ui/utils'
-import { FormContext } from '@/components'
+import { FormContext } from './FormContext'
 import { deepSearch, isEmpty, validate } from '@/helpers'
 
 /**

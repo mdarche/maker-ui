@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cn, merge } from '@maker-ui/utils'
 
-import { useField } from '@/hooks'
+import { useField } from '@/context'
 import type { FieldInputProps, FieldProps } from '@/types'
 
 const defaultSettings: FieldProps['switch'] = {

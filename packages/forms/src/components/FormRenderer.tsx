@@ -3,7 +3,7 @@ import { cn, Conditional } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
 import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
-import { useForm } from '@/hooks'
+import { useForm } from '@/context'
 import { evaluateConditions, findAllValuesByKey, sortChildren } from '@/helpers'
 import { Field } from './Field'
 import type { FormProps } from './Form'

@@ -1,6 +1,11 @@
-import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
+import {
+  Layout,
+  LayoutProvider,
+  type MakerUIOptions,
+  ColorButton,
+  type MenuItem,
+} from 'maker-ui/layout'
 import Link from 'next/link'
-import { ColorButton, type MenuItem } from 'maker-ui/layout'
 
 const menu: MenuItem[] = [
   { label: 'Home', path: '/' },
