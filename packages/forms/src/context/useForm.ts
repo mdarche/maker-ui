@@ -69,7 +69,7 @@ export function useForm() {
   }
 
   return {
-    // Static
+    // Static values
     formId: s.formId,
     success: s.formSuccess,
     error: s.formError,

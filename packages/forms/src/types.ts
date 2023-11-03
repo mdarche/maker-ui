@@ -461,8 +461,15 @@ export interface FieldProps {
     /** The minimum number of rows that must be added */
     min?: number
     /** Custom grid template columns for the repeater field. */
-    columns?: string | number
+    columns?: number
     /** Custom grid template rows for the repeater field. */
+    rows?: string
+  }
+  /** Custom settings for the `group` field type */
+  group?: {
+    /** Custom grid template columns for the group field. */
+    columns?: number
+    /** Custom grid template rows for the group field. */
     rows?: string
   }
   /** Nested fields if the field type is `group`, `repeater`, or `page`. */

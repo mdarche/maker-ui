@@ -39,8 +39,10 @@ export default function GroupedFormPage() {
           {
             type: 'group',
             name: 'group-1',
-            colSpan: 1,
             conditions: [[{ field: 'activate', compare: 'eq', value: true }]],
+            group: {
+              columns: 3,
+            },
             subFields: [
               {
                 type: 'text',

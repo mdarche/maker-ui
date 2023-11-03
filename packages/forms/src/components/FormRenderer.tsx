@@ -9,6 +9,7 @@ import { Field } from './Field'
 import type { FormProps } from './Form'
 import { Pagination } from './Pagination'
 import type { FieldProps } from '@/types'
+import { getColVariable } from 'src/helpers/utils'
 
 interface FormRendererProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
@@ -74,7 +75,12 @@ export const FormRenderer = ({
         ])}>
         {p?.label ?? null}
         {p?.instructions ?? null}
-        <div className="mkui-form-grid">
+        <div
+          className="mkui-form-grid"
+          style={getColVariable(
+            isGroup ? p?.group?.columns : p?.repeater?.columns,
+            true
+          )}>
           {/* TODO - IF REPEATER, add Repeater wrapper to add and delete... Need to store these values in state and figure out the best way to initialize or control externally */}
           {p.subFields?.map((p) => <Field key={p.name} {...p} />)}
         </div>

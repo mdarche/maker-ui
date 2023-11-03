@@ -16,6 +16,7 @@ import {
 } from '@/fields'
 import { Label } from './Label'
 import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
+import { getColVariable } from 'src/helpers/utils'
 
 const basicInputs = [
   'text',
@@ -112,7 +113,8 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
         p?.honeypot ? 'form-safe' : undefined,
         hasError ? 'error' : undefined,
         touched ? 'touched' : '',
-      ])}>
+      ])}
+      style={getColVariable(p?.colSpan)}>
       {top.includes(labelPos) || labelPos === 'left' || labelPos === 'right' ? (
         <Label
           name={p.name}

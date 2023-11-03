@@ -48,6 +48,16 @@ export default function RepeaterFormPage() {
             name: 'projects',
             label: 'Projects',
             required: true,
+            initialValue: [
+              {
+                status: { label: 'Active', value: 'active' },
+                description: 'Project 1',
+              },
+              {
+                status: { label: 'Inactive', value: 'inactive' },
+                description: 'Project 2',
+              },
+            ],
             subFields: [
               {
                 type: 'select',

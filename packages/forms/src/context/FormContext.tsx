@@ -93,12 +93,11 @@ export function getFieldData(fields: FieldProps[], index = 0) {
   let schema: FormSchema = {}
   let conditions: FormConditions = {}
 
-  // TODO get initial values for Repeater
   fields.forEach((f, i) => {
     // Handle nested fields
     if (nonFields.includes(f.type) && f?.subFields) {
       // If group has conditions, add this to the conditions object
-      if (f.type === 'group' && f?.conditions) {
+      if ((f.type === 'group' || f.type === 'repeater') && f?.conditions) {
         conditions[f.name] = f.conditions
       }
       // Recursively get nested field data

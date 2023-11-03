@@ -47,11 +47,13 @@ export function useField(name: string) {
   }
 
   return {
+    // Static values
     field: deepSearch(s.fields, 'name', name),
     touched: s.touched.includes(name),
     error: s.errors[name] || false,
     value: s.values[name],
     page,
+    // Functions
     setValue,
     setTouched,
     validateField,

@@ -72,3 +72,8 @@ export function findDuplicateKey<T extends Record<string, unknown>>(
   const set = new Set<string>(obj1Keys)
   return obj2Keys.find((key) => set.has(key))
 }
+
+export function getColVariable(n?: number, isColumn = false) {
+  const key = isColumn ? '--form-columns' : '--form-colspan'
+  return n ? { [key]: `${n}` } : undefined
+}

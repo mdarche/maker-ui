@@ -19,12 +19,23 @@
 .mkui-form-grid {
   display: grid;
   gap: var(--form-gap, 1rem);
-  grid-template-columns: var(--form-columns, 1fr);
+  grid-template-columns: 1fr;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: var(--form-columns, 1fr);
+  }
 }
 
+.mkui-field-group,
+.mkui-field-repeater,
 .mkui-field-container {
   position: relative;
   display: flex;
+  grid-column: span 1;
+
+  @media screen and (min-width: 768px) {
+    grid-column: span var(--form-colspan, 1);
+  }
 }
 
 .form-safe input,
