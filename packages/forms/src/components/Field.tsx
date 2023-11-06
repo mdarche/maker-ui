@@ -16,7 +16,7 @@ import {
 } from '@/fields'
 import { Label } from './Label'
 import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
-import { getColVariable } from 'src/helpers/utils'
+import { setVariable } from 'src/helpers/utils'
 
 const basicInputs = [
   'text',
@@ -31,9 +31,6 @@ const basicInputs = [
   'color',
   'range',
 ]
-
-const top = ['top-right', 'top-left', 'top-center']
-const bottom = ['bottom-right', 'bottom-left', 'bottom-center']
 
 interface FieldPropsFull extends FieldProps {
   index?: number // used for array fields like repeater
@@ -105,17 +102,17 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
         p.className,
         'label-' + labelPos,
         'error-' + errorPos,
-        top.includes(labelPos) || bottom.includes(labelPos)
-          ? 'flex-col'
-          : undefined,
-        p?.colSpan ? 'colspan-' + p.colSpan : undefined,
+        labelPos !== 'left' && labelPos !== 'right' ? 'flex-col' : undefined,
+        // p?.colSpan ? 'colspan-' + p.colSpan : undefined,
         s?.classNames?.fieldContainer,
         p?.honeypot ? 'form-safe' : undefined,
         hasError ? 'error' : undefined,
         touched ? 'touched' : '',
       ])}
-      style={getColVariable(p?.colSpan)}>
-      {top.includes(labelPos) || labelPos === 'left' || labelPos === 'right' ? (
+      style={setVariable(p?.colSpan)}>
+      {labelPos.includes('top-') ||
+      labelPos === 'left' ||
+      labelPos === 'right' ? (
         <Label
           name={p.name}
           className={s?.classNames?.fieldLabel}
@@ -146,7 +143,7 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
         )}>
         <>{renderFieldType()}</>
       </Conditional>
-      {bottom.includes(labelPos) ? (
+      {labelPos.includes('bottom-') ? (
         <Label
           name={p.name}
           type={p.type}

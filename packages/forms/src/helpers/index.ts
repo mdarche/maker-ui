@@ -7,5 +7,6 @@ export {
   isEmpty,
   findAllValuesByKey,
   findDuplicateKey,
+  setVariable,
 } from './utils'
 export { findDifferences } from './find-differences'

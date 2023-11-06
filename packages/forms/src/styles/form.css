@@ -22,20 +22,25 @@
   grid-template-columns: 1fr;
 
   @media screen and (min-width: 768px) {
-    grid-template-columns: var(--form-columns, 1fr);
+    grid-template-columns: repeat(var(--form-columns, 2), 1fr);
   }
 }
 
+/* TODO - double check cascading on grid-column */
 .mkui-field-group,
 .mkui-field-repeater,
 .mkui-field-container {
   position: relative;
   display: flex;
-  grid-column: span 1;
+  grid-column: span 1 / -1;
 
   @media screen and (min-width: 768px) {
-    grid-column: span var(--form-colspan, 1);
+    grid-column: span var(--form-colspan, 1 / -1);
   }
+}
+
+.mkui-form-divider {
+  grid-column: 1 / -1;
 }
 
 .form-safe input,
@@ -45,13 +50,6 @@
   opacity: 0;
   height: 0px;
   padding: 0px;
-}
-
-.mkui-field-container,
-.mkui-form-divider,
-.mkui-field-repeater,
-.mkui-field-group {
-  grid-column: 1 / -1;
 }
 
 /* Placeholder */

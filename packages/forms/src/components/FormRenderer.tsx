@@ -1,15 +1,19 @@
 import * as React from 'react'
 import { cn, Conditional } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
-import { type ResponsiveCSS, Style } from '@maker-ui/style'
+// import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
 import { useForm } from '@/context'
-import { evaluateConditions, findAllValuesByKey, sortChildren } from '@/helpers'
+import {
+  evaluateConditions,
+  // findAllValuesByKey,
+  sortChildren,
+  setVariable,
+} from '@/helpers'
 import { Field } from './Field'
 import type { FormProps } from './Form'
 import { Pagination } from './Pagination'
 import type { FieldProps } from '@/types'
-import { getColVariable } from 'src/helpers/utils'
 
 interface FormRendererProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
@@ -43,20 +47,20 @@ export const FormRenderer = ({
   } = useForm()
   const isPaginated = totalPages > 1
 
-  function getColumnStyles() {
-    const cols = [...new Set(findAllValuesByKey({ fields }, 'colSpan') || [])]
-    const full = '1 / -1'
-    if (cols.length) {
-      let css: { [key: string]: any } = {}
-      cols.forEach((c) => {
-        css[`.colspan-${c}`] = {
-          gridColumn: c ? [full, `span ${c}`] : full,
-        }
-      })
-      return css
-    }
-    return {}
-  }
+  // function getColumnStyles() {
+  //   const cols = [...new Set(findAllValuesByKey({ fields }, 'colSpan') || [])]
+  //   const full = '1 / -1'
+  //   if (cols.length) {
+  //     let css: { [key: string]: any } = {}
+  //     cols.forEach((c) => {
+  //       css[`.colspan-${c}`] = {
+  //         gridColumn: c ? [full, `span ${c}`] : full,
+  //       }
+  //     })
+  //     return css
+  //   }
+  //   return {}
+  // }
 
   const renderField = (p: FieldProps, i: number) => {
     const shouldRender =
@@ -70,16 +74,17 @@ export const FormRenderer = ({
         className={cn([
           `mkui-field-${p?.type}`,
           p?.className,
-          p?.colSpan ? 'colspan-' + p.colSpan : undefined,
+          // p?.colSpan ? 'colspan-' + p.colSpan : undefined,
           settings?.classNames?.fieldGroup,
-        ])}>
+        ])}
+        style={setVariable(p?.colSpan)}>
         {p?.label ?? null}
         {p?.instructions ?? null}
         <div
           className="mkui-form-grid"
-          style={getColVariable(
+          style={setVariable(
             isGroup ? p?.group?.columns : p?.repeater?.columns,
-            true
+            'col'
           )}>
           {/* TODO - IF REPEATER, add Repeater wrapper to add and delete... Need to store these values in state and figure out the best way to initialize or control externally */}
           {p.subFields?.map((p) => <Field key={p.name} {...p} />)}
@@ -112,12 +117,16 @@ export const FormRenderer = ({
             setIsSubmitting(true)
             onSubmit(values, { setIsSubmitting, resetForm, submitCount })
           }
+        }}
+        style={{
+          '--form-gap': settings?.gap,
+          '--form-columns': settings?.columns,
         }}>
-        <Style
+        {/* <Style
           root={formId}
           breakpoints={settings?.breakpoints}
           css={{
-            ...getColumnStyles(),
+            // ...getColumnStyles(),
             '.mkui-form-grid': {
               gridTemplateColumns: [
                 '1fr',
@@ -126,7 +135,7 @@ export const FormRenderer = ({
               gap: settings?.gap || '1rem',
             } as ResponsiveCSS,
           }}
-        />
+        /> */}
         {isPaginated && components.progress}
         {components.header}
         {isPaginated ? (
