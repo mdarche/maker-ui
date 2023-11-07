@@ -3,7 +3,6 @@ import { merge } from '@maker-ui/utils'
 
 import {
   FieldProps,
-  FormConditions,
   FormErrors,
   FormSchema,
   FormSettings,
@@ -57,7 +56,7 @@ export function formReducer(state: FormState, action: Action): FormState {
         fields,
         errors: {},
         touched: [],
-        ...getFieldData(fields),
+        ...initFieldData(fields),
       }
     case 'SET_SUBMIT_COUNT':
       return {
@@ -84,25 +83,29 @@ function getDefault(type: FieldProps['type']) {
     ? ''
     : ''
 }
+const containers = ['page', 'group', 'repeater']
 const uniqueError = (name: string) =>
   `Each field should have a unique name. The field "${name}" is used more than once. This will lead to unexpected errors in your form.`
 
-export function getFieldData(fields: FieldProps[], index = 0) {
-  const nonFields = ['page', 'group', 'repeater', 'divider']
+export function initFieldData(fields: FieldProps[], index = 0) {
+  const page = index + 1
   let values: FormValues = {}
   let schema: FormSchema = {}
-  let conditions: FormConditions = {}
 
   fields.forEach((f, i) => {
     // Handle fields that have `subFields` property
-    if (nonFields.includes(f.type) && f?.subFields) {
-      if ((f.type === 'group' || f.type === 'repeater') && f?.conditions) {
-        conditions[f.name] = f.conditions
+    if (f?.subFields) {
+      if (f?.conditions) {
+        schema[f.name] = {
+          type: f.type,
+          page,
+          conditions: f.conditions,
+        }
       }
 
       if (f.type === 'repeater') {
         // Handle repeater fields
-        if (f.subFields.some((s) => nonFields.includes(s.type))) {
+        if (f.subFields.some((s) => containers.includes(s.type))) {
           throw new Error('You cannot further nest a repeater field.')
         }
 
@@ -115,20 +118,29 @@ export function getFieldData(fields: FieldProps[], index = 0) {
         })
         // - Loop over f.subFields
         // - Use subField index to create unique key for each subField
-        // - Throw error if any subFields have the same name
-      } else {
+      } else if (f.type === 'group' || f.type === 'page') {
         // Handle page and group fields
-        const nested = getFieldData(
-          f.subFields,
-          f.type === 'page' ? i : undefined
-        )
-        const usedKey = findDuplicateKey(values, nested.values)
-        if (usedKey) {
-          console.error(uniqueError(usedKey)) // throw error if duplicate key exists
+        const isPaginated = f.type === 'page'
+        if (isPaginated) {
+          if (fields.find((f) => f.type !== 'page')) {
+            console.error(
+              'If your form is paginated, all top level fields must use type "page".'
+            )
+          }
+          if (fields.length === 1) {
+            console.error(
+              'Your form is paginated but only has one page. Please create additional pages or remove the "page" field type.'
+            )
+          }
+        }
+
+        const nested = initFieldData(f.subFields, isPaginated ? i : undefined)
+        const dupe = findDuplicateKey(values, nested.values)
+        if (dupe) {
+          console.error(uniqueError(dupe)) // throw error if duplicate key exists
         }
         values = merge(values, nested.values)
         schema = merge(schema, nested.schema)
-        conditions = merge(conditions, nested.conditions)
       }
     } else {
       // Handle normal / flat fields
@@ -137,16 +149,16 @@ export function getFieldData(fields: FieldProps[], index = 0) {
       }
       if (f.type !== 'divider') {
         values[f.name] = f.initialValue || getDefault(f.type)
-        conditions[f.name] = f?.conditions
         schema[f.name] = {
           type: f.type,
           required: typeof f?.required === 'string' ? f.required : !!f.required,
-          page: index + 1,
+          page,
           validation: f?.validation,
+          conditions: f?.conditions,
         }
       }
     }
   })
 
-  return { values, schema, conditions }
+  return { values, schema }
 }

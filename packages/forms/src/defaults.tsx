@@ -35,7 +35,6 @@ export const initialState: Partial<FormState> = {
   totalPages: 1,
   errors: {},
   values: {},
-  conditions: {},
   touched: [],
   fields: [],
   schema: {},

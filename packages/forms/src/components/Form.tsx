@@ -6,7 +6,7 @@ import React, {
   forwardRef,
 } from 'react'
 import { cn, generateId, merge } from '@maker-ui/utils'
-import { FormContext, getFieldData, formReducer } from '@/context'
+import { FormContext, initFieldData, formReducer } from '@/context'
 import { initialState } from '@/helpers'
 import { FormRenderer } from './FormRenderer'
 import { SubmitButton } from './SubmitButton'
@@ -58,7 +58,7 @@ export const Form = ({
 }: FormProps) => {
   const memoFields = useMemo(() => fields, [fields])
   const isPaginated = !!fields.find((f) => f.type === 'page')
-  const { values, schema, conditions } = getFieldData(fields)
+  const { values, schema } = initFieldData(fields)
   const [rendered, setRendered] = useState(false)
   const [state, dispatch] = useReducer(
     formReducer,
@@ -71,24 +71,8 @@ export const Form = ({
       totalPages: isPaginated ? fields.length : 1,
       schema,
       values,
-      conditions,
     }) as FormState
   )
-
-  if (isPaginated) {
-    if (fields.find((f) => f.type !== 'page')) {
-      // Err if the form is paginated but not all fields are of type `page`
-      console.error(
-        'If your form is paginated, all top level fields must use type "page".'
-      )
-    }
-    if (fields.length === 1) {
-      // Err if there is only one page
-      console.error(
-        'Your form is paginated but only has one page. Please create additional pages or remove the "page" field type.'
-      )
-    }
-  }
 
   /**
    * Listen for changes to error and success
@@ -127,18 +111,22 @@ export const Form = ({
   )
 }
 
-const createFormComponent = (type: string, defaultClass: string) => {
+const createFormComponent = (type: string) => {
   return forwardRef<HTMLDivElement, FormSlotProps>(
     ({ className, _type, ...props }, ref) => (
-      <div ref={ref} className={cn([defaultClass, className])} {...props} />
+      <div
+        ref={ref}
+        className={cn([`mkui-form-${type}`, className])}
+        {...props}
+      />
     )
   )
 }
 
-export const FormSuccess = createFormComponent('success', 'mkui-form-success')
-export const FormError = createFormComponent('error', 'mkui-form-error')
-export const FormHeader = createFormComponent('header', 'mkui-form-header')
-export const FormFooter = createFormComponent('footer', 'mkui-form-footer')
+export const FormSuccess = createFormComponent('success')
+export const FormError = createFormComponent('error')
+export const FormHeader = createFormComponent('header')
+export const FormFooter = createFormComponent('footer')
 
 // Default props for slot layout
 FormSuccess.defaultProps = { _type: 'success' }

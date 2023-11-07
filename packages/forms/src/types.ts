@@ -470,15 +470,6 @@ export interface FieldProps {
 
 // -------- Form Types --------
 
-export interface AutoSaveSettings {
-  saveIcon?: React.ReactElement
-  successIcon?: React.ReactElement
-  errorIcon?: React.ReactElement
-  timeout?: number
-  position?: 'left' | 'right'
-  padding?: number
-}
-
 export interface FormSettings {
   /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
   validateFieldOnBlur: boolean
@@ -510,7 +501,7 @@ export interface FormSettings {
   /** The color of the placeholder text for text inputs */
   placeholderColor?: string | string[]
   /** Custom settings or a simple boolean that enables instant field validation and auto-submit */
-  autoSave?: boolean | AutoSaveSettings
+  autoSave?: boolean
   /** If true, the submit button will be disabled until form validation passes. // FIgure this out by finding if all required fields have values
    */
   disableSubmit?: boolean
@@ -559,9 +550,6 @@ export interface FormClassNames {
   /** Applied to the submit button. */
   submitButton?: string
 }
-export interface FormConditions {
-  [key: string]: Array<Condition[]> | undefined
-}
 
 export type FormValues<T = Record<string, any>> = {
   [K in keyof T]: T[K]
@@ -590,7 +578,7 @@ export type FormSchema = {
   [key: string]: {
     type: FieldType
     page: number
-    required: boolean | string
+    required?: boolean | string
     validation?: Schema
     conditions?: Array<Condition[]>
   }
@@ -601,7 +589,6 @@ export interface FormState {
   settings: FormSettings
   fields: FieldProps[]
   schema: FormSchema
-  conditions: FormConditions
   currentPage: number
   totalPages: number
   formSuccess?: boolean

@@ -29,7 +29,6 @@ export function useField(name: string) {
       type: 'field',
       schema: s.schema,
       values: s.values,
-      conditions: s.conditions,
       field: name,
     })
 
