@@ -1,15 +1,10 @@
 import * as React from 'react'
 import { cn, Conditional } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
-// import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
 import { useForm } from '@/context'
-import {
-  evaluateConditions,
-  // findAllValuesByKey,
-  sortChildren,
-  setVariable,
-} from '@/helpers'
+import { evaluateConditions, sortChildren, setVariable } from '@/helpers'
+import { Repeater } from './fields/Repeater'
 import { Field } from './Field'
 import type { FormProps } from './Form'
 import { Pagination } from './Pagination'
@@ -47,21 +42,6 @@ export const FormRenderer = ({
   } = useForm()
   const isPaginated = totalPages > 1
 
-  // function getColumnStyles() {
-  //   const cols = [...new Set(findAllValuesByKey({ fields }, 'colSpan') || [])]
-  //   const full = '1 / -1'
-  //   if (cols.length) {
-  //     let css: { [key: string]: any } = {}
-  //     cols.forEach((c) => {
-  //       css[`.colspan-${c}`] = {
-  //         gridColumn: c ? [full, `span ${c}`] : full,
-  //       }
-  //     })
-  //     return css
-  //   }
-  //   return {}
-  // }
-
   const renderField = (p: FieldProps, i: number) => {
     const shouldRender =
       !p.conditions || evaluateConditions(p.conditions, values, schema)
@@ -74,21 +54,21 @@ export const FormRenderer = ({
         className={cn([
           `mkui-field-${p?.type}`,
           p?.className,
-          // p?.colSpan ? 'colspan-' + p.colSpan : undefined,
+          p?.colSpan ? 'has-colspan' : undefined,
           settings?.classNames?.fieldGroup,
         ])}
         style={setVariable(p?.colSpan)}>
         {p?.label ?? null}
         {p?.instructions ?? null}
-        <div
-          className="mkui-form-grid"
-          style={setVariable(
-            isGroup ? p?.group?.columns : p?.repeater?.columns,
-            'col'
-          )}>
-          {/* TODO - IF REPEATER, add Repeater wrapper to add and delete... Need to store these values in state and figure out the best way to initialize or control externally */}
-          {p.subFields?.map((p) => <Field key={p.name} {...p} />)}
-        </div>
+        {isGroup ? (
+          <div
+            className="mkui-form-grid"
+            style={setVariable(p?.grid?.columns, 'col')}>
+            {p.subFields?.map((p) => <Field key={p.name} {...p} />)}
+          </div>
+        ) : (
+          <Repeater {...p} />
+        )}
       </div>
     ) : (
       <Field key={p.name} {...p} />
@@ -118,29 +98,17 @@ export const FormRenderer = ({
             onSubmit(values, { setIsSubmitting, resetForm, submitCount })
           }
         }}
-        style={{
-          '--form-gap': settings?.gap,
-          '--form-columns': settings?.columns,
-        }}>
-        {/* <Style
-          root={formId}
-          breakpoints={settings?.breakpoints}
-          css={{
-            // ...getColumnStyles(),
-            '.mkui-form-grid': {
-              gridTemplateColumns: [
-                '1fr',
-                `repeat(${settings?.columns}, 1fr)`,
-              ] || ['1fr', 'repeat(2, 1fr)'],
-              gap: settings?.gap || '1rem',
-            } as ResponsiveCSS,
-          }}
-        /> */}
+        style={
+          {
+            '--form-gap': settings?.gap,
+            '--form-columns': settings?.columns,
+          } as React.CSSProperties
+        }>
         {isPaginated && components.progress}
         {components.header}
         {isPaginated ? (
           <CSSTransition show={currentPage} type={settings?.pageTransition}>
-            {fields?.map(({ label, subFields, className }, i) => (
+            {fields?.map(({ label, grid, subFields, className }, i) => (
               <React.Fragment key={i}>
                 {currentPage === i + 1 ? (
                   <div
@@ -153,7 +121,9 @@ export const FormRenderer = ({
                     {label && (
                       <div className="mkui-form-page-label">{label}</div>
                     )}
-                    <div className="mkui-form-grid">
+                    <div
+                      className="mkui-form-grid"
+                      style={setVariable(grid?.columns, 'col')}>
                       {subFields?.map((p) => renderField(p, i))}
                     </div>
                   </div>

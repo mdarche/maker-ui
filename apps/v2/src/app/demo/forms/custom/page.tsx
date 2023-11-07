@@ -60,7 +60,11 @@ export default function CustomFormPage() {
             required: true,
           },
         ]}
-        settings={{ columns: 4, validateFieldOnBlur: true }}
+        settings={{
+          columns: 4,
+          validateFieldOnBlur: true,
+          errorPosition: 'bottom-left',
+        }}
         onSubmit={onSubmit}>
         <Form.Submit lifecycle={{ submitting: 'Submitting' }}>
           Submit

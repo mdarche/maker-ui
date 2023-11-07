@@ -84,7 +84,7 @@ function getDefault(type: FieldProps['type']) {
     ? ''
     : ''
 }
-const error = (name: string) =>
+const uniqueError = (name: string) =>
   `Each field should have a unique name. The field "${name}" is used more than once. This will lead to unexpected errors in your form.`
 
 export function getFieldData(fields: FieldProps[], index = 0) {
@@ -94,26 +94,46 @@ export function getFieldData(fields: FieldProps[], index = 0) {
   let conditions: FormConditions = {}
 
   fields.forEach((f, i) => {
-    // Handle nested fields
+    // Handle fields that have `subFields` property
     if (nonFields.includes(f.type) && f?.subFields) {
-      // If group has conditions, add this to the conditions object
       if ((f.type === 'group' || f.type === 'repeater') && f?.conditions) {
         conditions[f.name] = f.conditions
       }
-      // Recursively get nested field data
-      const nested = getFieldData(f.subFields, i)
-      const usedKey = findDuplicateKey(values, nested.values)
-      // Throw error if a duplicate key is found
-      if (usedKey) {
-        console.error(error(usedKey))
+
+      if (f.type === 'repeater') {
+        // Handle repeater fields
+        if (f.subFields.some((s) => nonFields.includes(s.type))) {
+          throw new Error('You cannot further nest a repeater field.')
+        }
+
+        const subFieldNames = new Set<string>()
+        f.subFields.forEach((s) => {
+          if (subFieldNames.has(s.name)) {
+            throw new Error(uniqueError(s.name))
+          }
+          subFieldNames.add(s.name)
+        })
+        // - Loop over f.subFields
+        // - Use subField index to create unique key for each subField
+        // - Throw error if any subFields have the same name
+      } else {
+        // Handle page and group fields
+        const nested = getFieldData(
+          f.subFields,
+          f.type === 'page' ? i : undefined
+        )
+        const usedKey = findDuplicateKey(values, nested.values)
+        if (usedKey) {
+          console.error(uniqueError(usedKey)) // throw error if duplicate key exists
+        }
+        values = merge(values, nested.values)
+        schema = merge(schema, nested.schema)
+        conditions = merge(conditions, nested.conditions)
       }
-      values = merge(values, nested.values)
-      schema = merge(schema, nested.schema)
-      conditions = merge(conditions, nested.conditions)
     } else {
       // Handle normal / flat fields
       if (values[f.name]) {
-        console.error(error(f.name))
+        console.error(uniqueError(f.name))
       }
       if (f.type !== 'divider') {
         values[f.name] = f.initialValue || getDefault(f.type)

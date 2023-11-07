@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { cn, Conditional, merge } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import type { ZodError } from 'zod'
 
 import { useForm, useField } from '@/context'
-import { evaluateConditions } from '@/helpers'
+import { evaluateConditions, setVariable } from '@/helpers'
 import type { FieldProps } from '@/types'
 import {
   Input,
@@ -15,8 +15,6 @@ import {
   DateTimePicker,
 } from '@/fields'
 import { Label } from './Label'
-import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
-import { setVariable } from 'src/helpers/utils'
 
 const basicInputs = [
   'text',
@@ -37,20 +35,13 @@ interface FieldPropsFull extends FieldProps {
 }
 
 export const Field = ({ index, ...p }: FieldPropsFull) => {
-  const { settings: s, values, schema, formError } = useForm()
+  const { settings: s, values, schema } = useForm()
   const { touched, error } = useField(p.name)
 
   // Helpers
   const labelPos = p?.labelPosition || s.labelPosition
   const errorPos = p?.errorPosition || s.errorPosition
   const hasError = !!error
-  const hasAutoSave = p?.autoSave || s.autoSave
-  const autoSaveSettings = () => {
-    let local = typeof p.autoSave === 'boolean' || !p.autoSave ? {} : p.autoSave
-    let global =
-      typeof s.autoSave === 'boolean' || !s.autoSave ? {} : s.autoSave
-    return merge.all([initial, global, local])
-  }
 
   const shouldRender =
     !p.conditions || evaluateConditions(p.conditions, values, schema)
@@ -102,8 +93,8 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
         p.className,
         'label-' + labelPos,
         'error-' + errorPos,
+        p?.colSpan ? 'has-colspan' : undefined,
         labelPos !== 'left' && labelPos !== 'right' ? 'flex-col' : undefined,
-        // p?.colSpan ? 'colspan-' + p.colSpan : undefined,
         s?.classNames?.fieldContainer,
         p?.honeypot ? 'form-safe' : undefined,
         hasError ? 'error' : undefined,
@@ -131,18 +122,7 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
           {p.instructions}
         </div>
       ) : null}
-      <Conditional
-        condition={hasAutoSave === true}
-        trueWrapper={(c) => (
-          <AutoSaveWrapper
-            name={p.name}
-            formError={!!formError}
-            settings={autoSaveSettings()}>
-            {c}
-          </AutoSaveWrapper>
-        )}>
-        <>{renderFieldType()}</>
-      </Conditional>
+      {renderFieldType()}
       {labelPos.includes('bottom-') ? (
         <Label
           name={p.name}

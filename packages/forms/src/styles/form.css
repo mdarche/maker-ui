@@ -18,8 +18,9 @@
 
 .mkui-form-grid {
   display: grid;
-  gap: var(--form-gap, 1rem);
+  gap: var(--form-gap, 25px);
   grid-template-columns: 1fr;
+  width: 100%;
 
   @media screen and (min-width: 768px) {
     grid-template-columns: repeat(var(--form-columns, 2), 1fr);
@@ -27,15 +28,20 @@
 }
 
 /* TODO - double check cascading on grid-column */
+.mkui-field-container {
+  display: flex;
+}
+
 .mkui-field-group,
 .mkui-field-repeater,
 .mkui-field-container {
   position: relative;
-  display: flex;
-  grid-column: span 1 / -1;
+  grid-column: 1 / -1;
+}
 
+.has-colspan {
   @media screen and (min-width: 768px) {
-    grid-column: span var(--form-colspan, 1 / -1);
+    grid-column: span var(--form-colspan, 1);
   }
 }
 

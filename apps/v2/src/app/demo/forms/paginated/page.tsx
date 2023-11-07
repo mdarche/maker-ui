@@ -35,6 +35,7 @@ export default function PaginatedFormPage() {
             type: 'page',
             label: 'Page 1',
             name: 'page-1',
+            grid: { columns: 4 },
             subFields: [
               {
                 type: 'text',
@@ -121,7 +122,7 @@ export default function PaginatedFormPage() {
           },
         ]}
         settings={{
-          columns: 4,
+          columns: 2,
           validateFieldOnBlur: true,
           pageTransition: 'fade-up',
           onPageChange: (page, values) =>

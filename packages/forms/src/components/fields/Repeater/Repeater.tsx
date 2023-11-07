@@ -7,9 +7,13 @@ import { useField, useForm } from '@/context'
 export const Repeater = (p: FieldProps) => {
   const {
     settings: { icons },
+    values,
+    schema,
   } = useForm()
   const { value } = useField(p.name) // Value is an array of objects
   const max = p?.repeater?.max || 10
+
+  console.log('Form values are', values, schema)
 
   // Delete Logic
 

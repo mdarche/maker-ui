@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Breakpoints } from '@maker-ui/style'
 import { TransitionType } from '@maker-ui/transition'
 import type { Schema, ZodError } from 'zod'
 
@@ -322,8 +321,6 @@ export interface FieldProps {
   /** If true and the field type is `input` honeypot styling will be automatically applied
    * to this field. */
   honeypot?: boolean
-  /** If true, the form will automatically submit after this field has been touched. */
-  autoSave?: boolean | AutoSaveSettings
   /** The number of columns this field should span. */
   colSpan?: number
   /**  Options for the `radio`, `checkbox`, and `select` field types */
@@ -450,6 +447,12 @@ export interface FieldProps {
       | 'credit-card'
       | ((s: string) => string)
   }
+  grid?: {
+    /** Custom grid template columns for the repeater field. */
+    columns?: number
+    /** Custom grid template rows for the repeater field. */
+    rows?: string
+  }
   /** Custom settings for the `repeater` field type */
   repeater?: {
     /** A custom label, icon, or React Element for the add button (inner content) */
@@ -460,17 +463,6 @@ export interface FieldProps {
     max?: number
     /** The minimum number of rows that must be added */
     min?: number
-    /** Custom grid template columns for the repeater field. */
-    columns?: number
-    /** Custom grid template rows for the repeater field. */
-    rows?: string
-  }
-  /** Custom settings for the `group` field type */
-  group?: {
-    /** Custom grid template columns for the group field. */
-    columns?: number
-    /** Custom grid template rows for the group field. */
-    rows?: string
   }
   /** Nested fields if the field type is `group`, `repeater`, or `page`. */
   subFields?: FieldProps[]
@@ -490,10 +482,8 @@ export interface AutoSaveSettings {
 export interface FormSettings {
   /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
   validateFieldOnBlur: boolean
-  /** Breakpoints that dictate when form columns will collapse according to the `columns` prop. */
-  breakpoints?: Breakpoints
-  columns: string | string[] | number
-  gap: string | number | (string | number)[]
+  columns?: number
+  gap?: string
   /** The form's default field label position
    * @default 'top-left'
    */
@@ -602,6 +592,7 @@ export type FormSchema = {
     page: number
     required: boolean | string
     validation?: Schema
+    conditions?: Array<Condition[]>
   }
 }
 

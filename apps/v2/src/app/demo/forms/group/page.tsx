@@ -27,7 +27,6 @@ export default function GroupedFormPage() {
       <div style={{ height: 100 }} />
       <Form
         success={success}
-        settings={{ columns: 2 }}
         fields={[
           {
             type: 'switch',
@@ -40,9 +39,6 @@ export default function GroupedFormPage() {
             type: 'group',
             name: 'group-1',
             conditions: [[{ field: 'activate', compare: 'eq', value: true }]],
-            group: {
-              columns: 3,
-            },
             subFields: [
               {
                 type: 'text',
@@ -54,7 +50,7 @@ export default function GroupedFormPage() {
                 colSpan: 1,
                 validation: z
                   .string()
-                  .min(2, { message: 'String must contain 2 chars' }),
+                  .min(2, { message: 'String must contain 2 characters' }),
               },
               {
                 type: 'text',
