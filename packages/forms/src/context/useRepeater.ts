@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { FormContext } from './FormContext'
-import { extractField } from '@/helpers'
+import { deepSearch, initRepeaterValues } from '@/helpers'
 
 /**
  * A hook that provides a set of functions and properties to interact with repeater fields.
@@ -10,55 +10,53 @@ import { extractField } from '@/helpers'
  */
 export function useRepeater(name: string) {
   const { state: s, dispatch } = useContext(FormContext)
-  const r = extractField(name)
+  const field = deepSearch(s.fields, 'name', name)
 
-  function validateRepeaterOperation(
-    r: { field: string; index: number } | undefined,
-    operation: (newArray: any[]) => void
-  ) {
-    if (!r) {
-      return console.error('No repeater field specified for operation.')
-    }
-    if (!Array.isArray(s.values[r.field])) {
+  function removeIndex(index: number) {
+    if (
+      !s.values[name] ||
+      !Array.isArray(s.values[name]) ||
+      s.values[name][index] === undefined
+    ) {
       return console.error(
-        `Expected an array for field '${r.field}', but received:`,
-        s.values[r.field]
+        'Repeater field does not exist or index is out of range.'
       )
     }
 
-    operation(s.values[r.field])
+    // Create a new array excluding the item at the specified index
+    const newArray = [
+      ...s.values[name].slice(0, index),
+      ...s.values[name].slice(index + 1),
+    ]
+    dispatch({ type: 'SET_VALUE', value: { [name]: newArray } })
   }
 
-  function removeIndex() {
-    validateRepeaterOperation(r, (array) => {
-      const newArray = [
-        ...array.slice(0, r!.index),
-        ...array.slice(r!.index + 1),
-      ]
-      dispatch({ type: 'SET_VALUE', value: { [r!.field]: newArray } })
-    })
-  }
-
+  // Done
   function addIndex() {
-    validateRepeaterOperation(r, (array) => {
-      const newArray = [...array, {}]
-      dispatch({ type: 'SET_VALUE', value: { [r!.field]: newArray } })
-    })
+    if (!Array.isArray(s.values[name])) {
+      return console.error(
+        `Expected an array for field '${name}', but received:`,
+        s.values[name]
+      )
+    }
+    const newArray = [...s.values[name], initRepeaterValues(field?.subFields)]
+    dispatch({ type: 'SET_VALUE', value: { [name]: newArray } })
   }
 
-  function reorder(newIndex: number) {
-    validateRepeaterOperation(r, (array) => {
-      if (newIndex < 0 || newIndex >= array.length) {
-        return console.error('New index is out of bounds.')
-      }
+  // function reorder(newIndex: number) {
+  //   validateRepeaterOperation(r, (array) => {
+  //     if (newIndex < 0 || newIndex >= array.length) {
+  //       return console.error('New index is out of bounds.')
+  //     }
 
-      const newArray = [...array]
-      const [item] = newArray.splice(r!.index, 1)
-      newArray.splice(newIndex, 0, item)
+  //     const newArray = [...array]
+  //     const [item] = newArray.splice(r!.index, 1)
+  //     newArray.splice(newIndex, 0, item)
 
-      dispatch({ type: 'SET_VALUE', value: { [r!.field]: newArray } })
-    })
-  }
+  //     dispatch({ type: 'SET_VALUE', value: { [r!.field]: newArray } })
+  //   })
+  // }
+  function reorder() {}
 
   return {
     removeIndex,

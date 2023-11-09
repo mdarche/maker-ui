@@ -3,9 +3,48 @@ import type {
   FileValidation,
   FormValues,
   FormErrors,
+  FormCondition,
 } from '@/types'
 import { evaluateConditions } from './conditional-logic'
-import { getFieldValue, getSchemaValue } from './repeater'
+import { generateFieldNames, getFieldValue, getSchemaValue } from './repeater'
+
+/**
+ * Validates a field's visibility and emptiness based on form values and schema.
+ *
+ * @param field The name of the field to validate.
+ * @param values The current values of the form.
+ * @param schema The schema of the form.
+ * @returns An object containing visibility and emptiness status of the field.
+ */
+function basicValidate(field: string, values: FormValues, schema: FormSchema) {
+  const evaluateVisibility = (conditions?: Array<FormCondition[]>) =>
+    conditions ? evaluateConditions(conditions, values, schema) : true
+
+  const f = getSchemaValue(field)
+  const group = schema[f]?.group
+  const conditions = schema[f]?.conditions
+
+  // Determine visibility of the group and field
+  let isGroupVisible = true
+  if (group && schema[group]) {
+    isGroupVisible = evaluateVisibility(schema[group]?.conditions)
+  }
+
+  // Determine visibility of field
+  const isVisible =
+    isGroupVisible && (conditions ? evaluateVisibility(conditions) : true)
+
+  const isEmpty = checkIsEmpty(getFieldValue(field, values))
+  return { isVisible, isEmpty }
+}
+
+function checkIsEmpty(value: any): boolean {
+  if (value === null || value === undefined) return true
+  if (Array.isArray(value)) return value.length === 0
+  if (value instanceof Date) return isNaN(value.getTime())
+  if (typeof value === 'object') return Object.values(value).every(checkIsEmpty)
+  return !value
+}
 
 interface ValidateProps {
   type: 'field' | 'page' | 'form'
@@ -15,30 +54,41 @@ interface ValidateProps {
   page?: number
 }
 
-function basicValidate(field: string, values: FormValues, schema: FormSchema) {
-  const f = getSchemaValue(field)
-  const conditions = schema[f]?.conditions
-  const isVisible = conditions
-    ? evaluateConditions(conditions, values, schema) // TODO
-    : true
-  let isEmpty
-  const val = getFieldValue(field, values)
-
-  if (val !== null && val !== undefined) {
-    if (typeof val === 'object' && !Array.isArray(val)) {
-      if (val instanceof Date) {
-        isEmpty = isNaN(val.getTime())
-      } else {
-        isEmpty = Object.values(val).every((value) => !value)
-      }
-    } else {
-      isEmpty = !val || (Array.isArray(val) && !val.length)
-    }
-  } else {
-    isEmpty = true
+function validateField(
+  fieldName: string,
+  schema: FormSchema,
+  values: FormValues
+): { error: string | null } {
+  const { isVisible, isEmpty } = basicValidate(fieldName, values, schema)
+  if (!isVisible) {
+    return { error: null }
   }
 
-  return { isVisible, isEmpty }
+  const schemaField = getSchemaValue(fieldName)
+  const fieldValue = getFieldValue(fieldName, values)
+
+  // Handle 'required' validation
+  if (schema[schemaField]?.required && isEmpty) {
+    // Ensure that required message is a string; otherwise, use a default message.
+    const requiredMessage =
+      typeof schema[schemaField]?.required === 'string'
+        ? schema[schemaField]?.required
+        : 'Required'
+    return { error: requiredMessage as string }
+  }
+
+  // Handle custom Zod validation
+  if (schema[schemaField]?.validation) {
+    const validationFn = schema[schemaField]?.validation?.safeParse
+    if (validationFn) {
+      const res = validationFn(fieldValue)
+      if (!res?.success && res?.error) {
+        return { error: res.error.issues[0]?.message || 'Validation error' }
+      }
+    }
+  }
+
+  return { error: null }
 }
 
 /**
@@ -61,56 +111,42 @@ export function validate({
     return { isValid: false, errors: {} }
   }
 
-  // Validate specific field
-  if (field && type === 'field') {
-    const { isVisible, isEmpty } = basicValidate(field, values, schema)
-    if (!isVisible) return { isValid, errors: {} }
-    const f = getSchemaValue(field)
-
-    if (schema[f]?.required && isEmpty) {
+  if (type === 'field' && field) {
+    const error = validateField(field, schema, values).error
+    if (error) {
+      errors[field] = error
       isValid = false
-      const r = schema[f]?.required
-      errors[field] = typeof r === 'string' ? r : 'Required'
-    } else if (schema[f]?.validation) {
-      const val = getFieldValue(field, values)
-      const res = schema[f]?.validation?.safeParse(val)
-
-      if (!res?.success && res?.error) {
-        errors[field] = res?.error
-        isValid = false
-      }
     }
-  }
-
-  // Loop over all items in schema
-
-  if (type === 'form' || type === 'page') {
-    Object.keys(schema).forEach((name) => {
-      if (type === 'page' && schema[name]?.page !== page) {
+  } else if (type === 'form' || type === 'page') {
+    Object.keys(schema).forEach((fieldName) => {
+      if (type === 'page' && schema[fieldName]?.page !== page) {
         return
       }
-      const { isVisible, isEmpty } = basicValidate(name, values, schema)
-      if (!isVisible) return
-      const f = getSchemaValue(name)
+      if (fieldName.includes('.')) {
+        return
+      }
 
-      if (schema[name]?.required && isEmpty) {
-        // Check for required
+      if (schema[fieldName]?.type === 'repeater') {
+        const nestedFields = generateFieldNames(values[fieldName], fieldName)
+        nestedFields.forEach((nestedField) => {
+          const error = validateField(nestedField, schema, values).error
+          if (error) {
+            errors[nestedField] = error
+            isValid = false
+          }
+        })
+      }
 
-        const r = schema[f]?.required
+      const error = validateField(fieldName, schema, values).error
+      if (error) {
+        errors[fieldName] = error
         isValid = false
-        errors[name] = typeof r === 'string' ? r : 'Required'
-      } else if (schema[f]?.validation) {
-        // Check for custom validation
-        const val = getFieldValue(name, values)
-        const res = schema[f]?.validation?.safeParse(val)
-        if (!res?.success && res?.error) {
-          errors[name] = res?.error
-          isValid = false
-          return
-        }
       }
     })
   }
+
+  console.log('errors', errors)
+  console.log('isValid', isValid)
 
   return { isValid, errors }
 }

@@ -48,6 +48,7 @@ export const FormRenderer = ({
       !p.conditions || evaluateConditions(p.conditions, values, schema)
     const isGroup = p?.type === 'group'
     const isRepeater = p?.type === 'repeater'
+    const errorPos = p?.errorPosition || s.errorPosition
 
     return (isGroup || isRepeater) && p?.subFields && shouldRender ? (
       <div
@@ -55,6 +56,7 @@ export const FormRenderer = ({
         className={cn([
           `mkui-field-${p?.type}`,
           p?.className,
+          'error-' + errorPos,
           p?.colSpan ? 'has-colspan' : undefined,
           s?.classNames?.fieldGroup,
         ])}

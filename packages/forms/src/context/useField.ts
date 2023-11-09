@@ -55,6 +55,7 @@ export function useField(name: string) {
   }
 
   function validateField(): boolean {
+    console.log('Name is', name)
     const { isValid, errors } = validate({
       type: 'field',
       schema: s.schema,
@@ -83,7 +84,7 @@ export function useField(name: string) {
         )
       : deepSearch(s.fields, 'name', name),
     touched: s.touched.includes(name),
-    error: s.errors[name] || false,
+    error: s.errors[name],
     value: isRepeater ? getFieldValue(name, s.values) : s.values[name],
     page,
     // Functions

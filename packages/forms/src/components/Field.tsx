@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import type { ZodError } from 'zod'
 
 import { useForm, useField } from '@/context'
 import { evaluateConditions, setVariable } from '@/helpers'
@@ -41,7 +40,6 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
   // Helpers
   const labelPos = p?.labelPosition || s.labelPosition
   const errorPos = p?.errorPosition || s.errorPosition
-  const hasError = !!error
 
   const shouldRender =
     !p.conditions || evaluateConditions(p.conditions, values, schema)
@@ -111,7 +109,7 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
           labelPos !== 'left' && labelPos !== 'right' ? 'flex-col' : undefined,
           s?.classNames?.fieldContainer,
           p?.honeypot ? 'form-safe' : undefined,
-          hasError ? 'error' : undefined,
+          !!error ? 'error' : undefined,
           touched ? 'touched' : '',
         ])}
         style={setVariable(p?.colSpan)}>
@@ -139,13 +137,11 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
             {s?.icons?.validate}
           </div>
         )}
-        {hasError && (
+        {!!error && p?.type !== 'select' ? (
           <div className={cn(['mkui-field-error', s?.classNames?.fieldError])}>
-            {typeof error === 'string'
-              ? error
-              : (error as ZodError).issues[0]?.message}
+            {error}
           </div>
-        )}
+        ) : null}
       </div>
     )
   )

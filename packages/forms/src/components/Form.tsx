@@ -58,7 +58,7 @@ export const Form = ({
 }: FormProps) => {
   const memoFields = useMemo(() => fields, [fields])
   const isPaginated = !!fields.find((f) => f.type === 'page')
-  const { values, schema } = initFieldData(fields)
+  const { values, schema } = initFieldData({ fields })
   const [rendered, setRendered] = useState(false)
   const [state, dispatch] = useReducer(
     formReducer,

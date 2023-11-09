@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { merge } from '@maker-ui/utils'
+import { generateId, merge } from '@maker-ui/utils'
 
 import {
   FieldProps,
@@ -10,7 +10,7 @@ import {
   FormValues,
 } from '@/types'
 import { initialState } from '../defaults'
-import { findDuplicateKey } from '@/helpers'
+import { findDuplicateKey, initRepeaterValues, setDefault } from '@/helpers'
 
 export type Action =
   | { type: 'SET_FIELDS'; value: FieldProps[] }
@@ -56,7 +56,7 @@ export function formReducer(state: FormState, action: Action): FormState {
         fields,
         errors: {},
         touched: [],
-        ...initFieldData(fields),
+        ...initFieldData({ fields }),
       }
     case 'SET_SUBMIT_COUNT':
       return {
@@ -69,42 +69,36 @@ export function formReducer(state: FormState, action: Action): FormState {
   }
 }
 
-function getDefault(type: FieldProps['type']) {
-  const numVals = ['number', 'range']
-  return numVals.includes(type)
-    ? 0
-    : type === 'switch'
-    ? false
-    : type === 'checkbox' || type === 'select' || type === 'repeater'
-    ? []
-    : type === 'image-picker'
-    ? null
-    : type === 'date-picker' || type === 'date-time-picker'
-    ? ''
-    : ''
-}
 const containers = ['page', 'group', 'repeater']
 const uniqueError = (name: string) =>
   `Each field should have a unique name. The field "${name}" is used more than once. This will lead to unexpected errors in your form.`
+const reservedError = (name: string) =>
+  `Fields cannot include a period symbol "." in their name. The field "${name}" is invalid.`
 
-export function initFieldData(
-  fields: FieldProps[],
-  index = 0,
+interface InitProps {
+  fields: FieldProps[]
+  index?: number
   parent?: string
-) {
+  group?: string
+}
+
+export function initFieldData({ fields, index = 0, parent, group }: InitProps) {
   const page = index + 1
   let values: FormValues = {}
   let schema: FormSchema = {}
 
   fields.forEach((f, i) => {
+    // Verify name validity
+    if (f.name.includes('.')) {
+      throw new Error(reservedError(f.name))
+    }
     // Handle fields that have `subFields` property
     if (f?.subFields) {
-      if (f?.conditions) {
-        schema[f.name] = {
-          type: f.type,
-          page,
-          conditions: f.conditions,
-        }
+      schema[f.name] = {
+        type: f.type,
+        page,
+        conditions: f.conditions,
+        validation: f.validation,
       }
 
       if (f.type === 'repeater') {
@@ -121,8 +115,23 @@ export function initFieldData(
           subFieldNames.add(s.name)
         })
 
-        values[f.name] = f.initialValue || []
-        schema = merge(schema, initFieldData(f.subFields, index, f.name).schema)
+        // Assign initial value to repeater field and add unique keys to each item
+        values[f.name] = f?.initialValue
+          ? (f.initialValue as any[])?.map((d) => ({
+              ...d,
+              _id: generateId(),
+            }))
+          : [initRepeaterValues(f.subFields)]
+
+        schema = merge(
+          schema,
+          initFieldData({
+            fields: f.subFields,
+            index,
+            parent: f.name,
+            group: f.name,
+          }).schema
+        )
       } else if (f.type === 'group' || f.type === 'page') {
         const isPaginated = f.type === 'page'
 
@@ -139,7 +148,11 @@ export function initFieldData(
           }
         }
 
-        const nested = initFieldData(f.subFields, isPaginated ? i : undefined)
+        const nested = initFieldData({
+          fields: f.subFields,
+          index: isPaginated ? i : undefined,
+          group: f.type === 'group' ? f.name : undefined,
+        })
         const dupe = findDuplicateKey(values, nested.values)
         if (dupe) {
           console.error(uniqueError(dupe)) // throw error if duplicate key exists
@@ -156,13 +169,14 @@ export function initFieldData(
         const name = parent ? `${parent}.${f.name}` : f.name
 
         if (!parent) {
-          values[f.name] = f.initialValue || getDefault(f.type)
+          values[f.name] = f.initialValue || setDefault(f.type)
         }
 
         schema[name] = {
           type: f.type,
           required: typeof f?.required === 'string' ? f.required : !!f.required,
           page,
+          group,
           validation: f?.validation,
           conditions: f?.conditions,
         }

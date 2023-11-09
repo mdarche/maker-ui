@@ -10,6 +10,18 @@ interface LabelProps {
   className?: string
 }
 
+const divTypes = [
+  'checkbox',
+  'radio',
+  'switch',
+  'group',
+  'repeater',
+  'range',
+  'custom',
+  'date-picker',
+  'date-time-picker',
+]
+
 /**
  * Renders a label for a field. If the field is a checkbox or radio, the label
  * will be rendered as a group label. If the field is a switch, the label will
@@ -22,8 +34,7 @@ export const Label = ({
   type,
   required,
 }: LabelProps) => {
-  const isLabel = type === 'switch' || type === 'repeater'
-  const isGroup = type === 'checkbox' || type === 'radio' || type === 'switch'
+  const isDiv = divTypes.includes(type)
 
   const renderSymbol = () => {
     return symbol === true ? (
@@ -33,10 +44,8 @@ export const Label = ({
     )
   }
 
-  return isGroup ? (
-    <div
-      id={isLabel ? `${name}-label` : `${name}-group`}
-      className="mkui-field-label">
+  return isDiv ? (
+    <div className="mkui-field-label">
       {children}
       {required && symbol && renderSymbol()}
     </div>

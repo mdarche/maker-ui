@@ -72,6 +72,7 @@ export const Input = ({ name }: FieldInputProps) => {
   const attrs = {
     id: `field-${name}`,
     name,
+    autoComplete: 'on',
     placeholder: field?.placeholder,
     className: cn([
       el === 'textarea' ? 'mkui-textarea' : 'mkui-input',

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { TransitionType } from '@maker-ui/transition'
-import type { Schema, ZodError } from 'zod'
+import type { Schema } from 'zod'
 
 export interface FileValidation {
   size: number
@@ -232,7 +232,7 @@ export type FieldType =
   | 'switch'
   | 'radio'
   | 'checkbox'
-  | 'repeater' // TODO
+  | 'repeater'
   | 'color-picker' // TODO
   | 'gallery' // TODO
   | 'color'
@@ -250,7 +250,7 @@ export type CompareOperator =
   | 'exists'
   | 'notExists'
 
-export interface Condition {
+export interface FormCondition {
   field: string
   compare: CompareOperator
   value?: any
@@ -311,7 +311,7 @@ export interface FieldProps {
    * of another field. This prop takes an array of arrays where the first array will be
    * evaluated as AND conditions and the second array will be evaluated as OR.
    */
-  conditions?: Array<Condition[]>
+  conditions?: Array<FormCondition[]>
   /** Renders a small validation icon next to the field if the field has no errors and has
    * been previously touched. */
   showValidation?: boolean
@@ -461,8 +461,6 @@ export interface FieldProps {
     iconRemove?: React.ReactElement
     /** The maximum number of rows that can be added */
     max?: number
-    /** The minimum number of rows that must be added */
-    min?: number
   }
   /** Nested fields if the field type is `group`, `repeater`, or `page`. */
   subFields?: FieldProps[]
@@ -556,7 +554,7 @@ export type FormValues<T = Record<string, any>> = {
 }
 
 export interface FormErrors {
-  [key: string]: ZodError | string
+  [key: string]: string
 }
 
 export interface FormHelpers {
@@ -579,8 +577,9 @@ export type FormSchema = {
     type: FieldType
     page: number
     required?: boolean | string
+    group?: string
     validation?: Schema
-    conditions?: Array<Condition[]>
+    conditions?: Array<FormCondition[]>
   }
 }
 

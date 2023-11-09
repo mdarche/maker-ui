@@ -49,16 +49,22 @@ export default function RepeaterFormPage() {
             name: 'projects',
             label: 'Projects',
             required: true,
-            initialValue: [
-              {
-                status: { label: 'Active', value: 'active' },
-                description: 'Project 1',
-              },
-              {
-                status: { label: 'Inactive', value: 'inactive' },
-                description: 'Project 2',
-              },
-            ],
+            repeater: {
+              max: 3,
+            },
+            validation: z
+              .array(z.any())
+              .min(2, 'Array must have at least 2 items.'),
+            // initialValue: [
+            //   {
+            //     status: { label: 'Active', value: 'active' },
+            //     description: 'Project 1',
+            //   },
+            //   {
+            //     status: { label: 'Inactive', value: 'inactive' },
+            //     description: 'Project 2',
+            //   },
+            // ],
             subFields: [
               {
                 type: 'select',
@@ -74,6 +80,7 @@ export default function RepeaterFormPage() {
                   search: true,
                   multi: true,
                   creatable: true,
+                  returnType: 'value',
                   max: 3,
                 },
               },

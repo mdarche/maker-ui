@@ -1,5 +1,5 @@
 import type {
-  Condition,
+  FormCondition,
   CompareOperator,
   InputOption,
   FormSchema,
@@ -73,7 +73,7 @@ const formatSelect = (b: FormatSelectProps) =>
  * @returns True if all conditions evaluate to true, false otherwise.
  */
 export const evaluateConditions = (
-  rules?: Array<Condition[]>,
+  conditions?: Array<FormCondition[]>,
   values?: FormValues,
   schema?: FormSchema
 ): boolean => {
@@ -81,7 +81,7 @@ export const evaluateConditions = (
   let and: boolean[] = []
   let or: boolean[] = []
 
-  rules?.forEach((s, index) => {
+  conditions?.forEach((s, index) => {
     if (!s.length) {
       return
     }

@@ -1,4 +1,6 @@
-import type { FormValues } from '@/types'
+import type { FieldProps, FormValues } from '@/types'
+import { generateId } from '@maker-ui/utils'
+import { setDefault } from './utils'
 
 const pattern = /^(.+)\.(\d+)\.(.+)$/
 
@@ -52,4 +54,24 @@ export function getSchemaValue(field: string) {
   }
 
   return field
+}
+
+export function generateFieldNames(value: any[], fieldName: string) {
+  return value.reduce((acc: string[], item: any, index: number) => {
+    Object.keys(item).forEach((key) => {
+      if (key !== '_id') {
+        acc.push(`${fieldName}.${index}.${key}`)
+      }
+    })
+    return acc
+  }, [])
+}
+
+export function initRepeaterValues(fields?: FieldProps[]) {
+  if (!fields) return []
+  let val = { _id: generateId() }
+  fields.forEach((s) => {
+    Object.assign(val, { [s.name]: setDefault(s.type) })
+  })
+  return val
 }
