@@ -86,67 +86,69 @@ export const Field = ({ index, ...p }: FieldPropsFull) => {
     }
   }
 
-  return shouldRender ? (
-    <div
-      className={cn([
-        'mkui-field-container',
-        p.className,
-        'label-' + labelPos,
-        'error-' + errorPos,
-        p?.colSpan ? 'has-colspan' : undefined,
-        labelPos !== 'left' && labelPos !== 'right' ? 'flex-col' : undefined,
-        s?.classNames?.fieldContainer,
-        p?.honeypot ? 'form-safe' : undefined,
-        hasError ? 'error' : undefined,
-        touched ? 'touched' : '',
-      ])}
-      style={setVariable(p?.colSpan)}>
-      {labelPos.includes('top-') ||
-      labelPos === 'left' ||
-      labelPos === 'right' ? (
-        <Label
-          name={p.name}
-          className={s?.classNames?.fieldLabel}
-          type={p.type}
-          symbol={s?.requiredSymbol}
-          required={p.required}>
-          {p.label}
-        </Label>
-      ) : null}
-      {p.instructions ? (
-        <div
-          className={cn([
-            'mkui-field-instructions',
-            s?.classNames?.fieldInstructions,
-          ])}>
-          {p.instructions}
-        </div>
-      ) : null}
-      {renderFieldType()}
-      {labelPos.includes('bottom-') ? (
-        <Label
-          name={p.name}
-          type={p.type}
-          symbol={s?.requiredSymbol}
-          required={p.required}>
-          {p.label}
-        </Label>
-      ) : null}
-      {p?.showValidation ? (
-        <div
-          className={cn(['mkui-validate', !error && touched ? 'active' : ''])}>
-          {s?.icons?.validate}
-        </div>
-      ) : null}
-      {hasError ? (
-        <div className={cn(['mkui-field-error', s?.classNames?.fieldError])}>
-          {typeof error === 'string'
-            ? error
-            : (error as ZodError).issues[0]?.message}
-        </div>
-      ) : null}
-    </div>
-  ) : null
+  function renderLabel() {
+    return (
+      <Label
+        name={p.name}
+        className={s?.classNames?.fieldLabel}
+        type={p.type}
+        symbol={s?.requiredSymbol}
+        required={p.required}>
+        {p.label}
+      </Label>
+    )
+  }
+
+  return (
+    shouldRender && (
+      <div
+        className={cn([
+          'mkui-field-container',
+          p.className,
+          'label-' + labelPos,
+          'error-' + errorPos,
+          p?.colSpan ? 'has-colspan' : undefined,
+          labelPos !== 'left' && labelPos !== 'right' ? 'flex-col' : undefined,
+          s?.classNames?.fieldContainer,
+          p?.honeypot ? 'form-safe' : undefined,
+          hasError ? 'error' : undefined,
+          touched ? 'touched' : '',
+        ])}
+        style={setVariable(p?.colSpan)}>
+        {(labelPos.includes('top-') ||
+          labelPos === 'left' ||
+          labelPos === 'right') &&
+          renderLabel()}
+        {p.instructions && (
+          <div
+            className={cn([
+              'mkui-field-instructions',
+              s?.classNames?.fieldInstructions,
+            ])}>
+            {p.instructions}
+          </div>
+        )}
+        {renderFieldType()}
+        {labelPos.includes('bottom-') && renderLabel()}
+        {p?.showValidation && (
+          <div
+            className={cn([
+              'mkui-validate',
+              !error && touched ? 'active' : '',
+            ])}>
+            {s?.icons?.validate}
+          </div>
+        )}
+        {hasError && (
+          <div className={cn(['mkui-field-error', s?.classNames?.fieldError])}>
+            {typeof error === 'string'
+              ? error
+              : (error as ZodError).issues[0]?.message}
+          </div>
+        )}
+      </div>
+    )
+  )
 }
 
 Field.displayName = 'Field'

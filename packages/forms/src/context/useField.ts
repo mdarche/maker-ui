@@ -1,7 +1,13 @@
 import { useContext } from 'react'
 import { merge } from '@maker-ui/utils'
 import { FormContext } from './FormContext'
-import { deepSearch, isEmpty, validate } from '@/helpers'
+import {
+  deepSearch,
+  isEmpty,
+  extractField,
+  getFieldValue,
+  validate,
+} from '@/helpers'
 
 /**
  * A hook that provides a set of functions and properties to interact with a specific form field.
@@ -12,6 +18,8 @@ import { deepSearch, isEmpty, validate } from '@/helpers'
 export function useField(name: string) {
   const { state: s, dispatch } = useContext(FormContext)
   const page = s.schema ? s.schema[name]?.page : 1
+  const r = extractField(name)
+  const isRepeater = !!r
 
   function setTouched() {
     dispatch({ type: 'SET_TOUCHED', value: name })
@@ -21,7 +29,29 @@ export function useField(name: string) {
     if (touch && !s.touched.includes(name)) {
       setTouched()
     }
-    dispatch({ type: 'SET_VALUE', value: { [name]: val } })
+
+    if (r) {
+      // Handle nested repeater fields
+      if (!Array.isArray(s.values[r.field])) {
+        console.error(
+          `Expected an array for field '${r.field}', but received:`,
+          s.values[r.field]
+        )
+        return
+      }
+
+      const newArray = [...s.values[r.field]]
+
+      if (r.index >= newArray.length) {
+        newArray.length = r.index + 1
+        newArray.fill(undefined, s.values[r.field].length, r.index)
+      }
+      newArray[r.index] = { ...newArray[r.index], [r.subField]: val }
+
+      dispatch({ type: 'SET_VALUE', value: { [r.field]: newArray } })
+    } else {
+      dispatch({ type: 'SET_VALUE', value: { [name]: val } })
+    }
   }
 
   function validateField(): boolean {
@@ -47,10 +77,14 @@ export function useField(name: string) {
 
   return {
     // Static values
-    field: deepSearch(s.fields, 'name', name),
+    field: isRepeater
+      ? deepSearch(s.fields, 'name', r?.field)?.subFields?.find(
+          (f) => f?.name === r?.subField
+        )
+      : deepSearch(s.fields, 'name', name),
     touched: s.touched.includes(name),
     error: s.errors[name] || false,
-    value: s.values[name],
+    value: isRepeater ? getFieldValue(name, s.values) : s.values[name],
     page,
     // Functions
     setValue,

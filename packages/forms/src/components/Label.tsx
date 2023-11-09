@@ -22,8 +22,8 @@ export const Label = ({
   type,
   required,
 }: LabelProps) => {
-  const isSwitch = type === 'switch'
-  const isGroup = type === 'checkbox' || type === 'radio' || isSwitch
+  const isLabel = type === 'switch' || type === 'repeater'
+  const isGroup = type === 'checkbox' || type === 'radio' || type === 'switch'
 
   const renderSymbol = () => {
     return symbol === true ? (
@@ -35,7 +35,7 @@ export const Label = ({
 
   return isGroup ? (
     <div
-      id={isSwitch ? `${name}-label` : `${name}-group`}
+      id={isLabel ? `${name}-label` : `${name}-group`}
       className="mkui-field-label">
       {children}
       {required && symbol && renderSymbol()}

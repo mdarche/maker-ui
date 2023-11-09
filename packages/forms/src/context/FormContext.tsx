@@ -87,7 +87,11 @@ const containers = ['page', 'group', 'repeater']
 const uniqueError = (name: string) =>
   `Each field should have a unique name. The field "${name}" is used more than once. This will lead to unexpected errors in your form.`
 
-export function initFieldData(fields: FieldProps[], index = 0) {
+export function initFieldData(
+  fields: FieldProps[],
+  index = 0,
+  parent?: string
+) {
   const page = index + 1
   let values: FormValues = {}
   let schema: FormSchema = {}
@@ -116,19 +120,20 @@ export function initFieldData(fields: FieldProps[], index = 0) {
           }
           subFieldNames.add(s.name)
         })
-        // - Loop over f.subFields
-        // - Use subField index to create unique key for each subField
+
+        values[f.name] = f.initialValue || []
+        schema = merge(schema, initFieldData(f.subFields, index, f.name).schema)
       } else if (f.type === 'group' || f.type === 'page') {
-        // Handle page and group fields
         const isPaginated = f.type === 'page'
+
         if (isPaginated) {
           if (fields.find((f) => f.type !== 'page')) {
-            console.error(
+            throw new Error(
               'If your form is paginated, all top level fields must use type "page".'
             )
           }
           if (fields.length === 1) {
-            console.error(
+            throw new Error(
               'Your form is paginated but only has one page. Please create additional pages or remove the "page" field type.'
             )
           }
@@ -145,11 +150,16 @@ export function initFieldData(fields: FieldProps[], index = 0) {
     } else {
       // Handle normal / flat fields
       if (values[f.name]) {
-        console.error(uniqueError(f.name))
+        throw new Error(uniqueError(f.name))
       }
       if (f.type !== 'divider') {
-        values[f.name] = f.initialValue || getDefault(f.type)
-        schema[f.name] = {
+        const name = parent ? `${parent}.${f.name}` : f.name
+
+        if (!parent) {
+          values[f.name] = f.initialValue || getDefault(f.type)
+        }
+
+        schema[name] = {
           type: f.type,
           required: typeof f?.required === 'string' ? f.required : !!f.required,
           page,

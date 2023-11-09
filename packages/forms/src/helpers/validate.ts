@@ -5,6 +5,7 @@ import type {
   FormErrors,
 } from '@/types'
 import { evaluateConditions } from './conditional-logic'
+import { getFieldValue, getSchemaValue } from './repeater'
 
 interface ValidateProps {
   type: 'field' | 'page' | 'form'
@@ -15,23 +16,23 @@ interface ValidateProps {
 }
 
 function basicValidate(field: string, values: FormValues, schema: FormSchema) {
-  const conditions = schema[field].conditions
+  const f = getSchemaValue(field)
+  const conditions = schema[f]?.conditions
   const isVisible = conditions
-    ? evaluateConditions(conditions, values, schema)
+    ? evaluateConditions(conditions, values, schema) // TODO
     : true
   let isEmpty
+  const val = getFieldValue(field, values)
 
-  if (values[field] !== null && values[field] !== undefined) {
-    if (typeof values[field] === 'object' && !Array.isArray(values[field])) {
-      if (values[field] instanceof Date) {
-        isEmpty = isNaN(values[field].getTime())
+  if (val !== null && val !== undefined) {
+    if (typeof val === 'object' && !Array.isArray(val)) {
+      if (val instanceof Date) {
+        isEmpty = isNaN(val.getTime())
       } else {
-        isEmpty = Object.values(values[field]).every((value) => !value)
+        isEmpty = Object.values(val).every((value) => !value)
       }
     } else {
-      isEmpty =
-        !values[field] ||
-        (Array.isArray(values[field]) && !values[field].length)
+      isEmpty = !val || (Array.isArray(val) && !val.length)
     }
   } else {
     isEmpty = true
@@ -57,7 +58,6 @@ export function validate({
   let errors: FormErrors = {}
 
   if (!schema || !values) {
-    // Return early if any of the required objects are not provided
     return { isValid: false, errors: {} }
   }
 
@@ -65,12 +65,16 @@ export function validate({
   if (field && type === 'field') {
     const { isVisible, isEmpty } = basicValidate(field, values, schema)
     if (!isVisible) return { isValid, errors: {} }
-    if (schema[field]?.required && isEmpty) {
+    const f = getSchemaValue(field)
+
+    if (schema[f]?.required && isEmpty) {
       isValid = false
-      const r = schema[field]?.required
+      const r = schema[f]?.required
       errors[field] = typeof r === 'string' ? r : 'Required'
-    } else if (schema[field]?.validation) {
-      const res = schema[field]?.validation?.safeParse(values[field])
+    } else if (schema[f]?.validation) {
+      const val = getFieldValue(field, values)
+      const res = schema[f]?.validation?.safeParse(val)
+
       if (!res?.success && res?.error) {
         errors[field] = res?.error
         isValid = false
@@ -86,17 +90,19 @@ export function validate({
         return
       }
       const { isVisible, isEmpty } = basicValidate(name, values, schema)
-
       if (!isVisible) return
+      const f = getSchemaValue(name)
 
       if (schema[name]?.required && isEmpty) {
         // Check for required
-        const r = schema[name]?.required
+
+        const r = schema[f]?.required
         isValid = false
         errors[name] = typeof r === 'string' ? r : 'Required'
-      } else if (schema[name]?.validation) {
+      } else if (schema[f]?.validation) {
         // Check for custom validation
-        const res = schema[name]?.validation?.safeParse(values[name])
+        const val = getFieldValue(name, values)
+        const res = schema[f]?.validation?.safeParse(val)
         if (!res?.success && res?.error) {
           errors[name] = res?.error
           isValid = false

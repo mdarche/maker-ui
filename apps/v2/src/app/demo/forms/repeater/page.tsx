@@ -30,6 +30,7 @@ export default function RepeaterFormPage() {
       <Form
         success={success}
         error={error}
+        settings={{ columns: 4, validateFieldOnBlur: true }}
         fields={[
           {
             type: 'text',
@@ -64,6 +65,7 @@ export default function RepeaterFormPage() {
                 name: 'status',
                 label: 'Status',
                 required: true,
+                colSpan: 2,
                 options: [
                   { label: 'Active', value: 'active' },
                   { label: 'Inactive', value: 'inactive' },
@@ -79,13 +81,14 @@ export default function RepeaterFormPage() {
                 type: 'textarea',
                 name: 'description',
                 label: 'Description',
+                colSpan: 2,
+                required: true,
                 placeholder: 'Project description...',
                 validation: z.string(),
               },
             ],
           },
         ]}
-        settings={{ columns: 4, validateFieldOnBlur: true }}
         onSubmit={onSubmit}>
         <Form.Submit lifecycle={{ submitting: 'Submitting' }}>
           Submit

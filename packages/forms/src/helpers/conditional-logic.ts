@@ -3,7 +3,9 @@ import type {
   CompareOperator,
   InputOption,
   FormSchema,
+  FormValues,
 } from '@/types'
+import { getFieldValue, getSchemaValue } from './repeater'
 
 type Comparators = {
   [key in CompareOperator]: (a: any, b: any) => boolean
@@ -71,25 +73,25 @@ const formatSelect = (b: FormatSelectProps) =>
  * @returns True if all conditions evaluate to true, false otherwise.
  */
 export const evaluateConditions = (
-  rules: Array<Condition[]>,
-  values: { [key: string]: any },
-  fields?: FormSchema
+  rules?: Array<Condition[]>,
+  values?: FormValues,
+  schema?: FormSchema
 ): boolean => {
-  if (!fields) return false
+  if (!schema) return false
   let and: boolean[] = []
   let or: boolean[] = []
 
-  rules.forEach((s, index) => {
+  rules?.forEach((s, index) => {
     if (!s.length) {
       return
     }
     s.forEach(({ field, compare, value }) => {
-      if (values[field] === undefined) return
-      const targetType = fields[field].type
+      const v = getFieldValue(field, values)
+      const f = getSchemaValue(field)
+      if (v === undefined) return
+      const targetType = schema[f].type
       const formValue =
-        targetType === 'select'
-          ? formatSelect(values[field] as FormatSelectProps)
-          : values[field]
+        targetType === 'select' ? formatSelect(v as FormatSelectProps) : v
 
       const result = comparators[compare](formValue, value)
       if (index === 0) {

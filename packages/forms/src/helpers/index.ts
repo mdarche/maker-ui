@@ -10,3 +10,9 @@ export {
   setVariable,
 } from './utils'
 export { findDifferences } from './find-differences'
+export {
+  isFieldArray,
+  extractField,
+  getFieldValue,
+  type Repeater,
+} from './repeater'

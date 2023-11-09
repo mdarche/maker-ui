@@ -9,6 +9,7 @@ import { Field } from './Field'
 import type { FormProps } from './Form'
 import { Pagination } from './Pagination'
 import type { FieldProps } from '@/types'
+import { Label } from './Label'
 
 interface FormRendererProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
@@ -32,7 +33,7 @@ export const FormRenderer = ({
     error,
     values,
     success,
-    settings,
+    settings: s,
     submitCount,
     setSubmitCount,
     setIsSubmitting,
@@ -55,11 +56,27 @@ export const FormRenderer = ({
           `mkui-field-${p?.type}`,
           p?.className,
           p?.colSpan ? 'has-colspan' : undefined,
-          settings?.classNames?.fieldGroup,
+          s?.classNames?.fieldGroup,
         ])}
         style={setVariable(p?.colSpan)}>
-        {p?.label ?? null}
-        {p?.instructions ?? null}
+        {p?.label ? (
+          <Label
+            name={p.name}
+            type={p.type}
+            className={s?.classNames?.fieldLabel}
+            symbol={s?.requiredSymbol}>
+            {p.label}
+          </Label>
+        ) : null}
+        {p?.instructions ? (
+          <div
+            className={cn([
+              'mkui-field-instructions',
+              s?.classNames?.fieldInstructions,
+            ])}>
+            {p.instructions}
+          </div>
+        ) : null}
         {isGroup ? (
           <div
             className="mkui-form-grid"
@@ -79,10 +96,7 @@ export const FormRenderer = ({
     <Conditional
       condition={!!components.success}
       trueWrapper={(c) => (
-        <CSSTransition
-          isSwitch
-          show={!!success}
-          type={settings?.successTransition}>
+        <CSSTransition isSwitch show={!!success} type={s?.successTransition}>
           {success ? components.success : c}
         </CSSTransition>
       )}>
@@ -100,14 +114,14 @@ export const FormRenderer = ({
         }}
         style={
           {
-            '--form-gap': settings?.gap,
-            '--form-columns': settings?.columns,
+            '--form-gap': s?.gap,
+            '--form-columns': s?.columns,
           } as React.CSSProperties
         }>
         {isPaginated && components.progress}
         {components.header}
         {isPaginated ? (
-          <CSSTransition show={currentPage} type={settings?.pageTransition}>
+          <CSSTransition show={currentPage} type={s?.pageTransition}>
             {fields?.map(({ label, grid, subFields, className }, i) => (
               <React.Fragment key={i}>
                 {currentPage === i + 1 ? (
@@ -116,7 +130,7 @@ export const FormRenderer = ({
                       'mkui-form-page',
                       `page-${i + 1}`,
                       className,
-                      settings?.classNames?.page,
+                      s?.classNames?.page,
                     ])}>
                     {label && (
                       <div className="mkui-form-page-label">{label}</div>

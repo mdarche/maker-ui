@@ -70,8 +70,8 @@ export const Input = ({ name }: FieldInputProps) => {
   }, [deferredValue])
 
   const attrs = {
-    id: `field-${field?.name}`,
-    name: field?.name,
+    id: `field-${name}`,
+    name,
     placeholder: field?.placeholder,
     className: cn([
       el === 'textarea' ? 'mkui-textarea' : 'mkui-input',
