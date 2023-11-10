@@ -55,7 +55,6 @@ export function useField(name: string) {
   }
 
   function validateField(): boolean {
-    console.log('Name is', name)
     const { isValid, errors } = validate({
       type: 'field',
       schema: s.schema,

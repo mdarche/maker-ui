@@ -7,6 +7,7 @@ import './components/fields/Input/input.css'
 import './components/fields/Media/media.css'
 import './components/fields/Options/options.css'
 import './components/fields/DateTimePicker/date-picker.css'
+import './components/fields/Repeater/repeater.css'
 
 export { Form } from '@/components'
 export { useForm, useField } from '@/context'

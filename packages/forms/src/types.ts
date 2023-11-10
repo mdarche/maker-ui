@@ -459,8 +459,23 @@ export interface FieldProps {
     iconAdd?: React.ReactElement
     /** A custom label, icon, or React Element for the remove button (inner content) */
     iconRemove?: React.ReactElement
+    /** A custom label, icon, or React Element for the reorder button (inner content) */
+    iconReorder?: React.ReactElement
+    /** Allows users can reorder the repeater items if multiple exist.
+     * @default false
+     */
+    reorder?: boolean
     /** The maximum number of rows that can be added */
     max?: number
+    classNames?: {
+      root?: string
+      table?: string
+      row?: string
+      btnAdd?: string
+      btnRemove?: string
+      btnDrag?: string
+      grid?: string
+    }
   }
   /** Nested fields if the field type is `group`, `repeater`, or `page`. */
   subFields?: FieldProps[]
@@ -516,6 +531,7 @@ export interface FormSettings {
     prevArrow?: React.ReactElement
     validate?: React.ReactElement
     remove?: React.ReactElement
+    reorder?: React.ReactElement
     add?: React.ReactElement
   }
 }

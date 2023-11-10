@@ -381,7 +381,7 @@ export const Select = ({ name }: FieldInputProps) => {
                   value: state.searchText,
                 })
               }>
-              Create "{state.searchText}" <span>[Enter]</span>
+              Create "{state.searchText}"
             </button>
           ) : (
             <div className="mkui-select-option flex justify-center">

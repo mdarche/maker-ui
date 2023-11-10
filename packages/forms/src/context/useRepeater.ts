@@ -43,20 +43,20 @@ export function useRepeater(name: string) {
     dispatch({ type: 'SET_VALUE', value: { [name]: newArray } })
   }
 
-  // function reorder(newIndex: number) {
-  //   validateRepeaterOperation(r, (array) => {
-  //     if (newIndex < 0 || newIndex >= array.length) {
-  //       return console.error('New index is out of bounds.')
-  //     }
+  function reorder(draggedId: string | null, targetId: string) {
+    if (!draggedId || !targetId) return
 
-  //     const newArray = [...array]
-  //     const [item] = newArray.splice(r!.index, 1)
-  //     newArray.splice(newIndex, 0, item)
+    const current = s.values[name] as Array<any>
+    const draggedRow = current.find((row) => row._id === draggedId)
+    const targetIndex = current.findIndex((row) => row._id === targetId)
 
-  //     dispatch({ type: 'SET_VALUE', value: { [r!.field]: newArray } })
-  //   })
-  // }
-  function reorder() {}
+    if (!draggedRow || targetIndex < 0) return
+
+    const newArray = [...current.filter((row) => row._id !== draggedId)]
+    newArray.splice(targetIndex, 0, draggedRow)
+
+    dispatch({ type: 'SET_VALUE', value: { [name]: newArray } })
+  }
 
   return {
     removeIndex,

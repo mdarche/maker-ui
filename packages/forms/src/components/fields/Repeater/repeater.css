@@ -1,0 +1,62 @@
+/* Config variables
+/ -------------------------------------------------- /
+/ --form-repeater-padding
+/ --form-repeater-handle-height
+/ --form-repeater-handle-margin
+/ --form-repeater-remove-height
+/ --form-repeater-remove-margin
+/ --form-repeater-add-height
+/ --form-repeater-icon-fill
+/ --form-repeater-utility-align
+/ --form-repeater-utility-padding
+/ --------------------------------------------------
+*/
+
+.mkui-repeater-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.mkui-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  padding: var(--form-repeater-padding, 10px 0);
+}
+
+.mkui-row-handle {
+  cursor: move;
+}
+
+.mkui-row-handle svg {
+  height: var(--form-repeater-handle-height, 14px);
+  margin: var(--form-repeater-handle-margin, 0 15px 0 0);
+  fill: var(--form-repeater-icon-fill, #9ca3af);
+}
+
+.mkui-btn-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mkui-btn-remove svg {
+  height: var(--form-repeater-remove-height, 18px);
+  margin: var(--form-repeater-remove-margin, 0 0 0 10px);
+  fill: var(--form-repeater-icon-fill, #9ca3af);
+}
+
+.mkui-row-remove,
+.mkui-row-handle {
+  display: flex;
+  align-items: var(--form-repeater-utility-align, flex-end);
+  padding: var(--form-repeater-utility-padding, 8px 0);
+  justify-content: center;
+}
+
+.mkui-row-add {
+  margin-top: 20px;
+}
+
+.mkui-btn-add svg {
+  height: var(--form-repeater-add-height, 20px);
+}

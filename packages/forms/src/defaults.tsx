@@ -1,5 +1,10 @@
 import * as React from 'react'
-import { ValidateIcon, ArrowIcon, CloseIcon } from './components/Icons'
+import {
+  ArrowIcon,
+  CloseIcon,
+  TrashIcon,
+  ReorderIcon,
+} from './components/Icons'
 import type { FormState } from '@/types'
 
 /**
@@ -16,7 +21,9 @@ export const initialState: Partial<FormState> = {
     icons: {
       selectArrow: <ArrowIcon />,
       selectClose: <CloseIcon />,
-      validate: <ValidateIcon />,
+      remove: <TrashIcon />,
+      reorder: <ReorderIcon />,
+      add: <>Add</>,
       nextArrow: (
         <ArrowIcon
           className="icon-next"

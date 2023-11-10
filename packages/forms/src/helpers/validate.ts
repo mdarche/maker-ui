@@ -145,9 +145,6 @@ export function validate({
     })
   }
 
-  console.log('errors', errors)
-  console.log('isValid', isValid)
-
   return { isValid, errors }
 }
 

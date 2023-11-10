@@ -51,6 +51,7 @@ export default function RepeaterFormPage() {
             required: true,
             repeater: {
               max: 3,
+              reorder: true,
             },
             validation: z
               .array(z.any())
@@ -85,7 +86,7 @@ export default function RepeaterFormPage() {
                 },
               },
               {
-                type: 'textarea',
+                type: 'text',
                 name: 'description',
                 label: 'Description',
                 colSpan: 2,
