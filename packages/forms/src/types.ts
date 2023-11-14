@@ -475,7 +475,11 @@ export interface FieldProps {
       btnRemove?: string
       btnDrag?: string
       grid?: string
+      postRow?: string
     }
+    /** A callback for rendering a custom element below the repeater that accesses values as
+     * they change.*/
+    postSlot?: (vals: any) => React.ReactElement
   }
   /** Nested fields if the field type is `group`, `repeater`, or `page`. */
   subFields?: FieldProps[]

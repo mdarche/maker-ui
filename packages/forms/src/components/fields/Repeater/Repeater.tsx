@@ -55,50 +55,56 @@ export const Repeater = ({ repeater: r, ...p }: FieldProps) => {
           <tbody>
             {fields.map((field, index) => {
               return (
-                <tr
-                  key={field._id}
-                  className={cn([
-                    `mkui-row repeater-${index}`,
-                    r?.classNames?.row,
-                  ])}
-                  draggable={hasReorder}
-                  onDragStart={(e) => handleDragStart(e, field._id)}
-                  onDragOver={handleDragOver}
-                  onDrop={(e) => handleDrop(e, field._id)}>
-                  {hasReorder && (
-                    <td
-                      className={cn([
-                        'mkui-row-handle',
-                        r?.classNames?.btnDrag,
-                      ])}
-                      onMouseDown={handleMouseDown}>
-                      <span title="Drag to reorder">
-                        {r?.iconReorder || s?.icons?.reorder}
-                      </span>
+                <React.Fragment key={field._id}>
+                  <tr
+                    className={cn([
+                      `mkui-row repeater-${index}`,
+                      r?.classNames?.row,
+                    ])}
+                    draggable={hasReorder}
+                    onDragStart={(e) => handleDragStart(e, field._id)}
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleDrop(e, field._id)}>
+                    {hasReorder && (
+                      <td
+                        className={cn([
+                          'mkui-row-handle',
+                          r?.classNames?.btnDrag,
+                        ])}
+                        onMouseDown={handleMouseDown}>
+                        <span title="Drag to reorder">
+                          {r?.iconReorder || s?.icons?.reorder}
+                        </span>
+                      </td>
+                    )}
+                    <td className="mkui-row-content">
+                      <div
+                        className={cn(['mkui-form-grid', r?.classNames?.grid])}
+                        style={setVariable(p?.grid?.columns, 'col')}>
+                        {p.subFields?.map(({ name, ...f }) => {
+                          const n = `${p.name}.${index}.${name}`
+                          return <Field key={n} name={n} {...f} />
+                        })}
+                      </div>
                     </td>
+                    <td className="mkui-row-remove">
+                      <button
+                        type="button"
+                        className={cn([
+                          'mkui-btn-remove',
+                          r?.classNames?.btnRemove,
+                        ])}
+                        onClick={() => removeIndex(index)}>
+                        {r?.iconRemove || s?.icons?.remove}
+                      </button>
+                    </td>
+                  </tr>
+                  {r?.postSlot && (
+                    <tr className={r?.classNames?.postRow}>
+                      <td colSpan={3}>{r.postSlot(field)}</td>
+                    </tr>
                   )}
-                  <td className="mkui-row-content">
-                    <div
-                      className={cn(['mkui-form-grid', r?.classNames?.grid])}
-                      style={setVariable(p?.grid?.columns, 'col')}>
-                      {p.subFields?.map(({ name, ...f }) => {
-                        const n = `${p.name}.${index}.${name}`
-                        return <Field key={n} name={n} {...f} />
-                      })}
-                    </div>
-                  </td>
-                  <td className="mkui-row-remove">
-                    <button
-                      type="button"
-                      className={cn([
-                        'mkui-btn-remove',
-                        r?.classNames?.btnRemove,
-                      ])}
-                      onClick={() => removeIndex(index)}>
-                      {r?.iconRemove || s?.icons?.remove}
-                    </button>
-                  </td>
-                </tr>
+                </React.Fragment>
               )
             })}
           </tbody>

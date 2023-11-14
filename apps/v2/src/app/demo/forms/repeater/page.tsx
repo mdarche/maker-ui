@@ -52,6 +52,7 @@ export default function RepeaterFormPage() {
             repeater: {
               max: 3,
               reorder: true,
+              postSlot: (v) => <div>{v.description}</div>,
             },
             validation: z
               .array(z.any())
