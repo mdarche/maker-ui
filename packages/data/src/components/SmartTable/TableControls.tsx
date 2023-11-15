@@ -34,12 +34,6 @@ export const TableControls = <T,>({
         onSearch={(query) =>
           dispatch({ type: 'SET_SEARCH_QUERY', value: query })
         }
-        onReset={() => dispatch({ type: 'SET_SEARCH_QUERY', value: '' })}
-        // allOptions={columns.filter((column) => column.filterable)}
-        currentOptions={state.searchColumns}
-        setOptions={(columns) =>
-          dispatch({ type: 'SET_SEARCH_COLUMNS', value: columns })
-        }
       />
     ),
     export: (

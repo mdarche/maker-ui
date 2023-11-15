@@ -1,11 +1,7 @@
 import React, { useDeferredValue, useEffect, useState } from 'react'
 import { CloseIcon, SearchIcon } from '@/icons'
 
-interface SearchProps<T> extends React.HTMLAttributes<HTMLDivElement> {
-  showOptions?: boolean
-  allOptions?: { label: string; value: keyof T }[]
-  currentOptions?: (keyof T)[]
-  setOptions?: (keys: (keyof T)[]) => void
+interface SearchProps extends React.HTMLAttributes<HTMLDivElement> {
   onSearch: (query: string) => void
   /** An optional placeholder text for the search input field*/
   placeholder?: string
@@ -15,18 +11,14 @@ interface SearchProps<T> extends React.HTMLAttributes<HTMLDivElement> {
   onReset?: () => void
 }
 
-export const Search = <T,>({
+export const Search = ({
   className,
-  showOptions = false,
-  allOptions = [],
-  currentOptions = [],
-  setOptions,
   onSearch,
   placeholder = 'Search...',
   onReset,
   clearLabel = <CloseIcon />,
   ...props
-}: SearchProps<T>) => {
+}: SearchProps) => {
   const [value, setValue] = useState('')
   const [showClear, setShowClear] = useState(false)
   const deferredValue = useDeferredValue(value)
@@ -63,6 +55,7 @@ export const Search = <T,>({
         <SearchIcon />
         <input
           type="text"
+          name="data-search"
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -75,7 +68,6 @@ export const Search = <T,>({
           </button>
         ) : null}
       </div>
-      {showOptions && <div className="mkui-search-options">Options</div>}
     </div>
   )
 }

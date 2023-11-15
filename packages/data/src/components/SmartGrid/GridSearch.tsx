@@ -14,11 +14,6 @@ export const GridSearch = ({ className }: GridSearchProps) => {
       className={cn(['mkui-grid-search', className])}
       onSearch={setSearchQuery}
       onReset={resetSearchQuery}
-      // allOptions={columns.filter((column) => column.filterable)}
-      // currentOptions={state.searchColumns}
-      // setOptions={(columns) =>
-      //   dispatch({ type: 'SET_SEARCH_COLUMNS', value: columns })
-      // }
     />
   )
 }

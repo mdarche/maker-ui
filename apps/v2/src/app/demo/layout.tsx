@@ -6,6 +6,7 @@ import {
   type MenuItem,
   type MakerUIOptions,
 } from 'maker-ui/layout'
+import 'maker-ui/data.css'
 
 const menu: MenuItem[] = [
   { label: 'Home', path: '/' },

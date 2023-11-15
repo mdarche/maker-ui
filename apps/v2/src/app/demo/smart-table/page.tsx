@@ -2,7 +2,6 @@
 import { Section } from 'maker-ui/layout'
 import { FetchDataParams, SmartTable } from 'maker-ui/data'
 import { userColumns, users, type ExampleUser } from '../smart-grid/seed'
-import 'maker-ui/data.css'
 
 // Fake network request
 function fetchData({

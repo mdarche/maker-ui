@@ -6,6 +6,7 @@ export interface ExampleUser {
   email: string
   age: number
   gender: string
+  favoriteColors: string[]
 }
 
 // Sample data
@@ -16,6 +17,7 @@ export const users: ExampleUser[] = [
     email: 'alice@example.com',
     age: 28,
     gender: 'female',
+    favoriteColors: ['red', 'blue'],
   },
   {
     id: 2,
@@ -23,6 +25,7 @@ export const users: ExampleUser[] = [
     email: 'bob@example.com',
     age: 35,
     gender: 'male',
+    favoriteColors: ['blue'],
   },
   {
     id: 3,
@@ -30,6 +33,7 @@ export const users: ExampleUser[] = [
     email: 'carol@example.com',
     age: 42,
     gender: 'female',
+    favoriteColors: ['green'],
   },
   {
     id: 4,
@@ -37,6 +41,7 @@ export const users: ExampleUser[] = [
     email: 'david@example.com',
     age: 23,
     gender: 'male',
+    favoriteColors: ['red'],
   },
   {
     id: 5,
@@ -44,6 +49,7 @@ export const users: ExampleUser[] = [
     email: 'eva@example.com',
     age: 30,
     gender: 'female',
+    favoriteColors: ['green', 'blue'],
   },
   {
     id: 6,
@@ -51,6 +57,7 @@ export const users: ExampleUser[] = [
     email: 'frank@example.com',
     age: 33,
     gender: 'male',
+    favoriteColors: ['green'],
   },
   {
     id: 7,
@@ -58,6 +65,7 @@ export const users: ExampleUser[] = [
     email: 'grace@example.com',
     age: 27,
     gender: 'female',
+    favoriteColors: ['purple'],
   },
   {
     id: 8,
@@ -65,6 +73,7 @@ export const users: ExampleUser[] = [
     email: 'helen@example.com',
     age: 45,
     gender: 'female',
+    favoriteColors: ['blue'],
   },
   {
     id: 9,
@@ -72,6 +81,7 @@ export const users: ExampleUser[] = [
     email: 'ivan@example.com',
     age: 31,
     gender: 'male',
+    favoriteColors: ['pink'],
   },
   {
     id: 10,
@@ -79,6 +89,7 @@ export const users: ExampleUser[] = [
     email: 'jane@example.com',
     age: 29,
     gender: 'female',
+    favoriteColors: ['green'],
   },
   {
     id: 11,
@@ -86,6 +97,7 @@ export const users: ExampleUser[] = [
     email: 'kyle@example.com',
     age: 39,
     gender: 'male',
+    favoriteColors: ['red', 'blue'],
   },
   {
     id: 12,
@@ -93,6 +105,7 @@ export const users: ExampleUser[] = [
     email: 'laura@example.com',
     age: 36,
     gender: 'female',
+    favoriteColors: ['purple', 'green'],
   },
   {
     id: 13,
@@ -100,6 +113,7 @@ export const users: ExampleUser[] = [
     email: 'mike@example.com',
     age: 25,
     gender: 'male',
+    favoriteColors: ['green', 'blue'],
   },
   {
     id: 14,
@@ -107,6 +121,7 @@ export const users: ExampleUser[] = [
     email: 'nina@example.com',
     age: 41,
     gender: 'female',
+    favoriteColors: ['green'],
   },
   {
     id: 15,
@@ -114,6 +129,7 @@ export const users: ExampleUser[] = [
     email: 'oliver@example.com',
     age: 32,
     gender: 'male',
+    favoriteColors: ['green'],
   },
   {
     id: 16,
@@ -121,6 +137,7 @@ export const users: ExampleUser[] = [
     email: 'patricia@example.com',
     age: 37,
     gender: 'female',
+    favoriteColors: ['pink'],
   },
   {
     id: 17,
@@ -128,6 +145,7 @@ export const users: ExampleUser[] = [
     email: 'quincy@example.com',
     age: 43,
     gender: 'male',
+    favoriteColors: ['yellow'],
   },
   {
     id: 18,
@@ -135,6 +153,7 @@ export const users: ExampleUser[] = [
     email: 'rita@example.com',
     age: 24,
     gender: 'female',
+    favoriteColors: ['red'],
   },
   {
     id: 19,
@@ -142,11 +161,12 @@ export const users: ExampleUser[] = [
     email: 'steve@example.com',
     age: 38,
     gender: 'male',
+    favoriteColors: ['blue'],
   },
 ]
 
 // Column configuration
-export const userColumns: ColumnConfig<typeof users[0]>[] = [
+export const userColumns: ColumnConfig<(typeof users)[0]>[] = [
   {
     key: 'id',
     title: 'ID',
@@ -279,23 +299,27 @@ export const smartFilters: FilterConfig<ExampleUser>[] = [
     direction: 'desc',
     label: 'Age (desc)',
   },
-  { name: 'gender', type: 'filter' },
+  { name: 'gender', type: 'filter', exclusive: true },
+  { name: 'colors', key: 'favoriteColors', type: 'filter' },
   {
     name: 'age-20s',
     key: 'age',
     type: 'filter',
+    label: '20s',
     filterFunction: (i) => i.age <= 29 && i.age >= 20,
   },
   {
     name: 'age-30s',
     key: 'age',
     type: 'filter',
+    label: '30s',
     filterFunction: (i) => i.age <= 39 && i.age >= 30,
   },
   {
     name: 'age-40s',
     key: 'age',
     type: 'filter',
+    label: '40s',
     filterFunction: (i) => i.age <= 49 && i.age >= 40,
   },
 ]
@@ -312,12 +336,20 @@ export const renderRow = ({ name, age, email }: ExampleUser) => {
   )
 }
 
-export const renderGrid = ({ name, age, email }: ExampleUser) => {
+export const renderGrid = ({
+  name,
+  age,
+  email,
+  favoriteColors,
+}: ExampleUser) => {
   return (
-    <div>
-      <div>{name}</div>
-      <div>{age}</div>
-      <div>{email}</div>
+    <div style={{ border: '1px solid var(--color-gray-300)', padding: 10 }}>
+      <div className="flex align-center justify-between">
+        <strong>{name}</strong>
+        <div>{age}</div>
+      </div>
+      <div style={{ marginTop: 20 }}>{email}</div>
+      <div>{favoriteColors.join(', ')}</div>
     </div>
   )
 }

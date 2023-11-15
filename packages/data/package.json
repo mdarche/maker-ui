@@ -23,7 +23,6 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@maker-ui/accordion": "workspace:*",
     "@maker-ui/popovers": "workspace:*",
     "@maker-ui/utils": "workspace:*",
     "fuse.js": "^6.5.3"

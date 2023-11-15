@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { Accordion } from '@maker-ui/accordion'
 import { useSmartGrid } from '@/hooks'
+import { CaretIcon } from '@/icons'
 import { FilterValue } from './types'
 
 interface SharedProps {
@@ -39,6 +39,15 @@ export interface AccordionMenuProps
   extends React.HTMLAttributes<HTMLDivElement> {
   filters: (FilterOption | FilterGroup)[]
   type?: 'checkbox' | 'button'
+  classNames?: {
+    root?: string
+    details?: string
+    summary?: string
+    list?: string
+    input?: string
+    button?: string
+    active?: string
+  }
   renderOption?: (
     value: string | number,
     onClick: () => void,
@@ -48,77 +57,94 @@ export interface AccordionMenuProps
 
 export const AccordionMenu = ({
   filters,
-  type,
+  type = 'checkbox',
   renderOption,
-  className,
+  classNames,
   ...props
 }: AccordionMenuProps) => {
   const { activeFilters, setFilter } = useSmartGrid()
 
   return (
-    <div className={cn(['mkui-filter-menu', className])} {...props}>
-      <Accordion>
-        {filters?.map((f, i) => {
-          const isFilterGroup = isGroup(f)
-          return (
-            <Accordion.Panel
-              key={`${f.label}` + i}
-              title={f.label}
-              className={f.className}
-              open={f.open}>
-              <ul>
-                {f.options.map((o, i) => {
-                  const key = isFilterGroup ? (o.value as string) : f.filter
-                  const filterValues = activeFilters[key]
-                  let isChecked = isActive(filterValues, o.value)
-                  const className = cn([
-                    'mkui-filter-option',
-                    isChecked ? 'checked' : undefined,
-                  ])
-                  return (
-                    <li key={`${o.value}` + i}>
-                      {f?.render ? (
-                        f.render(
-                          o.value,
-                          () => setFilter(key, o.value),
-                          isChecked
-                        )
-                      ) : renderOption ? (
-                        renderOption(
-                          o.value,
-                          () => setFilter(key, o.value),
-                          isChecked
-                        )
-                      ) : (
-                        <label>
-                          <input
-                            type="checkbox"
-                            className={className}
-                            value={o.value}
-                            onChange={() => setFilter(key, o.value)} // Hide the default checkbox
-                          />
-                          <span
-                            className={className}
-                            onClick={() => setFilter(key, o.value)}></span>
-                          <span className="mkui-filter-label">{o.label}</span>
-                        </label>
-                      )}
-                    </li>
-                  )
-                })}
-              </ul>
-            </Accordion.Panel>
-          )
-        })}
-      </Accordion>
+    <div className={cn(['mkui-filter-menu', classNames?.root])} {...props}>
+      {filters?.map((f, i) => {
+        // If the filter is a group, it will not have a filter property in the Accordion props
+        const isFilterGroup = isGroup(f)
+        return (
+          <details
+            key={`${f.label}` + i}
+            className={cn([
+              'mkui-filter-details',
+              f.className,
+              classNames?.details,
+            ])}
+            open={f.open ?? true}>
+            <summary className={cn(['mkui-filter-label', classNames?.summary])}>
+              {f?.label}
+              <CaretIcon />
+            </summary>
+            <ul className={cn(['mkui-filter-list', classNames?.list])}>
+              {f.options.map((o, i) => {
+                const key = isFilterGroup ? (o.value as string) : f.filter
+                const filterValues = activeFilters[key]
+                let isChecked = isActive(filterValues, o.value)
+                const className = isChecked
+                  ? classNames?.active || 'checked'
+                  : undefined
+
+                return (
+                  <li
+                    key={`${o.value}` + i}
+                    className={cn(['mkui-filter-option'])}>
+                    {f?.render ? (
+                      f.render(
+                        o.value,
+                        () => setFilter(key, o.value),
+                        isChecked
+                      )
+                    ) : renderOption ? (
+                      renderOption(
+                        o.value,
+                        () => setFilter(key, o.value),
+                        isChecked
+                      )
+                    ) : type === 'checkbox' ? (
+                      <label>
+                        <input
+                          type="checkbox"
+                          name={`${key}-${o.value}`}
+                          className={cn([classNames?.input, className])}
+                          checked={isChecked}
+                          onChange={() => setFilter(key, o.value)}
+                        />
+                        <span className="mkui-filter-option-label">
+                          {o.label}
+                        </span>
+                      </label>
+                    ) : (
+                      <button
+                        className={cn([classNames?.button, className])}
+                        onClick={() => setFilter(key, o.value)}>
+                        {o.label}
+                      </button>
+                    )}
+                  </li>
+                )
+              })}
+            </ul>
+          </details>
+        )
+      })}
     </div>
   )
 }
 
 function isActive(f: FilterValue, value: string | number) {
   let active = false
+  if (!f) return active
   if (Array.isArray(f)) {
     active = (f as Array<typeof value>).includes(value)
+  } else if (typeof f === 'string') {
+    active = f === value
   } else if (typeof f === 'number') {
     active = f === value
   } else if (typeof f === 'boolean') {

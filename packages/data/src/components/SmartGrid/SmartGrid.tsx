@@ -61,7 +61,7 @@ export const SmartGrid = <T,>({
 
   return (
     <div
-      className={cn(['mkui-data-grid', layout, className])}
+      className={cn(['mkui-data-grid', `layout-${layout}`, className])}
       {...props}
       style={cleanObject({
         ...(variables || {}),

@@ -69,6 +69,7 @@ function filterSortReducer<T extends object>(
     case 'SET_FILTER':
       const { key, value } = action.value
       const activeFilters = { ...state.activeFilters }
+      const filter = state.filters.find((filter) => filter.name === key)
 
       if (Array.isArray(activeFilters[key])) {
         const index = (activeFilters[key] as Array<any>).indexOf(value)
@@ -79,6 +80,10 @@ function filterSortReducer<T extends object>(
             ...(activeFilters[key] as Array<any>).slice(0, index),
             ...(activeFilters[key] as Array<any>).slice(index + 1),
           ]
+          // If the filter array is empty, remove the filter.
+          if ((activeFilters[key] as Array<any>).length === 0) {
+            delete activeFilters[key]
+          }
         } else {
           // Value is not in filter array. Add it.
           activeFilters[key] = [...(activeFilters[key] as Array<any>), value]
@@ -88,7 +93,11 @@ function filterSortReducer<T extends object>(
         delete activeFilters[key]
       } else {
         // Filter does not exist. Add it.
-        activeFilters[key] = value
+        const isArray =
+          typeof value !== 'boolean' &&
+          !filter?.exclusive &&
+          !filter?.filterFunction
+        activeFilters[key] = isArray ? [value] : value
       }
 
       return {

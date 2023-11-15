@@ -30,6 +30,9 @@ export interface FilterConfig<T extends object> {
   /**  Direction of the sort operation, either 'asc' or 'desc'.
    * Only applicable for sort operations. */
   direction?: 'asc' | 'desc'
+  /** Optional flag to indicate if the filter operation is exclusive.
+   * Only applicable for filter operations. */
+  exclusive?: boolean
   /** Custom sort function for complex sort operations.
    * Only applicable for sort operations. */
   sortFunction?: (a: T, b: T) => number

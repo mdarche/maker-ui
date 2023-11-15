@@ -9,7 +9,7 @@ export interface SortButtonProps
    * Optional label to be displayed on the sort button.
    * @default 'Sort by
    */
-  label?: string | React.ReactElement
+  label?: string | React.ReactElement | false
   /**
    * Optional callback function that will be called when the sort button is clicked.
    * The new sort value is passed as an argument to this function.
@@ -17,12 +17,18 @@ export interface SortButtonProps
   onChange?: (value: string) => void
   /** Optional icon to be displayed on the sort button. */
   icon?: React.ReactElement
+  classNames?: {
+    root?: string
+    label?: string
+    select?: string
+  }
 }
 
 export const SortButton = ({
   label = 'Sort by',
   onChange,
   icon = <CaretIcon />,
+  classNames,
   className,
   ...props
 }: SortButtonProps) => {
@@ -36,14 +42,23 @@ export const SortButton = ({
 
   return (
     <div
-      className={cn(['mkui-grid-sort flex align-center', className])}
+      className={cn([
+        'mkui-data-sort flex align-center',
+        classNames?.root,
+        className,
+      ])}
       {...props}>
-      <label className="select-label" htmlFor="grid-sort">
-        {label}
-      </label>
-      <div className="select-input">
+      {label && (
+        <label
+          className={cn(['mkui-data-sort-label', classNames?.label])}
+          htmlFor="grid-sort">
+          {label}
+        </label>
+      )}
+      <div className="mkui-data-sort-inner">
         <select
           id="grid-sort"
+          className={cn(['mkui-data-sort-select', classNames?.select])}
           value={activeSort?.name as string}
           onChange={(e) => onSelect(e.target.value)}>
           {sortOptions?.map(({ label, name }) => (

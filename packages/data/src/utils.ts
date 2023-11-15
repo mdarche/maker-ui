@@ -22,3 +22,10 @@ export function getNonEmptyKeys(obj: Record<string, any>): string[] {
     return true
   })
 }
+
+export function containsAtLeastOneItem(
+  array1: (string | number)[],
+  array2: (string | number)[]
+) {
+  return array1.some((item) => array2.includes(item))
+}

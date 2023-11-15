@@ -1,6 +1,6 @@
 'use client'
 import { Section } from 'maker-ui/layout'
-import { SmartGrid, SmartGridProvider } from 'maker-ui/data'
+import { SmartGrid } from 'maker-ui/data'
 import { renderGrid, renderRow, smartFilters, users } from './seed'
 
 export default function SmartGridPage() {
@@ -11,7 +11,6 @@ export default function SmartGridPage() {
         filters={smartFilters}
         searchSettings={{ keys: ['name', 'age'] }}>
         <SmartGrid.Search />
-        <SmartGrid.ActiveFilters />
         <div className="flex align-center justify-between">
           <SmartGrid.FilterGroup
             options={[
@@ -24,13 +23,13 @@ export default function SmartGridPage() {
             ]}
           />
           {/* <SmartGrid.LayoutButtons /> */}
+          <SmartGrid.ActiveFilters />
           <SmartGrid.SortButton />
         </div>
         <div
+          className="flex"
           style={{
-            display: 'grid',
-            gridTemplateColumns: '200px 1fr',
-            gap: 30,
+            width: '100%',
           }}>
           <SmartGrid.AccordionMenu
             filters={[
@@ -43,6 +42,16 @@ export default function SmartGridPage() {
                 ],
               },
               {
+                filter: 'colors',
+                label: 'Favorite Color',
+                options: [
+                  { label: 'Red', value: 'red' },
+                  { label: 'Blue', value: 'blue' },
+                  { label: 'Green', value: 'green' },
+                  { label: 'Pink', value: 'pink' },
+                ],
+              },
+              {
                 label: 'Age Group',
                 options: [
                   { label: '20s', value: 'age-20s' },
@@ -52,7 +61,9 @@ export default function SmartGridPage() {
               },
             ]}
           />
-          <SmartGrid renderRow={renderRow} renderGrid={renderGrid} />
+          <div style={{ flex: 1 }}>
+            <SmartGrid renderRow={renderRow} renderGrid={renderGrid} />
+          </div>
         </div>
       </SmartGrid.Provider>
     </Section>

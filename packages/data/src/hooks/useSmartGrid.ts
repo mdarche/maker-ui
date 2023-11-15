@@ -5,6 +5,7 @@ import {
   type LayoutType,
   SmartGridContext,
 } from '../components/SmartGrid'
+import { containsAtLeastOneItem } from '@/utils'
 
 export function useSmartGrid<T extends object = any>() {
   const context = useContext<{
@@ -33,18 +34,15 @@ export function useSmartGrid<T extends object = any>() {
 
         let filterFunction = filterConfig.filterFunction
         const filterValue = state.activeFilters[key]
-        const filterTarget = (filterConfig?.key || filterConfig.name) as string
+        const filterTarget = filterConfig?.key || filterConfig.name
 
         if (!filterFunction) {
           if (Array.isArray(filterValue)) {
-            const filterValueTyped = filterValue as Array<string | number>
-            if (typeof filterValueTyped[0] === 'string') {
-              filterFunction = (item) =>
-                filterValueTyped.includes(String(item[filterTarget as keyof T]))
-            } else if (typeof filterValueTyped[0] === 'number') {
-              filterFunction = (item) =>
-                filterValueTyped.includes(Number(item[filterTarget as keyof T]))
-            }
+            filterFunction = (item) =>
+              containsAtLeastOneItem(
+                filterValue,
+                item[filterTarget as keyof T] as Array<string | number>
+              )
           } else {
             filterFunction = (item) =>
               filterValue === item[filterTarget as keyof T]
