@@ -101,3 +101,14 @@
   display: flex;
   align-items: center;
 }
+
+.mkui-data-clear,
+.mkui-data-active-item {
+  margin: var(--data-active-item-margin, 0 7px);
+}
+
+.mkui-data-remove {
+}
+
+.mkui-data-remove-all {
+}

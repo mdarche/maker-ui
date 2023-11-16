@@ -3,19 +3,13 @@ import { cn } from '@maker-ui/utils'
 import type { Filters } from './types'
 import { CloseIcon } from '@/icons'
 
-interface KeyValueArrayItem {
-  key: string
-  value: any
-  label: string
-}
-
 const formatString = (input: string): string =>
   input
     .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
 
-const formatKeyValueObject = (obj: Filters): KeyValueArrayItem[] =>
+const formatFilterObject = (obj: Filters) =>
   Object.entries(obj).flatMap(([key, value]) =>
     Array.isArray(value)
       ? value.map((item) => ({
@@ -31,12 +25,12 @@ const formatKeyValueObject = (obj: Filters): KeyValueArrayItem[] =>
 // All active filters
 export const ActiveFilters = () => {
   const { activeFilters, setFilter, resetFilters } = useSmartGrid()
-  const a = formatKeyValueObject(activeFilters)
+  const a = formatFilterObject(activeFilters)
 
   return a?.length ? (
     <div className={cn(['mkui-data-active-filters'])}>
       {a.map((f, i) => (
-        <div key={`${f?.key}-${i}`} className={cn(['mkui-data-active-filter'])}>
+        <div key={`${f?.key}-${i}`} className={cn(['mkui-data-active-item'])}>
           <button
             className={cn(['mkui-data-remove'])}
             onClick={() => setFilter(f?.key, f.value)}>
@@ -46,7 +40,11 @@ export const ActiveFilters = () => {
         </div>
       ))}
       {a?.length > 1 && (
-        <button onClick={() => resetFilters()}>Clear All</button>
+        <button
+          className={cn(['mkui-data-clear'])}
+          onClick={() => resetFilters()}>
+          Clear All
+        </button>
       )}
     </div>
   ) : null
