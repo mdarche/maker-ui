@@ -5,7 +5,7 @@ import { renderGrid, renderRow, smartFilters, users } from './seed'
 
 export default function SmartGridPage() {
   return (
-    <Section>
+    <Section style={{ padding: '0 30px' }}>
       <SmartGrid.Provider
         data={users}
         filters={smartFilters}
