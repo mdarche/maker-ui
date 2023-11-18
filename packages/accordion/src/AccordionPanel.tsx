@@ -141,7 +141,7 @@ export const AccordionPanel = React.forwardRef<
                 ? 'height 0.3s ease 0s'
                 : undefined,
           }}>
-          <div ref={measureRef} className="mkui-accordion-measure">
+          <div ref={measureRef}>
             <div
               className={cn([
                 'mkui-accordion-content',

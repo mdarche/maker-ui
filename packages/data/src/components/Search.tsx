@@ -1,5 +1,6 @@
 import React, { useDeferredValue, useEffect, useState } from 'react'
 import { CloseIcon, SearchIcon } from '@/icons'
+import { cn } from '@maker-ui/utils'
 
 interface SearchProps extends React.HTMLAttributes<HTMLDivElement> {
   onSearch: (query: string) => void
@@ -9,6 +10,11 @@ interface SearchProps extends React.HTMLAttributes<HTMLDivElement> {
   clearLabel?: string | React.ReactElement
   /** An optional callback function that will be called when the reset button is  clicked. */
   onReset?: () => void
+  classNames?: {
+    root?: string
+    input?: string
+    clear?: string
+  }
 }
 
 export const Search = ({
@@ -17,6 +23,7 @@ export const Search = ({
   placeholder = 'Search...',
   onReset,
   clearLabel = <CloseIcon />,
+  classNames,
   ...props
 }: SearchProps) => {
   const [value, setValue] = useState('')
@@ -50,24 +57,25 @@ export const Search = ({
   }, [deferredValue])
 
   return (
-    <div className={className} {...props}>
-      <div className="mkui-search-bar">
-        <SearchIcon />
-        <input
-          type="text"
-          name="data-search"
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-        />
-        {value.length ? (
-          <button
-            className="btn-clear btn-naked flex align-center"
-            onClick={onClear}>
-            {clearLabel}
-          </button>
-        ) : null}
-      </div>
+    <div
+      className={cn(['mkui-search-bar', className, classNames?.root])}
+      {...props}>
+      <SearchIcon className="mkui-search-icon" />
+      <input
+        type="text"
+        name="data-search"
+        className={cn(['mkui-search-input', classNames?.input])}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
+      {value.length ? (
+        <button
+          className={cn(['mkui-search-clear', classNames?.clear])}
+          onClick={onClear}>
+          {clearLabel}
+        </button>
+      ) : null}
     </div>
   )
 }

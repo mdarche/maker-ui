@@ -1,4 +1,6 @@
 import 'maker-ui/layout.css'
+import 'maker-ui/lightbox.css'
+import 'maker-ui/data.css'
 
 import '@/styles/variables.css'
 import '@/styles/global.css'

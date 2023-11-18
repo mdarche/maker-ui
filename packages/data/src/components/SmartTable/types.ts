@@ -218,6 +218,11 @@ export interface TableSettings<T> {
     clearLabel?: string | React.ReactElement
     onSearch?: (query: string) => void
     onReset?: () => void
+    classNames?: {
+      root?: string
+      input?: string
+      clear?: string
+    }
   }
   /** Indicates whether rows can be selected. */
   selectable?: boolean

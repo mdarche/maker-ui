@@ -30,6 +30,7 @@ export const TableControls = <T,>({
     search: (
       <Search
         className="mkui-table-search"
+        classNames={settings?.search?.classNames}
         style={{ order: o.indexOf('search') }}
         onSearch={(query) =>
           dispatch({ type: 'SET_SEARCH_QUERY', value: query })

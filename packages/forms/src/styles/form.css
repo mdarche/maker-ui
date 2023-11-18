@@ -178,20 +178,3 @@
 .mkui-form-submit {
   margin-top: var(--form-submit-margin-top, 2rem);
 }
-
-/* 
-  .validate-icon {
-    display: 'flex',
-    alignItems: 'center',
-    position: 'absolute',
-    right: 10,
-    top: 0,
-    bottom: 0,
-    opacity: 0,
-    visibility: 'hidden',
-    transition: 'all ease 0.2',
-    '&.valid': {
-      opacity: 1,
-      visibility: 'visible',
-    }
-  } */
