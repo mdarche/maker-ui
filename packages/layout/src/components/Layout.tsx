@@ -16,7 +16,7 @@ import {
   type LayoutButtonProps,
   type PanelProps,
 } from '@maker-ui/layout-server'
-import { Menu, MenuButton } from '@maker-ui/layout-client'
+import { Menu, MenuButton, LayoutSettings } from '@maker-ui/layout-client'
 
 interface LayoutProps {
   /** You can use Layout dot children to build layouts with JSX */
@@ -79,7 +79,7 @@ export const Layout = ({
   const { slots, layoutType } = assign(children)
   // Helpers
   const isPanel = !!(slots.leftPanel || slots.rightPanel)
-  const isSidebar = slots.sidebar && opts.layout.includes('sidebar')
+  const isSidebar = !!slots.sidebar
   const dir = opts?.content?.sidebar || 'left'
 
   /**
@@ -147,6 +147,7 @@ export const Layout = ({
 
   return (
     <>
+      {fragment && options && <LayoutSettings options={options} />}
       {!fragment && <Skiplinks links={opts.skiplinks} />}
       {slots?.topbar && <Topbar {...merge(opts.topbar, slots.topbar.props)} />}
       {slots?.header ? (
@@ -199,5 +200,6 @@ Layout.Footer = Footer
 Layout.Sidebar = Sidebar
 Layout.LeftPanel = LeftPanel
 Layout.RightPanel = RightPanel
+Layout.Settings = LayoutSettings
 
 Layout.displayName = 'Layout'

@@ -36,7 +36,6 @@ export default function WorkspaceLayout({
 
 export const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
-  layout: 'workspace',
   header: {
     // absolute: true,
     navType: 'basic',

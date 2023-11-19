@@ -8,7 +8,6 @@ const panelDefaults = {
 }
 
 export const defaultSettings: Options = {
-  layout: 'content',
   skiplinks: true,
   colorThemes: [],
   header: {
@@ -32,25 +31,10 @@ export const defaultSettings: Options = {
     closeOnRouteChange: true,
     center: true,
   },
-  sideNav: {
-    breakpoint: 960,
-    isHeader: false,
-    isPrimaryMobileNav: false,
-    closeOnBlur: true,
-    closeOnRouteChange: true,
-    showCollapseOnMobile: true,
-    collapse: false,
-    cssTransition: 'margin ease 0.3s, transform ease 0.3s',
-  },
   content: {
     breakpoint: 960,
     sidebar: 'right',
   },
   leftPanel: panelDefaults,
   rightPanel: panelDefaults,
-  workspace: {
-    breakpoint: 960,
-    main: true,
-    closeOnBlur: true,
-  },
 }

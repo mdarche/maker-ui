@@ -1,5 +1,7 @@
 export {
   LayoutProvider,
+  LayoutSettings,
+  type LayoutSettingsProps,
   ThemeProvider,
   ColorButton,
   Menu,

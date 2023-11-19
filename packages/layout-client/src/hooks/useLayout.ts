@@ -12,7 +12,12 @@ export const useLayout = () => {
 
   const {
     state: { options },
+    dispatch,
   } = context
 
-  return { options: options as Options }
+  function setOptions(newOptions: Partial<Options>) {
+    dispatch({ type: 'SET_OPTIONS', value: newOptions })
+  }
+
+  return { options: options as Options, setOptions }
 }

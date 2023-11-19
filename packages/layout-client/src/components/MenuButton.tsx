@@ -3,7 +3,7 @@ import { cn } from '@maker-ui/utils'
 import { type MakerCSS, Style } from '@maker-ui/style'
 import type { LayoutButtonProps } from '@maker-ui/layout-server'
 
-import { useLayout, useMenu } from '../hooks'
+import { useMenu } from '../hooks'
 
 interface MenuButtonProps
   extends MakerCSS,
@@ -47,7 +47,6 @@ export const MenuButton = ({
   ...props
 }: MenuButtonProps) => {
   const [styleId] = React.useState(`mkui-btn-${type}`)
-  const { options } = useLayout()
   const { active, setMenu } = useMenu()
 
   const attrs =

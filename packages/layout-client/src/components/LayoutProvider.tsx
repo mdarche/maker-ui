@@ -15,6 +15,7 @@ type Action =
       type: 'SET_PANEL'
       value: { value: boolean; type: 'leftPanel' | 'rightPanel' }
     }
+  | { type: 'SET_OPTIONS'; value: Partial<Options> }
   | { type: 'RESET'; value?: LayoutState['active'] }
 
 export interface LayoutState {
@@ -58,6 +59,9 @@ function reducer(state: LayoutState, action: Action): LayoutState {
       return merge(state, {
         active: { [action.value.type]: action.value.value },
       })
+    }
+    case 'SET_OPTIONS': {
+      return { ...state, options: merge(state.options || {}, action.value) }
     }
     case 'RESET': {
       return { ...state, active: action?.value || initialActive }

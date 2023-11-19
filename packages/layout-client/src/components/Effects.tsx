@@ -18,18 +18,13 @@ type UpScrollSettings = {
   delay?: number
 }
 
-interface DesktopState {
-  workspace: boolean
-  measured: boolean
-}
-
 export const Effects = ({
   options: {
-    layout,
     header: { stickyUpScroll, scrollClass },
     mobileMenu,
+    leftPanel,
+    rightPanel,
     content,
-    workspace,
   },
 }: EffectsProps) => {
   // Refs
@@ -80,8 +75,17 @@ export const Effects = ({
       setMenu(false, 'mobile-menu')
     }
 
-    // TODO handle panels
+    // Dismiss panels on mobile
+
     if (!width || width > content.breakpoint) return
+
+    if (leftPanel?.closeOnRouteChange && active?.leftPanel) {
+      setMenu(false, 'left-panel')
+    }
+
+    if (rightPanel?.closeOnRouteChange && active?.rightPanel) {
+      setMenu(false, 'right-panel')
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
@@ -97,10 +101,8 @@ export const Effects = ({
     }
 
     const workspaceClick = () => {
-      if (workspace.closeOnBlur) {
-        setMenu(false, 'left-panel')
-        setMenu(false, 'right-panel')
-      }
+      setMenu(false, 'left-panel')
+      setMenu(false, 'right-panel')
     }
 
     overlayMobileRef?.current?.addEventListener('click', mobileClick)
