@@ -9,6 +9,7 @@ export {
   Section,
   Skiplinks,
   Layout,
+  ResponsiveStyle,
   LayoutProvider,
   ThemeProvider,
   type MenuItemProps as MenuItem,

@@ -27,40 +27,16 @@ export default function WorkspaceLayout({
           menuButton={{ defaultIcon: 'menu' }}
         />
         <Layout.MobileMenu closeButton={{ defaultIcon: 'close' }} menu={menu} />
-        <Layout.Workspace
-          leftPanel={<div>Left Panel Menus</div>}
-          rightPanel={<div>Right Panel Details</div>}
-          menuButtons={{
-            right: {
-              icon: 'Right Panel',
-              fixed: true,
-              position: {
-                top: 'calc(var(--height-header) + 100px)',
-                right: 30,
-              },
-            },
-            left: {
-              icon: 'Left Panel',
-              fixed: true,
-              position: { top: 'calc(var(--height-header) + 100px)', left: 30 },
-            },
-          }}>
-          {children}
-        </Layout.Workspace>
+        {children}
         <Layout.Footer>Footer</Layout.Footer>
       </Layout>
     </LayoutProvider>
   )
 }
 
-const options: MakerUIOptions = {
+export const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
   layout: 'workspace',
-  topbar: {
-    sticky: true,
-    stickyOnMobile: false,
-    hideOnMobile: false,
-  },
   header: {
     // absolute: true,
     navType: 'basic',
@@ -78,14 +54,5 @@ const options: MakerUIOptions = {
     visibleOnDesktop: false,
     closeOnBlur: true,
     closeOnRouteChange: true,
-  },
-  sideNav: {
-    isHeader: false,
-    collapse: true,
-    showCollapseOnMobile: false,
-    closeOnBlur: true,
-    closeOnRouteChange: true,
-    // isPrimaryMobileNav: true,
-    // cssTransition?: string;
   },
 }

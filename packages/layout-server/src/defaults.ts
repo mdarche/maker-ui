@@ -1,5 +1,12 @@
 import { Options } from '@/types'
 
+const panelDefaults = {
+  isHeader: false,
+  defaultOpen: true,
+  collapseWidth: 0,
+  closeOnRouteChange: true,
+}
+
 export const defaultSettings: Options = {
   layout: 'content',
   skiplinks: true,
@@ -37,7 +44,10 @@ export const defaultSettings: Options = {
   },
   content: {
     breakpoint: 960,
+    sidebar: 'right',
   },
+  leftPanel: panelDefaults,
+  rightPanel: panelDefaults,
   workspace: {
     breakpoint: 960,
     main: true,

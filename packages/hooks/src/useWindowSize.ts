@@ -16,15 +16,15 @@ interface WindowState {
  */
 export function useWindowSize(callback?: (w?: WindowState) => void) {
   const [windowSize, setWindowSize] = useState<WindowState>({
-    width: window?.innerWidth,
-    height: window?.innerHeight,
+    width: typeof window !== 'undefined' ? window.innerWidth : undefined,
+    height: typeof window !== 'undefined' ? window.innerHeight : undefined,
   })
 
   /**
    * Invoke the callback function on first render if it is defined
    */
   useEffect(() => {
-    if (callback) {
+    if (typeof window !== 'undefined' && callback) {
       callback(windowSize)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,6 +34,10 @@ export function useWindowSize(callback?: (w?: WindowState) => void) {
    * Add a resize event-listener to the window and update the windowSize state
    */
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     function resize() {
       if (callback) {
         callback(windowSize)

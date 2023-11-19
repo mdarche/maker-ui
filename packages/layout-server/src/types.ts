@@ -158,6 +158,8 @@ export interface MobileMenuOptions {
   closeButton?: React.ReactNode | LayoutButtonProps
   /** An optional array of MenuItems that will be rendered as a Menu. */
   menu?: MenuItemProps[]
+  /** Allows you to set a panel as the primary menu */
+  panelMenu?: 'left' | 'right'
 }
 
 export interface SideNavOptions {
@@ -257,8 +259,20 @@ export interface Options {
     /** The breakpoint at which main and sidebar layouts break down into a single column
      * for mobile. */
     breakpoint: number
+    sidebar?: 'left' | 'right'
   }
   workspace: WorkspaceOptions
+  leftPanel?: PanelOptions
+  rightPanel?: PanelOptions
+}
+
+export interface PanelOptions {
+  isHeader?: boolean
+  primaryMobileNav?: boolean
+  defaultOpen?: boolean
+  collapseWidth?: number
+  closeOnRouteChange?: boolean
+  menuButton?: React.ReactNode | LayoutButtonProps
 }
 
 export interface MenuItemProps {
@@ -296,13 +310,14 @@ export interface LayoutButtonProps extends MakerCSS {
   /** An aria-label for improved accessibility */
   label?: string
   /** The menu that this button controls. */
-  type?: 'mobile-menu' | 'side-nav' | 'ws-left' | 'ws-right'
+  type?: 'mobile-menu' | 'left-panel' | 'right-panel'
   /** An optional default icon that you can use instead of providing your own. */
   defaultIcon?: 'menu' | 'close'
+  className?: string
   /** An optional class selector for when the content it controls is considered active.
    * @default active
    */
-  activeClass?: string
+  activeClassName?: string
   /** If true, the button will have fixed positioning */
   fixed?: boolean
   /** If true, the button will have absolute positioning */

@@ -9,6 +9,7 @@ export { Sidebar, type SidebarProps } from './components/Sidebar'
 export { SideNav, type SideNavProps } from './components/SideNav'
 export { Footer, type FooterProps } from './components/Footer'
 export { Workspace, type WorkspaceProps } from './components/Workspace'
+export { Panel, type PanelProps } from './components/Panel'
 
 // Types
 export type {

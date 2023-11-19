@@ -14,8 +14,8 @@ export function getLayoutStyles(
   /** Sidebar styles */
 
   const sidebarOrder =
-    content?.sidebar === 'right' &&
-    `
+    content?.sidebar === 'right'
+      ? `
           .mkui-sidebar { 
             grid-row: 2;
           }
@@ -25,6 +25,7 @@ export function getLayoutStyles(
             }
           }
           `
+      : ''
 
   const width = 'var(--width-sidebar)'
   const sidebarColumns =
@@ -62,26 +63,41 @@ export function getLayoutStyles(
         .mkui-layout-init {
           display: grid;
         }
+        .mkui-overlay.panel {
+          display: none;
+        }
         .mkui-panel.left, .mkui-panel.right {
           position: relative;
           transform: translateX(0);
           width: 100%;
           z-index: 0;
         }
+        .mkui-layout.left-content {
+          grid-template-columns: var(--width-left-panel-collapse, 0) 1fr;
+        }
+        .mkui-layout.left-content.left-active {
+          grid-template-columns: var(--width-left-panel, var(--width-panel)) 1fr;
+        }
+        .mkui-layout.content-right {
+          grid-template-columns: 1fr var(--width-right-panel-collapse, 0);
+        }
+        .mkui-layout.content-right.right-active {
+          grid-template-columns: 1fr var(--width-right-panel, var(--width-panel));
+        }
         .mkui-panel.left .mkui-panel-inner, .mkui-panel.right .mkui-panel-inner {
           top: calc(${getTop()});
           height: calc(100vh - ${getTop(true)});
         }
-        .mkui-layout {
+        .mkui-layout.left-content-right {
           grid-template-columns: var(--width-left-panel-collapse, 0) 1fr var(--width-right-panel-collapse, 0);
         }
-        .mkui-layout.left-active {
+        .mkui-layout.left-content-right.left-active {
           grid-template-columns: var(--width-left-panel, var(--width-panel)) 1fr var(--width-right-panel-collapse, 0);
         }
-        .mkui-layout.right-active {
+        .mkui-layout.left-content-right.right-active {
           grid-template-columns: var(--width-left-panel-collapse, 0) 1fr var(--width-right-panel, var(--width-panel));
         }
-        .mkui-layout.left-active.right-active {
+        .mkui-layout.left-content-right.left-active.right-active {
           grid-template-columns: var(--width-left-panel, var(--width-panel)) 1fr var(--width-right-panel, var(--width-panel));
         }
       }

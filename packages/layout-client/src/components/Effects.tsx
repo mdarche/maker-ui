@@ -19,7 +19,6 @@ type UpScrollSettings = {
 }
 
 interface DesktopState {
-  sideNav: boolean
   workspace: boolean
   measured: boolean
 }
@@ -29,46 +28,18 @@ export const Effects = ({
     layout,
     header: { stickyUpScroll, scrollClass },
     mobileMenu,
-    sideNav,
+    content,
     workspace,
   },
 }: EffectsProps) => {
   // Refs
-  const [isDesktop, setIsDesktop] = useState<DesktopState>({
-    sideNav: true,
-    workspace: true,
-    measured: false,
-  })
   const headerRef = useRef<HTMLDivElement | null>(null)
   const overlayMobileRef = useRef<HTMLDivElement | null>(null)
-  const overlaySideNavRef = useRef<HTMLDivElement | null>(null)
-  const overlayWorkspaceRef = useRef<HTMLDivElement | null>(null)
+  const overlayPanelRef = useRef<HTMLDivElement | null>(null)
   // Hooks
   const pathname = usePathname()
-  const { reset, active, setMenu } = useMenu()
-  const { width } = useWindowSize(() => {
-    if (!width) return
-    // Handle SideNav on resize
-    if (
-      layout.includes('sidenav') &&
-      width < sideNav.breakpoint &&
-      isDesktop.sideNav
-    ) {
-      setIsDesktop({ ...isDesktop, sideNav: false })
-    } else if (width > sideNav.breakpoint && !isDesktop.sideNav) {
-      setIsDesktop({ ...isDesktop, sideNav: true })
-    }
-    // Handle Workspace on resize
-    if (
-      layout === 'workspace' &&
-      width < workspace.breakpoint &&
-      isDesktop.workspace
-    ) {
-      setIsDesktop({ ...isDesktop, workspace: false })
-    } else if (width > workspace.breakpoint && !isDesktop.workspace) {
-      setIsDesktop({ ...isDesktop, workspace: true })
-    }
-  })
+  const { active, setMenu } = useMenu()
+  const { width } = useWindowSize()
   const [scrollSelector, setScrollSelector] = useState('')
   const [show, setShow] = useState(true)
   // Helpers
@@ -84,24 +55,13 @@ export const Effects = ({
       : { active: false }
   const limit = upScroll?.start || 500
 
-  useEffect(() => {
-    if (layout.includes('sidenav')) {
-      reset('side-nav', isDesktop.sideNav ? 'desktop' : 'mobile')
-    }
-
-    if (layout === 'workspace') {
-      reset('workspace', isDesktop.workspace ? 'desktop' : 'mobile')
-    }
-  }, [isDesktop, layout, reset])
-
   /**
    * Set all necessary HTML element references
    */
   useEffect(() => {
     headerRef.current = document.querySelector('.mkui-header')
-    overlayMobileRef.current = document.querySelector('.mkui-overlay-m')
-    overlaySideNavRef.current = document.querySelector('.mkui-overlay-s')
-    overlayWorkspaceRef.current = document.querySelector('.mkui-overlay-w')
+    overlayMobileRef.current = document.querySelector('.mkui-overlay.mobile')
+    overlayPanelRef.current = document.querySelector('.mkui-overlay.panel')
   }, [])
 
   /**
@@ -120,11 +80,8 @@ export const Effects = ({
       setMenu(false, 'mobile-menu')
     }
 
-    if (!width || width > sideNav.breakpoint) return
-
-    if (sideNav.closeOnRouteChange && active?.sideNavMobile) {
-      setMenu(false, 'side-nav-mobile')
-    }
+    // TODO handle panels
+    if (!width || width > content.breakpoint) return
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
@@ -139,26 +96,18 @@ export const Effects = ({
       }
     }
 
-    const sideNavClick = () => {
-      if (sideNav.closeOnBlur) {
-        setMenu(false, 'side-nav-mobile')
-      }
-    }
-
     const workspaceClick = () => {
       if (workspace.closeOnBlur) {
-        setMenu(false, 'ws-left')
-        setMenu(false, 'ws-right')
+        setMenu(false, 'left-panel')
+        setMenu(false, 'right-panel')
       }
     }
 
     overlayMobileRef?.current?.addEventListener('click', mobileClick)
-    overlaySideNavRef?.current?.addEventListener('click', sideNavClick)
-    overlayWorkspaceRef?.current?.addEventListener('click', workspaceClick)
+    overlayPanelRef?.current?.addEventListener('click', workspaceClick)
     return () => {
       overlayMobileRef?.current?.removeEventListener('click', mobileClick)
-      overlaySideNavRef?.current?.removeEventListener('click', sideNavClick)
-      overlayWorkspaceRef?.current?.removeEventListener('click', workspaceClick)
+      overlayPanelRef?.current?.removeEventListener('click', workspaceClick)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

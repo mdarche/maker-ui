@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn, merge } from '@maker-ui/utils'
+import { Conditional, cn, merge } from '@maker-ui/utils'
 import {
   Skiplinks,
   Header,
@@ -8,13 +8,13 @@ import {
   MobileMenu,
   Main,
   Sidebar,
-  SideNav,
-  Workspace,
+  Panel,
   defaultSettings,
   type MakerUIOptions,
   type Options,
   type MenuItemProps,
   type LayoutButtonProps,
+  type PanelProps,
 } from '@maker-ui/layout-server'
 import { Menu, MenuButton } from '@maker-ui/layout-client'
 
@@ -23,6 +23,8 @@ interface LayoutProps {
   children?: React.ReactNode
   /** A valid Maker UI Options configuration object */
   options?: MakerUIOptions
+  /** Allows you to nest multiple different layouts without re-rerendering container components */
+  fragment?: boolean
 }
 
 function isMenu(i: any): i is MenuItemProps[] {
@@ -33,21 +35,34 @@ function isIcon(i: any): i is LayoutButtonProps {
   return !!(i && typeof i === 'object' && ('icon' in i || 'defaultIcon' in i))
 }
 
+const LeftPanel = (props: PanelProps) => <Panel {...props} />
+LeftPanel.defaultProps = { _type: 'leftPanel' }
+
+const RightPanel = (props: PanelProps) => <Panel {...props} />
+RightPanel.defaultProps = { _type: 'rightPanel' }
+
 /**
  * This function sorts all Layout dot children into an object with corresponding keys.
  * We use this to merge JSX with the slots prop and MakerUIOptions.
  */
 function assign(children: React.ReactNode) {
   let c: { [k: string]: any } = {}
+  let layout = 'content'
 
   React.Children.toArray(children).forEach((child: any) => {
     const type = child.props._type
     if (type) {
       c[type] = child
+    } else {
+      c['children'] = child
     }
   })
 
-  return c
+  if (c.leftPanel && !c?.rightPanel) layout = 'left-content'
+  if (c.rightPanel && !c?.leftPanel) layout = 'content-right'
+  if (c.leftPanel && c.rightPanel) layout = 'left-content-right'
+
+  return { slots: c, layoutType: layout }
 }
 
 /**
@@ -55,14 +70,17 @@ function assign(children: React.ReactNode) {
  *
  * @link https://maker-ui.com/docs/layout/layout
  */
-export const Layout = ({ options = {}, children }: LayoutProps) => {
+export const Layout = ({
+  options = {},
+  fragment = false,
+  children,
+}: LayoutProps) => {
   const opts = merge(defaultSettings, options) as Options
-  const slots = assign(children)
+  const { slots, layoutType } = assign(children)
   // Helpers
+  const isPanel = !!(slots.leftPanel || slots.rightPanel)
   const isSidebar = slots.sidebar && opts.layout.includes('sidebar')
-  const isSideNav = slots.sideNav && opts.layout.includes('sidenav')
-  const isLeft = opts.layout.includes('-content')
-  const isRight = opts.layout.includes('content-')
+  const dir = opts?.content?.sidebar || 'left'
 
   /**
    * Merged and formatted props for the Header component.
@@ -104,45 +122,32 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
   })
 
   /**
-   * Merged and formatted props for the SideNav component.
+   * Merged and formatted props for the Left Panel.
    */
-  const sideNavProps = merge(opts.sideNav, {
-    ...slots?.sideNav?.props,
-    menuButton: isIcon(slots?.sideNav?.props?.menuButton) ? (
-      <MenuButton type="side-nav" {...slots.sideNav.props.menuButton} />
+  const leftProps = merge(opts.leftPanel || {}, {
+    ...slots?.leftPanel?.props,
+    menuButton: isIcon(slots?.leftPanel?.props?.menuButton) ? (
+      <MenuButton type="left-panel" {...slots.leftPanel?.props?.menuButton} />
     ) : (
-      slots?.sideNav?.props?.menuButton
+      slots?.leftPanel?.menuButton
     ),
   })
 
   /**
-   * Merged and formatted props for the Workspace component.
+   * Merged and formatted props for the Right Panel.
    */
-  const workspaceProps = merge(opts.workspace, {
-    ...slots?.workspace?.props,
-    menuButtons: {
-      left: isIcon(slots?.workspace?.props?.menuButtons?.left) ? (
-        <MenuButton
-          type="ws-left"
-          {...slots.workspace.props.menuButtons.left}
-        />
-      ) : (
-        slots?.workspace?.props?.menuButtons?.left
-      ),
-      right: isIcon(slots?.workspace?.props?.menuButtons?.right) ? (
-        <MenuButton
-          type="ws-right"
-          {...slots.workspace.props.menuButtons.right}
-        />
-      ) : (
-        slots?.workspace?.props?.menuButtons?.right
-      ),
-    },
+  const rightProps = merge(opts.rightPanel || {}, {
+    ...slots?.rightPanel?.props,
+    menuButton: isIcon(slots?.rightPanel?.props?.menuButton) ? (
+      <MenuButton type="right-panel" {...slots.rightPanel?.props?.menuButton} />
+    ) : (
+      slots?.rightPanel?.menuButton
+    ),
   })
 
   return (
     <>
-      <Skiplinks links={opts.skiplinks} />
+      {!fragment && <Skiplinks links={opts.skiplinks} />}
       {slots?.topbar && <Topbar {...merge(opts.topbar, slots.topbar.props)} />}
       {slots?.header ? (
         <Header
@@ -152,35 +157,33 @@ export const Layout = ({ options = {}, children }: LayoutProps) => {
           }
         />
       ) : null}
-      {slots?.workspace ? (
-        <Workspace {...workspaceProps} />
-      ) : (
+      {slots?.children || (
         <div
           className={cn([
             'mkui-layout',
-            opts.layout,
-            isSideNav ? 'l-sn' : isSidebar ? 'l-sb' : undefined,
+            'mkui-layout-init',
+            isPanel ? 'panel' : undefined,
+            slots?.leftPanel && leftProps?.defaultOpen
+              ? 'left-active'
+              : undefined,
+            slots?.rightPanel && rightProps?.defaultOpen
+              ? 'right-active'
+              : undefined,
+            layoutType,
           ])}>
-          <>
-            {isLeft ? (
-              <>
-                {isSidebar && <Sidebar {...slots?.sidebar?.props} />}
-                {isSideNav && <SideNav {...sideNavProps} />}
-              </>
-            ) : null}
+          {isPanel && <div className="mkui-overlay panel" role="button" />}
+          {slots?.leftPanel && <LeftPanel {...leftProps} />}
+          <Conditional
+            condition={isSidebar}
+            trueWrapper={(c) => (
+              <div className={cn(['mkui-content-wrapper', `sidebar-${dir}`])}>
+                <Sidebar {...slots?.sidebar?.props} />
+                {c}
+              </div>
+            )}>
             <Main {...slots?.main?.props} />
-            {isRight ? (
-              <>
-                {isSidebar && (
-                  <Sidebar
-                    {...slots?.sidebar?.props}
-                    primary={!(opts.layout === 'sidebar-content-sidebar')}
-                  />
-                )}
-                {isSideNav && <SideNav {...sideNavProps} />}
-              </>
-            ) : null}
-          </>
+          </Conditional>
+          {slots?.rightPanel && <RightPanel {...rightProps} />}
         </div>
       )}
       {slots?.footer && <Footer {...slots.footer.props} />}
@@ -194,7 +197,7 @@ Layout.Topbar = Topbar
 Layout.Main = Main
 Layout.Footer = Footer
 Layout.Sidebar = Sidebar
-Layout.SideNav = SideNav
-Layout.Workspace = Workspace
+Layout.LeftPanel = LeftPanel
+Layout.RightPanel = RightPanel
 
 Layout.displayName = 'Layout'
