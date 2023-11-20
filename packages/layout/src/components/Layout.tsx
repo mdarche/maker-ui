@@ -147,7 +147,9 @@ export const Layout = ({
 
   return (
     <>
-      {fragment && options && <LayoutSettings options={options} />}
+      {(fragment && options) || slots?.settings ? (
+        <LayoutSettings options={options} />
+      ) : null}
       {!fragment && <Skiplinks links={opts.skiplinks} />}
       {slots?.topbar && <Topbar {...merge(opts.topbar, slots.topbar.props)} />}
       {slots?.header ? (
@@ -162,7 +164,7 @@ export const Layout = ({
         <div
           className={cn([
             'mkui-layout',
-            'mkui-layout-init',
+            !fragment ? 'mkui-layout-init' : undefined,
             isPanel ? 'panel' : undefined,
             slots?.leftPanel && leftProps?.defaultOpen
               ? 'left-active'

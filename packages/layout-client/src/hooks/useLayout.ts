@@ -7,7 +7,7 @@ export const useLayout = () => {
   const context = useContext(LayoutContext)
 
   if (!context) {
-    throw new Error('useLightbox must be used within a Lightbox component')
+    throw new Error('useLayout must be used within a LayoutProvider component')
   }
 
   const {

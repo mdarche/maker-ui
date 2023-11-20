@@ -52,13 +52,8 @@ export function getLayoutStyles(
     return top
   }
 
-  /** Workspace styles */
+  /** Responsive layout styles */
   styles += `
-      @media screen and (max-width: ${breakpoint}) { 
-        .mkui-btn-ws-left.mobile-hide, .mkui-btn-ws-right.mobile-hide {
-          display: none;
-        }
-      }
       @media screen and (min-width: ${breakpoint}) {
         .mkui-layout-init {
           display: grid;

@@ -77,11 +77,20 @@ export interface HeaderOptions {
   /** Desktop navigation type
    * @default basic
    */
-  navType: (typeof navTypes)[number]
+  template: (typeof navTypes)[number]
   /** Mobile navigation type
    * @default basic
    */
-  navTypeMobile: (typeof mobileNavTypes)[number]
+  templateMobile: (typeof mobileNavTypes)[number]
+  grid?: {
+    areas?: string
+    columns?: string
+    rows?: string
+  }
+  mobileGrid?: {
+    areas?: string
+    columns?: string
+  }
   /** If true, the header will use absolute and fixed positioning instead of the default
    * relative and sticky positioning. This is useful if you want to show content behind the header
    * like a hero image or video.

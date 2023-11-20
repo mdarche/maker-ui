@@ -4,77 +4,75 @@ import { formatNumber } from '@maker-ui/utils'
 /**
  * Grid & flex justification styles for desktop
  */
-const desktop = {
-  basic: {
-    areas: '"logo menu widgets button"',
-    columns: 'auto 1fr auto auto',
-    widgetArea: 'flex-start',
+const templates = {
+  desktop: {
+    basic: {
+      areas: '"logo menu widgets button"',
+      columns: 'auto 1fr auto auto',
+      widgetArea: 'flex-start',
+    },
+    'basic-left': {
+      areas: '"logo menu widgets button"',
+      columns: 'auto 1fr auto auto',
+      widgetArea: 'flex-start',
+    },
+    'basic-center': {
+      areas: '"logo menu widgets button"',
+      columns: 'auto 1fr auto auto',
+      widgetArea: 'flex-start',
+    },
+    center: {
+      areas: `"logo" "menu"`,
+      columns: '1fr',
+      widgetArea: 'flex-start',
+    },
+    split: {
+      areas: '"menu-split logo menu widgets button"',
+      columns: '1fr auto 1fr auto',
+      widgetArea: 'flex-start',
+    },
+    reverse: {
+      areas: '"menu logo widgets button"',
+      columns: '1fr auto 1fr auto',
+      widgetArea: 'flex-end',
+    },
+    minimal: {
+      areas: '"logo widgets button"',
+      columns: 'auto 1fr auto',
+      widgetArea: 'flex-end',
+    },
+    'minimal-left': {
+      areas: '"button logo widgets"',
+      columns: 'auto auto 1fr',
+      widgetArea: 'flex-end',
+    },
+    'minimal-center': {
+      areas: '"button logo widgets"',
+      columns: '1fr auto 1fr',
+      widgetArea: 'flex-end',
+    },
   },
-  'basic-left': {
-    areas: '"logo menu widgets button"',
-    columns: 'auto 1fr auto auto',
-    widgetArea: 'flex-start',
-  },
-  'basic-center': {
-    areas: '"logo menu widgets button"',
-    columns: 'auto 1fr auto auto',
-    widgetArea: 'flex-start',
-  },
-  center: {
-    areas: `"logo" "menu"`,
-    columns: '1fr',
-    widgetArea: 'flex-start',
-  },
-  split: {
-    areas: '"menu-split logo menu widgets button"',
-    columns: '1fr auto 1fr auto',
-    widgetArea: 'flex-start',
-  },
-  reverse: {
-    areas: '"menu logo widgets button"',
-    columns: '1fr auto 1fr auto',
-    widgetArea: 'flex-end',
-  },
-  minimal: {
-    areas: '"logo widgets button"',
-    columns: 'auto 1fr auto',
-    widgetArea: 'flex-end',
-  },
-  'minimal-left': {
-    areas: '"button logo widgets"',
-    columns: 'auto auto 1fr',
-    widgetArea: 'flex-end',
-  },
-  'minimal-center': {
-    areas: '"button logo widgets"',
-    columns: '1fr auto 1fr',
-    widgetArea: 'flex-end',
-  },
-}
-
-/**
- * Grid & flex justification styles for mobile
- */
-const mobile = {
-  basic: {
-    areas: '"logo widgets button"',
-    columns: 'auto 1fr auto',
-    widgetArea: 'flex-end',
-  },
-  'basic-menu-left': {
-    areas: '"button logo widgets"',
-    columns: 'auto auto 1fr',
-    widgetArea: 'flex-end',
-  },
-  'logo-center': {
-    areas: '"button logo widgets"',
-    columns: '1fr auto 1fr',
-    widgetArea: 'flex-end',
-  },
-  'logo-center-alt': {
-    areas: '"widgets logo button"',
-    columns: '1fr auto 1fr',
-    widgetArea: 'flex-start',
+  mobile: {
+    basic: {
+      areas: '"logo widgets button"',
+      columns: 'auto 1fr auto',
+      widgetArea: 'flex-end',
+    },
+    'basic-menu-left': {
+      areas: '"button logo widgets"',
+      columns: 'auto auto 1fr',
+      widgetArea: 'flex-end',
+    },
+    'logo-center': {
+      areas: '"button logo widgets"',
+      columns: '1fr auto 1fr',
+      widgetArea: 'flex-end',
+    },
+    'logo-center-alt': {
+      areas: '"widgets logo button"',
+      columns: '1fr auto 1fr',
+      widgetArea: 'flex-start',
+    },
   },
 }
 
@@ -86,8 +84,8 @@ export function getHeaderStyles(
   children: { topbar: boolean; header: boolean }
 ) {
   // Helpers
-  const layout = options.header.navType
-  const mobileLayout = options.header.navTypeMobile
+  const layout = options.header.template
+  const mobileLayout = options.header.templateMobile
   const bp = options.header.breakpoint
   const breakpoint = formatNumber(bp)
 
@@ -125,11 +123,11 @@ export function getHeaderStyles(
       display: flex;
     }
     .mkui-nav {
-      grid-template-areas: ${mobile[mobileLayout].areas};
-      grid-template-columns: ${mobile[mobileLayout].columns};
+      grid-template-areas: ${templates.mobile[mobileLayout].areas};
+      grid-template-columns: ${templates.mobile[mobileLayout].columns};
     }
     .mkui-nav .widget-slot {
-      justify-content: ${mobile[mobileLayout].widgetArea};
+      justify-content: ${templates.mobile[mobileLayout].widgetArea};
     }
     @media screen and (min-width: ${breakpoint}) {
       .mkui-header.sticky {
@@ -160,12 +158,12 @@ export function getHeaderStyles(
         display: block;
       }
       .mkui-nav { 
-        grid-template-areas: ${desktop[layout].areas};
-        grid-template-columns: ${desktop[layout].columns};
+        grid-template-areas: ${templates.desktop[layout].areas};
+        grid-template-columns: ${templates.desktop[layout].columns};
         grid-template-rows: ${layout !== 'center' ? '1fr' : '1fr 1fr'};
       }
       .mkui-nav .widget-slot {
-        justify-content: ${desktop[layout].widgetArea};
+        justify-content: ${templates.desktop[layout].widgetArea};
       }
       .mkui-nav .menu-slot {
         display: ${layout.includes('minimal') ? 'none' : 'flex'};

@@ -17,8 +17,8 @@ export function useTheme() {
   const { theme, options, setTheme } = context
 
   function setColorTheme(value: string) {
-    setBrowserTheme(value, options) // Handle DOM
-    setTheme(value) // Handle state
+    setBrowserTheme(value, options) // Handles DOM
+    setTheme(value) // Handles state
   }
 
   return { theme, setColorTheme, options }

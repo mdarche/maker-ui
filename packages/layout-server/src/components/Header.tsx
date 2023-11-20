@@ -21,8 +21,8 @@ export interface HeaderProps
 export const Header = ({
   className,
   absolute,
-  navType = 'basic',
-  navTypeMobile = 'basic',
+  template,
+  templateMobile,
   sticky,
   stickyOnMobile,
   stickyUpScroll,
@@ -53,9 +53,14 @@ export const Header = ({
       role="banner"
       {...props}>
       <div
-        className={cn(['mkui-nav', navType, `m-${navTypeMobile}`, className])}>
+        className={cn([
+          'mkui-nav',
+          template,
+          `m-${templateMobile}`,
+          className,
+        ])}>
         <div className="nav-area button-slot">{renderNode(menuButton)}</div>
-        {navType === 'split' ? (
+        {template === 'split' ? (
           <div className="nav-area menu-slot split">{renderNode(menu)}</div>
         ) : null}
         <div className="nav-area logo-slot">
@@ -81,7 +86,7 @@ export const Header = ({
           ) : null}
         </div>
         <div className="nav-area menu-slot">
-          {navType === 'split' ? renderNode(menuSplit) : renderNode(menu)}
+          {template === 'split' ? renderNode(menuSplit) : renderNode(menu)}
         </div>
         <div className="nav-area widget-slot">{widgets}</div>
       </div>

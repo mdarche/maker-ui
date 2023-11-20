@@ -1,12 +1,16 @@
 import * as React from 'react'
 import { merge } from '@maker-ui/utils'
-import { type Options, defaultSettings } from '@maker-ui/layout-server'
+import {
+  type Options,
+  defaultSettings,
+  MakerUIOptions,
+} from '@maker-ui/layout-server'
 
 import { getHeaderStyles } from '../styles/header'
 import { getLayoutStyles } from '../styles/layout'
 
 interface ResponsiveStyleProps {
-  options: Partial<Options>
+  options: MakerUIOptions
   topbar?: boolean
   header?: boolean
 }

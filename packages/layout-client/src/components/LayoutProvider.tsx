@@ -64,7 +64,7 @@ function reducer(state: LayoutState, action: Action): LayoutState {
       return { ...state, options: merge(state.options || {}, action.value) }
     }
     case 'RESET': {
-      return { ...state, active: action?.value || initialActive }
+      return { ...state, active: action?.value || initialActive } // TODO use this for resize
     }
     default: {
       throw new Error(`Unhandled action type.`)

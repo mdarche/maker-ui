@@ -12,8 +12,8 @@ export const defaultSettings: Options = {
   colorThemes: [],
   header: {
     breakpoint: 960,
-    navType: 'basic',
-    navTypeMobile: 'basic',
+    template: 'basic',
+    templateMobile: 'basic',
     absolute: false,
     sticky: false,
     stickyOnMobile: false,
