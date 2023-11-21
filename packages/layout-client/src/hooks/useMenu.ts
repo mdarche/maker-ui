@@ -29,8 +29,10 @@ export const useMenu = () => {
     if (!layoutRef.current) {
       layoutRef.current = document.querySelector('.mkui-layout')
       mobileMenuRef.current = document.querySelector('.mkui-mobile-menu')
-      overlayMobileRef.current = document.querySelector('.mkui-overlay.mobile')
-      overlayPanelRef.current = document.querySelector('.mkui-overlay.panel')
+      overlayMobileRef.current = document.querySelector(
+        '.mkui-overlay.o-mobile'
+      )
+      overlayPanelRef.current = document.querySelector('.mkui-overlay.o-layout')
       leftPanelRef.current = document.querySelector('.mkui-panel.left')
       rightPanelRef.current = document.querySelector('.mkui-panel.right')
     }

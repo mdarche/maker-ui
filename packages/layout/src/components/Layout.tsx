@@ -174,7 +174,7 @@ export const Layout = ({
               : undefined,
             layoutType,
           ])}>
-          {isPanel && <div className="mkui-overlay panel" role="button" />}
+          {isPanel && <div className="mkui-overlay o-layout" role="button" />}
           {slots?.leftPanel && <LeftPanel {...leftProps} />}
           <Conditional
             condition={isSidebar}

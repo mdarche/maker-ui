@@ -105,11 +105,11 @@ main {
   width: 100%;
 }
 
-.mkui-overlay.panel {
-  background: var(--color-overlay-panel, var(--color-overlay));
+.mkui-overlay.o-layout {
+  background: var(--color-overlay-layout, var(--color-overlay));
 }
 
-.mkui-overlay.mobile {
+.mkui-overlay.o-mobile {
   background: var(--color-overlay-mobile-menu, var(--color-overlay));
 }
 

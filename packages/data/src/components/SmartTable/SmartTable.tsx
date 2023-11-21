@@ -213,8 +213,8 @@ export const SmartTable = <T extends { id: string | number }>(
               ) : (
                 paginatedData.map((item) => (
                   <TableRow
+                    key={item.id}
                     {...{
-                      key: item.id,
                       item,
                       rowClass,
                       onRowClick,

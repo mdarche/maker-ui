@@ -33,7 +33,7 @@ export const MobileMenu = ({
   return (
     <>
       {closeOnBlur && !fullWidth.includes(transition) ? (
-        <div className="mkui-overlay mobile" role="button" />
+        <div className="mkui-overlay o-mobile" role="button" />
       ) : null}
       <div
         className={cn([

@@ -59,6 +59,7 @@ export const MenuButton = ({
       ? {
           onClick: () => {
             if (type === 'left-panel') {
+              console.log('Left panel clicked')
               setMenu(!active.leftPanel, 'left-panel')
             } else {
               setMenu(!active.rightPanel, 'right-panel')

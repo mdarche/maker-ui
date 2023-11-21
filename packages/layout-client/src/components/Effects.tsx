@@ -55,8 +55,8 @@ export const Effects = ({
    */
   useEffect(() => {
     headerRef.current = document.querySelector('.mkui-header')
-    overlayMobileRef.current = document.querySelector('.mkui-overlay.mobile')
-    overlayPanelRef.current = document.querySelector('.mkui-overlay.panel')
+    overlayMobileRef.current = document.querySelector('.mkui-overlay.o-mobile')
+    overlayPanelRef.current = document.querySelector('.mkui-overlay.o-layout')
   }, [])
 
   /**

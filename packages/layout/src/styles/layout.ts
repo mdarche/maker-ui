@@ -58,7 +58,7 @@ export function getLayoutStyles(
         .mkui-layout-init {
           display: grid;
         }
-        .mkui-overlay.panel {
+        .mkui-overlay.o-layout {
           display: none;
         }
         .mkui-panel.left, .mkui-panel.right {

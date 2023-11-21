@@ -21,6 +21,7 @@
   margin: auto;
   max-width: 100vw;
   outline: none;
+  contain: layout size;
 }
 
 .mkui-slide-track {
@@ -31,8 +32,13 @@
 }
 
 .mkui-slider {
+  position: relative;
   overflow: hidden;
   width: 100%;
+}
+
+.mkui-carousel-inner {
+  position: relative;
 }
 
 .mkui-slide {
