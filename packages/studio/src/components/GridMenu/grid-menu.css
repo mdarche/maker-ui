@@ -2,18 +2,90 @@
   display: inline-flex;
   width: fit-content;
   position: absolute;
-  top: 0; /* Adjust as needed */
-  left: 0; /* Adjust as needed */
+  top: -15px;
+  left: 0;
+  height: 30px;
   background: #363636;
-  padding: 5px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  color: #fff;
   z-index: 1;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
 }
 
 .grid-menu button {
-  color: #fff;
   border: none;
   background: none;
   padding: 3px 3px;
   cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-menu svg {
+  fill: #fff;
+  height: 17px;
+}
+
+.layout-button-group {
+  border-left: 1px solid #777;
+  border-right: 1px solid #777;
+  padding: 3px 10px;
+}
+
+.btn-remove {
+  margin: 0 10px;
+}
+
+.btn-remove[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-drag {
+  width: 30px;
+  cursor: move !important;
+}
+
+.btn-title {
+  color: #fff;
+  font-size: 0.9em;
+  margin: 0 7px 0 10px;
+}
+
+.btn-title svg {
+  margin-left: 10px;
+  height: 11px;
+}
+
+/* Delete Menu */
+
+.grid-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.btn-delete-section {
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #363636;
+  height: 30px;
+  width: 35px;
+  color: #fff;
+  cursor: pointer;
+  border-bottom-left-radius: 2px;
+}
+
+.btn-delete-section svg {
+  fill: #fff;
+  height: 15px;
 }

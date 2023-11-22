@@ -3,51 +3,95 @@
   width: 100%;
 }
 
+.grid-box {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  border: 1px solid #363636;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
 .grid {
   display: grid;
   position: relative; /* For positioning the menu */
   width: 100%;
   min-height: 500px;
-  cursor: pointer;
-  /* border: 1px solid #dfdfdf; */
-  transition: opacity 0.2s ease-in-out;
 }
 
 .grid-wrapper:hover .resize-grid,
-.grid-wrapper:hover .resize-padding,
+.grid-wrapper:hover .grid-box,
+.grid-wrapper:hover .grid-menu,
+.grid-wrapper:hover .grid-delete,
+.grid-active .grid-menu,
 .grid-active .resize-grid,
-.grid-active .resize-padding {
+.grid-active .grid-delete,
+.grid-active .grid-box {
   opacity: 1;
 }
 
-/* Styles for the menu */
-.grid-menu {
-  position: absolute;
-  top: 0;
-  right: 0;
-  /* Additional styles for the menu */
-}
-
-/* Hide menu by default, show on hover */
-.grid-menu {
-  display: none;
-}
-
-.grid-container:hover .grid-menu {
-  display: block;
+.grid-wrapper:hover .grid-border {
+  opacity: 1;
 }
 
 .grid-cell {
   position: relative;
 }
 
+.grid-wrapper.collapse {
+  padding: 0px !important;
+  opacity: 1 !important;
+}
+
+.grid-wrapper.collapse .grid-menu,
+.grid-wrapper.collapse .grid-delete {
+  opacity: 1;
+}
+
+.grid-collapse {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #363636;
+  color: #fff;
+}
+.btn-collapse {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 1.2em;
+}
+
+.btn-collapse svg {
+  height: 14px;
+  fill: #fff;
+  margin-left: 10px;
+}
+
 .gap-control {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% + 15px));
   display: flex;
+  flex-direction: column;
+  align-items: center;
   z-index: 1;
+}
+
+.gap-value {
+  width: fit-content;
+  height: 20px;
+  margin-top: 10px;
+  background: #e2e2e2;
+  color: #9a9a9a;
+  font-size: 0.8em;
 }
 
 .gap-control button {
@@ -85,11 +129,10 @@
 .resize-gap {
   position: absolute;
   top: 0;
-  right: 0; /* Positioned at the right edge of the cell */
-  width: 10px; /* Width of the clickable area for resizing */
-  height: 100%; /* Full height of the cell */
+  right: 0;
+  height: 100%;
   background: #e2e2e2;
-  cursor: ew-resize; /* Cursor indicates horizontal resizing */
+  cursor: ew-resize;
   z-index: 1;
 }
 
@@ -97,8 +140,15 @@
   position: absolute;
   cursor: ns-resize;
   background: #e2e2e2;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  color: #9a9a9a;
+  font-size: 0.8em;
+}
+
+.resize-padding span {
+  background: #e2e2e2;
+  padding: 2px 4px;
+  border-radius: 2px;
+  z-index: 10;
 }
 
 .resize-padding.top {
@@ -112,6 +162,16 @@
   right: 0;
   bottom: 0;
   cursor: ew-resize;
+}
+
+.resize-padding.left .abs {
+  position: absolute;
+  left: 0;
+}
+
+.resize-padding.right .abs {
+  position: absolute;
+  right: 0;
 }
 
 .resize-padding.bottom {

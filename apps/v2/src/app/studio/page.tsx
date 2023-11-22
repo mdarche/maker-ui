@@ -3,10 +3,11 @@ import './page.css'
 
 export default function StudioTest() {
   return (
-    <div
-      className="flex align-center justify-center"
-      style={{ height: '100vh' }}>
+    <div style={{ padding: '100px 0' }}>
       <Grid />
+      <div className="parent">
+        <div className="child">Child</div>
+      </div>
     </div>
   )
 }

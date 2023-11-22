@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { GridMenu } from '../GridMenu'
+import { cn } from '@maker-ui/utils'
+import { calculateDiffX, calculateDiffY, extractPxValue } from './utils'
+import { ExpandIcon } from '../Icons'
 
 interface GridProps {
   resizeMode?: 'px' | '%' | 'fr'
@@ -9,12 +12,17 @@ const cells: string[] = ['add', 'add', 'add']
 
 export const Grid = ({ resizeMode = 'px' }: GridProps) => {
   const gridRef = useRef<HTMLDivElement>(null)
+  const [activeDrag, setActiveDrag] = useState(false)
+  const [adminTitle, setAdminTitle] = useState('Grid')
+  const [collapse, setCollapse] = useState(false)
+  const [maxWidth, setMaxWidth] = useState('100%')
+  const [background, setBackground] = useState<undefined | string>(undefined)
   const [gap, setGap] = useState(30)
   const [margin, setMargin] = useState('0px 0px 0px 0px') // Or default
   const [padding, setPadding] = useState('30px 30px 30px 30px') // Or default
   const [columns, setColumns] = useState(3)
   const [gridTemplateColumns, setGridTemplateColumns] = useState(
-    `repeat(${columns}, 1fr)`
+    `repeat(${columns}, 1fr)` // Or default
   )
 
   useEffect(() => {
@@ -30,6 +38,7 @@ export const Grid = ({ resizeMode = 'px' }: GridProps) => {
   ) => {
     e.preventDefault()
     e.stopPropagation()
+    setActiveDrag(true)
 
     if (index < 0 || index > 3) {
       throw new Error('Index out of bounds')
@@ -66,6 +75,7 @@ export const Grid = ({ resizeMode = 'px' }: GridProps) => {
       const diffY = calculateDiffY(e.pageY, startY, pos)
 
       const newDimension = isX ? width + diffX : height + diffY
+      if (newDimension < 0 && type !== 'margin') return
 
       if (index >= 0 && index < values.length) {
         values[index] = newDimension + 'px'
@@ -81,6 +91,7 @@ export const Grid = ({ resizeMode = 'px' }: GridProps) => {
 
     const handleMouseUp = () => {
       // TODO change this to ref.current for grid
+      setActiveDrag(false)
       document.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseup', handleMouseUp)
     }
@@ -89,94 +100,112 @@ export const Grid = ({ resizeMode = 'px' }: GridProps) => {
     document.addEventListener('mouseup', handleMouseUp)
   }
 
+  const updateGap = (e: React.MouseEvent, remove = true) => {
+    const isShift = e.shiftKey
+    const val = isShift ? 10 : 1
+    if (remove) {
+      setGap((g) => (g > 0 ? g - val : 0))
+    } else {
+      setGap((g) => g + val)
+    }
+  }
+
+  const showGapValue = gap > 31
+
   return (
-    <div className={'grid-wrapper'} style={{ padding }}>
-      {padding?.split(' ').map((v, i) => {
-        const type =
-          i === 0 ? 'top' : i === 1 ? 'right' : i === 2 ? 'bottom' : 'left'
-        return (
+    <div
+      className={cn([
+        'grid-wrapper',
+        activeDrag ? 'grid-active' : undefined,
+        collapse ? 'collapse' : undefined,
+      ])}
+      style={{ padding }}>
+      {collapse ? (
+        <div className="grid-collapse">
+          <button className="btn-collapse" onClick={() => setCollapse(false)}>
+            {adminTitle}
+            <ExpandIcon />
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="grid-box">
+            {padding?.split(' ').map((v, i) => {
+              const pos = positionMap[i]
+              const num = extractPxValue(v)
+              return (
+                <div
+                  key={pos}
+                  className={cn([
+                    'resize-padding',
+                    'flex align-center justify-center',
+                    pos,
+                  ])}
+                  onMouseDown={(e) => handleMouseDown(e, i, 'padding')}
+                  style={{
+                    height: pos === 'top' || pos === 'bottom' ? v : undefined,
+                    width: pos === 'left' || pos === 'right' ? v : undefined,
+                  }}>
+                  <span
+                    className={cn([
+                      typeof num === 'number' &&
+                      num <= 20 &&
+                      (pos === 'left' || pos === 'right')
+                        ? 'abs'
+                        : undefined,
+                    ])}
+                    onMouseDown={(e) => handleMouseDown(e, i, 'padding')}>
+                    {v}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
           <div
-            key={type}
-            className={`resize-padding ${type}`}
-            onMouseDown={(e) => handleMouseDown(e, i, 'padding')}
-            style={{
-              height: type === 'top' || type === 'bottom' ? v : undefined,
-              width: type === 'left' || type === 'right' ? v : undefined,
-            }}></div>
-        )
-      })}
+            ref={gridRef}
+            className="grid"
+            style={{ gridTemplateColumns, gap }}>
+            {cells.map((cell, i) => (
+              <div
+                key={i}
+                className="grid-cell flex align-center justify-center">
+                <div className="mkui-add-compont">{cell}</div>
+              </div>
+            ))}
+            <div className="resize-grid" style={{ gridTemplateColumns, gap }}>
+              {[...Array(columns)].map((_, i) =>
+                i < columns - 1 ? (
+                  <div key={i} className="grid-cell">
+                    <div
+                      className="resize-gap"
+                      onMouseDown={(e) => handleMouseDown(e, i, 'column')}
+                      style={{ width: gap, transform: `translateX(${gap}px)` }}>
+                      <div className="gap-control">
+                        <div className="gap-buttons flex align-center">
+                          <button onClick={(e) => updateGap(e, true)}>-</button>
+                          <button onClick={(e) => updateGap(e, false)}>
+                            +
+                          </button>
+                        </div>
+                        <span className={cn(['gap-value'])}>
+                          {showGapValue && `${gap}px`}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ) : null
+              )}
+            </div>
+          </div>
+        </>
+      )}
       <GridMenu
-        onChangeLayout={setGridTemplateColumns}
+        columns={columns}
         addColumn={() => setColumns((s) => s + 1)}
         removeColumn={() => setColumns((s) => s - 1)}
+        collapse={collapse}
+        setCollapse={setCollapse}
       />
-      <div ref={gridRef} className="grid" style={{ gridTemplateColumns, gap }}>
-        {cells.map((cell, i) => (
-          <div key={i} className="grid-cell flex align-center justify-center">
-            <div className="mkui-add-compont">{cell}</div>
-          </div>
-        ))}
-        <div className="resize-grid" style={{ gridTemplateColumns, gap }}>
-          {[...Array(columns)].map((_, i) =>
-            i < columns - 1 ? (
-              <div key={i} className="grid-cell">
-                <div
-                  className="resize-gap"
-                  onMouseDown={(e) => handleMouseDown(e, i, 'column')}
-                  style={{ width: gap, transform: `translateX(${gap}px)` }}>
-                  <div className="gap-control">
-                    <button onClick={() => setGap((g) => (g > 0 ? g - 1 : 0))}>
-                      -
-                    </button>
-                    <button onClick={() => setGap((g) => g + 1)}>+</button>
-                  </div>
-                </div>
-              </div>
-            ) : null
-          )}
-        </div>
-      </div>
     </div>
   )
-}
-
-type CallerType = 'column' | 'padding' | 'margin'
-
-const calculateDiffX = (
-  currentX: number,
-  startX: number,
-  pos: string,
-  type: CallerType
-) => {
-  const dirX = currentX > startX ? 'right' : 'left'
-
-  if (type === 'column') {
-    return currentX - startX
-  }
-
-  if (
-    (dirX === 'left' && pos === 'left') ||
-    (dirX === 'right' && pos === 'left')
-  ) {
-    return currentX - startX
-  } else if (dirX === 'right' && pos === 'right') {
-    return Math.abs(currentX - startX) * -1
-  } else {
-    return Math.abs(currentX - startX)
-  }
-}
-
-const calculateDiffY = (currentY: number, startY: number, pos: string) => {
-  const dirY = currentY > startY ? 'down' : 'up'
-
-  if (dirY === 'down' && pos === 'top') {
-    return currentY - startY
-  } else if (
-    (dirY === 'down' && pos === 'bottom') ||
-    (dirY === 'up' && pos === 'top')
-  ) {
-    return Math.abs(currentY - startY) * -1
-  } else {
-    return Math.abs(currentY - startY)
-  }
 }
