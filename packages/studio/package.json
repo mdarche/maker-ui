@@ -1,0 +1,34 @@
+{
+  "name": "@maker-ui/studio",
+  "description": "Official Maker Studio open source project",
+  "version": "2.0.1",
+  "license": "Apache-2.0",
+  "author": "Mike Darche <mike@newcreative.io>",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./studio.css": "./dist/index.css"
+  },
+  "scripts": {
+    "build": "tsup",
+    "start": "tsup --watch",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "@maker-ui/utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "maker-ui": "workspace:*",
+    "react": "^18.x",
+    "react-dom": "^18.x"
+  },
+  "devDependencies": {
+    "@maker-ui/build-tools": "workspace:*",
+    "eslint-config-library": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}

@@ -11,6 +11,7 @@
   "dependencies": {
     "@maker-ui/generative": "workspace:*",
     "@maker-ui/toc": "workspace:*",
+    "@maker-ui/studio": "workspace:*",
     "@next/bundle-analyzer": "^13.2.3",
     "maker-ui": "workspace:*",
     "next": "^14.0.1",

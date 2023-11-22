@@ -1,0 +1,19 @@
+.grid-menu {
+  display: inline-flex;
+  width: fit-content;
+  position: absolute;
+  top: 0; /* Adjust as needed */
+  left: 0; /* Adjust as needed */
+  background: #363636;
+  padding: 5px;
+  border-bottom-right-radius: 4px;
+  z-index: 1;
+}
+
+.grid-menu button {
+  color: #fff;
+  border: none;
+  background: none;
+  padding: 3px 3px;
+  cursor: pointer;
+}
