@@ -24,10 +24,10 @@
 .grid-wrapper:hover .resize-grid,
 .grid-wrapper:hover .grid-box,
 .grid-wrapper:hover .grid-menu,
-.grid-wrapper:hover .grid-delete,
+.grid-wrapper:hover .grid-actions,
 .grid-active .grid-menu,
 .grid-active .resize-grid,
-.grid-active .grid-delete,
+.grid-active .grid-actions,
 .grid-active .grid-box {
   opacity: 1;
 }
@@ -45,8 +45,12 @@
   opacity: 1 !important;
 }
 
+.grid-wrapper.invisible {
+  opacity: 0.6;
+}
+
 .grid-wrapper.collapse .grid-menu,
-.grid-wrapper.collapse .grid-delete {
+.grid-wrapper.collapse .grid-actions {
   opacity: 1;
 }
 
@@ -59,7 +63,7 @@
   background: #363636;
   color: #fff;
 }
-.btn-collapse {
+.btn-expand {
   background: none;
   border: none;
   display: flex;
@@ -68,10 +72,25 @@
   font-size: 1.2em;
 }
 
-.btn-collapse svg {
-  height: 14px;
+.btn-expand svg {
+  height: 25px;
   fill: #fff;
-  margin-left: 10px;
+  border: 1px solid #ffffff33;
+  padding: 5px;
+}
+
+.btn-expand span {
+  margin: 0 25px 0 20px;
+}
+
+.current-grid {
+  display: grid;
+  height: 12px;
+  gap: 3px;
+}
+
+.current-cell {
+  background: #fff;
 }
 
 .gap-control {

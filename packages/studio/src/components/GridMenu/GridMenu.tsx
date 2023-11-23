@@ -1,32 +1,32 @@
 import * as React from 'react'
 import {
-  CaretIcon,
   CollapseIcon,
   ColumnAddIcon,
   ColumnRemoveIcon,
   DragIcon,
   ExpandIcon,
+  HideIcon,
+  RevealIcon,
   SettingsIcon,
   TrashIcon,
 } from '../Icons'
 import { cn } from '@maker-ui/utils'
+import { GridAction } from '../Grid/Grid'
 
 interface GridMenuProps {
+  title?: string
+  visible?: boolean
   columns: number
-  addColumn: () => void
-  removeColumn: () => void
-  adminTitle?: string
   collapse?: boolean
-  setCollapse: (collapse: boolean) => void
+  dispatch: React.Dispatch<GridAction>
 }
 
 export const GridMenu: React.FC<GridMenuProps> = ({
   columns,
-  addColumn,
-  removeColumn,
-  adminTitle,
+  visible,
   collapse,
-  setCollapse,
+  title = 'Grid',
+  dispatch,
 }) => {
   return (
     <>
@@ -41,10 +41,16 @@ export const GridMenu: React.FC<GridMenuProps> = ({
           <button
             disabled={columns === 1}
             className="btn-remove"
-            onClick={() => removeColumn()}>
+            onClick={() =>
+              dispatch({ type: 'SET_COLUMNS', payload: columns - 1 })
+            }>
             <ColumnRemoveIcon />
           </button>
-          <button className="btn-add" onClick={() => addColumn()}>
+          <button
+            className="btn-add"
+            onClick={() =>
+              dispatch({ type: 'SET_COLUMNS', payload: columns + 1 })
+            }>
             <ColumnAddIcon />
           </button>
         </div>
@@ -53,13 +59,22 @@ export const GridMenu: React.FC<GridMenuProps> = ({
             'btn-title flex align-center',
             collapse ? 'collapsed' : '',
           ])}
-          onClick={() => setCollapse(!collapse)}>
-          {adminTitle ? adminTitle : 'Grid'}
+          onClick={() =>
+            dispatch({ type: 'SET_COLLAPSE', payload: !collapse })
+          }>
+          {title}
           {collapse ? <ExpandIcon /> : <CollapseIcon />}
         </button>
       </div>
-      <div className="grid-delete">
-        <button className="btn-delete-section">
+      <div className="grid-actions">
+        <button
+          className="btn-visibility"
+          onClick={() =>
+            dispatch({ type: 'TOGGLE_VISIBILITY', payload: !visible })
+          }>
+          {!visible ? <HideIcon /> : <RevealIcon />}
+        </button>
+        <button className="btn-delete">
           <TrashIcon />
         </button>
       </div>

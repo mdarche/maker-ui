@@ -63,29 +63,41 @@
 
 /* Delete Menu */
 
-.grid-delete {
+.grid-actions {
   position: absolute;
-  top: 0;
+  top: -15px;
   right: 0;
   opacity: 0;
   transition: opacity 0.1s ease-in-out;
+  background: #363636;
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
 }
 
-.btn-delete-section {
+.grid-actions button {
   border: none;
   outline: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #363636;
+  background: none;
   height: 30px;
-  width: 35px;
+  width: 33px;
   color: #fff;
-  cursor: pointer;
-  border-bottom-left-radius: 2px;
 }
 
-.btn-delete-section svg {
+.grid-actions svg {
+  fill: #fff;
+  height: 14px;
+}
+
+.grid-actions .icon-hide {
+  height: 17px;
+}
+
+/* .btn-delete svg {
   fill: #fff;
   height: 15px;
-}
+} */
