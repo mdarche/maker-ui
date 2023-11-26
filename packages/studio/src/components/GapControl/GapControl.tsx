@@ -1,5 +1,6 @@
+import React, { useRef } from 'react'
 import { cn } from '@maker-ui/utils'
-import { handleMouseDown } from '../Grid/utils'
+import { handleColumnResize } from '../Grid/utils'
 import { GridAction } from '../Grid/Grid'
 
 interface GapControlProps {
@@ -15,27 +16,31 @@ export const GapControl = ({
   gap,
   dispatch,
 }: GapControlProps) => {
+  const ref = useRef<HTMLDivElement>(null)
+
   const showGapValue = gap > 31
 
   const updateGap = (e: React.MouseEvent, remove = true) => {
     const isShift = e.shiftKey
     const val = isShift ? 10 : 1
-    if (remove) {
-      dispatch({ type: 'SET_GAP', payload: gap > 0 ? gap - val : 0 })
-    } else {
-      dispatch({ type: 'SET_GAP', payload: gap + val })
-    }
+    const payload = remove ? (gap > 0 ? gap - val : 0) : gap + val
+    dispatch({ type: 'SET_GAP', payload })
   }
 
   return (
-    <div className="resize-grid" style={{ gridTemplateColumns, gap }}>
-      {[...Array(columns)].map((_, i) =>
-        i < columns - 1 ? (
-          <div key={i} className="grid-cell">
+    <div ref={ref} className="grid-resize" style={{ gridTemplateColumns, gap }}>
+      {[...Array(columns)].map((_, index) =>
+        index < columns - 1 ? (
+          <div key={index} className="grid-cell">
             <div
               className="resize-gap"
               onMouseDown={(e) =>
-                handleMouseDown(e, i, 'column', gridTemplateColumns, dispatch)
+                handleColumnResize({
+                  e,
+                  index,
+                  gridTemplateColumns,
+                  dispatch,
+                })
               }
               style={{ width: gap, transform: `translateX(${gap}px)` }}>
               <div className="gap-control">

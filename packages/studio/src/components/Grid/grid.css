@@ -21,12 +21,12 @@
   min-height: 500px;
 }
 
-.grid-wrapper:hover .resize-grid,
+.grid-wrapper:hover .grid-resize,
 .grid-wrapper:hover .grid-box,
 .grid-wrapper:hover .grid-menu,
 .grid-wrapper:hover .grid-actions,
 .grid-active .grid-menu,
-.grid-active .resize-grid,
+.grid-active .grid-resize,
 .grid-active .grid-actions,
 .grid-active .grid-box {
   opacity: 1;
@@ -134,7 +134,7 @@
   opacity: 1;
 }
 
-.resize-grid {
+.grid-resize {
   display: grid;
   position: absolute;
   top: 0;

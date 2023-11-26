@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useRef } from 'react'
 import {
   CollapseIcon,
   ColumnAddIcon,
@@ -12,6 +12,7 @@ import {
 } from '../Icons'
 import { cn } from '@maker-ui/utils'
 import { GridAction } from '../Grid/Grid'
+import { Editor } from '../Editor'
 
 interface GridMenuProps {
   title?: string
@@ -28,6 +29,14 @@ export const GridMenu: React.FC<GridMenuProps> = ({
   title = 'Grid',
   dispatch,
 }) => {
+  const ref = useRef<HTMLButtonElement>(null)
+  const [show, set] = React.useState(false)
+
+  const toggleEditor = () => {
+    set(!show)
+    dispatch({ type: 'SET_ACTIVE_DRAG', payload: !show })
+  }
+
   return (
     <>
       <div className="grid-menu flex align-stretch">
@@ -35,7 +44,7 @@ export const GridMenu: React.FC<GridMenuProps> = ({
           <DragIcon />
         </button>
         <div className="layout-button-group flex align-center">
-          <button className="btn-settings">
+          <button ref={ref} onClick={toggleEditor} className="btn-settings">
             <SettingsIcon />
           </button>
           <button
@@ -78,6 +87,9 @@ export const GridMenu: React.FC<GridMenuProps> = ({
           <TrashIcon />
         </button>
       </div>
+      <Editor show={show} exit={toggleEditor} buttonRef={ref}>
+        Children
+      </Editor>
     </>
   )
 }

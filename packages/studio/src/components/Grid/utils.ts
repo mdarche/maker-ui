@@ -1,14 +1,14 @@
 import { GridAction } from './Grid'
 
-type CallerType = 'column' | 'padding' | 'margin'
-
 export const positionMap = ['top', 'right', 'bottom', 'left']
+
+type ComponentType = 'column' | 'padding' | 'margin'
 
 export const calculateDiffX = (
   currentX: number,
   startX: number,
   pos: string,
-  type: CallerType
+  type: ComponentType
 ) => {
   const dirX = currentX > startX ? 'right' : 'left'
 
@@ -52,10 +52,10 @@ export function extractPxValue(input: string): number | string {
   return match ? parseFloat(match[1]) : input
 }
 
-export const handleMouseDown = (
+export const handleBoxResize = (
   e: React.MouseEvent,
   index: number,
-  type: 'column' | 'padding' | 'margin',
+  type: 'padding' | 'margin',
   currentValue: string,
   dispatch: React.Dispatch<GridAction>
 ) => {
@@ -68,19 +68,16 @@ export const handleMouseDown = (
   }
 
   const pos = positionMap[index]
-  const isX = type === 'column' || pos === 'left' || pos === 'right'
+  const isX = pos === 'left' || pos === 'right'
   let width = 0
   let height = 0
   const values = currentValue.split(' ')
 
-  const element =
-    type === 'column' ? e.currentTarget.closest('.grid-cell') : e.currentTarget
+  const element = e.currentTarget
   if (!element) return
 
-  if (type === 'column' || type === 'padding' || type === 'margin') {
-    width = isX ? element.clientWidth : 0
-    height = !isX ? element.clientHeight : 0
-  }
+  width = isX ? element.clientWidth : 0
+  height = !isX ? element.clientHeight : 0
 
   const startX = e.pageX
   const startY = e.pageY
@@ -95,13 +92,82 @@ export const handleMouseDown = (
     if (index >= 0 && index < values.length) {
       values[index] = newDimension + 'px'
       const payload = values.join(' ')
-      if (type === 'column') {
-        dispatch({ type: 'SET_GRID_TEMPLATE_COLUMNS', payload })
-      } else if (type === 'padding') {
+
+      if (type === 'padding') {
         dispatch({ type: 'SET_PADDING', payload })
       } else if (type === 'margin') {
         dispatch({ type: 'SET_MARGIN', payload })
       }
+    }
+  }
+
+  const handleMouseUp = () => {
+    // TODO change this to ref.current for grid
+    dispatch({ type: 'SET_ACTIVE_DRAG', payload: false })
+    document.removeEventListener('mousemove', handleMouseMove)
+    document.removeEventListener('mouseup', handleMouseUp)
+  }
+
+  document.addEventListener('mousemove', handleMouseMove)
+  document.addEventListener('mouseup', handleMouseUp)
+}
+
+interface ColumnResizeProps {
+  e: React.MouseEvent
+  index: number
+  gridTemplateColumns: string
+  dispatch: React.Dispatch<GridAction>
+  mode?: 'px' | 'fr' | '%'
+}
+
+export const handleColumnResize = ({
+  e,
+  index,
+  gridTemplateColumns,
+  dispatch,
+  mode = 'fr',
+}: ColumnResizeProps) => {
+  e.preventDefault()
+  e.stopPropagation()
+
+  let width = 0
+  let gridWidth = 0
+  const values = gridTemplateColumns.split(' ')
+  const startX = e.pageX
+
+  const grid = e.currentTarget.closest('.grid-resize')
+  const element = e.currentTarget.closest('.grid-cell')
+
+  if (!element || !grid) return
+
+  width = element.clientWidth
+  gridWidth = grid.clientWidth
+
+  const handleMouseMove = (e: MouseEvent) => {
+    const diffX = calculateDiffX(e.pageX, startX, 'left', 'column')
+    const newDimension = width + diffX
+    if (newDimension < 0) return
+
+    if (index >= 0 && index < values.length) {
+      let newSizeValue
+
+      switch (mode) {
+        case 'px':
+          newSizeValue = newDimension + 'px'
+          break
+        case 'fr':
+          const totalFr = values.reduce((acc, val) => acc + parseFloat(val), 0)
+          newSizeValue = (newDimension / gridWidth) * totalFr + 'fr'
+          break
+        case '%':
+          newSizeValue = (newDimension / gridWidth) * 100 + '%'
+          break
+      }
+
+      values[index] = newSizeValue
+      const payload = values.join(' ')
+
+      dispatch({ type: 'SET_GRID_TEMPLATE_COLUMNS', payload })
     }
   }
 

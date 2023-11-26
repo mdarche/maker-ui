@@ -1,5 +1,5 @@
 import { cn } from '@maker-ui/utils'
-import { extractPxValue, handleMouseDown, positionMap } from '../Grid/utils'
+import { extractPxValue, handleBoxResize, positionMap } from '../Grid/utils'
 import { GridAction } from '../Grid/Grid'
 
 interface ResizeHandleProps {
@@ -27,7 +27,7 @@ export const ResizeHandle = ({
               pos,
             ])}
             onMouseDown={(e) =>
-              handleMouseDown(e, i, 'padding', padding, dispatch)
+              handleBoxResize(e, i, 'padding', padding, dispatch)
             }
             style={{
               height: pos === 'top' || pos === 'bottom' ? v : undefined,
@@ -42,7 +42,7 @@ export const ResizeHandle = ({
                   : undefined,
               ])}
               onMouseDown={(e) =>
-                handleMouseDown(e, i, 'padding', padding, dispatch)
+                handleBoxResize(e, i, 'padding', padding, dispatch)
               }>
               {v}
             </span>

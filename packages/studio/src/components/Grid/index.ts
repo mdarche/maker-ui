@@ -1,1 +1,1 @@
-export { Grid } from './Grid'
+export { Grid, type GridAction } from './Grid'

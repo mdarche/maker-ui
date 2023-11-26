@@ -47,7 +47,7 @@ const initialState: GridState = {
   margin: '0px 0px 0px 0px',
   padding: '30px 30px 30px 30px',
   columns: 3,
-  gridTemplateColumns: 'repeat(3, 1fr)',
+  gridTemplateColumns: '1fr 1fr 1fr',
 }
 
 function gridReducer(state: GridState, action: GridAction): GridState {
@@ -74,7 +74,9 @@ function gridReducer(state: GridState, action: GridAction): GridState {
       return {
         ...state,
         columns: action.payload,
-        gridTemplateColumns: `repeat(${action.payload}, 1fr)`,
+        gridTemplateColumns: [...Array(action.payload)]
+          .map((i) => '1fr')
+          .join(' '),
       }
     case 'SET_GRID_TEMPLATE_COLUMNS':
       return { ...state, gridTemplateColumns: action.payload }
@@ -85,7 +87,7 @@ function gridReducer(state: GridState, action: GridAction): GridState {
 
 export const positionMap = ['top', 'right', 'bottom', 'left']
 
-export const Grid = ({ resizeMode = 'px' }: GridProps) => {
+export const Grid = (props: GridProps) => {
   const gridRef = useRef<HTMLDivElement>(null)
   const [
     {
