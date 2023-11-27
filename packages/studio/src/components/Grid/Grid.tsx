@@ -99,6 +99,7 @@ export const Grid = (props: GridProps) => {
       activeDrag,
       title,
       collapse,
+      maxWidth,
       visible,
     },
     dispatch,
