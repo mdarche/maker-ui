@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/data",
   "description": "Components and helper utilities for rendering and managing data.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",

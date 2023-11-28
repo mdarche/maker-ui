@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/studio",
   "description": "Official Maker Studio open source project",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "exports": {
