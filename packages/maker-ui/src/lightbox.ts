@@ -1,2 +1,2 @@
 export { Lightbox, LightboxLink, type LightboxItem } from '@maker-ui/lightbox'
-import '../../layout/dist/index.css'
+import '../../lightbox/dist/index.css'

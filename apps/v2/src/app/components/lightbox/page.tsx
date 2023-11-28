@@ -27,10 +27,8 @@ export default function LightboxPage() {
   const [show, set] = useState(false)
   const ref = useRef(null)
 
-  console.log('cosmos image is', CosmosImage)
-
   return (
-    <Section css={{ '.test-btn': { color: 'red' } }}>
+    <Section>
       <button ref={ref} onClick={(e) => set(true)}>
         Focus Ref
       </button>

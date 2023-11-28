@@ -24,7 +24,6 @@
   "dependencies": {
     "@maker-ui/hooks": "workspace:*",
     "@maker-ui/modal": "workspace:*",
-    "@maker-ui/style": "workspace:*",
     "@maker-ui/transition": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },

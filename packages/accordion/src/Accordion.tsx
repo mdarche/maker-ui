@@ -34,6 +34,7 @@ export const Accordion = ({
   children,
   ...props
 }: AccordionProps) => {
+  const [rendered, setRendered] = useState(false)
   const [state, setState] = useState<AccordionState>({
     id: generateId(),
     activeKey,
@@ -58,7 +59,11 @@ export const Accordion = ({
     setState((state) => ({ ...state, activeKey }))
   }, [activeKey])
 
-  return (
+  useEffect(() => {
+    setRendered(true)
+  }, [])
+
+  return rendered ? (
     <AccordionContext.Provider value={{ state, setState }}>
       <div
         className={cn([
@@ -71,7 +76,7 @@ export const Accordion = ({
         {children}
       </div>
     </AccordionContext.Provider>
-  )
+  ) : null
 }
 
 Accordion.displayName = 'Accordion'

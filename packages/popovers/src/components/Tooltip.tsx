@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { cn, generateId } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 
 import { Popover } from './Popover'
 import type { PopoverProps } from '@/types'
@@ -7,8 +7,12 @@ import { getPosition } from '../position'
 import { cssVariables } from '../variables'
 
 interface TooltipProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'color'>,
+  extends Omit<
+      React.HTMLAttributes<HTMLDivElement>,
+      'id' | 'children' | 'color'
+    >,
     Omit<PopoverProps, 'show' | 'set' | 'anchorRef' | 'position' | 'offset'> {
+  id: string
   classNames?: {
     tooltip?: string
     button?: string
@@ -35,17 +39,16 @@ interface TooltipProps
  */
 
 export const Tooltip = ({
+  id,
   classNames,
   label,
   position = 'bottom',
   offset = 5,
-  css,
   transition = 'fade',
   styles,
   children,
   ...props
 }: TooltipProps) => {
-  const [styleId] = useState(generateId())
   const [show, set] = useState(false)
   const ref = useRef<HTMLButtonElement>(null)
   const pos = getPosition(position, offset)
@@ -60,16 +63,16 @@ export const Tooltip = ({
       {...props}>
       <button
         ref={ref}
-        className={cn(['mkui-btn-tooltip', classNames?.button, styleId])}
+        className={cn(['mkui-btn-tooltip', classNames?.button])}
         type="button"
         onFocus={() => set(true)}
         onBlur={() => typeof label === 'string' && set(false)}
         onClick={() => set(!show)}
-        aria-describedby={`tooltip-${styleId}`}>
+        aria-describedby={`tooltip-${id}`}>
         {label}
       </button>
       <Popover
-        id={`tooltip-${styleId}`}
+        id={`tooltip-${id}`}
         className={cn(['mkui-tooltip', classNames?.tooltip])}
         {...{
           role: 'tooltip',
@@ -79,7 +82,6 @@ export const Tooltip = ({
           transition,
           show,
           set,
-          css,
           styles,
         }}>
         {children}

@@ -1,4 +1,3 @@
-import type { MakerCSS } from '@maker-ui/style'
 import { TransitionState } from '@maker-ui/transition'
 
 export interface Position {
@@ -37,9 +36,7 @@ export interface PopoverStyles {
   button?: ButtonStyles
 }
 
-export interface PopoverProps
-  extends MakerCSS,
-    React.HTMLAttributes<HTMLDivElement> {
+export interface PopoverProps extends React.HTMLAttributes<HTMLDivElement> {
   /** A boolean that indicates if the popover is active. */
   show: boolean
   /** A setter for the show boolean that lets the popover close itself. */

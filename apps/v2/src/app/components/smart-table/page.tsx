@@ -27,9 +27,6 @@ function fetchData({
         })
       }
 
-      console.log('searchColumns', searchColumns)
-      console.log('searchQuery', searchQuery)
-
       // Filtering
       if (searchQuery && searchColumns && searchColumns.length > 0) {
         const query = searchQuery.toLowerCase()

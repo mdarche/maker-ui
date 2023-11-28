@@ -103,9 +103,11 @@ export const Form = ({
   return (
     <FormContext.Provider value={{ state, dispatch }}>
       {preFormSlot}
-      <FormRenderer onSubmit={onSubmit} {...props}>
-        {children}
-      </FormRenderer>
+      {rendered ? (
+        <FormRenderer onSubmit={onSubmit} {...props}>
+          {children}
+        </FormRenderer>
+      ) : null}
       {postFormSlot}
     </FormContext.Provider>
   )

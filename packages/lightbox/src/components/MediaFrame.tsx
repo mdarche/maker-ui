@@ -33,8 +33,7 @@ export const MediaFrame = ({
         src={youtubeId ? youtubeRoot + youtubeId : vimeoRoot + vimeoId}
         onLoad={() => set(true)}
         style={{ opacity: show ? 1 : 0, transition: 'opacity .3s ease' }}
-        allow="accelerometer; autoplay; fullscreen; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen></iframe>
+        allow="accelerometer; autoplay; fullscreen; encrypted-media; gyroscope; picture-in-picture"></iframe>
     )
   }
 

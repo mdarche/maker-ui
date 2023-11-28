@@ -24,11 +24,11 @@ export default function TabsPage() {
         // renderInactive={false}
         // tabKeyNavigate
       >
-        <Tabs.Panel title="Title 1" eventKey={'1daf'}>
-          First Text
+        <Tabs.Panel title="Title 1" eventKey="1daf">
+          1daf Text
         </Tabs.Panel>
         <Tabs.Panel title={<div>Custom div title</div>} eventKey="lkj2">
-          Second Text
+          lkj2 Text
         </Tabs.Panel>
         <Tabs.Panel eventKey="2" title="Title 2">
           Second Text

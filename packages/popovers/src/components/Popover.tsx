@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect, useRef } from 'react'
-import { cn, generateId } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import {
   useFocusTrap,
   useKeyboardShortcut,
@@ -8,7 +8,6 @@ import {
 } from '@maker-ui/hooks'
 import { Portal } from '@maker-ui/modal'
 import { Transition, type TransitionState } from '@maker-ui/transition'
-import { Style } from '@maker-ui/style'
 
 import { getTransition } from '../position'
 import type { PopoverProps } from '@/types'
@@ -36,16 +35,12 @@ export const Popover = ({
   closeOnBlur = true,
   transition = 'fade-down',
   className,
-  breakpoints,
-  css,
-  mediaQuery,
   duration = 200,
   transitionState,
   styles,
   children,
   ...rest
 }: PopoverProps) => {
-  const [styleId] = useState(generateId())
   const popoverRef = useRef<HTMLDivElement>(null)
   // Inner contents height and width
   const [state, setState] = useState({
@@ -226,7 +221,6 @@ export const Popover = ({
             'mkui-popover',
             className,
             show ? 'active' : undefined,
-            styleId,
             'absolute',
           ]),
           style: {
@@ -235,15 +229,11 @@ export const Popover = ({
             width: matchWidth ? state.popover.width : undefined,
             visibility: !state.popover.height ? 'hidden' : undefined,
             opacity: !state.popover.height ? 0 : undefined,
+            display: 'block',
+            zIndex: 99,
           },
           ...rest,
         }}>
-        <Style
-          root={styleId}
-          breakpoints={breakpoints}
-          mediaQuery={mediaQuery}
-          css={{ display: 'block', zIndex: 99, ...css }}
-        />
         <div ref={ref} className="mkui-popover-inner">
           {children}
         </div>

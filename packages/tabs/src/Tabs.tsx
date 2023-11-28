@@ -85,6 +85,7 @@ export const Tabs = ({
   children,
   ...props
 }: TabsProps) => {
+  const [rendered, setRendered] = useState(false)
   const [state, setState] = useState<TabState>({
     styleId: generateId(),
     activeKey: 0,
@@ -161,9 +162,13 @@ export const Tabs = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeEventKey])
 
+  useEffect(() => {
+    setRendered(true)
+  }, [])
+
   const panels = renderInactive ? c : c ? [c[state.activeKey]] : []
 
-  return (
+  return rendered ? (
     <div
       className={cn([
         'mkui-tabgroup flex',
@@ -235,7 +240,7 @@ export const Tabs = ({
         )
       )}
     </div>
-  )
+  ) : null
 }
 
 interface TabButtonProps {

@@ -83,11 +83,13 @@ export interface HeaderOptions {
    */
   templateMobile: (typeof mobileNavTypes)[number]
   grid?: {
+    // TODO
     areas?: string
     columns?: string
     rows?: string
   }
   mobileGrid?: {
+    // TODO
     areas?: string
     columns?: string
   }

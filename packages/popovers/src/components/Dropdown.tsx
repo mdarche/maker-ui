@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { cn, generateId } from '@maker-ui/utils'
-import { Style } from '@maker-ui/style'
+import { cn } from '@maker-ui/utils'
 
 import { Popover } from './Popover'
 import type { PopoverProps } from '@/types'
@@ -41,12 +40,10 @@ export const Dropdown = ({
   className,
   classNames,
   controls,
-  css,
   styles,
   children,
   ...props
 }: DropdownProps) => {
-  const [styleId] = useState(generateId())
   const [show, set] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -87,12 +84,7 @@ export const Dropdown = ({
   return (
     <div
       id={id}
-      className={cn([
-        'mkui-dropdown',
-        styleId,
-        className,
-        classNames?.container,
-      ])}
+      className={cn(['mkui-dropdown', className, classNames?.container])}
       style={{ ...(variables || {}), ...(props?.style || {}) }}
       {...props}>
       {typeof button === 'function' ? (
@@ -100,7 +92,6 @@ export const Dropdown = ({
       ) : (
         <button {...attrs}>{button}</button>
       )}
-      <Style root={styleId} css={css} />
       <div className="mkui-dropdown-inner" ref={dropdownRef}>
         <Popover
           show={controls ? controls[0] : show}

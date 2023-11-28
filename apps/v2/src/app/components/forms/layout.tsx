@@ -26,7 +26,7 @@ export default function FormsLayout({
         <ul>
           {pages.map((p) => (
             <li key={p.path}>
-              <Link href={`/demo/forms/${p.path}`}>{p.label}</Link>
+              <Link href={`/components/forms/${p.path}`}>{p.label}</Link>
             </li>
           ))}
         </ul>
