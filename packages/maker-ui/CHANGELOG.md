@@ -1,5 +1,32 @@
 # maker-ui
 
+## 2.1.0
+
+### Minor Changes
+
+- [#119](https://github.com/mdarche/maker-ui/pull/119) [`4462ada2`](https://github.com/mdarche/maker-ui/commit/4462ada255636e1e06197ea31ed3a3556d0c9d67) Thanks [@mdarche](https://github.com/mdarche)! - Simplify component API design and improve performance for SSR environments. Move dynamic styles to CSS variables. See [Pull Reqest #119](https://github.com/mdarche/maker-ui/pull/119) for more details.
+
+### Patch Changes
+
+- Updated dependencies [[`4462ada2`](https://github.com/mdarche/maker-ui/commit/4462ada255636e1e06197ea31ed3a3556d0c9d67)]:
+  - @maker-ui/accordion@2.1.0
+  - @maker-ui/carousel@2.1.0
+  - @maker-ui/data@2.1.0
+  - @maker-ui/forms@2.1.0
+  - @maker-ui/hooks@2.1.0
+  - @maker-ui/layout@2.1.0
+  - @maker-ui/lightbox@2.1.0
+  - @maker-ui/modal@2.1.0
+  - @maker-ui/notifications@2.1.0
+  - @maker-ui/popovers@2.1.0
+  - @maker-ui/scroll@2.1.0
+  - @maker-ui/social@2.1.0
+  - @maker-ui/spinners@2.1.0
+  - @maker-ui/style@2.1.0
+  - @maker-ui/tabs@2.1.0
+  - @maker-ui/transition@2.1.0
+  - @maker-ui/utils@2.1.0
+
 ## 2.0.12
 
 ### Patch Changes
