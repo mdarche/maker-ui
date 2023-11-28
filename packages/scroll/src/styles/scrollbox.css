@@ -1,0 +1,13 @@
+.mkui-scrollbox {
+  width: var(--scroll-box-width);
+  height: var(--scroll-box-height);
+  overflow: hidden;
+  position: relative;
+}
+
+.mkui-scrollbox-inner {
+  overflow: auto;
+  height: 100%;
+  padding-right: var(--scroll-bar-width);
+  box-sizing: content-box;
+}

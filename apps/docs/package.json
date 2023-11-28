@@ -12,25 +12,24 @@
     "next:start": "next start"
   },
   "dependencies": {
-    "@docsearch/react": "^3.0.0-alpha.40",
+    "@docsearch/css": "^3.5.2",
+    "@docsearch/react": "^3.5.2",
     "@maker-ui/toc": "workspace:*",
-    "@mdx-js/loader": "^1.6.22",
-    "@mdx-js/react": "^1.6.22",
-    "@next/mdx": "^10.2.3",
+    "@mdx-js/loader": "^2.3.0",
+    "@mdx-js/react": "^2.3.0",
+    "@next/mdx": "^13.4.17",
+    "@types/mdx": "^2.0.6",
     "maker-ui": "workspace:*",
-    "mdx-utils": "^0.2.0",
-    "next": "^13.2.3",
-    "next-pwa": "^5.3.1",
-    "prism-react-renderer": "^1.2.1",
+    "next": "^14.0.1",
+    "next-pwa": "^5.6.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "rehype-pretty-code": "^0.10.0",
+    "remark-gfm": "^3.0.1",
+    "shiki": "^0.14.3"
   },
   "devDependencies": {
-    "@types/node": "^14.11.10",
-    "@types/react": "^16.9.53",
-    "eslint-config-app": "workspace:*",
-    "next-sitemap": "^1.6.184",
-    "tsconfig": "workspace:*",
-    "typescript": "^4.8.4"
+    "eslint-config-next-app": "workspace:*",
+    "tsconfig": "workspace:*"
   }
 }

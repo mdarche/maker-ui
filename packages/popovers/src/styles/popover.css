@@ -1,0 +1,18 @@
+/* Config Variables
+/ -------------------------------------------------- /
+/ --popover-bg
+/ --popover-border
+/ --popover-color
+/ --popover-font-family
+/ --popover-font-size
+/ --popover-padding
+/ -------------------------------------------------- 
+*/
+.mkui-popover {
+  background: var(--popover-bg);
+  border: var(--popover-border);
+  color: var(--popover-color);
+  font-family: var(--popover-font-family);
+  font-size: var(--popover-font-size);
+  padding: var(--popover-padding);
+}

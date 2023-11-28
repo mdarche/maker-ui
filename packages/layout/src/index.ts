@@ -3,11 +3,8 @@ import './styles/global.css'
 import './styles/header.css'
 import './styles/layout.css'
 import './styles/mobile-menu.css'
-import './styles/side-nav.css'
 import './styles/topbar.css'
 import './styles/utility.css'
-import './styles/workspace.css'
-import './styles/components.css'
 
 /* Export standalone Client components */
 export {
@@ -15,7 +12,9 @@ export {
   MenuButton,
   Menu,
   LayoutProvider,
-  useColorTheme,
+  ThemeProvider,
+  Div,
+  useTheme,
   useMenu,
   useLayout,
 } from '@maker-ui/layout-client'
@@ -23,9 +22,10 @@ export {
 /* Export standalone Server components and types */
 export {
   Section,
+  Skiplinks,
   type MakerUIOptions,
   type MenuItemProps,
 } from '@maker-ui/layout-server'
 
 /* Export the blended server + client Layout component */
-export { Layout } from './components'
+export { Layout, ResponsiveStyle } from './components'

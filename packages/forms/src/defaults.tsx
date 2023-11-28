@@ -1,5 +1,10 @@
 import * as React from 'react'
-import { ValidateIcon, ArrowIcon, CloseIcon } from './components/Icons'
+import {
+  ArrowIcon,
+  CloseIcon,
+  TrashIcon,
+  ReorderIcon,
+} from './components/Icons'
 import type { FormState } from '@/types'
 
 /**
@@ -7,19 +12,18 @@ import type { FormState } from '@/types'
  */
 export const initialState: Partial<FormState> = {
   settings: {
-    columns: 'repeat(2, 1fr)',
-    gap: 25,
     placeholderColor: '#b7b7b7',
     labelPosition: 'top-left',
     errorPosition: 'bottom-right',
     validateFieldOnBlur: true,
-    autoSave: false,
     pageTransition: 'fade',
     successTransition: 'fade',
     icons: {
       selectArrow: <ArrowIcon />,
       selectClose: <CloseIcon />,
-      validate: <ValidateIcon />,
+      remove: <TrashIcon />,
+      reorder: <ReorderIcon />,
+      add: <>Add</>,
       nextArrow: (
         <ArrowIcon
           className="icon-next"
@@ -38,7 +42,6 @@ export const initialState: Partial<FormState> = {
   totalPages: 1,
   errors: {},
   values: {},
-  conditions: {},
   touched: [],
   fields: [],
   schema: {},

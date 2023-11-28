@@ -1,10 +1,11 @@
 /* Config Variables
 / -------------------------------------------------- /
-/ --toast-gap
-/ --toast-padding-container
+/ --toast-container-gap
+/ --toast-container-padding
 / --toast-color
-/ --toast-background
+/ --toast-bg
 / --toast-padding
+/ --toast-border
 / --toast-border-radius
 / --toast-box-shadow
 / --toast-font-size
@@ -19,23 +20,23 @@
   display: grid;
   position: fixed;
   z-index: 1000;
-  gap: var(--toast-gap, 1vh);
+  gap: var(--toast-container-gap, 1vh);
 }
 
 .mkui-toast-container.top {
-  top: var(--toast-padding-container, 20px);
+  top: var(--toast-container-padding, 20px);
 }
 .mkui-toast-container.bottom {
-  bottom: var(--toast-padding-container, 20px);
+  bottom: var(--toast-container-padding, 20px);
 }
 .mkui-toast-container.center {
   inset-inline: 0px;
 }
 .mkui-toast-container.left {
-  left: var(--toast-padding-container, 20px);
+  left: var(--toast-container-padding, 20px);
 }
 .mkui-toast-container.right {
-  right: var(--toast-padding-container, 20px);
+  right: var(--toast-container-padding, 20px);
 }
 
 .mkui-toast {
@@ -50,7 +51,8 @@
   border-radius: var(--toast-border-radius, 2px);
   box-shadow: var(--toast-box-shadow);
   will-change: transform;
-  animation: toast-fade-in 0.3s ease,
+  animation:
+    toast-fade-in 0.3s ease,
     toast-fade-out 0.3s ease var(--toast-duration, 3s);
 }
 

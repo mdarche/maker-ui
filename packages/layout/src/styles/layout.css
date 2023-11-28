@@ -27,46 +27,89 @@
   position: relative;
 }
 
+.mkui-layout-init {
+  display: none;
+}
+
 .mkui-layout.content {
   display: block;
   max-width: var(--max-width-content, 100%);
   margin: 0 auto;
 }
 
-.mkui-layout.l-sb {
+.mkui-layout.panel {
   display: grid;
-  gap: var(--gap-content);
-  max-width: var(--max-width-content, 100%);
-  margin: 0 auto;
-  min-height: 80vh;
+  grid-template-columns: 1fr;
+  transition: grid-template-columns 0.3s ease-in-out;
 }
 
-.mkui-layout.l-sn {
-  display: inline-flex;
-  width: 100%;
+.mkui-panel {
+  transform: translateX(-100%);
+  position: fixed;
+  top: 0;
+  bottom: env(safe-area-inset-bottom);
+  z-index: 101;
+  transition:
+    transform 0.3s ease-in-out,
+    margin 0.3s ease-in-out;
 }
 
-.mkui-layout.l-sn main {
-  max-width: var(--max-width-content, 100%);
+.mkui-panel-inner {
+  position: sticky;
+  top: 0px;
+  height: 100vh;
+  position: sticky;
+  overflow-y: auto;
 }
 
-.mkui-layout.sidenav-content .mkui-sn {
+/* .mkui-panel.left .mkui-slot */
+.mkui-panel.left,
+.mkui-panel.left .mkui-slot {
+  width: var(
+    --width-mobile-left-panel,
+    var(--width-left-panel),
+    var(--width-panel)
+  );
+}
+
+.mkui-panel.left.active,
+.mkui-panel.right.active {
+  transform: translateX(0);
+}
+
+.mkui-panel.right,
+.mkui-panel.right .mkui-slot {
+  width: var(
+    --width-mobile-right-panel,
+    var(--width-right-panel),
+    var(--width-panel)
+  );
+}
+
+.mkui-panel.left {
+  transform: translateX(-100%);
+  background: var(--color-bg-panel-left);
+  border-right: var(--border-panel-left, var(--border-panel));
   left: 0;
 }
 
-.mkui-layout.content-sidenav .mkui-sn {
+.mkui-panel.right {
+  transform: translateX(100%);
+  background: var(--color-bg-panel-right);
+  border-left: var(--border-panel-right, var(--border-panel));
   right: 0;
 }
 
-.mkui-overlay-w {
-  background: var(--color-overlay-workspace, var(--color-overlay));
+.mkui-content-wrapper,
+main {
+  width: 100%;
 }
 
-.mkui-overlay-s {
-  background: var(--color-overlay-side-nav, var(--color-overlay));
+.mkui-overlay.o-layout {
+  background: var(--color-overlay-layout, var(--color-overlay));
 }
 
-.mkui-overlay-m {
+.mkui-overlay.o-mobile {
   background: var(--color-overlay-mobile-menu, var(--color-overlay));
 }
 

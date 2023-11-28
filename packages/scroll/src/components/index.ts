@@ -1,2 +1,3 @@
-export { ParallaxSection, type ParallaxSectionProps } from './Parallax'
-export { ScrollReveal, type ScrollRevealProps } from './ScrollReveal'
+export { ParallaxSection } from './ParallaxSection'
+export { Animate } from './Animate'
+export { ScrollBox } from './ScrollBox'

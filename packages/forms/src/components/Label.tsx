@@ -7,7 +7,20 @@ interface LabelProps {
   type: FieldProps['type']
   required?: FieldProps['required']
   symbol?: FormSettings['requiredSymbol']
+  className?: string
 }
+
+const divTypes = [
+  'checkbox',
+  'radio',
+  'switch',
+  'group',
+  'repeater',
+  'range',
+  'custom',
+  'date-picker',
+  'date-time-picker',
+]
 
 /**
  * Renders a label for a field. If the field is a checkbox or radio, the label
@@ -21,8 +34,7 @@ export const Label = ({
   type,
   required,
 }: LabelProps) => {
-  const isSwitch = type === 'switch'
-  const isGroup = type === 'checkbox' || type === 'radio' || isSwitch
+  const isDiv = divTypes.includes(type)
 
   const renderSymbol = () => {
     return symbol === true ? (
@@ -32,10 +44,8 @@ export const Label = ({
     )
   }
 
-  return isGroup ? (
-    <div
-      id={isSwitch ? `${name}-label` : `${name}-group`}
-      className="mkui-field-label">
+  return isDiv ? (
+    <div className="mkui-field-label">
       {children}
       {required && symbol && renderSymbol()}
     </div>

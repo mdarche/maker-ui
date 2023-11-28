@@ -116,3 +116,53 @@ export function isObjectEmpty(
   }
   return result
 }
+
+/**
+ * This function cleans an object by removing any key-value pairs
+ * where the value is null or undefined.
+ * If all key-value pairs are null or undefined, the function returns undefined.
+ *
+ * @param {Record<string, any>} obj - The object to be cleaned.
+ *
+ * @returns {Record<string, any> | undefined}
+ */
+export function cleanObject(
+  obj: Record<string, any>
+): Record<string, any> | undefined {
+  let cleanedObject: Record<string, any> = {}
+  let hasDefinedKeys = false
+
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] !== null && obj[key] !== undefined) {
+      cleanedObject[key] = obj[key]
+      hasDefinedKeys = true
+    }
+  })
+
+  return hasDefinedKeys ? cleanedObject : undefined
+}
+
+/**
+ * This function formats a number based on a provided template. If the value is a string,
+ * it's returned as is. If the value is a number, it's converted to a string and inserted
+ * into the template in place of the '%' character. If the value is neither a string nor a
+ * number, the function throws an error.
+ *
+ * @param {string | number} value - The value to be formatted. Can be a string or a number.
+ * @param {string} template - The template to use for formatting the number. This should
+ * include a '%' character where the number should be inserted. Default is `%px`.
+ *
+ * @returns {string} The formatted string.
+ *
+ * @throws {Error} Throws an error if the value is neither a string nor a number.
+ */
+export function formatNumber(value?: string | number, template = '%px') {
+  if (!value) return undefined
+  if (typeof value === 'string') {
+    return value
+  } else if (typeof value === 'number') {
+    return template.replace('%', value.toString())
+  } else {
+    throw new Error(`Invalid type for value: ${typeof value}`)
+  }
+}

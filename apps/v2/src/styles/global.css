@@ -1,0 +1,32 @@
+main {
+  height: 300vh;
+}
+
+header {
+  border-bottom: 1px solid var(--color-border_100);
+}
+
+button {
+  cursor: pointer;
+}
+
+.menu-primary {
+  padding: 0 20px 0 0;
+}
+
+.menu-primary li {
+  margin: 0 20px;
+}
+
+@keyframes mkui-toast-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--_travel-distance, 10px));
+  }
+}
+
+@keyframes mkui-toast-fade-out {
+  to {
+    opacity: 0;
+  }
+}

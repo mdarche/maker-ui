@@ -86,7 +86,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
         className={cn([
           'mkui-announcement flex align-center',
           styleID,
-          fixed ? 'fixed' : '',
+          fixed ? 'fixed' : undefined,
           className,
         ])}
         {...props}>
@@ -102,7 +102,6 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
           </div>
           {allowClose ? (
             typeof closeButton === 'function' ? (
-              // @ts-ignore
               closeButton(btnAttributes)
             ) : (
               <button {...btnAttributes}>{closeButton}</button>

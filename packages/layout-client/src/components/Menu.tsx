@@ -17,10 +17,10 @@ interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
 }
 
 /**
- * The `CollapseMenu` displays nested menus for navibation.
+ * The `Menu` displays nested menus for navibation.
  * Menu items with submenus will render a show/hide arrow button next to the item label.
  *
- * @link https://maker-ui.com/docs/layout/collapse-menu
+ * @link https://maker-ui.com/api-reference/layout/menu
  */
 export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
   (

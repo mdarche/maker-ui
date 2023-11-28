@@ -1,0 +1,98 @@
+.grid-menu {
+  display: inline-flex;
+  width: fit-content;
+  position: absolute;
+  top: -16px;
+  left: 0;
+  height: 32px;
+  background: var(--studio-primary, #6315ed);
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  color: #fff;
+  z-index: 1;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.grid-menu button {
+  border: none;
+  background: none;
+  padding: 3px 3px;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-menu svg {
+  fill: #fff;
+  height: 15px;
+}
+
+.layout-button-group {
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 3px 10px;
+}
+
+.btn-remove {
+  margin: 0 10px;
+}
+
+.btn-remove[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-drag {
+  width: 30px;
+  cursor: move !important;
+}
+
+.btn-title {
+  color: #fff;
+  font-size: 0.9em;
+  margin: 0 7px 0 10px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.btn-title svg {
+  margin-left: 10px;
+  height: 11px;
+}
+
+/* Delete Menu */
+
+.grid-actions {
+  position: absolute;
+  top: -16px;
+  right: 0;
+  transition: opacity 0.1s ease-in-out;
+  background: var(--studio-primary, #6315ed);
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  z-index: 1;
+}
+
+.grid-actions button {
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  height: 30px;
+  width: 33px;
+  color: #fff;
+}
+
+.grid-actions svg {
+  fill: #fff;
+  height: 14px;
+}
+
+.grid-actions .icon-hide {
+  height: 17px;
+}

@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { cn, Conditional } from '@maker-ui/utils'
 import { CSSTransition } from '@maker-ui/transition'
-import { type ResponsiveCSS, Style } from '@maker-ui/style'
 
-import { useForm } from '@/hooks'
-import { evaluateConditions, findAllValuesByKey, sortChildren } from '@/helpers'
+import { useForm } from '@/context'
+import { evaluateConditions, sortChildren, setVariable } from '@/helpers'
+import { Repeater } from './fields/Repeater'
 import { Field } from './Field'
 import type { FormProps } from './Form'
 import { Pagination } from './Pagination'
 import type { FieldProps } from '@/types'
+import { Label } from './Label'
 
 interface FormRendererProps
   extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
@@ -32,7 +33,7 @@ export const FormRenderer = ({
     error,
     values,
     success,
-    settings,
+    settings: s,
     submitCount,
     setSubmitCount,
     setIsSubmitting,
@@ -42,41 +43,51 @@ export const FormRenderer = ({
   } = useForm()
   const isPaginated = totalPages > 1
 
-  function getColumnStyles() {
-    const cols = [...new Set(findAllValuesByKey({ fields }, 'colSpan') || [])]
-    const full = '1 / -1'
-    if (cols.length) {
-      let css: { [key: string]: any } = {}
-      cols.forEach((c) => {
-        css[`.colspan-${c}`] = {
-          gridColumn: c ? [full, `span ${c}`] : full,
-        }
-      })
-      return css
-    }
-    return {}
-  }
-
-  const renderGroup = (p: FieldProps, i: number) => {
+  const renderField = (p: FieldProps, i: number) => {
     const shouldRender =
       !p.conditions || evaluateConditions(p.conditions, values, schema)
+    const isGroup = p?.type === 'group'
+    const isRepeater = p?.type === 'repeater'
+    const errorPos = p?.errorPosition || s.errorPosition
 
-    return p?.type === 'group' && p?.subFields && shouldRender ? (
+    return (isGroup || isRepeater) && p?.subFields && shouldRender ? (
       <div
         key={p?.name || i}
         className={cn([
-          'mkui-field-group',
+          `mkui-field-${p?.type}`,
           p?.className,
-          p?.colSpan ? 'colspan-' + p.colSpan : undefined,
-          settings?.classNames?.fieldGroup,
-        ])}>
-        {p?.label ?? null}
-        {p?.instructions ?? null}
-        <div className="mkui-form-grid">
-          {p.subFields?.map((p) => (
-            <Field key={p.name} {...p} />
-          ))}
-        </div>
+          'error-' + errorPos,
+          p?.colSpan ? 'has-colspan' : undefined,
+          s?.classNames?.fieldGroup,
+        ])}
+        style={setVariable(p?.colSpan)}>
+        {p?.label ? (
+          <Label
+            name={p.name}
+            type={p.type}
+            className={s?.classNames?.fieldLabel}
+            symbol={s?.requiredSymbol}>
+            {p.label}
+          </Label>
+        ) : null}
+        {p?.instructions ? (
+          <div
+            className={cn([
+              'mkui-field-instructions',
+              s?.classNames?.fieldInstructions,
+            ])}>
+            {p.instructions}
+          </div>
+        ) : null}
+        {isGroup ? (
+          <div
+            className="mkui-form-grid"
+            style={setVariable(p?.grid?.columns, 'col')}>
+            {p.subFields?.map((p) => <Field key={p.name} {...p} />)}
+          </div>
+        ) : (
+          <Repeater {...p} />
+        )}
       </div>
     ) : (
       <Field key={p.name} {...p} />
@@ -87,10 +98,7 @@ export const FormRenderer = ({
     <Conditional
       condition={!!components.success}
       trueWrapper={(c) => (
-        <CSSTransition
-          isSwitch
-          show={!!success}
-          type={settings?.successTransition}>
+        <CSSTransition isSwitch show={!!success} type={s?.successTransition}>
           {success ? components.success : c}
         </CSSTransition>
       )}>
@@ -105,26 +113,18 @@ export const FormRenderer = ({
             setIsSubmitting(true)
             onSubmit(values, { setIsSubmitting, resetForm, submitCount })
           }
-        }}>
-        <Style
-          root={formId}
-          breakpoints={settings?.breakpoints}
-          css={{
-            ...getColumnStyles(),
-            '.mkui-form-grid': {
-              gridTemplateColumns: [
-                '1fr',
-                `repeat(${settings?.columns}, 1fr)`,
-              ] || ['1fr', 'repeat(2, 1fr)'],
-              gap: settings?.gap || '1rem',
-            } as ResponsiveCSS,
-          }}
-        />
+        }}
+        style={
+          {
+            '--form-gap': s?.gap,
+            '--form-columns': s?.columns,
+          } as React.CSSProperties
+        }>
         {isPaginated && components.progress}
         {components.header}
         {isPaginated ? (
-          <CSSTransition show={currentPage} type={settings?.pageTransition}>
-            {fields?.map(({ label, subFields, className }, i) => (
+          <CSSTransition show={currentPage} type={s?.pageTransition}>
+            {fields?.map(({ label, grid, subFields, className }, i) => (
               <React.Fragment key={i}>
                 {currentPage === i + 1 ? (
                   <div
@@ -132,13 +132,15 @@ export const FormRenderer = ({
                       'mkui-form-page',
                       `page-${i + 1}`,
                       className,
-                      settings?.classNames?.page,
+                      s?.classNames?.page,
                     ])}>
                     {label && (
                       <div className="mkui-form-page-label">{label}</div>
                     )}
-                    <div className="mkui-form-grid">
-                      {subFields?.map((p) => renderGroup(p, i))}
+                    <div
+                      className="mkui-form-grid"
+                      style={setVariable(grid?.columns, 'col')}>
+                      {subFields?.map((p) => renderField(p, i))}
                     </div>
                   </div>
                 ) : null}
@@ -147,13 +149,12 @@ export const FormRenderer = ({
           </CSSTransition>
         ) : (
           <div className="mkui-form-grid">
-            {fields?.map((p, i) => renderGroup(p, i))}
+            {fields?.map((p, i) => renderField(p, i))}
           </div>
         )}
         {components.children?.map((child, i) => (
           <React.Fragment key={i}>{child}</React.Fragment>
         ))}
-
         {isPaginated ? (
           <Pagination submitButton={components.submit} />
         ) : (

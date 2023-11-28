@@ -9,7 +9,7 @@ export interface LightboxItem {
   /** The ID of the media content. */
   id?: string
   /** The source URL of the media content. */
-  src?: string
+  src?: string | React.ReactElement
   /** A blur image URL for Next Image, if applicable */
   blur?: string
   /** The alternative text description of the media content. */
@@ -84,4 +84,39 @@ export interface LightboxProps
   data?: LightboxItem[]
   /** Custom settings for the Lightbox modal. */
   settings?: LightboxSettings
+  /** Custom CSS variable declarations for the Lightbox modal. */
+  styles?: LightboxStyles
+}
+
+export interface LightboxStyles {
+  toolbar?: {
+    bg?: string
+    padding?: string | number
+    fill?: string
+    height?: string | number
+    bgActive?: string
+    fillActive?: string
+  }
+  pagination?: {
+    color?: string
+    fontSize?: string | number
+    fontFamily?: string
+    padding: string | number
+  }
+  arrow?: {
+    bg?: string
+    bgActive?: string
+    fill?: string
+    height?: string | number
+    border?: string
+    padding?: string | number
+  }
+  preview?: {
+    bg?: string
+    iconFill?: string
+    iconHeight?: string | number
+    imageHeight?: string | number
+    imageWidth?: string | number
+    gap?: string | number
+  }
 }

@@ -13,10 +13,11 @@ import {
   isDayOfWeekAvailable,
   moveToNextWeekday,
   type Dayjs,
+  WeekDay,
 } from './date-helpers'
 import type { DateTimePickerState } from './DateTimePicker'
 import { CalendarProps } from '@/types'
-import { useForm } from '@/hooks'
+import { useForm } from '@/context'
 
 interface CalendarState {
   selected?: Dayjs
@@ -415,8 +416,9 @@ export const Calendar = ({
           <div
             key={day}
             className={cn(['mkui-day-label', classNames?.dayName])}>
-            {/* @ts-ignore */}
-            {WEEK_DAYS[day]}
+            {Object.hasOwnProperty.call(WEEK_DAYS, day)
+              ? WEEK_DAYS[day as WeekDay]
+              : null}
           </div>
         ))}
         {getDates().map((d) => (

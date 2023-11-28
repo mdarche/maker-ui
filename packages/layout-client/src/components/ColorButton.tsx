@@ -1,9 +1,13 @@
 import * as React from 'react'
 import { cn } from '@maker-ui/utils'
-import { useColorTheme } from '../hooks'
+import { useTheme } from '../hooks'
+
+interface ThemeObject {
+  [themeName: string]: string | React.ReactElement
+}
 
 interface ColorProps extends React.HTMLAttributes<HTMLButtonElement> {
-  renderProps?: (currentMode?: string, attrs?: object) => React.ReactNode
+  themes?: ThemeObject
 }
 
 /**
@@ -14,18 +18,18 @@ interface ColorProps extends React.HTMLAttributes<HTMLButtonElement> {
  */
 export const ColorButton = ({
   className,
-  renderProps,
+  themes,
   children,
   ...props
 }: ColorProps) => {
-  const { current, themes, setColorTheme } = useColorTheme()
+  const { theme: current, options: themeList, setColorTheme } = useTheme()
 
   // Never render this component if themes are undefined
-  if (!themes || themes.length === 1) return null
+  if (!themeList || themeList.length === 1) return null
 
   const cycleMode = () => {
-    const i = themes.indexOf(current as string)
-    const next = themes[(i + 1) % themes.length]
+    const i = themeList.indexOf(current as string)
+    const next = themeList[(i + 1) % themeList.length]
 
     if (next) {
       setColorTheme(next)
@@ -39,12 +43,9 @@ export const ColorButton = ({
     onClick: cycleMode,
     ...props,
   }
+  const themeContent = themes && current && themes[current]
 
-  return renderProps ? (
-    <>{renderProps(current, attributes) as React.ReactNode}</>
-  ) : (
-    <button {...attributes}>{children ?? current}</button>
-  )
+  return <button {...attributes}>{themeContent ?? children ?? current}</button>
 }
 
 ColorButton.displayName = 'ColorButton'

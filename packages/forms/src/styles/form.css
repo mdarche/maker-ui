@@ -2,6 +2,7 @@
 / -------------------------------------------------- /
 / --form-gap
 / --form-columns
+/ --form-icon-fill
 / --form-placeholder-color
 / --form-error-color
 / --form-error-font-size
@@ -12,19 +13,40 @@
 / --form-instructions-color
 / --form-instructions-font-size
 / --form-instructions-padding
-/ --form-icon-fill
 / -------------------------------------------------- 
 */
 
 .mkui-form-grid {
   display: grid;
-  gap: var(--form-gap, 1rem);
-  grid-template-columns: var(--form-columns, 1fr);
+  gap: var(--form-gap, 25px);
+  grid-template-columns: 1fr;
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(var(--form-columns, 2), 1fr);
+  }
 }
 
+/* TODO - double check cascading on grid-column */
+.mkui-field-container {
+  display: flex;
+}
+
+.mkui-field-group,
+.mkui-field-repeater,
 .mkui-field-container {
   position: relative;
-  display: flex;
+  grid-column: 1 / -1;
+}
+
+.has-colspan {
+  @media screen and (min-width: 768px) {
+    grid-column: span var(--form-colspan, 1);
+  }
+}
+
+.mkui-form-divider {
+  grid-column: 1 / -1;
 }
 
 .form-safe input,
@@ -34,12 +56,6 @@
   opacity: 0;
   height: 0px;
   padding: 0px;
-}
-
-.mkui-field-container,
-.mkui-form-divider,
-.mkui-field-group {
-  grid-column: 1 / -1;
 }
 
 /* Placeholder */
@@ -71,16 +87,24 @@
 }
 .label-bottom-center .mkui-field-label,
 .label-top-center .mkui-field-label {
-  text-align: center;
+  justify-content: center;
 }
 .label-bottom-right .mkui-field-label,
 .label-top-right .mkui-field-label {
-  text-align: right;
+  justify-content: flex-end;
 }
 .label-left,
-.label-right input {
-  flex: auto;
+.label-right {
+  align-items: center;
 }
+.label-left input,
+.label-right input {
+  flex: 1;
+}
+.label-right .mkui-field-label {
+  order: 2;
+}
+
 /* Errors */
 
 .error .mkui-input,
@@ -154,20 +178,3 @@
 .mkui-form-submit {
   margin-top: var(--form-submit-margin-top, 2rem);
 }
-
-/* 
-  .validate-icon {
-    display: 'flex',
-    alignItems: 'center',
-    position: 'absolute',
-    right: 10,
-    top: 0,
-    bottom: 0,
-    opacity: 0,
-    visibility: 'hidden',
-    transition: 'all ease 0.2',
-    '&.valid': {
-      opacity: 1,
-      visibility: 'visible',
-    }
-  } */

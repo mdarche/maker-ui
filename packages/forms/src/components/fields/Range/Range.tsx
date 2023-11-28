@@ -6,7 +6,7 @@ import React, {
   ChangeEvent,
 } from 'react'
 import { merge, cn, generateId } from '@maker-ui/utils'
-import { useField, useForm } from '@/hooks'
+import { useField, useForm } from '@/context'
 import type { FieldInputProps, FieldProps } from '@/types'
 
 export const Range = ({ name }: FieldInputProps) => {

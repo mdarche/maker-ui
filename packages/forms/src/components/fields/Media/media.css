@@ -1,22 +1,29 @@
 /* Config variables
 / -------------------------------------------------- /
-/ --form-preview-size
-/ --form-preview-width
-/ --form-preview-height
+/ --form-upload-preview-size
+/ --form-upload-preview-width
+/ --form-upload-preview-height
 / --form-upload-icon-fill
 / --form-upload-icon-height
-/ --form-dropzone-border
-/ --form-dropzone-bg
-/ --form-dropzone-font-size
-/ --form-dropzone-width
-/ --form-dropzone-height
-/ --form-dropzone-size
+/ --form-upload-dropzone-border
+/ --form-upload-dropzone-border-radius
+/ --form-upload-dropzone-bg
+/ --form-upload-dropzone-font-size
+/ --form-upload-dropzone-width
+/ --form-upload-dropzone-height
+/ --form-upload-dropzone-size
 / --------------------------------------------------
 */
 
 .mkui-preview {
-  width: var(--form-preview-size, var(--form-preview-width, 150px));
-  height: var(--form-preview-size, var(--form-preview-height, 150px));
+  width: var(
+    --form-upload-preview-size,
+    var(--form-upload-preview-width, 150px)
+  );
+  height: var(
+    --form-upload-preview-size,
+    var(--form-upload-preview-height, 150px)
+  );
 }
 
 .mkui-image-picker img {
@@ -31,7 +38,9 @@
   border: none;
   background-color: transparent;
   opacity: 0;
-  transition: background-color ease 0.3s, opacity ease 0.3s;
+  transition:
+    background-color ease 0.3s,
+    opacity ease 0.3s;
 }
 
 .mkui-preview-area .mkui-drag-area svg {
@@ -61,8 +70,9 @@
 
 .mkui-drag-area {
   padding: 10px;
-  border: var(--form-dropzone-border, 2px dashed #ddd);
-  background: var(--form-dropzone-bg, #f5f5f5);
+  border: var(--form-upload-dropzone-border, 2px dashed #ddd);
+  border-radius: var(--form-upload-dropzone-border-radius, 0px);
+  background: var(--form-upload-dropzone-bg, #f5f5f5);
   transition: background ease 0.3s;
 }
 
@@ -71,9 +81,15 @@
 }
 
 .mkui-dropzone:not(.custom) {
-  font-size: var(--form-dropzone-font-size, 0.8rem);
-  width: var(--form-dropzone-width, var(--form-dropzone-size, 150px));
-  height: var(--form-dropzone-height, var(--form-dropzone-size, 150px));
+  font-size: var(--form-upload-dropzone-font-size, 0.8rem);
+  width: var(
+    --form-upload-dropzone-width,
+    var(--form-upload-dropzone-size, 150px)
+  );
+  height: var(
+    --form-upload-dropzone-height,
+    var(--form-upload-dropzone-size, 150px)
+  );
 }
 
 .mkui-dropzone-overlay {

@@ -1,17 +1,6 @@
 import type { MakerCSS } from '@maker-ui/style'
 import type { ImageProps } from 'next/image'
 
-/** All configurations for `<Content>` layouts. */
-export const contentTypes = [
-  'content-sidebar',
-  'content-sidenav',
-  'content',
-  'sidebar-content',
-  'sidebar-content-sidebar',
-  'sidenav-content',
-  'workspace',
-] as const
-
 /** All configurations for `<Navbar>` layouts. */
 export const navTypes = [
   'basic',
@@ -84,15 +73,26 @@ export interface HeaderOptions {
   /** The breakpoint where the header navigation collapses to its mobile state
    * @default 960
    */
-  breakpoint: string | number
+  breakpoint: number
   /** Desktop navigation type
    * @default basic
    */
-  navType: typeof navTypes[number]
+  template: (typeof navTypes)[number]
   /** Mobile navigation type
    * @default basic
    */
-  navTypeMobile: typeof mobileNavTypes[number]
+  templateMobile: (typeof mobileNavTypes)[number]
+  grid?: {
+    // TODO
+    areas?: string
+    columns?: string
+    rows?: string
+  }
+  mobileGrid?: {
+    // TODO
+    areas?: string
+    columns?: string
+  }
   /** If true, the header will use absolute and fixed positioning instead of the default
    * relative and sticky positioning. This is useful if you want to show content behind the header
    * like a hero image or video.
@@ -136,7 +136,7 @@ export interface MobileMenuOptions {
   /** The MobileMenu's entrance / exit transition
    * @default fade
    */
-  transition: typeof transitionTypes[number]
+  transition: (typeof transitionTypes)[number]
   /** If true, the menuButton will display on desktop, regardless of header type.
    * @default false
    */
@@ -158,73 +158,8 @@ export interface MobileMenuOptions {
   closeButton?: React.ReactNode | LayoutButtonProps
   /** An optional array of MenuItems that will be rendered as a Menu. */
   menu?: MenuItemProps[]
-}
-
-export interface SideNavOptions {
-  /** The breakpoints where the SideNav collapses into its mobile form
-   * @default 960
-   */
-  breakpoint: string | number
-  /** If true, the SideNav will be wrapped in a `<header>` tag. Only use this
-   * if the SideNav is used for your primary navigation.
-   * @default false
-   */
-  isHeader: boolean
-  /** If true, all instances of the mobile-menu MenuButton will be used to toggle the
-   * SideNav instead of the MobileMenu.
-   * @default false
-   */
-  isPrimaryMobileNav: boolean
-  /** If true, the SideNav will also render an overlay that can be used to escape the menu on
-   * mobile devices.
-   * @default true
-   */
-  closeOnBlur: boolean
-  /** If true, the SideNav will dismiss itself after navigating to a new page route.
-   * @default true
-   */
-  closeOnRouteChange: boolean
-  /** If true, the SideNav will be collapsible on desktop devices using the `menuButton` prop.
-   * @default false
-   */
-  collapse: boolean
-  /** If true, the menuButton prop will be visible on mobile devices.
-   * @default true
-   */
-  showCollapseOnMobile: boolean
-  /** Renders a custom button that controls the SideNav. */
-  menuButton?: React.ReactNode | LayoutButtonProps
-  /** Quick access to the CSS transition property that controls the SideNav's exit / entrance
-   * animation.
-   * @default 'margin ease 0.3s, transform ease 0.3s'
-   */
-  cssTransition?: string
-}
-
-export interface WorkspaceOptions {
-  /** The breakpoint where the header navigation collapses to its mobile state
-   * @default 960
-   */
-  breakpoint: string | number
-  /** If true, the center panel will be rendered as a `main` element instead of a `div`.
-   * @default true
-   */
-  main: boolean
-  /** If true, the workspace layout will render an overlay on mobile that can be used to
-   * collapse any active workspace panels.
-   * @default true
-   */
-  closeOnBlur: boolean
-  defaultOpen?: {
-    left?: boolean
-    right?: boolean
-  }
-  leftPanel?: React.ReactNode
-  rightPanel?: React.ReactNode
-  menuButtons?: {
-    left?: React.ReactNode | LayoutButtonProps
-    right?: React.ReactNode | LayoutButtonProps
-  }
+  /** Allows you to set a panel as the primary menu */
+  panelMenu?: 'left' | 'right'
 }
 
 /**
@@ -234,8 +169,6 @@ export interface WorkspaceOptions {
  *
  */
 export interface Options {
-  // Can be applied as root props
-  layout: typeof contentTypes[number]
   /**
    * Replaces the default Maker UI skiplinks with your own custom on-page links.
    * You don't need to add `#` to your id selectors:
@@ -252,13 +185,23 @@ export interface Options {
   topbar: TopbarOptions
   header: HeaderOptions
   mobileMenu: MobileMenuOptions
-  sideNav: SideNavOptions
   content: {
     /** The breakpoint at which main and sidebar layouts break down into a single column
      * for mobile. */
-    breakpoint: string | number
+    breakpoint: number
+    sidebar?: 'left' | 'right'
   }
-  workspace: WorkspaceOptions
+  leftPanel?: PanelOptions
+  rightPanel?: PanelOptions
+}
+
+export interface PanelOptions {
+  isHeader?: boolean
+  primaryMobileNav?: boolean
+  defaultOpen?: boolean
+  collapseWidth?: number
+  closeOnRouteChange?: boolean
+  menuButton?: React.ReactNode | LayoutButtonProps
 }
 
 export interface MenuItemProps {
@@ -296,13 +239,14 @@ export interface LayoutButtonProps extends MakerCSS {
   /** An aria-label for improved accessibility */
   label?: string
   /** The menu that this button controls. */
-  type?: 'mobile-menu' | 'side-nav' | 'ws-left' | 'ws-right'
+  type?: 'mobile-menu' | 'left-panel' | 'right-panel'
   /** An optional default icon that you can use instead of providing your own. */
   defaultIcon?: 'menu' | 'close'
+  className?: string
   /** An optional class selector for when the content it controls is considered active.
    * @default active
    */
-  activeClass?: string
+  activeClassName?: string
   /** If true, the button will have fixed positioning */
   fixed?: boolean
   /** If true, the button will have absolute positioning */

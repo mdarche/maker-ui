@@ -4,8 +4,10 @@
   "compilerOptions": {
     "jsx": "react",
     "baseUrl": ".",
+    "target": "ESNext",
     "paths": {
       "@/fields": ["src/components/fields/index.ts"],
+      "@/context": ["src/context/index.ts"],
       "@/icons": ["src/components/Icons.tsx"],
       "@/components": ["src/components/index.ts"],
       "@/helpers": ["src/helpers/index.ts"],

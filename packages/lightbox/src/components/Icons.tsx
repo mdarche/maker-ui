@@ -1,16 +1,13 @@
 import * as React from 'react'
 
 export const DefaultArrow = (props: React.HTMLAttributes<SVGElement>) => (
-  <svg
-    style={{ height: 30, fill: '#fff', ...(props.style as object) }}
-    {...props}
-    viewBox="0 0 39 70">
+  <svg style={props.style as object} {...props} viewBox="0 0 39 70">
     <path d="M1.24 7.27L28.63 35.2 1.22 63.15a4.27 4.27 0 000 6 4.27 4.27 0 006.07 0l30.38-30.96a4.28 4.28 0 000-6L7.35 1.28a4.28 4.28 0 00-6.08 0 4.28 4.28 0 00-.03 5.99z" />
   </svg>
 )
 
 export const PlayIcon = (props: React.HTMLAttributes<SVGElement>) => (
-  <svg {...props} viewBox="0 0 24 24">
+  <svg className="icon-play" {...props} viewBox="0 0 24 24">
     <path d="M8 5v14l11-7z" />
     <path d="M0 0h24v24H0z" fill="none" />
   </svg>

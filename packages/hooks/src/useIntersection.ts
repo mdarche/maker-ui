@@ -1,3 +1,4 @@
+import { formatNumber } from '@maker-ui/utils'
 import React, { useState, useEffect } from 'react'
 
 interface IntersectionSettings {
@@ -45,7 +46,7 @@ export const useIntersection = ({
       }
     }
 
-    const rootMargin = typeof offset === 'number' ? `${offset}px` : offset
+    const rootMargin = formatNumber(offset)
     const observer = new IntersectionObserver(callback, {
       rootMargin,
       root: root?.current,

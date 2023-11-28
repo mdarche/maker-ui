@@ -20,6 +20,11 @@
       "require": "./dist/carousel.js",
       "types": "./dist/carousel.d.ts"
     },
+    "./data": {
+      "import": "./dist/data.mjs",
+      "require": "./dist/data.js",
+      "types": "./dist/data.d.ts"
+    },
     "./forms": {
       "import": "./dist/forms.mjs",
       "require": "./dist/forms.js",
@@ -55,6 +60,11 @@
       "require": "./dist/popovers.js",
       "types": "./dist/popovers.d.ts"
     },
+    "./scroll": {
+      "import": "./dist/scroll.mjs",
+      "require": "./dist/scroll.js",
+      "types": "./dist/scroll.d.ts"
+    },
     "./social": {
       "import": "./dist/social.mjs",
       "require": "./dist/social.js",
@@ -80,22 +90,27 @@
       "require": "./dist/utils.js",
       "types": "./dist/utils.d.ts"
     },
-    "./layout.css": "./node_modules/@maker-ui/layout/dist/index.css",
-    "./forms.css": "./node_modules/@maker-ui/forms/dist/index.css",
-    "./lightbox.css": "./node_modules/@maker-ui/lightbox/dist/index.css",
-    "./toast.css": "./node_modules/@maker-ui/notifications/dist/index.css",
-    "./carousel.css": "./node_modules/@maker-ui/carousel/dist/index.css",
+    "./accordion.css": "./dist/accordion.css",
+    "./carousel.css": "./dist/carousel.css",
+    "./data.css": "./dist/data.css",
+    "./forms.css": "./dist/forms.css",
+    "./layout.css": "./dist/layout.css",
+    "./lightbox.css": "./dist/lightbox.css",
+    "./notifications.css": "./dist/notifications.css",
+    "./popovers.css": "./dist/popovers.css",
+    "./scroll.css": "./dist/scroll.css",
+    "./tabs.css": "./dist/tabs.css",
     "./package.json": "./package.json"
   },
   "scripts": {
     "build": "tsup",
     "start": "tsup --watch",
-    "lint": "TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
     "@maker-ui/accordion": "workspace:*",
     "@maker-ui/carousel": "workspace:*",
+    "@maker-ui/data": "workspace:*",
     "@maker-ui/forms": "workspace:*",
     "@maker-ui/hooks": "workspace:*",
     "@maker-ui/layout": "workspace:*",
@@ -103,6 +118,7 @@
     "@maker-ui/modal": "workspace:*",
     "@maker-ui/notifications": "workspace:*",
     "@maker-ui/popovers": "workspace:*",
+    "@maker-ui/scroll": "workspace:*",
     "@maker-ui/social": "workspace:*",
     "@maker-ui/spinners": "workspace:*",
     "@maker-ui/style": "workspace:*",
@@ -112,13 +128,11 @@
   },
   "peerDependencies": {
     "next": "^13.x",
-    "react": "^17.x || ^18.x",
-    "react-dom": "^17.x || ^18.x"
+    "react": "^18.x",
+    "react-dom": "^18.x"
   },
   "devDependencies": {
     "@maker-ui/build-tools": "workspace:*",
-    "tsconfig": "workspace:*",
-    "tsup": "^6.6.3",
-    "typescript": "^4.8.4"
+    "tsconfig": "workspace:*"
   }
 }

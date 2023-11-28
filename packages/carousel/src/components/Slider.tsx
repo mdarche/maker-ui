@@ -1,5 +1,4 @@
 import React, { useState, type MouseEvent, type TouchEvent } from 'react'
-import { useResizeObserver } from '@maker-ui/hooks'
 import { cn } from '@maker-ui/utils'
 import { type SlideItem, SlideDirection, type CarouselClasses } from '@/types'
 import { getPageX } from '@/helpers'
@@ -8,7 +7,7 @@ export interface SliderProps {
   items: SlideItem[]
   show: number
   slide: number
-  widthCallBack: (width: number) => void
+  width?: number
   dragCallback: (transform: number) => void
   slideCallback: (direction: SlideDirection) => void
   transition: number
@@ -22,18 +21,7 @@ export interface SliderProps {
   classNames: CarouselClasses | null
 }
 
-export const Slider = (props: SliderProps) => {
-  const [width, setWidth] = useState(200)
-  const { ref } = useResizeObserver<HTMLDivElement>({
-    onResize: ({ width: w }) => {
-      if (w) {
-        const calcWidth = w / props.show
-        setWidth(calcWidth)
-        props.widthCallBack(calcWidth)
-      }
-    },
-  })
-
+export const Slider = ({ width = 0, ...props }: SliderProps) => {
   const [drag, setDrag] = useState({
     initial: props.transform,
     start: 0,
@@ -42,6 +30,7 @@ export const Slider = (props: SliderProps) => {
     finished: true,
     pointers: true,
   })
+
   const handleDragStart = (e: MouseEvent | TouchEvent) => {
     e.persist()
     setDrag({
@@ -101,7 +90,7 @@ export const Slider = (props: SliderProps) => {
     : {}
 
   return (
-    <div ref={ref} className={cn(['mkui-slider', props?.classNames?.slider])}>
+    <div className={cn(['mkui-slider', props?.classNames?.slider])}>
       <div
         className={cn(['mkui-slide-track'])}
         data-cy="slide-track"
@@ -115,7 +104,10 @@ export const Slider = (props: SliderProps) => {
           <div
             key={i}
             className={cn(['mkui-slide', props?.classNames?.slide])}
-            style={{ width, pointerEvents: drag.pointers ? 'all' : 'none' }}>
+            style={{
+              width: width / props.show,
+              pointerEvents: drag.pointers ? 'all' : 'none',
+            }}>
             {item}
           </div>
         ))}

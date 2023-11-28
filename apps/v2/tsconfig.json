@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -14,6 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["jest", "cypress"],
     "plugins": [
       {
         "name": "next"
@@ -21,17 +22,19 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/client": ["components/client"],
-      "@/public/*": ["public/*"],
-      "@/styles/*": ["styles/*"]
+      "@/*": ["./src/*"],
+      "@/components": ["./src/components"],
+      "@/context": ["src/components/context"],
+      "@/images/*": ["public/images/*"],
+      "@/styles/*": ["./src/styles/*"]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "next.config.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../cypress.d.ts"
   ],
   "exclude": ["node_modules"]
 }

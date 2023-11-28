@@ -1,0 +1,269 @@
+// Navbar
+
+header {
+  backdrop-filter: saturate(180%) blur(5px);
+  padding: 0 10px 0 15px;
+
+  nav,
+  .mkui-menu {
+    margin: 0;
+  }
+
+  li {
+    margin: 0;
+    // background: hsl(0deg 0% 100% / 30%);
+    padding: 5px 20px;
+    align-items: center;
+
+    a {
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      color: var(--color-text);
+      opacity: 0.7;
+      transition: opacity ease 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+
+    svg {
+      height: 15px;
+      width: 18px;
+      margin-right: 8px;
+      fill: var(--color-text);
+    }
+  }
+
+  .icon-guide {
+    height: 14px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 0 20px;
+  }
+}
+
+.logo-slot a {
+  font-size: 22px;
+  letter-spacing: 1.2px;
+  color: var(--color-text);
+
+  @media screen and (min-width: 768px) {
+    font-size: 26px;
+    margin: 0 60px;
+  }
+}
+
+// Sidenav
+
+.mkui-sn {
+  .mkui-menu {
+    padding: 20px 20px 30px 10px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .has-submenu > div {
+    justify-content: space-between;
+  }
+
+  .submenu {
+    border-left: 1px solid var(--color-border-100);
+  }
+
+  li {
+    margin: 15px 0 15px 5px;
+    padding-left: 20px;
+    font-size: 15px;
+
+    a {
+      color: var(--color-text);
+      opacity: 0.7;
+      transition: opacity ease 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &.current {
+        color: var(--color-primary);
+        opacity: 1;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .nav-bold,
+  .nav-heading {
+    font-weight: 700;
+  }
+
+  .nav-heading {
+    margin-left: -5px;
+    opacity: 0.7;
+  }
+}
+
+// Reference Page Layout
+
+.mkui-ref-layout {
+  padding: 40px 20px 30px;
+
+  h1 {
+    margin: 0 0 20px;
+    line-height: 1.2;
+  }
+
+  h2,
+  h3 {
+    margin-top: 30px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 50px 20px 70px;
+
+    h2,
+    h3 {
+      margin-top: 50px;
+    }
+  }
+}
+
+.ref-meta {
+  margin-bottom: 30px;
+}
+
+.ref-type {
+  color: var(--color-pink);
+  border: 1px solid;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  padding: 10px 10px 8px;
+  height: 34px;
+  margin-right: 10px;
+
+  @media screen and (min-width: 768px) {
+    padding: 9px 10px 8px;
+    font-size: 12px;
+  }
+}
+
+.ref-lib {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  background: var(--color-text);
+  color: var(--color-background);
+  padding-left: 10px;
+  border: 1px solid var(--color-text);
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 12px;
+
+  .size {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background: var(--color-background);
+    color: var(--color-text);
+    margin-left: 10px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+    font-weight: 400;
+  }
+
+  @media screen and (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+.mkui-mdx h1:last-of-type {
+  display: none;
+}
+
+.mdx-container {
+  max-width: var(--max-width-section);
+  margin: 0 auto;
+
+  a {
+    color: var(--color-primary);
+  }
+
+  h2,
+  h3 {
+    text-decoration: none;
+
+    &:hover .h-icon {
+      color: var(--color-primary);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    span {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    a {
+      color: var(--color-text);
+    }
+  }
+
+  p code {
+    background: var(--color-gray-100);
+    color: var(--color-secondary);
+    padding: 2px 5px;
+  }
+
+  h2::before,
+  h3::before {
+    content: '';
+    display: block;
+    height: calc(var(--height-header) + 20px);
+    margin-top: calc(-1 * calc((var(--height-header)) + 20px));
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .h-icon {
+    margin-left: 10px;
+    transition: opacity ease 0.3s;
+  }
+}
+
+.mdx-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0 auto;
+  gap: 40px;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: auto 250px;
+  }
+}
+
+.demo-section {
+  h2 {
+    border-bottom: 1px solid var(--color-border-100);
+    padding-bottom: 20px;
+
+    @media screen and (min-width: 768px) {
+      margin-bottom: 40px;
+    }
+  }
+}

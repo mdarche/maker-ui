@@ -15,6 +15,27 @@ export interface CarouselClasses {
   arrow?: string
 }
 
+export interface CarouselStyles {
+  arrow?: {
+    fill?: string
+    height?: string
+    bg?: string
+    border?: string
+  }
+  dot?: {
+    bg?: string
+    bgActive?: string
+    height?: string
+    width?: string
+    borderRadius?: string
+    margin?: string
+    padding?: string
+  }
+  overlay?: {
+    bg?: string
+  }
+}
+
 export type SlideItem = React.ReactElement
 
 export interface CarouselProps {
@@ -116,4 +137,6 @@ export interface CarouselProps {
       )}>...
    */
   navigation?: (selected: boolean, attributes: object) => React.ReactElement
+  /** Easy access to local CSS variables for common Carousel style customizations. */
+  styles?: CarouselStyles
 }

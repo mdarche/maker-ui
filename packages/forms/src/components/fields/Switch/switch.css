@@ -3,8 +3,8 @@
 / --form-switch-bg
 / --form-switch-bg-active
 / --form-switch-border-radius
-/ --form-switch-color-label
-/ --form-switch-color-label-active
+/ --form-switch-label-color
+/ --form-switch-label-color-active
 / --form-switch-height
 / --form-switch-padding
 / --------------------------------------------------
@@ -45,14 +45,14 @@
 }
 
 .mkui-switch-label span {
-  color: var(--form-switch-color-label, var(--color-text));
+  color: var(--form-switch-label-color, var(--color-text));
   width: 50%;
   overflow: hidden;
   text-align: center;
 }
 
 .mkui-switch-label.active span {
-  color: var(--form-switch-color-label-active, var(--color-background));
+  color: var(--form-switch\label-color-active, var(--color-background));
 }
 
 .mkui-switch-slider {

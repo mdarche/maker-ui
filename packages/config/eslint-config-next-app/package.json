@@ -1,0 +1,11 @@
+{
+  "name": "eslint-config-next-app",
+  "main": "index.js",
+  "version": "1.0.0",
+  "dependencies": {
+    "eslint-config-next": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-react": "latest",
+    "eslint-config-turbo": "latest"
+  }
+}

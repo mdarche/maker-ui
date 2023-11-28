@@ -9,13 +9,16 @@ import { Toolbar } from './Toolbar'
 import { Preview } from './Preview'
 import { useLightbox } from './Provider'
 import { MediaFrame } from './MediaFrame'
+import { cssVariables } from '../variables'
+import type { LightboxStyles } from '@/types'
 
 interface LightboxModalProps
   extends React.HTMLAttributes<HTMLDivElement>,
     MakerCSS {
   focusRef?: any
   show?: boolean
-  background?: string | string
+  background?: string
+  styles?: LightboxStyles
 }
 /**
  * The `LightboxModal` houses all views for the Lightbox component.
@@ -30,6 +33,7 @@ export const LightboxModal = ({
   background = 'rgba(0, 0, 0, 0.8)',
   children,
   css,
+  styles,
   breakpoints,
   ...props
 }: LightboxModalProps) => {
@@ -39,6 +43,7 @@ export const LightboxModal = ({
   const [preview, setPreview] = useState(false)
   const [controlsActive, setControlsActive] = useState(true)
   const item = data[index]
+  const variables = cssVariables(styles)
 
   /**
    * Handle autoPlay controls
@@ -117,33 +122,33 @@ export const LightboxModal = ({
       ? setControlsActive(true)
       : undefined
 
+  const toolbarBg = 'var(--lbx-toolbar-bg, rgba(0, 0, 0, 0.25))'
   return (
     <>
       {children}
       <Style
+        id="mkui-lbx-styles"
         breakpoints={breakpoints}
         css={merge(
           {
-            '.mkui-lightbox-canvas': {
+            '.mkui-lbx-canvas': {
               maxHeight: ['68vh', '88vh'],
               maxWidth: ['90vw', '75vw'],
             },
-            '.with-info .mkui-lightbox-media': {
+            '.with-info .mkui-lbx-media': {
               height: ['calc(100% - 100px)', 'calc(100% - 50px)'],
             },
-            '.mkui-lightbox-toolbar': {
-              background: ['rgba(0, 0, 0, 0.25)', 'transparent'],
+            '.mkui-lbx-toolbar': {
+              background: [toolbarBg, 'transparent'],
             },
-            '.mkui-lightbox-pagination': {
-              background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
+            '.mkui-lbx-pagination': {
+              background: ['transparent', toolbarBg],
             },
-            '.mkui-lightbox-btn-group': {
-              background: ['transparent', 'rgba(0, 0, 0, 0.25)'],
+            '.mkui-lbx-btn-group': {
+              background: ['transparent', toolbarBg],
             },
-            '.mkui-lightbox-btn-nav': {
-              padding: ['20px 40px', '20px'],
+            '.mkui-lbx-btn-nav': {
               width: ['calc(50% - 15px)', 'auto'],
-              height: ['auto', '10vh'],
               top: ['initial', '50%'],
               bottom: ['10px', 'initial'],
               '&.prev': {
@@ -167,12 +172,19 @@ export const LightboxModal = ({
         focusRef={focusRef}
         background={background}
         closeOnBlur={settings.closeOnBlur}
-        className={cn(['mkui-lightbox', className])}
+        focusSettings={{
+          trapVisibleOnly: true,
+          triggerFocusCheck: preview,
+          triggerFocusDelay: 350,
+        }}
+        duration={250}
+        className={cn(['mkui-lbx', className])}
         {...props}>
         <div
           onMouseEnter={showControls}
+          style={variables}
           className={cn([
-            'mkui-lightbox-controls',
+            'mkui-lbx-controls',
             controlsActive ? 'visible' : 'hidden',
           ])}>
           <Toolbar
@@ -181,7 +193,7 @@ export const LightboxModal = ({
           />
           {data.length > 1 ? (
             <>
-              <div className="mkui-lightbox-navigation">
+              <div className="mkui-lbx-navigation">
                 <NavButton type="prev" />
                 <NavButton type="next" />
               </div>
@@ -192,22 +204,17 @@ export const LightboxModal = ({
         {data.length ? (
           <div
             className={cn([
-              'mkui-lightbox-canvas',
+              'mkui-lbx-canvas',
               settings?.showInfo ? 'with-info' : undefined,
             ])}>
             <Spinner
-              className="mkui-lightbox-spinner"
+              className="mkui-lbx-spinner"
               type={settings.spinnerType}
-              colors={['#fff', '#fff', '#fff']}
-              size={50}
+              colors="#fff"
             />
-            <MediaFrame
-              index={index}
-              item={item}
-              nextImage={settings.nextImage}
-            />
+            <MediaFrame index={index} item={item} />
             {settings.showInfo && item.title && (
-              <div className="mkui-lightbox-info">
+              <div className="mkui-lbx-info">
                 <h4>{item.title}</h4>
                 {item.description && (
                   <div className="description">{item.description}</div>

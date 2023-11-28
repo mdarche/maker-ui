@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { cn, merge } from '@maker-ui/utils'
-import { useField, useForm } from '@/hooks'
+import { useField, useForm } from '@/context'
 import { FieldInputProps, FieldProps, InputOption } from '@/types'
 import {
   addIndexToOptions,
@@ -25,8 +25,10 @@ const defaultSettings: FieldProps['select'] = {
  * @note The `initialValue` must be InputOption or InputOption[]
  */
 export const Select = ({ name }: FieldInputProps) => {
-  const { resetCount, settings: { validateFieldOnBlur, icons } = {} } =
-    useForm()
+  const {
+    resetCount,
+    settings: { validateFieldOnBlur, icons, classNames: c } = {},
+  } = useForm()
   const { field, error, value, setValue, validateField } = useField(name)
   const ref = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -226,30 +228,33 @@ export const Select = ({ name }: FieldInputProps) => {
    * Handle click outside of the select component
    */
   useEffect(() => {
+    if (!validateFieldOnBlur) return
     const handleClickOutside = (event: MouseEvent) => {
-      // Handle blur validation
-      if (state.touched && validateFieldOnBlur) {
-        validateField()
-      }
-      if (settings.hideOnBlur) {
-        if (ref.current && !ref.current.contains(event.target as Node)) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        if (state.touched && validateFieldOnBlur) {
+          validateField()
+        }
+
+        if (settings.hideOnBlur) {
           setState((s) => ({ ...s, isOpen: false }))
         }
       }
     }
+
     document.addEventListener('click', handleClickOutside)
+
+    // Cleanup event listener
     return () => document.removeEventListener('click', handleClickOutside)
   }, [
-    ref,
-    settings.hideOnBlur,
     state.touched,
     validateField,
     validateFieldOnBlur,
+    name,
+    settings.hideOnBlur,
   ])
 
   return (
     <div
-      id={`field-${name}`}
       ref={ref}
       className={cn([
         'mkui-select',
@@ -277,6 +282,7 @@ export const Select = ({ name }: FieldInputProps) => {
           ))}
           {settings?.search || settings?.creatable ? (
             <input
+              id={`field-${name}`}
               ref={inputRef}
               className={cn(['mkui-select-search', classNames?.search])}
               type="text"
@@ -375,7 +381,7 @@ export const Select = ({ name }: FieldInputProps) => {
                   value: state.searchText,
                 })
               }>
-              Create "{state.searchText}" <span>[Enter]</span>
+              Create "{state.searchText}"
             </button>
           ) : (
             <div className="mkui-select-option flex justify-center">
@@ -383,6 +389,9 @@ export const Select = ({ name }: FieldInputProps) => {
             </div>
           )}
         </div>
+      )}
+      {error && (
+        <div className={cn(['mkui-field-error', c?.fieldError])}>{error}</div>
       )}
     </div>
   )

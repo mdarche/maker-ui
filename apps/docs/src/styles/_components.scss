@@ -1,0 +1,321 @@
+// Nav Widgets
+
+.mkui-nav-widgets {
+  .btn-github svg {
+    height: 22px;
+    fill: var(--color-text);
+  }
+
+  .mkui-btn-color {
+    background: none;
+    border: none;
+    margin-left: 30px;
+
+    svg {
+      fill: var(--color-text);
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  &.shared {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+
+    @media screen and (min-width: 768px) {
+      padding: 0;
+      display: none;
+    }
+  }
+
+  &.desktop {
+    display: none;
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+    }
+  }
+}
+
+// Code blocks
+
+div[data-rehype-pretty-code-fragment] {
+  position: relative;
+  margin: 30px 0;
+}
+
+code {
+  font-size: 13px;
+}
+
+.mkui-code-block {
+  width: 100%;
+  display: grid;
+  border-radius: 4px;
+  max-width: calc(100vw - 40px);
+  overflow-x: scroll;
+
+  pre > code {
+    display: grid;
+  }
+
+  pre {
+    margin: 0;
+  }
+
+  code {
+    padding: 50px 20px 20px;
+    line-height: 1.7;
+    font-size: 12px;
+  }
+
+  @media screen and (min-width: 768px) {
+    code {
+      padding: 60px 30px 30px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+  }
+}
+
+.mkui-code-util {
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+  .copy button {
+    border: none;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  pre[data-theme='light'],
+  code[data-theme='light'] {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+  pre[data-theme='dark'],
+  code[data-theme='dark'] {
+    display: none;
+  }
+}
+
+// Page Contents
+
+.page-contents {
+  display: none;
+  padding-top: 30px;
+
+  h5 {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0 0 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-border-100);
+
+    svg {
+      fill: var(--color-text);
+      height: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  ul {
+    margin: 0 0 0 10px;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 10px 0;
+    opacity: 0.7;
+    transition: opacity ease 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  a {
+    font-size: 15px;
+    color: var(--color-text);
+  }
+
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
+}
+
+.edit-github {
+  margin-top: 25px;
+  padding: 20px 10px;
+  border-top: 1px solid var(--color-border-100);
+  opacity: 0.7;
+  transition: opacity ease 0.2s;
+
+  svg {
+    height: 10px;
+    margin-left: 10px;
+    fill: var(--color-text);
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.page-contents-inner {
+  position: sticky;
+  top: calc(var(--height-header) + 30px);
+
+  .active {
+    opacity: 1;
+    font-weight: 700;
+  }
+}
+
+// Doc Search
+
+.doc-search {
+  margin-right: 10px;
+
+  button {
+    height: 40px;
+    margin: 5px 0;
+    width: auto;
+    background: var(--color-bg-sidenav);
+    border: 1px solid var(--color-border-100);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    color: var(--color-muted);
+    font-weight: 400;
+    padding: 0 10px;
+    // transition: all ease 0.3s;
+
+    svg {
+      height: 22px;
+      fill: var(--color-text);
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    margin-right: 20px;
+
+    button {
+      width: 280px;
+    }
+
+    svg {
+      margin-right: 10px;
+    }
+  }
+}
+
+.DocSearch-Button-Container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.DocSearch-Button-Keys {
+  display: flex;
+  gap: 5px;
+}
+
+.DocSearch-Button-Key {
+  border: 1px solid var(--color-border-100);
+  height: 28px;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  font-size: 13px;
+  background: var(--color-bg-header);
+  box-shadow: none;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .DocSearch-Button-Keys,
+  .DocSearch-Button-Placeholder {
+    display: none;
+  }
+}
+
+// Post Pagination
+
+.post-pagination {
+  flex-direction: column;
+  margin-top: 40px;
+
+  a {
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &:hover {
+      background: var(--color-gray-100);
+      border-color: var(--color-border-200);
+
+      .pagination-label {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+
+    a {
+      max-width: calc(50% - 20px);
+      width: auto;
+    }
+  }
+}
+
+.pagination {
+  border: 1px solid var(--color-border-100);
+  margin: 10px 0;
+  padding: 15px 20px;
+  transition:
+    background ease 0.2s,
+    border ease 0.2s;
+
+  &.next {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.pagination-label {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.5;
+  margin-bottom: 5px;
+  transition: opacity ease 0.2s;
+}
+
+.pagination-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+// Demo Module

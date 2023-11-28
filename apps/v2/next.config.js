@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 
 const config = {
-  reactStrictMode: true,
-  experimental: {
-    appDir: true,
+  images: {
+    remotePatterns: [{ hostname: 'images.unsplash.com' }],
   },
 }
 

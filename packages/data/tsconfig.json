@@ -1,0 +1,12 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/hooks": ["src/hooks/index.ts"],
+      "@/icons": ["src/components/Icons.tsx"],
+      "@/utils": ["src/utils.ts"]
+    }
+  }
+}

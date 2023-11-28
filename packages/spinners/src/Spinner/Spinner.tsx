@@ -28,7 +28,7 @@ export interface SpinnerProps extends React.SVGAttributes<SVGElement> {
    */
   size?: number
   /** An array of colors that is applied to various parts of each Spinner SVG */
-  colors: string[]
+  colors: string[] | string
 }
 
 export interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
@@ -40,11 +40,13 @@ export interface SpinnerSVGProps extends Omit<SpinnerProps, 'type'> {}
  * @link https://maker-ui.com/docs/elements/spinner
  */
 export const Spinner = (p: Partial<SpinnerProps>) => {
+  const colors =
+    typeof p.colors === 'string' ? new Array(4).fill(p.colors) : p.colors
   const props = {
-    type: p.type || 'default',
-    colors: p.colors || defaultColors,
-    size: p.size || 80,
     ...p,
+    type: p.type || 'default',
+    colors: colors || defaultColors,
+    size: p.size || 80,
   }
 
   switch (p.type) {

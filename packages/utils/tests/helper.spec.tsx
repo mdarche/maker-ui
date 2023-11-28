@@ -2,7 +2,14 @@
 
 import * as React from 'react'
 import { render } from '@testing-library/react'
-import { generateId, cn, mergeRefs, isObjectEmpty } from '../src'
+import {
+  generateId,
+  cn,
+  mergeRefs,
+  isObjectEmpty,
+  cleanObject,
+  formatNumber,
+} from '../src'
 
 describe('generateId', () => {
   test('returns a string of the correct length', () => {
@@ -197,5 +204,90 @@ describe('isObjectEmpty', () => {
     }
     expect(isObjectEmpty(obj, 10)).toBe(true)
     expect(isObjectEmpty(obj, 3)).toBe(false)
+  })
+})
+
+describe('cleanObject', () => {
+  it('should remove undefined and null values', () => {
+    const obj = {
+      name: 'John Doe',
+      age: undefined,
+      gender: null,
+      occupation: 'Developer',
+    }
+
+    const cleanedObj = cleanObject(obj)
+
+    expect(cleanedObj).toEqual({
+      name: 'John Doe',
+      occupation: 'Developer',
+    })
+  })
+
+  it('should not remove falsey values that are not undefined or null', () => {
+    const obj = {
+      a: 0,
+      b: '',
+      c: false,
+      d: null,
+      e: undefined,
+    }
+
+    const cleanedObj = cleanObject(obj)
+
+    expect(cleanedObj).toEqual({
+      a: 0,
+      b: '',
+      c: false,
+    })
+  })
+
+  it('should return undefined if all values are undefined or null', () => {
+    const obj = {
+      a: undefined,
+      b: null,
+      c: undefined,
+    }
+
+    const cleanedObj = cleanObject(obj)
+
+    expect(cleanedObj).toBeUndefined()
+  })
+
+  it('should return undefined if input is an empty object', () => {
+    const obj = {}
+
+    const cleanedObj = cleanObject(obj)
+
+    expect(cleanedObj).toEqual(undefined)
+  })
+})
+
+describe('formatNumber', () => {
+  it('should return the same string if the value is a string', () => {
+    const value = '12345'
+    const template = 'Your number is %'
+
+    const result = formatNumber(value, template)
+
+    expect(result).toEqual('12345')
+  })
+
+  it('should replace the % in the template with the value if it is a number', () => {
+    const value = 12345
+    const template = 'Your number is %'
+
+    const result = formatNumber(value, template)
+
+    expect(result).toEqual('Your number is 12345')
+  })
+
+  it('should throw an error if the value is not a string or a number', () => {
+    const value = true
+    const template = 'Your number is %'
+
+    expect(() => formatNumber(value as any, template)).toThrowError(
+      new Error('Invalid type for value: boolean')
+    )
   })
 })

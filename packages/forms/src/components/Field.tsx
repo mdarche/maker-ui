@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { cn, Conditional, merge } from '@maker-ui/utils'
-import type { ZodError } from 'zod'
+import { cn } from '@maker-ui/utils'
 
-import { useForm, useField } from '@/hooks'
-import { evaluateConditions } from '@/helpers'
+import { useForm, useField } from '@/context'
+import { evaluateConditions, setVariable } from '@/helpers'
 import type { FieldProps } from '@/types'
 import {
   Input,
@@ -15,7 +14,6 @@ import {
   DateTimePicker,
 } from '@/fields'
 import { Label } from './Label'
-import { AutoSaveWrapper, initial } from './AutoSaveWrapper'
 
 const basicInputs = [
   'text',
@@ -31,23 +29,18 @@ const basicInputs = [
   'range',
 ]
 
-const top = ['top-right', 'top-left', 'top-center', 'left', 'floating']
-const bottom = ['bottom-right', 'bottom-left', 'bottom-center', 'right']
+interface FieldPropsFull extends FieldProps {
+  index?: number // used for array fields like repeater
+}
 
-export const Field = (p: FieldProps) => {
-  const { settings: s, values, schema, formError } = useForm()
+export const Field = ({ index, ...p }: FieldPropsFull) => {
+  const { settings: s, values, schema } = useForm()
   const { touched, error } = useField(p.name)
+
   // Helpers
   const labelPos = p?.labelPosition || s.labelPosition
   const errorPos = p?.errorPosition || s.errorPosition
-  const hasError = !!error
-  const hasAutoSave = p?.autoSave || s.autoSave
-  const autoSaveSettings = () => {
-    let local = typeof p.autoSave === 'boolean' || !p.autoSave ? {} : p.autoSave
-    let global =
-      typeof s.autoSave === 'boolean' || !s.autoSave ? {} : s.autoSave
-    return merge.all([initial, global, local])
-  }
+
   const shouldRender =
     !p.conditions || evaluateConditions(p.conditions, values, schema)
 
@@ -91,70 +84,67 @@ export const Field = (p: FieldProps) => {
     }
   }
 
-  return shouldRender ? (
-    <div
-      className={cn([
-        'mkui-field-container',
-        p.className,
-        'label-' + labelPos,
-        'error-' + errorPos,
-        top.includes(labelPos) || bottom.includes(labelPos)
-          ? 'flex-col'
-          : undefined,
-        p?.colSpan ? 'colspan-' + p.colSpan : undefined,
-        s?.classNames?.fieldContainer,
-        p?.honeypot ? 'form-safe' : undefined,
-        hasError ? 'error' : undefined,
-        touched ? 'touched' : '',
-      ])}>
-      {top.includes(labelPos) ? (
-        <Label
-          name={p.name}
-          type={p.type}
-          symbol={s?.requiredSymbol}
-          required={p.required}>
-          {p.label}
-        </Label>
-      ) : null}
-      {p.instructions ? (
-        <div className="mkui-field-instructions">{p.instructions}</div>
-      ) : null}
-      <Conditional
-        condition={hasAutoSave === true}
-        trueWrapper={(c) => (
-          <AutoSaveWrapper
-            name={p.name}
-            formError={!!formError}
-            settings={autoSaveSettings()}>
-            {c}
-          </AutoSaveWrapper>
-        )}>
-        <>{renderFieldType()}</>
-      </Conditional>
-      {bottom.includes(labelPos) ? (
-        <Label
-          name={p.name}
-          type={p.type}
-          symbol={s?.requiredSymbol}
-          required={p.required}>
-          {p.label}
-        </Label>
-      ) : null}
-      {p?.showValidation ? (
-        <div
-          className={cn(['mkui-validate', !error && touched ? 'active' : ''])}>
-          {s?.icons?.validate}
-        </div>
-      ) : null}
-      {hasError ? (
-        <div className="mkui-field-error">
-          {typeof error === 'string'
-            ? error
-            : (error as ZodError).issues[0]?.message}
-        </div>
-      ) : null}
-    </div>
-  ) : null
+  function renderLabel() {
+    return (
+      <Label
+        name={p.name}
+        className={s?.classNames?.fieldLabel}
+        type={p.type}
+        symbol={s?.requiredSymbol}
+        required={p.required}>
+        {p.label}
+      </Label>
+    )
+  }
+
+  return (
+    shouldRender && (
+      <div
+        className={cn([
+          'mkui-field-container',
+          p.className,
+          'label-' + labelPos,
+          'error-' + errorPos,
+          p?.colSpan ? 'has-colspan' : undefined,
+          labelPos !== 'left' && labelPos !== 'right' ? 'flex-col' : undefined,
+          s?.classNames?.fieldContainer,
+          p?.honeypot ? 'form-safe' : undefined,
+          !!error ? 'error' : undefined,
+          touched ? 'touched' : '',
+        ])}
+        style={setVariable(p?.colSpan)}>
+        {(labelPos.includes('top-') ||
+          labelPos === 'left' ||
+          labelPos === 'right') &&
+          renderLabel()}
+        {p.instructions && (
+          <div
+            className={cn([
+              'mkui-field-instructions',
+              s?.classNames?.fieldInstructions,
+            ])}>
+            {p.instructions}
+          </div>
+        )}
+        {renderFieldType()}
+        {labelPos.includes('bottom-') && renderLabel()}
+        {p?.showValidation && (
+          <div
+            className={cn([
+              'mkui-validate',
+              !error && touched ? 'active' : '',
+            ])}>
+            {s?.icons?.validate}
+          </div>
+        )}
+        {!!error && p?.type !== 'select' ? (
+          <div className={cn(['mkui-field-error', s?.classNames?.fieldError])}>
+            {error}
+          </div>
+        ) : null}
+      </div>
+    )
+  )
 }
 
 Field.displayName = 'Field'

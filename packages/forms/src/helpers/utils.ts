@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { FieldProps } from '@/types'
 
 /**
  * Checks whether an object is empty, meaning that all its values are undefined or null.
@@ -42,27 +42,6 @@ export function deepSearch<T>(
   }
 }
 
-/**
- * Recursively searches for all values within an object that correspond to a given key.
- *
- * @param obj - The object to search.
- * @param target - The key to search for.
- * @returns An array of all values within the object that correspond to the target key.
- */
-export function findAllValuesByKey(obj: object, target: string): any {
-  return (
-    Object.entries(obj).reduce(
-      (acc, [key, value]) =>
-        key === target
-          ? acc.concat(value)
-          : typeof value === 'object' && value && !React.isValidElement(value)
-          ? acc.concat(findAllValuesByKey(value, target))
-          : acc,
-      []
-    ) || []
-  )
-}
-
 export function findDuplicateKey<T extends Record<string, unknown>>(
   obj1: T,
   obj2: T
@@ -71,4 +50,24 @@ export function findDuplicateKey<T extends Record<string, unknown>>(
   const obj2Keys = Object.keys(obj2)
   const set = new Set<string>(obj1Keys)
   return obj2Keys.find((key) => set.has(key))
+}
+
+export function setVariable(n?: number, type: 'colspan' | 'col' = 'colspan') {
+  const key = type === 'col' ? '--form-columns' : '--form-colspan'
+  return n ? { [key]: `${n}` } : undefined
+}
+
+export function setDefault(type: FieldProps['type']) {
+  const numVals = ['number', 'range']
+  return numVals.includes(type)
+    ? 0
+    : type === 'switch'
+    ? false
+    : type === 'checkbox' || type === 'select' || type === 'repeater'
+    ? []
+    : type === 'image-picker'
+    ? null
+    : type === 'date-picker' || type === 'date-time-picker'
+    ? ''
+    : ''
 }

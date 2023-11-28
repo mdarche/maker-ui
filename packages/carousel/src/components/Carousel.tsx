@@ -17,6 +17,8 @@ import { Arrow } from './Arrow'
 import { Slider } from './Slider'
 import { Pagination } from './Pagination'
 import { defaultProps } from '../default-props'
+import { cssVariables } from '../variables'
+import { useResizeObserver } from '@maker-ui/hooks'
 
 export interface CarouselState {
   items: SlideItem[]
@@ -30,6 +32,7 @@ export interface CarouselState {
 export const Carousel = (userProps: CarouselProps) => {
   const props: Required<CarouselProps> = merge(defaultProps, userProps)
   const containerRef = useRef<HTMLDivElement>(null)
+  const [width, setWidth] = useState(0)
   const initialItems = initItems(
     props.children,
     props.children.length - 1,
@@ -37,7 +40,6 @@ export const Carousel = (userProps: CarouselProps) => {
   )
   const [items, setItems] = useState(initialItems)
   const itemsRef = useRef(initialItems)
-  const [width, setWidth] = useState(0)
   const [animation, setAnimation] = useState({
     transform: 0,
     transition: 0,
@@ -58,6 +60,29 @@ export const Carousel = (userProps: CarouselProps) => {
   const [autoCount, setAutoCount] = useState(0)
   const isPaginating = useRef(false)
   const autoPlayTimer = useRef<number>()
+  const variables = cssVariables(props?.styles)
+
+  const { ref } = useResizeObserver<HTMLDivElement>({
+    ref: containerRef,
+    onResize: ({ width: w }) => {
+      if (w) {
+        setWidth(w)
+
+        const calcWidth = w / props.show
+        setAnimation({
+          transform: props.infinite
+            ? getTransformAmount(
+                calcWidth,
+                props.children.length - 1,
+                SlideDirection.Right
+              )
+            : 0,
+          transition: 0,
+          isSliding: false,
+        })
+      }
+    },
+  })
 
   useEffect(() => {
     if (!props.dynamic) return
@@ -98,10 +123,9 @@ export const Carousel = (userProps: CarouselProps) => {
       return
 
     if (typeof props.autoPlay === 'number') {
-      //@ts-ignore
       autoPlayTimer.current = setTimeout(() => {
         onRightArrowClick()
-      }, props.autoPlay * 1000)
+      }, props.autoPlay * 1000) as unknown as number
     }
   }
 
@@ -193,20 +217,20 @@ export const Carousel = (userProps: CarouselProps) => {
     isPaginating.current = false
   }
 
-  const widthCallBack = (calculatedWidth: number) => {
-    setWidth(calculatedWidth)
-    setAnimation({
-      transform: props.infinite
-        ? getTransformAmount(
-            calculatedWidth,
-            props.children.length - 1,
-            SlideDirection.Right
-          )
-        : 0,
-      transition: 0,
-      isSliding: false,
-    })
-  }
+  // const widthCallBack = (calculatedWidth: number) => {
+  //   setWidth(calculatedWidth)
+  //   setAnimation({
+  //     transform: props.infinite
+  //       ? getTransformAmount(
+  //           calculatedWidth,
+  //           props.children.length - 1,
+  //           SlideDirection.Right
+  //         )
+  //       : 0,
+  //     transition: 0,
+  //     isSliding: false,
+  //   })
+  // }
 
   const dragCallback = (translateX: number) => {
     setAnimation({
@@ -260,48 +284,51 @@ export const Carousel = (userProps: CarouselProps) => {
 
   return (
     <div
-      ref={containerRef}
+      ref={ref}
       className={cn(['mkui-carousel', props.classNames?.root])}
       data-cy="mkui-carousel"
       tabIndex={0}
+      style={variables}
       {...(props.useArrowKeys ? { onKeyDown: handleOnKeyDown } : {})}>
-      <Slider
-        {...props}
-        items={itemsRef.current}
-        classNames={props?.classNames}
-        transition={animation.transition}
-        transform={animation.transform}
-        slideCallback={slideCallback}
-        dragCallback={dragCallback}
-        widthCallBack={widthCallBack}
-      />
-      {showArrow.left && (
-        <Arrow
-          direction="left"
-          className={props?.classNames?.arrow}
-          custom={props.arrows?.left}
-          onClick={onLeftArrowClick}
-        />
-      )}
-      {showArrow.right && (
-        <Arrow
-          direction="right"
-          className={props?.classNames?.arrow}
-          custom={props.arrows?.right}
-          onClick={onRightArrowClick}
-        />
-      )}
-      {!props.hidePagination && (
-        <Pagination
-          isDefault={props?.navigation === undefined}
-          position={props?.navPosition}
-          factory={props.navigation || ((_, attrs) => <button {...attrs} />)}
+      <div className="mkui-carousel-inner relative">
+        <Slider
+          {...props}
+          width={width}
+          items={itemsRef.current}
           classNames={props?.classNames}
-          length={props.children.length}
-          current={current}
-          onClick={onNavigate}
+          transition={animation.transition}
+          transform={animation.transform}
+          slideCallback={slideCallback}
+          dragCallback={dragCallback}
         />
-      )}
+        {showArrow.left && (
+          <Arrow
+            direction="left"
+            className={props?.classNames?.arrow}
+            custom={props.arrows?.left}
+            onClick={onLeftArrowClick}
+          />
+        )}
+        {showArrow.right && (
+          <Arrow
+            direction="right"
+            className={props?.classNames?.arrow}
+            custom={props.arrows?.right}
+            onClick={onRightArrowClick}
+          />
+        )}
+        {!props.hidePagination && (
+          <Pagination
+            isDefault={props?.navigation === undefined}
+            position={props?.navPosition}
+            factory={props.navigation || ((_, attrs) => <button {...attrs} />)}
+            classNames={props?.classNames}
+            length={props.children.length}
+            current={current}
+            onClick={onNavigate}
+          />
+        )}
+      </div>
     </div>
   )
 }

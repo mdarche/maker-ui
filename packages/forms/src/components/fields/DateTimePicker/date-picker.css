@@ -1,10 +1,10 @@
 /* Config variables
 / -------------------------------------------------- /
 / --form-calendar-width
-/ --form-calendar-width-time
-/ --form-calendar-height-time
+/ --form-calendar-time-width
+/ --form-calendar-time-height
 / --form-calendar-border-radius
-/ --form-calendar-border-radius-range
+/ --form-calendar-range-border-radius
 / --form-calendar-gap
 / --form-calendar-time-gap
 
@@ -13,9 +13,9 @@
 / --form-calendar-bg
 
 / --form-calendar-font-size
-/ --form-calendar-font-size-month
-/ --form-calendar-font-size-day
-/ --form-calendar-font-size-time
+/ --form-calendar-month-font-size
+/ --form-calendar-day-font-size
+/ --form-calendar-time-font-size
 / --form-calendar-arrow-height
 / --------------------------------------------------
 */
@@ -53,7 +53,7 @@
 .mkui-month {
   text-align: center;
   margin: 0 20px;
-  font-size: var(--form-calendar-font-size-month, 1.65ch);
+  font-size: var(--form-calendar-month-font-size, 1.65ch);
 }
 
 .mkui-day-label {
@@ -64,7 +64,7 @@
 
 .mkui-day-label,
 .mkui-date {
-  font-size: var(--form-calendar-font-size-day, 1.65ch);
+  font-size: var(--form-calendar-day-font-size, 1.65ch);
 }
 
 .mkui-date {
@@ -85,7 +85,7 @@
 }
 
 .mkui-date.range {
-  border-radius: var(--form-calendar-border-radius-range, 2px);
+  border-radius: var(--form-calendar-range-border-radius, 2px);
 }
 
 .mkui-date.range-inner,
@@ -143,7 +143,7 @@
 /* TimePicker */
 
 .mkui-timepicker {
-  width: var(--form-calendar-width-time, 100%);
+  width: var(--form-calendar-time-width, 100%);
   margin-left: var(--form-calendar-time-gap, 30px);
 }
 
@@ -162,14 +162,14 @@
   padding: 0;
   margin: 0;
   overflow-y: scroll;
-  max-height: var(--form-calendar-height-time, 390px);
+  max-height: var(--form-calendar-time-height, 390px);
 }
 
 .mkui-time-option {
   background: var(--color-background);
   color: var(--form-calendar-color-active, blue);
   border: 1px solid var(--form-calendar-color-active, blue);
-  font-size: var(--form-calendar-font-size-time, 1.65ch);
+  font-size: var(--form-calendar-time-font-size, 1.65ch);
   outline: none;
   font-weight: 700;
   width: 100%;

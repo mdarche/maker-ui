@@ -1,0 +1,28 @@
+{
+  "name": "@maker-ui/build-tools",
+  "description": "A lightweight, flexible carousel component.",
+  "version": "2.0.1",
+  "license": "Apache-2.0",
+  "author": "Mike Darche <mike@newcreative.io>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --minify --format esm,cjs --dts",
+    "start": "tsup src/index.ts --watch --format esm,cjs --dts",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "postcss": "^8.4.18",
+    "postcss-modules": "^5.0.0",
+    "postcss-nested": "^6.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.18.2",
+    "eslint-config-library": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}

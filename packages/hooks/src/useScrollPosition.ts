@@ -22,6 +22,9 @@ export function useScrollPosition(
   const position = useRef<number | null>(null)
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
     // Exit if the effect is not active
     if (!active) return
 

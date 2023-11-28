@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { mergeRefs, Conditional, generateId } from '@maker-ui/utils'
 import {
   CSSTransition as ReactCSSTransition,
@@ -96,15 +96,9 @@ export const CSSTransition = ({
   children,
   ...props
 }: CSSTransitionProps) => {
-  const [styleId] = React.useState(id || generateId())
+  const [styleId, setStyleId] = React.useState<string | undefined>(undefined)
   const ref = useRef(null)
-  const styles = getStyles(
-    type,
-    distance,
-    timeout,
-    easing,
-    className || styleId
-  )
+  const styles = getStyles(type, distance, timeout, easing, styleId)
   const isShowBool = typeof show === 'boolean'
   const isSwitchTransition = isSwitch || !isShowBool
   const t = styleId ? `${styleId}-${type}` : type
@@ -114,7 +108,13 @@ export const CSSTransition = ({
         ? 'key-1'
         : 'key-0'
       : (show as string | number)
-  return (
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    setStyleId(id || generateId())
+  }, [id])
+
+  return styleId ? (
     <>
       {noStyles ? null : <Style root={styleId}>{styles}</Style>}
       <Conditional
@@ -138,5 +138,5 @@ export const CSSTransition = ({
         </ReactCSSTransition>
       </Conditional>
     </>
-  )
+  ) : null
 }

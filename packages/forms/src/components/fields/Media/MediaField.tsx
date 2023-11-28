@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { merge } from '@maker-ui/utils'
 
-import { useField, useForm } from '@/hooks'
+import { useField, useForm } from '@/context'
 import type { FieldInputProps } from '@/types'
 import { ImagePicker } from './ImagePicker'
 

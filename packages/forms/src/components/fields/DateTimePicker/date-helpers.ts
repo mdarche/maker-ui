@@ -27,6 +27,15 @@ export const WEEK_DAYS = {
   Saturday: 'Sat',
 }
 
+export type WeekDay =
+  | 'Sunday'
+  | 'Monday'
+  | 'Tuesday'
+  | 'Wednesday'
+  | 'Thursday'
+  | 'Friday'
+  | 'Saturday'
+
 /** Calendar months names and short names */
 export const CALENDAR_MONTHS = {
   January: 'Jan',

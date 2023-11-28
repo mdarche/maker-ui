@@ -1,0 +1,51 @@
+.mkui-search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: var(--search-padding, 0px 10px);
+  border: var(--search-border, 1px solid #cacaca);
+  border-radius: var(--search-border-radius, 2px);
+}
+
+.mkui-search-icon {
+  height: var(--search-icon-height, 16px);
+  margin-right: 5px;
+  fill: var(--search-icon-fill, #b0b0b0);
+}
+
+.mkui-search-input {
+  height: var(--search-height, 40px);
+  width: 100%;
+  min-width: var(--search-min-width, 250px);
+  outline: none;
+  border: none;
+  background: none;
+  font-size: var(--search-font-size, 14px);
+  color: var(--search-color, var(--color-text));
+  font-family: var(--search-font-family, var(--font-body));
+}
+
+.mkui-search-input::placeholder {
+  color: var(--search-placeholder-color);
+}
+
+.mkui-search-clear {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  background: var(--search-clear-bg, none);
+  border: var(--search-clear-border, none);
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+
+.mkui-search-clear svg {
+  fill: var(--search-clear-fill, var(--color-text));
+  height: var(--search-clear-height, 14px);
+}
+
+.mkui-search-clear:hover {
+  opacity: 1;
+}

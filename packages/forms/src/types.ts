@@ -1,11 +1,14 @@
-import { Breakpoints } from '@maker-ui/style'
-import { TransitionType } from '@maker-ui/transition'
 import * as React from 'react'
-import type { Schema, ZodError } from 'zod'
+import { TransitionType } from '@maker-ui/transition'
+import type { Schema } from 'zod'
 
 export interface FileValidation {
   size: number
   types: string[]
+}
+
+export interface FormSlotProps extends React.HTMLAttributes<HTMLDivElement> {
+  _type?: string
 }
 
 export interface DropzoneSettings {
@@ -229,8 +232,7 @@ export type FieldType =
   | 'switch'
   | 'radio'
   | 'checkbox'
-  | 'slider'
-  | 'repeater' // TODO
+  | 'repeater'
   | 'color-picker' // TODO
   | 'gallery' // TODO
   | 'color'
@@ -248,7 +250,7 @@ export type CompareOperator =
   | 'exists'
   | 'notExists'
 
-export interface Condition {
+export interface FormCondition {
   field: string
   compare: CompareOperator
   value?: any
@@ -309,7 +311,7 @@ export interface FieldProps {
    * of another field. This prop takes an array of arrays where the first array will be
    * evaluated as AND conditions and the second array will be evaluated as OR.
    */
-  conditions?: Array<Condition[]>
+  conditions?: Array<FormCondition[]>
   /** Renders a small validation icon next to the field if the field has no errors and has
    * been previously touched. */
   showValidation?: boolean
@@ -319,8 +321,6 @@ export interface FieldProps {
   /** If true and the field type is `input` honeypot styling will be automatically applied
    * to this field. */
   honeypot?: boolean
-  /** If true, the form will automatically submit after this field has been touched. */
-  autoSave?: boolean | AutoSaveSettings
   /** The number of columns this field should span. */
   colSpan?: number
   /**  Options for the `radio`, `checkbox`, and `select` field types */
@@ -420,34 +420,78 @@ export interface FieldProps {
   /** Custom settings for the password field type */
   password?: {
     /** Renders a toggle that allows the user to see a non-masked version of the password. */
-    toggleCharacters?: boolean
+    toggle?: boolean
+    /** Determines if the password toggle is absolutely positioned.  */
+    absolute?: boolean
+    /** An optional class selector for the password toggle button */
+    className?: string
     /** Custom icon for the hide password button */
     iconHide?: React.ReactElement
     /** Custom icon forthe reveal password button */
     iconReveal?: React.ReactElement
   }
-  /** Nested fields if the field type is `group` or `page` */
+  text?: {
+    /** Appears before the input */
+    prepend?: string | React.ReactElement
+    /** Appears after the input */
+    append?: string | React.ReactElement
+    /** If true, the masked / formatted value will be returned on form submission. */
+    returnFormatted?: boolean
+    /** Applies formatting to the input */
+    format?:
+      | 'currency'
+      | 'currency-decimal-auto'
+      | 'phone'
+      | 'zip'
+      | 'ssn'
+      | 'credit-card'
+      | ((s: string) => string)
+  }
+  grid?: {
+    /** Custom grid template columns for the repeater field. */
+    columns?: number
+    /** Custom grid template rows for the repeater field. */
+    rows?: string
+  }
+  /** Custom settings for the `repeater` field type */
+  repeater?: {
+    /** A custom label, icon, or React Element for the add button (inner content) */
+    iconAdd?: React.ReactElement
+    /** A custom label, icon, or React Element for the remove button (inner content) */
+    iconRemove?: React.ReactElement
+    /** A custom label, icon, or React Element for the reorder button (inner content) */
+    iconReorder?: React.ReactElement
+    /** Allows users can reorder the repeater items if multiple exist.
+     * @default false
+     */
+    reorder?: boolean
+    /** The maximum number of rows that can be added */
+    max?: number
+    classNames?: {
+      root?: string
+      table?: string
+      row?: string
+      btnAdd?: string
+      btnRemove?: string
+      btnDrag?: string
+      grid?: string
+      postRow?: string
+    }
+    /** A callback for rendering a custom element below the repeater that accesses values as
+     * they change.*/
+    postSlot?: (vals: any) => React.ReactElement
+  }
+  /** Nested fields if the field type is `group`, `repeater`, or `page`. */
   subFields?: FieldProps[]
 }
 
 // -------- Form Types --------
 
-export interface AutoSaveSettings {
-  saveIcon?: React.ReactElement
-  successIcon?: React.ReactElement
-  errorIcon?: React.ReactElement
-  timeout?: number
-  position?: 'left' | 'right'
-  padding?: number
-}
-
 export interface FormSettings {
   /** Shows validation for an individual field. Requires `validateFormOnBlur` to be true. */
   validateFieldOnBlur: boolean
-  /** Breakpoints that dictate when form columns will collapse according to the `columns` prop. */
-  breakpoints?: Breakpoints
-  columns: string | string[] | number
-  gap: string | number | (string | number)[]
+  columns?: number
+  gap?: string
   /** The form's default field label position
    * @default 'top-left'
    */
@@ -474,7 +518,7 @@ export interface FormSettings {
   /** The color of the placeholder text for text inputs */
   placeholderColor?: string | string[]
   /** Custom settings or a simple boolean that enables instant field validation and auto-submit */
-  autoSave?: boolean | AutoSaveSettings
+  autoSave?: boolean
   /** If true, the submit button will be disabled until form validation passes. // FIgure this out by finding if all required fields have values
    */
   disableSubmit?: boolean
@@ -490,6 +534,9 @@ export interface FormSettings {
     nextArrow?: React.ReactElement
     prevArrow?: React.ReactElement
     validate?: React.ReactElement
+    remove?: React.ReactElement
+    reorder?: React.ReactElement
+    add?: React.ReactElement
   }
 }
 
@@ -500,8 +547,18 @@ export interface FormClassNames {
   fieldGroup?: string
   /** Applied to all field containers (label and input) */
   fieldContainer?: string
+  /** Applied to all field labels */
+  fieldLabel?: string
+  /** Applied to all field instructions */
+  fieldInstructions?: string
+  /** Applied to all field errors */
+  fieldError?: string
   /** Applied to each form page container */
   page?: string
+  /** Applied to the previous page button */
+  prevButton?: string
+  /** Applied to the next page button */
+  nextButton?: string
   /** Applied to the page progress bar container */
   progress?: string
   /** Applied to the pagination button container */
@@ -511,16 +568,13 @@ export interface FormClassNames {
   /** Applied to the submit button. */
   submitButton?: string
 }
-export interface FormConditions {
-  [key: string]: Array<Condition[]> | undefined
-}
 
 export type FormValues<T = Record<string, any>> = {
   [K in keyof T]: T[K]
 }
 
 export interface FormErrors {
-  [key: string]: ZodError | string
+  [key: string]: string
 }
 
 export interface FormHelpers {
@@ -542,8 +596,10 @@ export type FormSchema = {
   [key: string]: {
     type: FieldType
     page: number
-    required: boolean | string
+    required?: boolean | string
+    group?: string
     validation?: Schema
+    conditions?: Array<FormCondition[]>
   }
 }
 
@@ -552,7 +608,6 @@ export interface FormState {
   settings: FormSettings
   fields: FieldProps[]
   schema: FormSchema
-  conditions: FormConditions
   currentPage: number
   totalPages: number
   formSuccess?: boolean
@@ -564,4 +619,111 @@ export interface FormState {
   resetCount: number
   isSubmitting: boolean
   isValidating: boolean
+}
+
+/**
+ * This seems dumb but we will someday need it to style forms visually with GUI page builder.
+ */
+export interface FormStyles {
+  form?: {
+    gap?: string | number
+    columns?: string
+    iconFill?: string
+    placeholderColor?: string
+  }
+  label?: {
+    color?: string
+    fontSize?: string | number
+    padding?: string | number
+  }
+  error?: {
+    color?: string
+    fontSize?: string | number
+    padding?: string | number
+  }
+  instructions?: {
+    color?: string
+    fontSize?: string | number
+    padding?: string | number
+  }
+  input?: {
+    bg?: string
+    height?: string | number
+    fontSize?: string | number
+    padding?: string | number
+    border?: string
+    borderRadius?: string | number
+  }
+  textArea?: {
+    height?: string | number
+  }
+  select?: {
+    columns?: number
+    padding?: string | number
+    borderActive?: string
+    // Value
+    valueColor?: string
+    valueBg?: string
+    // Highlight
+    highlightColor?: string
+    highlightBg?: string
+    // Count indicator
+    countColor?: string
+    countBg?: string
+    countFontSize?: string | number
+    // Group Label
+    groupColor?: string
+    groupBg?: string
+    groupPadding?: string | number
+    groupFontSize?: string | number
+  }
+  switch?: {
+    bg?: string
+    bgActive?: string
+    height?: string | number
+    padding?: string | number
+    borderRadius?: string | number
+    labelColor?: string
+    labelColorActive?: string
+  }
+  calendar?: {
+    width?: string | number
+    gap?: string | number
+    borderRadius?: string | number
+    rangeBorderRadius?: string | number
+    bg?: string
+    colorActive?: string
+    colorMuted?: string
+    fontSize?: string | number
+    monthFontSize?: string | number
+    dayFontSize?: string | number
+    timeFontSize?: string | number
+    timeGap?: string | number
+    timeWidth?: string | number
+    timeHeight?: string | number
+    arrowHeight?: string | number
+  }
+  range?: {
+    inputWidth?: string | number
+    thumbColor?: string
+  }
+  upload?: {
+    previewSize?: string | number
+    previewWidth?: string | number
+    previewHeight?: string | number
+    iconFill?: string
+    iconHeight?: string | number
+    dropzoneBorder?: string
+    dropzoneBorderRadius?: string | number
+    dropzoneBg?: string
+    dropzoneFontSize?: string | number
+    dropzoneWidth?: string | number
+    dropzoneHeight?: string | number
+    dropzoneSize?: string | number
+  }
+  option?: {
+    margin?: string | number
+    marginWrapper?: string | number
+  }
+  pagination?: {}
 }

@@ -20,7 +20,7 @@ export const NavButton = ({ type }: NavButtonProps) => {
     <button
       title={isNext ? 'Next' : 'Previous'}
       aria-label={isNext ? 'Next' : 'Previous'}
-      className={cn(['mkui-lightbox-btn-nav', isNext ? 'next' : 'prev'])}
+      className={cn(['mkui-lbx-btn-nav', isNext ? 'next' : 'prev'])}
       onClick={() => setIndex(isNext ? 'next' : 'previous')}>
       {settings?.arrowIcon || <DefaultArrow />}
     </button>

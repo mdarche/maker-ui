@@ -10,6 +10,8 @@ export interface AccordionPanelProps
    * for this panel.
    */
   title?: string | React.ReactElement
+  /** A custom callback function that is invoked when the user clicks the accordion button */
+  onClick?: () => void
   /** If true, the panel will be open by default
    * @default false
    */
@@ -25,7 +27,7 @@ export interface AccordionPanelProps
 /**
  * The `AccordionPanel` component wraps all collapsible accordion content.
  *
- * @link https://maker-ui.com/docs/elements/accordion-panel
+ * @link https://maker-ui.com/api-reference/components/accordion
  */
 export const AccordionPanel = React.forwardRef<
   HTMLDivElement,
@@ -36,6 +38,7 @@ export const AccordionPanel = React.forwardRef<
       title,
       open = false,
       eventKey,
+      onClick,
       children,
       className,
       _type = 'AccordionPanel',
@@ -59,6 +62,7 @@ export const AccordionPanel = React.forwardRef<
 
     useEffect(() => {
       registerPanel(panelKey)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [panelKey])
 
     useEffect(() => {
@@ -67,8 +71,10 @@ export const AccordionPanel = React.forwardRef<
       }
     }, [state, eventKey, panelKey, set])
 
-    const setActive = () =>
-      !show && state.showSingle ? setActivePanel(panelKey) : set(!show)
+    const setActive = () => {
+      onClick?.()
+      return !show && state.showSingle ? setActivePanel(panelKey) : set(!show)
+    }
 
     function renderIcon() {
       if (state.icon) {
@@ -76,8 +82,11 @@ export const AccordionPanel = React.forwardRef<
           return state.customIcon
         }
 
-        if (typeof state.customIcon === 'object') {
-          return show ? state.customIcon?.collapse : state.customIcon?.expand
+        if (
+          typeof state.customIcon === 'object' &&
+          'expand' in state.customIcon
+        ) {
+          return show ? state.customIcon.collapse : state.customIcon.expand
         }
 
         if (typeof state.customIcon === 'function') {
@@ -115,7 +124,7 @@ export const AccordionPanel = React.forwardRef<
           <div>
             {React.isValidElement(title) ? title : <span>{title}</span>}
           </div>
-          {renderIcon()}
+          <div className="mkui-accordion-icon">{renderIcon()}</div>
         </button>
         <div
           id={panelId}
@@ -123,15 +132,23 @@ export const AccordionPanel = React.forwardRef<
           className={cn(['mkui-accordion-panel', state?.classNames?.panel])}
           aria-labelledby={buttonId}
           style={{
+            willChange: state.animate ? 'height' : undefined,
             height: show ? (state.animate ? height : '100%') : 0,
+            transition:
+              state.animate && typeof state.animate === 'string'
+                ? state.animate
+                : state.animate
+                ? 'height 0.3s ease 0s'
+                : undefined,
           }}>
-          <div
-            ref={measureRef}
-            className={cn([
-              'mkui-accordion-inner',
-              state.classNames?.panelInner,
-            ])}>
-            {children}
+          <div ref={measureRef}>
+            <div
+              className={cn([
+                'mkui-accordion-content',
+                state.classNames?.panelContent,
+              ])}>
+              {children}
+            </div>
           </div>
         </div>
       </div>
@@ -150,7 +167,6 @@ const CaretIcon = ({ show }: { show: boolean }) => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     style={{
-      width: 15,
       transition: 'all ease .3s',
       transform: !show ? 'rotate(0)' : 'rotate(180deg)',
     }}>

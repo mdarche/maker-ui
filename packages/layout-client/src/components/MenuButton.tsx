@@ -1,36 +1,34 @@
 import * as React from 'react'
-import { useWindowSize } from '@maker-ui/hooks'
-import { cn, generateId } from '@maker-ui/utils'
+import { cn } from '@maker-ui/utils'
 import { type MakerCSS, Style } from '@maker-ui/style'
 import type { LayoutButtonProps } from '@maker-ui/layout-server'
 
-import { useLayout, useMenu } from '../hooks'
+import { useMenu } from '../hooks'
 
 interface MenuButtonProps
   extends MakerCSS,
     LayoutButtonProps,
     React.HTMLAttributes<HTMLButtonElement> {
-  /** A callback function that you can use to render your own menu button.
-   * Note that this prop is incompatible with the LayoutButtonProps so you are
-   * responsible for styling the button. */
-  renderProps?: (active?: boolean, attrs?: object) => React.ReactNode
+  themes?: {
+    default?: string | React.ReactElement
+    active?: string | React.ReactElement
+  }
 }
 
 /**
  * The `MenuButton` controls opening / closing all Maker UI layout menus including, the
- * MobileMenu, SideNav, and Workspace panels.
+ * MobileMenu and Panel components.
  *
- * @TODO - make this a simpler button component that can handle all menu types
+
  * @link https://maker-ui.com/docs/layout/header
  */
 export const MenuButton = ({
   className,
-  renderProps,
   type = 'mobile-menu',
   icon,
   label,
   defaultIcon = 'menu',
-  activeClass = 'active',
+  activeClassName = 'active',
   css,
   breakpoints,
   mediaQuery,
@@ -48,46 +46,26 @@ export const MenuButton = ({
   children,
   ...props
 }: MenuButtonProps) => {
-  const [styleId] = React.useState(generateId())
-  const {
-    options: { sideNav, mobileMenu, workspace },
-  } = useLayout()
-  const { width: windowWidth } = useWindowSize()
+  const [styleId] = React.useState(`mkui-btn-${type}`)
   const { active, setMenu } = useMenu()
 
   const attrs =
-    type === 'side-nav'
-      ? {
-          'aria-expanded':
-            width && width > sideNav?.breakpoint
-              ? active.sideNavDesktop
-              : active.sideNavMobile,
-          onClick: toggleSideNav,
-        }
-      : type === 'mobile-menu'
+    type === 'mobile-menu'
       ? {
           'aria-expanded': active?.mobileMenu ? true : false,
           onClick: () => setMenu(!active?.mobileMenu, 'mobile-menu'),
         }
-      : type === 'ws-left' || type === 'ws-right'
+      : type === 'left-panel' || type === 'right-panel'
       ? {
           onClick: () => {
-            if (type === 'ws-left') {
-              setMenu(!active.workspaceLeft, 'ws-left')
+            if (type === 'left-panel') {
+              setMenu(!active.leftPanel, 'left-panel')
             } else {
-              setMenu(!active.workspaceRight, 'ws-right')
+              setMenu(!active.rightPanel, 'right-panel')
             }
           },
         }
       : {}
-
-  function toggleSideNav() {
-    if (windowWidth && windowWidth > sideNav.breakpoint && sideNav.collapse) {
-      setMenu(!active.sideNavDesktop, 'side-nav-desktop')
-    } else {
-      setMenu(!active.sideNavMobile, 'side-nav-mobile')
-    }
-  }
 
   const attributes = {
     title: 'Menu',
@@ -96,12 +74,15 @@ export const MenuButton = ({
       `mkui-btn-${type}`,
       styleId,
       fixed ? 'fixed' : absolute ? 'absolute' : sticky ? 'sticky' : undefined,
-      type === 'side-nav' && !sideNav.showCollapseOnMobile
-        ? 'mobile-hide'
+      type === 'mobile-menu' && active['mobileMenu']
+        ? activeClassName
         : undefined,
-      type === 'side-nav' && sideNav.collapse ? 'desktop' : undefined,
-      type === 'ws-left' && active['workspaceLeft'] ? 'active' : undefined,
-      type === 'ws-right' && active['workspaceRight'] ? 'active' : undefined,
+      type === 'left-panel' && active['leftPanel']
+        ? activeClassName
+        : undefined,
+      type === 'right-panel' && active['rightPanel']
+        ? activeClassName
+        : undefined,
       className,
     ]),
     'aria-label': label || 'Toggle Menu',
@@ -109,16 +90,7 @@ export const MenuButton = ({
     ...props,
   }
 
-  return renderProps ? (
-    <>
-      {renderProps(
-        type === 'side-nav' && sideNav.isPrimaryMobileNav
-          ? active?.sideNavMobile
-          : active?.mobileMenu,
-        attributes
-      )}
-    </>
-  ) : (
+  return (
     <button {...attributes}>
       <Style
         root={styleId}

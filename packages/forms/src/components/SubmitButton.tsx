@@ -1,12 +1,15 @@
 import React, { forwardRef } from 'react'
 import { cn } from '@maker-ui/utils'
-import { useForm } from '@/hooks'
+import { useForm } from '@/context'
 
 export interface FormSubmitButtonProps
   extends Omit<React.HTMLAttributes<HTMLButtonElement>, 'onClick'> {
   _type?: string
   children?: React.ReactNode
-  onClick?: (e: any, isSubmitting: boolean) => void
+  onClick?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    isSubmitting: boolean
+  ) => void
   lifecycle?: {
     submitting?: React.ReactNode
     disabled?: React.ReactNode

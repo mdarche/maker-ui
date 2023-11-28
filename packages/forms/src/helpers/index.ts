@@ -5,7 +5,15 @@ export { validateFile, validate } from './validate'
 export {
   deepSearch,
   isEmpty,
-  findAllValuesByKey,
   findDuplicateKey,
+  setVariable,
+  setDefault,
 } from './utils'
 export { findDifferences } from './find-differences'
+export {
+  isFieldArray,
+  extractField,
+  getFieldValue,
+  initRepeaterValues,
+  type Repeater,
+} from './repeater'

@@ -1,18 +1,19 @@
 /* Config variables
 / -------------------------------------------------- /
 / --form-select-border-active
-/ --form-select-color-value
-/ --form-select-bg-value
 / --form-select-columns
 / --form-select-padding
-/ --form-select-bg-highlight
-/ --form-select-color-highlight
-/ --form-select-color-group
-/ --form-select-bg-group
-/ --form-select-padding-group
-/ --form-select-font-size-group
-/ --form-select-color-count
-/ --form-select-bg-count
+/ --form-select-value-color
+/ --form-select-value-bg
+/ --form-select-highlight-bg
+/ --form-select-highlight-color
+/ --form-select-group-color
+/ --form-select-group-bg
+/ --form-select-group-padding
+/ --form-select-group-font-size
+/ --form-select-count-color
+/ --form-select-count-bg
+/ --form-select-count-font-size
 / --------------------------------------------------
 */
 
@@ -93,8 +94,8 @@
 .mkui-select-value {
   display: flex;
   align-items: center;
-  color: var(--form-select-color-value, var(--color-text));
-  background: var(--form-select-bg-value, #e6e6e6);
+  color: var(--form-select-value-color, var(--color-text));
+  background: var(--form-select-value-bg, #e6e6e6);
   padding-left: 5px;
   border-radius: 2px;
   font-size: calc(var(--form-input-font-size, 1em) - 2px);
@@ -140,29 +141,29 @@ button.mkui-select-option span {
 
 .mkui-select-option:not(.disabled):hover,
 .mkui-select-option:not(.disabled).highlight {
-  color: var(--form-select-color-highlight, var(--color-text));
-  background: var(--form-select-bg-highlight, #efefef);
+  color: var(--form-select-highlight-color, var(--color-text));
+  background: var(--form-select-highlight-bg, #efefef);
 }
 
 .mkui-group-label {
   position: sticky;
   top: 0px;
-  color: var(--form-select-color-group, var(--color-text));
-  background: var(--form-select-bg-group, var(--color-background));
-  padding: var(--form-select-padding-group, 5px 10px);
+  color: var(--form-select-group-color, var(--color-text));
+  background: var(--form-select-group-bg, var(--color-background));
+  padding: var(--form-select-group-padding, 5px 10px);
   border-bottom: var(--form-input-border, 1px solid var(--color-text));
 }
 
 .mkui-select-group-title {
-  font-size: var(--form-select-font-size-group, 0.8em);
+  font-size: var(--form-select-group-font-size, 0.8em);
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .mkui-select-group-count {
-  font-size: var(--form-select-font-size-group, 0.8em);
+  font-size: var(--form-select-count-font-size, 0.8em);
   border-radius: 50%;
   padding: 2px 8px;
-  color: var(--form-select-color-count, var(--color-text));
-  background: var(--form-select-bg-count, #efefef);
+  color: var(--form-select-count-color, var(--color-text));
+  background: var(--form-select-count-bg, #efefef);
 }

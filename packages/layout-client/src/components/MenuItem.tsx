@@ -120,7 +120,6 @@ export const MenuItem = React.memo(
         className={cn([
           'menu-item',
           megamenu || submenu ? 'has-submenu' : undefined,
-          // submenu ? 'has-submenu' : undefined,
           (megamenu || submenu) && nav && !caret ? 'mkui-caret' : undefined,
           show ? 'expanded' : undefined,
           className,
@@ -187,8 +186,8 @@ export const MenuItem = React.memo(
                 {submenu &&
                   submenu.map((item, index) => (
                     <MenuItem
+                      key={index}
                       {...{
-                        key: index,
                         data: item,
                         caret,
                         expandButton,

@@ -46,10 +46,9 @@ export const useCountdown = (endDate: Date, onCountdownEnd?: () => void) => {
   useEffect(() => {
     if (countdown.expired) return
 
-    //@ts-ignore
     intervalRef.current = setInterval(() => {
       setCountdown(calculateCountdown(endDate))
-    }, 1000)
+    }, 1000) as unknown as number
 
     return () => clearTimer()
     // eslint-disable-next-line react-hooks/exhaustive-deps

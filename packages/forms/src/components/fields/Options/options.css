@@ -1,3 +1,10 @@
+/* Config variables
+/ -------------------------------------------------- /
+/ --form-option-margin
+/ --form-option-margin-wrapper
+/ --------------------------------------------------
+*/
+
 .mkui-radio,
 .mkui-checkbox {
   margin: var(--form-option-margin, 0px 10px 0px 0px);

@@ -1,3 +1,3 @@
 export { useMenu } from './useMenu'
-export { useColorTheme } from './useColorTheme'
+export { useTheme } from './useTheme'
 export { useLayout } from './useLayout'

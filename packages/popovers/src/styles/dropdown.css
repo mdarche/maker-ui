@@ -1,0 +1,43 @@
+/* Config Variables
+/ -------------------------------------------------- /
+/ --dropdown-bg
+/ --dropdown-border
+/ --dropdown-color
+/ --dropdown-font-family
+/ --dropdown-font-size
+/ --dropdown-padding
+/ --dropdown-btn-bg
+/ --dropdown-btn-bg-hover
+/ --dropdown-btn-border
+/ --dropdown-btn-color
+/ --dropdown-btn-color-hover
+/ --dropdown-btn-font-family
+/ --dropdown-btn-font-size
+/ --dropdown-btn-padding
+/ -------------------------------------------------- 
+*/
+
+.mkui-dropdown {
+  background: var(--dropdown-bg);
+  border: var(--dropdown-border);
+  color: var(--dropdown-color);
+  font-family: var(--dropdown-font-family);
+  font-size: var(--dropdown-font-size);
+  padding: var(--dropdown-padding);
+}
+
+.mkui-btn-dropdown {
+  position: relative;
+  background: var(--dropdown-btn-bg);
+  border: var(--dropdown-btn-border);
+  color: var(--dropdown-btn-color);
+  font-family: var(--dropdown-btn-font-family);
+  font-size: var(--dropdown-btn-font-size);
+  padding: var(--dropdown-btn-padding);
+  cursor: pointer;
+}
+
+.mkui-btn-dropdown:hover {
+  background: var(--dropdown-btn-bg-hover, var(--dropdown-btn-bg));
+  color: var(--dropdown-btn-color-hover, var(--dropdown-btn-color));
+}

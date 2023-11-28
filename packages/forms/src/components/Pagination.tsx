@@ -1,13 +1,19 @@
 import * as React from 'react'
-import { useForm } from '@/hooks'
 import { cn } from '@maker-ui/utils'
+import { useForm } from '@/context'
 
 interface PaginationProps extends React.HTMLAttributes<HTMLDivElement> {
   submitButton: React.ReactNode
 }
 
 export const Pagination = ({ submitButton }: PaginationProps) => {
-  const { currentPage, totalPages, validatePage, setPage, settings } = useForm()
+  const {
+    currentPage,
+    totalPages,
+    validatePage,
+    setPage,
+    settings: s,
+  } = useForm()
   /**
    * Validate the current page before moving to the next page
    */
@@ -21,22 +27,19 @@ export const Pagination = ({ submitButton }: PaginationProps) => {
   }
 
   return (
-    <div
-      className={cn([
-        'mkui-form-pagination',
-        settings?.classNames?.pagination,
-      ])}>
+    <div className={cn(['mkui-form-pagination', s?.classNames?.pagination])}>
       {currentPage > 1 ? (
         <button
           type="button"
           onClick={() => handlePageClick('prev')}
           className={cn([
             'mkui-form-btn-page prev',
-            settings?.classNames?.pageButton,
+            s?.classNames?.pageButton,
+            s?.classNames?.prevButton,
           ])}>
-          {settings?.prevButton || (
+          {s?.prevButton || (
             <div className="mkui-prev-inner flex align-center">
-              {settings?.icons?.prevArrow}
+              {s?.icons?.prevArrow}
               Previous
             </div>
           )}
@@ -50,12 +53,13 @@ export const Pagination = ({ submitButton }: PaginationProps) => {
           onClick={() => handlePageClick('next')}
           className={cn([
             'mkui-form-btn-page next',
-            settings?.classNames?.pageButton,
+            s?.classNames?.pageButton,
+            s?.classNames?.nextButton,
           ])}>
-          {settings?.nextButton || (
+          {s?.nextButton || (
             <div className="mkui-next-inner flex align-center">
               Next
-              {settings?.icons?.nextArrow}
+              {s?.icons?.nextArrow}
             </div>
           )}
         </button>

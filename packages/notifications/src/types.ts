@@ -5,6 +5,28 @@ export interface ToastClassNames {
   toast_body: string
 }
 
+export interface ToastStyles {
+  container?: {
+    gap?: string | number
+    padding?: string | number
+  }
+  toast?: {
+    color?: string
+    bg?: string
+    padding?: string | number
+    border?: string
+    borderRadius?: string
+    boxShadow?: string
+    fontSize?: string | number
+    distance?: string | number
+    duration?: string | number
+  }
+  icon?: {
+    fill?: string
+    height?: string | number
+  }
+}
+
 export interface ToastSettings {
   clearCache: boolean
   /** Custom component mapping for keyed types*/
@@ -35,6 +57,7 @@ export interface ToastProps {
   dismiss: boolean | React.ReactElement
   created_at: number
   active: boolean
+  styles?: ToastStyles
 }
 
 export interface ToastState extends ToastSettings {
