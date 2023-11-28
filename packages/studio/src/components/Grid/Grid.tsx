@@ -118,7 +118,17 @@ export const Grid = (props: GridProps) => {
         collapse ? 'collapse' : undefined,
         !visible ? 'invisible' : undefined,
       ])}
-      style={{ padding: padding }}>
+      style={
+        {
+          padding: padding,
+          // '--studio-primary': '#6315ed',
+          // '--studio-handle': '',
+          // '--studio-handle-dark': '',
+          // '--studio-handle-text': '',
+          // '--studio-gray-100': '',
+          // '--studio-gray-200': '',
+        } as React.CSSProperties
+      }>
       {collapse ? (
         <div className="grid-collapse">
           <button
@@ -148,7 +158,7 @@ export const Grid = (props: GridProps) => {
               <div
                 key={i}
                 className="grid-cell flex align-center justify-center">
-                <div className="mkui-add-compont">{cell}</div>
+                <div className="mkui-add-component">{cell}</div>
               </div>
             ))}
             <GapControl

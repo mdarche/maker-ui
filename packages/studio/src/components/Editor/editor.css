@@ -1,13 +1,31 @@
 .mkui-editor {
   position: fixed;
   z-index: 1000;
+}
+
+.mkui-editor-inner {
+  display: flex;
+  flex-direction: column;
   height: 500px;
   width: 520px;
+  min-height: 45px;
   background: var(--color-background);
-  border: 1px solid;
   overflow: auto;
   resize: both;
-  border-radius: 4px;
+  border-radius: 2px;
+  box-shadow: 5px 10px 11px -3px #00000024;
+}
+
+.mkui-btn-save {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  background: var(--studio-primary, #6315ed);
+  border-radius: 2px;
+  font-size: 14px;
+  border: none;
+  color: white;
+  padding: 10px 20px;
   box-shadow: 5px 10px 11px -3px #00000024;
 }
 
@@ -15,11 +33,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #000;
+  background: var(--studio-primary, #6315ed);
+  border: 1px solid var(--studio-primary, #6315ed);
+  height: 45px;
   color: #fff;
   cursor: move;
   user-select: none;
-  padding: 10px 8px 10px 15px;
+  padding: 0 8px 0 15px;
 }
 
 .mkui-editor-nav button {
@@ -29,6 +49,26 @@
 }
 
 .mkui-editor-nav svg {
-  height: 17px;
+  height: 15px;
   fill: #fff;
+}
+
+.mkui-editor-content {
+  flex: 1;
+  border: 1px solid var(--studio-gray-200, #b4b4b4);
+  border-top: none;
+  overflow: scroll;
+}
+
+.mkui-editor-subnav {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  background: var(--studio-gray-100, #f6f6f6);
+  background: #f6f6f6;
+  border-bottom: 1px solid var(--studio-gray-200, #b4b4b4);
+}
+
+.mkui-editor-body {
+  padding: 15px;
 }

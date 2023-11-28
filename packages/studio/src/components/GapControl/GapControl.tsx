@@ -28,7 +28,10 @@ export const GapControl = ({
   }
 
   return (
-    <div ref={ref} className="grid-resize" style={{ gridTemplateColumns, gap }}>
+    <div
+      ref={ref}
+      className="grid-resize studio-reveal"
+      style={{ gridTemplateColumns, gap }}>
       {[...Array(columns)].map((_, index) =>
         index < columns - 1 ? (
           <div key={index} className="grid-cell">
@@ -48,7 +51,11 @@ export const GapControl = ({
                   <button onClick={(e) => updateGap(e, true)}>-</button>
                   <button onClick={(e) => updateGap(e, false)}>+</button>
                 </div>
-                <span className={cn(['gap-value'])}>
+                <span
+                  className={cn([
+                    'resize-value gap flex align-center',
+                    showGapValue ? 'show' : '',
+                  ])}>
                   {showGapValue && `${gap}px`}
                 </span>
               </div>

@@ -19,6 +19,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
+    "@maker-ui/forms": "workspace:*",
+    "@maker-ui/layout": "workspace:*",
     "@maker-ui/modal": "workspace:*",
     "@maker-ui/utils": "workspace:*"
   },

@@ -93,3 +93,14 @@ export const CloseIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <path d="M.047 30.226 30.212.052l311.542 311.454-30.166 30.174z" />
   </svg>
 )
+
+export const SuccessIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    className="icon-success"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 30 30"
+    {...props}>
+    <path d="M19.918 3.955A12.083 12.083 0 1 0 27.083 15v-1.226a1.25 1.25 0 1 1 2.5 0V15A14.585 14.585 0 0 1 9.946 28.672a14.583 14.583 0 1 1 10.99-27 1.25 1.25 0 1 1-1.018 2.283Z" />
+    <path d="M29.217 3.449a1.25 1.25 0 0 1 0 1.768L15.885 18.564a1.25 1.25 0 0 1-1.768 0l-4-4a1.25 1.25 0 1 1 1.768-1.768L15 15.912 27.449 3.45a1.25 1.25 0 0 1 1.768-.001Z" />
+  </svg>
+)

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Portal } from '@maker-ui/modal'
-import { CloseIcon } from '../Icons'
 import { cn } from '@maker-ui/utils'
+import { CloseIcon } from '../Icons'
 
 interface EditorProps {
   title?: string
@@ -24,7 +24,7 @@ export const Editor = ({
   const [position, setPosition] = useState({ top: 0, left: 0 })
 
   useEffect(() => {
-    if (buttonRef.current) {
+    if (buttonRef.current && !show) {
       const rect = buttonRef.current.getBoundingClientRect()
       // Ensure we never open out of the viewport
       setPosition({
@@ -32,7 +32,7 @@ export const Editor = ({
         left: rect.left + window.scrollX,
       })
     } // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [buttonRef])
+  }, [buttonRef, show])
 
   // Handle dragging
   const handleDrag = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -46,13 +46,27 @@ export const Editor = ({
     }
 
     const onMove = (moveEvent: MouseEvent) => {
+      if (!ref.current) return
       const dx = moveEvent.clientX - startPos.x
       const dy = moveEvent.clientY - startPos.y
-      // Ensure we don't exceed the viewport
-      setPosition({
-        top: initialPos.top + dy,
-        left: initialPos.left + dx,
-      })
+
+      // Calculate new position
+      let newTop = initialPos.top + dy
+      let newLeft = initialPos.left + dx
+
+      // Viewport dimensions
+      const viewportWidth = window.innerWidth
+      const viewportHeight = window.innerHeight
+
+      // Element dimensions
+      const elementWidth = ref.current.offsetWidth
+      const elementHeight = ref.current.offsetHeight
+
+      // Clamping to the viewport
+      newLeft = Math.max(0, Math.min(viewportWidth - elementWidth, newLeft))
+      newTop = Math.max(0, Math.min(viewportHeight - elementHeight, newTop))
+
+      setPosition({ top: newTop, left: newLeft })
     }
 
     const onUp = () => {
@@ -73,13 +87,19 @@ export const Editor = ({
           top: position.top,
           left: position.left,
         }}>
-        <div className="mkui-editor-nav" onMouseDown={handleDrag}>
-          <div className="title">{title}</div>
-          <button className="btn-close" onClick={() => exit()}>
-            <CloseIcon />
-          </button>
+        <div className={cn(['mkui-editor-inner', theme])}>
+          <div className="mkui-editor-nav" onMouseDown={handleDrag}>
+            <div className="title">{title}</div>
+            <button className="btn-close" onClick={() => exit()}>
+              <CloseIcon />
+            </button>
+          </div>
+          <div className="mkui-editor-content">
+            <div className="mkui-editor-subnav"></div>
+            <div className="mkui-editor-body">{children}</div>
+          </div>
         </div>
-        {children}
+        <button className="mkui-btn-save">Save</button>
       </div>
     </Portal>
   ) : null

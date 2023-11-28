@@ -2,15 +2,14 @@
   display: inline-flex;
   width: fit-content;
   position: absolute;
-  top: -15px;
+  top: -16px;
   left: 0;
-  height: 30px;
-  background: #363636;
+  height: 32px;
+  background: var(--studio-primary, #6315ed);
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
   color: #fff;
   z-index: 1;
-  opacity: 0;
   transition: opacity 0.1s ease-in-out;
 }
 
@@ -27,12 +26,12 @@
 
 .grid-menu svg {
   fill: #fff;
-  height: 17px;
+  height: 15px;
 }
 
 .layout-button-group {
-  border-left: 1px solid #777;
-  border-right: 1px solid #777;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
   padding: 3px 10px;
 }
 
@@ -54,6 +53,7 @@
   color: #fff;
   font-size: 0.9em;
   margin: 0 7px 0 10px;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .btn-title svg {
@@ -65,11 +65,10 @@
 
 .grid-actions {
   position: absolute;
-  top: -15px;
+  top: -16px;
   right: 0;
-  opacity: 0;
   transition: opacity 0.1s ease-in-out;
-  background: #363636;
+  background: var(--studio-primary, #6315ed);
   display: flex;
   align-items: center;
   border-top-left-radius: 2px;
@@ -96,8 +95,3 @@
 .grid-actions .icon-hide {
   height: 17px;
 }
-
-/* .btn-delete svg {
-  fill: #fff;
-  height: 15px;
-} */

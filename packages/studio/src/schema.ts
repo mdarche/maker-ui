@@ -1,8 +1,34 @@
 // Default schema
 
 export interface AppSettings {
+  siteName: string
+  siteUrl: string
+  siteDescription: string
+  logo: string | React.ReactElement
+  favicon: string
   // run through all defaults
+  seo: SEOSettings
   // set up variables
+  social: {
+    x: string
+    facebook: string
+    instagram: string
+    youtube: string
+    pinterest: string
+    linkedin: string
+    tiktok: string
+    github: string
+    discord: string
+    [key: string]: string
+  }
+}
+
+interface SEOSettings {
+  title: string
+  description: string
+  share_img: string
+  template?: string
+  meta: [{ name: string; content: string }]
 }
 
 export interface PageSettings {
@@ -13,11 +39,9 @@ export interface PageSettings {
   breakpoints: string[]
   type: 'PARTIAL' | 'FULL'
   layout: 'CONTENT' | 'PANEL_CONTENT' | 'PANEL_CONTENT_PANEL' | 'CONTENT_PANEL'
-  seo: {
-    title: string
-    description: string
-    share_img: string
-  }
+  seo: SEOSettings
+  createdAt: string
+  updatedAt: string
 }
 
 export interface Menu {
@@ -52,6 +76,8 @@ export interface ModuleProps {
   jss?: string
   grid?: GridSettings[]
   styles: ModuleStyle[]
+  createdAt: string
+  updatedAt: string
 }
 
 interface GridSettings {
