@@ -14,6 +14,10 @@
   resize: both;
   border-radius: 2px;
   box-shadow: 5px 10px 11px -3px #00000024;
+
+  @media screen and (max-width: 520px) {
+    width: 100%;
+  }
 }
 
 .mkui-btn-save {

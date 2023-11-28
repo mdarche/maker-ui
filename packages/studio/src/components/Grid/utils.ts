@@ -126,7 +126,7 @@ export const handleColumnResize = ({
   index,
   gridTemplateColumns,
   dispatch,
-  mode = 'fr',
+  mode = 'px',
 }: ColumnResizeProps) => {
   e.preventDefault()
   e.stopPropagation()

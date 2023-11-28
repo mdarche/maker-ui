@@ -22,14 +22,27 @@ export const Editor = ({
 }: EditorProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState({ top: 0, left: 0 })
+  const width = 520
+  const offsetX = 30
+  const offsetY = -30
 
   useEffect(() => {
     if (buttonRef.current && !show) {
       const rect = buttonRef.current.getBoundingClientRect()
-      // Ensure we never open out of the viewport
+      const viewportCenter = window.innerWidth / 2
+
+      let newLeft: number
+      if (rect.left < viewportCenter) {
+        newLeft = rect.right + offsetX // Open to the right
+      } else {
+        newLeft = rect.left - offsetX // Open to the left
+      }
+
+      newLeft = Math.max(0, Math.min(window.innerWidth - width, newLeft))
+
       setPosition({
-        top: rect.top + window.scrollY,
-        left: rect.left + window.scrollX,
+        top: rect.top + offsetY + window.scrollY,
+        left: window.innerWidth <= width ? 0 : newLeft,
       })
     } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [buttonRef, show])
@@ -99,7 +112,6 @@ export const Editor = ({
             <div className="mkui-editor-body">{children}</div>
           </div>
         </div>
-        <button className="mkui-btn-save">Save</button>
       </div>
     </Portal>
   ) : null

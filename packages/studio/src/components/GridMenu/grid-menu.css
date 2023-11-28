@@ -73,6 +73,7 @@
   align-items: center;
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
+  z-index: 1;
 }
 
 .grid-actions button {

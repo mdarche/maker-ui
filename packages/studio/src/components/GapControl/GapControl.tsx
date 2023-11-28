@@ -21,6 +21,7 @@ export const GapControl = ({
   const showGapValue = gap > 31
 
   const updateGap = (e: React.MouseEvent, remove = true) => {
+    e.stopPropagation()
     const isShift = e.shiftKey
     const val = isShift ? 10 : 1
     const payload = remove ? (gap > 0 ? gap - val : 0) : gap + val
@@ -37,6 +38,10 @@ export const GapControl = ({
           <div key={index} className="grid-cell">
             <div
               className="resize-gap"
+              onDoubleClick={(e) => {
+                e.stopPropagation()
+                dispatch({ type: 'SET_GAP', payload: 0 })
+              }}
               onMouseDown={(e) =>
                 handleColumnResize({
                   e,

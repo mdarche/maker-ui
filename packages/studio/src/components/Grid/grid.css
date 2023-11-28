@@ -121,6 +121,8 @@
   top: 0;
   left: 0;
   right: 0;
+  border-bottom: 1px dashed;
+  border-color: var(--studio-primary, #6315ed);
 }
 
 .resize-handle-item.right {
@@ -128,6 +130,9 @@
   right: 0;
   bottom: 0;
   cursor: ew-resize;
+  border-left: 1px dashed;
+  border-color: var(--studio-primary, #6315ed);
+  z-index: 1;
 }
 
 .resize-handle-item.left .abs {
@@ -144,6 +149,8 @@
   bottom: 0;
   left: 0;
   right: 0;
+  border-top: 1px dashed;
+  border-color: var(--studio-primary, #6315ed);
 }
 
 .resize-handle-item.left {
@@ -151,6 +158,8 @@
   left: 0;
   bottom: 0;
   cursor: ew-resize;
+  border-right: 1px dashed;
+  border-color: var(--studio-primary, #6315ed);
 }
 
 .resize-manual {
