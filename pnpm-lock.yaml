@@ -693,9 +693,6 @@ importers:
       '@maker-ui/modal':
         specifier: workspace:*
         version: link:../modal
-      '@maker-ui/style':
-        specifier: workspace:*
-        version: link:../style
       '@maker-ui/transition':
         specifier: workspace:*
         version: link:../transition
