@@ -4,6 +4,7 @@ import { GridMenu } from '../GridMenu'
 import { ExpandIcon } from '../Icons'
 import { GapControl } from '../GapControl'
 import { ResizeHandle } from '../ResizeHandle'
+import { GridCell } from '../GridCell'
 
 interface GridProps {
   resizeMode?: 'px' | '%' | 'fr'
@@ -155,11 +156,7 @@ export const Grid = (props: GridProps) => {
             className="grid"
             style={{ gridTemplateColumns, gap }}>
             {[...Array(columns)].map((cell, i) => (
-              <div
-                key={i}
-                className="grid-cell flex align-center justify-center">
-                <div className="mkui-add-component">{cell}</div>
-              </div>
+              <GridCell key={i} />
             ))}
             <GapControl
               columns={columns}

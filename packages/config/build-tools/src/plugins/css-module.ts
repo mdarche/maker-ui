@@ -5,7 +5,10 @@ import postcss from 'postcss'
 import postcssModules from 'postcss-modules'
 import postcssNested from 'postcss-nested'
 
-export const PluginCSSModule: (global: boolean) => Plugin = (g) => {
+export const PluginCSSModule: (global: boolean, prefix?: string) => Plugin = (
+  g,
+  p
+) => {
   return {
     name: 'css-module',
     setup(build: PluginBuild) {
@@ -37,8 +40,8 @@ export const PluginCSSModule: (global: boolean) => Plugin = (g) => {
               },
               exportGlobals: true,
               generateScopedName: g
-                ? 'ofx-[local]'
-                : 'ofx-[local]-[hash:base64:5]',
+                ? `mkui-${p ? p + '-' : ''}[local]`
+                : `mkui-${p ? p + '-' : ''}[local]-[hash:base64:5]`,
             }),
           ]).process(source, { from: pluginData.pathDir })
 

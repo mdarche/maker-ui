@@ -1,0 +1,7 @@
+.cell {
+  background: var(--color-background);
+
+  > span {
+    color: orange;
+  }
+}

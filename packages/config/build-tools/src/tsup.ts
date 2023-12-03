@@ -7,6 +7,8 @@ export interface BuildSettings extends Options {
    * @default false
    */
   global?: boolean
+  /** Adds a prefix to the CSS module after the root `mkui` */
+  prefix?: string
 }
 
 const defaults: BuildSettings = {
@@ -29,6 +31,6 @@ export const buildConfig = (p?: BuildSettings): Options => {
 
   return {
     ...settings,
-    esbuildPlugins: [PluginCSSModule(global || false)],
+    esbuildPlugins: [PluginCSSModule(global || false, p?.prefix)],
   }
 }

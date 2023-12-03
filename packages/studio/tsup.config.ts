@@ -5,6 +5,8 @@ const config = buildConfig({
   minifyIdentifiers: true,
   minifyWhitespace: true,
   minifySyntax: true,
+  global: true,
+  prefix: 'studio',
   entry: {
     index: 'src/index.ts',
   },
