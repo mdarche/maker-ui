@@ -1,4 +1,4 @@
-import { GridAction } from './Grid'
+import { ModuleAction } from '@/module'
 
 export const positionMap = ['top', 'right', 'bottom', 'left']
 
@@ -55,9 +55,9 @@ export function extractValue(input: string): number | string {
 export const handleBoxResize = (
   e: React.MouseEvent,
   index: number,
-  type: 'padding' | 'margin',
+  property: 'padding' | 'margin',
   currentValue: string,
-  dispatch: React.Dispatch<GridAction>
+  dispatch: React.Dispatch<ModuleAction>
 ) => {
   e.preventDefault()
   e.stopPropagation()
@@ -83,22 +83,18 @@ export const handleBoxResize = (
   const startY = e.pageY
 
   const handleMouseMove = (e: MouseEvent) => {
-    const diffX = calculateDiffX(e.pageX, startX, pos, type)
+    const diffX = calculateDiffX(e.pageX, startX, pos, property)
     const diffY = calculateDiffY(e.pageY, startY, pos)
 
     const newDimension = isX ? width + diffX : height + diffY
-    if (newDimension < 0 && type !== 'margin') return
+    if (newDimension < 0 && property !== 'margin') return
     if ((isX && diffX === 0) || (!isX && diffY === 0)) return
 
     if (index >= 0 && index < values.length) {
       values[index] = newDimension + 'px'
-      const payload = values.join(' ')
+      const value = values.join(' ')
 
-      if (type === 'padding') {
-        dispatch({ type: 'SET_PADDING', payload })
-      } else if (type === 'margin') {
-        dispatch({ type: 'SET_MARGIN', payload })
-      }
+      dispatch({ type: 'SET_STYLE', payload: { property, value } })
     }
   }
 
@@ -117,7 +113,7 @@ interface ColumnResizeProps {
   e: React.MouseEvent
   index: number
   gridTemplateColumns: string
-  dispatch: React.Dispatch<GridAction>
+  dispatch: React.Dispatch<ModuleAction>
   mode?: 'px' | 'fr' | '%'
 }
 
@@ -166,9 +162,12 @@ export const handleColumnResize = ({
       }
 
       values[index] = newSizeValue
-      const payload = values.join(' ')
+      const value = values.join(' ')
 
-      dispatch({ type: 'SET_GRID_TEMPLATE_COLUMNS', payload })
+      dispatch({
+        type: 'SET_STYLE',
+        payload: { property: 'gridTemplateColumns', value },
+      })
     }
   }
 

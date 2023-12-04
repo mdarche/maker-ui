@@ -1,6 +1,6 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": ["src"],
+  "include": ["src", "../../globals.d.ts"],
   "compilerOptions": {
     "types": ["cypress"]
   }

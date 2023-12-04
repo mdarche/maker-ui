@@ -18,7 +18,11 @@
 / -------------------------------------------------- 
 */
 
-.mkui-accordion-btn {
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   color: var(--accordion-btn-color, var(--color-text));
   font-family: var(--accordion-btn-font-family);
   font-size: var(--accordion-btn-font-size);
@@ -28,28 +32,28 @@
   cursor: pointer;
 }
 
-.mkui-accordion-btn.active {
+.btn-active {
   color: var(--accordion-btn-color-active, var(--color-text));
   background: var(--accordion-btn-bg-active, var(--accordion-btn-bg));
   border: var(--accordion-btn-border-active, var(--accordion-btn-border));
+
+  .icon > svg {
+    fill: var(--accordion-icon-fill-active);
+  }
 }
 
-.mkui-accordion-btn.active svg {
-  fill: var(--accordion-icon-fill-active);
-}
-
-.mkui-accordion-content {
+.content {
   padding: var(--accordion-panel-padding, 10px 20px);
   font-size: var(--accordion-panel-font-size);
   background: var(--accordion-panel-bg);
 }
 
-.mkui-accordion-icon svg {
+.icon > svg {
   display: block;
   height: var(--accordion-icon-height, 15px);
   fill: var(--accordion-icon-fill, var(--color-text));
 }
 
-.mkui-accordion-panel {
+.panel {
   overflow: hidden;
 }

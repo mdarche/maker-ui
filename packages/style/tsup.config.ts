@@ -9,5 +9,8 @@ export default defineConfig((options) =>
     entry: {
       index: 'src/index.ts',
     },
+    banner: {
+      js: `'use client'`,
+    },
   })
 )

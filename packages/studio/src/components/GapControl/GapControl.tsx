@@ -1,13 +1,13 @@
 import React, { useRef } from 'react'
 import { cn } from '@maker-ui/utils'
-import { handleColumnResize } from '../Grid/utils'
-import { GridAction } from '../Grid/Grid'
+import { extractValue, handleColumnResize } from '../Grid/utils'
+import { ModuleAction } from '@/module'
 
 interface GapControlProps {
   columns: number
   gridTemplateColumns: string
-  gap: number
-  dispatch: React.Dispatch<GridAction>
+  gap: string
+  dispatch: React.Dispatch<ModuleAction>
 }
 
 export const GapControl = ({
@@ -17,15 +17,19 @@ export const GapControl = ({
   dispatch,
 }: GapControlProps) => {
   const ref = useRef<HTMLDivElement>(null)
+  const gapVal = extractValue(gap) as number
 
-  const showGapValue = gap > 31
+  const showGapValue = gapVal > 31
 
   const updateGap = (e: React.MouseEvent, remove = true) => {
     e.stopPropagation()
     const isShift = e.shiftKey
-    const val = isShift ? 10 : 1
-    const payload = remove ? (gap > 0 ? gap - val : 0) : gap + val
-    dispatch({ type: 'SET_GAP', payload })
+    const v = isShift ? 10 : 1
+    const value = remove ? (gapVal > 0 ? gapVal - v : 0) : gapVal + v
+    dispatch({
+      type: 'SET_STYLE',
+      payload: { property: 'gap', value: `${value}px` },
+    })
   }
 
   return (
@@ -40,7 +44,10 @@ export const GapControl = ({
               className="resize-gap"
               onDoubleClick={(e) => {
                 e.stopPropagation()
-                dispatch({ type: 'SET_GAP', payload: 0 })
+                dispatch({
+                  type: 'SET_STYLE',
+                  payload: { property: 'gap', value: '0px' },
+                })
               }}
               onMouseDown={(e) =>
                 handleColumnResize({
@@ -50,7 +57,7 @@ export const GapControl = ({
                   dispatch,
                 })
               }
-              style={{ width: gap, transform: `translateX(${gap}px)` }}>
+              style={{ width: gap, transform: `translateX(${gap})` }}>
               <div className="gap-control">
                 <div className="gap-buttons flex align-center">
                   <button onClick={(e) => updateGap(e, true)}>-</button>
@@ -61,7 +68,7 @@ export const GapControl = ({
                     'resize-value gap flex align-center',
                     showGapValue ? 'show' : '',
                   ])}>
-                  {showGapValue && `${gap}px`}
+                  {showGapValue && gap}
                 </span>
               </div>
             </div>

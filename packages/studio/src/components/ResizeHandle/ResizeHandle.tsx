@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { cn } from '@maker-ui/utils'
 import {
   extractValue,
@@ -7,13 +7,13 @@ import {
   replaceValue,
   validateCssUnit,
 } from '../Grid/utils'
-import { GridAction } from '../Grid/Grid'
+import { type ModuleAction } from '@/module'
 import { SuccessIcon } from '../Icons'
 
 interface ResizeHandleProps {
   padding: string
   margin: string
-  dispatch: React.Dispatch<GridAction>
+  dispatch: React.Dispatch<ModuleAction>
 }
 
 export const ResizeHandle = ({
@@ -44,7 +44,7 @@ interface ResizeHandleItemProps {
   fullValue: string // full padding or margin string
   index: number
   type: 'padding' | 'margin'
-  dispatch: React.Dispatch<GridAction>
+  dispatch: React.Dispatch<ModuleAction>
 }
 
 const ResizeHandleItem = ({
@@ -73,14 +73,16 @@ const ResizeHandleItem = ({
   }, [value])
 
   function handleUpdate() {
-    const t = type === 'padding' ? 'SET_PADDING' : 'SET_MARGIN'
     const v = validateCssUnit(inputValue)
     if (!v) {
       setInputActive(false)
       return
     }
-    const payload = replaceValue(fullValue, index, v)
-    dispatch({ type: t, payload })
+    const formatted = replaceValue(fullValue, index, v)
+    dispatch({
+      type: 'SET_STYLE',
+      payload: { property: type, value: formatted },
+    })
     setInputActive(false)
   }
 
@@ -101,8 +103,8 @@ const ResizeHandleItem = ({
       }}
       onDoubleClick={(e) => {
         if (inputActive) return
-        const payload = replaceValue(fullValue, index, '0px')
-        dispatch({ type: 'SET_PADDING', payload })
+        const value = replaceValue(fullValue, index, '0px')
+        dispatch({ type: 'SET_STYLE', payload: { property: type, value } })
       }}>
       {inputActive ? (
         <form

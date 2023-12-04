@@ -3,6 +3,7 @@ import { generateId, cn } from '@maker-ui/utils'
 import { useResizeObserver } from '@maker-ui/hooks'
 
 import { useAccordion } from './Accordion'
+import styles from './accordion.module.css'
 
 export interface AccordionPanelProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -110,11 +111,9 @@ export const AccordionPanel = React.forwardRef<
         {...props}>
         <button
           className={cn([
-            'mkui-accordion-btn',
-            'flex align-center width-100',
-            state.icon ? 'justify-between' : undefined,
+            styles.btn,
             state?.classNames?.button,
-            show ? 'active' : undefined,
+            show ? styles['btn-active'] : undefined,
           ])}
           title={`${show ? 'Collapse' : 'Expand'} content`}
           id={buttonId}
@@ -124,12 +123,12 @@ export const AccordionPanel = React.forwardRef<
           <div>
             {React.isValidElement(title) ? title : <span>{title}</span>}
           </div>
-          <div className="mkui-accordion-icon">{renderIcon()}</div>
+          <div className={styles.icon}>{renderIcon()}</div>
         </button>
         <div
           id={panelId}
           role="region"
-          className={cn(['mkui-accordion-panel', state?.classNames?.panel])}
+          className={cn([styles.panel, state?.classNames?.panel])}
           aria-labelledby={buttonId}
           style={{
             willChange: state.animate ? 'height' : undefined,
@@ -143,10 +142,7 @@ export const AccordionPanel = React.forwardRef<
           }}>
           <div ref={measureRef}>
             <div
-              className={cn([
-                'mkui-accordion-content',
-                state.classNames?.panelContent,
-              ])}>
+              className={cn([styles.content, state.classNames?.panelContent])}>
               {children}
             </div>
           </div>

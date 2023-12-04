@@ -5,6 +5,7 @@ const config = buildConfig({
   minifyIdentifiers: true,
   minifyWhitespace: true,
   minifySyntax: true,
+  prefix: 'accordion',
   entry: {
     index: 'src/index.ts',
   },

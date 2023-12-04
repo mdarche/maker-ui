@@ -11,15 +11,15 @@ import {
   TrashIcon,
 } from '../Icons'
 import { cn } from '@maker-ui/utils'
-import { GridAction } from '../Grid/Grid'
 import { Editor } from '../Editor'
+import type { ModuleAction } from '@/module'
 
 interface GridMenuProps {
   title?: string
   visible?: boolean
   columns: number
   collapse?: boolean
-  dispatch: React.Dispatch<GridAction>
+  dispatch: React.Dispatch<ModuleAction>
 }
 
 export const GridMenu: React.FC<GridMenuProps> = ({
@@ -79,7 +79,7 @@ export const GridMenu: React.FC<GridMenuProps> = ({
         <button
           className="btn-visibility"
           onClick={() =>
-            dispatch({ type: 'TOGGLE_VISIBILITY', payload: !visible })
+            dispatch({ type: 'SET_VISIBILITY', payload: !visible })
           }>
           {!visible ? <HideIcon /> : <RevealIcon />}
         </button>

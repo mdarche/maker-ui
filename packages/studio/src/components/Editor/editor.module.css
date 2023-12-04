@@ -1,39 +1,49 @@
-.mkui-editor {
+.editor {
   position: fixed;
   z-index: 1000;
-}
-
-.mkui-editor-inner {
   display: flex;
   flex-direction: column;
-  height: 500px;
-  width: 520px;
-  min-height: 45px;
   background: var(--color-background);
-  overflow: auto;
-  resize: both;
-  border-radius: 2px;
   box-shadow: 5px 10px 11px -3px #00000024;
+  height: 100%;
+  width: 100%;
 
   @media screen and (max-width: 520px) {
     width: 100%;
   }
+
+  &.undock {
+    height: 500px;
+    width: 520px;
+    min-height: 45px;
+    overflow: auto;
+    resize: both;
+    border-radius: 2px;
+  }
+
+  &.left {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 400px;
+  }
+
+  &.right {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 400px;
+  }
 }
 
-.mkui-btn-save {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 10px);
-  background: var(--studio-primary, #6315ed);
-  border-radius: 2px;
-  font-size: 14px;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  box-shadow: 5px 10px 11px -3px #00000024;
+.left,
+.right {
+  .editor-nav {
+    cursor: default;
+  }
 }
 
-.mkui-editor-nav {
+.editor-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,27 +54,48 @@
   cursor: move;
   user-select: none;
   padding: 0 8px 0 15px;
+
+  button {
+    background: none;
+    outline: none;
+    border: none;
+  }
+
+  svg {
+    height: 15px;
+    fill: #fff;
+  }
 }
 
-.mkui-editor-nav button {
-  background: none;
-  outline: none;
-  border: none;
+.layout-buttons {
+  margin-right: 15px;
 }
 
-.mkui-editor-nav svg {
-  height: 15px;
-  fill: #fff;
+.layout-button {
+  opacity: 0.5;
+  transition: opacity 0.2s ease-in-out;
+
+  svg {
+    height: 14px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
-.mkui-editor-content {
+.layout-active {
+  opacity: 1;
+}
+
+.editor-content {
   flex: 1;
   border: 1px solid var(--studio-gray-200, #b4b4b4);
   border-top: none;
   overflow: scroll;
 }
 
-.mkui-editor-subnav {
+.editor-menu {
   display: flex;
   align-items: center;
   height: 45px;
@@ -73,6 +104,6 @@
   border-bottom: 1px solid var(--studio-gray-200, #b4b4b4);
 }
 
-.mkui-editor-body {
+.editor-body {
   padding: 15px;
 }

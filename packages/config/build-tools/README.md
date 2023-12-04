@@ -30,12 +30,12 @@ import { buildConfig } from '@maker-ui/build-tools'
 export default defineConfig((options) =>
   buildConfig({
     clean: false,
-    minify: !options.watch,
+    minify: !options.watch, // only minifies for `build` command
     entry: {
       index: 'src/index.ts',
     },
     banner: {
-      js: `'use client'`,
+      js: `'use client'`, // client directive for NextJS app directory
     },
   })
 )
@@ -57,9 +57,16 @@ The package comes with default settings, which can be overridden in the `buildCo
 - `entry`: Default entry point is set to `['src/index.ts']`.
 - `format`: Formats set to `['esm', 'cjs']`.
 - `external`: Default external modules include `['react']`.
-- `dts`: Generates type declarations, set to true.
-- `clean`: Controls whether to clean the dist folder before building. Default is false.
+- `dts`: Generates type declarations, set to `true`.
+- `clean`: Controls whether to clean the dist folder before building. Default is `false`.
 
 ## Extending Build Configuration
 
-To extend or override the default build configuration, pass additional properties to the `buildConfig` function. For example, to change the entry point or include additional formats, you can modify the configuration as needed.
+To extend or override the default build configuration, pass additional properties to the `buildConfig` function. For example, to change the entry point or include additional formats, you can modify the configuration as needed. See the official [tsup documentation](https://tsup.egoist.dev/) for more options.
+
+```typescript
+
+## Contributions
+
+Contributions to `@maker-ui/build-tools` are welcome. Please follow the standard procedures for submitting issues and pull requests to this repository.
+```

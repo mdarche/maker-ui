@@ -104,3 +104,30 @@ export const SuccessIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <path d="M29.217 3.449a1.25 1.25 0 0 1 0 1.768L15.885 18.564a1.25 1.25 0 0 1-1.768 0l-4-4a1.25 1.25 0 1 1 1.768-1.768L15 15.912 27.449 3.45a1.25 1.25 0 0 1 1.768-.001Z" />
   </svg>
 )
+
+export const UndockIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 23" {...props}>
+    <path d="M3 1a1 1 0 0 1 1-1h19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V1Zm2 5v12h17V6H5Z" />
+    <path d="M1 3h1v18h19v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" />
+  </svg>
+)
+
+export const LeftPanelIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 20">
+    <path
+      fillRule="evenodd"
+      d="M0 1a1 1 0 0 1 1-1h19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1Zm2 17V2h5v16H2Zm7 0h10V2H9v16Z"
+      clipRule="evenodd"
+    />
+  </svg>
+)
+
+export const RightPanelIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 20" {...props}>
+    <path
+      fillRule="evenodd"
+      d="M0 1a1 1 0 0 1 1-1h19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1Zm2 17V2h10v16H2Zm12 0h5V2h-5v16Z"
+      clipRule="evenodd"
+    />
+  </svg>
+)

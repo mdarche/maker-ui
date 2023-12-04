@@ -31,6 +31,6 @@ export const buildConfig = (p?: BuildSettings): Options => {
 
   return {
     ...settings,
-    esbuildPlugins: [PluginCSSModule(global || false, p?.prefix)],
+    esbuildPlugins: [PluginCSSModule(global || true, p?.prefix)],
   }
 }

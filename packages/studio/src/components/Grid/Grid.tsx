@@ -1,115 +1,60 @@
-import React, { useEffect, useReducer, useRef } from 'react'
-import { cn } from '@maker-ui/utils'
+import React, { useReducer, useRef } from 'react'
+import { cn, merge } from '@maker-ui/utils'
+
 import { GridMenu } from '../GridMenu'
 import { ExpandIcon } from '../Icons'
 import { GapControl } from '../GapControl'
 import { ResizeHandle } from '../ResizeHandle'
 import { GridCell } from '../GridCell'
 
-interface GridProps {
-  resizeMode?: 'px' | '%' | 'fr'
-}
+import { type ModuleProps } from '@/types'
+import { type ModuleState, moduleReducer } from '@/module'
 
-export type GridAction =
-  | { type: 'TOGGLE_VISIBILITY'; payload: boolean }
-  | { type: 'SET_ACTIVE_DRAG'; payload: boolean }
-  | { type: 'SET_ADMIN_TITLE'; payload: string }
-  | { type: 'SET_COLLAPSE'; payload: boolean }
-  | { type: 'SET_MAX_WIDTH'; payload: string }
-  | { type: 'SET_BACKGROUND'; payload: string | undefined }
-  | { type: 'SET_GAP'; payload: number }
-  | { type: 'SET_MARGIN'; payload: string }
-  | { type: 'SET_PADDING'; payload: string }
-  | { type: 'SET_COLUMNS'; payload: number }
-  | { type: 'SET_GRID_TEMPLATE_COLUMNS'; payload: string }
-
-export interface GridState {
-  activeDrag: boolean
-  visible: boolean
-  title: string
-  collapse: boolean
-  maxWidth: string
-  background: string | undefined
-  gap: number
-  margin: string
-  padding: string
-  columns: number
-  gridTemplateColumns: string
-}
-
-const initialState: GridState = {
+const initialState: ModuleState = {
+  uuid: 'g23ui897dlsd',
+  pageId: '1',
+  componentId: '1',
+  currentBreakpoint: 'desktop', // TODO: get from context
+  bp: 0,
+  type: 'GRID',
   visible: true,
   activeDrag: false,
-  title: 'Grid',
   collapse: false,
-  maxWidth: '100%',
-  background: undefined,
-  gap: 30,
-  margin: '0px 0px 0px 0px',
-  padding: '30px 30px 30px 30px',
   columns: 3,
-  gridTemplateColumns: '1fr 1fr 1fr',
-}
-
-function gridReducer(state: GridState, action: GridAction): GridState {
-  switch (action.type) {
-    case 'SET_ACTIVE_DRAG':
-      return { ...state, activeDrag: action.payload }
-    case 'SET_ADMIN_TITLE':
-      return { ...state, title: action.payload }
-    case 'SET_COLLAPSE':
-      return { ...state, collapse: action.payload }
-    case 'SET_MAX_WIDTH':
-      return { ...state, maxWidth: action.payload }
-    case 'SET_BACKGROUND':
-      return { ...state, background: action.payload }
-    case 'SET_GAP':
-      return { ...state, gap: action.payload }
-    case 'SET_MARGIN':
-      return { ...state, margin: action.payload }
-    case 'TOGGLE_VISIBILITY':
-      return { ...state, visible: !state.visible }
-    case 'SET_PADDING':
-      return { ...state, padding: action.payload }
-    case 'SET_COLUMNS':
-      return {
-        ...state,
-        columns: action.payload,
-        gridTemplateColumns: [...Array(action.payload)]
-          .map((i) => '1fr')
-          .join(' '),
-      }
-    case 'SET_GRID_TEMPLATE_COLUMNS':
-      return { ...state, gridTemplateColumns: action.payload }
-    default:
-      return state
-  }
+  styles: [
+    {
+      breakpoint: 'desktop',
+      background: undefined,
+      gap: '30px',
+      margin: '0px 0px 0px 0px',
+      padding: '30px 30px 30px 30px',
+      gridTemplateColumns: '1fr 1fr 1fr',
+    },
+  ],
+  updatedAt: Date.now().toString(),
+  createdAt: Date.now().toString(),
 }
 
 export const positionMap = ['top', 'right', 'bottom', 'left']
 
-export const Grid = (props: GridProps) => {
+interface GridProps {
+  module: ModuleProps & { type: 'GRID' }
+}
+
+export const Grid = ({ module }: GridProps) => {
   const gridRef = useRef<HTMLDivElement>(null)
   const [
     {
-      gridTemplateColumns,
+      bp, // Index of current breakpoint
       columns,
-      padding,
-      margin,
-      gap,
       activeDrag,
-      title,
       collapse,
-      maxWidth,
       visible,
+      styles,
+      settings,
     },
     dispatch,
-  ] = useReducer(gridReducer, initialState)
-
-  useEffect(() => {
-    const payload = [...Array(columns)].map(() => '1fr').join(' ')
-    dispatch({ type: 'SET_GRID_TEMPLATE_COLUMNS', payload })
-  }, [columns])
+  ] = useReducer(moduleReducer, merge(initialState, module || {}))
 
   return (
     <div
@@ -121,7 +66,7 @@ export const Grid = (props: GridProps) => {
       ])}
       style={
         {
-          padding: padding,
+          padding: styles[bp].padding,
           // '--studio-primary': '#6315ed',
           // '--studio-handle': '',
           // '--studio-handle-dark': '',
@@ -138,10 +83,13 @@ export const Grid = (props: GridProps) => {
               dispatch({ type: 'SET_COLLAPSE', payload: false })
             }}>
             <ExpandIcon />
-            <span>{title}</span>
+            <span>{settings?.adminTitle}</span>
             <div
               className="current-grid"
-              style={{ gridTemplateColumns, width: columns > 4 ? 20 : 15 }}>
+              style={{
+                gridTemplateColumns: styles[bp]?.gridTemplateColumns,
+                width: columns > 4 ? 20 : 15,
+              }}>
               {[...Array(columns)].map((_, i) => (
                 <div key={i} className="current-cell" />
               ))}
@@ -150,25 +98,32 @@ export const Grid = (props: GridProps) => {
         </div>
       ) : (
         <>
-          <ResizeHandle margin={margin} padding={padding} dispatch={dispatch} />
+          <ResizeHandle
+            margin={styles[bp].margin!}
+            padding={styles[bp].padding!}
+            dispatch={dispatch}
+          />
           <div
             ref={gridRef}
             className="grid"
-            style={{ gridTemplateColumns, gap }}>
+            style={{
+              gridTemplateColumns: styles[bp].gridTemplateColumns,
+              gap: styles[bp].gap,
+            }}>
             {[...Array(columns)].map((cell, i) => (
               <GridCell key={i} />
             ))}
             <GapControl
               columns={columns}
-              gridTemplateColumns={gridTemplateColumns}
-              gap={gap}
+              gridTemplateColumns={styles[bp].gridTemplateColumns!}
+              gap={styles[bp].gap!}
               dispatch={dispatch}
             />
           </div>
         </>
       )}
       <GridMenu
-        title={title}
+        title={settings?.adminTitle}
         collapse={collapse}
         columns={columns}
         visible={visible}

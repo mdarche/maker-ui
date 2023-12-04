@@ -20,8 +20,8 @@ export const Footer = ({
 }: FooterProps) => {
   return (
     <footer
-      role="contentinfo"
       className={cn(['mkui-footer', className])}
+      role="contentinfo"
       {...props}>
       <div className="container">{children}</div>
     </footer>

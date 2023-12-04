@@ -1,4 +1,13 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": ["src", "../../globals.d.ts"]
+  "include": ["src", "../../globals.d.ts"],
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/module": ["src/module.ts"],
+      "@/types": ["src/types.ts"],
+      "@/utils": ["src/utils.ts"]
+    }
+  }
 }
