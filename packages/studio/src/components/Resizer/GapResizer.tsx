@@ -1,21 +1,24 @@
 import React, { useRef } from 'react'
 import { cn } from '@maker-ui/utils'
-import { extractValue, handleColumnResize } from '../Grid/utils'
-import { ModuleAction } from '@/module'
 
-interface GapControlProps {
+import { extractValue } from '@/utils'
+import { type ModuleAction } from '@/module'
+import { handleColumnResize } from './helper'
+import styles from './resizer.module.css'
+
+interface GapResizerProps {
   columns: number
   gridTemplateColumns: string
   gap: string
   dispatch: React.Dispatch<ModuleAction>
 }
 
-export const GapControl = ({
+export const GapResizer = ({
   columns,
   gridTemplateColumns,
   gap,
   dispatch,
-}: GapControlProps) => {
+}: GapResizerProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const gapVal = extractValue(gap) as number
 
@@ -35,13 +38,13 @@ export const GapControl = ({
   return (
     <div
       ref={ref}
-      className="grid-resize studio-reveal"
+      className={cn([styles['resize-grid'], 'mkui-studio-reveal'])}
       style={{ gridTemplateColumns, gap }}>
       {[...Array(columns)].map((_, index) =>
         index < columns - 1 ? (
-          <div key={index} className="grid-cell">
+          <div key={index} className="relative">
             <div
-              className="resize-gap"
+              className={styles['gap-resizer']}
               onDoubleClick={(e) => {
                 e.stopPropagation()
                 dispatch({
@@ -58,16 +61,22 @@ export const GapControl = ({
                 })
               }
               style={{ width: gap, transform: `translateX(${gap})` }}>
-              <div className="gap-control">
-                <div className="gap-buttons flex align-center">
-                  <button onClick={(e) => updateGap(e, true)}>-</button>
-                  <button onClick={(e) => updateGap(e, false)}>+</button>
+              <div className={styles['gap-control']}>
+                <div className="flex align-center">
+                  <button
+                    className={styles['btn-gap']}
+                    onClick={(e) => updateGap(e, true)}>
+                    -
+                  </button>
+                  <button
+                    className={styles['btn-gap']}
+                    onClick={(e) => updateGap(e, false)}>
+                    +
+                  </button>
                 </div>
                 <span
-                  className={cn([
-                    'resize-value gap flex align-center',
-                    showGapValue ? 'show' : '',
-                  ])}>
+                  className={cn([styles['resize-value'], 'flex align-center'])}
+                  style={showGapValue ? { padding: '0 4px' } : undefined}>
                   {showGapValue && gap}
                 </span>
               </div>

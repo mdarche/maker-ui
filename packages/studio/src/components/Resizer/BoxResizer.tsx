@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { cn } from '@maker-ui/utils'
-import {
-  extractValue,
-  handleBoxResize,
-  positionMap,
-  replaceValue,
-  validateCssUnit,
-} from '../Grid/utils'
-import { type ModuleAction } from '@/module'
-import { SuccessIcon } from '../Icons'
 
-interface ResizeHandleProps {
+import { extractValue, replaceValue, validateCssUnit } from '@/utils'
+import { type ModuleAction } from '@/module'
+import { handleBoxResize, positionMap } from './helper'
+import { SuccessIcon } from '../Icons'
+import styles from './resizer.module.css'
+
+interface BoxResizerProps {
   padding: string
   margin: string
   dispatch: React.Dispatch<ModuleAction>
 }
 
-export const ResizeHandle = ({
-  padding,
-  margin,
-  dispatch,
-}: ResizeHandleProps) => {
+export const BoxResizer = ({ padding, margin, dispatch }: BoxResizerProps) => {
   return (
-    <div className="grid-box studio-reveal">
+    <div className={cn([styles['box'], 'mkui-studio-reveal'])}>
       {padding
         ?.split(' ')
         .map((v, i) => (
-          <ResizeHandleItem
+          <BoxHandle
             key={positionMap[i]}
             type="padding"
             value={v}
@@ -39,7 +32,7 @@ export const ResizeHandle = ({
   )
 }
 
-interface ResizeHandleItemProps {
+interface BoxHandleProps {
   value: string
   fullValue: string // full padding or margin string
   index: number
@@ -47,19 +40,19 @@ interface ResizeHandleItemProps {
   dispatch: React.Dispatch<ModuleAction>
 }
 
-const ResizeHandleItem = ({
+const BoxHandle = ({
   value,
   fullValue,
   index,
   type,
   dispatch,
-}: ResizeHandleItemProps) => {
+}: BoxHandleProps) => {
   const [inputActive, setInputActive] = useState(false)
   const [inputValue, setInputValue] = useState(value)
   const pos = positionMap[index]
   const num = extractValue(value)
   const threshold = inputActive ? 90 : 20
-  const positionClass =
+  const absolute =
     typeof num === 'number' &&
     num <= threshold &&
     (pos === 'left' || pos === 'right')
@@ -89,9 +82,9 @@ const ResizeHandleItem = ({
   return (
     <div
       className={cn([
-        'resize-handle-item',
+        styles['box-resizer'],
         'flex align-center justify-center',
-        pos,
+        styles[`box-${pos}`],
       ])}
       style={{
         height: pos === 'top' || pos === 'bottom' ? value : undefined,
@@ -108,26 +101,32 @@ const ResizeHandleItem = ({
       }}>
       {inputActive ? (
         <form
-          className={cn(['resize-manual flex align-center', positionClass])}
+          className={cn([
+            styles['resize-form'],
+            absolute ? styles[absolute] : undefined,
+            'flex align-center',
+          ])}
           onSubmit={(e) => {
             e.preventDefault()
             handleUpdate()
           }}>
           <input
-            className="resize-input"
             type="text"
             value={inputValue}
             onChange={(e) => {
               setInputValue(e.target.value)
             }}
           />
-          <button type="submit" className="resize-submit">
+          <button type="submit">
             <SuccessIcon />
           </button>
         </form>
       ) : (
         <span
-          className={cn(['resize-value', positionClass])}
+          className={cn([
+            styles['resize-value'],
+            absolute ? styles[absolute] : undefined,
+          ])}
           onClick={(e) => e.stopPropagation()}
           onDoubleClick={(e) => {
             e.stopPropagation()
