@@ -1,5 +1,5 @@
 import './components/Grid/grid.css'
 import './components/GridMenu/grid-menu.css'
-import './components/GapControl/gap-control.css'
-import './components/ResizeHandle/resize-handle.css'
+// import './components/GapControl/gap-control.css'
+// import './components/ResizeHandle/resize-handle.css'
 export { Grid } from './components/Grid'

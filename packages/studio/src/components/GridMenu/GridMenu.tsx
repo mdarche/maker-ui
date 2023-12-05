@@ -39,7 +39,7 @@ export const GridMenu: React.FC<GridMenuProps> = ({
 
   return (
     <>
-      <div className="grid-menu studio-reveal flex align-stretch">
+      <div className="grid-menu mkui-studio-reveal flex align-stretch">
         <button className="btn-drag flex align-center justify-center">
           <DragIcon />
         </button>
@@ -75,7 +75,7 @@ export const GridMenu: React.FC<GridMenuProps> = ({
           {collapse ? <ExpandIcon /> : <CollapseIcon />}
         </button>
       </div>
-      <div className="grid-actions studio-reveal">
+      <div className="grid-actions mkui-studio-reveal">
         <button
           className="btn-visibility"
           onClick={() =>

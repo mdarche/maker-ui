@@ -49,7 +49,7 @@ export interface PageSettings {
 export interface Menu {
   id: string
   name: string
-  items: MenuItemProps[] // TODO
+  items: MenuItemProps[]
 }
 
 export interface Component {
@@ -61,7 +61,7 @@ export interface Component {
 }
 
 export interface ModuleProps {
-  uuid: string // Readonly uuid
+  id: string // Readonly uuid
   pageId: string // Readonly page id
   componentId: string // Readonly id of component type
   type: 'GRID' | 'COMPONENT' | 'COLUMN' // Readonly
@@ -124,6 +124,7 @@ export interface ModuleStyle {
   // Grid only
   gridTemplateColumns?: string
   gridTemplateAreas?: string
+  gridTemplateRows?: string
   gridColumnMode?: 'px' | 'fr' | '%'
   gap?: string
 }

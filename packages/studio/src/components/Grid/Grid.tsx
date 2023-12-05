@@ -3,15 +3,14 @@ import { cn, merge } from '@maker-ui/utils'
 
 import { GridMenu } from '../GridMenu'
 import { ExpandIcon } from '../Icons'
-import { GapControl } from '../GapControl'
-import { ResizeHandle } from '../ResizeHandle'
+import { GapResizer, BoxResizer } from '../Resizer'
 import { GridCell } from '../GridCell'
 
 import { type ModuleProps } from '@/types'
 import { type ModuleState, moduleReducer } from '@/module'
 
 const initialState: ModuleState = {
-  uuid: 'g23ui897dlsd',
+  id: 'g23ui897dlsd',
   pageId: '1',
   componentId: '1',
   currentBreakpoint: 'desktop', // TODO: get from context
@@ -34,8 +33,6 @@ const initialState: ModuleState = {
   updatedAt: Date.now().toString(),
   createdAt: Date.now().toString(),
 }
-
-export const positionMap = ['top', 'right', 'bottom', 'left']
 
 interface GridProps {
   module: ModuleProps & { type: 'GRID' }
@@ -79,9 +76,7 @@ export const Grid = ({ module }: GridProps) => {
         <div className="grid-collapse">
           <button
             className="btn-expand"
-            onClick={() => {
-              dispatch({ type: 'SET_COLLAPSE', payload: false })
-            }}>
+            onClick={() => dispatch({ type: 'SET_COLLAPSE', payload: false })}>
             <ExpandIcon />
             <span>{settings?.adminTitle}</span>
             <div
@@ -98,7 +93,7 @@ export const Grid = ({ module }: GridProps) => {
         </div>
       ) : (
         <>
-          <ResizeHandle
+          <BoxResizer
             margin={styles[bp].margin!}
             padding={styles[bp].padding!}
             dispatch={dispatch}
@@ -113,7 +108,7 @@ export const Grid = ({ module }: GridProps) => {
             {[...Array(columns)].map((cell, i) => (
               <GridCell key={i} />
             ))}
-            <GapControl
+            <GapResizer
               columns={columns}
               gridTemplateColumns={styles[bp].gridTemplateColumns!}
               gap={styles[bp].gap!}
