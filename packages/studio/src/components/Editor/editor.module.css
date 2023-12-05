@@ -55,13 +55,13 @@
   user-select: none;
   padding: 0 8px 0 15px;
 
-  button {
+  :is(button) {
     background: none;
     outline: none;
     border: none;
   }
 
-  svg {
+  :is(svg) {
     height: 15px;
     fill: #fff;
   }
@@ -75,7 +75,7 @@
   opacity: 0.5;
   transition: opacity 0.2s ease-in-out;
 
-  svg {
+  :is(svg) {
     height: 14px;
   }
 

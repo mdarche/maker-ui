@@ -4,10 +4,11 @@ import { cn, merge } from '@maker-ui/utils'
 import { GridMenu } from '../GridMenu'
 import { ExpandIcon } from '../Icons'
 import { GapResizer, BoxResizer } from '../Resizer'
-import { GridCell } from '../GridCell'
+import { Column } from '../Column'
 
 import { type ModuleProps } from '@/types'
 import { type ModuleState, moduleReducer } from '@/module'
+import { Collapsed } from './Collapsed'
 
 const initialState: ModuleState = {
   id: 'g23ui897dlsd',
@@ -73,24 +74,12 @@ export const Grid = ({ module }: GridProps) => {
         } as React.CSSProperties
       }>
       {collapse ? (
-        <div className="grid-collapse">
-          <button
-            className="btn-expand"
-            onClick={() => dispatch({ type: 'SET_COLLAPSE', payload: false })}>
-            <ExpandIcon />
-            <span>{settings?.adminTitle}</span>
-            <div
-              className="current-grid"
-              style={{
-                gridTemplateColumns: styles[bp]?.gridTemplateColumns,
-                width: columns > 4 ? 20 : 15,
-              }}>
-              {[...Array(columns)].map((_, i) => (
-                <div key={i} className="current-cell" />
-              ))}
-            </div>
-          </button>
-        </div>
+        <Collapsed
+          gridTemplateColumns={styles[bp].gridTemplateColumns!}
+          settings={settings}
+          columns={columns}
+          dispatch={dispatch}
+        />
       ) : (
         <>
           <BoxResizer
@@ -105,8 +94,8 @@ export const Grid = ({ module }: GridProps) => {
               gridTemplateColumns: styles[bp].gridTemplateColumns,
               gap: styles[bp].gap,
             }}>
-            {[...Array(columns)].map((cell, i) => (
-              <GridCell key={i} />
+            {[...Array(columns)].map((_, i) => (
+              <Column key={i} />
             ))}
             <GapResizer
               columns={columns}

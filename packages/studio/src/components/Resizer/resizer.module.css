@@ -53,7 +53,7 @@
   align-items: center;
   z-index: 1;
 
-  > span {
+  :is(span) {
     margin-top: 10px;
   }
 
@@ -95,7 +95,7 @@
 .resize-form {
   z-index: 1;
 
-  > input {
+  :is(input) {
     width: 60px;
     border: 1px solid gray;
     margin-right: 5px;
@@ -105,7 +105,7 @@
     text-align: center;
   }
 
-  > button {
+  :is(button) {
     height: 25px;
     width: 25px;
     padding: 4px;
@@ -113,7 +113,7 @@
     border: 1px solid black;
     border-radius: 2px;
 
-    > svg {
+    :is(svg) {
       fill: #fff;
     }
   }

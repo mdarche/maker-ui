@@ -1,0 +1,78 @@
+/* TODO - CLEAN THIS UP & MOVE TO GLOBAL WHERE NECESSARY */
+
+.grid-wrapper {
+  position: relative; /* For positioning the menu */
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  position: relative; /* For positioning the menu */
+  width: 100%;
+  min-height: 500px;
+}
+
+.grid-wrapper:hover .mkui-studio-reveal,
+.grid-active .mkui-studio-reveal {
+  opacity: 1;
+}
+
+.grid-wrapper:hover .grid-border {
+  opacity: 1;
+}
+
+.grid-wrapper.collapse {
+  padding: 0px !important;
+  opacity: 1 !important;
+}
+
+.grid-wrapper.invisible {
+  opacity: 0.6;
+}
+
+.grid-wrapper.collapse .grid-menu,
+.grid-wrapper.collapse .grid-actions {
+  opacity: 1;
+}
+
+/* Collapsed Grid */
+
+.grid-collapse {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--studio-primary, #6315ed);
+  color: #fff;
+}
+
+.btn-expand {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 1.2em;
+
+  :is(svg) {
+    height: 25px;
+    fill: #fff;
+    border: 1px solid #ffffff33;
+    padding: 5px;
+  }
+
+  :is(span) {
+    margin: 0 25px 0 20px;
+  }
+}
+
+.demo-grid {
+  display: grid;
+  height: 12px;
+  gap: 3px;
+}
+
+.demo-column {
+  background: #fff;
+}

@@ -1,4 +1,6 @@
 import React, { useRef } from 'react'
+import { cn } from '@maker-ui/utils'
+
 import {
   CollapseIcon,
   ColumnAddIcon,
@@ -10,9 +12,9 @@ import {
   SettingsIcon,
   TrashIcon,
 } from '../Icons'
-import { cn } from '@maker-ui/utils'
 import { Editor } from '../Editor'
 import type { ModuleAction } from '@/module'
+import styles from './menu.module.css'
 
 interface GridMenuProps {
   title?: string
@@ -39,17 +41,25 @@ export const GridMenu: React.FC<GridMenuProps> = ({
 
   return (
     <>
-      <div className="grid-menu mkui-studio-reveal flex align-stretch">
-        <button className="btn-drag flex align-center justify-center">
+      <div
+        className={cn([
+          styles['grid-menu'],
+          'mkui-studio-reveal flex align-stretch',
+        ])}>
+        <button
+          className={cn([
+            styles['btn-drag'],
+            'flex align-center justify-center',
+          ])}>
           <DragIcon />
         </button>
-        <div className="layout-button-group flex align-center">
+        <div className={cn([styles['layout-group'], 'flex align-center'])}>
           <button ref={ref} onClick={toggleEditor} className="btn-settings">
             <SettingsIcon />
           </button>
           <button
             disabled={columns === 1}
-            className="btn-remove"
+            className={styles['btn-remove']}
             onClick={() =>
               dispatch({ type: 'SET_COLUMNS', payload: columns - 1 })
             }>
@@ -64,10 +74,7 @@ export const GridMenu: React.FC<GridMenuProps> = ({
           </button>
         </div>
         <button
-          className={cn([
-            'btn-title flex align-center',
-            collapse ? 'collapsed' : '',
-          ])}
+          className={cn([styles['btn-title'], 'flex align-center'])}
           onClick={() =>
             dispatch({ type: 'SET_COLLAPSE', payload: !collapse })
           }>
@@ -75,13 +82,17 @@ export const GridMenu: React.FC<GridMenuProps> = ({
           {collapse ? <ExpandIcon /> : <CollapseIcon />}
         </button>
       </div>
-      <div className="grid-actions mkui-studio-reveal">
+      <div className={cn([styles['grid-actions'], 'mkui-studio-reveal'])}>
         <button
           className="btn-visibility"
           onClick={() =>
             dispatch({ type: 'SET_VISIBILITY', payload: !visible })
           }>
-          {!visible ? <HideIcon /> : <RevealIcon />}
+          {!visible ? (
+            <HideIcon className={styles['icon-hide']} />
+          ) : (
+            <RevealIcon />
+          )}
         </button>
         <button className="btn-delete">
           <TrashIcon />

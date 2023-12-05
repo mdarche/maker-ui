@@ -1,11 +1,11 @@
 import * as React from 'react'
 import styles from './cell.module.css'
 
-interface GridCellProps {
+interface ColumnProps {
   id?: string
 }
 
-export const GridCell = (props: GridCellProps) => {
+export const Column = (props: ColumnProps) => {
   // Fetch child components from the context and render them in a container with a settings menu.
   return (
     <div className={styles.cell}>
