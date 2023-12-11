@@ -2,7 +2,6 @@ import React, { useReducer, useRef } from 'react'
 import { cn, merge } from '@maker-ui/utils'
 
 import { GridMenu } from '../GridMenu'
-import { ExpandIcon } from '../Icons'
 import { GapResizer, BoxResizer } from '../Resizer'
 import { Column } from '../Column'
 
