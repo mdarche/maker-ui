@@ -16,6 +16,8 @@ export const cssVariables = (styles?: CarouselStyles) => {
       properties: [
         'bg',
         'bgActive',
+        'border',
+        'bordeActive',
         'borderRadius',
         'height',
         'width',

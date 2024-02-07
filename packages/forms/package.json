@@ -25,7 +25,7 @@
     "dayjs": "^1.11.7"
   },
   "peerDependencies": {
-    "next": "^13.x",
+    "next": "^13.x || ^14.x",
     "react": "^18.x",
     "react-dom": "^18.x",
     "zod": "^3.x"

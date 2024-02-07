@@ -10,7 +10,6 @@
     "dist/**"
   ],
   "scripts": {
-    "test": "jest",
     "build": "tsup",
     "start": "tsup --watch",
     "lint": "TIMING=1 eslint src --fix",

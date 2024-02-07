@@ -60,3 +60,23 @@ export function sortChildren(children: ReactNode): Slots {
   })
   return merge(defaultSlots, sorted) as Slots
 }
+// export function sortChildren(children: ReactNode): Slots {
+//   let sorted: { [k: string]: any } = {
+//     children: [],
+//   }
+//   Children.toArray(children).forEach((child) => {
+//     if (isValidElement(child)) {
+//       if (child.props?._type) {
+//         const type: string = child.props._type.replace('_', '')
+//         sorted[type] = child
+//       } else if (child.type === Fragment) {
+//         sorted.children.push(...Children.toArray(child.props.children))
+//       } else {
+//         sorted.children.push(child)
+//       }
+//     } else {
+//       sorted.children.push(child)
+//     }
+//   })
+//   return merge(defaultSlots, sorted) as Slots
+// }

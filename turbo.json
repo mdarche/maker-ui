@@ -14,6 +14,10 @@
     "docgen": {
       "cache": false
     },
+    "test": {
+      "cache": false,
+      "dependsOn": ["^build"]
+    },
     "start": {
       "cache": false,
       "dependsOn": ["^build"]

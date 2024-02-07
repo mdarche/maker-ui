@@ -217,21 +217,6 @@ export const Carousel = (userProps: CarouselProps) => {
     isPaginating.current = false
   }
 
-  // const widthCallBack = (calculatedWidth: number) => {
-  //   setWidth(calculatedWidth)
-  //   setAnimation({
-  //     transform: props.infinite
-  //       ? getTransformAmount(
-  //           calculatedWidth,
-  //           props.children.length - 1,
-  //           SlideDirection.Right
-  //         )
-  //       : 0,
-  //     transition: 0,
-  //     isSliding: false,
-  //   })
-  // }
-
   const dragCallback = (translateX: number) => {
     setAnimation({
       transform: translateX,
