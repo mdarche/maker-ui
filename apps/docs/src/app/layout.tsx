@@ -1,6 +1,11 @@
 import type { Metadata } from 'next'
-import { Layout, LayoutProvider, type MakerUIOptions } from 'maker-ui'
-import { Menu } from 'maker-ui/layout'
+import {
+  Layout,
+  LayoutProvider,
+  type MakerUIOptions,
+  Menu,
+  ResponsiveStyle,
+} from 'maker-ui/layout'
 import { DesktopWidgets, SharedWidgets } from '../components/NavArea'
 
 import 'maker-ui/layout.css'
@@ -30,7 +35,6 @@ export const metadata: Metadata = {
     follow: true,
     index: true,
   },
-  themeColor: '#fff',
 }
 
 export default function RootLayout({
@@ -40,6 +44,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta httpEquiv="Content-Type" content="text/html;charset=utf-8" />
+        <link key="favicon" rel="shortcut icon" href="/favicon.ico" />
+        <ResponsiveStyle options={options} />
+      </head>
       <body>
         <LayoutProvider options={options}>
           <Layout options={options}>
@@ -54,7 +64,7 @@ export default function RootLayout({
               menu={sideMenu}
             />
             <Layout.Main>{children}</Layout.Main>
-            <Layout.SideNav
+            <Layout.LeftPanel
               menuButton={{
                 icon: 'Collapse',
                 fixed: true,
@@ -62,7 +72,7 @@ export default function RootLayout({
               }}>
               <SharedWidgets />
               <Menu items={sideMenu} />
-            </Layout.SideNav>
+            </Layout.LeftPanel>
           </Layout>
         </LayoutProvider>
       </body>
@@ -72,10 +82,9 @@ export default function RootLayout({
 
 const options: MakerUIOptions = {
   colorThemes: ['light', 'dark', 'system'],
-  layout: 'sidenav-content',
   header: {
-    navType: 'basic-left',
-    navTypeMobile: 'basic',
+    template: 'basic-left',
+    templateMobile: 'basic',
     sticky: true,
     stickyOnMobile: true,
   },
@@ -84,12 +93,9 @@ const options: MakerUIOptions = {
     closeOnBlur: true,
     closeOnRouteChange: true,
   },
-  sideNav: {
+  leftPanel: {
     isHeader: false,
-    isPrimaryMobileNav: true,
-    collapse: true,
-    showCollapseOnMobile: false,
-    closeOnBlur: true,
+    primaryMobileNav: true,
     closeOnRouteChange: true,
   },
 }

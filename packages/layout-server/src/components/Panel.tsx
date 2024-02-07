@@ -14,6 +14,7 @@ export const Panel = ({
   collapseWidth,
   defaultOpen,
   closeOnRouteChange,
+  primaryMobileNav,
   menuButton,
   children,
   className,

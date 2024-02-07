@@ -1,6 +1,6 @@
 'use client'
 
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { Accordion } from 'maker-ui/accordion'
 import { Demo } from '@/components'
 import Example1 from './_examples/example-1.mdx'
@@ -20,7 +20,7 @@ export default function AccordionPage() {
               button: {
                 color: 'var(--color-primary',
                 colorActive: 'var(--color-secondary)',
-                background: 'var(--color-gray-100)',
+                bg: 'var(--color-gray-100)',
                 border: '1px solid var(--color-border-200)',
               },
             }}>

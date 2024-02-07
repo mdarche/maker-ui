@@ -1,4 +1,4 @@
-import { Section } from 'maker-ui'
+import { Section } from 'maker-ui/layout'
 import { PostNavigation } from '..'
 import { PageContents } from '../PageContents/PageContents'
 

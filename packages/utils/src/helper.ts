@@ -31,15 +31,20 @@ export function generateId(
 
 /**
  * Returns a formatted selector string for `id` or `className` attributes that
- * merges user generated classNames with MakerUI defaults.
+ * merges user generated classNames.
  *
- * @param selectors - an array of classNames or ids supplied by component props.
+ * @param selectors - an array or any arbitrary number of params as selectors
  * Can be dynamically generated
+ * Can be null or undefined
  *
  */
-export function cn(selectors: (string | undefined)[]): string | undefined {
-  let s = selectors
-    ? selectors
+export function cn(
+  ...selectors: (string | undefined | null | (string | undefined | null)[])[]
+): string | undefined {
+  const flattenedSelectors = selectors.flat()
+
+  const s = flattenedSelectors
+    ? flattenedSelectors
         .join(' ')
         .replace(/ +(?= )/g, '')
         .trim()

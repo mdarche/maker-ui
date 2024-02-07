@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import Readme from '@/packages/accordion/README.mdx'
-import { RefLayout } from '@/components'
+import { ReferenceLayout } from '@/components'
 import { getFileSize } from '@/utils'
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default async function AccordionLayout({
   const fileSize = await getFileSize('accordion/dist/index.mjs')
 
   return (
-    <RefLayout
+    <ReferenceLayout
       title="Accordion"
       type="component"
       library="maker-ui/accordion"
@@ -25,6 +25,6 @@ export default async function AccordionLayout({
       fileSize={fileSize}
       readme={<Readme />}>
       {children}
-    </RefLayout>
+    </ReferenceLayout>
   )
 }

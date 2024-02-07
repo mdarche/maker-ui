@@ -5,8 +5,8 @@
   --width-left-panel-collapse: 60px;
   --width-right-panel: 300px;
   --width-right-panel-collapse: 60px;
-  --width-mobile-left-panel: 300px;
-  --width-mobile-right-panel: 300px;
+  --width-left-panel-mobile: 300px;
+  --width-right-panel-mobile: 300px;
   /* Topbar */
   --height-topbar: 50px;
   /* Header */

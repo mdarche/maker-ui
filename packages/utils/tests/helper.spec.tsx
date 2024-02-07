@@ -54,7 +54,7 @@ describe('cn', () => {
 
   test('should join selectors with a space and remove duplicate spaces', () => {
     expect(cn(['my-class', 'your-class'])).toEqual('my-class your-class')
-    expect(cn(['my-class', '', undefined, 'your-class'])).toEqual(
+    expect(cn(['my-class', '', undefined, 'your-class', null])).toEqual(
       'my-class your-class'
     )
   })
@@ -72,6 +72,16 @@ describe('cn', () => {
 
   test('should return undefined if the resulting string is empty', () => {
     expect(cn(['', undefined])).toBeUndefined()
+  })
+
+  test('should properly handle null', () => {
+    expect(cn(['', null])).toBeUndefined()
+  })
+
+  test('should allow selectors as parameters', () => {
+    expect(cn('', null, 'my-class', undefined, ' your-class')).toEqual(
+      'my-class your-class'
+    )
   })
 })
 
