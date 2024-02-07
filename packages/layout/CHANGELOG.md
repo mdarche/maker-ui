@@ -1,5 +1,17 @@
 # @maker-ui/layout
 
+## 2.1.1
+
+### Patch Changes
+
+- [#121](https://github.com/mdarche/maker-ui/pull/121) [`bbd22d9b`](https://github.com/mdarche/maker-ui/commit/bbd22d9b548c769f546830dee868c95faeacfcfe) Thanks [@mdarche](https://github.com/mdarche)! - Adds peer dependency support for Next 14
+
+- Updated dependencies [[`bbd22d9b`](https://github.com/mdarche/maker-ui/commit/bbd22d9b548c769f546830dee868c95faeacfcfe), [`bbd22d9b`](https://github.com/mdarche/maker-ui/commit/bbd22d9b548c769f546830dee868c95faeacfcfe)]:
+  - @maker-ui/layout-client@2.1.1
+  - @maker-ui/layout-server@2.1.1
+  - @maker-ui/utils@2.1.1
+  - @maker-ui/style@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes
