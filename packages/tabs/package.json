@@ -1,7 +1,7 @@
 {
   "name": "@maker-ui/tabs",
   "description": "A Maker UI tab component",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "Apache-2.0",
   "author": "Mike Darche <mike@newcreative.io>",
   "main": "dist/index.js",

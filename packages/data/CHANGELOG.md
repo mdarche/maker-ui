@@ -1,5 +1,13 @@
 # @maker-ui/data
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`bbd22d9b`](https://github.com/mdarche/maker-ui/commit/bbd22d9b548c769f546830dee868c95faeacfcfe)]:
+  - @maker-ui/utils@2.1.1
+  - @maker-ui/popovers@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes
