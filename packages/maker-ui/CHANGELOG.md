@@ -1,5 +1,30 @@
 # maker-ui
 
+## 2.1.1
+
+### Patch Changes
+
+- [#121](https://github.com/mdarche/maker-ui/pull/121) [`bbd22d9b`](https://github.com/mdarche/maker-ui/commit/bbd22d9b548c769f546830dee868c95faeacfcfe) Thanks [@mdarche](https://github.com/mdarche)! - Adds peer dependency support for Next 14
+
+- Updated dependencies [[`bbd22d9b`](https://github.com/mdarche/maker-ui/commit/bbd22d9b548c769f546830dee868c95faeacfcfe), [`bbd22d9b`](https://github.com/mdarche/maker-ui/commit/bbd22d9b548c769f546830dee868c95faeacfcfe), [`bbd22d9b`](https://github.com/mdarche/maker-ui/commit/bbd22d9b548c769f546830dee868c95faeacfcfe)]:
+  - @maker-ui/social@2.2.0
+  - @maker-ui/carousel@2.1.1
+  - @maker-ui/forms@2.1.1
+  - @maker-ui/layout@2.1.1
+  - @maker-ui/lightbox@2.1.1
+  - @maker-ui/notifications@2.1.1
+  - @maker-ui/scroll@2.1.1
+  - @maker-ui/utils@2.1.1
+  - @maker-ui/accordion@2.1.1
+  - @maker-ui/data@2.1.1
+  - @maker-ui/hooks@2.1.1
+  - @maker-ui/modal@2.1.1
+  - @maker-ui/popovers@2.1.1
+  - @maker-ui/spinners@2.1.1
+  - @maker-ui/style@2.1.1
+  - @maker-ui/tabs@2.1.1
+  - @maker-ui/transition@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes
