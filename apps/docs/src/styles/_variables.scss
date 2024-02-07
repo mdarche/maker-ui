@@ -3,9 +3,8 @@
   --height-header: 52px;
   --max-width-header: 100%;
   --width-mobile-menu: 300px;
-  /* SideNav */
-  --width-side-nav: 272px;
-  /* Content */
+  --width-left-panel: 272px;
+  --width-left-panel-collapse: 0px;
   --max-width-content: 100%;
   --max-width-section: 1010px;
   /* Fonts */
@@ -43,7 +42,7 @@ body[data-theme='dark'] {
   --color-text: #fff;
   --color-background: #000;
   --border-header: 1px solid var(--color-border-100);
-  --border-side-nav: 1px solid var(--color-border-100);
+  --border-panel-left: 1px solid var(--color-border-100);
   /* Project specific */
   --color-border-100: #2e2e2e;
   --color-border-200: #818181;
@@ -65,7 +64,7 @@ body[data-theme='light'] {
   --color-text: #000;
   --color-background: #fff;
   --border-header: 1px solid var(--color-border-100);
-  --border-side-nav: 1px solid var(--color-border-100);
+  --border-panel-left: 1px solid var(--color-border-100);
   /* Project specific */
   --color-border-100: #e5e9ea;
   --color-border-200: #a2a2a2;

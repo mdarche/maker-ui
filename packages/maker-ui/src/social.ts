@@ -4,7 +4,7 @@ export {
   InstagramIcon,
   LinkedinIcon,
   TiktokIcon,
-  TwitterIcon,
+  XIcon,
   WebsiteIcon,
   YoutubeIcon,
 } from '@maker-ui/social'

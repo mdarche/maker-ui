@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn, generateId, merge } from '@maker-ui/utils'
+import { cn, merge } from '@maker-ui/utils'
 import { Style, type MakerCSS } from '@maker-ui/style'
 
 import { AccountLinks, LinkType } from './types'
@@ -8,11 +8,14 @@ import { logos } from './defaults'
 export interface SocialAccountsProps
   extends MakerCSS,
     Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+  /** Required unique style id for generating responsive styles*/
+  styleId: string
   /** A dictionary of social media accounts to display */
   accounts: AccountLinks
   /** The size of the social media icons. Can be a responsive value.
    * @default 22
    */
+
   iconSize?: number | string | (number | string)[]
   /** The spacing between the icons. Can be a responsive value.
    * @default 10
@@ -59,6 +62,7 @@ export interface SocialAccountsProps
  */
 export const SocialAccounts = ({
   accounts,
+  styleId,
   breakpoints,
   mediaQuery,
   color,
@@ -70,7 +74,6 @@ export const SocialAccounts = ({
   vertical = false,
   ...props
 }: SocialAccountsProps) => {
-  const styleId = generateId()
   const trimType = trim === true ? 'all' : trim
   const isColorObject = typeof color === 'object'
   const leading = trimType === 'all' || trimType === 'first' ? 0 : undefined

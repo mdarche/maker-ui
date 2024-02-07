@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {
-  TwitterIcon,
+  XIcon,
   InstagramIcon,
   YoutubeIcon,
   LinkedinIcon,
@@ -12,8 +12,8 @@ import {
 export const logos = [
   {
     key: 'twitter',
-    icon: <TwitterIcon />,
-    root: 'https://twitter.com/',
+    icon: <XIcon />,
+    root: 'https://x.com/',
   },
   {
     key: 'tiktok',

@@ -25,6 +25,8 @@ export interface CarouselStyles {
   dot?: {
     bg?: string
     bgActive?: string
+    border?: string
+    bordeActive?: string
     height?: string
     width?: string
     borderRadius?: string

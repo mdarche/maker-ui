@@ -6,6 +6,8 @@
 / --carousel-arrow-border
 / --carousel-dot-bg
 / --carousel-dot-bg-active
+/ --carousel-dot-border
+/ --carousel-dot-border-active
 / --carousel-dot-height
 / --carousel-dot-width
 / --carousel-dot-border-radius
@@ -91,12 +93,13 @@
 .mkui-carousel-dot.default {
   height: var(--carousel-dot-height, 12px);
   width: var(--carousel-dot-width, 12px);
-  border: none;
+  border: var(--carousel-dot-border, none);
   border-radius: var(--carousel-dot-border-radius, 50%);
   background: var(--carousel-dot-bg, rgba(255, 255, 255, 0.3));
 }
 
 .mkui-carousel-dot.default.active {
+  border: var(--carousel-dot-border-active, none);
   background: var(--carousel-dot-bg-active, #fff);
 }
 

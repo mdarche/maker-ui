@@ -8,7 +8,6 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest",
     "build": "tsup",
     "start": "tsup --watch",
     "lint": "eslint src",
@@ -19,7 +18,7 @@
     "@maker-ui/utils": "workspace:*"
   },
   "peerDependencies": {
-    "next": "^13.x",
+    "next": "^13.x || ^14.x",
     "react": "^18.x",
     "react-dom": "^18.x"
   },

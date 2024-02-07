@@ -5,7 +5,7 @@ export type LinkType =
 type DefaultPlatforms =
   | 'facebook'
   | 'instagram'
-  | 'twitter'
+  | 'x'
   | 'youtube'
   | 'tiktok'
   | 'linkedin'
